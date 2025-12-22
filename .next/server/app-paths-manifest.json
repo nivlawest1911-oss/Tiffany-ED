@@ -1,0 +1,8 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/cognitive/page": "app/cognitive/page.js",
+  "/page": "app/page.js",
+  "/login/page": "app/login/page.js",
+  "/pricing/page": "app/pricing/page.js",
+  "/resources/alabama/page": "app/resources/alabama/page.js"
+}

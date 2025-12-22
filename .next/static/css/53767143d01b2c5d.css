@@ -1,0 +1,1 @@
+@tailwind base;@tailwind components;@tailwind utilities;:root{--background:210 40% 98%;--primary:200 95% 35%;--secondary:145 45% 30%;--accent:35 90% 65%}h1,h2,h3{font-family:Abril Fatface,serif}body{font-family:Be Vietnam Pro,sans-serif;@apply bg-background text-foreground}

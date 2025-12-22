@@ -1,0 +1,15 @@
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      allow read, get: if request.auth != null && request.auth.uid == userId;
+      allow create: if request.auth != null;
+      // Protect tokenBalance from direct client updates
+      allow update: if request.auth != null && request.auth.uid == userId 
+                    && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['tokenBalance']);
+    }
+    match /user_progress/{progressId} {
+      allow create: if request.auth != null;
+      allow read: if request.auth != null && request.auth.uid == resource.data.userId;
+    }
+  }
+}
