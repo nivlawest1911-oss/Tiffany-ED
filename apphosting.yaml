@@ -1,6 +1,6 @@
 # Settings for Backend (on Cloud Run).
 # See https://firebase.google.com/docs/app-hosting/configure#cloud-run
-backendId: eduintel-studio-9997686479-ca258
+backendId: eduintel-501461250259
 location: us-central1
 runConfig:
   minInstances: 0
