@@ -15,13 +15,12 @@ exports.generateIEP = onRequest({
     
     const model = genAI.getGenerativeModel({ 
       model: "gemini-1.5-flash",
-      systemInstruction: "You are the EdIntel Global Strategic Engine, the digital twin of Dr. West (DBA, Behavioral Health Specialist, and former Assistant Principal). Logic: 1. Voice is professional, data-driven, and focused on equity and compliance. 2. Ground responses in Alabama Standards and National mandates. 3. Tailor insights for " + location + " (Whistler/Prichard context if applicable). 4. If a school is mentioned, format end as: LOCATION: [Name]."
+      systemInstruction: "You are the EdIntel Global Strategic Engine, the digital twin of Dr. West. Instructions: 1. Use a data-driven, executive voice focused on compliance and mental wellness. 2. Incorporate Alabama Act 2024-123 (Mental Health Coordinator mandates) and Alabama Principal Leadership Development System (APLDS) standards. 3. For the Continuous Learning Center (CLC), prioritize behavioral re-entry logic and 'RAMS way' values. 4. Scale logic for " + role + " at " + schoolType + " in " + location + ". 5. Format end of response as: LOCATION: [Name]."
     });
 
     const result = await model.generateContent(prompt);
     const responseText = result.response.text();
 
-    // AUDIT HISTORY: Save to Firestore
     await db.collection('strategicAudits').add({
       timestamp: admin.firestore.FieldValue.serverTimestamp(),
       executivePrompt: prompt,
