@@ -2,8 +2,7 @@ const { onRequest } = require("firebase-functions/v2/https");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 // YOUR API KEY
-const genAI = new GoogleGenerativeAI(AIzaSyAd-AqL3-qSma6gBLZXFopPypKKIJi3SlM);
-
+const apiKey = process.env.GOOGLE_GENAI_API_KEY;
 exports.generateIEP = onRequest({ cors: true, invoker: "public" }, async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
   res.set('Access-Control-Allow-Methods', 'GET, POST');
