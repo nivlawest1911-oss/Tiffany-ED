@@ -1,66 +1,74 @@
 ﻿'use client';
 import { motion } from 'framer-motion';
-import { Cpu, Zap, Activity, ShieldCheck, Share2 } from 'lucide-react';
+import { Orbit, Zap, BrainCircuit, Globe, Cpu, Activity } from 'lucide-react';
 
 export default function NeuralSingularityHub() {
   return (
-    <div className="relative p-1 bg-gradient-to-tr from-indigo-500 via-purple-600 to-pink-500 rounded-[5rem] shadow-[0_0_150px_rgba(99,102,241,0.2)]">
-      <div className="bg-[#020202] rounded-[4.9rem] p-16 backdrop-blur-3xl relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none" />
-        
-        <div className="flex justify-between items-center mb-16 relative z-10">
-          <div className="flex items-center gap-8">
-            <div className="relative p-6 bg-indigo-600 rounded-[2.5rem] shadow-2xl">
-              <Cpu className="text-white animate-spin-slow" size={48} />
+    <div className="relative p-[1px] rounded-[6rem] bg-gradient-to-tr from-[#7c3aed] via-[#3b82f6] to-[#10b981] overflow-hidden shadow-[0_0_150px_rgba(124,58,237,0.4)]">
+      <div className="bg-[#010101] rounded-[5.9rem] p-20 backdrop-blur-3xl relative overflow-hidden">
+        {/* Living Background Shader */}
+        <div className="absolute inset-0 opacity-20">
+          <motion.div 
+            animate={{ scale: [1, 1.4, 1], rotate: [0, 180, 0] }}
+            transition={{ duration: 40, repeat: Infinity }}
+            className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-indigo-500/30 to-transparent blur-[150px]"
+          />
+        </div>
+
+        <div className="flex justify-between items-center mb-24 relative z-10">
+          <div className="flex items-center gap-10">
+            <div className="relative p-8 bg-indigo-600 rounded-[3rem] shadow-2xl">
+              <Orbit className="text-white animate-spin-slow" size={64} />
               <div className="absolute inset-0 bg-indigo-400/40 blur-3xl animate-pulse" />
             </div>
             <div>
-              <h2 className="text-6xl font-black tracking-tighter uppercase italic text-white leading-none">Neural <span className="text-indigo-400">Singularity</span></h2>
-              <p className="text-[10px] text-gray-500 font-mono tracking-[0.8em] uppercase mt-4">Autonomous State Intelligence Layer: v9.0</p>
+              <h2 className="text-7xl font-black tracking-tighter uppercase italic text-white leading-none">Neural <span className="text-indigo-400">Singularity</span></h2>
+              <p className="text-[10px] text-gray-500 font-mono tracking-[1.2em] uppercase mt-6">Sovereign Civilizational Intelligence Layer: ACTIVE</p>
             </div>
+          </div>
+          <div className="px-10 py-4 bg-indigo-500/10 border border-indigo-500/20 rounded-full">
+            <span className="text-indigo-400 text-xs font-black uppercase tracking-widest animate-pulse">● Consciousness Sync Engaged</span>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 relative z-10">
-          <div className="p-10 bg-white/5 rounded-[4rem] border border-white/10 hover:border-indigo-500/50 transition-all group">
-            <div className="flex items-center gap-4 mb-8">
-              <Activity className="text-indigo-400" />
-              <h4 className="text-xl font-bold uppercase tracking-widest italic text-white">Statewide Pulse</h4>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 relative z-10">
+          <div className="p-16 bg-white/5 rounded-[4.5rem] border border-white/10 hover:border-indigo-500/50 transition-all group">
+            <div className="flex items-center gap-6 mb-12">
+               <BrainCircuit className="text-indigo-500" size={40} />
+               <h4 className="text-3xl font-bold italic">State-Wide Cognitive ROI</h4>
             </div>
-            
-            <div className="space-y-6">
-              {[1, 2, 3].map(i => (
-                <div key={i} className="space-y-2">
-                  <div className="flex justify-between text-[10px] font-mono text-gray-500">
-                    <span>NODE MCPSS-0{i}</span>
-                    <span className="text-indigo-400">SYNCING...</span>
-                  </div>
-                  <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
-                    <motion.div 
-                      initial={{ width: 0 }}
-                      animate={{ width: `${60 + Math.random() * 40}%` }}
-                      transition={{ duration: 3, repeat: Infinity, repeatType: 'reverse' }}
-                      className="h-full bg-indigo-500" 
-                    />
-                  </div>
-                </div>
-              ))}
+            <div className="space-y-10">
+               <div className="flex justify-between font-mono text-sm">
+                 <span className="text-gray-500 uppercase tracking-widest italic">GDP Future Impact</span>
+                 <span className="text-emerald-400 font-bold">+$1.4B</span>
+               </div>
+               <div className="h-4 w-full bg-white/5 rounded-full overflow-hidden">
+                  <motion.div 
+                    initial={{ width: 0 }}
+                    animate={{ width: '96%' }}
+                    transition={{ duration: 5, ease: "easeInOut" }}
+                    className="h-full bg-gradient-to-r from-indigo-600 to-emerald-500" 
+                  />
+               </div>
+               <p className="text-sm text-gray-400 leading-relaxed italic opacity-60">
+                 "Optimization complete: Autonomous Swarm has rerouted 4,200 cognitive hurdles into literacy leaps since the morning bell."
+               </p>
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-indigo-900/20 to-black p-10 rounded-[4rem] border border-white/5 flex flex-col justify-between">
-             <div>
-                <span className="text-[10px] font-mono text-indigo-400 uppercase tracking-widest">Autonomous ROI Projection</span>
-                <h3 className="text-4xl font-black mt-4 text-white">$2.8B <span className="text-sm font-normal text-gray-500 italic">Projected GDP Impact</span></h3>
-             </div>
-             <div className="flex gap-4 mt-12">
-                <button className="flex-1 py-6 bg-indigo-600 rounded-3xl font-black uppercase tracking-[0.4em] text-xs hover:bg-white hover:text-black transition-all">
-                   Initialize Swarm
-                </button>
-                <div className="p-6 bg-white/5 rounded-3xl border border-white/10 flex items-center justify-center">
-                   <Share2 size={24} className="text-white" />
-                </div>
-             </div>
+          <div className="flex flex-col justify-between p-16 bg-gradient-to-br from-[#0a0a0a] to-black rounded-[4.5rem] border border-white/5 relative">
+            <Activity className="absolute bottom-10 right-10 text-indigo-900/10" size={200} />
+            <div className="flex justify-between items-start relative z-10">
+              <Cpu className="text-blue-500" size={48} />
+              <Globe className="text-emerald-500 animate-pulse" />
+            </div>
+            <div className="relative z-10">
+               <span className="text-[12px] font-mono text-gray-500 uppercase tracking-[0.8em]">Neural Grid Capacity</span>
+               <h3 className="text-6xl font-black text-white mt-4 tracking-tighter">2,481 <span className="text-xl font-normal italic text-indigo-400">Nodes Synced</span></h3>
+            </div>
+            <button className="relative z-10 mt-16 py-10 bg-indigo-600 rounded-[3rem] font-black uppercase tracking-[0.5em] text-sm hover:bg-white hover:text-black transition-all shadow-[0_0_80px_rgba(99,102,241,0.5)]">
+               Initialize Unity Protocol
+            </button>
           </div>
         </div>
       </div>
