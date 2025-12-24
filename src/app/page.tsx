@@ -9,7 +9,7 @@ export default function Page() {
   const triggerAudit = async () => {
     setLoading(true);
     try {
-      const res = await fetch('http://127.0.0.1:5001/studio-9997686479-ca258/us-central1/generateIEP', {
+      const res = await fetch('https://generateiep-fqwxpzrnba-uc.a.run.app', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: input }),
