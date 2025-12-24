@@ -11,7 +11,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning={true} style={{ margin: 0, padding: 0 }}>
-        {children}
+        <Navbar />{children}
       </body>
     </html>
   )
