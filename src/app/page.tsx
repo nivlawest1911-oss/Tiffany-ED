@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import AuditChart from '@/components/AuditChart';
+import ResourceMap from '@/components/ResourceMap';
 
 export default function EdIntelSuite() {
   const [prompt, setPrompt] = useState('');
@@ -50,6 +51,7 @@ export default function EdIntelSuite() {
       <div style={{ marginTop: '30px', whiteSpace: 'pre-wrap', borderTop: '1px solid #eaeaea', paddingTop: '20px' }}>
         <strong>Strategic Output:</strong>
 <AuditChart />
+<ResourceMap />
         <p>{result}</p>
       </div>
     </div>
