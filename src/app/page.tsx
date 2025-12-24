@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import AuditChart from '@/components/AuditChart';
+import ExecutiveDashboard from '@/components/ExecutiveDashboard';
 import ResourceMap from '@/components/ResourceMap';
 import Link from 'next/link';
 
