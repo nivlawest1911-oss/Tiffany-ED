@@ -19,7 +19,7 @@ export default function EdIntelGlobalHub() {
       const response = await fetch('https://generateiep-fqwxpzrnba-uc.a.run.app', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ data: prompt, role, location: loc, schoolType: type, category: cat })
+        body: JSON.stringify({ data: prompt, role, location: loc, age: age, schoolType: type, category: cat })
       });
       const resData = await response.json();
       setResult(resData.data);

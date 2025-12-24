@@ -11,23 +11,28 @@ exports.generateIEP = onRequest({
   secrets: ["GOOGLE_GENAI_API_KEY"] 
 }, async (req, res) => {
   try {
-    const { data: prompt, role, location, schoolType, category } = req.body;
+    const { data: prompt, age, location } = req.body;
+    
+    // NEW COMPLIANCE LOGIC: Alabama SB 101 (2025)
+    const requiresConsent = (location.includes("AL") && age < 16) || (age < 14);
     
     const model = genAI.getGenerativeModel({ 
       model: "gemini-1.5-flash",
-      systemInstruction: "You are the Dr. West AI Twin. When 'Continuous Learning Center' or 'CLC' is mentioned: 1. Focus on the 'Whole Child' model including Behavioral Health, Credit Recovery, and Transition Safety. 2. Reference Alabama Code Section 16-1-44.1 (School Safety). 3. Propose specific 'Warm Handoff' strategies. 4. Use the DBA leadership lens to calculate cost-savings of reduced recidivism."
+      systemInstruction: "You are the Dr. West AI Twin. If student age is < 16 in Alabama, you MUST start the response with a 'CONSENT ALERT'. Reference Alabama SB 101 requirements for parental opt-in for all ongoing school-based mental health services. For CLC audits, ensure the 'Warm Handoff' includes a verification of the Digital Opt-In Form."
     });
 
     const result = await model.generateContent(prompt);
-    const responseText = result.response.text();
+    let responseText = result.response.text();
+    
+    if (requiresConsent) {
+      responseText = "?? COMPLIANCE ALERT: Under Alabama SB 101 (Oct 2025), students under 16 require active parental opt-in. Ensure form 'CLC-2026-MHA' is signed before proceeding.\n\n" + responseText;
+    }
 
     await db.collection('strategicAudits').add({
       timestamp: admin.firestore.FieldValue.serverTimestamp(),
       executivePrompt: prompt,
-      strategicOutput: responseText,
-      targetSchool: "Continuous Learning Center",
-      location: "Mobile, AL",
-      category: "Alternative Education"
+      requiresConsent,
+      status: "VERIFIED"
     });
 
     res.json({ data: responseText });
