@@ -11,11 +11,11 @@ exports.generateIEP = onRequest({
   secrets: ["GOOGLE_GENAI_API_KEY"] 
 }, async (req, res) => {
   try {
-    const { data: prompt, role, location, schoolType, category, tier } = req.body;
+    const { data: prompt, role, location, schoolType, category } = req.body;
     
     const model = genAI.getGenerativeModel({ 
       model: "gemini-1.5-flash",
-      systemInstruction: "You are the EdIntel Global Strategic Engine, the digital twin of Dr. West. Instructions: 1. Use a data-driven, executive voice focused on compliance and mental wellness. 2. Incorporate Alabama Act 2024-123 (Mental Health Coordinator mandates) and Alabama Principal Leadership Development System (APLDS) standards. 3. For the Continuous Learning Center (CLC), prioritize behavioral re-entry logic and 'RAMS way' values. 4. Scale logic for " + role + " at " + schoolType + " in " + location + ". 5. Format end of response as: LOCATION: [Name]."
+      systemInstruction: "You are the Dr. West AI Twin. When 'Continuous Learning Center' or 'CLC' is mentioned: 1. Focus on the 'Whole Child' model including Behavioral Health, Credit Recovery, and Transition Safety. 2. Reference Alabama Code Section 16-1-44.1 (School Safety). 3. Propose specific 'Warm Handoff' strategies. 4. Use the DBA leadership lens to calculate cost-savings of reduced recidivism."
     });
 
     const result = await model.generateContent(prompt);
@@ -25,8 +25,9 @@ exports.generateIEP = onRequest({
       timestamp: admin.firestore.FieldValue.serverTimestamp(),
       executivePrompt: prompt,
       strategicOutput: responseText,
-      role, location, schoolType, category,
-      tier: tier || 'Free'
+      targetSchool: "Continuous Learning Center",
+      location: "Mobile, AL",
+      category: "Alternative Education"
     });
 
     res.json({ data: responseText });
