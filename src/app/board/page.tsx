@@ -2,6 +2,7 @@
 import AuditChart from '@/components/AuditChart';
 import ResourceMap from '@/components/ResourceMap';
 import BoardReport from '@/components/BoardReport';
+import RevenueDashboard from '@/components/RevenueDashboard';
 
 export default function BoardView() {
   return (
@@ -38,6 +39,7 @@ export default function BoardView() {
         <section>
           <h2 style={{ borderLeft: '5px solid #1a1a1a', paddingLeft: '15px' }}>Resource Support Hotspots</h2>
           <BoardReport />
+<RevenueDashboard />
 <ResourceMap />
         </section>
       </div>
