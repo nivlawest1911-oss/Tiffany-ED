@@ -4,58 +4,64 @@ import { useState } from 'react';
 export default function PricingIntelligence() {
   const [studentCount, setStudentCount] = useState(500);
   
-  // Logic from our deep chat: 
-  // Each student creates ~12 hours of IEP/Compliance paperwork per year.
-  // AI reduces this by 60%.
-  const hoursSaved = Math.floor(studentCount * 12 * 0.60);
-  const dollarValue = (hoursSaved * 45).toLocaleString(); // $45/hr avg educator rate
-
-  const tiers = [
-    { name: 'Pilot (CLC)', price: '$499', focus: 'Single Site Intelligence', features: ['IEP Architect', 'SB 101 Guard', 'Trail Mode'] },
-    { name: 'District Pro', price: '$2,499', focus: 'Multi-School Governance', features: ['Neural Achievement Dashboard', 'Board ROI Reports', 'Executive Vault'] },
-    { name: 'State Sovereign', price: 'Custom', focus: 'Full Infrastructure Layer', features: ['WebGPU Spectral Shielding', 'Hardware Orchestration', '24/7 Priority Sync'] }
-  ];
+  // Logic: 1 student = 12 hours of annual compliance labor. 
+  // AI deflects 65% of that labor.
+  const hoursSaved = Math.floor(studentCount * 12 * 0.65);
+  const laborValue = (hoursSaved * 48).toLocaleString(); // $48/hr loaded rate
 
   return (
-    <div style={{ padding: '60px 20px', background: '#000', color: '#fff' }}>
-      <header style={{ textAlign: 'center', marginBottom: '50px' }}>
-        <h1 className="gradient-text" style={{ fontSize: '3rem' }}>Strategic Scaling Intelligence</h1>
-        <p style={{ color: '#888' }}>Quantifying the Fiscal Impact of EdIntel Infrastructure</p>
+    <div style={{ padding: '60px 20px', background: '#000', color: '#fff', minHeight: '100vh' }}>
+      <header style={{ textAlign: 'center', marginBottom: '60px' }}>
+        <h1 className="gradient-text" style={{ fontSize: '3.5rem' }}>Global Scaling & Token Sovereignty</h1>
+        <p style={{ color: '#888', maxWidth: '700px', margin: 'auto' }}>
+          Transitioning District Infrastructure from an Expense Center to an Intelligence Utility.
+        </p>
       </header>
 
-      {/* ROI CALCULATOR COMPONENT */}
-      <div className="glass-card" style={{ padding: '40px', marginBottom: '50px', border: '1px solid #d4af37' }}>
-        <h3>District ROI Projection</h3>
+      {/* ROI DYNAMIC PROJECTOR */}
+      <div className="glass-card" style={{ padding: '40px', marginBottom: '60px', border: '1px solid #d4af37' }}>
+        <h3 style={{ color: '#d4af37' }}>District ROI Calculator</h3>
+        <p style={{ color: '#666' }}>Adjust student population to see Labor Deflection value:</p>
         <input 
-          type="range" min="100" max="5000" step="100" 
+          type="range" min="100" max="10000" step="100" 
           value={studentCount} 
           onChange={(e) => setStudentCount(parseInt(e.target.value))}
-          style={{ width: '100%', margin: '20px 0' }}
+          style={{ width: '100%', margin: '30px 0', accentColor: '#d4af37' }}
         />
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '40px' }}>
           <div>
-            <p style={{ color: '#888' }}>Student Population</p>
-            <h2 style={{ color: '#d4af37' }}>{studentCount} Students</h2>
+            <p style={{ color: '#888', margin: 0 }}>Projected Labor Hours Recovered</p>
+            <h2 style={{ fontSize: '2.5rem' }}>{hoursSaved.toLocaleString()} hrs</h2>
           </div>
           <div>
-            <p style={{ color: '#888' }}>Projected Annual Savings</p>
-            <h2 style={{ color: '#00d1b2' }}>${dollarValue}</h2>
+            <p style={{ color: '#888', margin: 0 }}>Annual Budgetary Reallocation</p>
+            <h2 style={{ fontSize: '2.5rem', color: '#00d1b2' }}>${laborValue}</h2>
           </div>
         </div>
       </div>
 
       <div className="bento-grid">
-        {tiers.map(tier => (
-          <div key={tier.name} className="glass-card" style={{ padding: '30px', display: 'flex', flexDirection: 'column' }}>
-            <h2 style={{ marginBottom: '5px' }}>{tier.name}</h2>
-            <p style={{ color: '#0070f3', fontSize: '0.9rem' }}>{tier.focus}</p>
-            <div style={{ fontSize: '2.5rem', fontWeight: 'bold', margin: '20px 0' }}>{tier.price}<span style={{fontSize: '1rem', color: '#444'}}>/mo</span></div>
-            <ul style={{ listStyle: 'none', padding: 0, flexGrow: 1 }}>
-              {tier.features.map(f => <li key={f} style={{ color: '#aaa', marginBottom: '10px' }}>✓ {f}</li>)}
-            </ul>
-            <button className="primary-btn" style={{ marginTop: '20px' }}>Deploy Infrastructure</button>
-          </div>
-        ))}
+        <div className="glass-card" style={{ padding: '30px', borderTop: '4px solid #444' }}>
+          <h3>Pilot Tier</h3>
+          <p style={{ color: '#888' }}>Single-site implementation for the CLC.</p>
+          <div style={{ fontSize: '2rem', margin: '20px 0' }}>$499<span style={{fontSize: '1rem'}}> /mo</span></div>
+          <ul style={{ color: '#aaa', paddingLeft: '20px' }}>
+            <li>IEP Strategic Architect</li>
+            <li>SB 101 Compliance Guard</li>
+            <li>Trail Mode (Offline Cache)</li>
+          </ul>
+        </div>
+
+        <div className="glass-card" style={{ padding: '30px', borderTop: '4px solid #0070f3' }}>
+          <h3 style={{ color: '#0070f3' }}>Sovereign District</h3>
+          <p style={{ color: '#888' }}>Full governance for multi-school districts.</p>
+          <div style={{ fontSize: '2rem', margin: '20px 0' }}>$2,850<span style={{fontSize: '1rem'}}> /mo</span></div>
+          <ul style={{ color: '#aaa', paddingLeft: '20px' }}>
+            <li>Everything in Pilot</li>
+            <li>Student Neural Profiles</li>
+            <li>Executive ROI Dashboard</li>
+          </ul>
+        </div>
       </div>
     </div>
   );
