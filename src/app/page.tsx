@@ -8,7 +8,7 @@ export default function Home() {
     { title: 'Fitness Library', desc: 'Leadership & Emotional fitness protocols.', link: '/fitness', color: '#7b1fa2' },
     { title: 'Compliance Guard', desc: 'SB 101 Public Consent Gateway.', link: '/consent', color: '#00d1b2' },
     { title: 'Executive Vault', desc: 'Secure district audit repository.', link: '/archive', color: '#444' },
-    { title: 'Strategic Pricing', desc: 'District licensing & ROI models.', link: '/pricing', color: '#ff3860' }
+    { title: 'Strategic Pricing', desc: 'Gamified student literacy journey.', link: '/achievements', color: '#ff3860' }
   ];
 
   return (
