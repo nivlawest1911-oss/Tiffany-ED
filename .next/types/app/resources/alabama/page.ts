@@ -1,4 +1,4 @@
-// File: /home/user/Tiffany-ED/src/app/resources/alabama/page.tsx
+// File: C:\Users\nivla\edintel\src\app\resources\alabama\page.tsx
 import * as entry from '../../../../../src/app/resources/alabama/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import Link from 'next/link';
 
 export default function Navbar() {
@@ -15,13 +15,12 @@ export default function Navbar() {
       zIndex: 1000
     }}>
       <Link href="/" style={{ textDecoration: 'none' }}>
-        <strong className="gradient-text" style={{ fontSize: '1.5rem' }}>EdIntel v1.0</strong>
+        <strong className="gradient-text" style={{ fontSize: '1.5rem' }}>EdIntel</strong>
       </Link>
       <div style={{ display: 'flex', gap: '25px', alignItems: 'center' }}>
-        <Link href="/board" style={{ color: '#ccc', textDecoration: 'none', fontSize: '0.9rem' }}>Board View</Link>
-        <Link href="/archive" style={{ color: '#ccc', textDecoration: 'none', fontSize: '0.9rem' }}>Executive Vault</Link>
-        <Link href="/consent" style={{ color: '#ccc', textDecoration: 'none', fontSize: '0.9rem' }}>SB 101 Portal</Link>
-        <Link href="/pricing" className="primary-btn" style={{ textDecoration: 'none', padding: '8px 20px', fontSize: '0.8rem' }}>Upgrade Tier</Link>
+        <Link href="/board" style={{ color: '#ccc', textDecoration: 'none', fontSize: '0.9rem' }}>Board</Link>
+        <Link href="/archive" style={{ color: '#ccc', textDecoration: 'none', fontSize: '0.9rem' }}>Vault</Link>
+        <Link href="/pricing" className="primary-btn" style={{ textDecoration: 'none', padding: '8px 20px', fontSize: '0.8rem' }}>Upgrade</Link>
       </div>
     </nav>
   );

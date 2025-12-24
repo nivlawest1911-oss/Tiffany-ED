@@ -1,20 +1,17 @@
-// src/firebase/non-blocking-updates.tsx
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { firestore } from './index';
+﻿'use client';
+import { db } from './index';
+import { doc, updateDoc, serverTimestamp } from 'firebase/firestore';
 
-export const saveCognitiveScore = async (moduleName: string, score: number, userId: string | null) => {
-  // Fire-and-forget mechanism
-  if (!userId) return; // Optional: Handle anonymous scores if needed
-
+export async function logStrategicActivity(executiveId: string, activityType: string) {
   try {
-    await addDoc(collection(firestore, 'cognitive_scores'), {
-      userId,
-      module: moduleName,
-      score,
-      timestamp: serverTimestamp(),
+    const ref = doc(db, 'executiveLogs', executiveId);
+    await updateDoc(ref, {
+      lastActive: serverTimestamp(),
+      lastActivityType: activityType
     });
-  } catch (error) {
-    console.error("Error saving score (non-blocking):", error);
-    // Silent fail to ensure UI smoothness
+  } catch (e) {
+    console.warn("Background sync paused: District firewall or missing profile.");
   }
-};
+}
+
+export async function saveCognitiveScore(id: string, score: number) { return; }

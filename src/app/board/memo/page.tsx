@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { jsPDF } from 'jspdf';
 import AdminGuard from '@/components/AdminGuard';
 
@@ -6,62 +6,59 @@ export default function LaunchMemo() {
   const generateLaunchPDF = () => {
     const doc = new jsPDF();
     
-    // Header Logic - Executive Presentation
-    doc.setFillColor(0, 51, 102); // Mobile County Navy
-    doc.rect(0, 0, 210, 40, 'F');
+    // Header Logic
+    doc.setFillColor(0, 51, 102); 
+    doc.rect(0, 0, 210, 45, 'F');
     doc.setTextColor(255, 255, 255);
-    doc.setFontSize(24);
+    doc.setFontSize(26);
     doc.text('EDINTEL STRATEGIC LAUNCH', 20, 25);
     doc.setFontSize(10);
-    doc.text('PROJECT ALPHA V1.0 | EXECUTIVE SUMMARY', 20, 33);
+    doc.text('PROJECT ALPHA V1.0 | EXECUTIVE SYSTEM OVERVIEW', 20, 35);
 
     // Metadata
     doc.setTextColor(0, 0, 0);
     doc.setFontSize(12);
     doc.setFont("helvetica", "bold");
-    doc.text('TO:', 20, 55); doc.setFont("helvetica", "normal"); doc.text('Mobile County Board of Education', 45, 55);
-    doc.setFont("helvetica", "bold");
-    doc.text('FROM:', 20, 62); doc.setFont("helvetica", "normal"); doc.text('Dr. Alvin West, Executive Architect', 45, 62);
-    doc.setFont("helvetica", "bold");
-    doc.text('DATE:', 20, 69); doc.setFont("helvetica", "normal"); doc.text(new Date().toLocaleDateString(), 45, 69);
-    doc.line(20, 75, 190, 75);
+    doc.text('TO:', 20, 60); doc.setFont("helvetica", "normal"); doc.text('Mobile County Board of Education', 45, 60);
+    doc.text('FROM:', 20, 67); doc.text('Dr. Alvin West, Executive Architect', 45, 67);
+    doc.text('DATE:', 20, 74); doc.text(new Date().toLocaleDateString(), 45, 74);
+    doc.line(20, 80, 190, 80);
 
-    // Section 1: The Vision
+    // Vision Statement
     doc.setFont("helvetica", "bold");
-    doc.text('I. EXECUTIVE VISION & PHILOSOPHY', 20, 85);
+    doc.text('I. EXECUTIVE SUMMARY', 20, 90);
     doc.setFont("helvetica", "normal");
-    const vision = "Project Alpha represents a paradigm shift in district intelligence. Rooted in Whistler and Prichard, our AI Twin technology automates complex behavioral re-entry logic for the Continuous Learning Center (CLC), ensuring that every student transition is data-driven, equitable, and legally compliant.";
-    doc.text(doc.splitTextToSize(vision, 170), 20, 92);
+    const summary = "EdIntel v1.0 (Project Alpha) is officially operational. This platform integrates DBA-level fiscal logic with real-time AI modeling to stabilize district transitions, automate SB 101 compliance, and optimize resource allocation at the Continuous Learning Center (CLC).";
+    doc.text(doc.splitTextToSize(summary, 170), 20, 98);
 
-    // Section 2: Legal Safeguards
+    // Technical Capabilities
     doc.setFont("helvetica", "bold");
-    doc.text('II. COMPLIANCE & RISK MITIGATION', 20, 125);
+    doc.text('II. CORE CAPABILITIES', 20, 125);
     doc.setFont("helvetica", "normal");
-    const compliance = "The suite features a 'Compliance Shield' hard-coded for Alabama SB 101. It enforces mandatory annual parental opt-ins for students under 16, protecting the district from liability under Act 2024-123 and ensuring 100% adherence to mental health coordinator mandates.";
-    doc.text(doc.splitTextToSize(compliance, 170), 20, 132);
+    const tech = "- AI Twin Logic: Hard-coded with Mobile County & Alabama Standards.\n- Compliance Shield: Automated AL SB 101 Parental Opt-in Gatekeeping.\n- Fiscal Engine: Revenue-tracking tiers for district sustainability.\n- Executive Vault: Time-stamped, refined strategic history.";
+    doc.text(tech, 20, 133);
 
-    // Section 3: Financial ROI
+    // Strategic Roadmap
     doc.setFont("helvetica", "bold");
-    doc.text('III. FISCAL SUSTAINABILITY (STRIPE INTEGRATION)', 20, 165);
+    doc.text('III. 2026 DISTRICT IMPACT GOALS', 20, 165);
     doc.setFont("helvetica", "normal");
-    const fiscal = "Via our Professional and Global Enterprise tiers, the platform is self-sustaining. Our Revenue Intelligence Dashboard shows that the CLC pilot has already identified potential out-of-district cost savings exceeding 15% through optimized behavioral stabilization.";
-    doc.text(doc.splitTextToSize(fiscal, 170), 20, 172);
+    const roadmap = "1. 100% Digital Consent Compliance for Alternative Ed students.\n2. 15% Reduction in CLC recidivism via 'Warm Handoff' AI protocols.\n3. Expansion of the EdIntel Global Suite to neighboring districts.";
+    doc.text(doc.splitTextToSize(roadmap, 170), 20, 173);
 
-    // Footer Signature
+    // Signature
     doc.setFont("helvetica", "italic");
-    doc.setFontSize(9);
-    doc.text('This strategic briefing was generated securely via the EdIntel Executive Vault.', 20, 280);
-    
-    doc.save('EdIntel_Strategic_Launch_Memo.pdf');
+    doc.setFontSize(10);
+    doc.text('Authorized for release by the Office of the Executive Architect.', 20, 270);
+    doc.save('EdIntel_Project_Alpha_Launch_Memo.pdf');
   };
 
   return (
     <AdminGuard>
       <div style={{ padding: '100px', textAlign: 'center', backgroundColor: '#050505', minHeight: '100vh', color: '#fff' }}>
-        <h1 className="gradient-text" style={{ fontSize: '3rem' }}>Final Launch Protocol</h1>
-        <p style={{ color: '#888', marginBottom: '40px' }}>Ready to generate the official Board of Education Strategic Memo.</p>
-        <button onClick={generateLaunchPDF} className="primary-btn" style={{ padding: '25px 50px', fontSize: '1.5rem' }}>
-          ?? Generate Board Memo (PDF)
+        <h1 className="gradient-text" style={{ fontSize: '3rem' }}>Protocol Complete</h1>
+        <p style={{ color: '#888', marginBottom: '40px' }}>EdIntel v1.0 is synced. Download the official launch brief below.</p>
+        <button onClick={generateLaunchPDF} className="primary-btn" style={{ padding: '20px 40px', fontSize: '1.2rem' }}>
+          📄 Download Strategic Memo
         </button>
       </div>
     </AdminGuard>

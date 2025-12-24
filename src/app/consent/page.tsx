@@ -1,43 +1,46 @@
-'use client';
+﻿'use client';
 import { useState } from 'react';
+import { db } from '@/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 export default function ParentalOptIn() {
   const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState({ studentName: '', parentName: '', school: 'Continuous Learning Center' });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await addDoc(collection(db, 'parentalConsents'), {
+        ...formData,
+        timestamp: serverTimestamp(),
+        status: 'ACTIVE',
+        to: 'nivlawest1911@gmail.com',
+        message: {
+          subject: `🚀 EdIntel Compliance Alert: ${formData.studentName}`,
+          html: `<h3>New SB 101 Consent Signed</h3><p>Student: ${formData.studentName}</p><p>School: ${formData.school}</p><a href="https://edintelus.web.app/archive">Verify in Vault</a>`
+        }
+      });
+      setSubmitted(true);
+    } catch (err) { alert("Sync Error."); }
+  };
 
   return (
-    <div style={{ padding: '40px', maxWidth: '800px', margin: 'auto', fontFamily: 'Inter, sans-serif' }}>
-      <header style={{ borderBottom: '3px solid #003366', paddingBottom: '15px', marginBottom: '30px' }}>
-        <h1 style={{ color: '#003366' }}>Alabama SB 101 Compliance Portal</h1>
-        <h3>Annual Mental Health Services Opt-In Form (FY26)</h3>
-      </header>
-
-      {submitted ? (
-        <div style={{ backgroundColor: '#e6f7ff', padding: '30px', borderRadius: '15px', textAlign: 'center' }}>
-          <h2>? Consent Successfully Archived</h2>
-          <p>Digital signature verified for the Continuous Learning Center vault.</p>
-        </div>
-      ) : (
-        <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} style={{ lineHeight: '1.6' }}>
-          <p>As per <strong>Alabama Act 2025-455</strong>, written parental permission is required for students under 16 to receive school counseling services. Exceptions apply only for imminent threats or grief counseling.</p>
-          
-          <div style={{ backgroundColor: '#f4f4f4', padding: '20px', borderRadius: '10px', margin: '20px 0' }}>
-            <p><strong>Please select authorized services:</strong></p>
-            <label style={{ display: 'block' }}><input type="checkbox" required /> Individual Behavioral Coaching (CLC Protocol)</label>
-            <label style={{ display: 'block' }}><input type="checkbox" required /> Mental Health Screeners & Assessments</label>
-            <label style={{ display: 'block' }}><input type="checkbox" required /> Small Group Social-Emotional Learning</label>
-          </div>
-
-          <label style={{ display: 'block', fontWeight: 'bold' }}>Parent/Guardian Full Name:</label>
-          <input type="text" style={{ width: '100%', padding: '10px', marginBottom: '20px' }} required />
-          
-          <label style={{ display: 'block', fontWeight: 'bold' }}>Student Name:</label>
-          <input type="text" style={{ width: '100%', padding: '10px', marginBottom: '30px' }} required />
-
-          <button type="submit" style={{ width: '100%', padding: '20px', backgroundColor: '#003366', color: '#fff', borderRadius: '12px', border: 'none', fontWeight: 'bold', cursor: 'pointer' }}>
-            Digitally Sign Annual Opt-In
-          </button>
-        </form>
-      )}
+    <div style={{ padding: '60px 20px', maxWidth: '800px', margin: 'auto' }}>
+      <div className="glass-card" style={{ padding: '40px', borderRadius: '15px', border: '1px solid rgba(255,255,255,0.1)' }}>
+        <h1 className="gradient-text">Alabama SB 101 Portal</h1>
+        {submitted ? <h2 style={{ color: '#52c41a' }}>✅ Consent Archived & Dr. West Notified</h2> : (
+          <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '15px' }}>
+            <input type="text" placeholder="Student Name" className="input-field" style={{ padding: '12px', background: '#111', color: '#fff', borderRadius: '8px' }} onChange={(e) => setFormData({...formData, studentName: e.target.value})} required />
+            <select className="input-field" style={{ padding: '12px', background: '#111', color: '#fff', borderRadius: '8px' }} onChange={(e) => setFormData({...formData, school: e.target.value})}>
+              <option>Continuous Learning Center</option>
+              <option>Whistler Elementary</option>
+              <option>Vigor High</option>
+            </select>
+            <input type="text" placeholder="Parent Digital Signature" className="input-field" style={{ padding: '12px', background: '#111', color: '#fff', borderRadius: '8px' }} onChange={(e) => setFormData({...formData, parentName: e.target.value})} required />
+            <button type="submit" className="primary-btn">Submit Compliance Record</button>
+          </form>
+        )}
+      </div>
     </div>
   );
 }
