@@ -4,8 +4,8 @@ import { Orbit, Zap, BrainCircuit, Globe, Cpu, Activity } from 'lucide-react';
 
 export default function NeuralSingularityHub() {
   return (
-    <div className="relative p-[1px] rounded-[6rem] bg-gradient-to-tr from-[#6366f1] via-[#a855f7] to-[#ec4899] overflow-hidden shadow-[0_0_150px_rgba(168,85,247,0.4)]">
-      <div className="bg-[#010101] rounded-[5.9rem] p-20 backdrop-blur-3xl relative overflow-hidden">
+    <div className="relative p-[1px] rounded-[6rem] bg-gradient-to-tr from-[#6366f1] via-[#a855f7] to-[#ec4899] overflow-hidden shadow-[0_0_200px_rgba(168,85,247,0.4)]">
+      <div className="bg-[#010101] rounded-[5.9rem] p-24 backdrop-blur-3xl relative overflow-hidden">
         {/* Living Background Shader */}
         <div className="absolute inset-0 opacity-20">
           <motion.div 
@@ -40,7 +40,7 @@ export default function NeuralSingularityHub() {
             <div className="space-y-10">
                <div className="flex justify-between font-mono text-sm">
                  <span className="text-gray-500 uppercase tracking-widest italic">GDP Future Impact</span>
-                 <span className="text-emerald-400 font-bold">+$1.4B</span>
+                 <span className="text-emerald-400 font-bold">+$2.8B</span>
                </div>
                <div className="h-4 w-full bg-white/5 rounded-full overflow-hidden">
                   <motion.div 
@@ -51,7 +51,7 @@ export default function NeuralSingularityHub() {
                   />
                </div>
                <p className="text-sm text-gray-400 leading-relaxed italic opacity-60">
-                 "Optimization complete: Autonomous Swarm has rerouted 4,200 cognitive hurdles into literacy leaps since the morning bell."
+                 "Self-Code Optimization: The Swarm has identified and cleared 4,200 cognitive hurdles since the morning bell. Zero bias detected."
                </p>
             </div>
           </div>
@@ -64,7 +64,7 @@ export default function NeuralSingularityHub() {
             </div>
             <div className="relative z-10">
                <span className="text-[12px] font-mono text-gray-500 uppercase tracking-[0.8em]">Neural Grid Capacity</span>
-               <h3 className="text-6xl font-black text-white mt-4 tracking-tighter">2,481 <span className="text-xl font-normal italic text-indigo-400">Nodes Synced</span></h3>
+               <h3 className="text-6xl font-black text-white mt-4 tracking-tighter">4,812 <span className="text-xl font-normal italic text-indigo-400">Nodes Synced</span></h3>
             </div>
             <button className="relative z-10 mt-16 py-10 bg-indigo-600 rounded-[3rem] font-black uppercase tracking-[0.5em] text-sm hover:bg-white hover:text-black transition-all shadow-[0_0_80px_rgba(99,102,241,0.5)]">
                Initialize Unity Protocol
