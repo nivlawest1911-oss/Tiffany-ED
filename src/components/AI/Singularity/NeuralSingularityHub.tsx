@@ -4,7 +4,7 @@ import { Orbit, Zap, BrainCircuit, Globe, Cpu, Activity } from 'lucide-react';
 
 export default function NeuralSingularityHub() {
   return (
-    <div className="relative p-[1px] rounded-[6rem] bg-gradient-to-tr from-[#7c3aed] via-[#3b82f6] to-[#10b981] overflow-hidden shadow-[0_0_150px_rgba(124,58,237,0.4)]">
+    <div className="relative p-[1px] rounded-[6rem] bg-gradient-to-tr from-[#6366f1] via-[#a855f7] to-[#ec4899] overflow-hidden shadow-[0_0_150px_rgba(168,85,247,0.4)]">
       <div className="bg-[#010101] rounded-[5.9rem] p-20 backdrop-blur-3xl relative overflow-hidden">
         {/* Living Background Shader */}
         <div className="absolute inset-0 opacity-20">
