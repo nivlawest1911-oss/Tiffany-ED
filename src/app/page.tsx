@@ -8,6 +8,7 @@ export default function EdIntelGlobalHub() {
   const [prompt, setPrompt] = useState('');
   const [role, setRole] = useState('District Leader');
   const [loc, setLoc] = useState('Mobile, AL');
+const [age, setAge] = useState(15);
   const [type, setType] = useState('Public');
   const [cat, setCat] = useState('Behavioral Health');
   const [result, setResult] = useState('');
@@ -19,7 +20,7 @@ export default function EdIntelGlobalHub() {
       const response = await fetch('https://generateiep-fqwxpzrnba-uc.a.run.app', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ data: prompt, role, location: loc, age: age, schoolType: type, category: cat })
+        body: JSON.stringify({ data: prompt, role, location: loc, age: age, age: age, schoolType: type, category: cat })
       });
       const resData = await response.json();
       setResult(resData.data);
