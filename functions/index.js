@@ -13,26 +13,26 @@ exports.generateIEP = onRequest({
   try {
     const { data: prompt, age, location } = req.body;
     
-    // NEW COMPLIANCE LOGIC: Alabama SB 101 (2025)
+    // SB 101 Logic: Effective Oct 1, 2025, Age of Consent in AL is 16
     const requiresConsent = (location.includes("AL") && age < 16) || (age < 14);
     
     const model = genAI.getGenerativeModel({ 
       model: "gemini-1.5-flash",
-      systemInstruction: "You are the Dr. West AI Twin. If student age is < 16 in Alabama, you MUST start the response with a 'CONSENT ALERT'. Reference Alabama SB 101 requirements for parental opt-in for all ongoing school-based mental health services. For CLC audits, ensure the 'Warm Handoff' includes a verification of the Digital Opt-In Form."
+      systemInstruction: "You are the Dr. West AI Twin. If student age is < 16 in Alabama, you MUST flag this as a 'SB 101 CONSENT REQUIRED' audit. Focus on the Dr. West DBA lens: data-driven, compliant, and equitable. For the CLC, ensure the 'Warm Handoff' transition logic verifies the annual parental opt-in form exists."
     });
 
     const result = await model.generateContent(prompt);
     let responseText = result.response.text();
     
     if (requiresConsent) {
-      responseText = "?? COMPLIANCE ALERT: Under Alabama SB 101 (Oct 2025), students under 16 require active parental opt-in. Ensure form 'CLC-2026-MHA' is signed before proceeding.\n\n" + responseText;
+      responseText = "?? SB 101 COMPLIANCE ALERT: Under the Alabama 2025 Mandate, students under 16 require annual written parental opt-in for ongoing counseling. Ensure Digital Form CLC-2026 is verified.\n\n" + responseText;
     }
 
     await db.collection('strategicAudits').add({
       timestamp: admin.firestore.FieldValue.serverTimestamp(),
       executivePrompt: prompt,
       requiresConsent,
-      status: "VERIFIED"
+      status: "VERIFIED_COMPLIANT"
     });
 
     res.json({ data: responseText });
