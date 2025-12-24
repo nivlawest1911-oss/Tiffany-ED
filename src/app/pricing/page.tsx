@@ -1,43 +1,29 @@
 ﻿'use client';
-import { useState } from 'react';
+import { createCheckoutSession } from '@/app/actions/stripe';
 
-export default function PricingSwitch() {
-  const [isAnnual, setIsAnnual] = useState(true);
-  const [view, setView] = useState('individual'); // 'individual' or 'district'
-
-  const plans = {
-    individual: [
-      { name: 'Specialist', price: isAnnual ? 19 : 25, tokens: '100k', feat: ['Personal IEP Architect', 'Fitness Library', 'Voice Interaction'] },
-      { name: 'Practitioner', price: isAnnual ? 39 : 49, tokens: '250k', feat: ['30 Student Neural Profiles', 'Cognitive Coach', 'Custom Prompt Vault'] }
-    ],
-    district: [
-      { name: 'Sovereign District', price: 'Custom', tokens: 'Unlimited', feat: ['SB 101 Compliance Guard', 'Board ROI Reporting', 'Executive Vault'] }
-    ]
-  };
+export default function PricingSovereign() {
+  const tiers = [
+    { id: 'specialist', name: 'Individual Specialist', price: '$19', desc: 'Optimize your own IEP workflow.' },
+    { id: 'practitioner', name: 'Clinical Practitioner', price: '$39', desc: 'Manage up to 30 neural student profiles.' },
+    { id: 'sovereign', name: 'District Sovereign', price: 'Contact', desc: 'Full district-wide compliance governance.' }
+  ];
 
   return (
-    <div style={{ padding: '40px', color: '#fff' }}>
-      <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-        <h2 className="gradient-text" style={{ fontSize: '2.5rem' }}>Optimized Cognitive Access</h2>
-        <div style={{ marginTop: '20px', display: 'inline-flex', background: 'rgba(255,255,255,0.05)', padding: '5px', borderRadius: '30px' }}>
-          <button onClick={() => setView('individual')} style={{ padding: '10px 20px', borderRadius: '25px', border: 'none', background: view === 'individual' ? '#0070f3' : 'transparent', color: '#fff' }}>Individual</button>
-          <button onClick={() => setView('district')} style={{ padding: '10px 20px', borderRadius: '25px', border: 'none', background: view === 'district' ? '#0070f3' : 'transparent', color: '#fff' }}>District</button>
-        </div>
-      </div>
-
-      <div className="bento-grid">
-        {plans[view].map((plan) => (
-          <div key={plan.name} className="glass-card" style={{ padding: '30px', position: 'relative' }}>
-            {plan.name === 'Practitioner' && <div style={{ position: 'absolute', top: '10px', right: '10px', background: '#d4af37', color: '#000', fontSize: '0.7rem', padding: '2px 8px', borderRadius: '10px' }}>MOST POPULAR</div>}
-            <h3>{plan.name}</h3>
-            <div style={{ fontSize: '2rem', fontWeight: 'bold' }}>
-              ${plan.price}<span style={{ fontSize: '1rem', color: '#555' }}>/mo</span>
-            </div>
-            <p style={{ color: '#0070f3', fontSize: '0.8rem' }}>{plan.tokens} Token Reservoir</p>
-            <ul style={{ padding: '20px 0', listStyle: 'none', fontSize: '0.9rem', color: '#aaa' }}>
-              {plan.feat.map(f => <li key={f} style={{ marginBottom: '10px' }}>✓ {f}</li>)}
-            </ul>
-            <button className="primary-btn" style={{ width: '100%' }}>Activate Intelligence</button>
+    <div style={{ padding: '60px 20px', background: '#000', minHeight: '100vh' }}>
+      <h1 className="gradient-text" style={{ textAlign: 'center', fontSize: '3rem' }}>Service Monetization Portal</h1>
+      <div className="bento-grid" style={{ marginTop: '40px' }}>
+        {tiers.map(tier => (
+          <div key={tier.id} className="glass-card" style={{ padding: '30px', display: 'flex', flexDirection: 'column' }}>
+            <h2>{tier.name}</h2>
+            <div style={{ fontSize: '2.5rem', margin: '20px 0', fontWeight: 'bold' }}>{tier.price}</div>
+            <p style={{ color: '#888', flexGrow: 1 }}>{tier.desc}</p>
+            <button 
+              onClick={() => createCheckoutSession(tier.id)}
+              className="primary-btn" 
+              style={{ background: tier.id === 'sovereign' ? '#444' : '#0070f3' }}
+            >
+              {tier.id === 'sovereign' ? 'Request Consultation' : 'Start Subscription'}
+            </button>
           </div>
         ))}
       </div>
