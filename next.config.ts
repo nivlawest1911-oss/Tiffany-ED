@@ -1,15 +1,13 @@
-﻿/** @type {import('next').NextConfig} */
-const nextConfig = {
-  output: 'export',
-  distDir: 'out',
-  trailingSlash: true,
-  eslint: { ignoreDuringBuilds: true },
-  typescript: { ignoreBuildErrors: true },
-  images: { unoptimized: true },
-  // This prevents the build from failing on Firebase auth pages
+﻿import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  output: 'standalone', // THIS IS THE KEY FIX
   experimental: {
-    missingSuspenseWithCSRBailout: false,
-  }
+    // We removed the invalid 'missingSuspenseWithCSRBailout' key that caused warnings
+  },
+  images: {
+    unoptimized: true,
+  },
 };
 
 export default nextConfig;
