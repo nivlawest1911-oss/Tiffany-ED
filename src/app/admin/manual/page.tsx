@@ -7,7 +7,7 @@ export default function TrainingManual() {
   ];
 
   return (
-    <div className="glass-card" style={{ padding: '40px', background: '#050505' }}>
+    <div className="glass-card" style={{ padding: '40px', background: '#050505', minHeight: '100vh' }}>
       <h1 className="gradient-text">CLC Operational Manual</h1>
       <p style={{ color: '#888' }}>Confidential: District Sovereign Tier Only</p>
       
@@ -16,7 +16,7 @@ export default function TrainingManual() {
           <details key={s.title} style={{ marginBottom: '20px', borderBottom: '1px solid #222', paddingBottom: '10px' }}>
             <summary style={{ fontSize: '1.2rem', color: '#d4af37', cursor: 'pointer', fontWeight: 'bold' }}>
               {s.title}
-            </div>
+            </summary>
             <p style={{ padding: '15px', color: '#aaa' }}>{s.content}</p>
           </details>
         ))}
