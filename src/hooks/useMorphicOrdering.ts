@@ -1,21 +1,20 @@
 ﻿'use client';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
-export function useMorphicOrdering(initialItems) {
-  const [items, setItems] = useState(initialItems);
+export function useMorphicOrdering(baseTiles) {
+  const [orderedTiles, setOrderedTiles] = useState(baseTiles);
 
   useEffect(() => {
-    // Load usage weights from local storage
-    const weights = JSON.parse(localStorage.getItem('edintel_usage') || '{}');
-    const sorted = [...initialItems].sort((a, b) => (weights[b.title] || 0) - (weights[a.title] || 0));
-    setItems(sorted);
+    const usageData = JSON.parse(localStorage.getItem('edintel_usage') || '{}');
+    const sorted = [...baseTiles].sort((a, b) => (usageData[b.id] || 0) - (usageData[a.id] || 0));
+    setOrderedTiles(sorted);
   }, []);
 
-  const trackClick = (title) => {
-    const weights = JSON.parse(localStorage.getItem('edintel_usage') || '{}');
-    weights[title] = (weights[title] || 0) + 1;
-    localStorage.setItem('edintel_usage', JSON.stringify(weights));
+  const recordInteraction = (id) => {
+    const usageData = JSON.parse(localStorage.getItem('edintel_usage') || '{}');
+    usageData[id] = (usageData[id] || 0) + 1;
+    localStorage.setItem('edintel_usage', JSON.stringify(usageData));
   };
 
-  return { items, trackClick };
+  return { orderedTiles, recordInteraction };
 }
