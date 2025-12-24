@@ -42,7 +42,7 @@ export default function BoardView() {
 
       <footer style={{ marginTop: '60px', textAlign: 'center', color: '#999', fontSize: '0.9rem' }}>
         <hr style={{ border: '0', borderTop: '1px solid #eee', marginBottom: '20px' }} />
-        Powered by EdIntel AI Twin Technology | Dr. West Leadership Suite
+        Powered by EdIntel AI Twin Technology | Dr. West Leadership Suite | <a href="/login" style="color: #999; text-decoration: none;">Executive Portal</a>
       </footer>
     </div>
   );
