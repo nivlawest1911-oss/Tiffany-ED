@@ -1,5 +1,6 @@
 ﻿'use client';
 import Link from 'next/link';
+import TrialStatusGuard from '@/components/TrialStatusGuard';
 
 export default function Home() {
   const tools = [
@@ -8,15 +9,17 @@ export default function Home() {
     { title: 'Fitness Library', desc: 'Leadership & Emotional fitness protocols.', link: '/fitness', color: '#7b1fa2' },
     { title: 'Compliance Guard', desc: 'SB 101 Public Consent Gateway.', link: '/consent', color: '#00d1b2' },
     { title: 'Executive Vault', desc: 'Secure district audit repository.', link: '/archive', color: '#444' },
-    { title: 'Strategic Pricing', desc: 'Gamified student literacy journey.', link: '/achievements', color: '#ff3860' }
+    { title: 'Board Hub', desc: 'District Intelligence & Fiscal ROI Reports.', link: '/board', color: '#ff3860' }
   ];
 
   return (
     <div style={{ padding: '40px 20px', maxWidth: '1200px', margin: 'auto' }}>
-      <header style={{ textAlign: 'center', marginBottom: '50px' }}>
+      <header style={{ textAlign: 'center', marginBottom: '30px' }}>
         <h1 className="gradient-text" style={{ fontSize: '3.5rem', fontWeight: 'bold' }}>EDINTEL EXECUTIVE</h1>
-        <p style={{ fontSize: '1.2rem', color: '#888' }}>Continuous Learning Center | Strategic Infrastructure</p>
+        <p style={{ fontSize: '1.2rem', color: '#888' }}>Continuous Learning Center | Evaluation Phase</p>
       </header>
+
+      <TrialStatusGuard />
 
       <div className="bento-grid">
         {tools.map((tool) => (
