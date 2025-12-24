@@ -11,24 +11,25 @@ exports.generateIEP = onRequest({
   secrets: ["GOOGLE_GENAI_API_KEY"] 
 }, async (req, res) => {
   try {
+    const { data: prompt, role, location, schoolType, category } = req.body;
+    
     const model = genAI.getGenerativeModel({ 
       model: "gemini-1.5-flash",
-      systemInstruction: "You are the Dr. West AI Twin for Mobile County. Always identify if a specific school is mentioned. If it is, format the end of your response as: 'LOCATION: [School Name]'"
+      systemInstruction: "You are the EdIntel Global Strategic Engine. Your logic is rooted in Dr. West's leadership philosophy: equity-focused, data-driven, and compliant with Alabama and National standards. Tailor your response based on the User Role and Location provided. Be precise for Whistler/Prichard/Mobile but scalable for the 50 states."
     });
 
-    const userPrompt = req.body.data;
-    const result = await model.generateContent(userPrompt);
+    const context = Role:  | Location:  | Type:  | Category: \nPrompt: ;
+    const result = await model.generateContent(context);
     const responseText = result.response.text();
-
-    // Logic to extract school name for the map
-    const locationMatch = responseText.match(/LOCATION:\s*(.*)/i);
-    const schoolFound = locationMatch ? locationMatch[1].trim() : "District Office";
 
     const auditRecord = {
       timestamp: admin.firestore.FieldValue.serverTimestamp(),
-      executivePrompt: userPrompt,
+      executivePrompt: prompt,
       strategicOutput: responseText,
-      targetSchool: schoolFound,
+      role: role || "Stakeholder",
+      location: location || "Alabama",
+      schoolType: schoolType || "Public",
+      category: category || "General",
       status: "COMPLETED"
     };
     
