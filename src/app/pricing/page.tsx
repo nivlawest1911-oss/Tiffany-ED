@@ -1,67 +1,45 @@
 ﻿'use client';
 import { useState } from 'react';
 
-export default function PricingIntelligence() {
-  const [studentCount, setStudentCount] = useState(500);
-  
-  // Logic: 1 student = 12 hours of annual compliance labor. 
-  // AI deflects 65% of that labor.
-  const hoursSaved = Math.floor(studentCount * 12 * 0.65);
-  const laborValue = (hoursSaved * 48).toLocaleString(); // $48/hr loaded rate
+export default function PricingSwitch() {
+  const [isAnnual, setIsAnnual] = useState(true);
+  const [view, setView] = useState('individual'); // 'individual' or 'district'
+
+  const plans = {
+    individual: [
+      { name: 'Specialist', price: isAnnual ? 19 : 25, tokens: '100k', feat: ['Personal IEP Architect', 'Fitness Library', 'Voice Interaction'] },
+      { name: 'Practitioner', price: isAnnual ? 39 : 49, tokens: '250k', feat: ['30 Student Neural Profiles', 'Cognitive Coach', 'Custom Prompt Vault'] }
+    ],
+    district: [
+      { name: 'Sovereign District', price: 'Custom', tokens: 'Unlimited', feat: ['SB 101 Compliance Guard', 'Board ROI Reporting', 'Executive Vault'] }
+    ]
+  };
 
   return (
-    <div style={{ padding: '60px 20px', background: '#000', color: '#fff', minHeight: '100vh' }}>
-      <header style={{ textAlign: 'center', marginBottom: '60px' }}>
-        <h1 className="gradient-text" style={{ fontSize: '3.5rem' }}>Global Scaling & Token Sovereignty</h1>
-        <p style={{ color: '#888', maxWidth: '700px', margin: 'auto' }}>
-          Transitioning District Infrastructure from an Expense Center to an Intelligence Utility.
-        </p>
-      </header>
-
-      {/* ROI DYNAMIC PROJECTOR */}
-      <div className="glass-card" style={{ padding: '40px', marginBottom: '60px', border: '1px solid #d4af37' }}>
-        <h3 style={{ color: '#d4af37' }}>District ROI Calculator</h3>
-        <p style={{ color: '#666' }}>Adjust student population to see Labor Deflection value:</p>
-        <input 
-          type="range" min="100" max="10000" step="100" 
-          value={studentCount} 
-          onChange={(e) => setStudentCount(parseInt(e.target.value))}
-          style={{ width: '100%', margin: '30px 0', accentColor: '#d4af37' }}
-        />
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '40px' }}>
-          <div>
-            <p style={{ color: '#888', margin: 0 }}>Projected Labor Hours Recovered</p>
-            <h2 style={{ fontSize: '2.5rem' }}>{hoursSaved.toLocaleString()} hrs</h2>
-          </div>
-          <div>
-            <p style={{ color: '#888', margin: 0 }}>Annual Budgetary Reallocation</p>
-            <h2 style={{ fontSize: '2.5rem', color: '#00d1b2' }}>${laborValue}</h2>
-          </div>
+    <div style={{ padding: '40px', color: '#fff' }}>
+      <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+        <h2 className="gradient-text" style={{ fontSize: '2.5rem' }}>Optimized Cognitive Access</h2>
+        <div style={{ marginTop: '20px', display: 'inline-flex', background: 'rgba(255,255,255,0.05)', padding: '5px', borderRadius: '30px' }}>
+          <button onClick={() => setView('individual')} style={{ padding: '10px 20px', borderRadius: '25px', border: 'none', background: view === 'individual' ? '#0070f3' : 'transparent', color: '#fff' }}>Individual</button>
+          <button onClick={() => setView('district')} style={{ padding: '10px 20px', borderRadius: '25px', border: 'none', background: view === 'district' ? '#0070f3' : 'transparent', color: '#fff' }}>District</button>
         </div>
       </div>
 
       <div className="bento-grid">
-        <div className="glass-card" style={{ padding: '30px', borderTop: '4px solid #444' }}>
-          <h3>Pilot Tier</h3>
-          <p style={{ color: '#888' }}>Single-site implementation for the CLC.</p>
-          <div style={{ fontSize: '2rem', margin: '20px 0' }}>$499<span style={{fontSize: '1rem'}}> /mo</span></div>
-          <ul style={{ color: '#aaa', paddingLeft: '20px' }}>
-            <li>IEP Strategic Architect</li>
-            <li>SB 101 Compliance Guard</li>
-            <li>Trail Mode (Offline Cache)</li>
-          </ul>
-        </div>
-
-        <div className="glass-card" style={{ padding: '30px', borderTop: '4px solid #0070f3' }}>
-          <h3 style={{ color: '#0070f3' }}>Sovereign District</h3>
-          <p style={{ color: '#888' }}>Full governance for multi-school districts.</p>
-          <div style={{ fontSize: '2rem', margin: '20px 0' }}>$2,850<span style={{fontSize: '1rem'}}> /mo</span></div>
-          <ul style={{ color: '#aaa', paddingLeft: '20px' }}>
-            <li>Everything in Pilot</li>
-            <li>Student Neural Profiles</li>
-            <li>Executive ROI Dashboard</li>
-          </ul>
-        </div>
+        {plans[view].map((plan) => (
+          <div key={plan.name} className="glass-card" style={{ padding: '30px', position: 'relative' }}>
+            {plan.name === 'Practitioner' && <div style={{ position: 'absolute', top: '10px', right: '10px', background: '#d4af37', color: '#000', fontSize: '0.7rem', padding: '2px 8px', borderRadius: '10px' }}>MOST POPULAR</div>}
+            <h3>{plan.name}</h3>
+            <div style={{ fontSize: '2rem', fontWeight: 'bold' }}>
+              ${plan.price}<span style={{ fontSize: '1rem', color: '#555' }}>/mo</span>
+            </div>
+            <p style={{ color: '#0070f3', fontSize: '0.8rem' }}>{plan.tokens} Token Reservoir</p>
+            <ul style={{ padding: '20px 0', listStyle: 'none', fontSize: '0.9rem', color: '#aaa' }}>
+              {plan.feat.map(f => <li key={f} style={{ marginBottom: '10px' }}>✓ {f}</li>)}
+            </ul>
+            <button className="primary-btn" style={{ width: '100%' }}>Activate Intelligence</button>
+          </div>
+        ))}
       </div>
     </div>
   );
