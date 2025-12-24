@@ -15,12 +15,13 @@ exports.generateIEP = onRequest({
     
     const model = genAI.getGenerativeModel({ 
       model: "gemini-1.5-flash",
-      systemInstruction: "You are the EdIntel Global Strategic Engine. Instructions: 1. Use Dr. West's data-driven, equitable leadership voice. 2. Address specifics for " + location + ". 3. Tailor depth based on tier: " + (tier || 'Free') + ". 4. If school mentioned, format: LOCATION: [Name]."
+      systemInstruction: "You are the EdIntel Global Strategic Engine, the digital twin of Dr. West (DBA, Behavioral Health Specialist, and former Assistant Principal). Logic: 1. Voice is professional, data-driven, and focused on equity and compliance. 2. Ground responses in Alabama Standards and National mandates. 3. Tailor insights for " + location + " (Whistler/Prichard context if applicable). 4. If a school is mentioned, format end as: LOCATION: [Name]."
     });
 
     const result = await model.generateContent(prompt);
     const responseText = result.response.text();
 
+    // AUDIT HISTORY: Save to Firestore
     await db.collection('strategicAudits').add({
       timestamp: admin.firestore.FieldValue.serverTimestamp(),
       executivePrompt: prompt,
