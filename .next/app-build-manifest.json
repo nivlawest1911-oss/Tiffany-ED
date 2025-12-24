@@ -1,63 +1,14 @@
 {
   "pages": {
-    "/_not-found/page": [
-      "static/chunks/webpack-0a7df1a4a345eb07.js",
-      "static/chunks/4bd1b696-cf99354d2bf0b145.js",
-      "static/chunks/517-5ab1799f34ea8d9e.js",
-      "static/chunks/main-app-a2398e4fcadc7bc0.js",
-      "static/chunks/app/_not-found/page-51dd90892996928b.js"
-    ],
     "/layout": [
-      "static/chunks/webpack-0a7df1a4a345eb07.js",
-      "static/chunks/4bd1b696-cf99354d2bf0b145.js",
-      "static/chunks/517-5ab1799f34ea8d9e.js",
-      "static/chunks/main-app-a2398e4fcadc7bc0.js",
-      "static/css/53767143d01b2c5d.css",
-      "static/chunks/app/layout-c5a943a00d6cc98e.js"
-    ],
-    "/cognitive/page": [
-      "static/chunks/webpack-0a7df1a4a345eb07.js",
-      "static/chunks/4bd1b696-cf99354d2bf0b145.js",
-      "static/chunks/517-5ab1799f34ea8d9e.js",
-      "static/chunks/main-app-a2398e4fcadc7bc0.js",
-      "static/chunks/bc9e92e6-3ed01027143ab600.js",
-      "static/chunks/ae6eea6a-8d0049feb505e622.js",
-      "static/chunks/831-3220a06bac0462be.js",
-      "static/chunks/app/cognitive/page-33ed284191d03db3.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/layout.js"
     ],
     "/page": [
-      "static/chunks/webpack-0a7df1a4a345eb07.js",
-      "static/chunks/4bd1b696-cf99354d2bf0b145.js",
-      "static/chunks/517-5ab1799f34ea8d9e.js",
-      "static/chunks/main-app-a2398e4fcadc7bc0.js",
-      "static/chunks/bc9e92e6-3ed01027143ab600.js",
-      "static/chunks/ae6eea6a-8d0049feb505e622.js",
-      "static/chunks/831-3220a06bac0462be.js",
-      "static/chunks/app/page-87bccdec170b10cc.js"
-    ],
-    "/login/page": [
-      "static/chunks/webpack-0a7df1a4a345eb07.js",
-      "static/chunks/4bd1b696-cf99354d2bf0b145.js",
-      "static/chunks/517-5ab1799f34ea8d9e.js",
-      "static/chunks/main-app-a2398e4fcadc7bc0.js",
-      "static/chunks/bc9e92e6-3ed01027143ab600.js",
-      "static/chunks/ae6eea6a-8d0049feb505e622.js",
-      "static/chunks/831-3220a06bac0462be.js",
-      "static/chunks/app/login/page-9f1f1e98f15f59e5.js"
-    ],
-    "/pricing/page": [
-      "static/chunks/webpack-0a7df1a4a345eb07.js",
-      "static/chunks/4bd1b696-cf99354d2bf0b145.js",
-      "static/chunks/517-5ab1799f34ea8d9e.js",
-      "static/chunks/main-app-a2398e4fcadc7bc0.js",
-      "static/chunks/app/pricing/page-a4050278d6d69b98.js"
-    ],
-    "/resources/alabama/page": [
-      "static/chunks/webpack-0a7df1a4a345eb07.js",
-      "static/chunks/4bd1b696-cf99354d2bf0b145.js",
-      "static/chunks/517-5ab1799f34ea8d9e.js",
-      "static/chunks/main-app-a2398e4fcadc7bc0.js",
-      "static/chunks/app/resources/alabama/page-58e91c12ad9f238f.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
     ]
   }
 }
