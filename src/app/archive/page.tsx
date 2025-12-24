@@ -4,6 +4,8 @@ import { db, auth } from '@/firebase';
 import { collection, query, orderBy, getDocs, doc, updateDoc, writeBatch } from 'firebase/firestore';
 import { jsPDF } from 'jspdf';
 import AdminGuard from '@/components/AdminGuard';
+import SuccessBadge from '@/components/SuccessBadge';
+import { Suspense } from 'react';
 
 export default function ExecutiveArchive() {
   const [audits, setAudits] = useState<any[]>([]);
@@ -56,6 +58,7 @@ export default function ExecutiveArchive() {
 
   return (
     <AdminGuard>
+<Suspense fallback={null}><SuccessBadge /></Suspense>
       <div style={{ padding: '40px', fontFamily: 'sans-serif', maxWidth: '1000px', margin: 'auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <h1>??? Executive Strategic Archive</h1>
