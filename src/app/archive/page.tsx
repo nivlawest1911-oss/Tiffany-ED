@@ -1,62 +1,95 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { db } from '@/firebase';
-import { collection, query, orderBy, getDocs } from 'firebase/firestore';
+import { collection, query, orderBy, getDocs, doc, updateDoc } from 'firebase/firestore';
 import { jsPDF } from 'jspdf';
-import AdminGuard from '@/components/AdminGuard'; // ?? Import the guard
+import AdminGuard from '@/components/AdminGuard';
 
 export default function ExecutiveArchive() {
   const [audits, setAudits] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [feedbackText, setFeedbackText] = useState('');
 
-  useEffect(() => {
-    const fetchAudits = async () => {
-      try {
-        const q = query(collection(db, 'strategicAudits'), orderBy('timestamp', 'desc'));
-        const querySnapshot = await getDocs(q);
-        const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setAudits(data);
-      } catch (error) {
-        console.error("Archive Load Error:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchAudits();
-  }, []);
+  const fetchAudits = async () => {
+    const q = query(collection(db, 'strategicAudits'), orderBy('timestamp', 'desc'));
+    const querySnapshot = await getDocs(q);
+    const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    setAudits(data);
+    setLoading(false);
+  };
+
+  useEffect(() => { fetchAudits(); }, []);
+
+  const saveFeedback = async (id: string) => {
+    const auditRef = doc(db, 'strategicAudits', id);
+    await updateDoc(auditRef, { 
+      executiveCorrection: feedbackText,
+      lastRefined: new Date()
+    });
+    setEditingId(null);
+    fetchAudits(); // Refresh list
+  };
 
   const downloadPDF = (audit: any) => {
     const doc = new jsPDF();
-    const date = audit.timestamp?.toDate().toLocaleDateString() || 'N/A';
-    doc.setFontSize(22);
-    doc.setTextColor(0, 112, 243);
+    doc.setFontSize(20);
     doc.text('EdIntel Strategic Memo', 20, 20);
-    doc.setFontSize(10);
-    doc.setTextColor(100);
-    doc.text('CONFIDENTIAL - FOR DISTRICT LEADERSHIP ONLY', 20, 28);
-    doc.save('EdIntel_Audit_' + date.replace(/\//g, '-') + '.pdf');
+    doc.setFontSize(12);
+    doc.text('Strategic Analysis:', 20, 40);
+    const strategy = doc.splitTextToSize(audit.strategicOutput, 170);
+    doc.text(strategy, 20, 50);
+    
+    if (audit.executiveCorrection) {
+      const correctionStart = 60 + (strategy.length * 7);
+      doc.setFont("helvetica", "bold");
+      doc.text('Executive Refinements:', 20, correctionStart);
+      doc.setFont("helvetica", "normal");
+      doc.text(doc.splitTextToSize(audit.executiveCorrection, 170), 20, correctionStart + 10);
+    }
+    doc.save('Audit_Export.pdf');
   };
 
   return (
-    <AdminGuard> { /* ?? Wrap the entire UI in the Guard */ }
+    <AdminGuard>
       <div style={{ padding: '40px', fontFamily: 'sans-serif', maxWidth: '1000px', margin: 'auto' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h1>??? Executive Strategic Archive</h1>
-          <a href="/" style={{ textDecoration: 'none', color: '#0070f3', fontWeight: 'bold' }}>? Return to Suite</a>
-        </div>
+        <h1>??? Executive Strategic Archive</h1>
+        <p>Review and Refine AI Outputs for Project Alpha</p>
         <hr />
-        {loading ? (
-          <p>Retrieving secure district records...</p>
-        ) : (
-          audits.map((audit) => (
-            <div key={audit.id} style={{ padding: '25px', border: '1px solid #eee', marginBottom: '25px', borderRadius: '12px', position: 'relative' }}>
-              <button onClick={() => downloadPDF(audit)} style={{ position: 'absolute', right: '25px', top: '25px', padding: '10px', backgroundColor: '#333', color: '#fff', borderRadius: '6px' }}>?? Download Memo</button>
-              <small>{audit.timestamp?.toDate().toLocaleString()}</small>
-              <h3>Prompt: {audit.executivePrompt}</h3>
-              <p>{audit.strategicOutput}</p>
+        {loading ? <p>Loading district history...</p> : audits.map((audit) => (
+          <div key={audit.id} style={{ padding: '25px', border: '1px solid #eee', marginBottom: '25px', borderRadius: '12px', backgroundColor: '#fff' }}>
+            <small>{audit.timestamp?.toDate().toLocaleString()}</small>
+            <h3>Prompt: {audit.executivePrompt}</h3>
+            <p style={{ backgroundColor: '#f9f9f9', padding: '15px', borderRadius: '8px' }}>{audit.strategicOutput}</p>
+            
+            {audit.executiveCorrection && (
+              <div style={{ marginTop: '10px', padding: '10px', borderLeft: '4px solid #0070f3', backgroundColor: '#eef6ff' }}>
+                <strong>Executive Refinement:</strong>
+                <p>{audit.executiveCorrection}</p>
+              </div>
+            )}
+
+            <div style={{ marginTop: '20px' }}>
+              {editingId === audit.id ? (
+                <>
+                  <textarea 
+                    style={{ width: '100%', height: '80px', marginBottom: '10px' }}
+                    value={feedbackText}
+                    onChange={(e) => setFeedbackText(e.target.value)}
+                    placeholder="Add your corrections or leadership notes here..."
+                  />
+                  <button onClick={() => saveFeedback(audit.id)} style={{ marginRight: '10px' }}>Save Refinement</button>
+                  <button onClick={() => setEditingId(null)}>Cancel</button>
+                </>
+              ) : (
+                <>
+                  <button onClick={() => { setEditingId(audit.id); setFeedbackText(audit.executiveCorrection || ''); }} style={{ marginRight: '10px' }}>?? Refine Audit</button>
+                  <button onClick={() => downloadPDF(audit)}>?? Export PDF</button>
+                </>
+              )}
             </div>
-          ))
-        )}
+          </div>
+        ))}
       </div>
     </AdminGuard>
   );
