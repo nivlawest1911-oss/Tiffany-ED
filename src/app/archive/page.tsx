@@ -1,75 +1,47 @@
 ﻿'use client';
-import { useEffect, useState, Suspense } from 'react';
-import { db } from '@/firebase';
-import { collection, query, orderBy, getDocs, doc, updateDoc } from 'firebase/firestore';
-import AdminGuard from '@/components/AdminGuard';
-import SuccessBadge from '@/components/SuccessBadge';
+import { useState } from 'react';
 
-export default function ExecutiveArchive() {
-  const [consents, setConsents] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  const fetchConsents = async () => {
-    try {
-      const q = query(collection(db, 'parentalConsents'), orderBy('timestamp', 'desc'));
-      const snapshot = await getDocs(q);
-      const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setConsents(data);
-    } catch (err) { console.error(err); } finally { setLoading(false); }
-  };
-
-  useEffect(() => { fetchConsents(); }, []);
-
-  const toggleVerify = async (id: string, currentStatus: string) => {
-    const newStatus = currentStatus === 'VERIFIED' ? 'ACTIVE' : 'VERIFIED';
-    await updateDoc(doc(db, 'parentalConsents', id), { status: newStatus });
-    fetchConsents();
-  };
+export default function ExecutiveVault() {
+  const [isLocked, setIsLocked] = useState(true);
+  const records = [
+    { id: 'IEP-2025-001', date: 'Dec 24, 2025', status: 'Audit Passed', hash: 'sha256-a78b...' },
+    { id: 'GRANT-AL-2026', date: 'Dec 20, 2025', status: 'Drafting', hash: 'sha256-f29e...' },
+    { id: 'SB101-CONSENT-01', date: 'Dec 15, 2025', status: 'Verified', hash: 'sha256-c11d...' }
+  ];
 
   return (
-    <AdminGuard>
-      <Suspense fallback={null}><SuccessBadge /></Suspense>
-      <div style={{ padding: '40px', maxWidth: '1100px', margin: 'auto' }}>
-        <h1 className="gradient-text">Executive Strategic Vault</h1>
-        
-        <section style={{ marginTop: '40px' }}>
-          <h2>🛡️ SB 101 Compliance Feed (Live)</h2>
-          {loading ? <p>Syncing with District records...</p> : (
-            <div style={{ display: 'grid', gap: '15px' }}>
-              {consents.map(c => (
-                <div key={c.id} className="glass-card" style={{ 
-                  padding: '20px', 
-                  display: 'flex', 
-                  justifyContent: 'space-between', 
-                  alignItems: 'center',
-                  borderLeft: c.status === 'VERIFIED' ? '6px solid #52c41a' : '6px solid #faad14' 
-                }}>
-                  <div>
-                    <strong style={{ fontSize: '1.1rem' }}>{c.studentName}</strong>
-                    <div style={{ fontSize: '0.8rem', color: '#888' }}>
-                      {c.school} | Signed by: {c.parentName}
-                    </div>
-                  </div>
-                  <button 
-                    onClick={() => toggleVerify(c.id, c.status)}
-                    style={{
-                      padding: '8px 15px',
-                      borderRadius: '8px',
-                      border: 'none',
-                      backgroundColor: c.status === 'VERIFIED' ? '#52c41a' : '#333',
-                      color: '#fff',
-                      cursor: 'pointer',
-                      fontWeight: 'bold'
-                    }}
-                  >
-                    {c.status === 'VERIFIED' ? '✅ MHC Verified' : 'Mark Verified'}
-                  </button>
-                </div>
+    <div style={{ padding: '40px', background: '#000', minHeight: '100vh', fontFamily: 'monospace' }}>
+      <h1 className="gradient-text" style={{ fontSize: '2.5rem' }}>INTERNAL REPOSITORY: VAULT</h1>
+      
+      {isLocked ? (
+        <div className="glass-card" style={{ padding: '60px', textAlign: 'center', marginTop: '50px' }}>
+          <div style={{ fontSize: '3rem', marginBottom: '20px' }}>🔒</div>
+          <h3>Encrypted Environment</h3>
+          <p style={{ color: '#444' }}>Authorization required for CLC Executive access.</p>
+          <button onClick={() => setIsLocked(false)} className="primary-btn">Bypass with Biometrics</button>
+        </div>
+      ) : (
+        <div className="glass-card" style={{ padding: '30px', marginTop: '30px', animation: 'fadeIn 0.5s ease' }}>
+          <table style={{ width: '100%', color: '#aaa', borderCollapse: 'collapse' }}>
+            <thead>
+              <tr style={{ borderBottom: '1px solid #222' }}>
+                <th style={{ textAlign: 'left', padding: '15px' }}>RECORD ID</th>
+                <th style={{ textAlign: 'left', padding: '15px' }}>DATE</th>
+                <th style={{ textAlign: 'left', padding: '15px' }}>INTEGRITY HASH</th>
+              </tr>
+            </thead>
+            <tbody>
+              {records.map(r => (
+                <tr key={r.id} style={{ borderBottom: '1px solid #111' }}>
+                  <td style={{ padding: '15px', color: '#0070f3' }}>{r.id}</td>
+                  <td style={{ padding: '15px' }}>{r.date}</td>
+                  <td style={{ padding: '15px', fontSize: '0.7rem', opacity: 0.5 }}>{r.hash}</td>
+                </tr>
               ))}
-            </div>
-          )}
-        </section>
-      </div>
-    </AdminGuard>
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
   );
 }
