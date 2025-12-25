@@ -1,15 +1,28 @@
-﻿'use client';
+﻿import AdminGuard from '@/components/AdminGuard';
 import DistrictROI from '@/components/DistrictROI';
-import TokenSovereign from '@/components/TokenSovereign';
+import MemoGenerator from '@/components/MemoGenerator';
 
 export default function BoardHub() {
   return (
-    <div style={{ padding: '40px', maxWidth: '1200px', margin: 'auto' }}>
-      <h1 className="gradient-text" style={{ fontSize: '3rem' }}>District Governance Dashboard</h1>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '40px', marginTop: '30px' }}>
-        <TokenSovereign />
+    <AdminGuard>
+      <main className="min-h-screen bg-[#050505] text-white p-12">
+        <header className="flex justify-between items-start mb-12">
+          <div>
+            <h1 className="text-5xl font-black italic tracking-tighter uppercase">Executive <span className="text-emerald-500">Board</span> Hub</h1>
+            <p className="text-gray-500 font-mono mt-2">SECURE NODE: MOBILE_COUNTY_PRICHARD_01</p>
+          </div>
+          <MemoGenerator />
+        </header>
+        
         <DistrictROI />
-      </div>
-    </div>
+        
+        <section className="mt-12 p-8 border border-white/5 bg-white/[0.02] rounded-3xl">
+          <h3 className="text-xl font-bold mb-4">Neural Grid Activity</h3>
+          <div className="h-64 flex items-center justify-center border border-dashed border-white/10 rounded-xl text-gray-600">
+            [Real-time Synaptic Stream Loading...]
+          </div>
+        </section>
+      </main>
+    </AdminGuard>
   );
 }

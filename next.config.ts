@@ -1,17 +1,11 @@
 ﻿import type { NextConfig } from "next";
+import path from "path";
 
 const nextConfig: NextConfig = {
-  output: 'standalone',
-  typescript: {
-    // Allows the build to finish even with minor type mismatches
-    ignoreBuildErrors: true,
-  },
-  eslint: {
-    // Bypasses the missing "google" config error
-    ignoreDuringBuilds: true,
-  },
-  images: {
-    unoptimized: true,
+  transpilePackages: ['three', '@react-three/fiber', '@react-three/drei'],
+  turbopack: {
+    // Force Turbopack to treat this specific folder as the root
+    root: path.join(__dirname), 
   },
 };
 
