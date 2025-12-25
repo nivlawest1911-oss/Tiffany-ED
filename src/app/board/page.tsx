@@ -1,2 +1,64 @@
+'use client';
+
 import NeuralAgentController from '@/components/Visuals/NeuralAgentController';
-import AIMediaHub from '@/components/Visuals/AIMediaHub'; import WearableHub from '@/components/Visuals/WearableHub'; import SpatialCommandBridge from '@/components/Visuals/SpatialCommandBridge'; import HolographicMatrix from '@/components/Visuals/HolographicMatrix'; import HyperMediaHub from '@/components/Visuals/HyperMediaHub'; import AITwinModule from '@/components/Visuals/AITwinModule'; import EdIntelAIAgent from '@/components/Visuals/EdIntelAIAgent'; import MediaCommandHub from '@/components/Visuals/MediaCommandHub'; import FeederAnalytics from '@/components/Visuals/FeederAnalytics'; import EdIntelCommand from '@/components/Visuals/EdIntelCommand'; 'use client'; import AdminGuard from '../../components/Auth/AdminGuard'; import ConsentLedger from '../../components/ConsentLedger'; import { auth } from '@/lib/firebase'; import { useRouter } from 'next/navigation';  export default function BoardPage() {   const router = useRouter();   const handleLogout = async () => { await auth.signOut(); router.push('/'); };    return (     <AdminGuard>       <main className="min-h-screen bg-black text-white p-8 relative overflow-hidden">         <div className="relative z-10 max-w-7xl mx-auto text-center border border-white/10 p-12 rounded-2xl bg-white/5">           <h1 className="text-4xl font-bold text-blue-400 mb-8 tracking-tighter">EXECUTIVE HUB</h1>           <button onClick={handleLogout} className="mb-8 px-6 py-2 border border-white/20 hover:bg-red-500/20 hover:border-red-500/50 transition-all text-xs tracking-widest uppercase">Terminate Session</button>           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">             <div className="bg-black border border-white/10 p-6 rounded-lg font-mono text-blue-400 uppercase">Ledger: Online</div>             <div className="bg-black border border-white/10 p-6 rounded-lg font-mono text-purple-400 uppercase">Neural: 0.0%</div>             <div className="bg-black border border-white/10 p-6 rounded-lg font-mono text-green-400 uppercase">Alabama Achievement Value: Live</div>           </div>           <ConsentLedger />         </div>       </main>     </AdminGuard>   ); }
+import AIMediaHub from '@/components/Visuals/AIMediaHub';
+import WearableHub from '@/components/Visuals/WearableHub';
+import SpatialCommandBridge from '@/components/Visuals/SpatialCommandBridge';
+import AITwinModule from '@/components/Visuals/AITwinModule';
+import HyperMediaHub from '@/components/Visuals/HyperMediaHub';
+import AdminGuard from '../../components/Auth/AdminGuard';
+import ConsentLedger from '../../components/ConsentLedger';
+import { auth } from '@/lib/firebase';
+import { useRouter } from 'next/navigation';
+
+export default function BoardPage() {
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await auth.signOut();
+    router.push('/');
+  };
+
+  return (
+    <AdminGuard>
+      <main className="min-h-screen bg-black text-white p-8 relative overflow-hidden">
+        {/* BACKGROUND DECORATION */}
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10 pointer-events-none" />
+        
+        <div className="relative z-10 max-w-7xl mx-auto">
+          {/* HEADER COMMAND */}
+          <div className="flex justify-between items-center mb-12 p-8 border border-white/10 rounded-2xl bg-white/5 backdrop-blur-md">
+            <div>
+              <h1 className="text-4xl font-black text-blue-400 tracking-tighter uppercase italic">Executive Hub</h1>
+              <p className="text-[10px] text-white/40 tracking-[0.4em] uppercase font-bold">Dr. Alvin West | Chief Systems Architect</p>
+            </div>
+            <button 
+              onClick={handleLogout} 
+              className="px-6 py-2 border border-red-500/50 hover:bg-red-500/20 text-red-500 text-[10px] font-black uppercase tracking-widest transition-all"
+            >
+              Terminate Session
+            </button>
+          </div>
+
+          {/* MASTER COMPONENT STACK */}
+          <div className="space-y-12">
+            <SpatialCommandBridge />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+               <AITwinModule />
+               <NeuralAgentController />
+            </div>
+            <HyperMediaHub />
+            <WearableHub />
+            <AIMediaHub />
+            
+            {/* DATA LEDGER SECTION */}
+            <div className="p-12 border border-white/10 rounded-3xl bg-white/5">
+               <h2 className="text-xl font-bold text-white mb-8 tracking-widest uppercase">Mobile County Consent Ledger</h2>
+               <ConsentLedger />
+            </div>
+          </div>
+        </div>
+      </main>
+    </AdminGuard>
+  );
+}
