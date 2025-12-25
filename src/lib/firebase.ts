@@ -3,9 +3,9 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDTOhPhJlfUBAJjVhQjHKdXHiBLf2jl2As",
-  authDomain: "studio-9997686479-ca258.firebaseapp.com",
-  projectId: "studio-9997686479-ca258",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
   storageBucket: "studio-9997686479-ca258.firebasestorage.app",
   messagingSenderId: "501461250259",
   appId: "1:501461250259:web:db256926f7321b4d65e426"
