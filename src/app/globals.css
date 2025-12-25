@@ -1,4 +1,4 @@
-﻿@tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -47,3 +47,4 @@ body {
   background: var(--neon-blue);
   border-radius: 10px;
 }
+
