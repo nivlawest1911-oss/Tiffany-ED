@@ -17,7 +17,7 @@ export default function BoardPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             <div className="bg-black border border-white/10 p-6 rounded-lg font-mono text-blue-400 uppercase">Ledger: Online</div>
             <div className="bg-black border border-white/10 p-6 rounded-lg font-mono text-purple-400 uppercase">Neural: 0.0%</div>
-            <div className="bg-black border border-white/10 p-6 rounded-lg font-mono text-green-400 uppercase">ROI: Live</div>
+            <div className="bg-black border border-white/10 p-6 rounded-lg font-mono text-green-400 uppercase">Alabama Achievement Value: Live</div>
           </div>
           <ConsentLedger />
         </div>
