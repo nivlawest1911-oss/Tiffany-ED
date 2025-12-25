@@ -1,17 +1,15 @@
-﻿import MorphicNeuralMesh from '@/components/Visuals/MorphicNeuralMesh';
 import SynapticToast from '@/components/Visuals/Notifications/SynapticToast';
 
-export default function SovereignDashboard() {
+export default function Home() {
   return (
-    <main className="relative min-h-screen bg-black overflow-hidden">
-      <MorphicNeuralMesh />
-      <div className="relative z-10 p-20">
-        <h1 className="text-6xl font-black text-white italic tracking-tighter uppercase">
-          Sovereign <span className="text-emerald-500">State</span> Intel
-        </h1>
-        <p className="text-gray-400 mt-4 font-mono uppercase tracking-widest text-xs">
-          Mobile County Node: Prichard-01 | Synaptic Load: Optimal
+    <main className="min-h-screen bg-black flex flex-col items-center justify-center p-24">
+      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm flex">
+        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30 text-white">
+          Sovereign Node: Prichard Alpha
         </p>
+      </div>
+      <div className="relative flex place-items-center">
+        <h1 className="text-6xl font-bold text-white tracking-tighter">TIFFANY-ED</h1>
       </div>
       <SynapticToast message="Neural Grid Active" type="success" />
     </main>
