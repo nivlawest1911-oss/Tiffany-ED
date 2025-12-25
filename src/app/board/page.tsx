@@ -1,6 +1,6 @@
-'use client';
-import AdminGuard from '@/components/Auth/AdminGuard';
-import ConsentLedger from '@/components/ConsentLedger';
+﻿'use client';
+import AdminGuard from '../../components/Auth/AdminGuard';
+import ConsentLedger from '../../components/ConsentLedger';
 import { auth } from '../../lib/firebase';
 import { useRouter } from 'next/navigation';
 
@@ -26,7 +26,7 @@ export default function BoardPage() {
               <h1 className="text-4xl font-light tracking-tighter">
                 EXECUTIVE <span className="font-bold text-blue-400">HUB</span>
               </h1>
-              <p className="text-white/50 text-sm tracking-widest mt-1">SOVEREIGN INTELLIGENCE � PRICHARD NODE</p>
+              <p className="text-white/50 text-sm tracking-widest mt-1">SOVEREIGN INTELLIGENCE • PRICHARD NODE</p>
             </div>
             <button 
               onClick={handleLogout}
