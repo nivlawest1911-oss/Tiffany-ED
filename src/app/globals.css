@@ -53,3 +53,7 @@ body {
 
 .hologram-optimized { transform: translateZ(0); backface-visibility: hidden; }
 
+
+* { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+.gpu-accelerated { transform: translateZ(0); backface-visibility: hidden; perspective: 1000px; }
+
