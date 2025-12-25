@@ -1,14 +1,18 @@
-﻿import '@/app/globals.css';
-import CircadianShield from '@/components/CircadianShield';
-import NeuralReset from '@/components/NeuralReset';
+﻿'use client';
+import './globals.css';
+import MorphicNeuralMesh from '@/components/Visuals/MorphicNeuralMesh';
+import SynapticToast from '@/components/Visuals/Notifications/SynapticToast';
+import { motion, AnimatePresence } from 'framer-motion';
 
-export default function RootLayout({ children }) {
+export default function SovereignLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body style={{ margin: 0, background: '#000', color: '#fff' }}>
-        <CircadianShield />
-        <NeuralReset />
-        <main>{children}</main>
+      <body className="bg-black text-white antialiased overflow-x-hidden font-sans">
+        <MorphicNeuralMesh />
+        <SynapticToast />
+        <main className="relative z-10 min-h-screen">
+          {children}
+        </main>
       </body>
     </html>
   );
