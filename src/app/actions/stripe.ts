@@ -1,15 +1,13 @@
-﻿'use client';
-
-export async function createCheckoutSession(priceId: string) {
-  // In a real production environment, this calls your backend 
-  // to generate a Stripe Checkout URL
-  console.log(`[Stripe] Initializing secure portal for: ${priceId}`);
-  
-  // Example of redirecting to your Stripe Payment Link
-  const stripeLinks = {
-    'specialist': 'https://buy.stripe.com/test_51...your_link',
-    'practitioner': 'https://buy.stripe.com/test_51...your_link',
+export const handleCheckout = async (priceId: string) => {
+  const stripeLinks: Record<string, string> = {
+    specialist: 'https://buy.stripe.com/test_specialist_link',
+    practitioner: 'https://buy.stripe.com/test_practitioner_link',
   };
 
-  window.location.href = stripeLinks[priceId] || '/pricing';
-}
+  // We cast as string to satisfy the redirect type
+  const targetLink = stripeLinks[priceId] || '/pricing';
+  
+  if (typeof window !== 'undefined') {
+    window.location.href = targetLink;
+  }
+};
