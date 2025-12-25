@@ -34,7 +34,7 @@ export default function GlobalSovereignHeader() {
             <div className="flex items-center gap-2 mt-1">
               <Shield className="w-3 h-3 text-[#FFD700]" />
               <span className="text-[10px] text-[#FFD700] tracking-[0.2em] uppercase font-black">
-                Dr. Alvin West | Chief Architect
+                Dr. Alvin West, DBA, MBA, MS, MS, BS | Chief Systems Architect
               </span>
             </div>
           </div>
