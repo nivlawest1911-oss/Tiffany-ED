@@ -1,17 +1,7 @@
 import { NextResponse } from 'next/server';
-import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2025-12-15.clover' as any,
-});
+export const dynamic = 'force-dynamic';
 
 export async function POST(req: Request) {
-  try {
-    const body = await req.text();
-    const signature = req.headers.get('stripe-signature') || '';
-    const event = stripe.webhooks.constructEvent(body, signature, process.env.STRIPE_WEBHOOK_SECRET || '');
-    return NextResponse.json({ received: true });
-  } catch (err: any) {
-    return NextResponse.json({ error: 'Webhook Error' }, { status: 400 });
-  }
+  return NextResponse.json({ received: true }, { status: 200 });
 }
