@@ -1,13 +1,10 @@
 ﻿rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Only allow parents to write, but don't allow anyone to "list" all signatures
     match /parental_consents/{consentId} {
       allow create: if true; 
       allow read: if request.auth != null && request.auth.token.admin == true;
     }
-    
-    // Default deny for all other collections
     match /{document=**} {
       allow read, write: if false;
     }
