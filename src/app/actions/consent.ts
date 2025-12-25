@@ -4,13 +4,13 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 export const submitConsent = async (formData: { 
   studentName: string; 
   parentName: string;
-  district: string; // New: To specify which Mobile County district
+  feederPattern: string; // e.g., Williamson, Baker, MGM, Murphy
 }) => {
   try {
     await addDoc(collection(db, 'parental_consents'), {
       ...formData,
-      county: 'Mobile County',
-      state: 'Alabama',
+      district: 'Mobile County',
+      node: 'MCPSS_Sovereign_01',
       timestamp: serverTimestamp(),
       status: 'verified'
     });
