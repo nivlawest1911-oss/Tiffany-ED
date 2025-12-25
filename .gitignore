@@ -13,3 +13,5 @@ node_modules/
 
 serviceAccountKey.json
 set-admin.js
+.vercel
+.env*.local
