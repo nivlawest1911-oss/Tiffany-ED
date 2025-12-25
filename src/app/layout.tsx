@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function SovereignLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-[#003865] text-white antialiased overflow-x-hidden font-sans">
+      <body className="bg-[#001A33]
         <MorphicNeuralMesh />
         <SynapticToast />
         <main className="relative z-10 min-h-screen">
