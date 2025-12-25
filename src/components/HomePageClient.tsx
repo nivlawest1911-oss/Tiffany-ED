@@ -1,3 +1,4 @@
+'use client';
 // src/components/HomePageClient.tsx
 "use client";
 

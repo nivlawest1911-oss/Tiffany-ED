@@ -1,4 +1,5 @@
-﻿'use client';
+'use client';
+'use client';
 import { useState } from 'react';
 
 export default function IEPStressTest() {
@@ -10,7 +11,7 @@ export default function IEPStressTest() {
     // Simulating a High-Fidelity Prompt Pivot
     setTimeout(() => {
       const response = `
-### 🛡️ STRATEGIC DIVERSION PLAN: CASE #882
+### ??? STRATEGIC DIVERSION PLAN: CASE #882
 **DE-ESCALATION STATUS:** SUCCESSFUL
 **REASON FOR PIVOT:** Cognitive Overload (Mismatched Literacy Lexile).
 
@@ -27,7 +28,7 @@ export default function IEPStressTest() {
 
   return (
     <div className="glass-card" style={{ padding: '40px', background: '#050505', border: '1px solid #ff3860' }}>
-      <h2 style={{ color: '#ff3860' }}>⚠️ IEP ARCHITECT: STRESS TEST MODE</h2>
+      <h2 style={{ color: '#ff3860' }}>?? IEP ARCHITECT: STRESS TEST MODE</h2>
       <p style={{ color: '#888' }}>Testing: Behavioral-to-Literacy Pivot Logic</p>
       
       <button 

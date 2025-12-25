@@ -1,4 +1,5 @@
-﻿'use client';
+'use client';
+'use client';
 import { useState } from 'react';
 
 export default function PricingPage() {
@@ -61,7 +62,7 @@ export default function PricingPage() {
 
             <ul style={{ listStyle: 'none', padding: 0, flexGrow: 1, marginBottom: '40px' }}>
               {tier.features.map(f => (
-                <li key={f} style={{ marginBottom: '12px', color: '#aaa', fontSize: '0.95rem' }}>✓ {f}</li>
+                <li key={f} style={{ marginBottom: '12px', color: '#aaa', fontSize: '0.95rem' }}>? {f}</li>
               ))}
             </ul>
 

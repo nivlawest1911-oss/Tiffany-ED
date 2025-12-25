@@ -1,4 +1,5 @@
-﻿'use client';
+'use client';
+'use client';
 import { useState } from 'react';
 
 export default function VoiceAssistant() {
@@ -28,7 +29,7 @@ export default function VoiceAssistant() {
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       cursor: 'pointer', boxShadow: '0 0 20px rgba(0,112,243,0.5)', zIndex: 1000
     }}>
-      <span style={{ fontSize: '24px' }}>{isListening ? '🛑' : '🎙️'}</span>
+      <span style={{ fontSize: '24px' }}>{isListening ? '??' : '???'}</span>
       {isListening && <div className="pulse-ring"></div>}
     </div>
   );

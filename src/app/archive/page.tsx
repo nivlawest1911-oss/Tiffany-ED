@@ -1,4 +1,5 @@
-﻿'use client';
+'use client';
+'use client';
 import { useState } from 'react';
 
 export default function ExecutiveVault() {
@@ -15,7 +16,7 @@ export default function ExecutiveVault() {
       
       {isLocked ? (
         <div className="glass-card" style={{ padding: '60px', textAlign: 'center', marginTop: '50px' }}>
-          <div style={{ fontSize: '3rem', marginBottom: '20px' }}>🔒</div>
+          <div style={{ fontSize: '3rem', marginBottom: '20px' }}>??</div>
           <h3>Encrypted Environment</h3>
           <p style={{ color: '#444' }}>Authorization required for CLC Executive access.</p>
           <button onClick={() => setIsLocked(false)} className="primary-btn">Bypass with Biometrics</button>

@@ -1,4 +1,5 @@
 'use client';
+'use client';
 
 import NeuralAgentController from '@/components/Visuals/NeuralAgentController';
 import AIMediaHub from '@/components/Visuals/AIMediaHub';

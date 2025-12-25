@@ -1,4 +1,5 @@
-﻿'use client';
+'use client';
+'use client';
 import { useState, useEffect } from 'react';
 
 export default function StudentAchievement() {
@@ -27,7 +28,7 @@ export default function StudentAchievement() {
         {/* Streak Card */}
         <div className="glass-card" style={{ padding: '30px', textAlign: 'center' }}>
           <h3 style={{ color: '#888' }}>Literacy Streak</h3>
-          <div style={{ fontSize: '4rem', fontWeight: 'bold', color: '#ffdd57', margin: '10px 0' }}>{streak} 🔥</div>
+          <div style={{ fontSize: '4rem', fontWeight: 'bold', color: '#ffdd57', margin: '10px 0' }}>{streak} ??</div>
           <p>Consecutive days of Cognitive Fitness</p>
         </div>
 
@@ -37,7 +38,7 @@ export default function StudentAchievement() {
           <div style={{ display: 'flex', gap: '15px', marginTop: '20px' }}>
             {['Strategic Reader', 'Logic Master', 'Data Auditor'].map(m => (
               <div key={m} style={{ padding: '10px 20px', background: 'rgba(0,112,243,0.2)', border: '1px solid #0070f3', borderRadius: '20px', fontSize: '0.8rem' }}>
-                🏆 {m}
+                ?? {m}
               </div>
             ))}
           </div>

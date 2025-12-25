@@ -1,4 +1,5 @@
-﻿'use client';
+'use client';
+'use client';
 import { useState } from 'react';
 import { Play, BookOpen, UserCheck, Share2 } from 'lucide-react';
 

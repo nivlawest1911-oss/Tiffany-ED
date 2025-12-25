@@ -1,4 +1,5 @@
-﻿'use client';
+'use client';
+'use client';
 import { useState, useEffect } from 'react';
 import { Music, Zap, Star } from 'lucide-react';
 

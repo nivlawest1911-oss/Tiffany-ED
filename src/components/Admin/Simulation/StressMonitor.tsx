@@ -1,4 +1,5 @@
-﻿'use client';
+'use client';
+'use client';
 import { useState } from 'react';
 import { runStressTest } from '@/utils/simulation/stressTest';
 import { Activity, Zap, ShieldAlert, Cpu } from 'lucide-react';

@@ -1,4 +1,5 @@
-﻿'use client';
+'use client';
+'use client';
 import { useState, useEffect } from 'react';
 
 export default function OfflineBanner() {
@@ -18,7 +19,7 @@ export default function OfflineBanner() {
       textAlign: 'center', padding: '10px', fontSize: '0.9rem',
       letterSpacing: '1px', boxShadow: '0 4px 10px rgba(0,0,0,0.3)'
     }}>
-      ⚡ TRAIL MODE ACTIVE: System syncing to Local Neural Cache. Changes will push when District link restores.
+      ? TRAIL MODE ACTIVE: System syncing to Local Neural Cache. Changes will push when District link restores.
     </div>
   );
 }

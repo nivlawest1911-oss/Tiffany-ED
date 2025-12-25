@@ -1,4 +1,5 @@
-﻿'use client';
+'use client';
+'use client';
 import { useState } from 'react';
 import { Volume2, TrendingUp, DollarSign, Activity } from 'lucide-react';
 

@@ -1,4 +1,5 @@
-﻿'use client';
+'use client';
+'use client';
 import { useEffect, useState } from 'react';
 import { db } from '@/firebase';
 import { collection, query, getDocs, orderBy } from 'firebase/firestore';

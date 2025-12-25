@@ -1,4 +1,5 @@
-﻿'use client';
+'use client';
+'use client';
 import { useState, useEffect } from 'react';
 
 export default function NeuralReset() {
@@ -14,7 +15,7 @@ export default function NeuralReset() {
     <div style={{ position: 'fixed', bottom: '20px', right: '20px', zIndex: 1000 }}>
       {isActive ? (
         <div className="glass-card" style={{ padding: '20px', border: '2px solid #00d1b2', animation: 'pulse 2s infinite' }}>
-          <p style={{ margin: 0, fontWeight: 'bold', color: '#00d1b2' }}>🧠 COGNITIVE RESET ACTIVE</p>
+          <p style={{ margin: 0, fontWeight: 'bold', color: '#00d1b2' }}>?? COGNITIVE RESET ACTIVE</p>
           <p style={{ fontSize: '0.8rem', color: '#888' }}>Adjusting spectral warmth. Inhale for 4, hold for 4, exhale for 4...</p>
         </div>
       ) : (
@@ -23,7 +24,7 @@ export default function NeuralReset() {
           style={{ background: '#111', color: '#666', border: '1px solid #333', padding: '10px', borderRadius: '50%', cursor: 'pointer' }}
           title="Manual Neural Reset"
         >
-          🧘
+          ??
         </button>
       )}
     </div>

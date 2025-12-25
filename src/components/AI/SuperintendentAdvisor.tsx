@@ -1,4 +1,5 @@
-﻿'use client';
+'use client';
+'use client';
 import { useState } from 'react';
 import { Mic, Cpu, Globe, BarChart3 } from 'lucide-react';
 

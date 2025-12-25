@@ -1,4 +1,5 @@
-﻿'use client';
+'use client';
+'use client';
 import { useState, useEffect } from 'react';
 import TokenWhistle from '@/components/TokenWhistle';
 import NeuralPulse from '@/components/NeuralPulse';
@@ -19,9 +20,9 @@ export default function SovereignDashboard({ children }) {
           </div>
           
           <nav className="space-y-4">
-            <button className="w-full text-left p-3 hover:bg-[#111] rounded-lg transition">🎮 Training Center</button>
-            <button className="w-full text-left p-3 hover:bg-[#111] rounded-lg transition">📊 Growth Stats</button>
-            <button className="w-full text-left p-3 hover:bg-[#111] rounded-lg transition">🌐 Social Feed</button>
+            <button className="w-full text-left p-3 hover:bg-[#111] rounded-lg transition">?? Training Center</button>
+            <button className="w-full text-left p-3 hover:bg-[#111] rounded-lg transition">?? Growth Stats</button>
+            <button className="w-full text-left p-3 hover:bg-[#111] rounded-lg transition">?? Social Feed</button>
           </nav>
         </div>
         

@@ -1,4 +1,5 @@
-﻿'use client';
+'use client';
+'use client';
 import { useState, useEffect } from 'react';
 
 export default function TrailModeBanner() {
@@ -22,7 +23,7 @@ export default function TrailModeBanner() {
       color: '#000', textAlign: 'center', padding: '10px',
       fontWeight: 'bold', letterSpacing: '2px', fontSize: '0.8rem'
     }}>
-      ⚠️ TRAIL MODE ACTIVE: LOCAL NEURAL CACHE ENGAGED. SYNCING PAUSED.
+      ?? TRAIL MODE ACTIVE: LOCAL NEURAL CACHE ENGAGED. SYNCING PAUSED.
     </div>
   );
 }

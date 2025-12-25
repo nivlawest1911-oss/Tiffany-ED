@@ -1,4 +1,5 @@
-﻿'use client';
+'use client';
+'use client';
 import { useState, useRef } from 'react';
 import SignatureCanvas from 'react-signature-canvas';
 import { db } from '@/firebase';

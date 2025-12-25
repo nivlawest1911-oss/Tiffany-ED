@@ -1,11 +1,12 @@
-﻿'use client';
+'use client';
+'use client';
 import { useState } from 'react';
 
 export default function UniversalFitnessHub() {
   const pillars = [
-    { title: 'Cognitive', goal: 'Literacy & Logic', icon: '🧠', color: '#0070f3', task: 'Neural Scaffolding Drill' },
-    { title: 'Emotional', goal: 'Regulation & EQ', icon: '🧘', color: '#00d1b2', task: '30-Second Reset' },
-    { title: 'Leadership', goal: 'Strategy & Empathy', icon: '👑', color: '#d4af37', task: 'Restorative Audit' }
+    { title: 'Cognitive', goal: 'Literacy & Logic', icon: '??', color: '#0070f3', task: 'Neural Scaffolding Drill' },
+    { title: 'Emotional', goal: 'Regulation & EQ', icon: '??', color: '#00d1b2', task: '30-Second Reset' },
+    { title: 'Leadership', goal: 'Strategy & Empathy', icon: '??', color: '#d4af37', task: 'Restorative Audit' }
   ];
 
   return (

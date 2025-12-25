@@ -1,20 +1,27 @@
-'use client';
-import './globals.css';
-import MorphicNeuralMesh from '@/components/Visuals/MorphicNeuralMesh';
-import SynapticToast from '@/components/Visuals/Notifications/SynapticToast';
-import { motion, AnimatePresence } from 'framer-motion';
+import './globals.css'
+import { Inter } from 'next/font/google'
+import GlobalSovereignHeader from '@/components/Visuals/GlobalSovereignHeader'
 
-export default function SovereignLayout({ children }: { children: React.ReactNode }) {
+const inter = Inter({ subsets: ['latin'] })
+
+export const metadata = {
+  title: 'EdIntel | Sovereign Node',
+  description: 'Dr. Alvin West - Chief Systems Architect',
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="en">
-      <body className="bg-[#001A33]
-        <MorphicNeuralMesh />
-        <SynapticToast />
-        <main className="relative z-10 min-h-screen">
+      <body className={inter.className}>
+        <GlobalSovereignHeader />
+        <main className="relative z-10 min-h-screen bg-black">
           {children}
         </main>
       </body>
     </html>
-  );
+  )
 }
-// Deployment Timestamp: 12/25/2025 05:03:19
