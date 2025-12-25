@@ -1,5 +1,6 @@
 ﻿'use client';
 import AdminGuard from '@/components/Auth/AdminGuard';
+import ConsentLedger from '@/components/ConsentLedger'; from '@/components/Auth/AdminGuard';
 import { auth } from '@/lib/firebase';
 import { useRouter } from 'next/navigation';
 
@@ -51,6 +52,7 @@ export default function BoardPage() {
               <h2 className="text-3xl font-light">$0.00</h2>
             </div>
           </section>
+<ConsentLedger />
         </div>
       </main>
     </AdminGuard>

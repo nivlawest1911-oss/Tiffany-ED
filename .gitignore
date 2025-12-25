@@ -10,3 +10,6 @@ node_modules/
 *.local
 node_modules/
 .next/
+
+serviceAccountKey.json
+set-admin.js
