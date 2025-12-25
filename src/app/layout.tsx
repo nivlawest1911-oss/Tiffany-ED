@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import './globals.css';
 import MorphicNeuralMesh from '@/components/Visuals/MorphicNeuralMesh';
 import SynapticToast from '@/components/Visuals/Notifications/SynapticToast';
@@ -17,3 +17,4 @@ export default function SovereignLayout({ children }: { children: React.ReactNod
     </html>
   );
 }
+// Deployment Timestamp: 12/25/2025 05:03:19
