@@ -1,7 +1,7 @@
 'use client';
 import AdminGuard from '../../components/Auth/AdminGuard';
 import ConsentLedger from '../../components/ConsentLedger';
-import { auth } from '../../lib/firebase';
+import { auth } from '@/lib/firebase';
 import { useRouter } from 'next/navigation';
 
 export default function BoardPage() {
