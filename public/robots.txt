@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Allow: /consent
+Disallow: /board
+Disallow: /api
+Disallow: /admin
+
+Sitemap: https://your-app-url.web.app/sitemap.xml
