@@ -1,53 +1,7 @@
 'use client';
-import AuditChart from '@/components/AuditChart';
-import ResourceMap from '@/components/ResourceMap';
-import BoardReport from '@/components/BoardReport';
-import RevenueDashboard from '@/components/RevenueDashboard';
-
-export default function BoardView() {
-  return (
-    <div style={{ 
-      padding: '40px', 
-      fontFamily: 'sans-serif', 
-      maxWidth: '1000px', 
-      margin: 'auto', 
-      backgroundColor: '#fdfdfd', 
-      minHeight: '100vh' 
-    }}>
-      <header style={{ textAlign: 'center', marginBottom: '50px' }}>
-        <h1 style={{ fontSize: '2.5rem', color: '#1a1a1a' }}>EdIntel Strategic Oversight</h1>
-        <p style={{ fontSize: '1.1rem', color: '#666' }}>Mobile County District Data Visualization - Project Alpha</p>
-        <div style={{ 
-          display: 'inline-block', 
-          padding: '5px 15px', 
-          backgroundColor: '#e6f7ff', 
-          color: '#0070f3', 
-          borderRadius: '20px', 
-          fontSize: '0.8rem', 
-          fontWeight: 'bold' 
-        }}>
-          READ-ONLY EXECUTIVE SUMMARY
-        </div>
-      </header>
-
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '40px' }}>
-        <section>
-          <h2 style={{ borderLeft: '5px solid #0070f3', paddingLeft: '15px' }}>Audit Activity Trends</h2>
-          <AuditChart />
-        </section>
-
-        <section>
-          <h2 style={{ borderLeft: '5px solid #1a1a1a', paddingLeft: '15px' }}>Resource Support Hotspots</h2>
-          <BoardReport />
-<RevenueDashboard />
-<ResourceMap />
-        </section>
-      </div>
-
-      <footer style={{ marginTop: '60px', textAlign: 'center', color: '#999', fontSize: '0.9rem' }}>
-        <hr style={{ border: '0', borderTop: '1px solid #eee', marginBottom: '20px' }} />
-        Powered by EdIntel AI Twin Technology | Dr. West Leadership Suite | <a href="/login" style="color: #999; text-decoration: none;">Executive Portal</a>
-      </footer>
-    </div>
-  );
-}
+import { useState, useEffect } from 'react';
+export const dynamic = 'force-dynamic';
+   import NeuralAgentController from '@/components/Visuals/NeuralAgentController'; import AIMediaHub from '@/components/Visuals/AIMediaHub'; import WearableHub from '@/components/Visuals/WearableHub'; import SpatialCommandBridge from '@/components/Visuals/SpatialCommandBridge'; import AITwinModule from '@/components/Visuals/AITwinModule'; import HyperMediaHub from '@/components/Visuals/HyperMediaHub'; import AdminGuard from '../../components/Auth/AdminGuard'; import ConsentLedger from '../../components/ConsentLedger'; import { auth } from '@/lib/firebase'; import { useRouter } from 'next/navigation';  export default function BoardPage() {
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => { setIsMounted(true); }, []);   const router = useRouter();    const handleLogout = async () => {     await auth.signOut();     router.push('/');   };    if (!isMounted) return null;
+  return (     <AdminGuard>       <main className="min-h-screen bg-black text-white p-8 relative overflow-hidden">         {/* BACKGROUND DECORATION */}         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10 pointer-events-none" />                  <div className="relative z-10 max-w-7xl mx-auto">           {/* HEADER COMMAND */}           <div className="flex justify-between items-center mb-12 p-8 border border-white/10 rounded-2xl bg-white/5 backdrop-blur-md">             <div>               <h1 className="text-4xl font-black text-blue-400 tracking-tighter uppercase italic">Executive Hub</h1>               <p className="text-[10px] text-white/40 tracking-[0.4em] uppercase font-bold">Dr. Alvin West | Chief Systems Architect</p>             </div>             <button                onClick={handleLogout}                className="px-6 py-2 border border-red-500/50 hover:bg-red-500/20 text-red-500 text-[10px] font-black uppercase tracking-widest transition-all"             >               Terminate Session             </button>           </div>            {/* MASTER COMPONENT STACK */}           <div className="space-y-12">             <SpatialCommandBridge />             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">                <AITwinModule />                <NeuralAgentController />             </div>             <HyperMediaHub />             <WearableHub />             <AIMediaHub />                          {/* DATA LEDGER SECTION */}             <div className="p-12 border border-white/10 rounded-3xl bg-white/5">                <h2 className="text-xl font-bold text-white mb-8 tracking-widest uppercase">Mobile County Consent Ledger</h2>                <ConsentLedger />             </div>           </div>         </div>       </main>     </AdminGuard>   ); }

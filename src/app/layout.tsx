@@ -1,6 +1,12 @@
+import './globals.css'
+import { Inter } from 'next/font/google'
+import GlobalSovereignHeader from '@/components/Visuals/GlobalSovereignHeader'
+
+const inter = Inter({ subsets: ['latin'] })
+
 export const metadata = {
-  title: 'EdIntel Strategic Suite',
-  description: 'Mobile County Research & AI Twin',
+  title: 'EdIntel | Sovereign Node',
+  description: 'Dr. Alvin West - Chief Systems Architect',
 }
 
 export default function RootLayout({
@@ -10,8 +16,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body suppressHydrationWarning={true} style={{ margin: 0, padding: 0 }}>
-        <Navbar />{children}
+      <body className={inter.className}>
+        <GlobalSovereignHeader />
+        <main className="relative z-10 min-h-screen bg-black">
+          {children}
+        </main>
       </body>
     </html>
   )

@@ -1,0 +1,14 @@
+{
+  "device_id": "META-WAYFARER-WEST-01",
+  "architect": "Dr. Alvin West",
+  "authority": "DBA, MBA, MS, MS, BS, Class A CDL",
+  "wearable_hooks": {
+    "optical": "Meta AI Live View",
+    "audio": "AI Twin Voice Feedback",
+    "telemetry": "nivlawest1911 Secure Log"
+  },
+  "vr_space": {
+    "engine": "A-Frame / WebXR",
+    "rooms": ["Prichard Command", "Feeder Pattern Sandbox", "ROI Audit Vault"]
+  }
+}

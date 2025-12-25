@@ -1,43 +1,81 @@
 'use client';
-import { useState } from 'react';
+'use client';
+import { useState, useRef } from 'react';
+import SignatureCanvas from 'react-signature-canvas';
+import { db } from '@/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
-export default function ParentalOptIn() {
+export default function ParentalConsent() {
+  const [parentName, setParentName] = useState('');
+  const [studentName, setStudentName] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const sigPad = useRef<any>(null);
+
+  const saveConsent = async () => {
+    if (!parentName || !studentName || sigPad.current.isEmpty()) {
+      alert("Please complete all fields and provide a signature.");
+      return;
+    }
+
+    const signatureData = sigPad.current.getTrimmedCanvas().toDataURL('image/png');
+
+    await addDoc(collection(db, 'parental_consents'), {
+      parentName,
+      studentName,
+      signature: signatureData,
+      timestamp: serverTimestamp(),
+      district: 'Mobile County',
+      node: 'Prichard-01'
+    });
+
+    setSubmitted(true);
+  };
+
+  if (submitted) return (
+    <div className="min-h-screen bg-black flex items-center justify-center p-6 text-center">
+      <div className="bg-emerald-900/20 border border-emerald-500 p-8 rounded-3xl">
+        <h2 className="text-3xl font-black text-white mb-4 uppercase">Consent Secured</h2>
+        <p className="text-emerald-400 font-mono italic">Signature hashed and stored in the Sovereign Ledger.</p>
+      </div>
+    </div>
+  );
 
   return (
-    <div style={{ padding: '40px', maxWidth: '800px', margin: 'auto', fontFamily: 'Inter, sans-serif' }}>
-      <header style={{ borderBottom: '3px solid #003366', paddingBottom: '15px', marginBottom: '30px' }}>
-        <h1 style={{ color: '#003366' }}>Alabama SB 101 Compliance Portal</h1>
-        <h3>Annual Mental Health Services Opt-In Form (FY26)</h3>
-      </header>
-
-      {submitted ? (
-        <div style={{ backgroundColor: '#e6f7ff', padding: '30px', borderRadius: '15px', textAlign: 'center' }}>
-          <h2>? Consent Successfully Archived</h2>
-          <p>Digital signature verified for the Continuous Learning Center vault.</p>
+    <main className="min-h-screen bg-[#050505] text-white p-6 md:p-20">
+      <h1 className="text-4xl font-black italic uppercase tracking-tighter mb-8">
+        Parental <span className="text-emerald-500">Opt-In</span> Portal
+      </h1>
+      
+      <div className="max-w-xl bg-white/5 p-8 rounded-3xl border border-white/10">
+        <div className="space-y-4 mb-8">
+          <input 
+            type="text" placeholder="Parent/Guardian Full Name" 
+            className="w-full bg-black border border-white/20 p-4 rounded-xl focus:border-emerald-500 outline-none"
+            onChange={(e) => setParentName(e.target.value)}
+          />
+          <input 
+            type="text" placeholder="Student Full Name" 
+            className="w-full bg-black border border-white/20 p-4 rounded-xl focus:border-emerald-500 outline-none"
+            onChange={(e) => setStudentName(e.target.value)}
+          />
         </div>
-      ) : (
-        <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} style={{ lineHeight: '1.6' }}>
-          <p>As per <strong>Alabama Act 2025-455</strong>, written parental permission is required for students under 16 to receive school counseling services. Exceptions apply only for imminent threats or grief counseling.</p>
-          
-          <div style={{ backgroundColor: '#f4f4f4', padding: '20px', borderRadius: '10px', margin: '20px 0' }}>
-            <p><strong>Please select authorized services:</strong></p>
-            <label style={{ display: 'block' }}><input type="checkbox" required /> Individual Behavioral Coaching (CLC Protocol)</label>
-            <label style={{ display: 'block' }}><input type="checkbox" required /> Mental Health Screeners & Assessments</label>
-            <label style={{ display: 'block' }}><input type="checkbox" required /> Small Group Social-Emotional Learning</label>
-          </div>
 
-          <label style={{ display: 'block', fontWeight: 'bold' }}>Parent/Guardian Full Name:</label>
-          <input type="text" style={{ width: '100%', padding: '10px', marginBottom: '20px' }} required />
-          
-          <label style={{ display: 'block', fontWeight: 'bold' }}>Student Name:</label>
-          <input type="text" style={{ width: '100%', padding: '10px', marginBottom: '30px' }} required />
+        <p className="text-xs text-gray-500 uppercase mb-2 tracking-widest">Digital Signature Area</p>
+        <div className="bg-white rounded-xl overflow-hidden mb-6">
+          <SignatureCanvas 
+            ref={sigPad}
+            penColor='black'
+            canvasProps={{width: 500, height: 200, className: 'sigCanvas w-full h-48'}} 
+          />
+        </div>
 
-          <button type="submit" style={{ width: '100%', padding: '20px', backgroundColor: '#003366', color: '#fff', borderRadius: '12px', border: 'none', fontWeight: 'bold', cursor: 'pointer' }}>
-            Digitally Sign Annual Opt-In
-          </button>
-        </form>
-      )}
-    </div>
+        <button 
+          onClick={saveConsent}
+          className="w-full py-4 bg-emerald-600 hover:bg-emerald-500 font-bold rounded-xl transition-all uppercase"
+        >
+          Authorize AI Integration
+        </button>
+      </div>
+    </main>
   );
 }

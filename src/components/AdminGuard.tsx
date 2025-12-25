@@ -1,40 +1,28 @@
 'use client';
+'use client';
 import { useEffect, useState } from 'react';
 import { auth } from '@/firebase';
-import { onAuthStateChanged, User } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 
-// THE EXECUTIVE ACCESS LIST
-const AUTHORIZED_EMAILS = [
-  'nivlawest1911@gmail.com', 
-  'colleague@mobilecountyschools.org' 
-];
-
 export default function AdminGuard({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [authorized, setAuthorized] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (!currentUser || !AUTHORIZED_EMAILS.includes(currentUser.email || '')) {
-        router.push('/login'); 
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      // For now, we hardcode your email. Later, we use Custom Claims.
+      if (user && user.email === 'nivlawest1911@gmail.com') {
+        setAuthorized(true);
+      } else if (user) {
+        router.push('/'); // Redirect non-admins to home
       } else {
-        setUser(currentUser);
+        router.push('/login'); // Redirect unauthenticated to login
       }
-      setLoading(false);
     });
     return () => unsubscribe();
   }, [router]);
 
-  if (loading) return (
-    <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#050505', color: '#fff' }}>
-      <div className="glass-card" style={{ padding: '40px', textAlign: 'center' }}>
-        <h2 className="gradient-text">Verifying Executive Credentials...</h2>
-        <p style={{ color: '#888' }}>Project Alpha Secure Gateway</p>
-      </div>
-    </div>
-  );
+  if (!authorized) return <div className="bg-black h-screen flex items-center justify-center text-emerald-500 font-mono italic">AUTHENTICATING SOVEREIGN CREDENTIALS...</div>;
 
   return <>{children}</>;
 }

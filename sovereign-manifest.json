@@ -1,0 +1,11 @@
+{
+  "node_id": "MOBILE-COUNTY-SOVEREIGN-001",
+  "authorities": {
+    "federal": { "agency": "ED.gov", "compliance": "FERPA/CEDS" },
+    "state": { "agency": "ALSDE", "framework": "Alabama Achieves" },
+    "district": { "agency": "MCPSS", "pattern": "Regional Feeder" },
+    "campus": { "agency": "CLC Rams", "philosophy": "RAMSway" }
+  },
+  "version": "2025.12.25",
+  "status": "LIVE-OPERATIONAL"
+}

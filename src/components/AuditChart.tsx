@@ -1,4 +1,5 @@
 'use client';
+'use client';
 import { useEffect, useState } from 'react';
 import { db } from '@/firebase';
 import { collection, query, getDocs, orderBy } from 'firebase/firestore';
@@ -32,7 +33,7 @@ export default function AuditChart() {
   return (
     <div style={{ width: '100%', height: 300, marginTop: '20px', backgroundColor: '#fff', padding: '20px', borderRadius: '12px', border: '1px solid #eee' }}>
       <h4 style={{ marginBottom: '20px', color: '#333' }}>District Audit Velocity</h4>
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" aspect={2}>
         <BarChart data={data}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
           <XAxis dataKey="date" fontSize={12} tickLine={false} axisLine={false} />
