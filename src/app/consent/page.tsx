@@ -1,46 +1,80 @@
 ﻿'use client';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import SignatureCanvas from 'react-signature-canvas';
 import { db } from '@/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
-export default function ParentalOptIn() {
+export default function ParentalConsent() {
+  const [parentName, setParentName] = useState('');
+  const [studentName, setStudentName] = useState('');
   const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState({ studentName: '', parentName: '', school: 'Continuous Learning Center' });
+  const sigPad = useRef<any>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      await addDoc(collection(db, 'parentalConsents'), {
-        ...formData,
-        timestamp: serverTimestamp(),
-        status: 'ACTIVE',
-        to: 'nivlawest1911@gmail.com',
-        message: {
-          subject: `🚀 EdIntel Compliance Alert: ${formData.studentName}`,
-          html: `<h3>New SB 101 Consent Signed</h3><p>Student: ${formData.studentName}</p><p>School: ${formData.school}</p><a href="https://edintelus.web.app/archive">Verify in Vault</a>`
-        }
-      });
-      setSubmitted(true);
-    } catch (err) { alert("Sync Error."); }
+  const saveConsent = async () => {
+    if (!parentName || !studentName || sigPad.current.isEmpty()) {
+      alert("Please complete all fields and provide a signature.");
+      return;
+    }
+
+    const signatureData = sigPad.current.getTrimmedCanvas().toDataURL('image/png');
+
+    await addDoc(collection(db, 'parental_consents'), {
+      parentName,
+      studentName,
+      signature: signatureData,
+      timestamp: serverTimestamp(),
+      district: 'Mobile County',
+      node: 'Prichard-01'
+    });
+
+    setSubmitted(true);
   };
 
-  return (
-    <div style={{ padding: '60px 20px', maxWidth: '800px', margin: 'auto' }}>
-      <div className="glass-card" style={{ padding: '40px', borderRadius: '15px', border: '1px solid rgba(255,255,255,0.1)' }}>
-        <h1 className="gradient-text">Alabama SB 101 Portal</h1>
-        {submitted ? <h2 style={{ color: '#52c41a' }}>✅ Consent Archived & Dr. West Notified</h2> : (
-          <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '15px' }}>
-            <input type="text" placeholder="Student Name" className="input-field" style={{ padding: '12px', background: '#111', color: '#fff', borderRadius: '8px' }} onChange={(e) => setFormData({...formData, studentName: e.target.value})} required />
-            <select className="input-field" style={{ padding: '12px', background: '#111', color: '#fff', borderRadius: '8px' }} onChange={(e) => setFormData({...formData, school: e.target.value})}>
-              <option>Continuous Learning Center</option>
-              <option>Whistler Elementary</option>
-              <option>Vigor High</option>
-            </select>
-            <input type="text" placeholder="Parent Digital Signature" className="input-field" style={{ padding: '12px', background: '#111', color: '#fff', borderRadius: '8px' }} onChange={(e) => setFormData({...formData, parentName: e.target.value})} required />
-            <button type="submit" className="primary-btn">Submit Compliance Record</button>
-          </form>
-        )}
+  if (submitted) return (
+    <div className="min-h-screen bg-black flex items-center justify-center p-6 text-center">
+      <div className="bg-emerald-900/20 border border-emerald-500 p-8 rounded-3xl">
+        <h2 className="text-3xl font-black text-white mb-4 uppercase">Consent Secured</h2>
+        <p className="text-emerald-400 font-mono italic">Signature hashed and stored in the Sovereign Ledger.</p>
       </div>
     </div>
+  );
+
+  return (
+    <main className="min-h-screen bg-[#050505] text-white p-6 md:p-20">
+      <h1 className="text-4xl font-black italic uppercase tracking-tighter mb-8">
+        Parental <span className="text-emerald-500">Opt-In</span> Portal
+      </h1>
+      
+      <div className="max-w-xl bg-white/5 p-8 rounded-3xl border border-white/10">
+        <div className="space-y-4 mb-8">
+          <input 
+            type="text" placeholder="Parent/Guardian Full Name" 
+            className="w-full bg-black border border-white/20 p-4 rounded-xl focus:border-emerald-500 outline-none"
+            onChange={(e) => setParentName(e.target.value)}
+          />
+          <input 
+            type="text" placeholder="Student Full Name" 
+            className="w-full bg-black border border-white/20 p-4 rounded-xl focus:border-emerald-500 outline-none"
+            onChange={(e) => setStudentName(e.target.value)}
+          />
+        </div>
+
+        <p className="text-xs text-gray-500 uppercase mb-2 tracking-widest">Digital Signature Area</p>
+        <div className="bg-white rounded-xl overflow-hidden mb-6">
+          <SignatureCanvas 
+            ref={sigPad}
+            penColor='black'
+            canvasProps={{width: 500, height: 200, className: 'sigCanvas w-full h-48'}} 
+          />
+        </div>
+
+        <button 
+          onClick={saveConsent}
+          className="w-full py-4 bg-emerald-600 hover:bg-emerald-500 font-bold rounded-xl transition-all uppercase"
+        >
+          Authorize AI Integration
+        </button>
+      </div>
+    </main>
   );
 }
