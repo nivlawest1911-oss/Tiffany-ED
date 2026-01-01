@@ -152,11 +152,11 @@ export default function PricingMatrix() {
                                     if (tier.price === 'Custom') {
                                         window.location.href = 'mailto:sales@edintel.ai?subject=Sovereign%20District%20Inquiry';
                                     } else {
-                                        // Placeholder for Stripe Payment Links - Replace with actual URLs
-                                        const link = isAnnual
-                                            ? 'https://buy.stripe.com/test_annual_' + tier.name.toLowerCase()
-                                            : 'https://buy.stripe.com/test_monthly_' + tier.name.toLowerCase();
-                                        window.open(link, '_blank');
+                                        // TEMPORARY: Direct Purchase Inquiry to ensure payment capture until Stripe links are provided.
+                                        // User: Replace these with your actual Stripe Payment Links (e.g., https://buy.stripe.com/...)
+                                        const subject = `Purchase Inquiry: ${tier.name} (${isAnnual ? 'Annual' : 'Monthly'})`;
+                                        const body = `I am interested in subscribing to the ${tier.name} plan. Please send me a secure payment invoice.`;
+                                        window.location.href = `mailto:sales@edintel.ai?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
                                     }
                                 }}
                                 className={`w-full py-4 rounded-xl font-black text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-all duration-300 ${tier.highlight
