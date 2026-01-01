@@ -80,6 +80,10 @@ export default function Dashboard() {
                 EdIntel <span className="text-blue-600">Sovereign</span>
               </h1>
               <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-[0.2em] mt-2">Director Command Node // v4.0.2</p>
+              <a href="/pricing" className="inline-flex items-center gap-2 mt-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 hover:bg-amber-500/20 transition-colors cursor-pointer group">
+                <div className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+                <span className="text-[9px] font-black text-amber-600 uppercase tracking-widest group-hover:underline">Status: Initiate (Upgrade)</span>
+              </a>
             </div>
           </div>
 
