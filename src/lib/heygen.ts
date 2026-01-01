@@ -1,5 +1,5 @@
 const HEYGEN_API_URL = 'https://api.heygen.com/v2';
-const HEYGEN_API_KEY = '69cb655f-57b6-453a-93ba-555f68868230'; // Updated with user provided key
+const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY;
 
 export async function createHeyGenVideo(avatarId: string, text: string) {
     if (!HEYGEN_API_KEY) {
