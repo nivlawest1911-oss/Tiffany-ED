@@ -152,17 +152,19 @@ export default function PricingMatrix() {
                                     if (tier.price === 'Custom') {
                                         window.location.href = 'mailto:sales@edintel.ai?subject=Sovereign%20District%20Inquiry';
                                     } else {
-                                        // TEMPORARY: Direct Purchase Inquiry to ensure payment capture until Stripe links are provided.
-                                        // User: Replace these with your actual Stripe Payment Links (e.g., https://buy.stripe.com/...)
-                                        const subject = `Purchase Inquiry: ${tier.name} (${isAnnual ? 'Annual' : 'Monthly'})`;
-                                        const body = `I am interested in subscribing to the ${tier.name} plan. Please send me a secure payment invoice.`;
+                                        const subject = `Secure Invoice Request: ${tier.name} (${isAnnual ? 'Annual' : 'Monthly'})`;
+                                        const body = `I am requesting a secure invoice for the ${tier.name} subscription. Please initialize the payment protocol.`;
                                         window.location.href = `mailto:sales@edintel.ai?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
                                     }
                                 }}
-                                className={`w-full py-4 rounded-xl font-black text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-all duration-300 ${tier.highlight
+                                className={`w-full py-4 rounded-xl font-black text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-all duration-300 group-hover:scale-[1.02] ${tier.highlight
                                     ? `bg-gradient-to-r ${tier.accent} text-white shadow-lg shadow-violet-900/40 hover:shadow-violet-900/60`
                                     : 'bg-zinc-900 text-white hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700'}`}>
-                                {tier.price === 'Custom' ? 'Contact Protocol' : 'Initialize Pilot'} <ArrowRight size={14} />
+                                {tier.price === 'Custom' ? 'Contact Protocol' : (
+                                    <span className="flex items-center gap-2">
+                                        <Shield size={12} className="text-emerald-400" /> Secure Invoice
+                                    </span>
+                                )} <ArrowRight size={14} />
                             </button>
                         </div>
                     </div>
