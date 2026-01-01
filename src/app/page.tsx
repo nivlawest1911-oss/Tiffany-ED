@@ -35,7 +35,7 @@ import SovereignSocialUplink from '@/components/bento/SovereignSocialUplink';
 import SovereignEnterpriseModule from '@/components/bento/SovereignEnterpriseModule';
 import SovereignBroadcastNode from '@/components/bento/SovereignBroadcastNode';
 
-import { Brain, Users, Shield } from 'lucide-react';
+import { Brain, Users, Shield, Sparkles } from 'lucide-react';
 
 export default function Dashboard() {
   const [mounted, setMounted] = useState(false);
@@ -110,9 +110,9 @@ export default function Dashboard() {
             </button>
             <button
               onClick={() => setActiveTab('roi')}
-              className={`px-8 py-3 rounded-[1.5rem] text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'roi' ? 'bg-emerald-600 text-white shadow-lg' : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-white'}`}
+              className={`px-8 py-3 rounded-[1.5rem] text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'roi' ? 'bg-gradient-to-r from-emerald-500 to-green-600 text-white shadow-lg shadow-emerald-900/20' : 'bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500 hover:text-white border border-emerald-500/20'}`}
             >
-              Sovereign ROI
+              <span className="flex items-center gap-2"><Sparkles size={12} /> Sovereign Pricing</span>
             </button>
             <button
               onClick={() => setActiveTab('feed')}

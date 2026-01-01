@@ -36,7 +36,7 @@ const AVATAR_LIBRARY = [
     { id: 'twin-03', name: 'Specialist David', role: 'STEM Lead', img: 'https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?w=400&h=400&fit=crop', heygenId: 'Abigail_standing_office_front' },
     { id: 'twin-04', name: 'Principal Elena', role: 'Compliance', img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop', heygenId: 'Lina_Dress_Sitting_Side_public' },
     { id: 'twin-05', name: 'Agent Marcus II', role: 'Operations', img: 'https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?w=400&h=400&fit=crop', heygenId: 'Abigail_expressive_2024112501' },
-    { id: 'twin-06', name: 'Director Nia', role: 'Sovereign Lead', img: 'https://images.unsplash.com/photo-1567532939604-b6c5b0ad2e01?w=400&h=400&fit=crop', heygenId: 'Lina_Dress_Sitting_Side_public' },
+    { id: 'twin-06', name: 'Director Nova', role: 'Sovereign Lead', img: 'https://images.unsplash.com/photo-1567532939604-b6c5b0ad2e01?w=400&h=400&fit=crop', heygenId: 'Lina_Dress_Sitting_Side_public' },
 ];
 
 interface AvatarOutput {

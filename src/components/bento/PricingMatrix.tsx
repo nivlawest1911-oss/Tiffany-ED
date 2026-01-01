@@ -15,6 +15,7 @@ export default function PricingMatrix() {
             idealFor: "Classroom teachers & Specialists",
             value: "Personal burnout neutralization",
             features: [
+                "14-Day Free Trial Included",
                 "IEP Narrative Smart-Draft",
                 "Sovereign Legal Vault Access",
                 "1,000 Monthly Neural Tokens",
@@ -32,6 +33,7 @@ export default function PricingMatrix() {
             idealFor: "Principals & Building Admin",
             value: "Total building stability oversight",
             features: [
+                "14-Day Free Trial Included",
                 "Classroom Obs Synthesizer",
                 "Staff Retention Analytics",
                 "Automated SPED Compliance",
