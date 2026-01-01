@@ -63,27 +63,29 @@ export default function Dashboard() {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
           <div className="flex items-center gap-6">
             <div className="relative group">
-              <div className="absolute inset-0 bg-blue-600/20 blur-xl group-hover:bg-blue-600/40 transition-all rounded-full" />
-              <div className="w-20 h-20 bg-white dark:bg-zinc-900 rounded-[2rem] shadow-2xl relative z-10 transition-transform group-hover:scale-105 active:scale-95 cursor-pointer flex items-center justify-center overflow-hidden border border-zinc-200 dark:border-zinc-800">
-                <img src="/images/edintel-logo.png" alt="EdIntel Logo" className="w-16 h-16 object-contain" />
+              <div className="absolute inset-0 bg-blue-600/30 blur-2xl group-hover:bg-blue-600/50 transition-all duration-1000 rounded-full animate-pulse-slow" />
+              <div className="w-20 h-20 bg-zinc-950/80 backdrop-blur-xl rounded-[2rem] shadow-2xl relative z-10 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3 cursor-pointer flex items-center justify-center overflow-hidden border border-white/10 group-hover:border-blue-500/50">
+                <img src="/images/edintel-logo.png" alt="EdIntel Logo" className="w-16 h-16 object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]" />
               </div>
             </div>
-            <div className="h-12 w-px bg-zinc-200 dark:bg-zinc-800" />
+            <div className="h-16 w-px bg-gradient-to-b from-transparent via-zinc-700 to-transparent" />
             <div>
-              <div className="flex items-center gap-2 mb-1">
-                <div className="w-5 h-5 bg-blue-600 rounded-md flex items-center justify-center">
-                  <Shield className="text-white" size={12} />
+              <div className="flex items-center gap-3 mb-1">
+                <div className="px-2 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-ping" />
+                  <span className="text-[9px] font-black uppercase tracking-[0.3em] text-blue-400">Sovereign Matrix Online</span>
                 </div>
-                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600">Sovereign Matrix</span>
               </div>
-              <h1 className="text-4xl font-black tracking-tighter text-zinc-900 dark:text-white uppercase italic leading-none">
-                EdIntel <span className="text-blue-600">Sovereign</span>
+              <h1 className="text-5xl font-black tracking-tighter text-white uppercase italic leading-none drop-shadow-2xl">
+                EdIntel <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-emerald-400 animate-gradient-x">Sovereign</span>
               </h1>
-              <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-[0.2em] mt-2">Director Command Node // v4.0.2</p>
-              <a href="/pricing" className="inline-flex items-center gap-2 mt-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 hover:bg-amber-500/20 transition-colors cursor-pointer group">
-                <div className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
-                <span className="text-[9px] font-black text-amber-600 uppercase tracking-widest group-hover:underline">Status: Initiate (Upgrade)</span>
-              </a>
+              <div className="flex items-center gap-4 mt-3">
+                <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-[0.2em]">Director Command Node // v4.0.2</p>
+                <a href="/pricing" className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 hover:bg-amber-500/20 transition-all cursor-pointer group hover:scale-105 active:scale-95">
+                  <div className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+                  <span className="text-[9px] font-black text-amber-500 uppercase tracking-widest group-hover:underline">Upgrade Status</span>
+                </a>
+              </div>
             </div>
           </div>
 
