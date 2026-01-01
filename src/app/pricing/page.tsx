@@ -1,57 +1,32 @@
 'use client';
-import { createCheckoutSession } from '@/app/actions/stripe';
-
-const tiers = [
-  {
-    name: 'Community',
-    price: 'Free',
-    description: 'Empowering Parents and individual Teachers in Whistler & Prichard.',
-    features: ['5 Strategic Audits / mo', 'Alabama Standards Logic'],
-    priceId: null
-  },
-  {
-    name: 'Professional',
-    price: '',
-    description: 'Advanced compliance intelligence for Administrators and Support Staff.',
-    features: ['Unlimited Audits', 'Secure Archive Access', 'Executive PDF Memos'],
-    priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_PRO,
-    popular: true
-  },
-  {
-    name: 'Global Enterprise',
-    price: 'Custom',
-    description: 'Strategic oversight for District and State Leaders across all 50 States.',
-    features: ['District Resource Mapping', 'Custom Fine-Tuned Persona', 'Board-Ready Reporting'],
-    priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_ENTERPRISE
-  }
-];
+import PricingMatrix from '@/components/bento/PricingMatrix';
+import CircadianFilter from '@/components/graphics/CircadianFilter';
+import { Shield, ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
 
 export default function PricingPage() {
   return (
-    <div style={{ backgroundColor: '#050505', color: '#fff', minHeight: '100vh', padding: '60px 20px', fontFamily: 'Inter, sans-serif' }}>
-      <div style={{ textAlign: 'center', marginBottom: '60px' }}>
-        <h1 className="gradient-text" style={{ fontSize: '3.5rem' }}>Global Strategic Scaling</h1>
-        <p style={{ color: '#888' }}>Select your tier of District Intelligence.</p>
-      </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '30px', maxWidth: '1200px', margin: 'auto' }}>
-        {tiers.map((tier) => (
-          <div key={tier.name} className="glass-card" style={{ padding: '40px' }}>
-            <h2>{tier.name}</h2>
-            <div style={{ fontSize: '3rem', margin: '20px 0' }}>{tier.price}</div>
-            <p style={{ color: '#aaa', marginBottom: '30px' }}>{tier.description}</p>
-            <ul style={{ listStyle: 'none', padding: 0, marginBottom: '40px' }}>
-              {tier.features.map(f => <li key={f} style={{ marginBottom: '10px' }}>? {f}</li>)}
-            </ul>
-            <button 
-              onClick={() => tier.priceId && createCheckoutSession(tier.priceId)}
-              className="primary-btn" 
-              style={{ width: '100%' }}
-            >
-              {tier.price === 'Custom' ? 'Contact Sales' : \Activate \\}
-            </button>
+    <main className="min-h-screen bg-zinc-50 dark:bg-black transition-colors duration-500 pb-20">
+      <CircadianFilter />
+
+      <div className="max-w-7xl mx-auto px-6 pt-12">
+        {/* Minimal Header */}
+        <div className="flex items-center justify-between mb-16">
+          <Link href="/" className="flex items-center gap-2 group text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors">
+            <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+            <span className="text-xs font-bold uppercase tracking-widest">Return to Command</span>
+          </Link>
+
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+              <Shield className="text-white" size={14} />
+            </div>
+            <span className="text-sm font-black tracking-tight uppercase">EdIntel Sovereign</span>
           </div>
-        ))}
+        </div>
+
+        <PricingMatrix />
       </div>
-    </div>
+    </main>
   );
 }
