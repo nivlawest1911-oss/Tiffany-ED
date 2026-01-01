@@ -1,0 +1,108 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    //-------------------------------------------------------------------------
+    // Helper Functions
+    //-------------------------------------------------------------------------
+
+    /**
+     * Checks if the user is authenticated.
+     */
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    /**
+     * Checks if the currently authenticated user's UID matches the provided userId.
+     * This is the primary function for enforcing document ownership.
+     */
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    /**
+     * Checks for ownership on an existing document. Used for update and delete
+     * operations to prevent acting on non-existent data.
+     */
+    function isExistingOwner(userId) {
+      return isOwner(userId) && resource != null;
+    }
+
+    /**
+     * Validates that the `userId` field inside a new document's data
+     * matches the owner's UID. Enforces relational integrity on create.
+     */
+    function hasCorrectUserId(userId) {
+      return request.resource.data.userId == userId;
+    }
+
+    /**
+     * Validates that the `userId` field is immutable and cannot be changed on update.
+     * Protects the ownership link of a document.
+     */
+    function isUserIdImmutable() {
+      return request.resource.data.userId == resource.data.userId;
+    }
+
+    /**
+     * Validates that the document `id` field inside a new User document
+     * matches the owner's UID.
+     */
+    function isUserSelf(userId) {
+      return request.resource.data.id == userId;
+    }
+
+    /**
+     * Validates that the document `id` field is immutable for a User document.
+     */
+    function isUserIdFieldImmutable() {
+      return request.resource.data.id == resource.data.id;
+    }
+
+    //-------------------------------------------------------------------------
+    // Collection Rules
+    //-------------------------------------------------------------------------
+
+    // RULES FOR YOUR EXISTING DATA MODEL (FROM PREVIOUS CONTEXT)
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow list: if false;
+      allow create: if isOwner(userId) && isUserSelf(userId);
+      allow update: if isExistingOwner(userId) && isUserIdFieldImmutable();
+      allow delete: if isExistingOwner(userId);
+
+      match /dailyChallenges/{dailyChallengeId} {
+        allow get: if isOwner(userId);
+        allow list: if isOwner(userId);
+        allow create: if isOwner(userId) && hasCorrectUserId(userId);
+        allow update: if isExistingOwner(userId) && isUserIdImmutable();
+        allow delete: if isExistingOwner(userId);
+      }
+
+      match /personalizedTips/{tipId} {
+        allow get: if isOwner(userId);
+        allow list: if isOwner(userId);
+        allow create: if isOwner(userId) && hasCorrectUserId(userId);
+        allow update: if isExistingOwner(userId) && isUserIdImmutable();
+        allow delete: if isExistingOwner(userId);
+      }
+    }
+
+    match /challenges/{challengeId} {
+      allow get: if true;
+      allow list: if true;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    // >>>>>>>>>>>>>> NEW RULE FOR YOUR EXAMPLE APP'S `myCollection` <<<<<<<<<<<<<<<
+    // This rule allows any authenticated user (including anonymous) to read and write
+    // documents in the 'myCollection'. For production, you'd want more granular rules.
+    match /myCollection/{document=**} {
+      allow read, write: if isSignedIn();
+    }
+    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  }
+}

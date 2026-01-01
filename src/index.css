@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 210 40% 98%; /* Light Desaturated Blue */
+  --primary: 200 95% 35%;    /* Calm Deep Blue */
+  --secondary: 145 45% 30%;  /* Earthy Green */
+  --accent: 35 90% 65%;      /* Energetic Orange */
+}
+
+h1, h2, h3 {
+  font-family: 'Abril Fatface', serif;
+}
+
+body {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  @apply bg-background text-foreground;
+}
