@@ -6,16 +6,16 @@ import {
     Instagram,
     Youtube,
     Globe,
-    Github
+    Github,
+    Video
 } from 'lucide-react';
 
 export default function SocialLinks() {
     const socials = [
-        { icon: <Twitter size={18} />, label: 'X (Twitter)', href: 'https://twitter.com', color: 'hover:text-sky-400' },
-        { icon: <Linkedin size={18} />, label: 'LinkedIn', href: 'https://linkedin.com', color: 'hover:text-blue-600' },
-        { icon: <Youtube size={18} />, label: 'YouTube', href: 'https://youtube.com', color: 'hover:text-red-500' },
-        { icon: <Instagram size={18} />, label: 'Instagram', href: 'https://instagram.com', color: 'hover:text-pink-500' },
-        { icon: <Github size={18} />, label: 'GitHub', href: 'https://github.com', color: 'hover:text-zinc-100' },
+        { icon: <Facebook size={18} />, label: 'Facebook', href: 'https://www.facebook.com/alvin.west.18', color: 'hover:text-blue-600' },
+        { icon: <Video size={18} />, label: 'TikTok', href: 'https://www.tiktok.com/@alvinwestii', color: 'hover:text-pink-500' },
+        { icon: <Linkedin size={18} />, label: 'LinkedIn', href: 'https://www.linkedin.com/', color: 'hover:text-blue-500' }, // Placeholder or user can update
+        { icon: <Youtube size={18} />, label: 'YouTube', href: 'https://www.youtube.com/@EdIntel', color: 'hover:text-red-500' },
     ];
 
 
