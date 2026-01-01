@@ -1,6 +1,8 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
-import { User, MessageSquare, Sparkles, X, Brain, Shield, Zap } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Shield, Brain, Zap, LogIn, LogOut, User as UserIcon, Loader2 } from 'lucide-react';
+import { auth } from '@/lib/firebase';
+import { signInWithPopup, GoogleAuthProvider, signOut, User } from 'firebase/auth';
 
 interface Delegate {
     id: string;
@@ -13,6 +15,8 @@ interface Delegate {
 }
 
 export default function DelegateOverlay() {
+    const [user, setUser] = useState<User | null>(null);
+    const [isAuthLoading, setIsAuthLoading] = useState(true);
     const [delegates, setDelegates] = useState<Delegate[]>([
         {
             id: 'super-1',
@@ -57,6 +61,13 @@ export default function DelegateOverlay() {
     ];
 
     useEffect(() => {
+        // Auth Listener
+        const unsubscribe = auth?.onAuthStateChanged((u) => {
+            setUser(u);
+            setIsAuthLoading(false);
+        });
+
+        // Delegate chatter
         const interval = setInterval(() => {
             setDelegates(prev => prev.map(d => {
                 if (Math.random() > 0.7) {
@@ -65,11 +76,72 @@ export default function DelegateOverlay() {
                 return d;
             }));
         }, 8000);
-        return () => clearInterval(interval);
+
+        return () => {
+            if (unsubscribe) unsubscribe();
+            clearInterval(interval);
+        };
     }, []);
+
+    const handleLogin = async () => {
+        if (!auth) return;
+        try {
+            const provider = new GoogleAuthProvider();
+            await signInWithPopup(auth, provider);
+        } catch (error) {
+            console.error("Login Failed", error);
+        }
+    };
+
+    const handleLogout = async () => {
+        if (!auth) return;
+        try {
+            await signOut(auth);
+        } catch (error) {
+            console.error("Logout Failed", error);
+        }
+    };
 
     return (
         <div className="fixed inset-0 pointer-events-none z-[100] overflow-hidden">
+            {/* User Identity Node (Top Right) */}
+            <div className="absolute top-6 right-6 pointer-events-auto">
+                {isAuthLoading ? (
+                    <div className="px-4 py-2 bg-zinc-950 border border-zinc-800 rounded-full flex items-center gap-2">
+                        <Loader2 className="animate-spin text-zinc-500" size={12} />
+                        <span className="text-[10px] text-zinc-500 uppercase tracking-widest">Initializing Identity...</span>
+                    </div>
+                ) : user ? (
+                    <div className="group relative">
+                        <div className="flex items-center gap-3 pl-4 pr-2 py-2 bg-zinc-950/90 backdrop-blur-md border border-zinc-800 rounded-full shadow-2xl hover:border-emerald-500/50 transition-colors cursor-pointer">
+                            <div className="flex flex-col items-end">
+                                <span className="text-[10px] font-black text-white uppercase tracking-wider">{user.displayName || 'Sovereign User'}</span>
+                                <span className="text-[8px] font-mono text-emerald-500 uppercase tracking-widest">Identity Verified</span>
+                            </div>
+                            <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-zinc-800 group-hover:border-emerald-500 transition-colors">
+                                <img src={user.photoURL || '/images/default-avatar.png'} alt="User" className="w-full h-full object-cover" />
+                            </div>
+                        </div>
+                        {/* Logout Dropdown */}
+                        <div className="absolute top-full right-0 mt-2 w-48 bg-zinc-950 border border-zinc-800 rounded-2xl p-2 opacity-0 group-hover:opacity-100 transition-all pointer-events-none group-hover:pointer-events-auto transform translate-y-2 group-hover:translate-y-0">
+                            <button onClick={handleLogout} className="w-full flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-red-500/10 hover:text-red-400 text-zinc-500 transition-colors text-xs font-bold uppercase tracking-widest">
+                                <LogOut size={12} /> Disconnect Node
+                            </button>
+                        </div>
+                    </div>
+                ) : (
+                    <button
+                        onClick={handleLogin}
+                        className="group flex items-center gap-3 px-6 py-3 bg-zinc-950/90 backdrop-blur-md border border-zinc-800 rounded-full shadow-2xl hover:bg-blue-600 hover:border-blue-500 hover:text-white transition-all duration-300"
+                    >
+                        <div className="p-1 rounded bg-zinc-800 group-hover:bg-white/20 transition-colors">
+                            <LogIn size={12} className="text-zinc-400 group-hover:text-white" />
+                        </div>
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 group-hover:text-white">Authenticate Identity</span>
+                    </button>
+                )}
+            </div>
+
             {delegates.map((d) => (
                 <div
                     key={d.id}
