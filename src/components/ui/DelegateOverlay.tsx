@@ -116,14 +116,29 @@ export default function DelegateOverlay() {
                         <div className="flex items-center gap-3 pl-4 pr-2 py-2 bg-zinc-950/90 backdrop-blur-md border border-zinc-800 rounded-full shadow-2xl hover:border-emerald-500/50 transition-colors cursor-pointer">
                             <div className="flex flex-col items-end">
                                 <span className="text-[10px] font-black text-white uppercase tracking-wider">{user.displayName || 'Sovereign User'}</span>
-                                <span className="text-[8px] font-mono text-emerald-500 uppercase tracking-widest">Identity Verified</span>
+                                <span className="text-[8px] font-mono text-zinc-500 uppercase tracking-widest flex items-center gap-1">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+                                    Status: Initiate
+                                </span>
                             </div>
                             <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-zinc-800 group-hover:border-emerald-500 transition-colors">
                                 <img src={user.photoURL || '/images/default-avatar.png'} alt="User" className="w-full h-full object-cover" />
                             </div>
                         </div>
                         {/* Logout Dropdown */}
-                        <div className="absolute top-full right-0 mt-2 w-48 bg-zinc-950 border border-zinc-800 rounded-2xl p-2 opacity-0 group-hover:opacity-100 transition-all pointer-events-none group-hover:pointer-events-auto transform translate-y-2 group-hover:translate-y-0">
+                        <div className="absolute top-full right-0 mt-2 w-56 bg-zinc-950 border border-zinc-800 rounded-2xl p-2 opacity-0 group-hover:opacity-100 transition-all pointer-events-none group-hover:pointer-events-auto transform translate-y-2 group-hover:translate-y-0 shadow-xl">
+                            <div className="px-3 py-2 mb-2 border-b border-zinc-900">
+                                <p className="text-[9px] text-zinc-500 uppercase tracking-widest mb-1">Current Protocol</p>
+                                <div className="flex justify-between items-center">
+                                    <span className="text-xs font-bold text-white">Free Tier</span>
+                                    <span className="text-[9px] text-amber-500 font-mono">UNVERIFIED</span>
+                                </div>
+                            </div>
+
+                            <a href="/pricing" className="flex items-center justify-center gap-2 w-full py-3 mb-2 bg-gradient-to-r from-blue-600 to-violet-600 rounded-xl font-black text-[10px] uppercase tracking-widest text-white hover:shadow-lg hover:shadow-blue-900/50 transition-all">
+                                <Zap size={12} fill="currentColor" /> Activate Command
+                            </a>
+
                             <button onClick={handleLogout} className="w-full flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-red-500/10 hover:text-red-400 text-zinc-500 transition-colors text-xs font-bold uppercase tracking-widest">
                                 <LogOut size={12} /> Disconnect Node
                             </button>
