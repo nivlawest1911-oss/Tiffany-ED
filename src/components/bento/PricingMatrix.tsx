@@ -58,9 +58,10 @@ export default function PricingMatrix() {
     ];
 
     const additionalRates = [
-        { service: "Onsite Full-Day", price: "$6,500", deliverable: "Implementation & Staff Overhaul" },
-        { service: "Virtual Masterclass", price: "$1,500", deliverable: "90-min Rapid Tool Deployment" },
-        { service: "Keynote Address", price: "$10,000", deliverable: "High-Impact Visionary Address" }
+        { service: "Onsite Full-Day Protocol", price: "$6,500", deliverable: "Staff Overhaul & Implementation" },
+        { service: "Keynote Address", price: "$10,000", deliverable: "Visionary Leadership Speech" },
+        { service: "Virtual Masterclass", price: "$3,500", deliverable: "90-min Rapid Tool Deployment" },
+        { service: "Executive Coaching", price: "$2,500", deliverable: "Monthly 1:1 Strategic Alignment" }
     ];
 
     return (
@@ -68,6 +69,10 @@ export default function PricingMatrix() {
             {/* Header Section */}
             <div className="text-center mb-16 relative">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-500/20 blur-[120px] rounded-full pointer-events-none" />
+
+                <div className="inline-flex items-center gap-2 mb-4 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-widest backdrop-blur-md animate-pulse">
+                    <Star size={12} fill="currentColor" /> 14-Day Sovereign Trial Active
+                </div>
 
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-widest mb-6 backdrop-blur-md">
                     <Sparkles size={12} /> ROI Capture Protocol
