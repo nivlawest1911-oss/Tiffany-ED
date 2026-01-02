@@ -1,0 +1,20 @@
+{
+  "node": {
+    "6009867069e1e2d4ef52bad7784b6cfb4e33d4edef": {
+      "workers": {
+        "app/page": {
+          "moduleId": 913663,
+          "async": false,
+          "exportedName": "createCheckoutSession",
+          "filename": "src/app/actions/stripe.ts"
+        }
+      },
+      "layer": {
+        "app/page": "action-browser"
+      },
+      "exportedName": "createCheckoutSession",
+      "filename": "src/app/actions/stripe.ts"
+    }
+  },
+  "edge": {}
+}

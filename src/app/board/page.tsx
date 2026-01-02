@@ -1,53 +1,85 @@
 'use client';
+import { motion } from 'framer-motion';
 import AuditChart from '@/components/AuditChart';
 import ResourceMap from '@/components/ResourceMap';
 import BoardReport from '@/components/BoardReport';
 import RevenueDashboard from '@/components/RevenueDashboard';
 
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
+
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 }
+};
+
 export default function BoardView() {
   return (
-    <div style={{ 
-      padding: '40px', 
-      fontFamily: 'sans-serif', 
-      maxWidth: '1000px', 
-      margin: 'auto', 
-      backgroundColor: '#fdfdfd', 
-      minHeight: '100vh' 
-    }}>
-      <header style={{ textAlign: 'center', marginBottom: '50px' }}>
-        <h1 style={{ fontSize: '2.5rem', color: '#1a1a1a' }}>EdIntel Strategic Oversight</h1>
-        <p style={{ fontSize: '1.1rem', color: '#666' }}>Mobile County District Data Visualization - Project Alpha</p>
-        <div style={{ 
-          display: 'inline-block', 
-          padding: '5px 15px', 
-          backgroundColor: '#e6f7ff', 
-          color: '#0070f3', 
-          borderRadius: '20px', 
-          fontSize: '0.8rem', 
-          fontWeight: 'bold' 
-        }}>
-          READ-ONLY EXECUTIVE SUMMARY
+    <motion.div
+      initial="hidden"
+      animate="show"
+      variants={container}
+      className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 font-sans p-8 md:p-12 transition-colors duration-500"
+    >
+      <div className="max-w-6xl mx-auto space-y-12">
+        <motion.header variants={item} className="text-center space-y-4">
+          <div className="inline-flex items-center px-4 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-widest">
+            Read-Only Executive Summary
+          </div>
+          <h1 className="text-4xl md:text-5xl font-black tracking-tight text-zinc-900 dark:text-white">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">EdIntel</span> Strategic Oversight
+          </h1>
+          <p className="text-lg text-zinc-500 dark:text-zinc-400 font-medium">Mobile County District Data Visualization - Project Alpha</p>
+        </motion.header>
+
+        <div className="grid grid-cols-1 gap-12">
+          <motion.section variants={item} className="space-y-6">
+            <div className="flex items-center gap-4">
+              <div className="h-8 w-1 bg-blue-500 rounded-full" />
+              <h2 className="text-2xl font-bold tracking-tight">Audit Activity Trends</h2>
+            </div>
+            <div className="p-6 bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-xl shadow-zinc-200/50 dark:shadow-none">
+              <AuditChart />
+            </div>
+          </motion.section>
+
+          <motion.section variants={item} className="space-y-8">
+            <div className="flex items-center gap-4">
+              <div className="h-8 w-1 bg-zinc-900 dark:bg-zinc-500 rounded-full" />
+              <h2 className="text-2xl font-bold tracking-tight">Resource Support Hotspots</h2>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div className="p-6 bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-xl shadow-zinc-200/50 dark:shadow-none">
+                <BoardReport />
+              </div>
+              <div className="p-6 bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-xl shadow-zinc-200/50 dark:shadow-none">
+                <RevenueDashboard />
+              </div>
+            </div>
+
+            <div className="p-6 bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-xl shadow-zinc-200/50 dark:shadow-none">
+              <ResourceMap />
+            </div>
+          </motion.section>
         </div>
-      </header>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '40px' }}>
-        <section>
-          <h2 style={{ borderLeft: '5px solid #0070f3', paddingLeft: '15px' }}>Audit Activity Trends</h2>
-          <AuditChart />
-        </section>
-
-        <section>
-          <h2 style={{ borderLeft: '5px solid #1a1a1a', paddingLeft: '15px' }}>Resource Support Hotspots</h2>
-          <BoardReport />
-<RevenueDashboard />
-<ResourceMap />
-        </section>
+        <motion.footer variants={item} className="pt-12 mt-12 border-t border-zinc-200 dark:border-zinc-800 text-center">
+          <p className="text-sm text-zinc-400 font-medium">
+            Powered by EdIntel AI Twin Technology | Dr. West Leadership Suite
+          </p>
+          <a href="/login" className="inline-block mt-4 text-xs font-bold text-zinc-300 hover:text-blue-500 transition-colors uppercase tracking-widest">
+            Executive Portal Login
+          </a>
+        </motion.footer>
       </div>
-
-      <footer style={{ marginTop: '60px', textAlign: 'center', color: '#999', fontSize: '0.9rem' }}>
-        <hr style={{ border: '0', borderTop: '1px solid #eee', marginBottom: '20px' }} />
-        Powered by EdIntel AI Twin Technology | Dr. West Leadership Suite | <a href="/login" style="color: #999; text-decoration: none;">Executive Portal</a>
-      </footer>
-    </div>
+    </motion.div>
   );
 }

@@ -30,7 +30,7 @@ export default function SovereignIDManager() {
                         <div className={`w-40 h-40 rounded-3xl border-4 ${avatarActive ? 'border-amber-600' : 'border-zinc-800'} overflow-hidden relative shadow-2xl transition-all duration-500`}>
                             {avatarActive ? (
                                 <img
-                                    src="https://media.licdn.com/dms/image/v2/D5603AQHZJO8K16rSgA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1696914620023?e=1740614400&v=beta&t=4mH8dFVhZtY8uWqgwJb1kU_uJ5Gj-W-M3vCyo0-w0aQ"
+                                    src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop"
                                     alt="Sovereign Architect"
                                     className="w-full h-full object-cover"
                                 />

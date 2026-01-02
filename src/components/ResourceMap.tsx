@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { db } from '@/firebase';
+import { firestore } from '@/firebase';
 import { collection, query, getDocs } from 'firebase/firestore';
 
 export default function ResourceMap() {
@@ -8,9 +8,9 @@ export default function ResourceMap() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const snapshot = await getDocs(collection(db, 'strategicAudits'));
+      const snapshot = await getDocs(collection(firestore, 'strategicAudits'));
       const counts: Record<string, number> = {};
-      
+
       snapshot.docs.forEach(doc => {
         const school = doc.data().targetSchool || 'District Wide';
         counts[school] = (counts[school] || 0) + 1;
@@ -19,24 +19,28 @@ export default function ResourceMap() {
       const sorted = Object.entries(counts)
         .map(([name, count]) => ({ name, count }))
         .sort((a, b) => b.count - a.count);
-      
+
       setRankings(sorted);
     };
     fetchData();
   }, []);
 
   return (
-    <div style={{ marginTop: '20px', padding: '20px', backgroundColor: '#1a1a1a', color: '#fff', borderRadius: '12px' }}>
-      <h4>?? Mobile County Resource Allocation Needs</h4>
-      <p style={{ fontSize: '0.8rem', color: '#888' }}>Schools ranked by AI Audit frequency</p>
-      {rankings.map((item, index) => (
-        <div key={item.name} style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid #333' }}>
-          <span>{index + 1}. {item.name}</span>
-          <span style={{ color: item.count > 3 ? '#ff4d4f' : '#52c41a' }}>
-            {item.count} Active Audits
-          </span>
-        </div>
-      ))}
+    <div className="bg-zinc-900 text-white rounded-2xl p-6 shadow-lg border border-zinc-800">
+      <div className="mb-6">
+        <h4 className="text-lg font-bold flex items-center gap-2">?? Mobile County Resource Allocation Needs</h4>
+        <p className="text-xs text-zinc-500 font-mono mt-1">Schools ranked by AI Audit frequency</p>
+      </div>
+      <div className="space-y-1">
+        {rankings.map((item, index) => (
+          <div key={item.name} className="flex justify-between items-center py-3 border-b border-zinc-800 last:border-0 hover:bg-zinc-800/50 px-2 rounded-lg transition-colors">
+            <span className="text-sm font-medium">{index + 1}. {item.name}</span>
+            <span className={`text-xs font-bold uppercase tracking-wider px-2 py-1 rounded-md ${item.count > 3 ? 'bg-red-500/20 text-red-400' : 'bg-green-500/20 text-green-400'}`}>
+              {item.count} Active Audits
+            </span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

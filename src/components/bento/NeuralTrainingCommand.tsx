@@ -93,7 +93,7 @@ export default function NeuralTrainingCommand() {
             <div className="relative w-full aspect-[21/9] rounded-[2.5rem] overflow-hidden mb-10 group/hero border border-zinc-200 shadow-xl bg-white">
                 <div className="absolute inset-0 bg-gradient-to-r from-white via-white/50 to-transparent z-10" />
                 <img
-                    src="C:/Users/nivla/.gemini/antigravity/brain/9ae6d28f-6087-47a0-8aee-e5e3ecebd38a/uploaded_image_3_1767222059208.jpg"
+                    src="https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?w=800&q=80"
                     className="absolute inset-0 w-full h-full object-cover grayscale opacity-20 group-hover/hero:scale-105 transition-transform duration-1000"
                     alt="Neural Hub"
                 />

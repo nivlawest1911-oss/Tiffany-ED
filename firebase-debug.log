@@ -1,0 +1,1905 @@
+[debug] [2026-01-02T06:32:52.117Z] ----------------------------------------------------------------------
+[debug] [2026-01-02T06:32:52.119Z] Command:       C:\nvm4w\nodejs\node.exe C:\Users\nivla\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2026-01-02T06:32:52.119Z] CLI Version:   15.1.0
+[debug] [2026-01-02T06:32:52.119Z] Platform:      win32
+[debug] [2026-01-02T06:32:52.119Z] Node Version:  v24.12.0
+[debug] [2026-01-02T06:32:52.119Z] Time:          Fri Jan 02 2026 00:32:52 GMT-0600 (Central Standard Time)
+[debug] [2026-01-02T06:32:52.119Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-01-02T06:32:53.243Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-02T06:32:53.243Z] > authorizing via signed-in user (nivlawest1911@gmail.com)
+[debug] [2026-01-02T06:32:53.243Z] [iam] checking project studio-9997686479-ca258 for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2026-01-02T06:32:53.244Z] Checked if tokens are valid: false, expires at: 1767335041972
+[debug] [2026-01-02T06:32:53.244Z] Checked if tokens are valid: false, expires at: 1767335041972
+[debug] [2026-01-02T06:32:53.244Z] > refreshing access token with scopes: []
+[debug] [2026-01-02T06:32:53.245Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-01-02T06:32:53.245Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-01-02T06:32:53.412Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-01-02T06:32:53.413Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-01-02T06:32:53.437Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions [none]
+[debug] [2026-01-02T06:32:53.437Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions x-goog-quota-user=projects/studio-9997686479-ca258
+[debug] [2026-01-02T06:32:53.437Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-02T06:32:53.599Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions 200
+[debug] [2026-01-02T06:32:53.600Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-02T06:32:53.600Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:32:53.600Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:32:53.600Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T06:32:53.867Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 200
+[debug] [2026-01-02T06:32:53.867Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 {"projectId":"studio-9997686479-ca258","projectNumber":"501461250259","displayName":"EdIntel","name":"projects/studio-9997686479-ca258","resources":{"hostingSite":"studio-9997686479-ca258","realtimeDatabaseInstance":"studio-9997686479-ca258-default-rtdb"},"state":"ACTIVE","etag":"1_db7d2708-31f1-43bf-8905-3315024fd288"}
+[debug] [2026-01-02T06:32:55.720Z] defaultcredentials: writing to file C:\Users\nivla\AppData\Roaming\firebase\nivlawest1911_gmail_com_application_default_credentials.json
+[debug] [2026-01-02T06:32:55.721Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:32:55.721Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:32:55.721Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites pageToken=&pageSize=10
+[debug] [2026-01-02T06:32:56.109Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites 200
+[debug] [2026-01-02T06:32:56.110Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites {"sites":[{"name":"projects/studio-9997686479-ca258/sites/edintelus","defaultUrl":"https://edintelus.web.app","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-9334e","defaultUrl":"https://studio-9997686479-ca258-9334e.web.app","appId":"1:501461250259:web:125dc6ff9e13866865e426","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-c5ec3","defaultUrl":"https://studio-9997686479-ca258-c5ec3.web.app","appId":"1:501461250259:web:a50627b3812497d965e426","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-f46e3","defaultUrl":"https://studio-9997686479-ca258-f46e3.web.app","appId":"1:501461250259:web:4f6023d3ffc667a565e426","type":"USER_SITE"}]}
+[debug] [2026-01-02T06:32:56.110Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:32:56.110Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:32:56.110Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config [none]
+[debug] [2026-01-02T06:32:56.590Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config 200
+[debug] [2026-01-02T06:32:56.591Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config {"projectId":"studio-9997686479-ca258","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","databaseURL":"https://studio-9997686479-ca258-default-rtdb.firebaseio.com","storageBucket":"studio-9997686479-ca258.firebasestorage.app","apiKey":"AIzaSyDTOhPhJlfUBAJjVhQjHKdXHiBLf2jl2As","authDomain":"studio-9997686479-ca258.firebaseapp.com","messagingSenderId":"501461250259","measurementId":"G-GWK2TPB2GQ","projectNumber":"501461250259","version":"2"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+   The integration is known to work with Next.js version 12 - 15.0. You may encounter errors.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2026-01-02T06:33:00.567Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:33:00.567Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:33:00.567Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T06:33:00.694Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 200
+[debug] [2026-01-02T06:33:00.694Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 {"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"}
+[info] ▲ Next.js 16.1.1 (Turbopack)
+
+[info] - Environments: .env.local
+
+
+[info]   Creating an optimized production build ...
+
+[info] ✓ Compiled successfully in 8.1s
+
+[info]   Running TypeScript ...
+
+[info]   Collecting page data using 19 workers ...
+
+[info]   Generating static pages using 19 workers (0/30) ...
+
+[info]   Generating static pages using 19 workers (7/30) 
+
+[info] The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+[info] The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+[info]   Generating static pages using 19 workers (14/30) 
+
+[info]   Generating static pages using 19 workers (22/30) 
+
+[info] ✓ Generating static pages using 19 workers (30/30) in 528.9ms
+
+[info]   Finalizing page optimization ...
+
+[info] 
+
+[info] Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/admin
+├ ƒ /api/aide
+├ ƒ /api/avatar
+├ ƒ /api/captions
+├ ƒ /api/classroom
+├ ƒ /api/elevenlabs
+├ ƒ /api/eq
+├ ○ /api/health
+├ ƒ /api/heygen
+├ ƒ /api/iep
+├ ○ /archive
+├ ○ /blog
+├ ○ /board
+├ ○ /board/memo
+├ ○ /cognitive
+├ ○ /consent
+├ ○ /login
+├ ○ /pricing
+├ ○ /resources/alabama
+├ ○ /signup
+├ ○ /support
+├ ○ /support/article
+├ ○ /support/educator
+├ ○ /support/getting-started
+├ ○ /support/topic
+└ ○ /whats-cognifit
+
+
+[info] 
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+[info] Building a Cloud Function to run this application. This is needed due to:
+[info]  • non-static component /api/admin/route
+[info]  • non-static component /api/aide/route
+[info]  • non-static component /api/avatar/route
+[info]  • non-static component /api/captions/route
+[info]  • non-static component /api/classroom/route
+[debug] [2026-01-02T06:33:18.400Z]  • non-static component /api/elevenlabs/route
+[debug] [2026-01-02T06:33:18.400Z]  • non-static component /api/eq/route
+[debug] [2026-01-02T06:33:18.400Z]  • non-static component /api/heygen/route
+[debug] [2026-01-02T06:33:18.400Z]  • non-static component /api/iep/route
+[debug] [2026-01-02T06:33:18.400Z]  • route with server action /
+[debug] [2026-01-02T06:33:18.400Z]  • route with server action /pricing
+[info]  • and 6 other reasons, use --debug to see more
+[info] 
+[debug] [2026-01-02T06:33:18.473Z] skipping / due to server action
+[debug] [2026-01-02T06:33:18.473Z] skipping /pricing due to server action
+[debug] [2026-01-02T06:33:18.583Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:33:18.583Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:33:18.583Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T06:33:18.846Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 200
+[debug] [2026-01-02T06:33:18.846Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 {"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"}
+[debug] [2026-01-02T06:33:19.739Z] Error: EPERM: operation not permitted, symlink 'C:\Users\nivla\edintel-app\node_modules\import-in-the-middle' -> 'C:\Users\nivla\edintel-app\.firebase\studio-9997686479-ca258\functions\.next\node_modules\import-in-the-middle-ac114f323ad7e863'
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2026-01-02T06:34:37.503Z] ----------------------------------------------------------------------
+[debug] [2026-01-02T06:34:37.505Z] Command:       C:\nvm4w\nodejs\node.exe C:\Users\nivla\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2026-01-02T06:34:37.505Z] CLI Version:   15.1.0
+[debug] [2026-01-02T06:34:37.505Z] Platform:      win32
+[debug] [2026-01-02T06:34:37.505Z] Node Version:  v24.12.0
+[debug] [2026-01-02T06:34:37.505Z] Time:          Fri Jan 02 2026 00:34:37 GMT-0600 (Central Standard Time)
+[debug] [2026-01-02T06:34:37.505Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-01-02T06:34:38.500Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-02T06:34:38.500Z] > authorizing via signed-in user (nivlawest1911@gmail.com)
+[debug] [2026-01-02T06:34:38.500Z] [iam] checking project studio-9997686479-ca258 for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2026-01-02T06:34:38.501Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:34:38.501Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:34:38.502Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions [none]
+[debug] [2026-01-02T06:34:38.502Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions x-goog-quota-user=projects/studio-9997686479-ca258
+[debug] [2026-01-02T06:34:38.502Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-02T06:34:38.702Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions 200
+[debug] [2026-01-02T06:34:38.702Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-02T06:34:38.703Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:34:38.703Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:34:38.703Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T06:34:39.032Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 200
+[debug] [2026-01-02T06:34:39.032Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 {"projectId":"studio-9997686479-ca258","projectNumber":"501461250259","displayName":"EdIntel","name":"projects/studio-9997686479-ca258","resources":{"hostingSite":"studio-9997686479-ca258","realtimeDatabaseInstance":"studio-9997686479-ca258-default-rtdb"},"state":"ACTIVE","etag":"1_db7d2708-31f1-43bf-8905-3315024fd288"}
+[debug] [2026-01-02T06:34:40.709Z] defaultcredentials: writing to file C:\Users\nivla\AppData\Roaming\firebase\nivlawest1911_gmail_com_application_default_credentials.json
+[debug] [2026-01-02T06:34:40.710Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:34:40.710Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:34:40.710Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites pageToken=&pageSize=10
+[debug] [2026-01-02T06:34:41.060Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites 200
+[debug] [2026-01-02T06:34:41.060Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites {"sites":[{"name":"projects/studio-9997686479-ca258/sites/edintelus","defaultUrl":"https://edintelus.web.app","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-9334e","defaultUrl":"https://studio-9997686479-ca258-9334e.web.app","appId":"1:501461250259:web:125dc6ff9e13866865e426","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-c5ec3","defaultUrl":"https://studio-9997686479-ca258-c5ec3.web.app","appId":"1:501461250259:web:a50627b3812497d965e426","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-f46e3","defaultUrl":"https://studio-9997686479-ca258-f46e3.web.app","appId":"1:501461250259:web:4f6023d3ffc667a565e426","type":"USER_SITE"}]}
+[debug] [2026-01-02T06:34:41.060Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:34:41.060Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:34:41.060Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config [none]
+[debug] [2026-01-02T06:34:41.579Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config 200
+[debug] [2026-01-02T06:34:41.579Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config {"projectId":"studio-9997686479-ca258","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","databaseURL":"https://studio-9997686479-ca258-default-rtdb.firebaseio.com","storageBucket":"studio-9997686479-ca258.firebasestorage.app","apiKey":"AIzaSyDTOhPhJlfUBAJjVhQjHKdXHiBLf2jl2As","authDomain":"studio-9997686479-ca258.firebaseapp.com","messagingSenderId":"501461250259","measurementId":"G-GWK2TPB2GQ","projectNumber":"501461250259","version":"2"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+   The integration is known to work with Next.js version 12 - 15.0. You may encounter errors.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2026-01-02T06:34:45.367Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:34:45.367Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:34:45.367Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T06:34:45.464Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 200
+[debug] [2026-01-02T06:34:45.464Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 {"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"}
+[info] ▲ Next.js 16.1.1 (Turbopack)
+
+[info] - Environments: .env.local
+
+
+[info]   Creating an optimized production build ...
+
+[info] ✓ Compiled successfully in 7.2s
+
+[info]   Running TypeScript ...
+
+[info]   Collecting page data using 19 workers ...
+
+[info]   Generating static pages using 19 workers (0/30) ...
+
+[info]   Generating static pages using 19 workers (7/30) 
+
+[info] The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+[info] The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+[info]   Generating static pages using 19 workers (14/30) 
+
+[info]   Generating static pages using 19 workers (22/30) 
+
+[info] ✓ Generating static pages using 19 workers (30/30) in 431.7ms
+
+[info]   Finalizing page optimization ...
+
+[info] 
+
+[info] Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/admin
+├ ƒ /api/aide
+├ ƒ /api/avatar
+├ ƒ /api/captions
+├ ƒ /api/classroom
+├ ƒ /api/elevenlabs
+├ ƒ /api/eq
+├ ○ /api/health
+├ ƒ /api/heygen
+├ ƒ /api/iep
+├ ○ /archive
+├ ○ /blog
+├ ○ /board
+├ ○ /board/memo
+├ ○ /cognitive
+├ ○ /consent
+├ ○ /login
+├ ○ /pricing
+├ ○ /resources/alabama
+├ ○ /signup
+├ ○ /support
+├ ○ /support/article
+├ ○ /support/educator
+├ ○ /support/getting-started
+├ ○ /support/topic
+└ ○ /whats-cognifit
+
+
+[info] 
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+[info] Building a Cloud Function to run this application. This is needed due to:
+[info]  • non-static component /api/admin/route
+[info]  • non-static component /api/aide/route
+[info]  • non-static component /api/avatar/route
+[info]  • non-static component /api/captions/route
+[info]  • non-static component /api/classroom/route
+[debug] [2026-01-02T06:35:01.264Z]  • non-static component /api/elevenlabs/route
+[debug] [2026-01-02T06:35:01.264Z]  • non-static component /api/eq/route
+[debug] [2026-01-02T06:35:01.264Z]  • non-static component /api/heygen/route
+[debug] [2026-01-02T06:35:01.264Z]  • non-static component /api/iep/route
+[debug] [2026-01-02T06:35:01.264Z]  • route with server action /
+[debug] [2026-01-02T06:35:01.264Z]  • route with server action /pricing
+[info]  • and 6 other reasons, use --debug to see more
+[info] 
+[debug] [2026-01-02T06:35:01.322Z] skipping / due to server action
+[debug] [2026-01-02T06:35:01.322Z] skipping /pricing due to server action
+[debug] [2026-01-02T06:35:01.339Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:35:01.339Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:35:01.339Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T06:35:01.663Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 200
+[debug] [2026-01-02T06:35:01.663Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 {"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"}
+[debug] [2026-01-02T06:35:02.333Z] Error: EPERM: operation not permitted, symlink 'C:\Users\nivla\edintel-app\node_modules\require-in-the-middle' -> 'C:\Users\nivla\edintel-app\.firebase\studio-9997686479-ca258\functions\.next\node_modules\require-in-the-middle-2ca7b9c2766f317e'
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2026-01-02T06:38:12.195Z] ----------------------------------------------------------------------
+[debug] [2026-01-02T06:38:12.197Z] Command:       C:\nvm4w\nodejs\node.exe C:\Users\nivla\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2026-01-02T06:38:12.197Z] CLI Version:   15.1.0
+[debug] [2026-01-02T06:38:12.197Z] Platform:      win32
+[debug] [2026-01-02T06:38:12.197Z] Node Version:  v24.12.0
+[debug] [2026-01-02T06:38:12.197Z] Time:          Fri Jan 02 2026 00:38:12 GMT-0600 (Central Standard Time)
+[debug] [2026-01-02T06:38:12.197Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-01-02T06:38:13.126Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-02T06:38:13.127Z] > authorizing via signed-in user (nivlawest1911@gmail.com)
+[debug] [2026-01-02T06:38:13.127Z] [iam] checking project studio-9997686479-ca258 for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2026-01-02T06:38:13.127Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:38:13.128Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:38:13.128Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions [none]
+[debug] [2026-01-02T06:38:13.128Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions x-goog-quota-user=projects/studio-9997686479-ca258
+[debug] [2026-01-02T06:38:13.128Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-02T06:38:13.396Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions 200
+[debug] [2026-01-02T06:38:13.396Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-02T06:38:13.397Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:38:13.397Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:38:13.397Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T06:38:13.714Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 200
+[debug] [2026-01-02T06:38:13.714Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 {"projectId":"studio-9997686479-ca258","projectNumber":"501461250259","displayName":"EdIntel","name":"projects/studio-9997686479-ca258","resources":{"hostingSite":"studio-9997686479-ca258","realtimeDatabaseInstance":"studio-9997686479-ca258-default-rtdb"},"state":"ACTIVE","etag":"1_db7d2708-31f1-43bf-8905-3315024fd288"}
+[debug] [2026-01-02T06:38:15.314Z] defaultcredentials: writing to file C:\Users\nivla\AppData\Roaming\firebase\nivlawest1911_gmail_com_application_default_credentials.json
+[debug] [2026-01-02T06:38:15.314Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:38:15.314Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:38:15.315Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites pageToken=&pageSize=10
+[debug] [2026-01-02T06:38:15.694Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites 200
+[debug] [2026-01-02T06:38:15.694Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites {"sites":[{"name":"projects/studio-9997686479-ca258/sites/edintelus","defaultUrl":"https://edintelus.web.app","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-9334e","defaultUrl":"https://studio-9997686479-ca258-9334e.web.app","appId":"1:501461250259:web:125dc6ff9e13866865e426","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-c5ec3","defaultUrl":"https://studio-9997686479-ca258-c5ec3.web.app","appId":"1:501461250259:web:a50627b3812497d965e426","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-f46e3","defaultUrl":"https://studio-9997686479-ca258-f46e3.web.app","appId":"1:501461250259:web:4f6023d3ffc667a565e426","type":"USER_SITE"}]}
+[debug] [2026-01-02T06:38:15.694Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:38:15.694Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:38:15.694Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config [none]
+[debug] [2026-01-02T06:38:16.201Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config 200
+[debug] [2026-01-02T06:38:16.201Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config {"projectId":"studio-9997686479-ca258","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","databaseURL":"https://studio-9997686479-ca258-default-rtdb.firebaseio.com","storageBucket":"studio-9997686479-ca258.firebasestorage.app","apiKey":"AIzaSyDTOhPhJlfUBAJjVhQjHKdXHiBLf2jl2As","authDomain":"studio-9997686479-ca258.firebaseapp.com","messagingSenderId":"501461250259","measurementId":"G-GWK2TPB2GQ","projectNumber":"501461250259","version":"2"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+   The integration is known to work with Next.js version 12 - 15.0. You may encounter errors.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2026-01-02T06:38:19.677Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:38:19.677Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:38:19.677Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T06:38:19.800Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 200
+[debug] [2026-01-02T06:38:19.800Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 {"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"}
+[info] ▲ Next.js 16.1.1 (Turbopack)
+
+[info] - Environments: .env.local
+
+
+[info]   Creating an optimized production build ...
+
+[info] ✓ Compiled successfully in 7.2s
+
+[info]   Running TypeScript ...
+
+[info]   Collecting page data using 19 workers ...
+
+[info]   Generating static pages using 19 workers (0/30) ...
+
+[info] The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+[info] The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+[info]   Generating static pages using 19 workers (7/30) 
+
+[info]   Generating static pages using 19 workers (14/30) 
+
+[info]   Generating static pages using 19 workers (22/30) 
+
+[info] ✓ Generating static pages using 19 workers (30/30) in 578.4ms
+
+[info]   Finalizing page optimization ...
+
+[info] 
+
+[info] Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/admin
+├ ƒ /api/aide
+├ ƒ /api/avatar
+├ ƒ /api/captions
+├ ƒ /api/classroom
+├ ƒ /api/elevenlabs
+├ ƒ /api/eq
+├ ○ /api/health
+├ ƒ /api/heygen
+├ ƒ /api/iep
+├ ○ /archive
+├ ○ /blog
+├ ○ /board
+├ ○ /board/memo
+├ ○ /cognitive
+├ ○ /consent
+├ ○ /login
+├ ○ /pricing
+├ ○ /resources/alabama
+├ ○ /signup
+├ ○ /support
+├ ○ /support/article
+├ ○ /support/educator
+├ ○ /support/getting-started
+├ ○ /support/topic
+└ ○ /whats-cognifit
+
+
+[info] 
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+[info] Building a Cloud Function to run this application. This is needed due to:
+[info]  • non-static component /api/admin/route
+[info]  • non-static component /api/aide/route
+[info]  • non-static component /api/avatar/route
+[info]  • non-static component /api/captions/route
+[info]  • non-static component /api/classroom/route
+[debug] [2026-01-02T06:38:35.603Z]  • non-static component /api/elevenlabs/route
+[debug] [2026-01-02T06:38:35.603Z]  • non-static component /api/eq/route
+[debug] [2026-01-02T06:38:35.603Z]  • non-static component /api/heygen/route
+[debug] [2026-01-02T06:38:35.603Z]  • non-static component /api/iep/route
+[debug] [2026-01-02T06:38:35.603Z]  • route with server action /
+[debug] [2026-01-02T06:38:35.603Z]  • route with server action /pricing
+[info]  • and 6 other reasons, use --debug to see more
+[info] 
+[debug] [2026-01-02T06:38:35.667Z] skipping / due to server action
+[debug] [2026-01-02T06:38:35.667Z] skipping /pricing due to server action
+[debug] [2026-01-02T06:38:35.830Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:38:35.830Z] Checked if tokens are valid: true, expires at: 1767339172413
+[debug] [2026-01-02T06:38:35.830Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T06:38:36.106Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 200
+[debug] [2026-01-02T06:38:36.106Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 {"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"}
+[debug] [2026-01-02T06:38:36.840Z] Error: EPERM: operation not permitted, symlink 'C:\Users\nivla\edintel-app\node_modules\require-in-the-middle' -> 'C:\Users\nivla\edintel-app\.firebase\studio-9997686479-ca258\functions\.next\node_modules\require-in-the-middle-2ca7b9c2766f317e'
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2026-01-02T20:00:59.462Z] ----------------------------------------------------------------------
+[debug] [2026-01-02T20:00:59.464Z] Command:       C:\nvm4w\nodejs\node.exe C:\Users\nivla\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2026-01-02T20:00:59.464Z] CLI Version:   15.1.0
+[debug] [2026-01-02T20:00:59.464Z] Platform:      win32
+[debug] [2026-01-02T20:00:59.464Z] Node Version:  v24.12.0
+[debug] [2026-01-02T20:00:59.464Z] Time:          Fri Jan 02 2026 14:00:59 GMT-0600 (Central Standard Time)
+[debug] [2026-01-02T20:00:59.464Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-01-02T20:01:47.056Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-02T20:01:47.056Z] > authorizing via signed-in user (nivlawest1911@gmail.com)
+[debug] [2026-01-02T20:01:47.056Z] [iam] checking project studio-9997686479-ca258 for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2026-01-02T20:01:47.057Z] Checked if tokens are valid: false, expires at: 1767339172413
+[debug] [2026-01-02T20:01:47.057Z] Checked if tokens are valid: false, expires at: 1767339172413
+[debug] [2026-01-02T20:01:47.057Z] > refreshing access token with scopes: []
+[debug] [2026-01-02T20:01:47.058Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-01-02T20:01:47.058Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-01-02T20:01:47.217Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-01-02T20:01:47.217Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-01-02T20:01:47.238Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions [none]
+[debug] [2026-01-02T20:01:47.239Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions x-goog-quota-user=projects/studio-9997686479-ca258
+[debug] [2026-01-02T20:01:47.239Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-02T20:01:47.412Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions 200
+[debug] [2026-01-02T20:01:47.412Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-02T20:01:47.412Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:01:47.412Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:01:47.413Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:01:47.693Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:01:47.693Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 {"projectId":"studio-9997686479-ca258","projectNumber":"501461250259","displayName":"EdIntel","name":"projects/studio-9997686479-ca258","resources":{"hostingSite":"studio-9997686479-ca258","realtimeDatabaseInstance":"studio-9997686479-ca258-default-rtdb"},"state":"ACTIVE","etag":"1_db7d2708-31f1-43bf-8905-3315024fd288"}
+[debug] [2026-01-02T20:01:55.285Z] defaultcredentials: writing to file C:\Users\nivla\AppData\Roaming\firebase\nivlawest1911_gmail_com_application_default_credentials.json
+[debug] [2026-01-02T20:01:55.287Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:01:55.287Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:01:55.287Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites pageToken=&pageSize=10
+[debug] [2026-01-02T20:01:55.710Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites 200
+[debug] [2026-01-02T20:01:55.711Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites {"sites":[{"name":"projects/studio-9997686479-ca258/sites/edintelus","defaultUrl":"https://edintelus.web.app","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-9334e","defaultUrl":"https://studio-9997686479-ca258-9334e.web.app","appId":"1:501461250259:web:125dc6ff9e13866865e426","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-c5ec3","defaultUrl":"https://studio-9997686479-ca258-c5ec3.web.app","appId":"1:501461250259:web:a50627b3812497d965e426","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-f46e3","defaultUrl":"https://studio-9997686479-ca258-f46e3.web.app","appId":"1:501461250259:web:4f6023d3ffc667a565e426","type":"USER_SITE"}]}
+[debug] [2026-01-02T20:01:55.711Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:01:55.711Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:01:55.711Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config [none]
+[debug] [2026-01-02T20:01:56.041Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config 200
+[debug] [2026-01-02T20:01:56.041Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config {"projectId":"studio-9997686479-ca258","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","databaseURL":"https://studio-9997686479-ca258-default-rtdb.firebaseio.com","storageBucket":"studio-9997686479-ca258.firebasestorage.app","apiKey":"AIzaSyDTOhPhJlfUBAJjVhQjHKdXHiBLf2jl2As","authDomain":"studio-9997686479-ca258.firebaseapp.com","messagingSenderId":"501461250259","measurementId":"G-GWK2TPB2GQ","projectNumber":"501461250259","version":"2"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+   The integration is known to work with Next.js version 12 - 15.0. You may encounter errors.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2026-01-02T20:01:58.937Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:01:58.937Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:01:58.937Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:01:59.048Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:01:59.048Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 {"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"}
+[info] ▲ Next.js 16.1.1 (Turbopack)
+
+[info] - Environments: .env.local
+
+
+[info]   Creating an optimized production build ...
+
+[info] ✓ Compiled successfully in 7.6s
+
+[info]   Running TypeScript ...
+
+[info]   Collecting page data using 19 workers ...
+
+[info]   Generating static pages using 19 workers (0/30) ...
+
+[info] The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+[info] The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+[info]   Generating static pages using 19 workers (7/30) 
+
+[info]   Generating static pages using 19 workers (14/30) 
+
+[info]   Generating static pages using 19 workers (22/30) 
+
+[info] ✓ Generating static pages using 19 workers (30/30) in 543.6ms
+
+[info]   Finalizing page optimization ...
+
+[info] 
+
+[info] Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/admin
+├ ƒ /api/aide
+├ ƒ /api/avatar
+├ ƒ /api/captions
+├ ƒ /api/classroom
+├ ƒ /api/elevenlabs
+├ ƒ /api/eq
+├ ○ /api/health
+├ ƒ /api/heygen
+├ ƒ /api/iep
+├ ○ /archive
+├ ○ /blog
+├ ○ /board
+├ ○ /board/memo
+├ ○ /cognitive
+├ ○ /consent
+├ ○ /login
+├ ○ /pricing
+├ ○ /resources/alabama
+├ ○ /signup
+├ ○ /support
+├ ○ /support/article
+├ ○ /support/educator
+├ ○ /support/getting-started
+├ ○ /support/topic
+└ ○ /whats-cognifit
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+[info] Building a Cloud Function to run this application. This is needed due to:
+[info]  • non-static component /api/admin/route
+[info]  • non-static component /api/aide/route
+[info]  • non-static component /api/avatar/route
+[info]  • non-static component /api/captions/route
+[info]  • non-static component /api/classroom/route
+[debug] [2026-01-02T20:02:14.915Z]  • non-static component /api/elevenlabs/route
+[debug] [2026-01-02T20:02:14.915Z]  • non-static component /api/eq/route
+[debug] [2026-01-02T20:02:14.915Z]  • non-static component /api/heygen/route
+[debug] [2026-01-02T20:02:14.915Z]  • non-static component /api/iep/route
+[debug] [2026-01-02T20:02:14.915Z]  • route with server action /
+[debug] [2026-01-02T20:02:14.915Z]  • route with server action /pricing
+[info]  • and 6 other reasons, use --debug to see more
+[info] 
+[debug] [2026-01-02T20:02:14.971Z] skipping / due to server action
+[debug] [2026-01-02T20:02:14.971Z] skipping /pricing due to server action
+[debug] [2026-01-02T20:02:15.148Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:02:15.148Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:02:15.148Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:02:15.496Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:02:15.496Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 {"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"}
+[debug] [2026-01-02T20:02:16.223Z] Error: EPERM: operation not permitted, symlink 'C:\Users\nivla\edintel-app\node_modules\require-in-the-middle' -> 'C:\Users\nivla\edintel-app\.firebase\studio-9997686479-ca258\functions\.next\node_modules\require-in-the-middle-2ca7b9c2766f317e'
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2026-01-02T20:02:58.059Z] ----------------------------------------------------------------------
+[debug] [2026-01-02T20:02:58.061Z] Command:       C:\nvm4w\nodejs\node.exe C:\Users\nivla\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2026-01-02T20:02:58.061Z] CLI Version:   15.1.0
+[debug] [2026-01-02T20:02:58.061Z] Platform:      win32
+[debug] [2026-01-02T20:02:58.061Z] Node Version:  v24.12.0
+[debug] [2026-01-02T20:02:58.061Z] Time:          Fri Jan 02 2026 14:02:58 GMT-0600 (Central Standard Time)
+[debug] [2026-01-02T20:02:58.061Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-01-02T20:02:58.984Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-02T20:02:58.984Z] > authorizing via signed-in user (nivlawest1911@gmail.com)
+[debug] [2026-01-02T20:02:58.984Z] [iam] checking project studio-9997686479-ca258 for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2026-01-02T20:02:58.985Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:02:58.985Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:02:58.986Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions [none]
+[debug] [2026-01-02T20:02:58.986Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions x-goog-quota-user=projects/studio-9997686479-ca258
+[debug] [2026-01-02T20:02:58.986Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-02T20:02:59.155Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions 200
+[debug] [2026-01-02T20:02:59.155Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-02T20:02:59.155Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:02:59.155Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:02:59.156Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:02:59.408Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:02:59.408Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 {"projectId":"studio-9997686479-ca258","projectNumber":"501461250259","displayName":"EdIntel","name":"projects/studio-9997686479-ca258","resources":{"hostingSite":"studio-9997686479-ca258","realtimeDatabaseInstance":"studio-9997686479-ca258-default-rtdb"},"state":"ACTIVE","etag":"1_db7d2708-31f1-43bf-8905-3315024fd288"}
+[debug] [2026-01-02T20:03:00.732Z] defaultcredentials: writing to file C:\Users\nivla\AppData\Roaming\firebase\nivlawest1911_gmail_com_application_default_credentials.json
+[debug] [2026-01-02T20:03:00.733Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:03:00.733Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:03:00.733Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites pageToken=&pageSize=10
+[debug] [2026-01-02T20:03:01.093Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites 200
+[debug] [2026-01-02T20:03:01.093Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites {"sites":[{"name":"projects/studio-9997686479-ca258/sites/edintelus","defaultUrl":"https://edintelus.web.app","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-9334e","defaultUrl":"https://studio-9997686479-ca258-9334e.web.app","appId":"1:501461250259:web:125dc6ff9e13866865e426","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-c5ec3","defaultUrl":"https://studio-9997686479-ca258-c5ec3.web.app","appId":"1:501461250259:web:a50627b3812497d965e426","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-f46e3","defaultUrl":"https://studio-9997686479-ca258-f46e3.web.app","appId":"1:501461250259:web:4f6023d3ffc667a565e426","type":"USER_SITE"}]}
+[debug] [2026-01-02T20:03:01.093Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:03:01.093Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:03:01.093Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config [none]
+[debug] [2026-01-02T20:03:01.400Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config 200
+[debug] [2026-01-02T20:03:01.400Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config {"projectId":"studio-9997686479-ca258","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","databaseURL":"https://studio-9997686479-ca258-default-rtdb.firebaseio.com","storageBucket":"studio-9997686479-ca258.firebasestorage.app","apiKey":"AIzaSyDTOhPhJlfUBAJjVhQjHKdXHiBLf2jl2As","authDomain":"studio-9997686479-ca258.firebaseapp.com","messagingSenderId":"501461250259","measurementId":"G-GWK2TPB2GQ","projectNumber":"501461250259","version":"2"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+   The integration is known to work with Next.js version 12 - 15.0. You may encounter errors.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2026-01-02T20:03:04.328Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:03:04.328Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:03:04.328Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:03:04.435Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:03:04.435Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 {"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"}
+[info] ▲ Next.js 16.1.1 (Turbopack)
+- Environments: .env.local
+
+[info] 
+
+[info]   Creating an optimized production build ...
+
+[info] ✓ Compiled successfully in 7.3s
+
+[info]   Running TypeScript ...
+
+[info]   Collecting page data using 19 workers ...
+
+[info]   Generating static pages using 19 workers (0/30) ...
+
+[info]   Generating static pages using 19 workers (7/30) 
+
+[info] The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+[info] The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+[info]   Generating static pages using 19 workers (14/30) 
+
+[info]   Generating static pages using 19 workers (22/30) 
+
+[info] ✓ Generating static pages using 19 workers (30/30) in 392.5ms
+
+[info]   Finalizing page optimization ...
+
+[info] 
+
+[info] Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/admin
+├ ƒ /api/aide
+├ ƒ /api/avatar
+├ ƒ /api/captions
+├ ƒ /api/classroom
+├ ƒ /api/elevenlabs
+├ ƒ /api/eq
+├ ○ /api/health
+├ ƒ /api/heygen
+├ ƒ /api/iep
+├ ○ /archive
+├ ○ /blog
+├ ○ /board
+├ ○ /board/memo
+├ ○ /cognitive
+├ ○ /consent
+├ ○ /login
+├ ○ /pricing
+├ ○ /resources/alabama
+├ ○ /signup
+├ ○ /support
+├ ○ /support/article
+├ ○ /support/educator
+├ ○ /support/getting-started
+├ ○ /support/topic
+└ ○ /whats-cognifit
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+[info] Building a Cloud Function to run this application. This is needed due to:
+[info]  • non-static component /api/admin/route
+[info]  • non-static component /api/aide/route
+[info]  • non-static component /api/avatar/route
+[info]  • non-static component /api/captions/route
+[info]  • non-static component /api/classroom/route
+[debug] [2026-01-02T20:03:20.010Z]  • non-static component /api/elevenlabs/route
+[debug] [2026-01-02T20:03:20.010Z]  • non-static component /api/eq/route
+[debug] [2026-01-02T20:03:20.010Z]  • non-static component /api/heygen/route
+[debug] [2026-01-02T20:03:20.010Z]  • non-static component /api/iep/route
+[debug] [2026-01-02T20:03:20.010Z]  • route with server action /
+[debug] [2026-01-02T20:03:20.010Z]  • route with server action /pricing
+[info]  • and 6 other reasons, use --debug to see more
+[info] 
+[debug] [2026-01-02T20:03:20.067Z] skipping / due to server action
+[debug] [2026-01-02T20:03:20.067Z] skipping /pricing due to server action
+[debug] [2026-01-02T20:03:20.243Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:03:20.243Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:03:20.243Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:03:20.517Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:03:20.517Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 {"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"}
+[debug] [2026-01-02T20:03:21.308Z] Error: EPERM: operation not permitted, symlink 'C:\Users\nivla\edintel-app\node_modules\require-in-the-middle' -> 'C:\Users\nivla\edintel-app\.firebase\studio-9997686479-ca258\functions\.next\node_modules\require-in-the-middle-2ca7b9c2766f317e'
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2026-01-02T20:11:31.851Z] ----------------------------------------------------------------------
+[debug] [2026-01-02T20:11:31.852Z] Command:       C:\nvm4w\nodejs\node.exe C:\Users\nivla\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2026-01-02T20:11:31.852Z] CLI Version:   15.1.0
+[debug] [2026-01-02T20:11:31.853Z] Platform:      win32
+[debug] [2026-01-02T20:11:31.853Z] Node Version:  v24.12.0
+[debug] [2026-01-02T20:11:31.853Z] Time:          Fri Jan 02 2026 14:11:31 GMT-0600 (Central Standard Time)
+[debug] [2026-01-02T20:11:31.853Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-01-02T20:11:32.809Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-02T20:11:32.809Z] > authorizing via signed-in user (nivlawest1911@gmail.com)
+[debug] [2026-01-02T20:11:32.810Z] [iam] checking project studio-9997686479-ca258 for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2026-01-02T20:11:32.810Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:11:32.810Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:11:32.811Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions [none]
+[debug] [2026-01-02T20:11:32.811Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions x-goog-quota-user=projects/studio-9997686479-ca258
+[debug] [2026-01-02T20:11:32.811Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-02T20:11:32.991Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions 200
+[debug] [2026-01-02T20:11:32.991Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-02T20:11:32.991Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:11:32.991Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:11:32.991Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:11:33.297Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:11:33.297Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 {"projectId":"studio-9997686479-ca258","projectNumber":"501461250259","displayName":"EdIntel","name":"projects/studio-9997686479-ca258","resources":{"hostingSite":"studio-9997686479-ca258","realtimeDatabaseInstance":"studio-9997686479-ca258-default-rtdb"},"state":"ACTIVE","etag":"1_db7d2708-31f1-43bf-8905-3315024fd288"}
+[debug] [2026-01-02T20:11:34.594Z] defaultcredentials: writing to file C:\Users\nivla\AppData\Roaming\firebase\nivlawest1911_gmail_com_application_default_credentials.json
+[debug] [2026-01-02T20:11:34.595Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:11:34.595Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:11:34.595Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites pageToken=&pageSize=10
+[debug] [2026-01-02T20:11:35.135Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites 200
+[debug] [2026-01-02T20:11:35.135Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites {"sites":[{"name":"projects/studio-9997686479-ca258/sites/edintelus","defaultUrl":"https://edintelus.web.app","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-9334e","defaultUrl":"https://studio-9997686479-ca258-9334e.web.app","appId":"1:501461250259:web:125dc6ff9e13866865e426","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-c5ec3","defaultUrl":"https://studio-9997686479-ca258-c5ec3.web.app","appId":"1:501461250259:web:a50627b3812497d965e426","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-f46e3","defaultUrl":"https://studio-9997686479-ca258-f46e3.web.app","appId":"1:501461250259:web:4f6023d3ffc667a565e426","type":"USER_SITE"}]}
+[debug] [2026-01-02T20:11:35.135Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:11:35.135Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:11:35.135Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config [none]
+[debug] [2026-01-02T20:11:35.491Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config 200
+[debug] [2026-01-02T20:11:35.491Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config {"projectId":"studio-9997686479-ca258","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","databaseURL":"https://studio-9997686479-ca258-default-rtdb.firebaseio.com","storageBucket":"studio-9997686479-ca258.firebasestorage.app","apiKey":"AIzaSyDTOhPhJlfUBAJjVhQjHKdXHiBLf2jl2As","authDomain":"studio-9997686479-ca258.firebaseapp.com","messagingSenderId":"501461250259","measurementId":"G-GWK2TPB2GQ","projectNumber":"501461250259","version":"2"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+   The integration is known to work with Next.js version 12 - 15.0. You may encounter errors.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2026-01-02T20:11:38.419Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:11:38.419Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:11:38.419Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:11:38.537Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:11:38.537Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 {"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"}
+[info] ▲ Next.js 16.1.1 (Turbopack)
+
+[info] - Environments: .env.local
+
+
+[info]   Creating an optimized production build ...
+
+[info] ✓ Compiled successfully in 7.1s
+
+[info]   Running TypeScript ...
+
+[info]   Collecting page data using 19 workers ...
+
+[info]   Generating static pages using 19 workers (0/30) ...
+
+[info]   Generating static pages using 19 workers (7/30) 
+
+[info] The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+[info] The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+[info]   Generating static pages using 19 workers (14/30) 
+
+[info]   Generating static pages using 19 workers (22/30) 
+
+[info] ✓ Generating static pages using 19 workers (30/30) in 408.0ms
+
+[info]   Finalizing page optimization ...
+
+[info] 
+
+[info] Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/admin
+├ ƒ /api/aide
+├ ƒ /api/avatar
+├ ƒ /api/captions
+├ ƒ /api/classroom
+├ ƒ /api/elevenlabs
+├ ƒ /api/eq
+├ ○ /api/health
+├ ƒ /api/heygen
+├ ƒ /api/iep
+├ ○ /archive
+├ ○ /blog
+├ ○ /board
+├ ○ /board/memo
+├ ○ /cognitive
+├ ○ /consent
+├ ○ /login
+├ ○ /pricing
+├ ○ /resources/alabama
+├ ○ /signup
+├ ○ /support
+├ ○ /support/article
+├ ○ /support/educator
+├ ○ /support/getting-started
+├ ○ /support/topic
+└ ○ /whats-cognifit
+
+
+[info] 
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+[info] Building a Cloud Function to run this application. This is needed due to:
+[info]  • non-static component /api/admin/route
+[info]  • non-static component /api/aide/route
+[info]  • non-static component /api/avatar/route
+[info]  • non-static component /api/captions/route
+[info]  • non-static component /api/classroom/route
+[debug] [2026-01-02T20:11:53.939Z]  • non-static component /api/elevenlabs/route
+[debug] [2026-01-02T20:11:53.939Z]  • non-static component /api/eq/route
+[debug] [2026-01-02T20:11:53.939Z]  • non-static component /api/heygen/route
+[debug] [2026-01-02T20:11:53.939Z]  • non-static component /api/iep/route
+[debug] [2026-01-02T20:11:53.939Z]  • route with server action /
+[debug] [2026-01-02T20:11:53.939Z]  • route with server action /pricing
+[info]  • and 6 other reasons, use --debug to see more
+[info] 
+[debug] [2026-01-02T20:11:53.997Z] skipping / due to server action
+[debug] [2026-01-02T20:11:53.997Z] skipping /pricing due to server action
+[debug] [2026-01-02T20:11:54.178Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:11:54.178Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:11:54.178Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:11:54.448Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:11:54.448Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 {"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"}
+[debug] [2026-01-02T20:11:55.544Z] Error: EPERM: operation not permitted, symlink 'C:\Users\nivla\edintel-app\node_modules\require-in-the-middle' -> 'C:\Users\nivla\edintel-app\.firebase\studio-9997686479-ca258\functions\.next\node_modules\require-in-the-middle-2ca7b9c2766f317e'
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2026-01-02T20:13:06.451Z] ----------------------------------------------------------------------
+[debug] [2026-01-02T20:13:06.453Z] Command:       C:\nvm4w\nodejs\node.exe C:\Users\nivla\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2026-01-02T20:13:06.453Z] CLI Version:   15.1.0
+[debug] [2026-01-02T20:13:06.453Z] Platform:      win32
+[debug] [2026-01-02T20:13:06.453Z] Node Version:  v24.12.0
+[debug] [2026-01-02T20:13:06.453Z] Time:          Fri Jan 02 2026 14:13:06 GMT-0600 (Central Standard Time)
+[debug] [2026-01-02T20:13:06.453Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-01-02T20:13:07.404Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-02T20:13:07.404Z] > authorizing via signed-in user (nivlawest1911@gmail.com)
+[debug] [2026-01-02T20:13:07.404Z] [iam] checking project studio-9997686479-ca258 for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2026-01-02T20:13:07.405Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:13:07.405Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:13:07.406Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions [none]
+[debug] [2026-01-02T20:13:07.406Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions x-goog-quota-user=projects/studio-9997686479-ca258
+[debug] [2026-01-02T20:13:07.406Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-02T20:13:07.611Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions 200
+[debug] [2026-01-02T20:13:07.611Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-02T20:13:07.612Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:13:07.612Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:13:07.612Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:13:07.926Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:13:07.926Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 {"projectId":"studio-9997686479-ca258","projectNumber":"501461250259","displayName":"EdIntel","name":"projects/studio-9997686479-ca258","resources":{"hostingSite":"studio-9997686479-ca258","realtimeDatabaseInstance":"studio-9997686479-ca258-default-rtdb"},"state":"ACTIVE","etag":"1_db7d2708-31f1-43bf-8905-3315024fd288"}
+[debug] [2026-01-02T20:13:09.300Z] defaultcredentials: writing to file C:\Users\nivla\AppData\Roaming\firebase\nivlawest1911_gmail_com_application_default_credentials.json
+[debug] [2026-01-02T20:13:09.301Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:13:09.301Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:13:09.301Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites pageToken=&pageSize=10
+[debug] [2026-01-02T20:13:09.691Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites 200
+[debug] [2026-01-02T20:13:09.691Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites {"sites":[{"name":"projects/studio-9997686479-ca258/sites/edintelus","defaultUrl":"https://edintelus.web.app","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-9334e","defaultUrl":"https://studio-9997686479-ca258-9334e.web.app","appId":"1:501461250259:web:125dc6ff9e13866865e426","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-c5ec3","defaultUrl":"https://studio-9997686479-ca258-c5ec3.web.app","appId":"1:501461250259:web:a50627b3812497d965e426","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-f46e3","defaultUrl":"https://studio-9997686479-ca258-f46e3.web.app","appId":"1:501461250259:web:4f6023d3ffc667a565e426","type":"USER_SITE"}]}
+[debug] [2026-01-02T20:13:09.692Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:13:09.692Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:13:09.692Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config [none]
+[debug] [2026-01-02T20:13:10.071Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config 200
+[debug] [2026-01-02T20:13:10.071Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config {"projectId":"studio-9997686479-ca258","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","databaseURL":"https://studio-9997686479-ca258-default-rtdb.firebaseio.com","storageBucket":"studio-9997686479-ca258.firebasestorage.app","apiKey":"AIzaSyDTOhPhJlfUBAJjVhQjHKdXHiBLf2jl2As","authDomain":"studio-9997686479-ca258.firebaseapp.com","messagingSenderId":"501461250259","measurementId":"G-GWK2TPB2GQ","projectNumber":"501461250259","version":"2"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+   The integration is known to work with Next.js version 12 - 15.0. You may encounter errors.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2026-01-02T20:13:13.033Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:13:13.033Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:13:13.033Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:13:13.143Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:13:13.143Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 {"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"}
+[info] ▲ Next.js 16.1.1 (Turbopack)
+
+[info] - Environments: .env.local
+
+
+[info]   Creating an optimized production build ...
+
+[info] ✓ Compiled successfully in 7.3s
+
+[info]   Running TypeScript ...
+
+[info]   Collecting page data using 19 workers ...
+
+[info]   Generating static pages using 19 workers (0/30) ...
+
+[info]   Generating static pages using 19 workers (7/30) 
+
+[info] The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+[info]   Generating static pages using 19 workers (14/30) 
+
+[info]   Generating static pages using 19 workers (22/30) 
+
+[info] ✓ Generating static pages using 19 workers (30/30) in 414.4ms
+
+[info]   Finalizing page optimization ...
+
+[info] 
+
+[info] Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/admin
+├ ƒ /api/aide
+├ ƒ /api/avatar
+├ ƒ /api/captions
+├ ƒ /api/classroom
+├ ƒ /api/elevenlabs
+├ ƒ /api/eq
+├ ○ /api/health
+├ ƒ /api/heygen
+├ ƒ /api/iep
+├ ○ /archive
+├ ○ /blog
+├ ○ /board
+├ ○ /board/memo
+├ ○ /cognitive
+├ ○ /consent
+├ ○ /login
+├ ○ /pricing
+├ ○ /resources/alabama
+├ ○ /signup
+├ ○ /support
+├ ○ /support/article
+├ ○ /support/educator
+├ ○ /support/getting-started
+├ ○ /support/topic
+└ ○ /whats-cognifit
+
+
+[info] 
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+[info] Building a Cloud Function to run this application. This is needed due to:
+[info]  • non-static component /api/admin/route
+[info]  • non-static component /api/aide/route
+[info]  • non-static component /api/avatar/route
+[info]  • non-static component /api/captions/route
+[info]  • non-static component /api/classroom/route
+[debug] [2026-01-02T20:13:29.017Z]  • non-static component /api/elevenlabs/route
+[debug] [2026-01-02T20:13:29.017Z]  • non-static component /api/eq/route
+[debug] [2026-01-02T20:13:29.017Z]  • non-static component /api/heygen/route
+[debug] [2026-01-02T20:13:29.017Z]  • non-static component /api/iep/route
+[debug] [2026-01-02T20:13:29.017Z]  • route with server action /
+[debug] [2026-01-02T20:13:29.017Z]  • route with server action /pricing
+[info]  • and 6 other reasons, use --debug to see more
+[info] 
+[debug] [2026-01-02T20:13:29.079Z] skipping / due to server action
+[debug] [2026-01-02T20:13:29.079Z] skipping /pricing due to server action
+[debug] [2026-01-02T20:13:29.250Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:13:29.251Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:13:29.251Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:13:29.500Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:13:29.500Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 {"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"}
+[debug] [2026-01-02T20:13:30.217Z] Error: EPERM: operation not permitted, symlink 'C:\Users\nivla\edintel-app\node_modules\import-in-the-middle' -> 'C:\Users\nivla\edintel-app\.firebase\studio-9997686479-ca258\functions\.next\node_modules\import-in-the-middle-ac114f323ad7e863'
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2026-01-02T20:13:59.812Z] ----------------------------------------------------------------------
+[debug] [2026-01-02T20:13:59.814Z] Command:       C:\nvm4w\nodejs\node.exe C:\Users\nivla\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2026-01-02T20:13:59.814Z] CLI Version:   15.1.0
+[debug] [2026-01-02T20:13:59.814Z] Platform:      win32
+[debug] [2026-01-02T20:13:59.814Z] Node Version:  v24.12.0
+[debug] [2026-01-02T20:13:59.814Z] Time:          Fri Jan 02 2026 14:13:59 GMT-0600 (Central Standard Time)
+[debug] [2026-01-02T20:13:59.814Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-01-02T20:14:00.806Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-02T20:14:00.806Z] > authorizing via signed-in user (nivlawest1911@gmail.com)
+[debug] [2026-01-02T20:14:00.806Z] [iam] checking project studio-9997686479-ca258 for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2026-01-02T20:14:00.807Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:14:00.807Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:14:00.808Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions [none]
+[debug] [2026-01-02T20:14:00.808Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions x-goog-quota-user=projects/studio-9997686479-ca258
+[debug] [2026-01-02T20:14:00.808Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-02T20:14:01.028Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions 200
+[debug] [2026-01-02T20:14:01.028Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-02T20:14:01.029Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:14:01.029Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:14:01.029Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:14:01.323Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:14:01.323Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 {"projectId":"studio-9997686479-ca258","projectNumber":"501461250259","displayName":"EdIntel","name":"projects/studio-9997686479-ca258","resources":{"hostingSite":"studio-9997686479-ca258","realtimeDatabaseInstance":"studio-9997686479-ca258-default-rtdb"},"state":"ACTIVE","etag":"1_db7d2708-31f1-43bf-8905-3315024fd288"}
+[debug] [2026-01-02T20:14:02.708Z] defaultcredentials: writing to file C:\Users\nivla\AppData\Roaming\firebase\nivlawest1911_gmail_com_application_default_credentials.json
+[debug] [2026-01-02T20:14:02.708Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:14:02.708Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:14:02.709Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites pageToken=&pageSize=10
+[debug] [2026-01-02T20:14:03.048Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites 200
+[debug] [2026-01-02T20:14:03.048Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites {"sites":[{"name":"projects/studio-9997686479-ca258/sites/edintelus","defaultUrl":"https://edintelus.web.app","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-9334e","defaultUrl":"https://studio-9997686479-ca258-9334e.web.app","appId":"1:501461250259:web:125dc6ff9e13866865e426","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-c5ec3","defaultUrl":"https://studio-9997686479-ca258-c5ec3.web.app","appId":"1:501461250259:web:a50627b3812497d965e426","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-f46e3","defaultUrl":"https://studio-9997686479-ca258-f46e3.web.app","appId":"1:501461250259:web:4f6023d3ffc667a565e426","type":"USER_SITE"}]}
+[debug] [2026-01-02T20:14:03.048Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:14:03.048Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:14:03.048Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config [none]
+[debug] [2026-01-02T20:14:03.287Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config 200
+[debug] [2026-01-02T20:14:03.287Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config {"projectId":"studio-9997686479-ca258","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","databaseURL":"https://studio-9997686479-ca258-default-rtdb.firebaseio.com","storageBucket":"studio-9997686479-ca258.firebasestorage.app","apiKey":"AIzaSyDTOhPhJlfUBAJjVhQjHKdXHiBLf2jl2As","authDomain":"studio-9997686479-ca258.firebaseapp.com","messagingSenderId":"501461250259","measurementId":"G-GWK2TPB2GQ","projectNumber":"501461250259","version":"2"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+   The integration is known to work with Next.js version 12 - 15.0. You may encounter errors.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2026-01-02T20:14:06.201Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:14:06.201Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:14:06.201Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:14:06.310Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:14:06.310Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 {"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"}
+[info] ▲ Next.js 16.1.1 (Turbopack)
+
+[info] - Environments: .env.local
+
+
+[info]   Creating an optimized production build ...
+
+[info] ✓ Compiled successfully in 6.8s
+
+[info]   Skipping validation of types
+
+[info]   Collecting page data using 19 workers ...
+
+[info]   Generating static pages using 19 workers (0/30) ...
+
+[info] The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+[info]   Generating static pages using 19 workers (7/30) 
+
+[info]   Generating static pages using 19 workers (14/30) 
+
+[info]   Generating static pages using 19 workers (22/30) 
+
+[info] ✓ Generating static pages using 19 workers (30/30) in 569.7ms
+
+[info]   Finalizing page optimization ...
+
+[info] 
+
+[info] Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/admin
+├ ƒ /api/aide
+├ ƒ /api/avatar
+├ ƒ /api/captions
+├ ƒ /api/classroom
+├ ƒ /api/elevenlabs
+├ ƒ /api/eq
+├ ○ /api/health
+├ ƒ /api/heygen
+├ ƒ /api/iep
+├ ○ /archive
+├ ○ /blog
+├ ○ /board
+├ ○ /board/memo
+├ ○ /cognitive
+├ ○ /consent
+├ ○ /login
+├ ○ /pricing
+├ ○ /resources/alabama
+├ ○ /signup
+├ ○ /support
+├ ○ /support/article
+├ ○ /support/educator
+├ ○ /support/getting-started
+├ ○ /support/topic
+└ ○ /whats-cognifit
+
+
+[info] 
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+[info] Building a Cloud Function to run this application. This is needed due to:
+[info]  • non-static component /api/admin/route
+[info]  • non-static component /api/aide/route
+[info]  • non-static component /api/avatar/route
+[info]  • non-static component /api/captions/route
+[info]  • non-static component /api/classroom/route
+[debug] [2026-01-02T20:14:18.132Z]  • non-static component /api/elevenlabs/route
+[debug] [2026-01-02T20:14:18.132Z]  • non-static component /api/eq/route
+[debug] [2026-01-02T20:14:18.132Z]  • non-static component /api/heygen/route
+[debug] [2026-01-02T20:14:18.132Z]  • non-static component /api/iep/route
+[debug] [2026-01-02T20:14:18.132Z]  • route with server action /
+[debug] [2026-01-02T20:14:18.133Z]  • route with server action /pricing
+[info]  • and 6 other reasons, use --debug to see more
+[info] 
+[debug] [2026-01-02T20:14:18.195Z] skipping / due to server action
+[debug] [2026-01-02T20:14:18.195Z] skipping /pricing due to server action
+[debug] [2026-01-02T20:14:18.363Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:14:18.363Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:14:18.363Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:14:18.638Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:14:18.638Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 {"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"}
+[debug] [2026-01-02T20:14:19.353Z] Error: EPERM: operation not permitted, symlink 'C:\Users\nivla\edintel-app\node_modules\express' -> 'C:\Users\nivla\edintel-app\.firebase\studio-9997686479-ca258\functions\.next\node_modules\express-f618ca94d4f3823e'
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2026-01-02T20:14:42.742Z] ----------------------------------------------------------------------
+[debug] [2026-01-02T20:14:42.744Z] Command:       C:\nvm4w\nodejs\node.exe C:\Users\nivla\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2026-01-02T20:14:42.744Z] CLI Version:   15.1.0
+[debug] [2026-01-02T20:14:42.744Z] Platform:      win32
+[debug] [2026-01-02T20:14:42.744Z] Node Version:  v24.12.0
+[debug] [2026-01-02T20:14:42.744Z] Time:          Fri Jan 02 2026 14:14:42 GMT-0600 (Central Standard Time)
+[debug] [2026-01-02T20:14:42.744Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-01-02T20:14:43.707Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-02T20:14:43.708Z] > authorizing via signed-in user (nivlawest1911@gmail.com)
+[debug] [2026-01-02T20:14:43.708Z] [iam] checking project studio-9997686479-ca258 for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2026-01-02T20:14:43.708Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:14:43.708Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:14:43.709Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions [none]
+[debug] [2026-01-02T20:14:43.709Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions x-goog-quota-user=projects/studio-9997686479-ca258
+[debug] [2026-01-02T20:14:43.709Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-02T20:14:44.012Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions 200
+[debug] [2026-01-02T20:14:44.012Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-02T20:14:44.013Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:14:44.013Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:14:44.013Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:14:44.279Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:14:44.279Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 {"projectId":"studio-9997686479-ca258","projectNumber":"501461250259","displayName":"EdIntel","name":"projects/studio-9997686479-ca258","resources":{"hostingSite":"studio-9997686479-ca258","realtimeDatabaseInstance":"studio-9997686479-ca258-default-rtdb"},"state":"ACTIVE","etag":"1_db7d2708-31f1-43bf-8905-3315024fd288"}
+[debug] [2026-01-02T20:14:45.701Z] defaultcredentials: writing to file C:\Users\nivla\AppData\Roaming\firebase\nivlawest1911_gmail_com_application_default_credentials.json
+[debug] [2026-01-02T20:14:45.702Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:14:45.702Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:14:45.702Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites pageToken=&pageSize=10
+[debug] [2026-01-02T20:14:46.028Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites 200
+[debug] [2026-01-02T20:14:46.028Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites {"sites":[{"name":"projects/studio-9997686479-ca258/sites/edintelus","defaultUrl":"https://edintelus.web.app","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-9334e","defaultUrl":"https://studio-9997686479-ca258-9334e.web.app","appId":"1:501461250259:web:125dc6ff9e13866865e426","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-c5ec3","defaultUrl":"https://studio-9997686479-ca258-c5ec3.web.app","appId":"1:501461250259:web:a50627b3812497d965e426","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-f46e3","defaultUrl":"https://studio-9997686479-ca258-f46e3.web.app","appId":"1:501461250259:web:4f6023d3ffc667a565e426","type":"USER_SITE"}]}
+[debug] [2026-01-02T20:14:46.029Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:14:46.029Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:14:46.029Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config [none]
+[debug] [2026-01-02T20:14:46.340Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config 200
+[debug] [2026-01-02T20:14:46.340Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config {"projectId":"studio-9997686479-ca258","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","databaseURL":"https://studio-9997686479-ca258-default-rtdb.firebaseio.com","storageBucket":"studio-9997686479-ca258.firebasestorage.app","apiKey":"AIzaSyDTOhPhJlfUBAJjVhQjHKdXHiBLf2jl2As","authDomain":"studio-9997686479-ca258.firebaseapp.com","messagingSenderId":"501461250259","measurementId":"G-GWK2TPB2GQ","projectNumber":"501461250259","version":"2"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+   The integration is known to work with Next.js version 12 - 15.0. You may encounter errors.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2026-01-02T20:14:49.423Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:14:49.423Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:14:49.423Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:14:49.542Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:14:49.542Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 {"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"}
+[info] ▲ Next.js 16.1.1 (Turbopack)
+
+[info] - Environments: .env.local
+
+
+[info]   Creating an optimized production build ...
+
+[info] ✓ Compiled successfully in 7.5s
+
+[info]   Skipping validation of types
+
+[info]   Collecting page data using 19 workers ...
+
+[info]   Generating static pages using 19 workers (0/30) ...
+
+[info]   Generating static pages using 19 workers (7/30) 
+
+[info] The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+[info]   Generating static pages using 19 workers (14/30) 
+
+[info]   Generating static pages using 19 workers (22/30) 
+
+[info] ✓ Generating static pages using 19 workers (30/30) in 421.7ms
+
+[info]   Finalizing page optimization ...
+
+[info] 
+
+[info] Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/admin
+├ ƒ /api/aide
+├ ƒ /api/avatar
+├ ƒ /api/captions
+├ ƒ /api/classroom
+├ ƒ /api/elevenlabs
+├ ƒ /api/eq
+├ ○ /api/health
+├ ƒ /api/heygen
+├ ƒ /api/iep
+├ ○ /archive
+├ ○ /blog
+├ ○ /board
+├ ○ /board/memo
+├ ○ /cognitive
+├ ○ /consent
+├ ○ /login
+├ ○ /pricing
+├ ○ /resources/alabama
+├ ○ /signup
+├ ○ /support
+├ ○ /support/article
+├ ○ /support/educator
+├ ○ /support/getting-started
+├ ○ /support/topic
+└ ○ /whats-cognifit
+
+
+[info] 
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+[info] Building a Cloud Function to run this application. This is needed due to:
+[info]  • non-static component /api/admin/route
+[info]  • non-static component /api/aide/route
+[info]  • non-static component /api/avatar/route
+[info]  • non-static component /api/captions/route
+[info]  • non-static component /api/classroom/route
+[debug] [2026-01-02T20:15:01.301Z]  • non-static component /api/elevenlabs/route
+[debug] [2026-01-02T20:15:01.301Z]  • non-static component /api/eq/route
+[debug] [2026-01-02T20:15:01.301Z]  • non-static component /api/heygen/route
+[debug] [2026-01-02T20:15:01.301Z]  • non-static component /api/iep/route
+[debug] [2026-01-02T20:15:01.301Z]  • route with server action /
+[debug] [2026-01-02T20:15:01.301Z]  • route with server action /pricing
+[info]  • and 6 other reasons, use --debug to see more
+[info] 
+[debug] [2026-01-02T20:15:01.362Z] skipping / due to server action
+[debug] [2026-01-02T20:15:01.362Z] skipping /pricing due to server action
+[debug] [2026-01-02T20:15:01.532Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:15:01.532Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:15:01.532Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:15:01.796Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:15:01.796Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 {"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"}
+[debug] [2026-01-02T20:15:02.528Z] Error: EPERM: operation not permitted, symlink 'C:\Users\nivla\edintel-app\node_modules\require-in-the-middle' -> 'C:\Users\nivla\edintel-app\.firebase\studio-9997686479-ca258\functions\.next\node_modules\require-in-the-middle-2ca7b9c2766f317e'
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2026-01-02T20:15:20.862Z] ----------------------------------------------------------------------
+[debug] [2026-01-02T20:15:20.864Z] Command:       C:\nvm4w\nodejs\node.exe C:\Users\nivla\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting
+[debug] [2026-01-02T20:15:20.864Z] CLI Version:   15.1.0
+[debug] [2026-01-02T20:15:20.865Z] Platform:      win32
+[debug] [2026-01-02T20:15:20.865Z] Node Version:  v24.12.0
+[debug] [2026-01-02T20:15:20.865Z] Time:          Fri Jan 02 2026 14:15:20 GMT-0600 (Central Standard Time)
+[debug] [2026-01-02T20:15:20.865Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-01-02T20:15:21.811Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-02T20:15:21.811Z] > authorizing via signed-in user (nivlawest1911@gmail.com)
+[debug] [2026-01-02T20:15:21.811Z] [iam] checking project studio-9997686479-ca258 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-01-02T20:15:21.812Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:15:21.812Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:15:21.813Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions [none]
+[debug] [2026-01-02T20:15:21.813Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions x-goog-quota-user=projects/studio-9997686479-ca258
+[debug] [2026-01-02T20:15:21.813Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-01-02T20:15:22.041Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions 200
+[debug] [2026-01-02T20:15:22.041Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-01-02T20:15:22.041Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:15:22.041Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:15:22.041Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:15:22.308Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:15:22.308Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 {"projectId":"studio-9997686479-ca258","projectNumber":"501461250259","displayName":"EdIntel","name":"projects/studio-9997686479-ca258","resources":{"hostingSite":"studio-9997686479-ca258","realtimeDatabaseInstance":"studio-9997686479-ca258-default-rtdb"},"state":"ACTIVE","etag":"1_db7d2708-31f1-43bf-8905-3315024fd288"}
+[debug] [2026-01-02T20:15:23.736Z] defaultcredentials: writing to file C:\Users\nivla\AppData\Roaming\firebase\nivlawest1911_gmail_com_application_default_credentials.json
+[debug] [2026-01-02T20:15:23.737Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:15:23.737Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:15:23.737Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites pageToken=&pageSize=10
+[debug] [2026-01-02T20:15:24.036Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites 200
+[debug] [2026-01-02T20:15:24.036Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites {"sites":[{"name":"projects/studio-9997686479-ca258/sites/edintelus","defaultUrl":"https://edintelus.web.app","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-9334e","defaultUrl":"https://studio-9997686479-ca258-9334e.web.app","appId":"1:501461250259:web:125dc6ff9e13866865e426","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-c5ec3","defaultUrl":"https://studio-9997686479-ca258-c5ec3.web.app","appId":"1:501461250259:web:a50627b3812497d965e426","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-f46e3","defaultUrl":"https://studio-9997686479-ca258-f46e3.web.app","appId":"1:501461250259:web:4f6023d3ffc667a565e426","type":"USER_SITE"}]}
+[debug] [2026-01-02T20:15:24.036Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:15:24.036Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:15:24.036Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config [none]
+[debug] [2026-01-02T20:15:24.327Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config 200
+[debug] [2026-01-02T20:15:24.328Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config {"projectId":"studio-9997686479-ca258","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","databaseURL":"https://studio-9997686479-ca258-default-rtdb.firebaseio.com","storageBucket":"studio-9997686479-ca258.firebasestorage.app","apiKey":"AIzaSyDTOhPhJlfUBAJjVhQjHKdXHiBLf2jl2As","authDomain":"studio-9997686479-ca258.firebaseapp.com","messagingSenderId":"501461250259","measurementId":"G-GWK2TPB2GQ","projectNumber":"501461250259","version":"2"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+   The integration is known to work with Next.js version 12 - 15.0. You may encounter errors.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2026-01-02T20:15:27.449Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:15:27.449Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:15:27.449Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:15:27.564Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:15:27.564Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 {"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"}
+[info] ▲ Next.js 16.1.1 (Turbopack)
+
+[info] - Environments: .env.local
+
+
+[info]   Creating an optimized production build ...
+
+[info] ✓ Compiled successfully in 6.7s
+
+[info]   Skipping validation of types
+
+[info]   Collecting page data using 19 workers ...
+
+[info]   Generating static pages using 19 workers (0/30) ...
+
+[info] The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+[info]   Generating static pages using 19 workers (7/30) 
+
+[info]   Generating static pages using 19 workers (14/30) 
+
+[info]   Generating static pages using 19 workers (22/30) 
+
+[info] ✓ Generating static pages using 19 workers (30/30) in 562.2ms
+
+[info]   Finalizing page optimization ...
+
+[info] 
+
+[info] Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/admin
+├ ƒ /api/aide
+├ ƒ /api/avatar
+├ ƒ /api/captions
+├ ƒ /api/classroom
+├ ƒ /api/elevenlabs
+├ ƒ /api/eq
+├ ○ /api/health
+├ ƒ /api/heygen
+├ ƒ /api/iep
+├ ○ /archive
+├ ○ /blog
+├ ○ /board
+├ ○ /board/memo
+├ ○ /cognitive
+├ ○ /consent
+├ ○ /login
+├ ○ /pricing
+├ ○ /resources/alabama
+├ ○ /signup
+├ ○ /support
+├ ○ /support/article
+├ ○ /support/educator
+├ ○ /support/getting-started
+├ ○ /support/topic
+└ ○ /whats-cognifit
+
+
+[info] 
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+[info] Building a Cloud Function to run this application. This is needed due to:
+[info]  • non-static component /api/admin/route
+[info]  • non-static component /api/aide/route
+[info]  • non-static component /api/avatar/route
+[info]  • non-static component /api/captions/route
+[info]  • non-static component /api/classroom/route
+[debug] [2026-01-02T20:15:39.332Z]  • non-static component /api/elevenlabs/route
+[debug] [2026-01-02T20:15:39.332Z]  • non-static component /api/eq/route
+[debug] [2026-01-02T20:15:39.332Z]  • non-static component /api/heygen/route
+[debug] [2026-01-02T20:15:39.332Z]  • non-static component /api/iep/route
+[debug] [2026-01-02T20:15:39.332Z]  • route with server action /
+[debug] [2026-01-02T20:15:39.332Z]  • route with server action /pricing
+[info]  • and 6 other reasons, use --debug to see more
+[info] 
+[debug] [2026-01-02T20:15:39.391Z] skipping / due to server action
+[debug] [2026-01-02T20:15:39.392Z] skipping /pricing due to server action
+[debug] [2026-01-02T20:15:39.552Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:15:39.552Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:15:39.552Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:15:39.821Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:15:39.821Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 {"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"}
+[debug] [2026-01-02T20:15:40.544Z] Error: EPERM: operation not permitted, symlink 'C:\Users\nivla\edintel-app\node_modules\require-in-the-middle' -> 'C:\Users\nivla\edintel-app\.firebase\studio-9997686479-ca258\functions\.next\node_modules\require-in-the-middle-2ca7b9c2766f317e'
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2026-01-02T20:16:40.057Z] ----------------------------------------------------------------------
+[debug] [2026-01-02T20:16:40.059Z] Command:       C:\nvm4w\nodejs\node.exe C:\Users\nivla\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2026-01-02T20:16:40.060Z] CLI Version:   15.1.0
+[debug] [2026-01-02T20:16:40.060Z] Platform:      win32
+[debug] [2026-01-02T20:16:40.060Z] Node Version:  v24.12.0
+[debug] [2026-01-02T20:16:40.060Z] Time:          Fri Jan 02 2026 14:16:40 GMT-0600 (Central Standard Time)
+[debug] [2026-01-02T20:16:40.060Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-01-02T20:16:40.993Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-02T20:16:40.993Z] > authorizing via signed-in user (nivlawest1911@gmail.com)
+[debug] [2026-01-02T20:16:40.993Z] [iam] checking project studio-9997686479-ca258 for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2026-01-02T20:16:40.994Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:16:40.994Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:16:40.995Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions [none]
+[debug] [2026-01-02T20:16:40.995Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions x-goog-quota-user=projects/studio-9997686479-ca258
+[debug] [2026-01-02T20:16:40.995Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-02T20:16:41.255Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions 200
+[debug] [2026-01-02T20:16:41.256Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-02T20:16:41.256Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:16:41.256Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:16:41.256Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:16:41.519Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:16:41.519Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 {"projectId":"studio-9997686479-ca258","projectNumber":"501461250259","displayName":"EdIntel","name":"projects/studio-9997686479-ca258","resources":{"hostingSite":"studio-9997686479-ca258","realtimeDatabaseInstance":"studio-9997686479-ca258-default-rtdb"},"state":"ACTIVE","etag":"1_db7d2708-31f1-43bf-8905-3315024fd288"}
+[debug] [2026-01-02T20:16:42.923Z] defaultcredentials: writing to file C:\Users\nivla\AppData\Roaming\firebase\nivlawest1911_gmail_com_application_default_credentials.json
+[debug] [2026-01-02T20:16:42.923Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:16:42.923Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:16:42.923Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites pageToken=&pageSize=10
+[debug] [2026-01-02T20:16:43.291Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites 200
+[debug] [2026-01-02T20:16:43.291Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites {"sites":[{"name":"projects/studio-9997686479-ca258/sites/edintelus","defaultUrl":"https://edintelus.web.app","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-9334e","defaultUrl":"https://studio-9997686479-ca258-9334e.web.app","appId":"1:501461250259:web:125dc6ff9e13866865e426","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-c5ec3","defaultUrl":"https://studio-9997686479-ca258-c5ec3.web.app","appId":"1:501461250259:web:a50627b3812497d965e426","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-f46e3","defaultUrl":"https://studio-9997686479-ca258-f46e3.web.app","appId":"1:501461250259:web:4f6023d3ffc667a565e426","type":"USER_SITE"}]}
+[debug] [2026-01-02T20:16:43.291Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:16:43.291Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:16:43.292Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config [none]
+[debug] [2026-01-02T20:16:43.497Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config 200
+[debug] [2026-01-02T20:16:43.497Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config {"projectId":"studio-9997686479-ca258","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","databaseURL":"https://studio-9997686479-ca258-default-rtdb.firebaseio.com","storageBucket":"studio-9997686479-ca258.firebasestorage.app","apiKey":"AIzaSyDTOhPhJlfUBAJjVhQjHKdXHiBLf2jl2As","authDomain":"studio-9997686479-ca258.firebaseapp.com","messagingSenderId":"501461250259","measurementId":"G-GWK2TPB2GQ","projectNumber":"501461250259","version":"2"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+   The integration is known to work with Next.js version 12 - 15.0. You may encounter errors.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2026-01-02T20:16:46.600Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:16:46.600Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:16:46.600Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:16:46.715Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:16:46.716Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 {"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"}
+[info] ▲ Next.js 16.1.1 (Turbopack)
+
+[info] - Environments: .env.local
+
+
+[info]   Creating an optimized production build ...
+
+[info] ✓ Compiled successfully in 6.7s
+
+[info]   Skipping validation of types
+
+[info]   Collecting page data using 19 workers ...
+
+[info]   Generating static pages using 19 workers (0/30) ...
+
+[info]   Generating static pages using 19 workers (7/30) 
+
+[info] The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+[info]   Generating static pages using 19 workers (14/30) 
+
+[info]   Generating static pages using 19 workers (22/30) 
+
+[info] ✓ Generating static pages using 19 workers (30/30) in 417.5ms
+
+[info]   Finalizing page optimization ...
+
+[info] 
+
+[info] Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/admin
+├ ƒ /api/aide
+├ ƒ /api/avatar
+├ ƒ /api/captions
+├ ƒ /api/classroom
+├ ƒ /api/elevenlabs
+├ ƒ /api/eq
+├ ○ /api/health
+├ ƒ /api/heygen
+├ ƒ /api/iep
+├ ○ /archive
+├ ○ /blog
+├ ○ /board
+├ ○ /board/memo
+├ ○ /cognitive
+├ ○ /consent
+├ ○ /login
+├ ○ /pricing
+├ ○ /resources/alabama
+├ ○ /signup
+├ ○ /support
+├ ○ /support/article
+├ ○ /support/educator
+├ ○ /support/getting-started
+├ ○ /support/topic
+└ ○ /whats-cognifit
+
+
+[info] 
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+[info] Building a Cloud Function to run this application. This is needed due to:
+[info]  • non-static component /api/admin/route
+[info]  • non-static component /api/aide/route
+[info]  • non-static component /api/avatar/route
+[info]  • non-static component /api/captions/route
+[info]  • non-static component /api/classroom/route
+[debug] [2026-01-02T20:16:58.376Z]  • non-static component /api/elevenlabs/route
+[debug] [2026-01-02T20:16:58.376Z]  • non-static component /api/eq/route
+[debug] [2026-01-02T20:16:58.376Z]  • non-static component /api/heygen/route
+[debug] [2026-01-02T20:16:58.376Z]  • non-static component /api/iep/route
+[debug] [2026-01-02T20:16:58.376Z]  • route with server action /
+[debug] [2026-01-02T20:16:58.376Z]  • route with server action /pricing
+[info]  • and 6 other reasons, use --debug to see more
+[info] 
+[debug] [2026-01-02T20:16:58.435Z] skipping / due to server action
+[debug] [2026-01-02T20:16:58.435Z] skipping /pricing due to server action
+[debug] [2026-01-02T20:16:58.604Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:16:58.604Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:16:58.604Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:16:58.876Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:16:58.876Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 {"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"}
+[debug] [2026-01-02T20:16:59.607Z] Error: EPERM: operation not permitted, symlink 'C:\Users\nivla\edintel-app\node_modules\require-in-the-middle' -> 'C:\Users\nivla\edintel-app\.firebase\studio-9997686479-ca258\functions\.next\node_modules\require-in-the-middle-2ca7b9c2766f317e'
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2026-01-02T20:17:47.624Z] ----------------------------------------------------------------------
+[debug] [2026-01-02T20:17:47.626Z] Command:       C:\nvm4w\nodejs\node.exe C:\Users\nivla\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --debug
+[debug] [2026-01-02T20:17:47.626Z] CLI Version:   15.1.0
+[debug] [2026-01-02T20:17:47.626Z] Platform:      win32
+[debug] [2026-01-02T20:17:47.626Z] Node Version:  v24.12.0
+[debug] [2026-01-02T20:17:47.626Z] Time:          Fri Jan 02 2026 14:17:47 GMT-0600 (Central Standard Time)
+[debug] [2026-01-02T20:17:47.626Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-01-02T20:17:48.581Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-02T20:17:48.582Z] > authorizing via signed-in user (nivlawest1911@gmail.com)
+[debug] [2026-01-02T20:17:48.582Z] [iam] checking project studio-9997686479-ca258 for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2026-01-02T20:17:48.583Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:17:48.584Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:17:48.584Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions [none]
+[debug] [2026-01-02T20:17:48.585Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions x-goog-quota-user=projects/studio-9997686479-ca258
+[debug] [2026-01-02T20:17:48.585Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-02T20:17:48.749Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions 200
+[debug] [2026-01-02T20:17:48.749Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-02T20:17:48.750Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:17:48.750Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:17:48.750Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:17:49.027Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:17:49.028Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 {"projectId":"studio-9997686479-ca258","projectNumber":"501461250259","displayName":"EdIntel","name":"projects/studio-9997686479-ca258","resources":{"hostingSite":"studio-9997686479-ca258","realtimeDatabaseInstance":"studio-9997686479-ca258-default-rtdb"},"state":"ACTIVE","etag":"1_db7d2708-31f1-43bf-8905-3315024fd288"}
+[debug] [2026-01-02T20:17:50.409Z] defaultcredentials: writing to file C:\Users\nivla\AppData\Roaming\firebase\nivlawest1911_gmail_com_application_default_credentials.json
+[debug] [2026-01-02T20:17:50.410Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:17:50.410Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:17:50.411Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites pageToken=&pageSize=10
+[debug] [2026-01-02T20:17:50.735Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites 200
+[debug] [2026-01-02T20:17:50.735Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites {"sites":[{"name":"projects/studio-9997686479-ca258/sites/edintelus","defaultUrl":"https://edintelus.web.app","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-9334e","defaultUrl":"https://studio-9997686479-ca258-9334e.web.app","appId":"1:501461250259:web:125dc6ff9e13866865e426","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-c5ec3","defaultUrl":"https://studio-9997686479-ca258-c5ec3.web.app","appId":"1:501461250259:web:a50627b3812497d965e426","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-f46e3","defaultUrl":"https://studio-9997686479-ca258-f46e3.web.app","appId":"1:501461250259:web:4f6023d3ffc667a565e426","type":"USER_SITE"}]}
+[debug] [2026-01-02T20:17:50.735Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:17:50.735Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:17:50.736Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config [none]
+[debug] [2026-01-02T20:17:50.945Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config 200
+[debug] [2026-01-02T20:17:50.945Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config {"projectId":"studio-9997686479-ca258","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","databaseURL":"https://studio-9997686479-ca258-default-rtdb.firebaseio.com","storageBucket":"studio-9997686479-ca258.firebasestorage.app","apiKey":"AIzaSyDTOhPhJlfUBAJjVhQjHKdXHiBLf2jl2As","authDomain":"studio-9997686479-ca258.firebaseapp.com","messagingSenderId":"501461250259","measurementId":"G-GWK2TPB2GQ","projectNumber":"501461250259","version":"2"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+   The integration is known to work with Next.js version 12 - 15.0. You may encounter errors.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2026-01-02T20:17:54.027Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:17:54.027Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:17:54.028Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:17:54.121Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:17:54.121Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 {"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"}
+[info] ▲ Next.js 16.1.1 (Turbopack)
+
+[info] - Environments: .env.local
+
+
+[info]   Creating an optimized production build ...
+
+[info] 
+
+[info] [1874.52ms] [@tailwindcss/postcss] src\app\globals.css
+[   0.05ms]   ↳ Quick bail check
+[  27.10ms]   ↳ Setup compiler
+[   0.27ms]     ↳ PostCSS AST -> Tailwind CSS AST
+[  26.79ms]     ↳ Create compiler
+[   0.18ms]   ↳ Register full rebuild paths
+[   2.18ms]   ↳ Setup scanner
+[1566.22ms]   ↳ Scan for candidates
+
+[info] [ 150.65ms]   ↳ Register dependency messages
+
+[info] [  82.14ms]   ↳ Build utilities
+[  42.40ms]   ↳ Optimization
+[   3.51ms]     ↳ AST -> CSS
+[  27.51ms]     ↳ Lightning CSS
+
+[info] [  11.34ms]     ↳ CSS -> PostCSS AST
+[   3.14ms]   ↳ Update PostCSS AST
+
+
+[info] ✓ Compiled successfully in 7.8s
+
+[info]   Skipping validation of types
+
+[info]   Collecting page data using 19 workers ...
+
+[info]   Generating static pages using 19 workers (0/30) ...
+
+[info]   Generating static pages using 19 workers (7/30) 
+
+[info] The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+[info]   Generating static pages using 19 workers (14/30) 
+
+[info]   Generating static pages using 19 workers (22/30) 
+
+[info] ✓ Generating static pages using 19 workers (30/30) in 436.5ms
+
+[info]   Finalizing page optimization ...
+
+[info] 
+
+[info] Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/admin
+├ ƒ /api/aide
+├ ƒ /api/avatar
+├ ƒ /api/captions
+├ ƒ /api/classroom
+├ ƒ /api/elevenlabs
+├ ƒ /api/eq
+├ ○ /api/health
+├ ƒ /api/heygen
+├ ƒ /api/iep
+├ ○ /archive
+├ ○ /blog
+├ ○ /board
+├ ○ /board/memo
+├ ○ /cognitive
+├ ○ /consent
+├ ○ /login
+├ ○ /pricing
+├ ○ /resources/alabama
+├ ○ /signup
+├ ○ /support
+├ ○ /support/article
+├ ○ /support/educator
+├ ○ /support/getting-started
+├ ○ /support/topic
+└ ○ /whats-cognifit
+
+
+[info] 
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+[info] Building a Cloud Function to run this application. This is needed due to:
+[info]  • non-static component /api/admin/route
+[info]  • non-static component /api/aide/route
+[info]  • non-static component /api/avatar/route
+[info]  • non-static component /api/captions/route
+[info]  • non-static component /api/classroom/route
+[debug] [2026-01-02T20:18:06.307Z]  • non-static component /api/elevenlabs/route
+[debug] [2026-01-02T20:18:06.307Z]  • non-static component /api/eq/route
+[debug] [2026-01-02T20:18:06.307Z]  • non-static component /api/heygen/route
+[debug] [2026-01-02T20:18:06.307Z]  • non-static component /api/iep/route
+[debug] [2026-01-02T20:18:06.307Z]  • route with server action /
+[debug] [2026-01-02T20:18:06.307Z]  • route with server action /pricing
+[info] 
+[debug] [2026-01-02T20:18:06.369Z] skipping / due to server action
+[debug] [2026-01-02T20:18:06.370Z] skipping /pricing due to server action
+[debug] [2026-01-02T20:18:06.550Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:18:06.550Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:18:06.550Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:18:06.836Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:18:06.836Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 {"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"}
+[debug] [2026-01-02T20:18:07.543Z] Error: EPERM: operation not permitted, symlink 'C:\Users\nivla\edintel-app\node_modules\require-in-the-middle' -> 'C:\Users\nivla\edintel-app\.firebase\studio-9997686479-ca258\functions\.next\node_modules\require-in-the-middle-2ca7b9c2766f317e'
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2026-01-02T20:18:49.924Z] ----------------------------------------------------------------------
+[debug] [2026-01-02T20:18:49.925Z] Command:       C:\nvm4w\nodejs\node.exe C:\Users\nivla\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting
+[debug] [2026-01-02T20:18:49.926Z] CLI Version:   15.1.0
+[debug] [2026-01-02T20:18:49.926Z] Platform:      win32
+[debug] [2026-01-02T20:18:49.926Z] Node Version:  v24.12.0
+[debug] [2026-01-02T20:18:49.926Z] Time:          Fri Jan 02 2026 14:18:49 GMT-0600 (Central Standard Time)
+[debug] [2026-01-02T20:18:49.926Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-01-02T20:18:50.898Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-02T20:18:50.899Z] > authorizing via signed-in user (nivlawest1911@gmail.com)
+[debug] [2026-01-02T20:18:50.899Z] [iam] checking project studio-9997686479-ca258 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-01-02T20:18:50.899Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:18:50.899Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:18:50.900Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions [none]
+[debug] [2026-01-02T20:18:50.900Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions x-goog-quota-user=projects/studio-9997686479-ca258
+[debug] [2026-01-02T20:18:50.900Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-01-02T20:18:51.116Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions 200
+[debug] [2026-01-02T20:18:51.116Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/studio-9997686479-ca258:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-01-02T20:18:51.116Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:18:51.116Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:18:51.116Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:18:51.394Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:18:51.394Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/studio-9997686479-ca258 {"projectId":"studio-9997686479-ca258","projectNumber":"501461250259","displayName":"EdIntel","name":"projects/studio-9997686479-ca258","resources":{"hostingSite":"studio-9997686479-ca258","realtimeDatabaseInstance":"studio-9997686479-ca258-default-rtdb"},"state":"ACTIVE","etag":"1_db7d2708-31f1-43bf-8905-3315024fd288"}
+[debug] [2026-01-02T20:18:52.776Z] defaultcredentials: writing to file C:\Users\nivla\AppData\Roaming\firebase\nivlawest1911_gmail_com_application_default_credentials.json
+[debug] [2026-01-02T20:18:52.777Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:18:52.777Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:18:52.777Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites pageToken=&pageSize=10
+[debug] [2026-01-02T20:18:53.254Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites 200
+[debug] [2026-01-02T20:18:53.254Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites {"sites":[{"name":"projects/studio-9997686479-ca258/sites/edintelus","defaultUrl":"https://edintelus.web.app","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-9334e","defaultUrl":"https://studio-9997686479-ca258-9334e.web.app","appId":"1:501461250259:web:125dc6ff9e13866865e426","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-c5ec3","defaultUrl":"https://studio-9997686479-ca258-c5ec3.web.app","appId":"1:501461250259:web:a50627b3812497d965e426","type":"USER_SITE"},{"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258-f46e3","defaultUrl":"https://studio-9997686479-ca258-f46e3.web.app","appId":"1:501461250259:web:4f6023d3ffc667a565e426","type":"USER_SITE"}]}
+[debug] [2026-01-02T20:18:53.254Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:18:53.254Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:18:53.254Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config [none]
+[debug] [2026-01-02T20:18:53.599Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config 200
+[debug] [2026-01-02T20:18:53.600Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:501461250259:web:1ce6b3ebd6bcac3365e426/config {"projectId":"studio-9997686479-ca258","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","databaseURL":"https://studio-9997686479-ca258-default-rtdb.firebaseio.com","storageBucket":"studio-9997686479-ca258.firebasestorage.app","apiKey":"AIzaSyDTOhPhJlfUBAJjVhQjHKdXHiBLf2jl2As","authDomain":"studio-9997686479-ca258.firebaseapp.com","messagingSenderId":"501461250259","measurementId":"G-GWK2TPB2GQ","projectNumber":"501461250259","version":"2"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+   The integration is known to work with Next.js version 12 - 15.0. You may encounter errors.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2026-01-02T20:18:56.650Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:18:56.651Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:18:56.651Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:18:56.761Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:18:56.761Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 {"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"}
+[info] ▲ Next.js 16.1.1 (Turbopack)
+- Environments: .env.local
+
+[info] 
+
+[info]   Creating an optimized production build ...
+
+[info] ✓ Compiled successfully in 7.3s
+
+[info]   Skipping validation of types
+
+[info]   Collecting page data using 19 workers ...
+
+[info]   Generating static pages using 19 workers (0/30) ...
+
+[info]   Generating static pages using 19 workers (7/30) 
+
+[info] The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+[info]   Generating static pages using 19 workers (14/30) 
+
+[info]   Generating static pages using 19 workers (22/30) 
+
+[info] ✓ Generating static pages using 19 workers (30/30) in 438.3ms
+
+[info]   Finalizing page optimization ...
+
+[info] 
+
+[info] Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/admin
+├ ƒ /api/aide
+├ ƒ /api/avatar
+├ ƒ /api/captions
+├ ƒ /api/classroom
+├ ƒ /api/elevenlabs
+├ ƒ /api/eq
+├ ○ /api/health
+├ ƒ /api/heygen
+├ ƒ /api/iep
+├ ○ /archive
+├ ○ /blog
+├ ○ /board
+├ ○ /board/memo
+├ ○ /cognitive
+├ ○ /consent
+├ ○ /login
+├ ○ /pricing
+├ ○ /resources/alabama
+├ ○ /signup
+├ ○ /support
+├ ○ /support/article
+├ ○ /support/educator
+├ ○ /support/getting-started
+├ ○ /support/topic
+└ ○ /whats-cognifit
+
+
+[info] 
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+[info] Building a Cloud Function to run this application. This is needed due to:
+[info]  • non-static component /api/admin/route
+[info]  • non-static component /api/aide/route
+[info]  • non-static component /api/avatar/route
+[info]  • non-static component /api/captions/route
+[info]  • non-static component /api/classroom/route
+[debug] [2026-01-02T20:19:08.246Z]  • non-static component /api/elevenlabs/route
+[debug] [2026-01-02T20:19:08.246Z]  • non-static component /api/eq/route
+[debug] [2026-01-02T20:19:08.246Z]  • non-static component /api/heygen/route
+[debug] [2026-01-02T20:19:08.246Z]  • non-static component /api/iep/route
+[debug] [2026-01-02T20:19:08.246Z]  • route with server action /
+[debug] [2026-01-02T20:19:08.246Z]  • route with server action /pricing
+[info]  • and 6 other reasons, use --debug to see more
+[info] 
+[debug] [2026-01-02T20:19:08.299Z] skipping / due to server action
+[debug] [2026-01-02T20:19:08.299Z] skipping /pricing due to server action
+[debug] [2026-01-02T20:19:08.315Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:19:08.316Z] Checked if tokens are valid: true, expires at: 1767387706217
+[debug] [2026-01-02T20:19:08.316Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 [none]
+[debug] [2026-01-02T20:19:08.601Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 200
+[debug] [2026-01-02T20:19:08.601Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/studio-9997686479-ca258/sites/studio-9997686479-ca258 {"name":"projects/studio-9997686479-ca258/sites/studio-9997686479-ca258","defaultUrl":"https://studio-9997686479-ca258.web.app","appId":"1:501461250259:web:1ce6b3ebd6bcac3365e426","type":"DEFAULT_SITE"}
+[debug] [2026-01-02T20:19:09.068Z] Error: EPERM: operation not permitted, symlink 'C:\Users\nivla\edintel-app\node_modules\require-in-the-middle' -> 'C:\Users\nivla\edintel-app\.firebase\studio-9997686479-ca258\functions\.next\node_modules\require-in-the-middle-2ca7b9c2766f317e'
+[error] 
+[error] Error: An unexpected error has occurred.

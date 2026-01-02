@@ -1,4 +1,4 @@
-export const dynamic = 'force-static';
+
 import { NextResponse } from 'next/server';
 import { iepArchitectFlow } from '@/ai/flows/iep-architect';
 

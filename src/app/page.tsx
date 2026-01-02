@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import CircadianFilter from '@/components/graphics/CircadianFilter';
 import AidePanel from '@/components/ui/AidePanel';
 import AdminDirectory from '@/components/ui/AdminDirectory';
@@ -85,234 +86,228 @@ export default function Dashboard() {
                   <div className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
                   <span className="text-[9px] font-black text-amber-500 uppercase tracking-widest group-hover:underline">Upgrade Status</span>
                 </a>
+                <a href="/signup" className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 transition-all cursor-pointer group hover:scale-105 active:scale-95">
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="text-[9px] font-black text-emerald-500 uppercase tracking-widest group-hover:underline">Initialize Node</span>
+                </a>
               </div>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 p-2 bg-white dark:bg-zinc-900 rounded-[2rem] border border-zinc-200 dark:border-zinc-800 shadow-sm overflow-x-auto whitespace-nowrap">
-            <button
-              onClick={() => setActiveTab('command')}
-              className={`px-8 py-3 rounded-[1.5rem] text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'command' ? 'bg-zinc-900 dark:bg-white text-white dark:text-black shadow-lg' : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-white'}`}
-            >
-              Command
-            </button>
-            <button
-              onClick={() => setActiveTab('avatar')}
-              className={`px-8 py-3 rounded-[1.5rem] text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'avatar' ? 'bg-purple-600 text-white shadow-lg' : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-white'}`}
-            >
-              Avatar Lab
-            </button>
-            <button
-              onClick={() => setActiveTab('neural')}
-              className={`px-8 py-3 rounded-[1.5rem] text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'neural' ? 'bg-cyan-600 text-white shadow-lg' : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-white'}`}
-            >
-              Neural Sync
-            </button>
-            <button
-              onClick={() => setActiveTab('labs')}
-              className={`px-8 py-3 rounded-[1.5rem] text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'labs' ? 'bg-amber-600 text-white shadow-lg' : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-white'}`}
-            >
-              Sovereign Labs
-            </button>
-            <button
-              onClick={() => setActiveTab('roi')}
-              className={`px-8 py-3 rounded-[1.5rem] text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'roi' ? 'bg-gradient-to-r from-emerald-500 to-green-600 text-white shadow-lg shadow-emerald-900/20' : 'bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500 hover:text-white border border-emerald-500/20'}`}
-            >
-              <span className="flex items-center gap-2"><Sparkles size={12} /> Sovereign Pricing</span>
-            </button>
-            <button
-              onClick={() => setActiveTab('feed')}
-              className={`px-8 py-3 rounded-[1.5rem] text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'feed' ? 'bg-amber-600 text-white shadow-lg' : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-white'}`}
-            >
-              Network Feed
-            </button>
-            <button
-              onClick={() => setActiveTab('support')}
-              className={`px-8 py-3 rounded-[1.5rem] text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'support' ? 'bg-amber-600 text-white shadow-lg' : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-white'}`}
-            >
-              Support Protocol
-            </button>
+          <div className="flex items-center gap-2 p-2 bg-white dark:bg-zinc-900 rounded-[2rem] border border-zinc-200 dark:border-zinc-800 shadow-sm overflow-x-auto whitespace-nowrap scrollbar-hide">
+            {[
+              { id: 'command', label: 'Command' },
+              { id: 'avatar', label: 'Avatar Lab', activeClass: 'bg-purple-600 text-white shadow-lg shadow-purple-500/30' },
+              { id: 'neural', label: 'Neural Sync', activeClass: 'bg-cyan-600 text-white shadow-lg shadow-cyan-500/30' },
+              { id: 'labs', label: 'Sovereign Labs', activeClass: 'bg-amber-600 text-white shadow-lg shadow-amber-500/30' },
+              { id: 'roi', label: 'Sovereign Pricing', icon: <Sparkles size={12} />, activeClass: 'bg-gradient-to-r from-emerald-500 to-green-600 text-white shadow-lg shadow-emerald-900/20' },
+              { id: 'feed', label: 'Network Feed', activeClass: 'bg-amber-600 text-white shadow-lg shadow-amber-500/30' },
+              { id: 'support', label: 'Support Protocol', activeClass: 'bg-amber-600 text-white shadow-lg shadow-amber-500/30' },
+            ].map((tab) => (
+              <motion.button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as any)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className={`px-8 py-3 rounded-[1.5rem] text-xs font-black uppercase tracking-widest transition-all ${activeTab === tab.id
+                  ? tab.activeClass || 'bg-zinc-900 dark:bg-white text-white dark:text-black shadow-lg'
+                  : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-white'
+                  }`}
+              >
+                <span className="flex items-center gap-2">{tab.icon} {tab.label}</span>
+              </motion.button>
+            ))}
           </div>
         </div>
 
-        {/* Content Tabs */}
-        {activeTab === 'command' && (
-          <>
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
-              <div className="lg:col-span-8 space-y-8">
-                <ROISingularityHeader />
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <LeadershipGenerator />
-                  <ExecutiveDashboard />
+        {/* Content Tabs with Animation */}
+        <motion.div
+          key={activeTab}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.3 }}
+        >
+          {activeTab === 'command' && (
+            <>
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
+                <div className="lg:col-span-8 space-y-8">
+                  <ROISingularityHeader />
+                  <NeuralTrainingCommand />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <LeadershipGenerator />
+                    <ExecutiveDashboard />
+                  </div>
+                </div>
+                <div className="lg:col-span-4 space-y-8">
+                  <ArchitectIdentityNode />
+                  <SystemHealthTile />
+                  <div className="grid grid-cols-2 gap-4">
+                    <EfficiencyPulse />
+                    <PersonnelPulse />
+                  </div>
                 </div>
               </div>
-              <div className="lg:col-span-4 space-y-8">
-                <ArchitectIdentityNode />
-                <SystemHealthTile />
-                <div className="grid grid-cols-2 gap-4">
-                  <EfficiencyPulse />
+
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
+                <div className="lg:col-span-8">
+                  <LegalSingularityVault />
+                </div>
+                <div className="lg:col-span-4 space-y-8">
+                  <AdminDirectory />
                   <PersonnelPulse />
                 </div>
               </div>
-            </div>
+            </>
+          )}
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
-              <div className="lg:col-span-8">
-                <LegalSingularityVault />
+          {activeTab === 'labs' && (
+            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700 relative">
+              <div className="absolute inset-0 rounded-[3rem] overflow-hidden pointer-events-none opacity-20 border border-zinc-200 dark:border-zinc-800">
+                <img src="/images/labs-bg.jpg" className="w-full h-full object-cover grayscale" />
+                <div className="absolute inset-0 bg-gradient-to-br from-white/90 dark:from-black/90 to-transparent" />
               </div>
-              <div className="lg:col-span-4 space-y-8">
-                <AdminDirectory />
-                <PersonnelPulse />
-              </div>
-            </div>
-          </>
-        )}
 
-        {activeTab === 'labs' && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700 relative">
-            <div className="absolute inset-0 rounded-[3rem] overflow-hidden pointer-events-none opacity-20 border border-zinc-200 dark:border-zinc-800">
-              <img src="/images/labs-bg.jpg" className="w-full h-full object-cover grayscale" />
-              <div className="absolute inset-0 bg-gradient-to-br from-white/90 dark:from-black/90 to-transparent" />
-            </div>
-
-            <div className="relative z-10 px-8 pt-8">
-              <h2 className="text-3xl font-black tracking-tighter uppercase italic mb-8">Sovereign <span className="text-blue-600">Research & Design</span></h2>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <LessonPlanGenerator />
-                <EQGenerator />
-              </div>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
-                <IEPGenerator />
-                <AutomatedIEPAudit />
-              </div>
-              <div className="grid grid-cols-1 gap-8 mt-8">
-                <SovereignPrivacyManifesto />
-                <SovereignAgreement />
+              <div className="relative z-10 px-8 pt-8">
+                <h2 className="text-3xl font-black tracking-tighter uppercase italic mb-8">Sovereign <span className="text-blue-600">Research & Design</span></h2>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  <LessonPlanGenerator />
+                  <EQGenerator />
+                </div>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+                  <IEPGenerator />
+                  <AutomatedIEPAudit />
+                </div>
+                <div className="grid grid-cols-1 gap-8 mt-8">
+                  <SovereignPrivacyManifesto />
+                  <SovereignAgreement />
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {activeTab === 'roi' && (
-          <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
-            <PricingMatrix />
-          </div>
-        )}
+          {activeTab === 'roi' && (
+            <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
+              <PricingMatrix />
+            </div>
+          )}
 
-        {activeTab === 'avatar' && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <AvatarLaboratory />
+          {activeTab === 'avatar' && (
+            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <AvatarLaboratory />
+                <div className="space-y-6">
+                  <div className="p-6 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
+                    <h3 className="text-xl font-bold mb-4">Active Delegates</h3>
+                    <div className="space-y-3">
+                      <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-white">
+                              <Users size={20} />
+                            </div>
+                            <div>
+                              <p className="font-semibold">IEP Processing Bot</p>
+                              <p className="text-xs text-zinc-500">Administrator</p>
+                            </div>
+                          </div>
+                          <span className="text-xs text-green-600 dark:text-green-400">● Active</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="p-6 rounded-3xl bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 border border-purple-200 dark:border-purple-800">
+                    <h3 className="text-lg font-bold mb-2">Time Saved This Week</h3>
+                    <p className="text-4xl font-black text-purple-600 dark:text-purple-400">47.3 hrs</p>
+                    <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-2">Across 12 educators</p>
+                  </div>
+                </div>
+                <SovereignRankGuide />
+              </div>
+              <AvatarMasterclass />
+            </div>
+          )}
+
+          {activeTab === 'neural' && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
+              <NeuralSyncGym />
               <div className="space-y-6">
                 <div className="p-6 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
-                  <h3 className="text-xl font-bold mb-4">Active Delegates</h3>
-                  <div className="space-y-3">
-                    <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-white">
-                            <Users size={20} />
-                          </div>
-                          <div>
-                            <p className="font-semibold">IEP Processing Bot</p>
-                            <p className="text-xs text-zinc-500">Administrator</p>
-                          </div>
-                        </div>
-                        <span className="text-xs text-green-600 dark:text-green-400">● Active</span>
+                  <h3 className="text-xl font-bold mb-4">Impact Metrics</h3>
+                  <div className="space-y-4">
+                    <div>
+                      <div className="flex justify-between text-sm mb-1">
+                        <span className="text-zinc-600 dark:text-zinc-400">Reading Speed</span>
+                        <span className="font-bold text-cyan-600">+67%</span>
+                      </div>
+                      <div className="w-full bg-zinc-200 dark:bg-zinc-800 h-2 rounded-full overflow-hidden">
+                        <div className="h-full bg-cyan-500" style={{ width: '67%' }} />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="flex justify-between text-sm mb-1">
+                        <span className="text-zinc-600 dark:text-zinc-400">Suspension Reduction</span>
+                        <span className="font-bold text-green-600">-89%</span>
+                      </div>
+                      <div className="w-full bg-zinc-200 dark:bg-zinc-800 h-2 rounded-full overflow-hidden">
+                        <div className="h-full bg-green-500" style={{ width: '89%' }} />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="flex justify-between text-sm mb-1">
+                        <span className="text-zinc-600 dark:text-zinc-400">Impulse Control</span>
+                        <span className="font-bold text-blue-600">+42%</span>
+                      </div>
+                      <div className="w-full bg-zinc-200 dark:bg-zinc-800 h-2 rounded-full overflow-hidden">
+                        <div className="h-full bg-blue-500" style={{ width: '42%' }} />
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="p-6 rounded-3xl bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 border border-purple-200 dark:border-purple-800">
-                  <h3 className="text-lg font-bold mb-2">Time Saved This Week</h3>
-                  <p className="text-4xl font-black text-purple-600 dark:text-purple-400">47.3 hrs</p>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-2">Across 12 educators</p>
+                <div className="p-6 rounded-3xl bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20 border border-cyan-200 dark:border-cyan-800">
+                  <h3 className="text-lg font-bold mb-2">Students Engaged</h3>
+                  <p className="text-4xl font-black text-cyan-600 dark:text-cyan-400">1,247</p>
+                  <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-2">This semester</p>
                 </div>
               </div>
-              <SovereignRankGuide />
             </div>
-            <AvatarMasterclass />
-          </div>
-        )}
+          )}
 
-        {activeTab === 'neural' && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
-            <NeuralSyncGym />
-            <div className="space-y-6">
-              <div className="p-6 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
-                <h3 className="text-xl font-bold mb-4">Impact Metrics</h3>
-                <div className="space-y-4">
-                  <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span className="text-zinc-600 dark:text-zinc-400">Reading Speed</span>
-                      <span className="font-bold text-cyan-600">+67%</span>
-                    </div>
-                    <div className="w-full bg-zinc-200 dark:bg-zinc-800 h-2 rounded-full overflow-hidden">
-                      <div className="h-full bg-cyan-500" style={{ width: '67%' }} />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span className="text-zinc-600 dark:text-zinc-400">Suspension Reduction</span>
-                      <span className="font-bold text-green-600">-89%</span>
-                    </div>
-                    <div className="w-full bg-zinc-200 dark:bg-zinc-800 h-2 rounded-full overflow-hidden">
-                      <div className="h-full bg-green-500" style={{ width: '89%' }} />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span className="text-zinc-600 dark:text-zinc-400">Impulse Control</span>
-                      <span className="font-bold text-blue-600">+42%</span>
-                    </div>
-                    <div className="w-full bg-zinc-200 dark:bg-zinc-800 h-2 rounded-full overflow-hidden">
-                      <div className="h-full bg-blue-500" style={{ width: '42%' }} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="p-6 rounded-3xl bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20 border border-cyan-200 dark:border-cyan-800">
-                <h3 className="text-lg font-bold mb-2">Students Engaged</h3>
-                <p className="text-4xl font-black text-cyan-600 dark:text-cyan-400">1,247</p>
-                <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-2">This semester</p>
-              </div>
+          {activeTab === 'support' && (
+            <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
+              <Support />
             </div>
-          </div>
-        )}
+          )}
 
-        {activeTab === 'support' && (
-          <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
-            <Support />
-          </div>
-        )}
+          {activeTab === 'blog' && (
+            <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
+              <Blog />
+            </div>
+          )}
 
-        {activeTab === 'blog' && (
-          <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
-            <Blog />
-          </div>
-        )}
+          {activeTab === 'feed' && (
+            <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
+              <SovereignFeed />
+            </div>
+          )}
 
-        {activeTab === 'feed' && (
-          <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
-            <SovereignFeed />
-          </div>
-        )}
+          {activeTab === 'identity' && (
+            <div className="space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-700">
+              <SovereignIDManager />
+              <SovereignSocialUplink />
+              <SovereignBroadcastNode />
+              <SovereignEnterpriseModule />
+              <SovereignSkillMatrix />
+            </div>
+          )}
 
-        {activeTab === 'identity' && (
-          <div className="space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-700">
-            <SovereignIDManager />
-            <SovereignSocialUplink />
-            <SovereignBroadcastNode />
-            <SovereignEnterpriseModule />
-            <SovereignSkillMatrix />
-          </div>
-        )}
+          {activeTab === 'whats' && (
+            <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
+              <WhatsEdIntel />
+            </div>
+          )}
 
-        {activeTab === 'whats' && (
-          <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
-            <WhatsEdIntel />
-          </div>
-        )}
+        </motion.div>
 
         <SocialLinks />
       </div>

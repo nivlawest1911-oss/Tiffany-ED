@@ -1,17 +1,70 @@
 'use client';
-import { Check, Zap, Shield, Crown, Rocket, Star, ArrowRight, Sparkles, Database, Infinity } from 'lucide-react';
-import { useState } from 'react';
+import { Check, Zap, Shield, Crown, Rocket, Star, ArrowRight, Sparkles, Database, Infinity as InfinityIcon } from 'lucide-react';
+import { useState, useTransition, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { createCheckoutSession } from '@/app/actions/stripe';
+import { firestore } from '@/firebase';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 
 export default function PricingMatrix() {
+    const [priceData, setPriceData] = useState<Record<string, { monthly: number; annual: number; monthlyId?: string; annualId?: string }>>({});
     const [isAnnual, setIsAnnual] = useState(false);
+    const [isPending, startTransition] = useTransition();
+
+    useEffect(() => {
+        const fetchStripePrices = async () => {
+            try {
+                const q = query(collection(firestore, 'products'), where('active', '==', true));
+                const snapshot = await getDocs(q);
+
+                const newPriceData: Record<string, any> = {};
+
+                await Promise.all(snapshot.docs.map(async (doc) => {
+                    const productData = doc.data();
+                    const pricesCollection = collection(doc.ref, 'prices');
+                    const pricesSnapshot = await getDocs(query(pricesCollection, where('active', '==', true)));
+
+                    const prices: any = {};
+                    pricesSnapshot.forEach(priceDoc => {
+                        const priceData = priceDoc.data();
+                        if (priceData.interval === 'month') {
+                            prices.monthly = priceData.unit_amount ? priceData.unit_amount / 100 : 0;
+                            prices.monthlyId = priceDoc.id; // Stripe Price ID
+                        } else if (priceData.interval === 'year') {
+                            prices.annual = priceData.unit_amount ? priceData.unit_amount / 100 : 0;
+                            prices.annualId = priceDoc.id;
+                        }
+                    });
+
+                    if (productData.name) {
+                        newPriceData[productData.name] = prices;
+                    }
+                }));
+
+                if (Object.keys(newPriceData).length > 0) {
+                    setPriceData(newPriceData);
+                }
+            } catch (e) {
+                console.log("EdIntel Integration: Extension check skipped (permissions)", e);
+            }
+        };
+        fetchStripePrices();
+    }, []);
 
     const tiers = [
         {
             name: "Practitioner",
-            price: 49,
+            price: isAnnual
+                ? (priceData['Practitioner']?.annual || 39)
+                : (priceData['Practitioner']?.monthly || 49),
+            priceId: isAnnual
+                ? priceData['Practitioner']?.annualId
+                : priceData['Practitioner']?.monthlyId,
             icon: <Rocket className="text-cyan-400" size={24} />,
             color: "cyan",
             accent: "from-cyan-500 to-blue-600",
+            shadowColor: "shadow-cyan-900/20",
+            iconColor: "text-cyan-400",
             idealFor: "Classroom teachers & Specialists",
             value: "Personal burnout neutralization",
             features: [
@@ -25,10 +78,17 @@ export default function PricingMatrix() {
         {
             name: "Site Command",
             subtitle: "Most Popular",
-            price: 79,
+            price: isAnnual
+                ? (priceData['Site Command']?.annual || 69)
+                : (priceData['Site Command']?.monthly || 79),
+            priceId: isAnnual
+                ? priceData['Site Command']?.annualId
+                : priceData['Site Command']?.monthlyId,
             icon: <Zap className="text-violet-400" size={24} />,
             color: "violet",
             accent: "from-violet-500 to-fuchsia-600",
+            shadowColor: "shadow-violet-900/20",
+            iconColor: "text-violet-400",
             highlight: true,
             idealFor: "Principals & Building Admin",
             value: "Total building stability oversight",
@@ -43,9 +103,12 @@ export default function PricingMatrix() {
         {
             name: "Sovereign District",
             price: "Custom",
+            priceId: null,
             icon: <Crown className="text-amber-400" size={24} />,
             color: "amber",
             accent: "from-amber-500 to-orange-600",
+            shadowColor: "shadow-amber-900/20",
+            iconColor: "text-amber-400",
             idealFor: "Superintendents & Boards",
             value: "System-wide data sovereignty",
             features: [
@@ -104,11 +167,29 @@ export default function PricingMatrix() {
             </div>
 
             {/* Pricing Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+            <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={{
+                    hidden: { opacity: 0 },
+                    visible: {
+                        opacity: 1,
+                        transition: {
+                            staggerChildren: 0.15
+                        }
+                    }
+                }}
+                className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10"
+            >
                 {tiers.map((tier, idx) => (
-                    <div
+                    <motion.div
                         key={idx}
-                        className={`relative p-1 rounded-[2.5rem] transition-all duration-500 group ${tier.highlight ? 'scale-105 z-10' : 'hover:-translate-y-2'}`}
+                        variants={{
+                            hidden: { opacity: 0, y: 30 },
+                            visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "backOut" } }
+                        }}
+                        whileHover={{ y: -10, transition: { duration: 0.2 } }}
+                        className={`relative p-1 rounded-[2.5rem] transition-all duration-500 group ${tier.highlight ? 'z-10' : ''}`}
                     >
                         {/* Card Glow/Border Gradient */}
                         <div className={`absolute inset-0 rounded-[2.5rem] bg-gradient-to-b ${tier.highlight ? tier.accent : 'from-zinc-800 to-zinc-950'} opacity-100`} />
@@ -122,7 +203,7 @@ export default function PricingMatrix() {
 
                             {/* Header */}
                             <div className="mb-8">
-                                <div className={`w-14 h-14 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 shadow-xl shadow-${tier.color}-900/20`}>
+                                <div className={`w-14 h-14 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 shadow-xl ${tier.shadowColor}`}>
                                     {tier.icon}
                                 </div>
                                 <h3 className="text-2xl font-black text-white uppercase tracking-tight italic">{tier.name}</h3>
@@ -134,7 +215,7 @@ export default function PricingMatrix() {
                                 <div className="flex items-baseline gap-1">
                                     {typeof tier.price === 'number' && <span className="text-2xl font-bold text-zinc-500">$</span>}
                                     <span className={`text-6xl font-black tracking-tighter text-white`}>
-                                        {typeof tier.price === 'number' ? (isAnnual ? Math.round(tier.price * 0.8) : tier.price) : tier.price}
+                                        {typeof tier.price === 'number' ? tier.price : tier.price}
                                     </span>
                                     {typeof tier.price === 'number' && <span className="text-sm font-bold text-zinc-600 uppercase tracking-widest">/ Mo</span>}
                                 </div>
@@ -147,7 +228,7 @@ export default function PricingMatrix() {
                             <ul className="space-y-4 mb-10 flex-1">
                                 {tier.features.map((feat, fidx) => (
                                     <li key={fidx} className="flex items-start gap-3 text-sm text-zinc-300 font-medium">
-                                        <Check size={16} className={`text-${tier.color}-400 mt-0.5 shrink-0`} />
+                                        <Check size={16} className={`${tier.iconColor} mt-0.5 shrink-0`} />
                                         <span className="leading-tight">{feat}</span>
                                     </li>
                                 ))}
@@ -155,35 +236,46 @@ export default function PricingMatrix() {
 
                             {/* Action Button */}
                             <button
+                                disabled={isPending}
                                 onClick={() => {
                                     if (tier.price === 'Custom') {
                                         window.location.href = 'mailto:sales@edintel.ai?subject=Sovereign%20District%20Inquiry';
                                     } else {
-                                        const subject = `Secure Invoice Request: ${tier.name} (${isAnnual ? 'Annual' : 'Monthly'})`;
-                                        const body = `I am requesting a secure invoice for the ${tier.name} subscription. Please initialize the payment protocol.`;
-                                        window.location.href = `mailto:sales@edintel.ai?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                                        startTransition(() => {
+                                            // Use priceId if matched from Firestore, otherwise fallback to name lookup
+                                            createCheckoutSession(tier.priceId || tier.name, isAnnual);
+                                        });
                                     }
                                 }}
                                 className={`w-full py-4 rounded-xl font-black text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-all duration-300 group-hover:scale-[1.02] ${tier.highlight
                                     ? `bg-gradient-to-r ${tier.accent} text-white shadow-lg shadow-violet-900/40 hover:shadow-violet-900/60`
-                                    : 'bg-zinc-900 text-white hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700'}`}>
+                                    : 'bg-zinc-900 text-white hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700'} ${isPending ? 'opacity-50 cursor-not-allowed' : ''}`}>
                                 {tier.price === 'Custom' ? 'Contact Protocol' : (
                                     <span className="flex items-center gap-2">
-                                        <Shield size={12} className="text-emerald-400" /> Secure Invoice
+                                        {isPending ? (
+                                            <>
+                                                <div className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                                Initializing...
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Shield size={12} className="text-emerald-400" /> Secure Invoice
+                                            </>
+                                        )}
                                     </span>
-                                )} <ArrowRight size={14} />
+                                )} {tier.price !== 'Custom' && !isPending && <ArrowRight size={14} />}
                             </button>
                         </div>
-                    </div>
+                    </motion.div>
                 ))}
-            </div>
+            </motion.div>
 
             {/* Bottom Grid: Tokens & Services */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-16 max-w-6xl mx-auto">
                 {/* Token Economy */}
                 <div className="p-8 rounded-[2.5rem] bg-zinc-900/30 border border-zinc-800/50 backdrop-blur-sm relative overflow-hidden group">
                     <div className="absolute top-0 right-0 p-8 opacity-20 group-hover:opacity-40 transition-opacity duration-1000">
-                        <Infinity size={120} className="text-amber-500" />
+                        <InfinityIcon size={120} className="text-amber-500" />
                     </div>
 
                     <div className="relative z-10">

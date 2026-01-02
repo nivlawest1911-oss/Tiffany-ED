@@ -17,9 +17,11 @@ export default function SovereignFeed() {
                 <div className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden relative">
                     <div className="h-20 bg-gradient-to-r from-cyan-900 to-blue-900" />
                     <div className="px-4 pb-4 relative">
-                        <div className="w-16 h-16 rounded-2xl bg-zinc-800 border-4 border-zinc-900 absolute -top-8 flex items-center justify-center text-xl font-black text-white shadow-xl">
-                            AW
-                        </div>
+                        <img
+                            src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop"
+                            alt="Alvin West II"
+                            className="w-16 h-16 rounded-2xl border-4 border-zinc-900 absolute -top-8 object-cover shadow-xl"
+                        />
                         <div className="mt-10">
                             <h3 className="text-sm font-bold text-white">Alvin West II, DBA</h3>
                             <p className="text-[10px] text-zinc-500">System Architect</p>

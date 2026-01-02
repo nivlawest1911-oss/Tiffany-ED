@@ -115,7 +115,9 @@ export default function SovereignAgreement() {
                                 </div>
 
                                 <div className="flex items-center gap-6">
-                                    <button className="px-10 py-5 bg-zinc-900 text-white rounded-[2rem] text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-3 hover:bg-amber-600 shadow-xl active:scale-95">
+                                    <button
+                                        onClick={() => window.location.href = '/pricing'}
+                                        className="px-10 py-5 bg-zinc-900 text-white rounded-[2rem] text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-3 hover:bg-amber-600 shadow-xl active:scale-95">
                                         Accept & Synchronize Node <ArrowRight size={14} />
                                     </button>
                                     <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Formal Legal Doc available in Vault</p>

@@ -24,7 +24,7 @@ export default function SovereignSocialUplink() {
                         <div className="relative">
                             <div className="w-40 h-40 rounded-full p-1 bg-gradient-to-br from-blue-500 to-amber-500 shadow-2xl">
                                 <img
-                                    src="https://media.licdn.com/dms/image/v2/D5603AQHZJO8K16rSgA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1696914620023?e=1740614400&v=beta&t=4mH8dFVhZtY8uWqgwJb1kU_uJ5Gj-W-M3vCyo0-w0aQ"
+                                    src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop"
                                     alt="Sovereign Architect"
                                     className="w-full h-full rounded-full object-cover border-4 border-zinc-950"
                                 />

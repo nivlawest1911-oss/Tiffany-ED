@@ -1,0 +1,224 @@
+{
+  "version": 3,
+  "pages404": true,
+  "appType": "app",
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "priority": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_global-error",
+      "regex": "^/_global\\-error(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_global\\-error(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/api/admin",
+      "regex": "^/api/admin(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/admin(?:/)?$"
+    },
+    {
+      "page": "/api/aide",
+      "regex": "^/api/aide(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/aide(?:/)?$"
+    },
+    {
+      "page": "/api/avatar",
+      "regex": "^/api/avatar(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/avatar(?:/)?$"
+    },
+    {
+      "page": "/api/captions",
+      "regex": "^/api/captions(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/captions(?:/)?$"
+    },
+    {
+      "page": "/api/classroom",
+      "regex": "^/api/classroom(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/classroom(?:/)?$"
+    },
+    {
+      "page": "/api/elevenlabs",
+      "regex": "^/api/elevenlabs(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/elevenlabs(?:/)?$"
+    },
+    {
+      "page": "/api/eq",
+      "regex": "^/api/eq(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/eq(?:/)?$"
+    },
+    {
+      "page": "/api/health",
+      "regex": "^/api/health(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/health(?:/)?$"
+    },
+    {
+      "page": "/api/heygen",
+      "regex": "^/api/heygen(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/heygen(?:/)?$"
+    },
+    {
+      "page": "/api/iep",
+      "regex": "^/api/iep(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/iep(?:/)?$"
+    },
+    {
+      "page": "/archive",
+      "regex": "^/archive(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/archive(?:/)?$"
+    },
+    {
+      "page": "/blog",
+      "regex": "^/blog(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/blog(?:/)?$"
+    },
+    {
+      "page": "/board",
+      "regex": "^/board(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/board(?:/)?$"
+    },
+    {
+      "page": "/board/memo",
+      "regex": "^/board/memo(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/board/memo(?:/)?$"
+    },
+    {
+      "page": "/cognitive",
+      "regex": "^/cognitive(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/cognitive(?:/)?$"
+    },
+    {
+      "page": "/consent",
+      "regex": "^/consent(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/consent(?:/)?$"
+    },
+    {
+      "page": "/favicon.ico",
+      "regex": "^/favicon\\.ico(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/favicon\\.ico(?:/)?$"
+    },
+    {
+      "page": "/login",
+      "regex": "^/login(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/login(?:/)?$"
+    },
+    {
+      "page": "/pricing",
+      "regex": "^/pricing(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pricing(?:/)?$"
+    },
+    {
+      "page": "/resources/alabama",
+      "regex": "^/resources/alabama(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/resources/alabama(?:/)?$"
+    },
+    {
+      "page": "/signup",
+      "regex": "^/signup(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/signup(?:/)?$"
+    },
+    {
+      "page": "/support",
+      "regex": "^/support(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/support(?:/)?$"
+    },
+    {
+      "page": "/support/article",
+      "regex": "^/support/article(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/support/article(?:/)?$"
+    },
+    {
+      "page": "/support/educator",
+      "regex": "^/support/educator(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/support/educator(?:/)?$"
+    },
+    {
+      "page": "/support/getting-started",
+      "regex": "^/support/getting\\-started(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/support/getting\\-started(?:/)?$"
+    },
+    {
+      "page": "/support/topic",
+      "regex": "^/support/topic(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/support/topic(?:/)?$"
+    },
+    {
+      "page": "/whats-cognifit",
+      "regex": "^/whats\\-cognifit(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/whats\\-cognifit(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments",
+    "clientParamParsing": false,
+    "dynamicRSCPrerender": false
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}

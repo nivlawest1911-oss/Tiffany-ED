@@ -12,9 +12,12 @@ export default function ArchitectIdentityNode() {
                     <div className="flex gap-4">
                         <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-zinc-700 shadow-lg relative group-hover:border-cyan-500 transition-colors">
                             {/* Profile Image Placeholders - recommend replacing with actual asset if available locally */}
-                            <div className="w-full h-full bg-zinc-800 flex items-center justify-center">
-                                <span className="text-2xl font-black text-zinc-600">AW</span>
-                            </div>
+                            {/* Profile Image - AI Generated Professional Headshot */}
+                            <img
+                                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop"
+                                alt="Caleb West, DBA"
+                                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                            />
                         </div>
                         <div>
                             <h2 className="text-2xl font-black text-white tracking-tight">Alvin West II, <span className="text-cyan-500">DBA</span></h2>

@@ -1,4 +1,4 @@
-export const dynamic = 'force-static';
+
 import { NextResponse } from 'next/server';
 import { avatarSynthesisFlow } from '@/ai/flows/avatar-synthesis';
 

@@ -1,6 +1,7 @@
 'use client';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function SuccessBadge() {
   const searchParams = useSearchParams();
@@ -18,33 +19,19 @@ export default function SuccessBadge() {
   if (!show) return null;
 
   return (
-    <div style={{
-      position: 'fixed',
-      top: '20px',
-      right: '20px',
-      zIndex: 1000,
-      background: 'linear-gradient(135deg, #52c41a 0%, #237804 100%)',
-      color: 'white',
-      padding: '15px 25px',
-      borderRadius: '12px',
-      boxShadow: '0 10px 20px rgba(0,0,0,0.2)',
-      border: '1px solid rgba(255,255,255,0.2)',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '12px',
-      animation: 'slideIn 0.5s ease-out'
-    }}>
-      <style>{
-        @keyframes slideIn {
-          from { transform: translateX(100%); opacity: 0; }
-          to { transform: translateX(0); opacity: 1; }
-        }
-      }</style>
-      <span style={{ fontSize: '1.5rem' }}>???</span>
-      <div>
-        <div style={{ fontWeight: 'bold' }}>Professional Tier Active</div>
-        <div style={{ fontSize: '0.8rem', opacity: 0.9 }}>Global Strategic Suite Enabled</div>
-      </div>
-    </div>
+    <AnimatePresence>
+      <motion.div
+        initial={{ x: 100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        exit={{ x: 100, opacity: 0 }}
+        className="fixed top-5 right-5 z-[100] bg-gradient-to-br from-emerald-500 to-green-700 text-white p-4 pr-6 rounded-2xl shadow-xl shadow-emerald-900/20 border border-white/20 flex items-center gap-3"
+      >
+        <span className="text-2xl">⚡</span>
+        <div>
+          <div className="font-bold text-sm">Professional Tier Active</div>
+          <div className="text-[10px] opacity-90 font-mono tracking-tight uppercase">Global Strategic Suite Enabled</div>
+        </div>
+      </motion.div>
+    </AnimatePresence>
   );
 }

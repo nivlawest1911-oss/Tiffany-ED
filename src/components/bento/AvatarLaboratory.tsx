@@ -18,7 +18,9 @@ import {
     ArrowRight,
     Type,
     Copy,
-    List
+    List,
+    Volume2,
+    Mic
 } from 'lucide-react';
 
 
@@ -28,15 +30,16 @@ interface AvatarConfig {
     specialization: string;
     autonomyLevel: number;
     avatarUrl?: string;
+    elevenLabsId?: string;
 }
 
 const AVATAR_LIBRARY = [
-    { id: 'twin-01', name: 'Director West', role: 'Executive', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop', heygenId: 'Abigail_expressive_2024112501' },
-    { id: 'twin-02', name: 'Dr. Sarah James', role: 'Instructional', img: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&h=400&fit=crop', heygenId: 'Lina_Dress_Sitting_Side_public' },
-    { id: 'twin-03', name: 'Specialist David', role: 'STEM Lead', img: 'https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?w=400&h=400&fit=crop', heygenId: 'Abigail_standing_office_front' },
-    { id: 'twin-04', name: 'Principal Elena', role: 'Compliance', img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop', heygenId: 'Lina_Dress_Sitting_Side_public' },
-    { id: 'twin-05', name: 'Agent Marcus II', role: 'Operations', img: 'https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?w=400&h=400&fit=crop', heygenId: 'Abigail_expressive_2024112501' },
-    { id: 'twin-06', name: 'Director Nova', role: 'Sovereign Lead', img: 'https://images.unsplash.com/photo-1567532939604-b6c5b0ad2e01?w=400&h=400&fit=crop', heygenId: 'Lina_Dress_Sitting_Side_public' },
+    { id: 'twin-01', name: 'Director West', role: 'Executive', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop', heygenId: 'Abigail_expressive_2024112501', elevenLabsId: 'JBFqnCBsd6RMkjVDRZzb' },
+    { id: 'twin-02', name: 'Dr. Sarah James', role: 'Instructional', img: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&h=400&fit=crop', heygenId: 'Lina_Dress_Sitting_Side_public', elevenLabsId: '21m00Tcm4TlvDq8ikWAM' },
+    { id: 'twin-03', name: 'Specialist David', role: 'STEM Lead', img: 'https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?w=400&h=400&fit=crop', heygenId: 'Abigail_standing_office_front', elevenLabsId: 'soY4btAspOtqS4y4s7TV' },
+    { id: 'twin-04', name: 'Principal Elena', role: 'Compliance', img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop', heygenId: 'Lina_Dress_Sitting_Side_public', elevenLabsId: 'AZnzlk1XvdvUeBnXmlld' },
+    { id: 'twin-05', name: 'Agent Marcus II', role: 'Operations', img: 'https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?w=400&h=400&fit=crop', heygenId: 'Abigail_expressive_2024112501', elevenLabsId: 'TxGEqnHWrfWFTfGW9XjX' },
+    { id: 'twin-06', name: 'Director Nova', role: 'Sovereign Lead', img: 'https://images.unsplash.com/photo-1567532939604-b6c5b0ad2e01?w=400&h=400&fit=crop', heygenId: 'Lina_Dress_Sitting_Side_public', elevenLabsId: 'EXAVITQu4vr4xnSDxMaL' },
 ];
 
 interface AvatarOutput {
@@ -62,6 +65,7 @@ export default function AvatarLaboratory() {
     const [output, setOutput] = useState<AvatarOutput | null>(null);
     const [captionsProject, setCaptionsProject] = useState<any>(null);
     const [isSyncingCaptions, setIsSyncingCaptions] = useState(false);
+    const [isSpeaking, setIsSpeaking] = useState(false);
 
     const roles = [
         { id: 'superintendent', label: 'Superintendent', icon: <Shield size={16} />, color: 'purple' },
@@ -172,6 +176,40 @@ export default function AvatarLaboratory() {
             console.error(e);
         } finally {
             setIsSyncingCaptions(false);
+        }
+    };
+
+    const handleSpeak = async () => {
+        if (!output || isSpeaking) return;
+        setIsSpeaking(true);
+
+        try {
+            const avatar = AVATAR_LIBRARY.find(a => a.img === config.avatarUrl);
+            const res = await fetch('/api/elevenlabs', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    text: output.mission,
+                    voiceId: avatar?.elevenLabsId || '21m00Tcm4TlvDq8ikWAM' // Fallback to Rachel
+                }),
+            });
+
+            if (!res.ok) throw new Error('Speech synthesis failed');
+
+            const blob = await res.blob();
+            const url = URL.createObjectURL(blob);
+            const audio = new Audio(url);
+
+            audio.onended = () => {
+                setIsSpeaking(false);
+                URL.revokeObjectURL(url);
+            };
+
+            await audio.play();
+
+        } catch (e) {
+            console.error(e);
+            setIsSpeaking(false);
         }
     };
 
@@ -417,6 +455,20 @@ export default function AvatarLaboratory() {
                                         className="flex-1 py-5 bg-zinc-900 border border-zinc-800 rounded-3xl font-bold uppercase tracking-widest text-[10px] hover:bg-zinc-800 transition-all flex items-center justify-center gap-2"
                                     >
                                         Recalibrate Signature
+                                    </button>
+                                    <button
+                                        onClick={handleSpeak}
+                                        disabled={isSpeaking}
+                                        className="w-20 py-5 bg-zinc-900 border border-zinc-800 rounded-3xl font-bold uppercase hover:bg-zinc-800 hover:border-purple-500/50 transition-all flex items-center justify-center text-purple-400 disabled:opacity-50 group/mic"
+                                        title="Preview Neural Voice"
+                                    >
+                                        {isSpeaking ? <Loader2 className="animate-spin text-purple-500" size={18} /> :
+                                            <div className="relative">
+                                                <Volume2 size={18} className="group-hover/mic:scale-110 transition-transform" />
+                                                {/* Audio Wave Effect */}
+                                                <div className="absolute inset-0 bg-purple-500/30 blur-lg rounded-full animate-ping opacity-0 group-hover/mic:opacity-100" />
+                                            </div>
+                                        }
                                     </button>
                                     <button
                                         onClick={handleGenerateVideo}

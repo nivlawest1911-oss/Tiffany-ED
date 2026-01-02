@@ -84,7 +84,7 @@ export default function Support() {
                         </h3>
                         <div className="space-y-4">
                             {POPULAR_ARTICLES.map((article) => (
-                                <a key={article.id} href="#" className="block p-4 rounded-xl bg-black/40 border border-zinc-800 hover:border-zinc-700 transition-all group">
+                                <a key={article.id} href={`/support/article/${article.id}`} className="block p-4 rounded-xl bg-black/40 border border-zinc-800 hover:border-zinc-700 transition-all group">
                                     <p className="text-sm font-medium text-zinc-300 group-hover:text-white transition-colors line-clamp-2">{article.title}</p>
                                 </a>
                             ))}

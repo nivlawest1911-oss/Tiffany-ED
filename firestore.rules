@@ -97,6 +97,33 @@ service cloud.firestore {
       allow delete: if false;
     }
 
+    // STRIPE EXTENSION RULES
+    match /products/{id} {
+      allow read: if true;
+
+      match /prices/{priceId} {
+        allow read: if true;
+      }
+
+      match /tax_rates/{taxRateId} {
+        allow read: if true;
+      }
+    }
+
+    match /customers/{uid} {
+      allow read: if request.auth.uid == uid;
+
+      match /checkout_sessions/{id} {
+        allow read, write: if request.auth.uid == uid;
+      }
+      match /subscriptions/{id} {
+        allow read: if request.auth.uid == uid;
+      }
+      match /payments/{id} {
+        allow read: if request.auth.uid == uid;
+      }
+    }
+
     // >>>>>>>>>>>>>> NEW RULE FOR YOUR EXAMPLE APP'S `myCollection` <<<<<<<<<<<<<<<
     // This rule allows any authenticated user (including anonymous) to read and write
     // documents in the 'myCollection'. For production, you'd want more granular rules.

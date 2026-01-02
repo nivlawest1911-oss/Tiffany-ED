@@ -11,7 +11,9 @@ import {
     ArrowRight,
     Smile,
     Dna,
-    UserPlus
+    UserPlus,
+    Brain,
+    PenTool
 } from 'lucide-react';
 
 type Persona = 'Student' | 'Teacher' | 'Admin' | 'Parent' | 'Staff' | 'District';
@@ -56,7 +58,7 @@ export default function EQGenerator() {
     };
 
     return (
-        <div className="p-8 rounded-3xl bg-zinc-950 text-white border border-zinc-800 shadow-3xl relative overflow-hidden group">
+        <div className="p-8 rounded-[2.5rem] bg-zinc-950 text-white border border-zinc-800 shadow-3xl relative overflow-hidden group">
             {/* Dynamic Aura */}
             <div className="absolute -top-24 -left-24 w-96 h-96 bg-purple-600/10 rounded-full blur-[100px] pointer-events-none group-hover:bg-purple-600/20 transition-all duration-700" />
 
@@ -86,8 +88,8 @@ export default function EQGenerator() {
                             key={p.id}
                             onClick={() => setPersona(p.id)}
                             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all border ${persona === p.id
-                                    ? 'bg-purple-600 border-purple-500 text-white shadow-lg shadow-purple-900/40'
-                                    : 'bg-zinc-900 border-zinc-800 text-zinc-500 hover:border-zinc-700'
+                                ? 'bg-purple-600 border-purple-500 text-white shadow-lg shadow-purple-900/40'
+                                : 'bg-zinc-900 border-zinc-800 text-zinc-500 hover:border-zinc-700'
                                 }`}
                         >
                             {p.icon}
@@ -153,48 +155,4 @@ export default function EQGenerator() {
     );
 }
 
-function PenTool(props: any) {
-    return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <path d="M15.707 4.293a1 1 0 0 1 1.414 0l2.586 2.586a1 1 0 0 1 0 1.414L7 21H3v-4L15.707 4.293z" />
-            <path d="m18 7-3-3" />
-            <path d="M9.5 7 11 8.5" />
-            <path d="M6 10.5 7.5 12" />
-        </svg>
-    );
-}
 
-function Brain(props: any) {
-    return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .52 8.105 4 4 0 0 0 7.327 2.148A4 4 0 0 0 16 21a4 4 0 0 0 .52-8.105 4 4 0 0 0-2.526-5.77A3 3 0 1 0 12 5" />
-            <path d="M9 13a4.5 4.5 0 0 0 3-4" />
-            <path d="M12 13a4.5 4.5 0 0 1-3-4" />
-            <path d="M12 13v8" />
-            <path d="M12 13h4" />
-            <path d="M12 13H8" />
-        </svg>
-    );
-}
