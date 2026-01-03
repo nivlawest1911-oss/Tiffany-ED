@@ -59,6 +59,29 @@ export default function Dashboard() {
         onClose={() => setPanel({ ...panel, open: false })}
       />
 
+      {/* Floating Action Buttons for Aide */}
+      <div className="fixed bottom-6 right-6 z-[90] flex flex-col gap-3 pointer-events-auto">
+        <button
+          onClick={() => setPanel({ open: true, mode: 'iep' })}
+          className="group flex items-center justify-center p-4 bg-zinc-900 dark:bg-zinc-800 text-white rounded-full shadow-2xl border border-zinc-700 hover:scale-110 active:scale-95 transition-all"
+        >
+          <div className="absolute right-full mr-4 bg-black/80 text-white text-[10px] uppercase font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+            IEP Architect
+          </div>
+          <Shield size={24} className="text-emerald-400" />
+        </button>
+
+        <button
+          onClick={() => setPanel({ open: true, mode: 'aide' })}
+          className="group flex items-center justify-center p-4 bg-blue-600 text-white rounded-full shadow-2xl hover:bg-blue-500 hover:scale-110 active:scale-95 transition-all"
+        >
+          <div className="absolute right-full mr-4 bg-black/80 text-white text-[10px] uppercase font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+            Classroom Aide
+          </div>
+          <Sparkles size={24} />
+        </button>
+      </div>
+
       <div className="max-w-[1800px] mx-auto px-6 pt-12">
         {/* Navigation */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
