@@ -66,11 +66,11 @@ export default function LessonPlanGenerator() {
                 data = JSON.parse(responseText);
             } catch (e) {
                 console.error("API Response was not JSON:", responseText);
-                throw new Error("Server returned an invalid response.");
+                throw new Error("Neural Link Unstable: Server returned invalid format.");
             }
 
             if (!response.ok || data.error) {
-                throw new Error(data?.error || 'Generative failure');
+                throw new Error(data?.error || 'Sovereign Aide Offline');
             }
 
             const text = data.text || '';

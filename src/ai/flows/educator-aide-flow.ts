@@ -3,7 +3,7 @@ import { googleAI } from '@genkit-ai/googleai';
 
 export const educatorAide = genkit({
   plugins: [googleAI()],
-  model: 'gemini-1.5-flash',
+  model: 'gemini-2.0-flash-lite',
 });
 
 export const paperworkAgent = educatorAide.defineFlow(

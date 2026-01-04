@@ -77,7 +77,18 @@ Use clinical language and ensure 80% accuracy criteria over 5 consecutive trials
                 })
             });
 
-            const data = await response.json();
+            const responseText = await response.text();
+            let data;
+            try {
+                data = JSON.parse(responseText);
+            } catch (e) {
+                console.error("IEP API Response was not JSON:", responseText);
+                throw new Error("Neural Link Unstable: Server returned invalid format.");
+            }
+
+            if (!response.ok || data.error) {
+                throw new Error(data?.error || 'Sovereign Aide Offline');
+            }
             const generatedText = data.text || '';
 
             // Parse the response into sections
