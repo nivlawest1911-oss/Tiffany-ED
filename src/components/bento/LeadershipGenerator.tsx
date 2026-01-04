@@ -92,11 +92,14 @@ export default function LeadershipGenerator() {
                 }),
             });
 
-            if (!res.ok) throw new Error('API unstable');
+            if (!res.ok) {
+                const errData = await res.json();
+                throw new Error(errData.error || 'API unstable');
+            }
             const data = await res.json();
             setOutput(data.output);
-        } catch (e) {
-            setOutput("EdIntel Leadership Node connection interrupted. Please check environment variables.");
+        } catch (e: any) {
+            setOutput(`EdIntel Leadership Node connection interrupted. ${e.message}`);
         } finally {
             setIsGenerating(false);
         }

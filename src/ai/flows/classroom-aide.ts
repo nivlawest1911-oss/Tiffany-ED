@@ -1,6 +1,8 @@
-import { z } from 'genkit';
-import { ai } from '../lib/genkit-config';
-import { gemini15Flash } from '@genkit-ai/googleai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+
+// Initialize directly with SDK to bypass Genkit configuration issues
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENAI_API_KEY || '');
+const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" });
 
 export async function aideFlow(message: string, mode: 'aide' | 'iep') {
   const systemPrompts = {
@@ -13,33 +15,19 @@ export async function aideFlow(message: string, mode: 'aide' | 'iep') {
           Ensure all suggestions align with IDEA (Individuals with Disabilities Education Act) standards.`
   };
 
-  const response = await ai.generate({
-    model: gemini15Flash,
-    config: {
-      // IEPs need low temperature for consistency; Aides need high for creativity
-      temperature: mode === 'iep' ? 0.3 : 0.8,
-    },
-    prompt: `${systemPrompts[mode]}\n\nUser: ${message}`,
-  });
+  const finalPrompt = `${systemPrompts[mode]}\n\nUser: ${message}`;
 
-  return response.text;
-}
-
-export const classroomAideFlow = ai.defineFlow(
-  {
-    name: 'classroomAideFlow',
-    inputSchema: z.object({
-      topic: z.string(),
-      subject: z.string(),
-      gradeLevel: z.string(),
-    }),
-  },
-  async (input) => {
-    const response = await ai.generate({
-      model: gemini15Flash,
-      prompt: `Generate 3 innovative teaching strategies for: ${input.topic}. 
-      Subject: ${input.subject}. Grade: ${input.gradeLevel}.`,
+  try {
+    const result = await model.generateContent({
+      contents: [{ role: 'user', parts: [{ text: finalPrompt }] }],
+      generationConfig: {
+        temperature: mode === 'iep' ? 0.3 : 0.8,
+      }
     });
-    return response.text;
+
+    return result.response.text();
+  } catch (error) {
+    console.error("AI SDK Error in aideFlow:", error);
+    throw error;
   }
-);
+}

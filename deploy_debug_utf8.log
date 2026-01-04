@@ -1,0 +1,196 @@
+﻿
+   Thank you for trying our [3mearly preview[23m of Next.js support on Firebase Hosting.
+   [31mDuring the preview, support is best-effort and breaking changes can be expected. Proceed with caution.[39m
+
+   [1mDocumentation:[22m https://firebase.google.com/docs/hosting/frameworks/nextjs
+   [1mFile a bug:[22m https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   [1mSubmit a feature request:[22m https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+  Γû▓ Next.js 14.2.14
+
+  - Environments: .env.local
+
+
+   Creating an optimized production build ...
+
+ ΓÜá Compiled with warnings
+
+
+./node_modules/require-in-the-middle/index.js
+Critical dependency: require function is used in a way in which dependencies cannot be statically extracted
+
+Import trace for requested module:
+./node_modules/require-in-the-middle/index.js
+./node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js
+./node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js
+./node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js
+./node_modules/@opentelemetry/instrumentation/build/esm/index.js
+./node_modules/@opentelemetry/sdk-node/build/src/sdk.js
+./node_modules/@opentelemetry/sdk-node/build/src/index.js
+./node_modules/@genkit-ai/core/lib/tracing/node-telemetry-provider.js
+./node_modules/@genkit-ai/core/lib/node.js
+./node_modules/genkit/lib/common.js
+./node_modules/genkit/lib/index.mjs
+./src/ai/flows/principal-summary.ts
+./src/app/api/admin/route.ts
+
+
+ Γ£ô Compiled successfully
+
+   Skipping validation of types
+
+   Linting ...
+
+ Γ¿» ESLint: Invalid Options: - Unknown options: useEslintrc, extensions - 'extensions' has been removed.
+
+   Collecting page data ...
+
+GENKIT DEBUG: Key length: 39
+
+GENKIT DEBUG: Key length: 39
+
+GENKIT DEBUG: Key length: 39
+
+   Generating static pages (0/30) ...
+
+   Generating static pages (7/30) 
+   Generating static pages (14/30) 
+
+The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+   Generating static pages (22/30) 
+
+GENKIT DEBUG: Key length: 39
+
+GENKIT DEBUG: Key length: 39
+ Γ£ô Generating static pages (30/30)
+
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+
+
+Route (app)                              Size     First Load JS
+Γöî Γùï /                                    61.7 kB         317 kB
+Γö£ Γùï /_not-found                          876 B          88.4 kB
+Γö£ ╞Æ /api/admin                           0 B                0 B
+Γö£ ╞Æ /api/avatar                          0 B                0 B
+Γö£ ╞Æ /api/captions                        0 B                0 B
+Γö£ ╞Æ /api/classroom                       0 B                0 B
+Γö£ ╞Æ /api/elevenlabs                      0 B                0 B
+Γö£ ╞Æ /api/eq                              0 B                0 B
+Γö£ Γùï /api/health                          0 B                0 B
+Γö£ ╞Æ /api/heygen                          0 B                0 B
+Γö£ ╞Æ /api/iep                             0 B                0 B
+Γö£ Γùï /archive                             5.88 kB         378 kB
+Γö£ Γùï /blog                                2.6 kB         90.1 kB
+Γö£ Γùï /board                               104 kB          348 kB
+Γö£ Γùï /board/memo                          2.3 kB          338 kB
+Γö£ Γùï /cognitive                           1.05 kB         208 kB
+Γö£ Γùï /consent                             1.11 kB        88.6 kB
+Γö£ Γùï /login                               2.96 kB         247 kB
+Γö£ Γùï /pricing                             1.86 kB         258 kB
+Γö£ Γùï /resources/alabama                   143 B          87.6 kB
+Γö£ Γùï /signup                              3.21 kB         247 kB
+Γö£ Γùï /support                             2.93 kB        97.8 kB
+Γö£ Γùï /support/article                     3.73 kB        91.2 kB
+Γö£ Γùï /support/educator                    3.38 kB        98.3 kB
+Γö£ Γùï /support/getting-started             3.23 kB        98.1 kB
+Γö£ Γùï /support/topic                       3.16 kB        90.6 kB
+Γöö Γùï /whats-cognifit                      143 B          87.6 kB
++ First Load JS shared by all            87.5 kB
+  Γö£ chunks/117-be9ace4eaa62baf2.js       31.8 kB
+  Γö£ chunks/fd9d1056-dbe89f2d57f86c6a.js  53.6 kB
+  Γöö other shared chunks (total)          2.1 kB
+
+
+
+Γùï  (Static)   prerendered as static content
+╞Æ  (Dynamic)  server-rendered on demand
+
+
+Building a Cloud Function to run this application. This is needed due to:
+ ΓÇó non-static component /api/captions/route
+ ΓÇó non-static component /api/avatar/route
+ ΓÇó non-static component /api/classroom/route
+ ΓÇó non-static component /api/elevenlabs/route
+ ΓÇó non-static component /api/heygen/route
+ ΓÇó and 5 other reasons, use --debug to see more
+
+node.exe : npm warn 
+EBADENGINE Unsupported 
+engine {
+At C:\Users\nivla\AppData\Ro
+aming\npm\firebase.ps1:24 
+char:5
++     & "node$exe"  "$basedi
+r/node_modules/firebase-tool
+s/lib/bin/fireb ...
++     ~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~
+    + CategoryInfo          
+    : NotSpecified: (npm w  
+  arn EBADENGINE Unsuppor   
+ ted engine {:String) []    
+, RemoteException
+    + FullyQualifiedErrorId 
+    : NativeCommandError
+ 
+npm warn EBADENGINE   
+package: 'firebase-framework
+s@0.11.8',
+npm warn EBADENGINE   
+required: { node: '^16.0.0 
+|| ^18.0.0 || ^20.0.0 || 
+^22.0.0' },
+npm warn EBADENGINE   
+current: { node: 
+'v24.12.0', npm: '11.6.1' }
+npm warn EBADENGINE }
+
+up to date in 2s
+
+74 packages are looking for funding
+  run `npm fund` for details
+
+[1m[37m===[39m Deploying to 'studio-9997686479-ca258'...[22m
+
+[36m[1mi [22m[39m deploying [1mfunctions, storage, firestore, hosting[22m
+[36m[1mi  functions:[22m[39m preparing codebase [1mfirebase-frameworks-studio-9997686479-ca258[22m for deployment
+[36m[1mi  functions:[22m[39m ensuring required API [1mcloudfunctions.googleapis.com[22m is enabled...
+[36m[1mi  functions:[22m[39m ensuring required API [1mcloudbuild.googleapis.com[22m is enabled...
+[36m[1mi  artifactregistry:[22m[39m ensuring required API [1martifactregistry.googleapis.com[22m is enabled...
+[36m[1mi  functions:[22m[39m Loading and analyzing source code for codebase firebase-frameworks-studio-9997686479-ca258 to determine what to deploy
+Serving at port 8758
+
+[36m[1mi  extensions:[22m[39m ensuring required API [1mfirebaseextensions.googleapis.com[22m is enabled...
+[36m[1mi [22m[39m [36m[1mfunctions: [22m[39mLoaded environment variables from .env.
+[36m[1mi  functions:[22m[39m preparing [1m.firebase\studio-9997686479-ca258\functions[22m directory for uploading...
+[36m[1mi [22m[39m [36m[1mfunctions:[22m[39m packaged [1mC:\Users\nivla\edintel-app\.firebase\studio-9997686479-ca258\functions[22m (70.37 MB) for uploading
+[36m[1mi  functions:[22m[39m ensuring required API [1mrun.googleapis.com[22m is enabled...
+[36m[1mi  functions:[22m[39m ensuring required API [1meventarc.googleapis.com[22m is enabled...
+[36m[1mi  functions:[22m[39m ensuring required API [1mpubsub.googleapis.com[22m is enabled...
+[36m[1mi  functions:[22m[39m ensuring required API [1mstorage.googleapis.com[22m is enabled...
+[36m[1mi  functions:[22m[39m generating the service identity for [1mpubsub.googleapis.com[22m...
+[36m[1mi  functions:[22m[39m generating the service identity for [1meventarc.googleapis.com[22m...
+[36m[1mi  storage:[22m[39m ensuring required API [1mfirebasestorage.googleapis.com[22m is enabled...
+[36m[1mi  firebase.storage:[22m[39m checking [1mstorage.rules[22m for compilation errors...
+[33m[1m! [22m[39m [W] undefined:undefined - Ruleset uses old version (version [1]). Please update to the latest version (version [2]).
+[32m[1m+  firebase.storage:[22m[39m rules file [1mstorage.rules[22m compiled successfully
+[36m[1mi  firestore:[22m[39m ensuring required API [1mfirestore.googleapis.com[22m is enabled...
+[36m[1mi  firestore:[22m[39m ensuring required API [1mfirestore.googleapis.com[22m is enabled...
+[36m[1mi [22m[39m [1m[36mfirestore:[39m[22m reading indexes from [1mfirestore.indexes.json[22m...
+[36m[1mi  cloud.firestore:[22m[39m checking [1mfirestore.rules[22m for compilation errors...
+[32m[1m+  cloud.firestore:[22m[39m rules file [1mfirestore.rules[22m compiled successfully
+
+
+There was an issue deploying your functions. Verify that your project has a Google App Engine instance setup at https://console.cloud.google.com/appengine and try again. If this issue persists, please contact support.
+[33m[1m! [22m[39m [33mfunctions:[39m Upload Error: Request to https://cloudfunctions.googleapis.com/v2/projects/studio-9997686479-ca258/locations/us-central1/functions:generateUploadUrl had HTTP Error: 403, Write access to project 'studio-9997686479-ca258' was denied: please check billing account associated and retry
+
+[1m[31mError:[39m[22m Request to https://cloudfunctions.googleapis.com/v2/projects/studio-9997686479-ca258/locations/us-central1/functions:generateUploadUrl had HTTP Error: 403, Write access to project 'studio-9997686479-ca258' was denied: please check billing account associated and retry

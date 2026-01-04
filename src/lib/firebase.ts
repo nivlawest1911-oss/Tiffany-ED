@@ -2,6 +2,7 @@ import { initializeApp, getApps, getApp, FirebaseApp } from 'firebase/app';
 import { getAuth, Auth } from 'firebase/auth';
 import { getFirestore, Firestore } from 'firebase/firestore';
 import { getStorage, FirebaseStorage } from 'firebase/storage';
+import { initializeAppCheck, ReCaptchaEnterpriseProvider } from 'firebase/app-check';
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -20,10 +21,25 @@ let storage: FirebaseStorage | undefined;
 
 try {
     if (firebaseConfig.apiKey) {
+        // Fix for "AppCheck: ReCAPTCHA error" in localhost
+        if (typeof window !== 'undefined' && location.hostname === 'localhost') {
+            // @ts-ignore - Enable debug token for local development
+            self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
+        }
+
         app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
         auth = getAuth(app);
         db = getFirestore(app);
         storage = getStorage(app);
+
+
+
+        if (typeof window !== 'undefined' && location.hostname !== 'localhost') {
+            initializeAppCheck(app, {
+                provider: new ReCaptchaEnterpriseProvider(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''),
+                isTokenAutoRefreshEnabled: true
+            });
+        }
     } else {
         // console.warn('Firebase keys missing. Service will be disabled.');
     }

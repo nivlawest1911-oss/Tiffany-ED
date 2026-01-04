@@ -9,8 +9,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 // Map tiers to Price IDs (stored in env vars or fallback to hardcoded)
 const PRICE_MAPPING: Record<string, string> = {
-  STRIPE_PRICE_PRACTITIONER_MONTHLY: 'price_1Sh8dYJZzJ2JsTizXhKtULfh',
-  STRIPE_PRICE_SITE_COMMAND_MONTHLY: 'price_1Sh8hnJZzJ2JsTizcbRWqkLV',
+  STRIPE_PRICE_PRACTITIONER_MONTHLY: 'price_1SleigJZzJ2JsTizzhcHtd36',
+  STRIPE_PRICE_SITE_COMMAND_MONTHLY: 'price_1SleihJZzJ2JsTizmaXKM4ow',
   // Add annual IDs here when available
 };
 

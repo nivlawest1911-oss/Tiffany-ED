@@ -61,10 +61,19 @@ export default function DelegateOverlay() {
     ];
 
     useEffect(() => {
+        // Failsafe: If auth hangs (App Check), force stop loading after 4s
+        const safetyTimer = setTimeout(() => {
+            setIsAuthLoading((val) => {
+                if (val) console.warn("Auth init timed out, forcing guest mode.");
+                return false;
+            });
+        }, 4000);
+
         // Auth Listener
         const unsubscribe = auth?.onAuthStateChanged((u) => {
             setUser(u);
             setIsAuthLoading(false);
+            clearTimeout(safetyTimer);
         });
 
         // Delegate chatter
@@ -79,6 +88,7 @@ export default function DelegateOverlay() {
 
         return () => {
             if (unsubscribe) unsubscribe();
+            clearTimeout(safetyTimer);
             clearInterval(interval);
         };
     }, []);
