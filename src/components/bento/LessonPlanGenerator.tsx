@@ -61,6 +61,11 @@ export default function LessonPlanGenerator() {
             });
 
             const data = await response.json();
+
+            if (!response.ok || data.error) {
+                throw new Error(data.error || 'Generative failure');
+            }
+
             const text = data.text || '';
 
             const sections: LessonPlanSection[] = [
