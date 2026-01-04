@@ -3,7 +3,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 // Initialize lazily to prevent build-time/init-time errors
 export async function aideFlow(message: string, mode: 'aide' | 'iep') {
   const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENAI_API_KEY || '');
-  const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+  const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-lite" });
   const systemPrompts = {
     aide: `You are an EdIntel Classroom Assistant. 
            Focus on pedagogy, lesson planning, and student engagement. 
