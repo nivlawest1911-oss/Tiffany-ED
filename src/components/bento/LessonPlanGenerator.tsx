@@ -83,6 +83,7 @@ export default function LessonPlanGenerator() {
             }
         } catch (error) {
             console.error('Error generating lesson plan:', error);
+            setGeneratedPlan([{ title: 'Error', content: 'The Sovereign Aide encountered a neural disruption. Please try again or contact command.' }]);
         } finally {
             setIsGenerating(false);
         }
