@@ -2,6 +2,9 @@
 import { NextResponse } from 'next/server';
 import { createHeyGenVideo, getHeyGenVideoStatus } from '@/lib/heygen';
 
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 export async function POST(req: Request) {
     try {
         const { avatarId, text, action, videoId } = await req.json();

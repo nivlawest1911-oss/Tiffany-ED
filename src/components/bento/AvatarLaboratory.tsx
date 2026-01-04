@@ -86,7 +86,18 @@ export default function AvatarLaboratory() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(config),
             });
-            const data = await res.json();
+            const textResponse = await res.text();
+            let data;
+            try {
+                data = JSON.parse(textResponse);
+            } catch (err) {
+                console.error("Avatar API returned non-JSON:", textResponse);
+                throw new Error("Neural Mesh Unstable: Server returned invalid format.");
+            }
+
+            if (!res.ok || data.error) {
+                throw new Error(data?.error || "Neural Mesh Disrupted.");
+            }
 
             // Parse the output (simple parsing for now)
             const text = data.output;
@@ -130,7 +141,20 @@ export default function AvatarLaboratory() {
                     text: output.mission
                 }),
             });
-            const { videoId } = await res.json();
+            const textResponse = await res.text();
+            let data;
+            try {
+                data = JSON.parse(textResponse);
+            } catch (err) {
+                console.error("HeyGen API returned non-JSON:", textResponse);
+                throw new Error("Visual Link Unstable.");
+            }
+
+            if (!res.ok || data.error) {
+                throw new Error(data?.error || "Visual Synthesis Failed.");
+            }
+
+            const { videoId } = data;
 
             // Start Polling
             const pollStatus = async () => {
@@ -139,7 +163,18 @@ export default function AvatarLaboratory() {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ action: 'status', videoId }),
                 });
-                const { status } = await statusRes.json();
+
+                const statusText = await statusRes.text();
+                let statusData;
+                try {
+                    statusData = JSON.parse(statusText);
+                } catch (err) {
+                    console.error("HeyGen Status API returned non-JSON:", statusText);
+                    setVideoStatus('Sync Error');
+                    return;
+                }
+
+                const { status } = statusData;
 
                 if (status.status === 'completed') {
                     setVideoUrl(status.video_url);
@@ -170,7 +205,20 @@ export default function AvatarLaboratory() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ stableId: 'lsQRXGhq46Tk81__VgUO-' }),
             });
-            const { project } = await res.json();
+            const textResponse = await res.text();
+            let data;
+            try {
+                data = JSON.parse(textResponse);
+            } catch (err) {
+                console.error("Captions API returned non-JSON:", textResponse);
+                throw new Error("Captions Sync Failed: Invalid response.");
+            }
+
+            if (!res.ok || data.error) {
+                throw new Error(data?.error || 'Captions Sync Failed');
+            }
+
+            const { project } = data;
             setCaptionsProject(project);
         } catch (e) {
             console.error(e);
