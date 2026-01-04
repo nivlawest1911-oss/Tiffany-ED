@@ -1,10 +1,9 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-// Initialize directly with SDK to bypass Genkit configuration issues
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENAI_API_KEY || '');
-const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" });
-
+// Initialize lazily to prevent build-time/init-time errors
 export async function aideFlow(message: string, mode: 'aide' | 'iep') {
+  const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENAI_API_KEY || '');
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
   const systemPrompts = {
     aide: `You are an EdIntel Classroom Assistant. 
            Focus on pedagogy, lesson planning, and student engagement. 
