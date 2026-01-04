@@ -48,7 +48,19 @@ export default function EQGenerator() {
                     protocol: 'ef-reframing'
                 }),
             });
-            const data = await res.json();
+            const textResponse = await res.text();
+            let data;
+            try {
+                data = JSON.parse(textResponse);
+            } catch (err) {
+                console.error("EQ API returned non-JSON:", textResponse);
+                throw new Error("Neural Link Unstable: Received invalid response format.");
+            }
+
+            if (!res.ok || data.error) {
+                throw new Error(data?.error || "Neural Link disrupted.");
+            }
+
             setOutput(data.output);
         } catch (e) {
             setOutput("EQ Neural Link interrupted. Retrying...");

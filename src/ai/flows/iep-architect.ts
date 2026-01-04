@@ -1,25 +1,20 @@
-import { z } from 'genkit';
-import { ai } from '../lib/genkit-config';
-import { gemini15Flash } from '@genkit-ai/googleai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
-export const iepArchitectFlow = ai.defineFlow(
-  {
-    name: 'iepArchitectFlow',
-    inputSchema: z.object({
-      studentStrength: z.string(),
-      areaOfNeed: z.string(),
-      gradeLevel: z.string(),
-    }),
-  },
-  async (input) => {
-    // Passing the model object directly removes the 404 string mismatch
-    const response = await ai.generate({
-      model: gemini15Flash,
-      prompt: `Act as a Senior Special Education Coordinator. 
+export async function iepArchitectFlow(input: { studentStrength: string; areaOfNeed: string; gradeLevel: string }) {
+  const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENAI_API_KEY || '');
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+  const response = await model.generateContent({
+    contents: [{
+      role: 'user',
+      parts: [{
+        text: `Act as a Senior Special Education Coordinator. 
       Draft a SMART goal and 3 accommodations for a ${input.gradeLevel} student.
       Strengths: ${input.studentStrength}
-      Needs: ${input.areaOfNeed}.`,
-    });
-    return response.text;
-  }
-);
+      Needs: ${input.areaOfNeed}.`
+      }]
+    }]
+  });
+
+  return response.response.text();
+}

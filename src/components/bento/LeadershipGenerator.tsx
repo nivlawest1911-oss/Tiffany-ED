@@ -92,11 +92,19 @@ export default function LeadershipGenerator() {
                 }),
             });
 
-            if (!res.ok) {
-                const errData = await res.json();
-                throw new Error(errData.error || 'API unstable');
+            const textResponse = await res.text();
+            let data;
+            try {
+                data = JSON.parse(textResponse);
+            } catch (err) {
+                console.error("Leadership API returned non-JSON:", textResponse);
+                throw new Error("Protocol Generation Failed: Server returned invalid format.");
             }
-            const data = await res.json();
+
+            if (!res.ok || data.error) {
+                throw new Error(data?.error || 'API unstable');
+            }
+
             setOutput(data.output);
         } catch (e: any) {
             setOutput(`EdIntel Leadership Node connection interrupted. ${e.message}`);

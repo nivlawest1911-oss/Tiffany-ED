@@ -2,8 +2,9 @@ import { NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 // Initialize directly with SDK to bypass Genkit configuration issues
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENAI_API_KEY || '');
-const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" });
+
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
 const PROTOCOL_PROMPTS: Record<string, string> = {
   'ef-reframing': 'You are an expert in Emotional Intelligence for school leadership. Reframe the following situation to de-escalate and build connection. Focus on validation and productive next steps.',
@@ -16,6 +17,8 @@ const PROTOCOL_PROMPTS: Record<string, string> = {
 };
 
 export async function POST(req: Request) {
+  const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENAI_API_KEY || '');
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
   try {
     const body = await req.json();
 

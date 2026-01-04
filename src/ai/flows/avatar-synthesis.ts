@@ -1,19 +1,14 @@
-import { z } from 'genkit';
-import { ai } from '../lib/genkit-config';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
-export const avatarSynthesisFlow = ai.defineFlow(
-    {
-        name: 'avatarSynthesisFlow',
-        inputSchema: z.object({
-            name: z.string(),
-            role: z.string(),
-            specialization: z.string(),
-            autonomyLevel: z.number(),
-        }),
-    },
-    async (input) => {
-        const response = await ai.generate({
-            prompt: `You are the EdIntel Avatar Synthesis Engine. Generate a "Sovereign AI Delegate" profile for a school district personnel.
+export async function avatarSynthesisFlow(input: { name: string; role: string; specialization: string; autonomyLevel: number }) {
+    const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENAI_API_KEY || '');
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+    const response = await model.generateContent({
+        contents: [{
+            role: 'user',
+            parts: [{
+                text: `You are the EdIntel Avatar Synthesis Engine. Generate a "Sovereign AI Delegate" profile for a school district personnel.
       
       User Configuration:
       Name: ${input.name}
@@ -32,8 +27,10 @@ export const avatarSynthesisFlow = ai.defineFlow(
       [Task 4]
       SOVEREIGN_ID: [A unique alphanumeric identifier]
       
-      Ensure the tone is professional, high-authority, and futuristic.`,
-        });
-        return response.text;
-    }
-);
+      Ensure the tone is professional, high-authority, and futuristic.`
+            }]
+        }]
+    });
+
+    return response.response.text();
+}
