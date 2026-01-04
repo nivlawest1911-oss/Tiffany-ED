@@ -109,6 +109,10 @@ export default function Dashboard() {
                   <div className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
                   <span className="text-[9px] font-black text-amber-500 uppercase tracking-widest group-hover:underline">Upgrade Status</span>
                 </a>
+                <a href="/login" className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-500/10 border border-zinc-500/20 hover:bg-zinc-500/20 transition-all cursor-pointer group hover:scale-105 active:scale-95">
+                  <div className="w-1.5 h-1.5 rounded-full bg-zinc-500" />
+                  <span className="text-[9px] font-black text-zinc-500 uppercase tracking-widest group-hover:underline">Access Node</span>
+                </a>
                 <a href="/signup" className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 transition-all cursor-pointer group hover:scale-105 active:scale-95">
                   <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                   <span className="text-[9px] font-black text-emerald-500 uppercase tracking-widest group-hover:underline">Initialize Node</span>

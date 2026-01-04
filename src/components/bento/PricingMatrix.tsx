@@ -53,6 +53,24 @@ export default function PricingMatrix() {
 
     const tiers = [
         {
+            name: "Sovereign Initiate",
+            price: "Free",
+            priceId: null,
+            icon: <Shield className="text-zinc-400" size={24} />,
+            color: "zinc",
+            accent: "from-zinc-500 to-zinc-600",
+            shadowColor: "shadow-zinc-900/20",
+            iconColor: "text-zinc-400",
+            idealFor: "Observers & New Users",
+            value: "Zero-cost entry to the Sovereign Network",
+            features: [
+                "Basic Protocol Access",
+                "Community Intelligence Feed",
+                "Limited AI Generations (5/day)",
+                "Read-Only Sovereign Vault"
+            ]
+        },
+        {
             name: "Practitioner",
             price: isAnnual
                 ? (priceData['Practitioner']?.annual || 39)
@@ -240,6 +258,8 @@ export default function PricingMatrix() {
                                 onClick={() => {
                                     if (tier.price === 'Custom') {
                                         window.location.href = 'mailto:sales@edintel.ai?subject=Sovereign%20District%20Inquiry';
+                                    } else if (tier.price === 'Free') {
+                                        window.location.href = '/signup';
                                     } else {
                                         startTransition(() => {
                                             // Use priceId if matched from Firestore, otherwise fallback to name lookup
@@ -250,7 +270,7 @@ export default function PricingMatrix() {
                                 className={`w-full py-4 rounded-xl font-black text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-all duration-300 group-hover:scale-[1.02] ${tier.highlight
                                     ? `bg-gradient-to-r ${tier.accent} text-white shadow-lg shadow-violet-900/40 hover:shadow-violet-900/60`
                                     : 'bg-zinc-900 text-white hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700'} ${isPending ? 'opacity-50 cursor-not-allowed' : ''}`}>
-                                {tier.price === 'Custom' ? 'Contact Protocol' : (
+                                {tier.price === 'Custom' ? 'Contact Protocol' : tier.price === 'Free' ? 'Initialize Node' : (
                                     <span className="flex items-center gap-2">
                                         {isPending ? (
                                             <>
@@ -287,14 +307,50 @@ export default function PricingMatrix() {
                             Fuel high-compute operations like bulk audits and avatar synthesis. Tokens never expire.
                         </p>
 
-                        <div className="flex items-center gap-4">
-                            <div className="px-5 py-3 rounded-xl bg-black border border-zinc-800 flex items-baseline gap-2">
-                                <span className="text-2xl font-black text-white">$9.99</span>
-                                <span className="text-[10px] font-bold text-zinc-600 uppercase">/ 1k Tokens</span>
+                        <div className="flex flex-col gap-4">
+                            <div className="flex items-center justify-between p-4 rounded-xl bg-black/40 border border-zinc-800/50">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center text-amber-500 font-bold text-xs">1K</div>
+                                    <div>
+                                        <div className="text-sm font-bold text-white uppercase">Standard Pack</div>
+                                        <div className="text-[10px] text-zinc-500">Starter Fuel</div>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <span className="text-lg font-black text-white">$9.99</span>
+                                    <button className="p-2 bg-amber-600 rounded-lg text-white hover:bg-amber-500 transition-colors"><ArrowRight size={14} /></button>
+                                </div>
                             </div>
-                            <button className="text-xs font-black text-amber-500 uppercase tracking-widest hover:text-white transition-colors flex items-center gap-2">
-                                Access Fuel <ArrowRight size={12} />
-                            </button>
+
+                            <div className="flex items-center justify-between p-4 rounded-xl bg-black/40 border border-zinc-800/50 relative">
+                                <div className="absolute -top-2 left-6 px-2 py-0.5 bg-amber-500 text-black text-[9px] font-black uppercase rounded-full">Best Value</div>
+                                <div className="flex items-center gap-3">
+                                    <div className="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-500 font-bold text-xs">5K</div>
+                                    <div>
+                                        <div className="text-sm font-bold text-white uppercase">Sovereign Pack</div>
+                                        <div className="text-[10px] text-zinc-500">Bulk Operations</div>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <span className="text-lg font-black text-white">$39.99</span>
+                                    <button className="p-2 bg-amber-600 rounded-lg text-white hover:bg-amber-500 transition-colors"><ArrowRight size={14} /></button>
+                                </div>
+                            </div>
+
+                            <div className="flex items-center justify-between p-4 rounded-xl bg-black/40 border border-zinc-800/50">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-400 font-bold text-xs">10K</div>
+                                    <div>
+                                        <div className="text-sm font-bold text-white uppercase">Director Pack</div>
+                                        <div className="text-[10px] text-zinc-500">District Scale</div>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <span className="text-lg font-black text-white">$69.99</span>
+                                    <button className="p-2 bg-amber-600 rounded-lg text-white hover:bg-amber-500 transition-colors"><ArrowRight size={14} /></button>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
