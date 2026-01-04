@@ -2,7 +2,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 
 export async function iepArchitectFlow(input: { studentStrength: string; areaOfNeed: string; gradeLevel: string }) {
   const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENAI_API_KEY || '');
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
 
   const response = await model.generateContent({
     contents: [{
