@@ -1,5 +1,7 @@
-﻿import { NextResponse } from 'next/server';
-import { aideFlow } from '@/ai/flows/classroom-aide';
+﻿import { aideFlow } from '@/ai/flows/classroom-aide';
+
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
 export async function POST(req: Request) {
   try {
