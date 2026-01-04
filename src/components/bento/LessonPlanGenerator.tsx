@@ -60,10 +60,17 @@ export default function LessonPlanGenerator() {
                 })
             });
 
-            const data = await response.json();
+            const responseText = await response.text();
+            let data;
+            try {
+                data = JSON.parse(responseText);
+            } catch (e) {
+                console.error("API Response was not JSON:", responseText);
+                throw new Error("Server returned an invalid response.");
+            }
 
             if (!response.ok || data.error) {
-                throw new Error(data.error || 'Generative failure');
+                throw new Error(data?.error || 'Generative failure');
             }
 
             const text = data.text || '';
