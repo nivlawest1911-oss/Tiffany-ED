@@ -11,26 +11,37 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 const PRICE_MAPPING: Record<string, string> = {
   STRIPE_PRICE_PRACTITIONER_MONTHLY: 'price_1SleigJZzJ2JsTizzhcHtd36',
   STRIPE_PRICE_SITE_COMMAND_MONTHLY: 'price_1SleihJZzJ2JsTizmaXKM4ow',
-  // Add annual IDs here when available
+  // Tokens
+  STRIPE_PRICE_TOKEN_1K: 'price_1SleijJZzJ2JsTiz...placeholder',
+  STRIPE_PRICE_TOKEN_5K: 'price_1SleikJZzJ2JsTiz...placeholder',
+  STRIPE_PRICE_TOKEN_10K: 'price_1SleilJZzJ2JsTiz...placeholder',
 };
 
 function getPriceId(tierId: string, isAnnual: boolean): string | undefined {
+  if (tierId.includes('Token')) {
+    // Quick token lookup
+    if (tierId.includes('10K')) return process.env.STRIPE_PRICE_TOKEN_10K;
+    if (tierId.includes('5K')) return process.env.STRIPE_PRICE_TOKEN_5K;
+    return process.env.STRIPE_PRICE_TOKEN_1K;
+  }
+
   const key = `STRIPE_PRICE_${tierId.toUpperCase().replace(' ', '_')}_${isAnnual ? 'ANNUAL' : 'MONTHLY'}`;
-  // Debug log (remove in prod)
   console.log(`Looking up price for key: ${key}`);
   return process.env[key] || PRICE_MAPPING[key];
 }
 
-// 1. SESSION ACTION: For new subscriptions (Professional/Enterprise)
-export async function createCheckoutSession(priceIdOrTierId: string, isAnnual: boolean) {
+// 1. SESSION ACTION: For new subscriptions (Professional/Enterprise) or One-Time Tokens
+export async function createCheckoutSession(priceIdOrTierId: string, isAnnual: boolean, mode: 'subscription' | 'payment' = 'subscription') {
   let priceId = '';
 
   if (priceIdOrTierId.startsWith('price_')) {
     priceId = priceIdOrTierId;
   } else {
+    // ... (lookup logic)
     const lookupId = getPriceId(priceIdOrTierId, isAnnual);
     if (!lookupId) {
-      console.error(`No price ID found for tier: ${priceIdOrTierId}, annual: ${isAnnual}`);
+      // Fallback for Tokens if not in env (For now using placeholders or relying on passed ID)
+      console.error(`No price ID found for: ${priceIdOrTierId}`);
       throw new Error("Pricing configuration error. Please contact support.");
     }
     priceId = lookupId;
@@ -41,7 +52,7 @@ export async function createCheckoutSession(priceIdOrTierId: string, isAnnual: b
 
   const session = await stripe.checkout.sessions.create({
     line_items: [{ price: priceId, quantity: 1 }],
-    mode: 'subscription',
+    mode: mode,
     success_url: `${origin}/archive?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${origin}/pricing`,
     automatic_tax: { enabled: true },

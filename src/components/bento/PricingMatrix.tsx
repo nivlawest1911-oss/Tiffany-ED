@@ -318,7 +318,13 @@ export default function PricingMatrix() {
                                 </div>
                                 <div className="flex items-center gap-3">
                                     <span className="text-lg font-black text-white">$9.99</span>
-                                    <button className="p-2 bg-amber-600 rounded-lg text-white hover:bg-amber-500 transition-colors"><ArrowRight size={14} /></button>
+                                    <button
+                                        disabled={isPending}
+                                        onClick={() => startTransition(() => createCheckoutSession('STRIPE_PRICE_TOKEN_1K', false, 'payment'))}
+                                        className="p-2 bg-amber-600 rounded-lg text-white hover:bg-amber-500 transition-colors disabled:opacity-50"
+                                    >
+                                        <ArrowRight size={14} />
+                                    </button>
                                 </div>
                             </div>
 
@@ -333,7 +339,13 @@ export default function PricingMatrix() {
                                 </div>
                                 <div className="flex items-center gap-3">
                                     <span className="text-lg font-black text-white">$39.99</span>
-                                    <button className="p-2 bg-amber-600 rounded-lg text-white hover:bg-amber-500 transition-colors"><ArrowRight size={14} /></button>
+                                    <button
+                                        disabled={isPending}
+                                        onClick={() => startTransition(() => createCheckoutSession('STRIPE_PRICE_TOKEN_5K', false, 'payment'))}
+                                        className="p-2 bg-amber-600 rounded-lg text-white hover:bg-amber-500 transition-colors disabled:opacity-50"
+                                    >
+                                        <ArrowRight size={14} />
+                                    </button>
                                 </div>
                             </div>
 
@@ -347,7 +359,13 @@ export default function PricingMatrix() {
                                 </div>
                                 <div className="flex items-center gap-3">
                                     <span className="text-lg font-black text-white">$69.99</span>
-                                    <button className="p-2 bg-amber-600 rounded-lg text-white hover:bg-amber-500 transition-colors"><ArrowRight size={14} /></button>
+                                    <button
+                                        disabled={isPending}
+                                        onClick={() => startTransition(() => createCheckoutSession('STRIPE_PRICE_TOKEN_10K', false, 'payment'))}
+                                        className="p-2 bg-amber-600 rounded-lg text-white hover:bg-amber-500 transition-colors disabled:opacity-50"
+                                    >
+                                        <ArrowRight size={14} />
+                                    </button>
                                 </div>
                             </div>
 
