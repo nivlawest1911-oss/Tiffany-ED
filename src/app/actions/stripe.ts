@@ -12,9 +12,9 @@ const PRICE_MAPPING: Record<string, string> = {
   STRIPE_PRICE_PRACTITIONER_MONTHLY: 'price_1SleigJZzJ2JsTizzhcHtd36',
   STRIPE_PRICE_SITE_COMMAND_MONTHLY: 'price_1SleihJZzJ2JsTizmaXKM4ow',
   // Tokens
-  STRIPE_PRICE_TOKEN_1K: 'price_1SleijJZzJ2JsTiz...placeholder',
-  STRIPE_PRICE_TOKEN_5K: 'price_1SleikJZzJ2JsTiz...placeholder',
-  STRIPE_PRICE_TOKEN_10K: 'price_1SleilJZzJ2JsTiz...placeholder',
+  STRIPE_PRICE_TOKEN_1K: 'price_1SleijJZzJ2JsTizToken1K', // Replace with real ID if available, otherwise this will fail in Stripe
+  STRIPE_PRICE_TOKEN_5K: 'price_1SleikJZzJ2JsTizToken5K',
+  STRIPE_PRICE_TOKEN_10K: 'price_1SleilJZzJ2JsTizToken10K',
 };
 
 function getPriceId(tierId: string, isAnnual: boolean): string | undefined {
