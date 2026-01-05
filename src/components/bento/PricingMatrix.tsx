@@ -261,9 +261,14 @@ export default function PricingMatrix() {
                                     } else if (tier.price === 'Free') {
                                         window.location.href = '/signup';
                                     } else {
-                                        startTransition(() => {
-                                            // Use priceId if matched from Firestore, otherwise fallback to name lookup
-                                            createCheckoutSession(tier.priceId || tier.name, isAnnual);
+                                        startTransition(async () => {
+                                            try {
+                                                // Use priceId if matched from Firestore, otherwise fallback to name lookup
+                                                await createCheckoutSession(tier.priceId || tier.name, isAnnual);
+                                            } catch (error) {
+                                                console.error("Stripe Connection Error:", error);
+                                                alert("Secure Protocol Link Failed: Please refresh and try again.");
+                                            }
                                         });
                                     }
                                 }}
@@ -320,7 +325,11 @@ export default function PricingMatrix() {
                                     <span className="text-lg font-black text-white">$9.99</span>
                                     <button
                                         disabled={isPending}
-                                        onClick={() => startTransition(() => createCheckoutSession('STRIPE_PRICE_TOKEN_1K', false, 'payment'))}
+                                        onClick={() => startTransition(async () => {
+                                            try {
+                                                await createCheckoutSession('STRIPE_PRICE_TOKEN_1K', false, 'payment');
+                                            } catch (e) { alert("Token Uplink Failed. Please try again."); }
+                                        })}
                                         className="p-2 bg-amber-600 rounded-lg text-white hover:bg-amber-500 transition-colors disabled:opacity-50"
                                     >
                                         <ArrowRight size={14} />
@@ -341,7 +350,11 @@ export default function PricingMatrix() {
                                     <span className="text-lg font-black text-white">$39.99</span>
                                     <button
                                         disabled={isPending}
-                                        onClick={() => startTransition(() => createCheckoutSession('STRIPE_PRICE_TOKEN_5K', false, 'payment'))}
+                                        onClick={() => startTransition(async () => {
+                                            try {
+                                                await createCheckoutSession('STRIPE_PRICE_TOKEN_5K', false, 'payment');
+                                            } catch (e) { alert("Token Uplink Failed. Please try again."); }
+                                        })}
                                         className="p-2 bg-amber-600 rounded-lg text-white hover:bg-amber-500 transition-colors disabled:opacity-50"
                                     >
                                         <ArrowRight size={14} />
@@ -361,7 +374,11 @@ export default function PricingMatrix() {
                                     <span className="text-lg font-black text-white">$69.99</span>
                                     <button
                                         disabled={isPending}
-                                        onClick={() => startTransition(() => createCheckoutSession('STRIPE_PRICE_TOKEN_10K', false, 'payment'))}
+                                        onClick={() => startTransition(async () => {
+                                            try {
+                                                await createCheckoutSession('STRIPE_PRICE_TOKEN_10K', false, 'payment');
+                                            } catch (e) { alert("Token Uplink Failed. Please try again."); }
+                                        })}
                                         className="p-2 bg-amber-600 rounded-lg text-white hover:bg-amber-500 transition-colors disabled:opacity-50"
                                     >
                                         <ArrowRight size={14} />
