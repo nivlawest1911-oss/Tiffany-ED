@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 export async function principalSummaryFlow(input: { totalStudents: number; interventionCount: number; focusCount: number; staffCount: number }) {
-  const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENAI_API_KEY || '');
+  const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENAI_API_KEY || 'AIzaSyAEyAP1KfoKmlPCQBbwFHjQv3Ucu7ZeVcU');
   const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-lite" });
 
   const response = await model.generateContent({

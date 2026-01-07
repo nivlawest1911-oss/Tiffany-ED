@@ -27,13 +27,19 @@ export default function AidePanel({ isOpen, mode, onClose }: AidePanelProps) {
             const response = await fetch('/api/classroom', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: userMsg, mode: mode }) // Passing mode for logic branch
+                body: JSON.stringify({ message: userMsg, mode: mode })
             });
 
             const data = await response.json();
-            setChatLog(prev => [...prev, { role: 'ai', text: data.text }]);
+            if (data.text) {
+                setChatLog(prev => [...prev, { role: 'ai', text: data.text }]);
+            } else if (data.error) {
+                setChatLog(prev => [...prev, { role: 'ai', text: `System Alert: ${data.error}` }]);
+            } else {
+                throw new Error("Invalid response format");
+            }
         } catch (err) {
-            setChatLog(prev => [...prev, { role: 'ai', text: "System Error: Neural link interrupted." }]);
+            setChatLog(prev => [...prev, { role: 'ai', text: "System Error: Neural link interrupted. Please verify your connection." }]);
         } finally {
             setIsTyping(false);
         }

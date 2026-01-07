@@ -19,7 +19,7 @@ export default function RevenueDashboard() {
 
   return (
     <div className="w-full h-full">
-      <h3 className="text-xl font-bold text-zinc-900 dark:text-white mb-6">?? District Strategic Investment (Monthly)</h3>
+      <h3 className="text-xl font-bold text-zinc-900 dark:text-white mb-6">📊 District Strategic Investment (Monthly)</h3>
       <div className="h-[300px]" style={{ width: '100%', height: 300, position: 'relative' }}>
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data}>

@@ -1,24 +1,40 @@
 'use client';
 import { useState } from 'react';
 import { auth } from '@/firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Lock, Mail, ArrowRight, ShieldCheck } from 'lucide-react';
+import Link from 'next/link';
+import { Lock, Mail, ArrowRight, ShieldCheck, Chrome } from 'lucide-react';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoggingIn(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      router.push('/archive');
+      router.push('/');
     } catch (err: any) {
       setError('Invalid Executive Credentials. Access denied.');
+      setIsLoggingIn(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setIsLoggingIn(true);
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+      router.push('/');
+    } catch (err: any) {
+      setError('Secure Gateway Link Interrupted. Please try again.');
+      setIsLoggingIn(false);
     }
   };
 
@@ -86,14 +102,35 @@ export default function LoginPage() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             type="submit"
-            className="w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-black text-sm uppercase tracking-[0.2em] shadow-lg shadow-blue-900/30 flex items-center justify-center gap-2"
+            disabled={isLoggingIn}
+            className="w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-black text-sm uppercase tracking-[0.2em] shadow-lg shadow-blue-900/30 flex items-center justify-center gap-2 disabled:opacity-50"
           >
-            Secure Sign In <ArrowRight size={16} />
+            {isLoggingIn ? 'Authenticating...' : 'Secure Sign In'} <ArrowRight size={16} />
           </motion.button>
         </form>
 
+        <div className="relative my-8">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-zinc-200 dark:border-zinc-800"></div>
+          </div>
+          <div className="relative flex justify-center text-[10px] font-black uppercase tracking-widest">
+            <span className="px-4 bg-white dark:bg-zinc-900 text-zinc-500">Secondary Gateway</span>
+          </div>
+        </div>
+
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={handleGoogleLogin}
+          disabled={isLoggingIn}
+          className="w-full py-4 bg-zinc-100 dark:bg-zinc-950 text-zinc-900 dark:text-white border border-zinc-200 dark:border-zinc-800 rounded-xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-3 hover:bg-zinc-200 dark:hover:bg-zinc-900 transition-all disabled:opacity-50"
+        >
+          <Chrome size={18} className="text-blue-500" />
+          Authorize via Google
+        </motion.button>
+
         <p className="text-center mt-10 text-xs font-medium text-zinc-400">
-          New Executive? <a href="/signup" className="text-blue-500 hover:text-blue-400 font-bold uppercase tracking-wide ml-1 transition-colors">Initialize Protocol</a>
+          New Executive? <Link href="/signup" className="text-blue-500 hover:text-blue-400 font-bold uppercase tracking-wide ml-1 transition-colors">Initialize Protocol</Link>
         </p>
       </motion.div>
     </div>

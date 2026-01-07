@@ -28,7 +28,7 @@ export default function ResourceMap() {
   return (
     <div className="bg-zinc-900 text-white rounded-2xl p-6 shadow-lg border border-zinc-800">
       <div className="mb-6">
-        <h4 className="text-lg font-bold flex items-center gap-2">?? Mobile County Resource Allocation Needs</h4>
+        <h4 className="text-lg font-bold flex items-center gap-2">📍 Mobile County Resource Allocation Needs</h4>
         <p className="text-xs text-zinc-500 font-mono mt-1">Schools ranked by AI Audit frequency</p>
       </div>
       <div className="space-y-1">

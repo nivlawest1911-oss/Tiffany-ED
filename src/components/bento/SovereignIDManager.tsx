@@ -5,6 +5,17 @@ import React, { useState } from 'react';
 
 export default function SovereignIDManager() {
     const [avatarActive, setAvatarActive] = useState(true);
+    const [isCommitting, setIsCommitting] = useState(false);
+    const [statusMessage, setStatusMessage] = useState('Standby // Ready for uplink');
+
+    const handleCommit = async () => {
+        setIsCommitting(true);
+        setStatusMessage('Syncing with Sovereign Node...');
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        setIsCommitting(false);
+        setStatusMessage('Protocol Stabilized // Identity Committed');
+        setTimeout(() => setStatusMessage('Standby // Ready for uplink'), 3000);
+    };
 
     return (
         <div className="w-full max-w-2xl mx-auto p-1 bg-gradient-to-br from-zinc-800 to-black rounded-3xl shadow-2xl">
@@ -104,9 +115,16 @@ export default function SovereignIDManager() {
                 </div>
 
                 {/* Footer Action */}
-                <div className="mt-8 pt-6 border-t border-zinc-800 flex justify-end">
-                    <button className="px-8 py-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-black text-xs uppercase tracking-widest shadow-lg shadow-amber-900/20 transition-all flex items-center gap-2">
-                        Commit Protocol <Shield size={14} />
+                <div className="mt-8 pt-6 border-t border-zinc-800 flex items-center justify-between">
+                    <p className="text-[9px] text-zinc-500 font-mono italic">
+                        {statusMessage}
+                    </p>
+                    <button
+                        onClick={handleCommit}
+                        disabled={isCommitting}
+                        className="px-8 py-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-black text-xs uppercase tracking-widest shadow-lg shadow-amber-900/20 transition-all flex items-center gap-2 disabled:opacity-50"
+                    >
+                        {isCommitting ? 'Stabilizing...' : <>Commit Protocol <Shield size={14} /></>}
                     </button>
                 </div>
             </div>

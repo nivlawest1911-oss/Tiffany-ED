@@ -1,5 +1,5 @@
 'use client';
-import { ExternalLink, Shield, BookOpen, GraduationCap, Building2, TrendingUp, Cpu, FlaskConical, Scale, Lightbulb } from 'lucide-react';
+import { ExternalLink, Shield, BookOpen, GraduationCap, Building2, TrendingUp, Cpu, FlaskConical, Scale, Lightbulb, ChevronRight } from 'lucide-react';
 import { ALL_RESOURCES, RESOURCE_METADATA, get2025Updates, getLiteracyResources, getResearchValidation, getIDEACompliance } from '@/config/resources';
 
 export default function LegalSingularityVault() {
@@ -49,6 +49,23 @@ export default function LegalSingularityVault() {
                     <span className="text-xs font-mono text-green-300">LIVE SYNC</span>
                 </div>
             </div>
+
+            {/* Alabama Hub Gateway */}
+            <a
+                href="/resources/alabama"
+                className="mb-4 p-5 rounded-2xl bg-gradient-to-r from-blue-600/20 to-emerald-600/20 border border-blue-500/30 flex items-center justify-between group hover:scale-[1.02] transition-all"
+            >
+                <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center shadow-lg">
+                        <Building2 className="text-white" size={20} />
+                    </div>
+                    <div>
+                        <p className="text-xs font-black uppercase tracking-widest text-blue-400">Regional Gateway</p>
+                        <p className="text-sm font-bold text-white group-hover:text-blue-300 transition-colors">Alabama Command Node</p>
+                    </div>
+                </div>
+                <ChevronRight className="text-blue-500 group-hover:translate-x-1 transition-transform" size={20} />
+            </a>
 
             {/* 2025 Updates Banner */}
             {updates2025.length > 0 && (

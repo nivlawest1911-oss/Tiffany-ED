@@ -83,7 +83,13 @@ export default function SovereignBroadcastNode() {
                 {/* Feed Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     {recentBroadcasts.map((video) => (
-                        <div key={video.id} className="group/card relative aspect-[9/16] rounded-2xl overflow-hidden bg-zinc-900 border border-zinc-800 hover:border-purple-500 transition-all cursor-pointer shadow-xl">
+                        <a
+                            key={video.id}
+                            href="https://www.tiktok.com/@alvinwest0"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group/card relative aspect-[9/16] rounded-2xl overflow-hidden bg-zinc-900 border border-zinc-800 hover:border-purple-500 transition-all cursor-pointer shadow-xl block"
+                        >
                             <img src={video.thumbnail} alt={video.desc} className="w-full h-full object-cover opacity-60 group-hover/card:opacity-90 group-hover/card:scale-105 transition-all duration-700" />
 
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
@@ -111,7 +117,7 @@ export default function SovereignBroadcastNode() {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     ))}
                 </div>
 

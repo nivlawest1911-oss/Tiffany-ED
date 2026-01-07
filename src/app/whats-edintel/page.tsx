@@ -1,9 +1,10 @@
 import React from 'react';
+import Link from 'next/link';
 import FeatureCard from '@/components/bento/FeatureCard';
-import { FEATURES } from '@/app/whats-cognifit/features';
+import { FEATURES } from '@/app/whats-edintel/features';
 import { ArrowRight } from 'lucide-react';
 
-export default function WhatsCognifit() {
+export default function WhatsEdIntel() {
     return (
         <main className="min-h-screen bg-zinc-950 text-white overflow-x-hidden">
             {/* Hero Section */}
@@ -14,9 +15,9 @@ export default function WhatsCognifit() {
                 <p className="mt-6 text-lg text-zinc-400 max-w-2xl mx-auto">
                     EdIntel delivers a sovereign‑AI platform for educators, administrators, and districts. It combines neural‑sync coaching, custom avatar delegates, and a transparent token economy—all wrapped in a clinical, glass‑morphic UI.
                 </p>
-                <button className="mt-8 inline-flex items-center gap-2 px-8 py-4 bg-amber-600 hover:bg-amber-500 text-white rounded-xl font-black uppercase tracking-widest transition-colors">
+                <Link href="/" className="mt-8 inline-flex items-center gap-2 px-8 py-4 bg-amber-600 hover:bg-amber-500 text-white rounded-xl font-black uppercase tracking-widest transition-colors">
                     Explore the Suite <ArrowRight size={16} />
-                </button>
+                </Link>
             </section>
 
 
@@ -55,9 +56,9 @@ export default function WhatsCognifit() {
                             <p className="text-zinc-400 mb-6 leading-relaxed">
                                 Automate legislative burden. Draft IEPs, behavior plans, and lesson units with a Sovereign Aide that learns your voice.
                             </p>
-                            <span className="text-amber-600 font-bold text-xs uppercase tracking-widest flex items-center gap-2 group-hover:gap-4 transition-all">
+                            <Link href="/" className="text-amber-600 font-bold text-xs uppercase tracking-widest flex items-center gap-2 group-hover:gap-4 transition-all">
                                 View Protocols <ArrowRight size={14} />
-                            </span>
+                            </Link>
                         </div>
 
                         {/* For Administrators */}
@@ -66,9 +67,9 @@ export default function WhatsCognifit() {
                             <p className="text-zinc-400 mb-6 leading-relaxed">
                                 Gain real-time compliance visibility. Monitor district-wide neural health, budget allocation, and operational efficiency.
                             </p>
-                            <span className="text-blue-600 font-bold text-xs uppercase tracking-widest flex items-center gap-2 group-hover:gap-4 transition-all">
+                            <Link href="/" className="text-blue-600 font-bold text-xs uppercase tracking-widest flex items-center gap-2 group-hover:gap-4 transition-all">
                                 Access Command <ArrowRight size={14} />
-                            </span>
+                            </Link>
                         </div>
 
                         {/* For Researchers */}
@@ -77,9 +78,9 @@ export default function WhatsCognifit() {
                             <p className="text-zinc-400 mb-6 leading-relaxed">
                                 Leverage anonymized, sovereign data sets to study cognitive impact and educational outcomes at scale.
                             </p>
-                            <span className="text-purple-600 font-bold text-xs uppercase tracking-widest flex items-center gap-2 group-hover:gap-4 transition-all">
+                            <Link href="/" className="text-purple-600 font-bold text-xs uppercase tracking-widest flex items-center gap-2 group-hover:gap-4 transition-all">
                                 Request Data Nodes <ArrowRight size={14} />
-                            </span>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -94,9 +95,9 @@ export default function WhatsCognifit() {
                     <p className="mt-4 text-zinc-200 max-w-xl mx-auto">
                         Join the sovereign education revolution. Book a demo or start a 14‑day pilot directly from your dashboard.
                     </p>
-                    <button className="mt-8 px-10 py-4 bg-amber-600 hover:bg-amber-500 text-white rounded-xl font-black uppercase tracking-widest transition-colors shadow-lg shadow-amber-900/20">
+                    <Link href="/pricing" className="mt-8 inline-block px-10 py-4 bg-amber-600 hover:bg-amber-500 text-white rounded-xl font-black uppercase tracking-widest transition-colors shadow-lg shadow-amber-900/20">
                         Get Started
-                    </button>
+                    </Link>
                 </div>
             </section>
         </main>

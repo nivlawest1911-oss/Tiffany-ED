@@ -1,5 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import AuditChart from '@/components/AuditChart';
 import ResourceMap from '@/components/ResourceMap';
 import BoardReport from '@/components/BoardReport';
@@ -75,9 +76,9 @@ export default function BoardView() {
           <p className="text-sm text-zinc-400 font-medium">
             Powered by EdIntel AI Twin Technology | Dr. West Leadership Suite
           </p>
-          <a href="/login" className="inline-block mt-4 text-xs font-bold text-zinc-300 hover:text-blue-500 transition-colors uppercase tracking-widest">
+          <Link href="/login" className="inline-block mt-4 text-xs font-bold text-zinc-300 hover:text-blue-500 transition-colors uppercase tracking-widest">
             Executive Portal Login
-          </a>
+          </Link>
         </motion.footer>
       </div>
     </motion.div>

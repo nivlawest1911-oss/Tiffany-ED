@@ -117,7 +117,7 @@ export default function NeuralTrainingCommand() {
                                     </span>
                                 ))}
                             </div>
-                            <div className="p-4 bg-zinc-900 text-white rounded-2xl flex items-center gap-4 shadow-lg active:scale-95 cursor-pointer">
+                            <a href="/cognitive" className="p-4 bg-zinc-900 text-white rounded-2xl flex items-center gap-4 shadow-lg active:scale-95 cursor-pointer hover:bg-zinc-800 transition-all">
                                 <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center">
                                     <Play fill="currentColor" size={16} />
                                 </div>
@@ -125,7 +125,7 @@ export default function NeuralTrainingCommand() {
                                     <p className="text-[10px] font-black uppercase tracking-widest">Launch Protocol</p>
                                     <p className="text-[8px] text-zinc-400 uppercase tracking-widest leading-none mt-1">Estimated Drift: 15min</p>
                                 </div>
-                            </div>
+                            </a>
                         </div>
 
                         <div className="text-right">

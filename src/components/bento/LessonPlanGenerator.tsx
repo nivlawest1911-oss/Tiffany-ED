@@ -102,11 +102,36 @@ export default function LessonPlanGenerator() {
     };
 
     const extractSection = (text: string, start: string, end: string | null): string => {
-        const startIndex = text.indexOf(start);
-        if (startIndex === -1) return '';
-        const startPos = startIndex + start.length + 1;
-        const endIndex = end ? text.indexOf(end, startPos) : text.length;
-        return text.substring(startPos, endIndex).trim();
+        const regex = new RegExp(`${start}`, 'i');
+        const match = text.match(regex);
+        if (!match || match.index === undefined) return '';
+
+        const startPos = match.index + match[0].length;
+        let endMatch = null;
+
+        if (end) {
+            const endRegex = new RegExp(`${end}`, 'i');
+            endMatch = text.substring(startPos).match(endRegex);
+        }
+
+        const endIndex = endMatch && endMatch.index !== undefined
+            ? startPos + endMatch.index
+            : text.length;
+
+        return text.substring(startPos, endIndex).trim().replace(/^[:\s*-]+/, '');
+    };
+
+    const handleDownload = () => {
+        const fullText = generatedPlan.map(s => `${s.title.toUpperCase()}\n${'='.repeat(20)}\n${s.content}\n\n`).join('');
+        const blob = new Blob([fullText], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `LessonPlan_${topic.replace(/\s+/g, '_')}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
     };
 
     const copyToClipboard = () => {
@@ -208,7 +233,10 @@ export default function LessonPlanGenerator() {
                                 >
                                     {copied ? <CheckCircle size={16} className="text-emerald-500" /> : <Copy size={16} />}
                                 </button>
-                                <button className="p-2 bg-zinc-100 dark:bg-zinc-800 rounded-lg hover:bg-emerald-500/10 transition-all">
+                                <button
+                                    onClick={handleDownload}
+                                    className="p-2 bg-zinc-100 dark:bg-zinc-800 rounded-lg hover:bg-emerald-500/10 transition-all"
+                                >
                                     <Download size={16} />
                                 </button>
                             </div>

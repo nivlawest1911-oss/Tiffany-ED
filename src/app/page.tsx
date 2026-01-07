@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import CircadianFilter from '@/components/graphics/CircadianFilter';
 import AidePanel from '@/components/ui/AidePanel';
@@ -27,7 +28,7 @@ import SovereignPrivacyManifesto from '@/components/bento/SovereignPrivacyManife
 import SovereignAgreement from '@/components/bento/SovereignAgreement';
 import Support from '@/app/support/page';
 import Blog from '@/app/blog/page';
-import WhatsEdIntel from '@/app/whats-cognifit/page';
+import WhatsEdIntel from '@/app/whats-edintel/page';
 import SovereignFeed from '@/components/bento/SovereignFeed';
 import SovereignRankGuide from '@/components/bento/SovereignRankGuide';
 import SovereignIDManager from '@/components/bento/SovereignIDManager';
@@ -105,18 +106,18 @@ export default function Dashboard() {
               </h1>
               <div className="flex items-center gap-4 mt-3">
                 <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-[0.2em]">Director Command Node // v4.0.2</p>
-                <a href="/pricing" className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 hover:bg-amber-500/20 transition-all cursor-pointer group hover:scale-105 active:scale-95">
+                <Link href="/pricing" className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 hover:bg-amber-500/20 transition-all cursor-pointer group hover:scale-105 active:scale-95">
                   <div className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
                   <span className="text-[9px] font-black text-amber-500 uppercase tracking-widest group-hover:underline">Upgrade Status</span>
-                </a>
-                <a href="/login" className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-500/10 border border-zinc-500/20 hover:bg-zinc-500/20 transition-all cursor-pointer group hover:scale-105 active:scale-95">
+                </Link>
+                <Link href="/login" className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-500/10 border border-zinc-500/20 hover:bg-zinc-500/20 transition-all cursor-pointer group hover:scale-105 active:scale-95">
                   <div className="w-1.5 h-1.5 rounded-full bg-zinc-500" />
                   <span className="text-[9px] font-black text-zinc-500 uppercase tracking-widest group-hover:underline">Access Node</span>
-                </a>
-                <a href="/signup" className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 transition-all cursor-pointer group hover:scale-105 active:scale-95">
+                </Link>
+                <Link href="/signup" className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 transition-all cursor-pointer group hover:scale-105 active:scale-95">
                   <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                   <span className="text-[9px] font-black text-emerald-500 uppercase tracking-widest group-hover:underline">Initialize Node</span>
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -129,7 +130,9 @@ export default function Dashboard() {
               { id: 'labs', label: 'Sovereign Labs', activeClass: 'bg-amber-600 text-white shadow-lg shadow-amber-500/30' },
               { id: 'roi', label: 'Sovereign Pricing', icon: <Sparkles size={12} />, activeClass: 'bg-gradient-to-r from-emerald-500 to-green-600 text-white shadow-lg shadow-emerald-900/20' },
               { id: 'feed', label: 'Network Feed', activeClass: 'bg-amber-600 text-white shadow-lg shadow-amber-500/30' },
+              { id: 'identity', label: 'Sovereign Identity', activeClass: 'bg-purple-600 text-white shadow-lg shadow-purple-500/30' },
               { id: 'support', label: 'Support Protocol', activeClass: 'bg-amber-600 text-white shadow-lg shadow-amber-500/30' },
+              { id: 'whats', label: 'What is EdIntel?', activeClass: 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' },
             ].map((tab) => (
               <motion.button
                 key={tab.id}

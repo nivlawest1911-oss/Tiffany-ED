@@ -14,7 +14,7 @@ export default function SocialLinks() {
     const socials = [
         { icon: <Facebook size={18} />, label: 'Facebook', href: 'https://www.facebook.com/alvin.west.18', color: 'hover:text-blue-600' },
         { icon: <Video size={18} />, label: 'TikTok', href: 'https://www.tiktok.com/@alvinwestii', color: 'hover:text-pink-500' },
-        { icon: <Linkedin size={18} />, label: 'LinkedIn', href: 'https://www.linkedin.com/', color: 'hover:text-blue-500' }, // Placeholder or user can update
+        { icon: <Linkedin size={18} />, label: 'LinkedIn', href: 'https://www.linkedin.com/in/dr-alvin-west-ii-dba-pd-m-58133519/', color: 'hover:text-blue-500' }, // Updated Link
         { icon: <Youtube size={18} />, label: 'YouTube', href: 'https://www.youtube.com/@EdIntel', color: 'hover:text-red-500' },
     ];
 
