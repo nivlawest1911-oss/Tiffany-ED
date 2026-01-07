@@ -9,4 +9,5 @@ const nextConfig = {
     },
 };
 
+// Force rebuild for Vercel Env Var propagation 2026-01-06
 module.exports = nextConfig;
