@@ -77,7 +77,7 @@ export default function LeadershipGenerator() {
         if (!situation.trim()) return;
 
         setIsGenerating(true);
-        setOutput('');
+        setOutput('Initializing Neural Link... Synchronizing with Sovereign Node...');
 
         try {
             // Using the expanded logic via the API
