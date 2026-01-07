@@ -35,10 +35,13 @@ try {
 
 
         if (typeof window !== 'undefined' && location.hostname !== 'localhost') {
+            // App Check temporarily disabled for Vercel migration verification
+            /*
             initializeAppCheck(app, {
                 provider: new ReCaptchaEnterpriseProvider(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''),
                 isTokenAutoRefreshEnabled: true
             });
+            */
         }
     } else {
         // console.warn('Firebase keys missing. Service will be disabled.');
