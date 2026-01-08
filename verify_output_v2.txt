@@ -1,9 +1,0 @@
-﻿[36m--- EdIntel Environment Verification ---[0m
-Γ£à Found .env.local
-Γ¥î STRIPE_SECRET_KEY: MISSING or INVALID
-Γ¥î GOOGLE_GENAI_API_KEY: MISSING or INVALID
-Γ¥î NEXT_PUBLIC_FIREBASE_API_KEY: MISSING or INVALID
-Γ¥î NEXT_PUBLIC_FIREBASE_PROJECT_ID: MISSING or INVALID
-
-[31mΓ¥î SYSTEM NOT READY: Critical keys are missing.[0m
-Please configure .env.local or GitHub Secrets according to DEPLOYMENT_CHECKLIST.md
