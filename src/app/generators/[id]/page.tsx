@@ -1,16 +1,29 @@
 "use client"
 
-import { useParams } from 'next/navigation'
-import ClientGenerator from "@/components/ClientGenerator"
+import { notFound } from 'next/navigation';
+import { generators } from '@/data/generators';
+import EnhancedGenerator from '@/components/EnhancedGenerator';
 
-export default function GeneratorPage() {
-    const params = useParams()
+export async function generateStaticParams() {
+    return generators.map((gen) => ({
+        id: gen.id,
+    }));
+}
 
-    if (!params?.id) return (
-        <div className="min-h-screen bg-black text-white flex items-center justify-center">
-            Loading Node...
-        </div>
-    )
+export default function GeneratorPage({ params }: { params: { id: string } }) {
+    const generator = generators.find((g) => g.id === params.id);
 
-    return <ClientGenerator generatorId={params.id as string} />
+    if (!generator) {
+        notFound();
+    }
+
+    return (
+        <EnhancedGenerator
+            generatorId={generator.id}
+            generatorName={generator.name}
+            generatorColor={generator.color}
+            generatorIcon={generator.icon}
+            prompts={generator.prompts}
+        />
+    );
 }
