@@ -1,13 +1,20 @@
 import { NextRequest } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { kv } from '@vercel/kv';
 
 const apiKey = process.env.GOOGLE_GENAI_API_KEY;
 
 export const runtime = 'edge';
 
+// Helper to create cache key
+function getCacheKey(generatorId: string, prompt: string): string {
+    const hash = prompt.substring(0, 50).replace(/\s+/g, '-').toLowerCase();
+    return `gen:${generatorId}:${hash}`;
+}
+
 export async function POST(request: NextRequest) {
     try {
-        const { prompt, generatorId, stream = true } = await request.json();
+        const { prompt, generatorId, stream = true, useCache = true } = await request.json();
 
         if (!prompt) {
             return new Response(JSON.stringify({ error: 'Prompt is required' }), {
@@ -16,7 +23,32 @@ export async function POST(request: NextRequest) {
             });
         }
 
-        // Free Tier Simulation
+        // Check cache first (if enabled and KV is available)
+        if (useCache && process.env.KV_REST_API_URL) {
+            try {
+                const cacheKey = getCacheKey(generatorId, prompt);
+                const cached = await kv.get(cacheKey);
+
+                if (cached) {
+                    console.log('[CACHE HIT]', cacheKey);
+                    return new Response(JSON.stringify({
+                        content: cached,
+                        metadata: {
+                            cached: true,
+                            generatorId,
+                            timestamp: new Date().toISOString()
+                        }
+                    }), {
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                }
+            } catch (cacheError) {
+                console.warn('[CACHE ERROR]', cacheError);
+                // Continue without cache if it fails
+            }
+        }
+
+        // Free Tier Simulation (if no API key)
         if (!apiKey) {
             console.log('[AI] Free Tier Mode');
 
@@ -65,13 +97,24 @@ export async function POST(request: NextRequest) {
             const result = await model.generateContentStream(fullPrompt);
 
             const encoder = new TextEncoder();
+            let fullResponse = '';
+
             const readable = new ReadableStream({
                 async start(controller) {
                     for await (const chunk of result.stream) {
                         const text = chunk.text();
+                        fullResponse += text;
                         controller.enqueue(encoder.encode(text));
                     }
                     controller.close();
+
+                    // Cache the complete response (fire and forget)
+                    if (useCache && process.env.KV_REST_API_URL) {
+                        const cacheKey = getCacheKey(generatorId, prompt);
+                        kv.set(cacheKey, fullResponse, { ex: 3600 }).catch(err =>
+                            console.warn('[CACHE SAVE ERROR]', err)
+                        );
+                    }
                 }
             });
 
@@ -86,11 +129,23 @@ export async function POST(request: NextRequest) {
             const response = await result.response;
             const text = response.text();
 
+            // Cache the response
+            if (useCache && process.env.KV_REST_API_URL) {
+                try {
+                    const cacheKey = getCacheKey(generatorId, prompt);
+                    await kv.set(cacheKey, text, { ex: 3600 }); // Cache for 1 hour
+                    console.log('[CACHE SAVED]', cacheKey);
+                } catch (cacheError) {
+                    console.warn('[CACHE SAVE ERROR]', cacheError);
+                }
+            }
+
             return new Response(JSON.stringify({
                 content: text,
                 metadata: {
                     model: 'gemini-2.0-flash-exp',
                     generatorId,
+                    cached: false,
                     timestamp: new Date().toISOString()
                 }
             }), {
@@ -146,9 +201,12 @@ function getSystemPrompt(generatorId: string): string {
 }
 
 export async function GET() {
+    const kvAvailable = !!process.env.KV_REST_API_URL;
+
     return new Response(JSON.stringify({
         status: 'operational',
         aiReady: !!apiKey,
+        cacheReady: kvAvailable,
         model: apiKey ? 'gemini-2.0-flash-exp' : 'simulation'
     }), {
         headers: { 'Content-Type': 'application/json' }
