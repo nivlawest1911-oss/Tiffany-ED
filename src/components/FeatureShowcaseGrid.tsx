@@ -8,7 +8,7 @@ import {
     Code, BarChart3, Megaphone, Palette, Video, GraduationCap, Trophy,
     Rocket, Search, Filter, ArrowRight, CheckCircle
 } from 'lucide-react';
-import Link from 'link';
+import Link from 'next/link';
 
 const allTools = [
     // IEP & Special Ed
@@ -143,8 +143,8 @@ export default function FeatureShowcaseGrid() {
                                 whileTap={{ scale: 0.95 }}
                                 onClick={() => setSelectedCategory(category.id)}
                                 className={`px-4 py-2 rounded-lg font-medium transition-all ${selectedCategory === category.id
-                                        ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/50'
-                                        : 'bg-black/40 text-purple-300 hover:bg-purple-500/20 border border-purple-500/20'
+                                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/50'
+                                    : 'bg-black/40 text-purple-300 hover:bg-purple-500/20 border border-purple-500/20'
                                     }`}
                             >
                                 {category.name}
