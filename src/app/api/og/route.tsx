@@ -181,7 +181,7 @@ export async function GET(request: NextRequest) {
                         boxShadow: '0 8px 24px rgba(168, 85, 247, 0.4)',
                     }}
                 >
-                    14-Day Free Trial
+                    30-Day Free Trial
                 </div>
             </div>
         ),
