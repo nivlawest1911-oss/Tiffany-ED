@@ -3,8 +3,6 @@ import { Check, Zap, Shield, Crown, Rocket, Star, ArrowRight, Sparkles, Database
 import { useState, useTransition, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { createCheckoutSession } from '@/app/actions/stripe';
-import { firestore } from '@/firebase';
-import { collection, query, where, getDocs } from 'firebase/firestore';
 
 export default function PricingMatrix() {
     const [priceData, setPriceData] = useState<Record<string, { monthly: number; annual: number; monthlyId?: string; annualId?: string }>>({});
@@ -12,43 +10,8 @@ export default function PricingMatrix() {
     const [isPending, startTransition] = useTransition();
 
     useEffect(() => {
-        const fetchStripePrices = async () => {
-            try {
-                const q = query(collection(firestore, 'products'), where('active', '==', true));
-                const snapshot = await getDocs(q);
-
-                const newPriceData: Record<string, any> = {};
-
-                await Promise.all(snapshot.docs.map(async (doc) => {
-                    const productData = doc.data();
-                    const pricesCollection = collection(doc.ref, 'prices');
-                    const pricesSnapshot = await getDocs(query(pricesCollection, where('active', '==', true)));
-
-                    const prices: any = {};
-                    pricesSnapshot.forEach(priceDoc => {
-                        const priceData = priceDoc.data();
-                        if (priceData.interval === 'month') {
-                            prices.monthly = priceData.unit_amount ? priceData.unit_amount / 100 : 0;
-                            prices.monthlyId = priceDoc.id; // Stripe Price ID
-                        } else if (priceData.interval === 'year') {
-                            prices.annual = priceData.unit_amount ? priceData.unit_amount / 100 : 0;
-                            prices.annualId = priceDoc.id;
-                        }
-                    });
-
-                    if (productData.name) {
-                        newPriceData[productData.name] = prices;
-                    }
-                }));
-
-                if (Object.keys(newPriceData).length > 0) {
-                    setPriceData(newPriceData);
-                }
-            } catch (e) {
-                console.log("EdIntel Integration: Extension check skipped (permissions)", e);
-            }
-        };
-        fetchStripePrices();
+        // Vercel / Free Tier Mode: No dynamic price fetching from Firestore.
+        // Prices are hardcoded or handled by Stripe Hosted Links.
     }, []);
 
     const tiers = [

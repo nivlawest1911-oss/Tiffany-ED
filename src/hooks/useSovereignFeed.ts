@@ -1,7 +1,4 @@
-import { useState, useEffect } from 'react';
-import { collection, query, orderBy, limit, onSnapshot, Timestamp } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
-
+import { useState } from 'react';
 export interface FeedPost {
     id: string | number;
     author: string;
@@ -37,70 +34,14 @@ const DEMO_FEED: FeedPost[] = [
 ];
 
 export function useSovereignFeed() {
+    // Firebase removed. Using Static Sovereign Feed.
     const [posts, setPosts] = useState<FeedPost[]>(DEMO_FEED);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-
-    useEffect(() => {
-        // If no API key is present, we are in demo mode. 
-        // We check a specific required key to determine if we should even try connecting.
-        if (!process.env.NEXT_PUBLIC_FIREBASE_API_KEY || !db) {
-            setLoading(false);
-            return;
-        }
-
-        try {
-            const q = query(
-                collection(db, 'feed'),
-                orderBy('createdAt', 'desc'),
-                limit(20)
-            );
-
-            const unsubscribe = onSnapshot(q, (snapshot) => {
-                const livePosts = snapshot.docs.map(doc => {
-                    const data = doc.data();
-                    // Helper to format rough "time ago" string from Timestamp
-                    const timeString = formatTimeAgo(data.createdAt);
-
-                    return {
-                        id: doc.id,
-                        author: data.author || 'Unknown Agent',
-                        role: data.role || 'Sovereign Node',
-                        time: timeString,
-                        content: data.content || '',
-                        stats: data.stats || { likes: 0, comments: 0 },
-                        tags: data.tags || []
-                    } as FeedPost;
-                });
-
-                if (livePosts.length > 0) {
-                    setPosts(livePosts);
-                }
-                setLoading(false);
-            }, (err) => {
-                console.error("Firebase Feed Error:", err);
-                // Fallback to demo data on permission error or other issues
-                setError("Network sync paused. displaying cached protocols.");
-                setLoading(false);
-            });
-
-            return () => unsubscribe();
-        } catch (err) {
-            console.error("Firebase Init Error:", err);
-            setLoading(false);
-        }
-    }, []);
 
     return { posts, loading, error };
 }
 
-function formatTimeAgo(timestamp: Timestamp | any): string {
-    if (!timestamp || !timestamp.toDate) return 'Just now';
-    const date = timestamp.toDate();
-    const now = new Date();
-    const diffInHours = Math.abs(now.getTime() - date.getTime()) / 36e5;
-
-    if (diffInHours < 1) return 'Just now';
-    if (diffInHours < 24) return `${Math.floor(diffInHours)}h ago`;
-    return `${Math.floor(diffInHours / 24)}d ago`;
+function formatTimeAgo(timestamp: any): string {
+    return 'Just now';
 }

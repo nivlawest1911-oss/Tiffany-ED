@@ -1,7 +1,5 @@
 'use client';
 import { useEffect, useState, Suspense } from 'react';
-import { firestore as db, auth } from '@/firebase';
-import { collection, query, orderBy, getDocs, doc, updateDoc, writeBatch } from 'firebase/firestore';
 import { jsPDF } from 'jspdf';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Trash2, Download, Edit2, Save, X } from 'lucide-react';
@@ -21,45 +19,34 @@ const item = {
   show: { opacity: 1, scale: 1 }
 };
 
+// SIMULATED DATA FOR FREE TIER
+const DEMO_AUDITS = [
+  { id: '1', timestamp: { toDate: () => new Date() }, content: 'Strategic Alignment: 98%. Fiscal Projection: Stable. Recommendation: Proceed with Phase 2 hiring.', executiveCorrection: '' },
+  { id: '2', timestamp: { toDate: () => new Date(Date.now() - 86400000) }, content: 'Curriculum Audit: Gaps identified in Grade 4 Math. Proposed solution: AI-driven intervention modules.', executiveCorrection: 'Approved.' }
+];
+
 export default function ExecutiveArchive() {
-  const [audits, setAudits] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [audits, setAudits] = useState<any[]>(DEMO_AUDITS);
+  const [loading, setLoading] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [feedbackText, setFeedbackText] = useState('');
 
   const fetchAudits = async () => {
-    const q = query(collection(db, 'strategicAudits'), orderBy('timestamp', 'desc'));
-    const querySnapshot = await getDocs(q);
-    const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    setAudits(data);
-    setLoading(false);
+    // No-op in simulated mode
   };
-
-  useEffect(() => { fetchAudits(); }, []);
 
   const clearHistory = async () => {
     if (!confirm('⚠️ CRITICAL: Are you sure you want to permanently delete all archived audits? This cannot be undone.')) return;
-
-    setLoading(true);
-    const q = query(collection(db, 'strategicAudits'));
-    const querySnapshot = await getDocs(q);
-
-    const batch = writeBatch(db);
-    querySnapshot.docs.forEach((doc) => {
-      batch.delete(doc.ref);
-    });
-
-    await batch.commit();
-    alert('Strategic Vault Reset Successfully.');
-    fetchAudits();
+    setAudits([]);
+    alert('Strategic Vault Reset Successfully (Simulated).');
   };
 
   const saveFeedback = async (id: string) => {
-    const auditRef = doc(db, 'strategicAudits', id);
-    await updateDoc(auditRef, { executiveCorrection: feedbackText, lastRefined: new Date() });
+    setAudits(prev => prev.map(a => a.id === id ? { ...a, executiveCorrection: feedbackText } : a));
     setEditingId(null);
-    fetchAudits();
+    fetchAudits(); // Re-sync (simulated)
   };
+
 
   const downloadPDF = (audit: any) => {
     const doc = new jsPDF();
@@ -81,9 +68,9 @@ export default function ExecutiveArchive() {
               <h1 className="text-3xl md:text-4xl font-black tracking-tight uppercase">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600">Executive</span> Strategic Archive
               </h1>
-              {auth.currentUser?.displayName && (
-                <p className="text-zinc-500 dark:text-zinc-400 font-medium mt-1">Welcome, {auth.currentUser.displayName}</p>
-              )}
+              {/* Simulated Auth Welcome */
+                <p className="text-zinc-500 dark:text-zinc-400 font-medium mt-1">Welcome, Executive Director</p>
+              }
             </div>
 
             <button

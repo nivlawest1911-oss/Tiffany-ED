@@ -1,8 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { Shield, Brain, Zap, LogIn, LogOut, User as UserIcon, Loader2 } from 'lucide-react';
-import { auth } from '@/lib/firebase';
-import { signInWithPopup, GoogleAuthProvider, signOut, User } from 'firebase/auth';
+import { useRouter } from 'next/navigation';
 
 interface Delegate {
     id: string;
@@ -15,8 +14,10 @@ interface Delegate {
 }
 
 export default function DelegateOverlay() {
-    const [user, setUser] = useState<User | null>(null);
-    const [isAuthLoading, setIsAuthLoading] = useState(true);
+    const [user, setUser] = useState<any | null>(null);
+    const [isAuthLoading, setIsAuthLoading] = useState(false);
+    const router = useRouter();
+
     const [delegates, setDelegates] = useState<Delegate[]>([
         {
             id: 'super-1',
@@ -61,21 +62,6 @@ export default function DelegateOverlay() {
     ];
 
     useEffect(() => {
-        // Failsafe: If auth hangs (App Check), force stop loading after 4s
-        const safetyTimer = setTimeout(() => {
-            setIsAuthLoading((val) => {
-                if (val) console.warn("Auth init timed out, forcing guest mode.");
-                return false;
-            });
-        }, 4000);
-
-        // Auth Listener
-        const unsubscribe = auth?.onAuthStateChanged((u) => {
-            setUser(u);
-            setIsAuthLoading(false);
-            clearTimeout(safetyTimer);
-        });
-
         // Delegate chatter
         const interval = setInterval(() => {
             setDelegates(prev => prev.map(d => {
@@ -87,29 +73,17 @@ export default function DelegateOverlay() {
         }, 8000);
 
         return () => {
-            if (unsubscribe) unsubscribe();
-            clearTimeout(safetyTimer);
             clearInterval(interval);
         };
     }, []);
 
     const handleLogin = async () => {
-        if (!auth) return;
-        try {
-            const provider = new GoogleAuthProvider();
-            await signInWithPopup(auth, provider);
-        } catch (error) {
-            console.error("Login Failed", error);
-        }
+        // Simulated Login Redirect
+        router.push('/login');
     };
 
     const handleLogout = async () => {
-        if (!auth) return;
-        try {
-            await signOut(auth);
-        } catch (error) {
-            console.error("Logout Failed", error);
-        }
+        setUser(null);
     };
 
     return (

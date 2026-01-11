@@ -1,28 +1,17 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { firestore } from '@/firebase';
-import { collection, query, getDocs } from 'firebase/firestore';
 
 export default function ResourceMap() {
   const [rankings, setRankings] = useState<any[]>([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const snapshot = await getDocs(collection(firestore, 'strategicAudits'));
-      const counts: Record<string, number> = {};
-
-      snapshot.docs.forEach(doc => {
-        const school = doc.data().targetSchool || 'District Wide';
-        counts[school] = (counts[school] || 0) + 1;
-      });
-
-      const sorted = Object.entries(counts)
-        .map(([name, count]) => ({ name, count }))
-        .sort((a, b) => b.count - a.count);
-
-      setRankings(sorted);
-    };
-    fetchData();
+    // Simulated Resource Data
+    setRankings([
+      { name: 'Forest Hill Elementary', count: 12 },
+      { name: 'Lott Middle School', count: 8 },
+      { name: 'Vigor High School', count: 15 },
+      { name: 'District Office', count: 5 }
+    ].sort((a, b) => b.count - a.count));
   }, []);
 
   return (

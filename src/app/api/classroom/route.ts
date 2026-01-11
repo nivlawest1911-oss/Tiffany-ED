@@ -1,13 +1,11 @@
-﻿import { aideFlow } from '@/ai/flows/classroom-aide';
-
-export const dynamic = 'force-dynamic';
+﻿export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
 export async function POST(req: Request) {
   try {
-    const { message, mode } = await req.json(); // Catch the 'mode' from the frontend
-    const text = await aideFlow(message, mode);
-    return Response.json({ text });
+    const { message, mode } = await req.json();
+    // Free Tier Simulation
+    return Response.json({ text: `**Classroom Aide (Free Tier)**\n\nI received your request regarding: "${message}".\n\nI am operating in simulated mode. Please check system configuration for full intelligence.` });
   } catch (error) {
     return Response.json({ error: "Aide offline" }, { status: 500 });
   }

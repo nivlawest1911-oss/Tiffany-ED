@@ -1,7 +1,5 @@
 'use client';
 import { useState } from 'react';
-import { auth } from '@/firebase';
-import { createUserWithEmailAndPassword, updateProfile, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
@@ -18,33 +16,18 @@ export default function SignupPage() {
     const handleSignup = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsProcessing(true);
-        try {
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            await updateProfile(userCredential.user, { displayName: name });
+        // FREE TIER SIMULATION
+        setTimeout(() => {
             router.push('/');
-        } catch (err: any) {
-            console.error(err);
-            if (err.code === 'auth/email-already-in-use') {
-                setError('This email is already registered.');
-            } else if (err.code === 'auth/weak-password') {
-                setError('Password should be at least 6 characters.');
-            } else {
-                setError('Failed to create account. Please try again.');
-            }
-            setIsProcessing(false);
-        }
+        }, 800);
     };
 
     const handleGoogleSignup = async () => {
         setIsProcessing(true);
-        const provider = new GoogleAuthProvider();
-        try {
-            await signInWithPopup(auth, provider);
+        // FREE TIER SIMULATION
+        setTimeout(() => {
             router.push('/');
-        } catch (err: any) {
-            setError('Secure Gateway Link Interrupted. Please try again.');
-            setIsProcessing(false);
-        }
+        }, 800);
     };
 
     return (

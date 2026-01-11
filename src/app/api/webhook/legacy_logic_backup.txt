@@ -1,0 +1,14 @@
+// Backup of specific logic from root app/api/webhooks/route.ts
+// Contains hardcoded payment link IDs that might be needed
+/*
+    switch (paymentLinkId) {
+      case 'plink_1SmvXiJZzJ2JsTizFkruUxuP':
+        console.log(`??? Tier 1 Activated: ${email}`);
+        break;
+      case 'plink_1SmvO6JZzJ2JsTizveSXg4Dz':
+        console.log(`?? Tier 6 (Elite) Activated: ${email}`);
+        break;
+      default:
+        console.log(`?? Purchase: ${paymentLinkId} for ${email}`);
+    }
+*/

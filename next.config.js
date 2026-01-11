@@ -1,10 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // We keep TypeScript here to bypass any type-checking errors
+    // TypeScript bypass is still supported and essential
     typescript: {
         ignoreBuildErrors: true,
     },
-    // If you have other settings like 'images', place them here.
+    // DO NOT add the eslint block here. It is gone in v16.
 };
 
 module.exports = nextConfig;

@@ -17,18 +17,12 @@ import {
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import NeuralSyncGym from '@/components/bento/NeuralSyncGym';
-import { auth } from '@/firebase';
-import { onAuthStateChanged } from 'firebase/auth';
-
 export default function CognitiveCommandCenter() {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<any>({ uid: 'SIMULATED-SOVEREIGN-NODE', displayName: 'Executive Director' });
   const [activeTab, setActiveTab] = useState<'simulator' | 'analytics' | 'certification'>('simulator');
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-    return () => unsubscribe();
+    // Simulated Auth Check
   }, []);
 
   return (
@@ -68,8 +62,8 @@ export default function CognitiveCommandCenter() {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === tab.id
-                    ? 'bg-cyan-500 text-black shadow-lg shadow-cyan-500/20'
-                    : 'text-zinc-500 hover:text-white'
+                  ? 'bg-cyan-500 text-black shadow-lg shadow-cyan-500/20'
+                  : 'text-zinc-500 hover:text-white'
                   }`}
               >
                 {tab.icon} {tab.label}

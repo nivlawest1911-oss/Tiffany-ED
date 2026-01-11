@@ -1,7 +1,5 @@
 'use client';
 import { useState } from 'react';
-import { auth } from '@/firebase';
-import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
@@ -17,25 +15,18 @@ export default function LoginPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoggingIn(true);
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
+    // FREE TIER SIMULATION
+    setTimeout(() => {
       router.push('/');
-    } catch (err: any) {
-      setError('Invalid Executive Credentials. Access denied.');
-      setIsLoggingIn(false);
-    }
+    }, 800);
   };
 
   const handleGoogleLogin = async () => {
     setIsLoggingIn(true);
-    const provider = new GoogleAuthProvider();
-    try {
-      await signInWithPopup(auth, provider);
+    // FREE TIER SIMULATION
+    setTimeout(() => {
       router.push('/');
-    } catch (err: any) {
-      setError('Secure Gateway Link Interrupted. Please try again.');
-      setIsLoggingIn(false);
-    }
+    }, 800);
   };
 
   return (
