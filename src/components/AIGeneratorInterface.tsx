@@ -1,7 +1,8 @@
 'use client';
 
+import { useChat } from 'ai/react';
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
     Sparkles,
     Send,
@@ -14,26 +15,24 @@ import {
     ArrowLeft,
     Save,
     Share2,
-    FileText,
-    GraduationCap,
-    Users,
     AlertCircle
 } from 'lucide-react';
 
-interface Message {
-    id: string;
-    role: 'user' | 'assistant';
-    content: string;
-    timestamp: Date;
-}
-
-export default function AIGeneratorInterface() {
-    const [messages, setMessages] = useState<Message[]>([]);
-    const [input, setInput] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
+export default function RealAIGenerator() {
     const [gradeLevel, setGradeLevel] = useState('5th');
     const [subject, setSubject] = useState('math');
     const [specialNeeds, setSpecialNeeds] = useState<string[]>([]);
+    const [provider, setProvider] = useState('google');
+
+    const { messages, input, handleInputChange, handleSubmit, isLoading, error } = useChat({
+        api: '/api/iep-stream',
+        body: {
+            gradeLevel,
+            subject,
+            specialNeeds,
+            provider,
+        },
+    });
 
     const quickPrompts = [
         'Generate annual IEP goals for reading comprehension',
@@ -43,39 +42,20 @@ export default function AIGeneratorInterface() {
         'Develop behavior intervention plan',
     ];
 
-    const handleGenerate = async () => {
-        if (!input.trim()) return;
-
-        const userMessage: Message = {
-            id: Date.now().toString(),
-            role: 'user',
-            content: input,
-            timestamp: new Date(),
-        };
-
-        setMessages(prev => [...prev, userMessage]);
-        setInput('');
-        setIsLoading(true);
-
-        // Simulate AI response
-        setTimeout(() => {
-            const aiMessage: Message = {
-                id: (Date.now() + 1).toString(),
-                role: 'assistant',
-                content: `Based on your request for a ${gradeLevel} grade ${subject} student, here's a comprehensive IEP:\n\n**Present Levels of Performance:**\nThe student demonstrates grade-level proficiency in basic ${subject} concepts but requires additional support in complex problem-solving and abstract reasoning.\n\n**Annual Goals:**\n1. By [date], student will solve multi-step ${subject} problems with 80% accuracy across 4 consecutive trials.\n2. Student will demonstrate understanding of ${subject} concepts through written explanations with 75% accuracy.\n\n**Accommodations:**\n- Extended time (1.5x) for assessments\n- Use of calculator for complex computations\n- Visual aids and graphic organizers\n- Preferential seating\n\n**Services:**\n- Special education support: 45 minutes daily\n- Progress monitoring: Bi-weekly\n\nThis IEP is IDEA-compliant and ready for review.`,
-                timestamp: new Date(),
-            };
-            setMessages(prev => [...prev, aiMessage]);
-            setIsLoading(false);
-        }, 2000);
-    };
-
     const handleCopy = (content: string) => {
         navigator.clipboard.writeText(content);
     };
 
     const handleQuickPrompt = (prompt: string) => {
-        setInput(prompt);
+        const syntheticEvent = {
+            preventDefault: () => { },
+        } as React.FormEvent<HTMLFormElement>;
+
+        handleInputChange({
+            target: { value: prompt },
+        } as React.ChangeEvent<HTMLTextAreaElement>);
+
+        setTimeout(() => handleSubmit(syntheticEvent), 100);
     };
 
     const toggleSpecialNeed = (need: string) => {
@@ -103,7 +83,7 @@ export default function AIGeneratorInterface() {
                             </div>
                             <div>
                                 <h1 className="text-2xl font-bold text-white">IEP Architect Pro</h1>
-                                <p className="text-purple-300 text-sm">Generate IDEA-compliant IEPs</p>
+                                <p className="text-purple-300 text-sm">Real AI-Powered Generation</p>
                             </div>
                         </div>
                     </div>
@@ -121,7 +101,8 @@ export default function AIGeneratorInterface() {
                                     whileHover={{ scale: 1.02, x: 4 }}
                                     whileTap={{ scale: 0.98 }}
                                     onClick={() => handleQuickPrompt(prompt)}
-                                    className="w-full text-left p-3 rounded-lg bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/20 text-purple-200 text-sm transition-all"
+                                    disabled={isLoading}
+                                    className="w-full text-left p-3 rounded-lg bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/20 text-purple-200 text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     {prompt}
                                 </motion.button>
@@ -131,6 +112,20 @@ export default function AIGeneratorInterface() {
 
                     {/* Input Form */}
                     <div className="space-y-4">
+                        <div>
+                            <label className="text-purple-300 text-sm mb-2 block">AI Model</label>
+                            <select
+                                value={provider}
+                                onChange={(e) => setProvider(e.target.value)}
+                                className="w-full p-3 rounded-lg bg-black/40 border border-purple-500/20 text-white focus:border-purple-500/40 outline-none"
+                            >
+                                <option value="google">Google Gemini 1.5 Pro</option>
+                                <option value="openai">OpenAI GPT-4o</option>
+                                <option value="anthropic">Anthropic Claude 3.5 Sonnet</option>
+                                <option value="xai">xAI Grok-2</option>
+                            </select>
+                        </div>
+
                         <div>
                             <label className="text-purple-300 text-sm mb-2 block">Grade Level</label>
                             <select
@@ -196,7 +191,9 @@ export default function AIGeneratorInterface() {
                         <div className="flex items-center gap-4">
                             <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/20 border border-green-500/40">
                                 <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                                <span className="text-green-300 text-sm">AI Ready</span>
+                                <span className="text-green-300 text-sm font-medium capitalize">
+                                    {provider === 'xai' ? 'xAI Grok' : provider} Ready
+                                </span>
                             </div>
                             <div className="text-purple-300 text-sm">
                                 {messages.length} messages
@@ -254,15 +251,15 @@ export default function AIGeneratorInterface() {
                                     )}
                                     <div className={`max-w-[70%] ${message.role === 'user' ? 'order-1' : ''}`}>
                                         <div className={`p-4 rounded-2xl ${message.role === 'user'
-                                                ? 'bg-gradient-to-br from-purple-500 to-pink-500 text-white'
-                                                : 'bg-black/40 backdrop-blur-xl border border-purple-500/20 text-purple-100'
+                                            ? 'bg-gradient-to-br from-purple-500 to-pink-500 text-white'
+                                            : 'bg-black/40 backdrop-blur-xl border border-purple-500/20 text-purple-100'
                                             }`}>
                                             <p className="whitespace-pre-wrap">{message.content}</p>
                                         </div>
                                         <div className="flex items-center gap-3 mt-2 px-2">
                                             <span className="text-purple-400 text-xs flex items-center gap-1">
                                                 <Clock className="w-3 h-3" />
-                                                {message.timestamp.toLocaleTimeString()}
+                                                {new Date(message.createdAt || Date.now()).toLocaleTimeString()}
                                             </span>
                                             {message.role === 'assistant' && (
                                                 <>
@@ -307,20 +304,21 @@ export default function AIGeneratorInterface() {
                                 </div>
                             </motion.div>
                         )}
+
+                        {error && (
+                            <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-300">
+                                <p className="font-semibold mb-1">Error generating IEP</p>
+                                <p className="text-sm">{error.message}</p>
+                            </div>
+                        )}
                     </div>
 
                     {/* Input Area */}
-                    <div className="p-6 border-t border-purple-500/20 bg-black/20 backdrop-blur-xl">
+                    <form onSubmit={handleSubmit} className="p-6 border-t border-purple-500/20 bg-black/20 backdrop-blur-xl">
                         <div className="flex gap-3">
                             <textarea
                                 value={input}
-                                onChange={(e) => setInput(e.target.value)}
-                                onKeyDown={(e) => {
-                                    if (e.key === 'Enter' && !e.shiftKey) {
-                                        e.preventDefault();
-                                        handleGenerate();
-                                    }
-                                }}
+                                onChange={handleInputChange}
                                 placeholder="Describe what you need from IEP Architect..."
                                 className="flex-1 p-4 rounded-xl bg-black/40 border border-purple-500/20 text-white placeholder-purple-400/50 focus:border-purple-500/40 outline-none resize-none"
                                 rows={3}
@@ -328,7 +326,7 @@ export default function AIGeneratorInterface() {
                             <motion.button
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                onClick={handleGenerate}
+                                type="submit"
                                 disabled={!input.trim() || isLoading}
                                 className="px-6 py-4 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shadow-lg shadow-purple-500/50"
                             >
@@ -343,7 +341,7 @@ export default function AIGeneratorInterface() {
                         <div className="mt-2 text-purple-400 text-xs text-center">
                             Press Enter to send • Shift + Enter for new line
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
