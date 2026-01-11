@@ -42,7 +42,8 @@ h3 {
 
 body {
   font-family: 'Be Vietnam Pro', sans-serif;
-  @apply bg-background text-foreground;
+  background-color: #0a0a0f;
+  color: white;
 }
 
 /* African American Aesthetic Enhancements */
@@ -246,11 +247,12 @@ body {
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    border-color: hsl(var(--border));
   }
 
   body {
-    @apply bg-background text-foreground;
+    background-color: white;
+    color: #0a0a0f;
   }
 }
 
@@ -275,6 +277,10 @@ html {
   /* IE and Edge */
   scrollbar-width: none;
   /* Firefox */
-}  
-/* Kente Aesthetic */  
-.kente-accent { border-bottom: 4px solid #FFD700; border-image: linear-gradient(to right, #FFD700, #008000, #ff0000) 1; } 
+}
+
+/* Kente Aesthetic */
+.kente-accent {
+  border-bottom: 4px solid #FFD700;
+  border-image: linear-gradient(to right, #FFD700, #008000, #ff0000) 1;
+}

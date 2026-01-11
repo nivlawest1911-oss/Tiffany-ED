@@ -1,5 +1,3 @@
-"use client"
-
 import { notFound } from 'next/navigation';
 import { generators } from '@/data/generators';
 import EnhancedGenerator from '@/components/EnhancedGenerator';
