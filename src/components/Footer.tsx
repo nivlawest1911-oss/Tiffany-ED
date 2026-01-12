@@ -98,9 +98,9 @@ export default function Footer() {
                         © {new Date().getFullYear()} EdIntel Sovereign. All systems operational.
                     </p>
                     <div className="flex gap-6">
-                        <Link href="#" className="text-zinc-500 hover:text-zinc-300 text-sm">Privacy Policy</Link>
-                        <Link href="#" className="text-zinc-500 hover:text-zinc-300 text-sm">Terms of Service</Link>
-                        <Link href="#" className="text-zinc-500 hover:text-zinc-300 text-sm">FERPA Compliance</Link>
+                        <Link href="/privacy" className="text-zinc-500 hover:text-zinc-300 text-sm">Privacy Policy</Link>
+                        <Link href="/terms" className="text-zinc-500 hover:text-zinc-300 text-sm">Terms of Service</Link>
+                        <Link href="/ferpa" className="text-zinc-500 hover:text-zinc-300 text-sm">FERPA Compliance</Link>
                     </div>
                 </div>
             </div>
