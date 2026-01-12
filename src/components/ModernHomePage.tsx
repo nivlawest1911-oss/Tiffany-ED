@@ -48,8 +48,8 @@ export default function ModernHomePage() {
             description: "Interact with a quantum curriculum node to create standards-aligned, adaptive lesson plans.",
             color: "from-fuchsia-500 to-pink-600",
             link: "/generators/lesson-planner",
-            image: "/images/features/feature_suite_master.png",
-            imageClass: "object-center scale-150"
+            image: "/images/features/iep_interface.png",
+            imageClass: "object-center hue-rotate-90"
         },
         {
             icon: FileText,
@@ -57,8 +57,8 @@ export default function ModernHomePage() {
             description: "Secure funding with a high-tech digital drafting engine designed for persuasive success.",
             color: "from-blue-500 to-cyan-600",
             link: "/generators/grant-writer",
-            image: "/images/features/feature_suite_master.png",
-            imageClass: "object-right scale-150"
+            image: "/images/features/iep_interface.png",
+            imageClass: "object-right hue-rotate-180"
         },
         {
             icon: Users,
@@ -75,8 +75,8 @@ export default function ModernHomePage() {
             description: "Draft professional emails, newsletters, and parent communications effortlessly.",
             color: "from-orange-500 to-red-600",
             link: "/generators/email-composer",
-            image: "/images/features/feature_suite_master.png",
-            imageClass: "object-left hue-rotate-180 scale-150" // Creative reuse: Blue/Cyan rotated 180 becomes Orange/Red-ish
+            image: "/images/features/iep_interface.png",
+            imageClass: "object-left hue-rotate-270" // Orange-ish
         },
         {
             icon: BarChart3,
