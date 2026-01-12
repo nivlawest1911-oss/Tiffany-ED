@@ -24,7 +24,7 @@ export default function FloatingNavbar() {
         { name: 'Features', href: '/#features' },
         { name: 'Pricing', href: '/#pricing' },
         { name: 'About', href: '/about' },
-        { name: 'Contact', href: '/contact-command' },
+        { name: 'Contact', href: '/contact' },
     ];
 
     return (
