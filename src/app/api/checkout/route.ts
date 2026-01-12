@@ -2,13 +2,8 @@ import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 
 const PRICE_IDS = {
-    pro_monthly: 'price_1SleigJZzJ2JsTizzhcHtd36', // Practitioner Monthly matches Pro
-    pro_annual: 'price_1SleigJZzJ2JsTizzhcHtd36',   // TODO: Verify Annual ID if different. Assuming monthly for now or same product? Usually different Price ID. 
-    // ACTION: I realized I don't have the Annual Price ID in stripe.ts. 
-    // I will use the monthly one as default or if the user provided specific Annual IDs, I would use them.
-    // The stripe.ts file generated `..._ANNUAL` keys but didn't have explicit mappings for them in `PRICE_MAPPING` except maybe inferred.
-    // Wait, `PRICE_MAPPING` in `stripe.ts` only had `STRIPE_PRICE_PRACTITIONER_MONTHLY`.
-    // I will stick to what I have, but add logic to use it.
+    pro_monthly: 'price_1SleigJZzJ2JsTizzhcHtd36',
+    site_command_monthly: 'price_1SleihJZzJ2JsTizmaXKM4ow'
 };
 
 export async function POST(req: Request) {
@@ -16,14 +11,12 @@ export async function POST(req: Request) {
         const body = await req.json();
         const { email, plan, name, isAnnual } = body;
 
-        let priceId = PRICE_IDS.pro_monthly;
+        let priceId;
 
-        // You can add logic here to select price based on 'plan'
         if (plan === 'pro') {
-            // If we had an annual ID, we'd switch here.
-            // priceId = isAnnual ? PRICE_IDS.pro_annual : PRICE_IDS.pro_monthly;
-            // Since we only confirmed the monthly ID in stripe.ts, we'll use that.
-            priceId = process.env.STRIPE_PRO_PRICE_ID || 'price_1SleigJZzJ2JsTizzhcHtd36';
+            priceId = PRICE_IDS.pro_monthly;
+        } else if (plan === 'site_command') {
+            priceId = PRICE_IDS.site_command_monthly;
         } else {
             return NextResponse.json({ error: 'Invalid plan' }, { status: 400 });
         }

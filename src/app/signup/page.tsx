@@ -30,11 +30,11 @@ function SignupForm() {
         setError('');
 
         try {
-            if (plan === 'pro') {
+            if (plan === 'pro' || plan === 'site_command') {
                 const response = await fetch('/api/checkout', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, name, plan: 'pro', isAnnual: billing === 'annual' }),
+                    body: JSON.stringify({ email, name, plan, isAnnual: billing === 'annual' }),
                 });
 
                 const data = await response.json();
