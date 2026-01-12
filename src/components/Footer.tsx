@@ -43,16 +43,7 @@ export default function Footer() {
                         </ul>
                     </div>
 
-                    {/* Resources */}
-                    <div>
-                        <h3 className="text-white font-bold mb-6">Resources</h3>
-                        <ul className="space-y-4">
-                            <li><Link href="#" className="text-zinc-400 hover:text-indigo-400 transition-colors text-sm">Documentation</Link></li>
-                            <li><Link href="#" className="text-zinc-400 hover:text-indigo-400 transition-colors text-sm">API Reference</Link></li>
-                            <li><Link href="#" className="text-zinc-400 hover:text-indigo-400 transition-colors text-sm">System Status</Link></li>
-                            <li><Link href="#" className="text-zinc-400 hover:text-indigo-400 transition-colors text-sm">Security Protocols</Link></li>
-                        </ul>
-                    </div>
+
 
                     {/* Contact Info */}
                     <div>

@@ -21,8 +21,8 @@ export default function FloatingNavbar() {
     }, []);
 
     const navLinks = [
-        { name: 'Features', href: '#features' },
-        { name: 'Pricing', href: '#pricing' },
+        { name: 'Features', href: '/#features' },
+        { name: 'Pricing', href: '/#pricing' },
         { name: 'About', href: '/about' },
         { name: 'Contact', href: '/contact' },
     ];
