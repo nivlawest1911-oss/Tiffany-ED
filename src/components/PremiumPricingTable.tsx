@@ -10,33 +10,31 @@ export default function PremiumPricingTable() {
 
     const plans = [
         {
-            name: 'Free',
+            name: 'Sovereign Initiate', // Was Free
             price: { monthly: 0, annual: 0 },
-            description: 'Perfect for trying EdIntel',
+            description: 'Entry-level protocol access',
             features: [
                 '5 AI generations per month',
                 'Basic templates',
                 'Community support',
                 'Email support',
             ],
-            cta: 'Start Free',
+            cta: 'Initialize Node',
             link: '/signup',
             popular: false,
             icon: Sparkles,
         },
         {
-            name: 'Professional',
+            name: 'Practitioner', // Was Professional
             price: { monthly: 39.99, annual: 31.99 },
             description: 'For individual educators',
             features: [
                 'Unlimited AI generations',
                 'All 41 specialized tools',
                 'Priority email support',
-                'Advanced templates',
                 'Export to PDF/Word',
                 'FERPA-compliant storage',
                 'Usage analytics',
-                'Custom branding',
             ],
             cta: 'Start Free Trial',
             link: `/signup?plan=pro${billingCycle === 'annual' ? '&billing=annual' : ''}`,
@@ -44,21 +42,34 @@ export default function PremiumPricingTable() {
             icon: Zap,
         },
         {
-            name: 'Enterprise',
-            price: { monthly: null, annual: null },
-            description: 'For schools and districts',
+            name: 'Site Command', // New Tier
+            price: { monthly: 79.00, annual: 69.00 }, // Matching PricingMatrix
+            description: 'For Principals & Admin',
             features: [
-                'Everything in Professional',
+                'Everything in Practitioner',
+                'Staff Retention Analytics',
+                'Classroom Obs Synthesizer',
+                'Building ROI Dashboard',
+                'Automated SPED Compliance',
+            ],
+            cta: 'Start Free Trial',
+            link: `/signup?plan=site_command${billingCycle === 'annual' ? '&billing=annual' : ''}`,
+            popular: false,
+            icon: CheckCircle, // Or another icon
+        },
+        {
+            name: 'Sovereign District', // Was Enterprise
+            price: { monthly: null, annual: null },
+            description: 'For System-wide Sovereignty',
+            features: [
+                'Everything in Site Command',
                 'Dedicated account manager',
                 'Custom training sessions',
                 'White-glove onboarding',
-                'Priority phone support',
                 'Custom integrations',
-                'SLA guarantees',
                 'Volume discounts',
-                'Custom contracts',
             ],
-            cta: 'Contact Sales',
+            cta: 'Contact Protocol',
             link: '/contact',
             popular: false,
             icon: Crown,
@@ -129,7 +140,7 @@ export default function PremiumPricingTable() {
                 </motion.div>
 
                 {/* Pricing Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
                     {plans.map((plan, index) => (
                         <motion.div
                             key={index}
@@ -231,9 +242,10 @@ export default function PremiumPricingTable() {
                             <thead>
                                 <tr className="border-b border-purple-500/20">
                                     <th className="text-left py-4 px-4 text-purple-300 font-semibold">Feature</th>
-                                    <th className="text-center py-4 px-4 text-purple-300 font-semibold">Free</th>
-                                    <th className="text-center py-4 px-4 text-purple-300 font-semibold">Professional</th>
-                                    <th className="text-center py-4 px-4 text-purple-300 font-semibold">Enterprise</th>
+                                    <th className="text-center py-4 px-4 text-purple-300 font-semibold">Initiate</th>
+                                    <th className="text-center py-4 px-4 text-purple-300 font-semibold">Practitioner</th>
+                                    <th className="text-center py-4 px-4 text-purple-300 font-semibold">Site Command</th>
+                                    <th className="text-center py-4 px-4 text-purple-300 font-semibold">District</th>
                                 </tr>
                             </thead>
                             <tbody className="text-purple-200">
@@ -242,21 +254,25 @@ export default function PremiumPricingTable() {
                                     <td className="text-center py-4 px-4">5/month</td>
                                     <td className="text-center py-4 px-4">Unlimited</td>
                                     <td className="text-center py-4 px-4">Unlimited</td>
+                                    <td className="text-center py-4 px-4">Unlimited</td>
                                 </tr>
                                 <tr className="border-b border-purple-500/10">
                                     <td className="py-4 px-4">Tools Access</td>
                                     <td className="text-center py-4 px-4">Basic</td>
                                     <td className="text-center py-4 px-4">All 41</td>
-                                    <td className="text-center py-4 px-4">All 41</td>
+                                    <td className="text-center py-4 px-4">All 41 + Admin</td>
+                                    <td className="text-center py-4 px-4">All 41 + Admin</td>
                                 </tr>
                                 <tr className="border-b border-purple-500/10">
                                     <td className="py-4 px-4">Support</td>
                                     <td className="text-center py-4 px-4">Email</td>
                                     <td className="text-center py-4 px-4">Priority</td>
+                                    <td className="text-center py-4 px-4">Priority</td>
                                     <td className="text-center py-4 px-4">Dedicated</td>
                                 </tr>
                                 <tr className="border-b border-purple-500/10">
                                     <td className="py-4 px-4">Custom Training</td>
+                                    <td className="text-center py-4 px-4">-</td>
                                     <td className="text-center py-4 px-4">-</td>
                                     <td className="text-center py-4 px-4">-</td>
                                     <td className="text-center py-4 px-4"><CheckCircle className="w-5 h-5 text-green-400 mx-auto" /></td>
