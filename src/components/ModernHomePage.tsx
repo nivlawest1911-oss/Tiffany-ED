@@ -36,26 +36,29 @@ export default function ModernHomePage() {
         {
             icon: Brain,
             title: "IEP Architect",
-            description: "Generate legally defensible, data-driven IEP goals and accommodations in minutes not hours.",
+            description: "Generate legally defensible, data-driven IEP goals and accoms in minutes via our Sovereign Interface.",
             color: "from-violet-500 to-purple-600",
             link: "/generators/iep-architect",
-            image: "/images/avatars/iep_architect.png"
+            image: "/images/features/iep_interface.png",
+            imageClass: "object-center"
         },
         {
             icon: Sparkles,
             title: "Lesson Planner",
-            description: "Create differentiated, standards-aligned lesson plans that adapt to every student's needs.",
+            description: "Interact with a quantum curriculum node to create standards-aligned, adaptive lesson plans.",
             color: "from-fuchsia-500 to-pink-600",
             link: "/generators/lesson-planner",
-            image: "/images/avatars/curriculum_strategist.png"
+            image: "/images/features/feature_suite_master.png",
+            imageClass: "object-center scale-150"
         },
         {
             icon: FileText,
             title: "Grant Writer",
-            description: "Draft compelling grant proposals and funding requests with AI-powered persuasive writing.",
+            description: "Secure funding with a high-tech digital drafting engine designed for persuasive success.",
             color: "from-blue-500 to-cyan-600",
             link: "/generators/grant-writer",
-            image: null
+            image: "/images/features/feature_suite_master.png",
+            imageClass: "object-right scale-150"
         },
         {
             icon: Users,
@@ -63,7 +66,8 @@ export default function ModernHomePage() {
             description: "Develop comprehensive behavior intervention plans based on observation data.",
             color: "from-emerald-500 to-teal-600",
             link: "/generators/behavior-coach",
-            image: "/images/avatars/behavior_specialist.png"
+            image: "/images/avatars/behavior_specialist.png",
+            imageClass: "object-top"
         },
         {
             icon: Zap,
@@ -71,7 +75,8 @@ export default function ModernHomePage() {
             description: "Draft professional emails, newsletters, and parent communications effortlessly.",
             color: "from-orange-500 to-red-600",
             link: "/generators/email-composer",
-            image: null
+            image: "/images/features/feature_suite_master.png",
+            imageClass: "object-left hue-rotate-180 scale-150" // Creative reuse: Blue/Cyan rotated 180 becomes Orange/Red-ish
         },
         {
             icon: BarChart3,
@@ -79,7 +84,8 @@ export default function ModernHomePage() {
             description: "Turn raw assessments and observations into actionable insights and visualizations.",
             color: "from-indigo-500 to-blue-600",
             link: "/generators/data-analyzer",
-            image: "/images/avatars/executive_leader.png"
+            image: "/images/avatars/executive_leader.png",
+            imageClass: "object-top"
         }
     ];
 
@@ -277,7 +283,8 @@ export default function ModernHomePage() {
                                                 <img
                                                     src={feature.image}
                                                     alt={feature.title}
-                                                    className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-all duration-500 group-hover:scale-110"
+                                                    // @ts-ignore
+                                                    className={`w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-all duration-700 group-hover:scale-110 ${feature.imageClass || ''}`}
                                                 />
                                             </div>
                                             <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/90 to-transparent z-10" />
