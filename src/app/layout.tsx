@@ -22,7 +22,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "EdIntel Sovereign | Cognitive Leadership Platform",
   description:
-    "The future of cognitive leadership. AI-powered education intelligence platform for administrators, teachers, and districts.",
+    "The future of cognitive leadership. Official AI-powered education intelligence platform for administrators, teachers, and districts.",
   generator: "v0.app",
   metadataBase: new URL('https://edintel-app.vercel.app'),
   openGraph: {
