@@ -1549,3 +1549,17 @@ Error: Route "/generators/[id]" used `params.id`. `params` is a Promise and must
 ✓ Compiled in 153ms
  GET /contact 200 in 3.4s (compile: 2.3s, render: 1083ms)
 ✓ Compiled in 86ms
+ GET /contact 200 in 265ms (compile: 88ms, render: 178ms)
+ GET /icon.svg 404 in 503ms (compile: 456ms, render: 47ms)
+ GET /api/auth/me 200 in 768ms (compile: 734ms, render: 34ms)
+ GET /icon-light-32x32.png 404 in 54ms (compile: 3ms, render: 51ms)
+ GET / 200 in 563ms (compile: 505ms, render: 58ms)
+ GET /videos/how-it-works/step-1-choose-tool.mp4 404 in 121ms (compile: 12ms, render: 109ms)
+ GET /videos/how-it-works/step-2-enter-details.mp4 404 in 356ms (compile: 17ms, render: 338ms)
+ GET /videos/how-it-works/step-3-download-result.mp4 404 in 200ms (compile: 73ms, render: 127ms)
+ GET /videos/testimonials/educator-1.mp4 404 in 269ms (compile: 14ms, render: 255ms)
+ GET /videos/testimonials/educator-2.mp4 404 in 344ms (compile: 69ms, render: 274ms)
+ GET /videos/testimonials/educator-3.mp4 404 in 153ms (compile: 23ms, render: 130ms)
+ GET /contact 200 in 27ms (compile: 4ms, render: 23ms)
+ GET /about 200 in 1008ms (compile: 974ms, render: 34ms)
+✓ Compiled in 301ms

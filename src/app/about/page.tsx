@@ -56,14 +56,20 @@ export default function AboutPage() {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                     >
-                        <div className="relative w-full aspect-square max-w-md mx-auto rounded-3xl overflow-hidden bg-zinc-900 border border-white/10 shadow-2xl shadow-indigo-500/10">
-                            {/* Placeholder for Dr. West Image - Use a gradient or placeholder for now */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/20 to-zinc-900 flex items-center justify-center">
-                                <Brain size={64} className="text-white/20" />
-                            </div>
-                            <div className="absolute bottom-0 inset-x-0 p-6 bg-gradient-to-t from-black via-black/80 to-transparent">
-                                <h3 className="text-2xl font-black text-white">Dr. Alvin West</h3>
-                                <p className="text-indigo-400 font-medium">Founder & Chief Architect</p>
+                        <div className="relative w-full aspect-square max-w-md mx-auto rounded-3xl overflow-hidden bg-zinc-900 border border-white/10 shadow-2xl shadow-indigo-500/20 group">
+                            <img
+                                src="/images/dr_alvin_west.png"
+                                alt="Dr. Alvin West - Founder & Chief Architect"
+                                className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
+
+                            <div className="absolute bottom-0 inset-x-0 p-8">
+                                <h3 className="text-3xl font-black text-white mb-1">Dr. Alvin West, II</h3>
+                                <p className="text-indigo-400 font-bold uppercase tracking-widest text-sm flex items-center gap-2">
+                                    <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
+                                    Founder & Chief Architect
+                                </p>
                             </div>
                         </div>
                     </motion.div>
