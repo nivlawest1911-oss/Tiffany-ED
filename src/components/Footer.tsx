@@ -58,9 +58,14 @@ export default function Footer() {
                             </li>
                             <li className="flex items-start gap-3">
                                 <span className="p-1 rounded bg-indigo-500/10 text-indigo-400 mt-0.5"><Mail size={14} /></span>
-                                <a href="mailto:dralvinwest@transcendholisticwellness.com" className="text-zinc-400 hover:text-white transition-colors text-sm">
-                                    dralvinwest@transcendholisticwellness.com
-                                </a>
+                                <div className="space-y-1">
+                                    <a href="mailto:dralvinwest@transcendholisticwellness.com" className="text-zinc-400 hover:text-white transition-colors text-sm block">
+                                        dralvinwest@transcendholisticwellness.com
+                                    </a>
+                                    <a href="mailto:nivlawest1911@gmail.com" className="text-zinc-400 hover:text-white transition-colors text-sm block">
+                                        nivlawest1911@gmail.com
+                                    </a>
+                                </div>
                             </li>
                             <li className="flex items-start gap-3">
                                 <span className="p-1 rounded bg-indigo-500/10 text-indigo-400 mt-0.5"><MessageSquare size={14} /></span>

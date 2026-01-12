@@ -52,10 +52,15 @@ export default function ContactPage() {
                                 </div>
                                 <div>
                                     <h3 className="text-lg font-bold text-white mb-1">Electronic Mail</h3>
-                                    <p className="text-zinc-500 text-sm mb-2">Priority support channel</p>
-                                    <a href="mailto:dralvinwest@transcendholisticwellness.com" className="text-indigo-300 hover:text-white transition-colors font-medium">
-                                        dralvinwest@transcendholisticwellness.com
-                                    </a>
+                                    <p className="text-zinc-500 text-sm mb-2">Priority support channels</p>
+                                    <div className="space-y-1">
+                                        <a href="mailto:dralvinwest@transcendholisticwellness.com" className="text-indigo-300 hover:text-white transition-colors font-medium block">
+                                            dralvinwest@transcendholisticwellness.com
+                                        </a>
+                                        <a href="mailto:nivlawest1911@gmail.com" className="text-indigo-300 hover:text-white transition-colors font-medium block">
+                                            nivlawest1911@gmail.com
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
 
