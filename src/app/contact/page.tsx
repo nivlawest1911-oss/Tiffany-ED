@@ -45,6 +45,27 @@ export default function ContactPage() {
                             Direct channel open to Dr. Alvin West and the EdIntel engineering team.
                         </p>
 
+                        {/* Founder Profile */}
+                        <div className="flex items-center gap-6 mb-12 p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-indigo-500/30 transition-colors">
+                            <div className="relative w-24 h-24 flex-shrink-0">
+                                <img
+                                    src="/images/dr_alvin_west.png"
+                                    alt="Dr. Alvin West"
+                                    className="w-full h-full object-cover rounded-xl border border-white/20 shadow-lg"
+                                />
+                                <div className="absolute -bottom-2 -right-2 w-6 h-6 rounded-full bg-green-500 border-4 border-zinc-900 flex items-center justify-center">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                                </div>
+                            </div>
+                            <div>
+                                <h3 className="text-white font-bold text-lg">Dr. Alvin West, II</h3>
+                                <p className="text-indigo-400 text-sm font-medium mb-1">Founder & Chief Sovereign Officer</p>
+                                <p className="text-zinc-500 text-xs leading-relaxed">
+                                    "We are building the future of educational sovereignty together. Your voice helps shape our mission."
+                                </p>
+                            </div>
+                        </div>
+
                         {/* Sovereign Protocol Visualization */}
                         <div className="mb-12 relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/50 p-6">
                             <div className="absolute top-0 right-0 p-4 opacity-30">
