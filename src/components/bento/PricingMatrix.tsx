@@ -160,7 +160,7 @@ export default function PricingMatrix() {
                         }
                     }
                 }}
-                className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10"
             >
                 {tiers.map((tier, idx) => (
                     <motion.div
@@ -219,26 +219,21 @@ export default function PricingMatrix() {
                             <button
                                 disabled={isPending}
                                 onClick={() => {
-                                    if (tier.price === 'Custom') {
+                                    if (tier.name === 'Sovereign District') {
                                         window.location.href = 'mailto:sales@edintel.ai?subject=Sovereign%20District%20Inquiry';
-                                    } else if (tier.price === 'Free') {
+                                    } else if (tier.name === 'Sovereign Initiate') {
                                         window.location.href = '/signup';
                                     } else {
-                                        startTransition(async () => {
-                                            try {
-                                                // Use priceId if matched from Firestore, otherwise fallback to name lookup
-                                                await createCheckoutSession(tier.priceId || tier.name, isAnnual);
-                                            } catch (error) {
-                                                console.error("Stripe Connection Error:", error);
-                                                alert("Secure Protocol Link Failed: Please refresh and try again.");
-                                            }
-                                        });
+                                        // Redirect to Signup Flow for Subscriptions (Practitioner, Site Command)
+                                        const planParam = tier.name === 'Practitioner' ? 'pro' : 'site_command';
+                                        const billingParam = isAnnual ? '&billing=annual' : '';
+                                        window.location.href = `/signup?plan=${planParam}${billingParam}`;
                                     }
                                 }}
                                 className={`w-full py-4 rounded-xl font-black text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-all duration-300 group-hover:scale-[1.02] ${tier.highlight
                                     ? `bg-gradient-to-r ${tier.accent} text-white shadow-lg shadow-violet-900/40 hover:shadow-violet-900/60`
                                     : 'bg-zinc-900 text-white hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700'} ${isPending ? 'opacity-50 cursor-not-allowed' : ''}`}>
-                                {tier.price === 'Custom' ? 'Contact Protocol' : tier.price === 'Free' ? 'Initialize Node' : (
+                                {tier.name === 'Sovereign District' ? 'Contact Protocol' : tier.name === 'Sovereign Initiate' ? 'Initialize Node' : (
                                     <span className="flex items-center gap-2">
                                         {isPending ? (
                                             <>
@@ -251,7 +246,7 @@ export default function PricingMatrix() {
                                             </>
                                         )}
                                     </span>
-                                )} {tier.price !== 'Custom' && !isPending && <ArrowRight size={14} />}
+                                )} {tier.name !== 'Sovereign District' && !isPending && <ArrowRight size={14} />}
                             </button>
                         </div>
                     </motion.div>
