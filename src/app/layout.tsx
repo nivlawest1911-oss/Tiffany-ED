@@ -5,6 +5,7 @@ import { Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import CommandPalette from "@/components/CommandPalette"
+import Footer from "@/components/Footer"
 import { AuthProvider } from "@/context/AuthContext"
 import "./globals.css"
 
@@ -82,6 +83,7 @@ export default function RootLayout({
         <AuthProvider>
           {children}
           <CommandPalette />
+          <Footer />
         </AuthProvider>
         <Analytics />
         <SpeedInsights />
