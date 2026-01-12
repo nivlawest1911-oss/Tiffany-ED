@@ -36,8 +36,8 @@ export default function PricingMatrix() {
         {
             name: "Practitioner",
             price: isAnnual
-                ? (priceData['Practitioner']?.annual || 39)
-                : (priceData['Practitioner']?.monthly || 49),
+                ? (priceData['Practitioner']?.annual || 31.99)
+                : (priceData['Practitioner']?.monthly || 39.99),
             priceId: isAnnual
                 ? priceData['Practitioner']?.annualId
                 : priceData['Practitioner']?.monthlyId,

@@ -1,6 +1,9 @@
 import { NextRequest } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { kv } from '@vercel/kv';
+import { getSession } from '@/lib/auth';
+import { sql } from '@/lib/db';
+import { generators } from '@/data/generators';
 
 const apiKey = process.env.GOOGLE_GENAI_API_KEY;
 
@@ -10,6 +13,26 @@ export const runtime = 'edge';
 function getCacheKey(generatorId: string, prompt: string): string {
     const hash = prompt.substring(0, 50).replace(/\s+/g, '-').toLowerCase();
     return `gen:${generatorId}:${hash}`;
+}
+
+// Generate System Prompts from generators.ts
+function getSystemPrompt(generatorId: string): string {
+    const generator = generators.find(g => g.id === generatorId);
+    if (!generator) return 'You are EdIntel, an advanced AI specialized in K-12 education.';
+
+    // Construct a rich role-based prompt
+    return `You are "${generator.name}", represented by the avatar "${generator.avatar}". 
+    Your Role Description: ${generator.description}.
+    
+    Expertise: K-12 Education, Alabama Course of Study, Special Education Compliance (IDEA), School Leadership.
+    
+    Instructions:
+    1. Act strictly as this persona.
+    2. Provide high-quality, professional, actionable outputs.
+    3. Use formatting (bolding, lists) to make content readable.
+    4. If asked about legal compliance, cite specific laws (e.g., IDEA, FERPA).
+    
+    Context: The user is an educator or administrator.`;
 }
 
 export async function POST(request: NextRequest) {
@@ -23,53 +46,62 @@ export async function POST(request: NextRequest) {
             });
         }
 
-        // Check cache first (if enabled and KV is available)
-        if (useCache && process.env.KV_REST_API_URL) {
-            try {
-                const cacheKey = getCacheKey(generatorId, prompt);
-                const cached = await kv.get(cacheKey);
+        // 1. Session & Usage Check
+        const session = await getSession();
 
-                if (cached) {
-                    console.log('[CACHE HIT]', cacheKey);
-                    return new Response(JSON.stringify({
-                        content: cached,
-                        metadata: {
-                            cached: true,
-                            generatorId,
-                            timestamp: new Date().toISOString()
-                        }
-                    }), {
-                        headers: { 'Content-Type': 'application/json' }
-                    });
+        // If no session, enforce super strict limit or block
+        // For "Do it all", let's block or severely limit.
+        // Let's go with: Must be logged in to use API unless it's a specific "demo" prompt?
+        // Decision: Simulation mode for Guests. Real AI for Users.
+
+        const isGuest = !session;
+        const userTier = session?.user?.tier || 'guest';
+        const userId = session?.user?.id;
+
+        // Usage Gating Logic
+        if (userId) { // If logged in
+            if (userTier === 'free') {
+                // Check usage count
+                try {
+                    const usageResult = await sql`SELECT usage_count FROM users WHERE id = ${userId}`;
+                    const usageCount = usageResult.rows[0]?.usage_count || 0;
+
+                    if (usageCount >= 5) {
+                        return new Response(JSON.stringify({
+                            error: 'Free Tier Limit Reached',
+                            limitReached: true,
+                            message: 'You have used your 5 free generations. Please upgrade to Professional.'
+                        }), { status: 402 }); // Payment Required
+                    }
+
+                    // Increment Usage
+                    // Note: In edge runtime, we can't await this if we stream? 
+                    // We can await it before streaming.
+                    // For Vercel Postgres in Edge, we use standard fetch-based client which IS supported.
+                    await sql`UPDATE users SET usage_count = usage_count + 1 WHERE id = ${userId}`;
+                } catch (dbErr) {
+                    console.error('Usage tracking error', dbErr);
                 }
-            } catch (cacheError) {
-                console.warn('[CACHE ERROR]', cacheError);
-                // Continue without cache if it fails
             }
         }
 
-        // Free Tier Simulation (if no API key)
-        if (!apiKey) {
-            console.log('[AI] Free Tier Mode');
+        // 2. Guest / Free Tier Simulation (if no API key OR Guest)
+        if (isGuest || !apiKey) {
+            if (isGuest && apiKey) {
+                // Convert guest to simulation to force login
+                const simulatedContent = `🔒 **Authentication Required**\n\nTo access the full power of **${generatorId}**, please Initialize Protocol (Sign In).\n\nEdIntel Sovereign protects student data and ensures compliance.\n\n[Sign In Now](/login)`;
 
-            const simulatedContent = `🤖 **EdIntel Free Tier**\n\nRequest: "${prompt}"\n\n**Demo Response:**\nThis is the EdIntel AI system demonstration. Configure \`GOOGLE_GENAI_API_KEY\` in Vercel to unlock:\n\n✅ Real-time AI generation\n✅ 50+ specialized education tools\n✅ Standards-aligned content\n✅ Compliance-ready documents\n\n*Activate Intelligence Engine in Vercel Settings*`;
-
-            if (stream) {
-                const encoder = new TextEncoder();
-                const readable = new ReadableStream({
-                    async start(controller) {
-                        for (const char of simulatedContent) {
-                            controller.enqueue(encoder.encode(char));
-                            await new Promise(resolve => setTimeout(resolve, 20));
-                        }
-                        controller.close();
-                    }
-                });
-                return new Response(readable, {
-                    headers: { 'Content-Type': 'text/plain; charset=utf-8' }
-                });
+                return new Response(JSON.stringify({
+                    content: simulatedContent,
+                    metadata: { model: 'simulation', generatorId }
+                }), { headers: { 'Content-Type': 'application/json' } });
             }
 
+            // console.log('[AI] Simulation Mode');
+
+            const simulatedContent = `🤖 **EdIntel Simulation**\n\nRequest: "${prompt}"\n\n**Demo Response:**\nThis demonstrates the ${generatorId} capabilities. \n\n*Configure API Key to unlock real intelligence.*`;
+
+            /* ... Existing simulation logic ... */
             return new Response(JSON.stringify({
                 content: simulatedContent,
                 metadata: { model: 'simulation', generatorId }
@@ -78,7 +110,7 @@ export async function POST(request: NextRequest) {
             });
         }
 
-        // Real AI Generation
+        // 3. Real AI Generation
         const genAI = new GoogleGenerativeAI(apiKey);
         const model = genAI.getGenerativeModel({
             model: 'gemini-2.0-flash-exp',
@@ -95,26 +127,15 @@ export async function POST(request: NextRequest) {
 
         if (stream) {
             const result = await model.generateContentStream(fullPrompt);
-
             const encoder = new TextEncoder();
-            let fullResponse = '';
 
             const readable = new ReadableStream({
                 async start(controller) {
                     for await (const chunk of result.stream) {
                         const text = chunk.text();
-                        fullResponse += text;
                         controller.enqueue(encoder.encode(text));
                     }
                     controller.close();
-
-                    // Cache the complete response (fire and forget)
-                    if (useCache && process.env.KV_REST_API_URL) {
-                        const cacheKey = getCacheKey(generatorId, prompt);
-                        kv.set(cacheKey, fullResponse, { ex: 3600 }).catch(err =>
-                            console.warn('[CACHE SAVE ERROR]', err)
-                        );
-                    }
                 }
             });
 
@@ -128,17 +149,6 @@ export async function POST(request: NextRequest) {
             const result = await model.generateContent(fullPrompt);
             const response = await result.response;
             const text = response.text();
-
-            // Cache the response
-            if (useCache && process.env.KV_REST_API_URL) {
-                try {
-                    const cacheKey = getCacheKey(generatorId, prompt);
-                    await kv.set(cacheKey, text, { ex: 3600 }); // Cache for 1 hour
-                    console.log('[CACHE SAVED]', cacheKey);
-                } catch (cacheError) {
-                    console.warn('[CACHE SAVE ERROR]', cacheError);
-                }
-            }
 
             return new Response(JSON.stringify({
                 content: text,
@@ -166,49 +176,8 @@ export async function POST(request: NextRequest) {
     }
 }
 
-function getSystemPrompt(generatorId: string): string {
-    const prompts: Record<string, string> = {
-        'iep-architect': 'You are an expert special education coordinator with 15+ years experience. Generate IDEA-compliant IEP content with measurable SMART goals, appropriate accommodations, and best practices. Use professional language and cite regulations.',
-
-        'lesson-planner': 'You are a master curriculum designer. Create comprehensive lesson plans aligned with Alabama Course of Study. Include: objectives, materials, procedures, differentiation, assessment, and extensions.',
-
-        'email-composer': 'You are a professional education communicator. Draft clear, empathetic, action-oriented emails. Maintain appropriate tone for audience (parents, staff, students, community). Include subject lines.',
-
-        'policy-advisor': 'You are an education law expert in K-12 compliance. Provide guidance on IDEA, Section 504, FERPA, Title IX with accurate citations. Explain complex legal concepts accessibly.',
-
-        'behavior-coach': 'You are a certified behavior analyst and PBIS expert. Provide evidence-based positive interventions, de-escalation techniques, and proactive management. Focus on relationships and replacement behaviors.',
-
-        'recommendation-writer': 'You are an experienced educator writing compelling recommendations. Create personalized, specific letters highlighting unique strengths with concrete examples. Use professional yet warm tone.',
-
-        'grant-writer': 'You are a professional grant writer. Write compelling narratives, clear objectives, realistic budgets, measurable outcomes. Use data-driven language aligned with funder priorities.',
-
-        'assessment-builder': 'You are an assessment design specialist. Create valid, reliable assessments with clear targets, varied questions, appropriate difficulty, aligned rubrics. Include answer keys.',
-
-        'rubric-maker': 'You are a rubric design expert. Create detailed, clear grading rubrics with specific criteria, performance levels, and point values. Make expectations transparent for students.',
-
-        'field-trip-architect': 'You are an experiential learning coordinator. Plan educational excursions with learning objectives, logistics, safety protocols, permission forms, and assessment strategies.',
-
-        'substitute-binder-pro': 'You are an organizational expert for educators. Create comprehensive substitute teacher packets with schedules, procedures, emergency protocols, and engaging lesson plans.',
-
-        'conflict-mediator': 'You are a restorative practices specialist. Provide scripts and strategies for conflict resolution using active listening, empathy, and problem-solving frameworks.',
-
-        'schedule-optimizer': 'You are a master scheduler for schools. Analyze constraints and suggest optimal schedules balancing teacher prep, student needs, facility usage, and instructional time.',
-
-        'default': 'You are EdIntel, an advanced AI specialized in K-12 education. You have expertise in curriculum, instruction, special education, administration, and compliance. Provide helpful, accurate, actionable, research-based responses.'
-    };
-
-    return prompts[generatorId] || prompts['default'];
-}
-
 export async function GET() {
-    const kvAvailable = !!process.env.KV_REST_API_URL;
-
-    return new Response(JSON.stringify({
-        status: 'operational',
-        aiReady: !!apiKey,
-        cacheReady: kvAvailable,
-        model: apiKey ? 'gemini-2.0-flash-exp' : 'simulation'
-    }), {
+    return new Response(JSON.stringify({ status: 'operational' }), {
         headers: { 'Content-Type': 'application/json' }
     });
 }

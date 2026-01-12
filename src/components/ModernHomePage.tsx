@@ -13,9 +13,13 @@ import {
     Brain,
     MessageSquare,
     Award,
-    Zap
+    Zap,
+    BarChart3
 } from 'lucide-react';
 import Link from 'next/link';
+import { UnusualHero } from './UnusualHero';
+import SpotlightCard from './SpotlightCard';
+import FloatingNavbar from './FloatingNavbar';
 
 export default function ModernHomePage() {
     const stats = [
@@ -27,47 +31,47 @@ export default function ModernHomePage() {
 
     const features = [
         {
-            icon: FileText,
-            title: 'IEP Architect',
-            description: 'Generate IDEA-compliant IEPs with SMART goals in minutes, not hours.',
-            link: '/enhanced-test',
-            color: 'from-purple-500 to-pink-500',
-        },
-        {
             icon: Brain,
-            title: 'Lesson Planner',
-            description: 'Create standards-aligned lesson plans in seconds with AI assistance.',
-            link: '/generators/lesson-planner',
-            color: 'from-blue-500 to-cyan-500',
-        },
-        {
-            icon: MessageSquare,
-            title: 'Email Composer',
-            description: 'Draft professional communications for parents, staff, and district.',
-            link: '/generators/email-composer',
-            color: 'from-green-500 to-emerald-500',
-        },
-        {
-            icon: Award,
-            title: 'Behavior Coach',
-            description: 'Evidence-based intervention strategies and PBIS support tools.',
-            link: '/generators/behavior-coach',
-            color: 'from-orange-500 to-red-500',
+            title: "IEP Architect",
+            description: "Generate legally defensible, data-driven IEP goals and accommodations in minutes not hours.",
+            color: "from-violet-500 to-purple-600",
+            link: "/generators/iep-architect"
         },
         {
             icon: Sparkles,
-            title: 'Grant Writer',
-            description: 'Secure funding with compelling grant proposals and budgets.',
-            link: '/generators/grant-writer',
-            color: 'from-purple-500 to-pink-500',
+            title: "Lesson Planner",
+            description: "Create differentiated, standards-aligned lesson plans that adapt to every student's needs.",
+            color: "from-fuchsia-500 to-pink-600",
+            link: "/generators/lesson-planner"
+        },
+        {
+            icon: FileText,
+            title: "Grant Writer",
+            description: "Draft compelling grant proposals and funding requests with AI-powered persuasive writing.",
+            color: "from-blue-500 to-cyan-600",
+            link: "/generators/grant-writer"
+        },
+        {
+            icon: Users,
+            title: "Behavior Plans",
+            description: "Develop comprehensive behavior intervention plans based on observation data.",
+            color: "from-emerald-500 to-teal-600",
+            link: "/generators/behavior-coach"
         },
         {
             icon: Zap,
-            title: 'Quick Actions',
-            description: 'Access 36+ more specialized tools for every administrative task.',
-            link: '/showcase',
-            color: 'from-pink-500 to-orange-500',
+            title: "Communication",
+            description: "Draft professional emails, newsletters, and parent communications effortlessly.",
+            color: "from-orange-500 to-red-600",
+            link: "/generators/email-composer"
         },
+        {
+            icon: BarChart3,
+            title: "Data Analysis",
+            description: "Turn raw assessments and observations into actionable insights and visualizations.",
+            color: "from-indigo-500 to-blue-600",
+            link: "/generators/data-analyzer"
+        }
     ];
 
     const pricing = [
@@ -123,115 +127,42 @@ export default function ModernHomePage() {
     ];
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950">
-            {/* Hero Section */}
-            <section className="relative overflow-hidden">
-                {/* Animated background */}
-                <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" />
-                    <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-                </div>
-
-                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        className="text-center"
-                    >
-                        {/* Badge */}
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.2 }}
-                            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 mb-8"
-                        >
-                            <Sparkles className="w-4 h-4 text-purple-400" />
-                            <span className="text-sm text-purple-300">Trusted by 47,000+ Alabama Educators</span>
-                        </motion.div>
-
-                        {/* Headline */}
-                        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6">
-                            AI-Powered Tools for{' '}
-                            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                                Educators
-                            </span>
-                        </h1>
-
-                        {/* Subheadline */}
-                        <p className="text-xl sm:text-2xl text-purple-200 mb-8 max-w-3xl mx-auto">
-                            Save 10+ hours per week on IEPs, lesson plans, and administrative tasks.
-                            Built for Alabama educators.
-                        </p>
-
-                        {/* CTA Buttons */}
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-                            <Link href="/signup">
-                                <motion.button
-                                    whileHover={{ scale: 1.05, y: -2 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    className="px-8 py-4 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold text-lg shadow-lg shadow-purple-500/50 flex items-center gap-2"
-                                >
-                                    Start Free Trial
-                                    <ArrowRight className="w-5 h-5" />
-                                </motion.button>
-                            </Link>
-                            <Link href="/showcase">
-                                <motion.button
-                                    whileHover={{ scale: 1.05, y: -2 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    className="px-8 py-4 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold text-lg backdrop-blur-sm"
-                                >
-                                    See Demo
-                                </motion.button>
-                            </Link>
-                        </div>
-
-                        {/* Trust Indicators */}
-                        <div className="flex flex-wrap justify-center gap-6 text-sm text-purple-300">
-                            <div className="flex items-center gap-2">
-                                <CheckCircle className="w-4 h-4 text-green-400" />
-                                <span>30-day free trial</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <CheckCircle className="w-4 h-4 text-green-400" />
-                                <span>No credit card required</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <CheckCircle className="w-4 h-4 text-green-400" />
-                                <span>Cancel anytime</span>
-                            </div>
-                        </div>
-                    </motion.div>
-                </div>
-            </section>
+        <div className="min-h-screen bg-black text-white selection:bg-indigo-500/30">
+            <FloatingNavbar />
+            {/* New v0 Hero Section */}
+            <UnusualHero />
 
             {/* Stats Section */}
-            <section className="relative py-16 border-y border-purple-500/20 bg-black/20">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section className="relative py-24 border-y border-white/5 bg-zinc-950/50 overflow-hidden">
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-900/20 via-zinc-950/0 to-zinc-950/0 pointer-events-none" />
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
                         {stats.map((stat, index) => (
                             <motion.div
                                 key={index}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.1 }}
-                                className="text-center"
+                                className="text-center group"
                             >
-                                <stat.icon className="w-8 h-8 text-purple-400 mx-auto mb-3" />
-                                <div className="text-3xl sm:text-4xl font-bold text-white mb-1">
+                                <div className="inline-flex p-3 rounded-full bg-indigo-500/10 mb-4 group-hover:bg-indigo-500/20 transition-colors">
+                                    <stat.icon className="w-8 h-8 text-indigo-400" />
+                                </div>
+                                <div className="text-4xl sm:text-5xl font-bold text-white mb-2 tracking-tight">
                                     {stat.value}
                                 </div>
-                                <div className="text-sm text-purple-300">{stat.label}</div>
+                                <div className="text-sm font-medium text-indigo-200/60 uppercase tracking-widest">{stat.label}</div>
                             </motion.div>
                         ))}
                     </div>
                 </div>
             </section>
 
+
+
             {/* Features Section */}
-            <section className="relative py-24">
+            <section id="features" className="relative py-24 bg-gradient-to-br from-slate-950/50 to-purple-950/20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -247,55 +178,67 @@ export default function ModernHomePage() {
                         </p>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
                         {features.map((feature, index) => (
-                            <Link key={index} href={feature.link}>
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: index * 0.1 }}
-                                    whileHover={{ scale: 1.02, y: -4 }}
-                                    className="group p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-purple-500/20 hover:border-purple-500/40 transition-all cursor-pointer"
-                                >
+                            <Link key={index} href={feature.link} className="block h-full group">
+                                <SpotlightCard className="h-full rounded-2xl p-6 transition-all hover:scale-[1.01]">
                                     <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${feature.color} mb-4 group-hover:scale-110 transition-transform`}>
                                         <feature.icon className="w-6 h-6 text-white" />
                                     </div>
-                                    <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
-                                    <p className="text-purple-200 leading-relaxed">{feature.description}</p>
-                                    <div className="mt-4 flex items-center gap-2 text-purple-400 group-hover:text-purple-300 transition-colors">
-                                        <span className="text-sm font-medium">Try it now</span>
+                                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">{feature.title}</h3>
+                                    <p className="text-zinc-400 leading-relaxed mb-4">{feature.description}</p>
+                                    <div className="flex items-center gap-2 text-purple-400 font-medium mt-auto">
+                                        <span>Try it now</span>
                                         <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                     </div>
-                                </motion.div>
+                                </SpotlightCard>
                             </Link>
                         ))}
+                    </div>
+
+                    <div className="mt-12 text-center pb-8">
+                        <Link href="/all-tools">
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold shadow-lg shadow-indigo-500/50 hover:shadow-indigo-500/70 transition-all"
+                            >
+                                <Sparkles className="w-5 h-5" />
+                                <span>Explore All 41+ AI Tools</span>
+                                <ArrowRight className="w-5 h-5 ml-1" />
+                            </motion.button>
+                        </Link>
                     </div>
                 </div>
             </section>
 
-            {/* How It Works */}
-            <section className="relative py-24 bg-black/20">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* How It Works Section */}
+
+            {/* How It Works Section */}
+            <section className="relative py-24 bg-zinc-950">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-center mb-16"
+                        className="mb-16"
                     >
                         <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
                             How EdIntel Works
                         </h2>
-                        <p className="text-xl text-purple-200">
+                        <p className="text-xl text-zinc-400">
                             Get started in 3 simple steps
                         </p>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+                        {/* Connecting Line (Desktop) */}
+                        <div className="hidden md:block absolute top-12 left-[16%] right-[16%] h-0.5 bg-gradient-to-r from-indigo-500/0 via-indigo-500/20 to-indigo-500/0" />
+
                         {[
-                            { step: '1', title: 'Choose Your Tool', description: 'Select from 41 specialized AI assistants' },
-                            { step: '2', title: 'Enter Details', description: 'Provide context and requirements' },
-                            { step: '3', title: 'Download Result', description: 'Get professional, compliant documents' },
+                            { step: '1', title: 'Choose Your Tool', desc: 'Select from 41 specialized AI assistants' },
+                            { step: '2', title: 'Enter Details', desc: 'Provide context and requirements' },
+                            { step: '3', title: 'Download Result', desc: 'Get professional, compliant documents' }
                         ].map((item, index) => (
                             <motion.div
                                 key={index}
@@ -303,13 +246,13 @@ export default function ModernHomePage() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.2 }}
-                                className="text-center"
+                                className="relative z-10"
                             >
-                                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 text-white text-2xl font-bold mb-4">
-                                    {item.step}
+                                <div className="w-24 h-24 mx-auto bg-zinc-900 border border-white/10 rounded-full flex items-center justify-center mb-6 shadow-xl shadow-indigo-500/10 group hover:scale-110 transition-transform duration-300">
+                                    <span className="text-3xl font-bold text-indigo-400 group-hover:text-indigo-300 transition-colors">{item.step}</span>
                                 </div>
                                 <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
-                                <p className="text-purple-200">{item.description}</p>
+                                <p className="text-zinc-400">{item.desc}</p>
                             </motion.div>
                         ))}
                     </div>
@@ -317,7 +260,7 @@ export default function ModernHomePage() {
             </section>
 
             {/* Pricing Section */}
-            <section className="relative py-24">
+            <section id="pricing" className="relative py-24 bg-zinc-950/50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -341,13 +284,13 @@ export default function ModernHomePage() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.1 }}
-                                className={`relative p-8 rounded-2xl backdrop-blur-xl border-2 ${plan.popular
-                                        ? 'bg-purple-500/10 border-purple-500/50 shadow-lg shadow-purple-500/20'
-                                        : 'bg-black/40 border-purple-500/20'
+                                className={`relative p-8 rounded-2xl backdrop-blur-xl border ${plan.popular
+                                    ? 'bg-indigo-900/20 border-indigo-500/50 shadow-xl shadow-indigo-500/20'
+                                    : 'bg-zinc-900/40 border-white/10 hover:border-indigo-500/30 transition-colors'
                                     }`}
                             >
                                 {plan.popular && (
-                                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm font-semibold">
+                                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-sm font-semibold shadow-lg shadow-indigo-500/30">
                                         Most Popular
                                     </div>
                                 )}
@@ -365,7 +308,7 @@ export default function ModernHomePage() {
 
                                 <ul className="space-y-3 mb-8">
                                     {plan.features.map((feature, i) => (
-                                        <li key={i} className="flex items-start gap-2 text-purple-200">
+                                        <li key={i} className="flex items-start gap-2 text-zinc-300">
                                             <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
                                             <span className="text-sm">{feature}</span>
                                         </li>
@@ -377,8 +320,8 @@ export default function ModernHomePage() {
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.95 }}
                                         className={`w-full py-3 rounded-xl font-semibold transition-all ${plan.popular
-                                                ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/50'
-                                                : 'bg-white/10 hover:bg-white/20 text-white border border-white/20'
+                                            ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/40 hover:shadow-indigo-500/60'
+                                            : 'bg-white/5 hover:bg-white/10 text-white border border-white/10 hover:border-white/20'
                                             }`}
                                     >
                                         {plan.cta}
@@ -408,7 +351,7 @@ export default function ModernHomePage() {
                             <motion.button
                                 whileHover={{ scale: 1.05, y: -2 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="px-10 py-5 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold text-xl shadow-2xl shadow-purple-500/50 flex items-center gap-3 mx-auto"
+                                className="px-10 py-5 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold text-xl shadow-2xl shadow-indigo-500/50 flex items-center gap-3 mx-auto"
                             >
                                 Start Your Free Trial
                                 <ArrowRight className="w-6 h-6" />
@@ -435,6 +378,6 @@ export default function ModernHomePage() {
                     </motion.div>
                 </div>
             </section>
-        </div>
+        </div >
     );
 }

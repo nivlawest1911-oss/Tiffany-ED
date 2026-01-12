@@ -1,0 +1,645 @@
+
+> my-v0-project@0.1.0 dev
+> next dev
+
+▲ Next.js 16.1.1 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://10.0.0.29:3000
+- Environments: .env.local
+
+✓ Starting...
+✓ Ready in 528ms
+ GET /generator 200 in 3.2s (compile: 1871ms, render: 1294ms)
+ GET /generator 200 in 264ms (compile: 6ms, render: 258ms)
+ GET / 200 in 3.4s (compile: 2.1s, render: 1308ms)
+ GET / 200 in 432ms (compile: 4ms, render: 429ms)
+ GET /images/mcp-integrations/tailwind-css.svg 404 in 577ms (compile: 419ms, render: 158ms)
+ GET /images/mcp-integrations/figma.svg 404 in 643ms (compile: 540ms, render: 103ms)
+ GET /images/mcp-integrations/shadcn.svg 404 in 588ms (compile: 469ms, render: 119ms)
+ GET /images/mcp-integrations/resend.svg 404 in 460ms (compile: 314ms, render: 146ms)
+ GET /images/mcp-integrations/nextjs.svg 404 in 1182ms (compile: 454ms, render: 728ms)
+ GET /images/dashboard-preview.png 404 in 118ms (compile: 61ms, render: 57ms)
+ GET /logos/logo02.svg 404 in 159ms (compile: 34ms, render: 124ms)
+ GET /logos/logo01.svg 404 in 162ms (compile: 9ms, render: 152ms)
+⨯ The requested resource isn't a valid image for /images/dashboard-preview.png received null
+ GET /images/mcp-integrations/react.svg 404 in 168ms (compile: 70ms, render: 98ms)
+ GET /logos/logo02.svg 404 in 114ms (compile: 21ms, render: 93ms)
+ GET /logos/logo01.svg 404 in 116ms (compile: 9ms, render: 107ms)
+ GET /images/dashboard-preview.png 404 in 52ms (compile: 7ms, render: 45ms)
+⨯ The requested resource isn't a valid image for /images/dashboard-preview.png received null
+ GET /all-tools 200 in 596ms (compile: 513ms, render: 83ms)
+ GET /images/mcp-integrations/tailwind-css.svg 404 in 171ms (compile: 4ms, render: 167ms)
+ GET /images/mcp-integrations/resend.svg 404 in 142ms (compile: 7ms, render: 135ms)
+ GET /images/mcp-integrations/nextjs.svg 404 in 142ms (compile: 29ms, render: 113ms)
+ GET /images/mcp-integrations/shadcn.svg 404 in 91ms (compile: 10ms, render: 82ms)
+ GET /images/mcp-integrations/figma.svg 404 in 86ms (compile: 26ms, render: 61ms)
+ GET /images/mcp-integrations/resend.svg 404 in 135ms (compile: 10ms, render: 126ms)
+ GET /images/mcp-integrations/nextjs.svg 404 in 133ms (compile: 29ms, render: 104ms)
+ GET /images/mcp-integrations/shadcn.svg 404 in 77ms (compile: 10ms, render: 67ms)
+ GET /images/mcp-integrations/figma.svg 404 in 133ms (compile: 32ms, render: 101ms)
+ GET /logos/logo01.svg 404 in 94ms (compile: 9ms, render: 85ms)
+ GET /logos/logo02.svg 404 in 96ms (compile: 31ms, render: 65ms)
+ GET /images/dashboard-preview.png 404 in 62ms (compile: 10ms, render: 51ms)
+⨯ The requested resource isn't a valid image for /images/dashboard-preview.png received null
+ GET /images/mcp-integrations/react.svg 404 in 63ms (compile: 31ms, render: 32ms)
+ GET / 200 in 824ms (compile: 5ms, render: 819ms)
+ GET /images/mcp-integrations/tailwind-css.svg 404 in 32ms (compile: 5ms, render: 27ms)
+ GET /images/mcp-integrations/react.svg 404 in 54ms (compile: 5ms, render: 49ms)
+ GET /images/large-card-background.svg 404 in 107ms (compile: 6ms, render: 101ms)
+ GET /logos/logo03.svg 404 in 65ms (compile: 16ms, render: 48ms)
+ GET /logos/logo04.svg 404 in 107ms (compile: 5ms, render: 102ms)
+ GET /logos/logo05.svg 404 in 112ms (compile: 9ms, render: 103ms)
+ GET /logos/logo06.svg 404 in 114ms (compile: 38ms, render: 76ms)
+ GET /logos/logo07.svg 404 in 47ms (compile: 4ms, render: 42ms)
+ GET /logos/logo08.svg 404 in 89ms (compile: 6ms, render: 84ms)
+ GET /images/large-card-background.svg 404 in 48ms (compile: 8ms, render: 40ms)
+ GET /logos/logo03.svg 404 in 113ms (compile: 10ms, render: 103ms)
+ GET /logos/logo04.svg 404 in 92ms (compile: 20ms, render: 72ms)
+ GET /logos/logo05.svg 404 in 130ms (compile: 35ms, render: 95ms)
+ GET /logos/logo06.svg 404 in 130ms (compile: 10ms, render: 120ms)
+ GET /images/large-card-background.svg 404 in 135ms (compile: 35ms, render: 100ms)
+ GET /logos/logo07.svg 404 in 120ms (compile: 23ms, render: 97ms)
+ GET /logos/logo08.svg 404 in 115ms (compile: 38ms, render: 78ms)
+ GET /logos/logo03.svg 404 in 140ms (compile: 37ms, render: 104ms)
+ GET /logos/logo04.svg 404 in 143ms (compile: 10ms, render: 134ms)
+ GET /logos/logo05.svg 404 in 166ms (compile: 32ms, render: 134ms)
+ GET /logos/logo06.svg 404 in 152ms (compile: 35ms, render: 117ms)
+ GET /logos/logo07.svg 404 in 91ms (compile: 16ms, render: 76ms)
+ GET /logos/logo08.svg 404 in 84ms (compile: 41ms, render: 43ms)
+ GET /generator 200 in 39ms (compile: 2ms, render: 36ms)
+ GET /images/mcp-integrations/figma.svg 404 in 129ms (compile: 7ms, render: 122ms)
+ GET /images/mcp-integrations/shadcn.svg 404 in 107ms (compile: 14ms, render: 93ms)
+ GET /images/mcp-integrations/tailwind-css.svg 404 in 283ms (compile: 38ms, render: 245ms)
+ GET /images/mcp-integrations/nextjs.svg 404 in 285ms (compile: 24ms, render: 261ms)
+ GET /images/mcp-integrations/resend.svg 404 in 206ms (compile: 5ms, render: 200ms)
+ GET /images/dashboard-preview.png 404 in 32ms (compile: 5ms, render: 26ms)
+⨯ The requested resource isn't a valid image for /images/dashboard-preview.png received null
+ GET /pricing 200 in 989ms (compile: 802ms, render: 187ms)
+ GET /images/mcp-integrations/react.svg 404 in 127ms (compile: 13ms, render: 114ms)
+ GET /logos/logo02.svg 404 in 124ms (compile: 34ms, render: 90ms)
+ GET /logos/logo01.svg 404 in 125ms (compile: 23ms, render: 103ms)
+ GET / 200 in 826ms (compile: 3ms, render: 823ms)
+ GET /images/large-card-background.svg 404 in 190ms (compile: 10ms, render: 180ms)
+ GET /logos/logo03.svg 404 in 189ms (compile: 22ms, render: 167ms)
+ GET /logos/logo04.svg 404 in 185ms (compile: 61ms, render: 124ms)
+ GET /logos/logo05.svg 404 in 96ms (compile: 9ms, render: 87ms)
+ GET /logos/logo06.svg 404 in 96ms (compile: 30ms, render: 66ms)
+ GET /logos/logo07.svg 404 in 70ms (compile: 5ms, render: 65ms)
+ GET /logos/logo08.svg 404 in 34ms (compile: 4ms, render: 30ms)
+ GET /generator 200 in 122ms (compile: 46ms, render: 77ms)
+ GET /images/mcp-integrations/shadcn.svg 404 in 195ms (compile: 113ms, render: 82ms)
+ GET /images/mcp-integrations/figma.svg 404 in 197ms (compile: 47ms, render: 150ms)
+ GET /images/mcp-integrations/nextjs.svg 404 in 211ms (compile: 132ms, render: 79ms)
+ GET /images/mcp-integrations/tailwind-css.svg 404 in 93ms (compile: 6ms, render: 88ms)
+ GET /images/mcp-integrations/resend.svg 404 in 59ms (compile: 8ms, render: 51ms)
+ GET /images/mcp-integrations/react.svg 404 in 74ms (compile: 8ms, render: 67ms)
+ GET /logos/logo01.svg 404 in 289ms (compile: 46ms, render: 242ms)
+ GET /logos/logo02.svg 404 in 296ms (compile: 32ms, render: 264ms)
+ GET /images/dashboard-preview.png 404 in 217ms (compile: 153ms, render: 64ms)
+⨯ The requested resource isn't a valid image for /images/dashboard-preview.png received null
+ GET /images/large-card-background.svg 404 in 138ms (compile: 6ms, render: 132ms)
+ GET /logos/logo03.svg 404 in 129ms (compile: 12ms, render: 116ms)
+ GET /logos/logo04.svg 404 in 85ms (compile: 6ms, render: 78ms)
+ GET /logos/logo05.svg 404 in 85ms (compile: 13ms, render: 72ms)
+ GET /logos/logo06.svg 404 in 143ms (compile: 11ms, render: 132ms)
+ GET /logos/logo07.svg 404 in 141ms (compile: 40ms, render: 101ms)
+ GET /logos/logo08.svg 404 in 114ms (compile: 61ms, render: 53ms)
+ GET / 200 in 1945ms (compile: 10ms, render: 1935ms)
+ GET /dashboard 200 in 1970ms (compile: 1854ms, render: 116ms)
+ GET /generator 200 in 33ms (compile: 3ms, render: 30ms)
+ GET /generator 200 in 317ms (compile: 2ms, render: 314ms)
+ GET / 200 in 336ms (compile: 4ms, render: 333ms)
+ GET /images/mcp-integrations/figma.svg 404 in 218ms (compile: 8ms, render: 209ms)
+ GET /images/mcp-integrations/shadcn.svg 404 in 217ms (compile: 30ms, render: 186ms)
+ GET /images/mcp-integrations/nextjs.svg 404 in 198ms (compile: 39ms, render: 160ms)
+ GET /images/mcp-integrations/tailwind-css.svg 404 in 176ms (compile: 42ms, render: 134ms)
+ GET /images/mcp-integrations/resend.svg 404 in 163ms (compile: 59ms, render: 104ms)
+ GET /images/mcp-integrations/react.svg 404 in 65ms (compile: 24ms, render: 42ms)
+ GET /images/dashboard-preview.png 404 in 181ms (compile: 34ms, render: 147ms)
+⨯ The requested resource isn't a valid image for /images/dashboard-preview.png received null
+ GET /images/large-card-background.svg 404 in 250ms (compile: 6ms, render: 244ms)
+ GET /logos/logo01.svg 404 in 234ms (compile: 37ms, render: 197ms)
+ GET /logos/logo02.svg 404 in 183ms (compile: 60ms, render: 124ms)
+ GET /logos/logo03.svg 404 in 173ms (compile: 72ms, render: 100ms)
+ GET /logos/logo04.svg 404 in 185ms (compile: 86ms, render: 99ms)
+ GET /logos/logo05.svg 404 in 149ms (compile: 6ms, render: 143ms)
+ GET /logos/logo06.svg 404 in 113ms (compile: 15ms, render: 98ms)
+ GET /logos/logo08.svg 404 in 107ms (compile: 54ms, render: 53ms)
+ GET /logos/logo07.svg 404 in 109ms (compile: 36ms, render: 73ms)
+ GET /generator 200 in 48ms (compile: 10ms, render: 38ms)
+ GET /images/mcp-integrations/figma.svg 404 in 168ms (compile: 7ms, render: 162ms)
+ GET /images/mcp-integrations/shadcn.svg 404 in 168ms (compile: 32ms, render: 136ms)
+ GET /images/mcp-integrations/tailwind-css.svg 404 in 100ms (compile: 36ms, render: 64ms)
+ GET /images/mcp-integrations/nextjs.svg 404 in 102ms (compile: 9ms, render: 93ms)
+ GET /images/mcp-integrations/resend.svg 404 in 100ms (compile: 48ms, render: 52ms)
+ GET /images/mcp-integrations/react.svg 404 in 49ms (compile: 4ms, render: 45ms)
+ GET / 200 in 687ms (compile: 2ms, render: 685ms)
+ GET /images/dashboard-preview.png 404 in 77ms (compile: 32ms, render: 45ms)
+⨯ The requested resource isn't a valid image for /images/dashboard-preview.png received null
+ GET /logos/logo01.svg 404 in 156ms (compile: 8ms, render: 149ms)
+ GET /images/large-card-background.svg 404 in 206ms (compile: 5ms, render: 202ms)
+ GET /logos/logo02.svg 404 in 195ms (compile: 9ms, render: 186ms)
+ GET /logos/logo03.svg 404 in 164ms (compile: 9ms, render: 155ms)
+ GET /logos/logo04.svg 404 in 164ms (compile: 20ms, render: 143ms)
+ GET /logos/logo06.svg 404 in 98ms (compile: 20ms, render: 78ms)
+ GET /logos/logo05.svg 404 in 102ms (compile: 9ms, render: 92ms)
+ GET /logos/logo07.svg 404 in 125ms (compile: 52ms, render: 74ms)
+ GET /logos/logo08.svg 404 in 34ms (compile: 5ms, render: 29ms)
+ GET / 200 in 254ms (compile: 2ms, render: 252ms)
+ GET /images/mcp-integrations/figma.svg 404 in 199ms (compile: 7ms, render: 192ms)
+ GET /images/mcp-integrations/shadcn.svg 404 in 163ms (compile: 16ms, render: 147ms)
+ GET /images/mcp-integrations/tailwind-css.svg 404 in 163ms (compile: 28ms, render: 135ms)
+ GET /images/mcp-integrations/resend.svg 404 in 161ms (compile: 54ms, render: 107ms)
+ GET /images/mcp-integrations/react.svg 404 in 159ms (compile: 65ms, render: 95ms)
+ GET /images/mcp-integrations/nextjs.svg 404 in 163ms (compile: 41ms, render: 122ms)
+ GET /images/large-card-background.svg 404 in 30ms (compile: 4ms, render: 26ms)
+ GET /images/dashboard-preview.png 404 in 65ms (compile: 37ms, render: 28ms)
+⨯ The requested resource isn't a valid image for /images/dashboard-preview.png received null
+ GET /logos/logo01.svg 404 in 199ms (compile: 12ms, render: 188ms)
+ GET /logos/logo02.svg 404 in 198ms (compile: 36ms, render: 163ms)
+ GET /logos/logo03.svg 404 in 194ms (compile: 46ms, render: 148ms)
+ GET /logos/logo04.svg 404 in 178ms (compile: 72ms, render: 106ms)
+ GET /logos/logo05.svg 404 in 82ms (compile: 13ms, render: 69ms)
+ GET /logos/logo07.svg 404 in 91ms (compile: 10ms, render: 81ms)
+ GET /logos/logo06.svg 404 in 90ms (compile: 31ms, render: 59ms)
+ GET /logos/logo08.svg 404 in 90ms (compile: 43ms, render: 47ms)
+ GET / 200 in 250ms (compile: 4ms, render: 246ms)
+ GET /images/mcp-integrations/figma.svg 404 in 203ms (compile: 10ms, render: 193ms)
+ GET /images/mcp-integrations/shadcn.svg 404 in 203ms (compile: 23ms, render: 179ms)
+ GET /images/mcp-integrations/nextjs.svg 404 in 167ms (compile: 31ms, render: 137ms)
+ GET /images/mcp-integrations/tailwind-css.svg 404 in 146ms (compile: 34ms, render: 112ms)
+ GET /images/mcp-integrations/resend.svg 404 in 85ms (compile: 11ms, render: 74ms)
+ GET /images/mcp-integrations/react.svg 404 in 77ms (compile: 40ms, render: 37ms)
+ GET /images/large-card-background.svg 404 in 30ms (compile: 4ms, render: 26ms)
+ GET /images/dashboard-preview.png 404 in 89ms (compile: 29ms, render: 60ms)
+⨯ The requested resource isn't a valid image for /images/dashboard-preview.png received null
+ GET /logos/logo01.svg 404 in 237ms (compile: 11ms, render: 227ms)
+ GET /logos/logo02.svg 404 in 194ms (compile: 21ms, render: 173ms)
+ GET /logos/logo05.svg 404 in 140ms (compile: 36ms, render: 104ms)
+ GET /logos/logo03.svg 404 in 144ms (compile: 11ms, render: 133ms)
+ GET /logos/logo04.svg 404 in 143ms (compile: 24ms, render: 119ms)
+ GET /logos/logo06.svg 404 in 53ms (compile: 9ms, render: 43ms)
+ GET /logos/logo07.svg 404 in 72ms (compile: 8ms, render: 64ms)
+ GET /logos/logo08.svg 404 in 71ms (compile: 32ms, render: 39ms)
+ GET /images/guillermo-rauch.png 404 in 34ms (compile: 4ms, render: 29ms)
+⨯ The requested resource isn't a valid image for /images/guillermo-rauch.png received null
+✓ Compiled in 382ms
+ GET / 200 in 115ms (compile: 46ms, render: 70ms)
+ GET /pricing 200 in 116ms (compile: 80ms, render: 36ms)
+ GET /dashboard 200 in 116ms (compile: 90ms, render: 25ms)
+ GET /generator 200 in 118ms (compile: 104ms, render: 14ms)
+ GET /all-tools 200 in 118ms (compile: 67ms, render: 51ms)
+ GET / 200 in 66ms (compile: 2ms, render: 64ms)
+ GET /generator 200 in 66ms (compile: 13ms, render: 54ms)
+ GET /generator 200 in 42ms (compile: 13ms, render: 29ms)
+ GET / 200 in 43ms (compile: 2ms, render: 41ms)
+ GET / 200 in 29ms (compile: 2ms, render: 27ms)
+ GET /generator 200 in 62ms (compile: 2ms, render: 60ms)
+ GET / 200 in 62ms (compile: 14ms, render: 48ms)
+ GET /generator 200 in 38ms (compile: 2ms, render: 36ms)
+ GET / 200 in 38ms (compile: 13ms, render: 24ms)
+ GET /generator 200 in 14ms (compile: 2ms, render: 12ms)
+ GET /generator 200 in 53ms (compile: 13ms, render: 40ms)
+ GET / 200 in 54ms (compile: 2ms, render: 52ms)
+ GET / 200 in 27ms (compile: 1937µs, render: 25ms)
+ GET / 200 in 14ms (compile: 1937µs, render: 12ms)
+ GET /images/guillermo-rauch.png 404 in 27ms (compile: 6ms, render: 21ms)
+⨯ The requested resource isn't a valid image for /images/guillermo-rauch.png received null
+ GET /images/guillermo-rauch.png 404 in 23ms (compile: 3ms, render: 19ms)
+⨯ The requested resource isn't a valid image for /images/guillermo-rauch.png received null
+ GET /images/guillermo-rauch.png 404 in 24ms (compile: 4ms, render: 20ms)
+⨯ The requested resource isn't a valid image for /images/guillermo-rauch.png received null
+ GET /images/guillermo-rauch.png 404 in 23ms (compile: 3ms, render: 20ms)
+⨯ The requested resource isn't a valid image for /images/guillermo-rauch.png received null
+ GET /images/mcp-integrations/figma.svg 404 in 177ms (compile: 5ms, render: 172ms)
+ GET /images/mcp-integrations/shadcn.svg 404 in 154ms (compile: 9ms, render: 146ms)
+ GET /images/mcp-integrations/nextjs.svg 404 in 153ms (compile: 17ms, render: 136ms)
+ GET /images/mcp-integrations/tailwind-css.svg 404 in 111ms (compile: 17ms, render: 94ms)
+ GET /images/mcp-integrations/resend.svg 404 in 110ms (compile: 27ms, render: 83ms)
+ GET /images/mcp-integrations/react.svg 404 in 110ms (compile: 59ms, render: 51ms)
+ GET /images/mcp-integrations/shadcn.svg 404 in 122ms (compile: 20ms, render: 102ms)
+ GET /images/mcp-integrations/nextjs.svg 404 in 121ms (compile: 31ms, render: 90ms)
+ GET /images/mcp-integrations/figma.svg 404 in 123ms (compile: 10ms, render: 114ms)
+ GET /images/mcp-integrations/tailwind-css.svg 404 in 121ms (compile: 65ms, render: 56ms)
+ GET /images/mcp-integrations/resend.svg 404 in 117ms (compile: 72ms, render: 45ms)
+ GET /images/guillermo-rauch.png 404 in 51ms (compile: 6ms, render: 45ms)
+⨯ The requested resource isn't a valid image for /images/guillermo-rauch.png received null
+ GET /images/mcp-integrations/react.svg 404 in 55ms (compile: 26ms, render: 28ms)
+ GET /images/mcp-integrations/figma.svg 404 in 59ms (compile: 4ms, render: 55ms)
+ GET /images/mcp-integrations/shadcn.svg 404 in 33ms (compile: 3ms, render: 29ms)
+ GET /images/mcp-integrations/nextjs.svg 404 in 26ms (compile: 3ms, render: 23ms)
+ GET /images/mcp-integrations/tailwind-css.svg 404 in 25ms (compile: 3ms, render: 22ms)
+ GET /images/mcp-integrations/resend.svg 404 in 48ms (compile: 5ms, render: 43ms)
+ GET /images/mcp-integrations/react.svg 404 in 48ms (compile: 23ms, render: 25ms)
+ GET /images/mcp-integrations/figma.svg 404 in 33ms (compile: 4ms, render: 28ms)
+ GET /images/guillermo-rauch.png 404 in 31ms (compile: 3ms, render: 27ms)
+⨯ The requested resource isn't a valid image for /images/guillermo-rauch.png received null
+ GET /images/mcp-integrations/shadcn.svg 404 in 181ms (compile: 9ms, render: 171ms)
+ GET /images/mcp-integrations/nextjs.svg 404 in 180ms (compile: 30ms, render: 150ms)
+ GET /images/mcp-integrations/tailwind-css.svg 404 in 176ms (compile: 53ms, render: 123ms)
+ GET /images/mcp-integrations/resend.svg 404 in 176ms (compile: 70ms, render: 106ms)
+ GET /images/mcp-integrations/react.svg 404 in 129ms (compile: 78ms, render: 51ms)
+ GET /images/guillermo-rauch.png 404 in 93ms (compile: 32ms, render: 61ms)
+⨯ The requested resource isn't a valid image for /images/guillermo-rauch.png received null
+ GET /images/mcp-integrations/figma.svg 404 in 192ms (compile: 8ms, render: 184ms)
+ GET /images/mcp-integrations/shadcn.svg 404 in 171ms (compile: 20ms, render: 151ms)
+ GET /images/mcp-integrations/nextjs.svg 404 in 120ms (compile: 27ms, render: 92ms)
+ GET /images/mcp-integrations/tailwind-css.svg 404 in 74ms (compile: 5ms, render: 69ms)
+ GET /images/mcp-integrations/resend.svg 404 in 85ms (compile: 7ms, render: 78ms)
+ GET /images/guillermo-rauch.png 404 in 49ms (compile: 9ms, render: 40ms)
+⨯ The requested resource isn't a valid image for /images/guillermo-rauch.png received null
+ GET /images/mcp-integrations/react.svg 404 in 150ms (compile: 8ms, render: 142ms)
+ GET /images/mcp-integrations/figma.svg 404 in 121ms (compile: 14ms, render: 107ms)
+ GET /images/mcp-integrations/shadcn.svg 404 in 69ms (compile: 12ms, render: 57ms)
+ GET /images/mcp-integrations/nextjs.svg 404 in 85ms (compile: 7ms, render: 79ms)
+ GET /images/mcp-integrations/tailwind-css.svg 404 in 81ms (compile: 31ms, render: 50ms)
+ GET /images/mcp-integrations/resend.svg 404 in 56ms (compile: 28ms, render: 28ms)
+ GET /images/mcp-integrations/react.svg 404 in 117ms (compile: 6ms, render: 110ms)
+ GET /images/mcp-integrations/figma.svg 404 in 116ms (compile: 16ms, render: 100ms)
+ GET /images/mcp-integrations/shadcn.svg 404 in 91ms (compile: 24ms, render: 67ms)
+ GET /images/mcp-integrations/nextjs.svg 404 in 74ms (compile: 28ms, render: 45ms)
+ GET /images/mcp-integrations/tailwind-css.svg 404 in 122ms (compile: 5ms, render: 117ms)
+ GET /images/mcp-integrations/resend.svg 404 in 105ms (compile: 18ms, render: 87ms)
+ GET /images/mcp-integrations/react.svg 404 in 93ms (compile: 30ms, render: 62ms)
+ GET /images/mcp-integrations/figma.svg 404 in 110ms (compile: 41ms, render: 70ms)
+ GET /images/mcp-integrations/shadcn.svg 404 in 89ms (compile: 5ms, render: 84ms)
+ GET /images/mcp-integrations/nextjs.svg 404 in 127ms (compile: 8ms, render: 120ms)
+ GET /images/mcp-integrations/tailwind-css.svg 404 in 157ms (compile: 4ms, render: 153ms)
+ GET /images/mcp-integrations/resend.svg 404 in 132ms (compile: 9ms, render: 123ms)
+ GET /images/mcp-integrations/figma.svg 404 in 126ms (compile: 27ms, render: 99ms)
+ GET /images/mcp-integrations/shadcn.svg 404 in 63ms (compile: 7ms, render: 56ms)
+ GET /images/mcp-integrations/react.svg 404 in 35ms (compile: 8ms, render: 27ms)
+ GET /images/mcp-integrations/nextjs.svg 404 in 164ms (compile: 7ms, render: 157ms)
+ GET /images/mcp-integrations/tailwind-css.svg 404 in 163ms (compile: 19ms, render: 144ms)
+ GET /images/mcp-integrations/resend.svg 404 in 163ms (compile: 47ms, render: 116ms)
+ GET /images/mcp-integrations/react.svg 404 in 88ms (compile: 8ms, render: 79ms)
+✓ Compiled in 96ms
+ GET / 200 in 177ms (compile: 59ms, render: 118ms)
+ GET / 200 in 332ms (compile: 45ms, render: 287ms)
+ GET /generator 200 in 259ms (compile: 81ms, render: 178ms)
+ GET / 200 in 259ms (compile: 3ms, render: 256ms)
+ GET /all-tools 200 in 172ms (compile: 44ms, render: 128ms)
+ GET / 200 in 172ms (compile: 64ms, render: 108ms)
+ GET /pricing 200 in 251ms (compile: 130ms, render: 121ms)
+ GET /generator 200 in 136ms (compile: 3ms, render: 133ms)
+ GET /dashboard 200 in 120ms (compile: 61ms, render: 60ms)
+ GET / 200 in 120ms (compile: 3ms, render: 117ms)
+ GET /all-tools 200 in 40ms (compile: 2ms, render: 38ms)
+ GET /pricing 200 in 40ms (compile: 14ms, render: 26ms)
+ GET /generator 200 in 16ms (compile: 1901µs, render: 14ms)
+ GET / 200 in 83ms (compile: 2ms, render: 81ms)
+ GET /all-tools 200 in 69ms (compile: 14ms, render: 55ms)
+ GET /dashboard 200 in 70ms (compile: 3ms, render: 67ms)
+ GET /generator 200 in 46ms (compile: 19ms, render: 27ms)
+ GET / 200 in 46ms (compile: 32ms, render: 14ms)
+ GET /pricing 200 in 70ms (compile: 26ms, render: 44ms)
+ GET /dashboard 200 in 65ms (compile: 3ms, render: 62ms)
+ GET /all-tools 200 in 66ms (compile: 15ms, render: 50ms)
+ GET /pricing 200 in 66ms (compile: 27ms, render: 39ms)
+ GET /generator 200 in 66ms (compile: 39ms, render: 27ms)
+ GET / 200 in 30ms (compile: 15ms, render: 15ms)
+ GET /dashboard 200 in 90ms (compile: 3ms, render: 87ms)
+ GET /all-tools 200 in 90ms (compile: 16ms, render: 74ms)
+ GET /pricing 200 in 62ms (compile: 3ms, render: 59ms)
+ GET /generator 200 in 62ms (compile: 14ms, render: 48ms)
+ GET / 200 in 62ms (compile: 26ms, render: 37ms)
+ GET /dashboard 200 in 26ms (compile: 3ms, render: 24ms)
+ GET /all-tools 200 in 66ms (compile: 3ms, render: 63ms)
+ GET /pricing 200 in 51ms (compile: 3ms, render: 48ms)
+ GET /generator 200 in 51ms (compile: 14ms, render: 37ms)
+ GET / 200 in 51ms (compile: 25ms, render: 26ms)
+ GET /dashboard 200 in 51ms (compile: 36ms, render: 15ms)
+ GET / 200 in 80ms (compile: 15ms, render: 65ms)
+ GET /generator 200 in 81ms (compile: 2ms, render: 79ms)
+ GET /generator 200 in 54ms (compile: 3ms, render: 52ms)
+ GET / 200 in 54ms (compile: 15ms, render: 39ms)
+ GET /generator 200 in 28ms (compile: 3ms, render: 26ms)
+ GET / 200 in 28ms (compile: 15ms, render: 13ms)
+ GET /generator 200 in 53ms (compile: 3ms, render: 50ms)
+ GET / 200 in 66ms (compile: 14ms, render: 52ms)
+ GET /generator 200 in 56ms (compile: 1958µs, render: 54ms)
+ GET / 200 in 60ms (compile: 1874µs, render: 58ms)
+ GET /generator 200 in 67ms (compile: 3ms, render: 64ms)
+ GET / 200 in 53ms (compile: 2ms, render: 51ms)
+ GET /generator 200 in 63ms (compile: 4ms, render: 59ms)
+ GET / 200 in 63ms (compile: 17ms, render: 46ms)
+ GET /generator 200 in 55ms (compile: 2ms, render: 53ms)
+ GET / 200 in 55ms (compile: 15ms, render: 40ms)
+ GET /generator 200 in 28ms (compile: 3ms, render: 25ms)
+ GET / 200 in 28ms (compile: 14ms, render: 14ms)
+ GET /generator 200 in 82ms (compile: 3ms, render: 79ms)
+ GET / 200 in 69ms (compile: 2ms, render: 67ms)
+ GET /generator 200 in 86ms (compile: 3ms, render: 83ms)
+ GET / 200 in 86ms (compile: 19ms, render: 68ms)
+ GET /generator 200 in 67ms (compile: 3ms, render: 64ms)
+ GET / 200 in 80ms (compile: 4ms, render: 76ms)
+ GET /generator 200 in 79ms (compile: 18ms, render: 62ms)
+ GET / 200 in 46ms (compile: 3ms, render: 43ms)
+ GET /generator 200 in 31ms (compile: 2ms, render: 29ms)
+ GET / 200 in 16ms (compile: 2ms, render: 14ms)
+ GET /generator 200 in 90ms (compile: 2ms, render: 88ms)
+ GET / 200 in 76ms (compile: 2ms, render: 74ms)
+ GET /generator 200 in 76ms (compile: 14ms, render: 62ms)
+ GET / 200 in 42ms (compile: 3ms, render: 39ms)
+ GET /generator 200 in 29ms (compile: 3ms, render: 26ms)
+ GET / 200 in 15ms (compile: 2ms, render: 13ms)
+ GET / 200 in 80ms (compile: 14ms, render: 66ms)
+ GET /generator 200 in 82ms (compile: 3ms, render: 79ms)
+ GET /generator 200 in 56ms (compile: 2ms, render: 54ms)
+ GET / 200 in 56ms (compile: 15ms, render: 42ms)
+ GET /generator 200 in 30ms (compile: 2ms, render: 28ms)
+ GET / 200 in 30ms (compile: 15ms, render: 15ms)
+ GET /generator 200 in 70ms (compile: 14ms, render: 56ms)
+ GET / 200 in 71ms (compile: 3ms, render: 68ms)
+ GET / 200 in 42ms (compile: 3ms, render: 40ms)
+ GET /generator 200 in 43ms (compile: 15ms, render: 27ms)
+ GET / 200 in 16ms (compile: 2ms, render: 14ms)
+ GET / 200 in 90ms (compile: 19ms, render: 71ms)
+ GET /generator 200 in 92ms (compile: 3ms, render: 88ms)
+ GET /generator 200 in 60ms (compile: 2ms, render: 58ms)
+ GET / 200 in 60ms (compile: 14ms, render: 46ms)
+ GET /generator 200 in 30ms (compile: 2ms, render: 27ms)
+ GET / 200 in 43ms (compile: 15ms, render: 28ms)
+ GET /generator 200 in 94ms (compile: 2ms, render: 92ms)
+ GET / 200 in 82ms (compile: 2ms, render: 80ms)
+ GET /generator 200 in 85ms (compile: 14ms, render: 70ms)
+ GET / 200 in 117ms (compile: 3ms, render: 114ms)
+ GET /generator 200 in 130ms (compile: 16ms, render: 114ms)
+ GET / 200 in 101ms (compile: 3ms, render: 99ms)
+ GET /generator 200 in 125ms (compile: 5ms, render: 120ms)
+ GET / 200 in 77ms (compile: 3ms, render: 74ms)
+ GET /generator 200 in 63ms (compile: 3ms, render: 60ms)
+ GET / 200 in 48ms (compile: 3ms, render: 45ms)
+ GET / 200 in 36ms (compile: 16ms, render: 19ms)
+ GET /generator 200 in 54ms (compile: 2ms, render: 52ms)
+ GET /generator 200 in 124ms (compile: 4ms, render: 119ms)
+ GET / 200 in 99ms (compile: 5ms, render: 94ms)
+ GET /generator 200 in 98ms (compile: 30ms, render: 69ms)
+ GET / 200 in 50ms (compile: 3ms, render: 48ms)
+ GET /generator 200 in 31ms (compile: 4ms, render: 27ms)
+ GET / 200 in 16ms (compile: 2ms, render: 14ms)
+ GET /generator 200 in 60ms (compile: 1957µs, render: 58ms)
+ GET / 200 in 62ms (compile: 2ms, render: 60ms)
+ GET / 200 in 49ms (compile: 2ms, render: 47ms)
+ GET / 200 in 36ms (compile: 3ms, render: 33ms)
+ GET / 200 in 18ms (compile: 3ms, render: 16ms)
+ GET / 200 in 55ms (compile: 1995µs, render: 53ms)
+ GET / 200 in 39ms (compile: 4ms, render: 35ms)
+ GET / 200 in 22ms (compile: 1882µs, render: 20ms)
+ GET / 200 in 77ms (compile: 3ms, render: 74ms)
+ GET / 200 in 57ms (compile: 4ms, render: 54ms)
+ GET / 200 in 32ms (compile: 3ms, render: 29ms)
+ GET / 200 in 15ms (compile: 2ms, render: 13ms)
+ GET / 200 in 43ms (compile: 1966µs, render: 41ms)
+ GET / 200 in 42ms (compile: 1930µs, render: 40ms)
+ GET / 200 in 30ms (compile: 2ms, render: 28ms)
+ GET / 200 in 15ms (compile: 3ms, render: 12ms)
+ GET / 200 in 13ms (compile: 1741µs, render: 12ms)
+ GET / 200 in 122ms (compile: 3ms, render: 119ms)
+ GET / 200 in 68ms (compile: 3ms, render: 65ms)
+ GET /generator 200 in 291ms (compile: 46ms, render: 244ms)
+ GET /generator 200 in 219ms (compile: 135ms, render: 84ms)
+ GET /all-tools 200 in 220ms (compile: 114ms, render: 105ms)
+ GET /pricing 200 in 233ms (compile: 54ms, render: 179ms)
+ GET / 200 in 161ms (compile: 44ms, render: 118ms)
+ GET /generator 200 in 155ms (compile: 4ms, render: 151ms)
+ GET / 200 in 154ms (compile: 2ms, render: 152ms)
+ GET /dashboard 200 in 157ms (compile: 45ms, render: 112ms)
+ GET /generator 200 in 97ms (compile: 4ms, render: 93ms)
+ GET / 200 in 99ms (compile: 22ms, render: 77ms)
+ GET /all-tools 200 in 60ms (compile: 4ms, render: 56ms)
+ GET /generator 200 in 82ms (compile: 2ms, render: 80ms)
+ GET /pricing 200 in 69ms (compile: 2ms, render: 66ms)
+ GET /dashboard 200 in 55ms (compile: 2ms, render: 53ms)
+ GET / 200 in 42ms (compile: 3ms, render: 39ms)
+ GET /all-tools 200 in 42ms (compile: 14ms, render: 28ms)
+ GET /generator 200 in 18ms (compile: 2ms, render: 16ms)
+ GET /pricing 200 in 77ms (compile: 3ms, render: 74ms)
+ GET /dashboard 200 in 77ms (compile: 14ms, render: 63ms)
+ GET / 200 in 77ms (compile: 26ms, render: 51ms)
+ GET /all-tools 200 in 54ms (compile: 14ms, render: 40ms)
+ GET /generator 200 in 43ms (compile: 16ms, render: 28ms)
+ GET /pricing 200 in 45ms (compile: 15ms, render: 30ms)
+ GET /dashboard 200 in 85ms (compile: 3ms, render: 82ms)
+ GET / 200 in 70ms (compile: 3ms, render: 67ms)
+ GET /all-tools 200 in 70ms (compile: 15ms, render: 55ms)
+ GET /generator 200 in 57ms (compile: 16ms, render: 41ms)
+ GET /pricing 200 in 57ms (compile: 29ms, render: 28ms)
+ GET /dashboard 200 in 44ms (compile: 28ms, render: 16ms)
+ GET / 200 in 80ms (compile: 2ms, render: 78ms)
+ GET /generator 200 in 63ms (compile: 15ms, render: 48ms)
+ GET /pricing 200 in 64ms (compile: 27ms, render: 37ms)
+ GET /dashboard 200 in 64ms (compile: 38ms, render: 26ms)
+ GET /all-tools 200 in 65ms (compile: 3ms, render: 62ms)
+ GET / 200 in 16ms (compile: 3ms, render: 14ms)
+ GET /generator 200 in 26ms (compile: 2ms, render: 24ms)
+ GET / 200 in 26ms (compile: 15ms, render: 11ms)
+ GET /generator 200 in 27ms (compile: 1855µs, render: 26ms)
+ GET / 200 in 15ms (compile: 2ms, render: 13ms)
+ GET /generator 200 in 42ms (compile: 2ms, render: 40ms)
+ GET / 200 in 43ms (compile: 2ms, render: 41ms)
+ GET /generator 200 in 31ms (compile: 2ms, render: 29ms)
+ GET / 200 in 19ms (compile: 3ms, render: 15ms)
+ GET /generator 200 in 46ms (compile: 3ms, render: 43ms)
+ GET / 200 in 78ms (compile: 1819µs, render: 76ms)
+ GET /generator 200 in 66ms (compile: 2ms, render: 64ms)
+ GET / 200 in 97ms (compile: 3ms, render: 94ms)
+ GET /generator 200 in 98ms (compile: 22ms, render: 76ms)
+ GET / 200 in 65ms (compile: 2ms, render: 63ms)
+ GET /generator 200 in 52ms (compile: 3ms, render: 50ms)
+ GET / 200 in 35ms (compile: 3ms, render: 32ms)
+ GET /generator 200 in 35ms (compile: 15ms, render: 20ms)
+ GET / 200 in 87ms (compile: 14ms, render: 73ms)
+ GET /generator 200 in 88ms (compile: 1873µs, render: 86ms)
+ GET /generator 200 in 63ms (compile: 1869µs, render: 61ms)
+ GET / 200 in 48ms (compile: 3ms, render: 46ms)
+ GET /generator 200 in 49ms (compile: 17ms, render: 32ms)
+ GET / 200 in 17ms (compile: 3ms, render: 15ms)
+ GET / 200 in 50ms (compile: 14ms, render: 36ms)
+ GET /generator 200 in 51ms (compile: 2ms, render: 48ms)
+ GET /generator 200 in 26ms (compile: 1861µs, render: 25ms)
+ GET / 200 in 14ms (compile: 1958µs, render: 12ms)
+ GET /generator 200 in 90ms (compile: 2ms, render: 88ms)
+ GET / 200 in 91ms (compile: 16ms, render: 75ms)
+ GET /generator 200 in 59ms (compile: 2ms, render: 56ms)
+ GET / 200 in 59ms (compile: 14ms, render: 45ms)
+ GET /generator 200 in 34ms (compile: 3ms, render: 31ms)
+ GET / 200 in 33ms (compile: 15ms, render: 18ms)
+ GET /generator 200 in 53ms (compile: 2ms, render: 51ms)
+ GET / 200 in 53ms (compile: 2ms, render: 51ms)
+ GET /generator 200 in 53ms (compile: 2ms, render: 51ms)
+ GET / 200 in 55ms (compile: 2ms, render: 53ms)
+ GET /generator 200 in 72ms (compile: 3ms, render: 69ms)
+ GET / 200 in 72ms (compile: 1746µs, render: 70ms)
+ GET /generator 200 in 75ms (compile: 2ms, render: 73ms)
+ GET / 200 in 76ms (compile: 3ms, render: 73ms)
+ GET /generator 200 in 63ms (compile: 3ms, render: 60ms)
+ GET / 200 in 68ms (compile: 3ms, render: 65ms)
+ GET /generator 200 in 81ms (compile: 3ms, render: 78ms)
+ GET / 200 in 79ms (compile: 3ms, render: 77ms)
+ GET /generator 200 in 80ms (compile: 2ms, render: 77ms)
+ GET / 200 in 71ms (compile: 3ms, render: 68ms)
+ GET /generator 200 in 59ms (compile: 2ms, render: 57ms)
+ GET / 200 in 61ms (compile: 3ms, render: 58ms)
+ GET /generator 200 in 60ms (compile: 3ms, render: 57ms)
+ GET / 200 in 58ms (compile: 3ms, render: 55ms)
+ GET /generator 200 in 58ms (compile: 2ms, render: 55ms)
+ GET / 200 in 57ms (compile: 1981µs, render: 55ms)
+ GET /generator 200 in 72ms (compile: 2ms, render: 70ms)
+ GET / 200 in 74ms (compile: 2ms, render: 72ms)
+ GET /generator 200 in 75ms (compile: 1947µs, render: 73ms)
+ GET / 200 in 75ms (compile: 2ms, render: 72ms)
+ GET /generator 200 in 87ms (compile: 15ms, render: 71ms)
+ GET / 200 in 59ms (compile: 2ms, render: 57ms)
+ GET /generator 200 in 63ms (compile: 3ms, render: 60ms)
+ GET / 200 in 90ms (compile: 3ms, render: 88ms)
+ GET /generator 200 in 93ms (compile: 3ms, render: 90ms)
+ GET / 200 in 80ms (compile: 4ms, render: 76ms)
+ GET /generator 200 in 78ms (compile: 3ms, render: 75ms)
+ GET / 200 in 74ms (compile: 13ms, render: 61ms)
+ GET / 200 in 60ms (compile: 3ms, render: 57ms)
+ GET / 200 in 59ms (compile: 4ms, render: 55ms)
+ GET / 200 in 44ms (compile: 3ms, render: 41ms)
+ GET / 200 in 44ms (compile: 2ms, render: 41ms)
+ GET / 200 in 54ms (compile: 2ms, render: 52ms)
+ GET / 200 in 54ms (compile: 2ms, render: 52ms)
+ GET / 200 in 41ms (compile: 3ms, render: 39ms)
+ GET / 200 in 43ms (compile: 2ms, render: 41ms)
+ GET / 200 in 44ms (compile: 1916µs, render: 42ms)
+ GET / 200 in 45ms (compile: 2ms, render: 42ms)
+ GET / 200 in 79ms (compile: 3ms, render: 76ms)
+ GET / 200 in 91ms (compile: 3ms, render: 89ms)
+ GET / 200 in 81ms (compile: 3ms, render: 77ms)
+ GET / 200 in 69ms (compile: 3ms, render: 66ms)
+ GET / 200 in 67ms (compile: 4ms, render: 63ms)
+ GET / 200 in 58ms (compile: 5ms, render: 53ms)
+ GET / 200 in 54ms (compile: 3ms, render: 51ms)
+ GET / 200 in 32ms (compile: 3ms, render: 29ms)
+ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+ GET / 200 in 24ms (compile: 2ms, render: 22ms)
+ GET / 200 in 13ms (compile: 1939µs, render: 11ms)
+ GET / 200 in 36ms (compile: 2ms, render: 34ms)
+ GET / 200 in 37ms (compile: 1921µs, render: 35ms)
+ GET / 200 in 39ms (compile: 1928µs, render: 37ms)
+ GET / 200 in 27ms (compile: 1924µs, render: 26ms)
+ GET / 200 in 15ms (compile: 1964µs, render: 13ms)
+ GET / 200 in 38ms (compile: 2ms, render: 36ms)
+ GET / 200 in 38ms (compile: 2ms, render: 36ms)
+ GET / 200 in 39ms (compile: 1808µs, render: 37ms)
+ GET / 200 in 27ms (compile: 2ms, render: 25ms)
+ GET / 200 in 15ms (compile: 2ms, render: 13ms)
+ GET / 200 in 381ms (compile: 10ms, render: 371ms)
+⨯ ./src/components/Hero.tsx:6:1
+Module not found: Can't resolve 'gsap'
+[0m [90m 4 |[39m [36mimport[39m [33mImage[39m [36mfrom[39m [32m"next/image"[39m
+ [90m 5 |[39m [36mimport[39m { useRef[33m,[39m useState[33m,[39m useEffect } [36mfrom[39m [32m"react"[39m
+[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { gsap } [36mfrom[39m [32m"gsap"[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 7 |[39m [36mimport[39m { [33mPlus[39m } [36mfrom[39m [32m"lucide-react"[39m
+ [90m 8 |[39m
+ [90m 9 |[39m [36mexport[39m [36mfunction[39m [33mHero[39m() {[0m
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/components/Hero.tsx [Client Component Browser]
+    ./src/components/ModernHomePage.tsx [Client Component Browser]
+    ./src/components/ModernHomePage.tsx [Server Component]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/Hero.tsx [Client Component SSR]
+    ./src/components/ModernHomePage.tsx [Client Component SSR]
+    ./src/components/ModernHomePage.tsx [Server Component]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./src/components/Hero.tsx:6:1
+Module not found: Can't resolve 'gsap'
+[0m [90m 4 |[39m [36mimport[39m [33mImage[39m [36mfrom[39m [32m"next/image"[39m
+ [90m 5 |[39m [36mimport[39m { useRef[33m,[39m useState[33m,[39m useEffect } [36mfrom[39m [32m"react"[39m
+[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { gsap } [36mfrom[39m [32m"gsap"[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 7 |[39m [36mimport[39m { [33mPlus[39m } [36mfrom[39m [32m"lucide-react"[39m
+ [90m 8 |[39m
+ [90m 9 |[39m [36mexport[39m [36mfunction[39m [33mHero[39m() {[0m
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/components/Hero.tsx [Client Component Browser]
+    ./src/components/ModernHomePage.tsx [Client Component Browser]
+    ./src/components/ModernHomePage.tsx [Server Component]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/Hero.tsx [Client Component SSR]
+    ./src/components/ModernHomePage.tsx [Client Component SSR]
+    ./src/components/ModernHomePage.tsx [Server Component]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./src/components/Hero.tsx:6:1
+Module not found: Can't resolve 'gsap'
+[0m [90m 4 |[39m [36mimport[39m [33mImage[39m [36mfrom[39m [32m"next/image"[39m
+ [90m 5 |[39m [36mimport[39m { useRef[33m,[39m useState[33m,[39m useEffect } [36mfrom[39m [32m"react"[39m
+[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { gsap } [36mfrom[39m [32m"gsap"[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 7 |[39m [36mimport[39m { [33mPlus[39m } [36mfrom[39m [32m"lucide-react"[39m
+ [90m 8 |[39m
+ [90m 9 |[39m [36mexport[39m [36mfunction[39m [33mHero[39m() {[0m
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/components/Hero.tsx [Client Component Browser]
+    ./src/components/ModernHomePage.tsx [Client Component Browser]
+    ./src/components/ModernHomePage.tsx [Server Component]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/Hero.tsx [Client Component SSR]
+    ./src/components/ModernHomePage.tsx [Client Component SSR]
+    ./src/components/ModernHomePage.tsx [Server Component]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./src/components/Hero.tsx:6:1
+Module not found: Can't resolve 'gsap'
+[0m [90m 4 |[39m [36mimport[39m [33mImage[39m [36mfrom[39m [32m"next/image"[39m
+ [90m 5 |[39m [36mimport[39m { useRef[33m,[39m useState[33m,[39m useEffect } [36mfrom[39m [32m"react"[39m
+[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { gsap } [36mfrom[39m [32m"gsap"[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 7 |[39m [36mimport[39m { [33mPlus[39m } [36mfrom[39m [32m"lucide-react"[39m
+ [90m 8 |[39m
+ [90m 9 |[39m [36mexport[39m [36mfunction[39m [33mHero[39m() {[0m
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/components/Hero.tsx [Client Component Browser]
+    ./src/components/ModernHomePage.tsx [Client Component Browser]
+    ./src/components/ModernHomePage.tsx [Server Component]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/Hero.tsx [Client Component SSR]
+    ./src/components/ModernHomePage.tsx [Client Component SSR]
+    ./src/components/ModernHomePage.tsx [Server Component]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+✓ Compiled in 175ms

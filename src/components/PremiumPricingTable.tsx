@@ -39,7 +39,7 @@ export default function PremiumPricingTable() {
                 'Custom branding',
             ],
             cta: 'Start Free Trial',
-            link: '/signup?plan=pro',
+            link: `/signup?plan=pro${billingCycle === 'annual' ? '&billing=annual' : ''}`,
             popular: true,
             icon: Zap,
         },
@@ -107,8 +107,8 @@ export default function PremiumPricingTable() {
                         <button
                             onClick={() => setBillingCycle('monthly')}
                             className={`px-6 py-2 rounded-lg font-medium transition-all ${billingCycle === 'monthly'
-                                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
-                                    : 'text-purple-300 hover:text-white'
+                                ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
+                                : 'text-purple-300 hover:text-white'
                                 }`}
                         >
                             Monthly
@@ -116,8 +116,8 @@ export default function PremiumPricingTable() {
                         <button
                             onClick={() => setBillingCycle('annual')}
                             className={`px-6 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${billingCycle === 'annual'
-                                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
-                                    : 'text-purple-300 hover:text-white'
+                                ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
+                                : 'text-purple-300 hover:text-white'
                                 }`}
                         >
                             Annual
@@ -145,8 +145,8 @@ export default function PremiumPricingTable() {
                             )}
 
                             <div className={`relative h-full p-8 rounded-2xl backdrop-blur-xl border-2 transition-all ${plan.popular
-                                    ? 'bg-purple-500/10 border-purple-500/50 shadow-2xl shadow-purple-500/20'
-                                    : 'bg-black/40 border-purple-500/20 hover:border-purple-500/40'
+                                ? 'bg-purple-500/10 border-purple-500/50 shadow-2xl shadow-purple-500/20'
+                                : 'bg-black/40 border-purple-500/20 hover:border-purple-500/40'
                                 }`}>
                                 {/* Icon */}
                                 <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${plan.popular ? 'from-purple-500 to-pink-500' : 'from-purple-500/20 to-pink-500/20'
@@ -197,8 +197,8 @@ export default function PremiumPricingTable() {
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.95 }}
                                         className={`w-full py-4 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 ${plan.popular
-                                                ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/50'
-                                                : 'bg-white/10 hover:bg-white/20 text-white border border-white/20'
+                                            ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/50'
+                                            : 'bg-white/10 hover:bg-white/20 text-white border border-white/20'
                                             }`}
                                     >
                                         {plan.cta}

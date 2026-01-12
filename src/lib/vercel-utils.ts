@@ -37,29 +37,29 @@ export const OG_PRESETS = {
     mobileCounty: generateOGImageUrl({
         school: 'Mobile County Schools',
         plan: 'Professional',
-        price: '$79',
+        price: '$39.99',
     }),
     iepArchitect: generateOGImageUrl({
         generator: 'IEP Architect',
         plan: 'Professional',
-        price: '$79',
+        price: '$39.99',
     }),
     lessonPlanner: generateOGImageUrl({
         generator: 'Lesson Plan Generator',
         plan: 'Professional',
-        price: '$79',
+        price: '$39.99',
     }),
     basicTier: generateOGImageUrl({
-        plan: 'Basic',
-        price: '$29',
+        plan: 'Free',
+        price: '$0',
     }),
     professionalTier: generateOGImageUrl({
         plan: 'Professional',
-        price: '$79',
+        price: '$39.99',
     }),
     enterpriseTier: generateOGImageUrl({
         plan: 'Enterprise',
-        price: '$199',
+        price: 'Custom',
     }),
 };
 

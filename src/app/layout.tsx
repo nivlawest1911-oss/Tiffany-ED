@@ -1,14 +1,21 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Inter } from "next/font/google"
+import { Space_Grotesk } from "next/font/google"
+import { Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import CommandPalette from "@/components/CommandPalette"
+import { AuthProvider } from "@/context/AuthContext"
 import "./globals.css"
 
-const _inter = Inter({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-space-grotesk",
+})
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
 })
 
 export const metadata: Metadata = {
@@ -70,10 +77,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`font-sans antialiased`}>
-        {children}
-        <CommandPalette />
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${spaceGrotesk.variable} ${geistMono.variable} font-sans antialiased`} suppressHydrationWarning>
+        <AuthProvider>
+          {children}
+          <CommandPalette />
+        </AuthProvider>
         <Analytics />
         <SpeedInsights />
       </body>

@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
 
     const schoolName = searchParams.get('school') || 'Your School';
     const plan = searchParams.get('plan') || 'Professional';
-    const price = searchParams.get('price') || '$79';
+    const price = searchParams.get('price') || '$39.99';
     const generator = searchParams.get('generator') || '';
 
     return new ImageResponse(

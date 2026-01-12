@@ -5,20 +5,28 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Lock, Mail, ArrowRight, ShieldCheck, Chrome } from 'lucide-react';
 
+import { useAuth } from '@/context/AuthContext';
+
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const router = useRouter();
+  const { login } = useAuth();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoggingIn(true);
-    // FREE TIER SIMULATION
-    setTimeout(() => {
-      router.push('/');
-    }, 800);
+    setError('');
+
+    try {
+      await login('/api/auth/login', { email, password });
+    } catch (err: any) {
+      console.error(err);
+      setError(err.message || 'Authentication failed');
+      setIsLoggingIn(false);
+    }
   };
 
   const handleGoogleLogin = async () => {

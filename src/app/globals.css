@@ -1,8 +1,16 @@
-@tailwind base;
+@import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
-@tailwind components;
-@tailwind utilities;
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+}
 
 :root {
   /* Enhanced African American Aesthetic - Kente-inspired palette */
@@ -34,14 +42,7 @@
   --ring: oklch(0.708 0 0);
 }
 
-h1,
-h2,
-h3 {
-  font-family: 'Abril Fatface', serif;
-}
-
 body {
-  font-family: 'Be Vietnam Pro', sans-serif;
   background-color: #0a0a0f;
   color: white;
 }
@@ -235,15 +236,7 @@ body {
   min-height: 44px;
 }
 
-@theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
-}
+
 
 @layer base {
   * {

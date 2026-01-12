@@ -10,7 +10,7 @@ const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENAI_API_KEY || '');
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    console.log('--- STARTING IEP GENERATOR (FREE TIER) ---');
+    // console.log('--- STARTING IEP GENERATOR (FREE TIER) ---');
 
     // Robust Fallback if Key is Missing
     if (!process.env.GOOGLE_GENAI_API_KEY) {
@@ -26,7 +26,7 @@ export async function POST(req: Request) {
     const result = await model.generateContent(prompt);
     const text = result.response.text();
 
-    console.log('--- GENERATION SUCCESS ---');
+    // console.log('--- GENERATION SUCCESS ---');
     return NextResponse.json({ output: text });
   } catch (error: any) {
     console.error('!!! AI GENERATION ERROR !!!', error);

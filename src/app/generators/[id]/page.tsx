@@ -8,19 +8,22 @@ export async function generateStaticParams() {
     }));
 }
 
-export default function GeneratorPage({ params }: { params: { id: string } }) {
-    const generator = generators.find((g) => g.id === params.id);
+export default async function GeneratorPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
+    const generator = generators.find((g) => g.id === id);
 
     if (!generator) {
         notFound();
     }
+
+    const Icon = generator.icon;
 
     return (
         <EnhancedGenerator
             generatorId={generator.id}
             generatorName={generator.name}
             generatorColor={generator.color}
-            generatorIcon={generator.icon}
+            iconNode={<Icon size={32} className="text-white" />}
             prompts={generator.prompts}
         />
     );

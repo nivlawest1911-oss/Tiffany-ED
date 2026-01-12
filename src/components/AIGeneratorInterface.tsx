@@ -1,6 +1,6 @@
 'use client';
 
-import { useChat } from 'ai/react';
+import { useChat } from '@ai-sdk/react';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
@@ -24,7 +24,9 @@ export default function RealAIGenerator() {
     const [specialNeeds, setSpecialNeeds] = useState<string[]>([]);
     const [provider, setProvider] = useState('google');
 
-    const { messages, input, handleInputChange, handleSubmit, isLoading, error } = useChat({
+    const [manualInput, setManualInput] = useState('');
+
+    const { messages, append, isLoading, error } = useChat({
         api: '/api/iep-stream',
         body: {
             gradeLevel,
@@ -33,6 +35,23 @@ export default function RealAIGenerator() {
             provider,
         },
     });
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+        setManualInput(e.target.value);
+    };
+
+    const handleSubmit = async (e?: React.FormEvent) => {
+        e?.preventDefault();
+        if (!manualInput.trim()) return;
+
+        const userMessage = manualInput;
+        setManualInput('');
+
+        await append({
+            role: 'user',
+            content: userMessage,
+        });
+    };
 
     const quickPrompts = [
         'Generate annual IEP goals for reading comprehension',
@@ -317,7 +336,7 @@ export default function RealAIGenerator() {
                     <form onSubmit={handleSubmit} className="p-6 border-t border-purple-500/20 bg-black/20 backdrop-blur-xl">
                         <div className="flex gap-3">
                             <textarea
-                                value={input}
+                                value={manualInput}
                                 onChange={handleInputChange}
                                 placeholder="Describe what you need from IEP Architect..."
                                 className="flex-1 p-4 rounded-xl bg-black/40 border border-purple-500/20 text-white placeholder-purple-400/50 focus:border-purple-500/40 outline-none resize-none"
@@ -327,7 +346,7 @@ export default function RealAIGenerator() {
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                                 type="submit"
-                                disabled={!input.trim() || isLoading}
+                                disabled={!manualInput.trim() || isLoading}
                                 className="px-6 py-4 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shadow-lg shadow-purple-500/50"
                             >
                                 {isLoading ? (

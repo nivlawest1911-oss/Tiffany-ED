@@ -9,73 +9,40 @@ import {
     Rocket, Search, Filter, ArrowRight, CheckCircle
 } from 'lucide-react';
 import Link from 'next/link';
+import SpotlightCard from './SpotlightCard';
 
-const allTools = [
-    // IEP & Special Ed
-    { id: 'iep-architect', name: 'IEP Architect', description: 'Generate compliant IEP drafts with SMART goals', icon: Sparkles, category: 'iep', color: 'from-purple-500 to-pink-500', link: '/enhanced-test' },
-    { id: 'behavior-coach', name: 'Behavior Coach', description: 'Positive behavior intervention strategies and PBIS support', icon: Heart, category: 'iep', color: 'from-orange-500 to-red-500', link: '/generators/behavior-coach' },
-    { id: 'dyslexia-resource', name: 'Dyslexia Resource Gen', description: 'Specialized interventions and fonts for reading support', icon: BookOpen, category: 'iep', color: 'from-blue-500 to-cyan-500', link: '/generators/dyslexia' },
-    { id: 'cognitive-coach', name: 'Cognitive Coach', description: 'Executive function strategies', icon: Brain, category: 'iep', color: 'from-green-500 to-emerald-500', link: '/generators/cognitive' },
+import { generators } from '@/data/generators';
 
-    // Lesson Planning
-    { id: 'lesson-planner', name: 'Lesson Planner', description: 'Standards-aligned lesson plans in seconds', icon: FileText, category: 'lesson', color: 'from-blue-500 to-cyan-500', link: '/generators/lesson-planner' },
-    { id: 'pbl-architect', name: 'PBL Architect', description: 'Project-based learning design', icon: Rocket, category: 'lesson', color: 'from-purple-500 to-pink-500', link: '/generators/pbl' },
-    { id: 'differentiation', name: 'Differentiation', description: 'Tiered activities for diverse learners', icon: Users, category: 'lesson', color: 'from-green-500 to-emerald-500', link: '/generators/differentiation' },
-    { id: 'assessment-builder', name: 'Assessment Builder', description: 'Create comprehensive assessments', icon: Clipboard, category: 'lesson', color: 'from-orange-500 to-red-500', link: '/generators/assessment' },
-    { id: 'rubric-maker', name: 'Rubric Maker', description: 'Create detailed grading rubrics for any assignment', icon: Target, category: 'lesson', color: 'from-pink-500 to-purple-500', link: '/generators/rubric' },
-    { id: 'study-guide', name: 'Study Guide Maker', description: 'Comprehensive review materials', icon: BookOpen, category: 'lesson', color: 'from-cyan-500 to-blue-500', link: '/generators/study-guide' },
-    { id: 'quiz-gamifier', name: 'Quiz Gamifier', description: 'Turn assessments into engaging games', icon: Trophy, category: 'lesson', color: 'from-purple-500 to-pink-500', link: '/generators/quiz-game' },
-    { id: 'video-lesson', name: 'Video Lesson Planner', description: 'Create engaging video lesson scripts', icon: Video, category: 'lesson', color: 'from-blue-500 to-cyan-500', link: '/generators/video-lesson' },
+// Helper to map icon names (since generators.ts has components) or just use the component directly.
+// The generators.ts already has the icon component.
 
-    // Communication
-    { id: 'email-composer', name: 'Email Composer', description: 'Professional communications for parents and staff', icon: MessageSquare, category: 'communication', color: 'from-green-500 to-emerald-500', link: '/generators/email-composer' },
-    { id: 'recommendation-writer', name: 'Recommendation Writer', description: 'Draft powerful letters of recommendation', icon: Award, category: 'communication', color: 'from-purple-500 to-pink-500', link: '/generators/recommendation' },
-    { id: 'parent-communicator', name: 'Parent Communicator', description: 'Effective parent communication logs', icon: Users, category: 'communication', color: 'from-blue-500 to-cyan-500', link: '/generators/parent-comm' },
-    { id: 'newsletter-wizard', name: 'Newsletter Wizard', description: 'Engaging community updates', icon: Megaphone, category: 'communication', color: 'from-orange-500 to-red-500', link: '/generators/newsletter' },
-    { id: 'comms-director', name: 'Comms Director', description: 'PR and marketing content', icon: Megaphone, category: 'communication', color: 'from-pink-500 to-purple-500', link: '/generators/pr' },
+const allTools = generators.map(gen => ({
+    ...gen,
+    link: `/generators/${gen.id}`,
+    // Map generator IDs to categories for filtering
+    category: getCategory(gen.id)
+}));
 
-    // Behavior & SEL
-    { id: 'conflict-mediator', name: 'Conflict Mediator', description: 'Scripts and strategies for resolving conflicts', icon: Shield, category: 'behavior', color: 'from-red-500 to-orange-500', link: '/generators/conflict' },
-    { id: 'icebreaker-specialist', name: 'Icebreaker Specialist', description: 'Fun activities to build classroom community', icon: Heart, category: 'behavior', color: 'from-pink-500 to-purple-500', link: '/generators/icebreaker' },
-    { id: 'student-goal-setter', name: 'Student Goal Setter', description: 'Help students create SMART goals', icon: Target, category: 'behavior', color: 'from-green-500 to-emerald-500', link: '/generators/student-goals' },
-
-    // Admin & Compliance
-    { id: 'grant-writer', name: 'Grant Writer Studio', description: 'Secure funding with compelling proposals', icon: Zap, category: 'admin', color: 'from-purple-500 to-pink-500', link: '/generators/grant-writer' },
-    { id: 'policy-advisor', name: 'Policy Advisor', description: 'Navigate regulations and compliance', icon: Shield, category: 'admin', color: 'from-blue-500 to-cyan-500', link: '/generators/policy' },
-    { id: 'grant-auditor', name: 'Grant Auditor', description: 'Check spending against grant requirements', icon: CheckCircle, category: 'admin', color: 'from-green-500 to-emerald-500', link: '/generators/grant-audit' },
-    { id: 'meeting-prep', name: 'Meeting Prep', description: 'Agendas and talking points', icon: Calendar, category: 'admin', color: 'from-orange-500 to-red-500', link: '/generators/meeting' },
-    { id: 'budget-allocator', name: 'Budget Allocator', description: 'Financial modeling and planning', icon: TrendingUp, category: 'admin', color: 'from-purple-500 to-pink-500', link: '/generators/budget' },
-    { id: 'safety-drill', name: 'Safety Drill Master', description: 'Crisis planning and emergency protocols', icon: Shield, category: 'admin', color: 'from-red-500 to-orange-500', link: '/generators/safety' },
-    { id: 'transport-logistics', name: 'Transport Logistics', description: 'Route efficiency and planning', icon: Calendar, category: 'admin', color: 'from-blue-500 to-cyan-500', link: '/generators/transport' },
-    { id: 'athletic-compliance', name: 'Athletic Compliance', description: 'Track student athlete eligibility', icon: Trophy, category: 'admin', color: 'from-green-500 to-emerald-500', link: '/generators/athletics' },
-    { id: 'schedule-optimizer', name: 'Master Schedule Optimizer', description: 'Analyze and improve class schedules', icon: Calendar, category: 'admin', color: 'from-purple-500 to-pink-500', link: '/generators/schedule' },
-
-    // Teaching & Learning
-    { id: 'field-trip', name: 'Field Trip Architect', description: 'Plan educational excursions with logistics', icon: Calendar, category: 'teaching', color: 'from-cyan-500 to-blue-500', link: '/generators/field-trip' },
-    { id: 'substitute-binder', name: 'Substitute Binder Pro', description: 'Complete day-of substitute packet instantly', icon: Clipboard, category: 'teaching', color: 'from-green-500 to-emerald-500', link: '/generators/sub-binder' },
-    { id: 'idea-generator', name: 'Idea Generator', description: 'Creative solutions for any challenge', icon: Lightbulb, category: 'teaching', color: 'from-orange-500 to-red-500', link: '/generators/ideas' },
-    { id: 'writing-coach', name: 'Writing Coach', description: 'Essay feedback and improvement', icon: FileText, category: 'teaching', color: 'from-purple-500 to-pink-500', link: '/generators/writing' },
-    { id: 'math-tutor', name: 'Math Tutor Pro', description: 'Step-by-step math help', icon: Brain, category: 'teaching', color: 'from-blue-500 to-cyan-500', link: '/generators/math-tutor' },
-    { id: 'science-fair', name: 'Science Fair Mentor', description: 'Project ideas and guidance', icon: Sparkles, category: 'teaching', color: 'from-green-500 to-emerald-500', link: '/generators/science-fair' },
-    { id: 'college-essay', name: 'College Essay Coach', description: 'Ivy League-level essay feedback', icon: GraduationCap, category: 'teaching', color: 'from-purple-500 to-pink-500', link: '/generators/college-essay' },
-    { id: 'debate-prep', name: 'Debate Prep', description: 'Argument building and rebuttals', icon: MessageSquare, category: 'teaching', color: 'from-orange-500 to-red-500', link: '/generators/debate' },
-
-    // Tech & Data
-    { id: 'code-commander', name: 'Code Commander', description: 'Learn coding concepts', icon: Code, category: 'tech', color: 'from-purple-500 to-pink-500', link: '/generators/code' },
-    { id: 'data-detective', name: 'Data Detective', description: 'Data visualization and analysis', icon: BarChart3, category: 'tech', color: 'from-blue-500 to-cyan-500', link: '/generators/data-viz' },
-    { id: 'data-analyzer', name: 'Data Analyzer', description: 'Interpret student data', icon: BarChart3, category: 'tech', color: 'from-green-500 to-emerald-500', link: '/generators/data-analysis' },
-    { id: 'design-studio', name: 'Design Studio', description: 'Creative layout and graphics', icon: Palette, category: 'tech', color: 'from-pink-500 to-purple-500', link: '/generators/design' },
-];
+function getCategory(id: string) {
+    if (id.includes('iep') || id.includes('behavior') || id.includes('dyslexia') || id.includes('cognitive')) return 'iep';
+    if (id.includes('lesson') || id.includes('pbl') || id.includes('differentiation') || id.includes('assessment') || id.includes('rubric') || id.includes('study') || id.includes('quiz') || id.includes('video')) return 'lesson';
+    if (id.includes('email') || id.includes('recommendation') || id.includes('communicator') || id.includes('newsletter') || id.includes('comms')) return 'communication';
+    if (id.includes('conflict') || id.includes('icebreaker') || id.includes('goal')) return 'behavior';
+    if (id.includes('grant') || id.includes('policy') || id.includes('audit') || id.includes('meeting') || id.includes('budget') || id.includes('safety') || id.includes('transport') || id.includes('athletic') || id.includes('schedule')) return 'admin';
+    if (id.includes('field') || id.includes('substitute') || id.includes('idea') || id.includes('writing') || id.includes('math') || id.includes('science') || id.includes('college') || id.includes('debate')) return 'teaching';
+    if (id.includes('code') || id.includes('data') || id.includes('design')) return 'tech';
+    return 'other';
+}
 
 const categories = [
-    { id: 'all', name: 'All Tools', count: 41 },
-    { id: 'iep', name: 'IEP & Special Ed', count: 4 },
-    { id: 'lesson', name: 'Lesson Planning', count: 8 },
-    { id: 'communication', name: 'Communication', count: 5 },
-    { id: 'behavior', name: 'Behavior & SEL', count: 3 },
-    { id: 'admin', name: 'Admin & Compliance', count: 9 },
-    { id: 'teaching', name: 'Teaching & Learning', count: 8 },
-    { id: 'tech', name: 'Tech & Data', count: 4 },
+    { id: 'all', name: 'All Tools', count: allTools.length },
+    { id: 'iep', name: 'IEP & Special Ed', count: allTools.filter(t => t.category === 'iep').length },
+    { id: 'lesson', name: 'Lesson Planning', count: allTools.filter(t => t.category === 'lesson').length },
+    { id: 'communication', name: 'Communication', count: allTools.filter(t => t.category === 'communication').length },
+    { id: 'behavior', name: 'Behavior & SEL', count: allTools.filter(t => t.category === 'behavior').length },
+    { id: 'admin', name: 'Admin & Compliance', count: allTools.filter(t => t.category === 'admin').length },
+    { id: 'teaching', name: 'Teaching & Learning', count: allTools.filter(t => t.category === 'teaching').length },
+    { id: 'tech', name: 'Tech & Data', count: allTools.filter(t => t.category === 'tech').length },
 ];
 
 export default function FeatureShowcaseGrid() {
@@ -158,12 +125,9 @@ export default function FeatureShowcaseGrid() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                     {visibleTools.map((tool, index) => (
                         <Link key={tool.id} href={tool.link}>
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.3 + index * 0.05 }}
-                                whileHover={{ scale: 1.02, y: -4 }}
-                                className="group p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-purple-500/20 hover:border-purple-500/40 transition-all cursor-pointer h-full"
+                            <SpotlightCard
+                                className="h-full p-6 rounded-2xl bg-black/40 backdrop-blur-xl hover:border-purple-500/40 transition-all cursor-pointer"
+                                color="rgba(168, 85, 247, 0.2)"
                             >
                                 <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${tool.color} mb-4 group-hover:scale-110 transition-transform`}>
                                     <tool.icon className="w-6 h-6 text-white" />
@@ -174,7 +138,7 @@ export default function FeatureShowcaseGrid() {
                                     <span className="text-sm font-medium">Try it now</span>
                                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                 </div>
-                            </motion.div>
+                            </SpotlightCard>
                         </Link>
                     ))}
                 </div>
