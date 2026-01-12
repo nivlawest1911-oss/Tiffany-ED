@@ -112,11 +112,20 @@ export default function ContactPage() {
                         transition={{ duration: 0.5, delay: 0.2 }}
                         className="bg-zinc-900/50 backdrop-blur-sm border border-white/10 rounded-3xl p-8 lg:p-10 relative overflow-hidden"
                     >
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 blur-[100px] pointer-events-none" />
+                        <div className="absolute inset-0 z-0 opacity-20">
+                            <img
+                                src="/images/contact_command.png"
+                                alt="Command Center Interface"
+                                className="w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-br from-zinc-900 via-zinc-900/95 to-indigo-950/90" />
+                        </div>
+
+                        {/* Old blur effect removed, replaced with high-tech background */}
 
                         {submitted ? (
-                            <div className="h-full flex flex-col items-center justify-center text-center py-20">
-                                <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mb-6">
+                            <div className="h-full flex flex-col items-center justify-center text-center py-20 relative z-10">
+                                <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mb-6 border border-green-500/20">
                                     <CheckCircle className="w-10 h-10 text-green-500" />
                                 </div>
                                 <h3 className="text-2xl font-bold text-white mb-2">Transmission Received</h3>
@@ -137,7 +146,7 @@ export default function ContactPage() {
                                         required
                                         value={formState.name}
                                         onChange={e => setFormState({ ...formState, name: e.target.value })}
-                                        className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors"
+                                        className="w-full bg-black/50 backdrop-blur-md border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors"
                                         placeholder="Dr. Name"
                                     />
                                 </div>
@@ -148,7 +157,7 @@ export default function ContactPage() {
                                         required
                                         value={formState.email}
                                         onChange={e => setFormState({ ...formState, email: e.target.value })}
-                                        className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors"
+                                        className="w-full bg-black/50 backdrop-blur-md border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors"
                                         placeholder="email@district.edu"
                                     />
                                 </div>
@@ -159,14 +168,14 @@ export default function ContactPage() {
                                         rows={4}
                                         value={formState.message}
                                         onChange={e => setFormState({ ...formState, message: e.target.value })}
-                                        className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors resize-none"
+                                        className="w-full bg-black/50 backdrop-blur-md border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors resize-none"
                                         placeholder="How can we advance your sovereignty?"
                                     />
                                 </div>
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-indigo-500/25 transition-all disabled:opacity-50"
+                                    className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-indigo-500/25 transition-all disabled:opacity-50 border border-white/10"
                                 >
                                     {isSubmitting ? 'Transmitting...' : 'Initialize Uplink'}
                                     <Send size={18} />
@@ -176,6 +185,36 @@ export default function ContactPage() {
                     </motion.div>
                 </div>
             </div>
+
+            {/* New Community Section */}
+            <section className="relative py-24 bg-zinc-950 overflow-hidden border-t border-white/5">
+                <div className="absolute inset-0 z-0">
+                    <img
+                        src="/images/community_connection.png"
+                        alt="Diverse educators connecting"
+                        className="w-full h-full object-cover opacity-10"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/80 to-transparent" />
+                </div>
+
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                    <h2 className="text-3xl sm:text-4xl font-black text-white mb-6">
+                        Join the Sovereign Community
+                    </h2>
+                    <p className="text-xl text-zinc-400 max-w-2xl mx-auto mb-8">
+                        Connect with other forward-thinking educators who are reclaiming their time and expertise with EdIntel.
+                    </p>
+                    <div className="flex justify-center gap-4">
+                        <button className="px-8 py-3 rounded-xl bg-indigo-600/20 text-indigo-300 border border-indigo-500/30 hover:bg-indigo-600/30 transition-all font-semibold backdrop-blur-sm">
+                            Join Discord
+                        </button>
+                        <button className="px-8 py-3 rounded-xl bg-white/5 text-white border border-white/10 hover:bg-white/10 transition-all font-semibold backdrop-blur-sm">
+                            Newsletter
+                        </button>
+                    </div>
+                </div>
+            </section>
+
             <Footer />
         </main>
     );
