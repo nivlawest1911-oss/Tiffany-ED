@@ -1563,3 +1563,24 @@ Error: Route "/generators/[id]" used `params.id`. `params` is a Promise and must
  GET /contact 200 in 27ms (compile: 4ms, render: 23ms)
  GET /about 200 in 1008ms (compile: 974ms, render: 34ms)
 ✓ Compiled in 301ms
+ GET /contact 200 in 24ms (compile: 4ms, render: 20ms)
+ GET /contact 200 in 25ms (compile: 4ms, render: 21ms)
+ GET /contact 200 in 38ms (compile: 5ms, render: 33ms)
+ GET /contact 200 in 37ms (compile: 3ms, render: 33ms)
+ GET / 200 in 37ms (compile: 7ms, render: 29ms)
+ GET /videos/how-it-works/step-1-choose-tool.mp4 404 in 321ms (compile: 32ms, render: 290ms)
+ GET /videos/how-it-works/step-2-enter-details.mp4 404 in 323ms (compile: 94ms, render: 229ms)
+ GET /videos/how-it-works/step-3-download-result.mp4 404 in 336ms (compile: 151ms, render: 185ms)
+ GET /videos/testimonials/educator-1.mp4 404 in 373ms (compile: 24ms, render: 348ms)
+ GET /videos/testimonials/educator-3.mp4 404 in 367ms (compile: 159ms, render: 208ms)
+ GET /videos/testimonials/educator-2.mp4 404 in 372ms (compile: 102ms, render: 270ms)
+ GET /about 200 in 172ms (compile: 110ms, render: 62ms)
+ GET /privacy 200 in 917ms (compile: 875ms, render: 42ms)
+ GET /terms 200 in 872ms (compile: 839ms, render: 34ms)
+✓ Compiled in 266ms
+⚠ Fast Refresh had to perform a full reload when ./src/app/terms/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+⚠ Fast Refresh had to perform a full reload when ./src/app/terms/page.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+✓ Compiled in 283ms
+ GET /terms 200 in 187ms (compile: 48ms, render: 139ms)
+ GET /terms 200 in 48ms (compile: 2ms, render: 46ms)
+ GET /api/auth/me 200 in 20ms (compile: 1869µs, render: 18ms)

@@ -1,60 +1,124 @@
 'use client';
 
-import { FileText, Gavel, Scale } from 'lucide-react';
+import { Scale, AlertCircle, Gavel, Check, ScrollText } from 'lucide-react';
 import FloatingNavbar from '@/components/FloatingNavbar';
 import Footer from '@/components/Footer';
+import { motion } from 'framer-motion';
 
-export default function TermsOfServicePage() {
+export default function TermsPage() {
     return (
-        <main className="min-h-screen bg-zinc-50 dark:bg-black transition-colors duration-500">
+        <main className="min-h-screen bg-black text-white selection:bg-indigo-500/30">
             <FloatingNavbar />
 
-            <div className="pt-32 pb-20 px-6 max-w-4xl mx-auto">
-                <div className="flex items-center gap-3 mb-6 text-indigo-500">
-                    <Gavel size={32} />
-                    <span className="text-sm font-bold uppercase tracking-widest">Legal Framework</span>
-                </div>
+            {/* Header */}
+            <div className="pt-32 pb-16 px-6 relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-[500px] bg-purple-900/10 blur-[120px] pointer-events-none" />
 
-                <h1 className="text-4xl md:text-5xl font-black text-zinc-900 dark:text-white mb-2">Terms of Service</h1>
-                <p className="text-zinc-500 mb-12">Effective Date: {new Date().toLocaleDateString()}</p>
+                <div className="max-w-4xl mx-auto text-center relative z-10">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-black uppercase tracking-widest mb-6"
+                    >
+                        <Scale size={12} />
+                        <span>Service Agreement</span>
+                    </motion.div>
 
-                <div className="prose prose-zinc dark:prose-invert max-w-none">
-                    <h3>1. Acceptance of Protocol</h3>
-                    <p>
-                        By initializing a node (creating an account) on EdIntel Sovereign, you agree to these legal terms. If you do not agree, you must terminate your session immediately.
-                    </p>
+                    <motion.h1
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.1 }}
+                        className="text-5xl md:text-7xl font-black mb-6 tracking-tight"
+                    >
+                        Terms of Service
+                    </motion.h1>
 
-                    <h3>2. Usage License</h3>
-                    <p>
-                        EdIntel grants you a limited, non-exclusive, non-transferable license to use our cognitive automation tools for professional educational purposes. This license is revoked immediately upon non-payment or violation of these terms.
-                    </p>
-
-                    <h3>3. AI Output Disclaimer</h3>
-                    <p>
-                        EdIntel uses advanced artificial intelligence to generate content. While we strive for accuracy, AI can hallucinate. <strong>You, the human expert, remain the sovereign authority.</strong> You are responsible for reviewing and validating all outputs (IEPs, lesson plans, emails) before official use. EdIntel accepts no liability for unreviewed AI outputs.
-                    </p>
-
-                    <h3>4. Subscription & Billing</h3>
-                    <p>
-                        Subscriptions renew automatically. You may cancel at any time via your dashboard. Refunds are processed according to our Fair Use Policy (typically pro-rated for unused time upon request within 7 days).
-                    </p>
-
-                    <h3>5. Prohibited Conduct</h3>
-                    <p>
-                        You may not:
-                    </p>
-                    <ul>
-                        <li>Reverse engineer our source code</li>
-                        <li>Use our platform to generate illegal or harmful content</li>
-                        <li>Share your account credentials (one license per human)</li>
-                    </ul>
-
-                    <h3>6. Termination</h3>
-                    <p>
-                        We reserve the right to terminate access for users who violate these terms or abuse the API limits.
-                    </p>
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed"
+                    >
+                        The conditions governing the use of the EdIntel Sovereign platform and the deployment of its capabilities.
+                    </motion.p>
                 </div>
             </div>
+
+            {/* Content Container */}
+            <section className="px-6 pb-24 max-w-4xl mx-auto">
+                <div className="p-8 md:p-12 rounded-3xl bg-zinc-950 border border-white/5 prose prose-invert prose-zinc max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-purple-400 hover:prose-a:text-purple-300">
+
+                    <div className="flex items-center gap-4 p-4 rounded-xl bg-purple-500/10 border border-purple-500/20 not-prose mb-12">
+                        <AlertCircle className="w-6 h-6 text-purple-400 flex-shrink-0" />
+                        <p className="text-sm text-purple-200 m-0">
+                            By accessing or using EdIntel Sovereign, you agree to be bound by these Terms. If you disagree with any part of the terms, you must not use the Service.
+                        </p>
+                    </div>
+
+                    <h2>1. Use of Service</h2>
+                    <p>
+                        EdIntel Sovereign grants you a limited, non-exclusive, non-transferable, and revocable license to use the Service strictly in accordance with these Terms.
+                    </p>
+                    <ul>
+                        <li>You must be a verified educator or administrator to access certain features.</li>
+                        <li>You agree not to use the Service for any illegal or unauthorized purpose.</li>
+                        <li>You must not attempt to reverse engineer or disrupt the integrity of our sovereign nodes.</li>
+                    </ul>
+
+                    <h2>2. Intellectual Property Rights</h2>
+                    <p>
+                        <strong>Your Content:</strong> You retain full ownership of all data, text, and files you upload or generate using the Service ("User Content"). We claim no intellectual property rights over the material you provide to the Service.
+                    </p>
+                    <p>
+                        <strong>Our Content:</strong> The Service itself, including its original content, features, and functionality (but excluding User Content), is and will remain the exclusive property of EdIntel Sovereign and its licensors.
+                    </p>
+
+                    <h2>3. FERPA Compliance & Education Records</h2>
+                    <p>
+                        We acknowledge that User Content may include personally identifiable information from education records that are subject to FERPA. We agree to be considered a "School Official" with a legitimate educational interest in such records, as defined under FERPA.
+                    </p>
+                    <ul className="not-prose grid gap-2 my-6">
+                        <li className="flex items-start gap-3 text-zinc-400 text-sm">
+                            <Check className="w-4 h-4 text-green-500 mt-1" />
+                            <span>We will not disclose any education records to third parties except as required by law.</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-zinc-400 text-sm">
+                            <Check className="w-4 h-4 text-green-500 mt-1" />
+                            <span>We maintain a comprehensive security program reasonably designed to protect the security, privacy, confidentiality, and integrity of student personal information.</span>
+                        </li>
+                    </ul>
+
+                    <h2>4. Limitation of Liability</h2>
+                    <p>
+                        In no event shall EdIntel Sovereign, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your access to or use of or inability to access or use the Service.
+                    </p>
+
+                    <h2>5. Termination</h2>
+                    <p>
+                        We may terminate or suspend your account immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms. Upon termination, your right to use the Service will immediately cease.
+                    </p>
+
+                    <h2>6. Governing Law</h2>
+                    <p>
+                        These Terms shall be governed and construed in accordance with the laws of Alabama, United States, without regard to its conflict of law provisions.
+                    </p>
+
+                    <hr className="border-white/10 my-12" />
+
+                    <h3>Contact Us</h3>
+                    <p>
+                        If you have any questions about these Terms, please contact us via our secure uplink at:
+                    </p>
+                    <p className="not-prose">
+                        <a href="mailto:dralvinwest@transcendholisticwellness.com" className="inline-flex items-center gap-2 text-purple-400 hover:text-white transition-colors font-medium">
+                            <ScrollText size={16} />
+                            dralvinwest@transcendholisticwellness.com
+                        </a>
+                    </p>
+
+                </div>
+            </section>
+
             <Footer />
         </main>
     );
