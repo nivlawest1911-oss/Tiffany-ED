@@ -1788,3 +1788,6 @@ Error: Route "/generators/[id]" used `params.id`. `params` is a Promise and must
  GET /videos/features/lesson-planner-demo.mp4 404 in 364ms (compile: 74ms, render: 289ms)
  GET /videos/features/data-analysis-demo.mp4 404 in 361ms (compile: 208ms, render: 153ms)
  GET /generators/iep-architect 200 in 473ms (compile: 378ms, generate-params: 30ms, render: 95ms)
+✓ Compiled in 167ms
+✓ Compiled in 116ms
+✓ Compiled in 213ms
