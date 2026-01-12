@@ -3,6 +3,7 @@
 import FloatingNavbar from '@/components/FloatingNavbar';
 import FeatureShowcaseGrid from '@/components/FeatureShowcaseGrid';
 import Footer from '@/components/Footer';
+import FeatureVideos from '@/components/FeatureVideos';
 
 export default function AllToolsPage() {
     return (
@@ -10,6 +11,7 @@ export default function AllToolsPage() {
             <FloatingNavbar />
             <div className="pt-24">
                 <FeatureShowcaseGrid />
+                <FeatureVideos />
             </div>
             <Footer />
         </main>

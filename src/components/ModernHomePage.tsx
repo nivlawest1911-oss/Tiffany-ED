@@ -21,6 +21,8 @@ import { UnusualHero } from './UnusualHero';
 import PremiumPricingTable from './PremiumPricingTable';
 import SpotlightCard from './SpotlightCard';
 import FloatingNavbar from './FloatingNavbar';
+import VideoTestimonials from './VideoTestimonials';
+import HowItWorksVideo from './HowItWorksVideo';
 
 export default function ModernHomePage() {
     const stats = [
@@ -317,55 +319,16 @@ export default function ModernHomePage() {
 
             {/* How It Works Section */}
 
-            {/* How It Works Section */}
-            <section className="relative py-24 bg-zinc-950">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="mb-16"
-                    >
-                        <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-                            How EdIntel Works
-                        </h2>
-                        <p className="text-xl text-zinc-400">
-                            Get started in 3 simple steps
-                        </p>
-                    </motion.div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
-                        {/* Connecting Line (Desktop) */}
-                        <div className="hidden md:block absolute top-12 left-[16%] right-[16%] h-0.5 bg-gradient-to-r from-indigo-500/0 via-indigo-500/20 to-indigo-500/0" />
-
-                        {[
-                            { step: '1', title: 'Choose Your Tool', desc: 'Select from 41 specialized AI assistants' },
-                            { step: '2', title: 'Enter Details', desc: 'Provide context and requirements' },
-                            { step: '3', title: 'Download Result', desc: 'Get professional, compliant documents' }
-                        ].map((item, index) => (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.2 }}
-                                className="relative z-10"
-                            >
-                                <div className="w-24 h-24 mx-auto bg-zinc-900 border border-white/10 rounded-full flex items-center justify-center mb-6 shadow-xl shadow-indigo-500/10 group hover:scale-110 transition-transform duration-300">
-                                    <span className="text-3xl font-bold text-indigo-400 group-hover:text-indigo-300 transition-colors">{item.step}</span>
-                                </div>
-                                <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
-                                <p className="text-zinc-400">{item.desc}</p>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </section>
+            {/* How It Works Section - Replaced with Video Component */}
+            <HowItWorksVideo />
 
             {/* Pricing Section - Integrated Component */}
             <div id="pricing">
                 <PremiumPricingTable />
             </div>
+
+            {/* Video Testimonials Section */}
+            <VideoTestimonials />
 
             {/* Final CTA with Image */}
             <section className="relative py-24 overflow-hidden">
