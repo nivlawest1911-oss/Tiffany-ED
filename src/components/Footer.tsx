@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Shield, Mail, MapPin, Twitter, Facebook, Linkedin, Github, Phone, MessageSquare } from 'lucide-react';
+import { Shield, Mail, MapPin, Twitter, Facebook, Linkedin, Github, Phone, MessageSquare, Video } from 'lucide-react';
 import EdIntelLogo from './EdIntelLogo';
 
 export default function Footer() {
@@ -18,15 +18,24 @@ export default function Footer() {
                             Neural architectures for the modern educator. Empowering sovereignty through superior intelligence and executive automation.
                         </p>
                         <div className="flex gap-4">
-                            <Link href="#" className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-colors">
-                                <Twitter size={18} />
-                            </Link>
-                            <Link href="#" className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-colors">
+                            <a
+                                href="https://www.tiktok.com/@dr.alvin.west.ii"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="p-2 rounded-lg bg-white/5 hover:bg-[#ff0050]/20 text-zinc-400 hover:text-[#ff0050] transition-colors group"
+                                aria-label="Dr. West on TikTok"
+                            >
+                                <Video size={18} />
+                            </a>
+                            <a
+                                href="https://www.facebook.com/profile.php?id=61565451950668"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="p-2 rounded-lg bg-white/5 hover:bg-[#1877F2]/20 text-zinc-400 hover:text-[#1877F2] transition-colors"
+                                aria-label="Transcend Solutions on Facebook"
+                            >
                                 <Facebook size={18} />
-                            </Link>
-                            <Link href="#" className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-colors">
-                                <Linkedin size={18} />
-                            </Link>
+                            </a>
                         </div>
                     </div>
 
