@@ -45,6 +45,36 @@ export default function ContactPage() {
                             Direct channel open to Dr. Alvin West and the EdIntel engineering team.
                         </p>
 
+                        {/* Sovereign Protocol Visualization */}
+                        <div className="mb-12 relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/50 p-6">
+                            <div className="absolute top-0 right-0 p-4 opacity-30">
+                                <img src="/images/protocol_interface.png" alt="Protocol HUD" className="w-32 h-auto" />
+                            </div>
+
+                            <h3 className="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-4 flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                                Secure Transmission Protocol
+                            </h3>
+
+                            <div className="space-y-6 relative z-10">
+                                {[
+                                    { step: '01', title: 'Initialization', desc: 'Secure uplink channel established via encrypted form.', color: 'border-l-indigo-500' },
+                                    { step: '02', title: 'Transmission', desc: 'Message packet routed to Sovereign Command prioritization queue.', color: 'border-l-purple-500' },
+                                    { step: '03', title: 'Deployment', desc: 'Strategic response formulated and deployed within 24 hours.', color: 'border-l-pink-500' }
+                                ].map((phase, idx) => (
+                                    <div key={idx} className={`pl-4 border-l-2 ${phase.color} fade-in-up`} style={{ animationDelay: `${idx * 150}ms` }}>
+                                        <div className="flex items-baseline gap-2 mb-1">
+                                            <span className="text-xs font-mono text-zinc-500">{phase.step}</span>
+                                            <h4 className="text-sm font-bold text-white">{phase.title}</h4>
+                                        </div>
+                                        <p className="text-xs text-zinc-400 leading-relaxed max-w-[90%]">
+                                            {phase.desc}
+                                        </p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
                         <div className="space-y-8">
                             <div className="flex items-start gap-6 group">
                                 <div className="p-4 rounded-2xl bg-zinc-900 border border-white/10 group-hover:border-indigo-500/50 transition-colors">
