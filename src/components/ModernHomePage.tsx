@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { UnusualHero } from './UnusualHero';
+import PremiumPricingTable from './PremiumPricingTable';
 import SpotlightCard from './SpotlightCard';
 import FloatingNavbar from './FloatingNavbar';
 
@@ -259,79 +260,10 @@ export default function ModernHomePage() {
                 </div>
             </section>
 
-            {/* Pricing Section */}
-            <section id="pricing" className="relative py-24 bg-zinc-950/50">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="text-center mb-16"
-                    >
-                        <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-                            Simple, Transparent Pricing
-                        </h2>
-                        <p className="text-xl text-purple-200">
-                            30-day free trial on all plans
-                        </p>
-                    </motion.div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {pricing.map((plan, index) => (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.1 }}
-                                className={`relative p-8 rounded-2xl backdrop-blur-xl border ${plan.popular
-                                    ? 'bg-indigo-900/20 border-indigo-500/50 shadow-xl shadow-indigo-500/20'
-                                    : 'bg-zinc-900/40 border-white/10 hover:border-indigo-500/30 transition-colors'
-                                    }`}
-                            >
-                                {plan.popular && (
-                                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-sm font-semibold shadow-lg shadow-indigo-500/30">
-                                        Most Popular
-                                    </div>
-                                )}
-
-                                <div className="text-center mb-6">
-                                    <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
-                                    <div className="flex items-baseline justify-center gap-1 mb-2">
-                                        <span className="text-4xl font-bold text-white">{plan.price}</span>
-                                        {plan.period !== 'pricing' && (
-                                            <span className="text-purple-300">/{plan.period}</span>
-                                        )}
-                                    </div>
-                                    <p className="text-purple-300 text-sm">{plan.description}</p>
-                                </div>
-
-                                <ul className="space-y-3 mb-8">
-                                    {plan.features.map((feature, i) => (
-                                        <li key={i} className="flex items-start gap-2 text-zinc-300">
-                                            <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                                            <span className="text-sm">{feature}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <Link href={plan.link}>
-                                    <motion.button
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        className={`w-full py-3 rounded-xl font-semibold transition-all ${plan.popular
-                                            ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/40 hover:shadow-indigo-500/60'
-                                            : 'bg-white/5 hover:bg-white/10 text-white border border-white/10 hover:border-white/20'
-                                            }`}
-                                    >
-                                        {plan.cta}
-                                    </motion.button>
-                                </Link>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </section>
+            {/* Pricing Section - Integrated Component */}
+            <div id="pricing">
+                <PremiumPricingTable />
+            </div>
 
             {/* Final CTA */}
             <section className="relative py-24 bg-gradient-to-br from-purple-500/20 to-pink-500/20 border-y border-purple-500/20">
