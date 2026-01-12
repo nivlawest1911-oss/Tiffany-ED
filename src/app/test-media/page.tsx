@@ -1,4 +1,5 @@
 'use client';
+// Deployment: 2026-01-12T01:23:00-06:00
 
 import FloatingNavbar from '@/components/FloatingNavbar';
 import Footer from '@/components/Footer';
