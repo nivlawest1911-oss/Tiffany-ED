@@ -1,20 +1,18 @@
 import Link from 'next/link';
 import { Shield, Mail, MapPin, Twitter, Facebook, Linkedin, Github, Phone, MessageSquare } from 'lucide-react';
+import EdIntelLogo from './EdIntelLogo';
 
 export default function Footer() {
     return (
-        <footer className="bg-zinc-950 border-t border-white/10 pt-16 pb-8 relative overflow-hidden">
+        <footer className="bg-black border-t border-white/10 pt-20 pb-10">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] from-indigo-900/10 via-zinc-950/0 to-zinc-950/0 pointer-events-none" />
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+            <div className="max-w-7xl mx-auto px-6">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
                     {/* Brand Column */}
-                    <div>
-                        <Link href="/" className="inline-flex items-center gap-2 mb-6 group">
-                            <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform">
-                                <Shield className="w-5 h-5 text-white" />
-                            </div>
-                            <span className="text-xl font-bold text-white tracking-tight">EdIntel Sovereign</span>
+                    <div className="col-span-1 md:col-span-2">
+                        <Link href="/" className="inline-block mb-6">
+                            <EdIntelLogo />
                         </Link>
                         <p className="text-zinc-400 text-sm leading-relaxed mb-6">
                             Neural architectures for the modern educator. Empowering sovereignty through superior intelligence and executive automation.

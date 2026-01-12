@@ -1609,3 +1609,163 @@ Error: Route "/generators/[id]" used `params.id`. `params` is a Promise and must
  GET /videos/testimonials/educator-1.mp4 404 in 418ms (compile: 31ms, render: 387ms)
  GET /videos/testimonials/educator-2.mp4 404 in 269ms (compile: 41ms, render: 228ms)
  GET /videos/testimonials/educator-3.mp4 404 in 267ms (compile: 91ms, render: 177ms)
+ GET /about 200 in 35ms (compile: 5ms, render: 30ms)
+✓ Compiled in 257ms
+✓ Compiled in 144ms
+ GET /about 200 in 119ms (compile: 48ms, render: 71ms)
+ GET /about 200 in 91ms (compile: 3ms, render: 88ms)
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+⨯ ReferenceError: EdIntelLogo is not defined
+    at FloatingNavbar (src\components\FloatingNavbar.tsx:51:30)
+  49 |                         {/* Logo */}
+  50 |                         <Link href="/" className="relative z-50">
+> 51 |                             <EdIntelLogo />
+     |                              ^
+  52 |                         </Link>
+  53 |
+  54 |                         {/* Desktop Nav */} {
+  digest: '3444866265'
+}
+ GET /about 200 in 267ms (compile: 2ms, render: 265ms)
+ GET /about 200 in 250ms (compile: 2ms, render: 247ms)
+ GET /about 200 in 232ms (compile: 2ms, render: 230ms)
+ GET /about 200 in 211ms (compile: 2ms, render: 209ms)
+ GET /about 200 in 194ms (compile: 3ms, render: 191ms)
+ GET /about 500 in 167ms (compile: 3ms, render: 164ms)
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+✓ Compiled in 98ms
+ GET /about 200 in 150ms (compile: 50ms, render: 100ms)
+ GET /api/auth/me 200 in 15ms (compile: 2ms, render: 13ms)
+⨯ Error: Attempted to call createMotionComponent() from the server but createMotionComponent is on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.
+    at EdIntelLogo (src\components\EdIntelLogo.tsx:25:33)
+  23 |                     {/* Rotating Ring Pulse */}
+  24 |                     {animated && (
+> 25 |                         <motion.circle
+     |                                 ^
+  26 |                             cx="50" cy="50" r="45"
+  27 |                             stroke="url(#logoGradient)"
+  28 |                             strokeWidth="2" {
+  digest: '658955789'
+}
+✓ Compiled in 544ms
+⨯ Error: Attempted to call createMotionComponent() from the server but createMotionComponent is on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.
+    at EdIntelLogo (src\components\EdIntelLogo.tsx:25:33)
+  23 |                     {/* Rotating Ring Pulse */}
+  24 |                     {animated && (
+> 25 |                         <motion.circle
+     |                                 ^
+  26 |                             cx="50" cy="50" r="45"
+  27 |                             stroke="url(#logoGradient)"
+  28 |                             strokeWidth="2" {
+  digest: '658955789'
+}
+⨯ Error: Attempted to call createMotionComponent() from the server but createMotionComponent is on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.
+    at EdIntelLogo (src\components\EdIntelLogo.tsx:25:33)
+  23 |                     {/* Rotating Ring Pulse */}
+  24 |                     {animated && (
+> 25 |                         <motion.circle
+     |                                 ^
+  26 |                             cx="50" cy="50" r="45"
+  27 |                             stroke="url(#logoGradient)"
+  28 |                             strokeWidth="2" {
+  digest: '658955789'
+}
+⨯ Error: Attempted to call createMotionComponent() from the server but createMotionComponent is on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.
+    at EdIntelLogo (src\components\EdIntelLogo.tsx:25:33)
+  23 |                     {/* Rotating Ring Pulse */}
+  24 |                     {animated && (
+> 25 |                         <motion.circle
+     |                                 ^
+  26 |                             cx="50" cy="50" r="45"
+  27 |                             stroke="url(#logoGradient)"
+  28 |                             strokeWidth="2" {
+  digest: '658955789'
+}
+⨯ Error: Attempted to call createMotionComponent() from the server but createMotionComponent is on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.
+    at EdIntelLogo (src\components\EdIntelLogo.tsx:25:33)
+  23 |                     {/* Rotating Ring Pulse */}
+  24 |                     {animated && (
+> 25 |                         <motion.circle
+     |                                 ^
+  26 |                             cx="50" cy="50" r="45"
+  27 |                             stroke="url(#logoGradient)"
+  28 |                             strokeWidth="2" {
+  digest: '658955789'
+}
+⨯ Error: Attempted to call createMotionComponent() from the server but createMotionComponent is on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.
+    at EdIntelLogo (src\components\EdIntelLogo.tsx:25:33)
+  23 |                     {/* Rotating Ring Pulse */}
+  24 |                     {animated && (
+> 25 |                         <motion.circle
+     |                                 ^
+  26 |                             cx="50" cy="50" r="45"
+  27 |                             stroke="url(#logoGradient)"
+  28 |                             strokeWidth="2" {
+  digest: '658955789'
+}
+ GET /about 200 in 375ms (compile: 137ms, render: 238ms)
+ GET /about 200 in 179ms (compile: 4ms, render: 175ms)
+⨯ Error: Attempted to call createMotionComponent() from the server but createMotionComponent is on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.
+    at EdIntelLogo (src\components\EdIntelLogo.tsx:25:33)
+  23 |                     {/* Rotating Ring Pulse */}
+  24 |                     {animated && (
+> 25 |                         <motion.circle
+     |                                 ^
+  26 |                             cx="50" cy="50" r="45"
+  27 |                             stroke="url(#logoGradient)"
+  28 |                             strokeWidth="2" {
+  digest: '658955789'
+}
+⨯ Error: Attempted to call createMotionComponent() from the server but createMotionComponent is on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.
+    at EdIntelLogo (src\components\EdIntelLogo.tsx:25:33)
+  23 |                     {/* Rotating Ring Pulse */}
+  24 |                     {animated && (
+> 25 |                         <motion.circle
+     |                                 ^
+  26 |                             cx="50" cy="50" r="45"
+  27 |                             stroke="url(#logoGradient)"
+  28 |                             strokeWidth="2" {
+  digest: '658955789'
+}
+ GET /about 200 in 187ms (compile: 4ms, render: 183ms)
+ GET /about 200 in 127ms (compile: 3ms, render: 124ms)
+⨯ Error: Attempted to call createMotionComponent() from the server but createMotionComponent is on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.
+    at EdIntelLogo (src\components\EdIntelLogo.tsx:25:33)
+  23 |                     {/* Rotating Ring Pulse */}
+  24 |                     {animated && (
+> 25 |                         <motion.circle
+     |                                 ^
+  26 |                             cx="50" cy="50" r="45"
+  27 |                             stroke="url(#logoGradient)"
+  28 |                             strokeWidth="2" {
+  digest: '658955789'
+}
+⨯ Error: Attempted to call createMotionComponent() from the server but createMotionComponent is on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.
+    at EdIntelLogo (src\components\EdIntelLogo.tsx:25:33)
+  23 |                     {/* Rotating Ring Pulse */}
+  24 |                     {animated && (
+> 25 |                         <motion.circle
+     |                                 ^
+  26 |                             cx="50" cy="50" r="45"
+  27 |                             stroke="url(#logoGradient)"
+  28 |                             strokeWidth="2" {
+  digest: '658955789'
+}
+ GET /about 200 in 140ms (compile: 3ms, render: 137ms)
+ GET /about 200 in 121ms (compile: 2ms, render: 118ms)
+⨯ Error: Attempted to call createMotionComponent() from the server but createMotionComponent is on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.
+    at EdIntelLogo (src\components\EdIntelLogo.tsx:25:33)
+  23 |                     {/* Rotating Ring Pulse */}
+  24 |                     {animated && (
+> 25 |                         <motion.circle
+     |                                 ^
+  26 |                             cx="50" cy="50" r="45"
+  27 |                             stroke="url(#logoGradient)"
+  28 |                             strokeWidth="2" {
+  digest: '658955789'
+}
+ GET /about 200 in 117ms (compile: 3ms, render: 115ms)
+ GET /about 200 in 91ms (compile: 2ms, render: 89ms)
+ GET /about 200 in 68ms (compile: 2ms, render: 65ms)
+ GET /about 200 in 48ms (compile: 3ms, render: 45ms)
+ GET /about 200 in 25ms (compile: 2ms, render: 23ms)

@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import { useAuth } from '@/context/AuthContext';
+import EdIntelLogo from './EdIntelLogo';
 
 export default function FloatingNavbar() {
     const [scrolled, setScrolled] = useState(false);
@@ -43,16 +44,8 @@ export default function FloatingNavbar() {
                 >
                     <div className="flex items-center justify-between">
                         {/* Logo */}
-                        <Link href="/" className="flex items-center gap-2">
-                            <div className="relative w-8 h-8">
-                                <Image
-                                    src="/webrenew-icon-xl.png"
-                                    alt="EdIntel Logo"
-                                    fill
-                                    className="object-contain"
-                                />
-                            </div>
-                            <span className="text-xl font-bold text-white tracking-tight">EdIntel</span>
+                        <Link href="/" className="relative z-50">
+                            <EdIntelLogo />
                         </Link>
 
                         {/* Desktop Nav */}
