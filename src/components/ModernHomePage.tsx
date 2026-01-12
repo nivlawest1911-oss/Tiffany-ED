@@ -36,42 +36,48 @@ export default function ModernHomePage() {
             title: "IEP Architect",
             description: "Generate legally defensible, data-driven IEP goals and accommodations in minutes not hours.",
             color: "from-violet-500 to-purple-600",
-            link: "/generators/iep-architect"
+            link: "/generators/iep-architect",
+            image: "/images/avatars/iep_architect.png"
         },
         {
             icon: Sparkles,
             title: "Lesson Planner",
             description: "Create differentiated, standards-aligned lesson plans that adapt to every student's needs.",
             color: "from-fuchsia-500 to-pink-600",
-            link: "/generators/lesson-planner"
+            link: "/generators/lesson-planner",
+            image: "/images/avatars/curriculum_strategist.png"
         },
         {
             icon: FileText,
             title: "Grant Writer",
             description: "Draft compelling grant proposals and funding requests with AI-powered persuasive writing.",
             color: "from-blue-500 to-cyan-600",
-            link: "/generators/grant-writer"
+            link: "/generators/grant-writer",
+            image: null
         },
         {
             icon: Users,
             title: "Behavior Plans",
             description: "Develop comprehensive behavior intervention plans based on observation data.",
             color: "from-emerald-500 to-teal-600",
-            link: "/generators/behavior-coach"
+            link: "/generators/behavior-coach",
+            image: "/images/avatars/behavior_specialist.png"
         },
         {
             icon: Zap,
             title: "Communication",
             description: "Draft professional emails, newsletters, and parent communications effortlessly.",
             color: "from-orange-500 to-red-600",
-            link: "/generators/email-composer"
+            link: "/generators/email-composer",
+            image: null
         },
         {
             icon: BarChart3,
             title: "Data Analysis",
             description: "Turn raw assessments and observations into actionable insights and visualizations.",
             color: "from-indigo-500 to-blue-600",
-            link: "/generators/data-analyzer"
+            link: "/generators/data-analyzer",
+            image: "/images/avatars/executive_leader.png"
         }
     ];
 
@@ -182,15 +188,32 @@ export default function ModernHomePage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
                         {features.map((feature, index) => (
                             <Link key={index} href={feature.link} className="block h-full group">
-                                <SpotlightCard className="h-full rounded-2xl p-6 transition-all hover:scale-[1.01]">
-                                    <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${feature.color} mb-4 group-hover:scale-110 transition-transform`}>
-                                        <feature.icon className="w-6 h-6 text-white" />
-                                    </div>
-                                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">{feature.title}</h3>
-                                    <p className="text-zinc-400 leading-relaxed mb-4">{feature.description}</p>
-                                    <div className="flex items-center gap-2 text-purple-400 font-medium mt-auto">
-                                        <span>Try it now</span>
-                                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                <SpotlightCard className="h-full rounded-2xl p-0 overflow-hidden transition-all hover:scale-[1.01] relative border-0">
+                                    {/* Image Background */}
+                                    {feature.image && (
+                                        <>
+                                            <div className="absolute inset-0 z-0">
+                                                <img
+                                                    src={feature.image}
+                                                    alt={feature.title}
+                                                    className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-all duration-500 group-hover:scale-110"
+                                                />
+                                            </div>
+                                            <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/90 to-transparent z-10" />
+                                        </>
+                                    )}
+
+                                    {/* Content Container */}
+                                    <div className="relative z-20 p-6 flex flex-col h-full">
+                                        <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${feature.color} mb-4 w-fit shadow-lg shadow-black/50 group-hover:scale-110 transition-transform`}>
+                                            <feature.icon className="w-6 h-6 text-white" />
+                                        </div>
+                                        <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors drop-shadow-md">{feature.title}</h3>
+                                        <p className="text-zinc-300 leading-relaxed mb-4 drop-shadow-md font-medium">{feature.description}</p>
+                                        <div className="flex items-center gap-2 text-purple-400 font-bold mt-auto drop-shadow-md">
+                                            <span>Try it now</span>
+                                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                        </div>
                                     </div>
                                 </SpotlightCard>
                             </Link>
