@@ -126,14 +126,21 @@ export default function FeatureShowcaseGrid() {
                     {visibleTools.map((tool, index) => (
                         <Link key={tool.id} href={tool.link}>
                             <SpotlightCard
-                                className="h-full p-6 rounded-2xl bg-black/40 backdrop-blur-xl hover:border-purple-500/40 transition-all cursor-pointer"
+                                className="h-full p-6 rounded-2xl bg-black/40 backdrop-blur-xl hover:border-purple-500/40 transition-all cursor-pointer relative group"
                                 color="rgba(168, 85, 247, 0.2)"
                             >
+                                {/* Delegate Avatar Badge */}
+                                {tool.avatar && (
+                                    <div className="absolute top-4 right-4 w-10 h-10 rounded-full overflow-hidden border-2 border-purple-500/30 shadow-lg shadow-purple-500/20 group-hover:scale-110 transition-transform">
+                                        <img src={tool.avatar} alt="Delegate" className="w-full h-full object-cover" />
+                                    </div>
+                                )}
+
                                 <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${tool.color} mb-4 group-hover:scale-110 transition-transform`}>
                                     <tool.icon className="w-6 h-6 text-white" />
                                 </div>
                                 <h3 className="text-xl font-bold text-white mb-2">{tool.name}</h3>
-                                <p className="text-purple-200 mb-4 leading-relaxed">{tool.description}</p>
+                                <p className="text-purple-200 mb-4 leading-relaxed line-clamp-2">{tool.description}</p>
                                 <div className="flex items-center gap-2 text-purple-400 group-hover:text-purple-300 transition-colors">
                                     <span className="text-sm font-medium">Try it now</span>
                                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

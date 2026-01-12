@@ -8,11 +8,11 @@ import {
 
 // Map specific tools to "Delegate" avatars for the human feel
 const AVATARS = {
-    PRINCIPAL: "/avatars/principal.jpg", // Dr. West
-    COUNSELOR: "/avatars/counselor.jpg",
-    CURRICULUM: "/avatars/curriculum.jpg",
-    DATA: "/avatars/data.jpg",
-    COMPLIANCE: "/avatars/compliance.jpg"
+    PRINCIPAL: "/images/avatars/executive_leader.png", // Dr. West
+    COUNSELOR: "/images/avatars/behavior_specialist.png",
+    CURRICULUM: "/images/avatars/curriculum_strategist.png",
+    DATA: "/images/avatars/executive_leader.png",
+    COMPLIANCE: "/images/avatars/iep_architect.png"
 }
 
 export const generators = [
