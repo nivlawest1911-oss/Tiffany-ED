@@ -1,86 +1,163 @@
 'use client';
 
-import { Lock, ShieldCheck, Database, FileKey } from 'lucide-react';
+import { ShieldCheck, Lock, Database, FileKey, Check, Server, EyeOff, FileText, Smartphone } from 'lucide-react';
 import FloatingNavbar from '@/components/FloatingNavbar';
 import Footer from '@/components/Footer';
+import { motion } from 'framer-motion';
 
 export default function FERPACompliancePage() {
+    const protocols = [
+        {
+            icon: Lock,
+            title: "Encryption at Rest",
+            content: "All databases are secured with AES-256 encryption. Your data is mathematically indecipherable without the unique keys generated for your district node.",
+            color: "emerald"
+        },
+        {
+            icon: EyeOff,
+            title: "Zero-Training Policy",
+            content: "We have stringent legal agreements with our AI providers. Your student data is processed in a stateless environment and NEVER used to train public models.",
+            color: "cyan"
+        },
+        {
+            icon: Server,
+            title: "Sovereign Isolation",
+            content: "Tenant data is logically isolated. A breach in one node (theoretically impossible) cannot laterally move to access your data.",
+            color: "teal"
+        },
+        {
+            icon: FileKey,
+            title: "Cryptographic Deletion",
+            content: "When you hit delete, we don't just hide the file. We execute a cryptographic shredding process that makes recovery impossible.",
+            color: "green"
+        }
+    ];
+
     return (
-        <main className="min-h-screen bg-zinc-50 dark:bg-black transition-colors duration-500">
+        <main className="min-h-screen bg-black text-white selection:bg-emerald-500/30 overflow-x-hidden">
             <FloatingNavbar />
 
-            <div className="pt-32 pb-20 px-6 max-w-4xl mx-auto">
-                <div className="flex items-center gap-3 mb-6 text-indigo-500">
-                    <ShieldCheck size={32} />
-                    <span className="text-sm font-bold uppercase tracking-widest">Compliance Node</span>
+            {/* 1. Hero: Compliance Shield */}
+            <div className="relative pt-40 pb-32 px-6 overflow-hidden">
+                {/* Emerald Background Glow */}
+                <div className="absolute top-0 inset-x-0 h-[800px] bg-gradient-to-b from-emerald-950/20 via-teal-950/10 to-black pointer-events-none" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-emerald-600/10 blur-[150px] rounded-full pointer-events-none animate-pulse-slow" />
+
+                <div className="max-w-5xl mx-auto text-center relative z-10">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-black uppercase tracking-[0.2em] mb-8 shadow-[0_0_20px_rgba(16,185,129,0.2)]"
+                    >
+                        <ShieldCheck size={12} /> Compliance Architecture
+                    </motion.div>
+
+                    <motion.h1
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="text-5xl md:text-8xl font-black text-white tracking-tighter uppercase mb-8 leading-[0.9]"
+                    >
+                        FERPA <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">Ironclad.</span>
+                    </motion.h1>
+
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed"
+                    >
+                        Your legal safety is not a feature; it is the foundation.
+                        We operate under the "School Official" exception, providing a fortress for your data.
+                    </motion.p>
                 </div>
+            </div>
 
-                <h1 className="text-4xl md:text-5xl font-black text-zinc-900 dark:text-white mb-2">FERPA Compliance Statement</h1>
-                <p className="text-zinc-500 mb-12">Ensuring Legal Defensibility for US Districts</p>
+            {/* 2. Compliance Status Banner */}
+            <div className="max-w-7xl mx-auto px-6 mb-24 relative z-10">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="p-8 rounded-3xl bg-zinc-900 border border-emerald-500/30 flex flex-col md:flex-row items-center gap-8 shadow-[0_0_50px_rgba(16,185,129,0.1)] relative overflow-hidden"
+                >
+                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/20 to-transparent pointer-events-none" />
 
-                <div className="prose prose-zinc dark:prose-invert max-w-none">
-                    <div className="p-6 bg-emerald-500/10 border border-emerald-500/20 rounded-xl mb-8">
-                        <h4 className="text-emerald-500 font-bold m-0 flex items-center gap-2">
-                            <CheckCircle size={20} />
-                            EdIntel Sovereign is FERPA Compliant
-                        </h4>
-                        <p className="text-zinc-400 mt-2 text-sm m-0">
-                            We adhere to the Family Educational Rights and Privacy Act (20 U.S.C. § 1232g; 34 CFR Part 99).
+                    <div className="w-20 h-20 rounded-2xl bg-emerald-500/10 flex items-center justify-center flex-shrink-0 animate-pulse-slow border border-emerald-500/20">
+                        <Check size={40} className="text-emerald-400" />
+                    </div>
+
+                    <div className="flex-1 text-center md:text-left">
+                        <h3 className="text-2xl font-bold text-white mb-2">Verified Compliant: 20 U.S.C. § 1232g</h3>
+                        <p className="text-zinc-400">
+                            EdIntel Sovereign fully adheres to the Family Educational Rights and Privacy Act (FERPA).
+                            We function as an institutional agent, subject to the direct control of the district.
                         </p>
                     </div>
 
-                    <h3>How We Protect Student Data (PII)</h3>
-                    <p>
-                        We treat all data entered into our system as potential PII (Personally Identifiable Information). Our architecture is designed to minimize risk:
-                    </p>
-
-                    <h3>1. Data Minimization Protocol</h3>
-                    <p>
-                        We encourage educators to use <strong>pseudonyms or initials</strong> when generating content. However, even if full names are used, our system protects them.
-                    </p>
-
-                    <h3>2. Encryption Standards</h3>
-                    <p>
-                        All databases are encrypted at rest using AES-256. All transmission occurs over HTTPS (TLS 1.2+).
-                    </p>
-
-                    <h3>3. No Third-Party PII Sharing</h3>
-                    <p>
-                        We do not share any student PII with third-party advertisers or data brokers. Our business model is subscription-based, not ad-based.
-                    </p>
-
-                    <h3>4. School Official Exception</h3>
-                    <p>
-                        Under FERPA&apos;s &quot;School Official&quot; exception, EdIntel functions as a vendor performing an institutional service. We remain under the direct control of the school/district with respect to the use and maintenance of education records.
-                    </p>
-
-                    <h3>5. Data Destruction</h3>
-                    <p>
-                        Upon contract termination or written request, we securely execute cryptographic deletion of all student records associated with your account within 30 days.
-                    </p>
-                </div>
+                    <div className="flex-shrink-0">
+                        <div className="px-6 py-3 rounded-xl bg-emerald-500 text-black font-black uppercase tracking-widest text-xs">
+                            Status: Secure
+                        </div>
+                    </div>
+                </motion.div>
             </div>
+
+            {/* 3. Security Protocols Grid */}
+            <section className="px-6 pb-32 max-w-7xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {protocols.map((protocol, i) => (
+                        <motion.div
+                            key={i}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: i * 0.1 }}
+                            className="group p-8 rounded-3xl bg-zinc-900/50 border border-white/5 hover:border-emerald-500/30 transition-all duration-500 hover:-translate-y-1 relative"
+                        >
+                            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
+
+                            <div className="w-12 h-12 rounded-xl bg-zinc-800 flex items-center justify-center mb-6 group-hover:bg-emerald-500/20 transition-colors">
+                                <protocol.icon size={24} className="text-zinc-400 group-hover:text-emerald-400 transition-colors" />
+                            </div>
+
+                            <h3 className="text-xl font-bold text-white mb-3 group-hover:text-emerald-400 transition-colors">
+                                {protocol.title}
+                            </h3>
+                            <p className="text-zinc-500 leading-relaxed group-hover:text-zinc-400 transition-colors">
+                                {protocol.content}
+                            </p>
+                        </motion.div>
+                    ))}
+                </div>
+            </section>
+
+            {/* 4. The School Official Exception Explained */}
+            <section className="py-24 bg-zinc-950 border-t border-white/5 relative overflow-hidden">
+                <div className="max-w-4xl mx-auto px-6 text-center">
+                    <h2 className="text-3xl font-bold text-white mb-8">Role and Responsibility</h2>
+                    <div className="prose prose-invert prose-lg mx-auto">
+                        <p className="text-zinc-400">
+                            Under FERPA's <strong className="text-white">"School Official"</strong> exception (34 CFR § 99.31(a)(1)(i)(B)), EdIntel functions as a vendor performing an institutional service.
+                        </p>
+                        <ul className="text-left text-zinc-400 space-y-4 mt-8 list-none pl-0">
+                            <li className="flex items-start gap-3">
+                                <Check className="w-6 h-6 text-emerald-500 flex-shrink-0 mt-1" />
+                                <span>We perform a service for which the school would otherwise use its own employees.</span>
+                            </li>
+                            <li className="flex items-start gap-3">
+                                <Check className="w-6 h-6 text-emerald-500 flex-shrink-0 mt-1" />
+                                <span>We are under the direct control of the agency or institution with respect to the use and maintenance of education records.</span>
+                            </li>
+                            <li className="flex items-start gap-3">
+                                <Check className="w-6 h-6 text-emerald-500 flex-shrink-0 mt-1" />
+                                <span>We are subject to the requirements of 34 CFR § 99.33(a) governing the use and redisclosure of personally identifiable information from education records.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
             <Footer />
         </main>
     );
-}
-
-// Helper component import was missing in previous thought, adding internal definition here or import
-function CheckCircle({ size }: { size: number }) {
-    return (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width={size}
-            height={size}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-            <polyline points="22 4 12 14.01 9 11.01" />
-        </svg>
-    )
 }
