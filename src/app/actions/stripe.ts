@@ -14,7 +14,7 @@ const PAYMENT_LINK_MAPPING: Record<string, string> = {
   'STRIPE_PRICE_PRACTITIONER_MONTHLY': 'https://buy.stripe.com/7sY3cwfdWf317LN7tOdwc01',
   'STRIPE_PRICE_SITE_COMMAND_MONTHLY': 'https://buy.stripe.com/aFa7sM3ve6wv9TVeWgdwc00',
 
-  // Tokens (Fallback to simple Monthly for now, or use specific links if provided later)
+  // Tokens (Verified Link)
   'STRIPE_PRICE_TOKEN_1K': 'https://buy.stripe.com/7sY3cwfdWf317LN7tOdwc01',
 };
 

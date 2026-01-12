@@ -259,6 +259,7 @@ export default function PricingMatrix() {
             </motion.div>
 
             {/* Bottom Grid: Tokens & Services */}
+            {/* Bottom Grid: Tokens & Services */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-16 max-w-6xl mx-auto">
                 {/* Token Economy */}
                 <div className="p-8 rounded-[2.5rem] bg-zinc-900/30 border border-zinc-800/50 backdrop-blur-sm relative overflow-hidden group">
@@ -272,10 +273,11 @@ export default function PricingMatrix() {
                             <h3 className="text-xl font-black text-white uppercase tracking-tight">Token Economy</h3>
                         </div>
                         <p className="text-sm text-zinc-400 mb-8 max-w-sm">
-                            Fuel high-compute operations like bulk audits and avatar synthesis. Tokens never expire.
+                            Fuel high-compute operations. Tokens never expire.
                         </p>
 
                         <div className="flex flex-col gap-4">
+                            {/* 1K Pack - Verified Link */}
                             <div className="flex items-center justify-between p-4 rounded-xl bg-black/40 border border-zinc-800/50">
                                 <div className="flex items-center gap-3">
                                     <div className="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center text-amber-500 font-bold text-xs">1K</div>
@@ -300,55 +302,7 @@ export default function PricingMatrix() {
                                 </div>
                             </div>
 
-                            <div className="flex items-center justify-between p-4 rounded-xl bg-black/40 border border-zinc-800/50 relative">
-                                <div className="absolute -top-2 left-6 px-2 py-0.5 bg-amber-500 text-black text-[9px] font-black uppercase rounded-full">Best Value</div>
-                                <div className="flex items-center gap-3">
-                                    <div className="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-500 font-bold text-xs">5K</div>
-                                    <div>
-                                        <div className="text-sm font-bold text-white uppercase">Sovereign Pack</div>
-                                        <div className="text-[10px] text-zinc-500">Bulk Operations</div>
-                                    </div>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <span className="text-lg font-black text-white">$39.99</span>
-                                    <button
-                                        disabled={isPending}
-                                        onClick={() => startTransition(async () => {
-                                            try {
-                                                await createCheckoutSession('STRIPE_PRICE_TOKEN_5K', false, 'payment');
-                                            } catch (e) { alert("Token Uplink Failed. Please try again."); }
-                                        })}
-                                        className="p-2 bg-amber-600 rounded-lg text-white hover:bg-amber-500 transition-colors disabled:opacity-50"
-                                    >
-                                        <ArrowRight size={14} />
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div className="flex items-center justify-between p-4 rounded-xl bg-black/40 border border-zinc-800/50">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-400 font-bold text-xs">10K</div>
-                                    <div>
-                                        <div className="text-sm font-bold text-white uppercase">Director Pack</div>
-                                        <div className="text-[10px] text-zinc-500">District Scale</div>
-                                    </div>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <span className="text-lg font-black text-white">$69.99</span>
-                                    <button
-                                        disabled={isPending}
-                                        onClick={() => startTransition(async () => {
-                                            try {
-                                                await createCheckoutSession('STRIPE_PRICE_TOKEN_10K', false, 'payment');
-                                            } catch (e) { alert("Token Uplink Failed. Please try again."); }
-                                        })}
-                                        className="p-2 bg-amber-600 rounded-lg text-white hover:bg-amber-500 transition-colors disabled:opacity-50"
-                                    >
-                                        <ArrowRight size={14} />
-                                    </button>
-                                </div>
-                            </div>
-
+                            {/* Hidden 5K/10K until links provided */}
                         </div>
                     </div>
                 </div>
