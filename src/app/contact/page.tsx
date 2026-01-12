@@ -96,62 +96,57 @@ export default function ContactPage() {
                             </div>
                         </div>
 
-                        <div className="space-y-8">
-                            <div className="flex items-start gap-6 group">
-                                <div className="p-4 rounded-2xl bg-zinc-900 border border-white/10 group-hover:border-indigo-500/50 transition-colors">
+                        {/* Contact Channels Grid */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {/* Email Card */}
+                            <div className="group p-5 rounded-2xl bg-zinc-900/50 border border-white/10 hover:border-indigo-500/50 hover:bg-zinc-900/80 transition-all duration-300">
+                                <div className="p-3 rounded-xl bg-indigo-500/10 w-fit mb-4 group-hover:scale-110 transition-transform">
                                     <Mail className="w-6 h-6 text-indigo-400" />
                                 </div>
-                                <div>
-                                    <h3 className="text-lg font-bold text-white mb-1">Electronic Mail</h3>
-                                    <p className="text-zinc-500 text-sm mb-2">Priority support channels</p>
-                                    <div className="space-y-1">
-                                        <a href="mailto:dralvinwest@transcendholisticwellness.com" className="text-indigo-300 hover:text-white transition-colors font-medium block">
-                                            dralvinwest@transcendholisticwellness.com
-                                        </a>
-                                        <a href="mailto:nivlawest1911@gmail.com" className="text-indigo-300 hover:text-white transition-colors font-medium block">
-                                            nivlawest1911@gmail.com
-                                        </a>
-                                    </div>
+                                <h3 className="text-white font-bold mb-1">Electronic Mail</h3>
+                                <div className="space-y-1">
+                                    <a href="mailto:dralvinwest@transcendholisticwellness.com" className="text-xs text-zinc-400 hover:text-white transition-colors block truncate" title="dralvinwest@transcendholisticwellness.com">
+                                        dralvinwest@transcend...
+                                    </a>
+                                    <a href="mailto:nivlawest1911@gmail.com" className="text-xs text-zinc-400 hover:text-white transition-colors block">
+                                        nivlawest1911@gmail.com
+                                    </a>
                                 </div>
                             </div>
 
-                            <div className="flex items-start gap-6 group">
-                                <div className="p-4 rounded-2xl bg-zinc-900 border border-white/10 group-hover:border-indigo-500/50 transition-colors">
+                            {/* Secure Message Card */}
+                            <div className="group p-5 rounded-2xl bg-zinc-900/50 border border-white/10 hover:border-emerald-500/50 hover:bg-zinc-900/80 transition-all duration-300">
+                                <div className="p-3 rounded-xl bg-emerald-500/10 w-fit mb-4 group-hover:scale-110 transition-transform">
                                     <MessageSquare className="w-6 h-6 text-emerald-400" />
                                 </div>
-                                <div>
-                                    <h3 className="text-lg font-bold text-white mb-1">Secure Message</h3>
-                                    <p className="text-zinc-500 text-sm mb-2">WhatsApp / Signal Encrypted</p>
-                                    <a href="https://wa.me/12514229420" className="text-indigo-300 hover:text-white transition-colors font-medium">
-                                        +1 (251) 422-9420
-                                    </a>
-                                </div>
+                                <h3 className="text-white font-bold mb-1">Secure Message</h3>
+                                <p className="text-xs text-zinc-500 mb-2">WhatsApp / Signal</p>
+                                <a href="https://wa.me/12514229420" className="text-sm font-mono text-emerald-400 hover:text-emerald-300 transition-colors">
+                                    +1 (251) 422-9420
+                                </a>
                             </div>
 
-                            <div className="flex items-start gap-6 group">
-                                <div className="p-4 rounded-2xl bg-zinc-900 border border-white/10 group-hover:border-indigo-500/50 transition-colors">
+                            {/* Voice Uplink Card */}
+                            <div className="group p-5 rounded-2xl bg-zinc-900/50 border border-white/10 hover:border-purple-500/50 hover:bg-zinc-900/80 transition-all duration-300">
+                                <div className="p-3 rounded-xl bg-purple-500/10 w-fit mb-4 group-hover:scale-110 transition-transform">
                                     <Phone className="w-6 h-6 text-purple-400" />
                                 </div>
-                                <div>
-                                    <h3 className="text-lg font-bold text-white mb-1">Voice Uplink</h3>
-                                    <p className="text-zinc-500 text-sm mb-2">Direct line</p>
-                                    <a href="tel:+12514229420" className="text-indigo-300 hover:text-white transition-colors font-medium">
-                                        +1 (251) 422-9420
-                                    </a>
-                                </div>
+                                <h3 className="text-white font-bold mb-1">Voice Uplink</h3>
+                                <p className="text-xs text-zinc-500 mb-2">Direct Line</p>
+                                <a href="tel:+12514229420" className="text-sm font-mono text-purple-400 hover:text-purple-300 transition-colors">
+                                    +1 (251) 422-9420
+                                </a>
                             </div>
 
-                            <div className="flex items-start gap-6 group">
-                                <div className="p-4 rounded-2xl bg-zinc-900 border border-white/10 group-hover:border-indigo-500/50 transition-colors">
+                            {/* Location Card */}
+                            <div className="group p-5 rounded-2xl bg-zinc-900/50 border border-white/10 hover:border-orange-500/50 hover:bg-zinc-900/80 transition-all duration-300">
+                                <div className="p-3 rounded-xl bg-orange-500/10 w-fit mb-4 group-hover:scale-110 transition-transform">
                                     <MapPin className="w-6 h-6 text-orange-400" />
                                 </div>
-                                <div>
-                                    <h3 className="text-lg font-bold text-white mb-1">Base of Operations</h3>
-                                    <p className="text-zinc-400 text-sm">
-                                        Transcend Academic, Business & Cognitive Solutions<br />
-                                        Alabama, United States
-                                    </p>
-                                </div>
+                                <h3 className="text-white font-bold mb-1">Base Ops</h3>
+                                <p className="text-xs text-zinc-400 leading-tight">
+                                    Transcend Academic<br />Solutions, AL
+                                </p>
                             </div>
                         </div>
                     </motion.div>
