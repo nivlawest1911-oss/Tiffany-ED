@@ -9,109 +9,128 @@ import CircadianFilter from '@/components/graphics/CircadianFilter';
 
 export default function AboutPage() {
     return (
-        <main className="min-h-screen bg-zinc-50 dark:bg-black transition-colors duration-500">
+        <main className="min-h-screen bg-black text-white selection:bg-indigo-500/30 overflow-x-hidden">
             <CircadianFilter />
             <FloatingNavbar />
 
-            {/* 1. Hero: The Manifesto */}
-            <div className="relative pt-32 pb-20 px-6 overflow-hidden">
-                <div className="max-w-4xl mx-auto text-center relative z-10">
+            {/* 1. Hero: The Manifesto - Enhanced Background */}
+            <div className="relative pt-40 pb-32 px-6 overflow-hidden">
+                {/* Dynamic Background */}
+                <div className="absolute top-0 inset-x-0 h-[800px] bg-gradient-to-b from-indigo-950/20 via-purple-950/10 to-black pointer-events-none" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-600/20 blur-[150px] rounded-full mix-blend-screen pointer-events-none animate-pulse-slow" />
+                <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] bg-purple-600/10 blur-[120px] rounded-full mix-blend-screen pointer-events-none" />
+
+                <div className="max-w-5xl mx-auto text-center relative z-10">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-black uppercase tracking-widest mb-6 backdrop-blur-md"
+                        className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-black uppercase tracking-[0.2em] mb-8 backdrop-blur-md shadow-[0_0_20px_rgba(99,102,241,0.2)]"
                     >
                         <Shield size={12} /> The Sovereign Protocol
                     </motion.div>
 
                     <motion.h1
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="text-5xl md:text-7xl font-black text-white tracking-tighter uppercase mb-8"
+                        initial={{ opacity: 0, scale: 0.95, letterSpacing: "-0.02em" }}
+                        animate={{ opacity: 1, scale: 1, letterSpacing: "0em" }}
+                        className="text-5xl md:text-8xl font-black text-white tracking-tighter uppercase mb-8 leading-[0.9]"
                     >
-                        We Do Not Just Build Software.<br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-600">We Build Sovereignty.</span>
+                        We Do Not Just <span className="text-zinc-500">Build Software.</span><br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-300 to-indigo-400 animate-gradient-x">We Build Sovereignty.</span>
                     </motion.h1>
 
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed"
+                        className="text-xl md:text-2xl text-zinc-400 max-w-3xl mx-auto leading-relaxed font-light"
                     >
                         The modern educational system is designed to consume time, energy, and cognitive bandwidth.
-                        EdIntel Sovereign exists to reclaim it—giving educators the power to lead with logic, precision, and absolute authority.
+                        <strong className="text-white font-medium"> EdIntel Sovereign</strong> exists to reclaim it—giving educators the power to lead with logic, precision, and absolute authority.
                     </motion.p>
                 </div>
-
-                {/* Background Glow */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-900/20 blur-[130px] rounded-full pointer-events-none" />
             </div>
 
-            {/* 2. The Architect: Dr. Alvin West */}
-            <section className="py-24 bg-zinc-950/50 border-y border-white/5 relative">
-                <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            {/* 2. The Architect: Dr. Alvin West - Enhanced Layout */}
+            <section className="py-32 relative">
+                <div className="absolute inset-0 bg-zinc-950/50 skew-y-3 transform origin-top-left scale-110 border-t border-white/5" />
+
+                <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center relative z-10">
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                     >
-                        <div className="relative w-full aspect-square max-w-md mx-auto rounded-3xl overflow-hidden bg-zinc-900 border border-white/10 shadow-2xl shadow-indigo-500/20 group">
+                        <div className="relative w-full aspect-square max-w-md mx-auto rounded-[2rem] overflow-hidden bg-zinc-900 border border-white/10 shadow-2xl shadow-indigo-500/20 group hover:shadow-indigo-500/40 transition-shadow duration-700">
                             <img
                                 src="/images/dr_alvin_west.png"
                                 alt="Dr. Alvin West - Founder & Chief Architect"
                                 className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90" />
 
-                            <div className="absolute bottom-0 inset-x-0 p-8">
-                                <h3 className="text-3xl font-black text-white mb-1">Dr. Alvin West, II</h3>
-                                <p className="text-indigo-400 font-bold uppercase tracking-widest text-sm flex items-center gap-2">
-                                    <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
-                                    Founder & Chief Architect
-                                </p>
+                            <div className="absolute bottom-0 inset-x-0 p-8 md:p-10">
+                                <h3 className="text-4xl font-black text-white mb-2 tracking-tight">Dr. Alvin West, II</h3>
+                                <div className="flex items-center gap-3">
+                                    <span className="flex h-3 w-3">
+                                        <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-indigo-400 opacity-75"></span>
+                                        <span className="relative inline-flex rounded-full h-3 w-3 bg-indigo-500"></span>
+                                    </span>
+                                    <p className="text-indigo-300 font-bold uppercase tracking-widest text-sm">
+                                        Founder & Chief Architect
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </motion.div>
 
-                    <div className="space-y-8">
-                        <div>
-                            <h2 className="text-3xl font-bold text-white mb-4">The Architect's Vision</h2>
-                            <p className="text-zinc-400 leading-relaxed text-lg">
-                                "I watched brilliant educators burn out not from teaching, but from administration.
-                                The paperwork, the compliance, the endless data entry—it was a parasite on their passion.
-                                <br /><br />
-                                I founded EdIntel not to simply 'help' teachers, but to arm them. We built a cognitive layer
-                                that intercepts the bureaucracy before it hits the human. This is about more than efficiency;
-                                it's about survival and the restoration of the educator's rightful place as an intellectual leader."
-                            </p>
-                        </div>
+                    <div className="space-y-10">
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.2 }}
+                        >
+                            <h2 className="text-4xl md:text-5xl font-black text-white mb-6 leading-tight">
+                                The Architect's <span className="text-zinc-600">Vision</span>
+                            </h2>
+                            <div className="relative pl-8 border-l-4 border-indigo-500/50">
+                                <p className="text-zinc-300 leading-relaxed text-lg md:text-xl italic font-serif opacity-90">
+                                    "I watched brilliant educators burn out not from teaching, but from administration.
+                                    The paperwork, the compliance, the endless data entry—it was a parasite on their passion.
+                                </p>
+                                <p className="text-zinc-300 leading-relaxed text-lg md:text-xl mt-6 italic font-serif opacity-90">
+                                    We founded EdIntel not to simply 'help' teachers, but to <strong>arm</strong> them. We constructed a cognitive layer
+                                    that intercepts the bureaucracy before it hits the human. This is about restoration of the educator's rightful place as an intellectual leader."
+                                </p>
+                            </div>
+                        </motion.div>
 
                         <div className="grid grid-cols-2 gap-6">
-                            <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-                                <div className="text-indigo-400 font-black text-3xl mb-1">20+</div>
-                                <div className="text-zinc-500 text-sm uppercase tracking-wider">Years in Education</div>
+                            <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+                                <div className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-br from-indigo-400 to-purple-600 mb-2">20+</div>
+                                <div className="text-zinc-500 text-xs uppercase tracking-widest font-bold">Years in Education</div>
                             </div>
-                            <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-                                <div className="text-indigo-400 font-black text-3xl mb-1">PhD</div>
-                                <div className="text-zinc-500 text-sm uppercase tracking-wider">Cognitive Systems</div>
+                            <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+                                <div className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-br from-indigo-400 to-purple-600 mb-2">PhD</div>
+                                <div className="text-zinc-500 text-xs uppercase tracking-widest font-bold">Cognitive Systems</div>
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-3 text-sm text-zinc-500 border-l-2 border-indigo-500 pl-4 italic">
-                            Currently leading Transcend Academic, Business & Cognitive Solutions.
+                        <div className="flex items-center gap-3 text-sm text-zinc-500 font-medium">
+                            <CheckCircle size={16} className="text-indigo-500" />
+                            Leading Transcend Academic, Business & Cognitive Solutions.
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* 3. The Philosophy: Sovereign Pillars */}
-            <section className="py-24 px-6 relative">
+            {/* 3. The Philosophy: Sovereign Pillars - Glass Cards */}
+            <section className="py-32 px-6 relative bg-black">
                 <div className="max-w-7xl mx-auto">
-                    <div className="text-center mb-16">
-                        <h2 className="text-3xl md:text-5xl font-black text-white mb-6">The 4 Pillars of Sovereignty</h2>
-                        <p className="text-zinc-400 max-w-2xl mx-auto">
-                            Our entire platform is engineered upon these non-negotiable principles.
+                    <div className="text-center mb-20">
+                        <h2 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight">The 4 Pillars of <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Sovereignty</span></h2>
+                        <p className="text-zinc-400 max-w-2xl mx-auto text-lg">
+                            Our platform is strictly engineered upon these non-negotiable principles.
                         </p>
                     </div>
 
@@ -120,92 +139,118 @@ export default function AboutPage() {
                             {
                                 icon: Brain,
                                 title: "Cognitive Offload",
-                                desc: "We automate low-level logic (forms, scheduling) so you can focus on high-level strategy."
+                                desc: "We automate low-level logic (forms, scheduling) so you can focus on high-level strategy.",
+                                color: "from-indigo-500 to-blue-500"
                             },
                             {
                                 icon: Shield,
                                 title: "Legal Ironclad",
-                                desc: "Every output is FERPA-compliant and audit-ready. We protect you from liability."
+                                desc: "Every output is FERPA-compliant and audit-ready. We protect you from liability.",
+                                color: "from-emerald-500 to-cyan-500"
                             },
                             {
                                 icon: Key,
                                 title: "Data Ownership",
-                                desc: "You are not a product. Your data belongs to you, encrypted and sovereign."
+                                desc: "You are not a product. Your data belongs to you, encrypted and sovereign.",
+                                color: "from-purple-500 to-pink-500"
                             },
                             {
                                 icon: Zap,
                                 title: "Speed as a Weapon",
-                                desc: "What took days now takes seconds. Speed is not just convenience; it is power."
+                                desc: "What took days now takes seconds. Speed is not just convenience; it is power.",
+                                color: "from-orange-500 to-red-500"
                             }
                         ].map((pillar, i) => (
-                            <div key={i} className="p-8 rounded-2xl bg-zinc-900/50 border border-white/5 hover:border-indigo-500/40 transition-all hover:-translate-y-1">
-                                <div className="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 mb-6">
-                                    <pillar.icon size={24} />
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: i * 0.1 }}
+                                className="group p-8 rounded-[2rem] bg-zinc-900/40 border border-white/5 hover:border-white/20 transition-all duration-500 hover:-translate-y-2 relative overflow-hidden"
+                            >
+                                <div className={`absolute inset-0 bg-gradient-to-br ${pillar.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
+
+                                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${pillar.color} p-0.5 mb-8 shadow-lg group-hover:shadow-indigo-500/20 transition-all`}>
+                                    <div className="w-full h-full bg-zinc-950 rounded-[14px] flex items-center justify-center">
+                                        <pillar.icon size={24} className="text-white" />
+                                    </div>
                                 </div>
-                                <h3 className="text-xl font-bold text-white mb-3">{pillar.title}</h3>
-                                <p className="text-zinc-400 text-sm leading-relaxed">{pillar.desc}</p>
-                            </div>
+                                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-zinc-400 transition-all">
+                                    {pillar.title}
+                                </h3>
+                                <p className="text-zinc-500 text-sm leading-relaxed group-hover:text-zinc-400 transition-colors">
+                                    {pillar.desc}
+                                </p>
+                            </motion.div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            {/* 4. Timeline / Mission Stats */}
-            <section className="py-24 bg-gradient-to-b from-indigo-950/20 to-black border-y border-white/5">
-                <div className="max-w-5xl mx-auto px-6 text-center">
-                    <h2 className="text-3xl font-bold text-white mb-16">The Impact of Intelligence</h2>
+            {/* 4. Timeline / Mission Stats - Data Stream */}
+            <section className="py-32 bg-zinc-950 px-6 border-y border-white/5 overflow-hidden relative">
+                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-                        <div className="relative group">
-                            <div className="text-6xl font-black text-white/10 group-hover:text-white/20 transition-colors absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                <div className="max-w-6xl mx-auto relative z-10">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12 divide-y md:divide-y-0 md:divide-x divide-white/10">
+                        <div className="text-center p-8">
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.5 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                className="text-7xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-zinc-800 mb-4"
+                            >
                                 47K
-                            </div>
-                            <div className="pt-8">
-                                <div className="text-4xl font-black text-white mb-2">47,000+</div>
-                                <div className="text-indigo-400 uppercase text-xs tracking-widest font-bold">Educators Empowered</div>
-                            </div>
+                            </motion.div>
+                            <div className="text-indigo-400 uppercase text-xs tracking-[0.3em] font-bold">Educators Empowered</div>
                         </div>
-                        <div className="relative group">
-                            <div className="text-6xl font-black text-white/10 group-hover:text-white/20 transition-colors absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                        <div className="text-center p-8">
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.5 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.1 }}
+                                className="text-7xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-zinc-800 mb-4"
+                            >
                                 98%
-                            </div>
-                            <div className="pt-8">
-                                <div className="text-4xl font-black text-white mb-2">98.5%</div>
-                                <div className="text-indigo-400 uppercase text-xs tracking-widest font-bold">Reduction in Admin Time</div>
-                            </div>
+                            </motion.div>
+                            <div className="text-purple-400 uppercase text-xs tracking-[0.3em] font-bold">Time Reclaimed</div>
                         </div>
-                        <div className="relative group">
-                            <div className="text-6xl font-black text-white/10 group-hover:text-white/20 transition-colors absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                        <div className="text-center p-8">
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.5 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.2 }}
+                                className="text-7xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-zinc-800 mb-4"
+                            >
                                 142
-                            </div>
-                            <div className="pt-8">
-                                <div className="text-4xl font-black text-white mb-2">142</div>
-                                <div className="text-indigo-400 uppercase text-xs tracking-widest font-bold">Districts Secured</div>
-                            </div>
+                            </motion.div>
+                            <div className="text-pink-400 uppercase text-xs tracking-[0.3em] font-bold">Districts Secured</div>
                         </div>
                     </div>
                 </div>
             </section>
 
             {/* 5. CTA: Join the Movement */}
-            <section className="py-32 px-6 text-center relative overflow-hidden">
-                <div className="absolute inset-0 bg-indigo-900/10 pointer-events-none" />
-                <div className="relative z-10 max-w-3xl mx-auto">
-                    <h2 className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter">
-                        Stop Managing. Start Leading.
+            <section className="py-40 px-6 text-center relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-t from-indigo-900/20 to-transparent pointer-events-none" />
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-indigo-600/10 blur-[150px] rounded-full pointer-events-none" />
+
+                <div className="relative z-10 max-w-4xl mx-auto">
+                    <h2 className="text-5xl md:text-7xl font-black text-white mb-10 tracking-tighter leading-tight">
+                        Stop Managing.<br /> Start <span className="text-indigo-400">Leading.</span>
                     </h2>
-                    <p className="text-xl text-zinc-400 mb-10 max-w-2xl mx-auto">
+                    <p className="text-2xl text-zinc-400 mb-12 max-w-2xl mx-auto font-light">
                         The protocol is ready. The sovereign network is active. Your node is waiting to be initialized.
                     </p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link href="/signup">
-                            <button className="px-10 py-4 bg-white text-black font-black uppercase text-sm tracking-widest rounded-xl hover:bg-zinc-200 transition-colors flex items-center gap-2">
+                    <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                        <Link href="/signup" className="group">
+                            <button className="px-10 py-5 bg-white text-black font-black uppercase text-sm tracking-widest rounded-2xl hover:scale-105 hover:bg-zinc-200 transition-all flex items-center gap-3 shadow-[0_0_40px_rgba(255,255,255,0.3)]">
                                 Initialize Node
-                                <ArrowRight size={16} />
+                                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                             </button>
                         </Link>
                         <Link href="/contact">
-                            <button className="px-10 py-4 bg-black border border-zinc-800 text-white font-black uppercase text-sm tracking-widest rounded-xl hover:bg-zinc-900 transition-colors">
+                            <button className="px-10 py-5 bg-black/50 backdrop-blur-md border border-white/10 text-white font-black uppercase text-sm tracking-widest rounded-2xl hover:bg-white/10 hover:border-white/20 transition-all">
                                 Contact Command
                             </button>
                         </Link>

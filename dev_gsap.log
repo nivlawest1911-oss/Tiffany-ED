@@ -1584,3 +1584,8 @@ Error: Route "/generators/[id]" used `params.id`. `params` is a Promise and must
  GET /terms 200 in 187ms (compile: 48ms, render: 139ms)
  GET /terms 200 in 48ms (compile: 2ms, render: 46ms)
  GET /api/auth/me 200 in 20ms (compile: 1869µs, render: 18ms)
+ GET /privacy 200 in 216ms (compile: 136ms, render: 80ms)
+ GET /contact 200 in 21ms (compile: 4ms, render: 17ms)
+ GET /about 200 in 38ms (compile: 6ms, render: 32ms)
+ GET /contact 200 in 27ms (compile: 7ms, render: 20ms)
+✓ Compiled in 284ms
