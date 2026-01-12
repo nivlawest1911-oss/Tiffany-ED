@@ -119,3 +119,5 @@ export default function Footer() {
         </footer>
     );
 }
+// Forced rebuild: 2026-01-12 Checkpoint
+
