@@ -166,6 +166,85 @@ export default function ModernHomePage() {
                 </div>
             </section>
 
+            {/* Why EdIntel Section - New with Image */}
+            <section className="relative py-24 bg-zinc-950 overflow-hidden">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                        {/* Image Side */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                            className="relative"
+                        >
+                            <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-indigo-500/20 border border-white/10">
+                                <img
+                                    src="/images/hero_educator_team.png"
+                                    alt="African American educators collaborating"
+                                    className="w-full h-auto object-cover"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/60 via-transparent to-transparent" />
+                            </div>
+                            {/* Floating Stats Badge */}
+                            <div className="absolute -bottom-6 -right-6 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl p-6 shadow-2xl shadow-indigo-500/50 border border-white/20">
+                                <div className="text-4xl font-black text-white mb-1">47K+</div>
+                                <div className="text-sm text-indigo-100 uppercase tracking-wider">Educators</div>
+                            </div>
+                        </motion.div>
+
+                        {/* Content Side */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.2 }}
+                        >
+                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-bold uppercase tracking-widest mb-6">
+                                <Shield size={14} />
+                                <span>Sovereign Intelligence</span>
+                            </div>
+                            <h2 className="text-4xl sm:text-5xl font-black text-white mb-6 leading-tight">
+                                Built by Educators,<br />
+                                <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                                    For Educators
+                                </span>
+                            </h2>
+                            <p className="text-xl text-zinc-400 mb-8 leading-relaxed">
+                                EdIntel was created by Dr. Alvin West, an experienced educator who understands the daily challenges you face. Our AI delegates are designed to amplify your expertise, not replace it.
+                            </p>
+
+                            <div className="space-y-4 mb-8">
+                                {[
+                                    { icon: CheckCircle, text: "Culturally responsive AI that understands diverse learners" },
+                                    { icon: Shield, text: "FERPA-compliant and built for educational privacy" },
+                                    { icon: Sparkles, text: "Continuously learning from educator feedback" },
+                                    { icon: Users, text: "Supporting 142 districts across Alabama" }
+                                ].map((item, index) => (
+                                    <div key={index} className="flex items-start gap-4">
+                                        <div className="p-2 rounded-lg bg-indigo-500/10 text-indigo-400 mt-0.5">
+                                            <item.icon size={20} />
+                                        </div>
+                                        <p className="text-zinc-300 text-lg">{item.text}</p>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <Link href="/about">
+                                <motion.button
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold transition-all"
+                                >
+                                    <span>Learn Our Story</span>
+                                    <ArrowRight className="w-5 h-5" />
+                                </motion.button>
+                            </Link>
+                        </motion.div>
+                    </div>
+                </div>
+            </section>
+
 
 
             {/* Features Section */}
@@ -288,9 +367,19 @@ export default function ModernHomePage() {
                 <PremiumPricingTable />
             </div>
 
-            {/* Final CTA */}
-            <section className="relative py-24 bg-gradient-to-br from-purple-500/20 to-pink-500/20 border-y border-purple-500/20">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            {/* Final CTA with Image */}
+            <section className="relative py-24 overflow-hidden">
+                {/* Background Image */}
+                <div className="absolute inset-0 z-0">
+                    <img
+                        src="/images/student_success.png"
+                        alt="Successful classroom moment"
+                        className="w-full h-full object-cover opacity-20"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-br from-purple-900/90 via-indigo-900/90 to-pink-900/90" />
+                </div>
+
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -299,34 +388,34 @@ export default function ModernHomePage() {
                         <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
                             Ready to Save 10+ Hours Per Week?
                         </h2>
-                        <p className="text-xl text-purple-200 mb-8">
+                        <p className="text-xl text-purple-100 mb-8">
                             Join 47,000+ Alabama educators using EdIntel to focus on what matters most
                         </p>
                         <Link href="/signup">
                             <motion.button
                                 whileHover={{ scale: 1.05, y: -2 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="px-10 py-5 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold text-xl shadow-2xl shadow-indigo-500/50 flex items-center gap-3 mx-auto"
+                                className="px-10 py-5 rounded-xl bg-white text-indigo-600 font-bold text-xl shadow-2xl hover:shadow-white/50 flex items-center gap-3 mx-auto transition-all"
                             >
                                 Start Your Free Trial
                                 <ArrowRight className="w-6 h-6" />
                             </motion.button>
                         </Link>
-                        <div className="flex flex-wrap justify-center gap-6 mt-6 text-sm text-purple-300">
+                        <div className="flex flex-wrap justify-center gap-6 mt-6 text-sm text-purple-100">
                             <div className="flex items-center gap-2">
-                                <CheckCircle className="w-4 h-4 text-green-400" />
+                                <CheckCircle className="w-4 h-4 text-green-300" />
                                 <span>30-day free trial</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <CheckCircle className="w-4 h-4 text-green-400" />
+                                <CheckCircle className="w-4 h-4 text-green-300" />
                                 <span>No credit card</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <CheckCircle className="w-4 h-4 text-green-400" />
+                                <CheckCircle className="w-4 h-4 text-green-300" />
                                 <span>Cancel anytime</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <CheckCircle className="w-4 h-4 text-green-400" />
+                                <CheckCircle className="w-4 h-4 text-green-300" />
                                 <span>Setup in 2 minutes</span>
                             </div>
                         </div>
