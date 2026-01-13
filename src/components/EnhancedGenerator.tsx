@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Loader2, Copy, Check, Sparkles, Download, ArrowRight, Bot, Zap, History, ChevronLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface EnhancedGeneratorProps {
     generatorId: string;
@@ -11,6 +12,7 @@ interface EnhancedGeneratorProps {
     generatorColor: string;
     iconNode: React.ReactNode;
     prompts: string[];
+    heroImage?: string;
 }
 
 import { useAuth } from '@/context/AuthContext';
@@ -20,8 +22,10 @@ export default function EnhancedGenerator({
     generatorName,
     generatorColor,
     iconNode,
-    prompts
+    prompts,
+    heroImage
 }: EnhancedGeneratorProps) {
+    // ... (rest of hook logic is unchanged)
     const { user, isLoading: isAuthLoading } = useAuth();
     const [input, setInput] = useState('');
     const [completion, setCompletion] = useState('');
@@ -112,8 +116,6 @@ export default function EnhancedGenerator({
 
     const handleQuickPrompt = (prompt: string) => {
         setInput(prompt);
-        // Optional: auto-submit or just focus
-        // handleSubmit(); 
         if (textareaRef.current) {
             textareaRef.current.focus();
         }
@@ -152,18 +154,31 @@ export default function EnhancedGenerator({
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="bg-zinc-900/50 backdrop-blur-xl border border-white/10 rounded-3xl p-8 relative overflow-hidden group"
+                            className="bg-zinc-900/50 backdrop-blur-xl border border-white/10 rounded-3xl p-8 relative overflow-hidden group min-h-[200px] flex items-center"
                         >
-                            <div className={`absolute inset-0 opacity-10 bg-gradient-to-br ${generatorColor}`} />
-                            <div className="relative flex items-start gap-6">
+                            {heroImage && (
+                                <div className="absolute inset-0 z-0">
+                                    <Image
+                                        src={heroImage}
+                                        alt={`${generatorName} Background`}
+                                        fill
+                                        className="object-cover opacity-60 mix-blend-overlay group-hover:scale-105 transition-transform duration-700"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/80 to-transparent" />
+                                </div>
+                            )}
+
+                            <div className={`absolute inset-0 opacity-10 bg-gradient-to-br ${generatorColor} z-0`} />
+
+                            <div className="relative z-10 flex items-start gap-6">
                                 <div className={`p-4 rounded-2xl bg-gradient-to-br ${generatorColor} shadow-lg shadow-indigo-500/20 ring-1 ring-white/10`}>
                                     {iconNode}
                                 </div>
                                 <div className="space-y-2">
-                                    <h1 className="text-4xl font-bold tracking-tight font-sans text-white">
+                                    <h1 className="text-4xl font-bold tracking-tight font-sans text-white drop-shadow-md">
                                         {generatorName}
                                     </h1>
-                                    <p className="text-zinc-400 max-w-xl">
+                                    <p className="text-zinc-300 max-w-xl font-medium drop-shadow-sm">
                                         Powered by Sovereign AI • Specialized for Educational Leadership
                                     </p>
                                 </div>

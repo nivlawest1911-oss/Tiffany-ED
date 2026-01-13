@@ -33,7 +33,28 @@ export const generators = [
         icon: GraduationCap,
         color: "#d4af37",
         avatar: AVATARS.CURRICULUM,
+        heroImage: "/images/features/sovereign_educator_planner.png",
         prompts: ["Alabama Course of Study aligned", "Differentiated instruction", "Project-based learning"]
+    },
+    {
+        id: "grant-writer",
+        name: "Grant Writer Studio",
+        description: "Secure funding",
+        icon: HandCoins,
+        color: "#10b981",
+        avatar: AVATARS.DATA,
+        heroImage: "/images/features/executive_grant_writer.png",
+        prompts: ["Grant proposal draft"]
+    },
+    {
+        id: "data-detective",
+        name: "Data Detective",
+        description: "Data visualization",
+        icon: Database,
+        color: "#a855f7",
+        avatar: AVATARS.DATA,
+        heroImage: "/images/features/collaborative_intelligence_team.png",
+        prompts: ["Analyze attendance trends"]
     },
     {
         id: "behavior-coach",

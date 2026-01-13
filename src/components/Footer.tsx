@@ -19,7 +19,7 @@ export default function Footer() {
                         </p>
                         <div className="flex gap-4">
                             <a
-                                href="https://www.tiktok.com/@dr.alvin.west.ii"
+                                href="https://www.tiktok.com/@alvinwest0"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="p-2 rounded-lg bg-white/5 hover:bg-[#ff0050]/20 text-zinc-400 hover:text-[#ff0050] transition-colors group"
