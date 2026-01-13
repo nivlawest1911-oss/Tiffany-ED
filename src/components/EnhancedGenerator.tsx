@@ -13,6 +13,7 @@ interface EnhancedGeneratorProps {
     iconNode: React.ReactNode;
     prompts: string[];
     heroImage?: string;
+    heroVideo?: string;
 }
 
 import { useAuth } from '@/context/AuthContext';
@@ -23,7 +24,8 @@ export default function EnhancedGenerator({
     generatorColor,
     iconNode,
     prompts,
-    heroImage
+    heroImage,
+    heroVideo
 }: EnhancedGeneratorProps) {
     // ... (rest of hook logic is unchanged)
     const { user, isLoading: isAuthLoading } = useAuth();
@@ -156,7 +158,19 @@ export default function EnhancedGenerator({
                             animate={{ opacity: 1, y: 0 }}
                             className="bg-zinc-900/50 backdrop-blur-xl border border-white/10 rounded-3xl p-8 relative overflow-hidden group min-h-[200px] flex items-center"
                         >
-                            {heroImage && (
+                            {heroVideo ? (
+                                <div className="absolute inset-0 z-0">
+                                    <video
+                                        src={heroVideo}
+                                        autoPlay
+                                        loop
+                                        muted
+                                        playsInline
+                                        className="w-full h-full object-cover opacity-50 mix-blend-overlay group-hover:scale-105 transition-transform duration-700"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/60 to-transparent" />
+                                </div>
+                            ) : heroImage ? (
                                 <div className="absolute inset-0 z-0">
                                     <Image
                                         src={heroImage}
@@ -166,7 +180,7 @@ export default function EnhancedGenerator({
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/80 to-transparent" />
                                 </div>
-                            )}
+                            ) : null}
 
                             <div className={`absolute inset-0 opacity-10 bg-gradient-to-br ${generatorColor} z-0`} />
 

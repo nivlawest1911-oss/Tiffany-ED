@@ -24,6 +24,8 @@ export const generators = [
         icon: FileText,
         color: "#00d2ff",
         avatar: AVATARS.COMPLIANCE,
+        heroImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80",
+        heroVideo: "/videos/features/iep-architect-demo.mp4",
         prompts: ["Generate annual IEP goals for...", "Create transition plan for...", "Draft accommodations for..."]
     },
     {
@@ -34,6 +36,7 @@ export const generators = [
         color: "#d4af37",
         avatar: AVATARS.CURRICULUM,
         heroImage: "/images/features/sovereign_educator_planner.png",
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
         prompts: ["Alabama Course of Study aligned", "Differentiated instruction", "Project-based learning"]
     },
     {
@@ -54,6 +57,7 @@ export const generators = [
         color: "#a855f7",
         avatar: AVATARS.DATA,
         heroImage: "/images/features/collaborative_intelligence_team.png",
+        heroVideo: "/videos/features/data-analysis-demo.mp4",
         prompts: ["Analyze attendance trends"]
     },
     {
@@ -172,7 +176,7 @@ export const generators = [
     { id: "meeting-prep", name: "Meeting Prep", description: "Agendas & talking points", icon: Briefcase, color: "#0ea5e9", avatar: AVATARS.PRINCIPAL, prompts: ["Board meeting agenda"] },
     { id: "assessment-builder", name: "Assessment Builder", description: "Create assessments", icon: ClipboardCheck, color: "#8b5cf6", avatar: AVATARS.CURRICULUM, prompts: ["Multiple choice quiz"] },
     { id: "differentiation-planner", name: "Differentiation", description: "Tiered activities", icon: Target, color: "#ec4899", avatar: AVATARS.CURRICULUM, prompts: ["Tier 1, 2, 3 activities"] },
-    { id: "data-analyzer", name: "Data Analyzer", description: "Interpret data", icon: TrendingUp, color: "#10b981", avatar: AVATARS.DATA, prompts: ["Analyze benchmark results"] },
+    { id: "data-analyzer", name: "Data Analyzer", description: "Interpret data", icon: TrendingUp, color: "#10b981", avatar: AVATARS.DATA, heroVideo: "/videos/features/data-analysis-demo.mp4", prompts: ["Analyze benchmark results"] },
     { id: "parent-communicator", name: "Parent Communicator", description: "Communication logs", icon: MessageSquare, color: "#f59e0b", avatar: AVATARS.COUNSELOR, prompts: ["Weekly progress update"] },
     { id: "student-goal-setter", name: "Student Goal Setter", description: "SMART goals", icon: StudentCap, color: "#06b6d4", avatar: AVATARS.COUNSELOR, prompts: ["Academic goal template"] },
     { id: "study-guide-maker", name: "Study Guide Maker", description: "Review materials", icon: BookMarked, color: "#a855f7", avatar: AVATARS.CURRICULUM, prompts: ["Chapter summary"] },

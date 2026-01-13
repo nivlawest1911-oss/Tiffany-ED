@@ -26,6 +26,7 @@ export default async function GeneratorPage({ params }: { params: Promise<{ id: 
             iconNode={<Icon size={32} className="text-white" />}
             prompts={generator.prompts}
             heroImage={generator.heroImage}
+            heroVideo={generator.heroVideo}
         />
     );
 }
