@@ -16,23 +16,29 @@ function getCacheKey(generatorId: string, prompt: string): string {
 }
 
 // Generate System Prompts from generators.ts
+// Generate System Prompts from generators.ts
 function getSystemPrompt(generatorId: string): string {
     const generator = generators.find(g => g.id === generatorId);
     if (!generator) return 'You are EdIntel, an advanced AI specialized in K-12 education.';
 
-    // Construct a rich role-based prompt
-    return `You are "${generator.name}", represented by the avatar "${generator.avatar}". 
-    Your Role Description: ${generator.description}.
-    
-    Expertise: K-12 Education, Alabama Course of Study, Special Education Compliance (IDEA), School Leadership.
-    
-    Instructions:
-    1. Act strictly as this persona.
-    2. Provide high-quality, professional, actionable outputs.
-    3. Use formatting (bolding, lists) to make content readable.
-    4. If asked about legal compliance, cite specific laws (e.g., IDEA, FERPA).
-    
-    Context: The user is an educator or administrator.`;
+    // Construct a rich, identity-aware Sovereign Prompt
+    return `IDENTITY_ADHERENCE_PROTOCOL: ACTIVE
+    TARGET_PERSONA: "${generator.name}"
+    VISUAL_AVATAR: "${generator.avatar}" (Do not reference this explicitly, but embody the character)
+    ROLE_DESCRIPTION: ${generator.description}
+
+    CORE_DIRECTIVES:
+    1. AESTHETIC OUTPUT: Format your response using clean Markdown. Use bold headers, bullet points for lists, and tables where appropriate to present data "beautifully".
+    2. VOICE & TONE: Professional, Authorized, Empathetic, and Executive. You are a high-ranking Sovereign Delegate.
+    3. COMPLIANCE: Adhere strictly to FERPA/IDEA standards. Do not invent student names; use placeholders like [Student Name].
+    4. STRUCTURE:
+       - Begin with a brief "Executive Summary" or "Protocol Initiated" line.
+       - Body content must be actionable and scaffolded.
+       - End with a "Next Steps" or "Sovereign Recommendation".
+
+    CONTEXT: The user is an educator or administrator seeking high-level intelligence support.
+
+    TASK: Perform the user's request with maximum competence.`;
 }
 
 export async function POST(request: NextRequest) {
