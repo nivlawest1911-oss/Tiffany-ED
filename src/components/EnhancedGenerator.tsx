@@ -17,6 +17,7 @@ interface EnhancedGeneratorProps {
 }
 
 import { useAuth } from '@/context/AuthContext';
+import useSovereignSounds from '@/hooks/useSovereignSounds';
 
 export default function EnhancedGenerator({
     generatorId,
@@ -44,8 +45,17 @@ export default function EnhancedGenerator({
         }
     }, [completion, isLoading]);
 
+    const { playClick, playSuccess, playAmbient, stopAmbient } = useSovereignSounds();
+
+    // Ambient Soundscape
+    useEffect(() => {
+        playAmbient();
+        return () => stopAmbient();
+    }, [playAmbient, stopAmbient]);
+
     const handleSubmit = async (e?: React.FormEvent) => {
         if (e) e.preventDefault();
+        playClick(); // Sound Cue
         setErrorMsg('');
 
         if (!user) {
@@ -88,6 +98,8 @@ export default function EnhancedGenerator({
                     setCompletion(prev => prev + text);
                 }
             }
+            playSuccess(); // Completion Sound Cue
+
         } catch (error: any) {
             console.error('Generation error:', error);
             setErrorMsg(error.message || 'Generation failed. Please try again.');
@@ -97,6 +109,7 @@ export default function EnhancedGenerator({
     };
 
     const handleCopy = async () => {
+        playClick();
         if (completion) {
             await navigator.clipboard.writeText(completion);
             setCopied(true);
