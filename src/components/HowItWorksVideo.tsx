@@ -1,9 +1,8 @@
-
 'use client';
 
 import { motion } from 'framer-motion';
 import { Play, Sparkles, CheckCircle, Video } from 'lucide-react';
-import VideoPlayer from './EnhancedGenerator/VideoPlayer';
+import VideoPlayer from './VideoPlayer';
 
 export default function HowItWorksVideo() {
     const steps = [
