@@ -27,6 +27,7 @@ export default async function GeneratorPage({ params }: { params: Promise<{ id: 
             prompts={generator.prompts}
             heroImage={generator.heroImage}
             heroVideo={generator.heroVideo}
+            welcomeVideo={generator.welcomeVideo}
         />
     );
 }

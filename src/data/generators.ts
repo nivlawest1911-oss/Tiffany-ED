@@ -26,6 +26,7 @@ export const generators = [
         avatar: AVATARS.COMPLIANCE,
         heroImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80",
         heroVideo: "/videos/features/iep-architect-demo.mp4",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
         prompts: ["Generate annual IEP goals for...", "Create transition plan for...", "Draft accommodations for..."]
     },
     {
@@ -37,6 +38,7 @@ export const generators = [
         avatar: AVATARS.CURRICULUM,
         heroImage: "/images/features/sovereign_educator_planner.png",
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
         prompts: ["Alabama Course of Study aligned", "Differentiated instruction", "Project-based learning"]
     },
     {
@@ -47,6 +49,7 @@ export const generators = [
         color: "#10b981",
         avatar: AVATARS.DATA,
         heroImage: "/images/features/executive_grant_writer.png",
+        welcomeVideo: "/videos/briefings/data_briefing.mp4",
         prompts: ["Grant proposal draft"]
     },
     {
@@ -58,6 +61,7 @@ export const generators = [
         avatar: AVATARS.DATA,
         heroImage: "/images/features/collaborative_intelligence_team.png",
         heroVideo: "/videos/features/data-analysis-demo.mp4",
+        welcomeVideo: "/videos/briefings/data_briefing.mp4",
         prompts: ["Analyze attendance trends"]
     },
     {

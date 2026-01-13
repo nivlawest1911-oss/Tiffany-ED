@@ -14,6 +14,7 @@ interface EnhancedGeneratorProps {
     prompts: string[];
     heroImage?: string;
     heroVideo?: string;
+    welcomeVideo?: string;
 }
 
 import { useAuth } from '@/context/AuthContext';
@@ -26,7 +27,8 @@ export default function EnhancedGenerator({
     iconNode,
     prompts,
     heroImage,
-    heroVideo
+    heroVideo,
+    welcomeVideo
 }: EnhancedGeneratorProps) {
     // ... (rest of hook logic is unchanged)
     const { user, isLoading: isAuthLoading } = useAuth();
@@ -34,6 +36,7 @@ export default function EnhancedGenerator({
     const [completion, setCompletion] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [copied, setCopied] = useState(false);
+    const [showBriefing, setShowBriefing] = useState(false);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const [errorMsg, setErrorMsg] = useState('');
@@ -197,20 +200,77 @@ export default function EnhancedGenerator({
 
                             <div className={`absolute inset-0 opacity-10 bg-gradient-to-br ${generatorColor} z-0`} />
 
-                            <div className="relative z-10 flex items-start gap-6">
+                            <div className="relative z-10 flex flex-col md:flex-row items-start gap-6">
                                 <div className={`p-4 rounded-2xl bg-gradient-to-br ${generatorColor} shadow-lg shadow-indigo-500/20 ring-1 ring-white/10`}>
                                     {iconNode}
                                 </div>
-                                <div className="space-y-2">
+                                <div className="space-y-2 flex-grow">
                                     <h1 className="text-4xl font-bold tracking-tight font-sans text-white drop-shadow-md">
                                         {generatorName}
                                     </h1>
                                     <p className="text-zinc-300 max-w-xl font-medium drop-shadow-sm">
                                         Powered by Sovereign AI • Specialized for Educational Leadership
                                     </p>
+
+                                    {/* Briefing Button */}
+                                    {welcomeVideo && (
+                                        <button
+                                            onClick={() => setShowBriefing(true)}
+                                            className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/10 backdrop-blur-md transition-all text-sm font-semibold text-white group/briefing"
+                                        >
+                                            <div className="relative flex h-3 w-3">
+                                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                                                <span className="relative inline-flex rounded-full h-3 w-3 bg-indigo-500"></span>
+                                            </div>
+                                            Receive Delegate Briefing
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         </motion.div>
+
+                        {/* Briefing Modal */}
+                        <AnimatePresence>
+                            {showBriefing && welcomeVideo && (
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+                                    onClick={() => setShowBriefing(false)}
+                                >
+                                    <motion.div
+                                        initial={{ scale: 0.9, opacity: 0 }}
+                                        animate={{ scale: 1, opacity: 1 }}
+                                        exit={{ scale: 0.9, opacity: 0 }}
+                                        className="relative w-full max-w-3xl bg-zinc-900 rounded-3xl overflow-hidden border border-white/20 shadow-2xl"
+                                        onClick={e => e.stopPropagation()}
+                                    >
+                                        <div className="absolute top-0 left-0 right-0 p-4 bg-gradient-to-b from-black/80 to-transparent z-10 flex justify-between items-center">
+                                            <div className="flex items-center gap-2 text-white font-bold text-sm uppercase tracking-wider">
+                                                <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                                                Live Briefing Protocol
+                                            </div>
+                                            <button
+                                                onClick={() => setShowBriefing(false)}
+                                                className="p-2 rounded-full bg-black/50 hover:bg-white/20 text-white transition-colors"
+                                            >
+                                                <ChevronLeft className="w-6 h-6 rotate-180" /> {/* Close Icon */}
+                                            </button>
+                                        </div>
+                                        <div className="aspect-video w-full bg-black">
+                                            <VideoPlayer
+                                                src={welcomeVideo}
+                                                autoPlay={true}
+                                                controls={true}
+                                                className="w-full h-full"
+                                                title={`${generatorName} - Delegate Briefing`}
+                                            />
+                                        </div>
+                                    </motion.div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
 
                         {/* Input Area */}
                         <motion.div
