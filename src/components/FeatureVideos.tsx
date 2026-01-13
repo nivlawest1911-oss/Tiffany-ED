@@ -12,7 +12,7 @@ export default function FeatureVideos() {
             title: 'IEP Architect',
             description: 'Watch how our AI generates legally defensible, data-driven IEP goals in minutes',
             video: '/videos/features/iep-architect-demo.mp4',
-            thumbnail: '/images/avatars/iep_architect.png',
+            thumbnail: '/images/features/sovereign_iep_architect.png',
             color: 'from-violet-500 to-purple-600',
             link: '/generators/iep-architect',
             stats: { time: '5 min', saved: '2 hours', accuracy: '99%' }
@@ -22,7 +22,7 @@ export default function FeatureVideos() {
             title: 'Lesson Planner',
             description: 'See differentiated, standards-aligned lesson plans created automatically',
             video: '/videos/features/lesson-planner-demo.mp4',
-            thumbnail: '/images/avatars/curriculum_strategist.png',
+            thumbnail: '/images/features/sovereign_educator_planner.png',
             color: 'from-fuchsia-500 to-pink-600',
             link: '/generators/lesson-planner',
             stats: { time: '3 min', saved: '1.5 hours', accuracy: '98%' }
@@ -32,7 +32,7 @@ export default function FeatureVideos() {
             title: 'Data Analysis',
             description: 'Transform raw assessment data into actionable insights and visualizations',
             video: '/videos/features/data-analysis-demo.mp4',
-            thumbnail: '/images/avatars/data_analyst.png',
+            thumbnail: '/images/features/collaborative_intelligence_team.png',
             color: 'from-indigo-500 to-blue-600',
             link: '/generators/data-analyzer',
             stats: { time: '2 min', saved: '3 hours', accuracy: '100%' }

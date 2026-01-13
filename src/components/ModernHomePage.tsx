@@ -1,5 +1,7 @@
 'use client';
 
+import FeatureVideos from './FeatureVideos';
+import { Button } from "@/components/ui/button";
 import { motion } from 'framer-motion';
 import {
     Sparkles,
@@ -328,6 +330,11 @@ export default function ModernHomePage() {
 
             {/* How It Works Section - Replaced with Video Component */}
             <HowItWorksVideo />
+
+            {/* Feature Demonstrations (Video Section) */}
+            <div id="video-demo">
+                <FeatureVideos />
+            </div>
 
             {/* Pricing Section - Integrated Component */}
             <div id="pricing">
