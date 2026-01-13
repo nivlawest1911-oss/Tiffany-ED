@@ -143,11 +143,24 @@ export default function SovereignDelegate({
                 whileTap={{ scale: 0.95 }}
                 className="pointer-events-auto relative group"
             >
+                {/* Speech Bubble Greeting */}
+                {!isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.8, x: -10 }}
+                        animate={{ opacity: 1, scale: 1, x: 0 }}
+                        transition={{ delay: 1, duration: 0.5 }}
+                        className="absolute bottom-full right-0 mb-3 w-48 p-3 bg-white text-zinc-900 text-xs font-bold rounded-2xl rounded-br-none shadow-2xl shadow-indigo-500/20 z-50"
+                    >
+                        <p>Greetings, Principal. I have a briefing ready for you.</p>
+                        <div className="absolute -bottom-1 right-4 w-4 h-4 bg-white transform rotate-45" />
+                    </motion.div>
+                )}
+
                 {/* Notification Badge */}
                 {!isOpen && (
-                    <span className="absolute -top-1 -right-1 flex h-4 w-4">
+                    <span className="absolute -top-1 -right-1 flex h-4 w-4 z-50">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-4 w-4 bg-red-500 border-2 border-black"></span>
+                        <span className="relative inline-flex rounded-full h-4 w-4 bg-red-500 border-2 border-zinc-900"></span>
                     </span>
                 )}
 
@@ -159,11 +172,6 @@ export default function SovereignDelegate({
                         {/* Shine Effect */}
                         <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
-                </div>
-
-                {/* Tooltip Label */}
-                <div className="absolute right-full top-1/2 -translate-y-1/2 mr-4 px-3 py-1.5 bg-black/80 backdrop-blur text-white text-xs font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-all whitespace-nowrap border border-white/10">
-                    Detailed Briefing
                 </div>
             </motion.button>
         </div>
