@@ -30,6 +30,42 @@ export const generators = [
         voiceWelcome: "/voice-profiles/compliance_voice.wav",
         prompts: ["Generate annual IEP goals for...", "Create transition plan for...", "Draft accommodations for..."]
     },
+    {
+        id: "lesson-planner",
+        name: "Lesson Planner",
+        description: "Create standards-aligned, adaptive lesson plans for any subject",
+        icon: BookOpen,
+        color: "#d946ef",
+        avatar: AVATARS.CURRICULUM,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        voiceWelcome: "/voice-profiles/counselor_voice.wav",
+        prompts: ["5th Grade Math Fractions", "High School History Civil War", "Science Lab Safety"]
+    },
+    {
+        id: "data-analyzer",
+        name: "Data Detective",
+        description: "Analyze student performance data and generate insights",
+        icon: BarChart3,
+        color: "#6366f1",
+        avatar: AVATARS.DATA,
+        heroVideo: "/videos/features/data-analysis-demo.mp4",
+        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        voiceWelcome: "/voice-profiles/data_voice.wav",
+        prompts: ["Analyze reading fluency scores", "Identify attendance patterns", "Math benchmark trends"]
+    },
+    {
+        id: "behavior-coach",
+        name: "Behavior Specialist",
+        description: "Develop Behavior Intervention Plans (BIP) and tracking sheets",
+        icon: Users,
+        color: "#ec4899",
+        avatar: AVATARS.COUNSELOR,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        voiceWelcome: "/voice-profiles/counselor_voice.wav",
+        prompts: ["BIP for ADHD student", "Behavior tracking sheet", "De-escalation strategies"]
+    },
     // ...
     {
         id: "substitute-binder-pro",

@@ -58,7 +58,7 @@ export default function ModernHomePage() {
             title: "Grant Writer",
             description: "Secure funding with a high-tech digital drafting engine designed for persuasive success.",
             color: "from-blue-500 to-cyan-600",
-            link: "/generators/grant-writer",
+            link: "/generators/grant-compliance-auditor",
             image: "/images/features/iep_interface.png",
             imageClass: "object-right hue-rotate-180"
         },
