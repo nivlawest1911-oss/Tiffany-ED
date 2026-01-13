@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Brain, Sparkles, BarChart3, Zap } from 'lucide-react';
+import { Brain, Sparkles, BarChart3, Zap, Play } from 'lucide-react';
 import VideoPlayer from './VideoPlayer';
 import Link from 'next/link';
 
@@ -10,7 +10,7 @@ export default function FeatureVideos() {
         {
             icon: Brain,
             title: 'IEP Architect',
-            description: 'Watch how our AI generates legally defensible, data-driven IEP goals in minutes',
+            description: 'Watch the Sovereign Engine generate legally defensible, data-driven IEP goals in milliseconds.',
             video: '/videos/features/iep-architect-demo.mp4',
             thumbnail: '/images/features/sovereign_iep_architect.png',
             color: 'from-violet-500 to-purple-600',
@@ -20,7 +20,7 @@ export default function FeatureVideos() {
         {
             icon: Sparkles,
             title: 'Lesson Planner',
-            description: 'See differentiated, standards-aligned lesson plans created automatically',
+            description: 'Experience identifying standards-aligned curriculum protocols created via neural synthesis.',
             video: '/videos/features/lesson-planner-demo.mp4',
             thumbnail: '/images/features/sovereign_educator_planner.png',
             color: 'from-fuchsia-500 to-pink-600',
@@ -29,8 +29,8 @@ export default function FeatureVideos() {
         },
         {
             icon: BarChart3,
-            title: 'Data Analysis',
-            description: 'Transform raw assessment data into actionable insights and visualizations',
+            title: 'Data Intelligence',
+            description: 'Transform raw assessment signals into actionable executive intelligence grids.',
             video: '/videos/features/data-analysis-demo.mp4',
             thumbnail: '/images/features/collaborative_intelligence_team.png',
             color: 'from-indigo-500 to-blue-600',
@@ -40,100 +40,91 @@ export default function FeatureVideos() {
     ];
 
     return (
-        <section className="relative py-24 bg-gradient-to-br from-zinc-950 to-purple-950/20">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="relative py-32 bg-zinc-950 overflow-hidden">
+            {/* Ambient Background Glow */}
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-600/20 rounded-full blur-[128px] pointer-events-none" />
+            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-[128px] pointer-events-none" />
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center mb-16"
+                    className="text-center mb-24"
                 >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-bold uppercase tracking-widest mb-6">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-bold uppercase tracking-[0.2em] mb-8 hover:bg-indigo-500/20 transition-colors cursor-default">
                         <Zap size={14} />
-                        <span>Feature Demonstrations</span>
+                        <span>Sovereign Intelligence Protocols</span>
                     </div>
-                    <h2 className="text-4xl sm:text-5xl font-black text-white mb-6">
-                        See Our AI{' '}
-                        <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                            In Action
+                    <h2 className="text-5xl md:text-6xl font-black text-white mb-8 tracking-tight">
+                        See the{' '}
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-indigo-400 animate-gradient-x">
+                            Future
                         </span>
                     </h2>
-                    <p className="text-xl text-zinc-400 max-w-3xl mx-auto">
-                        Watch real demonstrations of our most powerful AI tools transforming educational workflows
+                    <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
+                        Witness the EdIntel Sovereign Neural Engine in active deployment.
                     </p>
                 </motion.div>
 
                 {/* Feature Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
                     {features.map((feature, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, y: 30 }}
+                            initial={{ opacity: 0, y: 40 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: index * 0.2 }}
-                            className="bg-zinc-900/50 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-indigo-500/50 transition-all group"
+                            transition={{ delay: index * 0.2, duration: 0.8, ease: "easeOut" }}
+                            className="group relative"
                         >
-                            {/* Video */}
-                            <VideoPlayer
-                                src={feature.video}
-                                poster={feature.thumbnail}
-                                title={feature.title}
-                            />
+                            {/* Card Container */}
+                            <div className="relative bg-zinc-900/40 backdrop-blur-xl border border-white/5 rounded-3xl overflow-hidden hover:border-indigo-500/30 transition-all duration-500 flex flex-col h-full hover:shadow-2xl hover:shadow-indigo-500/10">
 
-                            {/* Content */}
-                            <div className="p-6">
-                                {/* Icon & Title */}
-                                <div className="flex items-center gap-4 mb-4">
-                                    <div className={`p-3 rounded-xl bg-gradient-to-br ${feature.color} shadow-lg`}>
-                                        <feature.icon className="w-6 h-6 text-white" />
+                                {/* Video Player Container */}
+                                <div className="relative aspect-video bg-zinc-950 border-b border-white/5 group-hover:border-indigo-500/20 transition-colors">
+                                    <VideoPlayer
+                                        src={feature.video}
+                                        poster={feature.thumbnail}
+                                        title={feature.title}
+                                        className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
+                                    />
+                                    {/* Overlay Gradient (when not playing, handled by player but added here for depth) */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent opacity-60 pointer-events-none" />
+                                </div>
+
+                                {/* Content */}
+                                <div className="p-8 flex flex-col flex-grow">
+                                    {/* Title Header */}
+                                    <div className="flex items-start justify-between mb-6">
+                                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-zinc-800 to-zinc-900 border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-lg">
+                                            <feature.icon className="w-6 h-6 text-indigo-400" />
+                                        </div>
+                                        <div className="px-3 py-1 rounded-full bg-white/5 border border-white/5 text-[10px] uppercase tracking-wider text-zinc-500 font-bold group-hover:bg-indigo-500/10 group-hover:text-indigo-400 transition-colors">
+                                            Demo
+                                        </div>
                                     </div>
-                                    <h3 className="text-2xl font-bold text-white group-hover:text-indigo-300 transition-colors">
+
+                                    <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-indigo-300 transition-colors">
                                         {feature.title}
                                     </h3>
+
+                                    <p className="text-zinc-400 mb-8 leading-relaxed text-sm flex-grow">
+                                        {feature.description}
+                                    </p>
+
+                                    {/* Action */}
+                                    <Link href={feature.link} className="mt-auto">
+                                        <button className="w-full py-4 rounded-xl bg-white/5 hover:bg-indigo-600 border border-white/10 hover:border-indigo-500 text-white font-semibold transition-all duration-300 flex items-center justify-center gap-2 group/btn">
+                                            <span>Initialize Protocol</span>
+                                            <Play size={16} className="fill-current opacity-60 group-hover/btn:opacity-100 transition-opacity" />
+                                        </button>
+                                    </Link>
                                 </div>
-
-                                {/* Description */}
-                                <p className="text-zinc-400 mb-6 leading-relaxed">
-                                    {feature.description}
-                                </p>
-
-                                {/* Stats */}
-                                <div className="grid grid-cols-3 gap-4 mb-6 pb-6 border-b border-white/10">
-                                    <div className="text-center">
-                                        <div className="text-2xl font-black text-indigo-400">{feature.stats.time}</div>
-                                        <div className="text-xs text-zinc-500 uppercase">To Create</div>
-                                    </div>
-                                    <div className="text-center">
-                                        <div className="text-2xl font-black text-purple-400">{feature.stats.saved}</div>
-                                        <div className="text-xs text-zinc-500 uppercase">Time Saved</div>
-                                    </div>
-                                    <div className="text-center">
-                                        <div className="text-2xl font-black text-pink-400">{feature.stats.accuracy}</div>
-                                        <div className="text-xs text-zinc-500 uppercase">Accuracy</div>
-                                    </div>
-                                </div>
-
-                                {/* CTA */}
-                                <Link href={feature.link}>
-                                    <button className="w-full py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold transition-all group-hover:border-indigo-500/50">
-                                        Try {feature.title}
-                                    </button>
-                                </Link>
                             </div>
                         </motion.div>
                     ))}
-                </div>
-
-                {/* Note */}
-                <div className="mt-12 text-center">
-                    <div className="inline-block bg-yellow-500/10 border border-yellow-500/20 rounded-xl px-6 py-3">
-                        <p className="text-yellow-400 text-sm">
-                            📹 <strong>Note:</strong> Feature demo videos will be added once available.
-                            Component is ready for integration!
-                        </p>
-                    </div>
                 </div>
             </div>
         </section>
