@@ -5,6 +5,7 @@ import { Loader2, Copy, Check, Sparkles, Download, ArrowRight, Bot, Zap, History
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
+import VideoPlayer from './VideoPlayer';
 
 interface EnhancedGeneratorProps {
     generatorId: string;
