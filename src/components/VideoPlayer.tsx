@@ -13,6 +13,7 @@ interface VideoPlayerProps {
     muted?: boolean;
     controls?: boolean;
     className?: string;
+    voiceSrc?: string; // New: Sync audio track
 }
 
 export default function VideoPlayer({
@@ -24,9 +25,11 @@ export default function VideoPlayer({
     loop = false,
     muted = false,
     controls = true,
-    className = ''
+    className = '',
+    voiceSrc
 }: VideoPlayerProps) {
     const videoRef = useRef<HTMLVideoElement>(null);
+    const audioRef = useRef<HTMLAudioElement>(null);
     const [isPlaying, setIsPlaying] = useState(autoPlay);
     const [isMuted, setIsMuted] = useState(muted);
 
@@ -34,8 +37,10 @@ export default function VideoPlayer({
         if (videoRef.current) {
             if (isPlaying) {
                 videoRef.current.pause();
+                audioRef.current?.pause();
             } else {
                 videoRef.current.play();
+                audioRef.current?.play();
             }
             setIsPlaying(!isPlaying);
         }
@@ -44,12 +49,43 @@ export default function VideoPlayer({
     const toggleMute = () => {
         if (videoRef.current) {
             videoRef.current.muted = !isMuted;
+            if (audioRef.current) {
+                audioRef.current.muted = !isMuted;
+            }
             setIsMuted(!isMuted);
+        }
+    };
+
+    // Sync Logic
+    const handlePlay = () => {
+        setIsPlaying(true);
+        audioRef.current?.play().catch(e => console.log("Audio autoplay blocked", e));
+    };
+
+    const handlePause = () => {
+        setIsPlaying(false);
+        audioRef.current?.pause();
+    };
+
+    const handleEnded = () => {
+        setIsPlaying(false);
+        if (loop && videoRef.current) {
+            videoRef.current.play();
+            audioRef.current?.play(); // Loop audio if video loops? Or just replay.
         }
     };
 
     return (
         <div className={`relative group ${className}`}>
+            {/* Sync Audio Track */}
+            {voiceSrc && (
+                <audio
+                    ref={audioRef}
+                    src={voiceSrc}
+                    muted={isMuted}
+                />
+            )}
+
             {/* Video Element */}
             <video
                 ref={videoRef}
@@ -60,8 +96,9 @@ export default function VideoPlayer({
                 muted={muted}
                 playsInline
                 className="w-full h-auto rounded-2xl"
-                onPlay={() => setIsPlaying(true)}
-                onPause={() => setIsPlaying(false)}
+                onPlay={handlePlay}
+                onPause={handlePause}
+                onEnded={handleEnded}
             >
                 Your browser does not support the video tag.
             </video>
