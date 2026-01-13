@@ -63,6 +63,7 @@ export const generators = [
         icon: Award,
         color: "#14b8a6",
         avatar: AVATARS.COUNSELOR,
+        heroImage: "/images/features/behavior_intervention_specialist.png",
         prompts: ["Create behavior intervention plan", "PBIS reward system", "De-escalation techniques"]
     },
     // ... (Many existing ones would be here, mapped to avatars)
@@ -84,6 +85,7 @@ export const generators = [
         icon: Map,
         color: "#22c55e",
         avatar: AVATARS.CURRICULUM,
+        heroImage: "/images/features/field_trip_logistics_commander.png",
         prompts: ["Science museum trip plan", "Permission slip template", "Chaperone guidelines"]
     },
     {
@@ -159,7 +161,7 @@ export const generators = [
         prompts: ["Dyslexia-friendly worksheet", "Reading intervention list", "Parent resource guide"]
     },
     // Re-adding essential existing ones for the demo to work fully
-    { id: "email-composer", name: "Email Composer", description: "Professional communications", icon: MessageSquare, color: "#10b981", avatar: AVATARS.PRINCIPAL, prompts: ["Parent conference follow-up", "Staff announcement"] },
+    { id: "email-composer", name: "Email Composer", description: "Professional communications", icon: MessageSquare, color: "#10b981", avatar: AVATARS.PRINCIPAL, heroImage: "/images/features/sovereign_communications_director.png", prompts: ["Parent conference follow-up", "Staff announcement"] },
     { id: "policy-advisor", name: "Policy Advisor", description: "Navigate regulations", icon: Shield, color: "#8b5cf6", avatar: AVATARS.COMPLIANCE, prompts: ["IDEA compliance check", "504 plan requirements"] },
     { id: "cognitive-coach", name: "Cognitive Coach", description: "Executive function strategies", icon: Brain, color: "#ec4899", avatar: AVATARS.COUNSELOR, prompts: ["Working memory activities"] },
     { id: "idea-generator", name: "Idea Generator", description: "Creative solutions", icon: Lightbulb, color: "#f59e0b", avatar: AVATARS.CURRICULUM, prompts: ["Engagement strategies"] },
@@ -186,5 +188,5 @@ export const generators = [
     { id: "project-pbl-architect", name: "PBL Architect", description: "Project design", icon: Layers, color: "#ec4899", avatar: AVATARS.CURRICULUM, prompts: ["PBL unit plan"] },
     { id: "quiz-gamifier", name: "Quiz Gamifier", description: "Gamification", icon: Gamepad2, color: "#8b5cf6", avatar: AVATARS.CURRICULUM, prompts: ["Gamify quiz review"] },
     { id: "safety-drill-master", name: "Safety Drill Master", description: "Crisis planning", icon: ShieldAlert, color: "#ef4444", avatar: AVATARS.COMPLIANCE, prompts: ["Fire drill procedure"] },
-    { id: "newsletter-wizard", name: "Newsletter Wizard", description: "Community updates", icon: Mail, color: "#3b82f6", avatar: AVATARS.PRINCIPAL, prompts: ["Weekly newsletter"] },
+    { id: "newsletter-wizard", name: "Newsletter Wizard", description: "Community updates", icon: Mail, color: "#3b82f6", avatar: AVATARS.PRINCIPAL, heroImage: "/images/features/sovereign_communications_director.png", prompts: ["Weekly newsletter"] },
 ]
