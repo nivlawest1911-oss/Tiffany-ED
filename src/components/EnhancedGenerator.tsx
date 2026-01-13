@@ -52,20 +52,14 @@ export default function EnhancedGenerator({
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const [errorMsg, setErrorMsg] = useState('');
 
+    const { playClick, playSuccess } = useSovereignSounds();
+
     // Auto-scroll to bottom of output when generating
     useEffect(() => {
         if (isLoading && messagesEndRef.current) {
             messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
         }
     }, [completion, isLoading]);
-
-    const { playClick, playSuccess, playAmbient, stopAmbient } = useSovereignSounds();
-
-    // Ambient Soundscape
-    useEffect(() => {
-        playAmbient();
-        return () => stopAmbient();
-    }, [playAmbient, stopAmbient]);
 
     const handleSubmit = async (e?: React.FormEvent) => {
         if (e) e.preventDefault();
