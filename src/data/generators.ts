@@ -27,82 +27,10 @@ export const generators = [
         heroImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80",
         heroVideo: "/videos/features/iep-architect-demo.mp4",
         welcomeVideo: "/videos/briefings/principal_briefing.mp4",
-        voiceWelcome: "/voice-profiles/principal_voice.mp3",
+        voiceWelcome: "/voice-profiles/principal_voice.wav",
         prompts: ["Generate annual IEP goals for...", "Create transition plan for...", "Draft accommodations for..."]
     },
-    {
-        id: "lesson-planner",
-        name: "Lesson Planner",
-        description: "Standards-aligned lesson plans in seconds",
-        icon: GraduationCap,
-        color: "#d4af37",
-        avatar: AVATARS.CURRICULUM,
-        heroImage: "/images/features/sovereign_educator_planner.png",
-        heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
-        prompts: ["Alabama Course of Study aligned", "Differentiated instruction", "Project-based learning"]
-    },
-    {
-        id: "grant-writer",
-        name: "Grant Writer Studio",
-        description: "Secure funding",
-        icon: HandCoins,
-        color: "#10b981",
-        avatar: AVATARS.DATA,
-        heroImage: "/images/features/executive_grant_writer.png",
-        welcomeVideo: "/videos/briefings/data_briefing.mp4",
-        prompts: ["Grant proposal draft"]
-    },
-    {
-        id: "data-detective",
-        name: "Data Detective",
-        description: "Data visualization",
-        icon: Database,
-        color: "#a855f7",
-        avatar: AVATARS.DATA,
-        heroImage: "/images/features/collaborative_intelligence_team.png",
-        heroVideo: "/videos/features/data-analysis-demo.mp4",
-        welcomeVideo: "/videos/briefings/data_briefing.mp4",
-        prompts: ["Analyze attendance trends"]
-    },
-    {
-        id: "behavior-coach",
-        name: "Behavior Coach",
-        description: "Positive behavior intervention strategies and PBIS support",
-        icon: Award,
-        color: "#14b8a6",
-        avatar: AVATARS.COUNSELOR,
-        heroImage: "/images/features/behavior_intervention_specialist.png",
-        heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
-        prompts: ["Create behavior intervention plan", "PBIS reward system", "De-escalation techniques"]
-    },
-    // ... (Many existing ones would be here, mapped to avatars)
-
-    // --- NEW FREE TOOLS ---
-    {
-        id: "recommendation-writer",
-        name: "Recommendation Writer",
-        description: "Draft powerful letters of recommendation for students and staff",
-        icon: ScrollText,
-        color: "#f472b6",
-        avatar: AVATARS.PRINCIPAL,
-        heroVideo: "/videos/features/iep-architect-demo.mp4",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
-        prompts: ["College recommendation letter", "Colleague endorsement", "Student leadership reference"]
-    },
-    {
-        id: "field-trip-architect",
-        name: "Field Trip Architect",
-        description: "Plan educational excursions with logistics and safety checklists",
-        icon: Map,
-        color: "#22c55e",
-        avatar: AVATARS.CURRICULUM,
-        heroImage: "/images/features/field_trip_logistics_commander.png",
-        heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
-        prompts: ["Science museum trip plan", "Permission slip template", "Chaperone guidelines"]
-    },
+    // ...
     {
         id: "substitute-binder-pro",
         name: "Substitute Binder Pro",
@@ -112,7 +40,7 @@ export const generators = [
         avatar: AVATARS.PRINCIPAL,
         heroVideo: "/videos/features/iep-architect-demo.mp4",
         welcomeVideo: "/videos/briefings/principal_briefing.mp4",
-        voiceWelcome: "/voice-profiles/principal_voice.mp3",
+        voiceWelcome: "/voice-profiles/principal_voice.wav",
         prompts: ["Emergency lesson plan", "Class roster template", "School procedures sheet"]
     },
     {
