@@ -34,12 +34,10 @@ interface AvatarConfig {
 }
 
 const AVATAR_LIBRARY = [
-    { id: 'twin-01', name: 'Director West', role: 'Executive', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop', heygenId: 'Abigail_expressive_2024112501', elevenLabsId: 'JBFqnCBsd6RMkjVDRZzb' },
-    { id: 'twin-02', name: 'Dr. Sarah James', role: 'Instructional', img: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&h=400&fit=crop', heygenId: 'Lina_Dress_Sitting_Side_public', elevenLabsId: '21m00Tcm4TlvDq8ikWAM' },
-    { id: 'twin-03', name: 'Specialist David', role: 'STEM Lead', img: 'https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?w=400&h=400&fit=crop', heygenId: 'Abigail_standing_office_front', elevenLabsId: 'soY4btAspOtqS4y4s7TV' },
-    { id: 'twin-04', name: 'Principal Elena', role: 'Compliance', img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop', heygenId: 'Lina_Dress_Sitting_Side_public', elevenLabsId: 'AZnzlk1XvdvUeBnXmlld' },
-    { id: 'twin-05', name: 'Agent Marcus II', role: 'Operations', img: 'https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?w=400&h=400&fit=crop', heygenId: 'Abigail_expressive_2024112501', elevenLabsId: 'TxGEqnHWrfWFTfGW9XjX' },
-    { id: 'twin-06', name: 'Director Nova', role: 'Sovereign Lead', img: 'https://images.unsplash.com/photo-1567532939604-b6c5b0ad2e01?w=400&h=400&fit=crop', heygenId: 'Lina_Dress_Sitting_Side_public', elevenLabsId: 'EXAVITQu4vr4xnSDxMaL' },
+    { id: 'twin-01', name: 'Dr. Alvin West', role: 'Sovereign Principal', img: '/images/dr_alvin_west.png', heygenId: 'Abigail_expressive_2024112501', elevenLabsId: 'JBFqnCBsd6RMkjVDRZzb' },
+    { id: 'twin-02', name: 'The Counselor', role: 'Wellbeing Lead', img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&q=80', heygenId: 'Lina_Dress_Sitting_Side_public', elevenLabsId: '21m00Tcm4TlvDq8ikWAM' },
+    { id: 'twin-03', name: 'The Analyst', role: 'Data Strategist', img: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&q=80', heygenId: 'Abigail_standing_office_front', elevenLabsId: 'soY4btAspOtqS4y4s7TV' },
+    { id: 'twin-04', name: 'Compliance Officer', role: 'Regulatory Lead', img: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&q=80', heygenId: 'Lina_Dress_Sitting_Side_public', elevenLabsId: 'AZnzlk1XvdvUeBnXmlld' },
 ];
 
 interface AvatarOutput {
