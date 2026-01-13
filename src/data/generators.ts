@@ -72,6 +72,8 @@ export const generators = [
         color: "#14b8a6",
         avatar: AVATARS.COUNSELOR,
         heroImage: "/images/features/behavior_intervention_specialist.png",
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
         prompts: ["Create behavior intervention plan", "PBIS reward system", "De-escalation techniques"]
     },
     // ... (Many existing ones would be here, mapped to avatars)
@@ -84,6 +86,8 @@ export const generators = [
         icon: ScrollText,
         color: "#f472b6",
         avatar: AVATARS.PRINCIPAL,
+        heroVideo: "/videos/features/iep-architect-demo.mp4",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
         prompts: ["College recommendation letter", "Colleague endorsement", "Student leadership reference"]
     },
     {
@@ -94,6 +98,8 @@ export const generators = [
         color: "#22c55e",
         avatar: AVATARS.CURRICULUM,
         heroImage: "/images/features/field_trip_logistics_commander.png",
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
         prompts: ["Science museum trip plan", "Permission slip template", "Chaperone guidelines"]
     },
     {
@@ -103,6 +109,8 @@ export const generators = [
         icon: ClipboardList,
         color: "#f59e0b",
         avatar: AVATARS.PRINCIPAL,
+        heroVideo: "/videos/features/iep-architect-demo.mp4",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
         prompts: ["Emergency lesson plan", "Class roster template", "School procedures sheet"]
     },
     {
@@ -112,6 +120,8 @@ export const generators = [
         icon: FileJson,
         color: "#8b5cf6",
         avatar: AVATARS.DATA,
+        heroVideo: "/videos/features/data-analysis-demo.mp4",
+        welcomeVideo: "/videos/briefings/data_briefing.mp4",
         prompts: ["Audit Title I spending", "Grant reporting checklist", "Allowable cost check"]
     },
     {
@@ -121,6 +131,8 @@ export const generators = [
         icon: Table,
         color: "#06b6d4",
         avatar: AVATARS.CURRICULUM,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
         prompts: ["Essay rubric 9th grade", "Oral presentation rubric", "Science project criteria"]
     },
     {
@@ -130,6 +142,8 @@ export const generators = [
         icon: HeartHandshake,
         color: "#ec4899",
         avatar: AVATARS.COUNSELOR,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
         prompts: ["Student conflict script", "Parent-Teacher mediation", "Restorative circle guide"]
     },
     {
@@ -139,6 +153,8 @@ export const generators = [
         icon: Smile,
         color: "#eab308",
         avatar: AVATARS.COUNSELOR,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
         prompts: ["First day of school activity", "Staff meeting icebreaker", "Team building game"]
     },
     {
@@ -148,6 +164,8 @@ export const generators = [
         icon: GanttChart,
         color: "#6366f1",
         avatar: AVATARS.PRINCIPAL,
+        heroVideo: "/videos/features/iep-architect-demo.mp4",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
         prompts: ["Optimize lunch waves", "Teacher prep period logic", "Block schedule ideas"]
     },
     {
@@ -157,6 +175,8 @@ export const generators = [
         icon: Trophy,
         color: "#f97316",
         avatar: AVATARS.COMPLIANCE,
+        heroVideo: "/videos/features/iep-architect-demo.mp4",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
         prompts: ["Eligibility checklist", "GPA tracking template", "NCAA requirement guide"]
     },
     {
@@ -166,35 +186,34 @@ export const generators = [
         icon: Glasses,
         color: "#3b82f6",
         avatar: AVATARS.CURRICULUM,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
         prompts: ["Dyslexia-friendly worksheet", "Reading intervention list", "Parent resource guide"]
     },
     // Re-adding essential existing ones for the demo to work fully
-    { id: "email-composer", name: "Email Composer", description: "Professional communications", icon: MessageSquare, color: "#10b981", avatar: AVATARS.PRINCIPAL, heroImage: "/images/features/sovereign_communications_director.png", prompts: ["Parent conference follow-up", "Staff announcement"] },
-    { id: "policy-advisor", name: "Policy Advisor", description: "Navigate regulations", icon: Shield, color: "#8b5cf6", avatar: AVATARS.COMPLIANCE, prompts: ["IDEA compliance check", "504 plan requirements"] },
-    { id: "cognitive-coach", name: "Cognitive Coach", description: "Executive function strategies", icon: Brain, color: "#ec4899", avatar: AVATARS.COUNSELOR, prompts: ["Working memory activities"] },
-    { id: "idea-generator", name: "Idea Generator", description: "Creative solutions", icon: Lightbulb, color: "#f59e0b", avatar: AVATARS.CURRICULUM, prompts: ["Engagement strategies"] },
-    { id: "code-commander", name: "Code Commander", description: "Learn coding", icon: Code, color: "#06b6d4", avatar: AVATARS.DATA, prompts: ["Debug my Python code"] },
-    { id: "data-detective", name: "Data Detective", description: "Data visualization", icon: Database, color: "#a855f7", avatar: AVATARS.DATA, prompts: ["Analyze attendance trends"] },
-    { id: "comms-director", name: "Comms Director", description: "PR content", icon: Megaphone, color: "#f97316", avatar: AVATARS.PRINCIPAL, prompts: ["Draft school newsletter"] },
-    { id: "design-studio", name: "Design Studio", description: "Creative layout", icon: Palette, color: "#e11d48", avatar: AVATARS.CURRICULUM, prompts: ["Yearbook layout ideas"] },
-    { id: "meeting-prep", name: "Meeting Prep", description: "Agendas & talking points", icon: Briefcase, color: "#0ea5e9", avatar: AVATARS.PRINCIPAL, prompts: ["Board meeting agenda"] },
-    { id: "assessment-builder", name: "Assessment Builder", description: "Create assessments", icon: ClipboardCheck, color: "#8b5cf6", avatar: AVATARS.CURRICULUM, prompts: ["Multiple choice quiz"] },
-    { id: "differentiation-planner", name: "Differentiation", description: "Tiered activities", icon: Target, color: "#ec4899", avatar: AVATARS.CURRICULUM, prompts: ["Tier 1, 2, 3 activities"] },
-    { id: "data-analyzer", name: "Data Analyzer", description: "Interpret data", icon: TrendingUp, color: "#10b981", avatar: AVATARS.DATA, heroVideo: "/videos/features/data-analysis-demo.mp4", prompts: ["Analyze benchmark results"] },
-    { id: "parent-communicator", name: "Parent Communicator", description: "Communication logs", icon: MessageSquare, color: "#f59e0b", avatar: AVATARS.COUNSELOR, prompts: ["Weekly progress update"] },
-    { id: "student-goal-setter", name: "Student Goal Setter", description: "SMART goals", icon: StudentCap, color: "#06b6d4", avatar: AVATARS.COUNSELOR, prompts: ["Academic goal template"] },
-    { id: "study-guide-maker", name: "Study Guide Maker", description: "Review materials", icon: BookMarked, color: "#a855f7", avatar: AVATARS.CURRICULUM, prompts: ["Chapter summary"] },
-    { id: "writing-coach", name: "Writing Coach", description: "Essay feedback", icon: PenTool, color: "#f97316", avatar: AVATARS.CURRICULUM, prompts: ["Essay outline help"] },
-    { id: "video-lesson-planner", name: "Video Lesson Planner", description: "Video scripts", icon: Video, color: "#d946ef", avatar: AVATARS.CURRICULUM, prompts: ["Flipped classroom script"] },
-    { id: "college-essay-coach", name: "College Essay Coach", description: "Ivy League feedback", icon: StudentCap, color: "#d4af37", avatar: AVATARS.COUNSELOR, prompts: ["Review college essay draft"] },
-    { id: "science-fair-mentor", name: "Science Fair Mentor", description: "Project ideas", icon: Beaker, color: "#0ea5e9", avatar: AVATARS.CURRICULUM, prompts: ["Science fair project ideas"] },
-    { id: "math-tutor-pro", name: "Math Tutor Pro", description: "Math help", icon: Calculator, color: "#f59e0b", avatar: AVATARS.CURRICULUM, prompts: ["Explain math problem"] },
-    { id: "debate-prep", name: "Debate Prep", description: "Argument builder", icon: Mic, color: "#ef4444", avatar: AVATARS.CURRICULUM, prompts: ["Argument builder"] },
-    { id: "grant-writer", name: "Grant Writer Studio", description: "Secure funding", icon: HandCoins, color: "#10b981", avatar: AVATARS.DATA, prompts: ["Grant proposal draft"] },
-    { id: "bus-route-optimizer", name: "Transport Logistics", description: "Route efficiency", icon: Bus, color: "#f59e0b", avatar: AVATARS.DATA, prompts: ["Optimize bus route"] },
-    { id: "budget-allocator", name: "Budget Allocator", description: "Finance modeling", icon: PieChart, color: "#06b6d4", avatar: AVATARS.DATA, prompts: ["Budget analysis"] },
-    { id: "project-pbl-architect", name: "PBL Architect", description: "Project design", icon: Layers, color: "#ec4899", avatar: AVATARS.CURRICULUM, prompts: ["PBL unit plan"] },
-    { id: "quiz-gamifier", name: "Quiz Gamifier", description: "Gamification", icon: Gamepad2, color: "#8b5cf6", avatar: AVATARS.CURRICULUM, prompts: ["Gamify quiz review"] },
-    { id: "safety-drill-master", name: "Safety Drill Master", description: "Crisis planning", icon: ShieldAlert, color: "#ef4444", avatar: AVATARS.COMPLIANCE, prompts: ["Fire drill procedure"] },
-    { id: "newsletter-wizard", name: "Newsletter Wizard", description: "Community updates", icon: Mail, color: "#3b82f6", avatar: AVATARS.PRINCIPAL, heroImage: "/images/features/sovereign_communications_director.png", prompts: ["Weekly newsletter"] },
-]
+    { id: "email-composer", name: "Email Composer", description: "Professional communications", icon: MessageSquare, color: "#10b981", avatar: AVATARS.PRINCIPAL, heroImage: "/images/features/sovereign_communications_director.png", heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/principal_briefing.mp4", prompts: ["Parent conference follow-up", "Staff announcement"] },
+    { id: "policy-advisor", name: "Policy Advisor", description: "Navigate regulations", icon: Shield, color: "#8b5cf6", avatar: AVATARS.COMPLIANCE, heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/principal_briefing.mp4", prompts: ["IDEA compliance check", "504 plan requirements"] },
+    { id: "cognitive-coach", name: "Cognitive Coach", description: "Executive function strategies", icon: Brain, color: "#ec4899", avatar: AVATARS.COUNSELOR, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", prompts: ["Working memory activities"] },
+    { id: "idea-generator", name: "Idea Generator", description: "Creative solutions", icon: Lightbulb, color: "#f59e0b", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", prompts: ["Engagement strategies"] },
+    { id: "code-commander", name: "Code Commander", description: "Learn coding", icon: Code, color: "#06b6d4", avatar: AVATARS.DATA, heroVideo: "/videos/features/data-analysis-demo.mp4", welcomeVideo: "/videos/briefings/data_briefing.mp4", prompts: ["Debug my Python code"] },
+    { id: "comms-director", name: "Comms Director", description: "PR content", icon: Megaphone, color: "#f97316", avatar: AVATARS.PRINCIPAL, heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/principal_briefing.mp4", prompts: ["Draft school newsletter"] },
+    { id: "design-studio", name: "Design Studio", description: "Creative layout", icon: Palette, color: "#e11d48", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", prompts: ["Yearbook layout ideas"] },
+    { id: "meeting-prep", name: "Meeting Prep", description: "Agendas & talking points", icon: Briefcase, color: "#0ea5e9", avatar: AVATARS.PRINCIPAL, heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/principal_briefing.mp4", prompts: ["Board meeting agenda"] },
+    { id: "assessment-builder", name: "Assessment Builder", description: "Create assessments", icon: ClipboardCheck, color: "#8b5cf6", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", prompts: ["Multiple choice quiz"] },
+    { id: "differentiation-planner", name: "Differentiation", description: "Tiered activities", icon: Target, color: "#ec4899", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", prompts: ["Tier 1, 2, 3 activities"] },
+    { id: "parent-communicator", name: "Parent Communicator", description: "Communication logs", icon: MessageSquare, color: "#f59e0b", avatar: AVATARS.COUNSELOR, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", prompts: ["Weekly progress update"] },
+    { id: "student-goal-setter", name: "Student Goal Setter", description: "SMART goals", icon: StudentCap, color: "#06b6d4", avatar: AVATARS.COUNSELOR, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", prompts: ["Academic goal template"] },
+    { id: "study-guide-maker", name: "Study Guide Maker", description: "Review materials", icon: BookMarked, color: "#a855f7", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", prompts: ["Chapter summary"] },
+    { id: "writing-coach", name: "Writing Coach", description: "Essay feedback", icon: PenTool, color: "#f97316", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", prompts: ["Essay outline help"] },
+    { id: "video-lesson-planner", name: "Video Lesson Planner", description: "Video scripts", icon: Video, color: "#d946ef", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", prompts: ["Flipped classroom script"] },
+    { id: "college-essay-coach", name: "College Essay Coach", description: "Ivy League feedback", icon: StudentCap, color: "#d4af37", avatar: AVATARS.COUNSELOR, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", prompts: ["Review college essay draft"] },
+    { id: "science-fair-mentor", name: "Science Fair Mentor", description: "Project ideas", icon: Beaker, color: "#0ea5e9", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", prompts: ["Science fair project ideas"] },
+    { id: "math-tutor-pro", name: "Math Tutor Pro", description: "Math help", icon: Calculator, color: "#f59e0b", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", prompts: ["Explain math problem"] },
+    { id: "debate-prep", name: "Debate Prep", description: "Argument builder", icon: Mic, color: "#ef4444", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", prompts: ["Argument builder"] },
+    { id: "bus-route-optimizer", name: "Transport Logistics", description: "Route efficiency", icon: Bus, color: "#f59e0b", avatar: AVATARS.DATA, heroVideo: "/videos/features/data-analysis-demo.mp4", welcomeVideo: "/videos/briefings/data_briefing.mp4", prompts: ["Optimize bus route"] },
+    { id: "budget-allocator", name: "Budget Allocator", description: "Finance modeling", icon: PieChart, color: "#06b6d4", avatar: AVATARS.DATA, heroVideo: "/videos/features/data-analysis-demo.mp4", welcomeVideo: "/videos/briefings/data_briefing.mp4", prompts: ["Budget analysis"] },
+    { id: "project-pbl-architect", name: "PBL Architect", description: "Project design", icon: Layers, color: "#ec4899", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", prompts: ["PBL unit plan"] },
+    { id: "quiz-gamifier", name: "Quiz Gamifier", description: "Gamification", icon: Gamepad2, color: "#8b5cf6", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", prompts: ["Gamify quiz review"] },
+    { id: "safety-drill-master", name: "Safety Drill Master", description: "Crisis planning", icon: ShieldAlert, color: "#ef4444", avatar: AVATARS.COMPLIANCE, heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/principal_briefing.mp4", prompts: ["Fire drill procedure"] },
+    { id: "newsletter-wizard", name: "Newsletter Wizard", description: "Community updates", icon: Mail, color: "#3b82f6", avatar: AVATARS.PRINCIPAL, heroImage: "/images/features/sovereign_communications_director.png", heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/principal_briefing.mp4", prompts: ["Weekly newsletter"] },
+];

@@ -7,11 +7,13 @@ import { Menu, X, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import { useAuth } from '@/context/AuthContext';
 import EdIntelLogo from './EdIntelLogo';
+import useSovereignSounds from '@/hooks/useSovereignSounds';
 
 export default function FloatingNavbar() {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const { user, logout } = useAuth();
+    const { playHover } = useSovereignSounds();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -44,7 +46,7 @@ export default function FloatingNavbar() {
                 >
                     <div className="flex items-center justify-between">
                         {/* Logo */}
-                        <Link href="/" className="relative z-50">
+                        <Link href="/" className="relative z-50" onMouseEnter={() => playHover()}>
                             <EdIntelLogo />
                         </Link>
 
@@ -55,6 +57,7 @@ export default function FloatingNavbar() {
                                     key={link.name}
                                     href={link.href}
                                     className="text-sm font-medium text-zinc-400 hover:text-white transition-colors"
+                                    onMouseEnter={() => playHover()}
                                 >
                                     {link.name}
                                 </Link>
@@ -72,17 +75,18 @@ export default function FloatingNavbar() {
                                     <button
                                         onClick={() => logout()}
                                         className="text-sm font-medium text-zinc-400 hover:text-white transition-colors"
+                                        onMouseEnter={() => playHover()}
                                     >
                                         Sign Out
                                     </button>
                                 </div>
                             ) : (
                                 <>
-                                    <Link href="/login" className="text-sm font-medium text-white hover:text-indigo-400 transition-colors">
+                                    <Link href="/login" className="text-sm font-medium text-white hover:text-indigo-400 transition-colors" onMouseEnter={() => playHover()}>
                                         Sign In
                                     </Link>
                                     <Link href="/signup">
-                                        <button className="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold transition-colors shadow-lg shadow-indigo-500/20">
+                                        <button className="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold transition-colors shadow-lg shadow-indigo-500/20" onMouseEnter={() => playHover()}>
                                             Get Started
                                         </button>
                                     </Link>
@@ -94,6 +98,7 @@ export default function FloatingNavbar() {
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                             className="md:hidden p-2 text-white"
+                            onMouseEnter={() => playHover()}
                         >
                             {mobileMenuOpen ? <X /> : <Menu />}
                         </button>
@@ -118,16 +123,17 @@ export default function FloatingNavbar() {
                                         href={link.href}
                                         onClick={() => setMobileMenuOpen(false)}
                                         className="text-base font-medium text-zinc-300 hover:text-white"
+                                        onMouseEnter={() => playHover()}
                                     >
                                         {link.name}
                                     </Link>
                                 ))}
                                 <hr className="border-white/10" />
-                                <Link href="/login" className="text-center text-white py-2">
+                                <Link href="/login" className="text-center text-white py-2" onMouseEnter={() => playHover()}>
                                     Sign In
                                 </Link>
                                 <Link href="/signup">
-                                    <button className="w-full py-3 rounded-lg bg-indigo-600 text-white font-semibold">
+                                    <button className="w-full py-3 rounded-lg bg-indigo-600 text-white font-semibold" onMouseEnter={() => playHover()}>
                                         Get Started
                                     </button>
                                 </Link>
