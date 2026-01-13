@@ -27,6 +27,7 @@ export const generators = [
         heroImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80",
         heroVideo: "/videos/features/iep-architect-demo.mp4",
         welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        voiceWelcome: "/voice-profiles/principal_voice.mp3",
         prompts: ["Generate annual IEP goals for...", "Create transition plan for...", "Draft accommodations for..."]
     },
     {
@@ -111,6 +112,7 @@ export const generators = [
         avatar: AVATARS.PRINCIPAL,
         heroVideo: "/videos/features/iep-architect-demo.mp4",
         welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        voiceWelcome: "/voice-profiles/principal_voice.mp3",
         prompts: ["Emergency lesson plan", "Class roster template", "School procedures sheet"]
     },
     {

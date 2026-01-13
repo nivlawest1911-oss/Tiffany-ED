@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import VideoPlayer from './VideoPlayer';
+import VoiceIdentity from './VoiceIdentity';
 
 interface EnhancedGeneratorProps {
     generatorId: string;
@@ -16,6 +17,7 @@ interface EnhancedGeneratorProps {
     heroImage?: string;
     heroVideo?: string;
     welcomeVideo?: string;
+    voiceWelcome?: string;
 }
 
 import { useAuth } from '@/context/AuthContext';
@@ -29,7 +31,8 @@ export default function EnhancedGenerator({
     prompts,
     heroImage,
     heroVideo,
-    welcomeVideo
+    welcomeVideo,
+    voiceWelcome
 }: EnhancedGeneratorProps) {
     // ... (rest of hook logic is unchanged)
     const { user, isLoading: isAuthLoading } = useAuth();
@@ -209,23 +212,30 @@ export default function EnhancedGenerator({
                                     <h1 className="text-4xl font-bold tracking-tight font-sans text-white drop-shadow-md">
                                         {generatorName}
                                     </h1>
-                                    <p className="text-zinc-300 max-w-xl font-medium drop-shadow-sm">
+                                    <p className="text-zinc-300 max-w-xl font-medium drop-shadow-sm mb-4">
                                         Powered by Sovereign AI • Specialized for Educational Leadership
                                     </p>
 
-                                    {/* Briefing Button */}
-                                    {welcomeVideo && (
-                                        <button
-                                            onClick={() => setShowBriefing(true)}
-                                            className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/10 backdrop-blur-md transition-all text-sm font-semibold text-white group/briefing"
-                                        >
-                                            <div className="relative flex h-3 w-3">
-                                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                                                <span className="relative inline-flex rounded-full h-3 w-3 bg-indigo-500"></span>
-                                            </div>
-                                            Receive Delegate Briefing
-                                        </button>
-                                    )}
+                                    <div className="flex flex-wrap items-center gap-4">
+                                        {/* Briefing Button */}
+                                        {welcomeVideo && (
+                                            <button
+                                                onClick={() => setShowBriefing(true)}
+                                                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/10 backdrop-blur-md transition-all text-sm font-semibold text-white group/briefing"
+                                            >
+                                                <div className="relative flex h-3 w-3">
+                                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                                                    <span className="relative inline-flex rounded-full h-3 w-3 bg-indigo-500"></span>
+                                                </div>
+                                                Receive Delegate Briefing
+                                            </button>
+                                        )}
+
+                                        {/* Voice Identity */}
+                                        {voiceWelcome && (
+                                            <VoiceIdentity src={voiceWelcome} label="Executive Uplink" />
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </motion.div>
