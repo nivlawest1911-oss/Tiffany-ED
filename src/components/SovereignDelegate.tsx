@@ -74,6 +74,7 @@ export default function SovereignDelegate({
                                 {videoSrc ? (
                                     <VideoPlayer
                                         src={videoSrc}
+                                        voiceSrc={voiceSrc}
                                         autoPlay={true}
                                         className="w-full h-full object-cover"
                                         controls={false} // Simple view
