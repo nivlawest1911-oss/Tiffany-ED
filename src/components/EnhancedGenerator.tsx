@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import VideoPlayer from './VideoPlayer';
 import VoiceIdentity from './VoiceIdentity';
+import SovereignDelegate from './SovereignDelegate';
 
 interface EnhancedGeneratorProps {
     generatorId: string;
@@ -18,6 +19,9 @@ interface EnhancedGeneratorProps {
     heroVideo?: string;
     welcomeVideo?: string;
     voiceWelcome?: string;
+    delegateName?: string;
+    delegateRole?: string;
+    delegateImage?: string;
 }
 
 import { useAuth } from '@/context/AuthContext';
@@ -32,7 +36,10 @@ export default function EnhancedGenerator({
     heroImage,
     heroVideo,
     welcomeVideo,
-    voiceWelcome
+    voiceWelcome,
+    delegateName,
+    delegateRole,
+    delegateImage
 }: EnhancedGeneratorProps) {
     // ... (rest of hook logic is unchanged)
     const { user, isLoading: isAuthLoading } = useAuth();
@@ -151,6 +158,18 @@ export default function EnhancedGenerator({
                 <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-[100px]" />
             </div>
 
+            {/* Sovereign Delegate Orb */}
+            {delegateImage && (
+                <SovereignDelegate
+                    name={delegateName || "Sovereign Agent"}
+                    role={delegateRole || "Delegate"}
+                    avatarImage={delegateImage}
+                    videoSrc={welcomeVideo}
+                    voiceSrc={voiceWelcome}
+                    color={generatorColor.includes('gradient') ? generatorColor : "from-indigo-500 to-purple-600"}
+                />
+            )}
+
             <div className="relative max-w-7xl mx-auto px-4 md:px-6 py-8">
                 {/* Header Navigation */}
                 <div className="flex items-center gap-4 mb-8">
@@ -186,9 +205,9 @@ export default function EnhancedGenerator({
                                         loop
                                         muted
                                         playsInline
-                                        className="w-full h-full object-cover opacity-50 mix-blend-overlay group-hover:scale-105 transition-transform duration-700"
+                                        className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/60 to-transparent" />
+                                    <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/40 to-transparent" />
                                 </div>
                             ) : heroImage ? (
                                 <div className="absolute inset-0 z-0">
