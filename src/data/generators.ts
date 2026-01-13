@@ -3,7 +3,7 @@ import {
     Mic, Volume2, Accessibility, Code, Database, Megaphone, Palette, Calendar, ClipboardCheck, TrendingUp, Award, Target,
     Briefcase, GraduationCap as StudentCap, BookMarked, PenTool, Video, Beaker, Calculator, HandCoins, Bus, ClipboardList,
     PieChart, Layers, Gamepad2, ShieldAlert, Mail, ScrollText, Map, UserCheck, FileJson, Table, HeartHandshake, Smile,
-    GanttChart, Trophy, Glasses
+    GanttChart, Trophy, Glasses, BarChart3
 } from "lucide-react"
 
 // Map specific tools to "Delegate" avatars for the human feel
