@@ -1,18 +1,13 @@
 
-'use client';
-
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import FloatingNavbar from '@/components/FloatingNavbar';
 import Footer from '@/components/Footer';
-import VideoPlayer from '@/components/EnhancedGenerator/VideoPlayer'; // Assuming this path or I'll use the one I imported before
-import VoiceIdentity from '@/components/EnhancedGenerator/VoiceIdentity'; // Need to fix this import path likely
-import useSovereignSounds from '@/hooks/useSovereignSounds'; // For audio
+import VideoPlayer from '@/components/VideoPlayer';
+import VoiceIdentityComponent from '@/components/VoiceIdentity';
+import useSovereignSounds from '@/hooks/useSovereignSounds';
 import { ArrowRight, Shield, Award, Users, Brain } from 'lucide-react';
 import Link from 'next/link';
-
-// Since VoiceIdentity might be in components/VoiceIdentity.tsx based on previous steps
-import VoiceIdentityComponent from '@/components/VoiceIdentity';
 
 export default function IdentityPage() {
     const { playHover, playClick } = useSovereignSounds();
