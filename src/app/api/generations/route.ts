@@ -6,7 +6,7 @@ export const runtime = 'edge';
 // Save a generation to the database
 export async function POST(request: NextRequest) {
     try {
-        const { userId, generatorId, prompt, content, metadata } = await request.json();
+        const { userId, generatorId, prompt, content, metadata, professorVideoUrl } = await request.json();
 
         if (!userId || !generatorId || !prompt || !content) {
             return new Response(JSON.stringify({
@@ -30,8 +30,8 @@ export async function POST(request: NextRequest) {
 
         // Save generation
         const result = await sql`
-      INSERT INTO generations (user_id, generator_id, prompt, content, metadata)
-      VALUES (${userId}, ${generatorId}, ${prompt}, ${content}, ${JSON.stringify(metadata || {})})
+      INSERT INTO generations (user_id, generator_id, prompt, content, metadata, professor_video_url)
+      VALUES (${userId}, ${generatorId}, ${prompt}, ${content}, ${JSON.stringify(metadata || {})}, ${professorVideoUrl || null})
       RETURNING id, created_at
     `;
 
@@ -94,7 +94,7 @@ export async function GET(request: NextRequest) {
         let result;
         if (generatorId) {
             result = await sql`
-        SELECT id, generator_id, prompt, content, metadata, created_at
+        SELECT id, generator_id, prompt, content, metadata, professor_video_url, created_at
         FROM generations
         WHERE user_id = ${userId} AND generator_id = ${generatorId}
         ORDER BY created_at DESC
@@ -102,7 +102,7 @@ export async function GET(request: NextRequest) {
       `;
         } else {
             result = await sql`
-        SELECT id, generator_id, prompt, content, metadata, created_at
+        SELECT id, generator_id, prompt, content, metadata, professor_video_url, created_at
         FROM generations
         WHERE user_id = ${userId}
         ORDER BY created_at DESC

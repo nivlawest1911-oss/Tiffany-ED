@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS generations (
   prompt TEXT NOT NULL,
   content TEXT NOT NULL,
   metadata JSONB,
+  professor_video_url TEXT, -- Permanent link to the synthesized professor
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

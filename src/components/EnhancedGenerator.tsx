@@ -49,6 +49,8 @@ export default function EnhancedGenerator({
     const [isLoading, setIsLoading] = useState(false);
     const [copied, setCopied] = useState(false);
     const [showBriefing, setShowBriefing] = useState(false);
+    const [professorVideo, setProfessorVideo] = useState<string | null>(null);
+    const [isListening, setIsListening] = useState(false);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const [errorMsg, setErrorMsg] = useState('');
@@ -70,15 +72,35 @@ export default function EnhancedGenerator({
         }
     }, [generatorId]);
 
-    const saveToHistory = (prompt: string, result: string) => {
+    const saveToHistory = async (prompt: string, result: string, professorUrl?: string) => {
         const newRecord = {
             prompt,
             completion: result,
+            professorVideoUrl: professorUrl,
             date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         };
-        const updated = [newRecord, ...history].slice(0, 10); // Keep last 10
+        const updated = [newRecord, ...history].slice(0, 50); // Keep last 50
         setHistory(updated);
         localStorage.setItem(`history_${generatorId}`, JSON.stringify(updated));
+
+        // Background Database Save
+        if (user && user.id !== 'sovereign-001') {
+            try {
+                await fetch('/api/generations', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userId: user.id || 1, // Fallback for demo
+                        generatorId,
+                        prompt,
+                        content: result,
+                        professorVideoUrl: professorUrl
+                    })
+                });
+            } catch (e) {
+                console.warn("[Memory Bank] DB Sync Failed - Stored locally.");
+            }
+        }
     };
 
     // Auto-scroll to bottom of output when generating
@@ -87,8 +109,6 @@ export default function EnhancedGenerator({
             messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
         }
     }, [completion, isLoading]);
-
-    const [isListening, setIsListening] = useState(false);
 
     // ...
 
@@ -175,6 +195,29 @@ Context:
             playSuccess(); // Completion Sound Cue
             saveToHistory(promptToUse, fullResponse); // Save to local history
 
+            // --- GREYHAWK 10 PROTOCOL: PROFESSOR SYNTHESIS ---
+            // Background Synthesis of the Teaching Professor
+            try {
+                const synthesisRes = await fetch('/api/avatar', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        script: fullResponse.substring(0, 500), // First part for the talking head
+                        professorType: generatorName,
+                        avatarUrl: delegateImage
+                    })
+                });
+                if (synthesisRes.ok) {
+                    const synthData = await synthesisRes.json();
+                    setProfessorVideo(synthData.professorUrl);
+                    // Re-save with the vaulted URL for permanence
+                    saveToHistory(promptToUse, fullResponse, synthData.professorUrl);
+                    console.log("[Greyhawk] Professor Synthesized & Vaulted:", synthData.professorUrl);
+                }
+            } catch (synthErr) {
+                console.warn("[Greyhawk] Synthesis bypass - continuing with TTS fallback.");
+            }
+
         } catch (error: any) {
             console.error('Generation error:', error);
             setErrorMsg(error.message || 'Generation failed. Please try again.');
@@ -225,7 +268,7 @@ Context:
                     name={delegateName || "Sovereign Agent"}
                     role={delegateRole || "Delegate"}
                     avatarImage={delegateImage}
-                    videoSrc={welcomeVideo}
+                    videoSrc={professorVideo || welcomeVideo} // Play generated video if available, else welcome
                     voiceSrc={voiceWelcome}
                     color={generatorColor.includes('gradient') ? generatorColor : "from-indigo-500 to-purple-600"}
                     completionText={completion}

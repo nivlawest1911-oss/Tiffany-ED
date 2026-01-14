@@ -171,17 +171,27 @@ export default function LiveBriefingConsole({ name, description, role, color, pr
                 </div>
             </div>
 
-            {/* Header Status */}
-            <div className="absolute top-6 left-6 flex items-center gap-3 z-30">
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/50 backdrop-blur-md border border-white/10">
-                    <Lock className="w-3 h-3 text-emerald-400" />
-                    <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Secure Connected</span>
+            {/* Header Status - Greyhawk 10 Protocol */}
+            <div className="absolute top-6 left-6 flex flex-col gap-2 z-30">
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-xl border border-amber-500/30 shadow-[0_0_15px_rgba(245,158,11,0.2)]">
+                    <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse shadow-[0_0_8px_rgba(245,158,11,1)]" />
+                    <span className="text-[10px] font-black text-amber-500 uppercase tracking-[0.2em] drop-shadow-sm">Greyhawk 10 Protocol Active</span>
+                </div>
+                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 w-fit">
+                    <span className="text-[8px] font-bold text-zinc-400 uppercase tracking-widest">Architect: Antigravity Sovereign</span>
                 </div>
                 {isSpeaking && (
-                    <div className="px-3 py-1.5 rounded-full bg-indigo-500/20 border border-indigo-500/30 backdrop-blur-md">
-                        <span className="text-[10px] font-bold text-indigo-300 uppercase tracking-wider animate-pulse">Voice Active</span>
+                    <div className="px-3 py-1.5 rounded-full bg-indigo-500/20 border border-indigo-500/30 backdrop-blur-md w-fit">
+                        <span className="text-[10px] font-bold text-indigo-300 uppercase tracking-wider animate-pulse">Prophetic Synthesis Active</span>
                     </div>
                 )}
+            </div>
+
+            {/* Teaching Temple Branding Overlay */}
+            <div className="absolute top-6 right-6 z-30 text-right opacity-60 hidden md:block group-hover:opacity-100 transition-opacity">
+                <h2 className="text-xl font-black text-white tracking-tighter italic uppercase underline decoration-amber-500/50 underline-offset-4">Living Teaching Temple</h2>
+                <p className="text-[8px] uppercase tracking-[0.3em] text-amber-500 mt-1">Vault: GitHub | Bank: Memory Bank</p>
+                <p className="text-[8px] text-zinc-500 font-mono mt-0.5">ESTABLISHED VERCEL LAND: 2026.01.14</p>
             </div>
         </div>
     );
