@@ -161,6 +161,7 @@ export default function EnhancedGenerator({
                     videoSrc={welcomeVideo}
                     voiceSrc={voiceWelcome}
                     color={generatorColor.includes('gradient') ? generatorColor : "from-indigo-500 to-purple-600"}
+                    completionText={completion}
                 />
             )}
 
