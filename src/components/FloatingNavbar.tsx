@@ -24,10 +24,10 @@ export default function FloatingNavbar() {
     }, []);
 
     const navLinks = [
+        { name: 'The Room', href: '/the-room' },
         { name: 'Features', href: '/#features' },
         { name: 'Pricing', href: '/#pricing' },
         { name: 'About', href: '/about' },
-        { name: 'Contact', href: '/contact' },
     ];
 
     return (

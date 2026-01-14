@@ -196,10 +196,10 @@ export function UnusualHero() {
               </p>
               <div className="flex flex-wrap gap-4 mt-6">
                 <Link
-                  href="/signup"
+                  href="/the-room"
                   className="inline-flex items-center rounded-full border border-indigo-400/50 bg-indigo-600/10 px-6 py-3 text-sm font-bold text-indigo-50 backdrop-blur hover:bg-indigo-600/20 transition-all hover:scale-105 hover:shadow-lg hover:shadow-indigo-500/20"
                 >
-                  GET STARTED
+                  ENTER THE ROOM
                 </Link>
                 <button
                   onClick={() => setShowBriefing(true)}
@@ -209,7 +209,7 @@ export function UnusualHero() {
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                   </span>
-                  PROTOCOL WELCOME
+                  PROTOCOL ANALYSIS
                 </button>
               </div>
             </div>

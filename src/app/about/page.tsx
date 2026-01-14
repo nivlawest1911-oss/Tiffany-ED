@@ -176,9 +176,9 @@ export default function AboutPage() {
                         The protocol is ready. The sovereign network is active. Your node is waiting to be initialized.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                        <Link href="/signup" className="group">
+                        <Link href="/the-room" className="group">
                             <button className="px-10 py-5 bg-white text-black font-black uppercase text-sm tracking-widest rounded-2xl hover:scale-105 hover:bg-zinc-200 transition-all flex items-center gap-3 shadow-[0_0_40px_rgba(255,255,255,0.3)]">
-                                Initialize Node
+                                Enter The Room
                                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                             </button>
                         </Link>

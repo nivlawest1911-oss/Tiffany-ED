@@ -841,6 +841,63 @@ export const generators = [
         prompts: ["Renovation timeline visualizer", "FF&E inventory log", "Construction safety memo"]
     },
 
+    // --- THE SOVEREIGN FORGE: CREATION & POWER ---
+    {
+        id: "economic-sovereignty-analyst",
+        name: "Economic Oracle",
+        description: "Draft strategies for fiscal independence and capital recovery. Powering community wealth through analytical foresight.",
+        icon: HandCoins,
+        color: "#065f46", // Emerald-900
+        avatar: AVATARS.PRINCIPAL,
+        heroImage: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&q=80",
+        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        prompts: ["Community wealth building strategy", "Grant narrative for economic development", "Small business resilience protocol"]
+    },
+    {
+        id: "identity-restoration-node",
+        name: "Identity Restoration Protocol",
+        description: "Healing through knowledge. Reconstructing ancestral and cultural identities through deep-learning synthesis.",
+        icon: Compass,
+        color: "#7c2d12", // Red-950
+        avatar: AVATARS.COUNSELOR,
+        heroImage: "https://images.unsplash.com/photo-1523810192022-5a0fb9aa77d4?auto=format&fit=crop&q=80",
+        welcomeVideo: "/videos/briefings/executive_professor.mp4",
+        prompts: ["Cultural heritage mapping", "Restorative identity narrative", "Healing through oral history analysis"]
+    },
+    {
+        id: "sovereign-wellness-forge",
+        name: "Wellness Forge",
+        description: "Trauma-informed learning and mental health protocols. A digital sanctuary for collective healing.",
+        icon: Flame,
+        color: "#4a044e", // Fuchsia-950
+        avatar: AVATARS.COUNSELOR,
+        heroImage: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80",
+        welcomeVideo: "/videos/briefings/executive_professor.mp4",
+        prompts: ["Stress management for leaders", "Trauma-informed classroom audit", "Emotional intelligence growth plan"]
+    },
+    {
+        id: "global-learning-channel-architect",
+        name: "Global Learning Architect",
+        description: "Design original series, documentaries, and story-based curricula. Expanding the AI Knowledge Academy.",
+        icon: Video,
+        color: "#1e1b4b", // Indigo-950
+        avatar: AVATARS.CURRICULUM,
+        heroImage: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        prompts: ["Documentary series outline on History", "Global curriculum for STEM excellence", "Transmedia storytelling for adult learners"]
+    },
+    {
+        id: "faith-and-community-liaison",
+        name: "Faith Oracle",
+        description: "Connecting schools with faith communities through shared values and sovereign strategy.",
+        icon: HeartHandshake,
+        color: "#1e3a8a", // Blue-900
+        avatar: AVATARS.PRINCIPAL,
+        heroImage: "https://images.unsplash.com/photo-1544427928-c49cd0491f97?auto=format&fit=crop&q=80",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        prompts: ["Faith community partnership strategy", "Values-based restorative justice guide", "Spiritual nourishment protocol for leaders"]
+    },
+
     // --- TEMPLE OF WISDOM: LIVING AI EDUCATORS ---
     // These are responsive, deep-knowledge avatars that evolve with the student.
     {
