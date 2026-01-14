@@ -12,7 +12,7 @@ interface SovereignDelegateProps {
     videoSrc?: string;
     voiceSrc?: string;
     color: string;
-    completionText?: string;
+    greetingText?: string;
 }
 
 export default function SovereignDelegate({
@@ -22,7 +22,8 @@ export default function SovereignDelegate({
     videoSrc,
     voiceSrc,
     color,
-    completionText
+    completionText,
+    greetingText
 }: SovereignDelegateProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [isMinimized, setIsMinimized] = useState(false);
@@ -30,7 +31,7 @@ export default function SovereignDelegate({
 
     // Speak completion text when it arrives
     useEffect(() => {
-        if (completionText && completionText.length > 10) { // arbitrary threshold to avoid empty completion triggers
+        if (completionText && completionText.length > 10) {
             setIsOpen(true);
             setIsMinimized(false);
             speakText("Principal, I have successfully generated the requested protocol. Please review the analysis below.");
@@ -219,7 +220,7 @@ export default function SovereignDelegate({
                         transition={{ delay: 1, duration: 0.5 }}
                         className="absolute bottom-full right-0 mb-3 w-48 p-3 bg-white text-zinc-900 text-xs font-bold rounded-2xl rounded-br-none shadow-2xl shadow-indigo-500/20 z-50"
                     >
-                        <p>Greetings, Principal. I have a briefing ready for you.</p>
+                        <p>{greetingText || "Greetings, Principal. I have a briefing ready for you."}</p>
                         <div className="absolute -bottom-1 right-4 w-4 h-4 bg-white transform rotate-45" />
                     </motion.div>
                 )}

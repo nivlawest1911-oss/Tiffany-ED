@@ -25,6 +25,7 @@ import SpotlightCard from './SpotlightCard';
 import FloatingNavbar from './FloatingNavbar';
 import VideoTestimonials from './VideoTestimonials';
 import HowItWorksVideo from './HowItWorksVideo';
+import SovereignDelegate from './SovereignDelegate';
 
 export default function ModernHomePage() {
     const stats = [
@@ -399,6 +400,15 @@ export default function ModernHomePage() {
                     </motion.div>
                 </div>
             </section>
-        </div >
+            {/* Sovereign Guide for Landing Page */}
+            <SovereignDelegate
+                name="Dr. Alvin West"
+                role="Founder & Architect"
+                avatarImage="/images/dr_alvin_west.png"
+                color="from-indigo-600 to-purple-800"
+                greetingText="Welcome to EdIntel Sovereign. I am here to assist your leadership journey."
+            // No video/voice src means it will just be a talking avatar bubble/interface
+            />
+        </div>
     );
 }
