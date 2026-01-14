@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
@@ -13,6 +12,7 @@ interface SovereignDelegateProps {
     videoSrc?: string;
     voiceSrc?: string;
     color: string;
+    completionText?: string;
 }
 
 export default function SovereignDelegate({
@@ -21,13 +21,54 @@ export default function SovereignDelegate({
     avatarImage,
     videoSrc,
     voiceSrc,
-    color
+    color,
+    completionText
 }: SovereignDelegateProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [isMinimized, setIsMinimized] = useState(false);
     const [isSpeaking, setIsSpeaking] = useState(false);
 
-    // Play greeting on mount once? No, maybe on first hover.
+    // Speak completion text when it arrives
+    useEffect(() => {
+        if (completionText && completionText.length > 10) { // arbitrary threshold to avoid empty completion triggers
+            setIsOpen(true);
+            setIsMinimized(false);
+            speakText("Principal, I have successfully generated the requested protocol. Please review the analysis below.");
+        }
+    }, [completionText]);
+
+    const speakText = (text: string) => {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+
+            // Try to find a professional voice
+            const voices = window.speechSynthesis.getVoices();
+            const preferredVoice = voices.find(v =>
+                (v.name.includes('Google US English') || v.name.includes('Samantha') || v.name.includes('Microsoft Zira'))
+                && v.lang.startsWith('en')
+            );
+            if (preferredVoice) utterance.voice = preferredVoice;
+
+            utterance.rate = 1.0;
+            utterance.pitch = 1.0;
+
+            utterance.onstart = () => setIsSpeaking(true);
+            utterance.onend = () => setIsSpeaking(false);
+            utterance.onerror = () => setIsSpeaking(false);
+
+            window.speechSynthesis.speak(utterance);
+        }
+    };
+
+    // Clean up speech on unmount
+    useEffect(() => {
+        return () => {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+        };
+    }, []);
 
     const handleVoicePreview = () => {
         if (!voiceSrc) return;
@@ -35,6 +76,15 @@ export default function SovereignDelegate({
         audio.play();
         setIsSpeaking(true);
         audio.onended = () => setIsSpeaking(false);
+    };
+
+    const handleReadBriefing = () => {
+        if (completionText) {
+            // Read the first chunk of the output or a summary
+            // Clean markdown for speech
+            const cleanText = completionText.replace(/[*#_`]/g, '').substring(0, 400);
+            speakText("Here is a summary of the generated output. " + cleanText + "...");
+        }
     };
 
     return (
@@ -47,12 +97,12 @@ export default function SovereignDelegate({
                         initial={{ opacity: 0, scale: 0.9, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        className="pointer-events-auto mb-6 w-80 md:w-96 bg-zinc-900/90 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl shadow-indigo-500/20"
+                        className="pointer-events-auto mb-6 w-80 md:w-96 bg-zinc-900/95 backdrop-blur-2xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl shadow-indigo-500/20 ring-1 ring-white/20"
                     >
                         {/* Header */}
                         <div className={`p-4 bg-gradient-to-r ${color} relative flex items-center justify-between`}>
                             <div className="flex items-center gap-3">
-                                <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse box-shadow-glow" />
+                                <div className={`w-2 h-2 rounded-full ${isSpeaking ? 'bg-emerald-400 animate-pulse' : 'bg-red-500'} box-shadow-glow`} />
                                 <div>
                                     <h3 className="text-sm font-black uppercase text-white tracking-wider">{role}</h3>
                                     <p className="text-xs text-white/80 font-mono">{name}</p>
@@ -62,7 +112,7 @@ export default function SovereignDelegate({
                                 <button onClick={() => setIsMinimized(!isMinimized)} className="p-1 hover:bg-white/20 rounded-full text-white transition-colors">
                                     {isMinimized ? <Maximize2 size={14} /> : <Minimize2 size={14} />}
                                 </button>
-                                <button onClick={() => setIsOpen(false)} className="p-1 hover:bg-white/20 rounded-full text-white transition-colors">
+                                <button onClick={() => { setIsOpen(false); window.speechSynthesis.cancel(); setIsSpeaking(false); }} className="p-1 hover:bg-white/20 rounded-full text-white transition-colors">
                                     <X size={14} />
                                 </button>
                             </div>
@@ -70,56 +120,75 @@ export default function SovereignDelegate({
 
                         {/* Content Body */}
                         {!isMinimized && (
-                            <div className="relative aspect-video bg-black">
+                            <div className="relative aspect-video bg-black flex flex-col">
                                 {videoSrc ? (
-                                    <VideoPlayer
-                                        src={videoSrc}
-                                        voiceSrc={voiceSrc}
-                                        autoPlay={true}
-                                        className="w-full h-full object-cover"
-                                        controls={false} // Simple view
-                                    />
+                                    <div className="relative w-full h-full">
+                                        <VideoPlayer
+                                            src={videoSrc}
+                                            voiceSrc={voiceSrc}
+                                            autoPlay={true}
+                                            className="w-full h-full object-cover opacity-80"
+                                            controls={false}
+                                        />
+                                        {/* Talking Overlay Effect when AI is speaking (Text) */}
+                                        {isSpeaking && !voiceSrc && (
+                                            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/90 to-transparent flex items-end justify-center pb-4 gap-1">
+                                                <div className="w-1 bg-indigo-500 animate-bounce" style={{ height: '20px', animationDuration: '0.4s' }} />
+                                                <div className="w-1 bg-indigo-500 animate-bounce" style={{ height: '30px', animationDuration: '0.5s' }} />
+                                                <div className="w-1 bg-indigo-500 animate-bounce" style={{ height: '25px', animationDuration: '0.3s' }} />
+                                                <div className="w-1 bg-indigo-500 animate-bounce" style={{ height: '15px', animationDuration: '0.6s' }} />
+                                            </div>
+                                        )}
+                                    </div>
                                 ) : (
-                                    <div className="w-full h-full flex flex-col items-center justify-center bg-zinc-950">
-                                        <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-white/10 mb-4">
-                                            <img src={avatarImage} alt={name} className="w-full h-full object-cover" />
+                                    <div className="w-full h-full flex flex-col items-center justify-center bg-zinc-950 px-4 text-center">
+                                        <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-white/10 mb-4 p-1">
+                                            <div className="w-full h-full rounded-full overflow-hidden relative">
+                                                <img src={avatarImage} alt={name} className={`w-full h-full object-cover transition-transform duration-200 ${isSpeaking ? 'scale-110' : 'scale-100'}`} />
+                                                {/* Lip Sync Simulation */}
+                                                {isSpeaking && (
+                                                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-0.5">
+                                                        <div className="w-2 h-2 rounded-full bg-white/80 animate-ping" />
+                                                    </div>
+                                                )}
+                                            </div>
                                             {isSpeaking && (
-                                                <div className="absolute inset-0 bg-indigo-500/30 animate-pulse" />
+                                                <div className="absolute inset-0 rounded-full border-2 border-indigo-500 animate-ping opacity-20" />
                                             )}
                                         </div>
-                                        <p className="text-zinc-500 text-xs uppercase tracking-widest">Video Feed Offline</p>
-                                        {voiceSrc && (
-                                            <button
-                                                onClick={handleVoicePreview}
-                                                className="mt-4 flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-xs font-bold uppercase transition-colors"
-                                            >
-                                                <Volume2 size={12} />
-                                                Play Voice Packet
-                                            </button>
+                                        {completionText ? (
+                                            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                                <p className="text-white text-sm font-bold mb-2">Protocol Generative Complete</p>
+                                                <button onClick={handleReadBriefing} className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-xs font-bold text-white flex items-center justify-center gap-2 mx-auto shadow-lg shadow-indigo-500/25 transition-all hover:scale-105">
+                                                    <Volume2 size={14} />
+                                                    Read Analysis
+                                                </button>
+                                            </div>
+                                        ) : (
+                                            <>
+                                                <p className="text-zinc-500 text-xs uppercase tracking-widest mb-2">Secure Uplink Active</p>
+                                                {voiceSrc && (
+                                                    <button
+                                                        onClick={handleVoicePreview}
+                                                        className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-xs font-bold uppercase transition-colors mx-auto"
+                                                    >
+                                                        <Volume2 size={12} />
+                                                        Play Voice Packet
+                                                    </button>
+                                                )}
+                                            </>
                                         )}
                                     </div>
                                 )}
-
-                                {/* Overlay Stats */}
-                                <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end">
-                                    <div className="text-[10px] font-mono text-emerald-400">
-                                        SECURE_UPLINK::ESTABLISHED
-                                    </div>
-                                    <div className="flex gap-1">
-                                        {[1, 2, 3, 4].map(i => (
-                                            <div key={i} className={`w-1 bg-white/50 rounded-full animate-bounce`} style={{ height: Math.random() * 12 + 4, animationDelay: `${i * 0.1}s` }} />
-                                        ))}
-                                    </div>
-                                </div>
                             </div>
                         )}
 
                         {/* Footer Controls */}
                         {!isMinimized && (
                             <div className="p-3 bg-zinc-950 border-t border-white/5 flex justify-around">
-                                <button className="p-2 rounded-lg hover:bg-white/5 text-zinc-400 hover:text-white flex flex-col items-center gap-1">
+                                <button className="p-2 rounded-lg hover:bg-white/5 text-zinc-400 hover:text-white flex flex-col items-center gap-1" onClick={handleReadBriefing} title="Speak Analysis">
                                     <Mic size={16} />
-                                    <span className="text-[8px] uppercase">Voice</span>
+                                    <span className="text-[8px] uppercase">Speak</span>
                                 </button>
                                 <button className="p-2 rounded-lg hover:bg-white/5 text-zinc-400 hover:text-white flex flex-col items-center gap-1">
                                     <Video size={16} />
@@ -135,7 +204,6 @@ export default function SovereignDelegate({
                 )}
             </AnimatePresence>
 
-
             {/* The Floating Orb Trigger */}
             <motion.button
                 onClick={() => setIsOpen(!isOpen)}
@@ -144,7 +212,7 @@ export default function SovereignDelegate({
                 className="pointer-events-auto relative group"
             >
                 {/* Speech Bubble Greeting */}
-                {!isOpen && (
+                {!isOpen && !completionText && (
                     <motion.div
                         initial={{ opacity: 0, scale: 0.8, x: -10 }}
                         animate={{ opacity: 1, scale: 1, x: 0 }}
@@ -153,6 +221,18 @@ export default function SovereignDelegate({
                     >
                         <p>Greetings, Principal. I have a briefing ready for you.</p>
                         <div className="absolute -bottom-1 right-4 w-4 h-4 bg-white transform rotate-45" />
+                    </motion.div>
+                )}
+
+                {/* Completion Bubble */}
+                {!isOpen && completionText && (
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.8, y: 10 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        className="absolute bottom-full right-0 mb-3 w-48 p-3 bg-emerald-500 text-white text-xs font-bold rounded-2xl rounded-br-none shadow-2xl shadow-emerald-500/20 z-50"
+                    >
+                        <p>Analysis Complete. Click to review.</p>
+                        <div className="absolute -bottom-1 right-4 w-4 h-4 bg-emerald-500 transform rotate-45" />
                     </motion.div>
                 )}
 
@@ -177,4 +257,3 @@ export default function SovereignDelegate({
         </div>
     );
 }
-
