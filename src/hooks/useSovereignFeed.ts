@@ -34,7 +34,7 @@ const DEMO_FEED: FeedPost[] = [
 ];
 
 export function useSovereignFeed() {
-    // Firebase removed. Using Static Sovereign Feed.
+    // Using Static Sovereign Feed.
     const [posts, setPosts] = useState<FeedPost[]>(DEMO_FEED);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
