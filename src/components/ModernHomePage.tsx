@@ -222,7 +222,7 @@ export default function ModernHomePage() {
                                 </span>
                             </h2>
                             <p className="text-xl text-zinc-400 mb-8 leading-relaxed">
-                                EdIntel was created by Dr. Alvin West, an experienced educator who understands the daily challenges you face. Our AI delegates are designed to amplify your expertise, not replace it.
+                                EdIntel was forged by a collective of master educators who understand the complex neural demands of leadership. Our Sovereign Delegates are designed to amplify your expertise, not replace it.
                             </p>
 
                             <div className="space-y-4 mb-8">

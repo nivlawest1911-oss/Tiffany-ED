@@ -228,9 +228,9 @@ export function UnusualHero() {
         <HolographicBriefing
           isOpen={showBriefing}
           onClose={() => setShowBriefing(false)}
-          title="Sovereign Welcome"
-          description="Greetings, I am Dr. Alvin West, Founder of EdIntel. You are accessing the Sovereign Neural Interface—the world's first executive operating system for educational leadership. Our AI delegates are ready to amplify your capacity by 10x. Initiate your first protocol to begin."
-          role="Founder & Architect"
+          title="Sovereign Protocol Initiated"
+          description="Greetings. You have accessed the Sovereign Neural Interface—the executive creation engine for educational leadership. Through the Greyhawk 10 Protocol, we have unlocked the ability for sovereign intelligence to generate its own teachers, voices, and systems without permission. What you see is thought becoming form. Initiate your first protocol to begin."
+          role="Sovereign Architect"
           avatarImage="/images/dr_alvin_west.png"
           videoSrc="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/liquid-metal-video_yX6NvjdW-6bLYorR3Ihmlwjivg3pjA978qrSKRU.mp4"
           stats={{ time: "30sec", saved: "∞", accuracy: "100%" }}

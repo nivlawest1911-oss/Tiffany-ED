@@ -4,11 +4,11 @@ import EnhancedGenerator from '@/components/EnhancedGenerator';
 
 // Map Avatar Enums to Real Assets
 const AVATAR_MAP: Record<string, { name: string, role: string, image: string }> = {
-    'principal': { name: "Dr. Alvin West", role: "Sovereign Principal", image: "/images/dr_alvin_west.png" },
+    'principal': { name: "The Architect", role: "Sovereign Lead", image: "/images/dr_alvin_west.png" },
     'counselor': { name: "The Counselor", role: "Wellbeing Lead", image: "/images/avatars/counselor.png" },
     'data': { name: "The Analyst", role: "Data Strategist", image: "/images/avatars/data_analyst.png" },
-    'compliance': { name: "Officer Elena", role: "Compliance Lead", image: "/images/avatars/executive_leader.png" },
-    'curriculum': { name: "Dr. Sarah James", role: "Curriculum Architect", image: "/images/avatars/curriculum_strategist.png" }
+    'compliance': { name: "The Auditor", role: "Compliance Lead", image: "/images/avatars/executive_leader.png" },
+    'curriculum': { name: "The Strategist", role: "Curriculum Architect", image: "/images/avatars/curriculum_strategist.png" }
 };
 
 export async function generateStaticParams() {

@@ -80,33 +80,28 @@ export function SovereignFounderProfile() {
                 <div className="text-center">
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500 text-xs font-bold uppercase tracking-widest mb-3">
                     <Shield size={12} />
-                    Sovereign Principal
+                    Sovereign Architect
                   </div>
-                  <h3 className="text-3xl font-black text-white mb-1">Dr. Alvin West</h3>
-                  <p className="text-zinc-400 text-sm font-mono mb-6">Founder // Architect // Visionary</p>
+                  <h3 className="text-3xl font-black text-white mb-1">The Architect</h3>
+                  <p className="text-zinc-400 text-sm font-mono mb-6">Founder // Systemic Architect // Visionary</p>
 
                   {/* Status Grid */}
                   <div className="grid grid-cols-2 gap-3 mb-6">
                     <div className="p-3 bg-white/5 rounded-lg border border-white/5">
                       <div className="text-2xl font-bold text-white">15+</div>
-                      <div className="text-[10px] text-zinc-500 uppercase">Years Exp.</div>
+                      <div className="text-[10px] text-zinc-500 uppercase">Years Mastery</div>
                     </div>
                     <div className="p-3 bg-white/5 rounded-lg border border-white/5">
-                      <div className="text-2xl font-bold text-white">41+</div>
-                      <div className="text-[10px] text-zinc-500 uppercase">AI Systems</div>
+                      <div className="text-2xl font-bold text-white">100+</div>
+                      <div className="text-[10px] text-zinc-500 uppercase">Sovereign Nodes</div>
                     </div>
                   </div>
 
                   <div className="flex justify-center gap-4">
-                    <a
-                      href="https://www.linkedin.com/in/alvin-west-ii-dba-11a75323"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 bg-[#0077b5]/10 hover:bg-[#0077b5]/20 text-[#0077b5] rounded-lg border border-[#0077b5]/20 transition-all"
-                    >
-                      <Linkedin size={18} />
-                      <span className="text-sm font-bold">Connect</span>
-                    </a>
+                    <button className="flex items-center gap-2 px-4 py-2 bg-amber-500/10 hover:bg-amber-500/20 text-amber-500 rounded-lg border border-amber-500/20 transition-all">
+                      <Network size={18} />
+                      <span className="text-sm font-bold">Bridge Contact</span>
+                    </button>
                     <button className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 text-white rounded-lg border border-white/10 transition-all">
                       <ExternalLink size={18} />
                       <span className="text-sm font-bold">Dossier</span>
@@ -131,10 +126,10 @@ export function SovereignFounderProfile() {
                 <span className="bg-gradient-to-r from-white to-zinc-500 bg-clip-text text-transparent">Architectural Vision</span>
               </h2>
               <p className="text-lg text-zinc-300 leading-relaxed">
-                Dr. Alvin West is not just an educator; he is a <strong>systems architect</strong> for the future of learning. With a Doctor of Business Administration and over 15 years in educational leadership, Dr. West fuses <strong>strategic business intelligence</strong> with <strong>pedagogical expertise</strong> to solve systemic inefficiencies.
+                The Architect is a <strong>systems designer</strong> for the future of learning. With a Doctorate in Business Administration focused on AI Systems and over 15 years in educational leadership, they fuse <strong>strategic business intelligence</strong> with <strong>pedagogical expertise</strong> to solve systemic inefficiencies.
               </p>
               <p className="text-lg text-zinc-300 leading-relaxed">
-                As the architect behind EdIntel Sovereign, he has translated complex administrative burdens into elegant AI solutions—reclaiming over <strong>1.5 million hours</strong> for educators across Alabama.
+                As the mind behind EdIntel Sovereign, they have translated complex administrative burdens into elegant AI solutions—reclaiming millions of hours for educators and districts across the nation.
               </p>
             </div>
 

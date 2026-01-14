@@ -30,8 +30,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         // "Sovereign Override" - Auto-authenticate as Commander
         setUser({
             id: 'sovereign-001',
-            name: 'Dr. Alvin West II',
-            email: 'founder@edintel.ai',
+            name: 'Sovereign Commander',
+            email: 'commander@edintel.ai',
             tier: 'enterprise',
             usage_count: 0 // Unlimited
         });

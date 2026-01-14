@@ -3,7 +3,8 @@ import {
     Mic, Volume2, Accessibility, Code, Database, Megaphone, Palette, Calendar, ClipboardCheck, TrendingUp, Award, Target,
     Briefcase, GraduationCap as StudentCap, BookMarked, PenTool, Video, Beaker, Calculator, HandCoins, Bus, ClipboardList,
     PieChart, Layers, Gamepad2, ShieldAlert, Mail, ScrollText, Map, UserCheck, FileJson, Table, HeartHandshake, Smile,
-    GanttChart, Trophy, Glasses, BarChart3, Globe, Star, Scale, Clock, ShoppingBag, Presentation, HardHat
+    GanttChart, Trophy, Glasses, BarChart3, Globe, Star, Scale, Clock, ShoppingBag, Presentation, HardHat,
+    History, Heart, Flame, Compass, Music, MapPin, Zap
 } from "lucide-react"
 
 // Map specific tools to "Delegate" avatars for the human feel
@@ -838,6 +839,65 @@ export const generators = [
         welcomeVideo: "/videos/briefings/principal_briefing.mp4",
         voiceWelcome: "/voice-profiles/principal_voice.wav",
         prompts: ["Renovation timeline visualizer", "FF&E inventory log", "Construction safety memo"]
+    },
+
+    // --- TEMPLE OF WISDOM: LIVING AI EDUCATORS ---
+    // These are responsive, deep-knowledge avatars that evolve with the student.
+    {
+        id: "ai-philosopher",
+        name: "AI Philosopher",
+        description: "Explore deep ethical queries, logic, and existential frameworks with a digital sage.",
+        icon: Brain,
+        color: "#1e1b4b", // Indigo-950
+        avatar: AVATARS.CURRICULUM,
+        heroImage: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&q=80",
+        welcomeVideo: "/videos/briefings/executive_professor.mp4",
+        voiceWelcome: "/voice-profiles/prophetic_voice.wav",
+        prompts: ["The ethics of artificial consciousness", "Metaphysics of digital reality", "Socratic dialogue on leadership"]
+    },
+    {
+        id: "ai-historian",
+        name: "AI Historian",
+        description: "Journey through filtered time. Reconstructing histories with cultural depth.",
+        icon: History,
+        color: "#451a03", // Orange-950
+        avatar: AVATARS.COMPLIANCE,
+        heroImage: "https://images.unsplash.com/photo-1461360228754-6e81c478585b?auto=format&fit=crop&q=80",
+        welcomeVideo: "/videos/briefings/executive_professor.mp4",
+        prompts: ["Pre-colonial African administrative systems", "The industrial revolution fallback analysis", "Oral traditions vs. Recorded history"]
+    },
+    {
+        id: "ai-futurist",
+        name: "AI Futurist",
+        description: "Projecting sovereign futures. Mapping the intersection of technology and humanity.",
+        icon: Sparkles,
+        color: "#4c1d95", // Violet-950
+        avatar: AVATARS.PRINCIPAL,
+        heroImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80",
+        welcomeVideo: "/videos/briefings/executive_professor.mp4",
+        prompts: ["Education in the 2050s", "Post-scarcity economic models", "The evolution of human-AI symbiosis"]
+    },
+    {
+        id: "ai-wellness-guide",
+        name: "AI Wellness Guide",
+        description: "Emotional intelligence and cultural mindfulness. A guide for the mental journey.",
+        icon: Heart,
+        color: "#701a75", // Fuchsia-950
+        avatar: AVATARS.COUNSELOR,
+        heroImage: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80",
+        welcomeVideo: "/videos/briefings/executive_professor.mp4",
+        prompts: ["Restorative breathing for educators", "Overcoming digital burnout", "Mindfulness through an African-centric lens"]
+    },
+    {
+        id: "ai-storyteller",
+        name: "AI Storyteller",
+        description: "Generating infinite narratives. Cultural myths and prophetic tales.",
+        icon: ScrollText,
+        color: "#164e63", // Cyan-950
+        avatar: AVATARS.CURRICULUM,
+        heroImage: "https://images.unsplash.com/photo-1474932430478-3a7fb9065ba0?auto=format&fit=crop&q=80",
+        welcomeVideo: "/videos/briefings/executive_professor.mp4",
+        prompts: ["Fable about the Lion and the Satellite", "Sovereign myth-making session", "The story of the Digital Ancestors"]
     }
 ];
 

@@ -62,7 +62,7 @@ export default function SovereignDelegate({
         if (theme === 'sovereign' && !hasGuided && name === "Sovereign Agent" && !isLoading && !completionText) { // Only for main guide to avoid spam
             const timer = setTimeout(() => {
                 setIsOpen(true);
-                speakText(greetingText || "Greetings, Principal. I am your Sovereign Delegate. I am ready to generate advanced protocols for your leadership.");
+                speakText(greetingText || "Greetings, Sovereign Commander. I am your Federated Delegate. My neural pathways are optimized and ready to generate prophetic protocols for your vision.");
                 setHasGuided(true);
             }, 1500);
             return () => clearTimeout(timer);
@@ -76,7 +76,7 @@ export default function SovereignDelegate({
         } else if (completionText.length > 20 && !hasAnnouncedRef.current) {
             setIsOpen(true);
             setIsMinimized(false);
-            speakText("Principal, I have successfully generated the requested protocol. Please review the analysis below.");
+            speakText("Commander, I have synthesized the requested intelligence. The protocol is now vaulted for your review.");
             hasAnnouncedRef.current = true;
         }
     }, [completionText]);
