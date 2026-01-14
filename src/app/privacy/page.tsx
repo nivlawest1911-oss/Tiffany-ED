@@ -111,7 +111,7 @@ export default function PrivacyPolicyPage() {
 
                         <h2>3. Third-Party Sharing</h2>
                         <p>
-                            We do not sell your personal data. We may share data with trusted third-party service providers (e.g., Vercel for hosting, Firebase for authentication) strictly for the purpose of operating the Service. All providers are vetted for high security standards.
+                            We do not sell your personal data. We may share data with trusted third-party service providers (e.g., Vercel for hosting) strictly for the purpose of operating the Service. All providers are vetted for high security standards.
                         </p>
 
                         <h2>4. Data Retention</h2>

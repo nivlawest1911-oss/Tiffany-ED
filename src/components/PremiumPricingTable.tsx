@@ -4,9 +4,11 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle, Sparkles, Zap, Crown, ArrowRight, Info } from 'lucide-react';
 import Link from 'next/link';
+import HolographicBriefing from './HolographicBriefing';
 
 export default function PremiumPricingTable() {
     const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
+    const [showBriefing, setShowBriefing] = useState(false);
 
     const plans = [
         {
@@ -114,30 +116,52 @@ export default function PremiumPricingTable() {
                     </p>
 
                     {/* Billing Toggle */}
-                    <div className="inline-flex items-center gap-4 p-2 rounded-xl bg-black/40 backdrop-blur-xl border border-purple-500/20">
+                    <div className="flex flex-col items-center gap-6">
+                        <div className="inline-flex items-center gap-4 p-2 rounded-xl bg-black/40 backdrop-blur-xl border border-purple-500/20">
+                            <button
+                                onClick={() => setBillingCycle('monthly')}
+                                className={`px-6 py-2 rounded-lg font-medium transition-all ${billingCycle === 'monthly'
+                                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
+                                    : 'text-purple-300 hover:text-white'
+                                    }`}
+                            >
+                                Monthly
+                            </button>
+                            <button
+                                onClick={() => setBillingCycle('annual')}
+                                className={`px-6 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${billingCycle === 'annual'
+                                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
+                                    : 'text-purple-300 hover:text-white'
+                                    }`}
+                            >
+                                Annual
+                                <span className="px-2 py-0.5 rounded-full bg-green-500/20 text-green-300 text-xs">
+                                    Save 20%
+                                </span>
+                            </button>
+                        </div>
+
                         <button
-                            onClick={() => setBillingCycle('monthly')}
-                            className={`px-6 py-2 rounded-lg font-medium transition-all ${billingCycle === 'monthly'
-                                ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
-                                : 'text-purple-300 hover:text-white'
-                                }`}
+                            onClick={() => setShowBriefing(true)}
+                            className="flex items-center gap-2 text-sm font-bold text-indigo-400 hover:text-indigo-300 transition-colors uppercase tracking-widest bg-indigo-500/10 px-4 py-2 rounded-full border border-indigo-500/20 hover:border-indigo-500/50"
                         >
-                            Monthly
-                        </button>
-                        <button
-                            onClick={() => setBillingCycle('annual')}
-                            className={`px-6 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${billingCycle === 'annual'
-                                ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
-                                : 'text-purple-300 hover:text-white'
-                                }`}
-                        >
-                            Annual
-                            <span className="px-2 py-0.5 rounded-full bg-green-500/20 text-green-300 text-xs">
-                                Save 20%
-                            </span>
+                            <Sparkles size={14} />
+                            <span>Financial Protocol Analysis</span>
                         </button>
                     </div>
                 </motion.div>
+
+                <HolographicBriefing
+                    isOpen={showBriefing}
+                    onClose={() => setShowBriefing(false)}
+                    title="Investment Protocol"
+                    description="Principal, selecting the correct tier is critical for maximizing ROI. The Practitioner tier offers the highest individual value, unlocking all 41 generative tools. However, for building-wide transformation, the Site Command protocol provides necessary administrative oversight and compliance automation."
+                    role="Chief Financial Architect"
+                    avatarImage="/images/avatars/executive_leader.png"
+                    thumbnail="/images/features/data-analysis-demo.mp4"
+                    // No videoSrc means it falls back to thumbnail which is fine, or we can reuse a video
+                    stats={{ time: "ROI", saved: "10x", accuracy: "100%" }}
+                />
 
                 {/* Pricing Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">

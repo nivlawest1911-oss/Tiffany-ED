@@ -6,11 +6,13 @@ import { Mail, MessageSquare, Phone, Send, MapPin, CheckCircle, Shield } from 'l
 import { motion } from 'framer-motion';
 import FloatingNavbar from '@/components/FloatingNavbar';
 import Footer from '@/components/Footer';
+import HolographicBriefing from '@/components/HolographicBriefing';
 
 export default function ContactPage() {
     const [formState, setFormState] = useState({ name: '', email: '', message: '' });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
+    const [showBriefing, setShowBriefing] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -34,9 +36,18 @@ export default function ContactPage() {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.5 }}
                     >
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-bold uppercase tracking-widest mb-6">
-                            <Shield size={12} />
-                            <span>Command Uplink</span>
+                        <div className="flex items-center justify-between mb-6">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-bold uppercase tracking-widest">
+                                <Shield size={12} />
+                                <span>Command Uplink</span>
+                            </div>
+                            <button
+                                onClick={() => setShowBriefing(true)}
+                                className="p-2 rounded-full bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 transition-colors"
+                                title="Open Comms Protocol"
+                            >
+                                <MessageSquare size={16} className="animate-pulse" />
+                            </button>
                         </div>
 
                         <h1 className="text-5xl font-black text-white mb-6">Contact Command</h1>
@@ -44,6 +55,17 @@ export default function ContactPage() {
                             Deploying sovereign intelligence requires precise communication.
                             Direct channel open to Dr. Alvin West and the EdIntel engineering team.
                         </p>
+
+                        <HolographicBriefing
+                            isOpen={showBriefing}
+                            onClose={() => setShowBriefing(false)}
+                            title="Secure Comms Uplink"
+                            description="Channel Open. You are now connected to the Sovereign Command Center. All transmissions are encrypted. Use this channel for strategic inquiries, partnership proposals, or technical directives. We are listening."
+                            role="Communications Director"
+                            avatarImage="/images/avatars/executive_leader.png"
+                            thumbnail="/images/features/iep-architect-demo.mp4"
+                            stats={{ time: "OPEN", saved: "SECURE", accuracy: "100%" }}
+                        />
 
                         {/* Founder Profile */}
                         <div className="flex items-center gap-6 mb-12 p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-indigo-500/30 transition-colors">

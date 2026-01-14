@@ -13,6 +13,9 @@ interface SovereignDelegateProps {
     voiceSrc?: string;
     color: string;
     greetingText?: string;
+    completionText?: string; // Added missing prop
+    theme?: 'default' | 'sovereign'; // Added theme prop
+    isLoading?: boolean; // Added isLoading prop
 }
 
 export default function SovereignDelegate({
@@ -23,18 +26,46 @@ export default function SovereignDelegate({
     voiceSrc,
     color,
     completionText,
-    greetingText
+    greetingText,
+    theme = 'default',
+    isLoading = false
 }: SovereignDelegateProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [isMinimized, setIsMinimized] = useState(false);
     const [isSpeaking, setIsSpeaking] = useState(false);
 
-    // Speak completion text when it arrives
+    const [hasGuided, setHasGuided] = useState(false);
+    const hasAnnouncedRef = useRef(false);
+
+    // Auto-open if loading starts (user submitted prompt)
     useEffect(() => {
-        if (completionText && completionText.length > 10) {
+        if (isLoading) {
+            setIsOpen(true);
+            setIsMinimized(false);
+        }
+    }, [isLoading]);
+
+    // Guide Mode: Auto-trigger greeting on load
+    useEffect(() => {
+        if (theme === 'sovereign' && !hasGuided && name === "Sovereign Agent" && !isLoading && !completionText) { // Only for main guide to avoid spam
+            const timer = setTimeout(() => {
+                setIsOpen(true);
+                speakText(greetingText || "Greetings, Principal. I am your Sovereign Delegate. I am ready to generate advanced protocols for your leadership.");
+                setHasGuided(true);
+            }, 1500);
+            return () => clearTimeout(timer);
+        }
+    }, [theme, hasGuided, name, greetingText, isLoading, completionText]);
+
+    // Speak completion text when it arrives (only once)
+    useEffect(() => {
+        if (!completionText || completionText.length < 5) {
+            hasAnnouncedRef.current = false;
+        } else if (completionText.length > 20 && !hasAnnouncedRef.current) {
             setIsOpen(true);
             setIsMinimized(false);
             speakText("Principal, I have successfully generated the requested protocol. Please review the analysis below.");
+            hasAnnouncedRef.current = true;
         }
     }, [completionText]);
 
@@ -98,10 +129,16 @@ export default function SovereignDelegate({
                         initial={{ opacity: 0, scale: 0.9, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        className="pointer-events-auto mb-6 w-80 md:w-96 bg-zinc-900/95 backdrop-blur-2xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl shadow-indigo-500/20 ring-1 ring-white/20"
+                        className={`pointer-events-auto mb-6 w-80 md:w-96 bg-zinc-900/95 backdrop-blur-2xl border ${theme === 'sovereign' ? 'border-amber-500/30' : 'border-white/10'} rounded-3xl overflow-hidden shadow-2xl ${theme === 'sovereign' ? 'shadow-amber-500/20' : 'shadow-indigo-500/20'} ring-1 ring-white/20`}
                     >
+                        {/* Kente Pattern Overlay for Sovereign Theme */}
+                        {theme === 'sovereign' && (
+                            <div className="absolute inset-0 opacity-10 pointer-events-none z-0 mix-blend-overlay" style={{
+                                backgroundImage: `repeating-linear-gradient(45deg, #d97706 0px, #d97706 2px, transparent 2px, transparent 10px)`
+                            }} />
+                        )}
                         {/* Header */}
-                        <div className={`p-4 bg-gradient-to-r ${color} relative flex items-center justify-between`}>
+                        <div className={`p-4 ${theme === 'sovereign' ? 'bg-gradient-to-r from-amber-900 to-purple-900' : `bg-gradient-to-r ${color}`} relative flex items-center justify-between z-10`}>
                             <div className="flex items-center gap-3">
                                 <div className={`w-2 h-2 rounded-full ${isSpeaking ? 'bg-emerald-400 animate-pulse' : 'bg-red-500'} box-shadow-glow`} />
                                 <div>
@@ -145,18 +182,59 @@ export default function SovereignDelegate({
                                     <div className="w-full h-full flex flex-col items-center justify-center bg-zinc-950 px-4 text-center">
                                         <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-white/10 mb-4 p-1">
                                             <div className="w-full h-full rounded-full overflow-hidden relative">
-                                                <img src={avatarImage} alt={name} className={`w-full h-full object-cover transition-transform duration-200 ${isSpeaking ? 'scale-110' : 'scale-100'}`} />
-                                                {/* Lip Sync Simulation */}
-                                                {isSpeaking && (
-                                                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-0.5">
-                                                        <div className="w-2 h-2 rounded-full bg-white/80 animate-ping" />
+                                                <img
+                                                    src={avatarImage}
+                                                    alt={name}
+                                                    className={`w-full h-full object-cover transition-transform duration-200 ${isSpeaking ? 'scale-110' : 'scale-100'} ${isLoading ? 'opacity-50 blur-sm grayscale' : ''}`}
+                                                />
+
+                                                {/* Thinking / Loading State */}
+                                                {isLoading && (
+                                                    <div className="absolute inset-0 flex items-center justify-center z-20">
+                                                        <div className="relative w-16 h-16">
+                                                            {/* Neural Spinner Rings */}
+                                                            <div className="absolute inset-0 border-4 border-t-amber-500 border-r-transparent border-b-purple-500 border-l-transparent rounded-full animate-spin" />
+                                                            <div className="absolute inset-2 border-2 border-t-transparent border-r-white border-b-transparent border-l-white rounded-full animate-spin-reverse" style={{ animationDirection: 'reverse', animationDuration: '1.5s' }} />
+
+                                                            {/* Center Pulse */}
+                                                            <div className="absolute inset-0 flex items-center justify-center">
+                                                                <div className="w-2 h-2 bg-white rounded-full animate-ping" />
+                                                            </div>
+                                                        </div>
+                                                        <div className="absolute -bottom-8 w-full text-center">
+                                                            <span className="text-[10px] font-black tracking-widest text-amber-500 animate-pulse bg-black/50 px-2 py-1 rounded">PROCESSING</span>
+                                                        </div>
+                                                    </div>
+                                                )}
+
+                                                {/* Lip Sync Simulation - Neural Waveform */}
+                                                {!isLoading && isSpeaking && (
+                                                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                                        {/* Outer Aura */}
+                                                        <div className={`absolute w-24 h-24 rounded-full border ${theme === 'sovereign' ? 'border-amber-500/20' : 'border-indigo-500/20'} animate-ping`} />
+
+                                                        {/* Waveform Generator */}
+                                                        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-end justify-center gap-1 h-8 z-20 bg-black/50 p-1 rounded-full backdrop-blur-sm">
+                                                            {[...Array(7)].map((_, i) => (
+                                                                <LipSyncBar key={i} theme={theme} index={i} />
+                                                            ))}
+                                                        </div>
                                                     </div>
                                                 )}
                                             </div>
                                             {isSpeaking && (
-                                                <div className="absolute inset-0 rounded-full border-2 border-indigo-500 animate-ping opacity-20" />
+                                                <div className={`absolute inset-0 rounded-full border-2 ${theme === 'sovereign' ? 'border-amber-500' : 'border-indigo-500'} animate-ping opacity-20`} />
                                             )}
                                         </div>
+                                        {/* Holographic Scanline Overlay */}
+                                        {theme === 'sovereign' && (
+                                            <div className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-30 z-20"
+                                                style={{
+                                                    background: 'linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.8) 50%)',
+                                                    backgroundSize: '100% 4px'
+                                                }}
+                                            />
+                                        )}
                                         {completionText ? (
                                             <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                                                 <p className="text-white text-sm font-bold mb-2">Protocol Generative Complete</p>
@@ -186,19 +264,43 @@ export default function SovereignDelegate({
 
                         {/* Footer Controls */}
                         {!isMinimized && (
-                            <div className="p-3 bg-zinc-950 border-t border-white/5 flex justify-around">
-                                <button className="p-2 rounded-lg hover:bg-white/5 text-zinc-400 hover:text-white flex flex-col items-center gap-1" onClick={handleReadBriefing} title="Speak Analysis">
-                                    <Mic size={16} />
-                                    <span className="text-[8px] uppercase">Speak</span>
+                            <div className="p-3 bg-zinc-950 border-t border-white/5 flex justify-around relative">
+                                <button
+                                    className={`p-2 rounded-lg hover:bg-white/5 ${isSpeaking ? 'text-amber-400 animate-pulse' : 'text-zinc-400'} hover:text-white flex flex-col items-center gap-1 transition-colors`}
+                                    onClick={() => isSpeaking ? window.speechSynthesis.cancel() : handleReadBriefing()}
+                                    title={isSpeaking ? "Stop Speaking" : "Speak Analysis"}
+                                >
+                                    {isSpeaking ? <Volume2 size={16} /> : <Mic size={16} />}
+                                    <span className="text-[8px] uppercase">{isSpeaking ? 'Stop' : 'Speak'}</span>
                                 </button>
-                                <button className="p-2 rounded-lg hover:bg-white/5 text-zinc-400 hover:text-white flex flex-col items-center gap-1">
+
+                                <button
+                                    className={`p-2 rounded-lg hover:bg-white/5 ${videoSrc ? 'text-zinc-400 hover:text-white' : 'text-zinc-600 hover:text-zinc-400'} flex flex-col items-center gap-1 transition-colors`}
+                                    onClick={() => videoSrc ? window.open(videoSrc, '_blank') : alert("Secure Video Uplink is currently offline due to bandwidth conservation protocols.")}
+                                    title={videoSrc ? "Open Video Feed" : "Video Uplink Offline"}
+                                >
                                     <Video size={16} />
                                     <span className="text-[8px] uppercase">Video</span>
                                 </button>
-                                <button className="p-2 rounded-lg hover:bg-white/5 text-zinc-400 hover:text-white flex flex-col items-center gap-1">
-                                    <MoreVertical size={16} />
-                                    <span className="text-[8px] uppercase">Options</span>
-                                </button>
+
+                                <div className="relative">
+                                    <button
+                                        className="p-2 rounded-lg hover:bg-white/5 text-zinc-400 hover:text-white flex flex-col items-center gap-1 transition-colors"
+                                        onClick={() => {
+                                            const menu = document.getElementById('delegate-options-menu');
+                                            if (menu) menu.classList.toggle('hidden');
+                                        }}
+                                    >
+                                        <MoreVertical size={16} />
+                                        <span className="text-[8px] uppercase">Options</span>
+                                    </button>
+
+                                    {/* Options Menu */}
+                                    <div id="delegate-options-menu" className="hidden absolute bottom-full right-0 mb-2 w-32 bg-zinc-900 border border-white/10 rounded-xl shadow-xl overflow-hidden z-50">
+                                        <button onClick={() => window.location.reload()} className="w-full text-left px-4 py-2 text-xs text-zinc-300 hover:bg-white/5 hover:text-white">Restart Protocol</button>
+                                        <button onClick={() => setIsOpen(false)} className="w-full text-left px-4 py-2 text-xs text-zinc-300 hover:bg-white/5 hover:text-white">Dismiss Agent</button>
+                                    </div>
+                                </div>
                             </div>
                         )}
                     </motion.div>
@@ -246,7 +348,7 @@ export default function SovereignDelegate({
                 )}
 
                 {/* Avatar Ring */}
-                <div className={`relative w-16 h-16 rounded-full p-1 bg-gradient-to-br ${color} shadow-lg shadow-indigo-500/30`}>
+                <div className={`relative w-16 h-16 rounded-full p-1 bg-gradient-to-br ${theme === 'sovereign' ? 'from-amber-400 via-purple-600 to-amber-600' : color} shadow-lg ${theme === 'sovereign' ? 'shadow-amber-500/30' : 'shadow-indigo-500/30'}`}>
                     <div className="w-full h-full rounded-full overflow-hidden border-2 border-black bg-black relative">
                         <img src={avatarImage} alt={name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
 
@@ -256,5 +358,32 @@ export default function SovereignDelegate({
                 </div>
             </motion.button>
         </div>
+    );
+}
+
+// ------------------------------------------------------------------
+// Helper Component: Neural Audio Visualizer Bar
+// ------------------------------------------------------------------
+function LipSyncBar({ theme, index }: { theme: string, index: number }) {
+    // Randomize the movement to simulate voice range frequencies
+    const randomHeight = [
+        Math.random() * 10 + 4,
+        Math.random() * 24 + 8,
+        Math.random() * 12 + 4
+    ];
+    // Slightly off-set durations for organic feel
+    const duration = 0.15 + (Math.random() * 0.1);
+
+    return (
+        <motion.div
+            className={`w-1.5 rounded-full ${theme === 'sovereign' ? 'bg-amber-400' : 'bg-indigo-400'} shadow-[0_0_8px_rgba(251,191,36,0.5)]`}
+            animate={{ height: randomHeight }}
+            transition={{
+                repeat: Infinity,
+                duration: duration,
+                ease: "easeInOut",
+                delay: index * 0.05 // Stagger effect
+            }}
+        />
     );
 }

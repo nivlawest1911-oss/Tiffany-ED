@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Lock, Mail, User, ArrowRight, ShieldCheck, Chrome, CreditCard } from 'lucide-react';
 
 import { useAuth } from '@/context/AuthContext';
+import HolographicBriefing from '@/components/HolographicBriefing';
 
 function SignupForm() {
     const [email, setEmail] = useState('');
@@ -13,6 +14,7 @@ function SignupForm() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [isProcessing, setIsProcessing] = useState(false);
+    const [showBriefing, setShowBriefing] = useState(false);
     const router = useRouter();
     const searchParams = useSearchParams();
     const plan = searchParams.get('plan') || 'free';
@@ -71,10 +73,31 @@ function SignupForm() {
                     <ShieldCheck size={32} className="text-emerald-600 dark:text-emerald-400" />
                 </div>
                 <h2 className="text-3xl font-black tracking-tighter text-zinc-900 dark:text-white uppercase mb-2">EdIntel Portal</h2>
-                <p className="text-sm font-bold text-zinc-500 uppercase tracking-widest">
-                    {plan === 'pro' ? 'Professional Access' : 'Create Executive Account'}
-                </p>
+                <div className="flex items-center justify-center gap-4">
+                    <p className="text-sm font-bold text-zinc-500 uppercase tracking-widest">
+                        {plan === 'pro' ? 'Professional Access' : 'Create Executive Account'}
+                    </p>
+                    <button
+                        onClick={() => setShowBriefing(true)}
+                        className="rounded-full bg-emerald-500/10 p-1.5 text-emerald-500 hover:bg-emerald-500/20 transition-colors"
+                        title="Induction Protocol"
+                    >
+                        <ShieldCheck size={14} className="animate-pulse" />
+                    </button>
+                </div>
             </div>
+
+            <HolographicBriefing
+                isOpen={showBriefing}
+                onClose={() => setShowBriefing(false)}
+                title="Induction Protocol"
+                description="Welcome, Initiate. You are about to enter the Sovereign Network. Ensure your credentials are secure. This protocol is designed to amplify your executive capacity by 10x. Proceed with registration."
+                role="Sovereign Recruiter"
+                avatarImage="/images/avatars/instructional_tech.png"
+                thumbnail="/images/features/iep-architect-demo.mp4"
+                stats={{ time: "NOW", saved: "FUTURE", accuracy: "100%" }}
+                theme="sovereign"
+            />
 
             {error && (
                 <motion.div

@@ -3,7 +3,7 @@ import {
     Mic, Volume2, Accessibility, Code, Database, Megaphone, Palette, Calendar, ClipboardCheck, TrendingUp, Award, Target,
     Briefcase, GraduationCap as StudentCap, BookMarked, PenTool, Video, Beaker, Calculator, HandCoins, Bus, ClipboardList,
     PieChart, Layers, Gamepad2, ShieldAlert, Mail, ScrollText, Map, UserCheck, FileJson, Table, HeartHandshake, Smile,
-    GanttChart, Trophy, Glasses, BarChart3
+    GanttChart, Trophy, Glasses, BarChart3, Globe, Star, Scale, Clock, ShoppingBag, Presentation, HardHat
 } from "lucide-react"
 
 // Map specific tools to "Delegate" avatars for the human feel
@@ -189,4 +189,656 @@ export const generators = [
     { id: "quiz-gamifier", name: "Quiz Gamifier", description: "Gamification", icon: Gamepad2, color: "#8b5cf6", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Gamify quiz review"] },
     { id: "safety-drill-master", name: "Safety Drill Master", description: "Crisis planning", icon: ShieldAlert, color: "#ef4444", avatar: AVATARS.COMPLIANCE, heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/principal_briefing.mp4", voiceWelcome: "/voice-profiles/compliance_voice.wav", prompts: ["Fire drill procedure"] },
     { id: "newsletter-wizard", name: "Newsletter Wizard", description: "Community updates", icon: Mail, color: "#3b82f6", avatar: AVATARS.PRINCIPAL, heroImage: "/images/features/sovereign_communications_director.png", heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/principal_briefing.mp4", voiceWelcome: "/voice-profiles/principal_voice.wav", prompts: ["Weekly newsletter"] },
+
+    // --- NEW SOVEREIGN ADMIN TOOLS ---
+    {
+        id: "staff-retention-prophet",
+        name: "Staff Retention Prophet",
+        description: "Predict staff turnover risks using sentiment analysis on surveys.",
+        icon: UserCheck,
+        color: "#d97706", // Amber
+        avatar: AVATARS.DATA,
+        heroVideo: "/videos/features/data-analysis-demo.mp4",
+        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        voiceWelcome: "/voice-profiles/data_voice.wav",
+        prompts: ["Analyze climate survey", "Identify retention risks", "Draft retention plan"]
+    },
+    {
+        id: "equity-audit-protocol",
+        name: "Equity Audit Protocol",
+        description: "Scan curriculum and policies for bias or representation gaps.",
+        icon: ScrollText,
+        color: "#7c3aed", // Purple
+        avatar: AVATARS.CURRICULUM,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        voiceWelcome: "/voice-profiles/counselor_voice.wav",
+        prompts: ["Audit reading list", "Check discipline policy", "Review hiring practices"]
+    },
+    {
+        id: "fiscal-sovereign",
+        name: "Fiscal Sovereign",
+        description: "Advanced budget modeling and ROI analysis for district funds.",
+        icon: PieChart,
+        color: "#10b981", // Emerald
+        avatar: AVATARS.PRINCIPAL,
+        heroVideo: "/videos/features/data-analysis-demo.mp4",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        voiceWelcome: "/voice-profiles/principal_voice.wav",
+        prompts: ["Model 5% budget cut", "Project Title I allocation", "Analyze vendor ROI"]
+    },
+    {
+        id: "enrollment-forecaster",
+        name: "Enrollment Forecaster",
+        description: "Predict next year's student counts using demographic trends.",
+        icon: TrendingUp,
+        color: "#3b82f6", // Blue
+        avatar: AVATARS.DATA,
+        heroVideo: "/videos/features/data-analysis-demo.mp4",
+        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        voiceWelcome: "/voice-profiles/data_voice.wav",
+        prompts: ["Forecast kindergarten enrollment", "Analyze zoning changes", "Predict class sizes"]
+    },
+    {
+        id: "classroom-decor-ai",
+        name: "Classroom Architect",
+        description: "Visualize and plan classroom layouts optimized for learning.",
+        icon: Palette,
+        color: "#db2777", // Pink-600
+        avatar: AVATARS.CURRICULUM,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        voiceWelcome: "/voice-profiles/counselor_voice.wav",
+        prompts: ["Montessori layout ideas", "Calm corner design", "Seating chart for 25 students"]
+    },
+    {
+        id: "teacher-wellness-guide",
+        name: "Wellness Guardian",
+        description: "Strategies for avoiding burnout and maintaining balance.",
+        icon: HeartHandshake,
+        color: "#059669", // Emerald-600
+        avatar: AVATARS.COUNSELOR,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        voiceWelcome: "/voice-profiles/counselor_voice.wav",
+        prompts: ["5-minute stress relief", "Boundary setting scripts", "End-of-day decompression"]
+    },
+    {
+        id: "strategic-visionary",
+        name: "Strategic Visionary",
+        description: "Draft 3-5 year strategic plans and mission statements.",
+        icon: Target,
+        color: "#7c3aed", // Violet-600
+        avatar: AVATARS.PRINCIPAL,
+        heroVideo: "/videos/features/iep-architect-demo.mp4",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        voiceWelcome: "/voice-profiles/principal_voice.wav",
+        prompts: ["Draft STEM magnet vision", "3-year tech rollout plan", "Mission statement refresh"]
+    },
+    {
+        id: "hr-talent-scout",
+        name: "HR Talent Scout",
+        description: "Generate interview questions and performance growth plans.",
+        icon: Briefcase,
+        color: "#db2777", // Pink-600
+        avatar: AVATARS.DATA,
+        heroVideo: "/videos/features/data-analysis-demo.mp4",
+        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        voiceWelcome: "/voice-profiles/data_voice.wav",
+        prompts: ["Math teacher interview questions", "Performance improvement plan", "Rejection letter template"]
+    },
+    {
+        id: "restorative-justice-guide",
+        name: "Restorative Voice",
+        description: "Scripts for conflict circles and restorative conferences.",
+        icon: HeartHandshake,
+        color: "#ea580c", // Orange-600
+        avatar: AVATARS.COUNSELOR,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        voiceWelcome: "/voice-profiles/counselor_voice.wav",
+        prompts: ["Circle facilitator script", "Re-entry meeting agenda", "Apology letter scaffold"]
+    },
+    {
+        id: "grant-narrative-architect",
+        name: "Grant Architect",
+        description: "Compelling narratives for federal and state grant applications.",
+        icon: ScrollText,
+        color: "#16a34a", // Green-600
+        avatar: AVATARS.PRINCIPAL,
+        heroVideo: "/videos/features/iep-architect-demo.mp4",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        voiceWelcome: "/voice-profiles/principal_voice.wav",
+        prompts: ["Title I needs assessment", "STEM grant narrative", "Community partnership output"]
+    },
+    {
+        id: "crisis-ops-commander",
+        name: "Crisis Ops Commander",
+        description: "Checklists and communication protocols for emergencies.",
+        icon: ShieldAlert,
+        color: "#dc2626", // Red-600
+        avatar: AVATARS.COMPLIANCE,
+        heroVideo: "/videos/features/iep-architect-demo.mp4",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        voiceWelcome: "/voice-profiles/compliance_voice.wav",
+        prompts: ["Severe weather checklist", "Parent reunification logic", "Media holding statement"]
+    },
+    {
+        id: "plc-facilitator",
+        name: "PLC Facilitator",
+        description: "Agendas and data protocols for Professional Learning Communities.",
+        icon: Users,
+        color: "#2563eb", // Blue-600
+        avatar: AVATARS.CURRICULUM,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        voiceWelcome: "/voice-profiles/counselor_voice.wav",
+        prompts: ["Data dive protocol", "Student work analysis", "PLC norm setting"]
+    },
+    {
+        id: "504-compliance-officer",
+        name: "504 Compliance Officer",
+        description: "Draft robust Section 504 plans and accommodation reviews.",
+        icon: FileText,
+        color: "#4f46e5", // Indigo-600
+        avatar: AVATARS.COMPLIANCE,
+        heroVideo: "/videos/features/iep-architect-demo.mp4",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        voiceWelcome: "/voice-profiles/compliance_voice.wav",
+        prompts: ["504 plan for anxiety", "Accommodation review meeting agenda", "Manifestation determination review"]
+    },
+    {
+        id: "instructional-mastery-coach",
+        name: "Instructional Coach",
+        description: "Observation feedback scripts and co-teaching models.",
+        icon: Lightbulb,
+        color: "#e11d48", // Rose-600
+        avatar: AVATARS.CURRICULUM,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        voiceWelcome: "/voice-profiles/counselor_voice.wav",
+        prompts: ["Post-observation feedback script", "Co-teaching station rotation plan", "Growth mindset coaching questions"]
+    },
+    {
+        id: "family-community-nexus",
+        name: "Community Nexus",
+        description: "Bridge the gap with multilingual newsletters and partnership outreach.",
+        icon: Users,
+        color: "#0d9488", // Teal-600
+        avatar: AVATARS.PRINCIPAL,
+        heroVideo: "/videos/features/iep-architect-demo.mp4",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        voiceWelcome: "/voice-profiles/principal_voice.wav",
+        prompts: ["Title I parent meeting invite", "Community partnership proposal", "Monthly family newsletter"]
+    },
+    {
+        id: "digital-innovation-architect",
+        name: "Digital Architect",
+        description: "Draft AI policies, digital citizenship curriculums, and tech plans.",
+        icon: Code,
+        color: "#0891b2", // Cyan-600
+        avatar: AVATARS.DATA,
+        heroVideo: "/videos/features/data-analysis-demo.mp4",
+        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        voiceWelcome: "/voice-profiles/data_voice.wav",
+        prompts: ["District AI usage policy", "1:1 device rollout plan", "Digital citizenship lesson"]
+    },
+    {
+        id: "board-governance-strategist",
+        name: "Board Strategist",
+        description: "Prepare executive summaries, board presentations, and policy briefs.",
+        icon: Briefcase,
+        color: "#475569", // Slate-600
+        avatar: AVATARS.PRINCIPAL,
+        heroVideo: "/videos/features/iep-architect-demo.mp4",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        voiceWelcome: "/voice-profiles/principal_voice.wav",
+        prompts: ["Superintendent's report summary", "Policy change impact analysis", "Budget presentation script"]
+    },
+    {
+        id: "culture-climate-architect",
+        name: "Culture Architect",
+        description: "Audit school culture and plan inclusive, affirming events.",
+        icon: Smile,
+        color: "#f97316", // Orange-500
+        avatar: AVATARS.COUNSELOR,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        voiceWelcome: "/voice-profiles/counselor_voice.wav",
+        prompts: ["School culture audit survey", "Staff appreciation week plan", "Inclusive assembly script"]
+    },
+    {
+        id: "cte-industry-liaison",
+        name: "CTE Industry Liaison",
+        description: "Build industry partnerships and track certification data.",
+        icon: Briefcase,
+        color: "#0284c7", // Sky-600
+        avatar: AVATARS.DATA,
+        heroVideo: "/videos/features/data-analysis-demo.mp4",
+        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        voiceWelcome: "/voice-profiles/data_voice.wav",
+        prompts: ["Industry advisory board agenda", "Internship evaluation rubric", "Work-based learning agreement"]
+    },
+    {
+        id: "ell-success-coordinator",
+        name: "ELL Success Coordinator",
+        description: "Scaffold content and communications for multilingual learners.",
+        icon: Globe,
+        color: "#d946ef", // Fuchsia-600
+        avatar: AVATARS.CURRICULUM,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        voiceWelcome: "/voice-profiles/counselor_voice.wav",
+        prompts: ["Sheltered instruction strategy", "Parent letter in Spanish/English", "WIDA access goal setting"]
+    },
+    {
+        id: "gt-gifted-architect",
+        name: "Gifted & Talented Architect",
+        description: "Design extension projects and DEP differentiation.",
+        icon: Brain,
+        color: "#f59e0b", // Amber-500
+        avatar: AVATARS.CURRICULUM,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        voiceWelcome: "/voice-profiles/counselor_voice.wav",
+        prompts: ["Project-based extension for Math", "Depth and Complexity prompts", "Independent study contract"]
+    },
+    {
+        id: "athletic-director-pro",
+        name: "Athletic Director Pro",
+        description: "Manage practice schedules, logistics, and eligibility.",
+        icon: Trophy,
+        color: "#b91c1c", // Red-700
+        avatar: AVATARS.COMPLIANCE,
+        heroVideo: "/videos/features/iep-architect-demo.mp4",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        voiceWelcome: "/voice-profiles/compliance_voice.wav",
+        prompts: ["Facility usage schedule", "Coach evaluation rubric", "Parent athlete handbook"]
+    },
+    {
+        id: "alumni-relations-manager",
+        name: "Alumni Manager",
+        description: "Engage former students for mentorship and fundraising.",
+        icon: GraduationCap,
+        color: "#1e293b", // Slate-800
+        avatar: AVATARS.PRINCIPAL,
+        heroVideo: "/videos/features/iep-architect-demo.mp4",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        voiceWelcome: "/voice-profiles/principal_voice.wav",
+        prompts: ["Alumni newsletter template", "Career day invitation", "Fundraising campaign email"]
+    },
+    {
+        id: "restorative-dean",
+        name: "Restorative Dean",
+        description: "Manage discipline with a restorative, growth-focused lens.",
+        icon: Shield,
+        color: "#4338ca", // Indigo-700
+        avatar: AVATARS.COMPLIANCE,
+        heroVideo: "/videos/features/iep-architect-demo.mp4",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        voiceWelcome: "/voice-profiles/compliance_voice.wav",
+        prompts: ["Behavior contract template", "Incident reflection sheet", "Suspension alternative list"]
+    },
+    {
+        id: "testing-coordinator-pro",
+        name: "Testing Coordinator",
+        description: "Organize state testing logistics, proctor schedules, and accommodations.",
+        icon: ClipboardCheck,
+        color: "#0f766e", // Teal-700
+        avatar: AVATARS.DATA,
+        heroVideo: "/videos/features/data-analysis-demo.mp4",
+        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        voiceWelcome: "/voice-profiles/data_voice.wav",
+        prompts: ["Proctor training agenda", "Testing room schedule builder", "Irregularity report template"]
+    },
+    {
+        id: "facilities-ops-manager",
+        name: "Facilities Manager",
+        description: "Track work orders, safety audits, and custodial schedules.",
+        icon: Check,
+        color: "#374151", // Gray-700
+        avatar: AVATARS.PRINCIPAL,
+        heroVideo: "/videos/features/iep-architect-demo.mp4",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        voiceWelcome: "/voice-profiles/principal_voice.wav",
+        prompts: ["Custodial cleaning checklist", "Safety walk-through audit", "Summer maintenance timeline"]
+    },
+    {
+        id: "transportation-logistics",
+        name: "Transport Director",
+        description: "Optimize bus routes and manage driver communication.",
+        icon: Bus,
+        color: "#d97706", // Amber-600
+        avatar: AVATARS.DATA,
+        heroVideo: "/videos/features/data-analysis-demo.mp4",
+        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        voiceWelcome: "/voice-profiles/data_voice.wav",
+        prompts: ["Driver safety memo", "Bus conduct report", "Field trip transport request"]
+    },
+    {
+        id: "substitute-manager",
+        name: "Substitute Manager",
+        description: "Manage sub pools, emergency plans, and coverage logistics.",
+        icon: Users,
+        color: "#be123c", // Rose-700
+        avatar: AVATARS.PRINCIPAL,
+        heroVideo: "/videos/features/iep-architect-demo.mp4",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        voiceWelcome: "/voice-profiles/principal_voice.wav",
+        prompts: ["Sub handbook table of contents", "Emergency lesson plan template", "Sub feedback form"]
+    },
+    {
+        id: "mental-health-lead",
+        name: "Mental Health Lead",
+        description: "Protocols for suicide risk assessment and crisis counseling.",
+        icon: HeartHandshake,
+        color: "#6d28d9", // Violet-700
+        avatar: AVATARS.COUNSELOR,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        voiceWelcome: "/voice-profiles/counselor_voice.wav",
+        prompts: ["Suicide risk assessment protocol", "Grief counseling script", "Safety plan template"]
+    },
+    {
+        id: "social-media-manager",
+        name: "Social Media Manager",
+        description: "Draft engaging posts and manage school branding strategy.",
+        icon: Megaphone,
+        color: "#ec4899", // Pink-500
+        avatar: AVATARS.CURRICULUM,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        voiceWelcome: "/voice-profiles/counselor_voice.wav",
+        prompts: ["Teacher spotlight post", "Snow day announcement", "Bond referendum info post"]
+    },
+    {
+        id: "literacy-architect",
+        name: "Literacy Architect",
+        description: "Science of Reading aligned interventions and phonics routines.",
+        icon: BookOpen,
+        color: "#be185d", // Pink-700
+        avatar: AVATARS.CURRICULUM,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        voiceWelcome: "/voice-profiles/counselor_voice.wav",
+        prompts: ["Phonemic awareness drill", "Decodable text generator", "Reading fluency rubric"]
+    },
+    {
+        id: "math-interventionist",
+        name: "Math Interventionist",
+        description: "Concrete-Representational-Abstract (CRA) math scaffolds.",
+        icon: Calculator,
+        color: "#059669", // Emerald-600
+        avatar: AVATARS.DATA,
+        heroVideo: "/videos/features/data-analysis-demo.mp4",
+        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        voiceWelcome: "/voice-profiles/data_voice.wav",
+        prompts: ["Fraction intervention scaffold", "Word problem visualizer", "Math fact fluency game"]
+    },
+    {
+        id: "early-learning-director",
+        name: "Early Learning Director",
+        description: "Play-based learning stations and pre-k transition plans.",
+        icon: Smile,
+        color: "#fbbf24", // Amber-400
+        avatar: AVATARS.COUNSELOR,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        voiceWelcome: "/voice-profiles/counselor_voice.wav",
+        prompts: ["Sensory bin activity guide", "Social-emotional circle time", "Kindergarten readiness checklist"]
+    },
+    {
+        id: "transition-coordinator",
+        name: "Transition Coordinator",
+        description: "Post-secondary transition plans for Special Education.",
+        icon: GraduationCap,
+        color: "#4f46e5", // Indigo-600
+        avatar: AVATARS.COMPLIANCE,
+        heroVideo: "/videos/features/iep-architect-demo.mp4",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        voiceWelcome: "/voice-profiles/compliance_voice.wav",
+        prompts: ["Transition assessment tool", "Job coaching script", "Independent living goal"]
+    },
+    {
+        id: "library-media-specialist",
+        name: "Media Specialist",
+        description: "Digital citizenship lessons and research frameworks.",
+        icon: BookMarked,
+        color: "#0891b2", // Cyan-600
+        avatar: AVATARS.CURRICULUM,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        voiceWelcome: "/voice-profiles/counselor_voice.wav",
+        prompts: ["Digital citizenship lesson", "Research source evaluation", "Makerspace challenge card"]
+    },
+    {
+        id: "dual-language-bridge",
+        name: "Dual Language Bridge",
+        description: "Bilingual content generation for two-way immersion.",
+        icon: Globe,
+        color: "#db2777", // Pink-600
+        avatar: AVATARS.CURRICULUM,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        voiceWelcome: "/voice-profiles/counselor_voice.wav",
+        prompts: ["Cognate wall list", "Translanguaging strategy", "Bilingual newsletter blurb"]
+    },
+    {
+        id: "federal-programs-director",
+        name: "Federal Programs Director",
+        description: "Manage Title I, II, III, & IV compliance and documentation.",
+        icon: Scale,
+        color: "#1e3a8a", // Blue-900
+        avatar: AVATARS.COMPLIANCE,
+        heroVideo: "/videos/features/iep-architect-demo.mp4",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        voiceWelcome: "/voice-profiles/compliance_voice.wav",
+        prompts: ["Title I schoolwide plan", "Equitable services consultation", "Supplement vs Supplant guide"]
+    },
+    {
+        id: "magnet-coordinator",
+        name: "Magnet Coordinator",
+        description: "Integrate specialized themes (STEM, Arts, IB) into curriculum.",
+        icon: Star,
+        color: "#7c3aed", // Violet-600
+        avatar: AVATARS.CURRICULUM,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        voiceWelcome: "/voice-profiles/counselor_voice.wav",
+        prompts: ["PBL unit with STEM theme", "Magnet recruitment plan", "Theme integration rubric"]
+    },
+    {
+        id: "attendance-officer",
+        name: "Attendance Officer",
+        description: "Truancy diversion plans and chronic absenteeism interventions.",
+        icon: Clock,
+        color: "#c2410c", // Orange-700
+        avatar: AVATARS.DATA,
+        heroVideo: "/videos/features/data-analysis-demo.mp4",
+        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        voiceWelcome: "/voice-profiles/data_voice.wav",
+        prompts: ["Truancy diversion contract", "Attendance success plan", "Home visit protocol"]
+    },
+    {
+        id: "school-registrar",
+        name: "School Registrar",
+        description: "Manage enrollment, transcripts, and master schedule data.",
+        icon: Database,
+        color: "#374151", // Gray-700
+        avatar: AVATARS.DATA,
+        heroVideo: "/videos/features/data-analysis-demo.mp4",
+        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        voiceWelcome: "/voice-profiles/data_voice.wav",
+        prompts: ["Enrollment verification letter", "Transcript audit checklist", "Withdrawal form template"]
+    },
+    {
+        id: "procurement-specialist",
+        name: "Procurement Specialist",
+        description: "Draft RFPs, bid specifications, and vendor contracts.",
+        icon: ShoppingBag,
+        color: "#065f46", // Emerald-800
+        avatar: AVATARS.PRINCIPAL,
+        heroVideo: "/videos/features/iep-architect-demo.mp4",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        voiceWelcome: "/voice-profiles/principal_voice.wav",
+        prompts: ["Technology RFP template", "Vendor evaluation matrix", "Sole source justification"]
+    },
+    {
+        id: "pd-coordinator",
+        name: "PD Coordinator",
+        description: "Design professional development tracks and workshop agendas.",
+        icon: Presentation,
+        color: "#be185d", // Pink-700
+        avatar: AVATARS.CURRICULUM,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        voiceWelcome: "/voice-profiles/counselor_voice.wav",
+        prompts: ["New teacher induction agenda", "Differentiated PD survey", "Instructional rounds protocol"]
+    },
+    {
+        id: "mckinney-vento-liaison",
+        name: "Homeless Liaison",
+        description: "Support students in transition with transport and resource rights.",
+        icon: HeartHandshake,
+        color: "#fb923c", // Orange-400
+        avatar: AVATARS.COUNSELOR,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        voiceWelcome: "/voice-profiles/counselor_voice.wav",
+        prompts: ["Dispute resolution letter", "Needs assessment for shelter", "Transport request form"]
+    },
+    {
+        id: "foster-care-poc",
+        name: "Foster Care Point of Contact",
+        description: "Coordinate best interest determinations and DCF communication.",
+        icon: Shield,
+        color: "#4f46e5", // Indigo-600
+        avatar: AVATARS.COUNSELOR,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        voiceWelcome: "/voice-profiles/counselor_voice.wav",
+        prompts: ["Best interest determination meeting", "DCF school stability plan", "Records transfer checklist"]
+    },
+    {
+        id: "school-health-director",
+        name: "Health Services Director",
+        description: "Manage Individual Health Plans (IHP) and immunization compliance.",
+        icon: ClipboardCheck,
+        color: "#ef4444", // Red-500
+        avatar: AVATARS.COMPLIANCE,
+        heroVideo: "/videos/features/iep-architect-demo.mp4",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        voiceWelcome: "/voice-profiles/compliance_voice.wav",
+        prompts: ["Seizure action plan template", "Allergy awareness letter", "Immunization audit log"]
+    },
+    {
+        id: "after-school-director",
+        name: "After-School Director",
+        description: "Coordinate enrichment schedules, staffing, and snack logistics.",
+        icon: Palette,
+        color: "#8b5cf6", // Violet-500
+        avatar: AVATARS.CURRICULUM,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        voiceWelcome: "/voice-profiles/counselor_voice.wav",
+        prompts: ["Enrichment club rotation schedule", "Snack program tracking sheet", "Dismissal safety protocol"]
+    },
+    {
+        id: "volunteer-coordinator",
+        name: "Volunteer Coordinator",
+        description: "Manage background checks, recruitment, and appreciation.",
+        icon: Users,
+        color: "#10b981", // Emerald-500
+        avatar: AVATARS.PRINCIPAL,
+        heroVideo: "/videos/features/iep-architect-demo.mp4",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        voiceWelcome: "/voice-profiles/principal_voice.wav",
+        prompts: ["Volunteer orientation handbook", "Background check process memo", "Appreciation breakfast script"]
+    },
+    {
+        id: "safety-security-chief",
+        name: "Safety & Security Chief",
+        description: "Conduct physical perimeter checks and visitor management protocols.",
+        icon: ShieldAlert,
+        color: "#111827", // Gray-900
+        avatar: AVATARS.COMPLIANCE,
+        heroVideo: "/videos/features/iep-architect-demo.mp4",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        voiceWelcome: "/voice-profiles/compliance_voice.wav",
+        prompts: ["Perimeter security checklist", "Visitor entry protocol", "Door prop audit log"]
+    },
+    {
+        id: "title-ix-coordinator",
+        name: "Title IX Coordinator",
+        description: "Protocol for gender equity investigations and compliance.",
+        icon: Scale,
+        color: "#831843", // Pink-900
+        avatar: AVATARS.COMPLIANCE,
+        heroVideo: "/videos/features/iep-architect-demo.mp4",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        voiceWelcome: "/voice-profiles/compliance_voice.wav",
+        prompts: ["Investigation timeline checklist", "No-contact order template", "Equity climate survey"]
+    },
+    {
+        id: "school-budget-analyst",
+        name: "Budget Analyst",
+        description: "Forecast expenditures, track grants, and justify heavy purchases.",
+        icon: Calculator,
+        color: "#14532d", // Green-900
+        avatar: AVATARS.DATA,
+        heroVideo: "/videos/features/data-analysis-demo.mp4",
+        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        voiceWelcome: "/voice-profiles/data_voice.wav",
+        prompts: ["Budget narrative justification", "Title I spending spreadsheet", "Cost-benefit analysis for tech"]
+    },
+    {
+        id: "stem-robotics-lead",
+        name: "STEM & Robotics Lead",
+        description: "Design makerspaces and robotics competition charters.",
+        icon: Code,
+        color: "#0369a1", // Sky-700
+        avatar: AVATARS.CURRICULUM,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        voiceWelcome: "/voice-profiles/counselor_voice.wav",
+        prompts: ["Makerspace safety rules", "Robotics club charter", "Engineering design process rubric"]
+    },
+    {
+        id: "arts-integration-specialist",
+        name: "Arts Integration Specialist",
+        description: "Fuse arts into STEM (STEAM) and core curriculum projects.",
+        icon: Palette,
+        color: "#c026d3", // Fuchsia-600
+        avatar: AVATARS.CURRICULUM,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        voiceWelcome: "/voice-profiles/counselor_voice.wav",
+        prompts: ["STEAM project proposal", "Visual thinking strategy script", "Music in math lesson plan"]
+    },
+    {
+        id: "labor-relations-liaison",
+        name: "Labor Relations Liaison",
+        description: "Navigate contract language and staff grievance procedures.",
+        icon: Briefcase,
+        color: "#3f3f46", // Zinc-700
+        avatar: AVATARS.PRINCIPAL,
+        heroVideo: "/videos/features/iep-architect-demo.mp4",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        voiceWelcome: "/voice-profiles/principal_voice.wav",
+        prompts: ["Contract language clarification", "Grievance response template", "MOU drafting guide"]
+    },
+    {
+        id: "capital-projects-manager",
+        name: "Capital Projects Manager",
+        description: "Oversee renovations, construction timelines, and FF&E.",
+        icon: HardHat,
+        color: "#b45309", // Amber-700
+        avatar: AVATARS.PRINCIPAL,
+        heroVideo: "/videos/features/iep-architect-demo.mp4",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        voiceWelcome: "/voice-profiles/principal_voice.wav",
+        prompts: ["Renovation timeline visualizer", "FF&E inventory log", "Construction safety memo"]
+    }
 ];
+
+export const GENERATORS = generators;

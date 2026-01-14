@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Lock, Mail, ArrowRight, ShieldCheck, Chrome } from 'lucide-react';
+import HolographicBriefing from '@/components/HolographicBriefing';
 
 import { useAuth } from '@/context/AuthContext';
 
@@ -12,6 +13,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [showBriefing, setShowBriefing] = useState(false);
   const router = useRouter();
   const { login } = useAuth();
 
@@ -53,8 +55,28 @@ export default function LoginPage() {
             <ShieldCheck size={32} className="text-blue-600 dark:text-blue-400" />
           </div>
           <h2 className="text-3xl font-black tracking-tighter text-zinc-900 dark:text-white uppercase mb-2">EdIntel Portal</h2>
-          <p className="text-sm font-bold text-zinc-500 uppercase tracking-widest">District Executive Login</p>
+          <div className="flex items-center justify-center gap-4">
+            <p className="text-sm font-bold text-zinc-500 uppercase tracking-widest">District Executive Login</p>
+            <button
+              onClick={() => setShowBriefing(true)}
+              className="rounded-full bg-blue-500/10 p-1.5 text-blue-500 hover:bg-blue-500/20 transition-colors"
+              title="Verify Security Protocol"
+            >
+              <ShieldCheck size={14} className="animate-pulse" />
+            </button>
+          </div>
         </div>
+
+        <HolographicBriefing
+          isOpen={showBriefing}
+          onClose={() => setShowBriefing(false)}
+          title="Gatekeeper Protocol"
+          description="Identity verification required. Access to the Sovereign Neural Network is restricted to authorized executive personnel. All sessions are encrypted with military-grade protocols. Please preset your credentials."
+          role="Gatekeeper Sentinel"
+          avatarImage="/images/avatars/executive_leader.png"
+          thumbnail="/images/features/iep-architect-demo.mp4"
+          stats={{ time: "0ms", saved: "SECURE", accuracy: "100%" }}
+        />
 
         {error && (
           <motion.div

@@ -1,8 +1,13 @@
+'use client';
+
+import { useState } from 'react';
 import Link from 'next/link';
 import { Shield, Mail, MapPin, Twitter, Facebook, Linkedin, Github, Phone, MessageSquare, Video } from 'lucide-react';
 import EdIntelLogo from './EdIntelLogo';
+import HolographicBriefing from './HolographicBriefing';
 
 export default function Footer() {
+    const [systemStatusOpen, setSystemStatusOpen] = useState(false);
     return (
         <footer className="bg-black border-t border-white/10 pt-20 pb-10">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] from-indigo-900/10 via-zinc-950/0 to-zinc-950/0 pointer-events-none" />
@@ -106,9 +111,29 @@ export default function Footer() {
                 </div>
 
                 <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="text-zinc-500 text-sm">
-                        © {new Date().getFullYear()} EdIntel Sovereign. All systems operational.
-                    </p>
+                    <div className="flex items-center gap-2">
+                        <button
+                            onClick={() => setSystemStatusOpen(true)}
+                            className="text-zinc-500 text-sm flex items-center gap-2 hover:text-emerald-400 transition-colors group cursor-pointer"
+                        >
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            </span>
+                            © {new Date().getFullYear()} EdIntel Sovereign. All systems operational.
+                        </button>
+                    </div>
+
+                    <HolographicBriefing
+                        isOpen={systemStatusOpen}
+                        onClose={() => setSystemStatusOpen(false)}
+                        title="System Integrity Report"
+                        description="Security Protocol Active. All Sovereign nodes are currently operational. FERPA encryption layers are intact. Latency is minimal. Your data fortress is secure, Principal."
+                        role="Security Operations"
+                        avatarImage="/images/avatars/executive_leader.png"
+                        thumbnail="/images/features/iep-architect-demo.mp4"
+                        stats={{ time: "UPTIME", saved: "99.99%", accuracy: "SECURE" }}
+                    />
                     <div className="flex gap-6">
                         <Link href="/privacy" className="text-zinc-500 hover:text-zinc-300 text-sm">Privacy Policy</Link>
                         <Link href="/terms" className="text-zinc-500 hover:text-zinc-300 text-sm">Terms of Service</Link>

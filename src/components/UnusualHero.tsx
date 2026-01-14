@@ -5,6 +5,7 @@ import Image from "next/image"
 import { useRef, useState, useEffect } from "react"
 import { gsap } from "gsap"
 import { Plus } from "lucide-react"
+import HolographicBriefing from './HolographicBriefing';
 
 export function UnusualHero() {
   const cardRef = useRef<HTMLDivElement>(null)
@@ -12,6 +13,7 @@ export function UnusualHero() {
   const tagsRef = useRef<HTMLDivElement>(null)
   const customCursorRef = useRef<HTMLDivElement>(null)
   const [showCustomCursor, setShowCustomCursor] = useState(false)
+  const [showBriefing, setShowBriefing] = useState(false);
 
   useEffect(() => {
     const tagsElement = tagsRef.current
@@ -192,26 +194,48 @@ export function UnusualHero() {
               <p className="mt-3 text-sm/6 text-indigo-100/85 max-w-prose">
                 Experience the future of educational leadership with AI-powered insights, automated IEPs, and real-time analytics.
               </p>
-              <Link
-                href="/signup"
-                className="mt-4 inline-flex items-center rounded-full border border-indigo-400/50 bg-indigo-600/10 px-4 py-2 text-sm font-medium text-indigo-50 backdrop-blur hover:bg-indigo-600/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
-              >
-                GET STARTED
-              </Link>
+              <div className="flex flex-wrap gap-4 mt-6">
+                <Link
+                  href="/signup"
+                  className="inline-flex items-center rounded-full border border-indigo-400/50 bg-indigo-600/10 px-6 py-3 text-sm font-bold text-indigo-50 backdrop-blur hover:bg-indigo-600/20 transition-all hover:scale-105 hover:shadow-lg hover:shadow-indigo-500/20"
+                >
+                  GET STARTED
+                </Link>
+                <button
+                  onClick={() => setShowBriefing(true)}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-bold text-white backdrop-blur hover:bg-white/10 transition-all hover:scale-105"
+                >
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </span>
+                  PROTOCOL WELCOME
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
-
-
-
-
+        {/* Global Cursor - Keeping existing cursor logic */}
         <div
           ref={customCursorRef}
           className={`fixed w-[30px] h-[30px] rounded-full bg-indigo-600 pointer-events-none z-50 transition-opacity duration-200 ${showCustomCursor ? "opacity-100" : "opacity-0"
             }`}
           style={{ left: 0, top: 0 }}
         />
+
+        {/* Holographic Briefing Modal */}
+        <HolographicBriefing
+          isOpen={showBriefing}
+          onClose={() => setShowBriefing(false)}
+          title="Sovereign Welcome"
+          description="Greetings, I am Dr. Alvin West, Founder of EdIntel. You are accessing the Sovereign Neural Interface—the world's first executive operating system for educational leadership. Our AI delegates are ready to amplify your capacity by 10x. Initiate your first protocol to begin."
+          role="Founder & Architect"
+          avatarImage="/images/dr_alvin_west.png"
+          videoSrc="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/liquid-metal-video_yX6NvjdW-6bLYorR3Ihmlwjivg3pjA978qrSKRU.mp4"
+          stats={{ time: "30sec", saved: "∞", accuracy: "100%" }}
+        />
+
 
 
       </div>

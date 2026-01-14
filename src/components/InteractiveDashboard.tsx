@@ -1,6 +1,7 @@
 'use client';
-
+import { useState } from 'react';
 import { motion } from 'framer-motion';
+import HolographicBriefing from './HolographicBriefing';
 import {
     Clock,
     FileText,
@@ -17,8 +18,10 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import SovereignDelegate from './SovereignDelegate';
 
 export default function InteractiveDashboard() {
+    const [showBriefing, setShowBriefing] = useState(false);
     // Mock data for charts
     const usageData = [
         { day: 'Mon', generations: 12 },
@@ -148,15 +151,37 @@ export default function InteractiveDashboard() {
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="mb-8"
+                    className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4"
                 >
-                    <h1 className="text-4xl font-bold text-white mb-2">
-                        Welcome back, Dr. West! 👋
-                    </h1>
-                    <p className="text-purple-300">
-                        Here's what's happening with your EdIntel workspace
-                    </p>
+                    <div>
+                        <h1 className="text-4xl font-bold text-white mb-2">
+                            Welcome back, Dr. West! 👋
+                        </h1>
+                        <p className="text-purple-300">
+                            Here's what's happening with your EdIntel workspace
+                        </p>
+                    </div>
+
+                    <button
+                        onClick={() => setShowBriefing(true)}
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-sm shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:scale-105 transition-all text-xs uppercase tracking-wider"
+                    >
+                        <Sparkles size={16} />
+                        <span>Daily Intelligence Briefing</span>
+                    </button>
                 </motion.div>
+
+                <HolographicBriefing
+                    isOpen={showBriefing}
+                    onClose={() => setShowBriefing(false)}
+                    title="Executive Daily Briefing"
+                    description="Good Morning, Principal. Your system usage is trending upwards at 12%. You have saved approximately 127 administrative hours this month. Compliance adherence is at 98%. Recommendation: Review the new 'Grant Writer' protocol to capitalize on available funding streams."
+                    role="System Chief of Staff"
+                    avatarImage="/images/avatars/executive_leader.png"
+                    thumbnail="/images/features/data-analysis-demo.mp4"
+                    stats={{ time: "127h", saved: "+12%", accuracy: "98%" }}
+                    theme="sovereign"
+                />
 
                 {/* Stats Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -167,7 +192,7 @@ export default function InteractiveDashboard() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: index * 0.1 }}
                             whileHover={{ scale: 1.02, y: -4 }}
-                            className="relative group"
+                            className="relative group block"
                         >
                             <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all" />
                             <div className="relative p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-purple-500/20 group-hover:border-purple-500/40 transition-all">
@@ -187,6 +212,71 @@ export default function InteractiveDashboard() {
                         </motion.div>
                     ))}
                 </div>
+
+                {/* Sovereign Impact Matrix - NEW Strategic Outcomes Section */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="grid grid-cols-1 md:grid-cols-3 gap-6"
+                >
+                    {/* Burnout Eliminator */}
+                    <div className="relative p-6 rounded-2xl bg-gradient-to-br from-red-900/20 to-orange-900/20 border border-red-500/20 group hover:border-red-500/40 transition-all overflow-hidden">
+                        <div className="absolute top-0 right-0 p-4 opacity-10">
+                            <Sparkles size={100} />
+                        </div>
+                        <h3 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                            Burnout Elimination
+                        </h3>
+                        <p className="text-sm text-zinc-400 mb-4">Reduce administrative load to zero.</p>
+                        <div className="flex items-end gap-2">
+                            <span className="text-4xl font-black text-white">84%</span>
+                            <span className="text-sm text-green-400 mb-2">reduction this week</span>
+                        </div>
+                        <div className="mt-4 h-1 w-full bg-red-900/30 rounded-full overflow-hidden">
+                            <div className="h-full bg-gradient-to-r from-red-500 to-orange-500 w-[84%]" />
+                        </div>
+                    </div>
+
+                    {/* Intelligence Maximizer */}
+                    <div className="relative p-6 rounded-2xl bg-gradient-to-br from-indigo-900/20 to-purple-900/20 border border-indigo-500/20 group hover:border-indigo-500/40 transition-all overflow-hidden">
+                        <div className="absolute top-0 right-0 p-4 opacity-10">
+                            <Brain size={100} />
+                        </div>
+                        <h3 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
+                            Cognitive Capacity
+                        </h3>
+                        <p className="text-sm text-zinc-400 mb-4">Focus redirected to leadership.</p>
+                        <div className="flex items-end gap-2">
+                            <span className="text-4xl font-black text-white">42h</span>
+                            <span className="text-sm text-indigo-400 mb-2">reclaimed for strategy</span>
+                        </div>
+                        <div className="mt-4 h-1 w-full bg-indigo-900/30 rounded-full overflow-hidden">
+                            <div className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 w-[78%]" />
+                        </div>
+                    </div>
+
+                    {/* Engagement Optimizer */}
+                    <div className="relative p-6 rounded-2xl bg-gradient-to-br from-emerald-900/20 to-teal-900/20 border border-emerald-500/20 group hover:border-emerald-500/40 transition-all overflow-hidden">
+                        <div className="absolute top-0 right-0 p-4 opacity-10">
+                            <Users size={100} />
+                        </div>
+                        <h3 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                            Student Engagement
+                        </h3>
+                        <p className="text-sm text-zinc-400 mb-4">Optimal intervention deployment.</p>
+                        <div className="flex items-end gap-2">
+                            <span className="text-4xl font-black text-white">1.2k</span>
+                            <span className="text-sm text-emerald-400 mb-2">students impacted</span>
+                        </div>
+                        <div className="mt-4 h-1 w-full bg-emerald-900/30 rounded-full overflow-hidden">
+                            <div className="h-full bg-gradient-to-r from-emerald-500 to-teal-500 w-[92%]" />
+                        </div>
+                    </div>
+                </motion.div>
 
                 {/* Main Content Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -333,6 +423,14 @@ export default function InteractiveDashboard() {
                         </ResponsiveContainer>
                     </div>
                 </motion.div>
+
+                <SovereignDelegate
+                    name="System Chief of Staff"
+                    role="Executive Assistant"
+                    avatarImage="/images/avatars/executive_leader.png"
+                    color="from-emerald-500 to-teal-600"
+                    greetingText="Your dashboard is ready, Principal. Usage is up 12% this week."
+                />
             </div>
         </div>
     );

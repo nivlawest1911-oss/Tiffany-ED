@@ -1,13 +1,17 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Shield, Brain, Zap, Target, Users, Key, Clock, Award, CheckCircle, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
 import FloatingNavbar from '@/components/FloatingNavbar';
 import CircadianFilter from '@/components/graphics/CircadianFilter';
+import HolographicBriefing from '@/components/HolographicBriefing';
+import { SovereignFounderProfile } from '@/components/founder-dossier';
 
 export default function AboutPage() {
+    const [showBriefing, setShowBriefing] = useState(false);
     return (
         <main className="min-h-screen bg-black text-white selection:bg-indigo-500/30 overflow-x-hidden">
             <CircadianFilter />
@@ -51,78 +55,7 @@ export default function AboutPage() {
             </div>
 
             {/* 2. The Architect: Dr. Alvin West - Enhanced Layout */}
-            <section className="py-32 relative">
-                <div className="absolute inset-0 bg-zinc-950/50 skew-y-3 transform origin-top-left scale-110 border-t border-white/5" />
-
-                <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center relative z-10">
-                    <motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                    >
-                        <div className="relative w-full aspect-square max-w-md mx-auto rounded-[2rem] overflow-hidden bg-zinc-900 border border-white/10 shadow-2xl shadow-indigo-500/20 group hover:shadow-indigo-500/40 transition-shadow duration-700">
-                            <img
-                                src="/images/dr_alvin_west.png"
-                                alt="Dr. Alvin West - Founder & Chief Architect"
-                                className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90" />
-
-                            <div className="absolute bottom-0 inset-x-0 p-8 md:p-10">
-                                <h3 className="text-4xl font-black text-white mb-2 tracking-tight">Dr. Alvin West, II</h3>
-                                <div className="flex items-center gap-3">
-                                    <span className="flex h-3 w-3">
-                                        <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-indigo-400 opacity-75"></span>
-                                        <span className="relative inline-flex rounded-full h-3 w-3 bg-indigo-500"></span>
-                                    </span>
-                                    <p className="text-indigo-300 font-bold uppercase tracking-widest text-sm">
-                                        Founder & Chief Architect
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </motion.div>
-
-                    <div className="space-y-10">
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.2 }}
-                        >
-                            <h2 className="text-4xl md:text-5xl font-black text-white mb-6 leading-tight">
-                                The Architect's <span className="text-zinc-600">Vision</span>
-                            </h2>
-                            <div className="relative pl-8 border-l-4 border-indigo-500/50">
-                                <p className="text-zinc-300 leading-relaxed text-lg md:text-xl italic font-serif opacity-90">
-                                    "I watched brilliant educators burn out not from teaching, but from administration.
-                                    The paperwork, the compliance, the endless data entry—it was a parasite on their passion.
-                                </p>
-                                <p className="text-zinc-300 leading-relaxed text-lg md:text-xl mt-6 italic font-serif opacity-90">
-                                    We founded EdIntel not to simply 'help' teachers, but to <strong>arm</strong> them. We constructed a cognitive layer
-                                    that intercepts the bureaucracy before it hits the human. This is about restoration of the educator's rightful place as an intellectual leader."
-                                </p>
-                            </div>
-                        </motion.div>
-
-                        <div className="grid grid-cols-2 gap-6">
-                            <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-                                <div className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-br from-indigo-400 to-purple-600 mb-2">20+</div>
-                                <div className="text-zinc-500 text-xs uppercase tracking-widest font-bold">Years in Education</div>
-                            </div>
-                            <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-                                <div className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-br from-indigo-400 to-purple-600 mb-2">PhD</div>
-                                <div className="text-zinc-500 text-xs uppercase tracking-widest font-bold">Cognitive Systems</div>
-                            </div>
-                        </div>
-
-                        <div className="flex items-center gap-3 text-sm text-zinc-500 font-medium">
-                            <CheckCircle size={16} className="text-indigo-500" />
-                            Leading Transcend Academic, Business & Cognitive Solutions.
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <SovereignFounderProfile />
 
             {/* 3. The Philosophy: Sovereign Pillars - Glass Cards */}
             <section className="py-32 px-6 relative bg-black">

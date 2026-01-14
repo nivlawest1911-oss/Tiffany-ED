@@ -312,14 +312,14 @@ export default function ModernHomePage() {
                     </div>
 
                     <div className="mt-12 text-center pb-8">
-                        <Link href="/all-tools">
+                        <Link href="/generators">
                             <motion.button
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                                 className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold shadow-lg shadow-indigo-500/50 hover:shadow-indigo-500/70 transition-all"
                             >
                                 <Sparkles className="w-5 h-5" />
-                                <span>Explore All 41+ AI Tools</span>
+                                <span>Access Sovereign Command Deck</span>
                                 <ArrowRight className="w-5 h-5 ml-1" />
                             </motion.button>
                         </Link>
@@ -407,6 +407,7 @@ export default function ModernHomePage() {
                 avatarImage="/images/dr_alvin_west.png"
                 color="from-indigo-600 to-purple-800"
                 greetingText="Welcome to EdIntel Sovereign. I am here to assist your leadership journey."
+                theme="sovereign"
             // No video/voice src means it will just be a talking avatar bubble/interface
             />
         </div>

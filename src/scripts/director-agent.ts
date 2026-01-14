@@ -1,115 +1,107 @@
-
 import fs from 'fs';
 import path from 'path';
 import dotenv from 'dotenv';
+import Replicate from 'replicate';
 
 // Load from .env.local explicitly
-dotenv.config({ path: '.env.local' });
+const envPath = path.resolve(process.cwd(), '.env.local');
+dotenv.config({ path: envPath });
 
 // ------------------------------------------------------------------
-// THE SOVEREIGN DIRECTOR AGENT
+// THE SOVEREIGN ANIMATOR AGENT (V2)
 // ------------------------------------------------------------------
-// This agent connects to Replicate (Stable Video Diffusion) to generate
-// cinematic background assets for the EdIntel Platform.
+// This agent breathes life into our Sovereign Assets.
+// It takes an existing image and uses SVD to create a cinematic loop.
 // ------------------------------------------------------------------
 
 const REPLICATE_API_TOKEN = process.env.REPLICATE_API_TOKEN;
+const IMAGE_DIR = path.join(process.cwd(), 'public', 'images', 'features');
 const OUTPUT_DIR = path.join(process.cwd(), 'public', 'videos', 'features');
 
 if (!REPLICATE_API_TOKEN) {
-    console.error('\n❌ CRITICAL: Director Agent requires a REPLICATE_API_TOKEN.');
-    console.error('   Please get one at https://replicate.com/account and add it to your .env.local file.\n');
+    console.error('\n❌ CRITICAL: Animator Agent requires a REPLICATE_API_TOKEN.');
     process.exit(1);
 }
 
-async function sleep(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
+const replicate = new Replicate({
+    auth: REPLICATE_API_TOKEN,
+});
 
-async function generateVideo(prompt: string, filename: string) {
-    console.log(`\n🎬 DIRECTOR AGENT: Initializing Scene...`);
-    console.log(`   Prompt: "${prompt}"`);
-    console.log(`   Target: ${filename}`);
+async function animateAsset(imageFilename: string, outputFilename: string) {
+    console.log(`\n🎬 ANIMATOR AGENT: Initializing...`);
+    console.log(`   Source: ${imageFilename} `);
+    console.log(`   Target: ${outputFilename} `);
+
+    // 1. Locate Source Image
+    const imagePath = path.join(IMAGE_DIR, imageFilename);
+    if (!fs.existsSync(imagePath)) {
+        console.error(`❌ Source Not Found: ${imagePath} `);
+        return;
+    }
+
+    // 2. Prepare Output
+    const outputPath = path.join(OUTPUT_DIR, outputFilename);
 
     // Ensure output directory exists
     if (!fs.existsSync(OUTPUT_DIR)) {
         fs.mkdirSync(OUTPUT_DIR, { recursive: true });
     }
 
+    // 3. Convert Image to Base64 URI
+    console.log(`   🎨 Encoding Visual Data...`);
+    const bitmap = fs.readFileSync(imagePath);
+    const base64Image = Buffer.from(bitmap).toString('base64');
+    const dataUri = `data: image / png; base64, ${base64Image} `;
+
     try {
-        // 1. Create Prediction
-        const response = await fetch("https://api.replicate.com/v1/predictions", {
-            method: "POST",
-            headers: {
-                "Authorization": `Token ${REPLICATE_API_TOKEN}`,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                // Using ZeroScope v2 (Text to Video)
-                version: "9f747673945c62801b13b84701c783929c0ee784e47f94591561343d250ac1ac",
+        console.log(`   🚀 Transmitting to Neural Core (SVD)...`);
+
+        // 4. Fetch Latest Model Version
+        const model = await replicate.models.get("stability-ai", "stable-video-diffusion");
+        const versionId = model.latest_version.id;
+
+        console.log(`   💎 Using Model Version: ${versionId}`);
+
+        // 5. Run Model
+        const output = await replicate.run(
+            `stability-ai/stable-video-diffusion:${versionId}`,
+            {
                 input: {
-                    prompt: prompt
+                    input_image: dataUri,
+                    frames_per_second: 6,
+                    motion_bucket_id: 127
                 }
-            }),
-        });
-
-        if (response.status !== 201) {
-            let error = await response.text();
-            throw new Error(`Replicate API Error: ${response.status} - ${error}`);
-        }
-
-        const prediction = await response.json();
-        const predictionId = prediction.id;
-        console.log(`   ✨ Production Started (ID: ${predictionId})`);
-
-        // 2. Poll for Completion
-        let outputUrl = null;
-        while (!outputUrl) {
-            process.stdout.write("."); // Loading dots
-            await sleep(2000);
-
-            const pollResponse = await fetch(`https://api.replicate.com/v1/predictions/${predictionId}`, {
-                headers: {
-                    "Authorization": `Token ${REPLICATE_API_TOKEN}`,
-                    "Content-Type": "application/json",
-                },
-            });
-
-            const statusJson = await pollResponse.json();
-
-            if (statusJson.status === "succeeded") {
-                outputUrl = statusJson.output; // SVD returns a string URL usually, or array
-                console.log("\n   ✅ Rendering Complete!");
-            } else if (statusJson.status === "failed") {
-                throw new Error("Video Generation Failed during rendering.");
             }
-        }
+        );
 
-        // 3. Download Video
-        console.log(`   ⬇️ Downloading Asset from Cloud...`);
-        const videoUrl = Array.isArray(outputUrl) ? outputUrl[0] : outputUrl; // Handle potential array return
+        console.log("   ✅ Rendering Complete!");
+        console.log("   📝 Output URL:", output);
 
+        // 5. Download Result
+        // Output from SVD is usually a URL string (or array of 1 URL)
+        // Check if output is standard
+        const videoUrl = String(output);
+
+        console.log(`   ⬇️  Downloading Motion Asset...`);
         const videoRes = await fetch(videoUrl);
         const buffer = await videoRes.arrayBuffer();
-        const outputPath = path.join(OUTPUT_DIR, `${filename}.mp4`);
 
         fs.writeFileSync(outputPath, Buffer.from(buffer));
-
-        console.log(`   🎉 ASSET SECURED: ${outputPath}`);
-        console.log(`   Ready for deployment to UI.`);
+        console.log(`   🎉 ASSET SECURED: ${outputFilename} `);
 
     } catch (error: any) {
-        console.error(`\n❌ Director Agent Failed: ${error.message}`);
+        console.error(`\n❌ Animator Agent Failed: ${error.message} `);
     }
 }
 
 // CLI Argument Handling
-const promptArg = process.argv[2];
-const filenameArg = process.argv[3] || `generated_video_${Date.now()}`;
+const imageArg = process.argv[2];
+const outputArg = process.argv[3];
 
-if (!promptArg) {
-    console.log("\nUsage: npm run director \"<Your Prompt>\" <filename_optional>");
-    console.log("Example: npm run director \"Cinematic futuristic education dashboard\" lesson_planner_demo\n");
+if (!imageArg || !outputArg) {
+    console.log("\nUsage: npm run director <image_filename> <output_filename.mp4>");
+    console.log("Example: npm run director sovereign_iep.png iep-demo.mp4\n");
 } else {
-    generateVideo(promptArg, filenameArg);
+    animateAsset(imageArg, outputArg);
+
 }

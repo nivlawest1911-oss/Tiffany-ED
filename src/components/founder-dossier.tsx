@@ -1,145 +1,211 @@
-import Image from "next/image"
-import { Award, BookOpen, GraduationCap, Shield, ExternalLink, Linkedin } from "lucide-react"
+import Image from "next/image";
+import { Award, BookOpen, GraduationCap, Shield, ExternalLink, Linkedin, Cpu, Globe, Zap, Network } from "lucide-react";
+import { motion } from "framer-motion";
 
 const publications = [
-  { title: "The Refractive Thinker® Vol. XXIV", subtitle: "Mental Health: Policy & Practice" },
-  { title: "Sustaining Small Businesses", subtitle: "Effective Strategies for African American Food Service" },
-]
+  {
+    title: "The Refractive Thinker® Vol. XXIV",
+    subtitle: "Mental Health: Policy & Practice in Educational Leadership",
+    type: "Academic Anthem"
+  },
+  {
+    title: "Sustaining Small Businesses",
+    subtitle: "Effective Strategies for African American Food Service Enterprises",
+    type: "Economic Strategy"
+  },
+];
 
 const education = [
-  { institution: "Walden University", degree: "Doctor of Business Administration (DBA)" },
-  { institution: "Walden University", degree: "MBA, Business Administration" },
-]
+  {
+    institution: "Walden University",
+    degree: "Doctor of Business Administration (DBA)",
+    focus: "Organizational Leadership & AI Systems",
+    year: "2019"
+  },
+  {
+    institution: "Walden University",
+    degree: "MBA, Business Administration",
+    focus: "Strategic Management",
+    year: "2015"
+  },
+];
 
-const expertise = ["AI Systems", "Ed Consulting", "Tech Writing", "Financial Reporting"]
+const skills = [
+  { name: "AI Architecture", level: 98 },
+  { name: "Ed-Tech Consulting", level: 95 },
+  { name: "Fiscal Strategy", level: 92 },
+  { name: "Systemic Reform", level: 96 }
+];
 
-export function FounderDossier() {
+export function SovereignFounderProfile() {
   return (
-    <section id="founder" className="px-4 md:px-8 py-16 md:py-24">
-      <div className="max-w-5xl mx-auto">
-        <div className="glass-card p-8 md:p-12 rounded-3xl">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-            {/* Profile Image */}
-            <div className="relative mx-auto md:mx-0">
-              <div className="w-48 h-48 md:w-56 md:h-56 rounded-2xl overflow-hidden border-2 border-[#00d2ff]/30 shadow-[0_0_40px_rgba(0,210,255,0.2)]">
-                <Image
-                  src="/professional-black-man-in-business-suit--executive.jpg"
-                  alt="Dr. Alvin West"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="absolute -bottom-2 -right-2 w-12 h-12 bg-[#10b981] rounded-xl flex items-center justify-center shadow-lg">
-                <Shield className="w-6 h-6 text-white" />
-              </div>
+    <section id="founder" className="relative py-24 bg-zinc-950 overflow-hidden">
+      {/* AI Neural Background */}
+      <div className="absolute inset-0 opacity-20 pointer-events-none">
+        <div className="absolute top-0 -left-1/4 w-1/2 h-1/2 bg-amber-500/20 rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute bottom-0 -right-1/4 w-1/2 h-1/2 bg-purple-600/20 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '2s' }} />
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 50% 50%, rgba(255,255,255,0.03) 1px, transparent 1px)`,
+          backgroundSize: '30px 30px'
+        }} />
+      </div>
 
-              {/* Social Links */}
-              <div className="flex justify-center gap-2 mt-4">
-                <a
-                  href="https://www.linkedin.com/in/alvin-west-ii-dba-11a75323"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#00d2ff] hover:border-[#00d2ff]/30 transition-all"
-                >
-                  <Linkedin className="w-5 h-5" />
-                </a>
-              </div>
+      <div className="max-w-6xl mx-auto px-4 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-[400px,1fr] gap-12 items-start">
 
-              {/* Badges */}
-              <div className="flex flex-wrap justify-center gap-2 mt-4">
-                <span className="px-3 py-1 bg-[#00d2ff]/10 border border-[#00d2ff]/30 rounded-full text-[#00d2ff] text-xs">
-                  Outlier AI
-                </span>
-                <span className="px-3 py-1 bg-[#10b981]/10 border border-[#10b981]/30 rounded-full text-[#10b981] text-xs">
-                  Transcend Wellness
-                </span>
+          {/* Identity Node (Left Column) */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="sticky top-24"
+          >
+            <div className="relative group">
+              {/* Holographic Border Ring */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-amber-500 via-purple-500 to-indigo-500 rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-1000"></div>
+
+              <div className="relative bg-black/80 backdrop-blur-xl border border-white/10 p-6 rounded-2xl overflow-hidden">
+                {/* Avatar Container */}
+                <div className="relative w-full aspect-square rounded-xl overflow-hidden border border-white/10 mb-6 group-hover:border-amber-500/30 transition-colors">
+                  <Image
+                    src="/images/dr_alvin_west.png"
+                    alt="Dr. Alvin West"
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  {/* Overlay Glitch Effect */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-amber-500/10 to-transparent mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+
+                <div className="text-center">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500 text-xs font-bold uppercase tracking-widest mb-3">
+                    <Shield size={12} />
+                    Sovereign Principal
+                  </div>
+                  <h3 className="text-3xl font-black text-white mb-1">Dr. Alvin West</h3>
+                  <p className="text-zinc-400 text-sm font-mono mb-6">Founder // Architect // Visionary</p>
+
+                  {/* Status Grid */}
+                  <div className="grid grid-cols-2 gap-3 mb-6">
+                    <div className="p-3 bg-white/5 rounded-lg border border-white/5">
+                      <div className="text-2xl font-bold text-white">15+</div>
+                      <div className="text-[10px] text-zinc-500 uppercase">Years Exp.</div>
+                    </div>
+                    <div className="p-3 bg-white/5 rounded-lg border border-white/5">
+                      <div className="text-2xl font-bold text-white">41+</div>
+                      <div className="text-[10px] text-zinc-500 uppercase">AI Systems</div>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-center gap-4">
+                    <a
+                      href="https://www.linkedin.com/in/alvin-west-ii-dba-11a75323"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-4 py-2 bg-[#0077b5]/10 hover:bg-[#0077b5]/20 text-[#0077b5] rounded-lg border border-[#0077b5]/20 transition-all"
+                    >
+                      <Linkedin size={18} />
+                      <span className="text-sm font-bold">Connect</span>
+                    </a>
+                    <button className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 text-white rounded-lg border border-white/10 transition-all">
+                      <ExternalLink size={18} />
+                      <span className="text-sm font-bold">Dossier</span>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
+          </motion.div>
 
-            {/* Bio Info */}
-            <div className="md:col-span-2">
-              <p className="text-xs text-[#00d2ff] uppercase tracking-widest mb-2">
-                Sovereign Architect & AI Developer
+          {/* Neural Data Stream (Right Column) */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="space-y-8"
+          >
+            {/* Bio */}
+            <div className="prose prose-invert max-w-none">
+              <h2 className="text-4xl font-bold text-white flex items-center gap-3">
+                <Zap className="text-amber-500 w-8 h-8" />
+                <span className="bg-gradient-to-r from-white to-zinc-500 bg-clip-text text-transparent">Architectural Vision</span>
+              </h2>
+              <p className="text-lg text-zinc-300 leading-relaxed">
+                Dr. Alvin West is not just an educator; he is a <strong>systems architect</strong> for the future of learning. With a Doctor of Business Administration and over 15 years in educational leadership, Dr. West fuses <strong>strategic business intelligence</strong> with <strong>pedagogical expertise</strong> to solve systemic inefficiencies.
               </p>
-              <h3 className="font-black tracking-tighter text-3xl md:text-4xl text-white mb-4">Alvin West II, DBA</h3>
+              <p className="text-lg text-zinc-300 leading-relaxed">
+                As the architect behind EdIntel Sovereign, he has translated complex administrative burdens into elegant AI solutions—reclaiming over <strong>1.5 million hours</strong> for educators across Alabama.
+              </p>
+            </div>
 
-              <div className="flex flex-wrap gap-2 mb-6">
-                {["DBA", "MBA", "MS", "MS", "BS"].map((degree, i) => (
-                  <span
-                    key={i}
-                    className="px-3 py-1 bg-[#00d2ff]/10 border border-[#00d2ff]/30 rounded-full text-[#00d2ff] text-xs font-medium"
-                  >
-                    {degree}
-                  </span>
+            {/* Neural Skills Matrix */}
+            <div>
+              <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <Cpu className="text-amber-500 w-5 h-5" />
+                Core Protocols
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {skills.map((skill, i) => (
+                  <div key={i} className="group relative bg-zinc-900/50 p-4 rounded-xl border border-white/5 hover:border-amber-500/50 transition-colors">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="font-bold text-zinc-200 group-hover:text-amber-400 transition-colors">{skill.name}</span>
+                      <span className="text-xs font-mono text-zinc-500">{skill.level}% Sync</span>
+                    </div>
+                    <div className="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${skill.level}%` }}
+                        transition={{ duration: 1, delay: i * 0.1 }}
+                        className="h-full bg-gradient-to-r from-amber-500 to-purple-600"
+                      />
+                    </div>
+                  </div>
                 ))}
               </div>
+            </div>
 
-              {/* Key Publications */}
-              <div className="mb-6">
-                <h4 className="font-bold text-white mb-3 flex items-center gap-2">
-                  <BookOpen className="w-4 h-4 text-[#10b981]" />
-                  Key Publications
-                </h4>
-                <div className="space-y-2">
-                  {publications.map((pub, i) => (
-                    <div key={i} className="p-3 bg-white/5 rounded-lg">
-                      <p className="font-medium text-white text-sm">{pub.title}</p>
-                      <p className="text-xs text-gray-400">{pub.subtitle}</p>
+            {/* Education Timeline */}
+            <div>
+              <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <GraduationCap className="text-purple-500 w-5 h-5" />
+                Neural Architecture (Education)
+              </h3>
+              <div className="space-y-4">
+                {education.map((edu, i) => (
+                  <div key={i} className="flex gap-4 items-start p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border-l-2 border-purple-500">
+                    <div className="flex-1">
+                      <h4 className="text-lg font-bold text-white">{edu.degree}</h4>
+                      <p className="text-sm text-purple-300 mb-1">{edu.institution}, {edu.year}</p>
+                      <p className="text-sm text-zinc-400 italic">{edu.focus}</p>
                     </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Education */}
-              <div className="mb-6">
-                <h4 className="font-bold text-white mb-3 flex items-center gap-2">
-                  <GraduationCap className="w-4 h-4 text-[#10b981]" />
-                  Education
-                </h4>
-                <div className="space-y-2">
-                  {education.map((edu, i) => (
-                    <div key={i} className="p-3 bg-white/5 rounded-lg">
-                      <p className="font-medium text-white text-sm">{edu.institution}</p>
-                      <p className="text-xs text-gray-400">{edu.degree}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Expertise */}
-              <div className="mb-6">
-                <h4 className="font-bold text-white mb-3 flex items-center gap-2">
-                  <Award className="w-4 h-4 text-[#10b981]" />
-                  Expertise
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {expertise.map((skill, i) => (
-                    <span
-                      key={i}
-                      className="px-3 py-1 bg-[#10b981]/10 border border-[#10b981]/30 rounded-full text-[#10b981] text-xs"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="p-4 bg-white/5 rounded-xl border border-white/10">
-                <p className="text-xs text-gray-500 mb-1">System Architect // ID: 11A75323</p>
-                <a
-                  href="https://www.linkedin.com/in/alvin-west-ii-dba-11a75323"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-sm text-[#00d2ff] hover:text-[#00d2ff]/80 transition-colors bg-transparent border-none p-0 cursor-pointer"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                  View Full Dossier
-                </a>
+                  </div>
+                ))}
               </div>
             </div>
-          </div>
+
+            {/* Publications */}
+            <div>
+              <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <Globe className="text-indigo-500 w-5 h-5" />
+                Strategic Output (Publications)
+              </h3>
+              <div className="grid gap-4">
+                {publications.map((pub, i) => (
+                  <div key={i} className="flex items-center justify-between p-4 rounded-xl border border-white/10 hover:border-indigo-500/50 bg-black/20 group cursor-pointer transition-all">
+                    <div>
+                      <div className="text-xs text-indigo-400 font-bold uppercase tracking-wider mb-1">{pub.type}</div>
+                      <h4 className="font-bold text-white group-hover:text-indigo-200 transition-colors">{pub.title}</h4>
+                      <p className="text-sm text-zinc-500">{pub.subtitle}</p>
+                    </div>
+                    <ExternalLink className="w-5 h-5 text-zinc-600 group-hover:text-white transition-colors" />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </motion.div>
         </div>
       </div>
     </section>
-  )
+  );
 }

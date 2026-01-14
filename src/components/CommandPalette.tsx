@@ -15,6 +15,7 @@ import {
     ArrowRight
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { generators } from '@/data/generators';
 
 interface Command {
     id: string;
@@ -32,34 +33,16 @@ export default function CommandPalette() {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const router = useRouter();
 
-    // Command definitions
+    // ... other imports
+
     const commands: Command[] = [
-        // Generators
-        {
-            id: 'iep-architect',
-            title: 'IEP Architect',
-            subtitle: 'Generate IDEA-compliant IEPs',
-            icon: <Sparkles className="w-5 h-5" />,
-            action: () => router.push('/enhanced-test'),
-            keywords: ['iep', 'architect', 'generate', 'special', 'education'],
-            category: 'generator',
-        },
-        {
-            id: 'lesson-planner',
-            title: 'Lesson Plan Generator',
-            subtitle: 'Create comprehensive lesson plans',
-            icon: <FileText className="w-5 h-5" />,
-            action: () => router.push('/generators/lesson-planner'),
-            keywords: ['lesson', 'plan', 'teaching', 'curriculum'],
-            category: 'generator',
-        },
-        // Navigation
+        // Navigation (Static)
         {
             id: 'dashboard',
             title: 'Dashboard',
             subtitle: 'View your overview',
             icon: <Zap className="w-5 h-5" />,
-            action: () => router.push('/'),
+            action: () => router.push('/dashboard'), // Fixed link
             keywords: ['home', 'dashboard', 'overview'],
             category: 'navigation',
         },
@@ -73,16 +56,6 @@ export default function CommandPalette() {
             category: 'navigation',
         },
         {
-            id: 'features',
-            title: 'Features',
-            subtitle: 'Explore platform features',
-            icon: <Sparkles className="w-5 h-5" />,
-            action: () => router.push('/features'),
-            keywords: ['features', 'about', 'info'],
-            category: 'navigation',
-        },
-        // Actions
-        {
             id: 'settings',
             title: 'Settings',
             subtitle: 'Manage your preferences',
@@ -91,15 +64,20 @@ export default function CommandPalette() {
             keywords: ['settings', 'preferences', 'config'],
             category: 'action',
         },
-        {
-            id: 'profile',
-            title: 'Profile',
-            subtitle: 'View your profile',
-            icon: <User className="w-5 h-5" />,
-            action: () => router.push('/profile'),
-            keywords: ['profile', 'account', 'user'],
-            category: 'action',
-        },
+        // Dynamically Generated Commands from Tools
+        ...generators.map(gen => ({
+            id: gen.id,
+            title: gen.name,
+            subtitle: gen.description,
+            icon: <gen.icon className="w-5 h-5" />,
+            action: () => router.push(`/generators/${gen.id}`),
+            keywords: [
+                ...gen.name.toLowerCase().split(' '),
+                'generator', 'tool', 'ai',
+                ...(gen.prompts ? gen.prompts.flatMap(p => p.toLowerCase().split(' ')) : [])
+            ],
+            category: 'generator' as const
+        }))
     ];
 
     // Filter commands based on search
@@ -264,14 +242,14 @@ export default function CommandPalette() {
                                                                 }}
                                                                 onMouseEnter={() => setSelectedIndex(globalIndex)}
                                                                 className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg transition-all ${isSelected
-                                                                        ? 'bg-purple-500/20 border border-purple-500/40'
-                                                                        : 'hover:bg-purple-500/10 border border-transparent'
+                                                                    ? 'bg-purple-500/20 border border-purple-500/40'
+                                                                    : 'hover:bg-purple-500/10 border border-transparent'
                                                                     }`}
                                                                 whileHover={{ x: 4 }}
                                                             >
                                                                 <div className={`p-2 rounded-lg ${isSelected
-                                                                        ? 'bg-purple-500/30 text-purple-300'
-                                                                        : 'bg-purple-500/10 text-purple-400'
+                                                                    ? 'bg-purple-500/30 text-purple-300'
+                                                                    : 'bg-purple-500/10 text-purple-400'
                                                                     }`}>
                                                                     {cmd.icon}
                                                                 </div>

@@ -23,6 +23,6 @@ export default function AllToolsPage() {
                 greetingText="Explore our 41 specialized AI tools designed for educational excellence."
             />
             <Footer />
-        </main >
+        </main>
     );
 }

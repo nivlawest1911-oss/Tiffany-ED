@@ -1,34 +1,46 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Play, Sparkles, CheckCircle, Video } from 'lucide-react';
+import { Play, Sparkles, CheckCircle, Video, Radio } from 'lucide-react';
 import VideoPlayer from './VideoPlayer';
+import useSovereignSounds from '@/hooks/useSovereignSounds';
+import HolographicBriefing from './HolographicBriefing';
 
 export default function HowItWorksVideo() {
+    const { playHover, playClick } = useSovereignSounds();
+    const [activeBriefing, setActiveBriefing] = useState<any>(null);
+
     const steps = [
         {
             number: '01',
             title: 'Initiate Protocol',
-            description: 'Select your specialized AI Delegate from the Command Center.',
+            description: 'Select your specialized AI Delegate from the Command Center. Our system offers over 41 specialized roles, each fine-tuned for specific educational administrative tasks.',
             video: '/videos/features/iep-architect-demo.mp4',
             thumbnail: '/images/avatars/executive_leader.png',
-            features: ['Browse 41+ specialized tools', 'Filter by Sovereign Role', 'Instant specific activation']
+            features: ['Browse 41+ specialized tools', 'Filter by Sovereign Role', 'Instant specific activation'],
+            role: "Command Interface",
+            avatar: "/images/avatars/executive_leader.png"
         },
         {
             number: '02',
             title: 'Input Parameters',
-            description: 'Provide secure context. Our system is FERPA-compliant by design.',
+            description: 'Provide secure context for your request. Our system is built with FERPA-compliance at its core, ensuring all student data remains protected while processing.',
             video: '/videos/features/lesson-planner-demo.mp4',
             thumbnail: '/images/avatars/curriculum_strategist.png',
-            features: ['Secure data entry', 'Context-aware suggestions', 'Voice-enabled inputs']
+            features: ['Secure data entry', 'Context-aware suggestions', 'Voice-enabled inputs'],
+            role: "Security Officer",
+            avatar: "/images/avatars/curriculum_strategist.png"
         },
         {
             number: '03',
             title: 'Execute & Deploy',
-            description: 'Receive professional, formatted intelligence instantly.',
+            description: 'Receive professional, formatted intelligence instantly. The output is ready for immediate deployment in Pdf or Word formats, styled for executive presentation.',
             video: '/videos/features/data-analysis-demo.mp4',
             thumbnail: '/images/avatars/data_analyst.png',
-            features: ['Export to PDF/Word', 'Instant download', 'Professional formatting']
+            features: ['Export to PDF/Word', 'Instant download', 'Professional formatting'],
+            role: "Output Specialist",
+            avatar: "/images/avatars/data_analyst.png"
         }
     ];
 
@@ -73,17 +85,32 @@ export default function HowItWorksVideo() {
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.8 }}
                                 className="flex-1 w-full"
+                                onMouseEnter={playHover}
                             >
-                                <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl shadow-indigo-500/20 group">
+                                <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl shadow-indigo-500/20 group cursor-pointer"
+                                    onClick={() => { playClick(); setActiveBriefing(step); }}
+                                >
                                     <div className="absolute inset-0 bg-indigo-500/10 group-hover:bg-transparent transition-colors z-10 pointer-events-none" />
-                                    <VideoPlayer
-                                        src={step.video}
-                                        poster={step.thumbnail} // Fallback
-                                        className="w-full aspect-video object-cover"
-                                        autoPlay={true}
-                                        loop={true}
-                                        muted={true}
-                                    />
+
+                                    {/* Video / Visual Wrapper */}
+                                    <div className="relative aspect-video">
+                                        <VideoPlayer
+                                            src={step.video}
+                                            poster={step.thumbnail}
+                                            className="w-full h-full object-cover opacity-80"
+                                            autoPlay={true}
+                                            loop={true}
+                                            muted={true}
+                                        />
+
+                                        {/* Overlay with CTA */}
+                                        <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-colors z-20">
+                                            <div className="flex items-center gap-2 px-6 py-3 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white font-bold text-sm tracking-wide opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                                                <Radio size={16} className="text-emerald-400 animate-pulse" />
+                                                <span>PLAY BRIEFING</span>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     {/* Tech Badge */}
                                     <div className="absolute top-4 left-4 z-20 px-3 py-1 bg-black/50 backdrop-blur-md rounded-md border border-white/10">
@@ -114,19 +141,39 @@ export default function HowItWorksVideo() {
                                 <ul className="space-y-4">
                                     {step.features.map((feature, idx) => (
                                         <li key={idx} className="flex items-center gap-4 group/item">
-                                            <div className="w-8 h-8 rounded-full bg-indigo-500/10 flex items-center justify-center group-hover/item:bg-indigo-500 mx-transition-colors">
+                                            <div className="w-8 h-8 rounded-full bg-indigo-500/10 flex items-center justify-center group-hover/item:bg-indigo-500 transition-colors duration-300">
                                                 <CheckCircle className="w-5 h-5 text-indigo-400 group-hover/item:text-white" />
                                             </div>
                                             <span className="text-zinc-300 font-medium">{feature}</span>
                                         </li>
                                     ))}
                                 </ul>
+
+                                <button
+                                    onClick={() => { playClick(); setActiveBriefing(step); }}
+                                    className="flex items-center gap-2 text-indigo-400 hover:text-indigo-300 font-bold tracking-wide uppercase text-sm mt-4 group/btn"
+                                >
+                                    <Play size={14} className="fill-current group-hover/btn:scale-125 transition-transform" />
+                                    <span>Detailed Briefing</span>
+                                </button>
                             </motion.div>
 
                         </div>
                     ))}
                 </div>
             </div>
+
+            {/* Holographic Briefing Modal */}
+            <HolographicBriefing
+                isOpen={!!activeBriefing}
+                onClose={() => setActiveBriefing(null)}
+                title={activeBriefing?.title || ""}
+                description={activeBriefing?.description || ""}
+                videoSrc={activeBriefing?.video}
+                thumbnail={activeBriefing?.thumbnail}
+                role={activeBriefing?.role}
+                avatarImage={activeBriefing?.avatar}
+            />
         </section>
     );
 }

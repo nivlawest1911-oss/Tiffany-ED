@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import SpotlightCard from './SpotlightCard';
+import HolographicBriefing from './HolographicBriefing';
 
 import { generators } from '@/data/generators';
 
@@ -35,20 +36,20 @@ function getCategory(id: string) {
 }
 
 const categories = [
-    { id: 'all', name: 'All Tools', count: allTools.length },
-    { id: 'iep', name: 'IEP & Special Ed', count: allTools.filter(t => t.category === 'iep').length },
-    { id: 'lesson', name: 'Lesson Planning', count: allTools.filter(t => t.category === 'lesson').length },
-    { id: 'communication', name: 'Communication', count: allTools.filter(t => t.category === 'communication').length },
-    { id: 'behavior', name: 'Behavior & SEL', count: allTools.filter(t => t.category === 'behavior').length },
-    { id: 'admin', name: 'Admin & Compliance', count: allTools.filter(t => t.category === 'admin').length },
-    { id: 'teaching', name: 'Teaching & Learning', count: allTools.filter(t => t.category === 'teaching').length },
-    { id: 'tech', name: 'Tech & Data', count: allTools.filter(t => t.category === 'tech').length },
+    { id: 'all', name: 'All Modules', count: allTools.length },
+    { id: 'admin', name: 'Eliminate Admin Fatigue', count: allTools.filter(t => t.category === 'admin').length },
+    { id: 'iep', name: 'Reduce Paperwork', count: allTools.filter(t => t.category === 'iep').length },
+    { id: 'behavior', name: 'Eliminate Suspensions', count: allTools.filter(t => t.category === 'behavior').length },
+    { id: 'lesson', name: 'Teacher Retention', count: allTools.filter(t => t.category === 'lesson').length },
+    { id: 'teaching', name: 'Student Engagement', count: allTools.filter(t => t.category === 'teaching').length },
+    { id: 'tech', name: 'Intelligence & Data', count: allTools.filter(t => t.category === 'tech').length },
 ];
 
 export default function FeatureShowcaseGrid() {
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [searchQuery, setSearchQuery] = useState('');
     const [visibleCount, setVisibleCount] = useState(12);
+    const [showBriefing, setShowBriefing] = useState(false);
 
     const filteredTools = allTools.filter(tool => {
         const matchesCategory = selectedCategory === 'all' || tool.category === selectedCategory;
@@ -71,10 +72,30 @@ export default function FeatureShowcaseGrid() {
                     <h1 className="text-5xl font-bold text-white mb-4">
                         41 AI-Powered Tools
                     </h1>
-                    <p className="text-xl text-purple-300 max-w-2xl mx-auto">
+                    <p className="text-xl text-purple-300 max-w-2xl mx-auto mb-6">
                         Everything you need to save time and focus on what matters most
                     </p>
+
+                    <button
+                        onClick={() => setShowBriefing(true)}
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-indigo-300 font-bold text-xs uppercase tracking-widest transition-all hover:scale-105"
+                    >
+                        <Sparkles size={14} className="animate-pulse" />
+                        <span>Tactical Selection Guide</span>
+                    </button>
                 </motion.div>
+
+                <HolographicBriefing
+                    isOpen={showBriefing}
+                    onClose={() => setShowBriefing(false)}
+                    title="Tactical Tool Selection"
+                    description="Strategist reporting. We have 41 specialized modules available. For IEPs, filter by 'Need'. For curriculum, select 'Lesson Planning'. Use the search command to rapidly identify specific protocols. All systems are online and ready for deployment."
+                    role="Sovereign Strategist"
+                    avatarImage="/images/avatars/curriculum_strategist.png"
+                    thumbnail="/images/features/lesson-planner-demo.mp4"
+                    stats={{ time: "READY", saved: "41+", accuracy: "100%" }}
+                    theme="sovereign"
+                />
 
                 {/* Search Bar */}
                 <motion.div
