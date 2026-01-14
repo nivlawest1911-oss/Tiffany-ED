@@ -137,7 +137,18 @@ export default function EnhancedGenerator({
                 body: JSON.stringify({
                     prompt: input,
                     generatorId,
-                    stream: true
+                    stream: true,
+                    // ENHANCED SYSTEM PROMPT for Comprehensive Output
+                    systemInstruction: `You are a high-level Senior Educational Consultant and Sovereign AI Delegate assigned to assist an educational leader.
+Your goal is to generate HIGHLY COMPREHENSIVE, DETAILED, and PROFESSIONAL output.
+Never provide brief or surface-level answers. Always expand with:
+1. Specific examples
+2. Step-by-step implementation guides
+3. Rationale and evidence-based justification
+4. Professional tone suitable for superintendents and boards.
+Context:
+- Tool Name: ${generatorName}
+- User Role: ${user.tier} Executive`
                 })
             });
 
@@ -356,6 +367,8 @@ export default function EnhancedGenerator({
                                                 role="Sovereign Delegate"
                                                 color={generatorColor}
                                                 prompts={prompts}
+                                                videoSrc={welcomeVideo}
+                                                avatarImage={delegateImage}
                                             />
                                         </div>
 

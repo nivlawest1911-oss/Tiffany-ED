@@ -36,6 +36,18 @@ export default function SovereignDelegate({
 
     const [hasGuided, setHasGuided] = useState(false);
     const hasAnnouncedRef = useRef(false);
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    // Sync Video Playback with Speaking State
+    useEffect(() => {
+        if (videoRef.current) {
+            if (isSpeaking) {
+                videoRef.current.play().catch(() => { });
+            } else {
+                videoRef.current.pause();
+            }
+        }
+    }, [isSpeaking]);
 
     // Auto-open if loading starts (user submitted prompt)
     useEffect(() => {
@@ -160,21 +172,42 @@ export default function SovereignDelegate({
                         {!isMinimized && (
                             <div className="relative aspect-video bg-black flex flex-col">
                                 {videoSrc ? (
-                                    <div className="relative w-full h-full">
-                                        <VideoPlayer
+                                    <div className="relative w-full h-full group">
+                                        <video
+                                            ref={videoRef}
                                             src={videoSrc}
-                                            voiceSrc={voiceSrc}
-                                            autoPlay={true}
-                                            className="w-full h-full object-cover opacity-80"
-                                            controls={false}
+                                            loop
+                                            muted
+                                            playsInline
+                                            className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
                                         />
-                                        {/* Talking Overlay Effect when AI is speaking (Text) */}
+
+                                        {/* Status Overlay */}
+                                        <div className="absolute top-2 right-2 flex gap-1">
+                                            {isSpeaking ? (
+                                                <div className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-bold uppercase tracking-wider border border-emerald-500/20 animate-pulse">
+                                                    Speaking
+                                                </div>
+                                            ) : (
+                                                <div className="px-2 py-0.5 rounded bg-zinc-500/20 text-zinc-400 text-[10px] font-bold uppercase tracking-wider border border-white/5">
+                                                    Listening
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        {/* Talking Overlay Effect just in case video is subtle */}
                                         {isSpeaking && !voiceSrc && (
-                                            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/90 to-transparent flex items-end justify-center pb-4 gap-1">
-                                                <div className="w-1 bg-indigo-500 animate-bounce" style={{ height: '20px', animationDuration: '0.4s' }} />
-                                                <div className="w-1 bg-indigo-500 animate-bounce" style={{ height: '30px', animationDuration: '0.5s' }} />
-                                                <div className="w-1 bg-indigo-500 animate-bounce" style={{ height: '25px', animationDuration: '0.3s' }} />
-                                                <div className="w-1 bg-indigo-500 animate-bounce" style={{ height: '15px', animationDuration: '0.6s' }} />
+                                            <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-black/80 to-transparent flex items-end justify-center pb-2 gap-0.5 opacity-50">
+                                                {[...Array(5)].map((_, i) => (
+                                                    <div
+                                                        key={i}
+                                                        className="w-1 bg-indigo-400 animate-bounce rounded-full"
+                                                        style={{
+                                                            height: Math.random() * 15 + 5 + 'px',
+                                                            animationDuration: 0.3 + Math.random() * 0.3 + 's'
+                                                        }}
+                                                    />
+                                                ))}
                                             </div>
                                         )}
                                     </div>
