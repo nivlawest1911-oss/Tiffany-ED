@@ -1,5 +1,5 @@
 'use client';
-import { Brain, Eye, Languages, Video, Cpu, ShieldCheck } from 'lucide-react';
+import { Brain, Eye, Languages, Video, Cpu, ShieldCheck, Database, HardDrive, Map, GitBranch, Key } from 'lucide-react';
 
 const extensions = [
     {
@@ -10,6 +10,33 @@ const extensions = [
         color: 'text-purple-400',
         bg: 'bg-purple-950/30',
         status: 'Active'
+    },
+    {
+        id: 'vercel-kv',
+        name: 'Vercel KV (Redis)',
+        description: 'Sub-ms Global Cache',
+        icon: Database,
+        color: 'text-teal-400',
+        bg: 'bg-teal-950/30',
+        status: 'Active'
+    },
+    {
+        id: 'vercel-blob',
+        name: 'Sovereign Vault',
+        description: 'Vercel Blob Storage',
+        icon: HardDrive,
+        color: 'text-yellow-400',
+        bg: 'bg-yellow-950/30',
+        status: 'Active'
+    },
+    {
+        id: 'maps',
+        name: 'District Zoning',
+        description: 'Google Maps Spatial API',
+        icon: Map,
+        color: 'text-green-400',
+        bg: 'bg-green-950/30',
+        status: 'Online'
     },
     {
         id: 'vision',
@@ -30,6 +57,24 @@ const extensions = [
         status: 'Active'
     },
     {
+        id: 'github',
+        name: 'GitHub CI/CD',
+        description: 'Automated Deployment',
+        icon: GitBranch,
+        color: 'text-white',
+        bg: 'bg-zinc-800',
+        status: 'Active'
+    },
+    {
+        id: 'auth',
+        name: 'Sovereign ID',
+        description: 'NextAuth + Identity Platform',
+        icon: Key,
+        color: 'text-indigo-400',
+        bg: 'bg-indigo-950/30',
+        status: 'Secure'
+    },
+    {
         id: 'video',
         name: 'Video Intelligence',
         description: 'Classroom Analysis',
@@ -42,7 +87,7 @@ const extensions = [
         id: 'nlp',
         name: 'Natural Language',
         description: 'Sentiment & Emotion',
-        icon: Brain, // Using Brain again as generic "Thinking" icon, or could import something else
+        icon: Brain,
         color: 'text-orange-400',
         bg: 'bg-orange-950/30',
         status: 'Active'
@@ -51,19 +96,10 @@ const extensions = [
         id: 'speech',
         name: 'Neural Voice (TTS)',
         description: 'Text-to-Speech Synthesis',
-        icon: Languages, // Reuse Languages or similar
+        icon: Languages,
         color: 'text-pink-400',
         bg: 'bg-pink-950/30',
         status: 'Standby'
-    },
-    {
-        id: 'maps',
-        name: 'District Mapping',
-        description: 'Zoning & Logistics',
-        icon: Eye, // Using Eye as "View" metaphor
-        color: 'text-green-400',
-        bg: 'bg-green-950/30',
-        status: 'Online'
     },
     {
         id: 'bigquery',
