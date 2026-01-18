@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Mic, Video, Maximize2, Minimize2, MoreVertical, Volume2, Phone, Rocket, Wand2, Zap, ChevronRight, Activity } from 'lucide-react';
+import { X, Mic, Video, Maximize2, Minimize2, MoreVertical, Volume2, Phone, Rocket, Wand2, Zap, ChevronRight, Activity, AlertTriangle, CreditCard } from 'lucide-react';
 import LiveAvatarChat from './LiveAvatarChat';
 
 interface SovereignDelegateProps {
@@ -46,9 +46,47 @@ export default function SovereignDelegate({
     const [sessionFocus, setSessionFocus] = useState<string | null>(null);
     const [interactionCount, setInteractionCount] = useState(0);
 
+    // Sovereign Intelligence Capital (Token System)
+    const [tokensRemaining, setTokensRemaining] = useState(8); // Start near depletion for demo
+    const [showRecharge, setShowRecharge] = useState(false);
+
     const [hasGuided, setHasGuided] = useState(false);
     const hasAnnouncedRef = useRef(false);
     const videoRef = useRef<HTMLVideoElement>(null);
+
+    // Monitor Token Levels for Upsell
+    useEffect(() => {
+        if (tokensRemaining <= 5 && !showRecharge && isOpen && !isLoading) {
+            const timer = setTimeout(() => {
+                setShowRecharge(true);
+                if (!isSpeaking) {
+                    speakText("Commander, your intelligence capital is nearing depletion. To maintain sovereignty and continue this session, initialize a capital injection now.");
+                }
+            }, 2000);
+            return () => clearTimeout(timer);
+        }
+    }, [tokensRemaining, isOpen, isSpeaking, isLoading]);
+
+    const handleRecharge = async () => {
+        try {
+            speakText("Initializing secure transaction protocol...");
+            const response = await fetch('/api/create-topup-session', {
+                method: 'POST',
+                body: JSON.stringify({ userId: 'current_user', quantity: 50 })
+            });
+            const data = await response.json();
+
+            if (data.success) {
+                // Determine 'success' - in real app navigate to data.url
+                // Here we simulate the successful return:
+                setTokensRemaining(100);
+                setShowRecharge(false);
+                speakText("Capital limit expanded. Sovereignty restored. Proceeding with neural operations.");
+            }
+        } catch (e) {
+            console.error("Recharge failed", e);
+        }
+    };
 
     // Sync Video Playback with Speaking State
     useEffect(() => {
@@ -94,6 +132,7 @@ export default function SovereignDelegate({
             setIsMinimized(false);
             speakText("I have finished analyzing your request. The results are ready for your review.");
             hasAnnouncedRef.current = true;
+            setTokensRemaining(prev => Math.max(0, prev - 2)); // Deduct tokens for analysis
         }
     }, [completionText]);
 
@@ -161,9 +200,16 @@ export default function SovereignDelegate({
 
     const handleGenerativeSynthesis = async () => {
         if (isGenerating) return;
+        if (tokensRemaining <= 0) {
+            setShowRecharge(true);
+            speakText("Insufficient capital. Recharge immediately.");
+            return;
+        }
+
         setIsGenerating(true);
         setAiMode('synthesizing');
         speakText("Initiating Generative Synthesis Protocol. Architecting high-fidelity video briefing based on your current operational vector.");
+        setTokensRemaining(prev => Math.max(0, prev - 3)); // High cost action
 
         // Mock generative delay
         await new Promise(r => setTimeout(r, 2000));
@@ -174,8 +220,16 @@ export default function SovereignDelegate({
     };
 
     const handleNeuralAnalysis = async () => {
+        if (tokensRemaining <= 0) {
+            setShowRecharge(true);
+            speakText("Insufficient capital. Recharge immediately.");
+            return;
+        }
+
         setAiMode('analyzing');
         speakText("Analyzing district-wide sentiment and predictive success models for the upcoming academic quarter.");
+        setTokensRemaining(prev => Math.max(0, prev - 1));
+
         await new Promise(r => setTimeout(r, 1500));
         setAiMode('idle');
         speakText("Analysis complete. We predict a 14% increase in student growth metrics if current Tier 3 interventions remain stable.");
@@ -405,6 +459,42 @@ export default function SovereignDelegate({
                                                 <div className="p-4 rounded-2xl bg-gradient-to-br from-amber-500/10 to-transparent border border-amber-500/20">
                                                     <p className="text-[9px] text-amber-500 font-bold uppercase tracking-widest mb-1">Status</p>
                                                     <p className="text-[10px] text-zinc-400 font-mono">FIDELITY: 99.8% | LATENCY: 12ms</p>
+                                                </div>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+
+                                    {/* Sovereign Capital Recharge Overlay */}
+                                    <AnimatePresence>
+                                        {showRecharge && (
+                                            <motion.div
+                                                initial={{ opacity: 0, scale: 0.95 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                exit={{ opacity: 0, scale: 0.95 }}
+                                                className="absolute inset-0 z-[60] bg-black/80 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center"
+                                            >
+                                                <div className="w-12 h-12 mb-4 rounded-full bg-red-900/30 border border-red-500 flex items-center justify-center animate-pulse">
+                                                    <AlertTriangle className="text-red-500" size={24} />
+                                                </div>
+                                                <h3 className="text-xl font-black text-white uppercase tracking-tighter mb-2">Capital Depletion</h3>
+                                                <p className="text-xs text-zinc-400 mb-6 max-w-[200px] leading-relaxed">
+                                                    Your intelligence node requires immediate capital injection to maintain sovereign operations.
+                                                </p>
+
+                                                <div className="space-y-3 w-full">
+                                                    <button
+                                                        onClick={handleRecharge}
+                                                        className="w-full py-3 bg-white text-black text-[10px] font-black uppercase tracking-widest rounded-lg hover:bg-amber-400 transition-colors flex items-center justify-center gap-2"
+                                                    >
+                                                        <CreditCard size={14} />
+                                                        Initialize Injection ($20)
+                                                    </button>
+                                                    <button
+                                                        onClick={() => setShowRecharge(false)}
+                                                        className="w-full py-2 text-zinc-500 text-[9px] font-bold uppercase tracking-widest hover:text-white transition-colors"
+                                                    >
+                                                        Dismiss (Restricted Mode)
+                                                    </button>
                                                 </div>
                                             </motion.div>
                                         )}

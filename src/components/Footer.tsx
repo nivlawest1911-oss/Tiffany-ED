@@ -61,6 +61,8 @@ export default function Footer() {
                             <li><Link href="/login" className="text-zinc-400 hover:text-indigo-400 transition-colors text-sm">Protocol Login</Link></li>
                             <li><Link href="/signup" className="text-zinc-400 hover:text-indigo-400 transition-colors text-sm">Initialize Node</Link></li>
                             <li><Link href="/all-tools" className="text-zinc-400 hover:text-indigo-400 transition-colors text-sm">Intelligence Tools</Link></li>
+                            <li><Link href="/privacy/sovereign-shield" className="text-zinc-400 hover:text-indigo-400 transition-colors text-sm">Sovereign Shield</Link></li>
+                            <li><Link href="/connectors" className="text-zinc-400 hover:text-indigo-400 transition-colors text-sm">Connector Hub</Link></li>
                         </ul>
                     </div>
 

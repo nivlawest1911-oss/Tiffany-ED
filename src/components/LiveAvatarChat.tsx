@@ -255,9 +255,10 @@ export default function LiveAvatarChat({
     };
 
     const addTacticalSuggestion = (id: string, label: string, protocol: string) => {
-        if (!tacticalSuggestions.find(s => s.id === id)) {
-            setTacticalSuggestions(prev => [...prev, { id, label, protocol }]);
-        }
+        setTacticalSuggestions(prev => {
+            if (prev.find(s => s.id === id)) return prev;
+            return [...prev, { id, label, protocol }];
+        });
     };
 
     const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoice[]>([]);
@@ -602,6 +603,7 @@ export default function LiveAvatarChat({
                             <AnimatePresence>
                                 {curiosityNode && (
                                     <motion.div
+                                        key="curiosity-node"
                                         initial={{ opacity: 0, x: -20 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         exit={{ opacity: 0, scale: 0.9 }}
