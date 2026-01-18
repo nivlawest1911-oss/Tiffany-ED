@@ -104,15 +104,7 @@ export async function createTopupSession(
         payment_method_types: ['card'],
         line_items: [
             {
-                price_data: {
-                    currency: 'usd',
-                    product_data: {
-                        name: 'Intelligence Capital (Tokens)',
-                        description: 'High-fidelity neural processing units for AI Avatar operations',
-                        images: ['https://edintel-app.vercel.app/token-asset.png'],
-                    },
-                    unit_amount: 50, // 50 cents in USD cents
-                },
+                price: PRICING_PLANS.tokens.priceId,
                 quantity: quantity,
             },
         ],

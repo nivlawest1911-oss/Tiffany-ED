@@ -24,6 +24,7 @@ const PRICE_MAPPING: Record<string, string> = {
   STRIPE_PRICE_TOKEN_1K: 'price_1SleijJZzJ2JsTizToken1K',
   STRIPE_PRICE_TOKEN_5K: 'price_1SleikJZzJ2JsTizToken5K',
   STRIPE_PRICE_TOKEN_10K: 'price_1SleilJZzJ2JsTizToken10K',
+  STRIPE_PRICE_CAPITAL_INJECTION_20: 'price_1Sqxs7JZzJ2JsTizq1WdYXAb',
 };
 
 function getPriceId(tierId: string, isAnnual: boolean): string | undefined {
