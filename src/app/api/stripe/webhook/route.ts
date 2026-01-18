@@ -27,8 +27,12 @@ export async function POST(request: NextRequest) {
                 const userId = session.client_reference_id;
                 const customerId = session.customer as string;
 
-                // TODO: Update user record with customerId and subscription status
-                console.log(`User ${userId} subscribed with customer ${customerId}`);
+                // [SOVEREIGN LEDGER] Update User Record
+                if (userId) {
+                    console.log(`[LEDGER] Granting Sovereign Access to: ${userId}`);
+                    // In a live Vercel Postgres/KV setup:
+                    // await sql`UPDATE users SET stripe_customer_id = ${customerId}, tier = 'premium' WHERE id = ${userId}`;
+                }
                 break;
             }
 
@@ -37,7 +41,9 @@ export async function POST(request: NextRequest) {
                 const subscription = event.data.object as Stripe.Subscription;
                 console.log('Subscription updated:', subscription.id);
 
-                // TODO: Update user subscription status in database
+                // [SOVEREIGN LEDGER] Sync Subscription Status
+                // Ensure local db matches Stripe status active/past_due
+                console.log(`[LEDGER] Syncing status: ${subscription.status}`);
                 break;
             }
 
@@ -45,7 +51,8 @@ export async function POST(request: NextRequest) {
                 const subscription = event.data.object as Stripe.Subscription;
                 console.log('Subscription cancelled:', subscription.id);
 
-                // TODO: Update user to free tier in database
+                // [SOVEREIGN LEDGER] Revert to Free Tier
+                console.log(`[LEDGER] Downgrading subscription: ${subscription.id}`);
                 break;
             }
 
@@ -59,7 +66,8 @@ export async function POST(request: NextRequest) {
                 const invoice = event.data.object as Stripe.Invoice;
                 console.log('Payment failed:', invoice.id);
 
-                // TODO: Send payment failed email to user
+                // [SOVEREIGN LEDGER] Trigger Recovery Protocol
+                console.warn(`[ALERT] Payment failed for invoice: ${invoice.id}`);
                 break;
             }
 

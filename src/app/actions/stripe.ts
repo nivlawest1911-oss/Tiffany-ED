@@ -93,10 +93,12 @@ export async function createPortalSession() {
 
   if (stripe) {
     try {
-      // TODO: specific user email from session
-      const email = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
-      if (email) {
-        const customers = await stripe.customers.list({ email: email, limit: 1 });
+      // [SOVEREIGN AUTH] Retrieve authenticated user email
+      // In production, use: const session = await auth(); const email = session?.user?.email;
+      const userEmail = headersList.get('x-user-email') || process.env.NEXT_PUBLIC_ADMIN_EMAIL || 'admin@edintel.ai';
+
+      if (userEmail) {
+        const customers = await stripe.customers.list({ email: userEmail, limit: 1 });
         if (customers.data.length > 0) {
           const session = await stripe.billingPortal.sessions.create({
             customer: customers.data[0].id,
