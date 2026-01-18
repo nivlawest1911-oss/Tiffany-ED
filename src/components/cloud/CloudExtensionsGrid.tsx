@@ -37,6 +37,42 @@ const extensions = [
         color: 'text-red-400',
         bg: 'bg-red-950/30',
         status: 'Processing'
+    },
+    {
+        id: 'nlp',
+        name: 'Natural Language',
+        description: 'Sentiment & Emotion',
+        icon: Brain, // Using Brain again as generic "Thinking" icon, or could import something else
+        color: 'text-orange-400',
+        bg: 'bg-orange-950/30',
+        status: 'Active'
+    },
+    {
+        id: 'speech',
+        name: 'Neural Voice (TTS)',
+        description: 'Text-to-Speech Synthesis',
+        icon: Languages, // Reuse Languages or similar
+        color: 'text-pink-400',
+        bg: 'bg-pink-950/30',
+        status: 'Standby'
+    },
+    {
+        id: 'maps',
+        name: 'District Mapping',
+        description: 'Zoning & Logistics',
+        icon: Eye, // Using Eye as "View" metaphor
+        color: 'text-green-400',
+        bg: 'bg-green-950/30',
+        status: 'Online'
+    },
+    {
+        id: 'bigquery',
+        name: 'Predictive Analytics',
+        description: 'BigQuery Data Engine',
+        icon: Cpu,
+        color: 'text-cyan-400',
+        bg: 'bg-cyan-950/30',
+        status: 'Active'
     }
 ];
 
