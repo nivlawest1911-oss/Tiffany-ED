@@ -1,5 +1,5 @@
-# 🧠 Sovereign Cloud Uplink
-# Bridge between Vercel Frontend and Google Cloud Brain
+// 🧠 Sovereign Cloud Uplink
+// Bridge between Vercel Frontend and Google Cloud Brain
 
 const GOOGLE_CLOUD_URL = process.env.NEXT_PUBLIC_SOVEREIGN_BRAIN_URL || "http://localhost:8080";
 
