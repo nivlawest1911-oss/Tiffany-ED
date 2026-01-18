@@ -79,8 +79,9 @@ Here is a draft based on your requirements. It focuses on clarity, tone, and act
 
             if (!res.ok) throw new Error('API Sync Failed');
 
-            const data = await res.json();
-            const text = data.text || getFallbackResponse(generator.id, prompt)
+            const text = await res.text();
+            // const data = await res.json(); // Legacy JSON handling removed
+            // const text = data.text || getFallbackResponse(generator.id, prompt)
 
             for (let i = 0; i <= text.length; i += 5) {
                 setResponse(text.slice(0, i))
