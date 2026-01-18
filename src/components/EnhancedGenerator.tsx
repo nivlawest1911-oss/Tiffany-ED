@@ -124,12 +124,13 @@ export default function EnhancedGenerator({
     // ...
 
     const handleDictation = () => {
-        if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+        if (!('webkitSpeechRecognition' in (window as any)) && !('SpeechRecognition' in (window as any))) {
             alert("Speech recognition is not supported in this browser.");
             return;
         }
 
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        // @ts-ignore - SpeechRecognition types are tricky
+        const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
         const recognition = new SpeechRecognition();
 
         recognition.lang = 'en-US';

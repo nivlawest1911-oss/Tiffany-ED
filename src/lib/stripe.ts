@@ -2,7 +2,8 @@ import Stripe from 'stripe';
 
 // Initialize Stripe with your secret key
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_dummy_key_for_build', {
-    apiVersion: '2024-12-18.acacia',
+    // @ts-ignore - Stripe types might be ahead/behind
+    apiVersion: '2023-10-16',
     typescript: true,
 });
 
@@ -67,9 +68,18 @@ export async function createCheckoutSession(
         ],
         success_url: successUrl,
         cancel_url: cancelUrl,
+        consent_collection: {
+            terms_of_service: 'required',
+        },
+        phone_number_collection: {
+            enabled: true,
+        },
+        allow_promotion_codes: true,
         client_reference_id: userId,
         metadata: {
             userId,
+            environment: process.env.NODE_ENV,
+            source: 'EdIntel Sovereign App'
         },
     });
 
