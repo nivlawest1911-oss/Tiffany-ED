@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Loader2, Copy, Check, Sparkles, Download, ArrowRight, Bot, Zap, History, ChevronLeft, X, Mic, Volume2, FileText } from 'lucide-react';
+import { Loader2, Copy, Check, Sparkles, Download, ArrowRight, Bot, Zap, History, ChevronLeft, X, Mic, Volume2, FileText, BarChart3 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -239,7 +239,7 @@ Context:
                     const synthData = await synthesisRes.json();
                     setProfessorVideo(synthData.professorUrl);
                     // Re-save with the vaulted URL for permanence
-                    saveToHistory(promptToUse, fullResponse, synthData.professorUrl);
+                    saveToHistory(input, fullResponse, synthData.professorUrl);
                     console.log("[Greyhawk] Professor Synthesized & Vaulted:", synthData.professorUrl);
                 }
             } catch (synthErr) {
@@ -272,6 +272,41 @@ Context:
             a.download = `${generatorId}-${new Date().toISOString().split('T')[0]}.txt`;
             a.click();
             URL.revokeObjectURL(url);
+        }
+    };
+
+    const handleAnalyzeSentiment = async () => {
+        // Call Google Cloud Natural Language API (via Sovereign Brain)
+        try {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SOVEREIGN_BRAIN_URL || "http://localhost:8080"}/analyze-sentiment`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text: completion.substring(0, 1000) }) // Analyze first 1000 chars
+            });
+            const data = await res.json();
+            alert(`Sovereign Sentiment Analysis:\nScore: ${data.sentiment_score}\nMagnitude: ${data.sentiment_magnitude}\nAssessment: ${data.emotion}`);
+        } catch (e) {
+            console.error(e);
+            alert("Sentiment Analysis Module Offline");
+        }
+    };
+
+    const handleNeuralTTS = async () => {
+        // Call Google Cloud Text-to-Speech (via Sovereign Brain)
+        try {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SOVEREIGN_BRAIN_URL || "http://localhost:8080"}/synthesize-voice`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text: completion.substring(0, 500) }) // synthesize first 500 chars for demo
+            });
+            const data = await res.json();
+            if (data.audio_url) {
+                const audio = new Audio(data.audio_url);
+                audio.play();
+            }
+        } catch (e) {
+            console.error(e);
+            alert("Neural Voice Module Offline");
         }
     };
 
@@ -719,6 +754,24 @@ Context:
                                                 >
                                                     <FileText className="w-3 h-3" />
                                                     PDF
+                                                </button>
+
+                                                <button
+                                                    onClick={handleAnalyzeSentiment}
+                                                    className="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-orange-600/20 hover:text-orange-300 hover:border-orange-500/30 border border-white/5 text-xs text-zinc-400 transition-all flex items-center gap-1"
+                                                    title="Analyze Sentiment"
+                                                >
+                                                    <BarChart3 className="w-3 h-3" />
+                                                    Sentiment
+                                                </button>
+
+                                                <button
+                                                    onClick={handleNeuralTTS}
+                                                    className="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-pink-600/20 hover:text-pink-300 hover:border-pink-500/30 border border-white/5 text-xs text-zinc-400 transition-all flex items-center gap-1"
+                                                    title="Play Neural Voice"
+                                                >
+                                                    <Volume2 className="w-3 h-3" />
+                                                    Vox
                                                 </button>
                                             </div>
                                         )}
