@@ -5,6 +5,8 @@ import AuditChart from '@/components/AuditChart';
 import ResourceMap from '@/components/ResourceMap';
 import BoardReport from '@/components/BoardReport';
 import RevenueDashboard from '@/components/RevenueDashboard';
+import GovernanceEngine from '@/components/GovernanceEngine';
+import BurnoutHeatmap from '@/components/BurnoutHeatmap';
 
 const container = {
   hidden: { opacity: 0 },
@@ -51,6 +53,14 @@ export default function BoardView() {
             </div>
           </motion.section>
 
+          <motion.section variants={item} className="space-y-6">
+            <div className="flex items-center gap-4">
+              <div className="h-8 w-1 bg-red-500 rounded-full" />
+              <h2 className="text-2xl font-bold tracking-tight">Administrative Load</h2>
+            </div>
+            <BurnoutHeatmap />
+          </motion.section>
+
           <motion.section variants={item} className="space-y-8">
             <div className="flex items-center gap-4">
               <div className="h-8 w-1 bg-zinc-900 dark:bg-zinc-500 rounded-full" />
@@ -70,6 +80,14 @@ export default function BoardView() {
               <ResourceMap />
             </div>
           </motion.section>
+
+          <motion.section variants={item} className="space-y-6">
+            <div className="flex items-center gap-4">
+              <div className="h-8 w-1 bg-[#d4af37] rounded-full" />
+              <h2 className="text-2xl font-bold tracking-tight">Parliamentary Protocol</h2>
+            </div>
+            <GovernanceEngine />
+          </motion.section>
         </div>
 
         <motion.footer variants={item} className="pt-12 mt-12 border-t border-zinc-200 dark:border-zinc-800 text-center">
@@ -81,6 +99,6 @@ export default function BoardView() {
           </Link>
         </motion.footer>
       </div>
-    </motion.div>
+    </motion.div >
   );
 }

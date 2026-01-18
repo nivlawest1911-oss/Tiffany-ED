@@ -1,6 +1,15 @@
 'use client';
-import { Shield, Lock, Eye, FileText, Scale, UserCheck, Database, Globe, ArrowRight, Zap, Brain } from 'lucide-react';
-import { useState } from 'react';
+import { Shield as LucideShield, Lock, Eye, FileText, Scale, UserCheck, Database, Globe, ArrowRight, Zap, Brain } from "lucide-react";
+import { useState, useEffect } from 'react';
+
+
+function LastAuditDate() {
+    const [date, setDate] = useState("SYNCING...");
+    useEffect(() => {
+        setDate(new Date().toISOString().split('T')[0]);
+    }, []);
+    return <>{date}</>;
+}
 
 export default function SovereignPrivacyManifesto() {
     const [activeSection, setActiveSection] = useState('ownership');
@@ -9,7 +18,7 @@ export default function SovereignPrivacyManifesto() {
         {
             id: 'ownership',
             title: "Data Sovereignty & Ownership",
-            icon: <Shield className="text-emerald-500" size={24} />,
+            icon: <LucideShield className="text-emerald-500" size={24} />,
             context: "In the EdIntel ecosystem, we replace 'User Control' with 'Absolute Sovereignty'.",
             points: [
                 "District Ownership: The educational institution owns its individual AI node and all generated intelligence.",
@@ -145,7 +154,7 @@ export default function SovereignPrivacyManifesto() {
                             </div>
 
                             <div className="relative z-10 mt-12 p-6 rounded-2xl bg-black/40 border border-zinc-800/50">
-                                <p className="text-[10px] font-mono text-emerald-500 mb-2">LAST_AUDIT: {new Date().toISOString().split('T')[0]}</p>
+                                <p className="text-[10px] font-mono text-emerald-500 mb-2">LAST_AUDIT: <LastAuditDate /></p>
                                 <p className="text-[8px] text-zinc-600 uppercase tracking-widest leading-loose">
                                     This manifesto is legally binding for all EdIntel Nodes. By initializing your Sovereignty Pilot, you enter an agreement of mutual intelligence protection.
                                 </p>

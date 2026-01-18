@@ -4,22 +4,38 @@ import { useAuth } from '@/context/AuthContext';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import {
-    Zap, Shield, Sparkles, Activity, Clock,
+    Zap, Shield as LucideShield, Sparkles, Activity, Clock,
     Calendar, Command, Search, ArrowUpRight,
     BarChart3, Users, FileText, Bell, Globe
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
+import TrialStatus from '@/components/TrialStatus';
+import NeuralCapacity from '@/components/NeuralCapacity';
+import ComplianceTrafficLight from '@/components/ComplianceTrafficLight';
+
+const MobileTacticalCommand = dynamic(() => import('@/components/MobileTacticalCommand'), { ssr: false });
+const IntelligenceBriefingAgent = dynamic(() => import('@/components/IntelligenceBriefingAgent'), { ssr: false });
+const SovereignCabinet = dynamic(() => import('@/components/SovereignCabinet'), { ssr: false });
+const LegislativeWatchdog = dynamic(() => import('@/components/LegislativeWatchdog'), { ssr: false });
+
 
 export default function Dashboard() {
     const { user, isLoading } = useAuth();
+    const [mounted, setMounted] = useState(false);
     const [currentTime, setCurrentTime] = useState<string>('');
 
     useEffect(() => {
+        setMounted(true);
         const timer = setInterval(() => {
             setCurrentTime(new Date().toLocaleTimeString('en-US', { hour12: false }));
         }, 1000);
         return () => clearInterval(timer);
     }, []);
+
+    if (!mounted) {
+        return <div className="min-h-screen bg-[#050507]" />; // Prevent hydration mismatch
+    }
 
     if (isLoading) {
         return (
@@ -36,7 +52,7 @@ export default function Dashboard() {
         return (
             <div className="min-h-screen flex flex-col items-center justify-center bg-[#0A0A0B] text-white gap-6">
                 <div className="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center border border-red-500/20">
-                    <Shield className="w-8 h-8 text-red-500" />
+                    <LucideShield className="w-8 h-8 text-red-500" />
                 </div>
                 <div className="text-center space-y-2">
                     <h1 className="text-2xl font-bold">Access Restricted</h1>
@@ -55,7 +71,7 @@ export default function Dashboard() {
     return (
         <div className="min-h-screen bg-[#050507] text-white selection:bg-indigo-500/30 overflow-hidden font-sans">
             {/* Background Texture */}
-            <div className="fixed inset-0 pointer-events-none opacity-20 bg-[url('/grid.svg')] bg-repeat" />
+            <div className="fixed inset-0 pointer-events-none opacity-20 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px]" />
             <div className="fixed inset-0 bg-gradient-to-b from-indigo-900/5 via-transparent to-black pointer-events-none" />
 
             <div className="relative max-w-[1600px] mx-auto p-6 pt-24 min-h-screen flex flex-col">
@@ -81,12 +97,14 @@ export default function Dashboard() {
                         <div>
                             <div className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-1">Clearance</div>
                             <div className="text-xl font-bold text-amber-500 uppercase flex items-center gap-2">
-                                <Shield className="w-4 h-4" />
+                                <LucideShield className="w-4 h-4" />
                                 {user.tier} Executive
                             </div>
                         </div>
                     </div>
                 </header>
+
+                <TrialStatus />
 
                 {/* Dashboard Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-grow">
@@ -116,9 +134,8 @@ export default function Dashboard() {
                             </div>
 
                             <div className="space-y-4 relative z-10">
-                                <div className="flex justify-between items-center p-3 rounded-xl bg-white/5 border border-white/5">
-                                    <span className="text-sm text-zinc-400">Generations</span>
-                                    <span className="font-mono text-white font-bold">{user.usage_count || 0} / {user.tier === 'free' ? '5' : '∞'}</span>
+                                <div className="p-1">
+                                    <NeuralCapacity />
                                 </div>
                                 <div className="flex justify-between items-center p-3 rounded-xl bg-white/5 border border-white/5">
                                     <span className="text-sm text-zinc-400">System Status</span>
@@ -154,10 +171,29 @@ export default function Dashboard() {
                                 ))}
                             </div>
                         </motion.div>
+
+                        {/* Compliance Status */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.2 }}
+                        >
+                            <ComplianceTrafficLight />
+                        </motion.div>
                     </div>
 
                     {/* Middle Column: Central Intelligence (5 cols) */}
                     <div className="lg:col-span-5 space-y-6">
+
+                        {/* Sovereign Cabinet (Task Force) */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.15 }}
+                        >
+                            <SovereignCabinet />
+                        </motion.div>
+
                         {/* Daily Briefing Card */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -165,7 +201,7 @@ export default function Dashboard() {
                             transition={{ delay: 0.2 }}
                             className="h-full min-h-[400px] p-8 rounded-3xl bg-gradient-to-br from-indigo-900/20 to-purple-900/20 border border-indigo-500/20 flex flex-col relative overflow-hidden"
                         >
-                            <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20 bg-repeat" />
+                            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:24px_24px] opacity-20 pointer-events-none" />
 
                             <div className="relative z-10 flex-grow">
                                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-bold uppercase tracking-wider mb-6 border border-indigo-500/20">
@@ -213,6 +249,22 @@ export default function Dashboard() {
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.3 }}
+                        >
+                            <IntelligenceBriefingAgent />
+                        </motion.div>
+
+                        <motion.div
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.35 }}
+                        >
+                            <LegislativeWatchdog />
+                        </motion.div>
+
+                        <motion.div
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.3 }}
                             className="h-full p-6 rounded-3xl bg-zinc-900/40 border border-white/5 backdrop-blur-xl"
                         >
                             <h3 className="text-sm font-bold text-zinc-500 uppercase tracking-wider mb-6 flex items-center gap-2">
@@ -250,6 +302,8 @@ export default function Dashboard() {
 
                 </div>
             </div>
+
+            <MobileTacticalCommand />
         </div>
     );
 }

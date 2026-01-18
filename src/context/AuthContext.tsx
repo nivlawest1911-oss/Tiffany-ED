@@ -27,15 +27,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const router = useRouter();
 
     useEffect(() => {
-        // "Sovereign Override" - Auto-authenticate as Commander
-        setUser({
-            id: 'sovereign-001',
-            name: 'Sovereign Commander',
-            email: 'commander@edintel.ai',
-            tier: 'enterprise',
-            usage_count: 0 // Unlimited
-        });
-        setIsLoading(false);
+        async function checkAuth() {
+            try {
+                const res = await fetch('/api/auth/me');
+                if (res.ok) {
+                    const data = await res.json();
+                    setUser(data.user);
+                }
+            } catch (err) {
+                console.error('Initial auth check failed', err);
+            } finally {
+                setIsLoading(false);
+            }
+        }
+        checkAuth();
     }, []);
 
     const login = async (url: string, data: any) => {

@@ -1,5 +1,5 @@
 'use client';
-import { Brain, Zap, Target, BookOpen, Activity, AlertCircle, ChevronRight, Shield, Zap as Lightning } from 'lucide-react';
+import { Brain, Zap, Target, BookOpen, Activity, AlertCircle, ChevronRight, Shield as LucideShield, Zap as Lightning } from "lucide-react";
 
 export default function SovereignSkillMatrix() {
     // Sovereign Data Structure replicating CogniFit Cognitive Domains

@@ -4,10 +4,10 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
     Sparkles, FileText, Brain, MessageSquare, Award, Zap, Users, Calendar,
-    BookOpen, Clipboard, Target, TrendingUp, Shield, Heart, Lightbulb,
+    BookOpen, Clipboard, Target, TrendingUp, Shield as LucideShield, Heart, Lightbulb,
     Code, BarChart3, Megaphone, Palette, Video, GraduationCap, Trophy,
     Rocket, Search, Filter, ArrowRight, CheckCircle
-} from 'lucide-react';
+} from "lucide-react";
 import Link from 'next/link';
 import SpotlightCard from './SpotlightCard';
 import HolographicBriefing from './HolographicBriefing';
@@ -23,6 +23,33 @@ const allTools = generators.map(gen => ({
     // Map generator IDs to categories for filtering
     category: getCategory(gen.id)
 }));
+
+// Manually inject High-Value Revenue Tools at the top
+const specializedTools = [
+    {
+        id: 'risk-analyzer',
+        name: 'Litigation Risk Audit',
+        description: 'Instant legal exposure analysis. Calculate potential liability scores and get mitigation steps before you get sued.',
+        icon: LucideShield,
+        color: 'from-red-500 to-orange-600',
+        link: '/generators/risk-analyzer',
+        category: 'admin',
+        avatar: '/images/dr_alvin_west.png'
+    },
+    {
+        id: 'district-strategy',
+        name: 'District Strategy Command',
+        description: 'Generate board-level turnaround briefs. Operational sovereignty diagnosis for Superintendents.',
+        icon: TrendingUp,
+        color: 'from-amber-500 to-orange-600',
+        link: '/generators/district-strategy',
+        category: 'admin',
+        avatar: '/images/dr_alvin_west.png'
+    }
+];
+
+// Merge and dedupe if necessary (simple unshift here)
+allTools.unshift(...specializedTools as any);
 
 function getCategory(id: string) {
     if (id.includes('iep') || id.includes('behavior') || id.includes('dyslexia') || id.includes('cognitive')) return 'iep';

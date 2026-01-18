@@ -1,8 +1,10 @@
 'use client';
-import { Check, Zap, Shield, Crown, Rocket, Star, ArrowRight, Sparkles, Database, Infinity as InfinityIcon } from 'lucide-react';
+import { Check, Zap, Shield as LucideShield, Crown, Rocket, Star, ArrowRight, Sparkles, Database, Infinity as InfinityIcon } from "lucide-react";
 import { useState, useTransition, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { createCheckoutSession } from '@/app/actions/stripe';
+import { firestore } from '@/firebase';
+import { collection, query, where, getDocs } from '@/firebase';
 
 export default function PricingMatrix() {
     const [priceData, setPriceData] = useState<Record<string, { monthly: number; annual: number; monthlyId?: string; annualId?: string }>>({});
@@ -10,34 +12,70 @@ export default function PricingMatrix() {
     const [isPending, startTransition] = useTransition();
 
     useEffect(() => {
-        // Vercel / Free Tier Mode: No dynamic price fetching from Firestore.
-        // Prices are hardcoded or handled by Stripe Hosted Links.
+        const fetchStripePrices = async () => {
+            try {
+                const q = query(collection(firestore, 'products'), where('active', '==', true));
+                const snapshot = await getDocs(q);
+
+                const newPriceData: Record<string, any> = {};
+
+                await Promise.all(snapshot.docs.map(async (doc) => {
+                    const productData = doc.data();
+                    const pricesCollection = collection(doc.ref, 'prices');
+                    const pricesSnapshot = await getDocs(query(pricesCollection, where('active', '==', true)));
+
+                    const prices: any = {};
+                    pricesSnapshot.forEach(priceDoc => {
+                        const priceData = priceDoc.data();
+                        if (priceData.interval === 'month') {
+                            prices.monthly = priceData.unit_amount ? priceData.unit_amount / 100 : 0;
+                            prices.monthlyId = priceDoc.id; // Stripe Price ID
+                        } else if (priceData.interval === 'year') {
+                            prices.annual = priceData.unit_amount ? priceData.unit_amount / 100 : 0;
+                            prices.annualId = priceDoc.id;
+                        }
+                    });
+
+                    if (productData.name) {
+                        newPriceData[productData.name] = prices;
+                    }
+                }));
+
+                if (Object.keys(newPriceData).length > 0) {
+                    setPriceData(newPriceData);
+                }
+            } catch (e) {
+                console.log("EdIntel Integration: Extension check skipped (permissions)", e);
+            }
+        };
+        fetchStripePrices();
     }, []);
 
     const tiers = [
         {
-            name: "Sovereign Initiate",
+            name: "Initiate",
             price: "Free",
             priceId: null,
-            icon: <Shield className="text-zinc-400" size={24} />,
+            icon: <Sparkles className="text-zinc-400" size={24} />,
             color: "zinc",
             accent: "from-zinc-500 to-zinc-600",
             shadowColor: "shadow-zinc-900/20",
             iconColor: "text-zinc-400",
             idealFor: "Observers & New Users",
-            value: "Zero-cost entry to the Sovereign Network",
+            value: "Zero-cost entry. Taste the power.",
             features: [
                 "Basic Protocol Access",
                 "Community Intelligence Feed",
-                "Limited AI Generations (5/day)",
+                "Daily 'Power Hour' (5 Gens/Day)",
+                "Grant Writer Lite (Preview)",
                 "Read-Only Sovereign Vault"
             ]
         },
         {
             name: "Practitioner",
             price: isAnnual
-                ? (priceData['Practitioner']?.annual || 31.99)
-                : (priceData['Practitioner']?.monthly || 39.99),
+                ? (priceData['Practitioner']?.annual || 24)
+                : (priceData['Practitioner']?.monthly || 29),
             priceId: isAnnual
                 ? priceData['Practitioner']?.annualId
                 : priceData['Practitioner']?.monthlyId,
@@ -47,24 +85,26 @@ export default function PricingMatrix() {
             shadowColor: "shadow-cyan-900/20",
             iconColor: "text-cyan-400",
             idealFor: "Classroom teachers & Specialists",
-            value: "Personal burnout neutralization",
+            value: "STOP working for free. Recapture 15+ hrs/week.",
+            recommended: true,
+            subtitle: "Most Popular",
             features: [
                 "14-Day Free Trial Included",
                 "IEP Narrative Smart-Draft",
                 "Sovereign Legal Vault Access",
                 "1,000 Monthly Neural Tokens",
-                "Science of Reading Tutor"
+                "Science of Reading Tutor",
+                "Priority 'Sovereign' Support"
             ]
         },
         {
-            name: "Site Command",
-            subtitle: "Most Popular",
+            name: "Enterprise Hub",
             price: isAnnual
-                ? (priceData['Site Command']?.annual || 69)
-                : (priceData['Site Command']?.monthly || 79),
+                ? (priceData['Enterprise Hub']?.annual || 399)
+                : (priceData['Enterprise Hub']?.monthly || 499),
             priceId: isAnnual
-                ? priceData['Site Command']?.annualId
-                : priceData['Site Command']?.monthlyId,
+                ? priceData['Enterprise Hub']?.annualId
+                : priceData['Enterprise Hub']?.monthlyId,
             icon: <Zap className="text-violet-400" size={24} />,
             color: "violet",
             accent: "from-violet-500 to-fuchsia-600",
@@ -72,31 +112,33 @@ export default function PricingMatrix() {
             iconColor: "text-violet-400",
             highlight: true,
             idealFor: "Principals & Building Admin",
-            value: "Total building stability oversight",
+            value: "Total building stability oversight.",
             features: [
                 "14-Day Free Trial Included",
                 "Classroom Obs Synthesizer",
                 "Staff Retention Analytics",
                 "Automated SPED Compliance",
-                "Building ROI Dashboard"
+                "Building ROI Dashboard",
+                "Grant Success Predictor"
             ]
         },
         {
-            name: "Sovereign District",
-            price: "Custom",
-            priceId: null,
+            name: "Sovereign Vault",
+            price: (priceData['Sovereign Vault']?.annual || 2997),
+            priceId: priceData['Sovereign Vault']?.annualId,
             icon: <Crown className="text-amber-400" size={24} />,
             color: "amber",
-            accent: "from-amber-500 to-orange-600",
-            shadowColor: "shadow-amber-900/20",
+            accent: "from-amber-400 to-yellow-600",
+            shadowColor: "shadow-amber-900/40",
             iconColor: "text-amber-400",
-            idealFor: "Superintendents & Boards",
-            value: "System-wide data sovereignty",
+            idealFor: "Founders & Visionaries",
+            value: "Absolute Sovereignty. Lifetime access.",
             features: [
-                "Board Transparency Portal",
-                "Custom Policy Ingestion",
-                "Direct API Access",
-                "Full SSO/Active Directory"
+                "Everything in Enterprise Hub",
+                "Private Neural Node Deployment",
+                "Executive Coaching Credits",
+                "Priority Support Tier 1",
+                "Sovereign Legal Defense Access"
             ]
         }
     ];
@@ -160,7 +202,7 @@ export default function PricingMatrix() {
                         }
                     }
                 }}
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10"
+                className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10"
             >
                 {tiers.map((tier, idx) => (
                     <motion.div
@@ -180,6 +222,18 @@ export default function PricingMatrix() {
                             {/* Top Highlight Badge */}
                             {tier.highlight && (
                                 <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-violet-500 to-transparent opacity-50" />
+                            )}
+
+                            {/* Founder Recommendation Badge */}
+                            {(tier as any).recommended && (
+                                <div className="absolute top-4 right-4 animate-bounce-subtle">
+                                    <div className="px-3 py-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full shadow-lg shadow-cyan-500/30 flex items-center gap-2 border border-white/10">
+                                        <div className="w-4 h-4 rounded-full overflow-hidden border border-white/50">
+                                            <img src="/images/dr_alvin_west.png" alt="Dr. West" className="w-full h-full object-cover" />
+                                        </div>
+                                        <span className="text-[9px] font-black text-white uppercase tracking-widest">Dr. West's Choice</span>
+                                    </div>
+                                </div>
                             )}
 
                             {/* Header */}
@@ -219,21 +273,26 @@ export default function PricingMatrix() {
                             <button
                                 disabled={isPending}
                                 onClick={() => {
-                                    if (tier.name === 'Sovereign District') {
+                                    if (tier.price === 'Custom') {
                                         window.location.href = 'mailto:sales@edintel.ai?subject=Sovereign%20District%20Inquiry';
-                                    } else if (tier.name === 'Sovereign Initiate') {
+                                    } else if (tier.price === 'Free') {
                                         window.location.href = '/signup';
                                     } else {
-                                        // Redirect to Signup Flow for Subscriptions (Practitioner, Site Command)
-                                        const planParam = tier.name === 'Practitioner' ? 'pro' : 'site_command';
-                                        const billingParam = isAnnual ? '&billing=annual' : '';
-                                        window.location.href = `/signup?plan=${planParam}${billingParam}`;
+                                        startTransition(async () => {
+                                            try {
+                                                // Use priceId if matched from Firestore, otherwise fallback to name lookup
+                                                await createCheckoutSession(tier.priceId || tier.name, isAnnual);
+                                            } catch (error) {
+                                                console.error("Stripe Connection Error:", error);
+                                                alert("Secure Protocol Link Failed: Please refresh and try again.");
+                                            }
+                                        });
                                     }
                                 }}
                                 className={`w-full py-4 rounded-xl font-black text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-all duration-300 group-hover:scale-[1.02] ${tier.highlight
                                     ? `bg-gradient-to-r ${tier.accent} text-white shadow-lg shadow-violet-900/40 hover:shadow-violet-900/60`
                                     : 'bg-zinc-900 text-white hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700'} ${isPending ? 'opacity-50 cursor-not-allowed' : ''}`}>
-                                {tier.name === 'Sovereign District' ? 'Contact Protocol' : tier.name === 'Sovereign Initiate' ? 'Initialize Node' : (
+                                {tier.price === 'Custom' ? 'Contact Protocol' : tier.price === 'Free' ? 'Initialize Node' : (
                                     <span className="flex items-center gap-2">
                                         {isPending ? (
                                             <>
@@ -242,18 +301,17 @@ export default function PricingMatrix() {
                                             </>
                                         ) : (
                                             <>
-                                                <Shield size={12} className="text-emerald-400" /> Secure Invoice
+                                                <LucideShield size={12} className="text-emerald-400" /> Secure Invoice
                                             </>
                                         )}
                                     </span>
-                                )} {tier.name !== 'Sovereign District' && !isPending && <ArrowRight size={14} />}
+                                )} {tier.price !== 'Custom' && !isPending && <ArrowRight size={14} />}
                             </button>
                         </div>
                     </motion.div>
                 ))}
             </motion.div>
 
-            {/* Bottom Grid: Tokens & Services */}
             {/* Bottom Grid: Tokens & Services */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-16 max-w-6xl mx-auto">
                 {/* Token Economy */}
@@ -268,11 +326,10 @@ export default function PricingMatrix() {
                             <h3 className="text-xl font-black text-white uppercase tracking-tight">Token Economy</h3>
                         </div>
                         <p className="text-sm text-zinc-400 mb-8 max-w-sm">
-                            Fuel high-compute operations. Tokens never expire.
+                            Fuel high-compute operations like bulk audits and avatar synthesis. Tokens never expire.
                         </p>
 
                         <div className="flex flex-col gap-4">
-                            {/* 1K Pack - Verified Link */}
                             <div className="flex items-center justify-between p-4 rounded-xl bg-black/40 border border-zinc-800/50">
                                 <div className="flex items-center gap-3">
                                     <div className="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center text-amber-500 font-bold text-xs">1K</div>
@@ -297,7 +354,55 @@ export default function PricingMatrix() {
                                 </div>
                             </div>
 
-                            {/* Hidden 5K/10K until links provided */}
+                            <div className="flex items-center justify-between p-4 rounded-xl bg-black/40 border border-zinc-800/50 relative">
+                                <div className="absolute -top-2 left-6 px-2 py-0.5 bg-amber-500 text-black text-[9px] font-black uppercase rounded-full">Best Value</div>
+                                <div className="flex items-center gap-3">
+                                    <div className="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-500 font-bold text-xs">5K</div>
+                                    <div>
+                                        <div className="text-sm font-bold text-white uppercase">Sovereign Pack</div>
+                                        <div className="text-[10px] text-zinc-500">Bulk Operations</div>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <span className="text-lg font-black text-white">$39.99</span>
+                                    <button
+                                        disabled={isPending}
+                                        onClick={() => startTransition(async () => {
+                                            try {
+                                                await createCheckoutSession('STRIPE_PRICE_TOKEN_5K', false, 'payment');
+                                            } catch (e) { alert("Token Uplink Failed. Please try again."); }
+                                        })}
+                                        className="p-2 bg-amber-600 rounded-lg text-white hover:bg-amber-500 transition-colors disabled:opacity-50"
+                                    >
+                                        <ArrowRight size={14} />
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div className="flex items-center justify-between p-4 rounded-xl bg-black/40 border border-zinc-800/50">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-400 font-bold text-xs">10K</div>
+                                    <div>
+                                        <div className="text-sm font-bold text-white uppercase">Director Pack</div>
+                                        <div className="text-[10px] text-zinc-500">District Scale</div>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <span className="text-lg font-black text-white">$69.99</span>
+                                    <button
+                                        disabled={isPending}
+                                        onClick={() => startTransition(async () => {
+                                            try {
+                                                await createCheckoutSession('STRIPE_PRICE_TOKEN_10K', false, 'payment');
+                                            } catch (e) { alert("Token Uplink Failed. Please try again."); }
+                                        })}
+                                        className="p-2 bg-amber-600 rounded-lg text-white hover:bg-amber-500 transition-colors disabled:opacity-50"
+                                    >
+                                        <ArrowRight size={14} />
+                                    </button>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -318,6 +423,31 @@ export default function PricingMatrix() {
                                 <span className="text-sm font-black text-blue-400">{rate.price}</span>
                             </div>
                         ))}
+                    </div>
+                </div>
+
+                {/* Founder's Personal Guarantee */}
+                <div className="md:col-span-2 p-8 rounded-[2.5rem] bg-gradient-to-br from-zinc-900 to-black border border-white/10 relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+
+                    <div className="relative z-10 flex flex-col md:flex-row items-center gap-8 text-center md:text-left">
+                        <div className="shrink-0 relative">
+                            <div className="w-24 h-24 rounded-full border-4 border-zinc-800 shadow-2xl overflow-hidden relative z-10">
+                                <img src="/images/dr_alvin_west.png" alt="Dr. Alvin West" className="w-full h-full object-cover" />
+                            </div>
+                            <div className="absolute -bottom-2 -right-2 bg-emerald-500 text-black p-1.5 rounded-full z-20"><Check size={16} strokeWidth={4} /></div>
+                        </div>
+
+                        <div>
+                            <h3 className="text-2xl font-black text-white uppercase italic tracking-tight mb-2">My "Sovereign Time" Guarantee</h3>
+                            <p className="text-zinc-400 text-sm leading-relaxed max-w-2xl">
+                                "If you don't recover at least <span className="text-white font-bold">10 hours of personal time</span> in your first 30 days using the Practitioner Protocol, I will personally refund your subscription and provide a free 1-on-1 strategy session to fix your workflow. We are in the business of liberation, not just software."
+                            </p>
+                            <div className="mt-4 flex items-center justify-center md:justify-start gap-4">
+                                <div className="h-px w-16 bg-zinc-800" />
+                                <span className="font-handwriting text-2xl text-emerald-500 font-bold rotate-[-2deg] opacity-90">Dr. Alvin West</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

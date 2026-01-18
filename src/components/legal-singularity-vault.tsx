@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { ExternalLink, Shield, BookOpen, GraduationCap, Scale, Brain, Search } from "lucide-react"
+import { ExternalLink, BookOpen, GraduationCap, Scale, Brain, Search } from "lucide-react"
 
 const categories = [
   { id: "state", name: "State/Legal", count: 11, icon: Scale },
@@ -191,7 +191,7 @@ export function LegalSingularityVault() {
   )
 
   return (
-    <section id="compliance" className="px-4 md:px-8 py-16">
+    <section className="px-4 md:px-8 py-16">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-8">
           <h2 className="font-black tracking-tighter text-3xl md:text-4xl text-white mb-2">Legal Singularity Vault</h2>
@@ -207,7 +207,7 @@ export function LegalSingularityVault() {
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 rounded-xl bg-[#00d2ff]/20 flex items-center justify-center">
-                <Shield className="w-6 h-6 text-[#00d2ff]" />
+                <Scale className="w-6 h-6 text-[#00d2ff]" />
               </div>
               <div>
                 <p className="text-xs text-gray-400 uppercase tracking-wider">Regional Gateway</p>
@@ -242,8 +242,8 @@ export function LegalSingularityVault() {
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all ${activeCategory === cat.id
-                    ? "bg-[#00d2ff] text-black"
-                    : "bg-white/5 text-gray-300 hover:bg-white/10 border border-white/10"
+                  ? "bg-[#00d2ff] text-black"
+                  : "bg-white/5 text-gray-300 hover:bg-white/10 border border-white/10"
                   }`}
               >
                 <Icon className="w-4 h-4" />
@@ -277,10 +277,10 @@ export function LegalSingularityVault() {
                     </h4>
                     <span
                       className={`px-2 py-0.5 rounded text-[10px] font-medium uppercase ${resource.priority === "critical"
-                          ? "bg-red-500/20 text-red-400"
-                          : resource.priority === "high"
-                            ? "bg-amber-500/20 text-amber-400"
-                            : "bg-emerald-500/20 text-emerald-400"
+                        ? "bg-red-500/20 text-red-400"
+                        : resource.priority === "high"
+                          ? "bg-amber-500/20 text-amber-400"
+                          : "bg-emerald-500/20 text-emerald-400"
                         }`}
                     >
                       {resource.priority}

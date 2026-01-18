@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 
-export function SequentialRecallGame({ onGameFinish }: { onGameFinish: (score: number) => void }) {
+export default function SequentialRecallGame({ onGameFinish }: { onGameFinish: (score: number) => void }) {
   const [sequence, setSequence] = useState<number[]>([]);
   const [userSequence, setUserSequence] = useState<number[]>([]);
   const [isShowing, setIsShowing] = useState(false);
@@ -17,7 +17,7 @@ export function SequentialRecallGame({ onGameFinish }: { onGameFinish: (score: n
   const handleInput = (num: number) => {
     const newUserSeq = [...userSequence, num];
     setUserSequence(newUserSeq);
-    
+
     if (num !== sequence[userSequence.length]) {
       onGameFinish(sequence.length - 1);
     } else if (newUserSeq.length === sequence.length) {
@@ -28,8 +28,8 @@ export function SequentialRecallGame({ onGameFinish }: { onGameFinish: (score: n
   return (
     <div className="grid grid-cols-3 gap-4 p-8 bg-card rounded-xl shadow-futuristic">
       {[...Array(9)].map((_, i) => (
-        <Button 
-          key={i} 
+        <Button
+          key={i}
           onClick={() => handleInput(i)}
           className="h-20 w-20 text-xl font-bold"
           variant={isShowing && sequence.includes(i) ? "default" : "outline"}

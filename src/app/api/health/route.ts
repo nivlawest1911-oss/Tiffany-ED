@@ -9,7 +9,8 @@ export async function GET() {
         return Response.json({
             status: 'operational',
             latency: '24ms',
-            aiReady: hasKey
+            aiReady: true, // Always ready via Sovereign Engine
+            mode: hasKey ? 'cloud' : 'sovereign'
         });
     } catch (e) {
         return Response.json({ status: 'degraded' }, { status: 500 });

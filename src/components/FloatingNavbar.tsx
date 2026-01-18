@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import { Menu, X, ArrowRight, Globe } from 'lucide-react';
 import Image from 'next/image';
 import { useAuth } from '@/context/AuthContext';
 import EdIntelLogo from './EdIntelLogo';
@@ -28,6 +28,7 @@ export default function FloatingNavbar() {
         { name: 'Features', href: '/#features' },
         { name: 'Pricing', href: '/#pricing' },
         { name: 'About', href: '/about' },
+        { name: 'Contact', href: '/contact' },
     ];
 
     return (
@@ -46,8 +47,12 @@ export default function FloatingNavbar() {
                 >
                     <div className="flex items-center justify-between">
                         {/* Logo */}
-                        <Link href="/" className="relative z-50" onMouseEnter={() => playHover()}>
+                        <Link href="/" className="relative z-50 flex items-center gap-4" onMouseEnter={() => playHover()}>
                             <EdIntelLogo />
+                            <div className="hidden md:flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-red-500/10 border border-red-500/20 text-[10px] font-black text-red-400 animate-pulse">
+                                <div className="w-1.5 h-1.5 rounded-full bg-red-500" />
+                                TRENDING GLOBAL
+                            </div>
                         </Link>
 
                         {/* Desktop Nav */}
@@ -66,6 +71,13 @@ export default function FloatingNavbar() {
 
                         {/* CTA */}
                         <div className="hidden md:flex items-center gap-4">
+                            {/* Global Neural Link */}
+                            <button className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-zinc-400 hover:text-white hover:border-emerald-500/50 transition-all group" title="Global Neural Link Active">
+                                <Globe size={14} className="group-hover:text-emerald-400" />
+                                <span>EN</span>
+                                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse ml-1" />
+                            </button>
+
                             {user ? (
                                 <div className="flex items-center gap-4">
                                     <div className="text-sm font-medium text-white/80">

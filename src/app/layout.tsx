@@ -5,7 +5,9 @@ import { Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import CommandPalette from "@/components/CommandPalette"
+import ClientLayoutValues from "@/components/ClientLayoutValues"
 import Footer from "@/components/Footer"
+import MedicalDisclaimer from "@/components/MedicalDisclaimer"
 import { AuthProvider } from "@/context/AuthContext"
 import "./globals.css"
 
@@ -20,22 +22,22 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "EdIntel Sovereign | Cognitive Leadership Platform",
+  title: "EdIntel Sovereign | The Elite AI for Educational Capital & Freedom",
   description:
-    "The future of cognitive leadership. Official AI-powered education intelligence platform for administrators, teachers, and districts.",
+    "Join the sovereign revolution. Generate revenue, automate compliance, and liberate your time with the world's first Neural Educational Engine. 14-Day Free Access.",
   generator: "v0.app",
   metadataBase: new URL('https://edintel-app.vercel.app'),
   openGraph: {
-    title: "EdIntel Sovereign | AI-Powered Education Platform",
-    description: "Transform education with AI. Generate IEPs, lesson plans, and more for Mobile County schools.",
+    title: "EdIntel Sovereign | The Elite AI for Educational Capital",
+    description: "Don't just teach. Govern. Generate revenue, automate compliance, and liberate your time with the world's first Neural Educational Engine.",
     url: 'https://edintel-app.vercel.app',
     siteName: 'EdIntel Sovereign',
     images: [
       {
-        url: '/api/og?school=Mobile County Schools&plan=Professional&price=$79',
+        url: '/api/og?school=EdIntel%20Sovereign&plan=Join%20The%20Revolution&price=Free',
         width: 1200,
         height: 630,
-        alt: 'EdIntel Sovereign - AI-Powered Education Platform',
+        alt: 'EdIntel Sovereign - The Elite AI for Education',
       },
     ],
     locale: 'en_US',
@@ -43,22 +45,22 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'EdIntel Sovereign | AI-Powered Education',
-    description: 'Transform education with AI for Mobile County schools',
-    images: ['/api/og?school=Mobile County Schools&plan=Professional&price=$79'],
+    title: 'EdIntel Sovereign | The Elite AI for Education',
+    description: 'Join the sovereign revolution. Generate revenue and automate compliance with AI.',
+    images: ['/api/og?school=EdIntel%20Sovereign&plan=Join%20The%20Revolution&price=Free'],
   },
   icons: {
     icon: [
       {
-        url: "/icon-light-32x32.png",
+        url: "/webrenew-icon-xl.png",
         media: "(prefers-color-scheme: light)",
       },
       {
-        url: "/icon-dark-32x32.png",
+        url: "/webrenew-icon-xl.png",
         media: "(prefers-color-scheme: dark)",
       },
       {
-        url: "/icon.svg",
+        url: "/globe.svg",
         type: "image/svg+xml",
       },
     ],
@@ -83,6 +85,8 @@ export default function RootLayout({
         <AuthProvider>
           {children}
           <CommandPalette />
+          <ClientLayoutValues />
+          <MedicalDisclaimer />
           <Footer />
         </AuthProvider>
         <Analytics />

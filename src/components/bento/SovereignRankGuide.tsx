@@ -1,5 +1,5 @@
 'use client';
-import { Target, Trophy, Crown, Star, Shield, Zap, Circle, User } from 'lucide-react';
+import { Target, Trophy, Crown, Star, Shield as LucideShield, Zap, Circle, User } from "lucide-react";
 
 export default function SovereignRankGuide() {
     const ranks = [
@@ -8,7 +8,7 @@ export default function SovereignRankGuide() {
         { id: 3, name: "Trainee", icon: <Target />, color: "bg-orange-500", description: "Consistent data input. Pattern recognition engaged." },
         { id: 4, name: "Virtuoso", icon: <Zap />, color: "bg-green-500", description: "High-efficiency output. Burnout prevention optimized." },
         { id: 5, name: "Wizard", icon: <Star />, color: "bg-purple-500", description: "Complex problem solving. Multi-node management unlocked." },
-        { id: 6, name: "Ace", icon: <Shield />, color: "bg-cyan-500", description: "Elite performance. System autonomy increasing." },
+        { id: 6, name: "Ace", icon: <LucideShield />, color: "bg-cyan-500", description: "Elite performance. System autonomy increasing." },
         { id: 7, name: "Pro", icon: <Crown />, color: "bg-red-500", description: "Professional grade. Direct neural interface capabilities." },
         { id: 8, name: "Expert", icon: <Trophy />, color: "bg-amber-600", description: "Mastery of all core sub-systems. Strategic delegate usage." },
         { id: 9, name: "Master", icon: <Crown />, color: "bg-gray-400", description: "Total sovereign control. Architect-level permissions." },

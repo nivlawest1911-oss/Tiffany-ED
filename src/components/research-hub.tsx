@@ -1,12 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import { BookOpen, ExternalLink, Brain, Heart, Shield, GraduationCap, TrendingUp, Users, Award } from "lucide-react"
+import { BookOpen, ExternalLink, Brain, Heart, Shield as LucideShield, GraduationCap, TrendingUp, Users, Award } from "lucide-react"
 
 const researchCategories = [
   { id: "ai-education", name: "AI in Education", icon: Brain },
   { id: "burnout", name: "Burnout Prevention", icon: Heart },
-  { id: "compliance", name: "Compliance", icon: Shield },
+  { id: "compliance", name: "Compliance", icon: LucideShield },
   { id: "executive-function", name: "Executive Function", icon: GraduationCap },
 ]
 

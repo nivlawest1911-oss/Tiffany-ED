@@ -159,5 +159,18 @@ export class SovereignAudioEngine {
     }
 }
 
-// Singleton instance
-export const sovereignAudio = new SovereignAudioEngine();
+// Lazy singleton instance - only created when first accessed
+let _sovereignAudio: SovereignAudioEngine | null = null;
+
+export const sovereignAudio = {
+    get instance(): SovereignAudioEngine {
+        if (!_sovereignAudio) {
+            _sovereignAudio = new SovereignAudioEngine();
+        }
+        return _sovereignAudio;
+    },
+    playHover: () => sovereignAudio.instance.playHover(),
+    playClick: () => sovereignAudio.instance.playClick(),
+    playSuccess: () => sovereignAudio.instance.playSuccess(),
+    toggleAmbient: (play: boolean) => sovereignAudio.instance.toggleAmbient(play)
+};

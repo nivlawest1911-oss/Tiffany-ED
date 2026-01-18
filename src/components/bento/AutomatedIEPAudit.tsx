@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Upload, FileText, CheckCircle, AlertTriangle, XCircle, Shield, Sparkles } from 'lucide-react';
+import { Upload, FileText, CheckCircle, AlertTriangle, XCircle, Shield as LucideShield, Sparkles } from "lucide-react";
 
 interface ComplianceMarker {
     id: string;
@@ -158,7 +158,7 @@ export default function AutomatedIEPAudit() {
             <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
                     <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center">
-                        <Shield className="text-white" size={24} />
+                        <LucideShield className="text-white" size={24} />
                     </div>
                     <div>
                         <h2 className="text-2xl font-bold text-zinc-900 dark:text-white">Automated IEP Audit</h2>
@@ -217,7 +217,7 @@ export default function AutomatedIEPAudit() {
                         </>
                     ) : (
                         <>
-                            <Shield size={20} />
+                            <LucideShield size={20} />
                             Run Compliance Audit
                         </>
                     )}

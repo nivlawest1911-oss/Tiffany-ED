@@ -1,11 +1,20 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { firestore } from '@/firebase';
+import { collection, query, getDocs, where } from '@/firebase';
 
 export default function BoardReport() {
-  const [stats, setStats] = useState({ total: 142, compliant: 142, hotspots: 3 });
+  const [stats, setStats] = useState({ total: 0, compliant: 0, hotspots: 0 });
 
-  // Simulated data is already set in initial state, but we can keep the effect if we want to simulate loading later.
-  // For now, static is fine.
+  useEffect(() => {
+    const fetchStats = async () => {
+      const snapshot = await getDocs(collection(firestore, 'strategicAudits'));
+      const all = snapshot.docs.length;
+      const consentCount = snapshot.docs.filter(d => d.data().requiresConsent === true).length;
+      setStats({ total: all, compliant: consentCount, hotspots: 3 });
+    };
+    fetchStats();
+  }, []);
 
   return (
     <div className="space-y-6">

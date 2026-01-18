@@ -14,8 +14,8 @@ export default function ArchitectIdentityNode() {
                             {/* Profile Image Placeholders - recommend replacing with actual asset if available locally */}
                             {/* Profile Image - AI Generated Professional Headshot */}
                             <img
-                                src="/images/dr_alvin_west.png"
-                                alt="Dr. Alvin West, II"
+                                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop"
+                                alt="Caleb West, DBA"
                                 className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
                             />
                         </div>

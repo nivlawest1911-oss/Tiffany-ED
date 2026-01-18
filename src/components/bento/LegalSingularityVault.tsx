@@ -1,5 +1,5 @@
 'use client';
-import { ExternalLink, Shield, BookOpen, GraduationCap, Building2, TrendingUp, Cpu, FlaskConical, Scale, Lightbulb, ChevronRight } from 'lucide-react';
+import { ExternalLink, Shield as LucideShield, BookOpen, GraduationCap, Building2, TrendingUp, Cpu, FlaskConical, Scale, Lightbulb, ChevronRight } from "lucide-react";
 import { ALL_RESOURCES, RESOURCE_METADATA, get2025Updates, getLiteracyResources, getResearchValidation, getIDEACompliance } from '@/config/resources';
 
 export default function LegalSingularityVault() {
@@ -11,7 +11,7 @@ export default function LegalSingularityVault() {
 
     const getCategoryIcon = (category: string) => {
         switch (category) {
-            case 'state': return <Shield className="text-red-500" size={20} />;
+            case 'state': return <LucideShield className="text-red-500" size={20} />;
             case 'district': return <Building2 className="text-blue-500" size={20} />;
             case 'instructional': return <BookOpen className="text-green-500" size={20} />;
             case 'professional': return <GraduationCap className="text-purple-500" size={20} />;
@@ -20,7 +20,7 @@ export default function LegalSingularityVault() {
             case 'research': return <FlaskConical className="text-pink-500" size={20} />;
             case 'legal': return <Scale className="text-amber-500" size={20} />;
             case 'specialized': return <Lightbulb className="text-indigo-500" size={20} />;
-            default: return <Shield size={20} />;
+            default: return <LucideShield size={20} />;
         }
     };
 
@@ -37,7 +37,7 @@ export default function LegalSingularityVault() {
             <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
                     <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center">
-                        <Shield className="text-red-400" size={24} />
+                        <LucideShield className="text-red-400" size={24} />
                     </div>
                     <div>
                         <h2 className="text-2xl font-bold">Legal Singularity Vault</h2>

@@ -1,14 +1,28 @@
 // src/components/HomePageClient.tsx
 "use client";
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { auth } from '../firebase/index';
+import { onAuthStateChanged, User } from '@/firebase';
 
 export default function HomePageClient() {
-  // Simulated State for Vercel Deployment
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
   return (
-    <div className="client-auth-section hidden">
-      {/* Auth handling moved to Vercel Middleware / Server Actions if needed. 
-            For now, we run in open Sovereign Mode. */}
+    <div className="client-auth-section">
+      {user ? (
+        <p>Welcome back, {user.email}</p>
+      ) : (
+        <p>Please log in to access personalized features.</p>
+      )}
+      {/* AuthForm or other client-side interactions can go here */}
     </div>
   );
 }

@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import {
     Brain, Sparkles, HandCoins, Compass, Flame, Video, HeartHandshake, History,
-    Shield, ArrowRight, Zap, Globe, Cpu, Network
+    ArrowRight, Zap, Globe, Cpu, Network
 } from 'lucide-react';
 import Link from 'next/link';
 import FloatingNavbar from '@/components/FloatingNavbar';
@@ -13,24 +13,24 @@ import SovereignDelegate from '@/components/SovereignDelegate';
 
 const commandNodes = [
     {
-        id: "temple-of-wisdom",
-        title: "Temple of Wisdom",
-        subtitle: "Living AI Educators",
-        description: "Access deep-knowledge avatars. Philosophers, Historians, and Futurists generating real-time prophetic intelligence.",
+        id: "wisdom-archive",
+        title: "Wisdom Archive",
+        subtitle: "Specialized AI Advisors",
+        description: "Access deep-knowledge advisors focused on Philosophy, History, and Future Trends to support strategic decision-making.",
         icon: Brain,
         color: "from-indigo-900 to-purple-900",
         link: "/generators?category=wisdom",
-        count: "5 Educators"
+        count: "5 Advisors"
     },
     {
-        id: "sovereign-forge",
-        title: "The Sovereign Forge",
-        subtitle: "Creation & Economic Power",
-        description: "Tools for fiscal independence, capital recovery, and small business strategy. Reclaim your economic narrative.",
+        id: "leadership-forge",
+        title: "The Leadership Forge",
+        subtitle: "Strategy & Economic Growth",
+        description: "Tools for district fiscal strategy, capital optimization, and operational excellence.",
         icon: HandCoins,
         color: "from-emerald-900 to-teal-900",
         link: "/generators?category=forge",
-        count: "6 Protocols"
+        count: "6 Frameworks"
     },
     {
         id: "healing-nexus",
@@ -70,7 +70,7 @@ export default function TheRoomPage() {
                         animate={{ opacity: 1, y: 0 }}
                         className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-indigo-400 text-xs font-black uppercase tracking-[0.2em] mb-8"
                     >
-                        <Network size={14} /> Sovereign Neural Interface
+                        <Network size={14} /> Executive Insight Interface
                     </motion.div>
 
                     <h1 className="text-6xl md:text-9xl font-black tracking-tighter uppercase mb-6 leading-[0.8] text-transparent bg-clip-text bg-gradient-to-b from-white to-zinc-600">
@@ -134,14 +134,14 @@ export default function TheRoomPage() {
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-16 items-center">
                     <div className="flex-1">
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-black uppercase tracking-widest mb-8">
-                            <Cpu size={14} /> Replicate Forge v10
+                            <Cpu size={14} /> Media Synthesis Studio
                         </div>
                         <h2 className="text-5xl md:text-7xl font-black text-white mb-8 tracking-tighter uppercase leading-none">
                             Thought becoming <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-indigo-500">Form.</span>
                         </h2>
                         <p className="text-xl text-zinc-400 font-light leading-relaxed mb-10">
-                            Our Creation Engine transforms abstract strategy into high-fidelity visual media. Every teacher, voice, and system is synthesized on demand, ensuring your culture and identity are never diluted.
+                            Our Synthesis Studio transforms abstract strategy into high-fidelity visual media. Every advisor and system is synthesized to ensure your district's vision and identity are amplified.
                         </p>
                         <div className="grid grid-cols-2 gap-8 mb-12">
                             <div>
@@ -171,13 +171,13 @@ export default function TheRoomPage() {
                 </div>
             </section>
 
-            {/* Sovereign Delegate Guide */}
+            {/* Executive Delegate Guide */}
             <SovereignDelegate
-                name="Sovereign Agent"
-                role="Temple Guide"
+                name="Executive Guide"
+                role="Strategic Support"
                 avatarImage="/images/avatars/executive_leader.png"
                 theme="sovereign"
-                greetingText="Welcome to The Room, Commander. I have initialized the Divine Strategic Map. Every node you see is a gateway to high-fidelity intelligence synthesis. Where shall we begin your creation?"
+                greetingText="Welcome to the Innovation Commons, Leader. I have prepared your Strategic Vision Map. Every node here is a gateway to high-quality intelligence synthesis. Where shall we begin?"
                 color="from-indigo-600 to-purple-800"
                 guideMode={true}
             />

@@ -26,8 +26,17 @@ const legislativeItems = [
   },
 ]
 
+import { useState, useEffect } from "react"
+
+function CurrentDate() {
+  const [date, setDate] = useState("")
+  useEffect(() => {
+    setDate(new Date().toLocaleDateString("en-US", { month: "numeric", day: "numeric", year: "numeric" }))
+  }, [])
+  return <span>{date}</span>
+}
+
 export function MorningIntel() {
-  const today = new Date().toLocaleDateString("en-US", { month: "numeric", day: "numeric", year: "numeric" })
 
   return (
     <section className="px-4 md:px-8 py-12">
@@ -36,7 +45,7 @@ export function MorningIntel() {
           <div className="flex items-center justify-between mb-6">
             <div>
               <h3 className="font-black tracking-tighter text-xl text-white">Morning Intel</h3>
-              <p className="text-sm text-gray-400">{today}</p>
+              <p className="text-sm text-gray-400"><CurrentDate /></p>
             </div>
             <Calendar className="w-5 h-5 text-[#00d2ff]" />
           </div>
@@ -52,11 +61,10 @@ export function MorningIntel() {
                     <div className="flex items-center gap-2 mb-1">
                       <span className="font-bold text-white">{item.name}</span>
                       <span
-                        className={`px-2 py-0.5 rounded text-[10px] font-medium uppercase ${
-                          item.status === "active"
-                            ? "bg-emerald-500/20 text-emerald-400"
-                            : "bg-amber-500/20 text-amber-400"
-                        }`}
+                        className={`px-2 py-0.5 rounded text-[10px] font-medium uppercase ${item.status === "active"
+                          ? "bg-emerald-500/20 text-emerald-400"
+                          : "bg-amber-500/20 text-amber-400"
+                          }`}
                       >
                         {item.status}
                       </span>

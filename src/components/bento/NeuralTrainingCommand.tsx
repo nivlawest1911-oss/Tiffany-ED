@@ -1,5 +1,5 @@
 'use client';
-import { Play, ClipboardCheck, LayoutGrid, Award, Info, Plus, ChevronRight, Brain, Target, Zap, Shield } from 'lucide-react';
+import { Play, ClipboardCheck, LayoutGrid, Award, Info, Plus, ChevronRight, Brain, Target, Zap, Shield as LucideShield } from 'lucide-react';
 import { useState } from 'react';
 
 export default function NeuralTrainingCommand() {
@@ -12,7 +12,7 @@ export default function NeuralTrainingCommand() {
         skills: ["Pedagogical Nuance", "Compliance Logic", "Admin Authority", "Sentiment Alignment"],
         nextUp: [
             { id: 1, icon: <Brain size={14} /> },
-            { id: 2, icon: <Shield size={14} /> },
+            { id: 2, icon: <LucideShield size={14} /> },
             { id: 3, icon: <Zap size={14} /> },
         ]
     };

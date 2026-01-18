@@ -1,6 +1,6 @@
 'use client';
 
-import { User, Shield, AlertTriangle, Upload, Trash2, Camera, Settings, Disc } from 'lucide-react';
+import { User, Fingerprint, Zap, AlertTriangle, Upload, Trash2, Camera, Settings, Disc } from 'lucide-react';
 import React, { useState } from 'react';
 
 export default function SovereignIDManager() {
@@ -27,7 +27,7 @@ export default function SovereignIDManager() {
                 {/* Header */}
                 <div className="flex items-center gap-4 mb-8 border-b border-zinc-800 pb-6">
                     <div className="p-3 bg-zinc-900 rounded-xl border border-zinc-800">
-                        <Shield className="text-amber-600" size={24} />
+                        <Fingerprint className="text-amber-600" size={24} />
                     </div>
                     <div>
                         <h2 className="text-2xl font-black text-white tracking-tight uppercase">Sovereign Identity</h2>
@@ -124,7 +124,7 @@ export default function SovereignIDManager() {
                         disabled={isCommitting}
                         className="px-8 py-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-black text-xs uppercase tracking-widest shadow-lg shadow-amber-900/20 transition-all flex items-center gap-2 disabled:opacity-50"
                     >
-                        {isCommitting ? 'Stabilizing...' : <>Commit Protocol <Shield size={14} /></>}
+                        {isCommitting ? 'Stabilizing...' : <>Commit Protocol <Zap size={14} /></>}
                     </button>
                 </div>
             </div>

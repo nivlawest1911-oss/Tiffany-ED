@@ -1,6 +1,6 @@
 'use client';
 
-import { Shield, Lock, Eye, Database, Server, UserCheck, FileText } from 'lucide-react';
+import { Shield as LucideShield, Lock, Eye, Database, Server, UserCheck, FileText } from 'lucide-react';
 import FloatingNavbar from '@/components/FloatingNavbar';
 import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
@@ -43,7 +43,7 @@ export default function PrivacyPolicyPage() {
                         animate={{ opacity: 1, y: 0 }}
                         className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-black uppercase tracking-widest mb-6"
                     >
-                        <Shield size={12} />
+                        <LucideShield size={12} />
                         <span>Sovereign Constitution</span>
                     </motion.div>
 

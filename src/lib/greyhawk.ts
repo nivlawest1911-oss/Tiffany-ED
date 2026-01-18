@@ -2,10 +2,9 @@ import Replicate from 'replicate';
 import { depositToMemoryBank } from './memory-bank';
 
 /**
- * GREYHAWK 10 PROTOCOL
- * The Prophetic Dispatcher for the Living Teaching Temple.
+ * EXECUTIVE DISPATCHER
  * Coordinates Gemini (Scripting), Replicate/HeyGen (Synthesis), 
- * and Vercel Blob (Permanent Vault).
+ * and Vercel Blob (Permanent Archiving).
  */
 
 const replicate = new Replicate({
@@ -52,7 +51,7 @@ export async function protocolGreyhawk(userPrompt: string, generatorId: string) 
     // 2. Media Generation
     // 3. Vaulting
     return {
-        status: "Protocol Active",
-        message: "The Living Teaching Temple is synthesizing your briefing."
+        status: "Support Active",
+        message: "We are synthesizing your briefing now."
     };
 }

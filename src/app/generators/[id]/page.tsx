@@ -4,11 +4,13 @@ import EnhancedGenerator from '@/components/EnhancedGenerator';
 
 // Map Avatar Enums to Real Assets
 const AVATAR_MAP: Record<string, { name: string, role: string, image: string }> = {
-    'principal': { name: "The Architect", role: "Sovereign Lead", image: "/images/dr_alvin_west.png" },
-    'counselor': { name: "The Counselor", role: "Wellbeing Lead", image: "/images/avatars/counselor.png" },
-    'data': { name: "The Analyst", role: "Data Strategist", image: "/images/avatars/data_analyst.png" },
-    'compliance': { name: "The Auditor", role: "Compliance Lead", image: "/images/avatars/executive_leader.png" },
-    'curriculum': { name: "The Strategist", role: "Curriculum Architect", image: "/images/avatars/curriculum_strategist.png" }
+    'principal': { name: "Dr. Alvin West", role: "Executive Principal", image: "/images/dr_alvin_west.png" },
+    'counselor': { name: "Andre Patterson", role: "Behavior Intervention Lead", image: "/images/avatars/behavior_specialist.png" },
+    'data': { name: "Marcus Johnson", role: "Sovereign Stem Lead", image: "/images/avatars/stem_coordinator.png" },
+    'compliance': { name: "Dr. Maya Washington", role: "IEP Compliance Architect", image: "/images/avatars/iep_architect.png" },
+    'curriculum': { name: "Sarah West", role: "Curriculum Strategist", image: "/images/avatars/curriculum_strategist.png" },
+    'literacy': { name: "Dr. Emily Robinson", role: "Literacy & Data Scientist", image: "/images/avatars/literacy_coach.png" },
+    'finance': { name: "Director Nova", role: "Capital Recovery Lead", image: "/images/avatars/executive_leader.png" }
 };
 
 export async function generateStaticParams() {

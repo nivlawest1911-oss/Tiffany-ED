@@ -1,6 +1,6 @@
 'use client';
 
-import { Search, ChevronRight, FileText, Zap, Shield, HelpCircle, Terminal, Cpu, Clock, Key } from 'lucide-react';
+import { Search, ChevronRight, FileText, Zap, Shield as LucideShield, HelpCircle, Terminal, Cpu, Clock, Key } from 'lucide-react';
 import React from 'react';
 import Link from 'next/link';
 
@@ -36,7 +36,7 @@ export default function GettingStartedProtocol() {
             desc: "Creating your Sovereign Identity via secure channels or Federated Login.",
             views: "8.8k",
             date: "Dec 9, 2025",
-            icon: <Shield size={20} className="text-zinc-500" />
+            icon: <LucideShield size={20} className="text-zinc-500" />
         },
         {
             id: 5,

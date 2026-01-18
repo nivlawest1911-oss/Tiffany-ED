@@ -2,7 +2,7 @@
 // Deployment: 2026-01-12T01:23:00-06:00
 
 import { useState } from 'react';
-import { Mail, MessageSquare, Phone, Send, MapPin, CheckCircle, Shield } from 'lucide-react';
+import { Mail, MessageSquare, Phone, Send, MapPin, CheckCircle, Shield as LucideShield } from 'lucide-react';
 import { motion } from 'framer-motion';
 import FloatingNavbar from '@/components/FloatingNavbar';
 import Footer from '@/components/Footer';
@@ -38,7 +38,7 @@ export default function ContactPage() {
                     >
                         <div className="flex items-center justify-between mb-6">
                             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-bold uppercase tracking-widest">
-                                <Shield size={12} />
+                                <LucideShield size={12} />
                                 <span>Command Uplink</span>
                             </div>
                             <button

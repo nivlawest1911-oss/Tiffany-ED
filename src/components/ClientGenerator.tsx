@@ -8,6 +8,14 @@ import { ArrowLeft, Send, Sparkles, Copy, Check, Loader2, Share2, ShieldCheck, Z
 import { TopNav } from "@/components/top-nav"
 import Link from "next/link"
 
+function SessionId() {
+    const [id, setId] = useState("INITIALIZING...");
+    useEffect(() => {
+        setId(Math.random().toString(36).substring(7).toUpperCase());
+    }, []);
+    return <span>{id}</span>;
+}
+
 export default function ClientGenerator({ generatorId }: { generatorId: string }) {
     const router = useRouter()
     const [generator, setGenerator] = useState<typeof generators[0] | null>(null)
@@ -200,7 +208,7 @@ Here is a draft based on your requirements. It focuses on clarity, tone, and act
                                 </div>
                                 <div>
                                     <h2 className="font-bold text-white">Generation Protocol</h2>
-                                    <p className="text-xs text-gray-500">Secure Session ID: {Math.random().toString(36).substring(7).toUpperCase()}</p>
+                                    <p className="text-xs text-gray-500">Secure Session ID: <SessionId /></p>
                                 </div>
                             </div>
                             <button className="p-2 hover:bg-white/10 rounded-lg text-gray-400 hover:text-white transition-colors">

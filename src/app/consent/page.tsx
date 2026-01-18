@@ -28,6 +28,20 @@ export default function ParentalOptIn() {
     setSubmitted(true);
   };
 
+  function ProtocolHash() {
+    const [hash, setHash] = useState("GENERATING...");
+
+    useEffect(() => {
+      setHash(`SB101-COMMIT-#${Math.random().toString(36).substring(7).toUpperCase()}`);
+    }, []);
+
+    return (
+      <p className="mt-16 text-[10px] font-mono text-zinc-400 uppercase tracking-widest">
+        Protocol Hash: {hash}
+      </p>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 transition-colors duration-500">
       <Navbar />
@@ -177,9 +191,7 @@ export default function ParentalOptIn() {
                 </button>
               </div>
 
-              <p className="mt-16 text-[10px] font-mono text-zinc-400 uppercase tracking-widest">
-                Protocol Hash: SB101-COMMIT-#{Math.random().toString(36).substring(7).toUpperCase()}
-              </p>
+              Protocol Hash: <ProtocolHash />
             </motion.div>
           )}
         </AnimatePresence>

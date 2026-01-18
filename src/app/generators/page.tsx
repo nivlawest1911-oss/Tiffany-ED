@@ -3,8 +3,9 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Grid, List, Zap, Shield, BookOpen, Users, Activity, Briefcase } from 'lucide-react';
+import { Search, Grid, List, Zap, Shield as LucideShield, BookOpen, Users, Activity, Briefcase } from 'lucide-react';
 import { GENERATORS } from '@/data/generators';
+import NeuralBackground from '@/components/NeuralBackground';
 
 export default function GeneratorsIndexPage() {
     const [searchQuery, setSearchQuery] = useState("");
@@ -15,7 +16,7 @@ export default function GeneratorsIndexPage() {
     const categories = [
         { id: "All", label: "All Protocols", icon: Grid },
         { id: "Instructional", label: "Instructional Core", icon: BookOpen },
-        { id: "Operational", label: "Ops & Logistics", icon: Shield },
+        { id: "Operational", label: "Ops & Logistics", icon: LucideShield },
         { id: "Strategic", label: "Strategic Leadership", icon: Briefcase },
         { id: "Community", label: "Community & Culture", icon: Users },
         { id: "Wellness", label: "Wellness & Support", icon: Activity },
@@ -44,13 +45,8 @@ export default function GeneratorsIndexPage() {
     });
 
     return (
-        <div className="min-h-screen bg-black text-white selection:bg-indigo-500/30 font-sans">
-            {/* Background Effects */}
-            <div className="fixed inset-0 pointer-events-none">
-                <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10 bg-repeat" />
-                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[120px]" />
-                <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px]" />
-            </div>
+        <div className="min-h-screen bg-black text-white selection:bg-indigo-500/30 font-sans relative overflow-hidden">
+            <NeuralBackground />
 
             <main className="relative max-w-7xl mx-auto px-6 py-12">
                 {/* Header Section */}
@@ -96,8 +92,8 @@ export default function GeneratorsIndexPage() {
                                 key={cat.id}
                                 onClick={() => setActiveCategory(cat.id)}
                                 className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold transition-all whitespace-nowrap border ${activeCategory === cat.id
-                                        ? 'bg-white text-black border-white'
-                                        : 'bg-zinc-900 text-zinc-400 border-white/5 hover:bg-zinc-800 hover:text-white'
+                                    ? 'bg-white text-black border-white'
+                                    : 'bg-zinc-900 text-zinc-400 border-white/5 hover:bg-zinc-800 hover:text-white'
                                     }`}
                             >
                                 <cat.icon className="w-4 h-4" />

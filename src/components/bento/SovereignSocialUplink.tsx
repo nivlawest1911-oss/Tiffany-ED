@@ -1,6 +1,6 @@
 'use client';
 
-import { Facebook, Link as LinkIcon, Users, MapPin, Briefcase, GraduationCap, Video, Calendar, Shield, ExternalLink } from 'lucide-react';
+import { Facebook, Link as LinkIcon, Users, MapPin, Briefcase, GraduationCap, Video, Calendar, Shield as LucideShield, ExternalLink } from 'lucide-react';
 import React from 'react';
 
 export default function SovereignSocialUplink() {
@@ -30,7 +30,7 @@ export default function SovereignSocialUplink() {
                                 />
                             </div>
                             <div className="absolute bottom-2 right-2 w-8 h-8 bg-blue-600 rounded-full border-4 border-zinc-950 flex items-center justify-center text-white" title="Verified Creator">
-                                <Shield size={14} fill="currentColor" />
+                                <LucideShield size={14} fill="currentColor" />
                             </div>
                         </div>
 

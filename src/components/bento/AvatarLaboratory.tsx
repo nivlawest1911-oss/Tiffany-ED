@@ -6,7 +6,7 @@ import {
     Download,
     Settings,
     Zap,
-    Shield,
+    Shield as LucideShield,
     Film,
     Video,
     Globe,
@@ -21,7 +21,7 @@ import {
     List,
     Volume2,
     Mic
-} from 'lucide-react';
+} from "lucide-react";
 
 
 interface AvatarConfig {
@@ -34,10 +34,12 @@ interface AvatarConfig {
 }
 
 const AVATAR_LIBRARY = [
-    { id: 'twin-01', name: 'Dr. Alvin West', role: 'Sovereign Principal', img: '/images/dr_alvin_west.png', heygenId: 'Abigail_expressive_2024112501', elevenLabsId: 'JBFqnCBsd6RMkjVDRZzb' },
-    { id: 'twin-02', name: 'The Counselor', role: 'Wellbeing Lead', img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&q=80', heygenId: 'Lina_Dress_Sitting_Side_public', elevenLabsId: '21m00Tcm4TlvDq8ikWAM' },
-    { id: 'twin-03', name: 'The Analyst', role: 'Data Strategist', img: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&q=80', heygenId: 'Abigail_standing_office_front', elevenLabsId: 'soY4btAspOtqS4y4s7TV' },
-    { id: 'twin-04', name: 'Compliance Officer', role: 'Regulatory Lead', img: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&q=80', heygenId: 'Lina_Dress_Sitting_Side_public', elevenLabsId: 'AZnzlk1XvdvUeBnXmlld' },
+    { id: 'twin-01', name: 'Director West', role: 'Executive', img: '/images/dr_alvin_west.png', heygenId: 'Abigail_expressive_2024112501', elevenLabsId: 'JBFqnCBsd6RMkjVDRZzb' },
+    { id: 'twin-02', name: 'Dr. Sarah James', role: 'Instructional', img: '/images/avatars/iep_architect.png', heygenId: 'Lina_Dress_Sitting_Side_public', elevenLabsId: '21m00Tcm4TlvDq8ikWAM' },
+    { id: 'twin-03', name: 'Specialist David', role: 'STEM Lead', img: '/images/avatars/executive_leader.png', heygenId: 'Abigail_standing_office_front', elevenLabsId: 'soY4btAspOtqS4y4s7TV' },
+    { id: 'twin-04', name: 'Principal Elena', role: 'Compliance', img: '/images/avatars/data_analyst.png', heygenId: 'Lina_Dress_Sitting_Side_public', elevenLabsId: 'AZnzlk1XvdvUeBnXmlld' },
+    { id: 'twin-05', name: 'Agent Marcus II', role: 'Operations', img: '/images/avatars/executive_leader.png', heygenId: 'Abigail_expressive_2024112501', elevenLabsId: 'TxGEqnHWrfWFTfGW9XjX' },
+    { id: 'twin-06', name: 'Director Nova', role: 'Sovereign Lead', img: '/images/avatars/curriculum_strategist.png', heygenId: 'Lina_Dress_Sitting_Side_public', elevenLabsId: 'EXAVITQu4vr4xnSDxMaL' },
 ];
 
 interface AvatarOutput {
@@ -66,7 +68,7 @@ export default function AvatarLaboratory() {
     const [isSpeaking, setIsSpeaking] = useState(false);
 
     const roles = [
-        { id: 'superintendent', label: 'Superintendent', icon: <Shield size={16} />, color: 'purple' },
+        { id: 'superintendent', label: 'Superintendent', icon: <LucideShield size={16} />, color: 'purple' },
         { id: 'admin', label: 'Principal/Admin', icon: <Zap size={16} />, color: 'orange' },
         { id: 'teacher', label: 'Lead Educator', icon: <User size={16} />, color: 'blue' },
         { id: 'counselor', label: 'Support/Counselor', icon: <Activity size={16} />, color: 'rose' },
@@ -270,7 +272,7 @@ export default function AvatarLaboratory() {
                     <div className="flex items-center gap-5">
                         <div className="flex items-center gap-3">
                             <div className="w-12 h-12 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center justify-center p-2 group-hover:border-purple-500/50 transition-all">
-                                <Shield className="text-purple-500" size={24} />
+                                <LucideShield className="text-purple-500" size={24} />
                             </div>
                             <div className="h-8 w-px bg-zinc-800" />
                         </div>
@@ -437,7 +439,7 @@ export default function AvatarLaboratory() {
 
                                 <div className="p-5 rounded-2xl bg-zinc-900/50 border border-zinc-800">
                                     <div className="flex items-center gap-3 text-purple-400 mb-3">
-                                        <Shield size={16} />
+                                        <LucideShield size={16} />
                                         <span className="text-[10px] font-bold uppercase tracking-widest">Sovereign Power</span>
                                     </div>
                                     <p className="text-sm font-medium text-zinc-300 italic">{output.power}</p>

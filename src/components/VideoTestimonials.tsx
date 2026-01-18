@@ -1,6 +1,25 @@
+'use client';
+
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Quote, Star, Play, Pause, Volume2, Mic } from 'lucide-react';
+
+// Waveform Bar Component
+function AudioWaveformBar({ index, theme }: { index: number, theme: 'default' | 'sovereign' }) {
+    const [heights, setHeights] = useState([5, 15, 5]);
+
+    useEffect(() => {
+        setHeights([5, Math.random() * 20 + 10, 5]);
+    }, []);
+
+    return (
+        <motion.div
+            className={`w-1.5 rounded-full ${theme === 'sovereign' ? 'bg-amber-400' : 'bg-indigo-400'}`}
+            animate={{ height: heights }}
+            transition={{ repeat: Infinity, duration: 0.2, delay: index * 0.05 }}
+        />
+    );
+}
 
 // --- Talking Avatar Component ---
 function TalkingAvatarTestimonial({ testimonial, theme = 'sovereign' }: { testimonial: any, theme?: 'default' | 'sovereign' }) {
@@ -95,12 +114,7 @@ function TalkingAvatarTestimonial({ testimonial, theme = 'sovereign' }: { testim
                             {/* Simulated Waveform at bottom */}
                             <div className="absolute bottom-4 left-0 right-0 h-12 flex items-end justify-center gap-1 px-8">
                                 {[...Array(8)].map((_, i) => (
-                                    <motion.div
-                                        key={i}
-                                        className={`w-1.5 rounded-full ${theme === 'sovereign' ? 'bg-amber-400' : 'bg-indigo-400'}`}
-                                        animate={{ height: [5, Math.random() * 20 + 10, 5] }}
-                                        transition={{ repeat: Infinity, duration: 0.2, delay: i * 0.05 }}
-                                    />
+                                    <AudioWaveformBar key={i} index={i} theme={theme} />
                                 ))}
                             </div>
                         </motion.div>

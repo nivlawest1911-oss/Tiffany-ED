@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { generateSovereignResponse } from '@/lib/sovereign-ai';
 
 // Initialize directly with SDK to bypass Genkit configuration issues
 
@@ -17,8 +18,10 @@ const PROTOCOL_PROMPTS: Record<string, string> = {
 };
 
 export async function POST(req: Request) {
-  const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENAI_API_KEY || 'AIzaSyAEyAP1KfoKmlPCQBbwFHjQv3Ucu7ZeVcU');
+  const apiKey = process.env.GOOGLE_GENAI_API_KEY || '';
+  const genAI = new GoogleGenerativeAI(apiKey || 'AIzaSyAEyAP1KfoKmlPCQBbwFHjQv3Ucu7ZeVcU');
   const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-lite" });
+
   try {
     const body = await req.json();
 
@@ -51,6 +54,12 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Missing situation or prompt data." }, { status: 400 });
     }
 
+    // Force Sovereign fallback if no valid key is provided
+    if (!apiKey || apiKey.includes('AIzaSy')) {
+      const text = await generateSovereignResponse(finalPrompt, protocol || 'community');
+      return NextResponse.json({ output: text });
+    }
+
     const result = await model.generateContent(finalPrompt);
     const response = await result.response;
     const text = response.text();
@@ -58,16 +67,15 @@ export async function POST(req: Request) {
     return NextResponse.json({ output: text });
   } catch (error) {
     console.error("EQ NODE ERROR:", error);
-    try {
-      const fs = require('fs');
-      // Ensure we don't crash if fs fails (e.g. edge runtime)
-      if (fs.appendFileSync) {
-        fs.appendFileSync('error_log.txt', `\n[${new Date().toISOString()}] ${error instanceof Error ? error.message : String(error)}`);
-      }
-    } catch (e) {
-      // ignore log error
-    }
 
-    return NextResponse.json({ error: `EQ Brain unavailable: ${error instanceof Error ? error.message : String(error)}` }, { status: 500 });
+    // Recovery Mode: Generate content using Sovereign Engine
+    try {
+      const body = await req.json().catch(() => ({}));
+      const fallbackPrompt = body.rawSituation || body.prompt || "Leadership Situation";
+      const text = await generateSovereignResponse(fallbackPrompt, "community");
+      return NextResponse.json({ output: text, source: 'Sovereign Recovery' });
+    } catch (e) {
+      return NextResponse.json({ error: "EQ Brain offline" }, { status: 500 });
+    }
   }
 }

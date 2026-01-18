@@ -3,7 +3,9 @@ import { Image, Video, FileText, Send, ThumbsUp, MessageSquare, Repeat, Share2, 
 import { useSovereignFeed, FeedPost } from '@/hooks/useSovereignFeed';
 
 export default function SovereignFeed() {
-    // Sovereign Feed: Displays network updates from the simulated protocol.
+    // Integrated Firebase Hook
+    // If Firebase is configured, this pulls live data from the 'feed' collection.
+    // Otherwise, it seamlessly falls back to the demo/cache data.
     const { posts: feed } = useSovereignFeed();
 
     const [input, setInput] = useState('');

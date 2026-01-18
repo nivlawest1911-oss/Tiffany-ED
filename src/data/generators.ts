@@ -1,7 +1,7 @@
 import {
-    FileText, MessageSquare, GraduationCap, Shield, Brain, Lightbulb, Sparkles, Send, Copy, Check, Loader2, BookOpen, Users,
+    FileText, MessageSquare, GraduationCap, GraduationCap as StudentCap, Brain, Lightbulb, Sparkles, Send, Copy, Check, Loader2, BookOpen, Users,
     Mic, Volume2, Accessibility, Code, Database, Megaphone, Palette, Calendar, ClipboardCheck, TrendingUp, Award, Target,
-    Briefcase, GraduationCap as StudentCap, BookMarked, PenTool, Video, Beaker, Calculator, HandCoins, Bus, ClipboardList,
+    Briefcase, BookMarked, PenTool, Video, Beaker, Calculator, HandCoins, Bus, ClipboardList,
     PieChart, Layers, Gamepad2, ShieldAlert, Mail, ScrollText, Map, UserCheck, FileJson, Table, HeartHandshake, Smile,
     GanttChart, Trophy, Glasses, BarChart3, Globe, Star, Scale, Clock, ShoppingBag, Presentation, HardHat,
     History, Heart, Flame, Compass, Music, MapPin, Zap
@@ -13,7 +13,9 @@ const AVATARS = {
     COUNSELOR: "/images/avatars/behavior_specialist.png",
     CURRICULUM: "/images/avatars/curriculum_strategist.png",
     DATA: "/images/avatars/executive_leader.png",
-    COMPLIANCE: "/images/avatars/iep_architect.png"
+    COMPLIANCE: "/images/avatars/iep_architect.png",
+    LITERACY: "/images/avatars/literacy_coach.png",
+    FINANCE: "/images/avatars/stem_coordinator.png"
 }
 
 export const generators = [
@@ -25,7 +27,7 @@ export const generators = [
         icon: FileText,
         color: "#00d2ff",
         avatar: AVATARS.COMPLIANCE,
-        heroImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80",
+        heroImage: "/images/iep_architect_mockup.png",
         heroVideo: "/videos/features/iep-architect-demo.mp4",
         welcomeVideo: "/videos/briefings/principal_briefing.mp4",
         voiceWelcome: "/voice-profiles/compliance_voice.wav",
@@ -38,6 +40,7 @@ export const generators = [
         icon: BookOpen,
         color: "#d946ef",
         avatar: AVATARS.CURRICULUM,
+        heroImage: "/images/lesson_planner_mockup.png",
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
         welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
@@ -166,7 +169,7 @@ export const generators = [
     },
     // Re-adding essential existing ones for the demo to work fully
     { id: "email-composer", name: "Email Composer", description: "Professional communications", icon: MessageSquare, color: "#10b981", avatar: AVATARS.PRINCIPAL, heroImage: "/images/features/sovereign_communications_director.png", heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/principal_briefing.mp4", voiceWelcome: "/voice-profiles/principal_voice.wav", prompts: ["Parent conference follow-up", "Staff announcement"] },
-    { id: "policy-advisor", name: "Policy Advisor", description: "Navigate regulations", icon: Shield, color: "#8b5cf6", avatar: AVATARS.COMPLIANCE, heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/principal_briefing.mp4", voiceWelcome: "/voice-profiles/compliance_voice.wav", prompts: ["IDEA compliance check", "504 plan requirements"] },
+    { id: "policy-advisor", name: "Policy Advisor", description: "Navigate regulations", icon: Scale, color: "#8b5cf6", avatar: AVATARS.COMPLIANCE, heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/principal_briefing.mp4", voiceWelcome: "/voice-profiles/compliance_voice.wav", prompts: ["IDEA compliance check", "504 plan requirements"] },
     { id: "cognitive-coach", name: "Cognitive Coach", description: "Executive function strategies", icon: Brain, color: "#ec4899", avatar: AVATARS.COUNSELOR, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Working memory activities"] },
     { id: "idea-generator", name: "Idea Generator", description: "Creative solutions", icon: Lightbulb, color: "#f59e0b", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Engagement strategies"] },
     { id: "code-commander", name: "Code Commander", description: "Learn coding", icon: Code, color: "#06b6d4", avatar: AVATARS.DATA, heroVideo: "/videos/features/data-analysis-demo.mp4", welcomeVideo: "/videos/briefings/data_briefing.mp4", voiceWelcome: "/voice-profiles/data_voice.wav", prompts: ["Debug my Python code"] },
@@ -472,7 +475,7 @@ export const generators = [
         id: "restorative-dean",
         name: "Restorative Dean",
         description: "Manage discipline with a restorative, growth-focused lens.",
-        icon: Shield,
+        icon: HeartHandshake,
         color: "#4338ca", // Indigo-700
         avatar: AVATARS.COMPLIANCE,
         heroVideo: "/videos/features/iep-architect-demo.mp4",
@@ -712,7 +715,7 @@ export const generators = [
         id: "foster-care-poc",
         name: "Foster Care Point of Contact",
         description: "Coordinate best interest determinations and DCF communication.",
-        icon: Shield,
+        icon: Heart,
         color: "#4f46e5", // Indigo-600
         avatar: AVATARS.COUNSELOR,
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
@@ -955,6 +958,39 @@ export const generators = [
         heroImage: "https://images.unsplash.com/photo-1474932430478-3a7fb9065ba0?auto=format&fit=crop&q=80",
         welcomeVideo: "/videos/briefings/executive_professor.mp4",
         prompts: ["Fable about the Lion and the Satellite", "Sovereign myth-making session", "The story of the Digital Ancestors"]
+    },
+    {
+        id: "district-budget-optimizer",
+        name: "District Budget Optimizer",
+        description: "Capital recovery and financial intelligence for district leadership.",
+        icon: HandCoins,
+        color: "#1d4ed8",
+        avatar: AVATARS.FINANCE,
+        heroVideo: "/videos/features/data-analysis-demo.mp4",
+        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        prompts: ["Analyze capital recovery opportunities", "Draft financial intelligence brief", "Audit district spending ROI"]
+    },
+    {
+        id: "literacy-coach-neural-node",
+        name: "Literacy Coach AI",
+        description: "Advanced literacy science and comprehension architect.",
+        icon: BookMarked,
+        color: "#7e22ce",
+        avatar: AVATARS.LITERACY,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        prompts: ["Generate phonics routine", "Draft comprehension assessment", "Audit literacy curriculum"]
+    },
+    {
+        id: "special-ed-law-compliance-auditor",
+        name: "Special Ed Law Auditor",
+        description: "IDEA compliance and legal defensibility for educational documentation.",
+        icon: Scale,
+        color: "#b45309",
+        avatar: AVATARS.COMPLIANCE,
+        heroVideo: "/videos/features/iep-architect-demo.mp4",
+        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        prompts: ["Audit IEP for IDEA compliance", "Draft legal defensibility brief", "Verify parental rights validation"]
     }
 ];
 

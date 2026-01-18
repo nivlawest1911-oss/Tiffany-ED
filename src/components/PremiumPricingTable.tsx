@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle, Sparkles, Zap, Crown, ArrowRight, Info } from 'lucide-react';
+import { CheckCircle, Sparkles, Zap, Crown, ArrowRight, Info, User, Shield as LucideShield } from "lucide-react";
 import Link from 'next/link';
 import HolographicBriefing from './HolographicBriefing';
 
@@ -12,14 +12,13 @@ export default function PremiumPricingTable() {
 
     const plans = [
         {
-            name: 'Sovereign Initiate', // Was Free
+            name: 'Initiate',
             price: { monthly: 0, annual: 0 },
             description: 'Entry-level protocol access',
             features: [
                 '5 AI generations per month',
                 'Basic templates',
                 'Community support',
-                'Email support',
             ],
             cta: 'Initialize Node',
             link: '/signup',
@@ -27,8 +26,8 @@ export default function PremiumPricingTable() {
             icon: Sparkles,
         },
         {
-            name: 'Practitioner', // Was Professional
-            price: { monthly: 39.99, annual: 31.99 },
+            name: 'Practitioner',
+            price: { monthly: 29.00, annual: 24.00 },
             description: 'For individual educators',
             features: [
                 'Unlimited AI generations',
@@ -36,43 +35,41 @@ export default function PremiumPricingTable() {
                 'Priority email support',
                 'Export to PDF/Word',
                 'FERPA-compliant storage',
-                'Usage analytics',
             ],
             cta: 'Start Free Trial',
             link: `/signup?plan=pro${billingCycle === 'annual' ? '&billing=annual' : ''}`,
             popular: true,
-            icon: Zap,
+            icon: User,
         },
         {
-            name: 'Site Command', // New Tier
-            price: { monthly: 79.00, annual: 69.00 }, // Matching PricingMatrix
-            description: 'For Principals & Admin',
+            name: 'Enterprise Hub',
+            price: { monthly: 499.00, annual: 399.00 },
+            description: 'For Schools & Teams',
             features: [
                 'Everything in Practitioner',
+                '10 User Licenses',
                 'Staff Retention Analytics',
                 'Classroom Obs Synthesizer',
                 'Building ROI Dashboard',
-                'Automated SPED Compliance',
             ],
-            cta: 'Start Free Trial',
-            link: `/signup?plan=site_command${billingCycle === 'annual' ? '&billing=annual' : ''}`,
+            cta: 'Deploy Hub',
+            link: `/signup?plan=enterprise${billingCycle === 'annual' ? '&billing=annual' : ''}`,
             popular: false,
-            icon: CheckCircle, // Or another icon
+            icon: LucideShield,
         },
         {
-            name: 'Sovereign District', // Was Enterprise
-            price: { monthly: null, annual: null },
-            description: 'For System-wide Sovereignty',
+            name: 'Sovereign Vault',
+            price: { monthly: 2997.00, annual: 2997.00 },
+            description: 'Lifetime Executive Access',
             features: [
-                'Everything in Site Command',
-                'Dedicated account manager',
-                'Custom training sessions',
-                'White-glove onboarding',
-                'Custom integrations',
-                'Volume discounts',
+                'Lifetime Platform Access',
+                'Private Neural Model',
+                'Direct Founder Uplink',
+                'Legal Defense Fund Access',
+                'VIP In-Person Summit',
             ],
-            cta: 'Contact Protocol',
-            link: '/contact',
+            cta: 'Secure Vault',
+            link: '/vault-access',
             popular: false,
             icon: Crown,
         },
@@ -268,8 +265,8 @@ export default function PremiumPricingTable() {
                                     <th className="text-left py-4 px-4 text-purple-300 font-semibold">Feature</th>
                                     <th className="text-center py-4 px-4 text-purple-300 font-semibold">Initiate</th>
                                     <th className="text-center py-4 px-4 text-purple-300 font-semibold">Practitioner</th>
-                                    <th className="text-center py-4 px-4 text-purple-300 font-semibold">Site Command</th>
-                                    <th className="text-center py-4 px-4 text-purple-300 font-semibold">District</th>
+                                    <th className="text-center py-4 px-4 text-purple-300 font-semibold">Enterprise Hub</th>
+                                    <th className="text-center py-4 px-4 text-purple-300 font-semibold">Sovereign Vault</th>
                                 </tr>
                             </thead>
                             <tbody className="text-purple-200">

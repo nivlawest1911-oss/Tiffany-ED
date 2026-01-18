@@ -19,6 +19,42 @@ interface HolographicBriefingProps {
 }
 
 // Generative Visualizer Component
+function StreamColumn({ primaryColor, secondaryColor }: { primaryColor: string, secondaryColor: string }) {
+    const [duration, setDuration] = useState(3);
+    const [rows, setRows] = useState<Array<{ text: string, gradient: string }>>([]);
+
+    useEffect(() => {
+        setDuration(2 + Math.random() * 3);
+        setRows(Array(10).fill(0).map(() => ({
+            text: Math.random().toString(36).substring(7),
+            gradient: `linear-gradient(to bottom, ${Math.random() > 0.5 ? primaryColor : secondaryColor}00, ${Math.random() > 0.5 ? primaryColor : secondaryColor}40)`
+        })));
+    }, [primaryColor, secondaryColor]);
+
+    return (
+        <motion.div
+            className="w-8 flex flex-col gap-2"
+            animate={{ y: [0, -100] }}
+            transition={{
+                repeat: Infinity,
+                duration: duration,
+                ease: "linear"
+            }}
+        >
+            {rows.map((row, j) => (
+                <div
+                    key={j}
+                    className="h-12 w-full rounded pixelated text-[8px] font-mono leading-none overflow-hidden text-transparent"
+                    style={{ background: row.gradient }}
+                >
+                    {row.text}
+                </div>
+            ))}
+        </motion.div>
+    );
+}
+
+// Generative Visualizer Component
 function GenerativeDataStream({ theme }: { theme: 'default' | 'sovereign' }) {
     const primaryColor = theme === 'sovereign' ? '#d97706' : '#6366f1';
     const secondaryColor = theme === 'sovereign' ? '#7c3aed' : '#ec4899';
@@ -31,28 +67,7 @@ function GenerativeDataStream({ theme }: { theme: 'default' | 'sovereign' }) {
             {/* Abstract Data Columns */}
             <div className="flex gap-4 opacity-30 transform -skew-x-12 scale-110">
                 {[...Array(12)].map((_, i) => (
-                    <motion.div
-                        key={i}
-                        className="w-8 flex flex-col gap-2"
-                        animate={{ y: [0, -100] }}
-                        transition={{
-                            repeat: Infinity,
-                            duration: 2 + Math.random() * 3,
-                            ease: "linear"
-                        }}
-                    >
-                        {[...Array(10)].map((_, j) => (
-                            <div
-                                key={j}
-                                className="h-12 w-full rounded pixelated text-[8px] font-mono leading-none overflow-hidden text-transparent"
-                                style={{
-                                    background: `linear-gradient(to bottom, ${Math.random() > 0.5 ? primaryColor : secondaryColor}00, ${Math.random() > 0.5 ? primaryColor : secondaryColor}40)`
-                                }}
-                            >
-                                {Math.random().toString(36).substring(7)}
-                            </div>
-                        ))}
-                    </motion.div>
+                    <StreamColumn key={i} primaryColor={primaryColor} secondaryColor={secondaryColor} />
                 ))}
             </div>
 
@@ -108,9 +123,23 @@ export default function HolographicBriefing({
 
             // Attempt to find a "Sovereign" voice
             const voices = window.speechSynthesis.getVoices();
-            const preferredVoice = voices.find(v =>
-                (v.name.includes('Google US English') || v.name.includes('Samantha')) && v.lang.startsWith('en')
-            );
+
+            // Heuristic for gender based on role/title if not explicit
+            // Defaulting to "Sovereign Guide" (Male usually for Dr. West) or check props
+            const isMale = role.toLowerCase().includes('principal') || role.toLowerCase().includes('executive') || title.toLowerCase().includes('finance');
+
+            let preferredVoice;
+            if (isMale) {
+                preferredVoice = voices.find(v =>
+                    (v.name.includes('Male') || v.name.includes('Guy') || v.name.includes('David') || v.name.includes('Google US English'))
+                    && v.lang.startsWith('en')
+                );
+            } else {
+                preferredVoice = voices.find(v =>
+                    (v.name.includes('Female') || v.name.includes('Samantha') || v.name.includes('Zira') || v.name.includes('Google US English'))
+                    && v.lang.startsWith('en')
+                );
+            }
             if (preferredVoice) utterance.voice = preferredVoice;
 
             utterance.rate = 1.05; // Slightly faster for efficiency
@@ -130,6 +159,24 @@ export default function HolographicBriefing({
         }
         setIsSpeaking(false);
     };
+
+    function NeuralMouthPulse({ index }: { index: number }) {
+        return (
+            <motion.div
+                className={`w-1 rounded-full ${theme === 'sovereign' ? 'bg-amber-400/30' : 'bg-indigo-400/30'} blur-[1px]`}
+                animate={{
+                    height: [2, Math.random() * 24 + 4, 2],
+                    opacity: [0.2, 0.5, 0.2]
+                }}
+                transition={{
+                    repeat: Infinity,
+                    duration: 0.1 + (Math.random() * 0.15),
+                    delay: index * 0.02,
+                    ease: "easeInOut"
+                }}
+            />
+        );
+    }
 
     // Simulated progress bar while speaking
     useEffect(() => {
@@ -251,11 +298,33 @@ export default function HolographicBriefing({
                             <div className="flex-1 flex flex-col items-center justify-center p-8 relative">
                                 <div className={`relative w-32 h-32 rounded-full p-1 bg-gradient-to-br ${gradientBg} mb-6 shadow-2xl ${theme === 'sovereign' ? 'shadow-amber-500/30' : 'shadow-indigo-500/30'}`}>
                                     <div className="w-full h-full rounded-full overflow-hidden border-2 border-black bg-black z-10 relative">
-                                        <img
+                                        <motion.img
                                             src={avatarImage}
                                             alt={role}
-                                            className={`w-full h-full object-cover transition-transform duration-700 ${isSpeaking ? 'scale-110' : 'scale-100'}`}
+                                            className="w-full h-full object-cover"
+                                            animate={isSpeaking ? {
+                                                x: [0, -4, 4, -2, 0],
+                                                y: [0, -1, 1, -0.5, 0],
+                                                rotate: [0, -1, 1, -0.5, 0],
+                                                scale: [1, 1.04, 1.02, 1.04, 1]
+                                            } : {}}
+                                            transition={isSpeaking ? {
+                                                duration: 4,
+                                                repeat: Infinity,
+                                                ease: "easeInOut"
+                                            } : {
+                                                duration: 2,
+                                                repeat: Infinity,
+                                                ease: "easeInOut"
+                                            }}
                                         />
+                                        {isSpeaking && (
+                                            <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px] flex items-center justify-center gap-1">
+                                                {[...Array(8)].map((_, i) => (
+                                                    <NeuralMouthPulse key={i} index={i} />
+                                                ))}
+                                            </div>
+                                        )}
                                         {/* Holographic Scanline Overlay */}
                                         <div className={`absolute inset-0 bg-gradient-to-b from-transparent ${theme === 'sovereign' ? 'via-amber-500/20' : 'via-indigo-500/20'} to-transparent w-full h-full animate-[scan_2s_linear_infinite] pointer-events-none`} />
                                     </div>

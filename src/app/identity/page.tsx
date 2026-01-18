@@ -8,7 +8,7 @@ import Footer from '@/components/Footer';
 import VideoPlayer from '@/components/VideoPlayer';
 import VoiceIdentityComponent from '@/components/VoiceIdentity';
 import useSovereignSounds from '@/hooks/useSovereignSounds';
-import { ArrowRight, Shield, Award, Users, Brain } from 'lucide-react';
+import { ArrowRight, Shield as LucideShield, Award, Users, Brain } from 'lucide-react';
 import Link from 'next/link';
 
 export default function IdentityPage() {
@@ -65,7 +65,7 @@ export default function IdentityPage() {
                         animate={{ opacity: 1, y: 0 }}
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8"
                     >
-                        <Shield className="w-4 h-4 text-indigo-400" />
+                        <LucideShield className="w-4 h-4 text-indigo-400" />
                         <span className="text-sm font-medium text-indigo-200">The Sovereign Council</span>
                     </motion.div>
 
@@ -142,7 +142,7 @@ export default function IdentityPage() {
                     <h2 className="text-3xl md:text-5xl font-bold mb-16">The Sovereign Code</h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {[
-                            { title: "Privacy First", desc: "FERPA, COPPA, and CSPC compliant by design.", icon: Shield },
+                            { title: "Privacy First", desc: "FERPA, COPPA, and CSPC compliant by design.", icon: LucideShield },
                             { title: "Empowerment", desc: "Tools that amplify human capability, not replace it.", icon: Award },
                             { title: "Innovation", desc: "Cutting-edge AI tailored for the classroom.", icon: Brain }
                         ].map((item, i) => (

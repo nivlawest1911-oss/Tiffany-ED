@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Shield, Fingerprint, Key, CheckCircle, Lock, Unlock } from "lucide-react"
+import { Shield as LucideShield, Fingerprint, Key, CheckCircle, Lock, Unlock } from "lucide-react"
 
 export function SovereignIdentity() {
   const [securityLevel, setSecurityLevel] = useState(3)
@@ -11,7 +11,7 @@ export function SovereignIdentity() {
     { name: "Password Strength", status: "strong", icon: Key },
     { name: "Two-Factor Auth", status: twoFactorEnabled ? "enabled" : "disabled", icon: Fingerprint },
     { name: "Session Security", status: "active", icon: Lock },
-    { name: "API Access", status: "restricted", icon: Shield },
+    { name: "API Access", status: "restricted", icon: LucideShield },
   ]
 
   return (
@@ -72,7 +72,7 @@ export function SovereignIdentity() {
           <div className="glass-card-emerald p-8 rounded-2xl">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-16 h-16 rounded-2xl bg-[#00d2ff]/20 flex items-center justify-center">
-                <Shield className="w-8 h-8 text-[#00d2ff]" />
+                <LucideShield className="w-8 h-8 text-[#00d2ff]" />
               </div>
               <div>
                 <h3 className="font-black tracking-tighter text-xl text-white">SOVEREIGN NODE</h3>

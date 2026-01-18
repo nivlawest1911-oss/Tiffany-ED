@@ -1,5 +1,6 @@
 'use client';
 import { AlertCircle, FileText, Clock } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface LegislativeAlert {
     id: string;
@@ -8,6 +9,16 @@ interface LegislativeAlert {
     status: 'active' | 'pending' | 'passed';
     deadline: string;
     priority: 'critical' | 'high' | 'medium';
+}
+
+import { useState, useEffect } from 'react';
+
+function CurrentDate() {
+    const [date, setDate] = useState("");
+    useEffect(() => {
+        setDate(new Date().toLocaleDateString());
+    }, []);
+    return <>{date}</>;
 }
 
 export default function ExecutiveDashboard() {
@@ -47,20 +58,30 @@ export default function ExecutiveDashboard() {
     };
 
     return (
-        <div className="p-6 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
-            <div className="flex items-center justify-between mb-4">
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            whileHover={{ scale: 1.02 }}
+            className="p-6 rounded-3xl glass-card-premium border border-zinc-200 dark:border-zinc-800 relative overflow-hidden group"
+        >
+            <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+
+            <div className="flex items-center justify-between mb-4 relative z-10">
                 <div className="flex items-center gap-2">
-                    <AlertCircle className="text-red-500" size={20} />
-                    <h3 className="font-bold uppercase tracking-widest text-sm">Morning Intel</h3>
+                    <div className="relative">
+                        <AlertCircle className="text-red-500 relative z-10" size={20} />
+                        <div className="absolute inset-0 bg-red-500 blur-md animate-pulse opacity-50" />
+                    </div>
+                    <h3 className="font-bold uppercase tracking-widest text-sm text-red-500">Morning Intel</h3>
                 </div>
-                <span className="text-xs text-zinc-400 font-mono">{new Date().toLocaleDateString()}</span>
+                <span className="text-xs text-zinc-400 font-mono"><CurrentDate /></span>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-3 relative z-10">
                 {alerts.map((alert) => (
                     <div
                         key={alert.id}
-                        className={`p-3 rounded-xl border ${getPriorityColor(alert.priority)}`}
+                        className={`p-3 rounded-xl border ${getPriorityColor(alert.priority)} backdrop-blur-md transition-transform hover:translate-x-1`}
                     >
                         <div className="flex items-start justify-between mb-2">
                             <div className="flex items-center gap-2">
@@ -72,7 +93,7 @@ export default function ExecutiveDashboard() {
                             </span>
                         </div>
                         <p className="text-xs mb-2 leading-relaxed">{alert.title}</p>
-                        <div className="flex items-center gap-1 text-xs">
+                        <div className="flex items-center gap-1 text-xs opacity-80">
                             <Clock size={12} />
                             <span>Deadline: {alert.deadline}</span>
                         </div>
@@ -80,16 +101,16 @@ export default function ExecutiveDashboard() {
                 ))}
             </div>
 
-            <div className="mt-4 pt-4 border-t border-zinc-200 dark:border-zinc-800">
+            <div className="mt-4 pt-4 border-t border-zinc-200 dark:border-zinc-800 relative z-10">
                 <a
                     href="https://alison.legislature.state.al.us/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block w-full py-2 px-4 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors text-center"
+                    className="block w-full py-3 px-4 bg-gradient-to-r from-red-600 to-red-800 text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:brightness-110 transition-all text-center shadow-lg shadow-red-900/20"
                 >
-                    View Full Legislative Calendar
+                    View Legislative Calendar
                 </a>
             </div>
-        </div>
+        </motion.div>
     );
 }

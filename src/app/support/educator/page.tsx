@@ -1,6 +1,6 @@
 'use client';
 
-import { Users, UserPlus, Settings, MessageSquare, BarChart3, Database, Shield, FileText, ChevronRight, Search } from 'lucide-react';
+import { Users, UserPlus, Settings, MessageSquare, BarChart3, Database, Shield as LucideShield, FileText, ChevronRight, Search } from 'lucide-react';
 import React from 'react';
 import Link from 'next/link';
 
@@ -36,7 +36,7 @@ export default function EducatorHubProtocol() {
             desc: "Safely archiving or removing student accounts from the district grid.",
             views: "4.2k",
             date: "Dec 12, 2025",
-            icon: <Shield size={20} className="text-red-500" />
+            icon: <LucideShield size={20} className="text-red-500" />
         },
         {
             id: 5,

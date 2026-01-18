@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Shield, Award, Link2, Download, Share2, CheckCircle, Lock } from "lucide-react"
+import { BadgeCheck, Award, Link2, Download, Share2, CheckCircle, Lock, Eye } from "lucide-react"
 
 interface Credential {
     id: string
@@ -47,7 +47,7 @@ export function BlockchainCredentials() {
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-12">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/30 text-[#d4af37] text-sm mb-4 float-animation">
-                        <Shield className="w-4 h-4" />
+                        <BadgeCheck className="w-4 h-4" />
                         BLOCKCHAIN VERIFIED
                     </div>
                     <h2 className="font-black tracking-tighter text-4xl md:text-6xl text-white mb-4">
@@ -124,7 +124,7 @@ export function BlockchainCredentials() {
                                     Share on LinkedIn
                                 </button>
                                 <button className="px-4 py-2 bg-white/5 border border-white/10 text-gray-400 rounded-lg hover:bg-white/10 transition-all">
-                                    <Shield className="w-4 h-4" />
+                                    <Eye className="w-4 h-4" />
                                 </button>
                             </div>
                         </div>
@@ -135,7 +135,7 @@ export function BlockchainCredentials() {
                 <div className="mt-12 glass-card-gold p-8 rounded-3xl">
                     <div className="flex items-start gap-6">
                         <div className="w-16 h-16 rounded-2xl bg-[#d4af37]/20 flex items-center justify-center flex-shrink-0">
-                            <Shield className="w-8 h-8 text-[#d4af37]" />
+                            <BadgeCheck className="w-8 h-8 text-[#d4af37]" />
                         </div>
                         <div className="flex-1">
                             <h3 className="font-bold text-2xl text-white mb-3">How Blockchain Verification Works</h3>

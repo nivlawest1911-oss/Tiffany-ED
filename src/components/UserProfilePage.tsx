@@ -4,9 +4,9 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
     User, Mail, MapPin, Calendar, Edit, Save, X, Upload, Bell,
-    Shield, CreditCard, Clock, FileText, Award, TrendingUp, Download,
+    Shield as LucideShield, CreditCard, Clock, FileText, Award, TrendingUp, Download,
     Sparkles, CheckCircle
-} from 'lucide-react';
+} from "lucide-react";
 
 export default function UserProfilePage() {
     const [activeTab, setActiveTab] = useState<'overview' | 'activity' | 'settings' | 'billing'>('overview');

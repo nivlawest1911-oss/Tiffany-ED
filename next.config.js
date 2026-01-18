@@ -4,6 +4,8 @@ const nextConfig = {
     typescript: {
         ignoreBuildErrors: true,
     },
+    // Empty turbopack config disables it and uses Webpack
+    turbopack: {},
     // DO NOT add the eslint block here. It is gone in v16.
 };
 

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Shield, Mail, MapPin, Twitter, Facebook, Linkedin, Github, Phone, MessageSquare, Video } from 'lucide-react';
+import { Crown, Mail, MapPin, Twitter, Facebook, Linkedin, Github, Phone, MessageSquare, Video } from 'lucide-react';
 import EdIntelLogo from './EdIntelLogo';
 import HolographicBriefing from './HolographicBriefing';
 
@@ -71,7 +71,7 @@ export default function Footer() {
                         <h3 className="text-white font-bold mb-6">Contact Command</h3>
                         <ul className="space-y-4">
                             <li className="flex items-start gap-3">
-                                <span className="p-1 rounded bg-indigo-500/10 text-indigo-400 mt-0.5"><Shield size={14} /></span>
+                                <span className="p-1 rounded bg-indigo-500/10 text-indigo-400 mt-0.5"><Crown size={14} /></span>
                                 <div>
                                     <p className="text-white text-sm font-medium">Dr. Alvin West</p>
                                     <p className="text-zinc-500 text-xs">Founder & Architect</p>

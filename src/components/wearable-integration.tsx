@@ -12,6 +12,21 @@ interface WearableData {
     sleepQuality: number
 }
 
+function MetricBar() {
+    const [height, setHeight] = useState('30%');
+
+    useEffect(() => {
+        setHeight(`${30 + Math.random() * 70}%`);
+    }, []);
+
+    return (
+        <div
+            className="flex-1 bg-gradient-to-t from-red-500/50 to-red-400 rounded-t transition-all duration-300"
+            style={{ height }}
+        />
+    );
+}
+
 export function WearableIntegration() {
     const [isConnected, setIsConnected] = useState(false)
     const [wearableData, setWearableData] = useState<WearableData>({
@@ -153,11 +168,7 @@ export function WearableIntegration() {
                             </div>
                             <div className="h-16 flex items-end gap-1">
                                 {Array.from({ length: 20 }).map((_, i) => (
-                                    <div
-                                        key={i}
-                                        className="flex-1 bg-gradient-to-t from-red-500/50 to-red-400 rounded-t transition-all duration-300"
-                                        style={{ height: `${30 + Math.random() * 70}%` }}
-                                    />
+                                    <MetricBar key={i} />
                                 ))}
                             </div>
                         </div>
@@ -187,7 +198,7 @@ export function WearableIntegration() {
                             <div className="w-full bg-black/30 rounded-full h-3 overflow-hidden">
                                 <div
                                     className={`h-full rounded-full transition-all duration-500 ${wearableData.stressLevel < 30 ? 'bg-emerald-500' :
-                                            wearableData.stressLevel < 60 ? 'bg-amber-500' : 'bg-red-500'
+                                        wearableData.stressLevel < 60 ? 'bg-amber-500' : 'bg-red-500'
                                         }`}
                                     style={{ width: `${wearableData.stressLevel}%` }}
                                 />

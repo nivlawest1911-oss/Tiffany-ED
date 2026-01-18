@@ -2,13 +2,13 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Shield, Brain, Zap, Target, Users, Key, Clock, Award, CheckCircle, ArrowRight } from 'lucide-react';
+import { Shield as LucideShield, Brain, Zap, Target, Users, Key, Clock, Award, CheckCircle, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
 import FloatingNavbar from '@/components/FloatingNavbar';
 import CircadianFilter from '@/components/graphics/CircadianFilter';
 import HolographicBriefing from '@/components/HolographicBriefing';
-import { SovereignFounderProfile } from '@/components/founder-dossier';
+import { FounderDossier } from '@/components/founder-dossier';
 
 export default function AboutPage() {
     const [showBriefing, setShowBriefing] = useState(false);
@@ -30,7 +30,7 @@ export default function AboutPage() {
                         animate={{ opacity: 1, y: 0 }}
                         className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-black uppercase tracking-[0.2em] mb-8 backdrop-blur-md shadow-[0_0_20px_rgba(99,102,241,0.2)]"
                     >
-                        <Shield size={12} /> The Sovereign Protocol
+                        <LucideShield size={12} /> Our Mission
                     </motion.div>
 
                     <motion.h1
@@ -39,7 +39,7 @@ export default function AboutPage() {
                         className="text-5xl md:text-8xl font-black text-white tracking-tighter uppercase mb-8 leading-[0.9]"
                     >
                         We Do Not Just <span className="text-zinc-500">Build Software.</span><br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-300 to-indigo-400 animate-gradient-x">We Build Sovereignty.</span>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-300 to-indigo-400 animate-gradient-x">We Empower Educators.</span>
                     </motion.h1>
 
                     <motion.p
@@ -55,7 +55,7 @@ export default function AboutPage() {
             </div>
 
             {/* 2. The Architect: Dr. Alvin West - Enhanced Layout */}
-            <SovereignFounderProfile />
+            <FounderDossier />
 
             {/* 3. The Philosophy: Sovereign Pillars - Glass Cards */}
             <section className="py-32 px-6 relative bg-black">
@@ -76,7 +76,7 @@ export default function AboutPage() {
                                 color: "from-indigo-500 to-blue-500"
                             },
                             {
-                                icon: Shield,
+                                icon: LucideShield,
                                 title: "Legal Ironclad",
                                 desc: "Every output is FERPA-compliant and audit-ready. We protect you from liability.",
                                 color: "from-emerald-500 to-cyan-500"
@@ -89,8 +89,8 @@ export default function AboutPage() {
                             },
                             {
                                 icon: Zap,
-                                title: "Speed as a Weapon",
-                                desc: "What took days now takes seconds. Speed is not just convenience; it is power.",
+                                title: "Efficiency & Speed",
+                                desc: "What took days now takes seconds. Reclaim your time to focus on student outcomes.",
                                 color: "from-orange-500 to-red-500"
                             }
                         ].map((pillar, i) => (
@@ -173,7 +173,7 @@ export default function AboutPage() {
                         Stop Managing.<br /> Start <span className="text-indigo-400">Leading.</span>
                     </h2>
                     <p className="text-2xl text-zinc-400 mb-12 max-w-2xl mx-auto font-light">
-                        The protocol is ready. The sovereign network is active. Your node is waiting to be initialized.
+                        The platform is ready. The community is active. Your dashboard is waiting to be initialized.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
                         <Link href="/the-room" className="group">

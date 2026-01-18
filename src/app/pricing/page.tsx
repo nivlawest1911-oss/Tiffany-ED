@@ -1,7 +1,7 @@
 'use client';
 import PricingMatrix from '@/components/bento/PricingMatrix';
 import CircadianFilter from '@/components/graphics/CircadianFilter';
-import { Shield, ArrowLeft } from 'lucide-react';
+import { Shield as LucideShield, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
 export default function PricingPage() {
@@ -19,7 +19,7 @@ export default function PricingPage() {
 
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-              <Shield className="text-white" size={14} />
+              <LucideShield className="text-white" size={14} />
             </div>
             <span className="text-sm font-black tracking-tight uppercase">EdIntel Sovereign</span>
           </div>

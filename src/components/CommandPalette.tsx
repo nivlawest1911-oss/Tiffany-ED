@@ -27,8 +27,8 @@ interface Command {
     category: 'generator' | 'navigation' | 'action' | 'recent';
 }
 
-export default function CommandPalette() {
-    const [isOpen, setIsOpen] = useState(false);
+export default function CommandPalette({ onClose }: { onClose?: () => void }) {
+    const [isOpen, setIsOpen] = useState(onClose ? true : false);
     const [search, setSearch] = useState('');
     const [selectedIndex, setSelectedIndex] = useState(0);
     const router = useRouter();
@@ -104,6 +104,7 @@ export default function CommandPalette() {
             // Escape to close
             if (e.key === 'Escape') {
                 setIsOpen(false);
+                onClose?.();
                 setSearch('');
             }
 
@@ -183,7 +184,10 @@ export default function CommandPalette() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            onClick={() => setIsOpen(false)}
+                            onClick={() => {
+                                setIsOpen(false);
+                                onClose?.();
+                            }}
                             className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
                         />
 
@@ -206,9 +210,15 @@ export default function CommandPalette() {
                                         autoFocus
                                         className="flex-1 bg-transparent text-white placeholder-gray-400 outline-none text-lg"
                                     />
-                                    <kbd className="px-2 py-1 text-xs bg-purple-500/20 text-purple-300 rounded">
+                                    <button
+                                        onClick={() => {
+                                            setIsOpen(false);
+                                            onClose?.();
+                                        }}
+                                        className="px-2 py-1 text-xs bg-purple-500/20 text-purple-300 rounded hover:bg-purple-500/40"
+                                    >
                                         ESC
-                                    </kbd>
+                                    </button>
                                 </div>
 
                                 {/* Commands List */}

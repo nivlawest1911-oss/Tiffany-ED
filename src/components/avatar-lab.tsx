@@ -9,7 +9,6 @@ const avatarStyles = [
   { id: "educator", name: "Educator", description: "Warm and approachable", emoji: "📚" },
   { id: "leader", name: "Leader", description: "Confident and inspiring", emoji: "🎯" },
   { id: "creative", name: "Creative", description: "Artistic and expressive", emoji: "🎨" },
-  { id: "afrofuturist", name: "Afrofuturist", description: "Sovereign and visionary", emoji: "🌌" },
 ]
 
 const skinTones = [
@@ -29,13 +28,49 @@ const colorSchemes = [
   { id: "kente", colors: ["#d4af37", "#228b22", "#dc143c"], name: "Kente" },
 ]
 
+const accessories = [
+  { id: "none", name: "None" },
+  { id: "glasses", name: "Glasses" },
+  { id: "headwrap", name: "Headwrap" },
+  { id: "earrings", name: "Earrings" },
+  { id: "necklace", name: "Necklace" },
+]
+
+function ParticleBackground() {
+  const [particles, setParticles] = useState<Array<{ left: number, top: number, delay: number }>>([]);
+
+  useEffect(() => {
+    setParticles(Array.from({ length: 20 }, () => ({
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      delay: Math.random() * 5
+    })));
+  }, []);
+
+  return (
+    <>
+      {particles.map((p, i) => (
+        <div
+          key={i}
+          className="absolute w-2 h-2 rounded-full bg-[#00d2ff]/20 particle"
+          style={{
+            left: `${p.left}%`,
+            top: `${p.top}%`,
+            animationDelay: `${p.delay}s`,
+          }}
+        />
+      ))}
+    </>
+  );
+}
+
 export function AvatarLab() {
   const [selectedStyle, setSelectedStyle] = useState("professional")
   const [selectedScheme, setSelectedScheme] = useState("sovereign")
   const [selectedTone, setSelectedTone] = useState("tone1")
+  const [selectedAccessory, setSelectedAccessory] = useState("none")
   const [isGenerating, setIsGenerating] = useState(false)
   const [avatarGenerated, setAvatarGenerated] = useState(false)
-  const [isHyperReal, setIsHyperReal] = useState(false)
   const [rotation, setRotation] = useState(0)
 
   // Holographic rotation effect
@@ -51,7 +86,7 @@ export function AvatarLab() {
     setTimeout(() => {
       setIsGenerating(false)
       setAvatarGenerated(true)
-    }, 3500)
+    }, 2500)
   }
 
   const selectedToneData = skinTones.find((t) => t.id === selectedTone)
@@ -61,17 +96,7 @@ export function AvatarLab() {
     <section id="avatar-lab" className="px-4 md:px-8 py-16 md:py-24 relative overflow-hidden">
       {/* Animated background particles */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-2 h-2 rounded-full bg-[#00d2ff]/20 particle"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-            }}
-          />
-        ))}
+        <ParticleBackground />
       </div>
 
       <div className="max-w-6xl mx-auto relative">
@@ -98,20 +123,7 @@ export function AvatarLab() {
               }}
             />
 
-            <div className="relative z-10 w-full flex flex-col items-center">
-
-              {/* Hyper-Real Toggle */}
-              <button
-                onClick={() => setIsHyperReal(!isHyperReal)}
-                className={`mb-6 px-4 py-1.5 rounded-full border text-xs font-bold tracking-wider transition-all flex items-center gap-2 ${isHyperReal
-                    ? "bg-[#d4af37]/20 border-[#d4af37] text-[#d4af37] shadow-[0_0_15px_rgba(212,175,55,0.3)]"
-                    : "bg-white/5 border-white/10 text-gray-500 hover:border-white/30"
-                  }`}
-              >
-                <Sparkles className="w-3 h-3" />
-                {isHyperReal ? "HYPER-REALISTIC MODE ACTIVE" : "ENABLE HYPER-REALISM"}
-              </button>
-
+            <div className="relative z-10">
               <div className="relative">
                 {/* Outer glow ring */}
                 <div
@@ -129,23 +141,16 @@ export function AvatarLab() {
                   style={{
                     borderColor: selectedSchemeData?.colors[0],
                     backgroundColor: avatarGenerated ? selectedToneData?.color : "rgba(255,255,255,0.1)",
-                    boxShadow: isHyperReal ? `0 0 50px ${selectedSchemeData?.colors[0]}40` : 'none'
                   }}
                 >
                   {isGenerating ? (
                     <div className="flex flex-col items-center gap-3">
                       <RefreshCw className="w-16 h-16 text-[#00d2ff] animate-spin" />
-                      <span className="text-sm text-gray-400">Rendering {isHyperReal ? "4K" : "Preview"}...</span>
+                      <span className="text-sm text-gray-400">Generating...</span>
                     </div>
                   ) : avatarGenerated ? (
-                    <div className="relative w-full h-full group">
-                      <Image
-                        src="/professional-african-american-educator-avatar-port.jpg"
-                        alt="Generated Avatar"
-                        fill
-                        className={`object-cover transition-all duration-700 ${isHyperReal ? 'contrast-125 saturate-110' : ''}`}
-                      />
-                      {!isHyperReal && <div className="absolute inset-0 bg-black/10 opacity-20 pointer-events-none" />}
+                    <div className="relative w-full h-full">
+                      <Image src="/professional-african-american-educator-avatar-port.jpg" alt="Generated Avatar" fill className="object-cover" />
                     </div>
                   ) : (
                     <User className="w-20 h-20 text-[#00d2ff]" />
@@ -194,8 +199,8 @@ export function AvatarLab() {
                     key={style.id}
                     onClick={() => setSelectedStyle(style.id)}
                     className={`p-4 rounded-xl text-left transition-all touch-target ${selectedStyle === style.id
-                        ? "bg-[#00d2ff]/20 border-2 border-[#00d2ff]"
-                        : "bg-white/5 border-2 border-transparent hover:bg-white/10"
+                      ? "bg-[#00d2ff]/20 border-2 border-[#00d2ff]"
+                      : "bg-white/5 border-2 border-transparent hover:bg-white/10"
                       }`}
                   >
                     <span className="text-2xl mb-2 block">{style.emoji}</span>
@@ -218,8 +223,8 @@ export function AvatarLab() {
                     key={tone.id}
                     onClick={() => setSelectedTone(tone.id)}
                     className={`w-12 h-12 rounded-full transition-all touch-target ${selectedTone === tone.id
-                        ? "ring-4 ring-white ring-offset-2 ring-offset-black scale-110"
-                        : "hover:scale-105"
+                      ? "ring-4 ring-white ring-offset-2 ring-offset-black scale-110"
+                      : "hover:scale-105"
                       }`}
                     style={{ backgroundColor: tone.color }}
                     title={tone.name}
@@ -241,8 +246,8 @@ export function AvatarLab() {
                     key={scheme.id}
                     onClick={() => setSelectedScheme(scheme.id)}
                     className={`flex items-center gap-2 px-4 py-3 rounded-xl transition-all touch-target ${selectedScheme === scheme.id
-                        ? "bg-white/10 border-2 border-white/30 scale-105"
-                        : "bg-white/5 border-2 border-transparent hover:bg-white/10"
+                      ? "bg-white/10 border-2 border-white/30 scale-105"
+                      : "bg-white/5 border-2 border-transparent hover:bg-white/10"
                       }`}
                   >
                     <div className="flex -space-x-1">
@@ -269,7 +274,7 @@ export function AvatarLab() {
               {isGenerating ? (
                 <>
                   <RefreshCw className="w-5 h-5 animate-spin" />
-                  Creating Your {isHyperReal ? "Hyper-Real" : "Sovereign"} Identity...
+                  Creating Your Identity...
                 </>
               ) : (
                 <>

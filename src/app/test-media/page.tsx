@@ -3,7 +3,7 @@
 
 import FloatingNavbar from '@/components/FloatingNavbar';
 import Footer from '@/components/Footer';
-import { Shield, Sparkles } from 'lucide-react';
+import { Shield as LucideShield, Sparkles } from "lucide-react";
 
 export default function TestMediaPage() {
     const avatars = [
@@ -27,7 +27,7 @@ export default function TestMediaPage() {
                 {/* Header */}
                 <div className="text-center mb-16">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-bold uppercase tracking-widest mb-6">
-                        <Shield size={14} />
+                        <LucideShield size={14} />
                         <span>Sovereign Delegates</span>
                     </div>
                     <h1 className="text-5xl md:text-6xl font-black text-white mb-6 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">

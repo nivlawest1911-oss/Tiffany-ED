@@ -2,7 +2,9 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Mic, Activity, Globe, Shield, Cpu, Lock } from 'lucide-react';
+import { Mic, Activity, Globe, Shield as LucideShield, Cpu, Lock } from "lucide-react";
+import { generateSovereignResponse } from '../lib/sovereign-ai';
+import GenerativeLogStream from './GenerativeLogStream';
 
 interface LiveBriefingConsoleProps {
     name: string;
@@ -11,21 +13,18 @@ interface LiveBriefingConsoleProps {
     color: string;
     prompts: string[];
     onComplete?: () => void;
+    videoSrc?: string;
+    avatarImage?: string;
 }
 
-export default function LiveBriefingConsole({ name, description, role, color, prompts, onComplete, videoSrc, avatarImage }: LiveBriefingConsoleProps & { videoSrc?: string, avatarImage?: string }) {
+export default function LiveBriefingConsole({ name, description, role, color, prompts, onComplete, videoSrc, avatarImage }: LiveBriefingConsoleProps) {
     const [text, setText] = useState('');
     const [isSpeaking, setIsSpeaking] = useState(false);
     const hasStartedRef = useRef(false);
     const videoRef = useRef<HTMLVideoElement>(null);
     const userVideoRef = useRef<HTMLVideoElement>(null);
-
-    // Dynamic Script Generation
-    const fullScript = `Sovereign Protocol Initiated. Target: ${name}. 
-    
-    Objective: ${description} 
-    
-    I am configured as your ${role}. My neural pathways are optimized to assist you. Awaiting your directives, Executive.`;
+    const [currentScript, setCurrentScript] = useState(`Sovereign Protocol Initiated. Target: ${name}. \n\nObjective: ${description} \n\nI am configured as your ${role}. My neural pathways are optimized to assist you. Awaiting your directives, Executive.`);
+    const [logType, setLogType] = useState<'IEP' | 'GRANT' | 'DATA' | 'POLICY' | 'DEFAULT'>('DEFAULT');
 
     // 1. Initialize User Webcam (Secure Uplink)
     useEffect(() => {
@@ -52,29 +51,31 @@ export default function LiveBriefingConsole({ name, description, role, color, pr
 
     // 2. Typing & Speaking Logic
     useEffect(() => {
-        if (hasStartedRef.current) return;
-        hasStartedRef.current = true;
-
+        // Reset state for new script
         let charIndex = 0;
         setIsSpeaking(true);
-        if (videoRef.current) videoRef.current.currentTime = 0; // Reset video
+        setText('');
+
+        window.speechSynthesis.cancel();
+
+        if (videoRef.current) videoRef.current.currentTime = 0;
         if (videoRef.current) videoRef.current.play().catch(e => console.log("Autoplay blocked", e));
 
         // Text Typing Effect
         const typeInterval = setInterval(() => {
-            if (charIndex < fullScript.length) {
-                setText(fullScript.slice(0, charIndex + 1));
+            if (charIndex < currentScript.length) {
+                setText(currentScript.slice(0, charIndex + 1));
                 charIndex++;
             } else {
                 clearInterval(typeInterval);
                 setIsSpeaking(false);
-                if (videoRef.current) videoRef.current.pause(); // Stop moving when done speaking
+                if (videoRef.current) videoRef.current.pause();
                 if (onComplete) onComplete();
             }
-        }, 40);
+        }, 30);
 
         // Speech Synthesis
-        const utterance = new SpeechSynthesisUtterance(fullScript);
+        const utterance = new SpeechSynthesisUtterance(currentScript);
         utterance.rate = 1.0;
         utterance.pitch = 1.05;
 
@@ -84,19 +85,42 @@ export default function LiveBriefingConsole({ name, description, role, color, pr
 
         utterance.onend = () => {
             setIsSpeaking(false);
-            if (videoRef.current) videoRef.current.pause(); // Ensure stop
+            if (videoRef.current) videoRef.current.pause();
         };
 
-        window.speechSynthesis.cancel();
-        setTimeout(() => {
+        // Small delay to sync with text start
+        const speechTimeout = setTimeout(() => {
             window.speechSynthesis.speak(utterance);
         }, 500);
 
         return () => {
             window.speechSynthesis.cancel();
             clearInterval(typeInterval);
+            clearTimeout(speechTimeout);
         };
-    }, [fullScript, onComplete]);
+    }, [currentScript]);
+
+    const handlePromptClick = async (prompt: string) => {
+        setIsSpeaking(true);
+        setText("Analyzing Request...");
+
+        // Determine Log Type
+        if (prompt.includes("Data")) setLogType('DATA');
+        else if (prompt.includes("Policy")) setLogType('POLICY');
+        else if (prompt.includes("Protocol") || prompt.includes("IEP")) setLogType('IEP');
+        else if (prompt.includes("Grant") || prompt.includes("Funding")) setLogType('GRANT');
+        else setLogType('DEFAULT');
+
+        window.speechSynthesis.cancel();
+
+        try {
+            const response = await generateSovereignResponse(prompt, 'live-demo');
+            setCurrentScript(response);
+        } catch (error) {
+            console.error("Generation failed", error);
+            setIsSpeaking(false);
+        }
+    };
 
     // 3. Sync Video Playback with Speaking State
     useEffect(() => {
@@ -111,7 +135,7 @@ export default function LiveBriefingConsole({ name, description, role, color, pr
     return (
         <div className="relative w-full h-full bg-black overflow-hidden flex flex-col items-center justify-center border-r border-white/10 group">
             {/* Background Grid & Effects */}
-            <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20 bg-repeat" />
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:30px_30px] opacity-20" />
 
             {/* MAIN AVATAR FEED (Full Height) */}
             <div className="absolute inset-0 z-0 flex items-center justify-center bg-zinc-950">
@@ -155,6 +179,11 @@ export default function LiveBriefingConsole({ name, description, role, color, pr
                 </div>
             </div>
 
+            {/* Generative Log Stream - HUD Left */}
+            <div className="absolute top-24 left-8 z-20 w-64 md:w-80 hidden md:block">
+                <GenerativeLogStream type={logType} isActive={isSpeaking} />
+            </div>
+
             {/* Terminal Output Overlay */}
             <div className="absolute bottom-8 left-8 right-8 md:right-64 z-20">
                 <div className="bg-black/80 backdrop-blur-xl border border-white/10 p-6 rounded-2xl shadow-2xl border-l-4 border-l-indigo-500">
@@ -171,27 +200,45 @@ export default function LiveBriefingConsole({ name, description, role, color, pr
                 </div>
             </div>
 
-            {/* Header Status - Greyhawk 10 Protocol */}
+            {/* Header Status */}
             <div className="absolute top-6 left-6 flex flex-col gap-2 z-30">
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-xl border border-amber-500/30 shadow-[0_0_15px_rgba(245,158,11,0.2)]">
-                    <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse shadow-[0_0_8px_rgba(245,158,11,1)]" />
-                    <span className="text-[10px] font-black text-amber-500 uppercase tracking-[0.2em] drop-shadow-sm">Greyhawk 10 Protocol Active</span>
-                </div>
-                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 w-fit">
-                    <span className="text-[8px] font-bold text-zinc-400 uppercase tracking-widest">Architect: Antigravity Sovereign</span>
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-xl border border-white/10">
+                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="text-[10px] font-bold text-white uppercase tracking-widest">Executive Uplink Active</span>
                 </div>
                 {isSpeaking && (
-                    <div className="px-3 py-1.5 rounded-full bg-indigo-500/20 border border-indigo-500/30 backdrop-blur-md w-fit">
-                        <span className="text-[10px] font-bold text-indigo-300 uppercase tracking-wider animate-pulse">Prophetic Synthesis Active</span>
+                    <div className="px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-500/30 backdrop-blur-md w-fit">
+                        <span className="text-[10px] font-bold text-indigo-300 uppercase tracking-wider animate-pulse">Analyzing Directives</span>
                     </div>
                 )}
             </div>
 
-            {/* Teaching Temple Branding Overlay */}
-            <div className="absolute top-6 right-6 z-30 text-right opacity-60 hidden md:block group-hover:opacity-100 transition-opacity">
-                <h2 className="text-xl font-black text-white tracking-tighter italic uppercase underline decoration-amber-500/50 underline-offset-4">Living Teaching Temple</h2>
-                <p className="text-[8px] uppercase tracking-[0.3em] text-amber-500 mt-1">Vault: GitHub | Bank: Memory Bank</p>
-                <p className="text-[8px] text-zinc-500 font-mono mt-0.5">ESTABLISHED VERCEL LAND: 2026.01.14</p>
+            {/* Quick Directives */}
+            <div className="absolute top-6 right-6 z-30 flex flex-col items-end gap-2">
+                <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Issue Directive</span>
+                {prompts && prompts.map((prompt, i) => (
+                    <button
+                        key={i}
+                        onClick={() => handlePromptClick(prompt)}
+                        className="px-4 py-2 bg-black/60 backdrop-blur-xl border border-white/10 hover:border-indigo-500/50 text-xs text-white rounded-lg transition-all hover:bg-white/10 text-right max-w-[200px]"
+                    >
+                        {prompt}
+                    </button>
+                ))}
+
+                {/* Viral Broadcast Button */}
+                <button
+                    onClick={() => {
+                        navigator.clipboard.writeText(window.location.href);
+                        setText("Stream Link Securely Uplinked. Global Network Accessible.");
+                        setIsSpeaking(true);
+                        setTimeout(() => setIsSpeaking(false), 3000);
+                    }}
+                    className="mt-4 flex items-center gap-2 px-4 py-2 bg-red-500/20 backdrop-blur-xl border border-red-500/50 hover:bg-red-500/40 text-xs text-red-200 rounded-lg transition-all group/broadcast"
+                >
+                    <Globe className="w-3 h-3 animate-pulse" />
+                    <span className="font-bold uppercase tracking-widest">Broadcast Stream</span>
+                </button>
             </div>
         </div>
     );

@@ -1,4 +1,4 @@
-import { Brain, Shield, Zap, Users, Target, Award } from "lucide-react"
+import { Brain, Shield as LucideShield, Zap, Users, Target, Award } from "lucide-react"
 
 const features = [
   {
@@ -7,7 +7,7 @@ const features = [
     description: "AI-powered cognitive assistance that learns your administrative patterns and anticipates your needs.",
   },
   {
-    icon: Shield,
+    icon: LucideShield,
     title: "Sovereign Protection",
     description: "FERPA-compliant security with military-grade encryption protecting your district's sensitive data.",
   },

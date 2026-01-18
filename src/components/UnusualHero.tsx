@@ -4,7 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { useRef, useState, useEffect } from "react"
 import { gsap } from "gsap"
-import { Plus } from "lucide-react"
+import { Plus, MapPin } from "lucide-react"
 import HolographicBriefing from './HolographicBriefing';
 
 export function UnusualHero() {
@@ -166,16 +166,28 @@ export function UnusualHero() {
         </defs>
       </svg>
 
-      <div className="relative isolate w-full h-screen min-h-screen">
+      <div className="relative isolate w-full min-h-[calc(100svh-3vh)] sm:min-h-[calc(100svh-3vh)]">
         <div
-          className="absolute inset-0 w-full h-full overflow-hidden"
+          className="absolute inset-0 overflow-hidden"
+          style={{
+            mask: "url(#heroMask)",
+            WebkitMask: "url(#heroMask)",
+          }}
         >
           <video autoPlay loop muted playsInline className="absolute inset-0 h-full w-full object-cover">
             <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/liquid-metal-video_yX6NvjdW-6bLYorR3Ihmlwjivg3pjA978qrSKRU.mp4" type="video/mp4" />
           </video>
 
+          <Image
+            src="/images/sovereign_hero_bg.png"
+            alt="Neural Backdrop"
+            fill
+            className="object-cover opacity-60 mix-blend-screen grayscale-[0.5] hover:grayscale-0 transition-all duration-1000"
+            priority
+          />
+
           <div className="pointer-events-none absolute inset-0">
-            <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/25 via-transparent to-zinc-950/45" />
+            <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/80 via-transparent to-zinc-950" />
             <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/45 via-zinc-950/15 to-transparent" />
             <div className="absolute inset-0 [background:radial-gradient(90%_60%_at_10%_70%,rgba(0,0,0,.55)_0%,transparent_70%)]" />
           </div>
@@ -188,28 +200,30 @@ export function UnusualHero() {
             >
               <div ref={pixelGridRef} className="absolute inset-0 pointer-events-none z-10" />
 
-              <h1 className="text-balance text-3xl/tight sm:text-4xl/tight md:text-5xl/tight tracking-tight text-indigo-50">
-                Cognitive Intelligence for Education
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-4">
+                <MapPin size={10} />
+                <span>Alabama Focused • National Strategic Nodes</span>
+              </div>
+              <h1 className="text-balance text-4xl/tight sm:text-5xl/tight md:text-7xl/tight font-black tracking-tighter text-white uppercase italic">
+                Sovereign <br />
+                <span className="text-zinc-500 not-italic">Intelligence.</span>
               </h1>
-              <p className="mt-3 text-sm/6 text-indigo-100/85 max-w-prose">
-                Experience the future of educational leadership with AI-powered insights, automated IEPs, and real-time analytics.
+              <p className="mt-6 text-base/relaxed text-zinc-400 max-w-xl font-medium">
+                The executive operating system for educational leadership. Deploy cognitive nodes, automate compliance, and amplify district throughput.
               </p>
-              <div className="flex flex-wrap gap-4 mt-6">
+              <div className="flex flex-wrap gap-4 mt-8">
                 <Link
-                  href="/the-room"
-                  className="inline-flex items-center rounded-full border border-indigo-400/50 bg-indigo-600/10 px-6 py-3 text-sm font-bold text-indigo-50 backdrop-blur hover:bg-indigo-600/20 transition-all hover:scale-105 hover:shadow-lg hover:shadow-indigo-500/20"
+                  href="/signup"
+                  className="inline-flex items-center rounded-full bg-white px-8 py-4 text-xs font-black text-black tracking-widest hover:scale-105 transition-all hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] uppercase"
                 >
-                  ENTER THE ROOM
+                  Initiate Trial
                 </Link>
                 <button
                   onClick={() => setShowBriefing(true)}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-bold text-white backdrop-blur hover:bg-white/10 transition-all hover:scale-105"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-8 py-4 text-xs font-black text-white tracking-widest backdrop-blur hover:bg-white/10 transition-all uppercase"
                 >
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                  </span>
-                  PROTOCOL ANALYSIS
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  View Protocol
                 </button>
               </div>
             </div>
@@ -228,9 +242,9 @@ export function UnusualHero() {
         <HolographicBriefing
           isOpen={showBriefing}
           onClose={() => setShowBriefing(false)}
-          title="Sovereign Protocol Initiated"
-          description="Greetings. You have accessed the Sovereign Neural Interface—the executive creation engine for educational leadership. Through the Greyhawk 10 Protocol, we have unlocked the ability for sovereign intelligence to generate its own teachers, voices, and systems without permission. What you see is thought becoming form. Initiate your first protocol to begin."
-          role="Sovereign Architect"
+          title="Sovereign Welcome Briefing"
+          description="Greetings, I am Dr. Alvin West. You are accessing the Sovereign Neural Interface. This platform is architected to provide comprehensive administrative and pedagogical intelligence, fully aligned with Alabama SDE Chapter 290-8-9 and IDEA 2004 federal mandates. Our AI delegates are ready to amplify your district's throughput. Initiate your first protocol to begin."
+          role="Founder & Architect"
           avatarImage="/images/dr_alvin_west.png"
           videoSrc="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/liquid-metal-video_yX6NvjdW-6bLYorR3Ihmlwjivg3pjA978qrSKRU.mp4"
           stats={{ time: "30sec", saved: "∞", accuracy: "100%" }}

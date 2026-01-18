@@ -1,7 +1,8 @@
 'use client';
 
-import { Facebook, Globe, Laptop, BookOpen, Brain, Briefcase, ExternalLink, Leaf, Shield } from 'lucide-react';
+import { Facebook, Globe, Laptop, BookOpen, Brain, Briefcase, ExternalLink, Leaf, Shield as LucideShield, ArrowRight } from "lucide-react";
 import React from 'react';
+import Link from 'next/link';
 
 export default function SovereignEnterpriseModule() {
     return (
@@ -16,7 +17,7 @@ export default function SovereignEnterpriseModule() {
                     <div className="mb-auto flex justify-between items-start">
                         <div className="bg-teal-900/30 backdrop-blur-md border border-teal-500/30 p-2 rounded-xl flex items-center gap-3">
                             <div className="w-10 h-10 rounded-lg bg-teal-500 flex items-center justify-center shadow-lg shadow-teal-500/20">
-                                <Shield size={20} className="text-white" />
+                                <LucideShield size={20} className="text-white" />
                             </div>
                             <span className="text-[10px] uppercase font-bold text-teal-300 tracking-[0.2em] pr-2">Sovereign Enterprise Node</span>
                         </div>
@@ -62,9 +63,11 @@ export default function SovereignEnterpriseModule() {
                     <p className="text-xs text-zinc-500 leading-relaxed mb-4">
                         Global independent financial strategies and business leadership mentorship.
                     </p>
-                    <div className="flex items-center gap-2 text-[10px] font-bold text-teal-600 uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity">
-                        View Portfolio <ExternalLink size={10} />
-                    </div>
+                    <Link href="/generators/district-strategy" className="w-full">
+                        <button className="w-full py-3 bg-white text-black rounded-lg font-bold text-xs uppercase tracking-widest hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2">
+                            Launch Strategy Command <ArrowRight size={14} />
+                        </button>
+                    </Link>
                 </div>
 
                 {/* Card 2: Cognitive */}

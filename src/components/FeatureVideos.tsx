@@ -41,7 +41,7 @@ export default function FeatureVideos() {
             icon: BarChart3,
             title: 'Data Intelligence',
             description: 'Transform raw assessment noise into clear executive intelligence. We visualize complex data arrays into actionable leadership grids for immediate decision making.',
-            video: '/videos/features/data-analysis-demo.mp4',
+            video: '/videos/briefings/data_briefing.mp4',
             thumbnail: '/images/features/collaborative_intelligence_team.png',
             color: 'from-indigo-500 to-blue-600',
             link: '/generators/data-analyzer',

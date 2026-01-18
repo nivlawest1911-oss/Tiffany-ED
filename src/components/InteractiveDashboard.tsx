@@ -145,7 +145,7 @@ export default function InteractiveDashboard() {
     ];
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 p-6">
+        <div className="relative space-y-6">
             <div className="max-w-7xl mx-auto space-y-6">
                 {/* Header */}
                 <motion.div

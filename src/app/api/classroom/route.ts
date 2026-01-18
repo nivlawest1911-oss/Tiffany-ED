@@ -1,11 +1,16 @@
-﻿export const dynamic = 'force-dynamic';
+﻿import { generateSovereignResponse } from '@/lib/sovereign-ai';
+
+export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
 export async function POST(req: Request) {
   try {
     const { message, mode } = await req.json();
-    // Free Tier Simulation
-    return Response.json({ text: `**Classroom Aide (Free Tier)**\n\nI received your request regarding: "${message}".\n\nI am operating in simulated mode. Please check system configuration for full intelligence.` });
+
+    // Using Sovereign AI Engine for comprehensive human-like content
+    const text = await generateSovereignResponse(message, mode || 'general');
+
+    return Response.json({ text });
   } catch (error) {
     return Response.json({ error: "Aide offline" }, { status: 500 });
   }

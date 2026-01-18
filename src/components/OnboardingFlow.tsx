@@ -3,13 +3,13 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-    Sparkles, GraduationCap, Users, Shield, Briefcase, CheckCircle,
+    Sparkles, GraduationCap, Users, Shield as LucideShield, Briefcase, CheckCircle,
     ArrowRight, ArrowLeft, FileText, Brain, MessageSquare, Award,
     Zap, Target
 } from 'lucide-react';
 import Confetti from 'react-confetti';
 
-export default function OnboardingFlow() {
+export default function OnboardingFlow({ onComplete }: { onComplete?: () => void }) {
     const [step, setStep] = useState(0);
     const [selectedRole, setSelectedRole] = useState('');
     const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
@@ -34,7 +34,7 @@ export default function OnboardingFlow() {
             id: 'specialist',
             title: 'Specialist',
             description: 'Special ed, counselor, or coach',
-            icon: Shield,
+            icon: LucideShield,
             color: 'from-green-500 to-emerald-500',
         },
         {
@@ -52,7 +52,7 @@ export default function OnboardingFlow() {
         { id: 'communication', label: 'Communication', icon: MessageSquare, description: 'Parent & staff emails' },
         { id: 'behavior', label: 'Behavior Management', icon: Target, description: 'PBIS & interventions' },
         { id: 'grant', label: 'Grant Writing', icon: Zap, description: 'Secure funding' },
-        { id: 'compliance', label: 'Compliance', icon: Shield, description: 'Stay up to date' },
+        { id: 'compliance', label: 'Compliance', icon: LucideShield, description: 'Stay up to date' },
     ];
 
     const handleNext = () => {
@@ -101,10 +101,10 @@ export default function OnboardingFlow() {
                         <div
                             key={i}
                             className={`h-2 rounded-full transition-all ${i === step
-                                    ? 'w-12 bg-gradient-to-r from-purple-500 to-pink-500'
-                                    : i < step
-                                        ? 'w-8 bg-purple-500/50'
-                                        : 'w-8 bg-purple-500/20'
+                                ? 'w-12 bg-gradient-to-r from-purple-500 to-pink-500'
+                                : i < step
+                                    ? 'w-8 bg-purple-500/50'
+                                    : 'w-8 bg-purple-500/20'
                                 }`}
                         />
                     ))}
@@ -187,8 +187,8 @@ export default function OnboardingFlow() {
                                         whileTap={{ scale: 0.98 }}
                                         onClick={() => setSelectedRole(role.id)}
                                         className={`p-6 rounded-2xl text-left transition-all ${selectedRole === role.id
-                                                ? 'bg-gradient-to-br from-purple-500/20 to-pink-500/20 border-2 border-purple-500/50 shadow-lg shadow-purple-500/20'
-                                                : 'bg-black/40 backdrop-blur-xl border border-purple-500/20 hover:border-purple-500/40'
+                                            ? 'bg-gradient-to-br from-purple-500/20 to-pink-500/20 border-2 border-purple-500/50 shadow-lg shadow-purple-500/20'
+                                            : 'bg-black/40 backdrop-blur-xl border border-purple-500/20 hover:border-purple-500/40'
                                             }`}
                                     >
                                         <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${role.color} mb-4`}>
@@ -231,14 +231,14 @@ export default function OnboardingFlow() {
                                         whileTap={{ scale: 0.98 }}
                                         onClick={() => toggleInterest(interest.id)}
                                         className={`p-4 rounded-xl text-left transition-all ${selectedInterests.includes(interest.id)
-                                                ? 'bg-gradient-to-br from-purple-500/20 to-pink-500/20 border-2 border-purple-500/50'
-                                                : 'bg-black/40 backdrop-blur-xl border border-purple-500/20 hover:border-purple-500/40'
+                                            ? 'bg-gradient-to-br from-purple-500/20 to-pink-500/20 border-2 border-purple-500/50'
+                                            : 'bg-black/40 backdrop-blur-xl border border-purple-500/20 hover:border-purple-500/40'
                                             }`}
                                     >
                                         <div className="flex items-start gap-3">
                                             <div className={`p-2 rounded-lg ${selectedInterests.includes(interest.id)
-                                                    ? 'bg-gradient-to-br from-purple-500 to-pink-500'
-                                                    : 'bg-purple-500/20'
+                                                ? 'bg-gradient-to-br from-purple-500 to-pink-500'
+                                                : 'bg-purple-500/20'
                                                 }`}>
                                                 <interest.icon className={`w-5 h-5 ${selectedInterests.includes(interest.id) ? 'text-white' : 'text-purple-400'
                                                     }`} />
@@ -307,7 +307,10 @@ export default function OnboardingFlow() {
                             <motion.button
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                onClick={() => window.location.href = '/dashboard'}
+                                onClick={() => {
+                                    if (onComplete) onComplete();
+                                    else window.location.href = '/dashboard';
+                                }}
                                 className="px-10 py-5 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold text-xl shadow-2xl shadow-purple-500/50 flex items-center gap-3 mx-auto"
                             >
                                 Go to Dashboard
@@ -343,8 +346,8 @@ export default function OnboardingFlow() {
                             onClick={handleNext}
                             disabled={!canProceed()}
                             className={`px-6 py-3 rounded-xl font-semibold flex items-center gap-2 transition-all ${canProceed()
-                                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/50'
-                                    : 'bg-black/40 text-purple-500/50 cursor-not-allowed'
+                                ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/50'
+                                : 'bg-black/40 text-purple-500/50 cursor-not-allowed'
                                 }`}
                         >
                             Next

@@ -54,6 +54,17 @@ export default function EnhancedGenerator({
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const [errorMsg, setErrorMsg] = useState('');
+    const [selectedDelegate, setSelectedDelegate] = useState({
+        name: delegateName || "Dr. Alvin",
+        role: delegateRole || "Superintendent Delegate",
+        image: delegateImage || "/images/dr_alvin_west.png"
+    });
+
+    const delegates = [
+        { name: "Dr. Alvin", role: "Superintendent Delegate", image: "/images/dr_alvin_west.png" },
+        { name: "Sarah", role: "Instructional Aide", image: "/images/avatars/female_leader.png" },
+        { name: "Patrice", role: "Compliance Lead", image: "/images/avatars/executive_leader.png" }
+    ];
 
     const { playClick, playSuccess } = useSovereignSounds();
 
@@ -113,28 +124,42 @@ export default function EnhancedGenerator({
     // ...
 
     const handleDictation = () => {
-        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            const recognition = new SpeechRecognition();
-            recognition.continuous = false;
-            recognition.interimResults = false;
-            recognition.lang = 'en-US';
-
-            recognition.onstart = () => setIsListening(true);
-            recognition.onend = () => setIsListening(false);
-            recognition.onerror = () => setIsListening(false);
-
-            recognition.onresult = (event: any) => {
-                const transcript = event.results[0][0].transcript;
-                setInput(prev => prev ? prev + ' ' + transcript : transcript);
-            };
-
-            recognition.start();
-        } else {
-            alert("Voice dictation is not supported in this browser.");
+        if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+            alert("Speech recognition is not supported in this browser.");
+            return;
         }
-    };
 
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+
+        recognition.lang = 'en-US';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        if (isListening) {
+            recognition.stop();
+            setIsListening(false);
+            return;
+        }
+
+        setIsListening(true);
+        recognition.start();
+
+        recognition.onresult = (event: any) => {
+            const transcript = event.results[0][0].transcript;
+            setInput((prev) => prev + (prev ? ' ' : '') + transcript);
+            setIsListening(false);
+        };
+
+        recognition.onerror = (event: any) => {
+            console.error("Speech recognition error", event.error);
+            setIsListening(false);
+        };
+
+        recognition.onend = () => {
+            setIsListening(false);
+        };
+    };
     const handleSubmit = async (e?: React.FormEvent) => {
         if (e) e.preventDefault();
         playClick(); // Sound Cue
@@ -149,6 +174,7 @@ export default function EnhancedGenerator({
 
         setIsLoading(true);
         setCompletion('');
+        let fullResponse = '';
 
         try {
             const response = await fetch('/api/generate', {
@@ -160,12 +186,14 @@ export default function EnhancedGenerator({
                     stream: true,
                     // ENHANCED SYSTEM PROMPT for Comprehensive Output
                     systemInstruction: `You are a high-level Senior Educational Consultant and Sovereign AI Delegate assigned to assist an educational leader.
-Your goal is to generate HIGHLY COMPREHENSIVE, DETAILED, and PROFESSIONAL output.
+YOUR RESPONSE MUST BE EXCEPTIONALLY COMPREHENSIVE, HUMAN-LIKE, AND PROVIDE REAL-WORLD DEPTH.
 Never provide brief or surface-level answers. Always expand with:
-1. Specific examples
-2. Step-by-step implementation guides
-3. Rationale and evidence-based justification
-4. Professional tone suitable for superintendents and boards.
+1. Specific examples and scenario analysis
+2. Step-by-step implementation guides with "Sovereign Insights"
+3. Rationale based on current Alabama state benchmarks and IDEA Part B compliance
+4. A professional, executive tone suitable for school boards and C-suite leaders.
+5. Strategic Financial considerations where applicable.
+
 Context:
 - Tool Name: ${generatorName}
 - User Role: ${user.tier} Executive`
@@ -193,7 +221,7 @@ Context:
                 }
             }
             playSuccess(); // Completion Sound Cue
-            saveToHistory(promptToUse, fullResponse); // Save to local history
+            saveToHistory(input, fullResponse); // Save to local history using actual input
 
             // --- GREYHAWK 10 PROTOCOL: PROFESSOR SYNTHESIS ---
             // Background Synthesis of the Teaching Professor
@@ -203,8 +231,8 @@ Context:
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         script: fullResponse.substring(0, 500), // First part for the talking head
-                        professorType: generatorName,
-                        avatarUrl: delegateImage
+                        professorType: selectedDelegate.name,
+                        avatarUrl: selectedDelegate.image
                     })
                 });
                 if (synthesisRes.ok) {
@@ -263,20 +291,18 @@ Context:
             </div>
 
             {/* Sovereign Delegate Orb */}
-            {delegateImage && (
-                <SovereignDelegate
-                    name={delegateName || "Sovereign Agent"}
-                    role={delegateRole || "Delegate"}
-                    avatarImage={delegateImage}
-                    videoSrc={professorVideo || welcomeVideo} // Play generated video if available, else welcome
-                    voiceSrc={voiceWelcome}
-                    color={generatorColor.includes('gradient') ? generatorColor : "from-indigo-500 to-purple-600"}
-                    completionText={completion}
-                    theme="sovereign"
-                    guideMode={true}
-                    isLoading={isLoading}
-                />
-            )}
+            <SovereignDelegate
+                name={selectedDelegate.name}
+                role={selectedDelegate.role}
+                avatarImage={selectedDelegate.image}
+                videoSrc={professorVideo || welcomeVideo} // Play generated video if available, else welcome
+                voiceSrc={voiceWelcome}
+                color={generatorColor.includes('gradient') ? generatorColor : "from-indigo-500 to-purple-600"}
+                completionText={completion}
+                theme="sovereign"
+                guideMode={true}
+                isLoading={isLoading}
+            />
 
             <div className="relative max-w-7xl mx-auto px-4 md:px-6 py-8">
                 {/* Header Navigation */}
@@ -340,7 +366,7 @@ Context:
                                         {generatorName}
                                     </h1>
                                     <p className="text-zinc-300 max-w-xl font-medium drop-shadow-sm mb-4">
-                                        Powered by Sovereign AI • Specialized for Educational Leadership
+                                        Advanced AI Assistant • Specialized for Educational Leadership
                                     </p>
 
                                     <div className="flex flex-wrap items-center gap-4">
@@ -357,6 +383,26 @@ Context:
                                                 Receive Delegate Briefing
                                             </button>
                                         )}
+
+                                        {/* Professor Selector */}
+                                        <div className="flex items-center gap-2 bg-black/30 rounded-full px-3 py-1.5 border border-white/10">
+                                            <span className="text-[10px] uppercase font-bold text-zinc-500 ml-1">Assigned To:</span>
+                                            <div className="flex -space-x-2">
+                                                {delegates.map((d, i) => (
+                                                    <button
+                                                        key={i}
+                                                        onClick={() => {
+                                                            setSelectedDelegate(d);
+                                                            playClick();
+                                                        }}
+                                                        className={`relative w-8 h-8 rounded-full border-2 transition-all overflow-hidden ${selectedDelegate.name === d.name ? 'border-indigo-500 z-10 scale-110 shadow-lg' : 'border-zinc-800 opacity-50 hover:opacity-100 hover:z-10'}`}
+                                                        title={`${d.name} (${d.role})`}
+                                                    >
+                                                        <Image src={d.image} fill alt={d.name} className="object-cover" />
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
 
                                         {/* Voice Identity */}
                                         {voiceWelcome && (
@@ -553,7 +599,7 @@ Context:
                                     <div className="bg-zinc-900/80 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl shadow-indigo-500/10">
                                         <div className="flex items-center justify-between px-6 py-4 border-b border-white/5 bg-white/5 relative overflow-hidden">
                                             {/* Header Background Effect */}
-                                            <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10 bg-repeat pointer-events-none" />
+                                            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] opacity-10 pointer-events-none" />
 
                                             <div className="flex items-center gap-2 text-indigo-400 text-sm font-medium z-10">
                                                 <Bot className="w-4 h-4" />
@@ -581,14 +627,41 @@ Context:
 
                                         <div className="p-8 relative">
                                             {isLoading && !completion ? (
-                                                <div className="flex flex-col items-center justify-center py-12 space-y-4">
+                                                <div className="flex flex-col items-center justify-center py-12 space-y-6">
                                                     <div className="relative">
-                                                        <div className="w-12 h-12 rounded-full border-2 border-indigo-500/20 border-t-indigo-500 animate-spin" />
+                                                        {/* Outer Rotating HUD */}
+                                                        <div className="w-24 h-24 rounded-full border border-indigo-500/20 border-t-indigo-500 animate-[spin_3s_linear_infinite]" />
+                                                        <div className="absolute inset-2 border border-purple-500/10 border-b-purple-500 rounded-full animate-[spin_2s_linear_infinite_reverse]" />
+
+                                                        {/* Inner Core */}
                                                         <div className="absolute inset-0 flex items-center justify-center">
-                                                            <Sparkles className="w-4 h-4 text-indigo-400 animate-pulse" />
+                                                            <div className="w-12 h-12 rounded-full bg-indigo-600/20 flex items-center justify-center backdrop-blur-md">
+                                                                <Sparkles className="w-6 h-6 text-indigo-400 animate-pulse" />
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <p className="text-sm text-zinc-500 animate-pulse">Analyzing context and generating response...</p>
+
+                                                    <div className="text-center space-y-2">
+                                                        <motion.p
+                                                            key={Math.floor(Date.now() / 2000)} // Change every 2s
+                                                            initial={{ opacity: 0, y: 5 }}
+                                                            animate={{ opacity: 1, y: 0 }}
+                                                            className="text-indigo-400 font-mono text-xs font-bold uppercase tracking-widest"
+                                                        >
+                                                            {(() => {
+                                                                const protocols = [
+                                                                    "Synthesizing ALCOS Standards...",
+                                                                    "Auditing IDEA Part B Compliance...",
+                                                                    "Optimizing Strategic Financial Yield...",
+                                                                    "Connecting Sovereign Neural Link...",
+                                                                    "Analyzing Student Equity Metrics...",
+                                                                    "Architecting Excellence Protocol..."
+                                                                ];
+                                                                return protocols[Math.floor((Date.now() / 2000) % protocols.length)];
+                                                            })()}
+                                                        </motion.p>
+                                                        <p className="text-[10px] text-zinc-500 animate-pulse uppercase tracking-[0.2em]">Neural Engine Operational</p>
+                                                    </div>
                                                 </div>
                                             ) : (
                                                 <div className="prose prose-invert prose-lg max-w-none">
@@ -739,32 +812,29 @@ Context:
                             <h4 className="text-zinc-500 text-xs font-bold uppercase tracking-wider mb-4 px-2">Related Protocols</h4>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                                 {GENERATORS.filter(g => g.id !== generatorId)
-                                    .sort(() => 0.5 - Math.random()) // Shuffle
-                                    .slice(0, 3) // Take 3
+                                    .slice(0, 3) // Deterministic slice for now to prevent hydration errors
                                     .map((tool) => (
                                         <Link
                                             key={tool.id}
                                             href={`/generators/${tool.id}`}
-                                            className="group block p-4 bg-zinc-900/50 hover:bg-zinc-800 border border-white/5 hover:border-indigo-500/30 rounded-xl transition-all"
+                                            className="group p-4 rounded-xl bg-zinc-900/50 border border-white/5 hover:bg-white/5 hover:border-white/10 transition-all"
                                         >
-                                            <div className="flex items-center gap-3 mb-2">
-                                                <div className="p-2 rounded-lg bg-zinc-950 border border-white/5 group-hover:scale-110 transition-transform">
-                                                    <tool.icon className="w-4 h-4 text-zinc-400 group-hover:text-indigo-400" />
+                                            <div className="flex items-center gap-3">
+                                                <div className="p-2 rounded-lg bg-zinc-950 border border-white/5 text-zinc-400 group-hover:text-indigo-400 group-hover:border-indigo-500/30 transition-colors">
+                                                    <tool.icon className="w-4 h-4" />
                                                 </div>
-                                                <span className="text-xs font-bold text-zinc-300 group-hover:text-white truncate">
-                                                    {tool.name}
-                                                </span>
+                                                <div>
+                                                    <div className="text-sm font-bold text-zinc-300 group-hover:text-white transition-colors">{tool.name}</div>
+                                                    <div className="text-[10px] text-zinc-600 group-hover:text-zinc-500 uppercase tracking-wider">Protocol Active</div>
+                                                </div>
                                             </div>
-                                            <p className="text-[10px] text-zinc-500 line-clamp-2">
-                                                {tool.description}
-                                            </p>
                                         </Link>
                                     ))}
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }
