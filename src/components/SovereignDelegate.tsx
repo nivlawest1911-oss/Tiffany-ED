@@ -108,10 +108,12 @@ export default function SovereignDelegate({
             const isMale = name.toLowerCase().includes('alvin') || name.toLowerCase().includes('marcus') || name.toLowerCase().includes('james') || name.toLowerCase().includes('andre');
 
             // Advanced Heuristic for Voice Selection
+            // Prioritize higher quality, authoritative voices suitable for African American executive personas
             let preferredVoice = voices.find(v =>
                 isMale
-                    ? (v.name.includes("Google US English") || v.name.includes("Daniel") || v.name.includes("Fred"))
-                    : (v.name.includes("Google US English") || v.name.includes("Samantha") || v.name.includes("Karen") || v.name.includes("Rishi"))
+                    // Deeper, authoritative male voices
+                    ? (v.name.includes("Google US English") || v.name.includes("Daniel"))
+                    : (v.name.includes("Google US English") || v.name.includes("Samantha"))
             );
 
             // Fallback to any English
@@ -121,9 +123,9 @@ export default function SovereignDelegate({
 
             if (preferredVoice) utterance.voice = preferredVoice;
 
-            // Pitch/Rate Tuning for Professionalism
-            utterance.rate = voiceSettings?.rate || 1.0; // Slightly faster for executive feel
-            utterance.pitch = voiceSettings?.pitch || (isMale ? 0.9 : 1.05); // Deeper for male, clearer for female
+            // Pitch/Rate Tuning for Professionalism (Sovereign Standard)
+            utterance.rate = voiceSettings?.rate || 0.95; // Measured, thoughtful pace
+            utterance.pitch = voiceSettings?.pitch || (isMale ? 0.8 : 1.0); // Resonance adjustments
 
             utterance.onstart = () => setIsSpeaking(true);
             utterance.onend = () => setIsSpeaking(false);
@@ -436,12 +438,11 @@ export default function SovereignDelegate({
                             </>
                         )}
                     </motion.div>
-                )
-                }
-            </AnimatePresence >
+                )}
+            </AnimatePresence>
 
             {/* The Floating Orb Trigger */}
-            < motion.button
+            <motion.button
                 onClick={() => setIsOpen(!isOpen)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -462,7 +463,7 @@ export default function SovereignDelegate({
                         )}
                     </div>
                 </div>
-            </motion.button >
+            </motion.button>
 
             {/* Live Avatar Chat Modal */}
             {
