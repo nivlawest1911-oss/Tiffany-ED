@@ -98,30 +98,32 @@ export default function SovereignDelegate({
     }, [completionText]);
 
     const speakText = (text: string) => {
+        // Sovereign Neural Voice Selection Protocol
         if ('speechSynthesis' in window) {
             window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
 
             const voices = window.speechSynthesis.getVoices();
+            // Prioritize higher quality proprietary voices (Mac/Google)
             const isMale = name.toLowerCase().includes('alvin') || name.toLowerCase().includes('marcus') || name.toLowerCase().includes('james') || name.toLowerCase().includes('andre');
 
-            let preferredVoice;
-            if (isMale) {
-                preferredVoice = voices.find(v =>
-                    (v.name.includes('Male') || v.name.includes('Guy') || v.name.includes('David') || v.name.includes('Google US English'))
-                    && v.lang.startsWith('en')
-                );
-            } else {
-                preferredVoice = voices.find(v =>
-                    (v.name.includes('Female') || v.name.includes('Samantha') || v.name.includes('Zira') || v.name.includes('Google US English'))
-                    && v.lang.startsWith('en')
-                );
+            // Advanced Heuristic for Voice Selection
+            let preferredVoice = voices.find(v =>
+                isMale
+                    ? (v.name.includes("Google US English") || v.name.includes("Daniel") || v.name.includes("Fred"))
+                    : (v.name.includes("Google US English") || v.name.includes("Samantha") || v.name.includes("Karen") || v.name.includes("Rishi"))
+            );
+
+            // Fallback to any English
+            if (!preferredVoice) {
+                preferredVoice = voices.find(v => v.lang.startsWith('en'));
             }
 
             if (preferredVoice) utterance.voice = preferredVoice;
 
-            utterance.rate = voiceSettings?.rate || 0.9;
-            utterance.pitch = voiceSettings?.pitch || 1.0;
+            // Pitch/Rate Tuning for Professionalism
+            utterance.rate = voiceSettings?.rate || 1.0; // Slightly faster for executive feel
+            utterance.pitch = voiceSettings?.pitch || (isMale ? 0.9 : 1.05); // Deeper for male, clearer for female
 
             utterance.onstart = () => setIsSpeaking(true);
             utterance.onend = () => setIsSpeaking(false);
