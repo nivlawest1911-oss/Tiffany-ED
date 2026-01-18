@@ -294,13 +294,16 @@ export default function LiveAvatarChat({
             utterance.volume = 1.0;
 
             const voices = availableVoices.length > 0 ? availableVoices : window.speechSynthesis.getVoices();
+            // Sovereign Voice Protocol: Prioritize Authoritative & Deep Tones
             const isMale = avatarName.toLowerCase().includes('alvin') || avatarName.toLowerCase().includes('marcus') || avatarName.toLowerCase().includes('andre') || avatarName.toLowerCase().includes('james');
 
             let preferredVoice;
             if (isMale) {
-                preferredVoice = voices.find(v => (v.name.includes('Male') || v.name.includes('David') || v.name.includes('Guy') || v.name.includes('Google US English')) && v.lang.startsWith('en'));
+                // Targeted selection for deep, executive male resonance
+                preferredVoice = voices.find(v => (v.name.includes('Google US English') || v.name.includes('Daniel')) && v.lang.startsWith('en'));
             } else {
-                preferredVoice = voices.find(v => (v.name.includes('Female') || v.name.includes('Samantha') || v.name.includes('Zira') || v.name.includes('Google US English')) && v.lang.startsWith('en'));
+                // Targeted selection for clear, professional female resonance
+                preferredVoice = voices.find(v => (v.name.includes('Google US English') || v.name.includes('Samantha')) && v.lang.startsWith('en'));
             }
 
             if (preferredVoice) utterance.voice = preferredVoice;
