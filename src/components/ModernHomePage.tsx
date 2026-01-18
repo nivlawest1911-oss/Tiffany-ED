@@ -26,7 +26,17 @@ const SpotlightCard = dynamic(() => import('./SpotlightCard'), { ssr: false });
 // AI Components - Dynamic
 const SovereignDelegate = dynamic(() => import('./SovereignDelegate'), { ssr: false });
 const SovereignPurpose = dynamic(() => import('./SovereignPurpose'), { ssr: false });
+const CloudExtensionsGrid = dynamic(() => import('./cloud/CloudExtensionsGrid'), { ssr: false }); // NEW
+
+// ... existing code ...
+
 const SovereignNeuralAtlas = dynamic(() => import('./SovereignNeuralAtlas'), { ssr: false });
+
+// ... inside the return statement ...
+
+// CloudExtensionsGrid import removed from here to clean up.
+// ... existing code ...
+
 const ResearchFoundations = dynamic(() => import('./ResearchFoundations'), { ssr: false });
 const StrategicAssociations = dynamic(() => import('./StrategicAssociations'), { ssr: false });
 const SovereignResourceMatrix = dynamic(() => import('./SovereignResourceMatrix'), { ssr: false });
@@ -230,6 +240,7 @@ export default function ModernHomePage() {
                         <div className="mt-10 pt-10 border-t border-white/5 opacity-40">
                             <SubscriberStream />
                         </div>
+                        <CloudExtensionsGrid /> {/* NEW */}
                     </div>
                 </section>
 
