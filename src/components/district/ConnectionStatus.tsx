@@ -1,3 +1,5 @@
+"use client";
+
 import { sovereignCloud } from '@/lib/sovereign-cloud';
 import { Wifi, WifiOff, Activity } from 'lucide-react';
 import { useEffect, useState } from 'react';
