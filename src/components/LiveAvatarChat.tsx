@@ -43,6 +43,10 @@ interface LiveAvatarChatProps {
         rate: number;
         lang?: string;
     };
+    tokensRemaining: number;
+    onDeductTokens: (amount: number) => void;
+    onRecharge: () => void;
+    onAddXP: (amount: number) => void;
     onClose?: () => void;
 }
 
@@ -53,6 +57,10 @@ export default function LiveAvatarChat({
     avatarImage,
     avatarVoice,
     avatarVoiceSettings = { pitch: 1.0, rate: 1.0 },
+    tokensRemaining,
+    onDeductTokens,
+    onRecharge,
+    onAddXP,
     onClose
 }: LiveAvatarChatProps) {
     const [isListening, setIsListening] = useState(false);
@@ -168,6 +176,12 @@ export default function LiveAvatarChat({
     const [processingStage, setProcessingStage] = useState('');
 
     const handleUserSpeech = async (text: string) => {
+        if (tokensRemaining <= 0) {
+            onRecharge();
+            speakResponse("Commander, your intelligence capital is depleted. Please initialize a injection to continue this high-fidelity session.");
+            return;
+        }
+
         window.speechSynthesis.cancel();
         setConversation(prev => [...prev, { role: 'user', text }]);
 
@@ -181,6 +195,9 @@ export default function LiveAvatarChat({
         await new Promise(r => setTimeout(r, 600));
         setProcessingStage("Optimizing Strategy...");
         await new Promise(r => setTimeout(r, 400));
+
+        onDeductTokens(1); // Standard interaction cost
+        onAddXP(2); // XP for communication
 
         try {
             const response = await fetch('/api/chat', {
@@ -224,14 +241,26 @@ export default function LiveAvatarChat({
                         addTacticalSuggestion('IEP', 'Optimize IEP Goal', 'Neural drafting of legally-defensible IEP benchmarks.');
                         setEqAura('emerald');
                     }
-                    if (accumulatedResponse.includes('budget')) {
+                    if (accumulatedResponse.includes('budget') || accumulatedResponse.includes('funding')) {
                         addTacticalSuggestion('BUDGET', 'Audit LEA Finance', 'Scanning ALSDE budget protocols for Title I recovery.');
                         setEqAura('amber');
                     }
-                    if (accumulatedResponse.includes('burnout') || accumulatedResponse.includes('stress')) {
+                    if (accumulatedResponse.includes('burnout') || accumulatedResponse.includes('stress') || accumulatedResponse.includes('overwhelmed')) {
                         setPersonalityMode('empathetic');
                         setEqAura('rose');
                         setCuriosityNode("How are you managing your administrative workload today?");
+                    }
+                    if (accumulatedResponse.includes('policy') || accumulatedResponse.includes('ALCOS') || accumulatedResponse.includes('compliance')) {
+                        addTacticalSuggestion('POLICY', 'Policy Alignment Audit', 'Reviewing board protocols against latest Alabama legislative updates.');
+                        setEqAura('indigo');
+                    }
+                    if (accumulatedResponse.includes('classroom') || accumulatedResponse.includes('instruction')) {
+                        addTacticalSuggestion('CLASSROOM', 'Generate Relief Protocol', 'Automating daily instructional planning to recover high-fidelity teaching time.');
+                        setEqAura('emerald');
+                    }
+                    if (accumulatedResponse.includes('professional development') || accumulatedResponse.includes('training')) {
+                        addTacticalSuggestion('PD', 'Architect PLU Module', 'Designing high-impact Professional Learning Units for state certificate renewal.');
+                        setEqAura('amber');
                     }
                 }
 

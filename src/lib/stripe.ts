@@ -48,6 +48,10 @@ export const PRICING_PLANS = {
             'Advanced analytics',
         ],
     },
+    tokens: {
+        unitPrice: 0.50, // 50 cents per token
+        priceId: process.env.STRIPE_TOKEN_PRICE_ID || 'price_dummy_token_id',
+    }
 };
 
 // Create checkout session
@@ -80,6 +84,46 @@ export async function createCheckoutSession(
             userId,
             environment: process.env.NODE_ENV,
             source: 'EdIntel Sovereign App'
+        },
+    });
+
+    return session;
+}
+
+/**
+ * Creates a one-time checkout session for Intelligence Capital (Tokens)
+ */
+export async function createTopupSession(
+    userId: string,
+    quantity: number,
+    successUrl: string,
+    cancelUrl: string
+) {
+    const session = await stripe.checkout.sessions.create({
+        mode: 'payment', // One-time payment
+        payment_method_types: ['card'],
+        line_items: [
+            {
+                price_data: {
+                    currency: 'usd',
+                    product_data: {
+                        name: 'Intelligence Capital (Tokens)',
+                        description: 'High-fidelity neural processing units for AI Avatar operations',
+                        images: ['https://edintel-app.vercel.app/token-asset.png'],
+                    },
+                    unit_amount: 50, // 50 cents in USD cents
+                },
+                quantity: quantity,
+            },
+        ],
+        success_url: successUrl,
+        cancel_url: cancelUrl,
+        client_reference_id: userId,
+        metadata: {
+            userId,
+            tokenQuantity: quantity.toString(),
+            type: 'token_topup',
+            source: 'Sovereign Delegate Console'
         },
     });
 

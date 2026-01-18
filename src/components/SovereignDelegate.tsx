@@ -1,9 +1,14 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Mic, Video, Maximize2, Minimize2, MoreVertical, Volume2, Phone, Rocket, Wand2, Zap, ChevronRight, Activity, AlertTriangle, CreditCard } from 'lucide-react';
+import {
+    X, Mic, Video, Maximize2, Minimize2, MoreVertical, Volume2, Phone,
+    Rocket, Wand2, Zap, ChevronRight, Activity, AlertTriangle,
+    CreditCard, Trophy, Terminal, Shield, Brain, Share2, FileText, Users
+} from 'lucide-react';
 import LiveAvatarChat from './LiveAvatarChat';
+import { useSovereignRank } from '@/hooks/useSovereignRank';
 
 interface SovereignDelegateProps {
     role: string;
@@ -50,6 +55,9 @@ export default function SovereignDelegate({
     const [tokensRemaining, setTokensRemaining] = useState(8); // Start near depletion for demo
     const [showRecharge, setShowRecharge] = useState(false);
 
+    // Sovereign Rank System
+    const { xp, addXP, currentRank, progressToNext } = useSovereignRank();
+
     const [hasGuided, setHasGuided] = useState(false);
     const hasAnnouncedRef = useRef(false);
     const videoRef = useRef<HTMLVideoElement>(null);
@@ -72,19 +80,20 @@ export default function SovereignDelegate({
             speakText("Initializing secure transaction protocol...");
             const response = await fetch('/api/create-topup-session', {
                 method: 'POST',
-                body: JSON.stringify({ userId: 'current_user', quantity: 50 })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId: 'current_user', quantity: 40 }) // 40 tokens for $20
             });
             const data = await response.json();
 
-            if (data.success) {
-                // Determine 'success' - in real app navigate to data.url
-                // Here we simulate the successful return:
-                setTokensRemaining(100);
-                setShowRecharge(false);
-                speakText("Capital limit expanded. Sovereignty restored. Proceeding with neural operations.");
+            if (data.success && data.url) {
+                // Real Stripe Redirection
+                window.location.href = data.url;
+            } else {
+                throw new Error(data.details || "Session generation failed");
             }
-        } catch (e) {
+        } catch (e: any) {
             console.error("Recharge failed", e);
+            speakText("Transaction protocol failed. Please verify your downlink and try again.");
         }
     };
 
@@ -133,6 +142,7 @@ export default function SovereignDelegate({
             speakText("I have finished analyzing your request. The results are ready for your review.");
             hasAnnouncedRef.current = true;
             setTokensRemaining(prev => Math.max(0, prev - 2)); // Deduct tokens for analysis
+            addXP(15); // Large reward for successful generation
         }
     }, [completionText]);
 
@@ -216,6 +226,7 @@ export default function SovereignDelegate({
         setIsGenerating(false);
         setAiMode('idle');
         speakText("Neural Video Briefing finalized. Accessing Sovereign Hub for deployment.");
+        addXP(20); // Massive XP for synthesis
         alert("🎥 Sovereign Generative Briefing Created & Synced to Dashboard.");
     };
 
@@ -232,7 +243,53 @@ export default function SovereignDelegate({
 
         await new Promise(r => setTimeout(r, 1500));
         setAiMode('idle');
+        addXP(5); // Small XP for quick analysis
         speakText("Analysis complete. We predict a 14% increase in student growth metrics if current Tier 3 interventions remain stable.");
+    };
+
+    const handleGeneratePDF = async () => {
+        if (!completionText) {
+            speakText("Commander, I require an active data set to architect a briefing. Please execute a neural request first.");
+            return;
+        }
+
+        try {
+            const { jsPDF } = await import('jspdf');
+            const doc = new jsPDF();
+
+            speakText("Architecting professional PDF briefing. Applying state seal watermarks and executive formatting.");
+
+            // PDF Styling
+            doc.setFillColor(15, 15, 20); // Dark background for header
+            doc.rect(0, 0, 210, 40, 'F');
+
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(22);
+            doc.setFont("helvetica", "bold");
+            doc.text("EDINTEL SOVEREIGN BRIEFING", 20, 25);
+
+            doc.setFontSize(10);
+            doc.text(`RANK: ${currentRank.title.toUpperCase()} | CLEARANCE: ${currentRank.clearance.toUpperCase()}`, 20, 32);
+
+            doc.setTextColor(40, 40, 40);
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "normal");
+
+            const splitText = doc.splitTextToSize(completionText.replace(/[*#_`]/g, ''), 170);
+            doc.text(splitText, 20, 55);
+
+            doc.setFontSize(8);
+            doc.setTextColor(150, 150, 150);
+            doc.text(`Generated by ${name} (${role}) on ${new Date().toLocaleDateString()}`, 20, 280);
+            doc.text("EDINTEL NEURAL NETWORK - CONFIDENTIAL DISTRICT INTEL", 20, 285);
+
+            doc.save(`Sovereign_Briefing_${Date.now()}.pdf`);
+            speakText("Briefing archived and downloaded. Ready for administrative presentation.");
+            addXP(10); // XP for documentation
+        } catch (e) {
+            console.error("PDF generation failed", e);
+            speakText("Handshake with PDF architect failed. Retrying uplink.");
+        }
     };
 
     const handleReadBriefing = () => {
@@ -253,23 +310,64 @@ export default function SovereignDelegate({
                         className={`pointer-events-auto mb-6 w-80 md:w-96 bg-zinc-900/95 backdrop-blur-2xl border ${theme === 'sovereign' ? 'border-amber-500/30' : 'border-white/10'} rounded-3xl overflow-hidden shadow-2xl ring-1 ring-white/20`}
                     >
                         {/* Header */}
-                        <div className={`p-4 ${theme === 'sovereign' ? 'bg-gradient-to-r from-amber-900 to-purple-900' : `bg-gradient-to-r ${color}`} relative flex items-center justify-between z-10`}>
-                            <div className="flex items-center gap-3">
-                                <div className={`w-2 h-2 rounded-full ${isSpeaking ? 'bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.5)]' : 'bg-red-500'} `} />
-                                <div>
-                                    <h3 className="text-[10px] font-black uppercase text-white tracking-widest">{role}</h3>
-                                    <p className="text-xs text-white/80 font-bold">{name}</p>
+                        <div className={`p-4 ${theme === 'sovereign' ? 'bg-gradient-to-r from-amber-900 to-purple-900' : `bg-gradient-to-r ${color}`} relative z-10 shadow-lg`}>
+                            {/* Neural Rank Status Bar */}
+                            <div className="absolute top-0 left-0 right-0 h-1 bg-white/10 overflow-hidden">
+                                <motion.div
+                                    className="h-full bg-amber-400 shadow-[0_0_10px_#fbbf24]"
+                                    initial={{ width: 0 }}
+                                    animate={{ width: `${progressToNext}%` }}
+                                    transition={{ duration: 1 }}
+                                />
+                            </div>
+
+                            <div className="flex items-center justify-between mt-1">
+                                <div className="flex items-center gap-3">
+                                    <div className={`w-2 h-2 rounded-full ${isSpeaking ? 'bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.5)]' : 'bg-red-500'} `} />
+                                    <div>
+                                        <h3 className="text-[10px] font-black uppercase text-white tracking-widest flex items-center gap-2">
+                                            {role}
+                                            <span className="text-[8px] px-1.5 py-0.5 rounded-full bg-black/40 text-amber-400 border border-amber-500/30">
+                                                LVL {currentRank.level}
+                                            </span>
+                                        </h3>
+                                        <p className="text-xs text-white/80 font-bold">{name}</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <button onClick={() => setShowControlPanel(!showControlPanel)} className={`p-1 hover:bg-white/10 rounded-full transition-colors ${showControlPanel ? 'text-amber-400' : 'text-white'}`}>
+                                        <MoreVertical size={14} />
+                                    </button>
+                                    <button onClick={() => setIsMinimized(!isMinimized)} className="p-1 hover:bg-white/10 rounded-full text-white transition-colors">
+                                        {isMinimized ? <Maximize2 size={14} /> : <Minimize2 size={14} />}
+                                    </button>
+                                    <button onClick={() => { setIsOpen(false); window.speechSynthesis.cancel(); setIsSpeaking(false); }} className="p-1 hover:bg-white/10 rounded-full text-white transition-colors">
+                                        <X size={14} />
+                                    </button>
                                 </div>
                             </div>
-                            <button onClick={() => setShowControlPanel(!showControlPanel)} className={`p-1 hover:bg-white/10 rounded-full transition-colors ${showControlPanel ? 'text-amber-400' : 'text-white'}`}>
-                                <MoreVertical size={14} />
-                            </button>
-                            <button onClick={() => setIsMinimized(!isMinimized)} className="p-1 hover:bg-white/10 rounded-full text-white transition-colors">
-                                {isMinimized ? <Maximize2 size={14} /> : <Minimize2 size={14} />}
-                            </button>
-                            <button onClick={() => { setIsOpen(false); window.speechSynthesis.cancel(); setIsSpeaking(false); }} className="p-1 hover:bg-white/10 rounded-full text-white transition-colors">
-                                <X size={14} />
-                            </button>
+
+                            {/* Rank Title & Presence */}
+                            {!isMinimized && (
+                                <div className="mt-3 flex items-center justify-between border-t border-white/5 pt-2">
+                                    <div className="flex items-center gap-1.5">
+                                        <Trophy size={10} className="text-amber-500" />
+                                        <span className={`text-[9px] font-black uppercase tracking-tighter ${currentRank.color}`}>
+                                            {currentRank.title}
+                                        </span>
+                                    </div>
+                                    <div className="flex -space-x-1.5">
+                                        {[1, 2, 3].map(i => (
+                                            <div key={i} className="w-4 h-4 rounded-full border border-zinc-900 bg-zinc-800 flex items-center justify-center overflow-hidden">
+                                                <img src={`https://i.pravatar.cc/100?u=${i}`} alt="Commander" className="w-full h-full object-cover opacity-60" />
+                                            </div>
+                                        ))}
+                                        <div className="w-4 h-4 rounded-full border border-zinc-900 bg-emerald-500/20 flex items-center justify-center">
+                                            <div className="w-1 h-1 rounded-full bg-emerald-400 animate-pulse" />
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
                         </div>
 
                         {!isMinimized && (
@@ -436,6 +534,7 @@ export default function SovereignDelegate({
                                                             { id: 'synthesis', label: 'Neural Briefing Synthesis', color: 'bg-purple-500', action: handleGenerativeSynthesis },
                                                             { id: 'relief', label: 'Teacher Relief Protocol', color: 'bg-rose-500', action: () => speakText("Deploying Teacher Relief Protocol. Automating administrative load for zero-burnout classroom management.") },
                                                             { id: 'legal', label: 'Sovereign Legal Defense', color: 'bg-zinc-500', action: () => speakText("Simulating legally-defensible administrative responses for current board policy.") },
+                                                            { id: 'pdf', label: 'Executive Briefing Architect', color: 'bg-indigo-600', action: handleGeneratePDF },
                                                         ].map((item) => (
                                                             <button
                                                                 key={item.id}
@@ -457,8 +556,20 @@ export default function SovereignDelegate({
                                                 </div>
 
                                                 <div className="p-4 rounded-2xl bg-gradient-to-br from-amber-500/10 to-transparent border border-amber-500/20">
-                                                    <p className="text-[9px] text-amber-500 font-bold uppercase tracking-widest mb-1">Status</p>
-                                                    <p className="text-[10px] text-zinc-400 font-mono">FIDELITY: 99.8% | LATENCY: 12ms</p>
+                                                    <div className="flex items-center justify-between mb-2">
+                                                        <p className="text-[9px] text-amber-500 font-bold uppercase tracking-widest">Sovereign Rank Status</p>
+                                                        <p className="text-[9px] text-zinc-500 font-mono">XP: {xp}</p>
+                                                    </div>
+                                                    <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden mb-2">
+                                                        <motion.div
+                                                            className="h-full bg-amber-500 shadow-[0_0_8px_#fbbf24]"
+                                                            initial={{ width: 0 }}
+                                                            animate={{ width: `${progressToNext}%` }}
+                                                        />
+                                                    </div>
+                                                    <p className="text-[8px] text-zinc-500 font-mono uppercase">
+                                                        {currentRank.title} | {currentRank.clearance}
+                                                    </p>
                                                 </div>
                                             </motion.div>
                                         )}
@@ -565,6 +676,10 @@ export default function SovereignDelegate({
                         avatarVideo={videoSrc}
                         avatarVoice={voiceSrc || '/voice-profiles/principal_voice.mp3'}
                         avatarVoiceSettings={voiceSettings}
+                        tokensRemaining={tokensRemaining}
+                        onDeductTokens={(amount) => setTokensRemaining(prev => Math.max(0, prev - amount))}
+                        onRecharge={() => setShowRecharge(true)}
+                        onAddXP={addXP}
                         onClose={() => setShowLiveChat(false)}
                     />
                 )

@@ -1,5 +1,6 @@
 
 import { NextResponse } from 'next/server';
+import { createTopupSession } from '@/lib/stripe';
 
 // POST /api/create-topup-session
 // Generates a Stripe checkout session for "Intelligence Injection" (Token Top-up)
@@ -8,25 +9,34 @@ export async function POST(request: Request) {
         const body = await request.json();
         const { userId, quantity = 1 } = body;
 
-        // In a real implementation:
-        // 1. Validate User
-        // 2. Call Stripe API to create session
-        // const session = await stripe.checkout.sessions.create({...})
+        console.log(`[SOVEREIGN PAYMENT] Initializing Real Capital Injection for User: ${userId}, Quantity: ${quantity}`);
 
-        // Mock Response
-        console.log(`[SOVEREIGN PAYMENT] Creating Top-Up Session for User: ${userId}, Quantity: ${quantity}`);
+        // Base URL for redirects
+        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 
-        // Simulate latency
-        await new Promise(resolve => setTimeout(resolve, 800));
+        // Create real Stripe session
+        const session = await createTopupSession(
+            userId || 'anonymous_sovereign',
+            quantity,
+            `${baseUrl}/dashboard?success=true&session_id={CHECKOUT_SESSION_ID}`,
+            `${baseUrl}/dashboard?canceled=true`
+        );
+
+        if (!session.url) {
+            throw new Error('Failed to generate session URL');
+        }
 
         return NextResponse.json({
-            url: "/dashboard?success=true&session_id=mock_session_123", /* In prod this is stripe session.url */
+            url: session.url,
             success: true,
             message: "Capital Injection Channel Opened"
         });
 
-    } catch (error) {
+    } catch (error: any) {
         console.error("[SOVEREIGN PAYMENT ERROR]", error);
-        return NextResponse.json({ error: "Failed to initialize payment channel" }, { status: 500 });
+        return NextResponse.json({
+            error: "Failed to initialize payment channel",
+            details: error.message
+        }, { status: 500 });
     }
 }

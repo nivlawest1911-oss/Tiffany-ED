@@ -175,20 +175,34 @@ export default function ModernHomePage() {
             role: "Executive Principal",
             avatar: "/images/dr_alvin_west.png",
             color: "from-indigo-600 to-purple-800",
-            voiceSettings: { pitch: 0.9, rate: 0.85, lang: 'en-US' }
+            voiceSettings: { pitch: 0.85, rate: 0.9, lang: 'en-US' }
+        },
+        {
+            name: "Dr. Tiffany Chambers",
+            role: "Special Education Director",
+            avatar: "/images/avatars/tiffany_chambers.png",
+            color: "from-emerald-600 to-emerald-900",
+            voiceSettings: { pitch: 1.05, rate: 0.95, lang: 'en-US' }
+        },
+        {
+            name: "Andre Simmons",
+            role: "District Tech Coordinator",
+            avatar: "/images/avatars/andre_simmons.png",
+            color: "from-amber-600 to-orange-800",
+            voiceSettings: { pitch: 0.95, rate: 1.05, lang: 'en-US' }
         },
         {
             name: "Sarah West",
             role: "Curriculum Strategist",
             avatar: "/images/avatars/curriculum_strategist.png",
-            color: "from-emerald-600 to-teal-800",
-            voiceSettings: { pitch: 1.1, rate: 0.95, lang: 'en-US' }
+            color: "from-fuchsia-600 to-rose-800",
+            voiceSettings: { pitch: 1.15, rate: 0.95, lang: 'en-US' }
         },
         {
             name: "Marcus Johnson",
-            role: "Stem Coordinator",
+            role: "STEM Coordinator",
             avatar: "/images/avatars/stem_coordinator.png",
-            color: "from-blue-600 to-cyan-800",
+            color: "from-blue-600 to-indigo-800",
             voiceSettings: { pitch: 1.0, rate: 1.0, lang: 'en-US' }
         },
     ];

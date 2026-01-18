@@ -5,10 +5,10 @@ import { Share2, Lock, CheckCircle2, Shield, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 
 const INTEGRATIONS = [
-    { id: 'google', name: 'Google Workspace', status: 'Available', tier: 'Sovereign', description: 'Automated IEP syncing and document generation directly to Drive.' },
-    { id: 'canvas', name: 'Canvas LMS', status: 'Locked', tier: 'Elite', description: 'Real-time assignment analysis and curriculum alignment.' },
-    { id: 'clever', name: 'Clever SSO', status: 'Locked', tier: 'District', description: 'Enterprise-grade Single Sign-On and roster synchronization.' },
-    { id: 'powerschool', name: 'PowerSchool', status: 'Locked', tier: 'District', description: 'Direct gradebook integration and attendance correlation.' },
+    { id: 'google', name: 'Google Workspace', status: 'Available', tier: 'Sovereign', description: 'Automated IEP syncing and document generation directly to Drive.', color: 'text-blue-500', href: '/connectors/google' },
+    { id: 'canvas', name: 'Canvas LMS', status: 'Locked', tier: 'Elite', description: 'Real-time assignment analysis and curriculum alignment.', color: 'text-orange-500', href: '/connectors/canvas' },
+    { id: 'clever', name: 'Clever SSO', status: 'Locked', tier: 'District', description: 'Enterprise-grade Single Sign-On and roster synchronization.', color: 'text-blue-400', href: '/connectors/clever' },
+    { id: 'powerschool', name: 'PowerSchool', status: 'Locked', tier: 'District', description: 'Direct gradebook integration and attendance correlation.', color: 'text-indigo-400', href: '/connectors/powerschool' },
 ];
 
 export default function ConnectorHub() {
@@ -30,7 +30,7 @@ export default function ConnectorHub() {
                 {INTEGRATIONS.map((app) => (
                     <div key={app.id} className="group relative bg-zinc-900 border border-zinc-800 p-8 rounded-2xl hover:border-zinc-500 transition-all duration-500 hover:shadow-2xl hover:shadow-zinc-900/50">
                         <div className="flex justify-between items-start mb-8">
-                            <div className="p-4 bg-zinc-800 rounded-xl group-hover:bg-white group-hover:text-black transition-colors duration-300">
+                            <div className={`p-4 bg-zinc-800 rounded-xl group-hover:bg-white group-hover:text-black transition-colors duration-300 ${app.color}`}>
                                 <Share2 size={28} strokeWidth={1.5} />
                             </div>
                             {app.status === 'Locked' ? (
@@ -55,17 +55,23 @@ export default function ConnectorHub() {
                             {app.description}
                         </p>
 
-                        {app.status === 'Locked' ? (
-                            <button className="w-full py-4 bg-zinc-950 text-zinc-300 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-white hover:text-black border border-zinc-800 hover:border-white transition-all duration-300 flex items-center justify-center gap-2">
-                                <Shield size={14} />
-                                Initialize Upgrade
-                            </button>
-                        ) : (
-                            <button className="w-full py-4 border border-zinc-800 bg-zinc-900/50 text-emerald-500 text-[10px] font-black uppercase tracking-widest rounded-xl cursor-default flex items-center justify-center gap-2">
-                                <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-                                System Synced
-                            </button>
-                        )}
+                        <div className="flex flex-col gap-3">
+                            {app.status === 'Locked' ? (
+                                <button className="w-full py-4 bg-zinc-950 text-zinc-300 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-white hover:text-black border border-zinc-800 hover:border-white transition-all duration-300 flex items-center justify-center gap-2">
+                                    <Shield size={14} />
+                                    Initialize Upgrade
+                                </button>
+                            ) : (
+                                <button className="w-full py-4 border border-zinc-800 bg-zinc-900/50 text-emerald-500 text-[10px] font-black uppercase tracking-widest rounded-xl cursor-default flex items-center justify-center gap-2">
+                                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                                    System Synced
+                                </button>
+                            )}
+
+                            <Link href={app.href} className="w-full py-3 text-center text-zinc-600 text-[9px] font-bold uppercase tracking-[0.2em] hover:text-white transition-colors">
+                                View Integration Docs
+                            </Link>
+                        </div>
                     </div>
                 ))}
 
