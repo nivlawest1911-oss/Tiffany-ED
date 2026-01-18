@@ -8,14 +8,15 @@ import {
 } from "lucide-react"
 
 // Map specific tools to "Delegate" avatars for the human feel
+// STRICT: Ensure all Avatars are African American Professionals
 const AVATARS = {
     PRINCIPAL: "/images/avatars/executive_leader.png", // Dr. West
-    COUNSELOR: "/images/avatars/behavior_specialist.png",
-    CURRICULUM: "/images/avatars/curriculum_strategist.png",
-    DATA: "/images/avatars/executive_leader.png",
-    COMPLIANCE: "/images/avatars/iep_architect.png",
-    LITERACY: "/images/avatars/literacy_coach.png",
-    FINANCE: "/images/avatars/stem_coordinator.png"
+    COUNSELOR: "/images/avatars/female_leader.png",    // Sarah (Instructional)
+    CURRICULUM: "/images/avatars/female_leader.png",   // Curriculum Lead
+    DATA: "/images/avatars/executive_leader.png",      // Data Strategist
+    COMPLIANCE: "/images/avatars/executive_leader.png",// Compliance Officer
+    LITERACY: "/images/avatars/female_leader.png",     // Literacy Coach
+    FINANCE: "/images/avatars/executive_leader.png"    // Finance Director
 }
 
 export const generators = [
