@@ -18,11 +18,43 @@ export async function POST(request: NextRequest) {
         const lastMessage = messages[messages.length - 1];
         const prompt = lastMessage.content;
 
-        // Bypassing Google AI Key to use Sovereign AI Engine (Local Resources)
-        // This ensures ZERO failures and high-quality "free" AI generation
-        // Simulate streaming for chat experience
-        const persona = avatarName && avatarRole ? { name: avatarName, role: avatarRole } : undefined;
-        const responseText = await generateSovereignResponse(prompt, generatorId, persona);
+        let responseText = "";
+
+        // 1. Sovereign Cloud Uplink (Hybrid Neural Architecture)
+        // Attempts to reach the "Sovereign Brain" on Cloud Run before using local fallback
+        try {
+            const brainUrl = process.env.NEXT_PUBLIC_SOVEREIGN_BRAIN_URL;
+            if (brainUrl) {
+                console.log(`[Neural Link] Chat Uplink to ${brainUrl}...`);
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 6000); // 6s timeout for chat
+
+                const cloudRes = await fetch(`${brainUrl}/generate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt, model_id: generatorId }), // Chat sends last prompt
+                    signal: controller.signal
+                });
+                clearTimeout(timeoutId);
+
+                if (cloudRes.ok) {
+                    const cloudData = await cloudRes.json();
+                    if (cloudData.content) {
+                        responseText = cloudData.content;
+                    }
+                }
+            }
+        } catch (e) {
+            console.warn("[Neural Link] Cloud Chat Uplink Failed. Engaging Local Sovereign Engine.");
+        }
+
+        // 2. Fallback: Sovereign AI Engine (Local Resources)
+        if (!responseText) {
+            // Bypassing Google AI Key to use Sovereign AI Engine (Local Resources)
+            // This ensures ZERO failures and high-quality "free" AI generation
+            const persona = avatarName && avatarRole ? { name: avatarName, role: avatarRole } : undefined;
+            responseText = await generateSovereignResponse(prompt, generatorId, persona);
+        }
 
         const encoder = new TextEncoder();
         const stream = new ReadableStream({
