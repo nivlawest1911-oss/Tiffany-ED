@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Loader2, Copy, Check, Sparkles, Download, ArrowRight, Bot, Zap, History, ChevronLeft, X, Mic, Volume2, FileText, BarChart3 } from 'lucide-react';
+import { Loader2, Copy, Check, Sparkles, Download, ArrowRight, Bot, Zap, History, ChevronLeft, X, Mic, Volume2, FileText, BarChart3, Upload } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -52,6 +52,7 @@ export default function EnhancedGenerator({
     const [professorVideo, setProfessorVideo] = useState<string | null>(null);
     const [isListening, setIsListening] = useState(false);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const fileInputRef = useRef<HTMLInputElement>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const [errorMsg, setErrorMsg] = useState('');
     const [selectedDelegate, setSelectedDelegate] = useState({
