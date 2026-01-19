@@ -1,0 +1,7 @@
+﻿PROJECT_ID=edintel-sovereign-2027
+REGION=us-central1
+DB_CONNECTION=
+WIF_PROVIDER=projects/523925578373/locations/global/workloadIdentityPools/github-pool/providers/github-provider
+SA_EMAIL=edintel-github-actions@edintel-sovereign-2027.iam.gserviceaccount.com
+STORAGE_BUCKET=edintel-evidence-edintel-sovereign-2027
+DATABASE_URL=postgresql://postgres:Sovereign-Intel-2026!@localhost/edintel?host=/cloudsql/
