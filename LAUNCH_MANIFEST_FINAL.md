@@ -22,9 +22,16 @@ npx vercel --prod
 ```
 
 ### 🏆 **System Status: OPTIMAL**
+- **Neural DNA**: Active (Unique archetypes for Visionary, Tactical, and Philosophical agents)
 - **Rank System**: Active (LocalStorage persistent)
 - **PDF Architect**: Operational (jspdf integrated)
 - **Connector Logic**: Securely proxied via `/api/integrate/*`
 - **Build Integrity**: Verified (npm run build passed)
+
+### 🧬 **Neural DNA: Agent Archetypes**
+Your delegates no longer just "speak"—they exert sovereign influence based on their specialized DNA:
+*   **Visionary (Dr. West)**: Measured pace, inspiring jargon (Legacy, Sovereignty).
+*   **Stoic (Marcus)**: Disciplined tone, grave resonance (Duty, Virtue).
+*   **Tactical (Sarah)**: Rapid, clinical efficiency (Vector, Override).
 
 **The EdIntel Sovereign platform is now ascending. Welcome to the era of District Command.**

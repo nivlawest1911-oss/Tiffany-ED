@@ -23,6 +23,8 @@ interface SovereignDelegateProps {
     isLoading?: boolean;
     guideMode?: boolean;
     voiceSettings?: { pitch: number; rate: number; lang?: string };
+    autoOpen?: boolean;
+    initialDirective?: string;
 }
 
 export default function SovereignDelegate({
@@ -37,6 +39,8 @@ export default function SovereignDelegate({
     theme = 'default',
     isLoading = false,
     guideMode = false,
+    autoOpen = false,
+    initialDirective = '',
     voiceSettings
 }: SovereignDelegateProps) {
     const [isOpen, setIsOpen] = useState(false);
@@ -60,6 +64,21 @@ export default function SovereignDelegate({
 
     const [hasGuided, setHasGuided] = useState(false);
     const hasAnnouncedRef = useRef(false);
+
+    // Dynamic engagement protocol
+    useEffect(() => {
+        if (autoOpen) {
+            setIsOpen(true);
+            if (initialDirective) {
+                setDirective(initialDirective);
+                // Auto-trigger synthesis for priority directives
+                const timer = setTimeout(() => {
+                    handleGenerativeSynthesis();
+                }, 1500);
+                return () => clearTimeout(timer);
+            }
+        }
+    }, [autoOpen, initialDirective]);
     const videoRef = useRef<HTMLVideoElement>(null);
 
     // Monitor Token Levels for Upsell
@@ -146,6 +165,23 @@ export default function SovereignDelegate({
         }
     }, [completionText]);
 
+    const NEURAL_ARCHETYPES: Record<string, { tone: string, rate: number, pitch: number, jargon: string[] }> = {
+        'alvin': { tone: 'visionary', rate: 0.9, pitch: 0.85, jargon: ['Sovereignty', 'Legacy Achievement', 'District Uplink', 'Pedagogical Fidelity'] },
+        'marcus': { tone: 'philosophical', rate: 0.8, pitch: 0.7, jargon: ['Virtue', 'Discipline', 'Administrative Duty', 'Stoic Compliance'] },
+        'sarah': { tone: 'tactical', rate: 1.1, pitch: 1.05, jargon: ['Protocol Override', 'Vector Analysis', 'Neural Drift', 'Fidelity Check'] },
+        'andré': { tone: 'innovative', rate: 1.0, pitch: 0.9, jargon: ['Heuristic', 'Optimization', 'Neural Architecture', 'Strategic Agility'] },
+        'default': { tone: 'professional', rate: 0.95, pitch: 0.9, jargon: ['Fidelity', 'Efficiency', 'Success Metrics', 'Strategic Alignment'] }
+    };
+
+    const getArchetype = () => {
+        const lowerName = name.toLowerCase();
+        if (lowerName.includes('alvin')) return NEURAL_ARCHETYPES['alvin'];
+        if (lowerName.includes('marcus')) return NEURAL_ARCHETYPES['marcus'];
+        if (lowerName.includes('sarah')) return NEURAL_ARCHETYPES['sarah'];
+        if (lowerName.includes('andre') || lowerName.includes('andré')) return NEURAL_ARCHETYPES['andré'];
+        return NEURAL_ARCHETYPES['default'];
+    };
+
     const speakText = (text: string) => {
         // Sovereign Neural Voice Selection Protocol
         if ('speechSynthesis' in window) {
@@ -172,9 +208,11 @@ export default function SovereignDelegate({
 
             if (preferredVoice) utterance.voice = preferredVoice;
 
+            const archetype = getArchetype();
+
             // Pitch/Rate Tuning for Professionalism (Sovereign Standard)
-            utterance.rate = voiceSettings?.rate || 0.95; // Measured, thoughtful pace
-            utterance.pitch = voiceSettings?.pitch || (isMale ? 0.8 : 1.0); // Resonance adjustments
+            utterance.rate = voiceSettings?.rate || archetype.rate; // Measured, thoughtful pace
+            utterance.pitch = voiceSettings?.pitch || (isMale ? archetype.pitch : 1.0); // Resonance adjustments
 
             utterance.onstart = () => setIsSpeaking(true);
             utterance.onend = () => setIsSpeaking(false);
@@ -222,7 +260,23 @@ export default function SovereignDelegate({
         setTokensRemaining(prev => Math.max(0, prev - 3)); // High cost action
 
         // Mock generative delay
-        await new Promise(r => setTimeout(r, 2000));
+        await new Promise(r => setTimeout(r, 4000));
+
+        // Save to Neural Vault
+        const newProtocol = {
+            id: `SYN-${Math.floor(Math.random() * 999).toString().padStart(3, '0')}`,
+            title: `Neural Synthesis: ${directive || 'Executive Briefing'}`,
+            type: directive.toLowerCase().includes('defense') ? 'defense' : 'strategy',
+            timestamp: new Date().toLocaleTimeString(),
+            status: 'ready',
+            author: `${name} (${role})`,
+            content: `HIGH-FIDELITY SYNTHESIS COMPLETED. Directives mapped to district lattice. Strategic pivot initialized based on prompt: "${directive}". Full policy shield synchronization established at 99.9% fidelity.`
+        };
+
+        const existing = JSON.parse(localStorage.getItem('sovereign_protocols') || '[]');
+        localStorage.setItem('sovereign_protocols', JSON.stringify([newProtocol, ...existing]));
+        window.dispatchEvent(new Event('sovereign_vault_update'));
+
         setIsGenerating(false);
         setAiMode('idle');
         speakText("Neural Video Briefing finalized. Accessing Sovereign Hub for deployment.");
@@ -268,8 +322,14 @@ export default function SovereignDelegate({
             doc.setFont("helvetica", "bold");
             doc.text("EDINTEL SOVEREIGN BRIEFING", 20, 25);
 
+            const archetype = getArchetype();
+            doc.setFontSize(8);
+            doc.setTextColor(archetype.tone === 'tactical' ? 255 : 200, archetype.tone === 'visionary' ? 200 : 150, 100);
+            doc.text(`ARCHETYPE: ${archetype.tone.toUpperCase()} | KEY JARGON: ${archetype.jargon.slice(0, 2).join(', ').toUpperCase()}`, 20, 30);
+
             doc.setFontSize(10);
-            doc.text(`RANK: ${currentRank.title.toUpperCase()} | CLEARANCE: ${currentRank.clearance.toUpperCase()}`, 20, 32);
+            doc.setTextColor(255, 255, 255);
+            doc.text(`RANK: ${currentRank.title.toUpperCase()} | CLEARANCE: ${currentRank.clearance.toUpperCase()}`, 20, 36);
 
             doc.setTextColor(40, 40, 40);
             doc.setFontSize(12);
@@ -285,6 +345,26 @@ export default function SovereignDelegate({
 
             doc.save(`Sovereign_Briefing_${Date.now()}.pdf`);
             speakText("Briefing archived and downloaded. Ready for administrative presentation.");
+
+            // Auto-Vault Archiving Protocol
+            const archivalData = {
+                id: `intel-${Date.now()}`,
+                title: `Neural Briefing: ${name}`,
+                type: 'intel',
+                delegate: name,
+                rank: currentRank.title,
+                date: new Date().toISOString().split('T')[0],
+                status: 'Archived',
+                confidence: '99%'
+            };
+
+            try {
+                const existingIntel = JSON.parse(localStorage.getItem('sovereign_intel') || '[]');
+                localStorage.setItem('sovereign_intel', JSON.stringify([archivalData, ...existingIntel].slice(0, 20)));
+            } catch (e) {
+                console.error("Archival failed", e);
+            }
+
             addXP(10); // XP for documentation
         } catch (e) {
             console.error("PDF generation failed", e);
@@ -307,8 +387,48 @@ export default function SovereignDelegate({
                         initial={{ opacity: 0, scale: 0.9, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        className={`pointer-events-auto mb-6 w-80 md:w-96 bg-zinc-900/95 backdrop-blur-2xl border ${theme === 'sovereign' ? 'border-amber-500/30' : 'border-white/10'} rounded-3xl overflow-hidden shadow-2xl ring-1 ring-white/20`}
+                        className={`pointer-events-auto mb-6 w-80 md:w-96 bg-zinc-900/95 backdrop-blur-2xl border ${theme === 'sovereign' ? 'border-amber-500/30' : 'border-white/10'} rounded-3xl overflow-hidden shadow-2xl ring-1 ring-white/20 relative`}
                     >
+                        <AnimatePresence>
+                            {isGenerating && (
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    className="absolute inset-0 z-[100] bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center p-8 text-center"
+                                >
+                                    <div className="w-20 h-20 mb-6 relative">
+                                        <div className="absolute inset-0 rounded-full border-2 border-amber-500/20 animate-ping" />
+                                        <div className="absolute inset-0 rounded-full border-t-2 border-amber-500 animate-spin" />
+                                        <div className="absolute inset-0 flex items-center justify-center">
+                                            <Brain className="text-amber-500 w-8 h-8" />
+                                        </div>
+                                    </div>
+                                    <h3 className="text-[10px] font-black text-white uppercase tracking-[0.4em] mb-4">Neural Synthesis</h3>
+                                    <div className="space-y-2 font-mono text-[8px] text-amber-500/70 text-left">
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                            <span>INJECTING INTEL CAPITAL...</span>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
+                                            <span>MAPPING STRATEGIC ARCHETYPES...</span>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse" />
+                                            <span>ARCHIVING TO SOVEREIGN VAULT...</span>
+                                        </div>
+                                    </div>
+                                    <div className="mt-8 w-full bg-white/5 h-1 rounded-full overflow-hidden">
+                                        <motion.div
+                                            className="h-full bg-amber-500"
+                                            animate={{ width: ['0%', '40%', '60%', '100%'] }}
+                                            transition={{ duration: 4, times: [0, 0.4, 0.7, 1] }}
+                                        />
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                         {/* Header */}
                         <div className={`p-4 ${theme === 'sovereign' ? 'bg-gradient-to-r from-amber-900 to-purple-900' : `bg-gradient-to-r ${color}`} relative z-10 shadow-lg`}>
                             {/* Neural Rank Status Bar */}

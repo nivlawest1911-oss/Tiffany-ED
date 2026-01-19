@@ -32,7 +32,14 @@ export default function BoardView() {
       className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 font-sans p-8 md:p-12 transition-colors duration-500"
     >
       <div className="max-w-6xl mx-auto space-y-12">
-        <motion.header variants={item} className="text-center space-y-4">
+        <motion.header variants={item} className="text-center space-y-4 relative pt-6">
+          {/* Strategic Kente Lattice */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-[2px] flex overflow-hidden opacity-40">
+            {Array.from({ length: 20 }).map((_, i) => (
+              <div key={i} className={`flex-1 h-full ${i % 4 === 0 ? 'bg-amber-500' : i % 4 === 1 ? 'bg-emerald-600' : i % 4 === 2 ? 'bg-rose-600' : 'bg-black'}`} />
+            ))}
+          </div>
+
           <div className="inline-flex items-center px-4 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-widest">
             Read-Only Executive Summary
           </div>

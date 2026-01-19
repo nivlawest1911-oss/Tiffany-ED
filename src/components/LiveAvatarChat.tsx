@@ -82,6 +82,23 @@ export default function LiveAvatarChat({
     const [eqAura, setEqAura] = useState<'indigo' | 'emerald' | 'rose' | 'amber'>('indigo');
     const [curiosityNode, setCuriosityNode] = useState<string | null>(null);
 
+    const NEURAL_ARCHETYPES: Record<string, { tone: string, rate: number, pitch: number, jargon: string[] }> = {
+        'alvin': { tone: 'visionary', rate: 0.9, pitch: 0.85, jargon: ['Sovereignty', 'Legacy Achievement', 'District Uplink', 'Pedagogical Fidelity'] },
+        'marcus': { tone: 'philosophical', rate: 0.8, pitch: 0.7, jargon: ['Virtue', 'Discipline', 'Administrative Duty', 'Stoic Compliance'] },
+        'sarah': { tone: 'tactical', rate: 1.1, pitch: 1.05, jargon: ['Protocol Override', 'Vector Analysis', 'Neural Drift', 'Fidelity Check'] },
+        'andré': { tone: 'innovative', rate: 1.0, pitch: 0.9, jargon: ['Heuristic', 'Optimization', 'Neural Architecture', 'Strategic Agility'] },
+        'default': { tone: 'professional', rate: 0.95, pitch: 0.9, jargon: ['Fidelity', 'Efficiency', 'Success Metrics', 'Strategic Alignment'] }
+    };
+
+    const getArchetype = () => {
+        const lowerName = avatarName.toLowerCase();
+        if (lowerName.includes('alvin')) return NEURAL_ARCHETYPES['alvin'];
+        if (lowerName.includes('marcus')) return NEURAL_ARCHETYPES['marcus'];
+        if (lowerName.includes('sarah')) return NEURAL_ARCHETYPES['sarah'];
+        if (lowerName.includes('andre') || lowerName.includes('andré')) return NEURAL_ARCHETYPES['andré'];
+        return NEURAL_ARCHETYPES['default'];
+    };
+
     const videoRef = useRef<HTMLVideoElement>(null);
     const recognitionRef = useRef<any>(null);
     const synthesisRef = useRef<SpeechSynthesisUtterance | null>(null);
@@ -319,8 +336,10 @@ export default function LiveAvatarChat({
         if ('speechSynthesis' in window && isAudioEnabled) {
             window.speechSynthesis.cancel(); // Clear queue for immediate response
             const utterance = new SpeechSynthesisUtterance(text);
-            utterance.rate = avatarVoiceSettings.rate || 0.95;
-            utterance.pitch = avatarVoiceSettings.pitch || 1.0;
+            const archetype = getArchetype();
+
+            utterance.rate = avatarVoiceSettings.rate || archetype.rate;
+            utterance.pitch = avatarVoiceSettings.pitch || (avatarName.toLowerCase().includes('alvin') || avatarName.toLowerCase().includes('marcus') ? archetype.pitch : 1.0);
             utterance.volume = 1.0;
 
             const voices = availableVoices.length > 0 ? availableVoices : window.speechSynthesis.getVoices();

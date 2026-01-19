@@ -17,9 +17,12 @@ import {
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import NeuralSyncGym from '@/components/bento/NeuralSyncGym';
+import { useSovereignRank } from '@/hooks/useSovereignRank';
 export default function CognitiveCommandCenter() {
   const [user, setUser] = useState<any>({ uid: 'SIMULATED-SOVEREIGN-NODE', displayName: 'Executive Director' });
   const [activeTab, setActiveTab] = useState<'simulator' | 'analytics' | 'certification'>('simulator');
+
+  const { addXP, xp, currentRank, progressToNext } = useSovereignRank();
 
   useEffect(() => {
     // Simulated Auth Check
@@ -83,7 +86,7 @@ export default function CognitiveCommandCenter() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                 >
-                  <NeuralSyncGym />
+                  <NeuralSyncGym onXPAction={addXP} />
                 </motion.div>
               )}
 
@@ -167,9 +170,9 @@ export default function CognitiveCommandCenter() {
                   <div className="flex justify-between items-center px-2">
                     <div className="flex items-center gap-3">
                       <Trophy className="text-amber-500" size={16} />
-                      <span className="text-xs font-bold text-zinc-300">Total Tokens</span>
+                      <span className="text-xs font-bold text-zinc-300">Total Sovereign XP</span>
                     </div>
-                    <span className="text-xl font-black text-white">4,850</span>
+                    <span className="text-xl font-black text-white">{xp}</span>
                   </div>
                   <div className="flex justify-between items-center px-2">
                     <div className="flex items-center gap-3">
@@ -181,16 +184,16 @@ export default function CognitiveCommandCenter() {
                   <div className="flex justify-between items-center px-2">
                     <div className="flex items-center gap-3">
                       <Zap className="text-purple-500" size={16} />
-                      <span className="text-xs font-bold text-zinc-300">Rank Progress</span>
+                      <span className="text-xs font-bold text-zinc-200 uppercase tracking-widest">{currentRank.title}</span>
                     </div>
-                    <span className="text-xl font-black text-white">68%</span>
+                    <span className="text-xl font-black text-white">{Math.floor(progressToNext)}%</span>
                   </div>
                 </div>
                 <div className="mt-8 h-2 bg-zinc-800 rounded-full overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
-                    animate={{ width: '68%' }}
-                    className="h-full bg-gradient-to-r from-cyan-500 to-purple-600"
+                    animate={{ width: `${progressToNext}%` }}
+                    className="h-full bg-gradient-to-r from-cyan-500 to-purple-600 shadow-[0_0_10px_rgba(6,182,212,0.5)]"
                   />
                 </div>
               </div>

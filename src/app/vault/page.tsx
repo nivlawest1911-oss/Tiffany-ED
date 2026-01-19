@@ -2,23 +2,35 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Lock, FileText, Download, Gavel, Search, Key, RefreshCw, Eye, ScrollText, CheckCircle } from 'lucide-react';
+import { Lock, FileText, Download, Gavel, Search, Key, RefreshCw, Eye, ScrollText, CheckCircle, Brain } from 'lucide-react';
 import FloatingNavbar from '@/components/FloatingNavbar';
 import Link from 'next/link';
 
 export default function SovereignVault() {
     const [searchTerm, setSearchTerm] = useState('');
-    const [activeTab, setActiveTab] = useState('legal'); // legal, policy, contract
+    const [activeTab, setActiveTab] = useState('all'); // all, legal, policy, contract, intel
+    const [archivedIntel, setArchivedIntel] = useState<any[]>([]);
 
-    const documents = [
-        { id: 1, title: 'FERPA Sovereignty Defense', type: 'legal', date: '2024-03-15', status: 'Verified', confidence: '100%' },
-        { id: 2, title: 'IEP Due Process Shield (Template)', type: 'legal', date: '2024-03-10', status: 'Verified', confidence: '99%' },
-        { id: 3, title: 'Teacher Contract: IP Protection', type: 'contract', date: '2024-02-28', status: 'Draft', confidence: '95%' },
-        { id: 4, title: 'AI Usage Policy (Board Approved)', type: 'policy', date: '2024-02-15', status: 'Active', confidence: '100%' },
-        { id: 5, title: 'Manifesto for Digital Rights', type: 'policy', date: '2024-01-01', status: 'Immutable', confidence: '100%' },
-        { id: 6, title: 'Vendor Data Privacy Rider', type: 'contract', date: '2024-03-20', status: 'Verified', confidence: '98%' },
+    const staticDocuments = [
+        { id: 'ferpa', title: 'FERPA Sovereignty Defense', type: 'legal', date: '2024-03-15', status: 'Verified', confidence: '100%' },
+        { id: 'iep', title: 'IEP Due Process Shield (Template)', type: 'legal', date: '2024-03-10', status: 'Verified', confidence: '99%' },
+        { id: 'contract', title: 'Teacher Contract: IP Protection', type: 'contract', date: '2024-02-28', status: 'Draft', confidence: '95%' },
+        { id: 'ai-policy', title: 'AI Usage Policy (Board Approved)', type: 'policy', date: '2024-02-15', status: 'Active', confidence: '100%' },
+        { id: 'manifesto', title: 'Manifesto for Digital Rights', type: 'policy', date: '2024-01-01', status: 'Immutable', confidence: '100%' },
+        { id: 'privacy', title: 'Vendor Data Privacy Rider', type: 'contract', date: '2024-03-20', status: 'Verified', confidence: '98%' },
     ];
 
+    // Load AI Intel from LocalStorage
+    useState(() => {
+        if (typeof window !== 'undefined') {
+            try {
+                const intel = JSON.parse(localStorage.getItem('sovereign_intel') || '[]');
+                setArchivedIntel(intel);
+            } catch (e) { console.error(e); }
+        }
+    });
+
+    const documents = [...archivedIntel, ...staticDocuments];
     const filteredDocs = documents.filter(doc => (activeTab === 'all' || doc.type === activeTab) && doc.title.toLowerCase().includes(searchTerm.toLowerCase()));
 
     return (
@@ -58,7 +70,7 @@ export default function SovereignVault() {
 
                 {/* Controls */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
-                    <div className="lg:col-span-8">
+                    <div className="lg:col-span-6">
                         <div className="relative">
                             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" size={20} />
                             <input
@@ -70,12 +82,12 @@ export default function SovereignVault() {
                             />
                         </div>
                     </div>
-                    <div className="lg:col-span-4 flex gap-2">
-                        {['legal', 'contract', 'policy'].map(tab => (
+                    <div className="lg:col-span-6 flex gap-2">
+                        {['all', 'legal', 'contract', 'policy', 'intel'].map(tab => (
                             <button
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
-                                className={`flex-1 rounded-xl font-bold text-xs uppercase tracking-wider transition-all border ${activeTab === tab ? 'bg-amber-600 border-amber-500 text-white' : 'bg-zinc-900 border-zinc-800 text-zinc-500 hover:text-white'}`}
+                                className={`flex-1 rounded-xl font-bold text-[10px] uppercase tracking-wider transition-all border ${activeTab === tab ? 'bg-amber-600 border-amber-500 text-white' : 'bg-zinc-900 border-zinc-800 text-zinc-500 hover:text-white'}`}
                             >
                                 {tab}
                             </button>
@@ -85,7 +97,7 @@ export default function SovereignVault() {
 
                 {/* Document Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {filteredDocs.map((doc) => (
+                    {filteredDocs.map((doc: any) => (
                         <motion.div
                             key={doc.id}
                             initial={{ opacity: 0, scale: 0.95 }}
@@ -98,19 +110,22 @@ export default function SovereignVault() {
                             </div>
 
                             <div className="flex justify-between items-start mb-6">
-                                <div className={`p-3 rounded-lg ${doc.type === 'legal' ? 'bg-red-900/20 text-red-500' : doc.type === 'contract' ? 'bg-blue-900/20 text-blue-500' : 'bg-green-900/20 text-green-500'}`}>
-                                    {doc.type === 'legal' ? <Gavel size={24} /> : doc.type === 'contract' ? <FileText size={24} /> : <ScrollText size={24} />}
+                                <div className={`p-3 rounded-lg ${doc.type === 'legal' ? 'bg-red-900/20 text-red-500' : doc.type === 'contract' ? 'bg-blue-900/20 text-blue-500' : doc.type === 'intel' ? 'bg-purple-900/20 text-purple-500' : 'bg-green-900/20 text-green-500'}`}>
+                                    {doc.type === 'legal' ? <Gavel size={24} /> : doc.type === 'contract' ? <FileText size={24} /> : doc.type === 'intel' ? <Brain size={24} /> : <ScrollText size={24} />}
                                 </div>
                                 <div className="px-2 py-1 rounded bg-zinc-950 border border-zinc-800 text-[10px] font-mono text-zinc-400">
                                     {doc.date}
                                 </div>
                             </div>
 
-                            <h3 className="text-lg font-bold text-white mb-2 leading-tight group-hover:text-amber-500 transition-colors">{doc.title}</h3>
+                            <h3 className="text-lg font-bold text-white mb-2 leading-tight group-hover:text-amber-500 transition-colors">
+                                {doc.title}
+                                {doc.delegate && <span className="block text-[10px] text-zinc-500 mt-1 uppercase tracking-widest">Architect: {doc.delegate}</span>}
+                            </h3>
 
                             <div className="flex items-center gap-4 text-xs font-mono text-zinc-500 mb-6">
                                 <span className="flex items-center gap-1"><CheckCircleIcon status={doc.status} /> {doc.status}</span>
-                                <span className="flex items-center gap-1 text-amber-500/80"><Key size={10} /> Conf: {doc.confidence}</span>
+                                <span className="flex items-center gap-1 text-amber-500/80"><Key size={10} /> {doc.rank || `Conf: ${doc.confidence}`}</span>
                             </div>
 
                             <div className="flex gap-2">

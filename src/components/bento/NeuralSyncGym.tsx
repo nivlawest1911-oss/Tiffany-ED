@@ -19,7 +19,7 @@ import {
 
 type GameMode = 'memory' | 'inhibition' | 'logic' | 'speed';
 
-export default function NeuralSyncGym() {
+export default function NeuralSyncGym({ onXPAction }: { onXPAction?: (amount: number) => void }) {
     const [mode, setMode] = useState<GameMode>('memory');
     const [gameActive, setGameActive] = useState(false);
     const [score, setScore] = useState(0);
@@ -39,6 +39,11 @@ export default function NeuralSyncGym() {
     // Speed Game State
     const [mathProblem, setMathProblem] = useState({ q: '', a: 0 });
     const [mathOptions, setMathOptions] = useState<number[]>([]);
+
+    // Logic Game State
+    const [pattern, setPattern] = useState<number[]>([]);
+    const [patternMissing, setPatternMissing] = useState(0);
+    const [patternOptions, setPatternOptions] = useState<number[]>([]);
 
     const colors = [
         { id: 0, name: 'Red', bg: 'bg-red-500', text: 'text-red-500' },
@@ -66,6 +71,18 @@ export default function NeuralSyncGym() {
             setMathProblem({ q: `${a} + ${b}`, a: ans });
             const options = [ans, ans + 1, ans - 1, ans + 2].sort(() => Math.random() - 0.5);
             setMathOptions(options);
+        } else if (mode === 'logic') {
+            const start = Math.floor(Math.random() * 10);
+            const step = Math.floor(Math.random() * 5) + 1;
+            const fullPattern = [start, start + step, start + (step * 2), start + (step * 3)];
+            const missingIdx = Math.floor(Math.random() * 4);
+            const missingVal = fullPattern[missingIdx];
+
+            setPattern(fullPattern);
+            setPatternMissing(missingIdx);
+
+            const options = [missingVal, missingVal + 1, missingVal - 1, missingVal + step].sort(() => Math.random() - 0.5);
+            setPatternOptions(options);
         }
     }, [mode, level]);
 
@@ -120,6 +137,15 @@ export default function NeuralSyncGym() {
                 startNewRound();
             } else {
                 setScore(Math.max(0, score - 2));
+                startNewRound();
+            }
+        } else if (mode === 'logic') {
+            if (val === pattern[patternMissing]) {
+                setScore(score + 15);
+                startNewRound();
+                if (onXPAction) onXPAction(2);
+            } else {
+                setScore(Math.max(0, score - 5));
                 startNewRound();
             }
         }
@@ -267,10 +293,25 @@ export default function NeuralSyncGym() {
                             )}
 
                             {mode === 'logic' && (
-                                <div className="text-center py-10">
-                                    <div className="w-16 h-16 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin mx-auto mb-6" />
-                                    <p className="text-zinc-500 font-mono text-[10px] animate-pulse">SYNTHESIZING PATTERN MATRIX...</p>
-                                    <p className="text-[10px] text-zinc-600 mt-2 italic">Feature coming in Node v4.1</p>
+                                <div className="text-center space-y-12">
+                                    <div className="flex items-center gap-6 justify-center">
+                                        {pattern.map((p, i) => (
+                                            <div key={i} className={`w-20 h-20 rounded-2xl flex items-center justify-center text-4xl font-black ${i === patternMissing ? 'bg-zinc-800 border-2 border-dashed border-cyan-500/50 text-cyan-500 animate-pulse' : 'bg-zinc-900 border border-white/5 text-white'}`}>
+                                                {i === patternMissing ? '?' : p}
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-4 max-w-xs mx-auto">
+                                        {patternOptions.map((opt, i) => (
+                                            <button
+                                                key={i}
+                                                onClick={() => handleInput(opt)}
+                                                className="px-8 py-5 rounded-2xl bg-zinc-900 border border-zinc-800 text-xl font-black hover:border-cyan-500 transition-all"
+                                            >
+                                                {opt}
+                                            </button>
+                                        ))}
+                                    </div>
                                 </div>
                             )}
                         </div>

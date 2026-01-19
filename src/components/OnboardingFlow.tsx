@@ -1,360 +1,315 @@
 'use client';
-
-import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-    Sparkles, GraduationCap, Users, Shield as LucideShield, Briefcase, CheckCircle,
-    ArrowRight, ArrowLeft, FileText, Brain, MessageSquare, Award,
-    Zap, Target
-} from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { Shield, Brain, Target, Users, ArrowRight, Zap, Check, Lock, Cpu, Globe } from 'lucide-react';
+import useSovereignSounds from '@/hooks/useSovereignSounds';
 import Confetti from 'react-confetti';
 
-export default function OnboardingFlow({ onComplete }: { onComplete?: () => void }) {
+export default function OnboardingFlow() {
     const [step, setStep] = useState(0);
-    const [selectedRole, setSelectedRole] = useState('');
-    const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
+    const [formData, setFormData] = useState({
+        districtName: '',
+        objective: '',
+        leadershipStyle: 'Visionary'
+    });
+    const [isFinishing, setIsFinishing] = useState(false);
     const [showConfetti, setShowConfetti] = useState(false);
+    const router = useRouter();
+    const { playClick, playHover } = useSovereignSounds();
 
-    const roles = [
-        {
-            id: 'teacher',
-            title: 'Classroom Teacher',
-            description: 'K-12 educator focused on instruction',
-            icon: GraduationCap,
-            color: 'from-purple-500 to-pink-500',
-        },
-        {
-            id: 'admin',
-            title: 'Administrator',
-            description: 'Principal, AP, or district leader',
-            icon: Briefcase,
-            color: 'from-blue-500 to-cyan-500',
-        },
-        {
-            id: 'specialist',
-            title: 'Specialist',
-            description: 'Special ed, counselor, or coach',
-            icon: LucideShield,
-            color: 'from-green-500 to-emerald-500',
-        },
-        {
-            id: 'other',
-            title: 'Other',
-            description: 'Support staff or other role',
-            icon: Users,
-            color: 'from-orange-500 to-red-500',
-        },
+    const styles = [
+        { name: 'Visionary', desc: 'Focus on future-proof growth and cultural transformation.' },
+        { name: 'Strategic', desc: 'Prioritize data-driven efficiency and resource optimization.' },
+        { name: 'Decisive', desc: 'High-speed execution and administrative authority.' },
+        { name: 'Collaborative', desc: 'Building consensus and human-centric ecosystems.' },
+        { name: 'Stoic', desc: 'Resilient leadership through policy and disciplined compliance.' }
     ];
 
-    const interests = [
-        { id: 'iep', label: 'IEP Generation', icon: FileText, description: 'Create compliant IEPs faster' },
-        { id: 'lesson', label: 'Lesson Planning', icon: Brain, description: 'Standards-aligned lessons' },
-        { id: 'communication', label: 'Communication', icon: MessageSquare, description: 'Parent & staff emails' },
-        { id: 'behavior', label: 'Behavior Management', icon: Target, description: 'PBIS & interventions' },
-        { id: 'grant', label: 'Grant Writing', icon: Zap, description: 'Secure funding' },
-        { id: 'compliance', label: 'Compliance', icon: LucideShield, description: 'Stay up to date' },
-    ];
+    const nextStep = () => {
+        playClick();
+        if (step < 3) setStep(step + 1);
+    };
 
-    const handleNext = () => {
-        if (step === 2) {
-            setShowConfetti(true);
-            setTimeout(() => setShowConfetti(false), 5000);
+    const finishOnboarding = () => {
+        setIsFinishing(true);
+        playClick();
+        setShowConfetti(true);
+
+        // Save to localStorage
+        const identity = {
+            ...formData,
+            rank: 'REGIONAL COMMANDER',
+            clearance: 'LEVEL 4',
+            xp: 2500,
+            joinedDate: new Date().toLocaleDateString()
+        };
+        localStorage.setItem('sovereign_identity', JSON.stringify(identity));
+        localStorage.setItem('onboarding_complete', 'true');
+
+        setTimeout(() => {
+            router.push('/dashboard');
+        }, 4000);
+    };
+
+    const steps = [
+        {
+            title: "NEURAL HANDSHAKE",
+            subtitle: "Establishing Sovereign Identity Lattice",
+            icon: Shield,
+            content: (
+                <div className="space-y-6">
+                    <p className="text-zinc-400 text-sm leading-relaxed border-l-2 border-indigo-500 pl-4 py-1 italic">
+                        "Welcome to the high-ground, Commander. To reclaim your educational sovereignty, we must first map your neural signature to the district grid."
+                    </p>
+                    <div className="relative group/input">
+                        <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-xl blur opacity-0 group-hover/input:opacity-100 transition-opacity" />
+                        <input
+                            type="text"
+                            placeholder="INPUT DISTRICT NAME OR COMMANDER ID..."
+                            value={formData.districtName}
+                            onChange={(e) => setFormData({ ...formData, districtName: e.target.value })}
+                            className="relative w-full bg-zinc-950 border border-white/10 rounded-xl p-5 text-white text-sm font-black uppercase tracking-[0.2em] focus:border-indigo-500 outline-none transition-all placeholder:text-zinc-700"
+                        />
+                        <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[8px] text-indigo-500 font-mono animate-pulse">
+                            AUTHENTICATING...
+                        </div>
+                    </div>
+                </div>
+            )
+        },
+        {
+            title: "STRATEGIC DIRECTIVE",
+            subtitle: "Calibrating Neural Synthesis Priorities",
+            icon: Target,
+            content: (
+                <div className="space-y-6">
+                    <p className="text-zinc-400 text-sm leading-relaxed">
+                        Define your primary mission. This directs every AI delegate in your council to prioritize these specific intelligence vectors.
+                    </p>
+                    <div className="grid grid-cols-1 gap-3">
+                        {[
+                            { id: 'time', label: 'Reclaiming Administrative Time', sub: 'Automating heavy workflows' },
+                            { id: 'gaps', label: 'Closing Achievement Gaps', sub: 'Neural student success modeling' },
+                            { id: 'policy', label: 'Policy Defensibility & Compliance', sub: 'Legislative shielding' },
+                            { id: 'tech', label: 'Neural AI Integration', sub: 'Full spectrum system evolution' }
+                        ].map((obj) => (
+                            <button
+                                key={obj.id}
+                                onClick={() => setFormData({ ...formData, objective: obj.label })}
+                                className={`p-4 rounded-2xl border text-left transition-all relative overflow-hidden group ${formData.objective === obj.label
+                                    ? 'bg-indigo-600/20 border-indigo-500'
+                                    : 'bg-zinc-900/50 border-white/5 hover:border-white/20'
+                                    }`}
+                            >
+                                <div className="flex justify-between items-center relative z-10">
+                                    <div>
+                                        <div className={`text-[10px] font-black uppercase tracking-widest mb-1 ${formData.objective === obj.label ? 'text-white' : 'text-zinc-400'}`}>{obj.label}</div>
+                                        <div className="text-[9px] text-zinc-500 font-medium">{obj.sub}</div>
+                                    </div>
+                                    {formData.objective === obj.label && <motion.div layoutId="check"><Check size={14} className="text-indigo-400" /></motion.div>}
+                                </div>
+                                {formData.objective === obj.label && <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 to-transparent pointer-events-none" />}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            )
+        },
+        {
+            title: "EXECUTIVE ARCHETYPE",
+            subtitle: "Fidelity Sync with Delegate Council",
+            icon: Brain,
+            content: (
+                <div className="space-y-6">
+                    <p className="text-zinc-400 text-sm leading-relaxed">
+                        Your leadership style dictates the pitch, tone, and strategic filters of your delegates. Choose your archetype.
+                    </p>
+                    <div className="grid grid-cols-1 gap-3">
+                        {styles.map((style) => (
+                            <button
+                                key={style.name}
+                                onClick={() => setFormData({ ...formData, leadershipStyle: style.name })}
+                                className={`p-4 rounded-xl border transition-all text-left ${formData.leadershipStyle === style.name
+                                    ? 'bg-white text-black border-white shadow-xl shadow-white/10'
+                                    : 'bg-transparent border-white/10 text-zinc-500 hover:border-white/30'
+                                    }`}
+                            >
+                                <div className="flex justify-between items-center mb-1">
+                                    <span className="text-[10px] font-black uppercase tracking-widest">{style.name}</span>
+                                    {formData.leadershipStyle === style.name && <Zap size={10} fill="currentColor" />}
+                                </div>
+                                <p className={`text-[9px] leading-relaxed ${formData.leadershipStyle === style.name ? 'text-black/60' : 'text-zinc-500'}`}>
+                                    {style.desc}
+                                </p>
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            )
+        },
+        {
+            title: "LATTICE SYNC COMPLETE",
+            subtitle: "Minting Sovereign Identity ID-001",
+            icon: Zap,
+            content: (
+                <div className="space-y-8 text-center pt-4">
+                    <div className="relative w-24 h-24 mx-auto">
+                        <motion.div
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                            className="absolute inset-0 rounded-full border-2 border-dashed border-emerald-500/30"
+                        />
+                        <div className="absolute inset-2 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500">
+                            <Check size={40} />
+                        </div>
+                    </div>
+
+                    <div className="p-6 rounded-3xl bg-zinc-950 border border-white/10 text-left relative overflow-hidden group">
+                        <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <div className="flex justify-between text-[7px] font-mono text-indigo-500 uppercase tracking-[0.2em] mb-4">
+                            <span>Sovereign ID Protocol</span>
+                            <span className="animate-pulse">LATENCY: 12ms</span>
+                        </div>
+                        <div className="space-y-3 relative z-10">
+                            <div className="flex justify-between items-end border-b border-white/5 pb-2">
+                                <span className="text-[8px] font-mono text-zinc-500">COMMANDER</span>
+                                <span className="text-[10px] font-black uppercase text-white tracking-widest">{formData.districtName || 'ANONYMOUS'}</span>
+                            </div>
+                            <div className="flex justify-between items-end border-b border-white/5 pb-2">
+                                <span className="text-[8px] font-mono text-zinc-500">OBJECTIVE</span>
+                                <span className="text-[10px] font-bold text-indigo-400">{formData.objective || 'GENERAL_DEFENSE'}</span>
+                            </div>
+                            <div className="flex justify-between items-end">
+                                <span className="text-[8px] font-mono text-zinc-500">ARCHETYPE</span>
+                                <span className="text-[10px] font-bold text-amber-500 uppercase">{formData.leadershipStyle}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p className="text-[9px] text-zinc-500 uppercase tracking-widest">Generating high-clearance executive credentials...</p>
+                </div>
+            )
         }
-        setStep(prev => Math.min(prev + 1, 3));
-    };
-
-    const handleBack = () => {
-        setStep(prev => Math.max(prev - 1, 0));
-    };
-
-    const toggleInterest = (id: string) => {
-        setSelectedInterests(prev =>
-            prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
-        );
-    };
-
-    const canProceed = () => {
-        if (step === 1) return selectedRole !== '';
-        if (step === 2) return selectedInterests.length > 0;
-        return true;
-    };
-
-    const getRecommendations = () => {
-        const recs = [];
-        if (selectedInterests.includes('iep')) recs.push('IEP Architect');
-        if (selectedInterests.includes('lesson')) recs.push('Lesson Planner');
-        if (selectedInterests.includes('communication')) recs.push('Email Composer');
-        if (selectedInterests.includes('behavior')) recs.push('Behavior Coach');
-        if (selectedInterests.includes('grant')) recs.push('Grant Writer');
-        if (selectedInterests.includes('compliance')) recs.push('Policy Advisor');
-        return recs;
-    };
+    ];
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 flex items-center justify-center p-6">
-            {showConfetti && <Confetti recycle={false} numberOfPieces={500} />}
+        <div className="min-h-screen bg-[#050505] text-white flex flex-col font-sans relative overflow-hidden">
+            {showConfetti && <Confetti recycle={false} numberOfPieces={300} colors={['#6366f1', '#a855f7', '#fbbf24']} />}
 
-            <div className="w-full max-w-4xl">
-                {/* Progress Indicator */}
-                <div className="flex items-center justify-center gap-2 mb-12">
-                    {[0, 1, 2, 3].map((i) => (
-                        <div
-                            key={i}
-                            className={`h-2 rounded-full transition-all ${i === step
-                                ? 'w-12 bg-gradient-to-r from-purple-500 to-pink-500'
-                                : i < step
-                                    ? 'w-8 bg-purple-500/50'
-                                    : 'w-8 bg-purple-500/20'
-                                }`}
-                        />
-                    ))}
-                </div>
+            {/* Ambient Background FX */}
+            <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_30%,rgba(99,102,241,0.05)_0%,transparent_50%)] pointer-events-none" />
+            <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_70%,rgba(251,191,36,0.03)_0%,transparent_50%)] pointer-events-none" />
 
-                {/* Content */}
-                <AnimatePresence mode="wait">
-                    {/* Step 0: Welcome */}
-                    {step === 0 && (
-                        <motion.div
-                            key="step0"
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -50 }}
-                            className="text-center"
-                        >
-                            <motion.div
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
-                                transition={{ delay: 0.2, type: 'spring' }}
-                                className="w-32 h-32 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-purple-500/50"
-                            >
-                                <Sparkles className="w-16 h-16 text-white" />
-                            </motion.div>
-
-                            <h1 className="text-5xl font-bold text-white mb-4">
-                                Welcome to EdIntel! 👋
-                            </h1>
-                            <p className="text-xl text-purple-300 mb-8 max-w-2xl mx-auto">
-                                Let's personalize your experience so you can start saving time and focusing on what matters most.
-                            </p>
-
-                            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center text-purple-300 mb-8">
-                                <div className="flex items-center gap-2">
-                                    <CheckCircle className="w-5 h-5 text-green-400" />
-                                    <span>Takes 2 minutes</span>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <CheckCircle className="w-5 h-5 text-green-400" />
-                                    <span>Personalized setup</span>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <CheckCircle className="w-5 h-5 text-green-400" />
-                                    <span>Skip anytime</span>
-                                </div>
-                            </div>
-
-                            <motion.button
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                onClick={handleNext}
-                                className="px-10 py-5 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold text-xl shadow-2xl shadow-purple-500/50 flex items-center gap-3 mx-auto"
-                            >
-                                Get Started
-                                <ArrowRight className="w-6 h-6" />
-                            </motion.button>
-                        </motion.div>
-                    )}
-
-                    {/* Step 1: Role Selection */}
-                    {step === 1 && (
-                        <motion.div
-                            key="step1"
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -50 }}
-                        >
-                            <h2 className="text-4xl font-bold text-white mb-4 text-center">
-                                What's your role?
-                            </h2>
-                            <p className="text-xl text-purple-300 mb-8 text-center">
-                                This helps us recommend the right tools for you
-                            </p>
-
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
-                                {roles.map((role) => (
-                                    <motion.button
-                                        key={role.id}
-                                        whileHover={{ scale: 1.02, y: -4 }}
-                                        whileTap={{ scale: 0.98 }}
-                                        onClick={() => setSelectedRole(role.id)}
-                                        className={`p-6 rounded-2xl text-left transition-all ${selectedRole === role.id
-                                            ? 'bg-gradient-to-br from-purple-500/20 to-pink-500/20 border-2 border-purple-500/50 shadow-lg shadow-purple-500/20'
-                                            : 'bg-black/40 backdrop-blur-xl border border-purple-500/20 hover:border-purple-500/40'
-                                            }`}
-                                    >
-                                        <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${role.color} mb-4`}>
-                                            <role.icon className="w-6 h-6 text-white" />
-                                        </div>
-                                        <h3 className="text-xl font-bold text-white mb-2">{role.title}</h3>
-                                        <p className="text-purple-300">{role.description}</p>
-                                        {selectedRole === role.id && (
-                                            <div className="mt-4 flex items-center gap-2 text-green-400">
-                                                <CheckCircle className="w-5 h-5" />
-                                                <span className="font-medium">Selected</span>
-                                            </div>
-                                        )}
-                                    </motion.button>
-                                ))}
-                            </div>
-                        </motion.div>
-                    )}
-
-                    {/* Step 2: Interests */}
-                    {step === 2 && (
-                        <motion.div
-                            key="step2"
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -50 }}
-                        >
-                            <h2 className="text-4xl font-bold text-white mb-4 text-center">
-                                What are you interested in?
-                            </h2>
-                            <p className="text-xl text-purple-300 mb-8 text-center">
-                                Select all that apply - we'll personalize your dashboard
-                            </p>
-
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-                                {interests.map((interest) => (
-                                    <motion.button
-                                        key={interest.id}
-                                        whileHover={{ scale: 1.02 }}
-                                        whileTap={{ scale: 0.98 }}
-                                        onClick={() => toggleInterest(interest.id)}
-                                        className={`p-4 rounded-xl text-left transition-all ${selectedInterests.includes(interest.id)
-                                            ? 'bg-gradient-to-br from-purple-500/20 to-pink-500/20 border-2 border-purple-500/50'
-                                            : 'bg-black/40 backdrop-blur-xl border border-purple-500/20 hover:border-purple-500/40'
-                                            }`}
-                                    >
-                                        <div className="flex items-start gap-3">
-                                            <div className={`p-2 rounded-lg ${selectedInterests.includes(interest.id)
-                                                ? 'bg-gradient-to-br from-purple-500 to-pink-500'
-                                                : 'bg-purple-500/20'
-                                                }`}>
-                                                <interest.icon className={`w-5 h-5 ${selectedInterests.includes(interest.id) ? 'text-white' : 'text-purple-400'
-                                                    }`} />
-                                            </div>
-                                            <div className="flex-1">
-                                                <h3 className="text-white font-semibold mb-1">{interest.label}</h3>
-                                                <p className="text-purple-300 text-sm">{interest.description}</p>
-                                            </div>
-                                            {selectedInterests.includes(interest.id) && (
-                                                <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
-                                            )}
-                                        </div>
-                                    </motion.button>
-                                ))}
-                            </div>
-
-                            <div className="text-center text-purple-300">
-                                {selectedInterests.length} selected
-                            </div>
-                        </motion.div>
-                    )}
-
-                    {/* Step 3: Complete */}
-                    {step === 3 && (
-                        <motion.div
-                            key="step3"
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.9 }}
-                            className="text-center"
-                        >
-                            <motion.div
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
-                                transition={{ delay: 0.2, type: 'spring' }}
-                                className="w-32 h-32 rounded-full bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-green-500/50"
-                            >
-                                <CheckCircle className="w-16 h-16 text-white" />
-                            </motion.div>
-
-                            <h1 className="text-5xl font-bold text-white mb-4">
-                                You're All Set! 🎉
-                            </h1>
-                            <p className="text-xl text-purple-300 mb-8">
-                                Your personalized dashboard is ready
-                            </p>
-
-                            <div className="max-w-2xl mx-auto mb-8 p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-purple-500/20">
-                                <h3 className="text-white font-bold mb-4">Recommended Tools for You:</h3>
-                                <div className="grid grid-cols-2 gap-3">
-                                    {getRecommendations().map((rec, index) => (
-                                        <motion.div
-                                            key={index}
-                                            initial={{ opacity: 0, x: -20 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            transition={{ delay: 0.3 + index * 0.1 }}
-                                            className="flex items-center gap-2 p-3 rounded-lg bg-purple-500/10 border border-purple-500/20"
-                                        >
-                                            <Sparkles className="w-4 h-4 text-purple-400" />
-                                            <span className="text-purple-200 text-sm">{rec}</span>
-                                        </motion.div>
-                                    ))}
-                                </div>
-                            </div>
-
-                            <motion.button
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                onClick={() => {
-                                    if (onComplete) onComplete();
-                                    else window.location.href = '/dashboard';
-                                }}
-                                className="px-10 py-5 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold text-xl shadow-2xl shadow-purple-500/50 flex items-center gap-3 mx-auto"
-                            >
-                                Go to Dashboard
-                                <ArrowRight className="w-6 h-6" />
-                            </motion.button>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-
-                {/* Navigation */}
-                {step > 0 && step < 3 && (
-                    <div className="flex items-center justify-between mt-12">
-                        <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            onClick={handleBack}
-                            className="px-6 py-3 rounded-xl bg-black/40 backdrop-blur-xl border border-purple-500/20 text-purple-300 font-semibold flex items-center gap-2"
-                        >
-                            <ArrowLeft className="w-5 h-5" />
-                            Back
-                        </motion.button>
-
-                        <button
-                            onClick={() => window.location.href = '/dashboard'}
-                            className="text-purple-400 hover:text-purple-300 text-sm"
-                        >
-                            Skip for now
-                        </button>
-
-                        <motion.button
-                            whileHover={{ scale: canProceed() ? 1.05 : 1 }}
-                            whileTap={{ scale: canProceed() ? 0.95 : 1 }}
-                            onClick={handleNext}
-                            disabled={!canProceed()}
-                            className={`px-6 py-3 rounded-xl font-semibold flex items-center gap-2 transition-all ${canProceed()
-                                ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/50'
-                                : 'bg-black/40 text-purple-500/50 cursor-not-allowed'
-                                }`}
-                        >
-                            Next
-                            <ArrowRight className="w-5 h-5" />
-                        </motion.button>
+            <main className="flex-1 flex items-center justify-center p-6 relative z-10">
+                <div className="w-full max-w-lg">
+                    {/* Header Diagnostics */}
+                    <div className="flex justify-between items-center mb-8 px-4 opacity-50">
+                        <div className="flex items-center gap-2">
+                            <Globe size={12} className="text-zinc-500" />
+                            <span className="text-[8px] font-mono text-zinc-500 uppercase tracking-widest">Global Sovereign Network (v6.2)</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-rose-500">
+                            <Lock size={10} />
+                            <span className="text-[8px] font-mono uppercase tracking-widest">Secured Uplink</span>
+                        </div>
                     </div>
-                )}
+
+                    <AnimatePresence mode="wait">
+                        {!isFinishing ? (
+                            <motion.div
+                                key={step}
+                                initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                exit={{ opacity: 0, scale: 1.05, y: -10 }}
+                                className="bg-zinc-900/60 border border-white/10 backdrop-blur-3xl rounded-[3rem] p-10 md:p-14 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative overflow-hidden"
+                            >
+                                {/* Active Scan Line */}
+                                <motion.div
+                                    animate={{ x: [-500, 1000] }}
+                                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                                    className="absolute top-0 h-full w-px bg-indigo-500/20 z-0"
+                                />
+
+                                <div className="relative z-10">
+                                    <div className="flex items-center gap-5 mb-10">
+                                        <motion.div
+                                            whileHover={{ scale: 1.1, rotate: 5 }}
+                                            className="w-16 h-16 rounded-3xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 shadow-lg shadow-indigo-500/5"
+                                        >
+                                            {steps[step] && (() => {
+                                                const StepIcon = steps[step].icon;
+                                                return <StepIcon size={32} />;
+                                            })()}
+                                        </motion.div>
+                                        <div>
+                                            <h2 className="text-3xl font-black uppercase tracking-tight text-white mb-0.5">{steps[step]?.title}</h2>
+                                            <p className="text-[10px] font-bold text-indigo-500 uppercase tracking-[0.4em]">{steps[step]?.subtitle}</p>
+                                        </div>
+                                    </div>
+
+                                    {steps[step]?.content}
+
+                                    <div className="mt-14 flex items-center justify-between">
+                                        <div className="flex gap-1.5">
+                                            {[0, 1, 2, 3].map((i) => (
+                                                <div
+                                                    key={i}
+                                                    className={`h-1 rounded-full transition-all duration-500 ${i === step ? 'w-8 bg-indigo-500' : 'w-2 bg-zinc-800'
+                                                        }`}
+                                                />
+                                            ))}
+                                        </div>
+
+                                        {step < 3 ? (
+                                            <button
+                                                onClick={nextStep}
+                                                disabled={step === 0 && !formData.districtName}
+                                                className="group flex items-center gap-3 px-10 py-5 rounded-[2rem] bg-white text-black font-black text-[10px] uppercase tracking-[0.2em] hover:bg-indigo-500 hover:text-white transition-all disabled:opacity-20 disabled:hover:bg-white disabled:hover:text-black shadow-xl hover:shadow-indigo-500/20"
+                                            >
+                                                Next Iteration <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                                            </button>
+                                        ) : (
+                                            <button
+                                                onClick={finishOnboarding}
+                                                className="group flex items-center gap-3 px-10 py-5 rounded-[2rem] bg-indigo-600 text-white font-black text-[10px] uppercase tracking-[0.2em] hover:bg-emerald-500 transition-all shadow-xl hover:shadow-emerald-500/20"
+                                            >
+                                                Ascend to Command Deck <Zap size={16} fill="currentColor" className="animate-pulse" />
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
+                            </motion.div>
+                        ) : (
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                className="text-center py-20"
+                            >
+                                <div className="w-40 h-40 mb-10 relative mx-auto">
+                                    <div className="absolute inset-0 rounded-full border-2 border-indigo-500/20 animate-ping" />
+                                    <div className="absolute inset-0 rounded-full border-t-2 border-indigo-500 animate-spin" />
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <Cpu className="text-indigo-400 w-16 h-16 animate-pulse" />
+                                    </div>
+                                </div>
+                                <h2 className="text-5xl font-black uppercase tracking-tighter mb-4 text-white">Identity Calibrated</h2>
+                                <p className="text-zinc-500 font-mono text-[9px] uppercase tracking-[0.4em] mb-12">Synchronizing Neural Threads across the District Lattice...</p>
+
+                                <div className="flex justify-center gap-4">
+                                    <div className="w-1 h-1 rounded-full bg-indigo-500 animate-bounce" style={{ animationDelay: '0s' }} />
+                                    <div className="w-1 h-1 rounded-full bg-indigo-500 animate-bounce" style={{ animationDelay: '0.2s' }} />
+                                    <div className="w-1 h-1 rounded-full bg-indigo-500 animate-bounce" style={{ animationDelay: '0.4s' }} />
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
+            </main>
+
+            {/* Background Data Stream */}
+            <div className="absolute top-1/2 left-0 w-full -translate-y-1/2 opacity-[0.03] pointer-events-none select-none font-mono text-[80px] font-black tracking-tighter whitespace-nowrap overflow-hidden z-0">
+                SOVEREIGN INTELLIGENCE NETWORK SOVEREIGN INTELLIGENCE NETWORK SOVEREIGN INTELLIGENCE NETWORK
             </div>
         </div>
     );

@@ -22,37 +22,37 @@ export default function SovereignCabinet() {
         {
             id: 'lead',
             role: 'Lead Strategist',
-            name: 'Agent Marcus',
+            name: 'Marcus Aurelius',
             status: 'idle',
             currentTask: 'Awaiting strategic directive...',
             icon: <Users size={16} />,
-            color: 'text-indigo-400 bg-indigo-500/10'
+            color: 'text-zinc-200 bg-white/10'
         },
         {
             id: 'audit',
             role: 'Compliance Auditor',
-            name: 'Agent Sarah',
+            name: 'Sarah Connors',
             status: 'auditing',
             currentTask: 'Scanning for AL Code 290-8-9 violations...',
             icon: <ShieldCheck size={16} />,
-            color: 'text-emerald-400 bg-emerald-500/10'
+            color: 'text-indigo-400 bg-indigo-500/10'
         },
         {
             id: 'data',
-            role: 'Data Analyst',
-            name: 'Agent Kai',
+            role: 'Innovation Architect',
+            name: 'André State',
             status: 'idle',
-            currentTask: 'Monitoring Title I leakage...',
-            icon: <Activity size={16} />,
-            color: 'text-blue-400 bg-blue-500/10'
+            currentTask: 'Optimizing district agility...',
+            icon: <Zap size={16} />,
+            color: 'text-emerald-400 bg-emerald-500/10'
         },
         {
-            id: 'legal',
-            role: 'Legal Singularity',
-            name: 'Code Sovereign',
+            id: 'arch',
+            role: 'Sovereign Lead',
+            name: 'Dr. Alvin West',
             status: 'idle',
-            currentTask: 'Law library synchronized.',
-            icon: <AlertTriangle size={16} />,
+            currentTask: 'District uplink synchronized.',
+            icon: <Activity size={16} />,
             color: 'text-amber-400 bg-amber-500/10'
         }
     ]);
