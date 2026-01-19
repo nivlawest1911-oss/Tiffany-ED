@@ -1,0 +1,261 @@
+// EdIntel Sovereign Schema - Optimized for Google Cloud SQL (Postgres)
+// Designed for AI Avatar Memory & Evidence Folder Architecture
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  extensions = [pgvector(map: "vector")]
+}
+
+// ============================================
+// CORE USER & AUTHENTICATION
+// ============================================
+
+model User {
+  id                String   @id @default(cuid())
+  email             String   @unique
+  name              String?
+  role              String   @default("educator") // educator, admin, superintendent
+  district          String?  // Mobile County Schools, etc.
+  school            String?
+  position          String?  // Principal, Teacher, Counselor
+  
+  // Subscription & Billing
+  stripeCustomerId  String?  @unique
+  subscriptionTier  String   @default("free") // free, professional ($79), district
+  subscriptionStatus String  @default("inactive")
+  tokensRemaining   Int      @default(10)
+  xpPoints          Int      @default(0)
+  
+  // Security
+  passwordHash      String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  lastLogin         DateTime?
+  
+  // Relations
+  generations       Generation[]
+  observations      Observation[]
+  evidenceFolders   EvidenceFolder[]
+  avatarSessions    AvatarSession[]
+  
+  @@index([email])
+  @@index([district, school])
+  @@map("users")
+}
+
+// ============================================
+// AI AVATAR SESSIONS (Multimodal Live)
+// ============================================
+
+model AvatarSession {
+  id                String   @id @default(cuid())
+  userId            String
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Session Metadata
+  avatarName        String   // Dr. Alvin, Sarah, Marcus
+  avatarRole        String   // Superintendent Delegate, Instructional Aide
+  engine            String   @default("duix") // duix, tavus, heygen, liveportrait
+  
+  // Performance Metrics
+  startedAt         DateTime @default(now())
+  endedAt           DateTime?
+  duration          Int?     // seconds
+  latencyAvg        Float?   // milliseconds
+  
+  // Conversation Data
+  conversationLog   Json     // Array of {role, text, timestamp}
+  userSentiment     String?  // neutral, positive, urgent, distressed
+  
+  // GCP Integration
+  gcpSessionId      String?  @unique
+  vertexAiModel     String   @default("gemini-1.5-pro")
+  cloudRunEndpoint  String?
+  
+  // Relations
+  observations      Observation[]
+  
+  @@index([userId, startedAt])
+  @@index([gcpSessionId])
+  @@map("avatar_sessions")
+}
+
+// ============================================
+// EVIDENCE FOLDER (Legal Defense System)
+// ============================================
+
+model EvidenceFolder {
+  id                String   @id @default(cuid())
+  userId            String
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Student Information (Anonymized for Privacy)
+  studentId         String   // Hashed identifier
+  gradeLevel        String?
+  specialEdStatus   String?  // IEP, 504, None
+  
+  // Folder Metadata
+  title             String
+  category          String   // IEP, Behavior, Academic, Attendance
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  // AI-Generated Insights
+  aiSummary         String?  @db.Text
+  riskLevel         String?  // low, medium, high, critical
+  complianceScore   Float?   // 0-100
+  
+  // Vector Embeddings for AI Memory (pgvector)
+  embedding         Unsupported("vector(1536)")?
+  
+  // Relations
+  observations      Observation[]
+  documents         Document[]
+  
+  @@index([userId, studentId])
+  @@index([category, riskLevel])
+  @@map("evidence_folders")
+}
+
+// ============================================
+// OBSERVATION LOGS (Teacher Documentation)
+// ============================================
+
+model Observation {
+  id                String   @id @default(cuid())
+  userId            String
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  evidenceFolderId  String?
+  evidenceFolder    EvidenceFolder? @relation(fields: [evidenceFolderId], references: [id], onDelete: SetNull)
+  
+  avatarSessionId   String?
+  avatarSession     AvatarSession? @relation(fields: [avatarSessionId], references: [id], onDelete: SetNull)
+  
+  // Observation Data
+  observationType   String   // behavior, academic, social-emotional
+  observationDate   DateTime @default(now())
+  duration          Int?     // minutes
+  
+  // Content
+  description       String   @db.Text
+  context           String?  @db.Text
+  interventions     String?  @db.Text
+  
+  // AI Analysis
+  aiAnalysis        String?  @db.Text
+  suggestedActions  Json?    // Array of action items
+  legalCompliance   Boolean  @default(false)
+  
+  // Attachments
+  hasAudio          Boolean  @default(false)
+  hasVideo          Boolean  @default(false)
+  hasImages         Boolean  @default(false)
+  
+  // Vector Embeddings
+  embedding         Unsupported("vector(1536)")?
+  
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  @@index([userId, observationDate])
+  @@index([evidenceFolderId])
+  @@index([observationType])
+  @@map("observations")
+}
+
+// ============================================
+// DOCUMENTS (Secure File Storage)
+// ============================================
+
+model Document {
+  id                String   @id @default(cuid())
+  evidenceFolderId  String
+  evidenceFolder    EvidenceFolder @relation(fields: [evidenceFolderId], references: [id], onDelete: Cascade)
+  
+  // File Metadata
+  fileName          String
+  fileType          String   // pdf, docx, image, audio, video
+  fileSize          Int      // bytes
+  
+  // GCP Storage
+  gcpBucketPath     String   // gs://edintel-evidence/...
+  gcpSignedUrl      String?  @db.Text
+  urlExpiresAt      DateTime?
+  
+  // Security
+  encrypted         Boolean  @default(true)
+  accessLevel       String   @default("private") // private, district, public
+  
+  // AI Processing
+  extractedText     String?  @db.Text
+  aiSummary         String?  @db.Text
+  embedding         Unsupported("vector(1536)")?
+  
+  uploadedAt        DateTime @default(now())
+  
+  @@index([evidenceFolderId])
+  @@index([fileType])
+  @@map("documents")
+}
+
+// ============================================
+// AI GENERATIONS (Existing System)
+// ============================================
+
+model Generation {
+  id                String   @id @default(cuid())
+  userId            String
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  generatorId       String
+  prompt            String   @db.Text
+  content           String   @db.Text
+  
+  // Avatar Integration
+  professorVideoUrl String?
+  avatarEngine      String?
+  
+  createdAt         DateTime @default(now())
+  
+  @@index([userId, createdAt])
+  @@index([generatorId])
+  @@map("generations")
+}
+
+// ============================================
+// ANALYTICS & PERFORMANCE
+// ============================================
+
+model AnalyticsEvent {
+  id                String   @id @default(cuid())
+  userId            String?
+  
+  // Event Data
+  eventType         String   // avatar_session, generation, observation
+  eventCategory     String
+  eventAction       String
+  eventLabel        String?
+  
+  // Performance Metrics
+  latency           Float?   // milliseconds
+  tokensUsed        Int?
+  gcpCost           Float?   // dollars
+  
+  // Context
+  metadata          Json?
+  userAgent         String?
+  ipAddress         String?
+  
+  timestamp         DateTime @default(now())
+  
+  @@index([eventType, timestamp])
+  @@index([userId, timestamp])
+  @@map("analytics_events")
+}

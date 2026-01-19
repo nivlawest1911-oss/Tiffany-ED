@@ -86,22 +86,91 @@ export default function LiveAvatarChat({
     const [vibeShift, setVibeShift] = useState(0);
     const [isProcessing, setIsProcessing] = useState(false);
     const [processingStage, setProcessingStage] = useState('');
-    const [activeEngine, setActiveEngine] = useState<'duix' | 'heygen' | 'liveportrait' | 'adobe'>('duix');
+    const [activeEngine, setActiveEngine] = useState<'duix' | 'heygen' | 'liveportrait' | 'adobe' | 'tavus' | 'akool' | 'viggle' | 'did'>('duix');
     const [showEngineNexus, setShowEngineNexus] = useState(false);
 
-    const SOVEREIGN_ENGINES = {
-        'duix': { name: 'DUIX.AVATAR', type: 'LOCAL_NODE', latency: '0ms', color: 'text-emerald-400', bg: 'bg-emerald-500/10', description: 'Zero-latency, 100% private local neural rendering.' },
-        'heygen': { name: 'HEYGEN-STREAM', type: 'CLOUD_ULTRA', latency: '800ms', color: 'text-amber-400', bg: 'bg-amber-500/10', description: 'Maximum visual fidelity via cloud streaming.' },
-        'liveportrait': { name: 'LIVEPORTRAIT-HF', type: 'WEBCAM_DRIVE', latency: '14ms', color: 'text-indigo-400', bg: 'bg-indigo-500/10', description: 'Real-time webcam tracking and facial mirroring.' },
-        'adobe': { name: 'ADOBE-SONIC', type: 'AUDIO_DRIVE', latency: '40ms', color: 'text-purple-400', bg: 'bg-purple-500/10', description: 'High-speed lip-sync from audio frequency alone.' }
+    const SOVEREIGN_ENGINES: Record<string, any> = {
+        'duix': {
+            name: 'DUIX.AVATAR',
+            type: 'LOCAL_NODE',
+            latency: '0ms',
+            color: 'text-emerald-400',
+            bg: 'bg-emerald-500/10',
+            description: 'Zero-latency, 100% private local neural rendering (Digital Twin Toolkit).',
+            isOS: true,
+            surpassFactor: 'Unlimited use; 100% Privacy'
+        },
+        'tavus': {
+            name: 'TAVUS-PAL',
+            type: 'PERCEPTIVE_AI',
+            latency: '500ms',
+            color: 'text-pink-400',
+            bg: 'bg-pink-500/10',
+            description: 'Advanced emotional intelligence; reads tone & body language to adjust response.',
+            surpassFactor: 'Emotionally Perceptive; Sub-second response'
+        },
+        'heygen': {
+            name: 'HEYGEN-STREAM',
+            type: 'CLOUD_ULTRA',
+            latency: '800ms',
+            color: 'text-amber-400',
+            bg: 'bg-amber-500/10',
+            description: 'Maximum visual fidelity (0.02s precision lip-sync) via cloud streaming.',
+            surpassFactor: 'Highest Visual Realism'
+        },
+        'viggle': {
+            name: 'VIGGLE-TRACK',
+            type: 'BODY_MIRROR',
+            latency: '10ms',
+            color: 'text-cyan-400',
+            bg: 'bg-cyan-500/10',
+            description: 'Real-time character replacement and movement mapping.',
+            surpassFactor: 'Real-time Body/Face Tracking'
+        },
+        'did': {
+            name: 'D-ID-AGENT',
+            type: 'SUPPORT_BOT',
+            latency: '1.8s',
+            color: 'text-blue-400',
+            bg: 'bg-blue-500/10',
+            description: 'Designed for back-and-forth conversational web support bots.',
+            surpassFactor: 'Low-latency Support Bots'
+        },
+        'akool': {
+            name: 'AKOOL-LIVE',
+            type: 'EVENT_HOST',
+            latency: '120ms',
+            color: 'text-orange-400',
+            bg: 'bg-orange-500/10',
+            description: 'Multi-language support (70+) for live streaming virtual hosts.',
+            surpassFactor: 'Multi-lingual Live Events'
+        },
+        'liveportrait': {
+            name: 'LIVEPORTRAIT-HF',
+            type: 'WEBCAM_DRIVE',
+            latency: '14ms',
+            color: 'text-indigo-400',
+            bg: 'bg-indigo-500/10',
+            description: 'Real-time webcam tracking and facial mirroring (Hugging Face Research).',
+            surpassFactor: 'Zero-lag Webcam Drive'
+        },
+        'adobe': {
+            name: 'ADOBE-SONIC',
+            type: 'AUDIO_DRIVE',
+            latency: '40ms',
+            color: 'text-purple-400',
+            bg: 'bg-purple-500/10',
+            description: 'Free accessible animate-from-audio character lip-sync.',
+            surpassFactor: 'Highest Ease of Use'
+        }
     };
 
     const NEURAL_ARCHETYPES: Record<string, { tone: string, rate: number, pitch: number, jargon: string[] }> = {
-        'alvin': { tone: 'visionary', rate: 0.9, pitch: 0.85, jargon: ['Sovereignty', 'Legacy Achievement', 'District Uplink', 'Pedagogical Fidelity'] },
-        'marcus': { tone: 'philosophical', rate: 0.8, pitch: 0.7, jargon: ['Virtue', 'Discipline', 'Administrative Duty', 'Stoic Compliance'] },
-        'sarah': { tone: 'tactical', rate: 1.1, pitch: 1.05, jargon: ['Protocol Override', 'Vector Analysis', 'Neural Drift', 'Fidelity Check'] },
-        'andré': { tone: 'innovative', rate: 1.0, pitch: 0.9, jargon: ['Heuristic', 'Optimization', 'Neural Architecture', 'Strategic Agility'] },
-        'default': { tone: 'professional', rate: 0.95, pitch: 0.9, jargon: ['Fidelity', 'Efficiency', 'Success Metrics', 'Strategic Alignment'] }
+        'alvin': { tone: 'visionary', rate: 0.9, pitch: 0.85, jargon: ['Sovereignty', 'Legacy Achievement', 'District Uplink', 'Pedagogical Fidelity', 'Human-in-the-loop'] },
+        'marcus': { tone: 'philosophical', rate: 0.8, pitch: 0.7, jargon: ['Virtue', 'Discipline', 'Administrative Duty', 'Stoic Compliance', 'Neural Ethics'] },
+        'sarah': { tone: 'tactical', rate: 1.1, pitch: 1.05, jargon: ['Protocol Override', 'Vector Analysis', 'Neural Drift', 'Fidelity Check', 'Sub-second Pulse'] },
+        'andré': { tone: 'innovative', rate: 1.0, pitch: 0.9, jargon: ['Heuristic', 'Optimization', 'Neural Architecture', 'Strategic Agility', 'Digital Twin Sync'] },
+        'default': { tone: 'professional', rate: 0.95, pitch: 0.9, jargon: ['Fidelity', 'Efficiency', 'Success Metrics', 'Strategic Alignment', 'System Latency'] }
     };
 
     const getArchetype = () => {
@@ -227,21 +296,25 @@ export default function LiveAvatarChat({
         setCognitiveState('processing');
         setPerceptiveState('analyzing');
 
-        // PERCEPTIVE SENTIMENT ANALYSIS (On-the-fly)
+        // PERCEPTIVE NEURAL SCAN (mimicking Tavus/Perceptive AI)
+        setPerceptiveState('analyzing');
         const textLower = text.toLowerCase();
+
+        // Emotional Intelligence Logic
+        let sentiment: 'neutral' | 'positive' | 'urgent' | 'distressed' = 'neutral';
         if (textLower.includes('help') || textLower.includes('emergency') || textLower.includes('critical')) {
-            setUserSentiment('urgent');
+            sentiment = 'urgent';
             setEqAura('amber');
             setPerceptiveState('reacting');
         } else if (textLower.includes('happy') || textLower.includes('great') || textLower.includes('success')) {
-            setUserSentiment('positive');
+            sentiment = 'positive';
             setEqAura('emerald');
         } else if (textLower.includes('sad') || textLower.includes('sorry') || textLower.includes('fail')) {
-            setUserSentiment('distressed');
+            sentiment = 'distressed';
             setEqAura('rose');
             setPerceptiveState('empathizing');
         }
-
+        setUserSentiment(sentiment);
         setProcessingStage("Uplink Established...");
         await new Promise(r => setTimeout(r, 200)); // Blazing fast uplink
         setProcessingStage("Neural Node Search...");
@@ -674,11 +747,11 @@ export default function LiveAvatarChat({
                         <div className="flex gap-12 whitespace-nowrap animate-marquee">
                             {[...Array(4)].map((_, i) => (
                                 <div key={i} className="flex gap-12 text-[10px] font-mono font-bold text-white/40 uppercase tracking-widest">
-                                    <span>FIDELITY: {activeEngine === 'heygen' ? '99.9%' : 'Local Render'}</span>
+                                    <span>FIDELITY: {activeEngine === 'heygen' ? '0.02s lip-sync' : 'Local Render'}</span>
                                     <span className={activeEngine === 'duix' ? 'text-emerald-400' : 'text-indigo-400'}>MODE: {SOVEREIGN_ENGINES[activeEngine].type}</span>
-                                    <span className="text-rose-400">EMOTION: {userSentiment.toUpperCase()}</span>
-                                    <span className="text-amber-400">LATENCY: {SOVEREIGN_ENGINES[activeEngine].latency}</span>
-                                    <span>ENGINE: {SOVEREIGN_ENGINES[activeEngine].name}</span>
+                                    <span className="text-pink-400">PERCEPTIVE_AI: {userSentiment.toUpperCase()}</span>
+                                    <span className="text-amber-400">LATENCY: {activeEngine === 'tavus' ? '~500ms' : SOVEREIGN_ENGINES[activeEngine].latency}</span>
+                                    <span className="text-cyan-400">SYNC: PAL_STREAMS_ACTIVE</span>
                                 </div>
                             ))}
                         </div>
@@ -787,7 +860,7 @@ export default function LiveAvatarChat({
                                         <button onClick={() => setShowEngineNexus(false)} className="text-white/40 hover:text-white"><X size={14} /></button>
                                     </div>
                                     <div className="space-y-3">
-                                        {Object.entries(SOVEREIGN_ENGINES).map(([id, engine]) => (
+                                        {Object.entries(SOVEREIGN_ENGINES).map(([id, engine]: [string, any]) => (
                                             <button
                                                 key={id}
                                                 onClick={() => {
@@ -797,16 +870,28 @@ export default function LiveAvatarChat({
                                                 className={`w-full p-4 rounded-2xl border transition-all text-left group ${activeEngine === id ? 'bg-white/10 border-white/30' : 'bg-white/5 border-white/10 hover:bg-white/10'}`}
                                             >
                                                 <div className="flex items-center justify-between mb-1">
-                                                    <span className={`text-[10px] font-black uppercase tracking-widest ${engine.color}`}>{engine.name}</span>
+                                                    <div className="flex items-center gap-2">
+                                                        <span className={`text-[10px] font-black uppercase tracking-widest ${engine.color}`}>{engine.name}</span>
+                                                        {engine.isOS && (
+                                                            <span className="px-1.5 py-0.5 rounded-sm bg-emerald-500/20 text-emerald-400 text-[6px] font-black uppercase tracking-widest border border-emerald-500/30">OPEN SOURCE</span>
+                                                        )}
+                                                        {id === 'tavus' && (
+                                                            <span className="px-1.5 py-0.5 rounded-sm bg-pink-500/20 text-pink-400 text-[6px] font-black uppercase tracking-widest border border-pink-500/30">PERCEPTIVE</span>
+                                                        )}
+                                                    </div>
                                                     <span className="text-[8px] font-mono text-white/30">{engine.type}</span>
                                                 </div>
-                                                <p className="text-[9px] text-zinc-400 leading-relaxed font-medium">{engine.description}</p>
+                                                <p className="text-[9px] text-zinc-400 leading-relaxed font-medium mb-2">{engine.description}</p>
+                                                <div className="flex items-center gap-2 mb-3">
+                                                    <span className="text-[7px] font-black text-white/30 uppercase tracking-[0.2em]">SURPASS FACTOR:</span>
+                                                    <span className={`text-[7px] font-bold px-1.5 py-0.5 rounded bg-white/5 border border-white/10 ${engine.color}`}>{engine.surpassFactor}</span>
+                                                </div>
                                                 <div className="mt-2 flex items-center justify-between">
                                                     <div className="h-0.5 flex-1 bg-white/5 rounded-full mr-4">
                                                         <motion.div
                                                             className={`h-full ${engine.color.replace('text-', 'bg-')}`}
                                                             initial={{ width: 0 }}
-                                                            animate={{ width: activeEngine === id ? '100%' : '0%' }}
+                                                            animate={{ width: activeEngine === id ? '100%' : '50%' }}
                                                         />
                                                     </div>
                                                     <span className={`text-[8px] font-bold ${engine.color}`}>LATENCY: {engine.latency}</span>

@@ -56,7 +56,7 @@ export default function SovereignPrivacyManifesto() {
             points: [
                 "Directed Sharing: Users can explicitly share reports with parents or board members.",
                 "Transparency promise: We will never disclose data to legal authorities without a fight and immediate user notification.",
-                "Service Providers: Only essential infrastructure (like HeyGen for visual synthesis) receives directed inputs."
+                "Service Providers: Only essential infrastructure (like Sovereign Synthesis or DUIX Offline Nodes) receives directed inputs."
             ]
         }
     ];

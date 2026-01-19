@@ -299,7 +299,7 @@ export default function AvatarLaboratory() {
                     <div className="space-y-8 animate-in fade-in duration-700">
                         {/* Avatar Library Selection */}
                         <div>
-                            <label className="block text-[10px] font-black text-zinc-600 uppercase tracking-[0.2em] mb-4">Select Base AI Twin (HeyGen-Grade)</label>
+                            <label className="block text-[10px] font-black text-zinc-600 uppercase tracking-[0.2em] mb-4">Select Base Digital Twin (Sovereign-Grade)</label>
                             <div className="flex gap-4 overflow-x-auto pb-4 custom-scrollbar">
                                 {AVATAR_LIBRARY.map((avatar) => (
                                     <button

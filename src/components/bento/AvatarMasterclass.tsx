@@ -18,7 +18,7 @@ export default function AvatarMasterclass() {
             description: "Master the art of neural voice synthesis for your delegate to ensure 100% stakeholder trust."
         },
         {
-            title: "HeyGen-Style Rapid Export",
+            title: "Rapid Sovereign Export",
             duration: "5:12",
             category: "Workflow",
             icon: <Video size={18} className="text-emerald-400" />,
