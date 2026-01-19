@@ -9,4 +9,4 @@ google-cloud-speech==2.21.0
 google-cloud-texttospeech==2.15.0
 google-cloud-language==2.12.0
 google-cloud-videointelligence==2.13.0
-python-multipart==0.0.6
+python-multipart==0.0.18
