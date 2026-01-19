@@ -487,30 +487,6 @@ export default function Dashboard() {
                             <PolicyShield />
                         </motion.div>
 
-                        {/* Avatar Command Bar */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.25 }}
-                            className="p-4 rounded-3xl bg-gradient-to-r from-indigo-900/30 via-purple-900/30 to-indigo-900/30 border border-white/10 flex items-center justify-between"
-                        >
-                            <div className="flex -space-x-3">
-                                {DELEGATES.map((avatar, i) => (
-                                    <button
-                                        key={i}
-                                        onClick={() => setActiveDelegate(avatar)}
-                                        className={`w-10 h-10 rounded-full border-2 border-${avatar.color.replace('-500', '') === 'white' ? 'white' : avatar.color} overflow-hidden shadow-lg relative cursor-pointer hover:scale-110 hover:z-50 transition-all ${activeDelegate?.id === avatar.id ? 'ring-2 ring-white scale-110 z-10' : ''}`}
-                                    >
-                                        <img src={avatar.img} alt={avatar.name} className="w-full h-full object-cover" />
-                                    </button>
-                                ))}
-                            </div>
-                            <div className="text-right">
-                                <div className="text-[9px] font-black text-indigo-400 capitalize tracking-widest uppercase">Executive Presence</div>
-                                <div className="text-[10px] text-zinc-400">{DELEGATES.length} Delegates Active</div>
-                            </div>
-                        </motion.div>
-
                         {/* Neural Vault: Strategic Intelligence Archive */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}

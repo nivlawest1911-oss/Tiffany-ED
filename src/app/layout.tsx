@@ -9,7 +9,6 @@ import ClientLayoutValues from "@/components/ClientLayoutValues"
 import Footer from "@/components/Footer"
 import MedicalDisclaimer from "@/components/MedicalDisclaimer"
 import { AuthProvider } from "@/context/AuthContext"
-import ConnectionStatus from "@/components/district/ConnectionStatus"
 import "./globals.css"
 
 const spaceGrotesk = Space_Grotesk({
@@ -88,7 +87,6 @@ export default function RootLayout({
           <CommandPalette />
           <ClientLayoutValues />
           <MedicalDisclaimer />
-          <ConnectionStatus />
           <Footer />
         </AuthProvider>
         <Analytics />

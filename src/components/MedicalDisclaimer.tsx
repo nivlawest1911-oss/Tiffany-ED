@@ -1,13 +1,11 @@
 'use client';
-import { AlertCircle, Stethoscope, Scale, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
+import { AlertCircle } from 'lucide-react';
 
 export default function MedicalDisclaimer() {
     return (
         <div className="w-full bg-[#0A0A0B]/80 border-t border-red-900/10 backdrop-blur-md py-4 transition-all hover:bg-[#0A0A0B]">
-            <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-4">
-
-                <div className="flex items-start gap-3 opacity-60 hover:opacity-100 transition-opacity max-w-2xl">
+            <div className="max-w-7xl mx-auto px-6 md:px-12">
+                <div className="flex items-start gap-3 opacity-60 hover:opacity-100 transition-opacity max-w-4xl mx-auto">
                     <AlertCircle className="w-5 h-5 text-red-400 mt-1 shrink-0" />
                     <div className="space-y-1">
                         <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-300">Statutory Disclaimer</h4>
@@ -19,28 +17,6 @@ export default function MedicalDisclaimer() {
                         </p>
                     </div>
                 </div>
-
-                <div className="flex items-center gap-6 shrink-0 border-l border-zinc-800 pl-6 h-full">
-                    <div className="group flex items-center gap-2 cursor-pointer">
-                        <div className="p-2 bg-zinc-900 rounded-lg group-hover:bg-zinc-800 transition-colors">
-                            <Stethoscope size={14} className="text-zinc-500 group-hover:text-blue-400 transition-colors" />
-                        </div>
-                        <div>
-                            <p className="text-[9px] text-zinc-600 uppercase font-bold">Medical</p>
-                            <p className="text-[10px] text-zinc-400">Consult Specialist</p>
-                        </div>
-                    </div>
-                    <div className="group flex items-center gap-2 cursor-pointer">
-                        <div className="p-2 bg-zinc-900 rounded-lg group-hover:bg-zinc-800 transition-colors">
-                            <Scale size={14} className="text-zinc-500 group-hover:text-amber-400 transition-colors" />
-                        </div>
-                        <div>
-                            <p className="text-[9px] text-zinc-600 uppercase font-bold">Legal</p>
-                            <p className="text-[10px] text-zinc-400">Consult Counsel</p>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     );
