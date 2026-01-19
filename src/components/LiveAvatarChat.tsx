@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mic, MicOff, Video, VideoOff, Volume2, VolumeX, Phone, PhoneOff, MessageSquare, Sparkles, Send, X, Minimize2, Brain, Activity, Lock, Share2 } from 'lucide-react';
+import { Mic, MicOff, Video, VideoOff, Volume2, VolumeX, Phone, PhoneOff, MessageSquare, Sparkles, Send, X, Minimize2, Brain, Activity, Lock, Share2, Terminal } from 'lucide-react';
 
 function MouthBar({ index, eqAura }: { index: number, eqAura: string }) {
     const [heights, setHeights] = useState(['4px', '20px', '4px']);
@@ -81,6 +81,20 @@ export default function LiveAvatarChat({
     const [personalityMode, setPersonalityMode] = useState<'strategic' | 'empathetic' | 'analytical' | 'direct'>('strategic');
     const [eqAura, setEqAura] = useState<'indigo' | 'emerald' | 'rose' | 'amber'>('indigo');
     const [curiosityNode, setCuriosityNode] = useState<string | null>(null);
+    const [userSentiment, setUserSentiment] = useState<'neutral' | 'positive' | 'urgent' | 'distressed'>('neutral');
+    const [perceptiveState, setPerceptiveState] = useState<'observing' | 'analyzing' | 'empathizing' | 'reacting'>('observing');
+    const [vibeShift, setVibeShift] = useState(0);
+    const [isProcessing, setIsProcessing] = useState(false);
+    const [processingStage, setProcessingStage] = useState('');
+    const [activeEngine, setActiveEngine] = useState<'duix' | 'heygen' | 'liveportrait' | 'adobe'>('duix');
+    const [showEngineNexus, setShowEngineNexus] = useState(false);
+
+    const SOVEREIGN_ENGINES = {
+        'duix': { name: 'DUIX.AVATAR', type: 'LOCAL_NODE', latency: '0ms', color: 'text-emerald-400', bg: 'bg-emerald-500/10', description: 'Zero-latency, 100% private local neural rendering.' },
+        'heygen': { name: 'HEYGEN-STREAM', type: 'CLOUD_ULTRA', latency: '800ms', color: 'text-amber-400', bg: 'bg-amber-500/10', description: 'Maximum visual fidelity via cloud streaming.' },
+        'liveportrait': { name: 'LIVEPORTRAIT-HF', type: 'WEBCAM_DRIVE', latency: '14ms', color: 'text-indigo-400', bg: 'bg-indigo-500/10', description: 'Real-time webcam tracking and facial mirroring.' },
+        'adobe': { name: 'ADOBE-SONIC', type: 'AUDIO_DRIVE', latency: '40ms', color: 'text-purple-400', bg: 'bg-purple-500/10', description: 'High-speed lip-sync from audio frequency alone.' }
+    };
 
     const NEURAL_ARCHETYPES: Record<string, { tone: string, rate: number, pitch: number, jargon: string[] }> = {
         'alvin': { tone: 'visionary', rate: 0.9, pitch: 0.85, jargon: ['Sovereignty', 'Legacy Achievement', 'District Uplink', 'Pedagogical Fidelity'] },
@@ -133,17 +147,25 @@ export default function LiveAvatarChat({
         return () => window.removeEventListener('mousemove', handleMouseMove);
     }, []);
 
-    // Smooth physics loop for organic movement
+    // Smooth physics loop for organic movement + Micro-expressions
     useEffect(() => {
         let frameId: number;
         const updatePresence = () => {
             setPresenceX(prev => prev + (mouseX.current - prev) * 0.05);
             setPresenceY(prev => prev + (mouseY.current - prev) * 0.05);
+
+            // Perceptive Micro-gestures: Tilt head based on user sentiment/speaking
+            if (isListening || isProcessing) {
+                setVibeShift(prev => prev + (0.5 - prev) * 0.02); // Lean in
+            } else {
+                setVibeShift(prev => prev + (0 - prev) * 0.02); // Neutral pos
+            }
+
             frameId = requestAnimationFrame(updatePresence);
         };
         frameId = requestAnimationFrame(updatePresence);
         return () => cancelAnimationFrame(frameId);
-    }, []);
+    }, [isListening, isProcessing]);
 
     // Auto-scroll to bottom of conversation
     useEffect(() => {
@@ -189,8 +211,6 @@ export default function LiveAvatarChat({
         }
     }, []);
 
-    const [isProcessing, setIsProcessing] = useState(false);
-    const [processingStage, setProcessingStage] = useState('');
 
     const handleUserSpeech = async (text: string) => {
         if (tokensRemaining <= 0) {
@@ -205,13 +225,29 @@ export default function LiveAvatarChat({
         setIsSpeaking(true);
         setIsProcessing(true);
         setCognitiveState('processing');
+        setPerceptiveState('analyzing');
+
+        // PERCEPTIVE SENTIMENT ANALYSIS (On-the-fly)
+        const textLower = text.toLowerCase();
+        if (textLower.includes('help') || textLower.includes('emergency') || textLower.includes('critical')) {
+            setUserSentiment('urgent');
+            setEqAura('amber');
+            setPerceptiveState('reacting');
+        } else if (textLower.includes('happy') || textLower.includes('great') || textLower.includes('success')) {
+            setUserSentiment('positive');
+            setEqAura('emerald');
+        } else if (textLower.includes('sad') || textLower.includes('sorry') || textLower.includes('fail')) {
+            setUserSentiment('distressed');
+            setEqAura('rose');
+            setPerceptiveState('empathizing');
+        }
 
         setProcessingStage("Uplink Established...");
-        await new Promise(r => setTimeout(r, 400));
+        await new Promise(r => setTimeout(r, 200)); // Blazing fast uplink
         setProcessingStage("Neural Node Search...");
-        await new Promise(r => setTimeout(r, 600));
+        await new Promise(r => setTimeout(r, 300));
         setProcessingStage("Optimizing Strategy...");
-        await new Promise(r => setTimeout(r, 400));
+        await new Promise(r => setTimeout(r, 100));
 
         onDeductTokens(1); // Standard interaction cost
         onAddXP(2); // XP for communication
@@ -466,10 +502,13 @@ export default function LiveAvatarChat({
                                 <div className="flex items-center gap-2">
                                     <p className="text-sm text-zinc-400">{avatarRole}</p>
                                     <div className="h-3 w-px bg-white/10" />
-                                    <div className="px-2 py-0.5 rounded-full bg-indigo-500/20 border border-indigo-500/30 flex items-center gap-1.5 shadow-[0_0_10px_rgba(99,102,241,0.2)]">
-                                        <div className="w-1 h-1 rounded-full bg-indigo-400 animate-pulse" />
-                                        <span className="text-[9px] font-black text-indigo-400 uppercase tracking-widest">{personalityMode} Mode</span>
-                                    </div>
+                                    <button
+                                        onClick={() => setShowEngineNexus(!showEngineNexus)}
+                                        className={`px-2 py-0.5 rounded-full border ${SOVEREIGN_ENGINES[activeEngine].bg} ${SOVEREIGN_ENGINES[activeEngine].color.replace('text-', 'border-').replace('400', '500/30')} flex items-center gap-1.5 shadow-[0_0_10px_rgba(0,0,0,0.5)] hover:scale-105 transition-all`}
+                                    >
+                                        <Terminal size={8} />
+                                        <span className="text-[9px] font-black uppercase tracking-widest">Engine: {SOVEREIGN_ENGINES[activeEngine].name}</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -524,9 +563,9 @@ export default function LiveAvatarChat({
                                 <motion.div
                                     animate={{
                                         opacity: [0.05, 0.1, 0.05],
-                                        background: eqAura === 'indigo' ? 'radial-gradient(circle, #6366f1 0%, transparent 70%)' :
-                                            eqAura === 'emerald' ? 'radial-gradient(circle, #10b981 0%, transparent 70%)' :
-                                                eqAura === 'rose' ? 'radial-gradient(circle, #f43f5e 0%, transparent 70%)' :
+                                        background: activeEngine === 'duix' ? 'radial-gradient(circle, #10b981 0%, transparent 70%)' :
+                                            activeEngine === 'liveportrait' ? 'radial-gradient(circle, #6366f1 0%, transparent 70%)' :
+                                                activeEngine === 'adobe' ? 'radial-gradient(circle, #a855f7 0%, transparent 70%)' :
                                                     'radial-gradient(circle, #f59e0b 0%, transparent 70%)'
                                     }}
                                     className="absolute inset-0 transition-colors duration-1000"
@@ -539,8 +578,8 @@ export default function LiveAvatarChat({
                                 className="w-full h-full relative"
                                 animate={{
                                     scale: isSpeaking ? [1, 1.02, 1] : [1, 1.01, 1],
-                                    rotateZ: isListening ? (presenceX * 1.5) : (isSpeaking ? [0, 0.3, -0.3, 0] : 0),
-                                    y: isSpeaking ? [0, -4, 0] : [0, -2, 0],
+                                    rotateZ: isListening ? (presenceX * 3 + vibeShift * 5) : (isSpeaking ? [0, 0.3, -0.3, 0] : vibeShift * 2),
+                                    y: isSpeaking ? [0, -4, 0] : (isListening ? -10 : [0, -2, 0]),
                                     x: isSpeaking ? [0, 2, -2, 0] : 0,
                                 }}
                                 transition={{
@@ -635,11 +674,11 @@ export default function LiveAvatarChat({
                         <div className="flex gap-12 whitespace-nowrap animate-marquee">
                             {[...Array(4)].map((_, i) => (
                                 <div key={i} className="flex gap-12 text-[10px] font-mono font-bold text-white/40 uppercase tracking-widest">
-                                    <span>FIDELITY: 99.8% NDS</span>
-                                    <span className="text-indigo-400">ENCRYPTION: QUANTUM_SECURE</span>
-                                    <span>LATENCY: 14MS</span>
-                                    <span className="text-emerald-400">SYNAPSE_COUNT: 1.2M</span>
-                                    <span>PROTOCOL: ALCOS_V5</span>
+                                    <span>FIDELITY: {activeEngine === 'heygen' ? '99.9%' : 'Local Render'}</span>
+                                    <span className={activeEngine === 'duix' ? 'text-emerald-400' : 'text-indigo-400'}>MODE: {SOVEREIGN_ENGINES[activeEngine].type}</span>
+                                    <span className="text-rose-400">EMOTION: {userSentiment.toUpperCase()}</span>
+                                    <span className="text-amber-400">LATENCY: {SOVEREIGN_ENGINES[activeEngine].latency}</span>
+                                    <span>ENGINE: {SOVEREIGN_ENGINES[activeEngine].name}</span>
                                 </div>
                             ))}
                         </div>
@@ -716,20 +755,68 @@ export default function LiveAvatarChat({
                                 {[...Array(40)].map((_, i) => (
                                     <motion.div
                                         key={i}
-                                        className="w-1 bg-indigo-500/50 rounded-full"
+                                        className={`w-1 ${activeEngine === 'duix' ? 'bg-emerald-500/50' : 'bg-indigo-500/50'} rounded-full`}
                                         animate={{
                                             height: [
                                                 `${Math.random() * 10 + 5}px`,
                                                 `${Math.random() * 50 + 10}px`,
                                                 `${Math.random() * 10 + 5}px`
                                             ],
-                                            backgroundColor: i % 5 === 0 ? '#4ade80' : '#6366f1'
+                                            backgroundColor: i % 5 === 0 ? '#fbbf24' : (activeEngine === 'duix' ? '#10b981' : '#6366f1')
                                         }}
                                         transition={{ duration: 0.1 + (Math.random() * 0.15), repeat: Infinity }}
                                     />
                                 ))}
                             </div>
                         </div>
+
+                        {/* Engine Nexus Selector Overlay */}
+                        <AnimatePresence>
+                            {showEngineNexus && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: 20 }}
+                                    className="absolute bottom-48 left-8 right-8 p-6 bg-black/90 backdrop-blur-3xl rounded-3xl border border-white/10 shadow-2xl z-[100] max-w-sm pointer-events-auto"
+                                >
+                                    <div className="flex items-center justify-between mb-6">
+                                        <div className="flex items-center gap-2">
+                                            <Brain className="text-indigo-400 w-4 h-4" />
+                                            <h3 className="text-xs font-black text-white uppercase tracking-[0.2em]">Engine Nexus</h3>
+                                        </div>
+                                        <button onClick={() => setShowEngineNexus(false)} className="text-white/40 hover:text-white"><X size={14} /></button>
+                                    </div>
+                                    <div className="space-y-3">
+                                        {Object.entries(SOVEREIGN_ENGINES).map(([id, engine]) => (
+                                            <button
+                                                key={id}
+                                                onClick={() => {
+                                                    setActiveEngine(id as any);
+                                                    setShowEngineNexus(false);
+                                                }}
+                                                className={`w-full p-4 rounded-2xl border transition-all text-left group ${activeEngine === id ? 'bg-white/10 border-white/30' : 'bg-white/5 border-white/10 hover:bg-white/10'}`}
+                                            >
+                                                <div className="flex items-center justify-between mb-1">
+                                                    <span className={`text-[10px] font-black uppercase tracking-widest ${engine.color}`}>{engine.name}</span>
+                                                    <span className="text-[8px] font-mono text-white/30">{engine.type}</span>
+                                                </div>
+                                                <p className="text-[9px] text-zinc-400 leading-relaxed font-medium">{engine.description}</p>
+                                                <div className="mt-2 flex items-center justify-between">
+                                                    <div className="h-0.5 flex-1 bg-white/5 rounded-full mr-4">
+                                                        <motion.div
+                                                            className={`h-full ${engine.color.replace('text-', 'bg-')}`}
+                                                            initial={{ width: 0 }}
+                                                            animate={{ width: activeEngine === id ? '100%' : '0%' }}
+                                                        />
+                                                    </div>
+                                                    <span className={`text-[8px] font-bold ${engine.color}`}>LATENCY: {engine.latency}</span>
+                                                </div>
+                                            </button>
+                                        ))}
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
                 )}
 
@@ -742,6 +829,16 @@ export default function LiveAvatarChat({
                             exit={{ opacity: 0 }}
                             className="absolute inset-0 flex flex-col items-center justify-center z-40 bg-black/40 backdrop-blur-[2px]"
                         >
+                            {perceptiveState !== 'observing' && (
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0.8 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    className="mb-4 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[9px] font-black text-indigo-400 uppercase tracking-[0.3em] flex items-center gap-2"
+                                >
+                                    <Activity size={10} className="animate-pulse" />
+                                    <span>Perceptive Mode: {perceptiveState}</span>
+                                </motion.div>
+                            )}
                             <div className="relative w-64 h-64 border border-indigo-500/30 rounded-full flex items-center justify-center">
                                 {/* Rotating Rings */}
                                 <div className="absolute inset-0 border-t-2 border-indigo-500 rounded-full animate-spin" />
