@@ -1,0 +1,131 @@
+# NVIDIA ACE 3.0 Audio2Face Deployment
+# Google Cloud Run with L4 GPU
+# Eliminates third-party avatar fees ($2/min → $0.64/hr)
+
+version: '3.8'
+
+services:
+  # Audio2Face 3.0 Microservice (NIM)
+  audio2face:
+    image: nvcr.io/nvidia/audio2face:3.0-nim
+    container_name: edintel-a2f
+
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
+
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+      - A2F_PORT=8011
+      - A2F_GRPC_PORT=50051
+      - A2F_EMOTION_CONTRAST=high # For affective dialog
+      - A2F_FPS=60 # Television quality
+      - A2F_DIFFUSION_MODE=enabled # 3.0 feature for micro-expressions
+
+    ports:
+      - "8011:8011" # HTTP API
+      - "50051:50051" # gRPC
+
+    volumes:
+      - ./models:/models
+      - ./cache:/cache
+
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8011/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # LiveKit Signaling Server
+  # Manages WebRTC connections between Vercel and GCP
+  livekit-server:
+    image: livekit/livekit-server:latest
+    container_name: edintel-livekit
+
+    command: --config /etc/livekit.yaml
+
+    ports:
+      - "7880:7880" # HTTP
+      - "7881:7881" # WebRTC
+      - "7882:7882/udp" # TURN
+
+    volumes:
+      - ./livekit-config.yaml:/etc/livekit.yaml
+
+    environment:
+      - LIVEKIT_KEYS=${LIVEKIT_API_KEY}:${LIVEKIT_API_SECRET}
+
+    depends_on:
+      - redis
+
+  # LiveKit Agent (Gemini → A2F Bridge)
+  livekit-agent:
+    build:
+      context: ./agents
+      dockerfile: Dockerfile.agent
+    container_name: edintel-agent
+
+    environment:
+      - LIVEKIT_URL=ws://livekit-server:7880
+      - LIVEKIT_API_KEY=${LIVEKIT_API_KEY}
+      - LIVEKIT_API_SECRET=${LIVEKIT_API_SECRET}
+      - GOOGLE_CLOUD_PROJECT=${GCP_PROJECT_ID}
+      - VERTEX_AI_LOCATION=us-central1
+      - A2F_ENDPOINT=http://audio2face:8011
+
+    depends_on:
+      - livekit-server
+      - audio2face
+
+    restart: unless-stopped
+
+  # Redis (for LiveKit state)
+  redis:
+    image: redis:7-alpine
+    container_name: edintel-redis
+
+    ports:
+      - "6379:6379"
+
+    volumes:
+      - redis-data:/data
+
+    command: redis-server --appendonly yes
+
+  # Gemini Live API Proxy
+  # Manages WebSocket connections to Vertex AI
+  gemini-proxy:
+    build:
+      context: ./proxy
+      dockerfile: Dockerfile.proxy
+    container_name: edintel-gemini-proxy
+
+    environment:
+      - GCP_PROJECT_ID=${GCP_PROJECT_ID}
+      - VERTEX_AI_LOCATION=us-central1
+      - VERTEX_AI_MODEL=gemini-3-pro
+      - CONTEXT_CACHE_ID=${CONTEXT_CACHE_ID} # Alabama regulations cache
+
+    ports:
+      - "8080:8080"
+
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  redis-data:
+    driver: local
+
+networks:
+  default:
+    name: edintel-network
+    driver: bridge

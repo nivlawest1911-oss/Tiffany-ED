@@ -470,14 +470,23 @@ CREATE TABLE IF NOT EXISTS avatar_sessions (
     conversation_log JSONB DEFAULT '[]'::jsonb,
     user_sentiment TEXT,
     
+    -- Gemini 3 Pro Thought Signatures (MANDATORY for stateful reasoning)
+    thought_signatures JSONB DEFAULT '{}'::jsonb,
+    -- Structure: { "latest": "encrypted_signature", "history": [...], "timestamp": "ISO8601" }
+    
     -- GCP Integration
     gcp_session_id TEXT UNIQUE,
     vertex_ai_model TEXT DEFAULT 'gemini-1.5-pro',
-    cloud_run_endpoint TEXT
+    cloud_run_endpoint TEXT,
+    
+    -- Context Caching (Alabama regulations)
+    context_cache_id TEXT, -- Vertex AI cache ID for 90% cost reduction
+    cached_regulations JSONB DEFAULT '{}'::jsonb
 );
 
 CREATE INDEX idx_avatar_sessions_user ON avatar_sessions(user_id, started_at DESC);
 CREATE INDEX idx_avatar_sessions_gcp ON avatar_sessions(gcp_session_id);
+CREATE INDEX idx_avatar_sessions_thought ON avatar_sessions((thought_signatures->>'latest'));
 
 -- ============================================
 -- EVIDENCE FOLDER SYSTEM
