@@ -88,19 +88,29 @@ jobs:
 
   # ============================================
   # DEPLOY TO GOOGLE CLOUD (Cognitive Layer)
+  # Using Workload Identity Federation (Keyless)
   # ============================================
   deploy-gcp:
     needs: build-and-test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production'
+    
+    # Grant permissions for OIDC token
+    permissions:
+      contents: read
+      id-token: write
+    
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Authenticate to Google Cloud
+      - name: Authenticate to Google Cloud (Workload Identity Federation)
+        id: auth
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
+          workload_identity_provider: ${{ secrets.GCP_WIF_PROVIDER }}
+          service_account: ${{ secrets.GCP_SA_EMAIL }}
+          token_format: 'access_token'
 
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
@@ -146,6 +156,14 @@ jobs:
             --format 'value(status.url)')
           echo "service_url=$SERVICE_URL" >> $GITHUB_OUTPUT
           echo "✅ Cloud Run Service: $SERVICE_URL"
+      
+      - name: Log Deployment Audit Trail
+        run: |
+          echo "🔐 Deployment authenticated via Workload Identity Federation"
+          echo "👤 GitHub Actor: ${{ github.actor }}"
+          echo "📦 Repository: ${{ github.repository }}"
+          echo "🔖 Commit SHA: ${{ github.sha }}"
+          echo "⏰ Timestamp: $(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 
   # ============================================
   # DATABASE MIGRATION (Cloud SQL)
