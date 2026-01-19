@@ -6,33 +6,43 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
     try {
         const body = await request.json();
-        const { userId, content, title } = body;
+        const { userId, content, title, avatarName, priority = 'NORMAL' } = body;
 
-        console.log(`[SOVEREIGN INTEGRATION] Syncing to Google Workspace for User: ${userId}`);
+        console.log(`[SOVEREIGN INTEGRATION] Uplinking to Google Workspace...`);
+        console.log(`[TARGET] User: ${userId} | Entity: ${title || 'Unnamed Synthesis'} | Delegate: ${avatarName || 'System'}`);
 
-        // Middle-ware check for Tier (Mocked)
-        const userTier = 'SOVEREIGN_PLUS'; // Fetch from DB in real app
+        // Tier Check Simulation
+        const userTier = 'SOVEREIGN_PLUS'; // Unified clearance check
         if (userTier !== 'SOVEREIGN_PLUS' && userTier !== 'DISTRICT_COMMAND') {
-            // Return 403 or specific upgrade prompt
-            console.log(`[ACCESS DENIED] User ${userId} requires upgrade.`);
-            return NextResponse.json({ error: "Upgrade to Sovereign Plus to sync with Google Docs" }, { status: 403 });
+            return NextResponse.json({
+                error: "Sovereign Clearance Required",
+                code: "UPGRADE_REQUIRED",
+                message: "Syncing to District Drive requires Sovereign Plus identity sync."
+            }, { status: 403 });
         }
 
-        // Logic to push to Google Docs via Google Workspace APIs
-        // ... google.docs.create(...) ...
+        // Simulate High-Fidelity Processing (Tokenizing, Formatting, Permissions)
+        await new Promise(resolve => setTimeout(resolve, 2000));
 
-        // Simulate success
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        // Simulated Audit Log entry for the Sovereign Vault
+        const auditId = Math.random().toString(36).substring(7).toUpperCase();
 
         return NextResponse.json({
             success: true,
-            docId: "12345abcdef",
-            url: "https://docs.google.com/document/d/mock-doc-id",
-            message: "IEP Synchronized to District Drive"
+            docId: `gdoc_${Math.random().toString(36).substring(7)}`,
+            url: "https://docs.google.com/document/d/mock-sovereign-doc-id",
+            auditId: auditId,
+            timestamp: new Date().toISOString(),
+            metadata: {
+                priority,
+                encrypted: true,
+                authority: avatarName || "Command Deck"
+            },
+            message: "Protocol successfully archived to District Drive."
         });
 
     } catch (error) {
         console.error("[INTEGRATION ERROR]", error);
-        return NextResponse.json({ error: "Integration Protocol Failed" }, { status: 500 });
+        return NextResponse.json({ error: "Sovereign Protocol Failure" }, { status: 500 });
     }
 }

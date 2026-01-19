@@ -474,12 +474,36 @@ export default function LiveAvatarChat({
                             </div>
                         </div>
                         {onClose && (
-                            <button
-                                onClick={onClose}
-                                className="px-6 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold text-xs uppercase tracking-widest transition-all backdrop-blur-md"
-                            >
-                                Terminate Session
-                            </button>
+                            <div className="flex items-center gap-3">
+                                <button
+                                    onClick={() => {
+                                        const summary = conversation.map(m => `${m.role.toUpperCase()}: ${m.text}`).join('\n');
+                                        const event = new CustomEvent('sovereign_vault_update', {
+                                            detail: {
+                                                id: Math.random().toString(36).substring(7),
+                                                title: `Session with ${avatarName}`,
+                                                delegate: avatarName,
+                                                content: summary,
+                                                date: new Date().toLocaleDateString()
+                                            }
+                                        });
+                                        window.dispatchEvent(event);
+                                        // Also trigger the sound if available
+                                        const audio = new Audio('/sounds/interface-success.mp3');
+                                        audio.play().catch(() => { });
+                                    }}
+                                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/40 border border-indigo-500/50 text-indigo-400 font-bold text-xs uppercase tracking-widest transition-all"
+                                >
+                                    <Lock size={14} />
+                                    Archive to Vault
+                                </button>
+                                <button
+                                    onClick={onClose}
+                                    className="px-6 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold text-xs uppercase tracking-widest transition-all backdrop-blur-md"
+                                >
+                                    Terminate Session
+                                </button>
+                            </div>
                         )}
                     </div>
                 </div>

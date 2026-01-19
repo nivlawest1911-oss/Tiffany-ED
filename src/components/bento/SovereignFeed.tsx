@@ -1,3 +1,4 @@
+'use client';
 import { useState } from 'react';
 import { Image, Video, FileText, Send, ThumbsUp, MessageSquare, Repeat, Share2, MoreHorizontal, Globe, Bookmark, Users, Calendar } from 'lucide-react';
 import { useSovereignFeed, FeedPost } from '@/hooks/useSovereignFeed';
@@ -156,3 +157,4 @@ export default function SovereignFeed() {
         </div>
     );
 }
+
