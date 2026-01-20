@@ -10,7 +10,7 @@ interface VoiceIdentityProps {
     label?: string;
 }
 
-export default function VoiceIdentity({ src, label = "Executive Voice Uplink" }: VoiceIdentityProps) {
+export default function VoiceIdentity({ src, label = "Executive Voice Connection" }: VoiceIdentityProps) {
     const [isPlaying, setIsPlaying] = useState(false);
     const audioRef = useRef<HTMLAudioElement>(null);
 

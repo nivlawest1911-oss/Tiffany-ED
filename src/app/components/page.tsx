@@ -18,7 +18,7 @@ const COMPONENT_LIBRARY = {
         { name: 'AutomatedIEPAudit', path: '/generators/iep-audit', file: 'bento/AutomatedIEPAudit.tsx' },
     ],
     'AI Avatars': [
-        { name: 'SovereignDelegate', path: '/', file: 'SovereignDelegate.tsx' },
+        { name: 'ProfessionalDelegate', path: '/', file: 'ProfessionalDelegate.tsx' },
         { name: 'LiveAvatarChat', path: '/', file: 'LiveAvatarChat.tsx' },
         { name: 'HolographicBriefing', path: '/', file: 'HolographicBriefing.tsx' },
         { name: 'LiveBriefingConsole', path: '/', file: 'LiveBriefingConsole.tsx' },
@@ -53,16 +53,16 @@ const COMPONENT_LIBRARY = {
     'Bento Tiles': [
         { name: 'NeuralSyncGym', path: '/cognitive', file: 'bento/NeuralSyncGym.tsx' },
         { name: 'NeuralTrainingCommand', path: '/cognitive', file: 'bento/NeuralTrainingCommand.tsx' },
-        { name: 'SovereignBroadcastNode', path: '/identity', file: 'bento/SovereignBroadcastNode.tsx' },
-        { name: 'SovereignEnterpriseModule', path: '/identity', file: 'bento/SovereignEnterpriseModule.tsx' },
-        { name: 'SovereignFeed', path: '/identity', file: 'bento/SovereignFeed.tsx' },
-        { name: 'SovereignIDManager', path: '/identity', file: 'bento/SovereignIDManager.tsx' },
-        { name: 'SovereignPrivacyManifesto', path: '/privacy', file: 'bento/SovereignPrivacyManifesto.tsx' },
-        { name: 'SovereignRankGuide', path: '/identity', file: 'bento/SovereignRankGuide.tsx' },
-        { name: 'SovereignSkillMatrix', path: '/identity', file: 'bento/SovereignSkillMatrix.tsx' },
-        { name: 'SovereignSocialUplink', path: '/identity', file: 'bento/SovereignSocialUplink.tsx' },
+        { name: 'ProfessionalBroadcastCenter', path: '/identity', file: 'bento/ProfessionalBroadcastCenter.tsx' },
+        { name: 'ProfessionalEnterpriseModule', path: '/identity', file: 'bento/ProfessionalEnterpriseModule.tsx' },
+        { name: 'ProfessionalFeed', path: '/identity', file: 'bento/ProfessionalFeed.tsx' },
+        { name: 'ProfessionalIDManager', path: '/identity', file: 'bento/ProfessionalIDManager.tsx' },
+        { name: 'ProfessionalPrivacyManifesto', path: '/privacy', file: 'bento/ProfessionalPrivacyManifesto.tsx' },
+        { name: 'ProfessionalRankGuide', path: '/identity', file: 'bento/ProfessionalRankGuide.tsx' },
+        { name: 'ProfessionalSkillMatrix', path: '/identity', file: 'bento/ProfessionalSkillMatrix.tsx' },
+        { name: 'ProfessionalSocialConnection', path: '/identity', file: 'bento/ProfessionalSocialConnection.tsx' },
         { name: 'SystemHealthTile', path: '/dashboard', file: 'bento/SystemHealthTile.tsx' },
-        { name: 'ArchitectIdentityNode', path: '/about', file: 'bento/ArchitectIdentityNode.tsx' },
+        { name: 'ArchitectIdentityCenter', path: '/about', file: 'bento/ArchitectIdentityCenter.tsx' },
     ],
 };
 
@@ -111,7 +111,7 @@ export default function ComponentExplorer() {
                         Full App Control
                     </h1>
                     <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
-                        Explore, preview, and use all {totalComponents} components in your EdIntel Sovereign platform
+                        Explore, preview, and use all {totalComponents} components in your EdIntel Professional platform
                     </p>
                 </motion.div>
 

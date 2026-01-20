@@ -22,14 +22,14 @@ interface VideoShowcase {
 const AI_VIDEOS: VideoShowcase[] = [
     {
         id: 1,
-        title: 'Full-Spectrum IEP Generation Protocol',
-        description: 'Watch the Sovereign Engine architect a 100% compliant, culturally resonant IEP in under 120 seconds.',
+        title: 'Full-Spectrum IEP Generation System',
+        description: 'Watch the Professional Engine architect a 100% compliant, culturally resonant IEP in under 120 seconds.',
         thumbnail: '/images/features/iep_interface.png',
         videoUrl: '/videos/features/iep-architect-demo.mp4',
         duration: '3:45',
         category: 'Special Education',
         aiGenerated: true,
-        briefingContent: "Uplink Secure. We are currently observing the Synthesis Phase of an Alabama-aligned IEP. Notice the neural mapping of student assessment data directly into measurable SMART goals. The engine doesn't just fill forms; it audits for IDEA fidelity and FAPE compliance in real-time. By leveraging a multi-variate database of 40,000+ instructional strategies, we ensure every scholar has a legally robust and instructionally sound success path without the 4-hour manual drafting period.",
+        briefingContent: "Connection Secure. We are currently observing the Synthesis Phase of an Alabama-aligned IEP. Notice the strategic mapping of student assessment data directly into measurable SMART goals. The system doesn't just fill forms; it audits for IDEA compliance and FAPE fidelity in real-time. By leveraging a multi-variate database of 40,000+ instructional strategies, we ensure every scholar has a legally robust and instructionally sound success path without the 4-hour manual drafting period.",
         brieferName: "Dr. Maya Washington",
         brieferRole: "IEP Compliance Architect",
         brieferAvatar: "/images/avatars/iep_architect.png"
@@ -38,26 +38,26 @@ const AI_VIDEOS: VideoShowcase[] = [
         id: 2,
         title: 'Strategic Lesson Synthesis (ALCOS)',
         description: 'Accelerate instructional design with standards-aligned, high-engagement lesson blueprints.',
-        thumbnail: '/images/features/sovereign_educator_planner.png',
+        thumbnail: '/images/features/strategic_educator_planner.png',
         videoUrl: '/videos/features/lesson-planner-demo.mp4',
         duration: '4:20',
         category: 'Curriculum',
         aiGenerated: true,
-        briefingContent: "Curriculum Insight initiated. Our engine identifies high-impact ALCOS and CCSS standards and wraps them in a UbD (Understanding by Design) framework. The resulting blueprints prioritize 'Intellectual Sovereignty' and community-building hooks. What you see is the 'Foundry' session, where raw academic concepts are transformed into high-engagement performance tasks. Educators save 80% on planning time while increasing instructional yield by 35% through neural-aligned content delivery.",
+        briefingContent: "Curriculum Insight initiated. Our system identifies high-impact ALCOS and CCSS standards and wraps them in a UbD (Understanding by Design) framework. The resulting blueprints prioritize 'Intellectual Leadership' and community-building hooks. What you see is the 'Foundry' session, where raw academic concepts are transformed into high-engagement performance tasks. Educators save 80% on planning time while increasing instructional yield by 35% through strategically-aligned content delivery.",
         brieferName: "Sarah West",
         brieferRole: "Curriculum Strategist",
         brieferAvatar: "/images/avatars/curriculum_strategist.png"
     },
     {
         id: 3,
-        title: 'Neural Presence: Live Conversation',
+        title: 'Strategic Presence: Live Conversation',
         description: 'Witness the future of leadership as Dr. Alvin West interacts in real-time with zero latency.',
         thumbnail: '/images/dr_alvin_west.png',
         videoUrl: '/videos/briefings/principal_briefing.mp4',
         duration: '2:30',
         category: 'AI Avatars',
         aiGenerated: false,
-        briefingContent: "Identity Sync Active. This demo showcases the 2-way neural uplink between the Sovereign Delegate and a district leader. The avatar is not just a recording; it's a dynamic identity core trained on thousands of hours of executive decision-making. It responds to complex fiscal inquiries, staff morale challenges, and policy shifts with the same authoritativeness and cultural nuance as Dr. West himself. This is the end of leadership bottlenecks.",
+        briefingContent: "Strategic Sync Active. This demo showcases the 2-way connection between the Professional Assistant and a district leader. The avatar is not just a recording; it's a dynamic identity core trained on thousands of hours of executive decision-making. It responds to complex fiscal inquiries, staff morale challenges, and policy shifts with the same authoritativeness and cultural nuance as Dr. West himself. This is the end of leadership bottlenecks.",
         brieferName: "Dr. Alvin West",
         brieferRole: "Executive Principal",
         brieferAvatar: "/images/dr_alvin_west.png"
@@ -71,21 +71,21 @@ const AI_VIDEOS: VideoShowcase[] = [
         duration: '5:15',
         category: 'Analytics',
         aiGenerated: true,
-        briefingContent: "Executive Matrix Uplink. We are visualizing student performance vectors across 14 data streams. The Sovereign Engine identifies 'Opportunity Nodes'—pockets of potential that are currently underserved. By shifting resources at the speed of data, district leaders can optimize for ROI (Return on Instruction). We move beyond lagging indicators like state tests into leading indicators that allow for real-time course correction and instructional capital recovery.",
+        briefingContent: "Executive Connection established. We are visualizing student performance vectors across 14 data streams. The Strategic System identifies 'Opportunity Centers'—pockets of potential that are currently underserved. By shifting resources at the speed of data, district leaders can optimize for ROI (Return on Instruction). We move beyond lagging indicators like state tests into leading indicators that allow for real-time course correction and instructional capital recovery.",
         brieferName: "Marcus Johnson",
-        brieferRole: "Sovereign Stem Lead",
+        brieferRole: "Professional Stem Lead",
         brieferAvatar: "/images/avatars/stem_coordinator.png"
     },
     {
         id: 5,
-        title: 'Behavioral Engineering Protocol',
+        title: 'Behavioral Support System',
         description: 'Constructing tiered intervention strategies that prioritize self-regulation over compliance.',
         thumbnail: '/images/features/behavior_intervention_specialist.png',
         videoUrl: '/videos/briefings/counselor_briefing.mp4',
         duration: '3:50',
         category: 'Behavior',
         aiGenerated: true,
-        briefingContent: "Behavioral HUD Calibration. We are now generating a Tier 3 Intervention Plan based on frequency-interval observation data. The engine shifts the perspective from 'What is the student doing?' to 'What is the student seeking?' By engineering professional replacement behaviors and reactive reinforcement schedules, we transform classroom climate. This protocol is fully compliant with Alabama SDE behavior standards and PBIS best practices.",
+        briefingContent: "Behavioral Status Calibration. We are now generating a Tier 3 Intervention Plan based on frequency-interval observation data. The system shifts the perspective from 'What is the student doing?' to 'What is the student seeking?' By implementing professional replacement behaviors and reinforcement schedules, we transform classroom climate. This process is fully compliant with Alabama SDE behavior standards and PBIS best practices.",
         brieferName: "Andre Patterson",
         brieferRole: "Behavior Intervention Lead",
         brieferAvatar: "/images/avatars/executive_leader.png"
@@ -99,11 +99,157 @@ const AI_VIDEOS: VideoShowcase[] = [
         duration: '4:40',
         category: 'Literacy',
         aiGenerated: true,
-        briefingContent: "Literacy Stream Verified. Dr. Robinson is demonstrating the synthesis of raw reading scores into actionable intervention groups. The Sovereign Engine identifies the specific 'Neural Blockage' in literacy acquisition—be it phonemic awareness or high-level comprehension—and prescribes the exact instructional protocol needed for gap closure. We don't just teach reading; we engineer literacy sovereignty.",
+        briefingContent: "Literacy Stream Verified. Dr. Robinson is demonstrating the synthesis of raw reading scores into actionable intervention groups. The Strategic System identifies the specific 'Strategic Blockage' in literacy acquisition—be it phonemic awareness or high-level comprehension—and prescribes the exact instructional approach needed for gap closure. We don't just teach reading; we empower literacy leadership.",
         brieferName: "Dr. Emily Robinson",
         brieferRole: "Literacy & Data Scientist",
         brieferAvatar: "/images/avatars/literacy_coach.png"
     },
+    {
+        id: 11,
+        title: 'Sovereign Identity Synchronicity',
+        description: 'Observe the zero-latency synchronization between the user and their digital twin.',
+        thumbnail: '/images/avatars/user_placeholder.png',
+        videoUrl: '/videos/features/twin-sync-demo.mp4',
+        duration: '2:15',
+        category: 'Identity',
+        aiGenerated: true,
+        briefingContent: "Identity Link Confirmed. We are witnessing the bilateral transfer of leadership heuristics. The Sovereign Twin doesn't just mimic voice; it inherits the user's specific policy preferences and cultural context. This allows for 'Delegate Without Deployment'—the ability to be in 10 school buildings simultaneously through a unified executive mirror.",
+        brieferName: "Your Sovereign Twin",
+        brieferRole: "Executive Mirror",
+        brieferAvatar: "/images/avatars/user_placeholder.png"
+    },
+    {
+        id: 12,
+        title: 'Quantum Edge Architecture',
+        description: 'A deep dive into the triple-redundant cloud infrastructure powering the EdIntel ecosystem.',
+        thumbnail: '/images/features/data_dashboard.png',
+        videoUrl: '/videos/features/cloud-infra-briefing.mp4',
+        duration: '6:30',
+        category: 'Infrastructure',
+        aiGenerated: true,
+        briefingContent: "System Topology Update. Our infrastructure leverages a Vercel Edge Mesh, Google Cloud TPU clusters, and a Github-driven CI/CD pulse. This triple-layered redundancy ensures 99.999% uptime for your strategic protocols. By processing neural requests at the edge, we eliminate the latency bottleneck, allowing for real-time human-avatar interaction without the 'AI lag' common in consumer tools.",
+        brieferName: "Cloud System Architect",
+        brieferRole: "Infrastructure Lead",
+        brieferAvatar: "/images/avatars/stem_coordinator.png"
+    },
+    // --- INTEGRATION: HEYGEN ---
+    {
+        id: 101,
+        title: 'Global Parent Communication (HeyGen)',
+        description: 'Instant translation of administrative updates into 40+ languages with perfect lip-sync.',
+        thumbnail: '/images/integrations/heygen_thumb.png',
+        videoUrl: '/videos/briefings/principal_briefing.mp4', // Simulating HeyGen Output
+        duration: '2:15',
+        category: 'Communications',
+        aiGenerated: true,
+        briefingContent: "Communication Protocol: Global Reach. This module utilizes HeyGen's advanced video translation engine. Notice the seamless lip-synchronization as the Superintendent's message is converted from English to Spanish, then Vietnamese, in real-time. This ensures 100% equity in information access for all district families, regardless of primary language.",
+        brieferName: "System",
+        brieferRole: "Translation Engine",
+        brieferAvatar: "/images/avatars/executive_leader.png"
+    },
+    // --- INTEGRATION: INVIDEO ---
+    {
+        id: 102,
+        title: 'Daily District News (InVideo)',
+        description: 'Automated synthesis of daily bulletins into engaging, broadcast-quality video updates.',
+        thumbnail: '/images/integrations/invideo_thumb.png',
+        videoUrl: '/videos/features/data-analysis-demo.mp4', // Simulating InVideo Output
+        duration: '3:00',
+        category: 'Broadcast',
+        aiGenerated: true,
+        briefingContent: "Broadcast Sequence Initiated. Utilizing InVideo's generative AI, the morning bulletin text was transformed into this dynamic visual presentation in under 60 seconds. The system automatically selects relevant stock footage, adds kinetic typography, and synchronizes a professional voiceover, turning static memos into must-watch content.",
+        brieferName: "System",
+        brieferRole: "Media Director",
+        brieferAvatar: "/images/avatars/executive_leader.png"
+    },
+    // --- INTEGRATION: CAPTIONS ---
+    {
+        id: 103,
+        title: 'Accessible Learning Materials (Captions)',
+        description: 'Automatic high-fidelity captioning and dubbing for universal design compliance.',
+        thumbnail: '/images/integrations/captions_thumb.png',
+        videoUrl: '/videos/briefings/counselor_briefing.mp4', // Simulating Captions Output
+        duration: '1:45',
+        category: 'Accessibility',
+        aiGenerated: true,
+        briefingContent: "Accessibility Audit: Passed. This demonstration highlights the 'Captions' integration. We are watching raw lecture footage being automatically processed for ADA compliance. The AI not only generates 99% accurate subtitles but also highlights key terms for emphasis, aiding cognitive retention for diverse learners.",
+        brieferName: "System",
+        brieferRole: "Compliance Bot",
+        brieferAvatar: "/images/avatars/executive_leader.png"
+    },
+    // --- INTEGRATION: OPUS ---
+    {
+        id: 104,
+        title: 'Micro-PD Generation (Opus)',
+        description: 'Intelligent extraction of viral moments from long-form professional development sessions.',
+        thumbnail: '/images/integrations/opus_thumb.png',
+        videoUrl: '/videos/briefings/data_briefing.mp4', // Simulating Opus Output
+        duration: '0:58',
+        category: 'Professional Dev',
+        aiGenerated: true,
+        briefingContent: "Content Distillation Active. The Opus engine has scanned a 60-minute board meeting and extracted this critical 1-minute segment on budget reallocation. It automatically reframes the video for mobile consumption and adds engaging captions, ensuring high-priority information reaches staff on the go.",
+        brieferName: "System",
+        brieferRole: "Content Curator",
+        brieferAvatar: "/images/avatars/executive_leader.png"
+    },
+    // --- INTEGRATION: GEMINI ---
+    {
+        id: 105,
+        title: 'Multimodal Assessment (Gemini)',
+        description: 'Analyzing student work samples (video, audio, text) for deep competency evidence.',
+        thumbnail: '/images/integrations/gemini_thumb.png',
+        videoUrl: '/videos/features/iep-architect-demo.mp4', // Simulating Gemini Output
+        duration: '4:10',
+        category: 'Assessment',
+        aiGenerated: true,
+        briefingContent: "Multimodal Analysis in progress. Powered by Google Gemini, the system is watching a student's science project video presentation. It extracts evidence of critical thinking, communication standards, and scientific accuracy, cross-referencing against the rubric to generate a draft score and personalized feedback instantly.",
+        brieferName: "System",
+        brieferRole: "Assessment AI",
+        brieferAvatar: "/images/avatars/executive_leader.png"
+    },
+    // --- SOVEREIGN EXECUTIVE ---
+    {
+        id: 999,
+        title: 'Sovereign Directive: CEO Update',
+        description: 'Direct neural uplink from the Executive Sovereign regarding Q1 strategic alignment.',
+        thumbnail: '/images/avatars/executive_leader.png',
+        videoUrl: '/videos/briefings/executive_directive.mp4',
+        duration: '1:15',
+        category: 'Internal - Executive',
+        aiGenerated: true, // It's an AI avatar of the human
+        briefingContent: "Command Authority Recognized. I am sharing this directive from the Executive Sovereign console. Our current trajectory indicates a 14% increase in instructional efficacy across the pilot districts. Accessing the Neural Archives... visualization complete. We are now deploying the 'Titan' protocol for district-wide fiscal optimization. as we move forward, ensure all delegates are aligned with the new compliance vectors.",
+        brieferName: "Dr. Alvin West",
+        brieferRole: "Executive Sovereign",
+        brieferAvatar: "/images/avatars/executive_leader.png"
+    },
+    {
+        id: 1000,
+        title: 'Parent Engagement Protocol',
+        description: 'Simulated interaction with a concerned parent using conflict resolution vectors.',
+        thumbnail: '/images/avatars/parent_simulation.png',
+        videoUrl: '/videos/briefings/counselor_briefing.mp4',
+        duration: '2:45',
+        category: 'Simulation',
+        aiGenerated: true,
+        briefingContent: "Scenario Loaded: High-Conflict Parent Meeting. In this simulation, the avatar anticipates emotional escalation points and preemptively deploys de-escalation rhetoric. Notice the tone shift at 0:45—the system detects elevated stress in the user's voice and instantly modulates its pitch and pacing to induce calm.",
+        brieferName: "Keisha Reynolds",
+        brieferRole: "Community Relations",
+        brieferAvatar: "/images/avatars/curriculum_strategist.png"
+    },
+    {
+        id: 1001,
+        title: 'Fiscal Audit Walkthrough',
+        description: 'Automated breakdown of the annual budget audit for board presentation.',
+        thumbnail: '/images/features/fiscal_audit.png',
+        videoUrl: '/videos/features/data-analysis-demo.mp4',
+        duration: '5:30',
+        category: 'Finance',
+        aiGenerated: true,
+        briefingContent: "Financial Forensics Complete. This video generates a narrative for the Board of Education meeting. It translates complex ledger data into a clear 'Story of Solvency', highlighting the 12% savings in operational costs due to recent energy efficiency upgrades. The AI automatically generates the accompanying slide deck.",
+        brieferName: "Dr. Isaiah Vance",
+        brieferRole: "Compliance Lead",
+        brieferAvatar: "/images/avatars/special_ed_director.png"
+    }
 ];
 
 export default function AIVideoShowcase() {
@@ -148,10 +294,20 @@ export default function AIVideoShowcase() {
             const utterance = new SpeechSynthesisUtterance(text);
 
             const voices = window.speechSynthesis.getVoices();
-            const isMale = name.toLowerCase().includes('alvin') || name.toLowerCase().includes('marcus') || name.toLowerCase().includes('david');
+
+            const isAlvin = name.toLowerCase().includes('alvin');
+            const isMale = name.toLowerCase().includes('marcus') || name.toLowerCase().includes('david') || name.toLowerCase().includes('andre');
 
             let preferredVoice;
-            if (isMale) {
+
+            if (isAlvin) {
+                // SPECIAL EXECUTIVE VOICE -- Attempt to find deep/authoritative voices
+                preferredVoice = voices.find(v =>
+                    v.name === 'Daniel' || // Premium iOS/Mac
+                    v.name.includes('Google UK English Male') || // Deep
+                    v.name.includes('Rocko') // Android deep
+                ) || voices.find(v => v.name.includes('David'));
+            } else if (isMale) {
                 preferredVoice = voices.find(v =>
                     (v.name.includes('Male') || v.name.includes('Guy') || v.name.includes('David') || v.name.includes('Google US English'))
                     && v.lang.startsWith('en')
@@ -175,7 +331,7 @@ export default function AIVideoShowcase() {
         }
     };
 
-    function NeuralMouthPulse({ index }: { index: number }) {
+    function SyncMouthPulse({ index }: { index: number }) {
         return (
             <motion.div
                 className="w-1 rounded-full bg-emerald-400/30 blur-[1px]"
@@ -400,7 +556,7 @@ export default function AIVideoShowcase() {
                                                         {isSpeaking && (
                                                             <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px] flex items-center justify-center gap-1">
                                                                 {[...Array(8)].map((_, i) => (
-                                                                    <NeuralMouthPulse key={i} index={i} />
+                                                                    <SyncMouthPulse key={i} index={i} />
                                                                 ))}
                                                             </div>
                                                         )}
@@ -426,7 +582,7 @@ export default function AIVideoShowcase() {
                                     <div className="flex-1 overflow-y-auto p-6 custom-scrollbar relative z-10">
                                         <div className="flex items-start gap-3 mb-4 opacity-50">
                                             <Sparkles size={14} className="text-emerald-500 mt-1" />
-                                            <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-500">Neural Briefing Decrypted</span>
+                                            <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-500">Strategic Briefing Decrypted</span>
                                         </div>
 
                                         <motion.p

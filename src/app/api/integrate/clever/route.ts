@@ -12,7 +12,7 @@ export async function POST(request: Request) {
         console.log(`[ ROSTER SYNC ] Initializing Clever Handshake for District: ${districtId}`);
 
         // Tier Validation
-        const userTier = 'SOVEREIGN_PLUS' as string;
+        const userTier = 'PROFESSIONAL_PLUS' as string;
 
         if (userTier !== 'DISTRICT_COMMAND') {
             return NextResponse.json({

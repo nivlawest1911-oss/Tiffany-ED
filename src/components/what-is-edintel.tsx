@@ -3,12 +3,12 @@ import { Brain, Shield as LucideShield, Zap, Users, Target, Award } from "lucide
 const features = [
   {
     icon: Brain,
-    title: "Neural Intelligence",
+    title: "Strategic Intelligence",
     description: "AI-powered cognitive assistance that learns your administrative patterns and anticipates your needs.",
   },
   {
     icon: LucideShield,
-    title: "Sovereign Protection",
+    title: "Leadership Protection",
     description: "FERPA-compliant security with military-grade encryption protecting your district's sensitive data.",
   },
   {
@@ -19,7 +19,7 @@ const features = [
   {
     icon: Users,
     title: "Community Network",
-    description: "Connect with 47,000+ educators sharing best practices and sovereign strategies.",
+    description: "Connect with 47,000+ educators sharing best practices and strategic insights.",
   },
   {
     icon: Target,
@@ -29,7 +29,7 @@ const features = [
   {
     icon: Award,
     title: "Certification Path",
-    description: "Earn Sovereign credentials that validate your cognitive leadership capabilities.",
+    description: "Earn recognized credentials that validate your leadership capabilities.",
   },
 ]
 
@@ -42,7 +42,7 @@ export function WhatIsEdIntel() {
             What is <span className="text-[#00d2ff]">EdIntel</span>?
           </h2>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            EdIntel Sovereign is the cognitive command center for education leaders. We transform administrative burden
+            EdIntel is the leadership command center for education leaders. We transform administrative burden
             into strategic advantage through AI-powered intelligence.
           </p>
         </div>
@@ -67,7 +67,7 @@ export function WhatIsEdIntel() {
             The Future of Educational Leadership is Here
           </h3>
           <p className="text-gray-300 max-w-2xl mx-auto mb-8">
-            Join thousands of forward-thinking educators who have already claimed their cognitive sovereignty. Stop
+            Join thousands of forward-thinking educators who have already claimed their cognitive leadership. Stop
             drowning in paperwork. Start leading with intelligence.
           </p>
           <div className="flex flex-wrap justify-center gap-4">

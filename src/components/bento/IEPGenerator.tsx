@@ -44,6 +44,16 @@ export default function IEPGenerator() {
         'Motor Skills'
     ];
 
+    const [genStep, setGenStep] = useState(0);
+    const generationSteps = [
+        "Analyzing Student Data Profile...",
+        "Consulting IDEA Compliance Protocols...",
+        "Drafting SMART Goals...",
+        "Structuring Accommodations...",
+        "Determining LRE & Services...",
+        "Finalizing Legal Framework..."
+    ];
+
     const handleGenerate = async () => {
         if (!studentName || !grade || !disability || !concernArea) {
             alert('Please fill in all fields');
@@ -51,6 +61,12 @@ export default function IEPGenerator() {
         }
 
         setIsGenerating(true);
+        setGenStep(0);
+
+        // Simulate thinking steps
+        const stepInterval = setInterval(() => {
+            setGenStep(curr => (curr < generationSteps.length - 1 ? curr + 1 : curr));
+        }, 1500);
 
         try {
             const response = await fetch('/api/classroom', {
@@ -83,11 +99,11 @@ Use clinical language and ensure 80% accuracy criteria over 5 consecutive trials
                 data = JSON.parse(responseText);
             } catch (e) {
                 console.error("IEP API Response was not JSON:", responseText);
-                throw new Error("Neural Link Unstable: Server returned invalid format.");
+                throw new Error("Strategic Link Unstable: Server returned invalid format.");
             }
 
             if (!response.ok || data.error) {
-                throw new Error(data?.error || 'Sovereign Aide Offline');
+                throw new Error(data?.error || 'Professional Aide Offline');
             }
             const generatedText = data.text || '';
 
@@ -136,11 +152,14 @@ Use clinical language and ensure 80% accuracy criteria over 5 consecutive trials
             }
 
             setGeneratedIEP(sections);
+            clearInterval(stepInterval);
         } catch (error) {
             console.error('Error generating IEP:', error);
             alert('Error generating IEP. Please try again.');
+            clearInterval(stepInterval);
         } finally {
             setIsGenerating(false);
+            clearInterval(stepInterval);
         }
     };
 
@@ -284,18 +303,23 @@ Use clinical language and ensure 80% accuracy criteria over 5 consecutive trials
             <button
                 onClick={handleGenerate}
                 disabled={isGenerating || !studentName || !grade || !disability || !concernArea}
-                className="w-full py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-bold text-lg hover:from-indigo-500 hover:to-purple-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mb-6"
+                className="w-full py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-bold text-lg hover:from-indigo-500 hover:to-purple-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex flex-col items-center justify-center gap-1 mb-6 relative overflow-hidden"
             >
-                {isGenerating ? (
-                    <>
-                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        Generating IEP...
-                    </>
-                ) : (
-                    <>
-                        <Sparkles size={20} />
-                        Generate Complete IEP
-                    </>
+                {isGenerating && (
+                    <div className="absolute inset-0 bg-indigo-700/50 flex items-center justify-center z-0">
+                        <div className="w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" style={{ backgroundSize: '200% 100%' }} />
+                    </div>
+                )}
+
+                <div className="relative z-10 flex items-center gap-2">
+                    {isGenerating ? <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" /> : <Sparkles size={20} />}
+                    <span>{isGenerating ? generationSteps[genStep] : 'Generate Complete IEP'}</span>
+                </div>
+
+                {isGenerating && (
+                    <div className="h-1 w-32 bg-indigo-900/50 rounded-full mt-2 overflow-hidden relative z-10">
+                        <div className="h-full bg-white/80 transition-all duration-500" style={{ width: `${((genStep + 1) / generationSteps.length) * 100}%` }} />
+                    </div>
                 )}
             </button>
 

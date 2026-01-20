@@ -1,6 +1,6 @@
 "use client";
 
-import { sovereignCloud } from '@/lib/sovereign-cloud';
+import { strategicCloud } from '@/lib/professional-cloud';
 import { Wifi, WifiOff, Activity } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
@@ -10,7 +10,7 @@ export default function ConnectionStatus() {
 
     const checkConnection = async () => {
         const start = Date.now();
-        const online = await sovereignCloud.checkConnection();
+        const online = await strategicCloud.checkConnection();
         const end = Date.now();
         setIsOnline(online);
         if (online) setLatency(end - start);
@@ -37,7 +37,7 @@ export default function ConnectionStatus() {
 
                 <div className="flex flex-col">
                     <span className="text-[10px] font-black uppercase tracking-widest">
-                        {isOnline ? 'Sovereign Uplink' : 'Local Mode'}
+                        {isOnline ? 'Professional Connection' : 'Local Mode'}
                     </span>
                     {isOnline && (
                         <span className="text-[8px] font-mono opacity-70">

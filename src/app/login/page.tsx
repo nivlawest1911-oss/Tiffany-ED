@@ -31,12 +31,9 @@ export default function LoginPage() {
     }
   };
 
-  const handleGoogleLogin = async () => {
+  const handleGoogleLogin = () => {
     setIsLoggingIn(true);
-    // FREE TIER SIMULATION
-    setTimeout(() => {
-      router.push('/');
-    }, 800);
+    window.location.href = '/api/auth/google';
   };
 
   return (
@@ -71,7 +68,7 @@ export default function LoginPage() {
           isOpen={showBriefing}
           onClose={() => setShowBriefing(false)}
           title="Gatekeeper Protocol"
-          description="Identity verification required. Access to the Sovereign Neural Network is restricted to authorized executive personnel. All sessions are encrypted with military-grade protocols. Please preset your credentials."
+          description="Identity verification required. Access to the Professional Strategic Network is restricted to authorized executive personnel. All sessions are encrypted with military-grade protocols. Please preset your credentials."
           role="Gatekeeper Sentinel"
           avatarImage="/images/avatars/executive_leader.png"
           thumbnail="/images/features/iep-architect-demo.mp4"

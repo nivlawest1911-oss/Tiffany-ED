@@ -7,13 +7,13 @@ import { Menu, X, ArrowRight, Globe } from 'lucide-react';
 import Image from 'next/image';
 import { useAuth } from '@/context/AuthContext';
 import EdIntelLogo from './EdIntelLogo';
-import useSovereignSounds from '@/hooks/useSovereignSounds';
+import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 
 export default function FloatingNavbar() {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const { user, logout } = useAuth();
-    const { playHover } = useSovereignSounds();
+    const { playHover } = useProfessionalSounds();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -35,33 +35,36 @@ export default function FloatingNavbar() {
         <motion.nav
             initial={{ y: -100 }}
             animate={{ y: 0 }}
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'py-4' : 'py-6'
+            className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${scrolled ? 'py-4' : 'py-6'
                 }`}
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div
-                    className={`relative rounded-2xl transition-all duration-300 ${scrolled
-                        ? 'bg-zinc-950/80 backdrop-blur-xl border border-white/10 shadow-lg shadow-black/20 p-4'
+                    className={`relative rounded-[2rem] transition-all duration-500 overflow-hidden ${scrolled
+                        ? 'bg-noble-black/80 backdrop-blur-3xl border border-white/10 shadow-2xl p-4'
                         : 'bg-transparent p-0'
                         }`}
                 >
-                    <div className="flex items-center justify-between">
+                    {/* Kente Navbar Top Border */}
+                    <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-kente-yellow via-kente-green to-kente-red z-[110]" />
+
+                    <div className="flex items-center justify-between px-2">
                         {/* Logo */}
                         <Link href="/" className="relative z-50 flex items-center gap-4" onMouseEnter={() => playHover()}>
                             <EdIntelLogo />
-                            <div className="hidden md:flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-red-500/10 border border-red-500/20 text-[10px] font-black text-red-400 animate-pulse">
-                                <div className="w-1.5 h-1.5 rounded-full bg-red-500" />
-                                TRENDING GLOBAL
+                            <div className="hidden md:flex items-center gap-1.5 px-3 py-1 rounded-full bg-noble-gold/10 border border-noble-gold/20 text-[9px] font-black text-noble-gold tracking-widest uppercase animate-pulse">
+                                <div className="w-1.5 h-1.5 rounded-full bg-noble-gold shadow-[0_0_8px_rgba(212,175,55,0.8)]" />
+                                Professional Center
                             </div>
                         </Link>
 
                         {/* Desktop Nav */}
-                        <div className="hidden md:flex items-center gap-8">
+                        <div className="hidden md:flex items-center gap-10">
                             {navLinks.map((link) => (
                                 <Link
                                     key={link.name}
                                     href={link.href}
-                                    className="text-sm font-medium text-zinc-400 hover:text-white transition-colors"
+                                    className="text-xs font-black text-zinc-400 hover:text-noble-gold uppercase tracking-widest transition-all"
                                     onMouseEnter={() => playHover()}
                                 >
                                     {link.name}
@@ -69,40 +72,43 @@ export default function FloatingNavbar() {
                             ))}
                         </div>
 
-                        {/* CTA */}
-                        <div className="hidden md:flex items-center gap-4">
-                            {/* Global Neural Link */}
-                            <button className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-zinc-400 hover:text-white hover:border-emerald-500/50 transition-all group" title="Global Neural Link Active">
-                                <Globe size={14} className="group-hover:text-emerald-400" />
-                                <span>EN</span>
-                                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse ml-1" />
+                        {/* CTA / User Profile */}
+                        <div className="hidden md:flex items-center gap-6">
+                            <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[10px] font-black text-zinc-400 hover:text-white hover:border-kente-green/50 transition-all group">
+                                <Globe size={14} className="group-hover:text-kente-green" />
+                                <span>PROTOCOL: INT</span>
                             </button>
 
                             {user ? (
-                                <div className="flex items-center gap-4">
-                                    <div className="text-sm font-medium text-white/80">
-                                        {user.name && user.name.split(' ')[0]}
-                                        <span className="ml-2 text-xs text-indigo-400 border border-indigo-500/30 px-2 py-0.5 rounded-full uppercase tracking-wider">{user.tier}</span>
+                                <div className="flex items-center gap-6">
+                                    <div className="flex items-center gap-3">
+                                        <div className="text-right">
+                                            <p className="text-[10px] font-black text-white uppercase tracking-tighter leading-none">{user.name}</p>
+                                            <p className="text-[8px] font-black text-noble-gold uppercase tracking-[0.2em] mt-1">{user.tier}</p>
+                                        </div>
+                                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-noble-gold/20 to-indigo-500/20 border border-noble-gold/30 flex items-center justify-center font-black text-noble-gold text-xs shadow-lg">
+                                            {user.name?.[0].toUpperCase()}
+                                        </div>
                                     </div>
                                     <button
                                         onClick={() => logout()}
-                                        className="text-sm font-medium text-zinc-400 hover:text-white transition-colors"
+                                        className="text-[10px] font-black text-zinc-500 hover:text-kente-red uppercase tracking-widest transition-colors"
                                         onMouseEnter={() => playHover()}
                                     >
-                                        Sign Out
+                                        Exit
                                     </button>
                                 </div>
                             ) : (
-                                <>
-                                    <Link href="/login" className="text-sm font-medium text-white hover:text-indigo-400 transition-colors" onMouseEnter={() => playHover()}>
+                                <div className="flex items-center gap-6">
+                                    <Link href="/login" className="text-[10px] font-black text-zinc-400 hover:text-white uppercase tracking-widest transition-colors" onMouseEnter={() => playHover()}>
                                         Sign In
                                     </Link>
                                     <Link href="/signup">
-                                        <button className="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold transition-colors shadow-lg shadow-indigo-500/20" onMouseEnter={() => playHover()}>
-                                            Get Started
+                                        <button className="px-6 py-3 rounded-xl bg-white text-black text-[10px] font-black uppercase tracking-[0.2em] transition-all hover:bg-noble-gold shadow-xl shadow-noble-gold/20 active:scale-95" onMouseEnter={() => playHover()}>
+                                            Initialize
                                         </button>
                                     </Link>
-                                </>
+                                </div>
                             )}
                         </div>
 
@@ -112,7 +118,7 @@ export default function FloatingNavbar() {
                             className="md:hidden p-2 text-white"
                             onMouseEnter={() => playHover()}
                         >
-                            {mobileMenuOpen ? <X /> : <Menu />}
+                            {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
                         </button>
                     </div>
                 </div>
@@ -122,33 +128,47 @@ export default function FloatingNavbar() {
             <AnimatePresence>
                 {mobileMenuOpen && (
                     <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="md:hidden absolute top-full left-0 right-0 px-4 mt-2"
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        className="md:hidden absolute top-full left-0 right-0 px-4 mt-4"
                     >
-                        <div className="bg-zinc-950/90 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-xl">
-                            <div className="flex flex-col gap-4">
+                        <div className="bg-noble-black/95 backdrop-blur-3xl border border-white/10 rounded-[2rem] p-8 shadow-2xl relative overflow-hidden">
+                            <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-kente-yellow via-kente-green to-kente-red" />
+
+                            <div className="flex flex-col gap-6">
                                 {navLinks.map((link) => (
                                     <Link
                                         key={link.name}
                                         href={link.href}
                                         onClick={() => setMobileMenuOpen(false)}
-                                        className="text-base font-medium text-zinc-300 hover:text-white"
+                                        className="text-xl font-black text-zinc-300 hover:text-noble-gold uppercase tracking-tighter transition-colors"
                                         onMouseEnter={() => playHover()}
                                     >
                                         {link.name}
                                     </Link>
                                 ))}
-                                <hr className="border-white/10" />
-                                <Link href="/login" className="text-center text-white py-2" onMouseEnter={() => playHover()}>
-                                    Sign In
-                                </Link>
-                                <Link href="/signup">
-                                    <button className="w-full py-3 rounded-lg bg-indigo-600 text-white font-semibold" onMouseEnter={() => playHover()}>
-                                        Get Started
+                                <div className="h-px w-full bg-white/5 my-2" />
+                                {user ? (
+                                    <button
+                                        onClick={() => { logout(); setMobileMenuOpen(false); }}
+                                        className="text-left text-xl font-black text-kente-red uppercase tracking-tighter"
+                                        onMouseEnter={() => playHover()}
+                                    >
+                                        Exit Protocol
                                     </button>
-                                </Link>
+                                ) : (
+                                    <>
+                                        <Link href="/login" onClick={() => setMobileMenuOpen(false)} className="text-xl font-black text-white uppercase tracking-tighter" onMouseEnter={() => playHover()}>
+                                            Sign In
+                                        </Link>
+                                        <Link href="/signup" onClick={() => setMobileMenuOpen(false)}>
+                                            <button className="w-full py-5 rounded-[1.5rem] bg-noble-gold text-black font-black uppercase tracking-widest text-sm" onMouseEnter={() => playHover()}>
+                                                Initialize Center
+                                            </button>
+                                        </Link>
+                                    </>
+                                )}
                             </div>
                         </div>
                     </motion.div>

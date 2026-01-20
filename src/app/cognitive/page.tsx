@@ -16,13 +16,13 @@ import {
   Terminal
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
-import NeuralSyncGym from '@/components/bento/NeuralSyncGym';
-import { useSovereignRank } from '@/hooks/useSovereignRank';
+import LeadershipGym from '@/components/bento/LeadershipGym';
+import { useLeadershipRank } from '@/hooks/useLeadershipRank';
 export default function CognitiveCommandCenter() {
-  const [user, setUser] = useState<any>({ uid: 'SIMULATED-SOVEREIGN-NODE', displayName: 'Executive Director' });
+  const [user, setUser] = useState<any>({ uid: 'SIMULATED-LEADERSHIP-CENTER', displayName: 'Executive Director' });
   const [activeTab, setActiveTab] = useState<'simulator' | 'analytics' | 'certification'>('simulator');
 
-  const { addXP, xp, currentRank, progressToNext } = useSovereignRank();
+  const { addXP, xp, currentRank, progressToNext } = useLeadershipRank();
 
   useEffect(() => {
     // Simulated Auth Check
@@ -45,10 +45,10 @@ export default function CognitiveCommandCenter() {
           <div className="space-y-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">
               <Terminal size={12} className="text-cyan-400" />
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400">Node Sync Active // v4.2.0</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400">Center Sync Active // v4.2.0</span>
             </div>
             <h1 className="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none">
-              Neural <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600">Command Center</span>
+              Strategic <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600">Command Center</span>
             </h1>
             <p className="text-zinc-500 max-w-xl text-lg font-medium leading-relaxed italic">
               "Cognitive fitness is the fuel of authority. Calibrate your baseline, expand your working memory, and protect against professional burnout."
@@ -58,7 +58,7 @@ export default function CognitiveCommandCenter() {
           <div className="flex bg-zinc-900/50 p-1.5 rounded-2xl border border-zinc-800 backdrop-blur-xl">
             {[
               { id: 'simulator', label: 'Simulator', icon: <Cpu size={14} /> },
-              { id: 'analytics', label: 'Neural Logs', icon: <BarChart3 size={14} /> },
+              { id: 'analytics', label: 'Strategic Logs', icon: <BarChart3 size={14} /> },
               { id: 'certification', label: 'Certs', icon: <ShieldCheck size={14} /> }
             ].map((tab) => (
               <button
@@ -86,7 +86,7 @@ export default function CognitiveCommandCenter() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                 >
-                  <NeuralSyncGym onXPAction={addXP} />
+                  <LeadershipGym onXPAction={addXP} />
                 </motion.div>
               )}
 
@@ -121,7 +121,7 @@ export default function CognitiveCommandCenter() {
                           <div key={i} className="flex-1 bg-purple-500/20 rounded-t-lg transition-all hover:bg-purple-500" style={{ height: `${v}%` }} />
                         ))}
                       </div>
-                      <p className="mt-4 text-[10px] font-mono text-zinc-600 text-center">Inhibition Node Response</p>
+                      <p className="mt-4 text-[10px] font-mono text-zinc-600 text-center">Inhibition Center Response</p>
                     </div>
                   </div>
                   <div className="mt-8 p-6 rounded-3xl bg-cyan-600/5 border border-cyan-500/10 flex items-center justify-between">
@@ -145,7 +145,7 @@ export default function CognitiveCommandCenter() {
                   <div className="w-20 h-20 bg-zinc-800 rounded-full flex items-center justify-center mb-6 border border-zinc-700">
                     <Lock className="text-zinc-500" size={32} />
                   </div>
-                  <h2 className="text-2xl font-black uppercase mb-4">Sovereign Certification Locked</h2>
+                  <h2 className="text-2xl font-black uppercase mb-4">Professional Certification Locked</h2>
                   <p className="text-zinc-500 max-w-md mx-auto mb-10 text-sm leading-relaxed">
                     Complete at least 5 calibration cycles in all 4 simulators to unlock your professional achievement badges.
                   </p>
@@ -170,7 +170,7 @@ export default function CognitiveCommandCenter() {
                   <div className="flex justify-between items-center px-2">
                     <div className="flex items-center gap-3">
                       <Trophy className="text-amber-500" size={16} />
-                      <span className="text-xs font-bold text-zinc-300">Total Sovereign XP</span>
+                      <span className="text-xs font-bold text-zinc-300">Total Professional XP</span>
                     </div>
                     <span className="text-xl font-black text-white">{xp}</span>
                   </div>
@@ -230,9 +230,9 @@ export default function CognitiveCommandCenter() {
       {/* Footer */}
       <footer className="relative z-10 border-t border-zinc-900 py-12 px-6">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 opacity-40">
-          <p className="text-xs font-mono font-bold tracking-widest uppercase">Encryption: Neural-AES-256</p>
+          <p className="text-xs font-mono font-bold tracking-widest uppercase">Encryption: Strategic-AES-256</p>
           <div className="flex gap-8">
-            <span className="text-xs font-mono font-bold tracking-widest uppercase">Node: {user?.uid?.slice(0, 8) || 'GUEST-NODE'}</span>
+            <span className="text-xs font-mono font-bold tracking-widest uppercase">Center: {user?.uid?.slice(0, 8) || 'GUEST-ACCOUNT'}</span>
             <span className="text-xs font-mono font-bold tracking-widest uppercase">ALSDE Standards Compliant</span>
           </div>
         </div>

@@ -5,7 +5,7 @@ import { Share2, Lock, CheckCircle2, Shield, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 
 const INTEGRATIONS = [
-    { id: 'google', name: 'Google Workspace', status: 'Available', tier: 'Sovereign', description: 'Automated IEP syncing and document generation directly to Drive.', color: 'text-blue-500', href: '/connectors/google' },
+    { id: 'google', name: 'Google Workspace', status: 'Available', tier: 'Professional', description: 'Automated IEP syncing and document generation directly to Drive.', color: 'text-blue-500', href: '/connectors/google' },
     { id: 'canvas', name: 'Canvas LMS', status: 'Locked', tier: 'Elite', description: 'Real-time assignment analysis and curriculum alignment.', color: 'text-orange-500', href: '/connectors/canvas' },
     { id: 'clever', name: 'Clever SSO', status: 'Locked', tier: 'District', description: 'Enterprise-grade Single Sign-On and roster synchronization.', color: 'text-blue-400', href: '/connectors/clever' },
     { id: 'powerschool', name: 'PowerSchool', status: 'Locked', tier: 'District', description: 'Direct gradebook integration and attendance correlation.', color: 'text-indigo-400', href: '/connectors/powerschool' },
@@ -17,8 +17,8 @@ export default function ConnectorHub() {
             <header className="mb-12 border-b border-zinc-800 pb-8">
                 <div className="flex justify-between items-start">
                     <div>
-                        <h1 className="text-4xl md:text-5xl font-black tracking-tighter uppercase mb-2">Neural Connectors</h1>
-                        <p className="text-zinc-500 tracking-widest text-xs uppercase">Amplify Sovereignty Through Data Integration</p>
+                        <h1 className="text-4xl md:text-5xl font-black tracking-tighter uppercase mb-2">Strategic Connectors</h1>
+                        <p className="text-zinc-500 tracking-widest text-xs uppercase">Amplify Leadership Through Data Integration</p>
                     </div>
                     <Link href="/dashboard" className="text-xs font-bold uppercase tracking-widest text-zinc-500 hover:text-white transition-colors">
                         Return to Command
@@ -84,11 +84,11 @@ export default function ConnectorHub() {
                         </div>
                         <h3 className="text-2xl font-bold mb-4 text-white">Need Custom Integration?</h3>
                         <p className="text-zinc-400 text-sm leading-relaxed">
-                            Deploy the Sovereign Connector Hub across your entire district with custom SSO and SIS mapping. White-label options available for large-scale deployments.
+                            Deploy the Professional Connector Hub across your entire district with custom SSO and SIS mapping. White-label options available for large-scale deployments.
                         </p>
                     </div>
                     <button className="w-full mt-8 py-4 bg-white text-black text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-amber-500 hover:text-white transition-all duration-300">
-                        Contact Sovereign Sales
+                        Contact Professional Sales
                     </button>
                 </div>
             </div>

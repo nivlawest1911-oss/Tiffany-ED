@@ -20,16 +20,16 @@ const socialLinks = [
     color: "#0a66c2",
   },
   { name: "YouTube", icon: Youtube, url: "https://www.youtube.com/@EdIntel", color: "#ff0000" },
-  { name: "Instagram", icon: Instagram, url: "https://www.instagram.com/edintel_sovereign/", color: "#e4405f" },
+  { name: "Instagram", icon: Instagram, url: "https://www.instagram.com/edintel_professional/", color: "#e4405f" },
   { name: "Twitter/X", icon: Twitter, url: "https://twitter.com/EdIntelAI", color: "#1da1f2" },
 ]
 
 const quickLinks = [
   { name: "Command", href: "#" },
   { name: "Avatar Lab", href: "#avatar-lab" },
-  { name: "Neural Sync", href: "#neural-sync" },
-  { name: "Sovereign Labs", href: "#sovereign-labs" },
-  { name: "Sovereign Pricing", href: "#pricing" },
+  { name: "Strategic Sync", href: "#neural-sync" },
+  { name: "Professional Labs", href: "#innovation-labs" },
+  { name: "Professional Pricing", href: "#pricing" },
   { name: "Support Protocol", href: "#support" },
 ]
 
@@ -48,7 +48,7 @@ export function GlobalPresence() {
                 <span className="text-xl font-black text-black">E</span>
               </div>
               <div>
-                <h3 className="font-black tracking-tighter text-2xl text-white">EdIntel Sovereign</h3>
+                <h3 className="font-black tracking-tighter text-2xl text-white">EdIntel Professional</h3>
                 <p className="text-xs text-gray-400">Administrative Intelligence v4.0.2</p>
               </div>
             </div>
@@ -177,7 +177,7 @@ export function GlobalPresence() {
           </div>
 
           <p className="text-xs text-gray-600 tracking-widest">
-            © 2025 EdIntel Sovereign. All rights reserved. Made with ♥ in Mobile, Alabama.
+            © 2025 EdIntel Professional. All rights reserved. Made with ♥ in Mobile, Alabama.
           </p>
         </div>
       </div>

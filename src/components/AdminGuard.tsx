@@ -10,7 +10,7 @@ const AUTHORIZED_EMAILS = [
   'colleague@mobilecountyschools.org'
 ];
 
-export default function AdminGuard({ children }: { children: React.ReactNode }) {
+export default function AdminGuard({ children }: { children: React.ReactCenter }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();

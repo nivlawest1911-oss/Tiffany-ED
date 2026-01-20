@@ -12,7 +12,7 @@ export async function POST(request: Request) {
         console.log(`[ DISTRICT UPLINK ] Syncing ${workloadType} to Canvas for User: ${userId}`);
 
         // Tier Validation: Canvas requires DISTRICT_COMMAND tier
-        const userTier = 'SOVEREIGN_PLUS' as string;
+        const userTier = 'PROFESSIONAL_PLUS' as string;
 
         if (userTier !== 'DISTRICT_COMMAND') {
             return NextResponse.json({

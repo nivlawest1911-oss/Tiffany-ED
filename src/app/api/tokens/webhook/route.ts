@@ -1,5 +1,5 @@
 /**
- * EdIntel Sovereign - Stripe Webhook Handler
+ * EdIntel Professional - Stripe Webhook Handler
  * Processes payment confirmations and updates ledger
  * 
  * POST /api/tokens/webhook
@@ -11,14 +11,28 @@ import Stripe from 'stripe';
 import { sql } from '@vercel/postgres';
 import { headers } from 'next/headers';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-    apiVersion: '2024-12-18.acacia',
-});
-
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+const stripeInit = () => {
+    if (!process.env.STRIPE_SECRET_KEY) {
+        throw new Error('STRIPE_SECRET_KEY is missing');
+    }
+    return new Stripe(process.env.STRIPE_SECRET_KEY, {
+        apiVersion: '2025-12-15.clover' as any,
+    });
+};
 
 export async function POST(request: NextRequest) {
     try {
+        const stripe = stripeInit();
+        const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+
+        if (!webhookSecret) {
+            console.error('STRIPE_WEBHOOK_SECRET is missing');
+            return NextResponse.json(
+                { error: 'Server configuration error' },
+                { status: 500 }
+            );
+        }
+
         const body = await request.text();
         const headersList = await headers();
         const signature = headersList.get('stripe-signature');

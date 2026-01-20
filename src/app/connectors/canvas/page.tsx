@@ -20,7 +20,7 @@ export default function CanvasGuide() {
                         </div>
                         <div>
                             <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase leading-none">Canvas LMS</h1>
-                            <p className="text-zinc-500 tracking-[0.2em] uppercase text-xs font-bold mt-2">Instructional Delivery Uplink</p>
+                            <p className="text-zinc-500 tracking-[0.2em] uppercase text-xs font-bold mt-2">Instructional Delivery Connection</p>
                         </div>
                     </div>
                 </header>
@@ -30,7 +30,7 @@ export default function CanvasGuide() {
                         <div className="bg-zinc-900/50 p-8 rounded-3xl border border-white/5">
                             <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
                                 <Zap className="text-amber-500" size={18} />
-                                Neural Export
+                                Strategic Export
                             </h3>
                             <p className="text-sm text-zinc-400 leading-relaxed">
                                 Synchronize your generative lesson plans and IEP accommodations directly into Canvas course shells. EdIntel automatically maps learning objectives to your existing gradebook categories.
@@ -52,8 +52,8 @@ export default function CanvasGuide() {
                         <ol className="space-y-4">
                             {[
                                 "Obtain an API Access Token from your Canvas Administrator settings.",
-                                "Paste the Tenant ID into the Sovereign Connector Matrix.",
-                                "Initialize 'Curriculum Uplink' to verify the handshake.",
+                                "Paste the Tenant ID into the Professional Connector Matrix.",
+                                "Initialize 'Curriculum Connection' to verify the handshake.",
                                 "Map your EdIntel workspaces to specific Canvas Course IDs."
                             ].map((step, i) => (
                                 <li key={i} className="flex gap-4 items-start">

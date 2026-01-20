@@ -9,14 +9,14 @@ export async function POST(request: Request) {
         const body = await request.json();
         const { userId, quantity = 1 } = body;
 
-        console.log(`[SOVEREIGN PAYMENT] Initializing Real Capital Injection for User: ${userId}, Quantity: ${quantity}`);
+        console.log(`[PROFESSIONAL PAYMENT] Initializing Real Capital Injection for User: ${userId}, Quantity: ${quantity}`);
 
         // Base URL for redirects
         const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 
         // Create real Stripe session
         const session = await createTopupSession(
-            userId || 'anonymous_sovereign',
+            userId || 'anonymous_professional',
             quantity,
             `${baseUrl}/dashboard?success=true&session_id={CHECKOUT_SESSION_ID}`,
             `${baseUrl}/dashboard?canceled=true`
@@ -33,7 +33,7 @@ export async function POST(request: Request) {
         });
 
     } catch (error: any) {
-        console.error("[SOVEREIGN PAYMENT ERROR]", error);
+        console.error("[PROFESSIONAL PAYMENT ERROR]", error);
         return NextResponse.json({
             error: "Failed to initialize payment channel",
             details: error.message

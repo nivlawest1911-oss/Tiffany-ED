@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Shield as LucideShield, AlertTriangle, Lock, FileText, Gavel, CheckCircle, ArrowRight, Activity, Loader2 } from 'lucide-react';
 import FloatingNavbar from '@/components/FloatingNavbar';
-import { generateSovereignResponse } from '@/lib/sovereign-ai';
+import { generateProfessionalResponse } from '@/lib/leadership-ai';
 
 export default function RiskAnalyzer() {
     const [scenario, setScenario] = useState('');
@@ -27,9 +27,9 @@ export default function RiskAnalyzer() {
             3. Potential Citations: List 2-3 relevant education case law precedents or IDEA/FERPA statutes.
             4. Mitigation Protocol: 3 immediate steps to kill this lawsuit before it starts.
             
-            Tone: Warning, Legal, Protective, "Sovereign".`;
+            Tone: Warning, Legal, Protective, "Professional".`;
 
-            const response = await generateSovereignResponse(prompt, 'risk-analyzer');
+            const response = await generateProfessionalResponse(prompt, 'risk-analyzer');
 
             // Fake parsing the score for the visual meter (if the AI puts it at the start)
             const scoreMatch = response.match(/(\d{1,3})/);
@@ -120,7 +120,7 @@ export default function RiskAnalyzer() {
                             </div>
                             <div>
                                 <h4 className="font-bold text-white">Need Complete Immunity?</h4>
-                                <p className="text-xs text-indigo-200">The <strong>Sovereign Legal Vault</strong> includes 50+ pre-vetted defense templates.</p>
+                                <p className="text-xs text-indigo-200">The <strong>Professional Legal Vault</strong> includes 50+ pre-vetted defense templates.</p>
                             </div>
                             <ArrowRight className="ml-auto text-indigo-400" />
                         </div>

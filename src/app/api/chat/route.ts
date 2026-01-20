@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { generateSovereignResponse } from '@/lib/sovereign-ai';
+import { generateProfessionalResponse } from '@/lib/leadership-ai';
 
 export const runtime = 'edge';
 
@@ -20,12 +20,12 @@ export async function POST(request: NextRequest) {
 
         let responseText = "";
 
-        // 1. Sovereign Cloud Uplink (Hybrid Neural Architecture)
-        // Attempts to reach the "Sovereign Brain" on Cloud Run before using local fallback
+        // 1. Professional Cloud Connection (Hybrid Strategic Architecture)
+        // Attempts to reach the "Professional Brain" on Cloud Run before using local fallback
         try {
-            const brainUrl = process.env.NEXT_PUBLIC_SOVEREIGN_BRAIN_URL;
+            const brainUrl = process.env.NEXT_PUBLIC_STRATEGIC_BRAIN_URL;
             if (brainUrl) {
-                console.log(`[Neural Link] Chat Uplink to ${brainUrl}...`);
+                console.log(`[Strategic Link] Chat Connection to ${brainUrl}...`);
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => controller.abort(), 6000); // 6s timeout for chat
 
@@ -45,15 +45,16 @@ export async function POST(request: NextRequest) {
                 }
             }
         } catch (e) {
-            console.warn("[Neural Link] Cloud Chat Uplink Failed. Engaging Local Sovereign Engine.");
+            console.warn("[Strategic Link] Cloud Chat Connection Failed. Engaging Local Professional Engine.");
         }
 
-        // 2. Fallback: Sovereign AI Engine (Local Resources)
+        // 2. Fallback: Professional AI Engine (Local Resources)
         if (!responseText) {
-            // Bypassing Google AI Key to use Sovereign AI Engine (Local Resources)
+            // Bypassing Google AI Key to use Professional AI Engine (Local Resources)
             // This ensures ZERO failures and high-quality "free" AI generation
             const persona = avatarName && avatarRole ? { name: avatarName, role: avatarRole } : undefined;
-            responseText = await generateSovereignResponse(prompt, generatorId, persona);
+            // Enable Chat Mode for natural human-like conversation
+            responseText = await generateProfessionalResponse(prompt, generatorId, persona, true);
         }
 
         const encoder = new TextEncoder();
@@ -91,7 +92,7 @@ export async function GET() {
     return new Response(JSON.stringify({
         status: 'operational',
         aiReady: true,
-        source: 'Sovereign AI Engine (Local)',
+        source: 'Professional AI Engine (Local)',
         features: {
             streaming: true,
             caching: true,

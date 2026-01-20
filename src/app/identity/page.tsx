@@ -7,27 +7,27 @@ import FloatingNavbar from '@/components/FloatingNavbar';
 import Footer from '@/components/Footer';
 import VideoPlayer from '@/components/VideoPlayer';
 import VoiceIdentityComponent from '@/components/VoiceIdentity';
-import useSovereignSounds from '@/hooks/useSovereignSounds';
+import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 import { ArrowRight, Shield as LucideShield, Award, Users, Brain, Lock, Radio, Facebook } from 'lucide-react';
 import Link from 'next/link';
-import SovereignBroadcastNode from '@/components/bento/SovereignBroadcastNode';
-import SovereignSocialUplink from '@/components/bento/SovereignSocialUplink';
+import ProfessionalBroadcastCenter from '@/components/bento/ProfessionalBroadcastCenter';
+import ProfessionalSocialConnection from '@/components/bento/ProfessionalSocialConnection';
 
 export default function IdentityPage() {
-    const { playHover, playClick } = useSovereignSounds();
+    const { playHover, playClick } = useProfessionalSounds();
 
     const team = [
         {
             name: "Dr. Alvin West",
-            role: "Sovereign Architect",
+            role: "Professional Architect",
             image: "/avatars/alvin_west.png",
             voice: "/voice-profiles/alvin_deep.mp3",
-            bio: "Visionary leader bridging the gap between neural architecture and educational sovereignty.",
+            bio: "Visionary leader bridging the gap between neural architecture and educational excellence.",
             color: "from-amber-500 to-orange-600"
         },
         {
             name: "Sarah Connors",
-            role: "Neural Data Scientist",
+            role: "Strategic Data Scientist",
             image: "/avatars/sarah_connors.webp",
             voice: "/voice-profiles/sarah_clinical.mp3",
             bio: "Tactical expert in district analytics and predictive success modeling.",
@@ -35,7 +35,7 @@ export default function IdentityPage() {
         },
         {
             name: "Marcus Aurelius",
-            role: "Sovereign Administrator",
+            role: "Professional Administrator",
             image: "/avatars/marcus_aurelius.webp",
             voice: "/voice-profiles/marcus_grave.mp3",
             bio: "Stoic philosopher governing administrative duty and disciplined compliance.",
@@ -76,7 +76,7 @@ export default function IdentityPage() {
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8"
                     >
                         <LucideShield className="w-4 h-4 text-indigo-400" />
-                        <span className="text-sm font-medium text-indigo-200">The Sovereign Council</span>
+                        <span className="text-sm font-medium text-indigo-200">The Professional Council</span>
                     </motion.div>
 
                     <motion.h1
@@ -94,12 +94,12 @@ export default function IdentityPage() {
                         transition={{ delay: 0.2 }}
                         className="text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed"
                     >
-                        Meet the specialized AI personas and human visionaries dedicated to reclaiming educational sovereignty.
+                        Meet the specialized AI personas and human visionaries dedicated to redefining educational leadership.
                     </motion.p>
                 </div>
             </section>
 
-            {/* Social Broadcast Nodes */}
+            {/* Social Broadcast Centers */}
             <section className="py-12 px-6 relative z-10 bg-zinc-950/50">
                 <div className="max-w-7xl mx-auto flex flex-col gap-12">
                     <motion.div
@@ -108,7 +108,7 @@ export default function IdentityPage() {
                         transition={{ duration: 0.5 }}
                         viewport={{ once: true }}
                     >
-                        <SovereignSocialUplink />
+                        <ProfessionalSocialConnection />
                     </motion.div>
 
                     <motion.div
@@ -117,7 +117,7 @@ export default function IdentityPage() {
                         transition={{ duration: 0.5, delay: 0.2 }}
                         viewport={{ once: true }}
                     >
-                        <SovereignBroadcastNode />
+                        <ProfessionalBroadcastCenter />
                     </motion.div>
                 </div>
             </section>
@@ -149,7 +149,7 @@ export default function IdentityPage() {
                                         <img src={member.image} alt={member.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                                     </div>
                                     <div className="absolute -bottom-2 -right-2 scale-75 origin-bottom-right">
-                                        <VoiceIdentityComponent src={member.voice} label="Voice Uplink" />
+                                        <VoiceIdentityComponent src={member.voice} label="Voice Connection" />
                                     </div>
                                 </div>
 
@@ -171,13 +171,13 @@ export default function IdentityPage() {
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.05)_0%,transparent_70%)]" />
                 <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
                     <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight mb-16">
-                        The <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Sovereign Code</span>
+                        The <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Professional Code</span>
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {[
                             { title: "Privacy Prime", desc: "FERPA and HIPAA clinical-grade encryption protocol.", icon: Lock },
                             { title: "Human Agency", desc: "Systems designed to amplify human leadership, never replace it.", icon: Users },
-                            { title: "Neural Fidelity", desc: "Tailored AI archetypes with 99.8% strategic accuracy.", icon: Brain }
+                            { title: "Strategic Fidelity", desc: "Tailored AI archetypes with 99.8% strategic accuracy.", icon: Brain }
                         ].map((item, i) => (
                             <div key={i} className="p-10 rounded-[2rem] bg-zinc-950/50 border border-white/5 hover:border-indigo-500/30 transition-all group">
                                 <div className="w-16 h-16 rounded-2xl bg-indigo-500/10 flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-transform">

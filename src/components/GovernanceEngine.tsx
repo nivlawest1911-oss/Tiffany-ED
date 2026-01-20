@@ -86,7 +86,7 @@ export default function GovernanceEngine() {
             <div className="flex items-center gap-4 mb-6">
                 <div className="h-8 w-1 bg-[#d4af37] rounded-full" />
                 <div>
-                    <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Sovereign Parliamentary Engine</h2>
+                    <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">Professional Parliamentary Engine</h2>
                     <p className="text-xs text-zinc-500 font-mono uppercase tracking-widest">Powered by Robert's Rules & AL Code</p>
                 </div>
             </div>
@@ -96,6 +96,17 @@ export default function GovernanceEngine() {
                 <div className="lg:col-span-2 p-8 bg-zinc-900 text-white rounded-[2rem] border border-zinc-800 shadow-xl relative overflow-hidden">
                     <div className="absolute top-0 right-0 p-6 opacity-10">
                         <Gavel size={120} />
+                    </div>
+                    {/* Scanning Beam */}
+                    <motion.div
+                        initial={{ top: '0%' }}
+                        animate={{ top: ['0%', '100%', '0%'] }}
+                        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                        className="absolute left-0 right-0 h-1 bg-[#d4af37]/30 shadow-[0_0_20px_#d4af37]"
+                    />
+                    <div className="absolute top-4 right-4 flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37] animate-pulse" />
+                        <span className="text-[10px] font-mono text-[#d4af37] uppercase tracking-widest">Policy Scanner Active</span>
                     </div>
 
                     <h3 className="flex items-center gap-3 text-lg font-bold mb-6">
@@ -108,8 +119,8 @@ export default function GovernanceEngine() {
                                 key={m.id}
                                 onClick={() => setSelectedMotion(m)}
                                 className={`p-4 rounded-xl border text-left transition-all ${selectedMotion?.id === m.id
-                                        ? 'bg-[#d4af37] text-black border-[#d4af37]'
-                                        : 'bg-zinc-800 border-zinc-700 hover:bg-zinc-700'
+                                    ? 'bg-[#d4af37] text-black border-[#d4af37]'
+                                    : 'bg-zinc-800 border-zinc-700 hover:bg-zinc-700'
                                     }`}
                             >
                                 <span className="block text-xs font-black uppercase tracking-wider mb-1 opacity-70">Action</span>

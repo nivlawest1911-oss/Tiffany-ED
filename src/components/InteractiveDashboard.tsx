@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import SovereignDelegate from './SovereignDelegate';
+import AIAssistant from './AIAssistant';
 
 export default function InteractiveDashboard() {
     const [showBriefing, setShowBriefing] = useState(false);
@@ -180,7 +180,7 @@ export default function InteractiveDashboard() {
                     avatarImage="/images/avatars/executive_leader.png"
                     thumbnail="/images/features/data-analysis-demo.mp4"
                     stats={{ time: "127h", saved: "+12%", accuracy: "98%" }}
-                    theme="sovereign"
+                    theme="professional"
                 />
 
                 {/* Stats Grid */}
@@ -213,7 +213,7 @@ export default function InteractiveDashboard() {
                     ))}
                 </div>
 
-                {/* Sovereign Impact Matrix - NEW Strategic Outcomes Section */}
+                {/* Professional Impact Matrix - NEW Strategic Outcomes Section */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -424,7 +424,7 @@ export default function InteractiveDashboard() {
                     </div>
                 </motion.div>
 
-                <SovereignDelegate
+                <AIAssistant
                     name="System Chief of Staff"
                     role="Executive Assistant"
                     avatarImage="/images/avatars/executive_leader.png"

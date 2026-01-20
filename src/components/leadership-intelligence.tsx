@@ -32,7 +32,7 @@ export function LeadershipIntelligence() {
             <div className="w-10 h-10 rounded-lg bg-[#00d2ff]/20 flex items-center justify-center">
               <LucideShield className="w-5 h-5 text-[#00d2ff]" />
             </div>
-            <span className="text-sm text-[#00d2ff] font-medium">Sovereign Node</span>
+            <span className="text-sm text-[#00d2ff] font-medium">Professional Center</span>
           </div>
 
           {/* Categories */}
@@ -105,7 +105,7 @@ export function LeadershipIntelligence() {
           <div className="mt-4 flex items-center justify-between text-xs text-gray-500">
             <span>Frontiers in Psychology (2025) Autonomy Bolstered</span>
             <span className="flex items-center gap-1 text-emerald-400">
-              <LucideShield className="w-3 h-3" /> Node Sync: 100% Secure
+              <LucideShield className="w-3 h-3" /> Center Sync: 100% Secure
             </span>
           </div>
         </div>

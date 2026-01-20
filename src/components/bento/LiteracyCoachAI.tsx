@@ -28,7 +28,7 @@ export default function LiteracyCoachAI() {
                 </div>
 
                 <h3 className="text-2xl font-black text-white uppercase tracking-tighter mb-4 group-hover:text-violet-400 transition-colors">
-                    Literacy Coach <br /> <span className="text-zinc-600 group-hover:text-violet-500 transition-colors">Neural Node</span>
+                    Literacy Coach <br /> <span className="text-zinc-600 group-hover:text-violet-500 transition-colors">Strategic Center</span>
                 </h3>
 
                 <p className="text-sm text-zinc-500 leading-relaxed font-medium mb-6">
@@ -56,7 +56,7 @@ export default function LiteracyCoachAI() {
                 </button>
             </div>
 
-            {/* Neural Pattern Ornament */}
+            {/* Strategic Pattern Ornament */}
             <div className="absolute bottom-4 right-4 opacity-20 group-hover:opacity-40 transition-opacity">
                 <Brain size={120} className="text-violet-500/10 -rotate-12" />
             </div>

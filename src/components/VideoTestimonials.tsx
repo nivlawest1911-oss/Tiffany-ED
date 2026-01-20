@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Quote, Star, Play, Pause, Volume2, Mic } from 'lucide-react';
 
 // Waveform Bar Component
-function AudioWaveformBar({ index, theme }: { index: number, theme: 'default' | 'sovereign' }) {
+function AudioWaveformBar({ index, theme }: { index: number, theme: 'default' | 'professional' }) {
     const [heights, setHeights] = useState([5, 15, 5]);
 
     useEffect(() => {
@@ -14,7 +14,7 @@ function AudioWaveformBar({ index, theme }: { index: number, theme: 'default' | 
 
     return (
         <motion.div
-            className={`w-1.5 rounded-full ${theme === 'sovereign' ? 'bg-amber-400' : 'bg-indigo-400'}`}
+            className={`w-1.5 rounded-full ${theme === 'professional' ? 'bg-amber-400' : 'bg-indigo-400'}`}
             animate={{ height: heights }}
             transition={{ repeat: Infinity, duration: 0.2, delay: index * 0.05 }}
         />
@@ -22,7 +22,7 @@ function AudioWaveformBar({ index, theme }: { index: number, theme: 'default' | 
 }
 
 // --- Talking Avatar Component ---
-function TalkingAvatarTestimonial({ testimonial, theme = 'sovereign' }: { testimonial: any, theme?: 'default' | 'sovereign' }) {
+function TalkingAvatarTestimonial({ testimonial, theme = 'professional' }: { testimonial: any, theme?: 'default' | 'professional' }) {
     const [isSpeaking, setIsSpeaking] = useState(false);
     const [audioLevel, setAudioLevel] = useState(0); // For simulated lip sync
 
@@ -63,7 +63,7 @@ function TalkingAvatarTestimonial({ testimonial, theme = 'sovereign' }: { testim
 
     // Simulated Lip Sync Animation Loop
     useEffect(() => {
-        let interval: NodeJS.Timeout;
+        let interval: CenterJS.Timeout;
         if (isSpeaking) {
             interval = setInterval(() => {
                 // Randomize "mouth" openness/audio level
@@ -76,9 +76,9 @@ function TalkingAvatarTestimonial({ testimonial, theme = 'sovereign' }: { testim
     }, [isSpeaking]);
 
     // Theme Colors
-    const borderColor = theme === 'sovereign' ? 'border-amber-500/30' : 'border-indigo-500/30';
-    const glowColor = theme === 'sovereign' ? 'shadow-amber-500/20' : 'shadow-indigo-500/20';
-    const accentColor = theme === 'sovereign' ? 'text-amber-400' : 'text-indigo-400';
+    const borderColor = theme === 'professional' ? 'border-amber-500/30' : 'border-indigo-500/30';
+    const glowColor = theme === 'professional' ? 'shadow-amber-500/20' : 'shadow-indigo-500/20';
+    const accentColor = theme === 'professional' ? 'text-amber-400' : 'text-indigo-400';
 
     return (
         <motion.div
@@ -165,13 +165,13 @@ function TalkingAvatarTestimonial({ testimonial, theme = 'sovereign' }: { testim
                 </div>
 
                 <blockquote className={`text-lg font-medium text-white mb-6 italic leading-relaxed relative`}>
-                    <Quote className={`absolute -top-3 -left-2 w-6 h-6 ${theme === 'sovereign' ? 'text-amber-500/20' : 'text-indigo-500/20'} transform -scale-x-100`} />
+                    <Quote className={`absolute -top-3 -left-2 w-6 h-6 ${theme === 'professional' ? 'text-amber-500/20' : 'text-indigo-500/20'} transform -scale-x-100`} />
                     "{testimonial.quote}"
                 </blockquote>
 
                 <div className="mt-auto border-t border-white/10 pt-4 flex items-center justify-between">
                     <div>
-                        <p className={`font-bold ${theme === 'sovereign' ? 'text-amber-100' : 'text-white'}`}>{testimonial.name}</p>
+                        <p className={`font-bold ${theme === 'professional' ? 'text-amber-100' : 'text-white'}`}>{testimonial.name}</p>
                         <p className={`text-sm ${accentColor}`}>{testimonial.role}</p>
                     </div>
                 </div>
@@ -226,7 +226,7 @@ export default function VideoTestimonials() {
                     <h2 className="text-4xl sm:text-5xl font-black text-white mb-6">
                         Hear From Our{' '}
                         <span className="bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600 bg-clip-text text-transparent">
-                            Sovereign Educators
+                            Professional Educators
                         </span>
                     </h2>
                     <p className="text-xl text-zinc-400 max-w-3xl mx-auto">
@@ -237,7 +237,7 @@ export default function VideoTestimonials() {
                 {/* Video Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {testimonials.map((testimonial, index) => (
-                        <TalkingAvatarTestimonial key={index} testimonial={testimonial} theme="sovereign" />
+                        <TalkingAvatarTestimonial key={index} testimonial={testimonial} theme="professional" />
                     ))}
                 </div>
             </div>

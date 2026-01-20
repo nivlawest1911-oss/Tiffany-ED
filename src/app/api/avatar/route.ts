@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
     try {
         const session = await getSession();
         if (!session) {
-            return NextResponse.json({ error: 'Uplink Unauthorized. Please Authenticate.' }, { status: 401 });
+            return NextResponse.json({ error: 'Connection Unauthorized. Please Authenticate.' }, { status: 401 });
         }
 
         const { script, professorType, avatarUrl } = await req.json();
@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
         // 1. Call Replicate (Talking Head Synthesis)
         // Using common Talking Head model: sora-style or sadtalker
         // Note: In a real production environment, this would be an async task.
-        // For the Sovereign experience, we trigger the synthesis.
+        // For the Professional experience, we trigger the synthesis.
 
         let professorUrl = "";
 

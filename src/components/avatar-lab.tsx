@@ -21,7 +21,7 @@ const skinTones = [
 ]
 
 const colorSchemes = [
-  { id: "sovereign", colors: ["#00d2ff", "#10b981"], name: "Sovereign" },
+  { id: "strategic", colors: ["#00d2ff", "#10b981"], name: "Strategic" },
   { id: "royal", colors: ["#d4af37", "#8b4513"], name: "Royal Gold" },
   { id: "ocean", colors: ["#0ea5e9", "#6366f1"], name: "Ocean" },
   { id: "forest", colors: ["#22c55e", "#14b8a6"], name: "Forest" },
@@ -66,7 +66,7 @@ function ParticleBackground() {
 
 export function AvatarLab() {
   const [selectedStyle, setSelectedStyle] = useState("professional")
-  const [selectedScheme, setSelectedScheme] = useState("sovereign")
+  const [selectedScheme, setSelectedScheme] = useState("strategic")
   const [selectedTone, setSelectedTone] = useState("tone1")
   const [selectedAccessory, setSelectedAccessory] = useState("none")
   const [isGenerating, setIsGenerating] = useState(false)
@@ -108,7 +108,7 @@ export function AvatarLab() {
           <h2 className="font-black tracking-tighter text-4xl md:text-6xl text-white mb-4">
             Avatar <span className="gradient-text">Lab</span>
           </h2>
-          <p className="text-gray-400 text-lg">Create your Sovereign Identity with cultural authenticity</p>
+          <p className="text-gray-400 text-lg">Create your Professional Identity with cultural authenticity</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -166,7 +166,7 @@ export function AvatarLab() {
                 </div>
               </div>
 
-              <p className="mt-8 text-lg text-gray-300 font-medium">Your Sovereign Identity</p>
+              <p className="mt-8 text-lg text-gray-300 font-medium">Your Professional Identity</p>
               <p className="text-sm text-gray-500">
                 {avatarStyles.find((s) => s.id === selectedStyle)?.emoji}{" "}
                 {avatarStyles.find((s) => s.id === selectedStyle)?.name} Style
@@ -279,7 +279,7 @@ export function AvatarLab() {
               ) : (
                 <>
                   <Sparkles className="w-5 h-5" />
-                  Generate Sovereign Avatar
+                  Generate Professional Avatar
                 </>
               )}
             </button>

@@ -10,7 +10,7 @@ export async function GET() {
         },
         ai: {
             googleKey: !!process.env.GOOGLE_GENAI_API_KEY,
-            mode: 'sovereign',
+            mode: 'professional',
             status: 'operational'
         }
     };

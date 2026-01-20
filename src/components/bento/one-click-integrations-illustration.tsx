@@ -18,7 +18,7 @@ const OneClickIntegrationsIllustration: React.FC<OneClickIntegrationsIllustratio
 
   // Helper component for rendering each logo box
   const LogoBox: React.FC<{
-    logoSvg?: React.ReactNode
+    logoSvg?: React.ReactCenter
     isGradientBg?: boolean
   }> = ({ logoSvg, isGradientBg }) => {
     const boxStyle: React.CSSProperties = {
@@ -172,7 +172,7 @@ const OneClickIntegrationsIllustration: React.FC<OneClickIntegrationsIllustratio
   const gridItems = Array(40)
     .fill(null)
     .map((_, i) => {
-      const item: { logoSvg?: React.ReactNode; isGradientBg?: boolean } = {}
+      const item: { logoSvg?: React.ReactCenter; isGradientBg?: boolean } = {}
       const row = Math.floor(i / 10)
       const col = i % 10
 

@@ -1,9 +1,9 @@
 'use client';
 import { motion } from 'framer-motion';
-import { ReactNode } from 'react';
+import { ReactCenter } from 'react';
 
-// Standard "Sovereign" fade-in-up animation
-export const FadeIn = ({ children, delay = 0, className = "" }: { children: ReactNode, delay?: number, className?: string }) => (
+// Standard "Professional" fade-in-up animation
+export const FadeIn = ({ children, delay = 0, className = "" }: { children: ReactCenter, delay?: number, className?: string }) => (
     <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -15,7 +15,7 @@ export const FadeIn = ({ children, delay = 0, className = "" }: { children: Reac
 );
 
 // Staggered container for lists/grids
-export const StaggerContainer = ({ children, className = "" }: { children: ReactNode, className?: string }) => (
+export const StaggerContainer = ({ children, className = "" }: { children: ReactCenter, className?: string }) => (
     <motion.div
         initial="hidden"
         animate="show"
@@ -35,7 +35,7 @@ export const StaggerContainer = ({ children, className = "" }: { children: React
 );
 
 // Scale in for cards/badges
-export const ScaleIn = ({ children, delay = 0 }: { children: ReactNode, delay?: number }) => (
+export const ScaleIn = ({ children, delay = 0 }: { children: ReactCenter, delay?: number }) => (
     <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}

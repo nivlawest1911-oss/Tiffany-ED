@@ -6,11 +6,11 @@ export const firestore = null;
 export const db = null;
 
 // Mock functions
-export const collection = () => null;
-export const query = () => null;
-export const getDocs = () => Promise.resolve({ docs: [] });
-export const where = () => null;
-export const orderBy = () => null;
+export const collection = (...args: any[]) => null;
+export const query = (...args: any[]) => null;
+export const getDocs = (...args: any[]) => Promise.resolve({ docs: [], forEach: (cb: any) => { } });
+export const where = (...args: any[]) => null;
+export const orderBy = (...args: any[]) => null;
 export const signInWithPopup = (...args: any[]) => Promise.resolve(null);
 export const signOut = (...args: any[]) => Promise.resolve();
 export const onAuthStateChanged = () => () => { };

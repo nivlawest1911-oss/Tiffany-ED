@@ -6,13 +6,13 @@ import { Lock, FileText, Download, Gavel, Search, Key, RefreshCw, Eye, ScrollTex
 import FloatingNavbar from '@/components/FloatingNavbar';
 import Link from 'next/link';
 
-export default function SovereignVault() {
+export default function ProfessionalVault() {
     const [searchTerm, setSearchTerm] = useState('');
     const [activeTab, setActiveTab] = useState('all'); // all, legal, policy, contract, intel
     const [archivedIntel, setArchivedIntel] = useState<any[]>([]);
 
     const staticDocuments = [
-        { id: 'ferpa', title: 'FERPA Sovereignty Defense', type: 'legal', date: '2024-03-15', status: 'Verified', confidence: '100%' },
+        { id: 'ferpa', title: 'FERPA Leadership Defense', type: 'legal', date: '2024-03-15', status: 'Verified', confidence: '100%' },
         { id: 'iep', title: 'IEP Due Process Shield (Template)', type: 'legal', date: '2024-03-10', status: 'Verified', confidence: '99%' },
         { id: 'contract', title: 'Teacher Contract: IP Protection', type: 'contract', date: '2024-02-28', status: 'Draft', confidence: '95%' },
         { id: 'ai-policy', title: 'AI Usage Policy (Board Approved)', type: 'policy', date: '2024-02-15', status: 'Active', confidence: '100%' },
@@ -24,7 +24,7 @@ export default function SovereignVault() {
     useState(() => {
         if (typeof window !== 'undefined') {
             try {
-                const intel = JSON.parse(localStorage.getItem('sovereign_intel') || '[]');
+                const intel = JSON.parse(localStorage.getItem('leadership_intel') || localStorage.getItem('sovereign_intel') || '[]');
                 setArchivedIntel(intel);
             } catch (e) { console.error(e); }
         }
@@ -51,10 +51,10 @@ export default function SovereignVault() {
                             <span>Level 5 Security Clearance</span>
                         </div>
                         <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tight">
-                            Sovereign <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-600">Vault</span>
+                            Professional <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-600">Vault</span>
                         </h1>
                         <p className="text-zinc-500 max-w-xl mt-4">
-                            The ultimate repository of legal defenses, ironclad contracts, and sovereign policies. Protect your career and your institution.
+                            The ultimate repository of legal defenses, ironclad contracts, and strategic policies. Protect your career and your institution.
                         </p>
                     </div>
 

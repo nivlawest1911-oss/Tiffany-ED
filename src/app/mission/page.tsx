@@ -35,7 +35,7 @@ export default function MissionPage() {
                         <h1 className="text-6xl md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-200 to-indigo-400 tracking-tighter mb-8 drop-shadow-2xl">
                             MISSION
                             <br />
-                            SOVEREIGN
+                            INNOVATION
                         </h1>
                     </motion.div>
 
@@ -47,7 +47,7 @@ export default function MissionPage() {
                     >
                         To liberate educators from administrative fatigue through
                         <span className="text-emerald-400 font-bold"> Intelligent Automation</span> and
-                        <span className="text-indigo-400 font-bold"> Strategic Sovereignty</span>.
+                        <span className="text-indigo-400 font-bold"> Strategic Leadership</span>.
                     </motion.p>
                 </div>
             </section>
@@ -70,7 +70,7 @@ export default function MissionPage() {
                             color: "text-amber-400"
                         },
                         {
-                            title: "Scale Your Sovereignty",
+                            title: "Scale Your Leadership",
                             text: "True leadership is about vision, not paperwork. EdIntel empowers you to lead with data, clarity, and authority.",
                             icon: TrendingUp,
                             color: "text-indigo-400"
@@ -99,7 +99,7 @@ export default function MissionPage() {
             <section className="py-32 text-center bg-zinc-900 border-t border-white/10">
                 <div className="max-w-2xl mx-auto px-6">
                     <h2 className="text-4xl font-bold mb-8">Join the Movement</h2>
-                    <p className="text-zinc-400 mb-12 text-lg">Secure your legacy. Optimize your impact. Become Sovereign.</p>
+                    <p className="text-zinc-400 mb-12 text-lg">Secure your legacy. Optimize your impact. Become Professional.</p>
                     <Link href="/generators">
                         <button className="px-10 py-5 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full text-xl font-bold hover:scale-105 transition-transform shadow-lg shadow-indigo-500/30 flex items-center gap-3 mx-auto">
                             Launch Protocols <ArrowRight />

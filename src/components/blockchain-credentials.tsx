@@ -16,7 +16,7 @@ export function BlockchainCredentials() {
     const [credentials] = useState<Credential[]>([
         {
             id: "1",
-            title: "EdIntel Sovereign Certification",
+            title: "EdIntel Professional Certification",
             issuer: "EdIntel Academy",
             date: "2025-12-15",
             verified: true,

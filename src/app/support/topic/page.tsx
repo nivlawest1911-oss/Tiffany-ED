@@ -7,7 +7,7 @@ export default function ProtocolTopicDetail() {
     const articles = [
         {
             id: 1,
-            title: "Optimizing the Neural Sync Engine for Low-Bandwidth Districts",
+            title: "Optimizing the Strategic Sync Engine for Low-Bandwidth Districts",
             snippet: "Learn how to configure the local caching nodes to ensure 99.9% uptime for AI delegates, even in rural connectivity zones...",
             views: "1.2k",
             date: "Oct 12, 2025",
@@ -51,7 +51,7 @@ export default function ProtocolTopicDetail() {
                         <span className="opacity-50">Support</span> <ChevronRight size={10} /> <span className="opacity-50">Protocols</span> <ChevronRight size={10} /> <span>Brain Training</span>
                     </div>
                     <h1 className="text-3xl md:text-4xl font-black tracking-tighter uppercase text-white">
-                        Protocol: <span className="text-amber-600">Neural Training</span>
+                        Protocol: <span className="text-amber-600">Strategic Training</span>
                     </h1>
                     <div className="relative group w-full">
                         <input
@@ -100,9 +100,9 @@ export default function ProtocolTopicDetail() {
                         </h3>
                         <ul className="space-y-4">
                             {[
-                                "Sovereign Token Wallet Config",
+                                "Professional Token Wallet Config",
                                 "IEP Generation Error: Code 401",
-                                "Adding Admin Users to Node"
+                                "Adding Admin Users to Center"
                             ].map((item, i) => (
                                 <li key={i} className="flex gap-3 group cursor-pointer">
                                     <span className="text-amber-600 font-bold text-sm">#{i + 1}</span>
@@ -120,7 +120,7 @@ export default function ProtocolTopicDetail() {
                             Related Protocols
                         </h3>
                         <div className="flex flex-wrap gap-2">
-                            {["Sovereign Econ", "Data Vault", "Admin Console", "Avatar Lab"].map(tag => (
+                            {["Professional Econ", "Data Vault", "Admin Console", "Avatar Lab"].map(tag => (
                                 <span key={tag} className="px-3 py-1.5 rounded-lg bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-[10px] font-bold uppercase text-zinc-600 dark:text-zinc-300 hover:text-amber-600 hover:border-amber-600/30 cursor-pointer transition-all">
                                     {tag}
                                 </span>

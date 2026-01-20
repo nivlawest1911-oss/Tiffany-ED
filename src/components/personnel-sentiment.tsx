@@ -16,10 +16,10 @@ export function PersonnelSentiment() {
     <section className="px-4 md:px-8 py-12">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* AI Neural Link */}
+          {/* AI Strategic Link */}
           <div className="glass-card p-6 rounded-2xl">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-bold text-white">AI Neural Link</h3>
+              <h3 className="font-bold text-white">AI Strategic Link</h3>
               <Brain className="w-5 h-5 text-[#00d2ff]" />
             </div>
             <div className="flex items-center justify-between">

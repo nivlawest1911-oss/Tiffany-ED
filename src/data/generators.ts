@@ -10,139 +10,164 @@ import {
 // Map specific tools to "Delegate" avatars for the human feel
 // STRICT: Ensure all Avatars are African American Professionals
 const AVATARS = {
-    PRINCIPAL: "/images/avatars/executive_leader.png", // Dr. West
-    COUNSELOR: "/images/avatars/female_leader.png",    // Sarah (Instructional)
-    CURRICULUM: "/images/avatars/female_leader.png",   // Curriculum Lead
-    DATA: "/images/avatars/executive_leader.png",      // Data Strategist
-    COMPLIANCE: "/images/avatars/executive_leader.png",// Compliance Officer
-    LITERACY: "/images/avatars/female_leader.png",     // Literacy Coach
-    FINANCE: "/images/avatars/executive_leader.png"    // Finance Director
+    PRINCIPAL: "/images/avatars/dr_alvin_west_premium.png",
+    COUNSELOR: "/images/avatars/keisha_reynolds_premium.png",
+    CURRICULUM: "/images/avatars/emily_robinson_premium.png",
+    DATA: "/images/avatars/emily_robinson_premium.png",
+    COMPLIANCE: "/images/avatars/dr_isaiah_vance_premium.png",
+    LITERACY: "/images/avatars/emily_robinson_premium.png",
+    FINANCE: "/images/avatars/dr_isaiah_vance_premium.png",
+    BEHAVIOR: "/images/avatars/andre_patterson_premium.png",
+    SPED: "/images/avatars/maya_washington_premium.png"
 }
 
 export const generators = [
-    // --- EXISTING TOOLS ---
+    // --- STRATEGIC LEADERSHIP TOOLS ---
     {
         id: "iep-architect",
-        name: "IEP Architect",
-        description: "Generate compliant IEP drafts with SMART goals",
+        name: "IEP Specialist",
+        description: "Generate professional IEP drafts with SMART goals and data-driven accommodations. Designed for clarity, compliance, and student success.",
         icon: FileText,
         color: "#00d2ff",
-        avatar: AVATARS.COMPLIANCE,
+        avatar: AVATARS.SPED,
         heroImage: "/images/iep_architect_mockup.png",
-        heroVideo: "/videos/features/iep-architect-demo.mp4",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        heroVideo: "/videos/briefings/compliance_briefing.mp4",
+        welcomeVideo: "/videos/briefings/maya_briefing.mp4",
         voiceWelcome: "/voice-profiles/compliance_voice.wav",
-        prompts: ["Generate annual IEP goals for...", "Create transition plan for...", "Draft accommodations for..."]
+        prompts: [
+            "Draft 3 annual IEP goals for a 4th-grade student with autism focusing on executive function and social-emotional regulation.",
+            "Create a list of 5 high-impact accommodations for a high-schooler with dyslexia in a chemistry lab environment.",
+            "Synthesize a 12-month transition plan for a post-secondary student aiming for vocational training in digital media."
+        ]
     },
     {
         id: "lesson-planner",
-        name: "Lesson Planner",
-        description: "Create standards-aligned, adaptive lesson plans for any subject",
+        name: "Lesson Planner Pro",
+        description: "Transform state standards into engaging, multi-tiered lesson plans. Optimized for student growth and classroom efficiency.",
         icon: BookOpen,
         color: "#d946ef",
         avatar: AVATARS.CURRICULUM,
         heroImage: "/images/lesson_planner_mockup.png",
-        heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        heroVideo: "/videos/briefings/curriculum_briefing.mp4",
+        welcomeVideo: "/videos/briefings/keisha_briefing.mp4",
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
-        prompts: ["5th Grade Math Fractions", "High School History Civil War", "Science Lab Safety"]
+        prompts: [
+            "Design a 5th Grade math lesson on fractions that incorporates Kente pattern geometry and culturally-responsive narratives.",
+            "Design a high school American History unit on the Reconstruction Era focusing on economic sovereignty and legislative policy.",
+            "Create a middle school science lab protocol for renewable energy, tiered for ELL and GT learners."
+        ]
     },
     {
         id: "data-analyzer",
-        name: "Data Detective",
-        description: "Analyze student performance data and generate insights",
+        name: "Data Insight Analyst",
+        description: "Analyze complex student performance data to identify achievement gaps and growth opportunities with precision.",
         icon: BarChart3,
         color: "#6366f1",
         avatar: AVATARS.DATA,
         heroVideo: "/videos/features/data-analysis-demo.mp4",
-        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        welcomeVideo: "/videos/briefings/emily_briefing.mp4",
         voiceWelcome: "/voice-profiles/data_voice.wav",
-        prompts: ["Analyze reading fluency scores", "Identify attendance patterns", "Math benchmark trends"]
+        prompts: [
+            "Analyze 3rd-grade reading fluency data and identify the top 3 phonemic awareness clusters requiring intervention.",
+            "Correlate attendance patterns with math benchmark scores to detect early warning signs of disengagement.",
+            "Generate a building-wide performance brief for the Board of Education highlighting a 15% increase in mastery metrics."
+        ]
     },
     {
         id: "behavior-coach",
-        name: "Behavior Specialist",
-        description: "Develop Behavior Intervention Plans (BIP) and tracking sheets",
+        name: "Behavior Support Coach",
+        description: "Develop professional Functional Behavior Assessments (FBA) and effective Behavior Intervention Plans (BIP) for your students.",
         icon: Users,
         color: "#ec4899",
-        avatar: AVATARS.COUNSELOR,
-        heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
-        voiceWelcome: "/voice-profiles/counselor_voice.wav",
-        prompts: ["BIP for ADHD student", "Behavior tracking sheet", "De-escalation strategies"]
+        avatar: AVATARS.BEHAVIOR,
+        heroVideo: "/videos/briefings/behavior_briefing.mp4",
+        welcomeVideo: "/videos/briefings/andre_briefing.mp4",
+        voiceWelcome: "/voice-profiles/principal_voice.mp3",
+        prompts: [
+            "Draft an FBA for a student exhibiting avoidant behaviors during high-stakes testing, including hypothesized functions.",
+            "Create a Tier-3 Behavior Intervention Plan with positive reinforcement scaffolds and de-escalation protocols.",
+            "Generate a daily behavior tracking matrix optimized for teacher-user experience and data accuracy."
+        ]
     },
-    // ...
     {
         id: "substitute-binder-pro",
         name: "Substitute Binder Pro",
-        description: "Generate a complete day-of substitute teacher packet instantly",
+        description: "Create detailed substitute teacher packets, including emergency procedures, daily routines, and classroom management guidance.",
         icon: ClipboardList,
         color: "#f59e0b",
         avatar: AVATARS.PRINCIPAL,
-        heroVideo: "/videos/features/iep-architect-demo.mp4",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        heroVideo: "/videos/briefings/principal_briefing.mp4",
+        welcomeVideo: "/videos/briefings/alvin_briefing.mp4",
         voiceWelcome: "/voice-profiles/principal_voice.wav",
-        prompts: ["Emergency lesson plan", "Class roster template", "School procedures sheet"]
+        prompts: [
+            "Generate an emergency 'Day 1' sub plan for a 1st-grade classroom including literacy and social-emotional activities.",
+            "Draft a classroom procedure brief for a middle school art department, including safety protocols for sculptural equipment.",
+            "Create a 'Principal's Memo' for guest educators outlining school-wide cultural expectations and contact procedures."
+        ]
     },
     {
         id: "grant-compliance-auditor",
-        name: "Grant Auditor",
-        description: "Check spending and documentation against grant requirements",
+        name: "Fiscal Analyst",
+        description: "Analyze grant funding and ensure compliance with spending guidelines. Maximize resources for your school.",
         icon: FileJson,
         color: "#8b5cf6",
-        avatar: AVATARS.DATA,
-        heroVideo: "/videos/features/data-analysis-demo.mp4",
-        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        avatar: AVATARS.FINANCE,
+        heroVideo: "/videos/briefings/finance_briefing.mp4",
+        welcomeVideo: "/videos/briefings/isaiah_briefing.mp4",
         voiceWelcome: "/voice-profiles/data_voice.wav",
-        prompts: ["Audit Title I spending", "Grant reporting checklist", "Allowable cost check"]
+        prompts: [
+            "Audit a Title I spending ledger for allowable costs under the latest ESSA guidelines.",
+            "Generate a grant reporting checklist for a state-funded STEM initiative, ensuring 100% documentation accuracy.",
+            "Draft a fiscal impact analysis for a district-wide technology refresh, including ROI projections for student achievement."
+        ]
     },
     {
         id: "rubric-maker",
-        name: "Rubric Maker",
-        description: "Create detailed grading rubrics for any assignment",
+        name: "Rubric Builder Pro",
+        description: "Create clear, effective grading rubrics that define success. Optimized for all grade levels and subjects.",
         icon: Table,
         color: "#06b6d4",
         avatar: AVATARS.CURRICULUM,
-        heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        heroVideo: "/videos/briefings/curriculum_briefing.mp4",
+        welcomeVideo: "/videos/briefings/emily_briefing.mp4",
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
-        prompts: ["Essay rubric 9th grade", "Oral presentation rubric", "Science project criteria"]
+        prompts: [
+            "Create a 5-tier mastery rubric for a 9th-grade persuasive essay, focusing on evidence-based synthesis and rhetorical strategy.",
+            "Draft a project-based learning (PBL) rubric for an engineering challenge involving bridge structural integrity.",
+            "Generate a soft-skills rubric for student collaboration and conflict resolution in a flipped-classroom setting."
+        ]
     },
     {
         id: "conflict-mediator",
-        name: "Conflict Mediator",
-        description: "Scripts and strategies for resolving student or staff conflicts",
+        name: "Conflict Resolution Coach",
+        description: "Professional scripts and strategies for de-escalating classroom or staff conflicts with empathy and clarity.",
         icon: HeartHandshake,
         color: "#ec4899",
         avatar: AVATARS.COUNSELOR,
-        heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        heroVideo: "/videos/briefings/counselor_briefing.mp4",
+        welcomeVideo: "/videos/briefings/keisha_briefing.mp4",
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
-        prompts: ["Student conflict script", "Parent-Teacher mediation", "Restorative circle guide"]
-    },
-    {
-        id: "icebreaker-specialist",
-        name: "Icebreaker Specialist",
-        description: "Fun, engaging activities to build classroom community",
-        icon: Smile,
-        color: "#eab308",
-        avatar: AVATARS.COUNSELOR,
-        heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
-        voiceWelcome: "/voice-profiles/counselor_voice.wav",
-        prompts: ["First day of school activity", "Staff meeting icebreaker", "Team building game"]
+        prompts: [
+            "Draft a restorative circle script for a classroom dealing with themes of digital citizenship and mutual respect.",
+            "Create a mediation protocol for a parent-teacher conference involving sensitive academic performance data.",
+            "Generate a 'Leadership De-escalation Script' for high-stakes administrative meetings with communal stakeholders."
+        ]
     },
     {
         id: "schedule-optimizer",
         name: "Master Schedule Optimizer",
-        description: "Analyze and suggest improvements for class schedules",
+        description: "Analyze andSuggest strategic improvements for building-wide schedules. Optimize instructional blocks to recover teacher prep time and student focus windows.",
         icon: GanttChart,
         color: "#6366f1",
         avatar: AVATARS.PRINCIPAL,
-        heroVideo: "/videos/features/iep-architect-demo.mp4",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        heroVideo: "/videos/briefings/principal_briefing.mp4",
+        welcomeVideo: "/videos/briefings/alvin_briefing.mp4",
         voiceWelcome: "/voice-profiles/principal_voice.wav",
-        prompts: ["Optimize lunch waves", "Teacher prep period logic", "Block schedule ideas"]
+        prompts: [
+            "Optimize a high-school block schedule to ensure all core-subject teachers have synchronized planning windows.",
+            "Analyze elementary lunch wave logistics to minimize hall traffic and maximize cafeteria staff efficiency.",
+            "Suggest a 3-tier intervention block structure for a middle school with high achievement-gap volatility."
+        ]
     },
     {
         id: "sports-eligibility-tracker",
@@ -169,7 +194,7 @@ export const generators = [
         prompts: ["Dyslexia-friendly worksheet", "Reading intervention list", "Parent resource guide"]
     },
     // Re-adding essential existing ones for the demo to work fully
-    { id: "email-composer", name: "Email Composer", description: "Professional communications", icon: MessageSquare, color: "#10b981", avatar: AVATARS.PRINCIPAL, heroImage: "/images/features/sovereign_communications_director.png", heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/principal_briefing.mp4", voiceWelcome: "/voice-profiles/principal_voice.wav", prompts: ["Parent conference follow-up", "Staff announcement"] },
+    { id: "email-composer", name: "Email Composer", description: "Professional communications", icon: MessageSquare, color: "#10b981", avatar: AVATARS.PRINCIPAL, heroImage: "/images/features/strategic_communications_director.png", heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/principal_briefing.mp4", voiceWelcome: "/voice-profiles/principal_voice.wav", prompts: ["Parent conference follow-up", "Staff announcement"] },
     { id: "policy-advisor", name: "Policy Advisor", description: "Navigate regulations", icon: Scale, color: "#8b5cf6", avatar: AVATARS.COMPLIANCE, heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/principal_briefing.mp4", voiceWelcome: "/voice-profiles/compliance_voice.wav", prompts: ["IDEA compliance check", "504 plan requirements"] },
     { id: "cognitive-coach", name: "Cognitive Coach", description: "Executive function strategies", icon: Brain, color: "#ec4899", avatar: AVATARS.COUNSELOR, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Working memory activities"] },
     { id: "idea-generator", name: "Idea Generator", description: "Creative solutions", icon: Lightbulb, color: "#f59e0b", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Engagement strategies"] },
@@ -190,16 +215,16 @@ export const generators = [
     { id: "debate-prep", name: "Debate Prep", description: "Argument builder", icon: Mic, color: "#ef4444", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Argument builder"] },
     { id: "bus-route-optimizer", name: "Transport Logistics", description: "Route efficiency", icon: Bus, color: "#f59e0b", avatar: AVATARS.DATA, heroVideo: "/videos/features/data-analysis-demo.mp4", welcomeVideo: "/videos/briefings/data_briefing.mp4", voiceWelcome: "/voice-profiles/data_voice.wav", prompts: ["Optimize bus route"] },
     { id: "budget-allocator", name: "Budget Allocator", description: "Finance modeling", icon: PieChart, color: "#06b6d4", avatar: AVATARS.DATA, heroVideo: "/videos/features/data-analysis-demo.mp4", welcomeVideo: "/videos/briefings/data_briefing.mp4", voiceWelcome: "/voice-profiles/data_voice.wav", prompts: ["Budget analysis"] },
-    { id: "project-pbl-architect", name: "PBL Architect", description: "Project design", icon: Layers, color: "#ec4899", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["PBL unit plan"] },
+    { id: "project-pbl-architect", name: "PBL Specialist", description: "Project design", icon: Layers, color: "#ec4899", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["PBL unit plan"] },
     { id: "quiz-gamifier", name: "Quiz Gamifier", description: "Gamification", icon: Gamepad2, color: "#8b5cf6", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Gamify quiz review"] },
     { id: "safety-drill-master", name: "Safety Drill Master", description: "Crisis planning", icon: ShieldAlert, color: "#ef4444", avatar: AVATARS.COMPLIANCE, heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/principal_briefing.mp4", voiceWelcome: "/voice-profiles/compliance_voice.wav", prompts: ["Fire drill procedure"] },
-    { id: "newsletter-wizard", name: "Newsletter Wizard", description: "Community updates", icon: Mail, color: "#3b82f6", avatar: AVATARS.PRINCIPAL, heroImage: "/images/features/sovereign_communications_director.png", heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/principal_briefing.mp4", voiceWelcome: "/voice-profiles/principal_voice.wav", prompts: ["Weekly newsletter"] },
+    { id: "newsletter-wizard", name: "Newsletter Wizard", description: "Community updates", icon: Mail, color: "#3b82f6", avatar: AVATARS.PRINCIPAL, heroImage: "/images/features/strategic_communications_director.png", heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/principal_briefing.mp4", voiceWelcome: "/voice-profiles/principal_voice.wav", prompts: ["Weekly newsletter"] },
 
-    // --- NEW SOVEREIGN ADMIN TOOLS ---
+    // --- ADMINISTRATIVE SUPPORT ---
     {
         id: "staff-retention-prophet",
-        name: "Staff Retention Prophet",
-        description: "Predict staff turnover risks using sentiment analysis on surveys.",
+        name: "Staff Retention Specialist",
+        description: "Understand staff turnover risks and develop positive culture strategies using survey data.",
         icon: UserCheck,
         color: "#d97706", // Amber
         avatar: AVATARS.DATA,
@@ -210,8 +235,8 @@ export const generators = [
     },
     {
         id: "equity-audit-protocol",
-        name: "Equity Audit Protocol",
-        description: "Scan curriculum and policies for bias or representation gaps.",
+        name: "Equity Review Tool",
+        description: "Review curriculum and policies for representation and inclusion gaps.",
         icon: ScrollText,
         color: "#7c3aed", // Purple
         avatar: AVATARS.CURRICULUM,
@@ -221,9 +246,9 @@ export const generators = [
         prompts: ["Audit reading list", "Check discipline policy", "Review hiring practices"]
     },
     {
-        id: "fiscal-sovereign",
-        name: "Fiscal Sovereign",
-        description: "Advanced budget modeling and ROI analysis for district funds.",
+        id: "fiscal-strategist",
+        name: "Budget Strategist",
+        description: "In-depth budget modeling and resource analysis for district school funds.",
         icon: PieChart,
         color: "#10b981", // Emerald
         avatar: AVATARS.PRINCIPAL,
@@ -246,7 +271,7 @@ export const generators = [
     },
     {
         id: "classroom-decor-ai",
-        name: "Classroom Architect",
+        name: "Classroom Specialist",
         description: "Visualize and plan classroom layouts optimized for learning.",
         icon: Palette,
         color: "#db2777", // Pink-600
@@ -306,7 +331,7 @@ export const generators = [
     },
     {
         id: "grant-narrative-architect",
-        name: "Grant Architect",
+        name: "Grant Specialist",
         description: "Compelling narratives for federal and state grant applications.",
         icon: ScrollText,
         color: "#16a34a", // Green-600
@@ -317,8 +342,8 @@ export const generators = [
         prompts: ["Title I needs assessment", "STEM grant narrative", "Community partnership output"]
     },
     {
-        id: "crisis-ops-commander",
-        name: "Crisis Ops Commander",
+        id: "crisis-ops-lead",
+        name: "Crisis Response Lead",
         description: "Checklists and communication protocols for emergencies.",
         icon: ShieldAlert,
         color: "#dc2626", // Red-600
@@ -366,7 +391,7 @@ export const generators = [
     },
     {
         id: "family-community-nexus",
-        name: "Community Nexus",
+        name: "Community Hub",
         description: "Bridge the gap with multilingual newsletters and partnership outreach.",
         icon: Users,
         color: "#0d9488", // Teal-600
@@ -378,7 +403,7 @@ export const generators = [
     },
     {
         id: "digital-innovation-architect",
-        name: "Digital Architect",
+        name: "Digital Specialist",
         description: "Draft AI policies, digital citizenship curriculums, and tech plans.",
         icon: Code,
         color: "#0891b2", // Cyan-600
@@ -402,7 +427,7 @@ export const generators = [
     },
     {
         id: "culture-climate-architect",
-        name: "Culture Architect",
+        name: "Culture Specialist",
         description: "Audit school culture and plan inclusive, affirming events.",
         icon: Smile,
         color: "#f97316", // Orange-500
@@ -438,7 +463,7 @@ export const generators = [
     },
     {
         id: "gt-gifted-architect",
-        name: "Gifted & Talented Architect",
+        name: "Gifted & Talented Specialist",
         description: "Design extension projects and DEP differentiation.",
         icon: Brain,
         color: "#f59e0b", // Amber-500
@@ -535,7 +560,7 @@ export const generators = [
     {
         id: "mental-health-lead",
         name: "Mental Health Lead",
-        description: "Protocols for suicide risk assessment and crisis counseling.",
+        description: "Systems for suicide risk assessment and crisis counseling.",
         icon: HeartHandshake,
         color: "#6d28d9", // Violet-700
         avatar: AVATARS.COUNSELOR,
@@ -558,7 +583,7 @@ export const generators = [
     },
     {
         id: "literacy-architect",
-        name: "Literacy Architect",
+        name: "Literacy Specialist",
         description: "Science of Reading aligned interventions and phonics routines.",
         icon: BookOpen,
         color: "#be185d", // Pink-700
@@ -775,7 +800,7 @@ export const generators = [
     {
         id: "title-ix-coordinator",
         name: "Title IX Coordinator",
-        description: "Protocol for gender equity investigations and compliance.",
+        description: "System for gender equity investigations and compliance.",
         icon: Scale,
         color: "#831843", // Pink-900
         avatar: AVATARS.COMPLIANCE,
@@ -845,9 +870,9 @@ export const generators = [
         prompts: ["Renovation timeline visualizer", "FF&E inventory log", "Construction safety memo"]
     },
 
-    // --- THE SOVEREIGN FORGE: CREATION & POWER ---
+    // --- THE PROFESSIONAL FORGE: CREATION & POWER ---
     {
-        id: "economic-sovereignty-analyst",
+        id: "economic-independence-analyst",
         name: "Economic Oracle",
         description: "Draft strategies for fiscal independence and capital recovery. Powering community wealth through analytical foresight.",
         icon: HandCoins,
@@ -858,8 +883,8 @@ export const generators = [
         prompts: ["Community wealth building strategy", "Grant narrative for economic development", "Small business resilience protocol"]
     },
     {
-        id: "identity-restoration-node",
-        name: "Identity Restoration Protocol",
+        id: "identity-restoration-center",
+        name: "Identity Restoration System",
         description: "Healing through knowledge. Reconstructing ancestral and cultural identities through deep-learning synthesis.",
         icon: Compass,
         color: "#7c2d12", // Red-950
@@ -869,7 +894,7 @@ export const generators = [
         prompts: ["Cultural heritage mapping", "Restorative identity narrative", "Healing through oral history analysis"]
     },
     {
-        id: "sovereign-wellness-forge",
+        id: "professional-wellness-forge",
         name: "Wellness Forge",
         description: "Trauma-informed learning and mental health protocols. A digital sanctuary for collective healing.",
         icon: Flame,
@@ -881,7 +906,7 @@ export const generators = [
     },
     {
         id: "global-learning-channel-architect",
-        name: "Global Learning Architect",
+        name: "Global Learning Specialist",
         description: "Design original series, documentaries, and story-based curricula. Expanding the AI Knowledge Academy.",
         icon: Video,
         color: "#1e1b4b", // Indigo-950
@@ -893,7 +918,7 @@ export const generators = [
     {
         id: "faith-and-community-liaison",
         name: "Faith Oracle",
-        description: "Connecting schools with faith communities through shared values and sovereign strategy.",
+        description: "Connecting schools with faith communities through shared values and professional strategy.",
         icon: HeartHandshake,
         color: "#1e3a8a", // Blue-900
         avatar: AVATARS.PRINCIPAL,
@@ -930,7 +955,7 @@ export const generators = [
     {
         id: "ai-futurist",
         name: "AI Futurist",
-        description: "Projecting sovereign futures. Mapping the intersection of technology and humanity.",
+        description: "Projecting professional futures. Mapping the intersection of technology and humanity.",
         icon: Sparkles,
         color: "#4c1d95", // Violet-950
         avatar: AVATARS.PRINCIPAL,
@@ -958,7 +983,7 @@ export const generators = [
         avatar: AVATARS.CURRICULUM,
         heroImage: "https://images.unsplash.com/photo-1474932430478-3a7fb9065ba0?auto=format&fit=crop&q=80",
         welcomeVideo: "/videos/briefings/executive_professor.mp4",
-        prompts: ["Fable about the Lion and the Satellite", "Sovereign myth-making session", "The story of the Digital Ancestors"]
+        prompts: ["Fable about the Lion and the Satellite", "Professional myth-making session", "The story of the Digital Ancestors"]
     },
     {
         id: "district-budget-optimizer",
@@ -972,7 +997,7 @@ export const generators = [
         prompts: ["Analyze capital recovery opportunities", "Draft financial intelligence brief", "Audit district spending ROI"]
     },
     {
-        id: "literacy-coach-neural-node",
+        id: "literacy-coach-center",
         name: "Literacy Coach AI",
         description: "Advanced literacy science and comprehension architect.",
         icon: BookMarked,

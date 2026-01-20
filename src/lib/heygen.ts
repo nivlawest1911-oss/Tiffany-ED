@@ -13,7 +13,7 @@ export async function createHeyGenVideo(avatarId: string, text: string) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            title: 'EdIntel Sovereign Synthesis',
+            title: 'EdIntel Professional Synthesis',
             video_inputs: [
                 {
                     character: {

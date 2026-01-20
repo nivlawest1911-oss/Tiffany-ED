@@ -39,7 +39,7 @@ export default function TermsPage() {
                         transition={{ delay: 0.2 }}
                         className="text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed"
                     >
-                        The conditions governing the use of the EdIntel Sovereign platform and the deployment of its capabilities.
+                        The conditions governing the use of the EdIntel Professional platform and the deployment of its capabilities.
                     </motion.p>
                 </div>
             </div>
@@ -51,18 +51,18 @@ export default function TermsPage() {
                     <div className="flex items-center gap-4 p-4 rounded-xl bg-purple-500/10 border border-purple-500/20 not-prose mb-12">
                         <AlertCircle className="w-6 h-6 text-purple-400 flex-shrink-0" />
                         <p className="text-sm text-purple-200 m-0">
-                            By accessing or using EdIntel Sovereign, you agree to be bound by these Terms. If you disagree with any part of the terms, you must not use the Service.
+                            By accessing or using EdIntel Professional, you agree to be bound by these Terms. If you disagree with any part of the terms, you must not use the Service.
                         </p>
                     </div>
 
                     <h2>1. Use of Service</h2>
                     <p>
-                        EdIntel Sovereign grants you a limited, non-exclusive, non-transferable, and revocable license to use the Service strictly in accordance with these Terms.
+                        EdIntel Professional grants you a limited, non-exclusive, non-transferable, and revocable license to use the Service strictly in accordance with these Terms.
                     </p>
                     <ul>
                         <li>You must be a verified educator or administrator to access certain features.</li>
                         <li>You agree not to use the Service for any illegal or unauthorized purpose.</li>
-                        <li>You must not attempt to reverse engineer or disrupt the integrity of our sovereign nodes.</li>
+                        <li>You must not attempt to reverse engineer or disrupt the integrity of our strategic infrastructure.</li>
                     </ul>
 
                     <h2>2. Intellectual Property Rights</h2>
@@ -70,7 +70,7 @@ export default function TermsPage() {
                         <strong>Your Content:</strong> You retain full ownership of all data, text, and files you upload or generate using the Service ("User Content"). We claim no intellectual property rights over the material you provide to the Service.
                     </p>
                     <p>
-                        <strong>Our Content:</strong> The Service itself, including its original content, features, and functionality (but excluding User Content), is and will remain the exclusive property of EdIntel Sovereign and its licensors.
+                        <strong>Our Content:</strong> The Service itself, including its original content, features, and functionality (but excluding User Content), is and will remain the exclusive property of EdIntel Professional and its licensors.
                     </p>
 
                     <h2>3. FERPA Compliance & Education Records</h2>
@@ -90,7 +90,7 @@ export default function TermsPage() {
 
                     <h2>4. Limitation of Liability</h2>
                     <p>
-                        In no event shall EdIntel Sovereign, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your access to or use of or inability to access or use the Service.
+                        In no event shall EdIntel Professional, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your access to or use of or inability to access or use the Service.
                     </p>
 
                     <h2>5. Termination</h2>

@@ -12,8 +12,8 @@ const supportCategories = [
     description: "New user guides and onboarding",
   },
   {
-    id: "neural-sync",
-    name: "Neural Sync",
+    id: "strategic-sync",
+    name: "Strategic Sync",
     icon: Video,
     articles: 18,
     description: "Training and certification modules",
@@ -45,7 +45,7 @@ const faqItems = [
   },
   {
     q: "What training is required for staff?",
-    a: "The Neural Sync certification takes approximately 2 hours and covers all core features. Additional specialized modules are available.",
+    a: "The Strategic Sync certification takes approximately 2 hours and covers all core features. Additional specialized modules are available.",
   },
 ]
 
@@ -58,7 +58,7 @@ export function SupportProtocol() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="font-black tracking-tighter text-3xl md:text-5xl text-white mb-2">Support Protocol</h2>
-          <p className="text-gray-400">{"We're here to help you achieve cognitive sovereignty"}</p>
+          <p className="text-gray-400">{"We're here to help you achieve cognitive leadership"}</p>
         </div>
 
         {/* Search Bar */}

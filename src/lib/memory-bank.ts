@@ -1,7 +1,7 @@
 import { put } from '@vercel/blob';
 
 /**
- * Memory Bank: Permanent Storage for the Sovereign Teaching Temple.
+ * Memory Bank: Permanent Storage for the Professional Teaching Temple.
  * Ensures that even if APIs or AI scripts go down, the library of 
  * professional teaching media remains owned and accessible by EdIntel.
  */

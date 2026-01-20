@@ -9,9 +9,9 @@ import Link from 'next/link';
 import FloatingNavbar from '@/components/FloatingNavbar';
 import Footer from '@/components/Footer';
 import CircadianFilter from '@/components/graphics/CircadianFilter';
-import SovereignDelegate from '@/components/SovereignDelegate';
+import ProfessionalDelegate from '@/components/AIAssistant';
 
-const commandNodes = [
+const commandCenters = [
     {
         id: "wisdom-archive",
         title: "Wisdom Archive",
@@ -40,7 +40,7 @@ const commandNodes = [
         icon: Flame,
         color: "from-red-900 to-orange-950",
         link: "/generators?category=healing",
-        count: "4 Nodes"
+        count: "4 Centers"
     },
     {
         id: "global-academy",
@@ -60,7 +60,7 @@ export default function TheRoomPage() {
             <CircadianFilter />
             <FloatingNavbar />
 
-            {/* Neural Header */}
+            {/* Strategic Header */}
             <div className="relative pt-40 pb-24 px-6 overflow-hidden">
                 <div className="absolute top-0 inset-x-0 h-full bg-[radial-gradient(circle_at_50%_0%,rgba(99,102,241,0.15),transparent_70%)] pointer-events-none" />
 
@@ -79,7 +79,7 @@ export default function TheRoomPage() {
                     </h1>
 
                     <p className="text-xl md:text-2xl text-zinc-400 max-w-2xl font-light leading-relaxed">
-                        Thought becoming form. You are inside the next-generation learning network where sovereign intelligence generates its own systems.
+                        Thought becoming form. You are inside the next-generation learning network where strategic intelligence generates its own systems.
                     </p>
                 </div>
             </div>
@@ -87,7 +87,7 @@ export default function TheRoomPage() {
             {/* Divine Strategic Map */}
             <section className="py-24 px-6 relative">
                 <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {commandNodes.map((node, i) => (
+                    {commandCenters.map((node, i) => (
                         <motion.div
                             key={node.id}
                             initial={{ opacity: 0, y: 30 }}
@@ -158,7 +158,7 @@ export default function TheRoomPage() {
                         <img
                             src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&q=80"
                             className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                            alt="Neural Creation"
+                            alt="Strategic Creation"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
                         <div className="absolute bottom-10 left-10">
@@ -172,11 +172,11 @@ export default function TheRoomPage() {
             </section>
 
             {/* Executive Delegate Guide */}
-            <SovereignDelegate
+            <ProfessionalDelegate
                 name="Executive Guide"
                 role="Strategic Support"
                 avatarImage="/images/avatars/executive_leader.png"
-                theme="sovereign"
+                theme="professional"
                 greetingText="Welcome to the Innovation Commons, Leader. I have prepared your Strategic Vision Map. Every node here is a gateway to high-quality intelligence synthesis. Where shall we begin?"
                 color="from-indigo-600 to-purple-800"
                 guideMode={true}

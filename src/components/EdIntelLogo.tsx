@@ -16,8 +16,8 @@ export default function EdIntelLogo({ className = "", animated = true }: { class
                         <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
                             <feGaussianBlur stdDeviation="4" result="coloredBlur" />
                             <feMerge>
-                                <feMergeNode in="coloredBlur" />
-                                <feMergeNode in="SourceGraphic" />
+                                <feMergeCenter in="coloredBlur" />
+                                <feMergeCenter in="SourceGraphic" />
                             </feMerge>
                         </filter>
                     </defs>
@@ -60,7 +60,7 @@ export default function EdIntelLogo({ className = "", animated = true }: { class
                         transition={{ delay: 0.5 }}
                     />
 
-                    {/* Sovereign Dot */}
+                    {/* Professional Dot */}
                     <motion.circle
                         cx="50" cy="20" r="3"
                         fill="#a5b4fc"
@@ -78,7 +78,7 @@ export default function EdIntelLogo({ className = "", animated = true }: { class
                     EdIntel
                 </span>
                 <span className="text-[0.6rem] font-bold text-indigo-400 uppercase tracking-[0.2em]">
-                    Sovereign
+                    Professional
                 </span>
             </div>
         </div>

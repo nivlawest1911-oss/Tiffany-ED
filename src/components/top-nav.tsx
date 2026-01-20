@@ -9,9 +9,9 @@ export function TopNav() {
   const navItems = [
     { name: "COMMAND", href: "#" },
     { name: "AVATAR LAB", href: "#" },
-    { name: "NEURAL SYNC", href: "#neural-sync" },
-    { name: "SOVEREIGN LABS", href: "#" },
-    { name: "SOVEREIGN PRICING", href: "#pricing", highlight: true },
+    { name: "STRATEGIC SYNC", href: "#neural-sync" },
+    { name: "PROFESSIONAL LABS", href: "#" },
+    { name: "PROFESSIONAL PRICING", href: "#pricing", highlight: true },
     { name: "NETWORK", href: "#" },
   ]
 
@@ -20,11 +20,11 @@ export function TopNav() {
       <div className="flex flex-col sm:flex-row items-center justify-center gap-2 py-2 px-4">
         <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 text-xs font-semibold tracking-wider">
           <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-          SOVEREIGN MATRIX ONLINE
+          PROFESSIONAL MATRIX ONLINE
         </div>
         <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#00d2ff]/10 border border-[#00d2ff]/30 text-[#00d2ff] text-xs font-medium tracking-wider">
           <Lock className="w-3 h-3" />
-          Official U.S. Government Sovereign Node
+          Official U.S. Professional Educational Network
         </div>
         <div className="text-[10px] text-gray-500 tracking-widest">FERPA-SECUREID: ED-AL-MCPSS-2025</div>
       </div>
@@ -37,7 +37,7 @@ export function TopNav() {
           </div>
           <div>
             <h1 className="font-black tracking-tighter text-2xl md:text-3xl">
-              <span className="text-white">EDINTEL</span> <span className="text-[#00d2ff]">SOVEREIGN</span>
+              <span className="text-white">EDINTEL</span> <span className="text-[#00d2ff]">PROFESSIONAL</span>
             </h1>
             <p className="text-xs text-gray-400 tracking-widest">DIRECTOR COMMAND NODE // V4.0.2</p>
           </div>

@@ -25,7 +25,7 @@ export default function Support() {
 
                 <div className="relative z-10 max-w-3xl w-full space-y-8">
                     <h1 className="text-4xl md:text-5xl font-black tracking-tighter uppercase">
-                        Sovereign <span className="text-amber-600">Support</span>
+                        Professional <span className="text-amber-600">Support</span>
                     </h1>
                     <div className="relative group">
                         <input
@@ -80,7 +80,7 @@ export default function Support() {
                         <div className="relative z-10">
                             <h3 className="text-2xl font-black uppercase tracking-tight text-white mb-2">Need Priority Aid?</h3>
                             <p className="text-amber-100/80 text-xs font-medium mb-8 leading-relaxed">
-                                Direct line to Sovereign Architects for district-critical blockers and Neural Sync failures.
+                                Direct line to Professional Architects for district-critical blockers and Strategic Sync failures.
                             </p>
                             <button className="w-full py-4 bg-white text-amber-700 rounded-xl font-black text-xs uppercase tracking-[0.2em] hover:bg-zinc-100 transition-colors shadow-lg active:scale-95 flex items-center justify-center gap-2">
                                 Open Sub-Space Channel <ArrowRight size={14} />

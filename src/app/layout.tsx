@@ -22,22 +22,22 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "EdIntel Sovereign | The Elite AI for Educational Capital & Freedom",
+  title: "EdIntel | Professional AI for Educational Leadership",
   description:
-    "Join the sovereign revolution. Generate revenue, automate compliance, and liberate your time with the world's first Neural Educational Engine. 14-Day Free Access.",
+    "Empowering educational leaders to optimize time, ensure compliance, and focus on student success. Professional tools for modern education. 14-Day Free Access.",
   generator: "v0.app",
   metadataBase: new URL('https://edintel-app.vercel.app'),
   openGraph: {
-    title: "EdIntel Sovereign | The Elite AI for Educational Capital",
-    description: "Don't just teach. Govern. Generate revenue, automate compliance, and liberate your time with the world's first Neural Educational Engine.",
+    title: "EdIntel | Professional AI for Educational Leadership",
+    description: "Optimize your time and ensure excellence in educational leadership with our professional AI tools.",
     url: 'https://edintel-app.vercel.app',
-    siteName: 'EdIntel Sovereign',
+    siteName: 'EdIntel',
     images: [
       {
-        url: '/api/og?school=EdIntel%20Sovereign&plan=Join%20The%20Revolution&price=Free',
+        url: '/api/og?school=EdIntel&plan=Get%20Started&price=Free',
         width: 1200,
         height: 630,
-        alt: 'EdIntel Sovereign - The Elite AI for Education',
+        alt: 'EdIntel - Professional AI for Education',
       },
     ],
     locale: 'en_US',
@@ -45,9 +45,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'EdIntel Sovereign | The Elite AI for Education',
-    description: 'Join the sovereign revolution. Generate revenue and automate compliance with AI.',
-    images: ['/api/og?school=EdIntel%20Sovereign&plan=Join%20The%20Revolution&price=Free'],
+    title: 'EdIntel | Professional AI for Education',
+    description: 'Empowering educational leaders with professional AI tools.',
+    images: ['/api/og?school=EdIntel&plan=Get%20Started&price=Free'],
   },
   icons: {
     icon: [
@@ -77,7 +77,7 @@ export const viewport: Viewport = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactCenter
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>

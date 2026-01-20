@@ -12,22 +12,22 @@ const _inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "EdIntel Sovereign | Cognitive Leadership Platform",
+  title: "EdIntel Professional | Cognitive Leadership Platform",
   description:
     "The future of cognitive leadership. AI-powered education intelligence platform for administrators, teachers, and districts.",
   generator: "v0.app",
   metadataBase: new URL('https://edintel-app.vercel.app'),
   openGraph: {
-    title: "EdIntel Sovereign | AI-Powered Education Platform",
+    title: "EdIntel Professional | AI-Powered Education Platform",
     description: "Transform education with AI. Generate IEPs, lesson plans, and more for Mobile County schools.",
     url: 'https://edintel-app.vercel.app',
-    siteName: 'EdIntel Sovereign',
+    siteName: 'EdIntel Professional',
     images: [
       {
         url: '/api/og?school=Mobile County Schools&plan=Professional&price=$79',
         width: 1200,
         height: 630,
-        alt: 'EdIntel Sovereign - AI-Powered Education Platform',
+        alt: 'EdIntel Professional - AI-Powered Education Platform',
       },
     ],
     locale: 'en_US',
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'EdIntel Sovereign | AI-Powered Education',
+    title: 'EdIntel Professional | AI-Powered Education',
     description: 'Transform education with AI for Mobile County schools',
     images: ['/api/og?school=Mobile County Schools&plan=Professional&price=$79'],
   },
@@ -67,7 +67,7 @@ export const viewport: Viewport = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactCenter
 }>) {
   return (
     <html lang="en">

@@ -1,5 +1,5 @@
 /**
- * EdIntel Sovereign - Token Balance API
+ * EdIntel Professional - Token Balance API
  * Check balance and deduct tokens for AI usage
  * 
  * GET /api/tokens/balance?userId=xxx

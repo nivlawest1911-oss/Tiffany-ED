@@ -28,7 +28,7 @@ export default function StrategicAssociations() {
         {
             name: "National Education Association",
             acronym: "NEA",
-            role: "Federal Policy & Resource Node",
+            role: "Federal Policy & Resource Center",
             desc: "The largest professional organization in the U.S., representing 3 million educators. Driving national policy, providing global resources, and defending the fundamental right to public education.",
             icon: Globe,
             color: "text-emerald-500",
@@ -51,7 +51,7 @@ export default function StrategicAssociations() {
                         Unified in <span className="text-zinc-600">Excellence.</span>
                     </h2>
                     <p className="text-zinc-500 max-w-2xl mx-auto">
-                        Sovereign intelligence works in tandem with Alabama's leading professional associations to ensure every educator is protected, heard, and empowered.
+                        Our artificial intelligence works in tandem with Alabama's leading professional associations to ensure every educator is protected, heard, and empowered.
                     </p>
                 </div>
 

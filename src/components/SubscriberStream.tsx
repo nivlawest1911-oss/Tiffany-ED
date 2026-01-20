@@ -7,7 +7,7 @@ import { DollarSign, User, BadgeCheck, Zap, Globe } from "lucide-react";
 interface SubscriberEvent {
     id: string;
     name: string;
-    tier: 'PRACTITIONER' | 'ENTERPRISE' | 'SOVEREIGN' | 'DISTRICT';
+    tier: 'PRACTITIONER' | 'ENTERPRISE' | 'PROFESSIONAL' | 'DISTRICT';
     amount: string;
     location: string;
     timestamp: number;
@@ -15,13 +15,13 @@ interface SubscriberEvent {
 
 const FIRST_NAMES = ["Marcus", "Sarah", "Dr. J", "Principal", "Supt.", "Alicia", "David", "Elena", "Michael", "Board Member"];
 const LAST_NAMES = ["West", "Johnson", "Carter", "Lee", "Rodriguez", "Smith", "Washington", "Chen", "O'Connor", "Banks"];
-const LOCATIONS = ["Mobile, AL", "Atlanta, GA", "Chicago, IL", "Dallas, TX", "New York, NY", "Los Angeles, CA", "District HQ", "Remote Uplink"];
+const LOCATIONS = ["Mobile, AL", "Atlanta, GA", "Chicago, IL", "Dallas, TX", "New York, NY", "Los Angeles, CA", "District HQ", "Remote Connection"];
 
 // Tier Configs
 const TIERS = {
     PRACTITIONER: { name: "Practitioner", price: "$29", color: "text-blue-400", icon: User },
     ENTERPRISE: { name: "Enterprise Hub", price: "$499", color: "text-purple-400", icon: BadgeCheck },
-    SOVEREIGN: { name: "Sovereign Vault", price: "$2,997", color: "text-amber-400", icon: Zap },
+    PROFESSIONAL: { name: "Professional Vault", price: "$2,997", color: "text-amber-400", icon: Zap },
     DISTRICT: { name: "District Command", price: "$15,000", color: "text-emerald-400", icon: Globe },
 };
 
@@ -49,7 +49,7 @@ export default function SubscriberStream() {
         const rand = Math.random();
         let tierKey: keyof typeof TIERS = 'PRACTITIONER';
         if (rand > 0.95) tierKey = 'DISTRICT';
-        else if (rand > 0.8) tierKey = 'SOVEREIGN';
+        else if (rand > 0.8) tierKey = 'PROFESSIONAL';
         else if (rand > 0.5) tierKey = 'ENTERPRISE';
 
         const tier = TIERS[tierKey];
@@ -94,7 +94,7 @@ export default function SubscriberStream() {
             <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-black via-black/80 to-transparent pointer-events-none z-10" />
             <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-black via-black/80 to-transparent pointer-events-none z-10" />
 
-            {/* Neural Pulse Line */}
+            {/* Strategic Pulse Line */}
             <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-indigo-500/20 to-transparent" />
 
             <style jsx>{`

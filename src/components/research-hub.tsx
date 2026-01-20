@@ -36,7 +36,7 @@ const researchPapers = [
     keyFindings: ["47% burnout reduction", "Increased autonomy", "Enhanced competence"],
   },
   {
-    title: "Neural Sync & Recidivism Reduction (CBI Studies)",
+    title: "Strategic Sync & Recidivism Reduction (CBI Studies)",
     journal: "Journal of Cognitive Behavioral Research",
     year: 2024,
     category: "compliance",
@@ -54,7 +54,7 @@ const researchPapers = [
     category: "executive-function",
     impact: "Foundational",
     summary:
-      "Montessori environments build Working Memory, Inhibitory Control, and Cognitive Flexibility—the three pillars of EdIntel Neural Sync training modules.",
+      "Montessori environments build Working Memory, Inhibitory Control, and Cognitive Flexibility—the three pillars of EdIntel Strategic Sync training modules.",
     url: "https://www.researchgate.net",
     citation: "Williams & Park, 2024",
     keyFindings: ["Working memory gains", "Inhibitory control", "Cognitive flexibility"],

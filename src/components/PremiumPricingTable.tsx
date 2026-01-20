@@ -1,77 +1,104 @@
 'use client';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { CheckCircle, Sparkles, Zap, Crown, ArrowRight, Info, User, Shield as LucideShield } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { CheckCircle, Sparkles, Zap, Crown, ArrowRight, Info, User, Shield as LucideShield, Copy, Check, Download, Bot } from "lucide-react";
 import Link from 'next/link';
 import HolographicBriefing from './HolographicBriefing';
+import { getStripeHandshake, StripeHandshake } from '@/app/actions/professional-stripe';
 
 export default function PremiumPricingTable() {
     const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
     const [showBriefing, setShowBriefing] = useState(false);
+    const [pricing, setPricing] = useState<StripeHandshake | null>(null);
+    const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+    useEffect(() => {
+        async function loadPricing() {
+            try {
+                const data = await getStripeHandshake();
+                setPricing(data);
+            } catch (error) {
+                console.error("Failed to handshake with Stripe:", error);
+            }
+        }
+        loadPricing();
+    }, []);
 
     const plans = [
         {
             name: 'Initiate',
             price: { monthly: 0, annual: 0 },
-            description: 'Entry-level protocol access',
+            description: 'Professional Initiate: Essential educational AI protocols.',
             features: [
                 '5 AI generations per month',
                 'Basic templates',
                 'Community support',
             ],
-            cta: 'Initialize Node',
+            cta: 'Initialize Center',
             link: '/signup',
             popular: false,
             icon: Sparkles,
         },
         {
             name: 'Practitioner',
-            price: { monthly: 29.00, annual: 24.00 },
-            description: 'For individual educators',
+            price: {
+                monthly: pricing?.practitioner.monthly || 49.99,
+                annual: pricing?.practitioner.annual || 44.99
+            },
+            description: 'For specialized educators. Includes 30-day trial.',
             features: [
                 'Unlimited AI generations',
-                'All 41 specialized tools',
+                'All 70+ specialized tools',
                 'Priority email support',
                 'Export to PDF/Word',
                 'FERPA-compliant storage',
             ],
-            cta: 'Start Free Trial',
+            cta: 'Start 30-Day Trial',
             link: `/signup?plan=pro${billingCycle === 'annual' ? '&billing=annual' : ''}`,
+            priceId: billingCycle === 'monthly' ? pricing?.practitioner.id : pricing?.practitioner.annualId,
             popular: true,
             icon: User,
         },
         {
-            name: 'Enterprise Hub',
-            price: { monthly: 499.00, annual: 399.00 },
-            description: 'For Schools & Teams',
+            name: 'Director Pack',
+            price: {
+                monthly: pricing?.director.monthly || 69.99,
+                annual: pricing?.director.annual || 59.99
+            },
+            description: 'For leadership and administration. Includes 30-day trial.',
             features: [
                 'Everything in Practitioner',
-                '10 User Licenses',
+                'Advanced Leadership Modules',
                 'Staff Retention Analytics',
                 'Classroom Obs Synthesizer',
-                'Building ROI Dashboard',
+                'Strategic Briefing Console',
             ],
-            cta: 'Deploy Hub',
-            link: `/signup?plan=enterprise${billingCycle === 'annual' ? '&billing=annual' : ''}`,
-            popular: false,
-            icon: LucideShield,
-        },
-        {
-            name: 'Sovereign Vault',
-            price: { monthly: 2997.00, annual: 2997.00 },
-            description: 'Lifetime Executive Access',
-            features: [
-                'Lifetime Platform Access',
-                'Private Neural Model',
-                'Direct Founder Uplink',
-                'Legal Defense Fund Access',
-                'VIP In-Person Summit',
-            ],
-            cta: 'Secure Vault',
-            link: '/vault-access',
+            cta: 'Deploy Director Center',
+            link: `/signup?plan=director${billingCycle === 'annual' ? '&billing=annual' : ''}`,
+            priceId: billingCycle === 'monthly' ? pricing?.director.id : pricing?.director.annualId,
             popular: false,
             icon: Crown,
+        },
+        {
+            name: 'Site Command',
+            price: {
+                monthly: pricing?.siteCommand.monthly || 79.99,
+                annual: pricing?.siteCommand.annual || 69.99
+            },
+            description: 'Full Building Command. Includes 30-day trial.',
+            features: [
+                'Everything in Director Pack',
+                '10 User Licenses',
+                'Building ROI Dashboard',
+                'Priority Implementation Support',
+                'Strategic Link API Access',
+            ],
+            cta: 'Deploy Site Command',
+            link: `/signup?plan=enterprise${billingCycle === 'annual' ? '&billing=annual' : ''}`,
+            priceId: billingCycle === 'monthly' ? pricing?.siteCommand.id : pricing?.siteCommand.annualId,
+            popular: false,
+            icon: LucideShield,
         },
     ];
 
@@ -94,254 +121,164 @@ export default function PremiumPricingTable() {
         },
     ];
 
-    const [openFaq, setOpenFaq] = useState<number | null>(null);
-
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 py-24 px-6">
-            <div className="max-w-7xl mx-auto">
+        <div className="min-h-screen bg-black text-white py-24 px-6 relative overflow-hidden">
+            {/* Kente Pattern Header */}
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-kente-yellow via-kente-green to-kente-red z-50" />
+
+            <div className="max-w-7xl mx-auto relative z-10">
                 {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-center mb-12"
+                    className="text-center mb-16"
                 >
-                    <h1 className="text-5xl sm:text-6xl font-bold text-white mb-4">
-                        Simple, Transparent Pricing
+                    <h1 className="text-6xl md:text-8xl font-black text-white mb-6 tracking-tight uppercase">
+                        The <span className="text-noble-gold">Professional</span> Standard
                     </h1>
-                    <p className="text-xl text-purple-300 mb-8">
-                        30-day free trial on all paid plans • No credit card required
+                    <p className="text-xl text-zinc-400 mb-8 max-w-2xl mx-auto font-medium">
+                        Strategic pricing architectures built for educational leadership. Initialize your protocol with a 30-day trial.
                     </p>
 
                     {/* Billing Toggle */}
                     <div className="flex flex-col items-center gap-6">
-                        <div className="inline-flex items-center gap-4 p-2 rounded-xl bg-black/40 backdrop-blur-xl border border-purple-500/20">
+                        <div className="inline-flex items-center gap-4 p-2 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10">
                             <button
                                 onClick={() => setBillingCycle('monthly')}
-                                className={`px-6 py-2 rounded-lg font-medium transition-all ${billingCycle === 'monthly'
-                                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
-                                    : 'text-purple-300 hover:text-white'
+                                className={`px-8 py-3 rounded-xl font-bold transition-all uppercase text-xs tracking-widest ${billingCycle === 'monthly'
+                                    ? 'bg-white text-black shadow-2xl'
+                                    : 'text-zinc-500 hover:text-white'
                                     }`}
                             >
                                 Monthly
                             </button>
                             <button
                                 onClick={() => setBillingCycle('annual')}
-                                className={`px-6 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${billingCycle === 'annual'
-                                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
-                                    : 'text-purple-300 hover:text-white'
+                                className={`px-8 py-3 rounded-xl font-bold transition-all flex items-center gap-2 uppercase text-xs tracking-widest ${billingCycle === 'annual'
+                                    ? 'bg-noble-gold text-black shadow-2xl'
+                                    : 'text-zinc-500 hover:text-white'
                                     }`}
                             >
                                 Annual
-                                <span className="px-2 py-0.5 rounded-full bg-green-500/20 text-green-300 text-xs">
-                                    Save 20%
+                                <span className="px-2 py-0.5 rounded-md bg-black/20 text-black text-[10px] font-black">
+                                    -20%
                                 </span>
                             </button>
                         </div>
-
-                        <button
-                            onClick={() => setShowBriefing(true)}
-                            className="flex items-center gap-2 text-sm font-bold text-indigo-400 hover:text-indigo-300 transition-colors uppercase tracking-widest bg-indigo-500/10 px-4 py-2 rounded-full border border-indigo-500/20 hover:border-indigo-500/50"
-                        >
-                            <Sparkles size={14} />
-                            <span>Financial Protocol Analysis</span>
-                        </button>
                     </div>
                 </motion.div>
 
-                <HolographicBriefing
-                    isOpen={showBriefing}
-                    onClose={() => setShowBriefing(false)}
-                    title="Investment Protocol"
-                    description="Principal, selecting the correct tier is critical for maximizing ROI. The Practitioner tier offers the highest individual value, unlocking all 41 generative tools. However, for building-wide transformation, the Site Command protocol provides necessary administrative oversight and compliance automation."
-                    role="Chief Financial Architect"
-                    avatarImage="/images/avatars/executive_leader.png"
-                    thumbnail="/images/features/data-analysis-demo.mp4"
-                    // No videoSrc means it falls back to thumbnail which is fine, or we can reuse a video
-                    stats={{ time: "ROI", saved: "10x", accuracy: "100%" }}
-                />
-
                 {/* Pricing Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-                    {plans.map((plan, index) => (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-24">
+                    {plans.map((plan, idx) => (
                         <motion.div
-                            key={index}
+                            key={plan.name}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: index * 0.1 }}
-                            className={`relative ${plan.popular ? 'md:-mt-4 md:mb-4' : ''}`}
+                            transition={{ delay: 0.1 * idx }}
+                            className={`relative group ${plan.popular ? 'lg:scale-105 z-20' : 'z-10'}`}
                         >
                             {plan.popular && (
-                                <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm font-semibold shadow-lg z-10">
-                                    Most Popular
+                                <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-noble-gold text-black text-[10px] font-black uppercase tracking-widest shadow-2xl z-30">
+                                    Strategic Choice
                                 </div>
                             )}
 
-                            <div className={`relative h-full p-8 rounded-2xl backdrop-blur-xl border-2 transition-all ${plan.popular
-                                ? 'bg-purple-500/10 border-purple-500/50 shadow-2xl shadow-purple-500/20'
-                                : 'bg-black/40 border-purple-500/20 hover:border-purple-500/40'
-                                }`}>
-                                {/* Icon */}
-                                <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${plan.popular ? 'from-purple-500 to-pink-500' : 'from-purple-500/20 to-pink-500/20'
-                                    } mb-4`}>
-                                    <plan.icon className={`w-6 h-6 ${plan.popular ? 'text-white' : 'text-purple-400'}`} />
+                            <div className={`h-full flex flex-col rounded-[2.5rem] p-10 transition-all duration-500 border ${plan.popular
+                                ? 'bg-white/10 border-noble-gold/50 shadow-2xl shadow-noble-gold/10'
+                                : 'bg-white/5 border-white/10 hover:border-white/20'
+                                } backdrop-blur-3xl group-hover:bg-white/[0.07]`}>
+
+                                <div className="mb-8">
+                                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-8 bg-gradient-to-br ${plan.popular ? 'from-noble-gold to-kente-red' : 'from-zinc-800 to-zinc-900'} border border-white/10 shadow-xl`}>
+                                        <plan.icon size={28} className={plan.popular ? 'text-black' : 'text-zinc-400'} />
+                                    </div>
+                                    <h3 className="text-3xl font-black text-white mb-2 tracking-tighter uppercase">{plan.name}</h3>
+                                    <div className="flex items-baseline gap-1 mb-4">
+                                        <span className="text-5xl font-black text-white tracking-tighter">${plan.price[billingCycle]}</span>
+                                        <span className="text-zinc-500 text-[10px] font-black uppercase tracking-[0.2em]">
+                                            {plan.name === 'Professional Vault' ? '/ Lifetime' : billingCycle === 'monthly' ? '/ Mo' : '/ Mo, Annual'}
+                                        </span>
+                                    </div>
+                                    <p className="text-sm text-zinc-400 font-medium leading-relaxed">{plan.description}</p>
                                 </div>
 
-                                {/* Plan Name */}
-                                <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
-
-                                {/* Price */}
-                                <div className="mb-4">
-                                    {plan.price.monthly === null ? (
-                                        <div className="text-4xl font-bold text-white">Custom</div>
-                                    ) : (
-                                        <div className="flex items-baseline gap-1">
-                                            <span className="text-4xl font-bold text-white">
-                                                ${billingCycle === 'monthly' ? plan.price.monthly : plan.price.annual}
-                                            </span>
-                                            {plan.price.monthly > 0 && (
-                                                <span className="text-purple-300">/month</span>
-                                            )}
-                                        </div>
-                                    )}
-                                    {billingCycle === 'annual' && plan.price.monthly > 0 && (
-                                        <div className="text-sm text-green-400 mt-1">
-                                            ${(plan.price.annual * 12).toFixed(2)}/year (save ${((plan.price.monthly - plan.price.annual) * 12).toFixed(2)})
-                                        </div>
-                                    )}
-                                </div>
-
-                                {/* Description */}
-                                <p className="text-purple-300 mb-6">{plan.description}</p>
-
-                                {/* Features */}
-                                <ul className="space-y-3 mb-8">
-                                    {plan.features.map((feature, i) => (
-                                        <li key={i} className="flex items-start gap-2 text-purple-200">
-                                            <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                                            <span className="text-sm">{feature}</span>
+                                <ul className="space-y-4 mb-10 flex-grow">
+                                    {plan.features.map((feature, fIdx) => (
+                                        <li key={fIdx} className="flex items-start gap-4">
+                                            <div className={`mt-1 flex-shrink-0 ${plan.popular ? 'text-noble-gold' : 'text-zinc-600'}`}>
+                                                <CheckCircle size={18} />
+                                            </div>
+                                            <span className="text-sm text-zinc-300 font-medium leading-tight">{feature}</span>
                                         </li>
                                     ))}
                                 </ul>
 
-                                {/* CTA */}
                                 <Link href={plan.link}>
-                                    <motion.button
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        className={`w-full py-4 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 ${plan.popular
-                                            ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/50'
-                                            : 'bg-white/10 hover:bg-white/20 text-white border border-white/20'
-                                            }`}
-                                    >
+                                    <button className={`w-full py-5 rounded-[2rem] font-black text-xs uppercase tracking-[0.3em] transition-all shadow-xl active:scale-95 ${plan.popular
+                                        ? 'bg-noble-gold text-black hover:bg-white shadow-noble-gold/40'
+                                        : 'bg-white/10 text-white hover:bg-white border border-white/10 hover:text-black'
+                                        }`}>
                                         {plan.cta}
-                                        <ArrowRight className="w-5 h-5" />
-                                    </motion.button>
+                                    </button>
                                 </Link>
 
-                                {plan.price.monthly > 0 && (
-                                    <p className="text-center text-purple-400 text-xs mt-3">
-                                        30-day free trial • Cancel anytime
-                                    </p>
-                                )}
+                                <p className="text-center text-[9px] text-zinc-600 uppercase font-black tracking-widest mt-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    Secure Encrypted Protocol
+                                </p>
                             </div>
                         </motion.div>
                     ))}
                 </div>
 
-                {/* Comparison Table */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
-                    className="mb-16 p-8 rounded-2xl bg-black/40 backdrop-blur-xl border border-purple-500/20"
-                >
-                    <h2 className="text-3xl font-bold text-white mb-6 text-center">
-                        Compare Plans
-                    </h2>
-                    <div className="overflow-x-auto">
-                        <table className="w-full">
-                            <thead>
-                                <tr className="border-b border-purple-500/20">
-                                    <th className="text-left py-4 px-4 text-purple-300 font-semibold">Feature</th>
-                                    <th className="text-center py-4 px-4 text-purple-300 font-semibold">Initiate</th>
-                                    <th className="text-center py-4 px-4 text-purple-300 font-semibold">Practitioner</th>
-                                    <th className="text-center py-4 px-4 text-purple-300 font-semibold">Enterprise Hub</th>
-                                    <th className="text-center py-4 px-4 text-purple-300 font-semibold">Sovereign Vault</th>
-                                </tr>
-                            </thead>
-                            <tbody className="text-purple-200">
-                                <tr className="border-b border-purple-500/10">
-                                    <td className="py-4 px-4">AI Generations</td>
-                                    <td className="text-center py-4 px-4">5/month</td>
-                                    <td className="text-center py-4 px-4">Unlimited</td>
-                                    <td className="text-center py-4 px-4">Unlimited</td>
-                                    <td className="text-center py-4 px-4">Unlimited</td>
-                                </tr>
-                                <tr className="border-b border-purple-500/10">
-                                    <td className="py-4 px-4">Tools Access</td>
-                                    <td className="text-center py-4 px-4">Basic</td>
-                                    <td className="text-center py-4 px-4">All 41</td>
-                                    <td className="text-center py-4 px-4">All 41 + Admin</td>
-                                    <td className="text-center py-4 px-4">All 41 + Admin</td>
-                                </tr>
-                                <tr className="border-b border-purple-500/10">
-                                    <td className="py-4 px-4">Support</td>
-                                    <td className="text-center py-4 px-4">Email</td>
-                                    <td className="text-center py-4 px-4">Priority</td>
-                                    <td className="text-center py-4 px-4">Priority</td>
-                                    <td className="text-center py-4 px-4">Dedicated</td>
-                                </tr>
-                                <tr className="border-b border-purple-500/10">
-                                    <td className="py-4 px-4">Custom Training</td>
-                                    <td className="text-center py-4 px-4">-</td>
-                                    <td className="text-center py-4 px-4">-</td>
-                                    <td className="text-center py-4 px-4">-</td>
-                                    <td className="text-center py-4 px-4"><CheckCircle className="w-5 h-5 text-green-400 mx-auto" /></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                {/* FAQ Section */}
+                <div className="max-w-4xl mx-auto">
+                    <div className="text-center mb-12">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-noble-gold/10 border border-noble-gold/20 text-noble-gold text-[10px] font-black uppercase tracking-widest mb-4">
+                            Support Protocols
+                        </div>
+                        <h2 className="text-4xl font-black text-white uppercase tracking-tight">Frequently Asked Protocols</h2>
                     </div>
-                </motion.div>
 
-                {/* FAQ */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 }}
-                    className="max-w-3xl mx-auto"
-                >
-                    <h2 className="text-3xl font-bold text-white mb-8 text-center">
-                        Frequently Asked Questions
-                    </h2>
-                    <div className="space-y-4">
-                        {faqs.map((faq, index) => (
+                    <div className="grid gap-4">
+                        {faqs.map((faq, idx) => (
                             <div
-                                key={index}
-                                className="p-6 rounded-xl bg-black/40 backdrop-blur-xl border border-purple-500/20"
+                                key={idx}
+                                className="rounded-[2rem] bg-white/[0.03] border border-white/5 overflow-hidden transition-all hover:border-white/10"
                             >
                                 <button
-                                    onClick={() => setOpenFaq(openFaq === index ? null : index)}
-                                    className="w-full flex items-start justify-between gap-4 text-left"
+                                    onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                                    className="w-full px-10 py-8 flex items-center justify-between text-left group"
                                 >
-                                    <span className="text-white font-semibold">{faq.question}</span>
-                                    <Info className={`w-5 h-5 text-purple-400 flex-shrink-0 transition-transform ${openFaq === index ? 'rotate-180' : ''
-                                        }`} />
+                                    <span className="text-xl font-black text-zinc-200 uppercase tracking-tighter group-hover:text-white transition-colors">{faq.question}</span>
+                                    <div className={`p-2 rounded-full transition-all duration-500 ${openFaq === idx ? 'bg-noble-gold rotate-180' : 'bg-white/5'}`}>
+                                        <Zap size={18} className={openFaq === idx ? 'text-black' : 'text-zinc-600'} />
+                                    </div>
                                 </button>
-                                {openFaq === index && (
-                                    <motion.div
-                                        initial={{ opacity: 0, height: 0 }}
-                                        animate={{ opacity: 1, height: 'auto' }}
-                                        exit={{ opacity: 0, height: 0 }}
-                                        className="mt-4 text-purple-300"
-                                    >
-                                        {faq.answer}
-                                    </motion.div>
-                                )}
+                                <AnimatePresence>
+                                    {openFaq === idx && (
+                                        <motion.div
+                                            initial={{ height: 0, opacity: 0 }}
+                                            animate={{ height: 'auto', opacity: 1 }}
+                                            exit={{ height: 0, opacity: 0 }}
+                                            className="overflow-hidden"
+                                        >
+                                            <div className="px-10 pb-10 text-zinc-400 leading-relaxed font-medium text-lg border-t border-white/5 pt-6">
+                                                {faq.answer}
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
                             </div>
                         ))}
                     </div>
-                </motion.div>
+                </div>
             </div>
+
+            {/* Background Decorations */}
+            <div className="absolute top-0 left-0 w-full h-screen bg-[radial-gradient(ellipse_at_top_left,rgba(212,175,55,0.05)_0%,transparent_50%)] pointer-events-none" />
+            <div className="absolute bottom-0 right-0 w-full h-screen bg-[radial-gradient(ellipse_at_bottom_right,rgba(139,0,0,0.05)_0%,transparent_50%)] pointer-events-none" />
+            <div className="absolute inset-0 bg-grid-pattern opacity-5 pointer-events-none" />
         </div>
     );
 }

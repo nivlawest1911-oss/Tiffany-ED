@@ -22,7 +22,7 @@ const extensions = [
     },
     {
         id: 'vercel-blob',
-        name: 'Sovereign Vault',
+        name: 'Professional Vault',
         description: 'Vercel Blob Storage',
         icon: HardDrive,
         color: 'text-yellow-400',
@@ -49,7 +49,7 @@ const extensions = [
     },
     {
         id: 'translate',
-        name: 'Neural Translate',
+        name: 'Strategic Translate',
         description: 'Multi-Lingual Bridge',
         icon: Languages,
         color: 'text-emerald-400',
@@ -67,7 +67,7 @@ const extensions = [
     },
     {
         id: 'auth',
-        name: 'Sovereign ID',
+        name: 'Professional ID',
         description: 'NextAuth + Identity Platform',
         icon: Key,
         color: 'text-indigo-400',
@@ -94,7 +94,7 @@ const extensions = [
     },
     {
         id: 'speech',
-        name: 'Neural Voice (TTS)',
+        name: 'Strategic Voice (TTS)',
         description: 'Text-to-Speech Synthesis',
         icon: Languages,
         color: 'text-pink-400',
@@ -118,10 +118,10 @@ export default function CloudExtensionsGrid() {
             <div className="flex items-center gap-3 mb-8">
                 <Cpu className="w-6 h-6 text-[#00d2ff]" />
                 <h2 className="text-2xl font-bold tracking-tight text-white">
-                    Google Cloud Neural Extensions
+                    Google Cloud Strategic Extensions
                 </h2>
                 <div className="px-2 py-1 bg-white/5 rounded text-[10px] uppercase font-bold text-gray-400 border border-white/10">
-                    Sovereign Brain v2.0
+                    Professional Brain v2.0
                 </div>
             </div>
 

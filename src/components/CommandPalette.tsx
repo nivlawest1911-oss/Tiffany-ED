@@ -12,7 +12,8 @@ import {
     Zap,
     Clock,
     Star,
-    ArrowRight
+    ArrowRight,
+    Shield
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { generators } from '@/data/generators';
@@ -63,6 +64,24 @@ export default function CommandPalette({ onClose }: { onClose?: () => void }) {
             action: () => router.push('/settings'),
             keywords: ['settings', 'preferences', 'config'],
             category: 'action',
+        },
+        {
+            id: 'sovereign_cmd',
+            title: 'Sovereign Command',
+            subtitle: 'Open the executive delegate protocol',
+            icon: <Zap className="w-5 h-5 text-amber-500" />,
+            action: () => window.dispatchEvent(new KeyboardEvent('keydown', { ctrlKey: true, code: 'Space' })),
+            keywords: ['sovereign', 'command', 'delegate', 'executive'],
+            category: 'action',
+        },
+        {
+            id: 'api_vault',
+            title: 'API Vault',
+            subtitle: 'Manage secure neural infrastructure',
+            icon: <Shield className="w-5 h-5 text-indigo-400" />,
+            action: () => router.push('/vault'),
+            keywords: ['api', 'vault', 'keys', 'infrastructure', 'security'],
+            category: 'action' as const
         },
         // Dynamically Generated Commands from Tools
         ...generators.map(gen => ({

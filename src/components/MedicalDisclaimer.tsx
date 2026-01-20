@@ -10,7 +10,7 @@ export default function MedicalDisclaimer() {
                     <div className="space-y-1">
                         <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-300">Statutory Disclaimer</h4>
                         <p className="text-[10px] md:text-xs text-zinc-500 leading-relaxed text-justify">
-                            <strong className="text-zinc-400">EdIntel Sovereign</strong> is an executive intelligence amplification system, not a licensed medical or legal entity.
+                            <strong className="text-zinc-400">EdIntel Professional</strong> is an executive intelligence amplification system, not a licensed medical or legal entity.
                             Outputs generated regarding IEPs, behavior intervention plans, or psychological profiles are for <span className="text-zinc-300 font-medium">informational and strategic purposes only</span>.
                             This system does not provide medical diagnoses, legal counsel, or binding regulatory advice.
                             Always consult with a certified school psychologist, licensed attorney, or appropriate medical professional before finalizing binding educational contracts.

@@ -218,7 +218,7 @@ export function Hero() {
           <div className="flex items-center gap-2 text-sm">
             <span className="text-white font-normal">Powered by</span>
             <button className="rounded-full border border-white bg-transparent px-3 py-1 text-xs font-bold text-white">
-              Sovereign AI
+              Professional AI
             </button>
           </div>
         </div>

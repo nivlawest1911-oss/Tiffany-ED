@@ -48,14 +48,14 @@ export default function ProtocolArticleDetail() {
                     {/* Content */}
                     <div className="prose prose-zinc dark:prose-invert max-w-none text-zinc-600 dark:text-zinc-300 leading-loose">
                         <p className="text-lg font-medium text-zinc-900 dark:text-white mb-6">
-                            When initiating a Neural Sync session, the EdIntel engine dynamically calibrates the workload based on the educator&apos;s current circadian rhythm and the localized district compliance requirements.
+                            When initiating a Strategic Sync session, the EdIntel engine dynamically calibrates the workload based on the educator&apos;s current circadian rhythm and the localized district compliance requirements.
                         </p>
 
                         <h3 className="text-xl font-bold text-zinc-900 dark:text-white mt-8 mb-4">Standard Protocol Load</h3>
                         <ul className="space-y-2 list-disc pl-5 marker:text-amber-600">
                             <li><strong>Individual Training:</strong> Consists of 3 high-intensity cognitive tasks followed by a localized EQ assessment.</li>
                             <li><strong>District Audit:</strong> Running a compliance scan processes 142 discrete file nodes per session.</li>
-                            <li><strong>Sovereign Token Usage:</strong> Each standard session consumes approximately 0.4 tokens from the district wallet.</li>
+                            <li><strong>Professional Token Usage:</strong> Each standard session consumes approximately 0.4 tokens from the district wallet.</li>
                         </ul>
 
                         <div className="my-8 p-6 rounded-2xl bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-800/50">
@@ -70,7 +70,7 @@ export default function ProtocolArticleDetail() {
                         </p>
                     </div>
 
-                    {/* Feedback Node */}
+                    {/* Feedback Center */}
                     <div className="mt-16 p-8 rounded-3xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-center space-y-6">
                         <h3 className="text-sm font-black uppercase tracking-widest text-zinc-500">Was this protocol effective?</h3>
                         <div className="flex justify-center gap-4">
@@ -106,7 +106,7 @@ export default function ProtocolArticleDetail() {
                                 { title: "Training task vs Assessment task", views: "5.98K" },
                                 { title: "Cognitive Score Calculation Matrix", views: "3.2K" },
                                 { title: "Burnout Prevention: The 40% Rule", views: "8.1K" },
-                                { title: "Sovereign Token Allocation Guide", views: "2.5K" }
+                                { title: "Professional Token Allocation Guide", views: "2.5K" }
                             ].map((item, i) => (
                                 <li key={i} className="group cursor-pointer">
                                     <p className="text-sm font-bold text-blue-600 dark:text-blue-400 group-hover:underline decoration-2 underline-offset-2 mb-1">
@@ -120,7 +120,7 @@ export default function ProtocolArticleDetail() {
 
                     {/* Tags */}
                     <div className="flex flex-wrap gap-2">
-                        {['Brain Training', 'Knowledge', 'Sovereignty', 'EdIntel V2'].map(tag => (
+                        {['Brain Training', 'Knowledge', 'Leadership', 'EdIntel V2'].map(tag => (
                             <span key={tag} className="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-[10px] font-bold uppercase text-zinc-500 tracking-wider">
                                 {tag}
                             </span>

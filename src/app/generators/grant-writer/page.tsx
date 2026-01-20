@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, DollarSign, ArrowRight, Download, CheckCircle, AlertCircle, FileText, Loader2 } from 'lucide-react';
 import FloatingNavbar from '@/components/FloatingNavbar';
-import { generateSovereignResponse } from '@/lib/sovereign-ai';
+import { generateProfessionalResponse } from '@/lib/leadership-ai';
 
 export default function GrantWriterLite() {
     const [step, setStep] = useState(1);
@@ -30,7 +30,7 @@ export default function GrantWriterLite() {
             3. Budget Justification (High Level)
             4. Expected Impact (ROI)`;
 
-            const response = await generateSovereignResponse(prompt, 'grant-writer');
+            const response = await generateProfessionalResponse(prompt, 'grant-writer');
             setGeneratedGrant(response);
             setStep(2);
         } catch (error) {
@@ -121,7 +121,7 @@ export default function GrantWriterLite() {
                                 <AlertCircle size={16} /> Pro Tip
                             </h4>
                             <p className="text-xs text-zinc-400 leading-relaxed">
-                                <strong>Sovereign District</strong> users get access to our <em>Grant Search Engine</em> that automatically matches your proposal to 500+ active grants.
+                                <strong>Professional District</strong> users get access to our <em>Grant Search Engine</em> that automatically matches your proposal to 500+ active grants.
                             </p>
                         </div>
                     </div>
@@ -205,7 +205,7 @@ export default function GrantWriterLite() {
                             </div>
                             <h3 className="text-2xl font-black text-white mb-4">Unlock Full Funding Power?</h3>
                             <p className="text-zinc-400 mb-8">
-                                To export official PDFs and access our <strong>Automated Grant Finder</strong> database, you need to be a Sovereign Practitioner.
+                                To export official PDFs and access our <strong>Automated Grant Finder</strong> database, you need to be a Professional Practitioner.
                             </p>
 
                             <div className="space-y-3 mb-8">

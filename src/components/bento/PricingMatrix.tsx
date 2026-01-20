@@ -53,7 +53,7 @@ export default function PricingMatrix() {
 
     const tiers = [
         {
-            name: "Initiate",
+            name: "Basic",
             price: "Free",
             priceId: null,
             icon: <Sparkles className="text-zinc-400" size={24} />,
@@ -62,20 +62,20 @@ export default function PricingMatrix() {
             shadowColor: "shadow-zinc-900/20",
             iconColor: "text-zinc-400",
             idealFor: "Observers & New Users",
-            value: "Zero-cost entry. Taste the power.",
+            value: "Getting started with professional growth.",
             features: [
-                "Basic Protocol Access",
-                "Community Intelligence Feed",
-                "Daily 'Power Hour' (5 Gens/Day)",
-                "Grant Writer Lite (Preview)",
-                "Read-Only Sovereign Vault"
+                "Basic Resource Access",
+                "Community Feed Access",
+                "Daily Usage Credits (5 per day)",
+                "Grant Writing Templates",
+                "Professional Resource Vault"
             ]
         },
         {
-            name: "Practitioner",
+            name: "Professional",
             price: isAnnual
-                ? (priceData['Practitioner']?.annual || 24)
-                : (priceData['Practitioner']?.monthly || 29),
+                ? (priceData['Practitioner']?.annual || 44.99)
+                : (priceData['Practitioner']?.monthly || 49.99),
             priceId: isAnnual
                 ? priceData['Practitioner']?.annualId
                 : priceData['Practitioner']?.monthlyId,
@@ -84,27 +84,27 @@ export default function PricingMatrix() {
             accent: "from-cyan-500 to-blue-600",
             shadowColor: "shadow-cyan-900/20",
             iconColor: "text-cyan-400",
-            idealFor: "Classroom teachers & Specialists",
-            value: "STOP working for free. Recapture 15+ hrs/week.",
+            idealFor: "Classroom Teachers & Specialists",
+            value: "Enhance your classroom efficiency. Includes 30-Day Trial.",
             recommended: true,
             subtitle: "Most Popular",
             features: [
-                "14-Day Free Trial Included",
-                "IEP Narrative Smart-Draft",
-                "Sovereign Legal Vault Access",
-                "1,000 Monthly Neural Tokens",
-                "Science of Reading Tutor",
-                "Priority 'Sovereign' Support"
+                "30-Day Free Trial Included",
+                "IEP Narrative Smart-Drafting",
+                "Full Legal Resource Access",
+                "Unlimited AI Generations",
+                "Advanced Literacy Support",
+                "Priority Support Access"
             ]
         },
         {
-            name: "Enterprise Hub",
+            name: "Building Leader",
             price: isAnnual
-                ? (priceData['Enterprise Hub']?.annual || 399)
-                : (priceData['Enterprise Hub']?.monthly || 499),
+                ? (priceData['Site Command']?.annual || 69.99)
+                : (priceData['Site Command']?.monthly || 79.99),
             priceId: isAnnual
-                ? priceData['Enterprise Hub']?.annualId
-                : priceData['Enterprise Hub']?.monthlyId,
+                ? priceData['Site Command']?.annualId
+                : priceData['Site Command']?.monthlyId,
             icon: <Zap className="text-violet-400" size={24} />,
             color: "violet",
             accent: "from-violet-500 to-fuchsia-600",
@@ -112,33 +112,37 @@ export default function PricingMatrix() {
             iconColor: "text-violet-400",
             highlight: true,
             idealFor: "Principals & Building Admin",
-            value: "Total building stability oversight.",
+            value: "Building-wide efficiency and stability. Includes 30-Day Trial.",
             features: [
-                "14-Day Free Trial Included",
-                "Classroom Obs Synthesizer",
+                "30-Day Free Trial Included",
+                "Classroom Review Synthesizer",
                 "Staff Retention Analytics",
                 "Automated SPED Compliance",
-                "Building ROI Dashboard",
-                "Grant Success Predictor"
+                "Building Performance Dashboard",
+                "School-Level Grant Support"
             ]
         },
         {
-            name: "Sovereign Vault",
-            price: (priceData['Sovereign Vault']?.annual || 2997),
-            priceId: priceData['Sovereign Vault']?.annualId,
-            icon: <Crown className="text-amber-400" size={24} />,
+            name: "District Director",
+            price: isAnnual
+                ? (priceData['Director Pack']?.annual || 59.99)
+                : (priceData['Director Pack']?.monthly || 69.99),
+            priceId: isAnnual
+                ? priceData['Director Pack']?.annualId
+                : priceData['Director Pack']?.monthlyId,
+            icon: <LucideShield className="text-noble-gold" size={24} />,
             color: "amber",
-            accent: "from-amber-400 to-yellow-600",
+            accent: "from-noble-gold to-yellow-600",
             shadowColor: "shadow-amber-900/40",
             iconColor: "text-amber-400",
-            idealFor: "Founders & Visionaries",
-            value: "Absolute Sovereignty. Lifetime access.",
+            idealFor: "District Leadership",
+            value: "Centralized district-wide intelligence. Includes 30-Day Trial.",
             features: [
-                "Everything in Enterprise Hub",
-                "Private Neural Node Deployment",
-                "Executive Coaching Credits",
-                "Priority Support Tier 1",
-                "Sovereign Legal Defense Access"
+                "Everything in Professional",
+                "District-Wide Leadership Console",
+                "Executive Performance Analytics",
+                "Tier 1 Support Priority",
+                "State Compliance Safeguards"
             ]
         }
     ];
@@ -157,7 +161,7 @@ export default function PricingMatrix() {
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-500/20 blur-[120px] rounded-full pointer-events-none" />
 
                 <div className="inline-flex items-center gap-2 mb-4 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-widest backdrop-blur-md animate-pulse">
-                    <Star size={12} fill="currentColor" /> 14-Day Sovereign Trial Active
+                    <Star size={12} fill="currentColor" /> 14-Day Professional Trial Active
                 </div>
 
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-widest mb-6 backdrop-blur-md">
@@ -165,11 +169,11 @@ export default function PricingMatrix() {
                 </div>
 
                 <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter uppercase mb-6 relative z-10">
-                    Sovereign <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-violet-500">Value</span>
+                    Professional <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-violet-500">Value</span>
                 </h2>
 
                 <p className="text-zinc-400 text-sm md:text-base font-medium max-w-2xl mx-auto leading-relaxed relative z-10">
-                    Invest in clarity. Our pricing structure is engineered to recapture lost administrative hours and ensure sovereign legal protection from day one.
+                    Invest in clarity. Our pricing structure is engineered to recapture lost administrative hours and ensure strategic legal protection from day one.
                 </p>
 
                 {/* Toggle */}
@@ -274,7 +278,7 @@ export default function PricingMatrix() {
                                 disabled={isPending}
                                 onClick={() => {
                                     if (tier.price === 'Custom') {
-                                        window.location.href = 'mailto:sales@edintel.ai?subject=Sovereign%20District%20Inquiry';
+                                        window.location.href = 'mailto:sales@edintel.ai?subject=Professional%20District%20Inquiry';
                                     } else if (tier.price === 'Free') {
                                         window.location.href = '/signup';
                                     } else {
@@ -292,7 +296,7 @@ export default function PricingMatrix() {
                                 className={`w-full py-4 rounded-xl font-black text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-all duration-300 group-hover:scale-[1.02] ${tier.highlight
                                     ? `bg-gradient-to-r ${tier.accent} text-white shadow-lg shadow-violet-900/40 hover:shadow-violet-900/60`
                                     : 'bg-zinc-900 text-white hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700'} ${isPending ? 'opacity-50 cursor-not-allowed' : ''}`}>
-                                {tier.price === 'Custom' ? 'Contact Protocol' : tier.price === 'Free' ? 'Initialize Node' : (
+                                {tier.price === 'Custom' ? 'Contact Protocol' : tier.price === 'Free' ? 'Initialize Center' : (
                                     <span className="flex items-center gap-2">
                                         {isPending ? (
                                             <>
@@ -345,7 +349,7 @@ export default function PricingMatrix() {
                                         onClick={() => startTransition(async () => {
                                             try {
                                                 await createCheckoutSession('STRIPE_PRICE_TOKEN_1K', false, 'payment');
-                                            } catch (e) { alert("Token Uplink Failed. Please try again."); }
+                                            } catch (e) { alert("Token Connection Failed. Please try again."); }
                                         })}
                                         className="p-2 bg-amber-600 rounded-lg text-white hover:bg-amber-500 transition-colors disabled:opacity-50"
                                     >
@@ -359,7 +363,7 @@ export default function PricingMatrix() {
                                 <div className="flex items-center gap-3">
                                     <div className="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-500 font-bold text-xs">5K</div>
                                     <div>
-                                        <div className="text-sm font-bold text-white uppercase">Sovereign Pack</div>
+                                        <div className="text-sm font-bold text-white uppercase">Professional Pack</div>
                                         <div className="text-[10px] text-zinc-500">Bulk Operations</div>
                                     </div>
                                 </div>
@@ -370,7 +374,7 @@ export default function PricingMatrix() {
                                         onClick={() => startTransition(async () => {
                                             try {
                                                 await createCheckoutSession('STRIPE_PRICE_TOKEN_5K', false, 'payment');
-                                            } catch (e) { alert("Token Uplink Failed. Please try again."); }
+                                            } catch (e) { alert("Token Connection Failed. Please try again."); }
                                         })}
                                         className="p-2 bg-amber-600 rounded-lg text-white hover:bg-amber-500 transition-colors disabled:opacity-50"
                                     >
@@ -394,7 +398,7 @@ export default function PricingMatrix() {
                                         onClick={() => startTransition(async () => {
                                             try {
                                                 await createCheckoutSession('STRIPE_PRICE_TOKEN_10K', false, 'payment');
-                                            } catch (e) { alert("Token Uplink Failed. Please try again."); }
+                                            } catch (e) { alert("Token Connection Failed. Please try again."); }
                                         })}
                                         className="p-2 bg-amber-600 rounded-lg text-white hover:bg-amber-500 transition-colors disabled:opacity-50"
                                     >
@@ -439,7 +443,7 @@ export default function PricingMatrix() {
                         </div>
 
                         <div>
-                            <h3 className="text-2xl font-black text-white uppercase italic tracking-tight mb-2">My "Sovereign Time" Guarantee</h3>
+                            <h3 className="text-2xl font-black text-white uppercase italic tracking-tight mb-2">My "Professional Time" Guarantee</h3>
                             <p className="text-zinc-400 text-sm leading-relaxed max-w-2xl">
                                 "If you don't recover at least <span className="text-white font-bold">10 hours of personal time</span> in your first 30 days using the Practitioner Protocol, I will personally refund your subscription and provide a free 1-on-1 strategy session to fix your workflow. We are in the business of liberation, not just software."
                             </p>

@@ -3,10 +3,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Shield, Brain, Target, Users, ArrowRight, Zap, Check, Lock, Cpu, Globe } from 'lucide-react';
-import useSovereignSounds from '@/hooks/useSovereignSounds';
+import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 import Confetti from 'react-confetti';
 
-export default function OnboardingFlow() {
+export default function OnboardingFlow({ onCompleteAction }: { onCompleteAction?: () => void }) {
     const [step, setStep] = useState(0);
     const [formData, setFormData] = useState({
         districtName: '',
@@ -16,7 +16,7 @@ export default function OnboardingFlow() {
     const [isFinishing, setIsFinishing] = useState(false);
     const [showConfetti, setShowConfetti] = useState(false);
     const router = useRouter();
-    const { playClick, playHover } = useSovereignSounds();
+    const { playClick, playHover } = useProfessionalSounds();
 
     const styles = [
         { name: 'Visionary', desc: 'Focus on future-proof growth and cultural transformation.' },
@@ -39,14 +39,15 @@ export default function OnboardingFlow() {
         // Save to localStorage
         const identity = {
             ...formData,
-            rank: 'REGIONAL COMMANDER',
-            clearance: 'LEVEL 4',
+            rank: 'REGIONAL LEADER',
+            status: 'PROFESSIONAL',
             xp: 2500,
             joinedDate: new Date().toLocaleDateString()
         };
-        localStorage.setItem('sovereign_identity', JSON.stringify(identity));
+        localStorage.setItem('professional_identity', JSON.stringify(identity));
         localStorage.setItem('onboarding_complete', 'true');
 
+        if (onCompleteAction) onCompleteAction();
         setTimeout(() => {
             router.push('/dashboard');
         }, 4000);
@@ -54,45 +55,51 @@ export default function OnboardingFlow() {
 
     const steps = [
         {
-            title: "NEURAL HANDSHAKE",
-            subtitle: "Establishing Sovereign Identity Lattice",
+            title: "WELCOME",
+            subtitle: "Setting Up Your Professional Profile",
             icon: Shield,
             content: (
                 <div className="space-y-6">
                     <p className="text-zinc-400 text-sm leading-relaxed border-l-2 border-indigo-500 pl-4 py-1 italic">
-                        "Welcome to the high-ground, Commander. To reclaim your educational sovereignty, we must first map your neural signature to the district grid."
+                        "Welcome to EdIntel. To help you lead effectively, we first need to set up your executive profile."
                     </p>
                     <div className="relative group/input">
                         <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-xl blur opacity-0 group-hover/input:opacity-100 transition-opacity" />
                         <input
                             type="text"
-                            placeholder="INPUT DISTRICT NAME OR COMMANDER ID..."
+                            placeholder="INPUT DISTRICT NAME OR LEAD ID..."
                             value={formData.districtName}
                             onChange={(e) => setFormData({ ...formData, districtName: e.target.value })}
-                            className="relative w-full bg-zinc-950 border border-white/10 rounded-xl p-5 text-white text-sm font-black uppercase tracking-[0.2em] focus:border-indigo-500 outline-none transition-all placeholder:text-zinc-700"
+                            className="relative w-full bg-zinc-950 border border-white/10 rounded-xl p-5 text-white text-sm font-black uppercase tracking-[0.2em] focus:border-indigo-500 outline-none transition-all placeholder:text-zinc-700 z-10"
                         />
-                        <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[8px] text-indigo-500 font-mono animate-pulse">
-                            AUTHENTICATING...
+                        <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[8px] text-indigo-500 font-mono flex items-center gap-2 z-20 pointer-events-none">
+                            <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-pulse" />
+                            {formData.districtName ? 'VERIFYING ENTITY...' : 'AWAITING INPUT...'}
                         </div>
                     </div>
+                    {formData.districtName && (
+                        <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="text-[10px] text-indigo-400 font-mono uppercase tracking-widest pl-2">
+                            Detected New Node: {formData.districtName} // Initializing Neural Pathway...
+                        </motion.div>
+                    )}
                 </div>
             )
         },
         {
-            title: "STRATEGIC DIRECTIVE",
-            subtitle: "Calibrating Neural Synthesis Priorities",
+            title: "PRIORITY GOALS",
+            subtitle: "Setting Your Leadership Focus",
             icon: Target,
             content: (
                 <div className="space-y-6">
                     <p className="text-zinc-400 text-sm leading-relaxed">
-                        Define your primary mission. This directs every AI delegate in your council to prioritize these specific intelligence vectors.
+                        Define your primary mission. This helps your professional team prioritize the most important areas of focus.
                     </p>
                     <div className="grid grid-cols-1 gap-3">
                         {[
                             { id: 'time', label: 'Reclaiming Administrative Time', sub: 'Automating heavy workflows' },
-                            { id: 'gaps', label: 'Closing Achievement Gaps', sub: 'Neural student success modeling' },
-                            { id: 'policy', label: 'Policy Defensibility & Compliance', sub: 'Legislative shielding' },
-                            { id: 'tech', label: 'Neural AI Integration', sub: 'Full spectrum system evolution' }
+                            { id: 'gaps', label: 'Closing Achievement Gaps', sub: 'Data-driven student success modeling' },
+                            { id: 'policy', label: 'Policy Protection & Compliance', sub: 'Legislative support' },
+                            { id: 'tech', label: 'Strategic AI Integration', sub: 'Full spectrum system evolution' }
                         ].map((obj) => (
                             <button
                                 key={obj.id}
@@ -117,8 +124,8 @@ export default function OnboardingFlow() {
             )
         },
         {
-            title: "EXECUTIVE ARCHETYPE",
-            subtitle: "Fidelity Sync with Delegate Council",
+            title: "LEADERSHIP STYLE",
+            subtitle: "Syncing with Your Executive Team",
             icon: Brain,
             content: (
                 <div className="space-y-6">
@@ -149,8 +156,8 @@ export default function OnboardingFlow() {
             )
         },
         {
-            title: "LATTICE SYNC COMPLETE",
-            subtitle: "Minting Sovereign Identity ID-001",
+            title: "SETUP COMPLETE",
+            subtitle: "Finalizing Your Profile",
             icon: Zap,
             content: (
                 <div className="space-y-8 text-center pt-4">
@@ -168,17 +175,17 @@ export default function OnboardingFlow() {
                     <div className="p-6 rounded-3xl bg-zinc-950 border border-white/10 text-left relative overflow-hidden group">
                         <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                         <div className="flex justify-between text-[7px] font-mono text-indigo-500 uppercase tracking-[0.2em] mb-4">
-                            <span>Sovereign ID Protocol</span>
+                            <span>Identity Profile</span>
                             <span className="animate-pulse">LATENCY: 12ms</span>
                         </div>
                         <div className="space-y-3 relative z-10">
                             <div className="flex justify-between items-end border-b border-white/5 pb-2">
-                                <span className="text-[8px] font-mono text-zinc-500">COMMANDER</span>
-                                <span className="text-[10px] font-black uppercase text-white tracking-widest">{formData.districtName || 'ANONYMOUS'}</span>
+                                <span className="text-[8px] font-mono text-zinc-500">LEADER</span>
+                                <span className="text-[10px] font-black uppercase text-white tracking-widest">{formData.districtName || 'GUEST LEADER'}</span>
                             </div>
                             <div className="flex justify-between items-end border-b border-white/5 pb-2">
                                 <span className="text-[8px] font-mono text-zinc-500">OBJECTIVE</span>
-                                <span className="text-[10px] font-bold text-indigo-400">{formData.objective || 'GENERAL_DEFENSE'}</span>
+                                <span className="text-[10px] font-bold text-indigo-400">{formData.objective || 'STRATEGIC_PLANNING'}</span>
                             </div>
                             <div className="flex justify-between items-end">
                                 <span className="text-[8px] font-mono text-zinc-500">ARCHETYPE</span>
@@ -187,7 +194,7 @@ export default function OnboardingFlow() {
                         </div>
                     </div>
 
-                    <p className="text-[9px] text-zinc-500 uppercase tracking-widest">Generating high-clearance executive credentials...</p>
+                    <p className="text-[9px] text-zinc-500 uppercase tracking-widest">Preparing your professional leadership profile...</p>
                 </div>
             )
         }
@@ -207,11 +214,11 @@ export default function OnboardingFlow() {
                     <div className="flex justify-between items-center mb-8 px-4 opacity-50">
                         <div className="flex items-center gap-2">
                             <Globe size={12} className="text-zinc-500" />
-                            <span className="text-[8px] font-mono text-zinc-500 uppercase tracking-widest">Global Sovereign Network (v6.2)</span>
+                            <span className="text-[8px] font-mono text-zinc-500 uppercase tracking-widest">Global Leadership Network (v6.2)</span>
                         </div>
                         <div className="flex items-center gap-2 text-rose-500">
                             <Lock size={10} />
-                            <span className="text-[8px] font-mono uppercase tracking-widest">Secured Uplink</span>
+                            <span className="text-[8px] font-mono uppercase tracking-widest">Secured Connection</span>
                         </div>
                     </div>
 
@@ -267,14 +274,14 @@ export default function OnboardingFlow() {
                                                 disabled={step === 0 && !formData.districtName}
                                                 className="group flex items-center gap-3 px-10 py-5 rounded-[2rem] bg-white text-black font-black text-[10px] uppercase tracking-[0.2em] hover:bg-indigo-500 hover:text-white transition-all disabled:opacity-20 disabled:hover:bg-white disabled:hover:text-black shadow-xl hover:shadow-indigo-500/20"
                                             >
-                                                Next Iteration <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                                                Next Step <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                                             </button>
                                         ) : (
                                             <button
                                                 onClick={finishOnboarding}
                                                 className="group flex items-center gap-3 px-10 py-5 rounded-[2rem] bg-indigo-600 text-white font-black text-[10px] uppercase tracking-[0.2em] hover:bg-emerald-500 transition-all shadow-xl hover:shadow-emerald-500/20"
                                             >
-                                                Ascend to Command Deck <Zap size={16} fill="currentColor" className="animate-pulse" />
+                                                Enter Dashboard <Zap size={16} fill="currentColor" className="animate-pulse" />
                                             </button>
                                         )}
                                     </div>
@@ -293,8 +300,8 @@ export default function OnboardingFlow() {
                                         <Cpu className="text-indigo-400 w-16 h-16 animate-pulse" />
                                     </div>
                                 </div>
-                                <h2 className="text-5xl font-black uppercase tracking-tighter mb-4 text-white">Identity Calibrated</h2>
-                                <p className="text-zinc-500 font-mono text-[9px] uppercase tracking-[0.4em] mb-12">Synchronizing Neural Threads across the District Lattice...</p>
+                                <h2 className="text-5xl font-black uppercase tracking-tighter mb-4 text-white">Profile Complete</h2>
+                                <p className="text-zinc-500 font-mono text-[9px] uppercase tracking-[0.4em] mb-12">Finalizing your executive profile...</p>
 
                                 <div className="flex justify-center gap-4">
                                     <div className="w-1 h-1 rounded-full bg-indigo-500 animate-bounce" style={{ animationDelay: '0s' }} />
@@ -309,7 +316,7 @@ export default function OnboardingFlow() {
 
             {/* Background Data Stream */}
             <div className="absolute top-1/2 left-0 w-full -translate-y-1/2 opacity-[0.03] pointer-events-none select-none font-mono text-[80px] font-black tracking-tighter whitespace-nowrap overflow-hidden z-0">
-                SOVEREIGN INTELLIGENCE NETWORK SOVEREIGN INTELLIGENCE NETWORK SOVEREIGN INTELLIGENCE NETWORK
+                EDINTEL LEADERSHIP NETWORK EDINTEL LEADERSHIP NETWORK EDINTEL LEADERSHIP NETWORK
             </div>
         </div>
     );

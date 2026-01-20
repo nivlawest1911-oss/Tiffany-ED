@@ -23,7 +23,7 @@ export default function DistrictBudgetOptimizer() {
                     </div>
                     <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[8px] font-black uppercase tracking-widest">
                         <TrendingUp size={10} />
-                        <span>Capital Recovery</span>
+                        <span>Budget Analysis</span>
                     </div>
                 </div>
 
@@ -32,14 +32,14 @@ export default function DistrictBudgetOptimizer() {
                 </h3>
 
                 <p className="text-sm text-zinc-500 leading-relaxed font-medium mb-6">
-                    Analyze district-wide spending patterns to identify leakage and recover instructional capital. Sovereign financial intelligence for the modern superintendent.
+                    Analyze district spending patterns to identify savings and optimize resource allocation. Data-driven financial insights for educational leadership.
                 </p>
 
                 <div className="space-y-3">
                     {[
                         { icon: PieChart, text: "Spending Variance Analysis" },
-                        { icon: ShieldAlert, text: "Compliance Risk Mapping" },
-                        { icon: FileSearch, text: "Grant Opportunity Mining" }
+                        { icon: ShieldAlert, text: "Strategic Planning" },
+                        { icon: FileSearch, text: "Grant Resource Discovery" }
                     ].map((item, i) => (
                         <div key={i} className="flex items-center gap-3 text-xs text-zinc-400 font-mono">
                             <item.icon size={12} className="text-emerald-500/50" />
@@ -50,13 +50,18 @@ export default function DistrictBudgetOptimizer() {
             </div>
 
             <div className="relative z-10 pt-6 border-t border-white/5">
-                <button className="w-full h-12 rounded-full bg-white text-black text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:scale-105 transition-all">
-                    <span>Initiate Audit</span>
-                    <ArrowRight size={14} />
+                <button className="w-full h-12 rounded-full bg-white text-black text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:scale-105 transition-all relative overflow-hidden group">
+                    <span className="relative z-10 group-hover:opacity-0 transition-opacity flex items-center gap-2">
+                        <span>Analyze Budget</span>
+                        <ArrowRight size={14} />
+                    </span>
+                    <span className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-emerald-500 text-white font-black">
+                        INITIATE FISCAL SCAN
+                    </span>
                 </button>
             </div>
 
-            {/* Neural Pattern Ornament */}
+            {/* Strategic Pattern Ornament */}
             <div className="absolute bottom-4 right-4 opacity-20 group-hover:opacity-40 transition-opacity">
                 <Brain size={120} className="text-emerald-500/10 rotate-12" />
             </div>

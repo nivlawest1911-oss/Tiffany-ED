@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Upload, FileText, CheckCircle, AlertTriangle, XCircle, Shield as LucideShield, Sparkles } from "lucide-react";
+import { Upload, FileText, CheckCircle, AlertTriangle, XCircle, Shield as LucideShield, Sparkles, Loader2 } from "lucide-react";
 
 interface ComplianceMarker {
     id: string;
@@ -81,10 +81,25 @@ export default function AutomatedIEPAudit() {
         }
     };
 
+    const [scanStep, setScanStep] = useState(0);
+    const scanSteps = [
+        "Digitizing Document Structure...",
+        "Identifying Compliance Markers...",
+        "Cross-Referencing IDEA Mandates...",
+        "Validating Procedural Safeguards...",
+        "Generating Compliance Report..."
+    ];
+
     const handleAnalyze = async () => {
         if (!file) return;
 
         setIsAnalyzing(true);
+        setScanStep(0);
+
+        // Simulate scanning steps
+        const stepInterval = setInterval(() => {
+            setScanStep(curr => (curr < scanSteps.length - 1 ? curr + 1 : curr));
+        }, 800);
 
         try {
             const response = await fetch('/api/classroom', {
@@ -110,23 +125,26 @@ export default function AutomatedIEPAudit() {
 
             setComplianceMarkers(updatedMarkers);
             setAuditComplete(true);
+            clearInterval(stepInterval);
         } catch (error) {
             console.error("Audit failed:", error);
-            alert("Sovereign Audit Node timed out. Please retry.");
+            alert("The audit process timed out. Please try uploading again.");
+            clearInterval(stepInterval);
         } finally {
             setIsAnalyzing(false);
+            clearInterval(stepInterval);
         }
     };
 
     const downloadReport = () => {
-        const header = `EdIntel Sovereign Audit Report\nGenerated: ${new Date().toLocaleString()}\nCompliance: ${compliancePercentage}%\n\n`;
+        const header = `EdIntel Professional Review Report\nGenerated: ${new Date().toLocaleString()}\nCompliance: ${compliancePercentage}%\n\n`;
         const statsStr = `Passed: ${passCount}\nWarnings: ${warningCount}\nFailed: ${failCount}\n\n`;
         const details = complianceMarkers.map(m => `${m.status.toUpperCase()}: ${m.name}\n${m.description}\nRef: ${m.reference}\n\n`).join('');
         const blob = new Blob([header + statsStr + details], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `IEP-Audit-${file?.name || 'Report'}.txt`;
+        a.download = `IEP-Review-${file?.name || 'Report'}.txt`;
         a.click();
     };
 
@@ -161,8 +179,8 @@ export default function AutomatedIEPAudit() {
                         <LucideShield className="text-white" size={24} />
                     </div>
                     <div>
-                        <h2 className="text-2xl font-bold text-zinc-900 dark:text-white">Automated IEP Audit</h2>
-                        <p className="text-sm text-zinc-500 dark:text-zinc-400">IDEA Part B & C Compliance Verification</p>
+                        <h2 className="text-2xl font-bold text-zinc-900 dark:text-white">Professional IEP Review</h2>
+                        <p className="text-sm text-zinc-500 dark:text-zinc-400">IDEA Part B & C Standards Verification</p>
                     </div>
                 </div>
                 {auditComplete && (
@@ -208,18 +226,23 @@ export default function AutomatedIEPAudit() {
                 <button
                     onClick={handleAnalyze}
                     disabled={isAnalyzing}
-                    className="w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold text-lg hover:from-blue-500 hover:to-indigo-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mb-6"
+                    className="w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold text-lg hover:from-blue-500 hover:to-indigo-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex flex-col items-center justify-center gap-1 mb-6 relative overflow-hidden"
                 >
-                    {isAnalyzing ? (
-                        <>
-                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                            Analyzing IEP...
-                        </>
-                    ) : (
-                        <>
-                            <LucideShield size={20} />
-                            Run Compliance Audit
-                        </>
+                    {isAnalyzing && (
+                        <div className="absolute inset-0 bg-blue-700/50 flex items-center justify-center z-0">
+                            <div className="w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" style={{ backgroundSize: '200% 100%' }} />
+                        </div>
+                    )}
+
+                    <div className="relative z-10 flex items-center gap-2">
+                        {isAnalyzing ? <Loader2 className="animate-spin" size={20} /> : <LucideShield size={20} />}
+                        <span>{isAnalyzing ? scanSteps[scanStep] : 'Run Compliance Audit'}</span>
+                    </div>
+
+                    {isAnalyzing && (
+                        <div className="h-1 w-32 bg-blue-900/50 rounded-full mt-2 overflow-hidden relative z-10">
+                            <div className="h-full bg-white/80 transition-all duration-500" style={{ width: `${((scanStep + 1) / scanSteps.length) * 100}%` }} />
+                        </div>
                     )}
                 </button>
             )}
@@ -280,7 +303,7 @@ export default function AutomatedIEPAudit() {
             {/* Info Footer */}
             <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
                 <p className="text-xs text-blue-700 dark:text-blue-400 leading-relaxed">
-                    <strong>Powered by:</strong> Alabama Mastering the Maze (2025), IDEA Federal Command Node, NCLD Learning Disabilities Snapshot, AbleSpace/Playground IEP Benchmarks
+                    <strong>Analyzed using:</strong> Alabama Mastering the Maze (2025), IDEA Federal Guidelines, NCLD Quality Benchmarks, and Professional Educational Standards.
                 </p>
             </div>
         </div>

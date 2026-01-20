@@ -6,7 +6,7 @@ import EnhancedGenerator from '@/components/EnhancedGenerator';
 const AVATAR_MAP: Record<string, { name: string, role: string, image: string }> = {
     'principal': { name: "Dr. Alvin West", role: "Executive Principal", image: "/images/dr_alvin_west.png" },
     'counselor': { name: "Andre Patterson", role: "Behavior Intervention Lead", image: "/images/avatars/behavior_specialist.png" },
-    'data': { name: "Marcus Johnson", role: "Sovereign Stem Lead", image: "/images/avatars/stem_coordinator.png" },
+    'data': { name: "Marcus Johnson", role: "Professional Stem Lead", image: "/images/avatars/stem_coordinator.png" },
     'compliance': { name: "Dr. Maya Washington", role: "IEP Compliance Architect", image: "/images/avatars/iep_architect.png" },
     'curriculum': { name: "Sarah West", role: "Curriculum Strategist", image: "/images/avatars/curriculum_strategist.png" },
     'literacy': { name: "Dr. Emily Robinson", role: "Literacy & Data Scientist", image: "/images/avatars/literacy_coach.png" },
@@ -37,7 +37,7 @@ export default async function GeneratorPage({ params }: { params: Promise<{ id: 
             generatorId={generator.id}
             generatorName={generator.name}
             generatorColor={generator.color}
-            iconNode={<Icon size={32} className="text-white" />}
+            iconCenter={<Icon size={32} className="text-white" />}
             prompts={generator.prompts}
             heroImage={generator.heroImage}
             heroVideo={generator.heroVideo}

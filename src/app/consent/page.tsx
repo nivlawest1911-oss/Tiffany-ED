@@ -199,7 +199,7 @@ export default function ParentalOptIn() {
 
       <footer className="py-12 border-t border-zinc-100 dark:border-zinc-900 opacity-40 text-center">
         <p className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500">
-          Sovereign Governance Node // Mobile County Branch
+          Professional Governance Center // Mobile County Branch
         </p>
       </footer>
     </div>

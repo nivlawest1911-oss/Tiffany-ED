@@ -33,9 +33,24 @@ export default function EQGenerator() {
         { id: 'District', label: 'Central Office', icon: <Dna size={16} /> },
     ];
 
+    const [genStep, setGenStep] = useState(0);
+    const generationSteps = [
+        "Calibrating Emotional Baseline...",
+        "Scanning Stakeholder Dynamics...",
+        "Applying Conflict Resolution models...",
+        "Drafting Empathetic Response...",
+        "Finalizing Communication Protocol..."
+    ];
+
     const handleGenerate = async () => {
         if (!situation.trim()) return;
         setIsGenerating(true);
+        setGenStep(0);
+
+        // Simulate thinking steps
+        const stepInterval = setInterval(() => {
+            setGenStep(curr => (curr < generationSteps.length - 1 ? curr + 1 : curr));
+        }, 1200);
 
         try {
             const res = await fetch('/api/eq', {
@@ -54,18 +69,21 @@ export default function EQGenerator() {
                 data = JSON.parse(textResponse);
             } catch (err) {
                 console.error("EQ API returned non-JSON:", textResponse);
-                throw new Error("Neural Link Unstable: Received invalid response format.");
+                throw new Error("Strategic Link Unstable: Received invalid response format.");
             }
 
             if (!res.ok || data.error) {
-                throw new Error(data?.error || "Neural Link disrupted.");
+                throw new Error(data?.error || "Strategic Link disrupted.");
             }
 
             setOutput(data.output);
+            clearInterval(stepInterval);
         } catch (e) {
-            setOutput("EQ Neural Link interrupted. Retrying...");
+            setOutput("EQ Strategic Link interrupted. Retrying...");
+            clearInterval(stepInterval);
         } finally {
             setIsGenerating(false);
+            clearInterval(stepInterval);
         }
     };
 
@@ -89,7 +107,7 @@ export default function EQGenerator() {
                     </div>
                     <div className="flex items-center gap-2 px-3 py-1.5 bg-purple-500/10 border border-purple-500/20 rounded-full">
                         <Zap size={14} className="text-purple-400" />
-                        <span className="text-[10px] font-bold text-purple-400 uppercase tracking-widest">Neural Sync</span>
+                        <span className="text-[10px] font-bold text-purple-400 uppercase tracking-widest">Strategic Sync</span>
                     </div>
                 </div>
 
@@ -126,10 +144,23 @@ export default function EQGenerator() {
                     <button
                         onClick={handleGenerate}
                         disabled={isGenerating || !situation.trim()}
-                        className="w-full py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl font-bold flex items-center justify-center gap-3 hover:from-purple-500 hover:to-pink-500 transition-all shadow-xl shadow-purple-900/20 disabled:opacity-50"
+                        className="w-full py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl font-bold flex flex-col items-center justify-center gap-1 hover:from-purple-500 hover:to-pink-500 transition-all shadow-xl shadow-purple-900/20 disabled:opacity-50 relative overflow-hidden"
                     >
-                        {isGenerating ? <Loader2 className="animate-spin" size={20} /> : <Sparkles size={20} />}
-                        Synchronize Emotional Response
+                        {isGenerating && (
+                            <div className="absolute inset-0 bg-purple-700/50 flex items-center justify-center z-0">
+                                <div className="w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" style={{ backgroundSize: '200% 100%' }} />
+                            </div>
+                        )}
+
+                        <div className="relative z-10 flex items-center gap-3">
+                            {isGenerating ? <Loader2 className="animate-spin" size={20} /> : <Sparkles size={20} />}
+                            <span>{isGenerating ? generationSteps[genStep] : 'Synchronize Emotional Response'}</span>
+                        </div>
+                        {isGenerating && (
+                            <div className="h-1 w-32 bg-purple-900/50 rounded-full mt-2 overflow-hidden relative z-10">
+                                <div className="h-full bg-white/80 transition-all duration-500" style={{ width: `${((genStep + 1) / generationSteps.length) * 100}%` }} />
+                            </div>
+                        )}
                     </button>
 
                     {output && (
@@ -145,7 +176,7 @@ export default function EQGenerator() {
                     )}
                 </div>
 
-                {/* Community Node */}
+                {/* Community Center */}
                 <div className="mt-8 pt-8 border-t border-zinc-900 grid grid-cols-2 gap-4">
                     <div className="p-4 rounded-xl bg-purple-500/5 border border-purple-500/10 flex items-center gap-3 transition-all hover:bg-purple-500/10">
                         <UserPlus size={18} className="text-purple-400" />

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Grid, List, Zap, Shield as LucideShield, BookOpen, Users, Activity, Briefcase } from 'lucide-react';
 import { GENERATORS } from '@/data/generators';
-import NeuralBackground from '@/components/NeuralBackground';
+import ProfessionalBackground from '@/components/ProfessionalBackground';
 
 export default function GeneratorsIndexPage() {
     const [searchQuery, setSearchQuery] = useState("");
@@ -46,7 +46,7 @@ export default function GeneratorsIndexPage() {
 
     return (
         <div className="min-h-screen bg-black text-white selection:bg-indigo-500/30 font-sans relative overflow-hidden">
-            <NeuralBackground />
+            <ProfessionalBackground />
 
             <main className="relative max-w-7xl mx-auto px-6 py-12">
                 {/* Header Section */}
@@ -59,10 +59,10 @@ export default function GeneratorsIndexPage() {
                         <div>
                             <div className="flex items-center gap-2 text-indigo-400 mb-2">
                                 <Zap className="w-5 h-5" />
-                                <span className="text-sm font-bold tracking-widest uppercase">Sovereign Command Deck</span>
+                                <span className="text-sm font-bold tracking-widest uppercase">Professional Command Deck</span>
                             </div>
                             <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-2">
-                                Neural <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Protocols</span>
+                                Strategic <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Protocols</span>
                             </h1>
                             <p className="text-zinc-400 max-w-xl text-lg">
                                 Access specialized AI agents for every dimension of educational leadership.

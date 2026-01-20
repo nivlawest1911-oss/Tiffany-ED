@@ -172,7 +172,7 @@ Your request has been processed. Here's a tailored response based on Alabama edu
 
 [Generated content would appear here based on your specific prompt]
 
-*Powered by EdIntel Sovereign AI - Peer-reviewed methodology from Frontiers in Psychology (2025)*`
+*Powered by EdIntel Professional AI - Peer-reviewed methodology from Frontiers in Psychology (2025)*`
 
     for (let i = 0; i <= fullResponse.length; i += 3) {
       await new Promise((resolve) => setTimeout(resolve, 10))
@@ -205,7 +205,7 @@ Your request has been processed. Here's a tailored response based on Alabama edu
             AI-POWERED GENERATORS
           </div>
           <h2 className="font-black tracking-tighter text-4xl md:text-6xl text-white mb-4">
-            Neural <span className="gradient-text">Intelligence</span> Hub
+            Strategic <span className="gradient-text">Intelligence</span> Hub
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
             Six specialized AI assistants designed for Alabama educators. Generate IEPs, emails, lesson plans, and more
@@ -279,7 +279,7 @@ Your request has been processed. Here's a tailored response based on Alabama edu
                   })()}
                   <div>
                     <h3 className="font-black tracking-tighter text-xl text-white">{activeGenerator.name}</h3>
-                    <p className="text-xs text-gray-400">Sovereign AI v4.0</p>
+                    <p className="text-xs text-gray-400">Professional AI v4.0</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -338,7 +338,7 @@ Your request has been processed. Here's a tailored response based on Alabama edu
                 ) : (
                   <>
                     <Send className="w-5 h-5" />
-                    Generate with Sovereign AI
+                    Generate with Professional AI
                   </>
                 )}
               </button>

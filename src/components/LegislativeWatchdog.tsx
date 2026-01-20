@@ -2,12 +2,12 @@
 import { motion } from 'framer-motion';
 import { ScrollText, ExternalLink, RefreshCw, AlertTriangle } from 'lucide-react';
 import { useState } from 'react';
-import useSovereignSounds from '@/hooks/useSovereignSounds';
+import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 
 export default function LegislativeWatchdog({ onTriggerSynthesisAction }: { onTriggerSynthesisAction?: (prompt: string) => void }) {
     const [isRefreshing, setIsRefreshing] = useState(false);
     const [hasCriticalAlert, setHasCriticalAlert] = useState(true);
-    const { playClick } = useSovereignSounds();
+    const { playClick } = useProfessionalSounds();
 
     const refreshFeed = () => {
         setIsRefreshing(true);
@@ -58,7 +58,7 @@ export default function LegislativeWatchdog({ onTriggerSynthesisAction }: { onTr
                     </div>
                     <div className="flex items-center gap-3 mb-2">
                         <AlertTriangle size={14} className="text-rose-500" />
-                        <span className="text-[9px] font-black text-rose-500 uppercase tracking-[0.2em]">Priority Neural Signal</span>
+                        <span className="text-[9px] font-black text-rose-500 uppercase tracking-[0.2em]">Priority Strategic Signal</span>
                     </div>
                     <h4 className="text-xs font-bold text-white mb-1">Alabama Literacy Act: Amendment Critical</h4>
                     <p className="text-[10px] text-zinc-400 leading-tight mb-3">Recent floor changes mandate immediate curriculum pivot for Spring '26.</p>
@@ -72,7 +72,7 @@ export default function LegislativeWatchdog({ onTriggerSynthesisAction }: { onTr
                         }}
                         className="w-full py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-[9px] font-black uppercase tracking-widest transition-all shadow-lg shadow-rose-900/40"
                     >
-                        Trigger Sovereign Defense Synthesis
+                        Trigger Professional Defense Synthesis
                     </button>
                 </motion.div>
             )}
@@ -108,7 +108,7 @@ export default function LegislativeWatchdog({ onTriggerSynthesisAction }: { onTr
 
             <div className="mt-4 pt-3 border-t border-white/5">
                 <button className="w-full py-2 flex items-center justify-center gap-2 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500 hover:text-white transition-colors group">
-                    Enter Montgomery Node <ExternalLink size={10} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    Enter Montgomery Center <ExternalLink size={10} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </button>
             </div>
         </div>

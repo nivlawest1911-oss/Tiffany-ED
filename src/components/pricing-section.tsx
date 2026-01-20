@@ -8,7 +8,7 @@ export function PricingSection() {
 
   const tiers = [
     {
-      name: "SOVEREIGN INITIATE",
+      name: "PROFESSIONAL INITIATE",
       subtitle: "OBSERVERS & NEW USERS",
       price: "0",
       priceNote: "/mo",
@@ -48,14 +48,14 @@ export function PricingSection() {
       badge: null,
     },
     {
-      name: "SOVEREIGN PACK",
+      name: "PROFESSIONAL PACK",
       subtitle: "INDIVIDUAL EDUCATORS",
       price: billingPeriod === "monthly" ? "39.99" : "31.99",
       priceNote: "/mo",
       trial: "30-day free trial",
       icon: Crown,
       color: "#d4af37",
-      stripeLink: "https://buy.stripe.com/sovereign",
+      stripeLink: "https://buy.stripe.com/professional",
       features: [
         "Unlimited AI Generators",
         "Full Legal Vault Access",
@@ -78,7 +78,7 @@ export function PricingSection() {
       color: "#10b981",
       stripeLink: "https://buy.stripe.com/practitioner",
       features: [
-        "Everything in Sovereign Pack",
+        "Everything in Professional Pack",
         "IEP Architect Full Access",
         "Lesson Plan Generator Pro",
         "Policy Advisor AI",
@@ -143,14 +143,14 @@ export function PricingSection() {
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#10b981]/10 border border-[#10b981]/30 text-[#10b981] text-sm mb-4">
             <Star className="w-4 h-4 fill-current" />
-            30 DAY SOVEREIGN TRIAL ON ALL PAID PLANS
+            30 DAY PROFESSIONAL TRIAL ON ALL PAID PLANS
           </div>
           <h2 className="font-black tracking-tighter text-5xl md:text-7xl mb-4">
-            <span className="text-white">SOVEREIGN</span> <span className="gradient-text">VALUE</span>
+            <span className="text-white">PROFESSIONAL</span> <span className="gradient-text">VALUE</span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto text-lg">
             Invest in clarity. Our pricing structure is engineered to recapture lost administrative hours and ensure
-            sovereign legal protection from day one.
+            strategic legal protection from day one.
           </p>
         </div>
 
@@ -159,21 +159,19 @@ export function PricingSection() {
           <div className="inline-flex items-center p-1.5 rounded-full bg-gray-900/80 border border-gray-800 backdrop-blur-sm">
             <button
               onClick={() => setBillingPeriod("monthly")}
-              className={`px-6 py-3 rounded-full text-sm font-bold tracking-wider transition-all touch-target ${
-                billingPeriod === "monthly"
-                  ? "bg-gradient-to-r from-[#00d2ff] to-[#10b981] text-black shadow-lg"
-                  : "text-gray-400 hover:text-white"
-              }`}
+              className={`px-6 py-3 rounded-full text-sm font-bold tracking-wider transition-all touch-target ${billingPeriod === "monthly"
+                ? "bg-gradient-to-r from-[#00d2ff] to-[#10b981] text-black shadow-lg"
+                : "text-gray-400 hover:text-white"
+                }`}
             >
               MONTHLY SYNC
             </button>
             <button
               onClick={() => setBillingPeriod("annual")}
-              className={`px-6 py-3 rounded-full text-sm font-bold tracking-wider transition-all flex items-center gap-2 touch-target ${
-                billingPeriod === "annual"
-                  ? "bg-gradient-to-r from-[#00d2ff] to-[#10b981] text-black shadow-lg"
-                  : "text-gray-400 hover:text-white"
-              }`}
+              className={`px-6 py-3 rounded-full text-sm font-bold tracking-wider transition-all flex items-center gap-2 touch-target ${billingPeriod === "annual"
+                ? "bg-gradient-to-r from-[#00d2ff] to-[#10b981] text-black shadow-lg"
+                : "text-gray-400 hover:text-white"
+                }`}
             >
               ANNUAL NEXUS
               <span className="px-2 py-0.5 bg-[#d4af37] rounded text-xs text-black font-bold">-20%</span>
@@ -190,21 +188,19 @@ export function PricingSection() {
             return (
               <div
                 key={tier.name}
-                className={`relative p-6 rounded-2xl transition-all duration-500 ${
-                  isHighlighted ? "glass-card-emerald" : "glass-card"
-                }`}
+                className={`relative p-6 rounded-2xl transition-all duration-500 ${isHighlighted ? "glass-card-emerald" : "glass-card"
+                  }`}
               >
                 {tier.badge && (
                   <div
-                    className={`absolute -top-3 left-4 px-3 py-1 text-xs font-bold rounded-full ${
-                      tier.badge === "MOST POPULAR"
-                        ? "bg-gradient-to-r from-[#10b981] to-[#00d2ff] text-black"
-                        : tier.badge === "ENTERPRISE"
-                          ? "bg-[#ef4444] text-white"
-                          : tier.badge === "BEST VALUE"
-                            ? "bg-[#d4af37] text-black"
-                            : "bg-[#00d2ff]/20 text-[#00d2ff] border border-[#00d2ff]/40"
-                    }`}
+                    className={`absolute -top-3 left-4 px-3 py-1 text-xs font-bold rounded-full ${tier.badge === "MOST POPULAR"
+                      ? "bg-gradient-to-r from-[#10b981] to-[#00d2ff] text-black"
+                      : tier.badge === "ENTERPRISE"
+                        ? "bg-[#ef4444] text-white"
+                        : tier.badge === "BEST VALUE"
+                          ? "bg-[#d4af37] text-black"
+                          : "bg-[#00d2ff]/20 text-[#00d2ff] border border-[#00d2ff]/40"
+                      }`}
                   >
                     {tier.badge}
                   </div>
@@ -234,11 +230,10 @@ export function PricingSection() {
 
                 <a
                   href={tier.stripeLink}
-                  className={`w-full py-3 rounded-xl font-bold text-sm tracking-wider transition-all flex items-center justify-center gap-2 touch-target ${
-                    isHighlighted
-                      ? "bg-gradient-to-r from-[#10b981] to-[#00d2ff] text-black"
-                      : "border hover:bg-white/5"
-                  }`}
+                  className={`w-full py-3 rounded-xl font-bold text-sm tracking-wider transition-all flex items-center justify-center gap-2 touch-target ${isHighlighted
+                    ? "bg-gradient-to-r from-[#10b981] to-[#00d2ff] text-black"
+                    : "border hover:bg-white/5"
+                    }`}
                   style={{
                     borderColor: !isHighlighted ? `${tier.color}50` : undefined,
                     color: !isHighlighted ? tier.color : undefined,
@@ -261,21 +256,19 @@ export function PricingSection() {
             return (
               <div
                 key={tier.name}
-                className={`relative p-6 lg:p-8 rounded-3xl transition-all duration-500 ${
-                  isHighlighted ? "glass-card-emerald scale-105 z-10" : "glass-card hover:scale-[1.02]"
-                }`}
+                className={`relative p-6 lg:p-8 rounded-3xl transition-all duration-500 ${isHighlighted ? "glass-card-emerald scale-105 z-10" : "glass-card hover:scale-[1.02]"
+                  }`}
               >
                 {tier.badge && (
                   <div
-                    className={`absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1.5 text-xs font-bold rounded-full shadow-lg whitespace-nowrap ${
-                      tier.badge === "MOST POPULAR"
-                        ? "bg-gradient-to-r from-[#10b981] to-[#00d2ff] text-black"
-                        : tier.badge === "ENTERPRISE"
-                          ? "bg-[#ef4444] text-white"
-                          : tier.badge === "BEST VALUE"
-                            ? "bg-[#d4af37] text-black"
-                            : "bg-[#00d2ff]/20 text-[#00d2ff] border border-[#00d2ff]/40"
-                    }`}
+                    className={`absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1.5 text-xs font-bold rounded-full shadow-lg whitespace-nowrap ${tier.badge === "MOST POPULAR"
+                      ? "bg-gradient-to-r from-[#10b981] to-[#00d2ff] text-black"
+                      : tier.badge === "ENTERPRISE"
+                        ? "bg-[#ef4444] text-white"
+                        : tier.badge === "BEST VALUE"
+                          ? "bg-[#d4af37] text-black"
+                          : "bg-[#00d2ff]/20 text-[#00d2ff] border border-[#00d2ff]/40"
+                      }`}
                   >
                     {tier.badge}
                   </div>
@@ -323,11 +316,10 @@ export function PricingSection() {
 
                 <a
                   href={tier.stripeLink}
-                  className={`w-full py-3 lg:py-4 rounded-xl font-bold tracking-wider transition-all flex items-center justify-center gap-2 touch-target text-sm ${
-                    isHighlighted
-                      ? "bg-gradient-to-r from-[#10b981] to-[#00d2ff] text-black hover:opacity-90 shadow-[0_0_30px_rgba(16,185,129,0.4)]"
-                      : "border-2 hover:bg-white/5"
-                  }`}
+                  className={`w-full py-3 lg:py-4 rounded-xl font-bold tracking-wider transition-all flex items-center justify-center gap-2 touch-target text-sm ${isHighlighted
+                    ? "bg-gradient-to-r from-[#10b981] to-[#00d2ff] text-black hover:opacity-90 shadow-[0_0_30px_rgba(16,185,129,0.4)]"
+                    : "border-2 hover:bg-white/5"
+                    }`}
                   style={{
                     borderColor: !isHighlighted ? `${tier.color}50` : undefined,
                     color: !isHighlighted ? tier.color : undefined,
@@ -359,7 +351,7 @@ export function PricingSection() {
             </thead>
             <tbody>
               <tr className="border-b border-gray-800/50">
-                <td className="py-3 text-white font-medium">Sovereign Initiate</td>
+                <td className="py-3 text-white font-medium">Professional Initiate</td>
                 <td className="py-3 text-center text-[#00d2ff]">Free</td>
                 <td className="py-3 text-center text-gray-400">5/mo</td>
                 <td className="py-3 text-center text-gray-400">Preview</td>
@@ -375,7 +367,7 @@ export function PricingSection() {
                 <td className="py-3 text-center text-gray-400">Community</td>
               </tr>
               <tr className="border-b border-gray-800/50">
-                <td className="py-3 text-white font-medium">Sovereign Pack</td>
+                <td className="py-3 text-white font-medium">Professional Pack</td>
                 <td className="py-3 text-center text-[#d4af37]">$39.99</td>
                 <td className="py-3 text-center text-[#10b981]">Unlimited</td>
                 <td className="py-3 text-center text-[#10b981]">Full</td>

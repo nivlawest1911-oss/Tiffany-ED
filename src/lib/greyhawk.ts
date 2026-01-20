@@ -36,7 +36,7 @@ export async function summonProfessor(script: string, professorType: string) {
         // Simulating the "engine" result for now
         const transientUrl = "https://example.com/transient-professor-video.mp4";
 
-        // 2. Immediate Deposit to Memory Bank (Sovereignty)
+        // 2. Immediate Deposit to Memory Bank (Leadership)
         const vaultUrl = await depositToMemoryBank(transientUrl, `professors/${professorType}-${Date.now()}.mp4`);
 
         return vaultUrl;

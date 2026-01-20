@@ -12,10 +12,10 @@ export default function Blog() {
             <section className="relative pt-24 pb-12 px-6 border-b border-zinc-800 bg-zinc-900/50">
                 <div className="max-w-7xl mx-auto text-center space-y-6">
                     <h1 className="text-4xl md:text-6xl font-black tracking-tight uppercase">
-                        Sovereign <span className="text-amber-600">Intel</span> Log
+                        Professional <span className="text-amber-600">Intel</span> Log
                     </h1>
                     <p className="text-lg text-zinc-400 max-w-2xl mx-auto">
-                        Transmissions regarding Neural Architecture, Ed-Tech Compliance, and the Sovereign Token Economy.
+                        Transmissions regarding Strategic Architecture, Ed-Tech Compliance, and the Professional Token Economy.
                     </p>
 
                     <div className="max-w-xl mx-auto relative group mt-8">
@@ -43,7 +43,7 @@ export default function Blog() {
 
                     <h2 className="text-2xl font-black uppercase tracking-tight mb-4 relative z-10">Subscribe to the Signal</h2>
                     <p className="text-zinc-400 mb-8 max-w-lg mx-auto relative z-10">
-                        Receive critical updates on Sovereign Architecture and District Integation protocols directly to your neural feed.
+                        Receive critical updates on Professional Architecture and District Integation protocols directly to your neural feed.
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">

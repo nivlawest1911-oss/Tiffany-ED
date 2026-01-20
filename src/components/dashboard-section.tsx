@@ -11,8 +11,8 @@ export function DashboardSection() {
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-12">
-          <h3 className="font-black tracking-tighter text-3xl md:text-5xl text-[#00d2ff] mb-2">NEURAL SINGULARITY</h3>
-          <p className="text-gray-400 text-sm tracking-widest uppercase">Sovereign State Intelligence Matrix</p>
+          <h3 className="font-black tracking-tighter text-3xl md:text-5xl text-[#00d2ff] mb-2">STRATEGIC SYSTEM</h3>
+          <p className="text-gray-400 text-sm tracking-widest uppercase">Professional State Intelligence Matrix</p>
         </div>
 
         {/* Dashboard Grid */}
@@ -24,7 +24,7 @@ export function DashboardSection() {
                   <TrendingUp className="w-5 h-5 text-emerald-400" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-emerald-400 uppercase tracking-wider text-sm">Revenue Singularity</h4>
+                  <h4 className="font-bold text-emerald-400 uppercase tracking-wider text-sm">Revenue Intelligence</h4>
                   <span className="text-xs text-emerald-300">+247%</span>
                 </div>
               </div>
@@ -60,13 +60,13 @@ export function DashboardSection() {
             </div>
           </div>
 
-          {/* Neural Grid Capacity */}
+          {/* Strategic Grid Capacity */}
           <div className="glass-card p-6 rounded-2xl">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-lg bg-[#00d2ff]/20 flex items-center justify-center">
                 <Activity className="w-5 h-5 text-[#00d2ff]" />
               </div>
-              <h4 className="font-bold text-[#00d2ff] uppercase tracking-wider text-sm">Neural Grid Capacity</h4>
+              <h4 className="font-bold text-[#00d2ff] uppercase tracking-wider text-sm">Strategic Grid Capacity</h4>
             </div>
             {/* Wave visualization */}
             <div className="h-32 flex items-center justify-center">
@@ -117,11 +117,11 @@ export function DashboardSection() {
             <p className="text-xs text-gray-500">Battier Key Insight: High Enrollment</p>
           </div>
 
-          {/* Teacher's Neural Co-Pilot */}
+          {/* Teacher's Strategic Co-Pilot */}
           <div className="glass-card p-6 rounded-2xl">
             <div className="flex items-center gap-3 mb-4">
               <Brain className="w-6 h-6 text-[#00d2ff]" />
-              <h4 className="font-bold text-white uppercase tracking-wider text-sm">{"Teacher's Neural Co-Pilot"}</h4>
+              <h4 className="font-bold text-white uppercase tracking-wider text-sm">{"Teacher's Strategic Co-Pilot"}</h4>
             </div>
             <div className="space-y-3">
               <div className="flex items-center gap-3 p-3 bg-emerald-500/10 rounded-lg border border-emerald-500/30">
@@ -137,9 +137,9 @@ export function DashboardSection() {
             <p className="text-xs text-gray-500 mt-4">Suggesting a Restorative Specialty to Bailey High School</p>
           </div>
 
-          {/* Sovereign Summary */}
+          {/* Professional Summary */}
           <div className="glass-card p-6 rounded-2xl text-center">
-            <p className="text-xs text-gray-400 uppercase tracking-wider mb-2">Sovereign Summary</p>
+            <p className="text-xs text-gray-400 uppercase tracking-wider mb-2">Professional Summary</p>
             <p className="text-5xl md:text-6xl font-black tracking-tighter text-white mb-2">$2.8B</p>
             <p className="text-lg text-gray-300 mb-4">Total Lifecycle Value</p>
             <p className="text-xs text-gray-500">

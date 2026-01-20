@@ -11,7 +11,7 @@ export default function ROISingularityHeader() {
                 <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
                         <Target className="text-emerald-200" size={24} />
-                        <h3 className="text-sm font-bold uppercase tracking-widest">Revenue Singularity</h3>
+                        <h3 className="text-sm font-bold uppercase tracking-widest">Revenue Intelligence</h3>
                     </div>
                     <div className="flex items-center gap-1 text-emerald-200">
                         <TrendingUp size={16} />

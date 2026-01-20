@@ -1,5 +1,5 @@
 /**
- * EdIntel Sovereign - Token Purchase API
+ * EdIntel Professional - Token Purchase API
  * Stripe Payment Integration with Double-Entry Ledger
  * 
  * POST /api/tokens/purchase
@@ -10,9 +10,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { sql } from '@vercel/postgres';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-    apiVersion: '2024-12-18.acacia',
-});
+const stripeInit = () => {
+    if (!process.env.STRIPE_SECRET_KEY) {
+        throw new Error('STRIPE_SECRET_KEY is missing');
+    }
+    return new Stripe(process.env.STRIPE_SECRET_KEY, {
+        apiVersion: '2025-12-15.clover' as any, // Cast to any to avoid version conflict if types change
+    });
+};
 
 export async function POST(request: NextRequest) {
     try {
@@ -56,6 +61,8 @@ export async function POST(request: NextRequest) {
         }
 
         const tokenPackage = packages[0];
+
+        const stripe = stripeInit();
 
         // Create or retrieve Stripe customer
         let stripeCustomerId = user.stripe_customer_id;

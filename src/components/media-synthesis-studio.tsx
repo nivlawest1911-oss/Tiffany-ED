@@ -29,6 +29,7 @@ const videoTemplates = [
 
 export function MediaSynthesisStudio() {
     const [selectedTemplate, setSelectedTemplate] = useState("announcement")
+    const [selectedEngine, setSelectedEngine] = useState("internal")
     const [isGenerating, setIsGenerating] = useState(false)
     const [progress, setProgress] = useState(0)
 
@@ -79,8 +80,8 @@ export function MediaSynthesisStudio() {
                                         key={t.id}
                                         onClick={() => setSelectedTemplate(t.id)}
                                         className={`w-full p-4 rounded-xl text-left transition-all border ${selectedTemplate === t.id
-                                                ? "bg-white/10 border-[#00d2ff]"
-                                                : "bg-white/5 border-transparent hover:bg-white/10"
+                                            ? "bg-white/10 border-[#00d2ff]"
+                                            : "bg-white/5 border-transparent hover:bg-white/10"
                                             }`}
                                     >
                                         <div className="flex justify-between items-center mb-1">
@@ -90,6 +91,30 @@ export function MediaSynthesisStudio() {
                                         <p className="text-xs text-gray-400">{t.description}</p>
                                     </button>
                                 ))}
+                            </div>
+                        </div>
+
+                        <div className="glass-card p-6 rounded-2xl">
+                            <h3 className="font-bold text-white mb-4 flex items-center gap-2">
+                                <Sparkles className="w-5 h-5 text-purple-400" />
+                                AI Rendering Engine
+                            </h3>
+                            <div className="space-y-4">
+                                <div>
+                                    <label className="text-xs text-gray-400 block mb-2">Select Engine</label>
+                                    <select
+                                        value={selectedEngine}
+                                        onChange={(e) => setSelectedEngine(e.target.value)}
+                                        className="w-full bg-black/40 border border-white/10 rounded-lg p-2 text-sm text-gray-300"
+                                    >
+                                        <option value="internal">EdIntel Professional (Internal)</option>
+                                        <option value="heygen">HeyGen (High-Fidelity Lip Sync)</option>
+                                        <option value="invideo">InVideo (Broadcast Synthesis)</option>
+                                        <option value="opus">Opus (Short-Form Clips)</option>
+                                        <option value="captions">Captions (Accessibility & Dubbing)</option>
+                                        <option value="gemini">Gemini (Multimodal Analysis)</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
 
@@ -125,7 +150,7 @@ export function MediaSynthesisStudio() {
                                     <div className="text-center w-full px-12">
                                         <div className="mb-4 flex flex-col items-center">
                                             <Sparkles className="w-12 h-12 text-[#d4af37] animate-spin mb-4" />
-                                            <h3 className="text-2xl font-bold text-white animate-pulse">Rendering Neural Video...</h3>
+                                            <h3 className="text-2xl font-bold text-white animate-pulse">Rendering Strategic Video...</h3>
                                         </div>
                                         <div className="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
                                             <div className="h-full bg-gradient-to-r from-[#00d2ff] via-[#10b981] to-[#d4af37]" style={{ width: `${progress}%` }} />
@@ -147,7 +172,14 @@ export function MediaSynthesisStudio() {
                                                 }}
                                             />
                                             <h3 className="text-3xl font-black text-white mb-2">{activeTemplate?.name}</h3>
-                                            <p className="text-[#d4af37] tracking-widest text-sm uppercase">Ready to Broadcast</p>
+                                            <p className="text-[#d4af37] tracking-widest text-sm uppercase mb-4">Ready to Broadcast</p>
+
+                                            {selectedEngine !== 'internal' && (
+                                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-md mb-6">
+                                                    <Sparkles className="w-3 h-3 text-purple-400" />
+                                                    <span className="text-xs font-bold text-white uppercase">Powered by {selectedEngine}</span>
+                                                </div>
+                                            )}
 
                                             <button onClick={() => setIsGenerating(true)} className="mt-8 px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full backdrop-blur-md transition-all transform hover:scale-105 group-hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                                                 <Play className="w-8 h-8 text-white fill-white" />

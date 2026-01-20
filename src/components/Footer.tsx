@@ -20,7 +20,7 @@ export default function Footer() {
                             <EdIntelLogo />
                         </Link>
                         <p className="text-zinc-400 text-sm leading-relaxed mb-6">
-                            Neural architectures for the modern educator. Empowering sovereignty through superior intelligence and executive automation.
+                            Strategic architectures for the modern educator. Empowering leadership through superior intelligence and executive automation.
                         </p>
                         <div className="flex gap-4">
                             <a
@@ -57,11 +57,11 @@ export default function Footer() {
                     <div>
                         <h3 className="text-white font-bold mb-6">Platform</h3>
                         <ul className="space-y-4">
-                            <li><Link href="/pricing" className="text-zinc-400 hover:text-indigo-400 transition-colors text-sm">Sovereign Pricing</Link></li>
+                            <li><Link href="/pricing" className="text-zinc-400 hover:text-indigo-400 transition-colors text-sm">Professional Pricing</Link></li>
                             <li><Link href="/login" className="text-zinc-400 hover:text-indigo-400 transition-colors text-sm">Protocol Login</Link></li>
-                            <li><Link href="/signup" className="text-zinc-400 hover:text-indigo-400 transition-colors text-sm">Initialize Node</Link></li>
+                            <li><Link href="/signup" className="text-zinc-400 hover:text-indigo-400 transition-colors text-sm">Initialize Center</Link></li>
                             <li><Link href="/all-tools" className="text-zinc-400 hover:text-indigo-400 transition-colors text-sm">Intelligence Tools</Link></li>
-                            <li><Link href="/privacy/sovereign-shield" className="text-zinc-400 hover:text-indigo-400 transition-colors text-sm">Sovereign Shield</Link></li>
+                            <li><Link href="/privacy/leadership-shield" className="text-zinc-400 hover:text-indigo-400 transition-colors text-sm">Professional Shield</Link></li>
                             <li><Link href="/connectors" className="text-zinc-400 hover:text-indigo-400 transition-colors text-sm">Connector Hub</Link></li>
                         </ul>
                     </div>
@@ -122,7 +122,7 @@ export default function Footer() {
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                             </span>
-                            © {new Date().getFullYear()} EdIntel Sovereign. All systems operational.
+                            © {new Date().getFullYear()} EdIntel Professional. All systems operational.
                         </button>
                     </div>
 
@@ -130,7 +130,7 @@ export default function Footer() {
                         isOpen={systemStatusOpen}
                         onClose={() => setSystemStatusOpen(false)}
                         title="System Integrity Report"
-                        description="Security Protocol Active. All Sovereign nodes are currently operational. FERPA encryption layers are intact. Latency is minimal. Your data fortress is secure, Principal."
+                        description="Security Protocol Active. All Professional nodes are currently operational. FERPA encryption layers are intact. Latency is minimal. Your data fortress is secure, Principal."
                         role="Security Operations"
                         avatarImage="/images/avatars/executive_leader.png"
                         thumbnail="/images/features/iep-architect-demo.mp4"

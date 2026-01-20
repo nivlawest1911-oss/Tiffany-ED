@@ -39,7 +39,7 @@ const specializedTools = [
     {
         id: 'district-strategy',
         name: 'District Strategy Command',
-        description: 'Generate board-level turnaround briefs. Operational sovereignty diagnosis for Superintendents.',
+        description: 'Generate board-level turnaround briefs. Operational strategy diagnosis for Superintendents.',
         icon: TrendingUp,
         color: 'from-amber-500 to-orange-600',
         link: '/generators/district-strategy',
@@ -117,11 +117,11 @@ export default function FeatureShowcaseGrid() {
                     onClose={() => setShowBriefing(false)}
                     title="Tactical Tool Selection"
                     description="Strategist reporting. We have 41 specialized modules available. For IEPs, filter by 'Need'. For curriculum, select 'Lesson Planning'. Use the search command to rapidly identify specific protocols. All systems are online and ready for deployment."
-                    role="Sovereign Strategist"
+                    role="Professional Strategist"
                     avatarImage="/images/avatars/curriculum_strategist.png"
                     thumbnail="/images/features/lesson-planner-demo.mp4"
                     stats={{ time: "READY", saved: "41+", accuracy: "100%" }}
-                    theme="sovereign"
+                    theme="professional"
                 />
 
                 {/* Search Bar */}

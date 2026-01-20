@@ -10,43 +10,43 @@ interface GenerativeLogStreamProps {
 
 const LOG_TEMPLATES = {
     IEP: [
-        "Initializing IEP Sovereign Protocol v4.2...",
-        "Accessing Student Record: #8291-A...",
-        "Analyzing PLAAFP Data Points...",
+        "Starting IEP Preparation...",
+        "Reviewing Student Record: #8291-A...",
+        "Analyzing Performance Data...",
         "> Reading Comprehension: -1.5 Grade Level gap identified",
         "> Auditory Processing: Above Average",
-        "Generating SMART Goal: Reading Fluency...",
-        "Calculated ROI Target: 80% accuracy by Q3",
+        "Drafting SMART Goal: Reading Fluency...",
+        "Target: 80% accuracy by Q3",
         "Selecting LRE: General Education with Consultant Support",
-        "Drafting Accommodations: Text-to-Speech enabled...",
-        "Verifying FERPA Compliance...",
-        "IEP Draft Generation Complete."
+        "Adding Accommodations: Text-to-Speech enabled...",
+        "Verifying Compliance...",
+        "IEP Draft Complete."
     ],
     GRANT: [
-        "Initializing Grant Writer Lite Engine...",
-        "Scanning District Demographics...",
+        "Starting Grant Writer Support...",
+        "Reviewing District Demographics...",
         "> Title I Eligibility: Confirmed",
         "> Free/Reduced Lunch: 68%",
-        "Synthesizing Needs Assessment...",
-        "Drafting Narrative: 'Closing the Opportunity Gap'...",
+        "Drafting Needs Assessment...",
+        "Writing Narrative: 'Closing the Opportunity Gap'...",
         "Aligning with State Strategic Plan 2030...",
-        "Generating Budget Justification...",
-        "> Allocating Human Capital: $150,000",
-        "> Allocating Technology Assets: $45,000",
-        "Optimization: Persuasion Index 98%",
+        "Preparing Budget Justification...",
+        "> Personnel Allocation: $150,000",
+        "> Equipment Allocation: $45,000",
+        "Reviewing for impact and clarity...",
         "Grant Proposal Ready for Review."
     ],
     DATA: [
-        "Connecting to District Data Warehouse...",
-        "Ingesting Assessment Vectors: ACAP, iReady, STAR...",
-        "Running Regression Analysis...",
+        "Connecting to District Database...",
+        "Analyzing Test Scores: ACAP, iReady, STAR...",
+        "Running Trend Analysis...",
         "> Correlation Found: Attendance vs. Math Proficiency",
-        "Identifying At-Risk Cohort (RTI Tier 2)...",
-        "Calculating Growth Percentiles...",
-        "Generating Visualizations...",
+        "Identifying Students for Support...",
+        "Calculating Growth Targets...",
+        "Creating Visualizations...",
         "> Heatmap: Grade 3 Reading",
         "> Trendline: Chronic Absenteeism",
-        "Executive Dashboard Updated."
+        "Dashboard Updated."
     ],
     POLICY: [
         "Accessing Board Policy Manual...",
@@ -59,7 +59,7 @@ const LOG_TEMPLATES = {
         "Ready for Board Approval."
     ],
     DEFAULT: [
-        "Sovereign System Active.",
+        "Assistant Ready.",
         "Awaiting Input...",
         "Processing...",
         "Optimizing...",

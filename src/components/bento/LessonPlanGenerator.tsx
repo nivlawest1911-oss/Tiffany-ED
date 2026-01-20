@@ -28,11 +28,26 @@ export default function LessonPlanGenerator() {
     const [generatedPlan, setGeneratedPlan] = useState<LessonPlanSection[]>([]);
     const [copied, setCopied] = useState(false);
 
+    const [genStep, setGenStep] = useState(0);
+    const generationSteps = [
+        "Analyzing Standards & Curriculum...",
+        "Identifying Engagement Strategies...",
+        "Drafting Differentiation Protocols...",
+        "Aligning Assessment Metrics...",
+        "Finalizing Lesson Plan..."
+    ];
+
     const handleGenerate = async () => {
         if (!topic || !subject || !gradeLevel) return;
 
         setIsGenerating(true);
         setGeneratedPlan([]);
+        setGenStep(0);
+
+        // Simulate thinking steps
+        const stepInterval = setInterval(() => {
+            setGenStep(curr => (curr < generationSteps.length - 1 ? curr + 1 : curr));
+        }, 1200);
 
         try {
             const response = await fetch('/api/classroom', {
@@ -66,11 +81,11 @@ export default function LessonPlanGenerator() {
                 data = JSON.parse(responseText);
             } catch (e) {
                 console.error("API Response was not JSON:", responseText);
-                throw new Error("Neural Link Unstable: Server returned invalid format.");
+                throw new Error("Strategic Link Unstable: Server returned invalid format.");
             }
 
             if (!response.ok || data.error) {
-                throw new Error(data?.error || 'Sovereign Aide Offline');
+                throw new Error(data?.error || 'Professional Aide Offline');
             }
 
             const text = data.text || '';
@@ -93,11 +108,15 @@ export default function LessonPlanGenerator() {
             } else {
                 setGeneratedPlan(sections.filter(s => s.content.trim()));
             }
+
+            clearInterval(stepInterval);
         } catch (error) {
             console.error('Error generating lesson plan:', error);
-            setGeneratedPlan([{ title: 'Error', content: 'The Sovereign Aide encountered a neural disruption. Please try again or contact command.' }]);
+            setGeneratedPlan([{ title: 'Error', content: 'The Professional Aide encountered a strategic link interruption. Please try again or contact command.' }]);
+            clearInterval(stepInterval);
         } finally {
             setIsGenerating(false);
+            clearInterval(stepInterval);
         }
     };
 
@@ -155,12 +174,12 @@ export default function LessonPlanGenerator() {
                         </div>
                         <div>
                             <h2 className="text-2xl font-bold text-zinc-900 dark:text-white">Lesson Planner</h2>
-                            <p className="text-sm text-zinc-500 dark:text-zinc-400">AI-Powered Curriculogic Node</p>
+                            <p className="text-sm text-zinc-500 dark:text-zinc-400">AI-Powered Curriculogic Center</p>
                         </div>
                     </div>
                     <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
                         <Sparkles size={14} className="text-emerald-600 dark:text-emerald-400" />
-                        <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">Sovereign Aide</span>
+                        <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">Professional Aide</span>
                     </div>
                 </div>
 
@@ -213,10 +232,23 @@ export default function LessonPlanGenerator() {
                 <button
                     onClick={handleGenerate}
                     disabled={isGenerating || !topic || !subject || !gradeLevel}
-                    className="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl font-bold flex items-center justify-center gap-3 shadow-lg shadow-emerald-600/20 transition-all disabled:opacity-50"
+                    className="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl font-bold flex flex-col items-center justify-center gap-1 shadow-lg shadow-emerald-600/20 transition-all disabled:opacity-50 relative overflow-hidden"
                 >
-                    {isGenerating ? <Loader2 className="animate-spin" size={20} /> : <Sparkles size={20} />}
-                    Generate High-Impact Lesson Plan
+                    {isGenerating && (
+                        <div className="absolute inset-0 bg-emerald-700/50 flex items-center justify-center z-0">
+                            <div className="w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" style={{ backgroundSize: '200% 100%' }} />
+                        </div>
+                    )}
+
+                    <div className="relative z-10 flex items-center gap-3">
+                        {isGenerating ? <Loader2 className="animate-spin" size={20} /> : <Sparkles size={20} />}
+                        <span>{isGenerating ? generationSteps[genStep] : 'Generate High-Impact Lesson Plan'}</span>
+                    </div>
+                    {isGenerating && (
+                        <div className="h-1 w-32 bg-emerald-900/50 rounded-full mt-2 overflow-hidden relative z-10">
+                            <div className="h-full bg-white/80 transition-all duration-500" style={{ width: `${((genStep + 1) / generationSteps.length) * 100}%` }} />
+                        </div>
+                    )}
                 </button>
 
                 {generatedPlan.length > 0 && (

@@ -39,7 +39,7 @@ export default function AidePanel({ isOpen, mode, onClose }: AidePanelProps) {
                 throw new Error("Invalid response format");
             }
         } catch (err) {
-            setChatLog(prev => [...prev, { role: 'ai', text: "System Error: Neural link interrupted. Please verify your connection." }]);
+            setChatLog(prev => [...prev, { role: 'ai', text: "System Error: Strategic link interrupted. Please verify your connection." }]);
         } finally {
             setIsTyping(false);
         }

@@ -43,7 +43,7 @@ export default function SocialLinks() {
                 </a>
             ))}
             <div className="ml-auto text-[9px] font-mono text-zinc-500 uppercase tracking-widest">
-                EdIntel Sovereign Suite v4.0.2
+                EdIntel Professional Suite v4.0.2
             </div>
         </div>
     );

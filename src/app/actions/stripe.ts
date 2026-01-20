@@ -8,14 +8,18 @@ const stripe = process.env.STRIPE_SECRET_KEY
   ? new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2025-01-27.acacia' as any })
   : null;
 
-// Map tiers to Hosted Payment Links (No API Key Required)
+// Map tiers to Hosted Payment Links (Direct Stripe URLs)
 const PAYMENT_LINK_MAPPING: Record<string, string> = {
-  // Found in stripe_links.txt - Mapping inferred (User to verify specific tier mapping)
-  'STRIPE_PRICE_PRACTITIONER_MONTHLY': 'https://buy.stripe.com/7sY3cwfdWf317LN7tOdwc01',
   'STRIPE_PRICE_SITE_COMMAND_MONTHLY': 'https://buy.stripe.com/aFa7sM3ve6wv9TVeWgdwc00',
+  'STRIPE_PRICE_PROFESSIONAL_PACK_MONTHLY': 'https://buy.stripe.com/7sY3cwfdWf317LN7tOdwc01',
+  'STRIPE_PRICE_DIRECTOR_PACK_MONTHLY': 'https://buy.stripe.com/bJe6oI7Lu4onaXZ4hCdwc02',
+  'STRIPE_PRICE_PRACTITIONER_MONTHLY': 'https://buy.stripe.com/eVq3cwfdWf310jl01mdwc03',
+  'STRIPE_PRICE_STANDARD_PACK_MONTHLY': 'https://buy.stripe.com/fZu00k7Lu0876HJ7tOdwc04',
+  'STRIPE_PRICE_INITIATE_MONTHLY': 'https://buy.stripe.com/7sY9AU7Lu8EDeabg0kdwc05',
 
-  // Tokens (Verified Link)
-  'STRIPE_PRICE_TOKEN_1K': 'https://buy.stripe.com/7sY3cwfdWf317LN7tOdwc01',
+  // Token Aliases
+  'STRIPE_PRICE_TOKEN_5K': 'https://buy.stripe.com/7sY3cwfdWf317LN7tOdwc01',
+  'STRIPE_PRICE_TOKEN_1K': 'https://buy.stripe.com/fZu00k7Lu0876HJ7tOdwc04',
 };
 
 const PRICE_MAPPING: Record<string, string> = {
@@ -94,7 +98,7 @@ export async function createPortalSession() {
 
   if (stripe) {
     try {
-      // [SOVEREIGN AUTH] Retrieve authenticated user email
+      // [PROFESSIONAL AUTH] Retrieve authenticated user email
       // In production, use: const session = await auth(); const email = session?.user?.email;
       const userEmail = headersList.get('x-user-email') || process.env.NEXT_PUBLIC_ADMIN_EMAIL || 'admin@edintel.ai';
 

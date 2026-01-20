@@ -17,28 +17,28 @@ export default function DelegateOverlay() {
     const [delegates, setDelegates] = useState<Delegate[]>([
         {
             id: 'super-1',
-            name: 'Nexus-01',
-            role: 'Superintendent Delegate',
-            color: 'purple',
-            icon: <Crown size={14} />,
-            message: "District data sync is optimal today.",
+            name: 'Dr. Alvin West',
+            role: 'Executive Twin',
+            color: 'emerald',
+            icon: <img src="/images/avatars/executive_leader.png" alt="Dr. West" className="w-full h-full object-cover" />,
+            message: "Strategic directives align with district goals.",
             position: { x: 85, y: 15 }
         },
         {
             id: 'teacher-1',
-            name: 'Aura',
-            role: 'Educational Assistant',
+            name: 'Keisha Reynolds',
+            role: 'Instructional Lead',
             color: 'blue',
-            icon: <Brain size={14} />,
+            icon: <img src="/images/avatars/curriculum_strategist.png" alt="Keisha" className="w-full h-full object-cover" />,
             message: "I've drafted 3 new lesson plan hooks for you.",
             position: { x: 10, y: 70 }
         },
         {
             id: 'admin-1',
-            name: 'Sentinel',
-            role: 'Compliance Delegate',
+            name: 'Dr. Isaiah Vance',
+            role: 'Compliance Lead',
             color: 'orange',
-            icon: <Zap size={14} />,
+            icon: <img src="/images/avatars/special_ed_director.png" alt="Isaiah" className="w-full h-full object-cover" />,
             message: "IEP audit complete. 0 high-risk nodes detected.",
             position: { x: 90, y: 80 }
         }
@@ -47,14 +47,17 @@ export default function DelegateOverlay() {
     const [activeId, setActiveId] = useState<string | null>(null);
 
     const messages = [
-        "Sovereign protocols engaged.",
+        "Professional protocols engaged.",
         "Analyzing stakeholder sentiment...",
         "Decision velocity is up 12%.",
         "How can I assist your leadership today?",
         "Manifestation determination pending for Sector 7.",
-        "Neural Sync Gym is ready for calibration.",
+        "Strategic Sync Gym is ready for calibration.",
         "IEP Architect node is operational.",
         "Cross-referencing IDEA Part B requirements.",
+        "Financial solvency trajectory: Optimistic.",
+        "Board of Education brief: 95% complete.",
+        "Community feedback loop: Active."
     ];
 
     useEffect(() => {
@@ -75,11 +78,11 @@ export default function DelegateOverlay() {
 
     return (
         <div className="fixed inset-0 pointer-events-none z-[100] overflow-hidden">
-            {/* Sovereign Identity Node (Top Right) - Replaced Firebase Auth */}
+            {/* Professional Identity Center (Top Right) - Replaced Firebase Auth */}
             <div className="absolute top-6 right-6 pointer-events-auto">
                 <div className="flex items-center gap-3 pl-4 pr-3 py-2 bg-zinc-950/90 backdrop-blur-md border border-zinc-800 rounded-full shadow-2xl">
                     <div className="flex flex-col items-end">
-                        <span className="text-[10px] font-black text-white uppercase tracking-wider">Sovereign Node</span>
+                        <span className="text-[10px] font-black text-white uppercase tracking-wider">Professional Center</span>
                         <span className="text-[8px] font-mono text-emerald-500 uppercase tracking-widest flex items-center gap-1">
                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                             Status: Active
@@ -96,13 +99,19 @@ export default function DelegateOverlay() {
                     onMouseEnter={() => setActiveId(d.id)}
                     onMouseLeave={() => setActiveId(null)}
                 >
-                    {/* Delegate Avatar Node */}
+                    {/* Delegate Avatar Center */}
                     <div className="relative">
-                        <div className={`w-12 h-12 rounded-2xl bg-zinc-950 border border-${d.color}-500/50 flex items-center justify-center shadow-2xl transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6 cursor-pointer overflow-hidden`}>
-                            <div className={`absolute inset-0 bg-${d.color}-500/10 opacity-20 group-hover:opacity-40 animate-pulse`} />
-                            <div className={`text-${d.color}-400 relative z-10`}>
+                        <div className={`w-16 h-16 rounded-full border-2 border-${d.color}-500/50 flex items-center justify-center shadow-2xl transition-transform duration-500 group-hover:scale-110 cursor-pointer overflow-hidden bg-black`}>
+                            {/* Breathing/Pulse Effect */}
+                            <div className={`absolute inset-0 bg-${d.color}-500/0 group-hover:bg-${d.color}-500/10 transition-colors duration-500`} />
+
+                            {/* Avatar Image */}
+                            <div className="w-full h-full opacity-90 group-hover:opacity-100 transition-opacity">
                                 {d.icon}
                             </div>
+
+                            {/* Status Indicator */}
+                            <div className="absolute bottom-1 right-1 w-2.5 h-2.5 bg-green-500 border-2 border-black rounded-full animate-pulse z-20" />
                         </div>
 
                         {/* Talk Bubble */}

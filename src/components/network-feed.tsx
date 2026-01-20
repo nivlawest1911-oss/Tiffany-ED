@@ -10,7 +10,7 @@ const feedPosts = [
     role: "District Superintendent",
     avatar: "SM",
     content:
-      "Just completed our first Neural Sync session with EdIntel. The compliance audit feature alone saved us 40+ hours this month. #SovereignEducation",
+      "Just completed our first Strategic Sync session with EdIntel. The compliance audit feature alone saved us 40+ hours this month. #ProfessionalEducation",
     likes: 847,
     comments: 156,
     shares: 89,
@@ -36,7 +36,7 @@ const feedPosts = [
     role: "Principal",
     avatar: "JA",
     content:
-      "Morning Intel briefing caught a legislative change that directly impacts our funding. Proactive policy adjustment complete. This is cognitive sovereignty in action.",
+      "Morning Intel briefing caught a legislative change that directly impacts our funding. Proactive policy adjustment complete. This is cognitive leadership in action.",
     likes: 1204,
     comments: 234,
     shares: 178,
@@ -47,7 +47,7 @@ const feedPosts = [
 
 const trendingTopics = [
   { tag: "#AIinEducation", posts: 2847 },
-  { tag: "#SovereignLeadership", posts: 1923 },
+  { tag: "#ProfessionalLeadership", posts: 1923 },
   { tag: "#IEPAutomation", posts: 1456 },
   { tag: "#EdTechInnovation", posts: 987 },
 ]
@@ -60,7 +60,7 @@ export function NetworkFeed() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="font-black tracking-tighter text-3xl md:text-5xl text-white mb-2">Network Feed</h2>
-          <p className="text-gray-400">Connect with the Sovereign community</p>
+          <p className="text-gray-400">Connect with the Professional community</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

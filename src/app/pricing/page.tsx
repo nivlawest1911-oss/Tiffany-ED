@@ -21,7 +21,7 @@ export default function PricingPage() {
             <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
               <LucideShield className="text-white" size={14} />
             </div>
-            <span className="text-sm font-black tracking-tight uppercase">EdIntel Sovereign</span>
+            <span className="text-sm font-black tracking-tight uppercase">EdIntel Professional</span>
           </div>
         </div>
 

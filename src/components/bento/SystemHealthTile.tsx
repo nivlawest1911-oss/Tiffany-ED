@@ -20,11 +20,17 @@ export default function SystemHealthTile() {
                 <div className={`p-2 rounded-lg ${isOK ? 'bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400' : 'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400'}`}>
                     {isOK ? <ShieldCheck size={24} /> : <AlertTriangle size={24} />}
                 </div>
-                <span className="text-xs font-mono text-zinc-400">{health.latency}</span>
+                <div className="flex flex-col items-end">
+                    <span className="text-xs font-mono text-zinc-400">{health.latency}</span>
+                    <span className="flex items-center gap-1.5 mt-1">
+                        <span className={`w-2 h-2 rounded-full ${isOK ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`} />
+                        <span className="text-[10px] font-bold uppercase text-zinc-500">{isOK ? 'Live' : 'Offline'}</span>
+                    </span>
+                </div>
             </div>
 
             <div>
-                <h3 className="text-sm font-bold text-zinc-500 uppercase tracking-wider">AI Neural Link</h3>
+                <h3 className="text-sm font-bold text-zinc-500 uppercase tracking-wider">AI Strategic Link</h3>
                 <p className={`text-xl font-semibold ${isOK ? 'text-zinc-900 dark:text-white' : 'text-red-500'}`}>
                     {isOK ? 'Operational' : 'Link Severed'}
                 </p>

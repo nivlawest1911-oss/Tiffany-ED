@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { generateSovereignResponse } from '@/lib/sovereign-ai';
+import { generateProfessionalResponse } from '@/lib/leadership-ai';
 
 // Initialize directly with SDK to bypass Genkit configuration issues
 
@@ -54,9 +54,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Missing situation or prompt data." }, { status: 400 });
     }
 
-    // Force Sovereign fallback if no valid key is provided
+    // Force Professional fallback if no valid key is provided
     if (!apiKey || apiKey.includes('AIzaSy')) {
-      const text = await generateSovereignResponse(finalPrompt, protocol || 'community');
+      const text = await generateProfessionalResponse(finalPrompt, protocol || 'community');
       return NextResponse.json({ output: text });
     }
 
@@ -68,12 +68,12 @@ export async function POST(req: Request) {
   } catch (error) {
     console.error("EQ NODE ERROR:", error);
 
-    // Recovery Mode: Generate content using Sovereign Engine
+    // Recovery Mode: Generate content using Professional Engine
     try {
       const body = await req.json().catch(() => ({}));
       const fallbackPrompt = body.rawSituation || body.prompt || "Leadership Situation";
-      const text = await generateSovereignResponse(fallbackPrompt, "community");
-      return NextResponse.json({ output: text, source: 'Sovereign Recovery' });
+      const text = await generateProfessionalResponse(fallbackPrompt, "community");
+      return NextResponse.json({ output: text, source: 'Professional Recovery' });
     } catch (e) {
       return NextResponse.json({ error: "EQ Brain offline" }, { status: 500 });
     }

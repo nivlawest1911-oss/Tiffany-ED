@@ -179,8 +179,8 @@ export function UnusualHero() {
           </video>
 
           <Image
-            src="/images/sovereign_hero_bg.png"
-            alt="Neural Backdrop"
+            src="/images/professional_hero_bg.png"
+            alt="Strategic Backdrop"
             fill
             className="object-cover opacity-60 mix-blend-screen grayscale-[0.5] hover:grayscale-0 transition-all duration-1000"
             priority
@@ -202,28 +202,28 @@ export function UnusualHero() {
 
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-4">
                 <MapPin size={10} />
-                <span>Alabama Focused • National Strategic Nodes</span>
+                <span>Alabama Focused • National Strategic Impact</span>
               </div>
               <h1 className="text-balance text-4xl/tight sm:text-5xl/tight md:text-7xl/tight font-black tracking-tighter text-white uppercase italic">
-                Sovereign <br />
-                <span className="text-zinc-500 not-italic">Intelligence.</span>
+                Advanced <br />
+                <span className="text-zinc-500 not-italic">Leadership.</span>
               </h1>
               <p className="mt-6 text-base/relaxed text-zinc-400 max-w-xl font-medium">
-                The executive operating system for educational leadership. Deploy cognitive nodes, automate compliance, and amplify district throughput.
+                The professional platform for educational leadership. Deploy AI assistants, ensure compliance, and enhance district performance.
               </p>
               <div className="flex flex-wrap gap-4 mt-8">
                 <Link
                   href="/signup"
                   className="inline-flex items-center rounded-full bg-white px-8 py-4 text-xs font-black text-black tracking-widest hover:scale-105 transition-all hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] uppercase"
                 >
-                  Initiate Trial
+                  Start Free Trial
                 </Link>
                 <button
                   onClick={() => setShowBriefing(true)}
                   className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-8 py-4 text-xs font-black text-white tracking-widest backdrop-blur hover:bg-white/10 transition-all uppercase"
                 >
                   <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  View Protocol
+                  Watch Introduction
                 </button>
               </div>
             </div>
@@ -242,9 +242,9 @@ export function UnusualHero() {
         <HolographicBriefing
           isOpen={showBriefing}
           onClose={() => setShowBriefing(false)}
-          title="Sovereign Welcome Briefing"
-          description="Greetings, I am Dr. Alvin West. You are accessing the Sovereign Neural Interface. This platform is architected to provide comprehensive administrative and pedagogical intelligence, fully aligned with Alabama SDE Chapter 290-8-9 and IDEA 2004 federal mandates. Our AI delegates are ready to amplify your district's throughput. Initiate your first protocol to begin."
-          role="Founder & Architect"
+          title="Welcome Message"
+          description="Greetings, I am Dr. Alvin West. You are accessing the EdIntel Leadership Platform. This platform is designed to provide comprehensive administrative and pedagogical support, fully aligned with Alabama SDE Chapter 290-8-9 and IDEA 2004 federal mandates. Our AI assistants are ready to support your district's efficiency. Get started with your first tool to begin."
+          role="Founder & Consultant"
           avatarImage="/images/dr_alvin_west.png"
           videoSrc="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/liquid-metal-video_yX6NvjdW-6bLYorR3Ihmlwjivg3pjA978qrSKRU.mp4"
           stats={{ time: "30sec", saved: "∞", accuracy: "100%" }}

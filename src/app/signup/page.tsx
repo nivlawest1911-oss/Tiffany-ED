@@ -91,12 +91,12 @@ function SignupForm() {
                 isOpen={showBriefing}
                 onClose={() => setShowBriefing(false)}
                 title="Induction Protocol"
-                description="Welcome, Initiate. You are about to enter the Sovereign Network. Ensure your credentials are secure. This protocol is designed to amplify your executive capacity by 10x. Proceed with registration."
-                role="Sovereign Recruiter"
+                description="Welcome, Initiate. You are about to enter the Professional Network. Ensure your credentials are secure. This protocol is designed to amplify your executive capacity by 10x. Proceed with registration."
+                role="Professional Recruiter"
                 avatarImage="/images/avatars/instructional_tech.png"
                 thumbnail="/images/features/iep-architect-demo.mp4"
                 stats={{ time: "NOW", saved: "FUTURE", accuracy: "100%" }}
-                theme="sovereign"
+                theme="professional"
             />
 
             {error && (

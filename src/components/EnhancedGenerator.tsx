@@ -7,9 +7,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import VideoPlayer from './VideoPlayer';
 import VoiceIdentity from './VoiceIdentity';
-import SovereignDelegate from './SovereignDelegate';
+import AIAssistant from './AIAssistant';
 import LiveBriefingConsole from './LiveBriefingConsole';
-import useSovereignSounds from '@/hooks/useSovereignSounds';
+import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 import { useAuth } from '@/context/AuthContext';
 import { GENERATORS } from '@/data/generators';
 
@@ -17,7 +17,7 @@ interface EnhancedGeneratorProps {
     generatorId: string;
     generatorName: string;
     generatorColor: string;
-    iconNode: React.ReactNode;
+    iconCenter: React.ReactNode;
     prompts: string[];
     heroImage?: string;
     heroVideo?: string;
@@ -32,7 +32,7 @@ export default function EnhancedGenerator({
     generatorId,
     generatorName,
     generatorColor,
-    iconNode,
+    iconCenter,
     prompts,
     heroImage,
     heroVideo,
@@ -67,7 +67,7 @@ export default function EnhancedGenerator({
         { name: "Patrice", role: "Compliance Lead", image: "/images/avatars/executive_leader.png" }
     ];
 
-    const { playClick, playSuccess } = useSovereignSounds();
+    const { playClick, playSuccess } = useProfessionalSounds();
 
     // History State
     const [history, setHistory] = useState<any[]>([]);
@@ -96,7 +96,7 @@ export default function EnhancedGenerator({
         localStorage.setItem(`history_${generatorId}`, JSON.stringify(updated));
 
         // Background Database Save
-        if (user && user.id !== 'sovereign-001') {
+        if (user && user.id !== 'leadership-admin') {
             try {
                 await fetch('/api/generations', {
                     method: 'POST',
@@ -168,7 +168,7 @@ export default function EnhancedGenerator({
         setErrorMsg('');
 
         if (!user) {
-            setErrorMsg('Authentication required. Please Sign In to access this Sovereign Protocol.');
+            setErrorMsg('Authentication required. Please Sign In to access this Strategic System.');
             return;
         }
 
@@ -187,15 +187,15 @@ export default function EnhancedGenerator({
                     generatorId,
                     stream: true,
                     // ENHANCED SYSTEM PROMPT for Comprehensive Output
-                    systemInstruction: `You are a high-level Senior Educational Consultant and Sovereign AI Conversational Agent.
-YOUR RESPONSE MUST BE EXCEPTIONALLY COMPREHENSIVE, HUMAN-LIKE, AND PROVIDE REAL-WORLD DEPTH, reflecting 2026-level AI fidelity.
-Never provide brief or surface-level answers. You are capable of sub-second processing and exhibit high emotional intelligence (Perceptive AI).
+                    systemInstruction: `You are a high-level Executive Education Lead and Strategic Leadership Assistant.
+YOUR RESPONSE MUST BE EXCEPTIONALLY COMPREHENSIVE, HUMAN-LIKE, AND PROVIDE REAL-WORLD DEPTH.
+Never provide brief or surface-level answers. You are capable of deep processing and exhibit high emotional intelligence.
 Always expand with:
-1. Specific examples and scenario analysis with "Micro-expression" nuances.
-2. Step-by-step implementation guides with "Sovereign Insights".
+1. Specific examples and scenario analysis.
+2. Step-by-step implementation guides with "Strategic Insights".
 3. Rationale based on current Alabama state benchmarks and IDEA Part B compliance.
 4. A professional, executive tone suitable for school boards and C-suite leaders.
-5. Strategic Financial considerations using "Human-in-the-loop" logic for zero-waste implementation.
+5. Strategic Financial considerations for zero-waste implementation.
 
 Context:
 - Tool Name: ${generatorName}
@@ -226,7 +226,7 @@ Context:
             playSuccess(); // Completion Sound Cue
             saveToHistory(input, fullResponse); // Save to local history using actual input
 
-            // --- GREYHAWK 10 PROTOCOL: PROFESSOR SYNTHESIS ---
+            // --- LEADERSHIP SYNC PROTOCOL: PROFESSOR SYNTHESIS ---
             // Background Synthesis of the Teaching Professor
             try {
                 const synthesisRes = await fetch('/api/avatar', {
@@ -246,7 +246,7 @@ Context:
                     console.log("[Greyhawk] Professor Synthesized & Vaulted:", synthData.professorUrl);
                 }
             } catch (synthErr) {
-                console.warn("[Greyhawk] Synthesis bypass - continuing with TTS fallback.");
+                console.warn("[Leadership] Synthesis bypass - continuing with TTS fallback.");
             }
 
         } catch (error: any) {
@@ -279,25 +279,25 @@ Context:
     };
 
     const handleAnalyzeSentiment = async () => {
-        // Call Google Cloud Natural Language API (via Sovereign Brain)
+        // Call Google Cloud Natural Language API
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_SOVEREIGN_BRAIN_URL || "http://localhost:8080"}/analyze-sentiment`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_STRATEGIC_SYSTEM_URL || "http://localhost:8080"}/analyze-sentiment`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ text: completion.substring(0, 1000) }) // Analyze first 1000 chars
             });
             const data = await res.json();
-            alert(`Sovereign Sentiment Analysis:\nScore: ${data.sentiment_score}\nMagnitude: ${data.sentiment_magnitude}\nAssessment: ${data.emotion}`);
+            alert(`Professional Sentiment Analysis:\nScore: ${data.sentiment_score}\nMagnitude: ${data.sentiment_magnitude}\nAssessment: ${data.emotion}`);
         } catch (e) {
             console.error(e);
             alert("Sentiment Analysis Module Offline");
         }
     };
 
-    const handleNeuralTTS = async () => {
-        // Call Google Cloud Text-to-Speech (via Sovereign Brain)
+    const handleStrategicVox = async () => {
+        // Call Google Cloud Text-to-Speech
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_SOVEREIGN_BRAIN_URL || "http://localhost:8080"}/synthesize-voice`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_STRATEGIC_SYSTEM_URL || "http://localhost:8080"}/synthesize-voice`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ text: completion.substring(0, 500) }) // synthesize first 500 chars for demo
@@ -309,7 +309,7 @@ Context:
             }
         } catch (e) {
             console.error(e);
-            alert("Neural Voice Module Offline");
+            alert("Strategic Voice Module Offline");
         }
     };
 
@@ -321,576 +321,444 @@ Context:
     };
 
     return (
-        <div className="min-h-screen bg-[#0A0A0B] text-white selection:bg-indigo-500/30">
-            {/* Background Effects */}
-            <div className="fixed inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-[100px]" />
-                <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-[100px]" />
+        <div className="min-h-screen bg-noble-black text-white selection:bg-noble-gold/30 selection:text-white overflow-hidden flex flex-col">
+            {/* Kente Global Header Border */}
+            <div className="fixed top-0 left-0 w-full h-1 bg-gradient-to-r from-kente-yellow via-kente-green to-kente-red z-[100]" />
+
+            {/* IMMERSIVE BACKGROUND COMMAND CENTER */}
+            <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+                {heroVideo ? (
+                    <video
+                        src={heroVideo}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="w-full h-full object-cover scale-105 opacity-40 blur-[2px]"
+                    />
+                ) : heroImage ? (
+                    <Image
+                        src={heroImage}
+                        alt="Background"
+                        fill
+                        className="object-cover scale-105 opacity-30 blur-[2px]"
+                    />
+                ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-noble-black via-zinc-950 to-indigo-950/20" />
+                )}
+
+                {/* Strategic Pulse Overlay */}
+                <div className="absolute inset-0 bg-kente-pattern opacity-[0.03] mix-blend-overlay" />
+                <div className="absolute inset-0 bg-grid-pattern opacity-10" />
+                <div className="absolute inset-0 bg-gradient-to-b from-noble-black via-transparent to-noble-black" />
             </div>
 
-            {/* Sovereign Delegate Orb */}
-            <SovereignDelegate
-                name={selectedDelegate.name}
-                role={selectedDelegate.role}
-                avatarImage={selectedDelegate.image}
-                videoSrc={professorVideo || welcomeVideo} // Play generated video if available, else welcome
-                voiceSrc={voiceWelcome}
-                color={generatorColor.includes('gradient') ? generatorColor : "from-indigo-500 to-purple-600"}
-                completionText={completion}
-                theme="sovereign"
-                guideMode={true}
-                isLoading={isLoading}
-            />
-
-            <div className="relative max-w-7xl mx-auto px-4 md:px-6 py-8">
-                {/* Header Navigation */}
-                <div className="flex items-center gap-4 mb-8">
+            {/* Header Navigation - Floating Minimal */}
+            <div className="relative z-50 flex items-center justify-between px-6 py-4">
+                <div className="flex items-center gap-4">
                     <Link
                         href="/"
-                        className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-colors border border-white/5"
+                        className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-noble-gold transition-all border border-white/5 backdrop-blur-md group"
                     >
-                        <ChevronLeft className="w-5 h-5" />
+                        <ChevronLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
                     </Link>
-                    <nav className="flex items-center gap-2 text-sm text-zinc-500">
-                        <Link href="/" className="hover:text-zinc-300 transition-colors">Home</Link>
-                        <span>/</span>
-                        <Link href="/generators" className="hover:text-zinc-300 transition-colors">Generators</Link>
-                        <span>/</span>
-                        <span className="text-zinc-300">{generatorName}</span>
-                    </nav>
+                    <div className="flex flex-col">
+                        <h2 className="text-noble-gold font-bold text-sm tracking-widest uppercase flex items-center gap-2">
+                            <Zap size={14} className="animate-pulse" />
+                            Strategic System
+                        </h2>
+                        <nav className="flex items-center gap-2 text-xs text-zinc-500 font-medium">
+                            <Link href="/" className="hover:text-white transition-colors">Infrastructure</Link>
+                            <span>/</span>
+                            <Link href="/generators" className="hover:text-white transition-colors">Strategic Options</Link>
+                            <span>/</span>
+                            <span className="text-zinc-300 font-black">{generatorName}</span>
+                        </nav>
+                    </div>
                 </div>
 
-                <div className="grid lg:grid-cols-[1fr,400px] gap-8">
-                    {/* LEFT COLUMN: Main Interface */}
-                    <div className="space-y-6">
-                        {/* Title Card */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="bg-zinc-900/50 backdrop-blur-xl border border-white/10 rounded-3xl p-8 relative overflow-hidden group min-h-[200px] flex items-center"
-                        >
-                            {heroVideo ? (
-                                <div className="absolute inset-0 z-0">
-                                    <video
-                                        src={heroVideo}
-                                        autoPlay
-                                        loop
-                                        muted
-                                        playsInline
-                                        className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/40 to-transparent" />
-                                </div>
-                            ) : heroImage ? (
-                                <div className="absolute inset-0 z-0">
-                                    <Image
-                                        src={heroImage}
-                                        alt={`${generatorName} Background`}
-                                        fill
-                                        className="object-cover opacity-60 mix-blend-overlay group-hover:scale-105 transition-transform duration-700"
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/80 to-transparent" />
-                                </div>
-                            ) : null}
+                {/* User Status / Top Nav Right */}
+                <div className="flex items-center gap-4">
+                    <div className="hidden md:flex items-center gap-3 px-4 py-2 rounded-xl bg-black/40 border border-white/5 backdrop-blur-md">
+                        <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full bg-emerald-500 animate-[pulse_1.5s_infinite]" />
+                            <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-tighter">Connection Stable</span>
+                        </div>
+                        <div className="w-px h-3 bg-white/10" />
+                        <span className="text-[10px] font-bold text-noble-gold uppercase tracking-tighter">Tier: {user?.tier || 'Initializing'}</span>
+                    </div>
+                </div>
+            </div>
 
-                            <div className={`absolute inset-0 opacity-10 bg-gradient-to-br ${generatorColor} z-0`} />
+            <div className="relative z-10 flex-grow grid lg:grid-cols-[1fr,450px] gap-0 overflow-hidden">
+                {/* LEFT WORKSPACE: Immersive Form & Results */}
+                <div className="relative h-full overflow-y-auto custom-scrollbar p-6 md:p-10 space-y-8 pb-32">
+                    {/* Floating Title Card - Enhanced */}
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="glass-card-premium rounded-[2.5rem] p-10 relative overflow-hidden group shadow-2xl shadow-black/40 border border-noble-gold/10"
+                    >
+                        {/* Kente Corner Accent */}
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-kente-red/20 via-kente-gold/20 to-transparent -translate-y-16 translate-x-16 rounded-full blur-2xl" />
 
-                            <div className="relative z-10 flex flex-col md:flex-row items-start gap-6">
-                                <div className={`p-4 rounded-2xl bg-gradient-to-br ${generatorColor} shadow-lg shadow-indigo-500/20 ring-1 ring-white/10`}>
-                                    {iconNode}
-                                </div>
-                                <div className="space-y-2 flex-grow">
-                                    <h1 className="text-4xl font-bold tracking-tight font-sans text-white drop-shadow-md">
+                        <div className="relative z-10 flex flex-col md:flex-row items-center gap-8 text-center md:text-left">
+                            <div className={`p-6 rounded-3xl bg-gradient-to-br ${generatorColor} shadow-2xl shadow-indigo-500/30 ring-2 ring-white/10 group-hover:scale-110 transition-transform duration-500`}>
+                                {iconCenter}
+                            </div>
+                            <div className="space-y-4">
+                                <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
+                                    <h1 className="text-5xl md:text-6xl font-black tracking-tight text-white drop-shadow-2xl">
                                         {generatorName}
                                     </h1>
-                                    <p className="text-zinc-300 max-w-xl font-medium drop-shadow-sm mb-4">
-                                        Advanced AI Assistant • Specialized for Educational Leadership
-                                    </p>
+                                </div>
 
-                                    <div className="flex flex-wrap items-center gap-4">
-                                        {/* Briefing Button */}
-                                        {welcomeVideo && (
-                                            <button
-                                                onClick={() => setShowBriefing(true)}
-                                                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/10 backdrop-blur-md transition-all text-sm font-semibold text-white group/briefing"
-                                            >
-                                                <div className="relative flex h-3 w-3">
-                                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                                                    <span className="relative inline-flex rounded-full h-3 w-3 bg-indigo-500"></span>
-                                                </div>
-                                                Receive Delegate Briefing
-                                            </button>
-                                        )}
+                                <p className="text-zinc-400 text-lg font-medium max-w-2xl leading-relaxed">
+                                    Strategic AI Interface • {delegateName}'s Exclusive Command Module
+                                </p>
 
-                                        {/* Professor Selector */}
-                                        <div className="flex items-center gap-2 bg-black/30 rounded-full px-3 py-1.5 border border-white/10">
-                                            <span className="text-[10px] uppercase font-bold text-zinc-500 ml-1">Assigned To:</span>
-                                            <div className="flex -space-x-2">
-                                                {delegates.map((d, i) => (
-                                                    <button
-                                                        key={i}
-                                                        onClick={() => {
-                                                            setSelectedDelegate(d);
-                                                            playClick();
-                                                        }}
-                                                        className={`relative w-8 h-8 rounded-full border-2 transition-all overflow-hidden ${selectedDelegate.name === d.name ? 'border-indigo-500 z-10 scale-110 shadow-lg' : 'border-zinc-800 opacity-50 hover:opacity-100 hover:z-10'}`}
-                                                        title={`${d.name} (${d.role})`}
-                                                    >
-                                                        <Image src={d.image} fill alt={d.name} className="object-cover" />
-                                                    </button>
-                                                ))}
-                                            </div>
+                                <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
+                                    {/* Professor Selector - Immersive Edition */}
+                                    <div className="flex items-center gap-3 bg-white/5 hover:bg-white/10 transition-colors rounded-2xl px-4 py-2 border border-white/5 backdrop-blur-md">
+                                        <span className="text-[10px] uppercase font-black text-zinc-500 tracking-widest">Handled By:</span>
+                                        <div className="flex -space-x-3">
+                                            {delegates.map((d, i) => (
+                                                <button
+                                                    key={i}
+                                                    onClick={() => {
+                                                        setSelectedDelegate(d);
+                                                        playClick();
+                                                    }}
+                                                    className={`relative w-10 h-10 rounded-full border-2 transition-all overflow-hidden ${selectedDelegate.name === d.name ? 'border-noble-gold z-10 scale-125 shadow-2xl ring-4 ring-noble-gold/20' : 'border-zinc-800 opacity-40 hover:opacity-100 hover:z-10'}`}
+                                                    title={`${d.name} (${d.role})`}
+                                                >
+                                                    <Image src={d.image} fill alt={d.name} className="object-cover" />
+                                                </button>
+                                            ))}
                                         </div>
-
-                                        {/* Voice Identity */}
-                                        {voiceWelcome && (
-                                            <VoiceIdentity src={voiceWelcome} label="Executive Uplink" />
-                                        )}
                                     </div>
+
+                                    {/* Action Shortcuts */}
+                                    {welcomeVideo && (
+                                        <button
+                                            onClick={() => setShowBriefing(true)}
+                                            className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-noble-gold text-black font-black text-xs uppercase tracking-[0.2em] transition-all hover:scale-105 active:scale-95 shadow-xl shadow-noble-gold/20"
+                                        >
+                                            <div className="relative flex h-3 w-3">
+                                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black opacity-75"></span>
+                                                <span className="relative inline-flex rounded-full h-3 w-3 bg-black"></span>
+                                            </div>
+                                            Tactical Briefing
+                                        </button>
+                                    )}
                                 </div>
                             </div>
-                        </motion.div>
+                        </div>
+                    </motion.div>
 
-                        {/* Briefing Modal */}
-                        <AnimatePresence>
-                            {showBriefing && welcomeVideo && (
+                    {/* Briefing Modal */}
+                    <AnimatePresence>
+                        {showBriefing && welcomeVideo && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl"
+                                onClick={() => setShowBriefing(false)}
+                            >
                                 <motion.div
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl"
-                                    onClick={() => setShowBriefing(false)}
+                                    initial={{ scale: 0.95, opacity: 0 }}
+                                    animate={{ scale: 1, opacity: 1 }}
+                                    exit={{ scale: 0.95, opacity: 0 }}
+                                    className="relative w-full max-w-5xl bg-zinc-950 rounded-3xl overflow-hidden border border-white/10 shadow-2xl flex flex-col md:flex-row max-h-[90vh]"
+                                    onClick={e => e.stopPropagation()}
                                 >
-                                    <motion.div
-                                        initial={{ scale: 0.95, opacity: 0 }}
-                                        animate={{ scale: 1, opacity: 1 }}
-                                        exit={{ scale: 0.95, opacity: 0 }}
-                                        className="relative w-full max-w-5xl bg-zinc-950 rounded-3xl overflow-hidden border border-white/10 shadow-2xl flex flex-col md:flex-row max-h-[90vh]"
-                                        onClick={e => e.stopPropagation()}
-                                    >
-                                        <div className="absolute top-0 left-0 right-0 p-4 z-20 flex justify-between items-start pointer-events-none">
-                                            <div className="pointer-events-auto bg-black/50 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 flex items-center gap-2 text-white font-bold text-xs uppercase tracking-wider">
-                                                <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                                                Live Briefing Protocol
-                                            </div>
-                                            <button
-                                                onClick={() => setShowBriefing(false)}
-                                                className="pointer-events-auto p-2 rounded-full bg-black/50 hover:bg-white/20 text-white transition-colors border border-white/10"
-                                            >
-                                                <X className="w-5 h-5" />
-                                            </button>
+                                    <div className="absolute top-0 left-0 right-0 p-4 z-20 flex justify-between items-start pointer-events-none">
+                                        <div className="pointer-events-auto bg-black/50 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 flex items-center gap-2 text-white font-bold text-xs uppercase tracking-wider">
+                                            <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                                            Live Briefing Session
+                                        </div>
+                                        <button
+                                            onClick={() => setShowBriefing(false)}
+                                            className="pointer-events-auto p-2 rounded-full bg-black/50 hover:bg-white/20 text-white transition-colors border border-white/10"
+                                        >
+                                            <X className="w-5 h-5" />
+                                        </button>
+                                    </div>
+
+                                    {/* Video Feed / Live Console */}
+                                    <div className="w-full md:w-2/3 bg-black relative flex items-center justify-center border-r border-white/10 overflow-hidden">
+                                        {/* We replace the video player with the Live Briefing Console */}
+                                        <div className="absolute inset-0 z-0 opacity-20">
+                                            {/* Fallback visual if needed or background texture */}
                                         </div>
 
-                                        {/* Video Feed / Live Console */}
-                                        <div className="w-full md:w-2/3 bg-black relative flex items-center justify-center border-r border-white/10 overflow-hidden">
-                                            {/* We replace the video player with the Live Briefing Console */}
-                                            <div className="absolute inset-0 z-0 opacity-20">
-                                                {/* Fallback visual if needed or background texture */}
-                                            </div>
+                                        <LiveBriefingConsole
+                                            name={generatorName}
+                                            description={GENERATORS.find(g => g.id === generatorId)?.description || ""}
+                                            role="Professional Delegate"
+                                            color={generatorColor}
+                                            prompts={prompts}
+                                            videoSrc={welcomeVideo}
+                                            avatarImage={delegateImage}
+                                        />
+                                    </div>
 
-                                            <LiveBriefingConsole
-                                                name={generatorName}
-                                                description={GENERATORS.find(g => g.id === generatorId)?.description || ""}
-                                                role="Sovereign Delegate"
-                                                color={generatorColor}
-                                                prompts={prompts}
-                                                videoSrc={welcomeVideo}
-                                                avatarImage={delegateImage}
-                                            />
-                                        </div>
 
-                                        {/* Tactical Data Panel */}
-                                        <div className="w-full md:w-1/3 p-8 bg-zinc-900/50 flex flex-col justify-center border-l border-white/5 relative">
-                                            <div className="space-y-6">
-                                                <div>
-                                                    <h3 className="text-zinc-500 text-xs font-bold uppercase tracking-widest mb-2">Protocol Target</h3>
-                                                    <h2 className="text-2xl font-bold text-white leading-tight">{generatorName}</h2>
-                                                </div>
-
-                                                <div className="h-px w-full bg-white/10" />
-
-                                                <div>
-                                                    <h3 className="text-zinc-500 text-xs font-bold uppercase tracking-widest mb-2">Objective Analysis</h3>
-                                                    <p className="text-sm text-zinc-300 leading-relaxed">
-                                                        {GENERATORS.find(g => g.id === generatorId)?.description || "Execute high-level educational strategy."}
-                                                    </p>
-                                                </div>
-
-                                                <div className="space-y-3">
-                                                    <div className="flex justify-between items-center p-3 rounded-lg bg-black/20 border border-white/5">
-                                                        <span className="text-xs text-zinc-400 font-mono uppercase">Clearance</span>
-                                                        <span className="text-xs text-amber-400 font-bold font-mono uppercase">Sovereign Executive</span>
-                                                    </div>
-                                                    <div className="flex justify-between items-center p-3 rounded-lg bg-black/20 border border-white/5">
-                                                        <span className="text-xs text-zinc-400 font-mono uppercase">Neural Status</span>
-                                                        <span className="text-xs text-emerald-400 font-bold font-mono uppercase animate-pulse">Active</span>
-                                                    </div>
-                                                </div>
-
-                                                <div className="bg-indigo-900/20 p-4 rounded-xl border border-indigo-500/20 mt-4">
-                                                    <div className="flex items-start gap-3">
-                                                        <Bot className="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" />
-                                                        <div>
-                                                            <h4 className="text-xs font-bold text-indigo-300 uppercase mb-1">Delegate Insight</h4>
-                                                            <p className="text-[11px] text-indigo-200/80 leading-relaxed">
-                                                                "I am ready to assist. Engage the protocol when you are prepared, Principal."
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </motion.div>
                                 </motion.div>
-                            )}
-                        </AnimatePresence>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
 
-                        {/* Input Area */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.1 }}
-                            className="bg-zinc-900/30 backdrop-blur-xl border border-white/10 rounded-3xl p-6"
-                        >
-                            {errorMsg && (
-                                <div className="mb-4 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-bold flex items-center gap-2">
-                                    <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                                    {errorMsg}
-                                </div>
-                            )}
+                    {/* INPUT WORKSPACE AREA */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="space-y-6"
+                    >
+                        <div className="relative group">
+                            <div className="absolute -inset-1 bg-gradient-to-r from-noble-gold/20 via-kente-red/20 to-indigo-500/20 rounded-[2rem] blur-xl opacity-50 group-focus-within:opacity-100 transition-opacity duration-700" />
+                            <div className="relative glass-card-premium rounded-[2rem] p-4 border border-white/10 group-focus-within:border-noble-gold/30 transition-all">
+                                <textarea
+                                    ref={textareaRef}
+                                    value={input}
+                                    onChange={(e) => setInput(e.target.value)}
+                                    placeholder={user ? `Describe your objectives for ${generatorName}...` : "Authentication Required to Access Strategic Systems..."}
+                                    className="w-full h-48 bg-transparent border-none text-xl text-white placeholder-zinc-600 focus:ring-0 resize-none font-medium leading-relaxed custom-scrollbar p-4"
+                                    disabled={isLoading || !user}
+                                />
 
-                            <form onSubmit={handleSubmit} className="space-y-4">
-                                <div className="relative group">
-                                    <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl opacity-20 group-focus-within:opacity-100 transition duration-500 blur-sm"></div>
-                                    <textarea
-                                        ref={textareaRef}
-                                        value={input}
-                                        onChange={(e) => setInput(e.target.value)}
-                                        placeholder={user ? `Describe what you need from ${generatorName}...` : "Please Sign In to Initialize Protocol..."}
-                                        className="relative w-full h-40 bg-zinc-950 border border-white/10 rounded-xl p-5 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-white/20 resize-none leading-relaxed transition-all"
-                                        disabled={isLoading || !user}
-                                    />
-                                    <div className="absolute top-4 right-4 flex gap-2">
-                                        {/* Voice Dictation Button */}
+                                <div className="flex items-center justify-between p-4 border-t border-white/5">
+                                    <div className="flex items-center gap-4">
                                         <button
                                             type="button"
                                             onClick={handleDictation}
-                                            className={`p-1 rounded-md transition-colors ${isListening ? 'text-red-500 bg-red-500/10 animate-pulse' : 'text-zinc-500 hover:text-white hover:bg-white/10'}`}
-                                            title="Voice Dictation"
+                                            className={`p-3 rounded-xl transition-all ${isListening ? 'bg-kente-red text-white animate-pulse' : 'bg-white/5 text-zinc-400 hover:text-white hover:bg-white/10'}`}
+                                            title="Strategic Dictation"
                                         >
-                                            <Mic className="w-4 h-4" />
+                                            <Mic size={20} />
                                         </button>
 
-                                        {/* Clear Button */}
-                                        {input && (
-                                            <button
-                                                type="button"
-                                                onClick={() => { setInput(''); if (textareaRef.current) textareaRef.current.focus(); }}
-                                                className="p-1 rounded-md text-zinc-500 hover:text-white hover:bg-white/10 transition-colors"
-                                                title="Clear Input"
-                                            >
-                                                <X className="w-4 h-4" />
-                                            </button>
-                                        )}
-                                        <div className="text-xs font-mono text-zinc-600 bg-zinc-900/50 px-2 py-1 rounded-md border border-white/5">
-                                            {input.length} chars
-                                        </div>
                                     </div>
-                                </div>
 
-                                <div className="flex justify-end">
                                     <button
-                                        type="submit"
+                                        onClick={handleSubmit}
                                         disabled={isLoading || !input.trim()}
-                                        className="relative inline-flex items-center gap-2 px-8 py-4 bg-white text-zinc-950 rounded-xl font-bold text-sm tracking-wide disabled:opacity-50 disabled:cursor-not-allowed hover:bg-zinc-200 transition-colors shadow-lg shadow-white/10"
+                                        className="px-10 py-4 bg-white text-black rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-noble-gold transition-all shadow-2xl shadow-noble-gold/20 flex items-center gap-3 active:scale-95 disabled:opacity-50"
                                     >
-                                        {isLoading ? (
-                                            <>
-                                                <Loader2 className="w-4 h-4 animate-spin" />
-                                                GENERATING...
-                                            </>
-                                        ) : !user ? (
-                                            <>
-                                                <Zap className="w-4 h-4 text-zinc-400" />
-                                                SIGN IN REQUIRED
-                                            </>
-                                        ) : (
-                                            <>
-                                                <Sparkles className="w-4 h-4 text-indigo-600" />
-                                                GENERATE SCRIPT
-                                            </>
-                                        )}
+                                        {isLoading ? <Loader2 className="animate-spin" /> : <Sparkles size={18} />}
+                                        {isLoading ? "Synthesizing..." : "Generate Content"}
                                     </button>
-                                </div>
-                            </form>
-                        </motion.div>
-
-                        {/* Output Area */}
-                        <AnimatePresence>
-                            {(completion || isLoading) && (
-                                <motion.div
-                                    initial={{ opacity: 0, height: 0 }}
-                                    animate={{ opacity: 1, height: 'auto' }}
-                                    exit={{ opacity: 0, height: 0 }}
-                                    className="overflow-hidden"
-                                >
-                                    <div className="bg-zinc-900/80 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl shadow-indigo-500/10">
-                                        <div className="flex items-center justify-between px-6 py-4 border-b border-white/5 bg-white/5 relative overflow-hidden">
-                                            {/* Header Background Effect */}
-                                            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] opacity-10 pointer-events-none" />
-
-                                            <div className="flex items-center gap-2 text-indigo-400 text-sm font-medium z-10">
-                                                <Bot className="w-4 h-4" />
-                                                <span>AI Output</span>
-                                            </div>
-                                            {completion && !isLoading && (
-                                                <div className="flex items-center gap-2 z-10">
-                                                    <button
-                                                        onClick={handleCopy}
-                                                        className="p-2 hover:bg-white/10 rounded-lg text-zinc-400 hover:text-white transition-colors"
-                                                        title="Copy to clipboard"
-                                                    >
-                                                        {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-                                                    </button>
-                                                    <button
-                                                        onClick={handleDownload}
-                                                        className="p-2 hover:bg-white/10 rounded-lg text-zinc-400 hover:text-white transition-colors"
-                                                        title="Download text file"
-                                                    >
-                                                        <Download className="w-4 h-4" />
-                                                    </button>
-                                                </div>
-                                            )}
-                                        </div>
-
-                                        <div className="p-8 relative">
-                                            {isLoading && !completion ? (
-                                                <div className="flex flex-col items-center justify-center py-12 space-y-6">
-                                                    <div className="relative">
-                                                        {/* Outer Rotating HUD */}
-                                                        <div className="w-24 h-24 rounded-full border border-indigo-500/20 border-t-indigo-500 animate-[spin_3s_linear_infinite]" />
-                                                        <div className="absolute inset-2 border border-purple-500/10 border-b-purple-500 rounded-full animate-[spin_2s_linear_infinite_reverse]" />
-
-                                                        {/* Inner Core */}
-                                                        <div className="absolute inset-0 flex items-center justify-center">
-                                                            <div className="w-12 h-12 rounded-full bg-indigo-600/20 flex items-center justify-center backdrop-blur-md">
-                                                                <Sparkles className="w-6 h-6 text-indigo-400 animate-pulse" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="text-center space-y-2">
-                                                        <motion.p
-                                                            key={Math.floor(Date.now() / 2000)} // Change every 2s
-                                                            initial={{ opacity: 0, y: 5 }}
-                                                            animate={{ opacity: 1, y: 0 }}
-                                                            className="text-indigo-400 font-mono text-xs font-bold uppercase tracking-widest"
-                                                        >
-                                                            {(() => {
-                                                                const protocols = [
-                                                                    "Synthesizing ALCOS Standards...",
-                                                                    "Auditing IDEA Part B Compliance...",
-                                                                    "Optimizing Strategic Financial Yield...",
-                                                                    "Connecting Sovereign Neural Link...",
-                                                                    "Analyzing Student Equity Metrics...",
-                                                                    "Architecting Excellence Protocol..."
-                                                                ];
-                                                                return protocols[Math.floor((Date.now() / 2000) % protocols.length)];
-                                                            })()}
-                                                        </motion.p>
-                                                        <p className="text-[10px] text-zinc-500 animate-pulse uppercase tracking-[0.2em]">Neural Engine Operational</p>
-                                                    </div>
-                                                </div>
-                                            ) : (
-                                                <div className="prose prose-invert prose-lg max-w-none">
-                                                    <div className="whitespace-pre-wrap font-sans text-zinc-300 leading-relaxed">
-                                                        {completion}
-                                                    </div>
-                                                    <div ref={messagesEndRef} />
-                                                </div>
-                                            )}
-                                        </div>
-
-                                        {/* Refinement Actions - AI Shortcuts */}
-                                        {completion && !isLoading && (
-                                            <div className="border-t border-white/5 bg-white/5 px-6 py-3 flex flex-wrap items-center gap-2">
-                                                <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider mr-2">Refine:</span>
-                                                {[
-                                                    { label: "Make it Shorter", prompt: "Condense the above protocol to be more concise and executive-level." },
-                                                    { label: "Make it Detailed", prompt: "Expand the above with more specific implementation steps and details." },
-                                                    { label: "Format: Email", prompt: "Rewrite the above as a professional email ready to send." },
-                                                    { label: "Format: Bullets", prompt: "Convert the key points of the above into a scannable bulleted list." },
-                                                    { label: "Tone: Emphatic", prompt: "Rewrite the above with a stronger, more decisive leadership tone." },
-                                                    { label: "Tone: Empathetic", prompt: "Rewrite the above with a warmer, more supportive and empathetic tone." },
-                                                    { label: "Translate: Spanish", prompt: "Translate the above output into professional Spanish for parent communication." }
-                                                ].map((action, idx) => (
-                                                    <button
-                                                        key={idx}
-                                                        onClick={() => { setInput(action.prompt); window.scrollTo({ top: 0, behavior: 'smooth' }); if (textareaRef.current) textareaRef.current.focus(); }}
-                                                        className="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-indigo-600/20 hover:text-indigo-300 hover:border-indigo-500/30 border border-white/5 text-xs text-zinc-400 transition-all"
-                                                    >
-                                                        {action.label}
-                                                    </button>
-                                                ))}
-
-                                                <div className="w-px h-6 bg-white/10 mx-2" />
-
-                                                {/* Output Actions */}
-                                                <button
-                                                    onClick={() => {
-                                                        const cleanText = completion.replace(/[*#_`]/g, '');
-                                                        const utterance = new SpeechSynthesisUtterance(cleanText);
-                                                        window.speechSynthesis.cancel();
-                                                        window.speechSynthesis.speak(utterance);
-                                                    }}
-                                                    className="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-emerald-600/20 hover:text-emerald-300 hover:border-emerald-500/30 border border-white/5 text-xs text-zinc-400 transition-all flex items-center gap-1"
-                                                    title="Read Aloud"
-                                                >
-                                                    <Volume2 className="w-3 h-3" />
-                                                    Read
-                                                </button>
-
-                                                <button
-                                                    onClick={() => window.print()}
-                                                    className="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-amber-600/20 hover:text-amber-300 hover:border-amber-500/30 border border-white/5 text-xs text-zinc-400 transition-all flex items-center gap-1"
-                                                    title="Save as PDF"
-                                                >
-                                                    <FileText className="w-3 h-3" />
-                                                    PDF
-                                                </button>
-
-                                                <button
-                                                    onClick={handleAnalyzeSentiment}
-                                                    className="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-orange-600/20 hover:text-orange-300 hover:border-orange-500/30 border border-white/5 text-xs text-zinc-400 transition-all flex items-center gap-1"
-                                                    title="Analyze Sentiment"
-                                                >
-                                                    <BarChart3 className="w-3 h-3" />
-                                                    Sentiment
-                                                </button>
-
-                                                <button
-                                                    onClick={handleNeuralTTS}
-                                                    className="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-pink-600/20 hover:text-pink-300 hover:border-pink-500/30 border border-white/5 text-xs text-zinc-400 transition-all flex items-center gap-1"
-                                                    title="Play Neural Voice"
-                                                >
-                                                    <Volume2 className="w-3 h-3" />
-                                                    Vox
-                                                </button>
-                                            </div>
-                                        )}
-                                    </div>
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </div>
-
-                    {/* RIGHT COLUMN: Sidebar */}
-                    <div className="space-y-6">
-                        {/* Quick Prompts Panel */}
-                        <motion.div
-                            initial={{ opacity: 0, x: 20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.2 }}
-                            className="bg-zinc-900/50 backdrop-blur-xl border border-white/10 rounded-3xl p-6"
-                        >
-                            <div className="flex items-center gap-2 mb-4 text-sm font-bold text-zinc-400 uppercase tracking-wider">
-                                <Zap className="w-4 h-4" />
-                                Quick Start
-                            </div>
-                            <div className="grid gap-3">
-                                {prompts.map((prompt, idx) => (
-                                    <button
-                                        key={idx}
-                                        onClick={() => handleQuickPrompt(prompt)}
-                                        className="group text-left p-4 rounded-xl bg-white/5 hover:bg-indigo-600/10 border border-white/5 hover:border-indigo-500/30 transition-all active:scale-[0.98]"
-                                    >
-                                        <div className="flex items-start justify-between gap-2">
-                                            <span className="text-sm text-zinc-300 group-hover:text-indigo-200 transition-colors line-clamp-2">
-                                                {prompt}
-                                            </span>
-                                            <ArrowRight className="w-4 h-4 text-zinc-600 group-hover:text-indigo-400 opacity-0 group-hover:opacity-100 transition-all -translate-x-2 group-hover:translate-x-0" />
-                                        </div>
-                                    </button>
-                                ))}
-                            </div>
-                        </motion.div>
-
-                        {/* Recent Usage / Stats (Placeholder) */}
-                        {/* Recent Usage & History */}
-                        <div className="bg-zinc-900/30 backdrop-blur-xl border border-white/5 rounded-3xl p-6">
-                            <div className="flex items-center justify-between mb-4">
-                                <div className="flex items-center gap-2 text-sm font-bold text-zinc-500 uppercase tracking-wider">
-                                    <History className="w-4 h-4" />
-                                    Protocol History
-                                </div>
-                                <button
-                                    onClick={() => { localStorage.removeItem(`history_${generatorId}`); setHistory([]); }}
-                                    className="text-[10px] text-zinc-600 hover:text-red-400 uppercase tracking-widest transition-colors"
-                                >
-                                    Clear
-                                </button>
-                            </div>
-
-                            <div className="space-y-4">
-                                {history.length > 0 ? (
-                                    <div className="space-y-2 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
-                                        {history.map((record: any, idx: number) => (
-                                            <button
-                                                key={idx}
-                                                onClick={() => { setInput(record.prompt); setCompletion(record.completion); }}
-                                                className="w-full text-left p-3 rounded-lg bg-zinc-800/50 hover:bg-zinc-800 border border-white/5 hover:border-indigo-500/20 transition-all group"
-                                            >
-                                                <div className="flex justify-between items-start mb-1">
-                                                    <span className="text-xs text-zinc-500 font-mono">{record.date}</span>
-                                                    <span className="text-[10px] text-indigo-400 opacity-0 group-hover:opacity-100 uppercase transition-opacity">Recall</span>
-                                                </div>
-                                                <p className="text-xs text-zinc-300 line-clamp-2">{record.prompt}</p>
-                                            </button>
-                                        ))}
-                                    </div>
-                                ) : (
-                                    <div className="text-center py-8 text-zinc-600 text-sm">
-                                        <History className="w-8 h-8 mx-auto mb-2 opacity-20" />
-                                        No recent protocols found locally.
-                                    </div>
-                                )}
-
-                                <div className="pt-4 border-t border-white/5">
-                                    <p className="text-[10px] text-zinc-600 text-center">
-                                        Data stored locally on your device for privacy (Sovereign Protocol).
-                                    </p>
                                 </div>
                             </div>
                         </div>
+                    </motion.div>
 
-                        {/* Suggested / Related Protocols */}
-                        <div className="mt-8">
-                            <h4 className="text-zinc-500 text-xs font-bold uppercase tracking-wider mb-4 px-2">Related Protocols</h4>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                                {GENERATORS.filter(g => g.id !== generatorId)
-                                    .slice(0, 3) // Deterministic slice for now to prevent hydration errors
-                                    .map((tool) => (
-                                        <Link
-                                            key={tool.id}
-                                            href={`/generators/${tool.id}`}
-                                            className="group p-4 rounded-xl bg-zinc-900/50 border border-white/5 hover:bg-white/5 hover:border-white/10 transition-all"
-                                        >
-                                            <div className="flex items-center gap-3">
-                                                <div className="p-2 rounded-lg bg-zinc-950 border border-white/5 text-zinc-400 group-hover:text-indigo-400 group-hover:border-indigo-500/30 transition-colors">
-                                                    <tool.icon className="w-4 h-4" />
-                                                </div>
-                                                <div>
-                                                    <div className="text-sm font-bold text-zinc-300 group-hover:text-white transition-colors">{tool.name}</div>
-                                                    <div className="text-[10px] text-zinc-600 group-hover:text-zinc-500 uppercase tracking-wider">Protocol Active</div>
-                                                </div>
+                    {/* OUTPUT WORKSPACE AREA */}
+                    <AnimatePresence>
+                        {(completion || isLoading) && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="relative"
+                            >
+                                <div className="absolute -inset-1 bg-gradient-to-b from-noble-gold/10 to-transparent rounded-[2.5rem] blur-2xl opacity-30" />
+                                <div className="relative glass-card-premium rounded-[2.5rem] border border-noble-gold/5 overflow-hidden">
+                                    <div className="flex items-center justify-between px-10 py-6 border-b border-white/5 bg-white/[0.02]">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-8 h-8 rounded-lg bg-noble-gold/10 flex items-center justify-center border border-noble-gold/20">
+                                                <Bot size={16} className="text-noble-gold" />
                                             </div>
-                                        </Link>
-                                    ))}
+                                            <div>
+                                                <h3 className="text-sm font-black text-white uppercase tracking-widest">Strategic Output</h3>
+                                                <p className="text-[9px] text-zinc-500 uppercase">Status: Professional Reference</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex gap-2">
+                                            <button onClick={handleCopy} className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
+                                                {copied ? <Check size={18} className="text-emerald-400" /> : <Copy size={18} />}
+                                            </button>
+                                            <button onClick={handleDownload} className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
+                                                <Download size={18} />
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div className="p-10">
+                                        {isLoading && !completion ? (
+                                            <div className="flex flex-col items-center justify-center py-20 gap-4">
+                                                <div className="w-20 h-20 border-4 border-noble-gold/10 border-t-noble-gold rounded-full animate-spin" />
+                                                <p className="text-noble-gold font-mono text-xs uppercase tracking-[0.3em] animate-pulse">Architecting Excellence...</p>
+                                            </div>
+                                        ) : (
+                                            <div className="prose prose-invert prose-xl max-w-none">
+                                                <div className="whitespace-pre-wrap font-sans text-zinc-200 leading-[1.8] text-lg drop-shadow-sm">
+                                                    {completion}
+                                                </div>
+                                                <div ref={messagesEndRef} />
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* Refinement HUD */}
+                                    {completion && !isLoading && (
+                                        <div className="p-6 bg-black/40 border-t border-white/5 flex flex-wrap gap-2">
+                                            {[
+                                                { label: "Refine: Shorter", prompt: "Summarize this output for an executive briefing." },
+                                                { label: "Format: Presentation", prompt: "Structure this as a series of presentation slides." },
+                                                { label: "Add: Statistics", prompt: "Include relevant Alabama-specific educational statistics in this document." },
+                                                { label: "Tone: Inspiring", prompt: "Rewrite this with a more inspirational leadership tone." }
+                                            ].map((hud, i) => (
+                                                <button
+                                                    key={i}
+                                                    onClick={() => { setInput(hud.prompt); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                                                    className="px-4 py-2 rounded-xl bg-white/5 hover:bg-noble-gold/20 border border-white/5 text-[10px] font-black uppercase text-zinc-400 hover:text-noble-gold transition-all"
+                                                >
+                                                    {hud.label}
+                                                </button>
+                                            ))}
+                                            <div className="w-px h-6 bg-white/10 mx-2" />
+
+                                            {/* Output Actions */}
+                                            <button
+                                                onClick={() => {
+                                                    const cleanText = completion.replace(/[*#_`]/g, '');
+                                                    const utterance = new SpeechSynthesisUtterance(cleanText);
+                                                    window.speechSynthesis.cancel();
+                                                    window.speechSynthesis.speak(utterance);
+                                                }}
+                                                className="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-emerald-600/20 hover:text-emerald-300 hover:border-emerald-500/30 border border-white/5 text-xs text-zinc-400 transition-all flex items-center gap-1"
+                                                title="Read Aloud"
+                                            >
+                                                <Volume2 className="w-3 h-3" />
+                                                Read
+                                            </button>
+
+                                            <button
+                                                onClick={() => window.print()}
+                                                className="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-amber-600/20 hover:text-amber-300 hover:border-amber-500/30 border border-white/5 text-xs text-zinc-400 transition-all flex items-center gap-1"
+                                                title="Save as PDF"
+                                            >
+                                                <FileText className="w-3 h-3" />
+                                                PDF
+                                            </button>
+
+                                            <button
+                                                onClick={handleAnalyzeSentiment}
+                                                className="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-orange-600/20 hover:text-orange-300 hover:border-orange-500/30 border border-white/5 text-xs text-zinc-400 transition-all flex items-center gap-1"
+                                                title="Analyze Sentiment"
+                                            >
+                                                <BarChart3 className="w-3 h-3" />
+                                                Sentiment
+                                            </button>
+
+                                            <button
+                                                onClick={handleStrategicVox}
+                                                className="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-pink-600/20 hover:text-pink-300 hover:border-pink-500/30 border border-white/5 text-xs text-zinc-400 transition-all flex items-center gap-1"
+                                                title="Play Strategic Voice"
+                                            >
+                                                <Volume2 className="w-3 h-3" />
+                                                Vox
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
+
+                {/* RIGHT SIDEBAR: Tactical Panel */}
+                <div className="h-full border-l border-white/5 bg-black/60 backdrop-blur-3xl overflow-y-auto custom-scrollbar p-8 space-y-8 flex flex-col">
+                    <div className="space-y-6">
+                        {/* Tactical Shortcuts */}
+                        <section>
+                            <h3 className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.3em] mb-4 flex items-center gap-2">
+                                <Zap size={12} className="text-noble-gold" />
+                                Rapid Initialization
+                            </h3>
+                            <div className="grid gap-3">
+                                {prompts.map((p, i) => (
+                                    <button
+                                        key={i}
+                                        onClick={() => handleQuickPrompt(p)}
+                                        className="group text-left p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-noble-gold/40 transition-all hover:bg-noble-gold/5"
+                                    >
+                                        <p className="text-xs text-zinc-400 group-hover:text-white transition-colors line-clamp-2 leading-relaxed font-medium">
+                                            {p}
+                                        </p>
+                                    </button>
+                                ))}
+                            </div>
+                        </section>
+
+                        {/* Memory Bank (Local History) */}
+                        <section>
+                            <div className="flex items-center justify-between mb-4">
+                                <h3 className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.3em] flex items-center gap-2">
+                                    <History size={12} className="text-indigo-400" />
+                                    Memory Bank
+                                </h3>
+                                <button onClick={() => { localStorage.removeItem(`history_${generatorId}`); setHistory([]); }} className="text-[9px] text-zinc-700 hover:text-kente-red uppercase font-black tracking-widest transition-colors">Wipe</button>
+                            </div>
+                            <div className="space-y-3">
+                                {history.slice(0, 5).map((h: any, i: number) => (
+                                    <button
+                                        key={i}
+                                        onClick={() => { setInput(h.prompt); setCompletion(h.completion); }}
+                                        className="w-full text-left p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-indigo-500/30 transition-all"
+                                    >
+                                        <div className="flex justify-between items-center mb-1">
+                                            <span className="text-[9px] font-mono text-zinc-600">{h.date}</span>
+                                            <ArrowRight size={10} className="text-zinc-600" />
+                                        </div>
+                                        <p className="text-[10px] text-zinc-400 truncate">{h.prompt}</p>
+                                    </button>
+                                ))}
+                                {history.length === 0 && <p className="text-center py-10 text-[10px] text-zinc-700 uppercase italic font-medium">Strategic Buffer Empty</p>}
+                            </div>
+                        </section>
+                    </div>
+
+                    <div className="mt-auto pt-8 border-t border-white/10">
+                        {/* Network Statistics HUD */}
+                        <div className="bg-noble-gold/5 rounded-2xl p-6 border border-noble-gold/10">
+                            <h4 className="text-[10px] font-black text-noble-gold uppercase tracking-widest mb-4">Professional Metrics</h4>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <p className="text-[9px] text-zinc-500 uppercase mb-1">Leadership Rank</p>
+                                    <p className="text-xs font-black text-white uppercase">{user?.tier || 'Educator'}</p>
+                                </div>
+                                <div>
+                                    <p className="text-[9px] text-zinc-500 uppercase mb-1">Intelligence Cap</p>
+                                    <p className="text-xs font-black text-white uppercase italic">Professional</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div >
-        </div >
+            </div>
+
+            {/* FLOATING DELEGATE ORB - REINTEGRATED & ENHANCED */}
+            <div className="fixed bottom-10 right-10 z-[60] scale-90 md:scale-100 hover:scale-110 transition-transform duration-500">
+                <div className="absolute -inset-4 bg-noble-gold/20 rounded-full blur-2xl animate-pulse" />
+                <AIAssistant
+                    name={selectedDelegate.name}
+                    role={selectedDelegate.role}
+                    avatarImage={selectedDelegate.image}
+                    videoSrc={professorVideo || welcomeVideo}
+                    voiceSrc={voiceWelcome}
+                    color={generatorColor.includes('gradient') ? generatorColor : "from-noble-gold to-kente-red"}
+                    completionText={completion}
+                    theme="professional"
+                    guideMode={true}
+                    isLoading={isLoading}
+                />
+            </div>
+
+            {/* Tactical Scanlines */}
+            <div className="fixed inset-0 pointer-events-none z-[70] opacity-[0.03] scan-line" />
+        </div>
     );
 }

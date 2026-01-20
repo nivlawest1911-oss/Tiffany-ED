@@ -2,8 +2,8 @@ import IEPGenerator from "./bento/IEPGenerator"
 import LessonPlanGenerator from "./bento/LessonPlanGenerator"
 import AutomatedIEPAudit from "./bento/AutomatedIEPAudit"
 import ExecutiveDashboard from "./bento/ExecutiveDashboard"
-import AvatarLaboratory from "./bento/AvatarLaboratory"
-import LegalSingularityVault from "./bento/LegalSingularityVault"
+import AvatarStudio from "./bento/AvatarStudio"
+import { ComplianceVault } from "./ComplianceVault"
 
 const BentoCard = ({ title, description, Component, fullWidth = false }) => (
     <div className={`overflow-hidden rounded-3xl border border-white/10 flex flex-col justify-start items-start relative bg-zinc-900/50 backdrop-blur-xl group hover:border-indigo-500/50 transition-all duration-500 ${fullWidth ? 'md:col-span-2' : ''}`}>
@@ -41,7 +41,7 @@ export function EducationalBentoSection() {
             Component: LessonPlanGenerator,
         },
         {
-            title: "Compliance Audit Node",
+            title: "Compliance Audit Center",
             description: "Automated IDEA Part B verification and procedural safeguard auditing.",
             Component: AutomatedIEPAudit,
         },
@@ -53,7 +53,7 @@ export function EducationalBentoSection() {
         {
             title: "Identity Synthesis",
             description: "Develop your professional AI avatar with cultural and visual authenticity.",
-            Component: AvatarLaboratory,
+            Component: AvatarStudio,
         }
     ]
 

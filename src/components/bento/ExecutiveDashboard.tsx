@@ -1,5 +1,5 @@
 'use client';
-import { AlertCircle, FileText, Clock } from 'lucide-react';
+import { AlertCircle, FileText, Clock, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface LegislativeAlert {
@@ -72,9 +72,12 @@ export default function ExecutiveDashboard() {
                         <AlertCircle className="text-red-500 relative z-10" size={20} />
                         <div className="absolute inset-0 bg-red-500 blur-md animate-pulse opacity-50" />
                     </div>
-                    <h3 className="font-bold uppercase tracking-widest text-sm text-red-500">Morning Intel</h3>
+                    <h3 className="font-bold uppercase tracking-widest text-sm text-red-500">Leadership Briefing</h3>
                 </div>
-                <span className="text-xs text-zinc-400 font-mono"><CurrentDate /></span>
+                <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                    <span className="text-[10px] text-zinc-400 font-mono"><CurrentDate /></span>
+                </div>
             </div>
 
             <div className="space-y-3 relative z-10">
@@ -106,9 +109,13 @@ export default function ExecutiveDashboard() {
                     href="https://alison.legislature.state.al.us/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block w-full py-3 px-4 bg-gradient-to-r from-red-600 to-red-800 text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:brightness-110 transition-all text-center shadow-lg shadow-red-900/20"
+                    className="group/btn block w-full py-3 px-4 bg-gradient-to-r from-red-600 to-red-800 text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:brightness-110 transition-all text-center shadow-lg shadow-red-900/20 relative overflow-hidden"
                 >
-                    View Legislative Calendar
+                    <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 skew-x-12" />
+                    <span className="relative z-10 flex items-center justify-center gap-2">
+                        View Legislative Calendar
+                        <ArrowRight size={12} className="group-hover/btn:translate-x-1 transition-transform" />
+                    </span>
                 </a>
             </div>
         </motion.div>

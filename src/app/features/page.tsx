@@ -3,8 +3,8 @@ import React from 'react';
 import FeaturesContent from './FeaturesContent';
 
 export const metadata = {
-    title: 'EdIntel Sovereign - Features',
-    description: 'Explore the powerful AI features of EdIntel Sovereign.',
+    title: 'EdIntel Professional - Features',
+    description: 'Explore the powerful AI features of EdIntel Professional.',
 };
 
 export default function FeaturesLanding() {
@@ -25,7 +25,7 @@ export default function FeaturesLanding() {
                     </div>
 
                     <h1 className="text-6xl md:text-7xl font-bold text-white mb-6">
-                        EdIntel <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Sovereign</span>
+                        EdIntel <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Professional</span>
                     </h1>
 
                     <p className="text-xl md:text-2xl text-purple-200 mb-8 max-w-3xl mx-auto">

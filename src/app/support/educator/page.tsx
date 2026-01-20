@@ -8,7 +8,7 @@ export default function EducatorHubProtocol() {
     const articles = [
         {
             id: 1,
-            title: "Integrate New Learner Nodes",
+            title: "Integrate New Learner Centers",
             desc: "Protocol for observing managing student accounts and assigning neural profiles.",
             views: "12.4k",
             date: "Dec 10, 2025",
@@ -32,7 +32,7 @@ export default function EducatorHubProtocol() {
         },
         {
             id: 4,
-            title: "Deactivate Compromised Nodes",
+            title: "Deactivate Compromised Centers",
             desc: "Safely archiving or removing student accounts from the district grid.",
             views: "4.2k",
             date: "Dec 12, 2025",
@@ -64,8 +64,8 @@ export default function EducatorHubProtocol() {
         },
         {
             id: 8,
-            title: "Sovereign Subscription FAQs",
-            desc: "Details on district-wide licenses and Educator Sovereign Access tiers.",
+            title: "Professional Subscription FAQs",
+            desc: "Details on district-wide licenses and Educator Professional Access tiers.",
             views: "11.2k",
             date: "Dec 14, 2025",
             icon: <Settings size={20} className="text-zinc-500" />
@@ -87,7 +87,7 @@ export default function EducatorHubProtocol() {
                     </div>
 
                     <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter mb-2">
-                        Sovereign Educator Protocols
+                        Professional Educator Protocols
                     </h1>
                     <p className="text-lg text-zinc-400 font-medium max-w-xl mx-auto">
                         Command center documentation for managing learner nodes, interventions, and district analytics.

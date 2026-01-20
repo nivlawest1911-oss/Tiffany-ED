@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     const body = await req.json();
     // Free Tier Simulation
     return NextResponse.json({
-      output: `## Administrative Summary (Free Tier)\n\n**Status**: Operational\n**Compliance**: 100%\n\n*Note: Simulated Intelligence Node.*`
+      output: `## Administrative Summary (Free Tier)\n\n**Status**: Operational\n**Compliance**: 100%\n\n*Note: Simulated Intelligence Center.*`
     });
   } catch (error) {
     return NextResponse.json({ error: 'Admin Brain connection failed' }, { status: 500 });

@@ -23,7 +23,7 @@ export default function SpecialEdLawAuditor() {
                     </div>
                     <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[8px] font-black uppercase tracking-widest">
                         <ShieldCheck size={10} />
-                        <span>IDEA Defensible</span>
+                        <span>IDEA Compliance</span>
                     </div>
                 </div>
 
@@ -32,14 +32,14 @@ export default function SpecialEdLawAuditor() {
                 </h3>
 
                 <p className="text-sm text-zinc-500 leading-relaxed font-medium mb-6">
-                    Sovereign legal intelligence designed to audit IEPs and 504 plans for IDEA compliance. Ensure every document is legally defensible and instructionally sound.
+                    Advanced legal assistance designed to review IEPs and 504 plans for IDEA compliance. Ensure every document is legally sound and instructionally effective.
                 </p>
 
                 <div className="space-y-3">
                     {[
-                        { icon: Gavel, text: "Legal Singularity Verification" },
+                        { icon: Gavel, text: "Legal Standard Verification" },
                         { icon: UserCheck, text: "Parental Rights Validation" },
-                        { icon: Lock, text: "Privacy Protocol Audit" }
+                        { icon: Lock, text: "Privacy Standards Audit" }
                     ].map((item, i) => (
                         <div key={i} className="flex items-center gap-3 text-xs text-zinc-400 font-mono">
                             <item.icon size={12} className="text-amber-500/50" />
@@ -56,7 +56,7 @@ export default function SpecialEdLawAuditor() {
                 </button>
             </div>
 
-            {/* Neural Pattern Ornament */}
+            {/* Strategic Pattern Ornament */}
             <div className="absolute bottom-4 right-4 opacity-20 group-hover:opacity-40 transition-opacity">
                 <FileText size={120} className="text-amber-500/10 rotate-45" />
             </div>

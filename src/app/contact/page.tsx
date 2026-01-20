@@ -39,7 +39,7 @@ export default function ContactPage() {
                         <div className="flex items-center justify-between mb-6">
                             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-bold uppercase tracking-widest">
                                 <LucideShield size={12} />
-                                <span>Command Uplink</span>
+                                <span>Command Connection</span>
                             </div>
                             <button
                                 onClick={() => setShowBriefing(true)}
@@ -52,15 +52,15 @@ export default function ContactPage() {
 
                         <h1 className="text-5xl font-black text-white mb-6">Contact Command</h1>
                         <p className="text-xl text-zinc-400 mb-12 leading-relaxed">
-                            Deploying sovereign intelligence requires precise communication.
+                            Deploying strategic intelligence requires precise communication.
                             Direct channel open to Dr. Alvin West and the EdIntel engineering team.
                         </p>
 
                         <HolographicBriefing
                             isOpen={showBriefing}
                             onClose={() => setShowBriefing(false)}
-                            title="Secure Comms Uplink"
-                            description="Channel Open. You are now connected to the Sovereign Command Center. All transmissions are encrypted. Use this channel for strategic inquiries, partnership proposals, or technical directives. We are listening."
+                            title="Secure Comms Connection"
+                            description="Channel Open. You are now connected to the Professional Command Center. All transmissions are encrypted. Use this channel for strategic inquiries, partnership proposals, or technical directives. We are listening."
                             role="Communications Director"
                             avatarImage="/images/avatars/executive_leader.png"
                             thumbnail="/images/features/iep-architect-demo.mp4"
@@ -81,14 +81,14 @@ export default function ContactPage() {
                             </div>
                             <div>
                                 <h3 className="text-white font-bold text-lg">Dr. Alvin West, II</h3>
-                                <p className="text-indigo-400 text-sm font-medium mb-1">Founder & Chief Sovereign Officer</p>
+                                <p className="text-indigo-400 text-sm font-medium mb-1">Founder & Chief Professional Officer</p>
                                 <p className="text-zinc-500 text-xs leading-relaxed">
-                                    "We are building the future of educational sovereignty together. Your voice helps shape our mission."
+                                    "We are building the future of educational excellence together. Your voice helps shape our mission."
                                 </p>
                             </div>
                         </div>
 
-                        {/* Sovereign Protocol Visualization */}
+                        {/* Professional Protocol Visualization */}
                         <div className="mb-12 relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/50 p-6">
                             <div className="absolute top-0 right-0 p-4 opacity-30">
                                 <img src="/images/protocol_interface.png" alt="Protocol HUD" className="w-32 h-auto" />
@@ -102,7 +102,7 @@ export default function ContactPage() {
                             <div className="space-y-6 relative z-10">
                                 {[
                                     { step: '01', title: 'Initialization', desc: 'Secure uplink channel established via encrypted form.', color: 'border-l-indigo-500' },
-                                    { step: '02', title: 'Transmission', desc: 'Message packet routed to Sovereign Command prioritization queue.', color: 'border-l-purple-500' },
+                                    { step: '02', title: 'Transmission', desc: 'Message packet routed to Professional Command prioritization queue.', color: 'border-l-purple-500' },
                                     { step: '03', title: 'Deployment', desc: 'Strategic response formulated and deployed within 24 hours.', color: 'border-l-pink-500' }
                                 ].map((phase, idx) => (
                                     <div key={idx} className={`pl-4 border-l-2 ${phase.color} fade-in-up`} style={{ animationDelay: `${idx * 150}ms` }}>
@@ -148,12 +148,12 @@ export default function ContactPage() {
                                 </a>
                             </div>
 
-                            {/* Voice Uplink Card */}
+                            {/* Voice Connection Card */}
                             <div className="group p-5 rounded-2xl bg-zinc-900/50 border border-white/10 hover:border-purple-500/50 hover:bg-zinc-900/80 transition-all duration-300">
                                 <div className="p-3 rounded-xl bg-purple-500/10 w-fit mb-4 group-hover:scale-110 transition-transform">
                                     <Phone className="w-6 h-6 text-purple-400" />
                                 </div>
-                                <h3 className="text-white font-bold mb-1">Voice Uplink</h3>
+                                <h3 className="text-white font-bold mb-1">Voice Connection</h3>
                                 <p className="text-xs text-zinc-500 mb-2">Direct Line</p>
                                 <a href="tel:+12514229420" className="text-sm font-mono text-purple-400 hover:text-purple-300 transition-colors">
                                     +1 (251) 422-9420
@@ -237,7 +237,7 @@ export default function ContactPage() {
                                         value={formState.message}
                                         onChange={e => setFormState({ ...formState, message: e.target.value })}
                                         className="w-full bg-black/50 backdrop-blur-md border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors resize-none"
-                                        placeholder="How can we advance your sovereignty?"
+                                        placeholder="How can we advance your strategy?"
                                     />
                                 </div>
                                 <button
@@ -245,7 +245,7 @@ export default function ContactPage() {
                                     disabled={isSubmitting}
                                     className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-indigo-500/25 transition-all disabled:opacity-50 border border-white/10"
                                 >
-                                    {isSubmitting ? 'Transmitting...' : 'Initialize Uplink'}
+                                    {isSubmitting ? 'Transmitting...' : 'Initialize Connection'}
                                     <Send size={18} />
                                 </button>
                             </form>
@@ -267,7 +267,7 @@ export default function ContactPage() {
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                     <h2 className="text-3xl sm:text-4xl font-black text-white mb-6">
-                        Join the Sovereign Community
+                        Join the Professional Community
                     </h2>
                     <p className="text-xl text-zinc-400 max-w-2xl mx-auto mb-8">
                         Connect with other forward-thinking educators who are reclaiming their time and expertise with EdIntel.

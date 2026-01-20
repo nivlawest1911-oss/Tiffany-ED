@@ -19,7 +19,7 @@ interface Resource {
   description: string;
   url: string;
   category: 'State' | 'District' | 'Policy' | 'Community';
-  icon: React.ReactNode;
+  icon: React.ReactCenter;
 }
 
 export default function AlabamaResources() {
@@ -76,13 +76,13 @@ export default function AlabamaResources() {
         {/* Header Section */}
         <div className="mb-20 space-y-6">
           <div className="flex items-center gap-3 text-blue-500 font-black uppercase tracking-[0.3em] text-xs">
-            <MapPin size={14} /> Regional Command Node
+            <MapPin size={14} /> Regional Command Center
           </div>
           <h1 className="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none italic">
             Alabama <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-500">Resource Hub</span>
           </h1>
           <p className="text-zinc-500 max-w-2xl text-lg font-medium leading-relaxed">
-            Access official state mandates, district portals, and legal frameworks critical for the EdIntel Sovereign Pilot and Institutional Compliance.
+            Access official state mandates, district portals, and legal frameworks critical for the EdIntel Professional Pilot and Institutional Compliance.
           </p>
         </div>
 
@@ -132,18 +132,18 @@ export default function AlabamaResources() {
               <Info size={32} className="text-white" />
             </div>
             <div>
-              <p className="text-lg font-bold">Missing a Regional Node?</p>
+              <p className="text-lg font-bold">Missing a Regional Center?</p>
               <p className="text-sm text-zinc-400">Request the addition of local AL educational frameworks for better AI grounding.</p>
             </div>
           </div>
           <button className="px-8 py-4 bg-white text-black rounded-2xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-transform whitespace-nowrap">
-            Submit Resource Node
+            Submit Resource Center
           </button>
         </div>
       </main>
 
       <footer className="py-20 border-t border-zinc-900 opacity-30 text-center">
-        <p className="text-[10px] font-black uppercase tracking-[0.4em]">Sovereignty Hub // Mobile County Education Command</p>
+        <p className="text-[10px] font-black uppercase tracking-[0.4em]">Leadership Hub // Mobile County Education Command</p>
       </footer>
     </div>
   );

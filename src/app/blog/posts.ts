@@ -2,15 +2,15 @@
 export const BLOG_POSTS = [
     {
         id: 1,
-        title: 'Neural Sync: AI‑driven Coaching for Educators',
-        excerpt: 'Discover how EdIntel’s Neural Sync engine personalizes instruction and reduces teacher burnout.',
+        title: 'Strategic Sync: AI‑driven Coaching for Educators',
+        excerpt: 'Discover how EdIntel’s Strategic Sync engine personalizes instruction and reduces teacher burnout.',
         image: 'https://images.unsplash.com/photo-1504384308090-9c4e60b7d2c0?w=800&q=80',
         date: '2025‑12‑01',
         category: 'AI & Education',
     },
     {
         id: 2,
-        title: 'Sovereign Token Economy – Fueling Innovation',
+        title: 'Professional Token Economy – Fueling Innovation',
         excerpt: 'A deep dive into our transparent token model that aligns budgets with outcomes.',
         image: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&q=80',
         date: '2025‑11‑20',

@@ -49,7 +49,7 @@ export default function AboutPage() {
                         className="text-xl md:text-2xl text-zinc-400 max-w-3xl mx-auto leading-relaxed font-light"
                     >
                         The modern educational system is designed to consume time, energy, and cognitive bandwidth.
-                        <strong className="text-white font-medium"> EdIntel Sovereign</strong> exists to reclaim it—giving educators the power to lead with logic, precision, and absolute authority.
+                        <strong className="text-white font-medium"> EdIntel Professional</strong> exists to reclaim it—giving educators the power to lead with logic, precision, and absolute authority.
                     </motion.p>
                 </div>
             </div>
@@ -57,11 +57,11 @@ export default function AboutPage() {
             {/* 2. The Architect: Dr. Alvin West - Enhanced Layout */}
             <FounderDossier />
 
-            {/* 3. The Philosophy: Sovereign Pillars - Glass Cards */}
+            {/* 3. The Philosophy: Professional Pillars - Glass Cards */}
             <section className="py-32 px-6 relative bg-black">
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-20">
-                        <h2 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight">The 4 Pillars of <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Sovereignty</span></h2>
+                        <h2 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight">The 4 Pillars of <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Leadership</span></h2>
                         <p className="text-zinc-400 max-w-2xl mx-auto text-lg">
                             Our platform is strictly engineered upon these non-negotiable principles.
                         </p>

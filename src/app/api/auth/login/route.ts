@@ -24,7 +24,7 @@ export async function POST(req: Request) {
         if (!user) {
             // For DEMO purposes: If user doesn't exist, we might auto-create OR fail.
             // Let's FAIL to force Signup, OR implement a clever "demo mode".
-            // Given "Sovereign" vibe, let's be strict but friendly.
+            // Given "Professional" vibe, let's be strict but friendly.
             return NextResponse.json({ error: 'Executive identity not found. Please Initialize Protocol (Signup).' }, { status: 401 });
         }
 

@@ -2,9 +2,9 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Globe, Shield, Zap, AlertTriangle, MapPin, Search, Maximize2, Activity } from 'lucide-react';
 import { useState } from 'react';
-import useSovereignSounds from '@/hooks/useSovereignSounds';
+import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 
-interface DistrictNode {
+interface DistrictCenter {
     id: string;
     name: string;
     type: 'high' | 'middle' | 'elementary' | 'admin';
@@ -22,11 +22,11 @@ export default function DistrictTopologyMap({
     onDeployDelegateAction?: () => void,
     onBroadcastAction?: () => void
 }) {
-    const [selectedNode, setSelectedNode] = useState<DistrictNode | null>(null);
-    const { playClick, playHover } = useSovereignSounds();
+    const [selectedCenter, setSelectedCenter] = useState<DistrictCenter | null>(null);
+    const { playClick, playHover } = useProfessionalSounds();
 
-    const nodes: DistrictNode[] = [
-        { id: '01', name: 'Sovereign Central High', type: 'high', status: 'optimal', health: 98, description: 'Core academic node. Excellence protocols stable.', x: 50, y: 30 },
+    const nodes: DistrictCenter[] = [
+        { id: '01', name: 'Professional Central High', type: 'high', status: 'optimal', health: 98, description: 'Core academic node. Excellence protocols stable.', x: 50, y: 30 },
         { id: '02', name: 'Pine Grove Elementary', type: 'elementary', status: 'threat', health: 62, description: 'Under SB 101 Legislative Siege. Immediate pivot required.', x: 20, y: 60 },
         { id: '03', name: 'Oak Shadow Middle', type: 'middle', status: 'warning', health: 84, description: 'Attendance volatility detected. Monitoring neural sync.', x: 80, y: 55 },
         { id: '04', name: 'Tech Innovation Academy', type: 'high', status: 'optimal', health: 100, description: 'Full AI integration successful. Lead tech node.', x: 50, y: 80 },
@@ -40,7 +40,7 @@ export default function DistrictTopologyMap({
                 <div>
                     <h3 className="text-sm font-black text-white uppercase tracking-[0.3em] flex items-center gap-2">
                         <Globe size={16} className="text-indigo-500 animate-pulse" />
-                        Neural Topology Map
+                        Strategic Topology Map
                     </h3>
                     <p className="text-[9px] text-zinc-500 font-mono uppercase tracking-widest mt-1">v8.4 Territorial Oversight</p>
                 </div>
@@ -60,6 +60,16 @@ export default function DistrictTopologyMap({
                             <stop offset="100%" stopColor="#a855f7" />
                         </linearGradient>
                     </defs>
+                    {/* Active Data Packets */}
+                    <circle r="2" fill="#fff">
+                        <animateMotion dur="3s" repeatCount="indefinite" path="M 50 55 L 20 60" />
+                    </circle>
+                    <circle r="2" fill="#fff">
+                        <animateMotion dur="4s" repeatCount="indefinite" path="M 50 30 L 50 55" />
+                    </circle>
+                    <circle r="2" fill="#fff">
+                        <animateMotion dur="2.5s" repeatCount="indefinite" path="M 80 55 L 50 55" />
+                    </circle>
                     <path
                         d="M 50 30 L 20 60 L 50 80 L 80 55 L 50 30 M 50 55 L 50 30 M 50 55 L 20 60 M 50 55 L 50 80 M 50 55 L 80 55"
                         stroke="url(#lineGrad)"
@@ -69,14 +79,14 @@ export default function DistrictTopologyMap({
                     />
                 </svg>
 
-                {/* Nodes */}
+                {/* Centers */}
                 {nodes.map((node) => (
                     <motion.button
                         key={node.id}
                         initial={{ opacity: 0, scale: 0 }}
                         animate={{ opacity: 1, scale: 1 }}
                         whileHover={{ scale: 1.2, zIndex: 30 }}
-                        onClick={() => { playClick(); setSelectedNode(node); }}
+                        onClick={() => { playClick(); setSelectedCenter(node); }}
                         onMouseEnter={playHover}
                         style={{ left: `${node.x}%`, top: `${node.y}%` }}
                         className="absolute -translate-x-1/2 -translate-y-1/2 group/node focus:outline-none"
@@ -94,7 +104,7 @@ export default function DistrictTopologyMap({
                                 node.status === 'warning' ? 'border-amber-500/50' : 'border-emerald-500/50'
                                 }`} />
 
-                            {/* Core Node */}
+                            {/* Core Center */}
                             <div className={`w-8 h-8 rounded-xl flex items-center justify-center transition-all duration-300 shadow-xl ${node.status === 'threat' ? 'bg-rose-500 text-white shadow-rose-500/20' :
                                 node.status === 'warning' ? 'bg-amber-500 text-white shadow-amber-500/20' :
                                     'bg-emerald-500 text-white shadow-emerald-500/20'
@@ -129,9 +139,9 @@ export default function DistrictTopologyMap({
                 </div>
             </div>
 
-            {/* Node Quick Info Overlay */}
+            {/* Center Quick Info Overlay */}
             <AnimatePresence>
-                {selectedNode && (
+                {selectedCenter && (
                     <motion.div
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -139,24 +149,24 @@ export default function DistrictTopologyMap({
                         className="absolute right-6 top-24 w-60 bg-black/80 backdrop-blur-xl border border-white/10 p-5 rounded-2xl z-40 shadow-2xl"
                     >
                         <div className="flex justify-between items-start mb-4">
-                            <h4 className="text-[10px] font-black text-white uppercase tracking-widest">{selectedNode.name}</h4>
-                            <button onClick={() => setSelectedNode(null)} className="text-zinc-500 hover:text-white tracking-widest text-[8px] uppercase">Close</button>
+                            <h4 className="text-[10px] font-black text-white uppercase tracking-widest">{selectedCenter.name}</h4>
+                            <button onClick={() => setSelectedCenter(null)} className="text-zinc-500 hover:text-white tracking-widest text-[8px] uppercase">Close</button>
                         </div>
 
                         <div className="space-y-4">
                             <div className="flex justify-between items-center text-[8px] font-mono text-zinc-500 uppercase">
-                                <span>Neural Health</span>
-                                <span className={selectedNode.health > 90 ? 'text-emerald-400' : 'text-rose-400'}>{selectedNode.health}%</span>
+                                <span>Strategic Health</span>
+                                <span className={selectedCenter.health > 90 ? 'text-emerald-400' : 'text-rose-400'}>{selectedCenter.health}%</span>
                             </div>
                             <div className="h-1 bg-white/5 rounded-full overflow-hidden">
                                 <div
-                                    className={`h-full transition-all duration-1000 ${selectedNode.health > 90 ? 'bg-emerald-500' : 'bg-rose-500'}`}
-                                    style={{ width: `${selectedNode.health}%` }}
+                                    className={`h-full transition-all duration-1000 ${selectedCenter.health > 90 ? 'bg-emerald-500' : 'bg-rose-500'}`}
+                                    style={{ width: `${selectedCenter.health}%` }}
                                 />
                             </div>
 
                             <p className="text-[9px] text-zinc-400 leading-relaxed italic border-l border-white/10 pl-2">
-                                "{selectedNode.description}"
+                                "{selectedCenter.description}"
                             </p>
 
                             <div className="grid grid-cols-2 gap-2">

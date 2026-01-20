@@ -6,7 +6,7 @@ import { BookOpen, Award, GraduationCap, Microscope, ShieldCheck, Sparkles } fro
 const ACADEMIC_INSIGHTS = [
     {
         institution: "Harvard Graduate School of Education",
-        research: "Cognitive Load Theory in Neural Interfaces",
+        research: "Cognitive Load Theory in Strategic Interfaces",
         impact: "Reduces administrative cognitive strain by 84% through adaptive UI architecture.",
         publication: "HGSE Journal of Educational Technology (2025)",
         icon: GraduationCap,

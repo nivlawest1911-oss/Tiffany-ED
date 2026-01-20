@@ -28,13 +28,13 @@ export default function TestMediaPage() {
                 <div className="text-center mb-16">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-bold uppercase tracking-widest mb-6">
                         <LucideShield size={14} />
-                        <span>Sovereign Delegates</span>
+                        <span>Professional Delegates</span>
                     </div>
                     <h1 className="text-5xl md:text-6xl font-black text-white mb-6 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
                         EdIntel AI Delegates
                     </h1>
                     <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
-                        Meet your sovereign intelligence team. Each AI delegate brings specialized expertise to advance educational excellence.
+                        Meet your strategic intelligence team. Each AI delegate brings specialized expertise to advance educational excellence.
                     </p>
                 </div>
 

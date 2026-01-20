@@ -18,7 +18,7 @@ export default function AvatarMasterclass() {
             description: "Master the art of neural voice synthesis for your delegate to ensure 100% stakeholder trust."
         },
         {
-            title: "Rapid Sovereign Export",
+            title: "Rapid Professional Export",
             duration: "5:12",
             category: "Workflow",
             icon: <Video size={18} className="text-emerald-400" />,
@@ -79,7 +79,7 @@ export default function AvatarMasterclass() {
                             <Sparkles size={16} />
                         </div>
                         <div>
-                            <p className="text-[10px] font-black uppercase tracking-widest">Sovereign Certification</p>
+                            <p className="text-[10px] font-black uppercase tracking-widest">Professional Certification</p>
                             <p className="text-xs text-zinc-400">Complete all nodes to unlock Hyperrealistic Sync Alpha.</p>
                         </div>
                     </div>

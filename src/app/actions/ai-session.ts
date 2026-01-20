@@ -1,5 +1,5 @@
 /**
- * EdIntel Sovereign - Gemini 3 Pro Interactions API
+ * EdIntel Professional - Gemini 3 Pro Interactions API
  * Deep Research Agent with Thought Signatures
  * 
  * This server action manages stateful reasoning across multi-step
@@ -12,7 +12,7 @@ import { google } from '@ai-sdk/google';
 import { streamText, streamUI } from 'ai/rsc';
 import { sql } from '@vercel/postgres';
 import { z } from 'zod';
-import { ReactNode } from 'react';
+import { ReactCenter } from 'react';
 
 // Import Generative UI Components
 import { EvidenceFolderCard } from '@/components/artifacts/EvidenceFolderCard';
@@ -27,7 +27,7 @@ import { CHOOSEActCalculator } from '@/components/artifacts/CHOOSEActCalculator'
  * This reduces token costs by 90% for repeated queries
  */
 const ALABAMA_REGULATORY_CONTEXT = `
-You are the EdIntel Sovereign Intelligence, a Deep Research Agent for Alabama educators.
+You are the EdIntel Professional Intelligence, a Deep Research Agent for Alabama educators.
 
 REGULATORY FRAMEWORK (2026):
 1. Alabama Administrative Code 290-8-9 (Special Education)
@@ -218,7 +218,7 @@ export async function startEdIntelSession(
           VALUES (
             ${userId},
             'Dr. Alvin West',
-            'Sovereign Educational Intelligence',
+            'Professional Educational Intelligence',
             ${JSON.stringify([...conversationHistory, { role: 'assistant', thoughtSignature }])}::jsonb,
             ${JSON.stringify({ latest: thoughtSignature, timestamp: new Date().toISOString() })}::jsonb,
             'gemini-3-pro'

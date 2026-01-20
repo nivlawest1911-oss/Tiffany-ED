@@ -9,23 +9,23 @@ export default function PrivacyPolicyPage() {
     const sections = [
         {
             icon: Database,
-            title: 'Data Sovereignty',
-            content: 'Unlike traditional platforms that treat user data as a commodity, EdIntel Sovereign recognizes your data as your intellectual property. You retain absolute ownership of all inputs, outputs, and generated protocols. We act merely as the secure vault and processing engine.'
+            title: 'Data Leadership',
+            content: 'Unlike traditional platforms that treat user data as a commodity, EdIntel Professional recognizes your data as your intellectual property. You retain absolute ownership of all inputs, outputs, and generated protocols. We act merely as the secure vault and processing engine.'
         },
         {
             icon: Eye,
             title: 'Zero-Training Guarantee',
-            content: 'We adhere to a strict "No-Training" policy. Data processed through our Neural Broadcast Nodes (AI Models) is ephemeral for the purpose of generation only. It is legally and technically firewalled from being used to train public AI models by providers like OpenAI, Google, or Anthropic.'
+            content: 'We adhere to a strict "No-Training" policy. Data processed through our Strategic Broadcast Centers (AI Models) is ephemeral for the purpose of generation only. It is legally and technically firewalled from being used to train public AI models by providers like OpenAI, Google, or Anthropic.'
         },
         {
             icon: Lock,
             title: 'Encryption Standards',
-            content: 'Your digital exhaust is secured with AES-256 encryption at rest and TLS 1.3 in transit. Our database architecture uses row-level security policies, ensuring that even at the database level, your data is isolated from other sovereign nodes.'
+            content: 'Your digital exhaust is secured with AES-256 encryption at rest and TLS 1.3 in transit. Our database architecture uses row-level security policies, ensuring that even at the database level, your data is isolated from other strategic centers.'
         },
         {
             icon: UserCheck,
             title: 'Minimization Principle',
-            content: 'We collect only what is strictly necessary to maintain the integrity of the Sovereign network: Authentication tokens, billing status, and encrypted user preferences. We do not track your activity across the web or sell behavioral profiles.'
+            content: 'We collect only what is strictly necessary to maintain the integrity of the Professional network: Authentication tokens, billing status, and encrypted user preferences. We do not track your activity across the web or sell behavioral profiles.'
         }
     ];
 
@@ -44,7 +44,7 @@ export default function PrivacyPolicyPage() {
                         className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-black uppercase tracking-widest mb-6"
                     >
                         <LucideShield size={12} />
-                        <span>Sovereign Constitution</span>
+                        <span>Professional Constitution</span>
                     </motion.div>
 
                     <motion.h1
@@ -63,7 +63,7 @@ export default function PrivacyPolicyPage() {
                         className="text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed"
                     >
                         In the age of AI, privacy is not just a right; it is a strategic asset.
-                        We protect your intellectual sovereignty with military-grade architecture.
+                        We protect your intellectual property with military-grade architecture.
                     </motion.p>
                 </div>
             </div>
@@ -96,7 +96,7 @@ export default function PrivacyPolicyPage() {
                     <div className="p-8 rounded-3xl bg-zinc-950 border border-white/5">
                         <h2>1. Introduction</h2>
                         <p>
-                            This Privacy Policy describes how <strong>EdIntel Sovereign</strong> ("we", "us", or "our") collects, uses, and discloses your Personal Information when you visit or use our application. By using the Service, you agree to the collection and use of information in accordance with this policy.
+                            This Privacy Policy describes how <strong>EdIntel Professional</strong> ("we", "us", or "our") collects, uses, and discloses your Personal Information when you visit or use our application. By using the Service, you agree to the collection and use of information in accordance with this policy.
                         </p>
 
                         <h2>2. Data Collection & Usage</h2>

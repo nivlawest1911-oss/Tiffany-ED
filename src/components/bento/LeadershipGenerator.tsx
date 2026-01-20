@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import {
     HeartPulse,
     MessageSquare,
@@ -73,11 +74,26 @@ export default function LeadershipGenerator() {
 
 
 
+    const [genStep, setGenStep] = useState(0);
+    const generationSteps = [
+        "Analyzing Situational Context...",
+        "Scanning Professional Frameworks...",
+        "Aligning with Board Policy...",
+        "Calibrating Tone & Intensity...",
+        "Finalizing Strategic Protocol..."
+    ];
+
     const handleGenerate = async () => {
         if (!situation.trim()) return;
 
         setIsGenerating(true);
-        setOutput('Initializing Neural Link... Synchronizing with Sovereign Node...');
+        setGenStep(0);
+        setOutput('');
+
+        // Simulate thinking steps
+        const stepInterval = setInterval(() => {
+            setGenStep(curr => (curr < generationSteps.length - 1 ? curr + 1 : curr));
+        }, 800);
 
         try {
             // Using the expanded logic via the API
@@ -105,11 +121,14 @@ export default function LeadershipGenerator() {
                 throw new Error(data?.error || 'API unstable');
             }
 
+            clearInterval(stepInterval);
             setOutput(data.output);
         } catch (e: any) {
-            setOutput(`EdIntel Leadership Node connection interrupted. ${e.message}`);
+            clearInterval(stepInterval);
+            setOutput(`EdIntel Leadership Center connection interrupted. ${e.message}`);
         } finally {
             setIsGenerating(false);
+            clearInterval(stepInterval);
         }
     };
 
@@ -121,8 +140,27 @@ export default function LeadershipGenerator() {
 
     return (
         <div className="p-8 rounded-3xl bg-zinc-950 text-white border border-zinc-800 shadow-2xl relative overflow-hidden group">
-            {/* Background Glow */}
+            {/* Background Glow & Neural Web */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-pink-600/10 blur-[100px] -mr-32 -mt-32 pointer-events-none" />
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />
+
+            {/* Neural Connections */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20">
+                <defs>
+                    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(236, 72, 153, 0.2)" strokeWidth="1" />
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid)" />
+                <motion.circle
+                    cx="0" cy="0" r="2" fill="#ec4899"
+                    animate={{
+                        cx: ["10%", "90%", "50%", "10%"],
+                        cy: ["10%", "50%", "90%", "10%"]
+                    }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                />
+            </svg>
 
             <div className="relative z-10">
                 <div className="flex items-center justify-between mb-8">
@@ -139,7 +177,7 @@ export default function LeadershipGenerator() {
                     </div>
                     <div className="flex items-center gap-2 px-3 py-1.5 bg-pink-500/10 border border-pink-500/20 rounded-full">
                         <Sparkles size={14} className="text-pink-400 animate-pulse" />
-                        <span className="text-[10px] font-bold text-pink-400 uppercase tracking-widest">Sovereign Node</span>
+                        <span className="text-[10px] font-bold text-pink-400 uppercase tracking-widest">Professional Center</span>
                     </div>
                 </div>
 
@@ -193,14 +231,27 @@ export default function LeadershipGenerator() {
                     <button
                         onClick={handleGenerate}
                         disabled={isGenerating || !situation.trim()}
-                        className="w-full py-4 bg-gradient-to-r from-pink-600 to-rose-600 rounded-2xl font-bold flex items-center justify-center gap-3 hover:from-pink-500 hover:to-rose-500 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group shadow-xl shadow-pink-900/20"
+                        className="w-full py-4 bg-gradient-to-r from-pink-600 to-rose-600 rounded-2xl font-bold flex flex-col items-center justify-center gap-1 hover:from-pink-500 hover:to-rose-500 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group shadow-xl shadow-pink-900/20 relative overflow-hidden"
                     >
-                        {isGenerating ? (
-                            <Loader2 className="animate-spin" size={20} />
-                        ) : (
-                            <BrainCircuit size={20} />
+                        {isGenerating && (
+                            <div className="absolute inset-0 bg-pink-700/50 flex items-center justify-center z-0">
+                                <div className="w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" style={{ backgroundSize: '200% 100%' }} />
+                            </div>
                         )}
-                        <span>Generate Executive Protocol</span>
+
+                        <div className="relative z-10 flex items-center gap-3">
+                            {isGenerating ? (
+                                <Loader2 className="animate-spin" size={20} />
+                            ) : (
+                                <BrainCircuit size={20} />
+                            )}
+                            <span>{isGenerating ? generationSteps[genStep] : 'Generate Executive Protocol'}</span>
+                        </div>
+                        {isGenerating && (
+                            <div className="h-1 w-32 bg-pink-900/50 rounded-full mt-2 overflow-hidden relative z-10">
+                                <div className="h-full bg-white/80 transition-all duration-500" style={{ width: `${((genStep + 1) / generationSteps.length) * 100}%` }} />
+                            </div>
+                        )}
                     </button>
 
                     {output && (
@@ -241,7 +292,7 @@ export default function LeadershipGenerator() {
                         <span className="text-pink-400 underline decoration-pink-400/30 underline-offset-4">Frontiers in Psychology (2025)</span>
                         <span className="text-rose-400 underline decoration-rose-400/30 underline-offset-4">Autonomy Bolstered</span>
                     </div>
-                    <span className="text-zinc-500">Node Sync: 100% Secure</span>
+                    <span className="text-zinc-500">Center Sync: 100% Secure</span>
                 </div>
             </div>
         </div>

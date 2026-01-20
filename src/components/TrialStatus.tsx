@@ -16,7 +16,7 @@ export default function TrialStatus() {
                         <Clock size={20} />
                     </div>
                     <div>
-                        <h3 className="text-white font-bold text-sm">Sovereign Trial Active</h3>
+                        <h3 className="text-white font-bold text-sm">Professional Trial Active</h3>
                         <p className="text-zinc-400 text-xs">{daysLeft} days remaining in your evaluation period.</p>
                     </div>
                 </div>

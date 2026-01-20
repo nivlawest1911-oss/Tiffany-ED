@@ -59,7 +59,7 @@ export function FounderDossier() {
           <div className="h-12 bg-black/40 border-b border-white/5 flex items-center justify-between px-8">
             <div className="flex items-center gap-3">
               <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-              <span className="text-[10px] font-mono text-amber-500 uppercase tracking-[0.2em]">Sovereign Identification Verified</span>
+              <span className="text-[10px] font-mono text-amber-500 uppercase tracking-[0.2em]">Professional Identification Verified</span>
             </div>
             <div className="flex items-center gap-2 text-[10px] font-mono text-zinc-500 uppercase tracking-widest">
               <Lock size={10} />
@@ -89,8 +89,22 @@ export function FounderDossier() {
                   <motion.div
                     animate={{ top: ["-100%", "200%"] }}
                     transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                    className="absolute inset-x-0 h-1/2 bg-gradient-to-b from-transparent via-amber-500/20 to-transparent"
+                    className="absolute inset-x-0 h-1/2 bg-gradient-to-b from-transparent via-amber-500/20 to-transparent pointer-events-none"
                   />
+
+                  {/* Active Voice Waveform */}
+                  {isPlaying && (
+                    <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-black/80 to-transparent flex items-end justify-center gap-1 pb-4">
+                      {[...Array(12)].map((_, i) => (
+                        <motion.div
+                          key={i}
+                          className="w-1 bg-amber-400 rounded-full"
+                          animate={{ height: [4, Math.random() * 32 + 8, 4] }}
+                          transition={{ duration: 0.2, repeat: Infinity, delay: i * 0.05 }}
+                        />
+                      ))}
+                    </div>
+                  )}
                 </div>
                 <div className="absolute -bottom-4 -right-4 bg-zinc-950 border border-amber-500/30 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-xl flex items-center gap-2 scale-100 group-hover:scale-110 transition-transform z-20">
                   {isPlaying ? <Pause className="w-4 h-4 text-green-500 animate-pulse" /> : <Volume2 className="w-4 h-4 text-green-500" />}
@@ -103,7 +117,7 @@ export function FounderDossier() {
                   Dr. Alvin E. West II
                   <span className="block text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 mt-1">DBA, MBA</span>
                 </h3>
-                <p className="text-zinc-400 text-sm">Sovereign Architect & Executive Consultant</p>
+                <p className="text-zinc-400 text-sm">Professional Architect & Executive Consultant</p>
               </div>
 
               {/* Social Links */}
@@ -157,7 +171,7 @@ export function FounderDossier() {
                   <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.8954 13.1216 16 12.017 16H9.01703C7.91246 16 7.01703 16.8954 7.01703 18V21H2.01703V18C2.01703 14.134 5.15104 11 9.01703 11H13.517C17.383 11 20.517 14.134 20.517 18V21H14.017ZM11.267 9C9.20003 9 7.51703 7.317 7.51703 5.25C7.51703 3.183 9.20003 1.5 11.267 1.5C13.334 1.5 15.017 3.183 15.017 5.25C15.017 7.317 13.334 9 11.267 9Z" /></svg>
                 </div>
                 <p className="text-zinc-300 text-sm italic leading-relaxed">
-                  "True sovereignty in education isn't about control—it's about the seamless integration of fiscal responsibility, cognitive data, and human compassion."
+                  "True authority in education isn't about control—it's about the seamless integration of fiscal responsibility, cognitive data, and human compassion."
                 </p>
 
                 {/* Simulated Signature */}
@@ -251,7 +265,7 @@ export function FounderDossier() {
                 {/* Expertise Tags */}
                 <div>
                   <h4 className="flex items-center gap-2 text-sm font-bold text-purple-400 uppercase tracking-widest mb-4">
-                    <Award className="w-4 h-4" /> Sovereign Capabilities
+                    <Award className="w-4 h-4" /> Professional Capabilities
                   </h4>
                   <div className="flex flex-wrap gap-2 content-start">
                     {expertise.map((skill, i) => (

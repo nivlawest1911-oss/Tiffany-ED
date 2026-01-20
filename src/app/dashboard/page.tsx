@@ -12,23 +12,23 @@ import {
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import TrialStatus from '@/components/TrialStatus';
-import NeuralCapacity from '@/components/NeuralCapacity';
+import LeadershipCapacity from '@/components/LeadershipCapacity';
 import ComplianceTrafficLight from '@/components/ComplianceTrafficLight';
-import SovereignID from '@/components/SovereignID';
-import SovereignMetrics from '@/components/SovereignMetrics';
-import { useSovereignRank } from '@/hooks/useSovereignRank';
+import ProfessionalID from '@/components/ProfessionalID';
+import ProfessionalMetrics from '@/components/ProfessionalMetrics';
+import { useLeadershipRank } from '@/hooks/useLeadershipRank';
 
 const MobileTacticalCommand = dynamic(() => import('@/components/MobileTacticalCommand'), { ssr: false });
 const IntelligenceBriefingAgent = dynamic(() => import('@/components/IntelligenceBriefingAgent'), { ssr: false });
-const SovereignCabinet = dynamic(() => import('@/components/SovereignCabinet'), { ssr: false });
+const ProfessionalCabinet = dynamic(() => import('@/components/LeadershipCabinet'), { ssr: false });
 const LegislativeWatchdog = dynamic(() => import('@/components/LegislativeWatchdog'), { ssr: false });
-const SovereignDelegate = dynamic(() => import('@/components/SovereignDelegate'), { ssr: false });
-const SovereignBroadcaster = dynamic(() => import('@/components/SovereignBroadcaster'), { ssr: false });
+const ProfessionalDelegate = dynamic(() => import('@/components/AIAssistant'), { ssr: false });
+const ProfessionalBroadcaster = dynamic(() => import('@/components/LeadershipBroadcaster'), { ssr: false });
 const PolicyShield = dynamic(() => import('@/components/PolicyShield'), { ssr: false });
 const DistrictTopologyMap = dynamic(() => import('@/components/DistrictTopologyMap'), { ssr: false });
-const SovereignVault = dynamic(() => import('@/components/SovereignVault'), { ssr: false });
+const ProfessionalVault = dynamic(() => import('@/components/LeadershipVault'), { ssr: false });
 const NexusCommand = dynamic(() => import('@/components/NexusCommand'), { ssr: false });
-const SovereignPromotion = dynamic(() => import('@/components/SovereignPromotion'), { ssr: false });
+const ProfessionalPromotion = dynamic(() => import('@/components/ProfessionalPromotion'), { ssr: false });
 
 
 export default function Dashboard() {
@@ -43,7 +43,7 @@ export default function Dashboard() {
     const [isPromotionOpen, setIsPromotionOpen] = useState(false);
     const [autoDirective, setAutoDirective] = useState<string | null>(null);
 
-    const { currentRank } = useSovereignRank();
+    const { currentRank } = useLeadershipRank();
     const [prevLevel, setPrevLevel] = useState<number | null>(null);
 
     useEffect(() => {
@@ -61,7 +61,7 @@ export default function Dashboard() {
             img: '/avatars/alvin_west.png',
             color: 'amber-500',
             voice: '/voice-profiles/alvin_deep.mp3',
-            greeting: 'Commander, the District Uplink is synchronized. How shall we architect the legacy of your schools today?'
+            greeting: 'Director, the District Connection is synchronized. How shall we architect the legacy of your schools today?'
         },
         {
             id: 'sarah',
@@ -71,7 +71,7 @@ export default function Dashboard() {
             color: 'indigo-500',
             voice: '/voice-profiles/sarah_clinical.mp3',
             video: '/videos/sarah_ambient.mp4',
-            greeting: 'Protocol initialized. Scanning neural grids for district anomalies. Standing by for vector analysis.'
+            greeting: 'Connection initialized. Scanning strategic grids for district anomalies. Standing by for vector analysis.'
         },
         {
             id: 'marcus',
@@ -104,7 +104,7 @@ export default function Dashboard() {
 
         // Load AI Intel from LocalStorage
         try {
-            const intel = JSON.parse(localStorage.getItem('sovereign_intel') || '[]');
+            const intel = JSON.parse(localStorage.getItem('leadership_intel') || localStorage.getItem('sovereign_intel') || '[]');
             setRecentIntel(intel.slice(0, 3));
 
             // Onboarding Check
@@ -139,7 +139,7 @@ export default function Dashboard() {
             <div className="min-h-screen flex items-center justify-center bg-[#0A0A0B] text-white">
                 <div className="flex flex-col items-center gap-4">
                     <div className="w-12 h-12 border-t-2 border-indigo-500 rounded-full animate-spin"></div>
-                    <p className="font-mono text-sm tracking-widest text-indigo-400">INITIALIZING DASHBOARD...</p>
+                    <p className="font-mono text-sm tracking-widest text-indigo-400">PREPARING DASHBOARD...</p>
                 </div>
             </div>
         );
@@ -153,7 +153,7 @@ export default function Dashboard() {
                 </div>
                 <div className="text-center space-y-2">
                     <h1 className="text-2xl font-bold">Access Restricted</h1>
-                    <p className="text-zinc-400">Sovereign Clearance Required</p>
+                    <p className="text-zinc-400">Professional Clearance Required</p>
                 </div>
                 <Link
                     href="/login"
@@ -180,12 +180,12 @@ export default function Dashboard() {
                     // Add more mappings as needed
                 }}
             />
-            <SovereignPromotion
+            <ProfessionalPromotion
                 isOpen={isPromotionOpen}
                 onCloseAction={() => setIsPromotionOpen(false)}
                 rank={currentRank}
             />
-            <SovereignBroadcaster isOpen={isBroadcasterOpen} onCloseAction={() => setIsBroadcasterOpen(false)} />
+            <ProfessionalBroadcaster isOpen={isBroadcasterOpen} onCloseAction={() => setIsBroadcasterOpen(false)} />
 
             {/* Background Texture */}
             <div className="fixed inset-0 pointer-events-none opacity-20 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px]" />
@@ -209,9 +209,9 @@ export default function Dashboard() {
                                 <div className="w-24 h-24 bg-indigo-500/20 rounded-full flex items-center justify-center mx-auto mb-10 text-indigo-400">
                                     <Brain size={48} />
                                 </div>
-                                <h2 className="text-4xl font-black text-white mb-6 uppercase tracking-tight">Neural Sync Required</h2>
+                                <h2 className="text-4xl font-black text-white mb-6 uppercase tracking-tight">Leadership Sync Required</h2>
                                 <p className="text-zinc-400 text-sm mb-12 leading-relaxed">
-                                    To unlock high-clearance executive features, you must establish your Sovereign Identity protocol.
+                                    To unlock high-level executive features, you must establish your Professional Identity.
                                 </p>
                                 <Link
                                     href="/onboarding"
@@ -242,7 +242,7 @@ export default function Dashboard() {
                     <div>
                         <div className="flex items-center gap-3 text-indigo-500 mb-2">
                             <Activity className="w-4 h-4 animate-pulse" />
-                            <span className="text-xs font-bold tracking-[0.2em] uppercase">Operations Center</span>
+                            <span className="text-xs font-bold tracking-[0.2em] uppercase">Leadership Center</span>
                         </div>
                         <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight">
                             COMMAND <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">DECK</span>
@@ -251,32 +251,32 @@ export default function Dashboard() {
 
                     <div className="flex items-center gap-8">
                         <div className="text-right hidden sm:block">
-                            <div className="text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-1">District Uplink</div>
+                            <div className="text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-1">District Sync</div>
                             <div className="text-xl font-mono text-white font-medium flex items-center gap-2">
                                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                                 {currentTime || '--:--:--'}
                             </div>
                         </div>
                         <div className="scale-90 md:scale-100 origin-right">
-                            <SovereignID />
+                            <ProfessionalID />
                         </div>
                     </div>
                 </header>
 
-                {/* Real-time Diagnostics Node */}
+                {/* Real-time Diagnostics Center */}
                 <div className="mb-10">
-                    <SovereignMetrics />
+                    <ProfessionalMetrics />
                 </div>
 
                 <TrialStatus />
 
-                {/* Sovereign KPI HUD */}
+                {/* Professional KPI HUD */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                     {[
                         { label: 'Hours Saved', val: '14,204', sub: '+12% this week', icon: Clock, color: 'text-indigo-400' },
                         { label: 'Capital Recovered', val: '$84,200', sub: 'Title I Optimization', icon: Zap, color: 'text-amber-400' },
                         { label: 'Policy Confidence', val: '99.8%', sub: 'FERPA/HIPAA Compliant', icon: LucideShield, color: 'text-emerald-400' },
-                        { label: 'Neural Uplink', val: 'Active', sub: '24ms Latency', icon: Activity, color: 'text-blue-400' },
+                        { label: 'Strategic Sync', val: 'Active', sub: '24ms Latency', icon: Activity, color: 'text-blue-400' },
                     ].map((kpi, i) => (
                         <motion.div
                             key={i}
@@ -324,7 +324,7 @@ export default function Dashboard() {
 
                             <div className="space-y-4 relative z-10">
                                 <div className="p-1">
-                                    <NeuralCapacity />
+                                    <LeadershipCapacity />
                                 </div>
                                 <div className="flex justify-between items-center p-3 rounded-xl bg-white/5 border border-white/5">
                                     <span className="text-sm text-zinc-400">System Status</span>
@@ -341,7 +341,7 @@ export default function Dashboard() {
                             className="p-6 rounded-3xl bg-zinc-900/40 border border-white/5 backdrop-blur-xl"
                         >
                             <h3 className="text-sm font-bold text-zinc-500 uppercase tracking-wider mb-4 flex items-center gap-2">
-                                <Zap className="w-4 h-4" /> Priority Uplink
+                                <Zap className="w-4 h-4" /> Priority Connection
                             </h3>
                             <div className="grid gap-3">
                                 {[
@@ -409,13 +409,13 @@ export default function Dashboard() {
                     {/* Middle Column: Central Intelligence (5 cols) */}
                     <div className="lg:col-span-5 space-y-6">
 
-                        {/* Sovereign Cabinet (Task Force) */}
+                        {/* Professional Cabinet (Task Force) */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.15 }}
                         >
-                            <SovereignCabinet />
+                            <ProfessionalCabinet />
                         </motion.div>
 
                         {/* Territorial Oversight: District Map */}
@@ -459,7 +459,7 @@ export default function Dashboard() {
                                             </div>
                                             <div>
                                                 <h4 className="font-bold text-zinc-200 group-hover:text-white mb-1">Draft Weekly Staff Memo</h4>
-                                                <p className="text-xs text-zinc-400">Use the 'Communication' protocol to update your team.</p>
+                                                <p className="text-xs text-zinc-400">Use the 'Strategic Communication' option to update your team.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -470,7 +470,7 @@ export default function Dashboard() {
                                             </div>
                                             <div>
                                                 <h4 className="font-bold text-zinc-200 group-hover:text-white mb-1">Engage Policy Shield</h4>
-                                                <p className="text-xs text-zinc-400">Lock district protocols against SB 101 amendments.</p>
+                                                <p className="text-xs text-zinc-400">Secure district policies against SB 101 amendments.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -478,7 +478,7 @@ export default function Dashboard() {
                             </div>
                         </motion.div>
 
-                        {/* Sovereign Policy Shield */}
+                        {/* Professional Policy Shield */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -487,13 +487,13 @@ export default function Dashboard() {
                             <PolicyShield />
                         </motion.div>
 
-                        {/* Neural Vault: Strategic Intelligence Archive */}
+                        {/* Strategic Vault: Strategic Intelligence Archive */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.28 }}
                         >
-                            <SovereignVault />
+                            <ProfessionalVault />
                         </motion.div>
                     </div>
 
@@ -528,7 +528,7 @@ export default function Dashboard() {
                             className="h-full p-6 rounded-3xl bg-zinc-900/40 border border-white/5 backdrop-blur-xl"
                         >
                             <h3 className="text-sm font-bold text-zinc-500 uppercase tracking-wider mb-6 flex items-center gap-2">
-                                <Brain className="w-4 h-4 text-purple-400" /> Neural Status Feed
+                                <Brain className="w-4 h-4 text-purple-400" /> Strategic Status Feed
                             </h3>
 
                             <div className="space-y-6 relative">
@@ -546,14 +546,14 @@ export default function Dashboard() {
                                     ))
                                 ) : (
                                     <div className="pl-8 relative text-zinc-600 text-[10px] uppercase font-bold italic py-4">
-                                        Waiting for incoming neural intel...
+                                        Waiting for incoming strategic intel...
                                     </div>
                                 )}
 
                                 <div className="pt-4 border-t border-white/5">
                                     {[
-                                        { title: "System Maintenance", desc: "Neural engine optimization complete.", time: "5h ago", color: "bg-blue-500" },
-                                        { title: "Usage Alert", desc: "Access standard protocols below.", time: "1d ago", color: "bg-amber-500" },
+                                        { title: "System Maintenance", desc: "Strategic system optimization complete.", time: "5h ago", color: "bg-blue-500" },
+                                        { title: "Usage Alert", desc: "Access standard resources below.", time: "1d ago", color: "bg-amber-500" },
                                     ].map((item, i) => (
                                         <div key={i} className="pl-8 relative mt-4">
                                             <div className={`absolute left-1.5 top-1.5 w-2 h-2 rounded-full ${item.color} ring-4 ring-black`} />
@@ -580,10 +580,10 @@ export default function Dashboard() {
 
             <MobileTacticalCommand />
 
-            {/* Sovereign Delegate Summoning Interface */}
+            {/* Professional Delegate Summoning Interface */}
             {activeDelegate && (
                 <div className="fixed bottom-6 right-6 z-[100]">
-                    <SovereignDelegate
+                    <ProfessionalDelegate
                         key={activeDelegate.id}
                         name={activeDelegate.name}
                         role={activeDelegate.role}
@@ -592,7 +592,7 @@ export default function Dashboard() {
                         videoSrc={activeDelegate.video}
                         color={activeDelegate.color.replace('-500', '')}
                         greetingText={activeDelegate.greeting}
-                        theme="sovereign"
+                        theme="professional"
                         autoOpen={!!autoDirective}
                         initialDirective={autoDirective || ''}
                     />

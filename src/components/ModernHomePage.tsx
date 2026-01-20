@@ -24,23 +24,15 @@ const PremiumPricingTable = dynamic(() => import('./PremiumPricingTable'), { ssr
 const SpotlightCard = dynamic(() => import('./SpotlightCard'), { ssr: false });
 
 // AI Components - Dynamic
-const SovereignDelegate = dynamic(() => import('./SovereignDelegate'), { ssr: false });
-const SovereignPurpose = dynamic(() => import('./SovereignPurpose'), { ssr: false });
-const CloudExtensionsGrid = dynamic(() => import('./cloud/CloudExtensionsGrid'), { ssr: false }); // NEW
-
-// ... existing code ...
-
-const SovereignNeuralAtlas = dynamic(() => import('./SovereignNeuralAtlas'), { ssr: false });
-
-// ... inside the return statement ...
-
-// CloudExtensionsGrid import removed from here to clean up.
-// ... existing code ...
+const AIAssistants = dynamic(() => import('./AIAssistants').then(mod => ({ default: mod.AIAssistants })), { ssr: false });
+const AIAssistant = dynamic(() => import('./AIAssistant'), { ssr: false });
+const StrategicPurpose = dynamic(() => import('./StrategicPurpose'), { ssr: false });
+const CloudExtensionsGrid = dynamic(() => import('./cloud/CloudExtensionsGrid'), { ssr: false });
 
 const ResearchFoundations = dynamic(() => import('./ResearchFoundations'), { ssr: false });
 const StrategicAssociations = dynamic(() => import('./StrategicAssociations'), { ssr: false });
-const SovereignResourceMatrix = dynamic(() => import('./SovereignResourceMatrix'), { ssr: false });
-const SovereignCinematicVault = dynamic(() => import('./SovereignCinematicVault'), { ssr: false });
+const LeadershipResources = dynamic(() => import('./LeadershipResources'), { ssr: false });
+const LeadershipCinematics = dynamic(() => import('./LeadershipCinematics'), { ssr: false });
 const AITwinGenerator = dynamic(() => import('./ai-twin-generator').then(mod => ({ default: mod.AITwinGenerator })), { ssr: false });
 const VoiceIdentity = dynamic(() => import('./VoiceIdentity'), { ssr: false });
 const OnboardingFlow = dynamic(() => import('./OnboardingFlow'), { ssr: false });
@@ -53,10 +45,7 @@ const AIAvatarGallery = dynamic(() => import('./AIAvatarGallery'), {
     ssr: false,
     loading: () => <div className="h-96 w-full animate-pulse bg-white/5 rounded-3xl" />
 });
-const AIVideoShowcase = dynamic(() => import('./AIVideoShowcase'), {
-    ssr: false,
-    loading: () => <div className="h-96 w-full animate-pulse bg-white/5 rounded-3xl" />
-});
+
 
 // Dashboards - Dynamic
 const InteractiveDashboard = dynamic(() => import('./InteractiveDashboard'), { ssr: false });
@@ -65,36 +54,41 @@ const AnalyticsDashboard = dynamic(() => import('./AnalyticsDashboard'), { ssr: 
 // Showcase - Dynamic
 const FeatureShowcaseGrid = dynamic(() => import('./FeatureShowcaseGrid'), { ssr: false });
 const SequentialRecallGame = dynamic(() => import('./SequentialRecallGame'), { ssr: false });
-const NeuralReferralNode = dynamic(() => import('./NeuralReferralNode'), { ssr: false });
+const ProfessionalReferral = dynamic(() => import('./ProfessionalReferral'), { ssr: false });
 const SubscriberStream = dynamic(() => import('./SubscriberStream'), { ssr: false });
 const GlobalReachCounter = dynamic(() => import('./GlobalReachCounter'), { ssr: false });
-const NeuralMarketplace = dynamic(() => import('./NeuralMarketplace'), { ssr: false });
+const InnovationMarketplace = dynamic(() => import('./InnovationMarketplace'), { ssr: false });
 
 // Complete Bento Grid - Dynamic Imports
-const ArchitectIdentityNode = dynamic(() => import('./bento/ArchitectIdentityNode'), { ssr: false });
+const ProfileIdentity = dynamic(() => import('./bento/ProfileIdentity'), { ssr: false });
 const AutomatedIEPAudit = dynamic(() => import('./bento/AutomatedIEPAudit'), { ssr: false });
-const AvatarLaboratory = dynamic(() => import('./bento/AvatarLaboratory'), { ssr: false });
+const AvatarStudio = dynamic(() => import('./bento/AvatarStudio'), { ssr: false });
 const AvatarMasterclass = dynamic(() => import('./bento/AvatarMasterclass'), { ssr: false });
 const EQGenerator = dynamic(() => import('./bento/EQGenerator'), { ssr: false });
 const ExecutiveDashboard = dynamic(() => import('./bento/ExecutiveDashboard'), { ssr: false });
 const IEPGenerator = dynamic(() => import('./bento/IEPGenerator'), { ssr: false });
 const LeadershipGenerator = dynamic(() => import('./bento/LeadershipGenerator'), { ssr: false });
 const LessonPlanGenerator = dynamic(() => import('./bento/LessonPlanGenerator'), { ssr: false });
-const NeuralSyncGym = dynamic(() => import('./bento/NeuralSyncGym'), { ssr: false });
-const NeuralTrainingCommand = dynamic(() => import('./bento/NeuralTrainingCommand'), { ssr: false });
-const SovereignBroadcastNode = dynamic(() => import('./bento/SovereignBroadcastNode'), { ssr: false });
-const SovereignEnterpriseModule = dynamic(() => import('./bento/SovereignEnterpriseModule'), { ssr: false });
-const SovereignFeed = dynamic(() => import('./bento/SovereignFeed'), { ssr: false });
-const SovereignIDManager = dynamic(() => import('./bento/SovereignIDManager'), { ssr: false });
-const SovereignPrivacyManifesto = dynamic(() => import('./bento/SovereignPrivacyManifesto'), { ssr: false });
-const SovereignRankGuide = dynamic(() => import('./bento/SovereignRankGuide'), { ssr: false });
-const SovereignSkillMatrix = dynamic(() => import('./bento/SovereignSkillMatrix'), { ssr: false });
-const SovereignSocialUplink = dynamic(() => import('./bento/SovereignSocialUplink'), { ssr: false });
+const LeadershipGym = dynamic(() => import('./bento/LeadershipGym'), { ssr: false });
+const LeadershipTraining = dynamic(() => import('./bento/LeadershipTraining'), { ssr: false });
+const LeadershipStream = dynamic(() => import('./bento/LeadershipStream'), { ssr: false });
+const BusinessSolutions = dynamic(() => import('./bento/BusinessSolutions'), { ssr: false });
+const CommunityFeed = dynamic(() => import('./bento/CommunityFeed'), { ssr: false });
+const IdentityManager = dynamic(() => import('./bento/IdentityManager'), { ssr: false });
+const PrivacyPolicy = dynamic(() => import('./bento/PrivacyPolicy'), { ssr: false });
+const AchievementGuide = dynamic(() => import('./bento/AchievementGuide'), { ssr: false });
+const SkillMatrix = dynamic(() => import('./bento/SkillMatrix'), { ssr: false });
+const SocialHub = dynamic(() => import('./bento/SocialHub'), { ssr: false });
 const SystemHealthTile = dynamic(() => import('./bento/SystemHealthTile'), { ssr: false });
 const DistrictBudgetOptimizer = dynamic(() => import('./bento/DistrictBudgetOptimizer'), { ssr: false });
 const LiteracyCoachAI = dynamic(() => import('./bento/LiteracyCoachAI'), { ssr: false });
 const SpecialEdLawAuditor = dynamic(() => import('./bento/SpecialEdLawAuditor'), { ssr: false });
-const NeuralBackground = dynamic(() => import('./NeuralBackground'), { ssr: false });
+const ProfessionalBackground = dynamic(() => import('./ProfessionalBackground'), { ssr: false });
+const SovereignDelegate = dynamic(() => import('./SovereignDelegate'), { ssr: false });
+const AIVideoShowcase = dynamic(() => import('./AIVideoShowcase'), { ssr: false });
+const GenerativeMediaStudio = dynamic(() => import('./GenerativeMediaStudio'), { ssr: false });
+const PrincipalAcademy = dynamic(() => import('./PrincipalAcademy'), { ssr: false });
+const CloudCommandCenter = dynamic(() => import('./CloudCommandCenter'), { ssr: false });
 
 export default function ModernHomePage() {
     const [mounted, setMounted] = useState(false);
@@ -135,7 +129,7 @@ export default function ModernHomePage() {
     const stats = [
         { value: '47K+', label: 'Educators', icon: Users, color: 'from-blue-500 to-cyan-500' },
         { value: '1.5M+', label: 'Hours Saved', icon: Clock, color: 'from-emerald-500 to-teal-500' },
-        { value: '$38M+', label: 'Capital Recovered', icon: TrendingUp, color: 'from-purple-500 to-pink-500' },
+        { value: '$38M+', label: 'Funds Optimized', icon: TrendingUp, color: 'from-purple-500 to-pink-500' },
         { value: '1,400+', label: 'AL Districts', icon: Award, color: 'from-orange-500 to-red-500' },
         { value: '48', label: 'US States', icon: Globe, color: 'from-indigo-500 to-blue-500' },
     ];
@@ -143,7 +137,7 @@ export default function ModernHomePage() {
     const features = [
         {
             icon: Brain,
-            title: "IEP Architect",
+            title: "IEP Specialist",
             description: "Legally defensible goals in minutes.",
             color: "from-violet-500 to-purple-600",
             link: "/generators/iep-architect",
@@ -157,7 +151,12 @@ export default function ModernHomePage() {
             color: "from-fuchsia-500 to-pink-600",
             link: "/generators/lesson-planner",
             image: "/images/lesson_planner_mockup.png",
-            badge: "New"
+            badge: "New",
+            prompts: [
+                "Design a 5th Grade math lesson on fractions that incorporates Kente pattern geometry and culturally-responsive narratives.",
+                "Design a high school American History unit on the Reconstruction Era focusing on economic strategy and legislative policy.",
+                "Create a middle school science lab protocol for renewable energy, tiered for ELL and GT learners."
+            ]
         },
         {
             icon: FileText,
@@ -173,37 +172,30 @@ export default function ModernHomePage() {
         {
             name: "Dr. Alvin West",
             role: "Executive Principal",
-            avatar: "/images/dr_alvin_west.png",
-            color: "from-indigo-600 to-purple-800",
+            avatar: "/images/avatars/executive_leader.png",
+            color: "from-amber-600 to-indigo-950",
             voiceSettings: { pitch: 0.85, rate: 0.9, lang: 'en-US' }
         },
         {
-            name: "Dr. Tiffany Chambers",
-            role: "Special Education Director",
-            avatar: "/images/avatars/tiffany_chambers.png",
+            name: "Keisha Reynolds",
+            role: "Secondary Principal",
+            avatar: "/images/avatars/curriculum_strategist.png",
             color: "from-emerald-600 to-emerald-900",
             voiceSettings: { pitch: 1.05, rate: 0.95, lang: 'en-US' }
         },
         {
-            name: "Andre Simmons",
-            role: "District Tech Coordinator",
-            avatar: "/images/avatars/andre_simmons.png",
-            color: "from-amber-600 to-orange-800",
+            name: "Dr. Isaiah Vance",
+            role: "Associate Superintendent",
+            avatar: "/images/avatars/special_ed_director.png",
+            color: "from-zinc-600 to-zinc-900",
             voiceSettings: { pitch: 0.95, rate: 1.05, lang: 'en-US' }
         },
         {
-            name: "Sarah West",
-            role: "Curriculum Strategist",
-            avatar: "/images/avatars/curriculum_strategist.png",
-            color: "from-fuchsia-600 to-rose-800",
+            name: "Dr. Emily Robinson",
+            role: "Literacy & Data Scientist",
+            avatar: "/images/avatars/literacy_coach.png",
+            color: "from-violet-600 to-purple-800",
             voiceSettings: { pitch: 1.15, rate: 0.95, lang: 'en-US' }
-        },
-        {
-            name: "Marcus Johnson",
-            role: "STEM Coordinator",
-            avatar: "/images/avatars/stem_coordinator.png",
-            color: "from-blue-600 to-indigo-800",
-            voiceSettings: { pitch: 1.0, rate: 1.0, lang: 'en-US' }
         },
     ];
 
@@ -212,7 +204,7 @@ export default function ModernHomePage() {
             <div className="min-h-screen bg-[#050507] flex items-center justify-center">
                 <div className="flex flex-col items-center gap-4">
                     <div className="w-12 h-12 border-t-2 border-indigo-500 rounded-full animate-spin"></div>
-                    <p className="font-mono text-sm tracking-widest text-indigo-400">INITIALIZING NEURAL INTERFACE...</p>
+                    <p className="font-mono text-sm tracking-widest text-indigo-400">PREPARING YOUR DASHBOARD...</p>
                 </div>
             </div>
         );
@@ -220,13 +212,13 @@ export default function ModernHomePage() {
 
     return (
         <div className="min-h-screen bg-[#030303] text-zinc-100 selection:bg-indigo-500/30 relative overflow-hidden font-sans">
-            <NeuralBackground />
+            <ProfessionalBackground />
 
             <FloatingNavbar />
 
             <AnimatePresence>{showCommandPalette && <CommandPalette onClose={() => setShowCommandPalette(false)} />}</AnimatePresence>
             <AnimatePresence>{showNotifications && <NotificationCenter onClose={() => setShowNotifications(false)} />}</AnimatePresence>
-            <AnimatePresence>{showOnboarding && <OnboardingFlow onComplete={() => setShowOnboarding(false)} />}</AnimatePresence>
+            <AnimatePresence>{showOnboarding && <OnboardingFlow onCompleteAction={() => setShowOnboarding(false)} />}</AnimatePresence>
 
             <main className="relative z-10">
                 <UnusualHero />
@@ -258,7 +250,7 @@ export default function ModernHomePage() {
                     </div>
                 </section>
 
-                <SovereignNeuralAtlas />
+
 
                 {/* THE CORE INTELLIGENCE */}
                 <section className="py-24 max-w-7xl mx-auto px-4">
@@ -266,17 +258,17 @@ export default function ModernHomePage() {
                         <div className="max-w-xl">
                             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-6">
                                 <BarChart3 size={12} />
-                                <span>Command Intelligence</span>
+                                <span>District Intelligence</span>
                             </div>
                             <h2 className="text-5xl md:text-7xl font-bold tracking-tight text-white leading-none mb-8">
                                 Leadership at the <br />
                                 <span className="text-zinc-600 italic">Speed of Thought.</span>
                             </h2>
                             <p className="text-xl text-zinc-400 leading-relaxed font-light mb-10">
-                                Transforming fragmented data into actionable leadership grids. Real-time analytics, automated audits, and sovereign local intelligence.
+                                Transforming fragmented data into actionable leadership grids. Real-time analytics, automated audits, and strategic local intelligence.
                             </p>
                             <Link href="/dashboard" className="inline-flex items-center gap-4 px-8 py-4 rounded-full bg-white text-black hover:scale-105 transition-all text-sm font-black uppercase tracking-widest">
-                                <span>Launch Executive Matrix</span>
+                                <span>Launch Executive Roadmap</span>
                                 <ArrowRight className="w-5 h-5" />
                             </Link>
                         </div>
@@ -286,11 +278,11 @@ export default function ModernHomePage() {
                     </div>
                 </section>
 
-                {/* THE WORKSPACE - Top 8 Sovereign Tools */}
+                {/* THE WORKSPACE - Top 8 Professional Tools */}
                 <section className="py-32 bg-[#080808]">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-20">
-                            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">The Sovereign Workspace</h2>
+                            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">The Leadership Workspace</h2>
                             <p className="text-zinc-500 max-w-2xl mx-auto text-lg">
                                 Access the most powerful AI infrastructure in education. Grouped for efficiency, designed for results.
                             </p>
@@ -310,11 +302,11 @@ export default function ModernHomePage() {
                             <div className="lg:col-span-3"><AutomatedIEPAudit /></div>
                             <div className="lg:col-span-3"><ExecutiveDashboard /></div>
                             <div className="lg:col-span-3"><LeadershipGenerator /></div>
-                            <div className="lg:col-span-3"><AvatarLaboratory /></div>
+                            <div className="lg:col-span-3"><AvatarStudio /></div>
 
                             {/* Identity/EQ (Span 6/12) */}
                             <div className="lg:col-span-6"><EQGenerator /></div>
-                            <div className="lg:col-span-6"><ArchitectIdentityNode /></div>
+                            <div className="lg:col-span-6"><ProfileIdentity /></div>
                         </div>
 
                         <div className="mt-16 flex justify-center">
@@ -336,31 +328,37 @@ export default function ModernHomePage() {
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 text-center">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-4">
                             <Users size={12} />
-                            <span>Neural Presence</span>
+                            <span>Professional AI Staff</span>
                         </div>
                         <h2 className="text-3xl md:text-6xl font-black text-white uppercase tracking-tighter mb-4">
                             Global Team, <span className="text-zinc-600">Local Impact.</span>
                         </h2>
                         <p className="text-zinc-500 max-w-xl mx-auto">
-                            Deploy high-fidelity AI avatars as virtual assistants, specialized coaches, or departmental leads.
+                            Add professional AI assistants to your team as virtual specialists, coaches, or departmental leads.
                         </p>
                     </div>
                     <AIAvatarGallery />
                 </section>
 
                 {/* INNOVATION SHOWCASE - Demos & Videos */}
+                <AIVideoShowcase />
+
+                <GenerativeMediaStudio />
+
                 <section className="py-32 bg-zinc-950/50">
-                    <SovereignCinematicVault />
+                    <LeadershipCinematics />
                 </section>
 
-                {/* THE AI TWIN EXPERIENCE */}
+                <PrincipalAcademy />
                 <AITwinGenerator />
 
                 <ResearchFoundations />
 
-                <SovereignPurpose />
+                <StrategicPurpose />
                 <StrategicAssociations />
-                <SovereignResourceMatrix />
+                <LeadershipResources />
+
+                <CloudCommandCenter />
 
                 {/* PRICING & FINAL CALL */}
                 <section id="pricing" className="py-32 bg-[#050505]">
@@ -384,7 +382,7 @@ export default function ModernHomePage() {
                             </h2>
                             <Link href="/signup">
                                 <button className="relative px-12 py-5 bg-white text-black font-black uppercase tracking-widest text-sm rounded-full hover:scale-105 transition-transform shadow-xl">
-                                    Start 30-Day Protocol
+                                    Start 30-Day Free Trial
                                 </button>
                             </Link>
                         </div>
@@ -413,13 +411,13 @@ export default function ModernHomePage() {
                 </div>
 
                 <div className="pointer-events-auto">
-                    <SovereignDelegate
+                    <AIAssistant
                         name={delegates[activeDelegate].name}
                         role={delegates[activeDelegate].role}
                         avatarImage={delegates[activeDelegate].avatar}
                         color={delegates[activeDelegate].color}
-                        greetingText={`Awaiting directives, Executive. I am ${delegates[activeDelegate].name}. Output fidelity is currently 99.8%.`}
-                        theme="sovereign"
+                        greetingText={`Hello, I'm here. How's your day going? I've been reviewing the latest data, and I'm ready to dive into whatever you need. Just let me know where you want to start.`}
+                        theme="professional"
                         voiceSettings={delegates[activeDelegate].voiceSettings}
                     />
                 </div>
@@ -431,7 +429,7 @@ export default function ModernHomePage() {
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 whileTap={{ scale: 0.9 }}
                 className="fixed bottom-8 left-8 z-50 p-4 rounded-2xl bg-white text-black shadow-2xl transition-all"
-                title="Sovereign Briefing"
+                title="Quick Briefing"
             >
                 <Target className="w-6 h-6" />
             </motion.button>
@@ -442,14 +440,17 @@ export default function ModernHomePage() {
                     <HolographicBriefing
                         isOpen={showBriefing}
                         onClose={() => setShowBriefing(false)}
-                        title="Strategic Briefing"
-                        description="Accessing the current platform vector and operational status. All systems are operating within peak cognitive parameters."
+                        title="Professional Briefing"
+                        description="Accessing the current platform status. All systems are operating normally."
                         avatarImage={delegates[activeDelegate].avatar}
                         role={delegates[activeDelegate].role}
-                        theme="sovereign"
+                        theme="professional"
                     />
                 )}
             </AnimatePresence>
+
+            {/* Sovereign Command Interface */}
+            <SovereignDelegate />
         </div>
     );
 }

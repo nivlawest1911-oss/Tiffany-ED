@@ -34,7 +34,7 @@ export function TokenSection() {
           </button>
 
           <p className="mt-6 text-sm text-gray-500">
-            Sovereign tokens never expire. Use them across all EdIntel products.
+            Professional tokens never expire. Use them across all EdIntel products.
           </p>
         </div>
       </div>

@@ -24,7 +24,7 @@ export default function Error({
 
             <h2 className="text-3xl font-black mb-4 tracking-tight">SYSTEM UPLINK INTERRUPTED</h2>
             <p className="text-zinc-400 max-w-md mb-8">
-                A neural synchronization error has occurred in the sovereign matrix.
+                A neural synchronization error has occurred in the strategic matrix.
                 Diagnostics have been logged.
             </p>
 

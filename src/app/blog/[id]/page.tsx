@@ -16,8 +16,8 @@ export default function BlogPostDetail() {
     if (!post) {
         return (
             <div className="min-h-screen bg-zinc-950 text-white flex flex-col items-center justify-center p-6">
-                <h1 className="text-4xl font-black mb-4 uppercase italic">Log Node Missing</h1>
-                <p className="text-zinc-500 mb-8">The requested intelligence log could not be located in the Sovereign archives.</p>
+                <h1 className="text-4xl font-black mb-4 uppercase italic">Log Center Missing</h1>
+                <p className="text-zinc-500 mb-8">The requested intelligence log could not be located in the Professional archives.</p>
                 <Link href="/blog" className="px-6 py-3 bg-amber-600 rounded-xl font-bold uppercase tracking-widest hover:bg-amber-500 transition-colors">
                     Return to Log
                 </Link>
@@ -90,7 +90,7 @@ export default function BlogPostDetail() {
                     </p>
                     <div className="space-y-8 text-zinc-400 leading-loose text-lg">
                         <p>
-                            The integration of Sovereign AI into the modern district infrastructure represents a fundamental shift in how educational administration operates. By leveraging Neural Sync calibration, we are witnessing a reduction in "decision fatigue" among primary building leaders, allowing for more focused instructional leadership and student-centered growth.
+                            The integration of Professional AI into the modern district infrastructure represents a fundamental shift in how educational administration operates. By leveraging Strategic Sync calibration, we are witnessing a reduction in "decision fatigue" among primary building leaders, allowing for more focused instructional leadership and student-centered growth.
                         </p>
                         <h2 className="text-white text-3xl font-black uppercase tracking-tight mt-16 mb-8 italic">The Burnout Variable</h2>
                         <p>
@@ -100,7 +100,7 @@ export default function BlogPostDetail() {
                             "The goal is not to replace the educator, but to insulate them from the legislative and administrative friction that prevents genuine pedagogy."
                         </div>
                         <p>
-                            As we look toward the 2026 fiscal cycle, the Sovereign Token Economy will further bridge the gap between fixed budgets and fluctuating compute needs, ensuring that every school, regardless of its size, has access to clinical-grade intelligence nodes.
+                            As we look toward the 2026 fiscal cycle, the Professional Token Economy will further bridge the gap between fixed budgets and fluctuating compute needs, ensuring that every school, regardless of its size, has access to clinical-grade intelligence nodes.
                         </p>
                     </div>
                 </div>
@@ -109,7 +109,7 @@ export default function BlogPostDetail() {
                 <div className="mt-20 pt-10 border-t border-zinc-800 flex items-center gap-4">
                     <Tag size={18} className="text-zinc-500" />
                     <div className="flex flex-wrap gap-2">
-                        {['Neural Sync', 'Sovereignty', 'Compliance', 'AI Ethics'].map(tag => (
+                        {['Strategic Sync', 'Leadership', 'Compliance', 'AI Ethics'].map(tag => (
                             <span key={tag} className="px-3 py-1 bg-zinc-900 border border-zinc-800 rounded-lg text-[10px] font-bold uppercase tracking-widest text-zinc-500">
                                 #{tag}
                             </span>
@@ -128,7 +128,7 @@ export default function BlogPostDetail() {
                     </p>
                     <div className="flex justify-center gap-4 relative z-10">
                         <Link href="/signup" className="px-10 py-4 bg-white text-amber-700 rounded-2xl font-black uppercase tracking-[0.2em] text-xs hover:bg-zinc-100 transition-all shadow-xl active:scale-95">
-                            Initialize Node
+                            Initialize Center
                         </Link>
                     </div>
                 </div>

@@ -1,8 +1,8 @@
-import React, { ReactNode } from 'react';
+import React, { ReactCenter } from 'react';
 import Link from 'next/link';
 
 interface Props {
-    icon: ReactNode;
+    icon: ReactCenter;
     title: string;
     articleCount: number | string;
     href?: string;

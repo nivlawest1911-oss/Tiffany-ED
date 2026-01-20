@@ -112,7 +112,7 @@ export function HeroSection() {
         <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
           <div className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#d4af37]/20 border border-[#d4af37]/40 text-[#d4af37] text-sm font-medium">
             <Star className="w-4 h-4 fill-[#d4af37]" />
-            30 DAY SOVEREIGN TRIAL ACTIVE
+            30 DAY PROFESSIONAL TRIAL ACTIVE
           </div>
           <div className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#00d2ff]/10 border border-[#00d2ff]/30 text-[#00d2ff] text-sm font-medium">
             <Link2 className="w-4 h-4" />
@@ -147,7 +147,7 @@ export function HeroSection() {
               <div>
                 <h3 className="font-black tracking-tighter text-xl text-white">Dr. Alvin West II, DBA</h3>
                 <p className="text-xs text-[#d4af37] uppercase tracking-wider font-semibold">
-                  Sovereign Architect & AI Developer
+                  Professional Architect & AI Developer
                 </p>
                 <p className="text-xs text-gray-500 mt-1">MBA, MS, MS, BS • Walden University</p>
               </div>
@@ -166,7 +166,7 @@ export function HeroSection() {
             </div>
             <p className="text-sm text-gray-300 mb-4 leading-relaxed">
               Welcome, Alabama Leader! As a fellow educator and technology innovator, I built EdIntel to solve the
-              problems I faced daily. Let me guide your <span className="text-[#00d2ff] font-semibold">SOVEREIGN</span>{" "}
+              problems I faced daily. Let me guide your <span className="text-[#00d2ff] font-semibold">STRATEGIC</span>{" "}
               potential and help you reclaim your time.
             </p>
             <a

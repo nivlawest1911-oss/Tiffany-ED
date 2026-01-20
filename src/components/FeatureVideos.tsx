@@ -5,20 +5,20 @@ import { motion } from 'framer-motion';
 import { Brain, Sparkles, BarChart3, Zap, Play, Radio } from 'lucide-react';
 import VideoPlayer from './VideoPlayer';
 import Link from 'next/link';
-import useSovereignSounds from '@/hooks/useSovereignSounds';
+import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 import HolographicBriefing from './HolographicBriefing';
 
 export default function FeatureVideos() {
-    const { playHover, playClick } = useSovereignSounds();
+    const { playHover, playClick } = useProfessionalSounds();
     const [activeBriefing, setActiveBriefing] = useState<any>(null);
 
     const features = [
         {
             icon: Brain,
             title: 'IEP Architect',
-            description: 'The Sovereign Engine instantly generates legally defensible, data-driven IEP goals. We analyze student data streams to construct compliant learning paths in milliseconds, saving hours of administrative overhead.',
+            description: 'The Professional Engine instantly generates legally defensible, data-driven IEP goals. We analyze student data streams to construct compliant learning paths in milliseconds, saving hours of administrative overhead.',
             video: '/videos/features/iep-architect-demo.mp4',
-            thumbnail: '/images/features/sovereign_iep_architect.png',
+            thumbnail: '/images/features/strategic_iep_architect.png',
             color: 'from-violet-500 to-purple-600',
             link: '/generators/iep-architect',
             stats: { time: '5 min', saved: '2 hours', accuracy: '99%' },
@@ -28,9 +28,9 @@ export default function FeatureVideos() {
         {
             icon: Sparkles,
             title: 'Lesson Planner',
-            description: 'Experience quantum curriculum design. Our neural synthesis identifies standards-aligned protocols and adapts them to your specific classroom demographics instantly.',
+            description: 'Experience quantum curriculum design. Our strategic synthesis identifies standards-aligned protocols and adapts them to your specific classroom demographics instantly.',
             video: '/videos/features/lesson-planner-demo.mp4',
-            thumbnail: '/images/features/sovereign_educator_planner.png',
+            thumbnail: '/images/features/strategic_educator_planner.png',
             color: 'from-fuchsia-500 to-pink-600',
             link: '/generators/lesson-planner',
             stats: { time: '3 min', saved: '1.5 hours', accuracy: '98%' },
@@ -67,7 +67,7 @@ export default function FeatureVideos() {
                 >
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-bold uppercase tracking-[0.2em] mb-8 hover:bg-indigo-500/20 transition-colors cursor-default">
                         <Zap size={14} />
-                        <span>Sovereign Intelligence Protocols</span>
+                        <span>Professional Intelligence Protocols</span>
                     </div>
                     <h2 className="text-5xl md:text-6xl font-black text-white mb-8 tracking-tight">
                         See the{' '}
@@ -76,7 +76,7 @@ export default function FeatureVideos() {
                         </span>
                     </h2>
                     <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
-                        Witness the EdIntel Sovereign Neural Engine in active deployment.
+                        Witness the EdIntel Professional Strategic Engine in active deployment.
                     </p>
                 </motion.div>
 
@@ -172,7 +172,7 @@ export default function FeatureVideos() {
                 thumbnail={activeBriefing?.thumbnail}
                 role={activeBriefing?.role}
                 avatarImage={activeBriefing?.avatar}
-                theme="sovereign"
+                theme="professional"
             />
         </section>
     );

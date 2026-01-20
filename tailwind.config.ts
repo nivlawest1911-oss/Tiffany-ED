@@ -59,6 +59,20 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        noble: {
+          gold: "#D4AF37",
+          crimson: "#8B0000",
+          emerald: "#006400",
+          black: "#0A0A0B",
+          indigo: "#1A1A2E",
+        },
+        kente: {
+          yellow: "#F9D71C",
+          red: "#C41E3A",
+          green: "#228B22",
+          black: "#000000",
+          orange: "#FF8C00",
+        }
       },
       borderRadius: {
         lg: "var(--radius)",

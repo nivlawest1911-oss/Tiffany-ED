@@ -2,22 +2,22 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mic, MessageSquare, Briefcase, ChevronRight, Zap, Globe, AlertCircle, Terminal, Activity } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import useSovereignSounds from '@/hooks/useSovereignSounds';
+import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 
 interface IntelSignal {
     id: string;
-    type: 'LEGISLATIVE' | 'TACTICAL' | 'CALENDAR' | 'NEURAL';
+    type: 'LEGISLATIVE' | 'TACTICAL' | 'CALENDAR' | 'SYNTHESIS';
     text: string;
     urgency: 'high' | 'medium' | 'low';
     timestamp: string;
 }
 
 export default function IntelligenceBriefingAgent() {
-    const { playClick, playHover } = useSovereignSounds();
+    const { playClick, playHover } = useProfessionalSounds();
     const [signals, setSignals] = useState<IntelSignal[]>([
         { id: '1', type: 'LEGISLATIVE', text: "ALSDE 'Literacy Act' Amendment (Act 2024-548) detected. IEP review required.", urgency: 'high', timestamp: 'NOW' },
-        { id: '2', type: 'TACTICAL', text: "Node Sync Error: Oak Shadow Middle attendance lattice showing 0.82 entropy.", urgency: 'medium', timestamp: '2m ago' },
-        { id: '3', type: 'NEURAL', text: "Dr. West synthesis complete: Curricular Sovereignty Roadmap archived in Vault.", urgency: 'low', timestamp: '15m ago' },
+        { id: '2', type: 'TACTICAL', text: "Center Sync Error: Oak Shadow Middle attendance lattice showing 0.82 entropy.", urgency: 'medium', timestamp: '2m ago' },
+        { id: '3', type: 'SYNTHESIS', text: "Dr. West synthesis complete: Curricular Leadership Roadmap archived in Vault.", urgency: 'low', timestamp: '15m ago' },
     ]);
 
     const [isListening, setIsListening] = useState(false);
@@ -41,7 +41,7 @@ export default function IntelligenceBriefingAgent() {
                         </span>
                     </div>
                     <div>
-                        <h3 className="text-sm font-black text-white uppercase tracking-[0.2em]">Neural Intel Stream</h3>
+                        <h3 className="text-sm font-black text-white uppercase tracking-[0.2em]">Strategic Intel Stream</h3>
                         <p className="text-[10px] text-zinc-500 font-mono flex items-center gap-1.5 uppercase">
                             <Terminal size={10} className="text-indigo-500" /> Multi-Agent Lattice: ONLINE
                         </p>
@@ -70,7 +70,7 @@ export default function IntelligenceBriefingAgent() {
                             className="group flex items-start gap-4 p-5 rounded-2xl bg-zinc-900/50 hover:bg-zinc-900 border border-white/5 hover:border-indigo-500/30 transition-all cursor-pointer relative"
                         >
                             <div className={`mt-1.5 w-2 h-2 rounded-full shrink-0 ${signal.urgency === 'high' ? 'bg-rose-500 shadow-[0_0_12px_rgba(244,63,94,0.6)] animate-pulse' :
-                                    signal.urgency === 'medium' ? 'bg-amber-500' : 'bg-indigo-500'
+                                signal.urgency === 'medium' ? 'bg-amber-500' : 'bg-indigo-500'
                                 }`} />
                             <div className="flex-1">
                                 <div className="flex items-center justify-between mb-1.5">

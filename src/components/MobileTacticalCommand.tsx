@@ -2,10 +2,10 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mic, CheckCircle, FileText, ChevronRight, AlertTriangle, Zap, Activity } from 'lucide-react';
 import { useState } from 'react';
-import useSovereignSounds from '@/hooks/useSovereignSounds';
+import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 
 export default function MobileTacticalCommand() {
-    const { playClick } = useSovereignSounds();
+    const { playClick } = useProfessionalSounds();
     const [isAlerOpen, setIsAlertOpen] = useState(true);
 
     return (
@@ -60,7 +60,7 @@ export default function MobileTacticalCommand() {
                             </div>
                             <div className="flex-1">
                                 <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-amber-500 mb-1">
-                                    Priority Neural Alert
+                                    Priority Strategic Alert
                                 </h4>
                                 <p className="text-sm font-bold text-white leading-tight">ALSDE: New Reading Assessment Window</p>
                                 <p className="text-[10px] text-zinc-500 mt-2 font-mono">CODE: ACT-2024-548</p>

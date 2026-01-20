@@ -83,7 +83,7 @@ export async function createCheckoutSession(
         metadata: {
             userId,
             environment: process.env.NODE_ENV,
-            source: 'EdIntel Sovereign App'
+            source: 'EdIntel Professional App'
         },
     });
 
@@ -115,7 +115,7 @@ export async function createTopupSession(
             userId,
             tokenQuantity: quantity.toString(),
             type: 'token_topup',
-            source: 'Sovereign Delegate Console'
+            source: 'Professional Delegate Console'
         },
     });
 

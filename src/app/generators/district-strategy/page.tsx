@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Building2, TrendingUp, Users, DollarSign, ArrowRight, Shield as LucideShield, PieChart, Activity, Lock, Phone } from 'lucide-react';
 import FloatingNavbar from '@/components/FloatingNavbar';
-import { generateSovereignResponse } from '@/lib/sovereign-ai';
+import { generateProfessionalResponse } from '@/lib/leadership-ai';
 
 export default function DistrictStrategyCommand() {
     const [step, setStep] = useState(1);
@@ -30,13 +30,13 @@ export default function DistrictStrategyCommand() {
 
             Output Structure:
             1. Executive Diagnosis: Blunt assessment of the current trajectory based on pain points.
-            2. The "Sovereign" Solution: High-level strategic shift needed (mention operational sovereignty).
+            2. The "Professional" Solution: High-level strategic shift needed (mention operational excellence).
             3. Projected ROI Analysis: Estimate financial recovery if changes are made (use fake but realistic multiplier logic, e.g. "Recovering $1,200 per teacher in lost time").
             4. Implementation Vector: 3-Phase rollout plan over 90 days.
             
             Tone: Authoritative, C-Suite Professional, Financially Astute. "Million Dollar Consulting" voice.`;
 
-            const response = await generateSovereignResponse(prompt, 'district-strategy');
+            const response = await generateProfessionalResponse(prompt, 'district-strategy');
             setStrategyDoc(response);
             setStep(2);
         } catch (error) {
@@ -91,7 +91,7 @@ export default function DistrictStrategyCommand() {
                                     <input
                                         type="text"
                                         className="w-full bg-black border border-zinc-800 rounded-xl p-4 text-sm focus:border-amber-500 outline-none transition-colors"
-                                        placeholder="e.g. Sovereign Independent ISD"
+                                        placeholder="e.g. Professional Independent ISD"
                                         value={districtData.name}
                                         onChange={e => setDistrictData({ ...districtData, name: e.target.value })}
                                     />
@@ -157,7 +157,7 @@ export default function DistrictStrategyCommand() {
                                     </div>
                                     <h3 className="text-2xl font-bold text-zinc-600">Awaiting Strategic Data</h3>
                                     <p className="max-w-md mt-4 text-zinc-500">
-                                        Input your district's operational parameters to receive a bespoke Turnaround Brief from Dr. West's Sovereign AI Engine.
+                                        Input your district's operational parameters to receive a bespoke Turnaround Brief from Dr. West's Professional AI Engine.
                                     </p>
                                 </motion.div>
                             ) : (
@@ -192,7 +192,7 @@ export default function DistrictStrategyCommand() {
                                                     <div className="text-xs text-zinc-500 uppercase tracking-wider">Executive Consultant</div>
                                                 </div>
                                             </div>
-                                            <img src="/logo_dark.png" alt="Sovereign" className="h-8 opacity-20" />
+                                            <img src="/logo_dark.png" alt="Professional" className="h-8 opacity-20" />
                                         </div>
                                     </div>
 
@@ -217,7 +217,7 @@ export default function DistrictStrategyCommand() {
                                                 </div>
                                                 <span className="text-xs font-bold text-white/60 uppercase tracking-wider">Enterprise</span>
                                             </div>
-                                            <h4 className="text-lg font-bold text-white mb-2">Activate "Sovereign District"</h4>
+                                            <h4 className="text-lg font-bold text-white mb-2">Activate "Professional District"</h4>
                                             <p className="text-sm text-white/80 mb-4">Deploy EdIntel across your entire system. Full adoption protocol included.</p>
                                             <div className="text-white font-black text-xl">Custom Quote</div>
                                         </div>

@@ -1,10 +1,10 @@
 "use client"
 
 import { motion } from "framer-motion"
-import type { HTMLAttributes, ReactNode } from "react"
+import type { HTMLAttributes, ReactCenter } from "react"
 
 interface AnimatedSectionProps extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode
+  children: ReactCenter
   delay?: number
 }
 

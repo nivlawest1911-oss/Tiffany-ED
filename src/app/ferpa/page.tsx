@@ -21,7 +21,7 @@ export default function FERPACompliancePage() {
         },
         {
             icon: Server,
-            title: "Sovereign Isolation",
+            title: "Professional Isolation",
             content: "Tenant data is logically isolated. A breach in one node (theoretically impossible) cannot laterally move to access your data.",
             color: "teal"
         },
@@ -89,7 +89,7 @@ export default function FERPACompliancePage() {
                     <div className="flex-1 text-center md:text-left">
                         <h3 className="text-2xl font-bold text-white mb-2">Verified Compliant: 20 U.S.C. § 1232g</h3>
                         <p className="text-zinc-400">
-                            EdIntel Sovereign fully adheres to the Family Educational Rights and Privacy Act (FERPA).
+                            EdIntel Professional fully adheres to the Family Educational Rights and Privacy Act (FERPA).
                             We function as an institutional agent, subject to the direct control of the district.
                         </p>
                     </div>

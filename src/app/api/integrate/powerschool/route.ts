@@ -9,10 +9,10 @@ export async function POST(request: Request) {
         const body = await request.json();
         const { userId, studentId, reportData } = body;
 
-        console.log(`[ SOVEREIGN SIS ] Syncing report for Student ${studentId} via PowerSchool`);
+        console.log(`[ PROFESSIONAL SIS ] Syncing report for Student ${studentId} via PowerSchool`);
 
         // Tier Validation: PowerSchool requires DISTRICT_COMMAND tier
-        const userTier = 'SOVEREIGN_PLUS' as string;
+        const userTier = 'PROFESSIONAL_PLUS' as string;
 
         if (userTier !== 'DISTRICT_COMMAND') {
             return NextResponse.json({

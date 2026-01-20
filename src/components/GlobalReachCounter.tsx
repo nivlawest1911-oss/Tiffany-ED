@@ -34,7 +34,7 @@ export default function GlobalReachCounter() {
                     <div>
                         <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-500 mb-1">Live Global Status</h4>
                         <div className="flex items-center gap-2">
-                            <span className="text-xl font-black text-white tracking-tighter">NEURAL UPLINK ACTIVE</span>
+                            <span className="text-xl font-black text-white tracking-tighter">STRATEGIC UPLINK ACTIVE</span>
                             <div className="flex gap-1">
                                 {[1, 2, 3].map(i => (
                                     <motion.div
@@ -73,7 +73,7 @@ export default function GlobalReachCounter() {
                                 </motion.span>
                             </AnimatePresence>
                         </div>
-                        <span className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.2em] mt-1">Total Sovereign Nodes Connected</span>
+                        <span className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.2em] mt-1">Total Professional Centers Connected</span>
                     </div>
                 </div>
 

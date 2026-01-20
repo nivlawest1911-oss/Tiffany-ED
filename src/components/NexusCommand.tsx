@@ -3,12 +3,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Command, Zap, Shield, Globe, Users, FileText, X, ChevronRight, Terminal } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import useSovereignSounds from '@/hooks/useSovereignSounds';
+import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 
 export default function NexusCommand({ isOpen, onCloseAction, onActionAction }: { isOpen: boolean, onCloseAction: () => void, onActionAction: (action: string) => void }) {
     const [query, setQuery] = useState('');
     const [activeIndex, setActiveIndex] = useState(0);
-    const { playClick, playHover } = useSovereignSounds();
+    const { playClick, playHover } = useProfessionalSounds();
     const router = useRouter();
 
     const actions = [
@@ -123,7 +123,7 @@ export default function NexusCommand({ isOpen, onCloseAction, onActionAction }: 
                             ) : (
                                 <div className="p-10 text-center">
                                     <Terminal size={40} className="mx-auto text-zinc-800 mb-4" />
-                                    <p className="text-zinc-500 font-black uppercase tracking-widest text-[10px]">No Neural Protocols Found</p>
+                                    <p className="text-zinc-500 font-black uppercase tracking-widest text-[10px]">No Strategic Protocols Found</p>
                                 </div>
                             )}
                         </div>

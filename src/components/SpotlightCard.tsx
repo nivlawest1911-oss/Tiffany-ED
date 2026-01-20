@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 
-export default function SpotlightCard({ children, className = '', color = 'rgba(139, 92, 246, 0.15)' }: { children: React.ReactNode, className?: string, color?: string }) {
+export default function SpotlightCard({ children, className = '', color = 'rgba(139, 92, 246, 0.15)' }: { children: React.ReactCenter, className?: string, color?: string }) {
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
 

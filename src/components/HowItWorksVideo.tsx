@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Sparkles, CheckCircle, Video, Radio } from 'lucide-react';
 import VideoPlayer from './VideoPlayer';
-import useSovereignSounds from '@/hooks/useSovereignSounds';
+import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 import HolographicBriefing from './HolographicBriefing';
 
 export default function HowItWorksVideo() {
-    const { playHover, playClick } = useSovereignSounds();
+    const { playHover, playClick } = useProfessionalSounds();
     const [activeBriefing, setActiveBriefing] = useState<any>(null);
 
     const steps = [
@@ -18,7 +18,7 @@ export default function HowItWorksVideo() {
             description: 'Select your specialized AI Delegate from the Command Center. Our system offers over 41 specialized roles, each fine-tuned for specific educational administrative tasks.',
             video: '/videos/features/iep-architect-demo.mp4',
             thumbnail: '/images/avatars/executive_leader.png',
-            features: ['Browse 41+ specialized tools', 'Filter by Sovereign Role', 'Instant specific activation'],
+            features: ['Browse 41+ specialized tools', 'Filter by Professional Role', 'Instant specific activation'],
             role: "Command Interface",
             avatar: "/images/avatars/executive_leader.png"
         },
@@ -62,7 +62,7 @@ export default function HowItWorksVideo() {
                 >
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 backdrop-blur-md mb-8">
                         <Video size={14} className="text-indigo-400" />
-                        <span className="text-sm font-bold text-indigo-300 uppercase tracking-widest">Sovereign Workflow</span>
+                        <span className="text-sm font-bold text-indigo-300 uppercase tracking-widest">Professional Workflow</span>
                     </div>
 
                     <h2 className="text-5xl md:text-7xl font-bold text-white mb-6">

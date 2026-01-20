@@ -8,15 +8,15 @@ export default function GettingStartedProtocol() {
     const articles = [
         {
             id: 1,
-            title: "Neural Node Requirements",
-            desc: "Minimum hardware and cyber-link specifications for optimal Sovereign Sync.",
+            title: "Strategic Center Requirements",
+            desc: "Minimum hardware and cyber-link specifications for optimal Professional Sync.",
             views: "9.3k",
             date: "Dec 11, 2025",
             icon: <Cpu size={20} className="text-zinc-500" />
         },
         {
             id: 2,
-            title: "Sever Neural Link",
+            title: "Sever Strategic Link",
             desc: "Protocol for safely terminating your session and securing local data nodes.",
             views: "2.2k",
             date: "Dec 9, 2025",
@@ -24,7 +24,7 @@ export default function GettingStartedProtocol() {
         },
         {
             id: 3,
-            title: "Initiate Neural Sync",
+            title: "Initiate Strategic Sync",
             desc: "Step-by-step guide for Architects to begin their first cognitive calibration.",
             views: "8.1k",
             date: "Dec 9, 2025",
@@ -33,14 +33,14 @@ export default function GettingStartedProtocol() {
         {
             id: 4,
             title: "Architect Registration",
-            desc: "Creating your Sovereign Identity via secure channels or Federated Login.",
+            desc: "Creating your Professional Identity via secure channels or Federated Login.",
             views: "8.8k",
             date: "Dec 9, 2025",
             icon: <LucideShield size={20} className="text-zinc-500" />
         },
         {
             id: 5,
-            title: "Sovereign Intelligence Modules",
+            title: "Professional Intelligence Modules",
             desc: "Overview of available neural assessment and training vectors.",
             views: "4.5k",
             date: "Dec 12, 2025",
@@ -48,7 +48,7 @@ export default function GettingStartedProtocol() {
         },
         {
             id: 6,
-            title: "Sovereign Codex FAQ",
+            title: "Professional Codex FAQ",
             desc: "Common queries regarding the EdIntel neural architecture.",
             views: "6.7k",
             date: "Dec 8, 2025",
@@ -56,7 +56,7 @@ export default function GettingStartedProtocol() {
         },
         {
             id: 7,
-            title: "Initiate vs Sovereign Access",
+            title: "Initiate vs Professional Access",
             desc: "Understanding the difference between restricted and full protocol access.",
             views: "3.1k",
             date: "Dec 10, 2025",
@@ -65,7 +65,7 @@ export default function GettingStartedProtocol() {
         {
             id: 8,
             title: "Bio-Chronology Requirements",
-            desc: "Age and cognitive maturity guidelines for Sovereign protocols.",
+            desc: "Age and cognitive maturity guidelines for Professional protocols.",
             views: "1.2k",
             date: "Dec 7, 2025",
             icon: <Clock size={20} className="text-zinc-500" />
@@ -98,7 +98,7 @@ export default function GettingStartedProtocol() {
                         Getting Started with EdIntel
                     </h1>
                     <p className="text-lg text-zinc-400 font-medium max-w-lg mx-auto">
-                        Essential guides for establishing your sovereign neural link.
+                        Essential guides for establishing your secure strategic connection.
                     </p>
 
                     <div className="relative group w-full mt-8">
@@ -135,7 +135,7 @@ export default function GettingStartedProtocol() {
                                 </p>
                                 <div className="flex items-center gap-4 pt-2">
                                     <span className="text-[10px] uppercase font-bold text-zinc-400 tracking-wider flex items-center gap-1">
-                                        <FileText size={10} /> Knowledge Node
+                                        <FileText size={10} /> Knowledge Center
                                     </span>
                                     <span className="w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700" />
                                     <span className="text-[10px] font-mono text-zinc-400">{article.views} Views</span>
@@ -156,9 +156,9 @@ export default function GettingStartedProtocol() {
                         </h3>
                         <ul className="space-y-4">
                             {[
-                                "Initiate Neural Sync",
+                                "Initiate Strategic Sync",
                                 "Architect Registration",
-                                "Neural Node Requirements",
+                                "Strategic Center Requirements",
                                 "Optimal Sync Frequency"
                             ].map((item, i) => (
                                 <li key={i} className="group cursor-pointer flex items-start gap-3">

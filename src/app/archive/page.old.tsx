@@ -12,11 +12,11 @@ import { LegalSingularityVault } from "@/components/legal-singularity-vault"
 import { PersonnelSentiment } from "@/components/personnel-sentiment"
 import { GlobalPresence } from "@/components/global-presence"
 import { AvatarLab } from "@/components/avatar-lab"
-import { SovereignLabs } from "@/components/sovereign-labs"
+import { ProfessionalLabs } from "@/components/sovereign-labs"
 import { NetworkFeed } from "@/components/network-feed"
 import { SupportProtocol } from "@/components/support-protocol"
 import { WhatIsEdIntel } from "@/components/what-is-edintel"
-import { SovereignIdentity } from "@/components/sovereign-identity"
+import { ProfessionalIdentity } from "@/components/sovereign-identity"
 import { AIGeneratorsHub } from "@/components/ai-generators-hub"
 import { ResearchHub } from "@/components/research-hub"
 import { AITwinGenerator } from "@/components/ai-twin-generator"
@@ -26,7 +26,7 @@ import { VRTraining } from "@/components/vr-training"
 import { BlockchainCredentials } from "@/components/blockchain-credentials"
 import { CinematicBackground } from "@/components/cinematic-background"
 import { MediaSynthesisStudio } from "@/components/media-synthesis-studio"
-import { SovereignDelegates } from "@/components/sovereign-delegates"
+import { ProfessionalDelegates } from "@/components/sovereign-delegates"
 
 export default function Home() {
   return (
@@ -40,7 +40,7 @@ export default function Home() {
 
       <TopNav />
       <HeroSection />
-      <SovereignDelegates />
+      <ProfessionalDelegates />
       <DashboardSection />
       <WhatIsEdIntel />
       <AIGeneratorsHub />
@@ -51,14 +51,14 @@ export default function Home() {
       <NeuralSyncSection />
       <MediaSynthesisStudio />
       <AvatarLab />
-      <SovereignLabs />
+      <ProfessionalLabs />
       <WearableIntegration />
       <CollaborationHub />
       <VRTraining />
       <BlockchainCredentials />
       <ResearchHub />
       <PersonnelSentiment />
-      <SovereignIdentity />
+      <ProfessionalIdentity />
       <LegalSingularityVault />
       <NetworkFeed />
       <PricingSection />

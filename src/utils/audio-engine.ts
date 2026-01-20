@@ -1,4 +1,4 @@
-export class SovereignAudioEngine {
+export class ProfessionalAudioEngine {
     private context: AudioContext | null = null;
     private masterGain: GainNode | null = null;
 
@@ -20,7 +20,7 @@ export class SovereignAudioEngine {
         }
     }
 
-    // High-tech interaction click (Sovereign Engage)
+    // High-tech interaction click (Professional Engage)
     // A crisp, mechanical "digital shutter" sound
     playClick() {
         if (!this.context || !this.masterGain) return;
@@ -115,7 +115,7 @@ export class SovereignAudioEngine {
         });
     }
 
-    // Ambient Hum (Sovereign Presence)
+    // Ambient Hum (Professional Presence)
     // Needs to be loopable and managed carefully
     private ambientOsc: OscillatorNode | null = null;
     private ambientGain: GainNode | null = null;
@@ -160,17 +160,17 @@ export class SovereignAudioEngine {
 }
 
 // Lazy singleton instance - only created when first accessed
-let _sovereignAudio: SovereignAudioEngine | null = null;
+let _professionalAudio: ProfessionalAudioEngine | null = null;
 
-export const sovereignAudio = {
-    get instance(): SovereignAudioEngine {
-        if (!_sovereignAudio) {
-            _sovereignAudio = new SovereignAudioEngine();
+export const professionalAudio = {
+    get instance(): ProfessionalAudioEngine {
+        if (!_professionalAudio) {
+            _professionalAudio = new ProfessionalAudioEngine();
         }
-        return _sovereignAudio;
+        return _professionalAudio;
     },
-    playHover: () => sovereignAudio.instance.playHover(),
-    playClick: () => sovereignAudio.instance.playClick(),
-    playSuccess: () => sovereignAudio.instance.playSuccess(),
-    toggleAmbient: (play: boolean) => sovereignAudio.instance.toggleAmbient(play)
+    playHover: () => professionalAudio.instance.playHover(),
+    playClick: () => professionalAudio.instance.playClick(),
+    playSuccess: () => professionalAudio.instance.playSuccess(),
+    toggleAmbient: (play: boolean) => professionalAudio.instance.toggleAmbient(play)
 };

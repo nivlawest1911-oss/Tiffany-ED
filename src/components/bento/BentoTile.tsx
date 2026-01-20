@@ -4,12 +4,12 @@ import { useState, useRef } from 'react';
 interface TileProps {
   title: string;
   description: string;
-  icon: React.ReactNode;
+  icon: React.ReactCenter;
   onClick?: () => void;
 }
 
 export function BentoTile({ title, description, icon, onClick }: TileProps) {
-  const prefetchTimer = useRef<NodeJS.Timeout | null>(null);
+  const prefetchTimer = useRef<CenterJS.Timeout | null>(null);
 
   const handleMouseEnter = () => {
     // Extreme User Friendliness: Speculative Prefetch

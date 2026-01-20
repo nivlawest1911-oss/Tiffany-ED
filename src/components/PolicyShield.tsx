@@ -2,13 +2,13 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Shield, Lock, Unlock, AlertCircle, CheckCircle2, ShieldCheck, Activity, Zap } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import useSovereignSounds from '@/hooks/useSovereignSounds';
+import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 
 export default function PolicyShield() {
     const [isSecured, setIsSecured] = useState(false);
     const [score, setScore] = useState(94.2);
     const [isHardening, setIsHardening] = useState(false);
-    const { playClick, playSuccess } = useSovereignSounds();
+    const { playClick, playSuccess } = useProfessionalSounds();
 
     const toggleShield = () => {
         if (isHardening) return;
@@ -35,7 +35,7 @@ export default function PolicyShield() {
                             {isSecured ? <ShieldCheck size={28} /> : <Shield size={28} />}
                         </div>
                         <div>
-                            <h3 className="text-sm font-black text-white uppercase tracking-widest">Sovereign Policy Shield</h3>
+                            <h3 className="text-sm font-black text-white uppercase tracking-widest">Professional Policy Shield</h3>
                             <p className="text-[9px] text-zinc-500 font-mono uppercase tracking-widest">Aegis-v4 Protocol</p>
                         </div>
                     </div>

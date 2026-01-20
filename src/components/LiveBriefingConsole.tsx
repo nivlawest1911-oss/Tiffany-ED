@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Mic, Activity, Globe, Shield as LucideShield, Cpu, Lock } from "lucide-react";
-import { generateSovereignResponse } from '../lib/sovereign-ai';
+import { generateProfessionalResponse } from '../lib/leadership-ai';
 import GenerativeLogStream from './GenerativeLogStream';
 
 interface LiveBriefingConsoleProps {
@@ -23,10 +23,10 @@ export default function LiveBriefingConsole({ name, description, role, color, pr
     const hasStartedRef = useRef(false);
     const videoRef = useRef<HTMLVideoElement>(null);
     const userVideoRef = useRef<HTMLVideoElement>(null);
-    const [currentScript, setCurrentScript] = useState(`Sovereign Protocol Initiated. Target: ${name}. \n\nObjective: ${description} \n\nI am configured as your ${role}. My neural pathways are optimized to assist you. Awaiting your directives, Executive.`);
+    const [currentScript, setCurrentScript] = useState(`Briefing Started. Target: ${name}. \n\nObjective: ${description} \n\nI am here to assist as your ${role}. Ready to help you lead effectively.`);
     const [logType, setLogType] = useState<'IEP' | 'GRANT' | 'DATA' | 'POLICY' | 'DEFAULT'>('DEFAULT');
 
-    // 1. Initialize User Webcam (Secure Uplink)
+    // 1. Initialize User Webcam (Secure Connection)
     useEffect(() => {
         const startWebcam = async () => {
             try {
@@ -35,7 +35,7 @@ export default function LiveBriefingConsole({ name, description, role, color, pr
                     userVideoRef.current.srcObject = stream;
                 }
             } catch (err) {
-                console.error("Secure Uplink Failed:", err);
+                console.error("Secure Connection Failed:", err);
             }
         };
         startWebcam();
@@ -114,7 +114,7 @@ export default function LiveBriefingConsole({ name, description, role, color, pr
         window.speechSynthesis.cancel();
 
         try {
-            const response = await generateSovereignResponse(prompt, 'live-demo');
+            const response = await generateProfessionalResponse(prompt, 'live-demo');
             setCurrentScript(response);
         } catch (error) {
             console.error("Generation failed", error);
@@ -164,18 +164,32 @@ export default function LiveBriefingConsole({ name, description, role, color, pr
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/50" />
             </div>
 
-            {/* USER WEBCAM (Secure Uplink PIP) */}
-            <div className="absolute bottom-6 right-6 z-30 w-32 h-24 md:w-48 md:h-36 bg-black rounded-xl overflow-hidden border border-white/20 shadow-2xl shadow-indigo-500/20 transform hover:scale-105 transition-transform cursor-pointer">
+            {/* USER WEBCAM (Secure Connection PIP) */}
+            <div className="absolute bottom-6 right-6 z-30 w-32 h-24 md:w-48 md:h-36 bg-black rounded-xl overflow-hidden border border-white/20 shadow-2xl shadow-indigo-500/20 transform hover:scale-105 transition-transform cursor-pointer group/cam">
                 <video
                     ref={userVideoRef}
                     autoPlay
                     muted
                     playsInline
-                    className="w-full h-full object-cover transform scale-x-[-1]"
+                    className="w-full h-full object-cover transform scale-x-[-1] opacity-80"
                 />
+                <div className="absolute inset-0 bg-indigo-500/10 mix-blend-overlay" />
+                <div className="absolute top-0 w-full h-full bg-gradient-to-b from-transparent via-indigo-500/10 to-transparent animate-scan" style={{ backgroundSize: '100% 200%' }} />
+
+                {/* Face Detection Reticle */}
+                <div className="absolute inset-0 border-2 border-transparent group-hover/cam:border-indigo-500/30 transition-all rounded-xl">
+                    <div className="absolute top-2 left-2 w-2 h-2 border-t-2 border-l-2 border-indigo-400" />
+                    <div className="absolute top-2 right-2 w-2 h-2 border-t-2 border-r-2 border-indigo-400" />
+                    <div className="absolute bottom-2 left-2 w-2 h-2 border-b-2 border-l-2 border-indigo-400" />
+                    <div className="absolute bottom-2 right-2 w-2 h-2 border-b-2 border-r-2 border-indigo-400" />
+                </div>
+
                 <div className="absolute top-2 left-2 flex items-center gap-1">
                     <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
                     <span className="text-[8px] font-bold text-white uppercase tracking-wider backdrop-blur-md bg-black/30 px-1 rounded">Live Feed</span>
+                </div>
+                <div className="absolute bottom-2 right-2">
+                    <span className="text-[6px] font-mono text-indigo-300 bg-black/50 px-1 rounded">ID-VERIFIED</span>
                 </div>
             </div>
 
@@ -204,7 +218,7 @@ export default function LiveBriefingConsole({ name, description, role, color, pr
             <div className="absolute top-6 left-6 flex flex-col gap-2 z-30">
                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-xl border border-white/10">
                     <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="text-[10px] font-bold text-white uppercase tracking-widest">Executive Uplink Active</span>
+                    <span className="text-[10px] font-bold text-white uppercase tracking-widest">Executive Connection Active</span>
                 </div>
                 {isSpeaking && (
                     <div className="px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-500/30 backdrop-blur-md w-fit">
@@ -215,7 +229,7 @@ export default function LiveBriefingConsole({ name, description, role, color, pr
 
             {/* Quick Directives */}
             <div className="absolute top-6 right-6 z-30 flex flex-col items-end gap-2">
-                <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Issue Directive</span>
+                <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Quick Actions</span>
                 {prompts && prompts.map((prompt, i) => (
                     <button
                         key={i}
@@ -230,14 +244,14 @@ export default function LiveBriefingConsole({ name, description, role, color, pr
                 <button
                     onClick={() => {
                         navigator.clipboard.writeText(window.location.href);
-                        setText("Stream Link Securely Uplinked. Global Network Accessible.");
+                        setText("Link copied to clipboard. Shared access enabled.");
                         setIsSpeaking(true);
                         setTimeout(() => setIsSpeaking(false), 3000);
                     }}
                     className="mt-4 flex items-center gap-2 px-4 py-2 bg-red-500/20 backdrop-blur-xl border border-red-500/50 hover:bg-red-500/40 text-xs text-red-200 rounded-lg transition-all group/broadcast"
                 >
                     <Globe className="w-3 h-3 animate-pulse" />
-                    <span className="font-bold uppercase tracking-widest">Broadcast Stream</span>
+                    <span className="font-bold uppercase tracking-widest">Share Stream</span>
                 </button>
             </div>
         </div>
