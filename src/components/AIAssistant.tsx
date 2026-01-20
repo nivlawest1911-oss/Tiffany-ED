@@ -10,6 +10,7 @@ import {
 import LiveAvatarChat from './LiveAvatarChat';
 import { useLeadershipRank } from '@/hooks/useLeadershipRank';
 import { useHumanBehavior } from '@/hooks/useHumanBehavior';
+import { useAuth } from '@/context/AuthContext';
 
 interface AIAssistantProps {
     role: string;
@@ -59,10 +60,12 @@ export default function AIAssistant({
     // Token System
     const [tokensRemaining, setTokensRemaining] = useState(8);
     const [showRecharge, setShowRecharge] = useState(false);
+    const { user } = useAuth();
 
     // Professional Rank System
-    const { xp, addXP, currentRank, progressToNext } = useLeadershipRank();
-    const humanBehavior = useHumanBehavior();
+    const { xp, addXP, currentRank, progressToNext, isSovereign } = useLeadershipRank();
+    const [cinematicMode, setCinematicMode] = useState(true);
+    const humanBehavior = useHumanBehavior(isOpen && !isSpeaking);
 
     const [hasGuided, setHasGuided] = useState(false);
     const hasAnnouncedRef = useRef(false);
@@ -71,16 +74,20 @@ export default function AIAssistant({
     useEffect(() => {
         if (autoOpen) {
             setIsOpen(true);
+            const personalizedGreeting = user ? `Welcome back, ${user.name}. I'm ready to continue our strategic coordination.` : greetingText;
             if (initialDirective) {
                 setDirective(initialDirective);
-                // Auto-trigger synthesis for priority directives
                 const timer = setTimeout(() => {
                     handleGenerativeSynthesis();
                 }, 1500);
                 return () => clearTimeout(timer);
             }
+            if (!hasAnnouncedRef.current && personalizedGreeting) {
+                speakText(personalizedGreeting);
+                hasAnnouncedRef.current = true;
+            }
         }
-    }, [autoOpen, initialDirective]);
+    }, [autoOpen, initialDirective, user]);
     const videoRef = useRef<HTMLVideoElement>(null);
 
     // Monitor Token Levels for Upsell
@@ -188,19 +195,42 @@ export default function AIAssistant({
         // Professional Strategic Voice Selection Connection
         if ('speechSynthesis' in window) {
             window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
+            // HUMAN-LIKE REFINEMENT: Inject natural fillers and pauses
+            let naturalText = text;
+            if (Math.random() > 0.7) {
+                const fillers = [
+                    "Well, let's explore this, ",
+                    "Interestingly, ",
+                    "From a strategic standpoint, ",
+                    "Actually, thinking about the district's growth, ",
+                    "Right, so, ",
+                    "I believe that "
+                ];
+                naturalText = fillers[Math.floor(Math.random() * fillers.length)] + text;
+            }
+
+            // Inject natural micro-pauses for human cadence
+            naturalText = naturalText.replace(/\, /g, ", ... ");
+            naturalText = naturalText.replace(/\. /g, ". ...... ");
+            naturalText = naturalText.replace(/\? /g, "? ... ");
+
+            if (Math.random() > 0.8) {
+                naturalText = "Um, " + naturalText;
+            }
+
+            const utterance = new SpeechSynthesisUtterance(naturalText);
+            const archetype = getArchetype();
 
             const voices = window.speechSynthesis.getVoices();
             // Prioritize higher quality proprietary voices (Mac/Google)
             const isMale = name.toLowerCase().includes('alvin') || name.toLowerCase().includes('marcus') || name.toLowerCase().includes('james') || name.toLowerCase().includes('andre');
 
             // Advanced Heuristic for Voice Selection
-            // Prioritize higher quality, authoritative voices suitable for African American executive personas
+            // Prioritize authoritative voices for African American executive personas
             let preferredVoice = voices.find(v =>
                 isMale
-                    // Deeper, authoritative male voices
-                    ? (v.name.includes("Google US English") || v.name.includes("Daniel"))
-                    : (v.name.includes("Google US English") || v.name.includes("Samantha"))
+                    ? (v.name.includes("Google US English") || v.name.includes("Daniel") || v.name.includes("Rocko"))
+                    : (v.name.includes("Google US English") || v.name.includes("Samantha") || v.name.includes("Zira"))
             );
 
             // Fallback to any English
@@ -209,8 +239,6 @@ export default function AIAssistant({
             }
 
             if (preferredVoice) utterance.voice = preferredVoice;
-
-            const archetype = getArchetype();
 
             // Pitch/Rate Tuning for Professionalism (Professional Standard)
             utterance.rate = voiceSettings?.rate || archetype.rate; // Measured, thoughtful pace
@@ -573,26 +601,41 @@ export default function AIAssistant({
                                                 <motion.img
                                                     src={avatarImage}
                                                     alt={name}
-                                                    className="w-full h-full object-cover"
-                                                    animate={isSpeaking ? {
-                                                        x: [0, -5, 5, -2, 0],
-                                                        y: [0, -2, 2, -1, 0],
-                                                        rotate: [0, -1, 1, -0.5, 0],
-                                                        scale: [1, 1.05, 1.02, 1.05, 1],
-                                                        ...humanBehavior.behaviorStyles
-                                                    } : {
-                                                        ...humanBehavior.behaviorStyles
-                                                    }}
-                                                    transition={isSpeaking ? {
-                                                        duration: 4,
-                                                        repeat: Infinity,
-                                                        ease: "easeInOut"
-                                                    } : {
-                                                        duration: 3,
-                                                        repeat: Infinity,
-                                                        ease: "easeInOut"
+                                                    className="w-full h-full object-cover origin-bottom"
+                                                    style={humanBehavior.style}
+                                                    animate={{
+                                                        filter: isSpeaking ? 'contrast(1.1) brightness(1.1) saturate(1.1) drop-shadow(0 0 20px rgba(251,191,36,0.3))' : 'contrast(1) brightness(1) saturate(1)',
+                                                        y: humanBehavior.behaviorStyles.brow * 2
                                                     }}
                                                 />
+
+                                                {/* Cinematic Overlays */}
+                                                {cinematicMode && (
+                                                    <>
+                                                        <div className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat" />
+                                                        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/60 via-transparent to-black/30" />
+                                                        <div className="absolute inset-0 pointer-events-none border-[10px] border-black/20 blur-lg" />
+                                                        <div className="absolute top-0 left-0 right-0 h-[100%] pointer-events-none bg-gradient-to-b from-transparent via-white/5 to-transparent animate-scanline-fast opacity-30" />
+                                                    </>
+                                                )}
+
+                                                {/* African American AI Holography Glow: Kente Inspired */}
+                                                <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden">
+                                                    <div className={`w-[90%] h-[90%] rounded-full blur-[120px] animate-pulse ${theme === 'professional' ? 'bg-amber-500/10' : 'bg-indigo-500/10'}`} />
+                                                    {/* Kente Pattern Dots */}
+                                                    <div className="absolute inset-0 opacity-[0.05] mix-blend-overlay rotate-45 pointer-events-none"
+                                                        style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '16px 16px' }} />
+                                                </div>
+
+                                                {/* Vertex AI & Neural Mirror Metadata */}
+                                                <div className="absolute top-3 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 bg-black/60 backdrop-blur-md border border-white/10 rounded-full px-3 py-1">
+                                                    <div className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+                                                    <span className="text-[6px] font-black text-white uppercase tracking-widest leading-none">Vertex AI Supreme</span>
+                                                </div>
+
+                                                <div className="absolute bottom-10 left-4 z-40 bg-black/40 border border-white/10 px-1.5 py-0.5 rounded text-[5px] font-mono text-zinc-400 uppercase">
+                                                    Neural_Mirror // 4.2_S{isSovereign ? 'X' : 'B'}
+                                                </div>
 
                                                 {/* Advanced Biological Lip Sync Sim */}
                                                 {isSpeaking && (
@@ -811,6 +854,15 @@ export default function AIAssistant({
                     />
                 )
             }
+            <style jsx global>{`
+                @keyframes scanline-fast {
+                    0% { transform: translateY(-100%); }
+                    100% { transform: translateY(100%); }
+                }
+                .animate-scanline-fast {
+                    animation: scanline-fast 4s linear infinite;
+                }
+            `}</style>
         </div >
     );
 }

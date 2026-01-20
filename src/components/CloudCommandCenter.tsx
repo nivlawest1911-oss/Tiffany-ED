@@ -17,7 +17,9 @@ const LOG_MESSAGES = [
     "[GOOGLE CLOUD] Provisioning TPU-v5 Infrastructure in us-east1...",
     "[GOOGLE CLOUD] Syncing Neural Model Weights (1.4TB)... DONE",
     "[VERCEL] Building Edge Middleware Architecture...",
-    "[VERCEL] Deploying to Global Edge Mesh (14,000 Nodes)...",
+    "[GOOGLE CLOUD] Initializing Vertex AI Super-Engines... OK",
+    "[GOOGLE CLOUD] Calibrating Vision Intelligence Hub... OK",
+    "[GOOGLE CLOUD] Synchronizing BigQuery Data Vectors... OK",
     "[SYSTEM] Calibrating Human Behavior Engines...",
     "[SYSTEM] Voice Synthesis Core Synchronized.",
     "[SYSTEM] DEPLOYMENT SUCCESSFUL: edintel.sovereign.ai"
@@ -28,16 +30,19 @@ export default function CloudCommandCenter() {
     const [progress, setProgress] = useState(0);
     const [isComplete, setIsComplete] = useState(false);
     const [showConsole, setShowConsole] = useState(false);
+    const [currentLogIndex, setCurrentLogIndex] = useState(-1);
 
     const startDeployment = () => {
         setShowConsole(true);
         setLogs([]);
         setProgress(0);
         setIsComplete(false);
+        setCurrentLogIndex(-1);
 
         LOG_MESSAGES.forEach((msg, i) => {
             setTimeout(() => {
                 setLogs(prev => [...prev, msg]);
+                setCurrentLogIndex(i);
                 setProgress(Math.round(((i + 1) / LOG_MESSAGES.length) * 100));
                 if (i === LOG_MESSAGES.length - 1) setIsComplete(true);
             }, i * 800);
@@ -46,6 +51,19 @@ export default function CloudCommandCenter() {
 
     return (
         <section className="py-32 bg-[#050505] relative overflow-hidden font-sans">
+            {/* Neural Grid Background */}
+            <div className="absolute inset-0 opacity-20">
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(16,185,129,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(16,185,129,0.05)_1px,transparent_1px)] bg-[size:40px_40px]" />
+                <motion.div
+                    animate={{
+                        opacity: [0.1, 0.3, 0.1],
+                        scale: [1, 1.1, 1]
+                    }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(16,185,129,0.1),transparent_70%)]"
+                />
+            </div>
+
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(99,102,241,0.05),transparent_50%)]" />
 
             <div className="max-w-7xl mx-auto px-4 relative z-10">
@@ -74,9 +92,9 @@ export default function CloudCommandCenter() {
                         },
                         {
                             icon: Cloud,
-                            title: "Google Cloud",
-                            status: "Syncing",
-                            desc: "High-performance Neural Processing (TPU)",
+                            title: "Vertex AI Super-Compute",
+                            status: "Optimized",
+                            desc: "Sovereign model training on TPU-v5 Pods",
                             color: "text-blue-400"
                         },
                         {

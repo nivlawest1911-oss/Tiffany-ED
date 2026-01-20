@@ -18,33 +18,41 @@ export default function SovereignApiVault() {
     const INITIAL_KEYS: ApiKey[] = [
         { id: 'openai', name: 'Neural Processing (GPT-4o)', key: 'sk-proj-••••••••••••••••••••••••••••••••3a2f', status: 'active', usage: 12 },
         { id: 'google', name: 'Quantum Reasoning (Gemini 2.0)', key: 'AIzaSy••••••••••••••••••••••••••••7b9d', status: 'active', usage: 45 },
-        { id: 'meta', name: 'Open Architecture (Llama 3)', key: 'meta-••••••••••••••••••••••••••••0c1f', status: 'active', usage: 5 },
+        { id: 'vertex', name: 'Vertex AI Sovereign (Gemini 1.5 Pro)', key: 'vtx-••••••••••••••••••••••••••••1a2b', status: 'active', usage: 89 },
+        { id: 'vision', name: 'Vision Intelligence (OCR & Analysis)', key: 'vis-••••••••••••••••••••••••••••3c4d', status: 'active', usage: 22 },
+        { id: 'bigquery', name: 'Strategic Data Analytics (BigQuery)', key: 'bq-••••••••••••••••••••••••••••5e6f', status: 'active', usage: 15 },
+        { id: 'meta', name: 'Open Architecture (Llama 3 405B)', key: 'meta-••••••••••••••••••••••••••••0c1f', status: 'active', usage: 5 },
         { id: 'mistral', name: 'Efficiency Core (Mistral Large)', key: 'mi-••••••••••••••••••••••••••••9d4e', status: 'active', usage: 18 },
         { id: 'anthropic', name: 'Reasoning Engine (Claude 3.5)', key: 'sk-ant-••••••••••••••••••••••••••••2e1c', status: 'active', usage: 8 },
         { id: 'heygen', name: 'Avatar Synthesis (HeyGen v2)', key: 'hg-••••••••••••••••••••••••••••9f4d', status: 'active', usage: 60 },
         { id: 'elevenlabs', name: 'Vocal Emulation (ElevenLabs)', key: 'el-••••••••••••••••••••••••••••5a2b', status: 'active', usage: 32 },
-        { id: 'runway', name: 'Motion Synthesis (Runway Gen-3)', key: 'rw-••••••••••••••••••••••••••••8c7e', status: 'active', usage: 15 },
     ];
 
     const [keys, setKeys] = useState<{ [key: string]: string }>({
         openai: '',
         elevenlabs: '',
         heygen: '',
-        gemini: ''
+        gemini: '',
+        vertex: '',
+        vision: '',
+        bigquery: ''
     });
 
     const [isVisible, setIsVisible] = useState<{ [key: string]: boolean }>({
         openai: false,
         elevenlabs: false,
         heygen: false,
-        gemini: false
+        gemini: false,
+        vertex: false,
+        vision: false,
+        bigquery: false
     });
 
     const services = [
         { id: 'openai', label: 'OpenAI (GPT-4o)', icon: Cpu, color: 'text-green-400', desc: 'Reasoning Engine' },
-        { id: 'elevenlabs', label: 'ElevenLabs', icon: Activity, color: 'text-amber-400', desc: 'Voice Synthesis' },
-        { id: 'heygen', label: 'HeyGen Avatar', icon: UserIcon, color: 'text-purple-400', desc: 'Visual Identity' },
-        { id: 'gemini', label: 'Google Gemini', icon: Server, color: 'text-blue-400', desc: 'Multimodal Core' }
+        { id: 'vertex', label: 'Vertex AI Super', icon: Zap, color: 'text-amber-400', desc: 'Sovereign Intelligence' },
+        { id: 'vision', label: 'Vision AI', icon: Eye, color: 'text-cyan-400', desc: 'Visual Synthesis' },
+        { id: 'bigquery', label: 'BigQuery Data', icon: Database, color: 'text-indigo-400', desc: 'Analytics Core' }
     ];
 
     const toggleVisibility = (id: string) => {

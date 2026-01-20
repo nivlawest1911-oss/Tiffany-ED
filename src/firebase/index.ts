@@ -13,7 +13,11 @@ export const where = (...args: any[]) => null;
 export const orderBy = (...args: any[]) => null;
 export const signInWithPopup = (...args: any[]) => Promise.resolve(null);
 export const signOut = (...args: any[]) => Promise.resolve();
-export const onAuthStateChanged = () => () => { };
+export const onAuthStateChanged = (auth: any, callback: (user: any) => void) => {
+    // Immediately call back with null to simulate no user in mock
+    callback(null);
+    return () => { };
+};
 export const GoogleAuthProvider = class { };
 
 // Mock Types

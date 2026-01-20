@@ -9,48 +9,55 @@ export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_dummy
 
 // Pricing plans configuration
 export const PRICING_PLANS = {
-    free: {
-        name: 'Free',
+    initiate: {
+        name: 'Initiate',
         price: 0,
         priceId: null,
         features: [
             '5 AI generations per month',
             'Basic templates',
             'Community support',
-            'Email support',
         ],
     },
-    professional: {
-        name: 'Professional',
-        price: 39.99,
-        priceId: process.env.STRIPE_PROFESSIONAL_PRICE_ID,
+    practitioner: {
+        name: 'Practitioner',
+        price: 49.99,
+        priceId: process.env.STRIPE_PRACTITIONER_PRICE_ID || 'price_1SleigJZzJ2JsTizzhcHtd36',
         features: [
             'Unlimited AI generations',
             'All 70+ specialized tools',
             'Priority email support',
-            'Advanced templates',
             'Export to PDF/Word',
             'FERPA-compliant storage',
         ],
     },
-    enterprise: {
-        name: 'Enterprise',
-        price: null, // Custom pricing
-        priceId: null,
+    director: {
+        name: 'Director Pack',
+        price: 69.99,
+        priceId: process.env.STRIPE_DIRECTOR_PRICE_ID || 'price_director_m',
         features: [
-            'Everything in Professional',
-            'Dedicated account manager',
-            'Custom training sessions',
-            'White-glove onboarding',
-            'Priority phone support',
-            'Custom integrations',
-            'SSO integration',
-            'Advanced analytics',
+            'Everything in Practitioner',
+            'Advanced Leadership Modules',
+            'Staff Retention Analytics',
+            'Classroom Obs Synthesizer',
+            'Strategic Briefing Console',
+        ],
+    },
+    siteCommand: {
+        name: 'Site Command',
+        price: 79.99,
+        priceId: process.env.STRIPE_SITE_COMMAND_PRICE_ID || 'price_1SleihJZzJ2JsTizmaXKM4ow',
+        features: [
+            'Everything in Director Pack',
+            '10 User Licenses',
+            'Building ROI Dashboard',
+            'Priority Implementation Support',
+            'Strategic Link API Access',
         ],
     },
     tokens: {
         unitPrice: 0.50, // 50 cents per token
-        priceId: process.env.STRIPE_TOKEN_PRICE_ID || 'price_dummy_token_id',
+        priceId: process.env.STRIPE_TOKEN_PRICE_ID || 'price_1SleijJZzJ2JsTizToken1K',
     }
 };
 

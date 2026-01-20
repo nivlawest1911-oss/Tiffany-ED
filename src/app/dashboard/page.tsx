@@ -58,7 +58,7 @@ export default function Dashboard() {
             id: 'alvin',
             name: 'Dr. Alvin West',
             role: 'District Visionary',
-            img: '/avatars/alvin_west.png',
+            img: '/images/avatars/dr_alvin_west_premium.png',
             color: 'amber-500',
             voice: '/voice-profiles/alvin_deep.mp3',
             greeting: 'Director, the District Connection is synchronized. How shall we architect the legacy of your schools today?'
@@ -67,7 +67,7 @@ export default function Dashboard() {
             id: 'sarah',
             name: 'Sarah Connors',
             role: 'Data Tactician',
-            img: '/avatars/sarah_connors.webp',
+            img: '/images/avatars/sarah_connors_premium.png',
             color: 'indigo-500',
             voice: '/voice-profiles/sarah_clinical.mp3',
             video: '/videos/sarah_ambient.mp4',
@@ -77,7 +77,7 @@ export default function Dashboard() {
             id: 'marcus',
             name: 'Marcus Aurelius',
             role: 'Administrative Stoic',
-            img: '/avatars/marcus_aurelius.webp',
+            img: '/images/avatars/marcus_aurelius_premium.png',
             color: 'white',
             voice: '/voice-profiles/marcus_grave.mp3',
             greeting: 'Administrative Duty calls. We shall lead with virtue and disciplined compliance.'
@@ -86,7 +86,7 @@ export default function Dashboard() {
             id: 'andre',
             name: 'André State',
             role: 'Innovation Architect',
-            img: '/avatars/andre_state.webp',
+            img: '/images/avatars/andre_state_premium.png',
             color: 'emerald-500',
             voice: '/voice-profiles/andre_innovative.mp3',
             greeting: 'Heuristic optimization active. Let’s iterate on your district’s strategic agility.'

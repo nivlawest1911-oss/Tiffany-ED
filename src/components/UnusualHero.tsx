@@ -200,9 +200,15 @@ export function UnusualHero() {
             >
               <div ref={pixelGridRef} className="absolute inset-0 pointer-events-none z-10" />
 
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-4">
-                <MapPin size={10} />
-                <span>Alabama Focused • National Strategic Impact</span>
+              <div className="flex flex-wrap gap-2 mb-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[10px] font-bold uppercase tracking-[0.2em]">
+                  <MapPin size={10} />
+                  <span>Alabama Focused • National Strategic Impact</span>
+                </div>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[10px] font-bold uppercase tracking-[0.2em]">
+                  <Plus size={10} />
+                  <span>Vertex AI Super-Enhanced</span>
+                </div>
               </div>
               <h1 className="text-balance text-4xl/tight sm:text-5xl/tight md:text-7xl/tight font-black tracking-tighter text-white uppercase italic">
                 Advanced <br />

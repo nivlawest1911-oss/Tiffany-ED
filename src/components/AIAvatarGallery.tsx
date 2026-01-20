@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     User, Briefcase, GraduationCap, Brain, Heart, Target,
-    Sparkles, Video, Mic, MessageSquare, Play, Phone, Star, Scale
+    Sparkles, Video, Mic, MessageSquare, Play, Phone, Star, Scale, Shield
 } from 'lucide-react';
 import LiveAvatarChat from './LiveAvatarChat';
 
@@ -12,7 +12,7 @@ import LiveAvatarChat from './LiveAvatarChat';
 const AI_AVATARS = [
     {
         id: 1,
-        name: 'Dr. Alvin West',
+        name: 'Dr. Alvin West (Strategic)',
         role: 'Executive Principal & Founder',
         specialty: 'Strategic Leadership & District Operations',
         avatar: '/images/avatars/dr_alvin_west_premium.png',
@@ -20,8 +20,34 @@ const AI_AVATARS = [
         voice: '/voice-profiles/principal_voice.mp3',
         color: 'from-amber-600 to-indigo-950',
         icon: Briefcase,
-        description: 'Global authority in educational leadership and district-wide strategic optimization. Dr. West specializes in leveraging data to help leaders recover time and focus on what matters most.',
-        achievements: ['DBA in Educational Finance', '20+ Years Strategic Lead', '142 Districts Served'],
+        description: 'Global authority in educational leadership. Dr. West specializes in district-wide strategic optimization and executive time recovery.',
+        achievements: ['DBA in Educational Finance', '20+ Years Strategic Lead', 'CEO of Transcend Solutions'],
+    },
+    {
+        id: 101,
+        name: 'Dr. Alvin West (Pedagogical)',
+        role: 'Curriculum Architect',
+        specialty: 'Instructional Excellence & Human Capital',
+        avatar: '/images/avatars/dr_alvin_west_premium.png', // Reusing the high-fidelity image
+        video: '/videos/dr_alvin_pedagogy.mp4',
+        voice: '/voice-profiles/principal_voice.mp3',
+        color: 'from-blue-600 to-indigo-900',
+        icon: Brain,
+        description: 'Deep-dive expert into instructional frameworks, teacher efficacy, and student achievement metrics. Focused on human-centered excellence.',
+        achievements: ['Instructional Design Lead', 'Curriculum Innovation', 'Legacy Achievement Expert'],
+    },
+    {
+        id: 102,
+        name: 'Dr. Alvin West (Crisis)',
+        role: 'Strategic Crisis Lead',
+        specialty: 'District Safety & Crisis Communication',
+        avatar: '/images/avatars/dr_alvin_west_premium.png',
+        video: '/videos/dr_alvin_crisis.mp4',
+        voice: '/voice-profiles/principal_voice.mp3',
+        color: 'from-red-600 to-zinc-900',
+        icon: Shield,
+        description: 'High-stakes crisis management and strategic communication director. Ensures district stability during critical periods.',
+        achievements: ['Crisis Protocol Author', 'Safe Schools Liaison', 'Strategic Stability Expert'],
     },
     {
         id: 7,

@@ -9,8 +9,10 @@ import {
     ChevronRight, Mic, Video, Radio, Target,
     Github, Globe, Cloud, Zap, Cpu
 } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
 import LiveAvatarChat from './LiveAvatarChat';
 import { useHumanBehavior } from '@/hooks/useHumanBehavior';
+import { useLeadershipRank } from '@/hooks/useLeadershipRank';
 const HolographicBriefing = dynamic(() => import('./HolographicBriefing'), { ssr: false });
 
 interface Delegate {
@@ -23,48 +25,71 @@ interface Delegate {
     clearance: 'L1' | 'L2' | 'L3' | 'Sovereign' | 'Executive Sovereign' | 'Quantum';
 }
 
-const SOVEREIGN_DELEGATES: Delegate[] = [
-    {
-        id: 'user_twin',
-        name: 'Your Sovereign Twin',
-        role: 'Executive Mirror',
-        status: 'active',
-        avatar: '/images/avatars/user_placeholder.png',
-        specialty: 'Self-cloned Leadership',
-        clearance: 'Sovereign'
-    },
-    {
-        id: 'sovereign_1',
-        name: 'Dr. Alvin West',
-        role: 'Executive Sovereign',
-        status: 'active',
-        avatar: '/images/avatars/executive_leader.png',
-        specialty: 'Strategic Command',
-        clearance: 'Executive Sovereign'
-    },
-    {
-        id: 'delegate_2',
-        name: 'Keisha Reynolds',
-        role: 'Instructional Lead',
-        status: 'active',
-        avatar: '/images/avatars/curriculum_strategist.png',
-        specialty: 'Curriculum Architecture',
-        clearance: 'L3'
-    },
-    {
-        id: 'delegate_3',
-        name: 'Dr. Isaiah Vance',
-        role: 'Compliance Lead',
-        status: 'busy',
-        avatar: '/images/avatars/special_ed_director.png',
-        specialty: 'Fiscal & Legal Compliance',
-        clearance: 'L3'
-    }
-];
-
 export default function SovereignDelegate() {
+    const { user } = useAuth();
+    const { isSovereign } = useLeadershipRank();
+    const isExecutive = isSovereign;
+
+    const INITIAL_DELEGATES: Delegate[] = [
+        {
+            id: 'user_twin',
+            name: isExecutive ? (user.name + ' (Twin)') : 'Your Sovereign Twin',
+            role: 'Executive Mirror',
+            status: 'active',
+            avatar: (typeof window !== 'undefined' && localStorage.getItem('edintel_twin_image')) || '/images/avatars/user_placeholder.png',
+            specialty: 'Self-cloned Leadership',
+            clearance: 'Sovereign'
+        },
+        {
+            id: 'sovereign_1',
+            name: 'Dr. Alvin West (Strategic)',
+            role: 'Executive Sovereign',
+            status: 'active',
+            avatar: '/images/avatars/dr_alvin_west_premium.png',
+            specialty: 'Strategic Command & District Operations',
+            clearance: 'Executive Sovereign'
+        },
+        {
+            id: 'sovereign_pedagogy',
+            name: 'Dr. Alvin West (Pedagogical)',
+            role: 'Curriculum Architect',
+            status: 'active',
+            avatar: '/images/avatars/dr_alvin_west_premium.png',
+            specialty: 'Instructional Excellence & Human Capital',
+            clearance: 'Quantum'
+        },
+        {
+            id: 'sovereign_crisis',
+            name: 'Dr. Alvin West (Crisis)',
+            role: 'Strategic Crisis Lead',
+            status: 'offline',
+            avatar: '/images/avatars/dr_alvin_west_premium.png',
+            specialty: 'District Safety & Crisis Messaging',
+            clearance: 'Quantum'
+        },
+        {
+            id: 'delegate_2',
+            name: 'Keisha Reynolds',
+            role: 'Instructional Lead',
+            status: 'active',
+            avatar: '/images/avatars/curriculum_strategist.png',
+            specialty: 'Curriculum Architecture',
+            clearance: 'L3'
+        },
+        {
+            id: 'delegate_3',
+            name: 'Dr. Isaiah Vance',
+            role: 'Compliance Lead',
+            status: 'busy',
+            avatar: '/images/avatars/special_ed_director.png',
+            specialty: 'Fiscal & Legal Compliance',
+            clearance: 'L3'
+        }
+    ];
+
+    const [delegates] = useState<Delegate[]>(INITIAL_DELEGATES);
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedDelegate, setSelectedDelegate] = useState<Delegate | null>(null);
+    const [selectedDelegate, setSelectedDelegate] = useState<Delegate | null>(INITIAL_DELEGATES[0]);
     const [isChatOpen, setIsChatOpen] = useState(false);
     const [showBriefing, setShowBriefing] = useState(false);
     const [activeTab, setActiveTab] = useState<'uplink' | 'voice'>('uplink');
@@ -216,7 +241,7 @@ export default function SovereignDelegate() {
                                 {/* Sidebar: Delegate Selection */}
                                 <div className="col-span-12 md:col-span-4 border-r border-white/5 bg-zinc-900/20 p-4 space-y-2">
                                     <div className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest px-2 mb-2">Available Delegates</div>
-                                    {SOVEREIGN_DELEGATES.map((delegate) => (
+                                    {delegates.map((delegate) => (
                                         <button
                                             key={delegate.id}
                                             onClick={() => setSelectedDelegate(delegate)}

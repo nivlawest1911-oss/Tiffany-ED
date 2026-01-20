@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, PlayCircle, Maximize2, Sparkles, Activity } from 'lucide-react';
+import { X, PlayCircle, Maximize2, Sparkles, Activity, Shield } from 'lucide-react';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
+import { useHumanBehavior } from '@/hooks/useHumanBehavior';
 
 interface HolographicBriefingProps {
     isOpen: boolean;
@@ -35,6 +36,7 @@ export default function HolographicBriefing({
     const { playClick, playHover, playSuccess } = useProfessionalSounds();
     const [isSpeaking, setIsSpeaking] = useState(false);
     const [progress, setProgress] = useState(0);
+    const humanBehavior = useHumanBehavior(isOpen);
 
     // Effect to handle opening/speaking
     useEffect(() => {
@@ -257,18 +259,41 @@ export default function HolographicBriefing({
                                                 x: [0, -4, 4, -2, 0],
                                                 y: [0, -1, 1, -0.5, 0],
                                                 rotate: [0, -1, 1, -0.5, 0],
-                                                scale: [1, 1.04, 1.02, 1.04, 1]
-                                            } : {}}
+                                                scale: [1, 1.04, 1.02, 1.04, 1],
+                                                ...humanBehavior.behaviorStyles
+                                            } : {
+                                                ...humanBehavior.behaviorStyles
+                                            }}
                                             transition={isSpeaking ? {
                                                 duration: 4,
                                                 repeat: Infinity,
                                                 ease: "easeInOut"
                                             } : {
-                                                duration: 2,
+                                                duration: 3,
                                                 repeat: Infinity,
                                                 ease: "easeInOut"
                                             }}
                                         />
+
+                                        {/* Holographic Scanline for Avatar */}
+                                        <motion.div
+                                            className="absolute inset-0 bg-gradient-to-b from-transparent via-amber-500/20 to-transparent h-1 w-full z-20"
+                                            animate={{ top: ["-10%", "110%"] }}
+                                            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                                        />
+
+                                        {/* Identity Check Glitch overlay */}
+                                        <AnimatePresence>
+                                            {isSpeaking && (
+                                                <motion.div
+                                                    initial={{ opacity: 0 }}
+                                                    animate={{ opacity: [0, 0.2, 0] }}
+                                                    transition={{ duration: 0.15, repeat: Infinity }}
+                                                    className="absolute inset-0 bg-amber-500/10 mix-blend-overlay z-20 pointer-events-none"
+                                                />
+                                            )}
+                                        </AnimatePresence>
+
                                         {isSpeaking && (
                                             <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px] flex items-center justify-center gap-1">
                                                 {[...Array(8)].map((_, i) => (

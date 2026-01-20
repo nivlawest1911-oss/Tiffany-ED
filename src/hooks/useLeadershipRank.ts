@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { useAuth } from '@/context/AuthContext';
 
 export type LeadershipRank = {
     title: string;
@@ -16,11 +17,19 @@ export const LEADERSHIP_RANKS: LeadershipRank[] = [
     { title: "Strategic Lead", level: 3, minXP: 150, color: "text-indigo-500", clearance: "Strategic Access" },
     { title: "Executive Principal", level: 4, minXP: 400, color: "text-amber-500", clearance: "Executive Access" },
     { title: "District Superintendent", level: 5, minXP: 1000, color: "text-red-500", clearance: "Superintendent Access" },
+    { title: "Sovereign Executive", level: 6, minXP: 5000, color: "text-indigo-400 font-black", clearance: "Quantum Sovereign" },
+];
+
+const EXECUTIVE_EMAILS = [
+    'nivlawest1911@gmail.com',
+    'dralvinwest@transcendholisticwellness.com'
 ];
 
 export function useLeadershipRank() {
+    const { user } = useAuth();
     const [xp, setXp] = useState(0);
     const [currentRank, setCurrentRank] = useState(LEADERSHIP_RANKS[0]);
+    const [isSovereign, setIsSovereign] = useState(false);
 
     // Load XP on mount
     useEffect(() => {
@@ -32,12 +41,23 @@ export function useLeadershipRank() {
     useEffect(() => {
         localStorage.setItem('leadership_xp', xp.toString());
 
+        // Check if user is on whitelist
+        const onWhitelist = user && user.email && EXECUTIVE_EMAILS.includes(user.email.toLowerCase());
+
         // Determine rank
-        const newRank = LEADERSHIP_RANKS.slice().reverse().find(r => xp >= r.minXP) || LEADERSHIP_RANKS[0];
+        let newRank;
+        if (onWhitelist) {
+            newRank = LEADERSHIP_RANKS[5]; // Sovereign Rank
+            setIsSovereign(true);
+        } else {
+            newRank = LEADERSHIP_RANKS.slice().reverse().find(r => xp >= r.minXP) || LEADERSHIP_RANKS[0];
+            setIsSovereign(false);
+        }
+
         if (newRank.level !== currentRank.level) {
             setCurrentRank(newRank);
         }
-    }, [xp]);
+    }, [xp, user]);
 
     const addXP = useCallback((amount: number) => {
         setXp(prev => prev + amount);
@@ -54,6 +74,7 @@ export function useLeadershipRank() {
         currentRank,
         nextRank,
         progressToNext,
-        allRanks: LEADERSHIP_RANKS
+        allRanks: LEADERSHIP_RANKS,
+        isSovereign
     };
 }

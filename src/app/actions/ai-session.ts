@@ -12,7 +12,7 @@ import { google } from '@ai-sdk/google';
 import { streamText, streamUI } from 'ai/rsc';
 import { sql } from '@vercel/postgres';
 import { z } from 'zod';
-import { ReactCenter } from 'react';
+import { ReactNode } from 'react';
 
 // Import Generative UI Components
 import { EvidenceFolderCard } from '@/components/artifacts/EvidenceFolderCard';

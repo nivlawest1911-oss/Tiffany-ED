@@ -2,8 +2,12 @@ import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 
 const PRICE_IDS = {
-    pro_monthly: 'price_1SleigJZzJ2JsTizzhcHtd36',
-    site_command_monthly: 'price_1SleihJZzJ2JsTizmaXKM4ow'
+    practitioner_monthly: process.env.STRIPE_PRACTITIONER_PRICE_ID || 'price_1SleigJZzJ2JsTizzhcHtd36',
+    practitioner_annual: process.env.STRIPE_PRACTITIONER_ANNUAL_ID || 'price_1SleigJZzJ2JsTizAnnual',
+    director_monthly: process.env.STRIPE_DIRECTOR_PRICE_ID || 'price_director_m',
+    director_annual: process.env.STRIPE_DIRECTOR_ANNUAL_ID || 'price_director_a',
+    site_command_monthly: process.env.STRIPE_SITE_COMMAND_PRICE_ID || 'price_1SleihJZzJ2JsTizmaXKM4ow',
+    site_command_annual: process.env.STRIPE_SITE_COMMAND_ANNUAL_ID || 'price_1SleihJZzJ2JsTizAnnual'
 };
 
 export async function POST(req: Request) {
@@ -12,13 +16,16 @@ export async function POST(req: Request) {
         const { email, plan, name, isAnnual } = body;
 
         let priceId;
+        const billingType = isAnnual ? 'annual' : 'monthly';
 
-        if (plan === 'pro') {
-            priceId = PRICE_IDS.pro_monthly;
-        } else if (plan === 'site_command') {
-            priceId = PRICE_IDS.site_command_monthly;
+        if (plan === 'pro' || plan === 'practitioner') {
+            priceId = isAnnual ? PRICE_IDS.practitioner_annual : PRICE_IDS.practitioner_monthly;
+        } else if (plan === 'director') {
+            priceId = isAnnual ? PRICE_IDS.director_annual : PRICE_IDS.director_monthly;
+        } else if (plan === 'enterprise' || plan === 'site_command') {
+            priceId = isAnnual ? PRICE_IDS.site_command_annual : PRICE_IDS.site_command_monthly;
         } else {
-            return NextResponse.json({ error: 'Invalid plan' }, { status: 400 });
+            return NextResponse.json({ error: 'Invalid plan configuration selected.' }, { status: 400 });
         }
 
         const session = await stripe.checkout.sessions.create({

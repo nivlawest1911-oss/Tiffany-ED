@@ -45,43 +45,46 @@ export default function FeaturesContent() {
     const features = [
         {
             icon: Sparkles,
-            title: 'AI-Powered Generation',
-            description: 'Advanced AI creates professional, standards-aligned content in seconds',
-            color: 'from-purple-500 to-pink-500',
-            glow: 'shadow-purple-500/50'
+            title: 'Vertex AI Supreme',
+            description: 'Advanced Google Vertex AI integration provides production-ready, standards-aligned output in seconds.',
+            color: 'from-noble-gold to-amber-600',
+            glow: 'shadow-noble-gold/30'
         },
         {
             icon: Zap,
-            title: 'Lightning Fast',
-            description: '90% faster with intelligent caching. Instant responses for common prompts',
-            color: 'from-blue-500 to-cyan-500',
-            glow: 'shadow-blue-500/50'
+            title: 'Strategic Agility',
+            description: '90% faster workflow with intelligent local caching and real-time leadership grids.',
+            color: 'from-kente-red to-rose-700',
+            glow: 'shadow-kente-red/30'
         },
         {
             icon: LucideShield,
-            title: 'IDEA Compliant',
-            description: 'Generate legally compliant IEPs, 504 plans, and educational documents',
-            color: 'from-green-500 to-emerald-500',
-            glow: 'shadow-green-500/50'
+            title: 'Legal Defense Protocol',
+            description: 'Generate legally defensible IEPs and district policies with built-in compliance auditing.',
+            color: 'from-kente-green to-emerald-700',
+            glow: 'shadow-kente-green/30'
         },
         {
             icon: Star,
-            title: 'Premium Quality',
-            description: 'Production-ready content with proper formatting and citations',
-            color: 'from-orange-500 to-red-500',
-            glow: 'shadow-orange-500/50'
+            title: 'Kente-Inspired Design',
+            description: 'A premium, heritage-focused interface designed for the modern educational executive.',
+            color: 'from-royal-purple to-indigo-700',
+            glow: 'shadow-royal-purple/30'
         },
     ];
 
     const stats = [
-        { value: '10+', label: 'AI Generators', icon: Sparkles },
-        { value: '90%', label: 'Faster', icon: Zap },
-        { value: '50%', label: 'Cost Savings', icon: TrendingUp },
-        { value: '< 1s', label: 'Response Time', icon: Clock },
+        { value: '70+', label: 'Strategic Tools', icon: Sparkles },
+        { value: '99.8%', label: 'Uptime', icon: Zap },
+        { value: '14K+', label: 'Hours Saved', icon: TrendingUp },
+        { value: '100Ms', label: 'Latency', icon: Clock },
     ];
 
     return (
-        <div className="relative z-10 w-full">
+        <div className="relative z-10 w-full pt-12">
+            {/* Kente Pattern Header */}
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-kente-yellow via-kente-green to-kente-red z-50" />
+
             {/* Hero Buttons (Client Animated) */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-20">
                 <Link href="/showcase">

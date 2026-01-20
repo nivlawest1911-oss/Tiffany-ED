@@ -7,10 +7,11 @@ import { useRouter } from 'next/navigation';
 // THE EXECUTIVE ACCESS LIST
 const AUTHORIZED_EMAILS = [
   'nivlawest1911@gmail.com',
+  'dralvinwest@transcendholisticwellness.com',
   'colleague@mobilecountyschools.org'
 ];
 
-export default function AdminGuard({ children }: { children: React.ReactCenter }) {
+export default function AdminGuard({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();

@@ -2,7 +2,7 @@
 import { useEffect, useState, Suspense } from 'react';
 import { jsPDF } from 'jspdf';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Trash2, Download, Edit2, Save, X } from 'lucide-react';
+import { Trash2, Download, Edit2, Save, X, Database, Lock, Globe, FileText } from 'lucide-react';
 import AdminGuard from '@/components/AdminGuard';
 import SuccessBadge from '@/components/SuccessBadge';
 
@@ -60,91 +60,130 @@ export default function ExecutiveArchive() {
   return (
     <AdminGuard>
       <Suspense fallback={null}><SuccessBadge /></Suspense>
-      <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 p-8 md:p-12 transition-colors duration-500">
-        <div className="max-w-4xl mx-auto space-y-8">
+      <div className="min-h-screen bg-black text-white p-8 md:p-12 transition-colors duration-500 relative overflow-hidden">
+        {/* Kente Pattern Top Strip */}
+        <div className="absolute top-0 left-0 w-full h-1.5 flex overflow-hidden opacity-50">
+          {Array.from({ length: 40 }).map((_, i) => (
+            <div key={i} className={`flex-1 h-full ${i % 4 === 0 ? 'bg-kente-yellow' : i % 4 === 1 ? 'bg-kente-green' : i % 4 === 2 ? 'bg-kente-red' : 'bg-black'}`} />
+          ))}
+        </div>
 
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+        {/* Ambient Glow */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-500/5 blur-[120px] pointer-events-none" />
+
+        <div className="max-w-5xl mx-auto space-y-12 relative z-10">
+
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8 border-b border-white/5 pb-12">
             <div>
-              <h1 className="text-3xl md:text-4xl font-black tracking-tight uppercase">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600">Executive</span> Strategic Archive
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-noble-gold/10 border border-noble-gold/20 text-noble-gold text-[10px] font-black uppercase tracking-widest mb-4">
+                <Database size={10} /> Strategic Vault Access
+              </div>
+              <h1 className="text-4xl md:text-6xl font-black tracking-tight uppercase leading-none">
+                EXECUTIVE <span className="text-transparent bg-clip-text bg-gradient-to-r from-noble-gold to-amber-600">ARCHIVE</span>
               </h1>
-              {/* Simulated Auth Welcome */
-                <p className="text-zinc-500 dark:text-zinc-400 font-medium mt-1">Welcome, Executive Director</p>
-              }
+              <p className="text-zinc-500 font-medium mt-2 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                Welcome, Executive Director. Your strategic grid is synchronized.
+              </p>
             </div>
 
             <button
               onClick={clearHistory}
-              className="px-4 py-2 bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/20 rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-red-500/20 transition-colors flex items-center gap-2"
+              className="px-6 py-3 bg-red-500/10 text-red-500 border border-red-500/20 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-red-500 hover:text-white transition-all flex items-center gap-3 shadow-xl shadow-red-500/10"
             >
-              <Trash2 size={14} /> Reset Vault
+              <Trash2 size={16} /> Purge Vault Records
             </button>
           </div>
 
-          <div className="h-px bg-zinc-200 dark:bg-zinc-800" />
-
           {loading ? (
-            <div className="flex items-center justify-center py-20">
-              <div className="w-6 h-6 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" />
-              <span className="ml-3 text-sm font-bold text-zinc-400 uppercase tracking-widest">Decrypting Records...</span>
+            <div className="flex flex-col items-center justify-center py-32 gap-6">
+              <div className="relative w-20 h-20">
+                <div className="absolute inset-0 rounded-full border-2 border-noble-gold/20 animate-ping" />
+                <div className="absolute inset-0 rounded-full border-t-2 border-noble-gold animate-spin" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Lock className="text-noble-gold w-8 h-8" />
+                </div>
+              </div>
+              <span className="text-[10px] font-black text-noble-gold uppercase tracking-[0.4em] animate-pulse">Decrypting Records...</span>
             </div>
           ) : (
             <motion.div
               variants={container}
               initial="hidden"
               animate="show"
-              className="space-y-6"
+              className="grid gap-8"
             >
               {audits.map((audit) => (
                 <motion.div
                   key={audit.id}
                   variants={item}
-                  className="group relative p-6 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm hover:shadow-xl hover:border-amber-500/30 transition-all duration-300"
+                  className="group relative p-8 bg-zinc-900/40 backdrop-blur-xl rounded-[2.5rem] border border-white/5 hover:border-noble-gold/30 transition-all duration-500 overflow-hidden"
                 >
-                  <div className="flex justify-between items-start mb-4">
-                    <div>
-                      <span className="text-[10px] font-black uppercase tracking-widest text-amber-500/80 bg-amber-500/10 px-2 py-1 rounded-full">
-                        {audit.targetSchool || 'District Office'}
-                      </span>
-                      <span className="ml-3 text-xs text-zinc-400 font-mono">
-                        {audit.timestamp?.toDate().toLocaleString()}
-                      </span>
+                  {/* Subtle Gradient Hover */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-noble-gold/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                  <div className="flex justify-between items-start mb-6 relative z-10">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-2xl bg-zinc-950 border border-white/10 flex items-center justify-center text-noble-gold group-hover:scale-110 transition-transform">
+                        <FileText size={20} />
+                      </div>
+                      <div>
+                        <span className="text-[10px] font-black uppercase tracking-widest text-noble-gold bg-noble-gold/10 px-3 py-1 rounded-full border border-noble-gold/20 leading-none">
+                          {audit.targetSchool || 'District Office'}
+                        </span>
+                        <p className="text-[10px] text-zinc-500 font-mono mt-1 uppercase">
+                          DECIPHERED: {audit.timestamp?.toDate().toLocaleString()}
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <button onClick={() => downloadPDF(audit)} className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg text-zinc-500 transition-colors"><Download size={16} /></button>
-                      <button onClick={() => { setEditingId(audit.id); setFeedbackText(audit.executiveCorrection || ''); }} className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg text-zinc-500 transition-colors"><Edit2 size={16} /></button>
+                    <div className="flex gap-2">
+                      <button onClick={() => downloadPDF(audit)} className="p-3 bg-zinc-950/50 hover:bg-white text-zinc-400 hover:text-black rounded-xl border border-white/5 transition-all"><Download size={18} /></button>
+                      <button onClick={() => { setEditingId(audit.id); setFeedbackText(audit.executiveCorrection || ''); }} className="p-3 bg-zinc-950/50 hover:bg-white text-zinc-400 hover:text-black rounded-xl border border-white/5 transition-all"><Edit2 size={18} /></button>
                     </div>
                   </div>
 
-                  <h3 className="text-lg font-bold mb-2 text-zinc-800 dark:text-zinc-200">{audit.executivePrompt}</h3>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4">{audit.strategicOutput}</p>
+                  <div className="relative z-10">
+                    <h3 className="text-xl font-bold mb-3 text-white tracking-tight">{audit.executivePrompt || 'Automated Strategic Evaluation'}</h3>
+                    <p className="text-sm text-zinc-400 leading-relaxed mb-6 font-medium">{audit.strategicOutput || audit.content}</p>
 
-                  {editingId === audit.id && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      className="mt-4 pt-4 border-t border-zinc-100 dark:border-zinc-800"
-                    >
-                      <textarea
-                        className="w-full p-3 text-sm bg-zinc-50 dark:bg-black border border-zinc-200 dark:border-zinc-800 rounded-xl focus:ring-2 focus:ring-amber-500 outline-none transition-all"
-                        rows={3}
-                        placeholder="Enter executive notes..."
-                        value={feedbackText}
-                        onChange={(e) => setFeedbackText(e.target.value)}
-                      />
-                      <div className="flex justify-end gap-2 mt-2">
-                        <button onClick={() => setEditingId(null)} className="px-3 py-1.5 text-xs font-bold text-zinc-500 hover:text-zinc-900">Cancel</button>
-                        <button onClick={() => saveFeedback(audit.id)} className="px-3 py-1.5 bg-amber-500 text-white rounded-lg text-xs font-bold flex items-center gap-1 hover:bg-amber-600 transition-colors">
-                          <Save size={12} /> Save
-                        </button>
+                    {audit.executiveCorrection && (
+                      <div className="p-4 rounded-2xl bg-noble-gold/5 border border-noble-gold/10 mb-4">
+                        <span className="text-[8px] font-black text-noble-gold uppercase tracking-[0.3em] block mb-1">Executive Override Note:</span>
+                        <p className="text-xs text-zinc-300 italic">"{audit.executiveCorrection}"</p>
                       </div>
-                    </motion.div>
-                  )}
+                    )}
+
+                    {editingId === audit.id && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        className="mt-6 pt-6 border-t border-white/5"
+                      >
+                        <textarea
+                          className="w-full p-5 text-sm bg-black border border-white/10 rounded-2xl focus:ring-2 focus:ring-noble-gold outline-none transition-all text-white placeholder:text-zinc-700 font-medium"
+                          rows={3}
+                          placeholder="Enter strategic corrections or notes..."
+                          value={feedbackText}
+                          onChange={(e) => setFeedbackText(e.target.value)}
+                        />
+                        <div className="flex justify-end gap-3 mt-4">
+                          <button onClick={() => setEditingId(null)} className="px-6 py-2 text-[10px] font-black uppercase tracking-widest text-zinc-500 hover:text-white transition-colors">Discard changes</button>
+                          <button onClick={() => saveFeedback(audit.id)} className="px-8 py-3 bg-white text-black rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center gap-2 hover:bg-noble-gold transition-colors shadow-lg">
+                            <Save size={14} /> Synchronize Note
+                          </button>
+                        </div>
+                      </motion.div>
+                    )}
+                  </div>
                 </motion.div>
               ))}
               {audits.length === 0 && (
-                <div className="text-center py-20 text-zinc-400">
-                  <p>No strategic records found in the vault.</p>
+                <div className="text-center py-32 bg-zinc-900/20 rounded-[3rem] border border-dashed border-white/10">
+                  <div className="w-20 h-20 bg-zinc-900 rounded-full flex items-center justify-center mx-auto mb-6 text-zinc-700">
+                    <Database size={40} />
+                  </div>
+                  <h4 className="text-xl font-bold text-zinc-500 uppercase tracking-tight">Vault Depleted</h4>
+                  <p className="text-sm text-zinc-600 mt-2">No strategic records found in the current temporal grid.</p>
                 </div>
               )}
             </motion.div>

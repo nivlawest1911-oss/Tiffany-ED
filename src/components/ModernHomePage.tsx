@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import {
     Sparkles, Clock, Users, TrendingUp, CheckCircle, ArrowRight,
     FileText, Brain, MessageSquare, Award, Zap, BarChart3, Play, Mic, Video,
@@ -99,6 +99,13 @@ export default function ModernHomePage() {
     const [activeDelegate, setActiveDelegate] = useState(0);
     const [showLiveDemo, setShowLiveDemo] = useState(false);
 
+    const { scrollYProgress } = useScroll();
+    const scaleX = useSpring(scrollYProgress, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.001
+    });
+
     // Prevent SSR issues
     useEffect(() => {
         setMounted(true);
@@ -172,28 +179,28 @@ export default function ModernHomePage() {
         {
             name: "Dr. Alvin West",
             role: "Executive Principal",
-            avatar: "/images/avatars/executive_leader.png",
+            avatar: "/images/avatars/dr_alvin_west_premium.png",
             color: "from-amber-600 to-indigo-950",
             voiceSettings: { pitch: 0.85, rate: 0.9, lang: 'en-US' }
         },
         {
             name: "Keisha Reynolds",
             role: "Secondary Principal",
-            avatar: "/images/avatars/curriculum_strategist.png",
+            avatar: "/images/avatars/keisha_reynolds_premium.png",
             color: "from-emerald-600 to-emerald-900",
             voiceSettings: { pitch: 1.05, rate: 0.95, lang: 'en-US' }
         },
         {
             name: "Dr. Isaiah Vance",
             role: "Associate Superintendent",
-            avatar: "/images/avatars/special_ed_director.png",
+            avatar: "/images/avatars/isaiah_vance_premium.png",
             color: "from-zinc-600 to-zinc-900",
             voiceSettings: { pitch: 0.95, rate: 1.05, lang: 'en-US' }
         },
         {
             name: "Dr. Emily Robinson",
             role: "Literacy & Data Scientist",
-            avatar: "/images/avatars/literacy_coach.png",
+            avatar: "/images/avatars/emily_robinson_premium.png",
             color: "from-violet-600 to-purple-800",
             voiceSettings: { pitch: 1.15, rate: 0.95, lang: 'en-US' }
         },
@@ -213,6 +220,12 @@ export default function ModernHomePage() {
     return (
         <div className="min-h-screen bg-[#030303] text-zinc-100 selection:bg-indigo-500/30 relative overflow-hidden font-sans">
             <ProfessionalBackground />
+
+            {/* Scroll Progress Bar */}
+            <motion.div
+                className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-amber-500 z-[100] origin-left"
+                style={{ scaleX }}
+            />
 
             <FloatingNavbar />
 

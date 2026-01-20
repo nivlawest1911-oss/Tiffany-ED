@@ -249,7 +249,49 @@ const AI_VIDEOS: VideoShowcase[] = [
         brieferName: "Dr. Isaiah Vance",
         brieferRole: "Compliance Lead",
         brieferAvatar: "/images/avatars/special_ed_director.png"
-    }
+    },
+    {
+        id: 2001,
+        title: 'Neural Strategy Framework',
+        description: 'Watch the AI architect a 5-year district growth plan using predictive modeling.',
+        thumbnail: '/images/features/strategic_educator_planner.png',
+        videoUrl: '/videos/features/strategy-demo.mp4',
+        duration: '5:20',
+        category: 'Strategy',
+        aiGenerated: true,
+        briefingContent: "Initiating Strategy Heuristics. We are currently observing a 5-year predictive model for district expansion. By analyzing demographic shifts and funding vectors, we ensure long-term solvency. This isn't just a plan; it's a dynamic architectural blueprint for educational legacy.",
+        brieferName: "Dr. Alvin West (Core)",
+        brieferRole: "Executive Sovereign",
+        brieferAvatar: "/images/avatars/executive_leader.png"
+    },
+    {
+        id: 2002,
+        title: 'Human Fidelity Calibration',
+        description: 'Observe the zero-latency synchronization between human voice and synthetic avatar.',
+        thumbnail: '/images/avatars/dr_alvin_west_premium.png',
+        videoUrl: '/videos/features/fidelity-demo.mp4',
+        duration: '3:15',
+        category: 'Technology',
+        aiGenerated: true,
+        briefingContent: "Calibrating Human Fidelity. This demo showcases our proprietary 'Neural Mirror' technology. Notice how the avatar's micro-expressions and speech patterns perfectly align with the user's biometric data. This is how we eliminate the 'uncanny valley' and create true leadership presence.",
+        brieferName: "Dr. Alvin West (Core)",
+        brieferRole: "Executive Sovereign",
+        brieferAvatar: "/images/avatars/executive_leader.png"
+    },
+    {
+        id: 2003,
+        title: 'Quantum Budget Audit',
+        description: 'Real-time fiscal analysis of multi-million dollar district budgets.',
+        thumbnail: '/images/features/fiscal_audit.png',
+        videoUrl: '/videos/features/budget-demo.mp4',
+        duration: '4:45',
+        category: 'Finance',
+        aiGenerated: true,
+        briefingContent: "Executing Quantum Audit. We are scanning 14,000 line items across state and federal funding streams. The system identifies potential misallocations and recovers operational capital in micro-seconds. Your budget is no longer a static document; it's an optimized engine for district growth.",
+        brieferName: "Dr. Alvin West (Core)",
+        brieferRole: "Executive Sovereign",
+        brieferAvatar: "/images/avatars/executive_leader.png"
+    },
 ];
 
 export default function AIVideoShowcase() {

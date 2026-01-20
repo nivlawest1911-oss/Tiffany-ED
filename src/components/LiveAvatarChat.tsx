@@ -82,7 +82,6 @@ export default function LiveAvatarChat({
     const [isConnected, setIsConnected] = useState(false);
     const [showTextInput, setShowTextInput] = useState(false);
     const [textInput, setTextInput] = useState('');
-    const [isBlinking, setIsBlinking] = useState(false);
     const [isSpeechSupported, setIsSpeechSupported] = useState(false);
     const [isArchitecting, setIsArchitecting] = useState(false);
     const [draftedStrategy, setDraftedStrategy] = useState<string | null>(null);
@@ -99,6 +98,13 @@ export default function LiveAvatarChat({
     const [activeEngine, setActiveEngine] = useState<'duix' | 'heygen' | 'liveportrait' | 'adobe' | 'tavus' | 'akool' | 'viggle' | 'did'>('duix');
     const [showEngineNexus, setShowEngineNexus] = useState(false);
     const [isCloning, setIsCloning] = useState(false);
+    const [cinematicMode, setCinematicMode] = useState(true);
+    const [biometricPulse, setBiometricPulse] = useState(72);
+    const [neuralLoad, setNeuralLoad] = useState(12);
+    const [isCalibrating, setIsCalibrating] = useState(true);
+
+    const behavior = useHumanBehavior(isVideoEnabled && !isSpeaking && !isCalibrating);
+    const { behaviorStyles, isBlinking } = behavior;
 
     const PROFESSIONAL_ENGINES: Record<string, any> = {
         'duix': {
@@ -135,8 +141,26 @@ export default function LiveAvatarChat({
             latency: '240ms',
             color: 'text-blue-400',
             bg: 'bg-blue-500/10',
-            description: 'Next-gen multimodal reasoning with sub-second latency. Optimized for complex strategic synthesis.',
+            description: 'Next-gen multimodal reasoning with sub-second latency. Flagship Google Sovereign Intelligence.',
             surpassFactor: 'Quantum-speed Multi-modal'
+        },
+        'vertex': {
+            name: 'VERTEX-AI-SUPREME',
+            type: 'ARCHITECT_CORE',
+            latency: '150ms',
+            color: 'text-amber-400',
+            bg: 'bg-amber-500/10',
+            description: 'Maximum fidelity custom model architecture provisioned on Google Cloud TPU nodes.',
+            surpassFactor: 'Custom Neural Architecture'
+        },
+        'vision': {
+            name: 'VISION-INTEL-HUB',
+            type: 'SIGHT_ENGINE',
+            latency: '45ms',
+            color: 'text-cyan-400',
+            bg: 'bg-cyan-500/10',
+            description: 'Advanced OCR, document synthesis, and visual analysis powered by Google Vision API.',
+            surpassFactor: 'Visual Tactical Insight'
         },
         'viggle': {
             name: 'VIGGLE-TRACK',
@@ -213,28 +237,37 @@ export default function LiveAvatarChat({
     const [presenceX, setPresenceX] = useState(0);
     const [presenceY, setPresenceY] = useState(0);
 
-    // Strategic Blink System
-    useEffect(() => {
-        const triggerBlink = () => {
-            setIsBlinking(true);
-            setTimeout(() => setIsBlinking(false), 150); // Fast blink (150ms)
-
-            // Randomize next blink between 2s and 6s
-            const nextBlink = Math.random() * 4000 + 2000;
-            setTimeout(triggerBlink, nextBlink);
-        };
-
-        const initialDelay = setTimeout(triggerBlink, 1000);
-        return () => clearTimeout(initialDelay);
-    }, []);
+    // Human-like behavior and presence is now handled by the useHumanBehavior hook.
 
     // Advanced "Breath" Animation
     const [breathScale, setBreathScale] = useState(1);
     useEffect(() => {
         const interval = setInterval(() => {
-            setBreathScale(prev => (prev === 1 ? 1.015 : 1));
-        }, 3000); // Slow, deep breathing rhythm
+            setBreathScale(prev => (prev === 1 ? 1.012 : 1));
+        }, 3500); // Slow, deep breathing rhythm
         return () => clearInterval(interval);
+    }, []);
+
+    // 1. Neural Gaze Tracking
+    useEffect(() => {
+        const handleMouseMove = (e: MouseEvent) => {
+            // Calculate normalized mouse position (-0.5 to 0.5)
+            const x = (e.clientX / window.innerWidth) - 0.5;
+            const y = (e.clientY / window.innerHeight) - 0.5;
+            mouseX.current = x;
+            mouseY.current = y;
+        };
+        window.addEventListener('mousemove', handleMouseMove);
+
+        // Calibration sequence
+        const calibrationTimer = setTimeout(() => {
+            setIsCalibrating(false);
+        }, 3500);
+
+        return () => {
+            window.removeEventListener('mousemove', handleMouseMove);
+            clearTimeout(calibrationTimer);
+        };
     }, []);
 
     // ... (Previous presence logic remains)
@@ -243,21 +276,38 @@ export default function LiveAvatarChat({
     useEffect(() => {
         let frameId: number;
         const updatePresence = () => {
-            setPresenceX(prev => prev + (mouseX.current - prev) * 0.03); // Slower, heavier smoothing
-            setPresenceY(prev => prev + (mouseY.current - prev) * 0.03);
+            // Neural Gaze Lag (Organic following)
+            setPresenceX(prev => prev + (mouseX.current - prev) * 0.04);
+            setPresenceY(prev => prev + (mouseY.current - prev) * 0.04);
 
-            // Perceptive Micro-gestures: Tilt head based on user sentiment/speaking
+            // Perceptive Micro-gestures
             if (isListening || isProcessing) {
-                setVibeShift(prev => prev + (0.5 - prev) * 0.02); // Lean in
+                setVibeShift(prev => prev + (1 - prev) * 0.03); // Lean in more dramatically
             } else {
-                setVibeShift(prev => prev + (0 - prev) * 0.02); // Neutral pos
+                setVibeShift(prev => prev + (0 - prev) * 0.03);
             }
 
             frameId = requestAnimationFrame(updatePresence);
         };
+
+        // Biometric Pulse Simulation
+        const pulseInterval = setInterval(() => {
+            setBiometricPulse(prev => {
+                const target = isSpeaking ? 85 : isProcessing ? 92 : 68;
+                return prev + (target - prev) * 0.1 + (Math.random() * 2 - 1);
+            });
+            setNeuralLoad(prev => {
+                const target = isProcessing ? 88 : isSpeaking ? 45 : 12;
+                return prev + (target - prev) * 0.1;
+            });
+        }, 1000);
+
         frameId = requestAnimationFrame(updatePresence);
-        return () => cancelAnimationFrame(frameId);
-    }, [isListening, isProcessing]);
+        return () => {
+            cancelAnimationFrame(frameId);
+            clearInterval(pulseInterval);
+        };
+    }, [isListening, isProcessing, isSpeaking]);
 
     // ... (Speech recognition remains)
 
@@ -444,9 +494,26 @@ export default function LiveAvatarChat({
 
             // HUMAN-LIKE REFINEMENT: Inject natural fillers and pauses
             let naturalText = text;
-            if (Math.random() > 0.7) {
-                const fillers = ["Well, ", "Actually, ", "You know, ", "I mean, ", "So, "];
+            if (Math.random() > 0.6) {
+                const fillers = [
+                    "Well, honestly, ",
+                    "You know, ",
+                    "Looking at the data, ",
+                    "Actually, if we think about it, ",
+                    "So, here's the thing: ",
+                    "I mean, ",
+                    "Right, so, "
+                ];
                 naturalText = fillers[Math.floor(Math.random() * fillers.length)] + text;
+            }
+
+            // Inject natural micro-pauses for human cadence
+            naturalText = naturalText.replace(/\, /g, ", ... ");
+            naturalText = naturalText.replace(/\. /g, ". ...... ");
+            naturalText = naturalText.replace(/\? /g, "? ... ");
+
+            if (Math.random() > 0.8) {
+                naturalText = "Um, " + naturalText;
             }
 
             const utterance = new SpeechSynthesisUtterance(naturalText);
@@ -636,12 +703,14 @@ export default function LiveAvatarChat({
                         <motion.div
                             className="absolute inset-0"
                             animate={{
-                                scale: isSpeaking ? 1.03 : breathScale, // Breathing effect
-                                x: presenceX * 10, // Parallax gaze
-                                y: presenceY * 10,
+                                scale: isSpeaking ? 1.02 : breathScale,
+                                rotateY: presenceX * 15, // Head horizontal follow
+                                rotateX: -presenceY * 10, // Head vertical follow
+                                x: presenceX * 20, // Parallax shift
+                                y: presenceY * 20,
                                 opacity: isConnected ? 1 : 0.6
                             }}
-                            transition={{ duration: 0.8, ease: "easeOut" }}
+                            transition={{ duration: 1.2, ease: "easeOut" }}
                         >
                             {isVideoEnabled ? (
                                 <div className="w-full h-full">
@@ -649,11 +718,67 @@ export default function LiveAvatarChat({
                                         src={avatarImage}
                                         alt={avatarName}
                                         className="w-full h-full object-cover origin-bottom"
-                                        style={useHumanBehavior(isVideoEnabled && !isSpeaking).style}
+                                        style={behavior.style}
                                         animate={{
-                                            filter: isSpeaking ? 'contrast(1.1) brightness(1.05) saturate(1.1)' : 'contrast(1) brightness(1) saturate(1)'
+                                            filter: isSpeaking ? 'contrast(1.1) brightness(1.05) saturate(1.1) drop-shadow(0 0 20px rgba(99,102,241,0.3))' : 'contrast(1) brightness(1) saturate(1)',
+                                            y: behaviorStyles.brow * 2,
+                                            // Voice-reactive micro-jitter for vocal resonance
+                                            x: isSpeaking ? [0, 0.5, -0.5, 0] : 0
                                         }}
+                                        transition={isSpeaking ? { duration: 0.1, repeat: Infinity } : { duration: 0.8 }}
                                     />
+
+                                    {/* Neural Mirror Technology Label */}
+                                    <div className="absolute top-32 left-8 z-40 bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.5 rounded text-[7px] font-mono text-indigo-300 uppercase tracking-tighter">
+                                        Neural Mirror V4.2 // Active Sync
+                                    </div>
+
+                                    {/* Cinematic Overlays */}
+                                    {cinematicMode && (
+                                        <>
+                                            <div className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat" />
+                                            <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/60 via-transparent to-black/30" />
+                                            <div className="absolute inset-0 pointer-events-none border-[20px] border-black/20 blur-xl" />
+                                            <div className="absolute top-0 left-0 right-0 h-[1px] bg-white/5 animate-scanline" />
+                                        </>
+                                    )}
+
+                                    {/* African American AI Holography Glow: Enhanced with Kente Patterns */}
+                                    <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden">
+                                        <div className="w-[90%] h-[90%] bg-indigo-500/10 rounded-full blur-[140px] animate-pulse" />
+                                        {/* Subtle Kente Geometric Overlay */}
+                                        <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay scale-150 rotate-12 pointer-events-none"
+                                            style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '24px 24px' }} />
+                                    </div>
+
+                                    {/* calibration Overlay */}
+                                    <AnimatePresence>
+                                        {isCalibrating && (
+                                            <motion.div
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                exit={{ opacity: 0 }}
+                                                className="absolute inset-0 z-50 bg-black/40 backdrop-blur-[2px] flex flex-col items-center justify-center"
+                                            >
+                                                <div className="relative w-64 h-64 border border-indigo-500/30 rounded-full flex items-center justify-center">
+                                                    <motion.div
+                                                        className="absolute inset-0 border-t-2 border-indigo-500 rounded-full"
+                                                        animate={{ rotate: 360 }}
+                                                        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                                                    />
+                                                    <div className="text-center">
+                                                        <div className="text-[10px] font-mono text-indigo-400 animate-pulse mb-2">NEURAL_SYNC_MODE</div>
+                                                        <div className="text-[8px] font-mono text-zinc-500 uppercase tracking-tighter">Mapping Facet Coordinates...</div>
+                                                    </div>
+                                                </div>
+                                                <div className="mt-8 flex gap-4">
+                                                    <div className="w-12 h-[1px] bg-indigo-500/50" />
+                                                    <span className="text-[7px] font-mono text-indigo-500 tracking-[0.5em] uppercase">Initializing Neural Mirror</span>
+                                                    <div className="w-12 h-[1px] bg-indigo-500/50" />
+                                                </div>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
 
                                     {/* Subdued Mouth/Audio Feedback */}
                                     {isSpeaking && (
@@ -693,17 +818,29 @@ export default function LiveAvatarChat({
                                         )}
                                     </AnimatePresence>
 
-                                    {/* Video Stream Placeholder if active */}
-                                    {avatarVideo && !avatarVideo.includes('default_avatar.mp4') && (
-                                        <video
-                                            ref={videoRef}
-                                            src={avatarVideo}
-                                            autoPlay
-                                            loop
-                                            muted={!isAudioEnabled}
-                                            className="absolute inset-0 w-full h-full object-cover z-10 opacity-90"
-                                        />
+                                    {/* Vision Analysis Sweeping Beam */}
+                                    {isProcessing && (
+                                        <motion.div
+                                            initial={{ top: "-10%" }}
+                                            animate={{ top: "110%" }}
+                                            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                                            className="absolute left-0 right-0 h-1 z-40"
+                                        >
+                                            <div className="w-full h-full bg-cyan-400/30 shadow-[0_0_20px_rgba(34,211,238,0.8)] blur-[2px]" />
+                                            <div className="absolute top-0 left-0 right-0 flex justify-between px-4">
+                                                <span className="text-[6px] font-mono text-cyan-400">ANALYZING GEOMETRY...</span>
+                                                <span className="text-[6px] font-mono text-cyan-400">VERTEX_HUB_SYNC</span>
+                                            </div>
+                                        </motion.div>
                                     )}
+
+                                    {/* Google Cloud Vertex AI HUD Badge */}
+                                    <div className="absolute bottom-6 left-8 z-40 flex items-center gap-3 bg-black/40 backdrop-blur-md border border-white/10 rounded-full px-4 py-2">
+                                        <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+                                        <span className="text-[8px] font-black text-white uppercase tracking-widest">Vertex AI Supreme</span>
+                                        <div className="w-px h-3 bg-white/20" />
+                                        <span className="text-[8px] font-mono text-blue-400">TPUv5_POD_04</span>
+                                    </div>
                                 </div>
                             ) : (
                                 <div className="w-full h-full flex items-center justify-center bg-zinc-900">
@@ -714,6 +851,29 @@ export default function LiveAvatarChat({
 
                         {/* PROACTIVE INTELLIGENCE HUD */}
                         <div className="absolute top-8 left-8 z-40 flex flex-col gap-3 max-w-xs pointer-events-none">
+                            {/* Biometric Readout */}
+                            <motion.div
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                className="bg-black/60 backdrop-blur-md border border-white/10 rounded-xl p-3 flex items-center gap-4 mb-2 pointer-events-auto"
+                            >
+                                <div className="flex flex-col">
+                                    <span className="text-[7px] font-black uppercase tracking-widest text-zinc-500 mb-1">Heart Resonance</span>
+                                    <div className="flex items-center gap-2">
+                                        <Activity size={12} className="text-rose-500 animate-pulse" />
+                                        <span className="text-xs font-mono text-white">{Math.round(biometricPulse)} BPM</span>
+                                    </div>
+                                </div>
+                                <div className="w-[1px] h-8 bg-white/10" />
+                                <div className="flex flex-col">
+                                    <span className="text-[7px] font-black uppercase tracking-widest text-zinc-500 mb-1">Neural Load</span>
+                                    <div className="flex items-center gap-2">
+                                        <Brain size={12} className="text-indigo-400" />
+                                        <span className="text-xs font-mono text-white">{Math.round(neuralLoad)}%</span>
+                                    </div>
+                                </div>
+                            </motion.div>
+
                             <AnimatePresence>
                                 {tacticalSuggestions.map((suggestion, i) => (
                                     <motion.div
@@ -853,11 +1013,16 @@ export default function LiveAvatarChat({
                                             </div>
                                         </div>
 
-                                        {/* Footer Stats */}
-                                        <div className="mt-8 pt-4 border-t border-white/10 flex justify-between text-[10px] text-zinc-500 font-mono uppercase">
-                                            <span>Processing Nodes: 1,402</span>
-                                            <span>Render Time: 12ms</span>
-                                            <span>Privacy: Secured</span>
+                                        {/* Footer Stats & Real-time Logs */}
+                                        <div className="mt-8 pt-4 border-t border-white/10 flex justify-between items-end">
+                                            <div className="flex flex-col gap-1">
+                                                <span className="text-[7px] text-emerald-400 font-mono animate-pulse">DEPLOYING TO APP_ENGINE_ZONE_B...</span>
+                                                <span className="text-[7px] text-zinc-500 font-mono">BIGQUERY_STREAM: ACTIVE // {Math.round(neuralLoad * 1.5)} RPS</span>
+                                            </div>
+                                            <div className="text-[10px] text-zinc-500 font-mono uppercase text-right space-y-1">
+                                                <div>Nodes: 1,402 // TPU_v5</div>
+                                                <div>Render: 12ms // Latency: 0ms</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </motion.div>
@@ -1074,6 +1239,13 @@ export default function LiveAvatarChat({
             </div>
 
             <style jsx global>{`
+                @keyframes scanline {
+                    0% { transform: translateY(0); }
+                    100% { transform: translateY(100vh); }
+                }
+                .animate-scanline {
+                    animation: scanline 8s linear infinite;
+                }
                 .custom-scrollbar::-webkit-scrollbar {
                     width: 4px;
                 }

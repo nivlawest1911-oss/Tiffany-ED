@@ -137,7 +137,7 @@ export default function PremiumPricingTable() {
                         The <span className="text-noble-gold">Professional</span> Standard
                     </h1>
                     <p className="text-xl text-zinc-400 mb-8 max-w-2xl mx-auto font-medium">
-                        Strategic pricing architectures built for educational leadership. Initialize your protocol with a 30-day trial.
+                        Strategic pricing architectures built for educational leadership. Initialize your protocol with a 30-day trial. All plans include Kente-inspired Executive Holography and Vertex AI Supreme processing.
                     </p>
 
                     {/* Billing Toggle */}
@@ -184,6 +184,11 @@ export default function PremiumPricingTable() {
                                 </div>
                             )}
 
+                            {/* Kente Ribbon for Popular Plan */}
+                            {plan.popular && (
+                                <div className="absolute inset-0 rounded-[2.5rem] border-2 border-transparent bg-gradient-to-r from-kente-yellow via-kente-green to-kente-red [mask-image:linear-gradient(white,white)_padding-box,linear-gradient(white,white)] transition-all duration-500 opacity-20" />
+                            )}
+
                             <div className={`h-full flex flex-col rounded-[2.5rem] p-10 transition-all duration-500 border ${plan.popular
                                 ? 'bg-white/10 border-noble-gold/50 shadow-2xl shadow-noble-gold/10'
                                 : 'bg-white/5 border-white/10 hover:border-white/20'
@@ -224,7 +229,7 @@ export default function PremiumPricingTable() {
                                 </Link>
 
                                 <p className="text-center text-[9px] text-zinc-600 uppercase font-black tracking-widest mt-6 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    Secure Encrypted Protocol
+                                    Secure Encrypted Protocol // KENTE_SYNC_ACTIVE
                                 </p>
                             </div>
                         </motion.div>

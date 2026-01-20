@@ -32,7 +32,8 @@ function SignupForm() {
         setError('');
 
         try {
-            if (plan === 'pro' || plan === 'site_command') {
+            const premiumPlans = ['pro', 'practitioner', 'director', 'enterprise', 'site_command'];
+            if (premiumPlans.includes(plan)) {
                 const response = await fetch('/api/checkout', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },

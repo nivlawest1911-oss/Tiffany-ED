@@ -18,12 +18,16 @@ export async function POST(req: Request) {
         }
 
         // 2. Create User
-        // Note: Storing plain text password for this specific "Access Key" demo to match Login logic. 
-        // In real app, MUST hash: const hash = await bcrypt.hash(password, 10);
+        const EXECUTIVE_WHITELIST = [
+            'nivlawest1911@gmail.com',
+            'dralvinwest@transcendholisticwellness.com'
+        ];
+
+        const signupTier = EXECUTIVE_WHITELIST.includes(email.toLowerCase()) ? 'enterprise' : 'free';
 
         await sql`
             INSERT INTO users (name, email, password, tier, created_at)
-            VALUES (${name}, ${email}, ${password}, 'free', NOW())
+            VALUES (${name}, ${email}, ${password}, ${signupTier}, NOW())
         `;
 
         // 3. Get the created user to ensure we have the ID (or just query it back)
@@ -35,10 +39,10 @@ export async function POST(req: Request) {
             id: newUser.id.toString(),
             email: newUser.email,
             name: newUser.name,
-            tier: 'free'
+            tier: signupTier
         });
 
-        return NextResponse.json({ success: true, user: { name: newUser.name, email: newUser.email, tier: 'free' } });
+        return NextResponse.json({ success: true, user: { name: newUser.name, email: newUser.email, tier: signupTier } });
 
     } catch (error) {
         console.error('Signup Error:', error);

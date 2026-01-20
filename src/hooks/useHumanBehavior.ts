@@ -10,48 +10,62 @@ export function useHumanBehavior(isActive: boolean = true) {
     const [eyeX, setEyeX] = useState(0);
     const [eyeY, setEyeY] = useState(0);
     const [blink, setBlink] = useState(false);
+    const [shoulderShift, setShoulderShift] = useState(0);
+    const [leanIn, setLeanIn] = useState(1); // For dramatic focus
+    const [browLift, setBrowLift] = useState(0); // Subtle expression
 
     useEffect(() => {
         if (!isActive) return;
 
         // 1. Subtle Head Tilt (Drift)
-        // Humans rarely adjust head rotation rapidly when idle, it's slow.
         const tiltInterval = setInterval(() => {
-            // Random tilt between -1.5deg and 1.5deg
-            const target = (Math.random() * 3) - 1.5;
+            const target = (Math.random() * 5) - 2.5;
             setHeadTilt(target);
-        }, 4000);
+        }, 3200);
 
-        // 2. Breathing (Rhythmic Scale)
-        // ~12-15 breaths per min => ~4-5s per breath
+        // 2. Breathing (Deep Rhythmic Scale)
         const breathInterval = setInterval(() => {
-            // Inhale (scale up slightly), Exhale (scale down)
-            // We'll toggle between 1.0 and 1.02
             setBreathingScale(prev => prev === 1 ? 1.015 : 1);
+        }, 3500);
+
+        // 3. Body/Shoulder Shift
+        const shoulderInterval = setInterval(() => {
+            setShoulderShift((Math.random() * 8) - 4);
+        }, 4500);
+
+        // 4. Lean In (Dramatic Engagement)
+        const leanInterval = setInterval(() => {
+            if (Math.random() > 0.7) {
+                setLeanIn(1.03); // Lean towards the camera
+                setTimeout(() => setLeanIn(1), 2000);
+            }
+        }, 8000);
+
+        // 5. Brow Micro-Lift (Expression)
+        const browInterval = setInterval(() => {
+            if (Math.random() > 0.6) {
+                setBrowLift(-2); // Lift brows slightly
+                setTimeout(() => setBrowLift(0), 400);
+            }
+        }, 6000);
+
+        // 6. Micro-Saccades (Eye Movement - More frequent but smaller)
+        const lookInterval = setInterval(() => {
+            if (Math.random() > 0.4) {
+                setEyeX((Math.random() * 6) - 3);
+                setEyeY((Math.random() * 3) - 1.5);
+                setTimeout(() => {
+                    setEyeX(0);
+                    setEyeY(0);
+                }, 400);
+            }
         }, 2500);
 
-        // 3. Micro-Saccades (Eye Movement simulation via Image Shift)
-        // Humans shift focus 3-4 times a second, but for a 2D avatar, 
-        // we simulate "looking around" every few seconds.
-        const lookInterval = setInterval(() => {
-            if (Math.random() > 0.6) {
-                // Look slightly somewhere else
-                setEyeX((Math.random() * 4) - 2); // +/- 2px
-                setEyeY((Math.random() * 2) - 1); // +/- 1px
-            } else {
-                // Return to center
-                setEyeX(0);
-                setEyeY(0);
-            }
-        }, 1500 + Math.random() * 2000);
-
-        // 4. Blinking (Random intervals)
+        // 7. Blinking (Biological randomness)
         const blinkLoop = () => {
             setBlink(true);
-            setTimeout(() => setBlink(false), 150); // Blink duration
-
-            // Next blink in 2-6 seconds
-            const nextBlink = 2000 + Math.random() * 4000;
+            setTimeout(() => setBlink(false), 150);
+            const nextBlink = 2000 + Math.random() * 6000;
             setTimeout(blinkLoop, nextBlink);
         };
         const blinkTimer = setTimeout(blinkLoop, 3000);
@@ -59,6 +73,9 @@ export function useHumanBehavior(isActive: boolean = true) {
         return () => {
             clearInterval(tiltInterval);
             clearInterval(breathInterval);
+            clearInterval(shoulderInterval);
+            clearInterval(leanInterval);
+            clearInterval(browInterval);
             clearInterval(lookInterval);
             clearTimeout(blinkTimer);
         };
@@ -66,14 +83,15 @@ export function useHumanBehavior(isActive: boolean = true) {
 
     return {
         style: {
-            transform: `rotate(${headTilt}deg) scale(${breathingScale}) translate(${eyeX}px, ${eyeY}px)`,
-            transition: 'transform 2.5s cubic-bezier(0.4, 0, 0.2, 1)', // Smooth natural transition
+            transform: `rotate(${headTilt}deg) scale(${breathingScale * leanIn}) translate(${eyeX}px, ${eyeY + shoulderShift}px) translateY(${browLift}px)`,
+            transition: 'all 3.5s cubic-bezier(0.23, 1, 0.32, 1)', // Liquid smooth movement
         },
         behaviorStyles: {
             rotate: headTilt,
-            scale: breathingScale,
+            scale: breathingScale * leanIn,
             x: eyeX,
-            y: eyeY
+            y: eyeY + shoulderShift,
+            brow: browLift
         },
         isBlinking: blink
     };

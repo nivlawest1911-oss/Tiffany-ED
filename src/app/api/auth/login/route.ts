@@ -41,14 +41,23 @@ export async function POST(req: Request) {
         }
 
         // 3. Create Session
+        const EXECUTIVE_WHITELIST = [
+            'nivlawest1911@gmail.com',
+            'dralvinwest@transcendholisticwellness.com'
+        ];
+
+        const userTier = EXECUTIVE_WHITELIST.includes(user.email.toLowerCase())
+            ? 'enterprise'
+            : (user.tier || 'free');
+
         await login({
             id: user.id.toString(),
             email: user.email,
             name: user.name,
-            tier: user.tier || 'free'
+            tier: userTier
         });
 
-        return NextResponse.json({ success: true, user: { name: user.name, email: user.email, tier: user.tier } });
+        return NextResponse.json({ success: true, user: { name: user.name, email: user.email, tier: userTier } });
 
     } catch (error) {
         console.error('Login Error:', error);
