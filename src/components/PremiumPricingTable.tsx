@@ -228,6 +228,20 @@ export default function PremiumPricingTable() {
                                     </button>
                                 </Link>
 
+                                {plan.price.monthly > 0 && (
+                                    <Link
+                                        href={`/payment?plan=${plan.name === 'Director Pack' ? 'director' :
+                                                plan.name === 'Site Command' ? 'site_command' :
+                                                    'practitioner'
+                                            }&amount=${plan.price[billingCycle]}`}
+                                        className="block mt-3 text-center"
+                                    >
+                                        <span className="text-[10px] text-zinc-500 hover:text-noble-gold transition-colors font-bold uppercase tracking-wider border-b border-transparent hover:border-noble-gold">
+                                            Pay with Crypto / Universal Hub
+                                        </span>
+                                    </Link>
+                                )}
+
                                 <p className="text-center text-[9px] text-zinc-600 uppercase font-black tracking-widest mt-6 opacity-0 group-hover:opacity-100 transition-opacity">
                                     Secure Encrypted Protocol // KENTE_SYNC_ACTIVE
                                 </p>

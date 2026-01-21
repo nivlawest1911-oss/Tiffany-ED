@@ -26,6 +26,15 @@ export default function FloatingNavbar() {
     const navLinks = [
         { name: 'The Room', href: '/the-room' },
         { name: 'Features', href: '/#features' },
+        {
+            name: 'AI Hub',
+            href: '#',
+            submenu: [
+                { name: 'Gemini Workspace', href: '/gemini-workspace', badge: 'NEW' },
+                { name: 'Hugging Face Studio', href: '/huggingface', badge: 'AI' },
+                { name: 'AI Phone Center', href: '/phone', badge: 'LIVE' },
+            ]
+        },
         { name: 'Pricing', href: '/#pricing' },
         { name: 'About', href: '/about' },
         { name: 'Contact', href: '/contact' },
@@ -61,14 +70,61 @@ export default function FloatingNavbar() {
                         {/* Desktop Nav */}
                         <div className="hidden md:flex items-center gap-10">
                             {navLinks.map((link) => (
-                                <Link
-                                    key={link.name}
-                                    href={link.href}
-                                    className="text-xs font-black text-zinc-400 hover:text-noble-gold uppercase tracking-widest transition-all"
-                                    onMouseEnter={() => playHover()}
-                                >
-                                    {link.name}
-                                </Link>
+                                <div key={link.name} className="relative group">
+                                    {link.submenu ? (
+                                        <>
+                                            <button
+                                                className="text-xs font-black text-zinc-400 hover:text-noble-gold uppercase tracking-widest transition-all flex items-center gap-2"
+                                                onMouseEnter={() => playHover()}
+                                            >
+                                                {link.name}
+                                                <motion.span
+                                                    animate={{ rotate: [0, 180] }}
+                                                    transition={{ duration: 0.3 }}
+                                                    className="group-hover:rotate-180 transition-transform"
+                                                >
+                                                    ▼
+                                                </motion.span>
+                                            </button>
+                                            {/* Dropdown Menu */}
+                                            <div className="absolute top-full left-0 mt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[200]">
+                                                <div className="bg-noble-black/95 backdrop-blur-3xl border border-white/10 rounded-2xl p-4 shadow-2xl min-w-[280px]">
+                                                    <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-kente-yellow via-kente-green to-kente-red rounded-t-2xl" />
+                                                    <div className="flex flex-col gap-2 mt-2">
+                                                        {link.submenu.map((sublink) => (
+                                                            <Link
+                                                                key={sublink.name}
+                                                                href={sublink.href}
+                                                                className="flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group/item"
+                                                                onMouseEnter={() => playHover()}
+                                                            >
+                                                                <span className="text-sm font-bold text-zinc-300 group-hover/item:text-white">
+                                                                    {sublink.name}
+                                                                </span>
+                                                                {sublink.badge && (
+                                                                    <span className={`text-[8px] font-black px-2 py-1 rounded-full ${sublink.badge === 'NEW' ? 'bg-emerald-500/20 text-emerald-400' :
+                                                                        sublink.badge === 'AI' ? 'bg-purple-500/20 text-purple-400' :
+                                                                            'bg-red-500/20 text-red-400'
+                                                                        }`}>
+                                                                        {sublink.badge}
+                                                                    </span>
+                                                                )}
+                                                            </Link>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <Link
+                                            href={link.href}
+                                            className="text-xs font-black text-zinc-400 hover:text-noble-gold uppercase tracking-widest transition-all"
+                                            onMouseEnter={() => playHover()}
+                                        >
+                                            {link.name}
+                                        </Link>
+                                    )}
+                                </div>
                             ))}
                         </div>
 
@@ -138,15 +194,45 @@ export default function FloatingNavbar() {
 
                             <div className="flex flex-col gap-6">
                                 {navLinks.map((link) => (
-                                    <Link
-                                        key={link.name}
-                                        href={link.href}
-                                        onClick={() => setMobileMenuOpen(false)}
-                                        className="text-xl font-black text-zinc-300 hover:text-noble-gold uppercase tracking-tighter transition-colors"
-                                        onMouseEnter={() => playHover()}
-                                    >
-                                        {link.name}
-                                    </Link>
+                                    <div key={link.name}>
+                                        {link.submenu ? (
+                                            <div className="flex flex-col gap-3">
+                                                <div className="text-xl font-black text-noble-gold uppercase tracking-tighter">
+                                                    {link.name}
+                                                </div>
+                                                <div className="flex flex-col gap-3 pl-4 border-l-2 border-white/10">
+                                                    {link.submenu.map((sublink) => (
+                                                        <Link
+                                                            key={sublink.name}
+                                                            href={sublink.href}
+                                                            onClick={() => setMobileMenuOpen(false)}
+                                                            className="flex items-center justify-between text-lg font-bold text-zinc-300 hover:text-white transition-colors"
+                                                            onMouseEnter={() => playHover()}
+                                                        >
+                                                            <span>{sublink.name}</span>
+                                                            {sublink.badge && (
+                                                                <span className={`text-[8px] font-black px-2 py-1 rounded-full ${sublink.badge === 'NEW' ? 'bg-emerald-500/20 text-emerald-400' :
+                                                                        sublink.badge === 'AI' ? 'bg-purple-500/20 text-purple-400' :
+                                                                            'bg-red-500/20 text-red-400'
+                                                                    }`}>
+                                                                    {sublink.badge}
+                                                                </span>
+                                                            )}
+                                                        </Link>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <Link
+                                                href={link.href}
+                                                onClick={() => setMobileMenuOpen(false)}
+                                                className="text-xl font-black text-zinc-300 hover:text-noble-gold uppercase tracking-tighter transition-colors"
+                                                onMouseEnter={() => playHover()}
+                                            >
+                                                {link.name}
+                                            </Link>
+                                        )}
+                                    </div>
                                 ))}
                                 <div className="h-px w-full bg-white/5 my-2" />
                                 {user ? (

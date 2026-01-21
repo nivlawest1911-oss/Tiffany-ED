@@ -36,6 +36,7 @@ const LeadershipCinematics = dynamic(() => import('./LeadershipCinematics'), { s
 const AITwinGenerator = dynamic(() => import('./ai-twin-generator').then(mod => ({ default: mod.AITwinGenerator })), { ssr: false });
 const VoiceIdentity = dynamic(() => import('./VoiceIdentity'), { ssr: false });
 const OnboardingFlow = dynamic(() => import('./OnboardingFlow'), { ssr: false });
+const AIFeaturesOnboarding = dynamic(() => import('./AIFeaturesOnboarding'), { ssr: false });
 const HolographicBriefing = dynamic(() => import('./HolographicBriefing'), { ssr: false });
 const LiveBriefingConsole = dynamic(() => import('./LiveBriefingConsole'), { ssr: false });
 const CommandPalette = dynamic(() => import('./CommandPalette'), { ssr: false });
@@ -251,6 +252,9 @@ export default function ModernHomePage() {
             <AnimatePresence>{showCommandPalette && <CommandPalette onClose={() => setShowCommandPalette(false)} />}</AnimatePresence>
             <AnimatePresence>{showNotifications && <NotificationCenter onClose={() => setShowNotifications(false)} />}</AnimatePresence>
             <AnimatePresence>{showOnboarding && <OnboardingFlow onCompleteAction={() => setShowOnboarding(false)} />}</AnimatePresence>
+
+            {/* AI Features Onboarding */}
+            <AIFeaturesOnboarding />
 
             <main className="relative z-10">
                 <UnusualHero />
