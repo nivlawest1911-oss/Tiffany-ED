@@ -253,6 +253,7 @@ export default function HolographicBriefing({
                                     <div className="w-full h-full rounded-full overflow-hidden border-2 border-black bg-black z-10 relative">
                                         <motion.img
                                             src={avatarImage}
+                                            onError={(e) => e.currentTarget.src = '/images/avatars/executive_leader.png'}
                                             alt={role}
                                             className="w-full h-full object-cover"
                                             animate={isSpeaking ? {

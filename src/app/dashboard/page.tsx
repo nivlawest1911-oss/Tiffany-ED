@@ -22,7 +22,7 @@ const MobileTacticalCommand = dynamic(() => import('@/components/MobileTacticalC
 const IntelligenceBriefingAgent = dynamic(() => import('@/components/IntelligenceBriefingAgent'), { ssr: false });
 const ProfessionalCabinet = dynamic(() => import('@/components/LeadershipCabinet'), { ssr: false });
 const LegislativeWatchdog = dynamic(() => import('@/components/LegislativeWatchdog'), { ssr: false });
-const ProfessionalDelegate = dynamic(() => import('@/components/AIAssistant'), { ssr: false });
+const SovereignDelegate = dynamic(() => import('@/components/SovereignDelegate'), { ssr: false });
 const ProfessionalBroadcaster = dynamic(() => import('@/components/LeadershipBroadcaster'), { ssr: false });
 const PolicyShield = dynamic(() => import('@/components/PolicyShield'), { ssr: false });
 const DistrictTopologyMap = dynamic(() => import('@/components/DistrictTopologyMap'), { ssr: false });
@@ -36,12 +36,10 @@ export default function Dashboard() {
     const [mounted, setMounted] = useState(false);
     const [currentTime, setCurrentTime] = useState<string>('');
     const [recentIntel, setRecentIntel] = useState<any[]>([]);
-    const [activeDelegate, setActiveDelegate] = useState<any>(null);
     const [isOnboardingRequired, setIsOnboardingRequired] = useState(false);
     const [isBroadcasterOpen, setIsBroadcasterOpen] = useState(false);
     const [isNexusOpen, setIsNexusOpen] = useState(false);
     const [isPromotionOpen, setIsPromotionOpen] = useState(false);
-    const [autoDirective, setAutoDirective] = useState<string | null>(null);
 
     const { currentRank } = useLeadershipRank();
     const [prevLevel, setPrevLevel] = useState<number | null>(null);
@@ -53,45 +51,7 @@ export default function Dashboard() {
         setPrevLevel(currentRank.level);
     }, [currentRank.level]);
 
-    const DELEGATES = [
-        {
-            id: 'alvin',
-            name: 'Dr. Alvin West',
-            role: 'District Visionary',
-            img: '/images/avatars/dr_alvin_west_premium.png',
-            color: 'amber-500',
-            voice: '/voice-profiles/alvin_deep.mp3',
-            greeting: 'Director, the District Connection is synchronized. How shall we architect the legacy of your schools today?'
-        },
-        {
-            id: 'sarah',
-            name: 'Sarah Connors',
-            role: 'Data Tactician',
-            img: '/images/avatars/sarah_connors_premium.png',
-            color: 'indigo-500',
-            voice: '/voice-profiles/sarah_clinical.mp3',
-            video: '/videos/sarah_ambient.mp4',
-            greeting: 'Connection initialized. Scanning strategic grids for district anomalies. Standing by for vector analysis.'
-        },
-        {
-            id: 'marcus',
-            name: 'Marcus Aurelius',
-            role: 'Administrative Stoic',
-            img: '/images/avatars/marcus_aurelius_premium.png',
-            color: 'white',
-            voice: '/voice-profiles/marcus_grave.mp3',
-            greeting: 'Administrative Duty calls. We shall lead with virtue and disciplined compliance.'
-        },
-        {
-            id: 'andre',
-            name: 'André State',
-            role: 'Innovation Architect',
-            img: '/images/avatars/andre_state_premium.png',
-            color: 'emerald-500',
-            voice: '/voice-profiles/andre_innovative.mp3',
-            greeting: 'Heuristic optimization active. Let’s iterate on your district’s strategic agility.'
-        },
-    ];
+
 
     useEffect(() => {
         setMounted(true);
@@ -171,13 +131,8 @@ export default function Dashboard() {
                 isOpen={isNexusOpen}
                 onCloseAction={() => setIsNexusOpen(false)}
                 onActionAction={(actionId) => {
-                    const sarah = DELEGATES.find(d => d.id === 'sarah');
-                    const alvin = DELEGATES.find(d => d.id === 'alvin');
-
                     if (actionId === 'broadcast') setIsBroadcasterOpen(true);
-                    if (actionId === 'sarah') setActiveDelegate(sarah);
-                    if (actionId === 'west') setActiveDelegate(alvin);
-                    // Add more mappings as needed
+                    // Mapping simplified to central Sovereign Delegate
                 }}
             />
             <ProfessionalPromotion
@@ -425,7 +380,7 @@ export default function Dashboard() {
                             transition={{ delay: 0.18 }}
                         >
                             <DistrictTopologyMap
-                                onDeployDelegateAction={() => setActiveDelegate(DELEGATES[0])}
+                                onDeployDelegateAction={() => { }} // Simplified
                                 onBroadcastAction={() => setIsBroadcasterOpen(true)}
                             />
                         </motion.div>
@@ -463,7 +418,7 @@ export default function Dashboard() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="p-4 rounded-xl bg-black/20 border border-white/5 hover:border-rose-500/30 transition-colors cursor-pointer group" onClick={() => setActiveDelegate(DELEGATES.find(d => d.id === 'sarah'))}>
+                                    <div className="p-4 rounded-xl bg-black/20 border border-white/5 hover:border-rose-500/30 transition-colors cursor-pointer group">
                                         <div className="flex items-start gap-4">
                                             <div className="p-2 rounded-lg bg-rose-500/20 text-rose-400 group-hover:text-white transition-colors">
                                                 <LucideShield className="w-5 h-5" />
@@ -514,9 +469,7 @@ export default function Dashboard() {
                         >
                             <LegislativeWatchdog
                                 onTriggerSynthesisAction={(prompt) => {
-                                    const sarah = DELEGATES.find(d => d.id === 'sarah');
-                                    setActiveDelegate(sarah);
-                                    setAutoDirective(prompt);
+                                    // Synthesis trigger simplified
                                 }}
                             />
                         </motion.div>
@@ -580,33 +533,8 @@ export default function Dashboard() {
 
             <MobileTacticalCommand />
 
-            {/* Professional Delegate Summoning Interface */}
-            {activeDelegate && (
-                <div className="fixed bottom-6 right-6 z-[100]">
-                    <ProfessionalDelegate
-                        key={activeDelegate.id}
-                        name={activeDelegate.name}
-                        role={activeDelegate.role}
-                        avatarImage={activeDelegate.img}
-                        voiceSrc={activeDelegate.voice}
-                        videoSrc={activeDelegate.video}
-                        color={activeDelegate.color.replace('-500', '')}
-                        greetingText={activeDelegate.greeting}
-                        theme="professional"
-                        autoOpen={!!autoDirective}
-                        initialDirective={autoDirective || ''}
-                    />
-                    <button
-                        onClick={() => {
-                            setActiveDelegate(null);
-                            setAutoDirective(null);
-                        }}
-                        className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-black/80 border border-white/20 text-white flex items-center justify-center text-[10px] hover:bg-red-500 transition-colors z-[110]"
-                    >
-                        <X size={12} />
-                    </button>
-                </div>
-            )}
+            {/* Professional Delegate (Sovereign Command) */}
+            <SovereignDelegate />
         </div>
     );
 }

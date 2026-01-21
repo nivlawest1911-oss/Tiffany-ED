@@ -186,7 +186,7 @@ export default function DistrictStrategyCommand() {
 
                                         <div className="mt-12 pt-8 border-t border-zinc-100 flex items-center justify-between">
                                             <div className="flex items-center gap-4">
-                                                <img src="/images/dr_alvin_west.png" alt="Dr. West" className="w-16 h-16 rounded-full border-2 border-zinc-100" />
+                                                <img src="/images/avatars/dr_alvin_west_premium.png" alt="Dr. West" className="w-16 h-16 rounded-full border-2 border-zinc-100" />
                                                 <div>
                                                     <div className="font-bold text-lg leading-tight">Dr. Alvin West, DBA</div>
                                                     <div className="text-xs text-zinc-500 uppercase tracking-wider">Executive Consultant</div>

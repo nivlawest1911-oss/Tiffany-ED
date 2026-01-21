@@ -24,8 +24,7 @@ const PremiumPricingTable = dynamic(() => import('./PremiumPricingTable'), { ssr
 const SpotlightCard = dynamic(() => import('./SpotlightCard'), { ssr: false });
 
 // AI Components - Dynamic
-const AIAssistants = dynamic(() => import('./AIAssistants').then(mod => ({ default: mod.AIAssistants })), { ssr: false });
-const AIAssistant = dynamic(() => import('./AIAssistant'), { ssr: false });
+
 const StrategicPurpose = dynamic(() => import('./StrategicPurpose'), { ssr: false });
 const CloudExtensionsGrid = dynamic(() => import('./cloud/CloudExtensionsGrid'), { ssr: false });
 
@@ -94,7 +93,6 @@ const CloudCommandCenter = dynamic(() => import('./CloudCommandCenter'), { ssr: 
 export default function ModernHomePage() {
     const [mounted, setMounted] = useState(false);
     const [showOnboarding, setShowOnboarding] = useState(false);
-    const [showBriefing, setShowBriefing] = useState(false);
     const [showCommandPalette, setShowCommandPalette] = useState(false);
     const [showNotifications, setShowNotifications] = useState(false);
     const [activeDelegate, setActiveDelegate] = useState(0);
@@ -275,6 +273,14 @@ export default function ModernHomePage() {
                                     <div className="text-4xl md:text-5xl font-black text-white mb-2 tracking-tighter">
                                         {stat.value}
                                     </div>
+                                    <div className="w-20 h-20 rounded-2xl bg-zinc-900 border border-zinc-800 overflow-hidden relative">
+                                        <img
+                                            src="/images/avatars/dr_alvin_west_premium.png"
+                                            alt="Dr. Alvin West"
+                                            className="w-full h-full object-cover"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                                    </div>
                                     <div className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">{stat.label}</div>
                                 </motion.div>
                             ))}
@@ -429,61 +435,11 @@ export default function ModernHomePage() {
             {/* Footer */}
             <Footer />
 
-            {/* FLOATING DELEGATE SYSTEM - Sleeked */}
-            <div className="fixed bottom-8 right-8 z-50 flex flex-col items-end gap-4 pointer-events-none">
-                <div className="flex gap-2 pointer-events-auto">
-                    {delegates.map((delegate, index) => (
-                        <motion.button
-                            key={index}
-                            onClick={() => setActiveDelegate(index)}
-                            whileHover={{ scale: 1.1, y: -4 }}
-                            whileTap={{ scale: 0.9 }}
-                            className={`w-10 h-10 rounded-full overflow-hidden border-2 shadow-xl ${activeDelegate === index ? 'border-white scale-110' : 'border-white/10 opacity-60'
-                                } transition-all`}
-                        >
-                            <img src={delegate.avatar} alt={delegate.name} className="w-full h-full object-cover" />
-                        </motion.button>
-                    ))}
-                </div>
 
-                <div className="pointer-events-auto">
-                    <AIAssistant
-                        name={delegates[activeDelegate].name}
-                        role={delegates[activeDelegate].role}
-                        avatarImage={delegates[activeDelegate].avatar}
-                        color={delegates[activeDelegate].color}
-                        greetingText={`Hello, I'm here. How's your day going? I've been reviewing the latest data, and I'm ready to dive into whatever you need. Just let me know where you want to start.`}
-                        theme="professional"
-                        voiceSettings={delegates[activeDelegate].voiceSettings}
-                    />
-                </div>
-            </div>
 
-            {/* Quick Briefing Trigger */}
-            <motion.button
-                onClick={() => setShowBriefing(true)}
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                whileTap={{ scale: 0.9 }}
-                className="fixed bottom-8 left-8 z-50 p-4 rounded-2xl bg-white text-black shadow-2xl transition-all"
-                title="Quick Briefing"
-            >
-                <Target className="w-6 h-6" />
-            </motion.button>
 
-            {/* Global Modals */}
-            <AnimatePresence>
-                {showBriefing && (
-                    <HolographicBriefing
-                        isOpen={showBriefing}
-                        onClose={() => setShowBriefing(false)}
-                        title="Professional Briefing"
-                        description="Accessing the current platform status. All systems are operating normally."
-                        avatarImage={delegates[activeDelegate].avatar}
-                        role={delegates[activeDelegate].role}
-                        theme="professional"
-                    />
-                )}
-            </AnimatePresence>
+
+
 
             {/* Sovereign Command Interface */}
             <SovereignDelegate />

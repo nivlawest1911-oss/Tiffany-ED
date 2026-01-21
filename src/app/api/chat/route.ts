@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
             if (brainUrl) {
                 console.log(`[Strategic Link] Chat Connection to ${brainUrl}...`);
                 const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 6000); // 6s timeout for chat
+                const timeoutId = setTimeout(() => controller.abort(), 1500); // 1.5s timeout for faster fallback
 
                 const cloudRes = await fetch(`${brainUrl}/generate`, {
                     method: 'POST',

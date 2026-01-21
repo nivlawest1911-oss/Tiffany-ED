@@ -52,7 +52,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         id: 3,
         title: 'Strategic Presence: Live Conversation',
         description: 'Witness the future of leadership as Dr. Alvin West interacts in real-time with zero latency.',
-        thumbnail: '/images/dr_alvin_west.png',
+        thumbnail: '/images/avatars/dr_alvin_west_premium.png',
         videoUrl: '/videos/briefings/principal_briefing.mp4',
         duration: '2:30',
         category: 'AI Avatars',
@@ -60,7 +60,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         briefingContent: "Strategic Sync Active. This demo showcases the 2-way connection between the Professional Assistant and a district leader. The avatar is not just a recording; it's a dynamic identity core trained on thousands of hours of executive decision-making. It responds to complex fiscal inquiries, staff morale challenges, and policy shifts with the same authoritativeness and cultural nuance as Dr. West himself. This is the end of leadership bottlenecks.",
         brieferName: "Dr. Alvin West",
         brieferRole: "Executive Principal",
-        brieferAvatar: "/images/dr_alvin_west.png"
+        brieferAvatar: "/images/avatars/dr_alvin_west_premium.png"
     },
     {
         id: 4,
@@ -108,7 +108,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         id: 11,
         title: 'Sovereign Identity Synchronicity',
         description: 'Observe the zero-latency synchronization between the user and their digital twin.',
-        thumbnail: '/images/avatars/user_placeholder.png',
+        thumbnail: '/images/avatars/executive_leader.png',
         videoUrl: '/videos/features/twin-sync-demo.mp4',
         duration: '2:15',
         category: 'Identity',
@@ -116,13 +116,13 @@ const AI_VIDEOS: VideoShowcase[] = [
         briefingContent: "Identity Link Confirmed. We are witnessing the bilateral transfer of leadership heuristics. The Sovereign Twin doesn't just mimic voice; it inherits the user's specific policy preferences and cultural context. This allows for 'Delegate Without Deployment'—the ability to be in 10 school buildings simultaneously through a unified executive mirror.",
         brieferName: "Your Sovereign Twin",
         brieferRole: "Executive Mirror",
-        brieferAvatar: "/images/avatars/user_placeholder.png"
+        brieferAvatar: "/images/avatars/executive_leader.png"
     },
     {
         id: 12,
         title: 'Quantum Edge Architecture',
         description: 'A deep dive into the triple-redundant cloud infrastructure powering the EdIntel ecosystem.',
-        thumbnail: '/images/features/data_dashboard.png',
+        thumbnail: '/images/features/feature_suite_master.png',
         videoUrl: '/videos/features/cloud-infra-briefing.mp4',
         duration: '6:30',
         category: 'Infrastructure',
@@ -240,7 +240,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         id: 1001,
         title: 'Fiscal Audit Walkthrough',
         description: 'Automated breakdown of the annual budget audit for board presentation.',
-        thumbnail: '/images/features/fiscal_audit.png',
+        thumbnail: '/images/features/executive_grant_writer.png',
         videoUrl: '/videos/features/data-analysis-demo.mp4',
         duration: '5:30',
         category: 'Finance',
@@ -282,7 +282,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         id: 2003,
         title: 'Quantum Budget Audit',
         description: 'Real-time fiscal analysis of multi-million dollar district budgets.',
-        thumbnail: '/images/features/fiscal_audit.png',
+        thumbnail: '/images/features/executive_grant_writer.png',
         videoUrl: '/videos/features/budget-demo.mp4',
         duration: '4:45',
         category: 'Finance',
@@ -575,7 +575,7 @@ export default function AIVideoShowcase() {
                                                 <div className={`w-16 h-16 rounded-full p-0.5 bg-gradient-to-br from-emerald-500 to-emerald-700 shadow-lg ${isSpeaking ? 'shadow-emerald-500/40 scale-105' : 'grayscale-[0.3]'} transition-all duration-300`}>
                                                     <div className="w-full h-full rounded-full overflow-hidden bg-black border-2 border-black relative">
                                                         <motion.img
-                                                            src={selectedVideo.brieferAvatar || "/images/dr_alvin_west.png"}
+                                                            src={selectedVideo.brieferAvatar || "/images/avatars/dr_alvin_west_premium.png"}
                                                             alt={selectedVideo.brieferName}
                                                             className="w-full h-full object-cover"
                                                             animate={isSpeaking ? {

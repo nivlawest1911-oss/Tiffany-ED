@@ -18,7 +18,7 @@ export async function createHeyGenVideo(avatarId: string, text: string) {
                 {
                     character: {
                         type: 'avatar',
-                        avatar_id: avatarId,
+                        avatar_id: avatarId === 'default' ? 'josh_lite3_20230714' : avatarId,
                         avatar_style: 'normal',
                     },
                     voice: {

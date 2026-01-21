@@ -34,7 +34,7 @@ const specializedTools = [
         color: 'from-red-500 to-orange-600',
         link: '/generators/risk-analyzer',
         category: 'admin',
-        avatar: '/images/dr_alvin_west.png'
+        avatar: '/images/avatars/dr_alvin_west_premium.png'
     },
     {
         id: 'district-strategy',
@@ -44,7 +44,7 @@ const specializedTools = [
         color: 'from-amber-500 to-orange-600',
         link: '/generators/district-strategy',
         category: 'admin',
-        avatar: '/images/dr_alvin_west.png'
+        avatar: '/images/avatars/dr_alvin_west_premium.png'
     }
 ];
 

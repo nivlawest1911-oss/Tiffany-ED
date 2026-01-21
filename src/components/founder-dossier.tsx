@@ -80,7 +80,7 @@ export function FounderDossier() {
 
                 <div className="relative w-64 h-64 rounded-3xl overflow-hidden border-2 border-white/10 shadow-2xl">
                   <Image
-                    src="/images/dr_alvin_west.png"
+                    src="/images/avatars/dr_alvin_west_premium.png"
                     alt="Dr. Alvin E. West II"
                     fill
                     className="object-cover"

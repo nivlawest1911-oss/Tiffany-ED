@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mic, MicOff, Video, VideoOff, Volume2, VolumeX, Phone, PhoneOff, MessageSquare, Sparkles, Send, X, Minimize2, Brain, Activity, Lock, Share2, Terminal, User, Settings } from 'lucide-react';
+import { Mic, MicOff, Video, VideoOff, Volume2, VolumeX, Phone, PhoneOff, MessageSquare, Sparkles, Send, X, Minimize2, Brain, Activity, Lock, Share2, Terminal, User, Settings, Zap, Trophy } from 'lucide-react';
 import { useHumanBehavior } from '@/hooks/useHumanBehavior';
 import SovereignApiVault from './admin/SovereignApiVault';
 
@@ -55,6 +55,8 @@ interface LiveAvatarChatProps {
     isOpen?: boolean;
     greetingText?: string;
     theme?: 'default' | 'professional';
+    onShowBriefing?: () => void;
+    heygenId?: string;
 }
 
 export default function LiveAvatarChat({
@@ -71,7 +73,9 @@ export default function LiveAvatarChat({
     onClose,
     isOpen = true,
     greetingText,
-    theme = 'default'
+    theme = 'default',
+    onShowBriefing,
+    heygenId
 }: LiveAvatarChatProps) {
     const [isListening, setIsListening] = useState(false);
     const [isSpeaking, setIsSpeaking] = useState(false);
@@ -95,119 +99,97 @@ export default function LiveAvatarChat({
     const [vibeShift, setVibeShift] = useState(0);
     const [isProcessing, setIsProcessing] = useState(false);
     const [processingStage, setProcessingStage] = useState('');
-    const [activeEngine, setActiveEngine] = useState<'duix' | 'heygen' | 'liveportrait' | 'adobe' | 'tavus' | 'akool' | 'viggle' | 'did'>('duix');
-    const [showEngineNexus, setShowEngineNexus] = useState(false);
+
     const [isCloning, setIsCloning] = useState(false);
     const [cinematicMode, setCinematicMode] = useState(true);
     const [biometricPulse, setBiometricPulse] = useState(72);
     const [neuralLoad, setNeuralLoad] = useState(12);
     const [isCalibrating, setIsCalibrating] = useState(true);
+    const [imgSrc, setImgSrc] = useState(avatarImage);
+    const [generatedVideoUrl, setGeneratedVideoUrl] = useState<string | null>(null);
+    const [isGeneratingVideo, setIsGeneratingVideo] = useState(false);
+    const [videoGenerationStatus, setVideoGenerationStatus] = useState<string>('');
+    const [xpNotification, setXpNotification] = useState<{ amount: number, label: string } | null>(null);
 
-    const behavior = useHumanBehavior(isVideoEnabled && !isSpeaking && !isCalibrating);
-    const { behaviorStyles, isBlinking } = behavior;
+    // Update image source when prop changes
+    useEffect(() => {
+        setImgSrc(avatarImage);
+    }, [avatarImage]);
 
-    const PROFESSIONAL_ENGINES: Record<string, any> = {
-        'duix': {
-            name: 'DUIX.AVATAR',
-            type: 'LOCAL_SERVICE',
-            latency: '0ms',
-            color: 'text-emerald-400',
-            bg: 'bg-emerald-500/10',
-            description: 'Zero-latency, 100% private local strategic rendering (Digital Twin Toolkit).',
-            isOS: true,
-            surpassFactor: 'Unlimited use; 100% Privacy'
-        },
-        'tavus': {
-            name: 'TAVUS-PAL',
-            type: 'PERCEPTIVE_AI',
-            latency: '500ms',
-            color: 'text-pink-400',
-            bg: 'bg-pink-500/10',
-            description: 'Advanced emotional intelligence; reads tone & body language to adjust response.',
-            surpassFactor: 'Emotionally Perceptive; Sub-second response'
-        },
-        'heygen': {
-            name: 'HEYGEN-STREAM',
-            type: 'CLOUD_ULTRA',
-            latency: '800ms',
-            color: 'text-amber-400',
-            bg: 'bg-amber-500/10',
-            description: 'Maximum visual fidelity (0.02s precision lip-sync) via cloud streaming.',
-            surpassFactor: 'Highest Visual Realism'
-        },
-        'gemini': {
-            name: 'GEMINI-2.0-FLASH',
-            type: 'MULTIMODAL_ULTRA',
-            latency: '240ms',
-            color: 'text-blue-400',
-            bg: 'bg-blue-500/10',
-            description: 'Next-gen multimodal reasoning with sub-second latency. Flagship Google Sovereign Intelligence.',
-            surpassFactor: 'Quantum-speed Multi-modal'
-        },
-        'vertex': {
-            name: 'VERTEX-AI-SUPREME',
-            type: 'ARCHITECT_CORE',
-            latency: '150ms',
-            color: 'text-amber-400',
-            bg: 'bg-amber-500/10',
-            description: 'Maximum fidelity custom model architecture provisioned on Google Cloud TPU nodes.',
-            surpassFactor: 'Custom Neural Architecture'
-        },
-        'vision': {
-            name: 'VISION-INTEL-HUB',
-            type: 'SIGHT_ENGINE',
-            latency: '45ms',
-            color: 'text-cyan-400',
-            bg: 'bg-cyan-500/10',
-            description: 'Advanced OCR, document synthesis, and visual analysis powered by Google Vision API.',
-            surpassFactor: 'Visual Tactical Insight'
-        },
-        'viggle': {
-            name: 'VIGGLE-TRACK',
-            type: 'BODY_MIRROR',
-            latency: '10ms',
-            color: 'text-cyan-400',
-            bg: 'bg-cyan-500/10',
-            description: 'Real-time character replacement and movement mapping.',
-            surpassFactor: 'Real-time Body/Face Tracking'
-        },
-        'did': {
-            name: 'D-ID-AGENT',
-            type: 'SUPPORT_BOT',
-            latency: '1.8s',
-            color: 'text-blue-400',
-            bg: 'bg-blue-500/10',
-            description: 'Designed for back-and-forth conversational web support bots.',
-            surpassFactor: 'Low-latency Support Bots'
-        },
-        'akool': {
-            name: 'AKOOL-LIVE',
-            type: 'EVENT_HOST',
-            latency: '120ms',
-            color: 'text-orange-400',
-            bg: 'bg-orange-500/10',
-            description: 'Multi-language support (70+) for live streaming virtual hosts.',
-            surpassFactor: 'Multi-lingual Live Events'
-        },
-        'liveportrait': {
-            name: 'LIVEPORTRAIT-HF',
-            type: 'WEBCAM_DRIVE',
-            latency: '14ms',
-            color: 'text-indigo-400',
-            bg: 'bg-indigo-500/10',
-            description: 'Real-time webcam tracking and facial mirroring (Hugging Face Research).',
-            surpassFactor: 'Zero-lag Webcam Drive'
-        },
-        'adobe': {
-            name: 'ADOBE-SONIC',
-            type: 'AUDIO_DRIVE',
-            latency: '40ms',
-            color: 'text-purple-400',
-            bg: 'bg-purple-500/10',
-            description: 'Free accessible animate-from-audio character lip-sync.',
-            surpassFactor: 'Highest Ease of Use'
+    const triggerXpGain = (amount: number, label: string) => {
+        if (onAddXP) onAddXP(amount);
+        setXpNotification({ amount, label });
+        setTimeout(() => setXpNotification(null), 3000);
+    };
+
+    const handleGenerateVideo = async (text: string) => {
+        if (!text) return;
+        setIsGeneratingVideo(true);
+        setVideoGenerationStatus('Initializing Neural Renderer...');
+
+        try {
+            // 1. Request Video Generation
+            const response = await fetch('/api/heygen', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    avatarId: heygenId || 'default', // Dynamic ID with fallback
+                    text: text,
+                    action: 'create'
+                })
+            });
+
+            const data = await response.json();
+            if (data.error) throw new Error(data.error);
+
+            const videoId = data.videoId;
+            setVideoGenerationStatus('Rendering: 0%');
+
+            // Start Polling
+            const pollInterval = setInterval(async () => {
+                try {
+                    const statusRes = await fetch('/api/heygen', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ videoId, action: 'status' })
+                    });
+                    const statusData = await statusRes.json();
+
+                    if (statusData.status === 'completed') {
+                        clearInterval(pollInterval);
+                        setGeneratedVideoUrl(statusData.video_url);
+                        setIsGeneratingVideo(false);
+                        setIsSpeaking(false); // Stop the canvas avatar
+                    } else if (statusData.status === 'failed') {
+                        clearInterval(pollInterval);
+                        setIsGeneratingVideo(false);
+                        alert('Video Generation Failed: ' + statusData.error);
+                    } else {
+                        setVideoGenerationStatus(`Rendering: ${statusData.status}...`);
+                    }
+                } catch (e) {
+                    console.error("Polling error", e);
+                }
+            }, 3000); // Check every 3s
+
+        } catch (error: any) {
+            console.error(error);
+            setIsGeneratingVideo(false);
+            alert("Stream Error: " + error.message);
         }
     };
+
+    const handleTestStream = () => {
+        handleGenerateVideo("System Test. Confirming 4K Neural stream latency and fidelity. All systems green.");
+    };
+
+
+
+    const behavior = useHumanBehavior(isVideoEnabled && !isSpeaking && !isCalibrating && !generatedVideoUrl);
+    const { behaviorStyles, isBlinking } = behavior;
+
+
+
 
     const LEADERSHIP_ARCHETYPES: Record<string, { tone: string, rate: number, pitch: number, jargon: string[] }> = {
         'alvin': { tone: 'visionary', rate: 0.9, pitch: 0.85, jargon: ['Leadership', 'Legacy Achievement', 'District Support', 'Pedagogical Excellence', 'Human-centered'] },
@@ -354,7 +336,7 @@ export default function LiveAvatarChat({
         await new Promise(r => setTimeout(r, 100));
 
         onDeductTokens(1); // Standard interaction cost
-        onAddXP(2); // XP for communication
+        triggerXpGain(25, 'Neural Uplink'); // XP for communication
 
         try {
             const response = await fetch('/api/chat', {
@@ -645,6 +627,43 @@ export default function LiveAvatarChat({
             exit={{ opacity: 0, scale: 0.9 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
         >
+            {/* GAMIFIED XP & LEVEL UP OVERLAY */}
+            <AnimatePresence>
+                {xpNotification && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -50, scale: 0.5, rotateX: -90 }}
+                        animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
+                        exit={{ opacity: 0, y: -50, scale: 0.5, rotateX: 90 }}
+                        transition={{ type: 'spring', bounce: 0.5 }}
+                        className="absolute top-24 left-1/2 transform -translate-x-1/2 z-[100] pointer-events-none flex flex-col items-center gap-2"
+                    >
+                        {/* Glowing Level Up Badge */}
+                        <div className="relative group">
+                            <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-orange-600 blur-xl opacity-60 animate-pulse" />
+                            <div className="relative flex items-center gap-3 px-8 py-4 bg-black/90 text-white rounded-2xl shadow-[0_0_50px_rgba(245,158,11,0.5)] border-2 border-amber-500/50 backdrop-blur-xl">
+                                <Trophy size={32} className="text-amber-400 animate-[bounce_1s_infinite]" />
+                                <div className="flex flex-col">
+                                    <span className="text-3xl font-black italic tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-orange-500 drop-shadow-sm">
+                                        +{xpNotification.amount} XP
+                                    </span>
+                                    <span className="text-[10px] font-bold text-amber-500/80 tracking-[0.3em] uppercase">{xpNotification.label}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Combo/Streak Indicator (Pseudo-random for effect) */}
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.2 }}
+                            className="bg-indigo-600 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg border border-indigo-400"
+                        >
+                            Executive Streak x2
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
             <div className="relative w-full max-w-6xl h-[90vh] bg-neutral-950 rounded-[2.5rem] border border-white/10 overflow-hidden shadow-2xl">
                 {/* Simplified Header */}
                 <div className="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-black/80 to-transparent p-8">
@@ -666,14 +685,26 @@ export default function LiveAvatarChat({
                             </button>
                             <button
                                 onClick={() => {
-                                    setIsArchitecting(true);
-                                    setDraftedStrategy("INITIATING VISUAL GENERATION PROTOCOL...");
-                                    setTimeout(() => setDraftedStrategy("RENDERING DATA TOPOLOGY..."), 1500);
-                                    setTimeout(() => setIsArchitecting(false), 3000); // Simulate completion
+                                    if (onShowBriefing) {
+                                        onShowBriefing();
+                                    } else {
+                                        // Fallback if no callback provided
+                                        setIsArchitecting(true);
+                                        setDraftedStrategy("INITIATING VISUAL BRIEFING...");
+                                        setTimeout(() => setIsArchitecting(false), 3000);
+                                    }
                                 }}
                                 className="px-6 py-3 rounded-2xl bg-white/10 text-white font-bold text-xs uppercase tracking-widest hover:bg-white/20 transition-all border border-white/5 active:scale-95"
                             >
-                                Generate Visual
+                                Video Briefing
+                            </button>
+                            <button
+                                onClick={() => handleGenerateVideo("I am ready to provide a full video briefing using my Neural Real-Time Engine. Please confirm your directive.")}
+                                className="px-8 py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-black text-sm uppercase tracking-widest hover:scale-105 transition-all shadow-[0_0_30px_rgba(16,185,129,0.5)] border-2 border-white/20 active:scale-95 flex items-center gap-3 animate-pulse"
+                                title="Generates a real HeyGen video (Takes 2-5 mins)"
+                            >
+                                <Video size={18} className="animate-spin-slow" />
+                                <span>GENERATE 4K VIDEO AVATAR</span>
                             </button>
                             {onClose && (
                                 <button
@@ -715,17 +746,19 @@ export default function LiveAvatarChat({
                             {isVideoEnabled ? (
                                 <div className="w-full h-full">
                                     <motion.img
-                                        src={avatarImage}
+                                        src={imgSrc}
                                         alt={avatarName}
+                                        onError={() => setImgSrc('/images/avatars/executive_leader.png')} // Fallback to generic leader
                                         className="w-full h-full object-cover origin-bottom"
                                         style={behavior.style}
                                         animate={{
                                             filter: isSpeaking ? 'contrast(1.1) brightness(1.05) saturate(1.1) drop-shadow(0 0 20px rgba(99,102,241,0.3))' : 'contrast(1) brightness(1) saturate(1)',
                                             y: behaviorStyles.brow * 2,
                                             // Voice-reactive micro-jitter for vocal resonance
-                                            x: isSpeaking ? [0, 0.5, -0.5, 0] : 0
+                                            x: isSpeaking ? [0, 0.5, -0.5, 0] : 0,
+                                            scale: isSpeaking ? [1.02, 1.05, 1.02] : 1
                                         }}
-                                        transition={isSpeaking ? { duration: 0.1, repeat: Infinity } : { duration: 0.8 }}
+                                        transition={isSpeaking ? { duration: 0.2, repeat: Infinity } : { duration: 0.8 }}
                                     />
 
                                     {/* Neural Mirror Technology Label */}
@@ -741,6 +774,33 @@ export default function LiveAvatarChat({
                                             <div className="absolute inset-0 pointer-events-none border-[20px] border-black/20 blur-xl" />
                                             <div className="absolute top-0 left-0 right-0 h-[1px] bg-white/5 animate-scanline" />
                                         </>
+                                    )}
+
+                                    {/* GENERATED VIDEO OVERLAY */}
+                                    {generatedVideoUrl && (
+                                        <div className="absolute inset-0 z-50 bg-black">
+                                            <video
+                                                src={generatedVideoUrl}
+                                                autoPlay
+                                                controls
+                                                className="w-full h-full object-cover"
+                                                onEnded={() => setGeneratedVideoUrl(null)}
+                                            />
+                                            <button
+                                                onClick={() => setGeneratedVideoUrl(null)}
+                                                className="absolute top-4 right-4 bg-black/50 text-white p-2 rounded-full hover:bg-black/80"
+                                            >
+                                                <X size={16} />
+                                            </button>
+                                        </div>
+                                    )}
+
+                                    {/* LOADING OVERLAY */}
+                                    {isGeneratingVideo && (
+                                        <div className="absolute inset-0 z-50 bg-black/80 backdrop-blur-sm flex flex-col items-center justify-center text-white">
+                                            <div className="w-12 h-12 border-t-2 border-indigo-500 rounded-full animate-spin mb-4" />
+                                            <p className="font-mono text-sm animate-pulse">{videoGenerationStatus}</p>
+                                        </div>
                                     )}
 
                                     {/* African American AI Holography Glow: Enhanced with Kente Patterns */}
@@ -1085,6 +1145,24 @@ export default function LiveAvatarChat({
                                                     Confirm Voice Model
                                                 </button>
                                             </div>
+                                            <button
+                                                onClick={() => handleGenerateVideo(textInput)}
+                                                disabled={!textInput.trim() || isGeneratingVideo}
+                                                className="w-full py-4 mt-2 bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-500 hover:to-orange-500 text-white font-black uppercase tracking-widest text-xs rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-red-900/30 animate-pulse border border-red-500/50"
+                                            >
+                                                <Video size={16} />
+                                                {isGeneratingVideo ? 'Rendering Stream...' : 'GENERATE 4K VIDEO AVATAR'}
+                                            </button>
+
+                                            {/* DEBUG / TEST BUTTON */}
+                                            <button
+                                                onClick={handleTestStream}
+                                                disabled={isGeneratingVideo}
+                                                className="w-full py-2 mt-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-400 font-mono text-[10px] uppercase tracking-widest rounded-lg border border-zinc-700 hover:text-white transition-all flex items-center justify-center gap-2"
+                                            >
+                                                <Zap size={10} />
+                                                System Test: Force 4K Stream Generation
+                                            </button>
                                         </div>
                                     </div>
                                 </motion.div>

@@ -7,127 +7,10 @@ import {
     Sparkles, Video, Mic, MessageSquare, Play, Phone, Star, Scale, Shield
 } from 'lucide-react';
 import LiveAvatarChat from './LiveAvatarChat';
+import { CORE_AVATARS } from '@/data/avatars';
 
 // Comprehensive AI Avatar Team
-const AI_AVATARS = [
-    {
-        id: 1,
-        name: 'Dr. Alvin West (Strategic)',
-        role: 'Executive Principal & Founder',
-        specialty: 'Strategic Leadership & District Operations',
-        avatar: '/images/avatars/dr_alvin_west_premium.png',
-        video: '/videos/dr_alvin_talking.mp4',
-        voice: '/voice-profiles/principal_voice.mp3',
-        color: 'from-amber-600 to-indigo-950',
-        icon: Briefcase,
-        description: 'Global authority in educational leadership. Dr. West specializes in district-wide strategic optimization and executive time recovery.',
-        achievements: ['DBA in Educational Finance', '20+ Years Strategic Lead', 'CEO of Transcend Solutions'],
-    },
-    {
-        id: 101,
-        name: 'Dr. Alvin West (Pedagogical)',
-        role: 'Curriculum Architect',
-        specialty: 'Instructional Excellence & Human Capital',
-        avatar: '/images/avatars/dr_alvin_west_premium.png', // Reusing the high-fidelity image
-        video: '/videos/dr_alvin_pedagogy.mp4',
-        voice: '/voice-profiles/principal_voice.mp3',
-        color: 'from-blue-600 to-indigo-900',
-        icon: Brain,
-        description: 'Deep-dive expert into instructional frameworks, teacher efficacy, and student achievement metrics. Focused on human-centered excellence.',
-        achievements: ['Instructional Design Lead', 'Curriculum Innovation', 'Legacy Achievement Expert'],
-    },
-    {
-        id: 102,
-        name: 'Dr. Alvin West (Crisis)',
-        role: 'Strategic Crisis Lead',
-        specialty: 'District Safety & Crisis Communication',
-        avatar: '/images/avatars/dr_alvin_west_premium.png',
-        video: '/videos/dr_alvin_crisis.mp4',
-        voice: '/voice-profiles/principal_voice.mp3',
-        color: 'from-red-600 to-zinc-900',
-        icon: Shield,
-        description: 'High-stakes crisis management and strategic communication director. Ensures district stability during critical periods.',
-        achievements: ['Crisis Protocol Author', 'Safe Schools Liaison', 'Strategic Stability Expert'],
-    },
-    {
-        id: 7,
-        name: 'Dr. Isaiah Vance',
-        role: 'Associate Superintendent',
-        specialty: 'Policy & Governance',
-        avatar: '/images/avatars/dr_isaiah_vance_premium.png',
-        video: '/videos/isaiah_talking.mp4',
-        voice: '/voice-profiles/compliance_voice.wav',
-        color: 'from-zinc-600 to-zinc-900',
-        icon: Scale,
-        description: 'Elite policy strategist focused on district governance and legislative compliance. Dr. Vance ensures administrative actions are professional, transparent, and aligned with standards.',
-        achievements: ['Ed.D Policy & Law', 'State Governance Lead', '400+ Policies Authored'],
-    },
-    {
-        id: 8,
-        name: 'Keisha Reynolds',
-        role: 'Secondary Principal',
-        specialty: 'Instructional Leadership & Culture',
-        avatar: '/images/avatars/keisha_reynolds_premium.png',
-        video: '/videos/keisha_talking.mp4',
-        voice: '/voice-profiles/counselor_voice.wav',
-        color: 'from-emerald-600 to-emerald-900',
-        icon: GraduationCap,
-        description: 'Leadership strategist for school culture and teacher efficacy. Keisha specializes in high-impact instructional coaching and building resilient school communities.',
-        achievements: ['M.Ed School Leadership', 'National Principal Finalist', '15+ Years Mastery'],
-    },
-    {
-        id: 5,
-        name: 'Andre Patterson',
-        role: 'Behavior Intervention Lead',
-        specialty: 'School Climate & Tiered Support',
-        avatar: '/images/avatars/andre_patterson_premium.png',
-        video: '/videos/andre_talking.mp4',
-        voice: '/voice-profiles/principal_voice.mp3',
-        color: 'from-orange-600 to-red-800',
-        icon: Target,
-        description: 'Lead strategist for positive behavior environments. Andre develops frameworks that improve school climate and student outcomes through data-informed empathy.',
-        achievements: ['Expert PBIS Trainer', 'FBA Specialist', '200+ Schools Transformed'],
-    },
-    {
-        id: 6,
-        name: 'Dr. Emily Robinson',
-        role: 'Literacy & Data Specialist',
-        specialty: 'Literacy Optimization',
-        avatar: '/images/avatars/emily_robinson_premium.png',
-        video: '/videos/emily_talking.mp4',
-        voice: '/voice-profiles/counselor_voice.wav',
-        color: 'from-violet-600 to-purple-800',
-        icon: Sparkles,
-        description: 'Specialist in literacy and student performance analytics. Dr. Robinson bridges the gap between data and actionable classroom intervention strategies.',
-        achievements: ['PhD English Education', 'Data Science Specialist', 'Literacy Grant Lead'],
-    },
-    {
-        id: 4,
-        name: 'Dr. Maya Washington',
-        role: 'Special Education Lead',
-        specialty: 'IEP Development & Compliance',
-        avatar: '/images/avatars/maya_washington_premium.png',
-        video: '/videos/maya_talking.mp4',
-        voice: '/voice-profiles/compliance_voice.wav',
-        color: 'from-pink-600 to-rose-800',
-        icon: Heart,
-        description: 'Expert in special education policy and inclusive learning. Dr. Washington ensures every learner has a clear, data-backed success path that honors their unique needs.',
-        achievements: ['BCBA-D Certified', 'PhD Behavioral Science', '5000+ IEP Audits'],
-    },
-    {
-        id: 99,
-        name: 'Your Sovereign Twin',
-        role: 'Executive Mirror',
-        specialty: 'Self-cloned Leadership',
-        avatar: (typeof window !== 'undefined' && localStorage.getItem('edintel_twin_image')) || '/images/avatars/user_placeholder.png',
-        video: '',
-        voice: '',
-        color: 'from-indigo-600 to-amber-500',
-        icon: User,
-        description: 'Your digital avatar, synchronized with your leadership style and voice profile. This twin represents the pinnacle of personalized executive support.',
-        achievements: ['CLONED_BY_USER', 'VOICE_SYNC_ACTIVE', 'REALTIME_DYNAMICS'],
-    }
-];
+const AI_AVATARS = CORE_AVATARS;
 
 export default function AIAvatarGallery() {
     const [selectedAvatar, setSelectedAvatar] = useState<typeof AI_AVATARS[0] | null>(null);
@@ -444,8 +327,9 @@ export default function AIAvatarGallery() {
                     avatarName={activeAvatar.name}
                     avatarRole={activeAvatar.role}
                     avatarVideo={activeAvatar.video}
-                    avatarVoice={activeAvatar.voice}
+                    avatarVoice={activeAvatar.voiceId || ''}
                     avatarImage={activeAvatar.avatar}
+                    heygenId={activeAvatar.heygenId}
                     tokensRemaining={10}
                     onDeductTokens={() => { }}
                     onRecharge={() => { }}

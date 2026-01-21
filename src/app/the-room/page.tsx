@@ -9,7 +9,6 @@ import Link from 'next/link';
 import FloatingNavbar from '@/components/FloatingNavbar';
 import Footer from '@/components/Footer';
 import CircadianFilter from '@/components/graphics/CircadianFilter';
-import ProfessionalDelegate from '@/components/AIAssistant';
 
 const commandCenters = [
     {
@@ -170,17 +169,6 @@ export default function TheRoomPage() {
                     </div>
                 </div>
             </section>
-
-            {/* Executive Delegate Guide */}
-            <ProfessionalDelegate
-                name="Executive Guide"
-                role="Strategic Support"
-                avatarImage="/images/avatars/executive_leader.png"
-                theme="professional"
-                greetingText="Welcome to the Innovation Commons, Leader. I have prepared your Strategic Vision Map. Every node here is a gateway to high-quality intelligence synthesis. Where shall we begin?"
-                color="from-indigo-600 to-purple-800"
-                guideMode={true}
-            />
 
             <Footer />
         </main>

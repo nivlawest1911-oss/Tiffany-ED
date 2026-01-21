@@ -4,7 +4,7 @@ import EnhancedGenerator from '@/components/EnhancedGenerator';
 
 // Map Avatar Enums to Real Assets
 const AVATAR_MAP: Record<string, { name: string, role: string, image: string }> = {
-    'principal': { name: "Dr. Alvin West", role: "Executive Principal", image: "/images/dr_alvin_west.png" },
+    'principal': { name: "Dr. Alvin West", role: "Executive Principal", image: "/images/avatars/dr_alvin_west_premium.png" },
     'counselor': { name: "Andre Patterson", role: "Behavior Intervention Lead", image: "/images/avatars/behavior_specialist.png" },
     'data': { name: "Marcus Johnson", role: "Professional Stem Lead", image: "/images/avatars/stem_coordinator.png" },
     'compliance': { name: "Dr. Maya Washington", role: "IEP Compliance Architect", image: "/images/avatars/iep_architect.png" },

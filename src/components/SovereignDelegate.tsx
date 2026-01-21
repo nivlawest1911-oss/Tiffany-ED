@@ -13,6 +13,7 @@ import { useAuth } from '@/context/AuthContext';
 import LiveAvatarChat from './LiveAvatarChat';
 import { useHumanBehavior } from '@/hooks/useHumanBehavior';
 import { useLeadershipRank } from '@/hooks/useLeadershipRank';
+import { CORE_AVATARS } from '@/data/avatars';
 const HolographicBriefing = dynamic(() => import('./HolographicBriefing'), { ssr: false });
 
 interface Delegate {
@@ -22,73 +23,33 @@ interface Delegate {
     status: 'active' | 'busy' | 'offline';
     avatar: string;
     specialty: string;
+    heygenId?: string;
     clearance: 'L1' | 'L2' | 'L3' | 'Sovereign' | 'Executive Sovereign' | 'Quantum';
 }
 
-export default function SovereignDelegate() {
+interface SovereignDelegateProps {
+    initialOpen?: boolean;
+    greetingOverride?: string;
+}
+
+export default function SovereignDelegate({ initialOpen = false, greetingOverride }: SovereignDelegateProps) {
     const { user } = useAuth();
     const { isSovereign } = useLeadershipRank();
     const isExecutive = isSovereign;
 
-    const INITIAL_DELEGATES: Delegate[] = [
-        {
-            id: 'user_twin',
-            name: isExecutive ? (user.name + ' (Twin)') : 'Your Sovereign Twin',
-            role: 'Executive Mirror',
-            status: 'active',
-            avatar: (typeof window !== 'undefined' && localStorage.getItem('edintel_twin_image')) || '/images/avatars/user_placeholder.png',
-            specialty: 'Self-cloned Leadership',
-            clearance: 'Sovereign'
-        },
-        {
-            id: 'sovereign_1',
-            name: 'Dr. Alvin West (Strategic)',
-            role: 'Executive Sovereign',
-            status: 'active',
-            avatar: '/images/avatars/dr_alvin_west_premium.png',
-            specialty: 'Strategic Command & District Operations',
-            clearance: 'Executive Sovereign'
-        },
-        {
-            id: 'sovereign_pedagogy',
-            name: 'Dr. Alvin West (Pedagogical)',
-            role: 'Curriculum Architect',
-            status: 'active',
-            avatar: '/images/avatars/dr_alvin_west_premium.png',
-            specialty: 'Instructional Excellence & Human Capital',
-            clearance: 'Quantum'
-        },
-        {
-            id: 'sovereign_crisis',
-            name: 'Dr. Alvin West (Crisis)',
-            role: 'Strategic Crisis Lead',
-            status: 'offline',
-            avatar: '/images/avatars/dr_alvin_west_premium.png',
-            specialty: 'District Safety & Crisis Messaging',
-            clearance: 'Quantum'
-        },
-        {
-            id: 'delegate_2',
-            name: 'Keisha Reynolds',
-            role: 'Instructional Lead',
-            status: 'active',
-            avatar: '/images/avatars/curriculum_strategist.png',
-            specialty: 'Curriculum Architecture',
-            clearance: 'L3'
-        },
-        {
-            id: 'delegate_3',
-            name: 'Dr. Isaiah Vance',
-            role: 'Compliance Lead',
-            status: 'busy',
-            avatar: '/images/avatars/special_ed_director.png',
-            specialty: 'Fiscal & Legal Compliance',
-            clearance: 'L3'
-        }
-    ];
+    const INITIAL_DELEGATES: Delegate[] = CORE_AVATARS.map(avatar => ({
+        id: avatar.id,
+        name: avatar.name || 'Unknown Delegate',
+        role: avatar.role,
+        status: (avatar.status as 'active' | 'busy' | 'offline') || 'active',
+        avatar: avatar.avatar,
+        specialty: avatar.specialty,
+        heygenId: avatar.heygenId,
+        clearance: (avatar.clearance as Delegate['clearance']) || 'L1'
+    }));
 
     const [delegates] = useState<Delegate[]>(INITIAL_DELEGATES);
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(initialOpen);
     const [selectedDelegate, setSelectedDelegate] = useState<Delegate | null>(INITIAL_DELEGATES[0]);
     const [isChatOpen, setIsChatOpen] = useState(false);
     const [showBriefing, setShowBriefing] = useState(false);
@@ -254,6 +215,7 @@ export default function SovereignDelegate() {
                                                 <img
                                                     src={delegate.avatar}
                                                     alt={delegate.name}
+                                                    onError={(e) => e.currentTarget.src = '/images/avatars/executive_leader.png'}
                                                     className="w-10 h-10 rounded-full object-cover border border-white/10"
                                                 />
                                                 <div className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-[#09090b] ${delegate.status === 'active' ? 'bg-emerald-500' : 'bg-amber-500'
@@ -432,9 +394,11 @@ export default function SovereignDelegate() {
                         avatarName={selectedDelegate.name}
                         avatarRole={selectedDelegate.role}
                         avatarImage={selectedDelegate.avatar}
-                        greetingText={`Sovereign Uplink Established. I am ${selectedDelegate.name}. How can I assist you with high-level strategy today?`}
+                        greetingText={greetingOverride || `Sovereign Uplink Established. I am ${selectedDelegate.name}. How can I assist you with high-level strategy today?`}
                         theme="professional"
+                        heygenId={selectedDelegate.heygenId}
                         tokensRemaining={9999} // Unlimited for Sovereign
+                        onShowBriefing={() => setShowBriefing(true)}
                     />
                 )}
             </AnimatePresence>

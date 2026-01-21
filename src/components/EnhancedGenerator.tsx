@@ -7,7 +7,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import VideoPlayer from './VideoPlayer';
 import VoiceIdentity from './VoiceIdentity';
-import AIAssistant from './AIAssistant';
 import LiveBriefingConsole from './LiveBriefingConsole';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 import { useAuth } from '@/context/AuthContext';
@@ -58,12 +57,12 @@ export default function EnhancedGenerator({
     const [selectedDelegate, setSelectedDelegate] = useState({
         name: delegateName || "Dr. Alvin",
         role: delegateRole || "Superintendent Delegate",
-        image: delegateImage || "/images/dr_alvin_west.png"
+        image: delegateImage || "/images/avatars/dr_alvin_west_premium.png"
     });
 
     const delegates = [
-        { name: "Dr. Alvin", role: "Superintendent Delegate", image: "/images/dr_alvin_west.png" },
-        { name: "Sarah", role: "Instructional Aide", image: "/images/avatars/female_leader.png" },
+        { name: "Dr. Alvin", role: "Superintendent Delegate", image: "/images/avatars/dr_alvin_west_premium.png" },
+        { name: "Sarah", role: "Instructional Aide", image: "/images/avatars/sarah_connors_premium.png" },
         { name: "Patrice", role: "Compliance Lead", image: "/images/avatars/executive_leader.png" }
     ];
 
@@ -743,18 +742,7 @@ Context:
             {/* FLOATING DELEGATE ORB - REINTEGRATED & ENHANCED */}
             <div className="fixed bottom-10 right-10 z-[60] scale-90 md:scale-100 hover:scale-110 transition-transform duration-500">
                 <div className="absolute -inset-4 bg-noble-gold/20 rounded-full blur-2xl animate-pulse" />
-                <AIAssistant
-                    name={selectedDelegate.name}
-                    role={selectedDelegate.role}
-                    avatarImage={selectedDelegate.image}
-                    videoSrc={professorVideo || welcomeVideo}
-                    voiceSrc={voiceWelcome}
-                    color={generatorColor.includes('gradient') ? generatorColor : "from-noble-gold to-kente-red"}
-                    completionText={completion}
-                    theme="professional"
-                    guideMode={true}
-                    isLoading={isLoading}
-                />
+                {/* FLOATING DELEGATE ORB - REMOVED TO PREVENT DUPLICATES (Unified via SovereignDelegate) */}
             </div>
 
             {/* Tactical Scanlines */}

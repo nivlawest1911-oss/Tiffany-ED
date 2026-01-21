@@ -7,18 +7,20 @@ import {
     History, Heart, Flame, Compass, Music, MapPin, Zap
 } from "lucide-react"
 
-// Map specific tools to "Delegate" avatars for the human feel
-// STRICT: Ensure all Avatars are African American Professionals
+import { CORE_AVATARS } from './avatars';
+
+// Map specific tools to "Delegate" avatars using the Single Source of Truth
+// STRICT: Ensure all Avatars are African American Professionals from the verified list
 const AVATARS = {
-    PRINCIPAL: "/images/avatars/dr_alvin_west_premium.png",
-    COUNSELOR: "/images/avatars/keisha_reynolds_premium.png",
-    CURRICULUM: "/images/avatars/emily_robinson_premium.png",
-    DATA: "/images/avatars/emily_robinson_premium.png",
-    COMPLIANCE: "/images/avatars/dr_isaiah_vance_premium.png",
-    LITERACY: "/images/avatars/emily_robinson_premium.png",
-    FINANCE: "/images/avatars/dr_isaiah_vance_premium.png",
-    BEHAVIOR: "/images/avatars/andre_patterson_premium.png",
-    SPED: "/images/avatars/maya_washington_premium.png"
+    PRINCIPAL: CORE_AVATARS.find(a => a.id === 'sovereign_1')?.avatar || "/images/avatars/dr_alvin_west_premium.png",
+    COUNSELOR: CORE_AVATARS.find(a => a.id === 'delegate_2')?.avatar || "/images/avatars/keisha_reynolds_premium.png",
+    CURRICULUM: CORE_AVATARS.find(a => a.id === 'delegate_5')?.avatar || "/images/avatars/emily_robinson_premium.png", // Using Dr. Robinson for Curriculum implies data-backed design
+    DATA: CORE_AVATARS.find(a => a.id === 'delegate_5')?.avatar || "/images/avatars/emily_robinson_premium.png",
+    COMPLIANCE: CORE_AVATARS.find(a => a.id === 'delegate_3')?.avatar || "/images/avatars/isaiah_vance_premium.png",
+    LITERACY: CORE_AVATARS.find(a => a.id === 'delegate_5')?.avatar || "/images/avatars/emily_robinson_premium.png",
+    FINANCE: CORE_AVATARS.find(a => a.id === 'sovereign_1')?.avatar || "/images/avatars/dr_alvin_west_premium.png", // Executive handles Finance
+    BEHAVIOR: CORE_AVATARS.find(a => a.id === 'delegate_4')?.avatar || "/images/avatars/andre_patterson_premium.png",
+    SPED: CORE_AVATARS.find(a => a.id === 'delegate_6')?.avatar || "/images/avatars/maya_washington_premium.png"
 }
 
 export const generators = [
@@ -228,8 +230,8 @@ export const generators = [
         icon: UserCheck,
         color: "#d97706", // Amber
         avatar: AVATARS.DATA,
-        heroVideo: "/videos/features/data-analysis-demo.mp4",
-        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        heroVideo: "/videos/briefings/data_briefing.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
         voiceWelcome: "/voice-profiles/data_voice.wav",
         prompts: ["Analyze climate survey", "Identify retention risks", "Draft retention plan"]
     },
@@ -264,8 +266,8 @@ export const generators = [
         icon: TrendingUp,
         color: "#3b82f6", // Blue
         avatar: AVATARS.DATA,
-        heroVideo: "/videos/features/data-analysis-demo.mp4",
-        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        heroVideo: "/videos/briefings/data_briefing.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
         voiceWelcome: "/voice-profiles/data_voice.wav",
         prompts: ["Forecast kindergarten enrollment", "Analyze zoning changes", "Predict class sizes"]
     },
@@ -312,8 +314,8 @@ export const generators = [
         icon: Briefcase,
         color: "#db2777", // Pink-600
         avatar: AVATARS.DATA,
-        heroVideo: "/videos/features/data-analysis-demo.mp4",
-        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        heroVideo: "/videos/briefings/data_briefing.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
         voiceWelcome: "/voice-profiles/data_voice.wav",
         prompts: ["Math teacher interview questions", "Performance improvement plan", "Rejection letter template"]
     },
@@ -408,8 +410,8 @@ export const generators = [
         icon: Code,
         color: "#0891b2", // Cyan-600
         avatar: AVATARS.DATA,
-        heroVideo: "/videos/features/data-analysis-demo.mp4",
-        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        heroVideo: "/videos/briefings/data_briefing.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
         voiceWelcome: "/voice-profiles/data_voice.wav",
         prompts: ["District AI usage policy", "1:1 device rollout plan", "Digital citizenship lesson"]
     },
@@ -444,8 +446,8 @@ export const generators = [
         icon: Briefcase,
         color: "#0284c7", // Sky-600
         avatar: AVATARS.DATA,
-        heroVideo: "/videos/features/data-analysis-demo.mp4",
-        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        heroVideo: "/videos/briefings/data_briefing.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
         voiceWelcome: "/voice-profiles/data_voice.wav",
         prompts: ["Industry advisory board agenda", "Internship evaluation rubric", "Work-based learning agreement"]
     },
@@ -516,8 +518,8 @@ export const generators = [
         icon: ClipboardCheck,
         color: "#0f766e", // Teal-700
         avatar: AVATARS.DATA,
-        heroVideo: "/videos/features/data-analysis-demo.mp4",
-        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        heroVideo: "/videos/briefings/data_briefing.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
         voiceWelcome: "/voice-profiles/data_voice.wav",
         prompts: ["Proctor training agenda", "Testing room schedule builder", "Irregularity report template"]
     },
@@ -540,8 +542,8 @@ export const generators = [
         icon: Bus,
         color: "#d97706", // Amber-600
         avatar: AVATARS.DATA,
-        heroVideo: "/videos/features/data-analysis-demo.mp4",
-        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        heroVideo: "/videos/briefings/data_briefing.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
         voiceWelcome: "/voice-profiles/data_voice.wav",
         prompts: ["Driver safety memo", "Bus conduct report", "Field trip transport request"]
     },
@@ -600,8 +602,8 @@ export const generators = [
         icon: Calculator,
         color: "#059669", // Emerald-600
         avatar: AVATARS.DATA,
-        heroVideo: "/videos/features/data-analysis-demo.mp4",
-        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        heroVideo: "/videos/briefings/data_briefing.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
         voiceWelcome: "/voice-profiles/data_voice.wav",
         prompts: ["Fraction intervention scaffold", "Word problem visualizer", "Math fact fluency game"]
     },
@@ -684,8 +686,8 @@ export const generators = [
         icon: Clock,
         color: "#c2410c", // Orange-700
         avatar: AVATARS.DATA,
-        heroVideo: "/videos/features/data-analysis-demo.mp4",
-        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        heroVideo: "/videos/briefings/data_briefing.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
         voiceWelcome: "/voice-profiles/data_voice.wav",
         prompts: ["Truancy diversion contract", "Attendance success plan", "Home visit protocol"]
     },
@@ -696,8 +698,8 @@ export const generators = [
         icon: Database,
         color: "#374151", // Gray-700
         avatar: AVATARS.DATA,
-        heroVideo: "/videos/features/data-analysis-demo.mp4",
-        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        heroVideo: "/videos/briefings/data_briefing.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
         voiceWelcome: "/voice-profiles/data_voice.wav",
         prompts: ["Enrollment verification letter", "Transcript audit checklist", "Withdrawal form template"]
     },
@@ -816,8 +818,8 @@ export const generators = [
         icon: Calculator,
         color: "#14532d", // Green-900
         avatar: AVATARS.DATA,
-        heroVideo: "/videos/features/data-analysis-demo.mp4",
-        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        heroVideo: "/videos/briefings/data_briefing.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
         voiceWelcome: "/voice-profiles/data_voice.wav",
         prompts: ["Budget narrative justification", "Title I spending spreadsheet", "Cost-benefit analysis for tech"]
     },
@@ -992,8 +994,8 @@ export const generators = [
         icon: HandCoins,
         color: "#1d4ed8",
         avatar: AVATARS.FINANCE,
-        heroVideo: "/videos/features/data-analysis-demo.mp4",
-        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        heroVideo: "/videos/briefings/data_briefing.mp4",
+        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
         prompts: ["Analyze capital recovery opportunities", "Draft financial intelligence brief", "Audit district spending ROI"]
     },
     {

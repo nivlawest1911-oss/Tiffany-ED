@@ -251,7 +251,7 @@ export function UnusualHero() {
           title="Welcome Message"
           description="Greetings, I am Dr. Alvin West. You are accessing the EdIntel Leadership Platform. This platform is designed to provide comprehensive administrative and pedagogical support, fully aligned with Alabama SDE Chapter 290-8-9 and IDEA 2004 federal mandates. Our AI assistants are ready to support your district's efficiency. Get started with your first tool to begin."
           role="Founder & Consultant"
-          avatarImage="/images/dr_alvin_west.png"
+          avatarImage="/images/avatars/dr_alvin_west_premium.png"
           videoSrc="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/liquid-metal-video_yX6NvjdW-6bLYorR3Ihmlwjivg3pjA978qrSKRU.mp4"
           stats={{ time: "30sec", saved: "∞", accuracy: "100%" }}
         />

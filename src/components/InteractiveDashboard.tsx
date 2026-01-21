@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import AIAssistant from './AIAssistant';
+
 
 export default function InteractiveDashboard() {
     const [showBriefing, setShowBriefing] = useState(false);
@@ -36,33 +36,33 @@ export default function InteractiveDashboard() {
     const stats = [
         {
             icon: Clock,
-            label: 'Hours Saved',
-            value: '127',
-            trend: '+12%',
+            label: 'Hours Reclaimed',
+            value: '427',
+            trend: '+24%',
             trendUp: true,
             color: 'from-purple-500 to-pink-500',
         },
         {
-            icon: FileText,
-            label: 'Documents Generated',
-            value: '342',
-            trend: '+8%',
+            icon: TrendingUp,
+            label: 'Funds Recovered',
+            value: '$14.2k',
+            trend: '+18%',
             trendUp: true,
             color: 'from-blue-500 to-cyan-500',
         },
         {
             icon: Users,
-            label: 'Students Helped',
-            value: '1,247',
-            trend: '+15%',
+            label: 'Students Impacted',
+            value: '2,842',
+            trend: '+35%',
             trendUp: true,
             color: 'from-green-500 to-emerald-500',
         },
         {
             icon: Award,
-            label: 'Compliance Score',
-            value: '98%',
-            trend: '+2%',
+            label: 'Compliance Index',
+            value: '99.4%',
+            trend: '+1.2%',
             trendUp: true,
             color: 'from-orange-500 to-red-500',
         },
@@ -162,26 +162,10 @@ export default function InteractiveDashboard() {
                         </p>
                     </div>
 
-                    <button
-                        onClick={() => setShowBriefing(true)}
-                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-sm shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:scale-105 transition-all text-xs uppercase tracking-wider"
-                    >
-                        <Sparkles size={16} />
-                        <span>Daily Intelligence Briefing</span>
-                    </button>
+                    {/* Briefing Button Removed to centralize in SovereignDelegate */}
                 </motion.div>
 
-                <HolographicBriefing
-                    isOpen={showBriefing}
-                    onClose={() => setShowBriefing(false)}
-                    title="Executive Daily Briefing"
-                    description="Good Morning, Principal. Your system usage is trending upwards at 12%. You have saved approximately 127 administrative hours this month. Compliance adherence is at 98%. Recommendation: Review the new 'Grant Writer' protocol to capitalize on available funding streams."
-                    role="System Chief of Staff"
-                    avatarImage="/images/avatars/executive_leader.png"
-                    thumbnail="/images/features/data-analysis-demo.mp4"
-                    stats={{ time: "127h", saved: "+12%", accuracy: "98%" }}
-                    theme="professional"
-                />
+                {/* HolographicBriefing Removed - Use SovereignDelegate for Briefings */}
 
                 {/* Stats Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -424,13 +408,7 @@ export default function InteractiveDashboard() {
                     </div>
                 </motion.div>
 
-                <AIAssistant
-                    name="System Chief of Staff"
-                    role="Executive Assistant"
-                    avatarImage="/images/avatars/executive_leader.png"
-                    color="from-emerald-500 to-teal-600"
-                    greetingText="Your dashboard is ready, Principal. Usage is up 12% this week."
-                />
+
             </div>
         </div>
     );

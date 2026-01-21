@@ -71,7 +71,7 @@ export default function ContactPage() {
                         <div className="flex items-center gap-6 mb-12 p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-indigo-500/30 transition-colors">
                             <div className="relative w-24 h-24 flex-shrink-0">
                                 <img
-                                    src="/images/dr_alvin_west.png"
+                                    src="/images/avatars/dr_alvin_west_premium.png"
                                     alt="Dr. Alvin West"
                                     className="w-full h-full object-cover rounded-xl border border-white/20 shadow-lg"
                                 />
