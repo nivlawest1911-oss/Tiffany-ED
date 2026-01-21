@@ -22,22 +22,22 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "EdIntel | Professional AI for Educational Leadership",
+  title: "EdIntel SOVEREIGN | Professional AI for Educational Leadership",
   description:
-    "Empowering educational leaders to optimize time, ensure compliance, and focus on student success. Professional tools for modern education. 14-Day Free Access.",
+    "Empowering educational leaders with SOVEREIGN-level AI intelligence. Optimize time, ensure compliance, and focus on student success. Professional tools for modern education.",
   generator: "v0.app",
   metadataBase: new URL('https://edintel-app.vercel.app'),
   openGraph: {
-    title: "EdIntel | Professional AI for Educational Leadership",
-    description: "Optimize your time and ensure excellence in educational leadership with our professional AI tools.",
+    title: "EdIntel SOVEREIGN | Professional AI for Educational Leadership",
+    description: "SOVEREIGN-level AI intelligence for educational excellence. Transform your leadership with advanced AI tools.",
     url: 'https://edintel-app.vercel.app',
-    siteName: 'EdIntel',
+    siteName: 'EdIntel SOVEREIGN',
     images: [
       {
-        url: '/api/og?school=EdIntel&plan=Get%20Started&price=Free',
+        url: '/edintel-sovereign-logo.jpg',
         width: 1200,
-        height: 630,
-        alt: 'EdIntel - Professional AI for Education',
+        height: 1200,
+        alt: 'EdIntel SOVEREIGN - Professional AI for Education',
       },
     ],
     locale: 'en_US',
@@ -45,18 +45,18 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'EdIntel | Professional AI for Education',
-    description: 'Empowering educational leaders with professional AI tools.',
-    images: ['/api/og?school=EdIntel&plan=Get%20Started&price=Free'],
+    title: 'EdIntel SOVEREIGN | Professional AI for Education',
+    description: 'SOVEREIGN-level AI intelligence for educational leaders.',
+    images: ['/edintel-sovereign-logo.jpg'],
   },
   icons: {
     icon: [
       {
-        url: "/webrenew-icon-xl.png",
+        url: "/edintel-sovereign-logo.jpg",
         media: "(prefers-color-scheme: light)",
       },
       {
-        url: "/webrenew-icon-xl.png",
+        url: "/edintel-sovereign-logo.jpg",
         media: "(prefers-color-scheme: dark)",
       },
       {
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
         type: "image/svg+xml",
       },
     ],
-    apple: "/apple-icon.png",
+    apple: "/edintel-sovereign-logo.jpg",
   },
 }
 
@@ -77,7 +77,7 @@ export const viewport: Viewport = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactCenter
+  children: React.ReactNode
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>

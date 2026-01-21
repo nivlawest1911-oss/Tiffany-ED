@@ -208,10 +208,29 @@ export default function ModernHomePage() {
 
     if (!mounted) {
         return (
-            <div className="min-h-screen bg-[#050507] flex items-center justify-center">
-                <div className="flex flex-col items-center gap-4">
-                    <div className="w-12 h-12 border-t-2 border-indigo-500 rounded-full animate-spin"></div>
-                    <p className="font-mono text-sm tracking-widest text-indigo-400">PREPARING YOUR DASHBOARD...</p>
+            <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 flex items-center justify-center">
+                <div className="flex flex-col items-center gap-6">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.5 }}
+                        className="relative"
+                    >
+                        <img
+                            src="/edintel-sovereign-logo.jpg"
+                            alt="EdIntel SOVEREIGN"
+                            className="w-64 h-64 object-contain drop-shadow-2xl"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-indigo-500/20 to-transparent blur-3xl"></div>
+                    </motion.div>
+                    <motion.p
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.3 }}
+                        className="font-mono text-sm tracking-widest text-indigo-400"
+                    >
+                        INITIALIZING SOVEREIGN INTELLIGENCE...
+                    </motion.p>
                 </div>
             </div>
         );
