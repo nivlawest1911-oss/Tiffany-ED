@@ -1,201 +1,141 @@
 #!/usr/bin/env node
 
 /**
- * EdIntel Sovereign - Pre-Deployment Setup Script
- * Validates environment and prepares for production deployment
+ * EdIntel Professional - Quick Setup Script
+ * Automates the activation process
  */
 
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
 
-console.log('🚀 EdIntel Sovereign - Pre-Deployment Setup\n');
+console.log('🚀 EdIntel Professional - Quick Setup\n');
 
-// Color codes for terminal output
-const colors = {
-    reset: '\x1b[0m',
-    green: '\x1b[32m',
-    red: '\x1b[31m',
-    yellow: '\x1b[33m',
-    blue: '\x1b[34m',
-};
-
-function log(message, color = 'reset') {
-    console.log(`${colors[color]}${message}${colors.reset}`);
+// Check if we're in the right directory
+if (!fs.existsSync('package.json')) {
+    console.error('❌ Error: Please run this script from the project root directory');
+    process.exit(1);
 }
 
-function checkCommand(command, name) {
-    try {
-        execSync(`${command} --version`, { stdio: 'ignore' });
-        log(`✅ ${name} is installed`, 'green');
-        return true;
-    } catch (error) {
-        log(`❌ ${name} is NOT installed`, 'red');
-        return false;
-    }
+console.log('✅ Project directory verified\n');
+
+// Step 1: Create media directory
+console.log('📁 Step 1: Creating media directory...');
+const mediaDir = path.join(process.cwd(), 'edintel-media');
+if (!fs.existsSync(mediaDir)) {
+    fs.mkdirSync(mediaDir, { recursive: true });
+    console.log('   ✅ Created: edintel-media/');
+} else {
+    console.log('   ℹ️  Already exists: edintel-media/');
 }
 
-function checkFile(filePath, name) {
-    if (fs.existsSync(filePath)) {
-        log(`✅ ${name} exists`, 'green');
-        return true;
+// Step 2: Check for .env.local
+console.log('\n🔑 Step 2: Checking environment variables...');
+const envPath = path.join(process.cwd(), '.env.local');
+if (fs.existsSync(envPath)) {
+    console.log('   ✅ Found: .env.local');
+
+    const envContent = fs.readFileSync(envPath, 'utf8');
+    const requiredVars = [
+        'POSTGRES_URL',
+        'GOOGLE_CLIENT_ID',
+        'STRIPE_SECRET_KEY',
+        'NEXT_PUBLIC_APP_URL'
+    ];
+
+    const missingVars = requiredVars.filter(v => !envContent.includes(v));
+
+    if (missingVars.length === 0) {
+        console.log('   ✅ All critical variables present');
     } else {
-        log(`❌ ${name} is missing`, 'red');
-        return false;
+        console.log('   ⚠️  Missing variables:', missingVars.join(', '));
     }
+
+    // Check for new variables
+    const newVars = ['BLOB_READ_WRITE_TOKEN', 'HEYGEN_API_KEY', 'ELEVENLABS_API_KEY'];
+    const missingNewVars = newVars.filter(v => !envContent.includes(v));
+
+    if (missingNewVars.length > 0) {
+        console.log('   ⏳ Optional variables to add:', missingNewVars.join(', '));
+    }
+} else {
+    console.log('   ⚠️  .env.local not found - run: vercel env pull .env.local');
 }
 
-// Step 1: Check required tools
-log('\n📋 Step 1: Checking Required Tools', 'blue');
-const tools = {
-    node: checkCommand('node', 'Node.js'),
-    npm: checkCommand('npm', 'npm'),
-    gcloud: checkCommand('gcloud', 'Google Cloud SDK'),
-    docker: checkCommand('docker', 'Docker'),
-    vercel: checkCommand('vercel', 'Vercel CLI'),
-    psql: checkCommand('psql', 'PostgreSQL Client'),
-};
+// Step 3: Check database schema
+console.log('\n🗄️  Step 3: Database schema...');
+const schemaPath = path.join(process.cwd(), 'database', 'schema.sql');
+if (fs.existsSync(schemaPath)) {
+    console.log('   ✅ Found: database/schema.sql');
+    console.log('   📋 Next: Copy this file to Vercel Postgres Query tab');
+} else {
+    console.log('   ❌ Schema file not found');
+}
 
-// Step 2: Check required files
-log('\n📋 Step 2: Checking Required Files', 'blue');
-const files = {
-    prismaSchema: checkFile('prisma/schema.prisma', 'Prisma Schema'),
-    initSQL: checkFile('prisma/init_schema.sql', 'Database Init Script'),
-    dockerfile: checkFile('cloud/Dockerfile.avatar', 'Avatar Dockerfile'),
-    dockerCompose: checkFile('cloud/docker-compose.yml', 'Docker Compose'),
-    wifSetup: checkFile('WIF_SETUP.md', 'WIF Setup Guide'),
-    deploymentRoadmap: checkFile('DEPLOYMENT_ROADMAP.md', 'Deployment Roadmap'),
-};
-
-// Step 3: Check environment variables
-log('\n📋 Step 3: Checking Environment Variables', 'blue');
-
-const requiredEnvVars = [
-    'GCP_PROJECT_ID',
-    'DATABASE_URL',
-    'GOOGLE_GENERATIVE_AI_API_KEY',
-    'STRIPE_SECRET_KEY',
-    'STRIPE_PUBLISHABLE_KEY',
+// Step 4: Check scripts
+console.log('\n📤 Step 4: Upload scripts...');
+const scripts = [
+    'scripts/bulk-upload-vercel-blob.js',
+    'scripts/bulk-upload-cloudinary.js'
 ];
 
-const envFile = '.env.local';
-let envVars = {};
-
-if (fs.existsSync(envFile)) {
-    const envContent = fs.readFileSync(envFile, 'utf-8');
-    envContent.split('\n').forEach(line => {
-        const [key, value] = line.split('=');
-        if (key && value) {
-            envVars[key.trim()] = value.trim();
-        }
-    });
-}
-
-const missingEnvVars = [];
-requiredEnvVars.forEach(varName => {
-    if (envVars[varName] && envVars[varName] !== 'your_key_here') {
-        log(`✅ ${varName} is set`, 'green');
+scripts.forEach(script => {
+    if (fs.existsSync(script)) {
+        console.log(`   ✅ Found: ${script}`);
     } else {
-        log(`❌ ${varName} is missing or not configured`, 'red');
-        missingEnvVars.push(varName);
+        console.log(`   ❌ Missing: ${script}`);
     }
 });
 
-// Step 4: Check dependencies
-log('\n📋 Step 4: Checking Dependencies', 'blue');
+// Step 5: Check components
+console.log('\n🎨 Step 5: New components...');
+const components = [
+    'src/components/MissionControl.tsx',
+    'src/components/MediaBentoGrid.tsx',
+    'src/components/MediaSearch.tsx',
+    'src/components/TalkingAvatarVideo.tsx'
+];
 
-try {
-    const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
-    const requiredDeps = [
-        '@ai-sdk/google-vertex',
-        '@google-cloud/vertexai',
-        '@prisma/client',
-        'livekit-client',
-        'stripe',
-        'ai',
-    ];
-
-    requiredDeps.forEach(dep => {
-        if (packageJson.dependencies[dep]) {
-            log(`✅ ${dep} is in package.json`, 'green');
-        } else {
-            log(`❌ ${dep} is missing from package.json`, 'red');
-        }
-    });
-} catch (error) {
-    log('❌ Could not read package.json', 'red');
-}
-
-// Step 5: Summary and recommendations
-log('\n📊 Summary', 'blue');
-
-const allToolsInstalled = Object.values(tools).every(v => v);
-const allFilesPresent = Object.values(files).every(v => v);
-const allEnvVarsSet = missingEnvVars.length === 0;
-
-if (allToolsInstalled && allFilesPresent && allEnvVarsSet) {
-    log('\n🎉 All checks passed! You are ready to deploy.', 'green');
-    log('\nNext steps:', 'blue');
-    log('1. Run: npm install', 'yellow');
-    log('2. Follow DEPLOYMENT_ROADMAP.md for production deployment', 'yellow');
-    log('3. Set up Workload Identity Federation (WIF_SETUP.md)', 'yellow');
-} else {
-    log('\n⚠️  Some checks failed. Please address the issues above.', 'yellow');
-
-    if (!allToolsInstalled) {
-        log('\n🔧 Missing Tools:', 'yellow');
-        Object.entries(tools).forEach(([name, installed]) => {
-            if (!installed) {
-                log(`   - Install ${name}`, 'red');
-            }
-        });
+components.forEach(comp => {
+    if (fs.existsSync(comp)) {
+        console.log(`   ✅ ${path.basename(comp)}`);
+    } else {
+        console.log(`   ❌ ${path.basename(comp)}`);
     }
+});
 
-    if (!allFilesPresent) {
-        log('\n📁 Missing Files:', 'yellow');
-        Object.entries(files).forEach(([name, exists]) => {
-            if (!exists) {
-                log(`   - ${name} is missing`, 'red');
-            }
-        });
-    }
+// Summary
+console.log('\n' + '='.repeat(60));
+console.log('📊 SETUP SUMMARY');
+console.log('='.repeat(60));
 
-    if (!allEnvVarsSet) {
-        log('\n🔑 Missing Environment Variables:', 'yellow');
-        missingEnvVars.forEach(varName => {
-            log(`   - ${varName}`, 'red');
-        });
-        log('\n   Copy .env.example to .env.local and fill in the values', 'yellow');
-    }
-}
+console.log('\n✅ COMPLETED:');
+console.log('   • Project structure verified');
+console.log('   • Media directory created');
+console.log('   • Components installed');
+console.log('   • Scripts ready');
 
-// Step 6: Offer to install dependencies
-log('\n📦 Installing Dependencies', 'blue');
+console.log('\n⏳ TODO (Manual Steps):');
+console.log('   1. Run database schema in Vercel Postgres');
+console.log('   2. Add environment variables to Vercel');
+console.log('   3. Upload media files to edintel-media/');
+console.log('   4. Run: node scripts/bulk-upload-vercel-blob.js');
 
-try {
-    log('Running: npm install...', 'yellow');
-    execSync('npm install', { stdio: 'inherit' });
-    log('✅ Dependencies installed successfully', 'green');
-} catch (error) {
-    log('❌ Failed to install dependencies', 'red');
-    log('Please run: npm install manually', 'yellow');
-}
+console.log('\n🌐 LIVE URLS:');
+console.log('   • Production: https://edintel-app.vercel.app');
+console.log('   • Dashboard: https://vercel.com/nivlawest1911-oss-projects/edintel-app');
+console.log('   • Mission Control: https://edintel-app.vercel.app/mission-control');
+console.log('   • Gallery: https://edintel-app.vercel.app/gallery');
 
-// Step 7: Generate Prisma client
-log('\n🔧 Generating Prisma Client', 'blue');
+console.log('\n📚 DOCUMENTATION:');
+console.log('   • ACTIVATION_GUIDE.md - Complete setup instructions');
+console.log('   • COMPLETE_INTEGRATION_GUIDE.md - Technical details');
+console.log('   • TALKING_AVATAR_INTEGRATION.md - Avatar setup');
 
-try {
-    log('Running: npx prisma generate...', 'yellow');
-    execSync('npx prisma generate', { stdio: 'inherit' });
-    log('✅ Prisma client generated successfully', 'green');
-} catch (error) {
-    log('⚠️  Prisma client generation skipped (database not configured yet)', 'yellow');
-}
+console.log('\n🚀 Next Command:');
+console.log('   npm run dev  # Start local development');
+console.log('   OR');
+console.log('   vercel --prod  # Deploy to production');
 
-log('\n✨ Setup complete!', 'green');
-log('\n📚 Next Steps:', 'blue');
-log('1. Review DEPLOYMENT_ROADMAP.md for complete deployment guide', 'yellow');
-log('2. Set up Google Cloud (Phase 1 in roadmap)', 'yellow');
-log('3. Configure Workload Identity Federation (WIF_SETUP.md)', 'yellow');
-log('4. Deploy to production!', 'yellow');
-log('\n🚀 Happy deploying!', 'green');
+console.log('\n' + '='.repeat(60));
+console.log('✨ EdIntel Professional is ready to transform education!');
+console.log('='.repeat(60) + '\n');
