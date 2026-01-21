@@ -45,7 +45,9 @@ export default async function GalleryPage({
 
             {/* Content */}
             <main className="max-w-7xl mx-auto px-6 py-12">
-                <MediaSearch />
+                <Suspense fallback={<div className="h-16" />}>
+                    <MediaSearch />
+                </Suspense>
 
                 <Suspense key={query} fallback={<MediaSkeleton />}>
                     <MediaBentoGrid query={query} />
@@ -59,9 +61,9 @@ export default async function GalleryPage({
                         <div
                             key={i}
                             className={`flex-1 ${i % 4 === 0 ? 'bg-amber-500' :
-                                    i % 4 === 1 ? 'bg-emerald-600' :
-                                        i % 4 === 2 ? 'bg-rose-600' :
-                                            'bg-black'
+                                i % 4 === 1 ? 'bg-emerald-600' :
+                                    i % 4 === 2 ? 'bg-rose-600' :
+                                        'bg-black'
                                 }`}
                         />
                     ))}
