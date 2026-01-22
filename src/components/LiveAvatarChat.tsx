@@ -746,21 +746,39 @@ export default function LiveAvatarChat({
                         >
                             {isVideoEnabled ? (
                                 <div className="w-full h-full">
-                                    <motion.img
-                                        src={imgSrc}
-                                        alt={avatarName}
-                                        onError={() => setImgSrc('/images/avatars/executive_leader.png')} // Fallback to generic leader
-                                        className="w-full h-full object-cover origin-bottom"
-                                        style={behavior.style}
-                                        animate={{
-                                            filter: isSpeaking ? 'contrast(1.1) brightness(1.05) saturate(1.1) drop-shadow(0 0 20px rgba(99,102,241,0.3))' : 'contrast(1) brightness(1) saturate(1)',
-                                            y: behaviorStyles.brow * 2,
-                                            // Voice-reactive micro-jitter for vocal resonance
-                                            x: isSpeaking ? [0, 0.5, -0.5, 0] : 0,
-                                            scale: isSpeaking ? [1.02, 1.05, 1.02] : 1
-                                        }}
-                                        transition={isSpeaking ? { duration: 0.2, repeat: Infinity } : { duration: 0.8 }}
-                                    />
+                                    {(avatarVideo && !avatarVideo.includes('undefined') && avatarVideo.length > 5) ? (
+                                        <motion.div
+                                            className="w-full h-full relative"
+                                            style={behavior.style}
+                                            animate={{
+                                                scale: isSpeaking ? 1.02 : 1,
+                                                filter: isSpeaking ? 'brightness(1.05) contrast(1.05)' : 'brightness(1)'
+                                            }}
+                                        >
+                                            <video
+                                                src={avatarVideo}
+                                                autoPlay loop muted playsInline
+                                                className="w-full h-full object-cover"
+                                            />
+                                            {/* Subtle scanline overlay for realism */}
+                                            <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.1)_1px,transparent_1px)] bg-[size:100%_4px] pointer-events-none opacity-30" />
+                                        </motion.div>
+                                    ) : (
+                                        <motion.img
+                                            src={imgSrc}
+                                            alt={avatarName}
+                                            onError={() => setImgSrc('/images/avatars/executive_leader.png')}
+                                            className="w-full h-full object-cover origin-bottom"
+                                            style={behavior.style}
+                                            animate={{
+                                                filter: isSpeaking ? 'contrast(1.1) brightness(1.05) saturate(1.1) drop-shadow(0 0 20px rgba(99,102,241,0.3))' : 'contrast(1) brightness(1) saturate(1)',
+                                                y: behaviorStyles.brow * 2,
+                                                x: isSpeaking ? [0, 0.5, -0.5, 0] : 0,
+                                                scale: isSpeaking ? [1.02, 1.05, 1.02] : 1
+                                            }}
+                                            transition={isSpeaking ? { duration: 0.2, repeat: Infinity } : { duration: 0.8 }}
+                                        />
+                                    )}
 
                                     {/* Neural Mirror Technology Label */}
                                     <div className="absolute top-32 left-8 z-40 bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.5 rounded text-[7px] font-mono text-indigo-300 uppercase tracking-tighter">

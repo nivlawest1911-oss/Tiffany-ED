@@ -468,6 +468,7 @@ export default function SovereignDelegate({ initialOpen = false, greetingOverrid
                         greetingText={greetingOverride || `Sovereign Uplink Established. I am ${selectedDelegate.name}. How can I assist you with high-level strategy today?`}
                         theme="professional"
                         heygenId={selectedDelegate.heygenId}
+                        avatarVideo={selectedDelegate.video}
                         tokensRemaining={9999} // Unlimited for Sovereign
                         onShowBriefing={() => setShowBriefing(true)}
                     />
