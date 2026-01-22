@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, PlayCircle, Maximize2, Sparkles, Activity, Shield } from 'lucide-react';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
@@ -37,6 +37,18 @@ export default function HolographicBriefing({
     const [isSpeaking, setIsSpeaking] = useState(false);
     const [progress, setProgress] = useState(0);
     const humanBehavior = useHumanBehavior(isOpen);
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    // SYNC ANIMATION
+    useEffect(() => {
+        if (videoRef.current) {
+            if (isSpeaking) {
+                videoRef.current.play().catch(e => console.warn("Briefing video play failed", e));
+            } else {
+                videoRef.current.pause();
+            }
+        }
+    }, [isSpeaking]);
 
     // Effect to handle opening/speaking
     useEffect(() => {
@@ -274,8 +286,9 @@ export default function HolographicBriefing({
                                                 }}
                                             >
                                                 <video
+                                                    ref={videoRef}
                                                     src={videoSrc}
-                                                    autoPlay loop muted playsInline
+                                                    loop muted playsInline
                                                     className="w-full h-full object-cover transform scale-125" // Scale up slightly to focus on face
                                                 />
                                             </motion.div>

@@ -210,9 +210,23 @@ export default function LiveAvatarChat({
     };
 
     const videoRef = useRef<HTMLVideoElement>(null);
+    const avatarVideoRef = useRef<HTMLVideoElement>(null);
     const recognitionRef = useRef<any>(null);
     const synthesisRef = useRef<SpeechSynthesisUtterance | null>(null);
     const scrollRef = useRef<HTMLDivElement>(null);
+
+    // SYNC VIDEO LIP-SYNC
+    useEffect(() => {
+        if (avatarVideoRef.current) {
+            if (isSpeaking) {
+                avatarVideoRef.current.play().catch(e => console.error("Avatar playback error", e));
+            } else {
+                avatarVideoRef.current.pause();
+                // Optional: Snap to a specific 'neutral' frame if video supports seeking
+                // avatarVideoRef.current.currentTime = 0; 
+            }
+        }
+    }, [isSpeaking]);
 
     // Advanced "Presence" Animation Hooks
     const mouseX = useRef(0);
@@ -756,8 +770,9 @@ export default function LiveAvatarChat({
                                             }}
                                         >
                                             <video
+                                                ref={avatarVideoRef}
                                                 src={avatarVideo}
-                                                autoPlay loop muted playsInline
+                                                loop muted playsInline
                                                 className="w-full h-full object-cover"
                                             />
                                             {/* Subtle scanline overlay for realism */}
