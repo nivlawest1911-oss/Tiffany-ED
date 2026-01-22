@@ -251,30 +251,60 @@ export default function HolographicBriefing({
                             <div className="flex-1 flex flex-col items-center justify-center p-8 relative">
                                 <div className={`relative w-32 h-32 rounded-full p-1 bg-gradient-to-br ${gradientBg} mb-6 shadow-2xl ${theme === 'professional' ? 'shadow-amber-500/30' : 'shadow-indigo-500/30'}`}>
                                     <div className="w-full h-full rounded-full overflow-hidden border-2 border-black bg-black z-10 relative">
-                                        <motion.img
-                                            src={avatarImage}
-                                            onError={(e) => e.currentTarget.src = '/images/avatars/executive_leader.png'}
-                                            alt={role}
-                                            className="w-full h-full object-cover"
-                                            animate={isSpeaking ? {
-                                                x: [0, -4, 4, -2, 0],
-                                                y: [0, -1, 1, -0.5, 0],
-                                                rotate: [0, -1, 1, -0.5, 0],
-                                                scale: [1, 1.04, 1.02, 1.04, 1],
-                                                ...humanBehavior.behaviorStyles
-                                            } : {
-                                                ...humanBehavior.behaviorStyles
-                                            }}
-                                            transition={isSpeaking ? {
-                                                duration: 4,
-                                                repeat: Infinity,
-                                                ease: "easeInOut"
-                                            } : {
-                                                duration: 3,
-                                                repeat: Infinity,
-                                                ease: "easeInOut"
-                                            }}
-                                        />
+                                        {videoSrc ? (
+                                            <motion.div
+                                                className="w-full h-full"
+                                                animate={isSpeaking ? {
+                                                    x: [0, -4, 4, -2, 0],
+                                                    y: [0, -1, 1, -0.5, 0],
+                                                    rotate: [0, -1, 1, -0.5, 0],
+                                                    scale: [1, 1.04, 1.02, 1.04, 1],
+                                                    ...humanBehavior.behaviorStyles
+                                                } : {
+                                                    ...humanBehavior.behaviorStyles
+                                                }}
+                                                transition={isSpeaking ? {
+                                                    duration: 4,
+                                                    repeat: Infinity,
+                                                    ease: "easeInOut"
+                                                } : {
+                                                    duration: 3,
+                                                    repeat: Infinity,
+                                                    ease: "easeInOut"
+                                                }}
+                                            >
+                                                <video
+                                                    src={videoSrc}
+                                                    autoPlay loop muted playsInline
+                                                    className="w-full h-full object-cover transform scale-125" // Scale up slightly to focus on face
+                                                />
+                                            </motion.div>
+                                        ) : (
+                                            <motion.img
+                                                src={avatarImage}
+                                                onError={(e) => e.currentTarget.src = '/images/avatars/executive_leader.png'}
+                                                alt={role}
+                                                className="w-full h-full object-cover"
+                                                animate={isSpeaking ? {
+                                                    x: [0, -4, 4, -2, 0],
+                                                    y: [0, -1, 1, -0.5, 0],
+                                                    rotate: [0, -1, 1, -0.5, 0],
+                                                    scale: [1, 1.04, 1.02, 1.04, 1],
+                                                    ...humanBehavior.behaviorStyles
+                                                } : {
+                                                    ...humanBehavior.behaviorStyles
+                                                }}
+                                                transition={isSpeaking ? {
+                                                    duration: 4,
+                                                    repeat: Infinity,
+                                                    ease: "easeInOut"
+                                                } : {
+                                                    duration: 3,
+                                                    repeat: Infinity,
+                                                    ease: "easeInOut"
+                                                }}
+                                            />
+                                        )}
 
                                         {/* Holographic Scanline for Avatar */}
                                         <motion.div
