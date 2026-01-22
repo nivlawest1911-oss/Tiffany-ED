@@ -57,6 +57,7 @@ interface LiveAvatarChatProps {
     theme?: 'default' | 'professional';
     onShowBriefing?: () => void;
     heygenId?: string;
+    protocolContext?: string;
 }
 
 export default function LiveAvatarChat({
@@ -75,7 +76,8 @@ export default function LiveAvatarChat({
     greetingText,
     theme = 'default',
     onShowBriefing,
-    heygenId
+    heygenId,
+    protocolContext
 }: LiveAvatarChatProps) {
     const [isListening, setIsListening] = useState(false);
     const [isSpeaking, setIsSpeaking] = useState(false);
@@ -358,11 +360,15 @@ export default function LiveAvatarChat({
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    messages: [...conversation, { role: 'user', content: text }],
+                    messages: [
+                        ...conversation,
+                        // Inject Protocol Context as a System-like hint if available
+                        { role: 'user', content: protocolContext ? `[SYSTEM PROTOCOL: ${protocolContext}. Ensure response is highly technical, authoritative, and cites relevant standards/policies.]\n\n${text}` : text }
+                    ],
                     avatarName,
                     avatarRole,
                     generatorId: 'default',
-                    isChat: true // Enable conversational mode for more human-like responses
+                    isChat: true
                 })
             });
 
@@ -800,12 +806,63 @@ export default function LiveAvatarChat({
                                         Neural Mirror V4.2 // Active Sync
                                     </div>
 
-                                    {/* Cinematic Overlays */}
+                                    {/* Advanced Holographic HUD Overlay */}
+                                    <div className="absolute inset-0 pointer-events-none z-30">
+                                        {/* Reticle Corners */}
+                                        <div className="absolute top-8 left-8 w-16 h-16 border-t-2 border-l-2 border-indigo-500/30 rounded-tl-lg" />
+                                        <div className="absolute top-8 right-8 w-16 h-16 border-t-2 border-r-2 border-indigo-500/30 rounded-tr-lg" />
+                                        <div className="absolute bottom-8 left-8 w-16 h-16 border-b-2 border-l-2 border-indigo-500/30 rounded-bl-lg" />
+                                        <div className="absolute bottom-8 right-8 w-16 h-16 border-b-2 border-r-2 border-indigo-500/30 rounded-br-lg" />
+
+                                        {/* Data Stream Scroller */}
+                                        <div className="absolute top-1/2 right-4 transform -translate-y-1/2 w-1 h-32 bg-indigo-500/10 overflow-hidden">
+                                            <motion.div
+                                                className="w-full h-8 bg-indigo-400/50 blur-[2px]"
+                                                animate={{ y: [0, 128] }}
+                                                transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                                            />
+                                        </div>
+
+                                        {/* Speaking Waveform Visualization */}
+                                        <AnimatePresence>
+                                            {isSpeaking && (
+                                                <motion.div
+                                                    initial={{ opacity: 0 }}
+                                                    animate={{ opacity: 1 }}
+                                                    exit={{ opacity: 0 }}
+                                                    className="absolute bottom-24 left-1/2 transform -translate-x-1/2 flex items-end gap-1 h-8"
+                                                >
+                                                    {[...Array(8)].map((_, i) => (
+                                                        <motion.div
+                                                            key={i}
+                                                            className="w-1 bg-gradient-to-t from-indigo-500 to-amber-500 rounded-full"
+                                                            animate={{ height: [4, 24, 8, 32, 4] }}
+                                                            transition={{
+                                                                duration: 0.4,
+                                                                repeat: Infinity,
+                                                                delay: i * 0.05,
+                                                                ease: "easeInOut"
+                                                            }}
+                                                        />
+                                                    ))}
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+
+                                        {/* Protocol Status Badge */}
+                                        {protocolContext && (
+                                            <div className="absolute top-8 left-1/2 transform -translate-x-1/2 bg-black/40 backdrop-blur-md border border-amber-500/30 px-3 py-1 rounded text-[8px] font-mono text-amber-400 uppercase tracking-widest flex items-center gap-2">
+                                                <div className="w-1.5 h-1.5 bg-amber-500 rounded-full animate-ping" />
+                                                Active Protocol: {protocolContext.split(':')[0]}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* Cinematic Grain & Scanlines */}
                                     {cinematicMode && (
                                         <>
                                             <div className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat" />
                                             <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/60 via-transparent to-black/30" />
-                                            <div className="absolute inset-0 pointer-events-none border-[20px] border-black/20 blur-xl" />
                                             <div className="absolute top-0 left-0 right-0 h-[1px] bg-white/5 animate-scanline" />
                                         </>
                                     )}

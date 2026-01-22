@@ -471,6 +471,7 @@ export default function SovereignDelegate({ initialOpen = false, greetingOverrid
                         avatarVideo={selectedDelegate.video}
                         tokensRemaining={9999} // Unlimited for Sovereign
                         onShowBriefing={() => setShowBriefing(true)}
+                        protocolContext={currentProtocol ? `${currentProtocol.context}: ${currentProtocol.message}` : undefined}
                     />
                 )}
             </AnimatePresence>
