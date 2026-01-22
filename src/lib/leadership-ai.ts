@@ -63,6 +63,7 @@ In response to your inquiry regarding **"${topic || 'this matter'}"**, I have sy
 ## 4. Legal & Compliance Audit (IDEA Directive)
 *   **LRE Alignment:** This plan represents the "Village" approach—maximum exposure to general education while providing the "Sanctuary" of specialized support.
 *   **FAPE Audit:** Fully defensible under current Alabama state standards and Federal IDEA mandates.
+*   **Citations:** IDEA 2004, Section 1414(d)(1)(A)(i); Ala. Admin. Code 290-8-9-.05.
 
 ## 5. Strategic Action Matrix (Immediate Directives)
 | Step | Action | Responsibility | Timeline |
@@ -310,28 +311,6 @@ export async function generateProfessionalResponse(
 
   if (p.includes('bus') || p.includes('facility') || p.includes('logistics') || p.includes('ops') || p.includes('transport')) {
     return TEMPLATES.OPERATIONS(topic, activePersona, isChat);
-  }
-
-  if (p.includes('twin') || p.includes('persona') || p.includes('configuration')) {
-    // Twin profile needs unique handling
-    return `
-# 🧬 Professional AI Twin Configuration Dossier
-**Identity Architect:** ${activePersona.name}
-**Strategic Status:** FULLY SYNCED | **Encryption:** Quantum-Safe
-
-## 1. Identity Matrix: ${topic || 'Custom Identity'}
-**Role:** ${activePersona.role}
-**Voice Profile:** Authoritative but deeply communal. Should sound like a wise mentor who also understands a P&L statement.
-**Core Mantra:** Achievement is the baseline; Excellence is the goal.
-
-## 2. Knowledge Base Ingestion
-*   **District Compliance:** Fully indexed on IDEA, FERPA, and Title IX.
-*   **Curriculum:** Mastered ALCOS and National Standards.
-*   **Human Intelligence:** Ingested the "${activePersona.name} Leadership Protocols."
-
-## 3. Synthesis Complete
-Your AI Twin is now ready to draft emails, generate IEP goals, and analyze budgets exactly as you would—only 1,000x faster.
-  `;
   }
 
   // Default Executive Analysis

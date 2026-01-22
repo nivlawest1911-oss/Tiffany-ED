@@ -1,7 +1,6 @@
 'use client';
-import { useEffect, useState } from 'react';
-import { auth } from '@/firebase';
-import { onAuthStateChanged, User } from '@/firebase';
+import { useEffect } from 'react';
+import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
 
 // THE EXECUTIVE ACCESS LIST
@@ -12,23 +11,15 @@ const AUTHORIZED_EMAILS = [
 ];
 
 export default function AdminGuard({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { user, loading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (!currentUser) {
-        router.push('/login');
-      } else {
-        // Strict email check disabled for public/signup flow
-        // if (!AUTHORIZED_EMAILS.includes(currentUser.email || '')) { ... }
-        setUser(currentUser);
-      }
-      setLoading(false);
-    });
-    return () => unsubscribe();
-  }, [router]);
+    if (!loading && !user) {
+      router.push('/login');
+    }
+    // Strict email check can be re-enabled here if needed
+  }, [user, loading, router]);
 
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center bg-zinc-950 text-white">

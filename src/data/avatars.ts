@@ -23,12 +23,13 @@ export interface AvatarDefinition {
  * 1. Upload .mp4 to gs://edintel-evidence-edintel-sovereign-2027/
  * 2. Update the 'video' field with: https://storage.googleapis.com/edintel-evidence-edintel-sovereign-2027/filename.mp4
  */
+// CORE_AVATARS - Enhanced Video Distribution for Maximum Diversity
 export const CORE_AVATARS: AvatarDefinition[] = [
     {
         id: 'sovereign_1',
         name: 'Dr. Alvin West',
         role: 'Strategic Crisis Lead',
-        status: 'offline',
+        status: 'online',
         avatar: '/images/avatars/dr_alvin_west_premium.png',
         specialty: 'District Safety & Crisis Communication',
         heygenId: 'josh_lite3_20230714',
@@ -49,7 +50,7 @@ export const CORE_AVATARS: AvatarDefinition[] = [
         heygenId: '36506d33758b4563a948259b37a4e57d',
         voiceId: '21m00Tcm4TlvDq8ikWAM', // Rachel
         clearance: 'L3',
-        video: '/videos/briefings/principal_briefing.mp4',
+        video: '/videos/briefings/data_briefing.mp4', // Assigned Data video to vary visual from Dr. West
         description: 'Leadership strategist for school culture and teacher efficacy. Keisha specializes in high-impact instructional coaching and building resilient school communities.',
         achievements: ['M.Ed School Leadership', 'National Principal Finalist', '15+ Years Mastery'],
         color: 'from-emerald-600 to-emerald-900'
@@ -94,7 +95,7 @@ export const CORE_AVATARS: AvatarDefinition[] = [
         heygenId: '36506d33758b4563a948259b37a4e57d',
         voiceId: 'EXAVITQu4vr4xnSDxMaL', // Bella
         clearance: 'L2',
-        video: '/videos/briefings/data_briefing.mp4',
+        video: '/videos/briefings/counselor_briefing.mp4', // Varying visuals
         description: 'Specialist in literacy and student performance analytics. Dr. Robinson bridges the gap between data and actionable classroom intervention strategies.',
         achievements: ['PhD English Education', 'Data Science Specialist', 'Literacy Grant Lead'],
         color: 'from-violet-600 to-purple-800'
@@ -124,11 +125,9 @@ export const CORE_AVATARS: AvatarDefinition[] = [
         heygenId: 'josh_lite3_20230714',
         voiceId: 'AZnzlk1XjtbaicYn0nS5', // Nicole
         clearance: 'L3',
-        video: '/videos/briefings/data_briefing.mp4',
+        video: '/videos/briefings/principal_briefing.mp4',
         description: 'Strategic lead for budget optimization and capital recovery. Director Nova specializes in identified zero-waste implementation and ROI maximization.',
         achievements: ['Fiscal Architect', 'Grant Recovery Specialist', '$10M+ Capital Reclaimed'],
         color: 'from-emerald-600 to-teal-900'
     }
-
-
 ];
