@@ -1,0 +1,14 @@
+'use client';
+
+export default function DebugPage() {
+    return (
+        <div className="min-h-screen bg-black text-white p-8">
+            <h1 className="text-4xl font-bold mb-8">Debug Info</h1>
+            <div className="space-y-4">
+                <p>If you see this page, the app is working!</p>
+                <p>Current time: {new Date().toISOString()}</p>
+                <a href="/" className="text-blue-400 underline">Go to Homepage</a>
+            </div>
+        </div>
+    );
+}

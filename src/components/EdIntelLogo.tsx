@@ -16,8 +16,8 @@ export default function EdIntelLogo({ className = "", animated = true }: { class
                         <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
                             <feGaussianBlur stdDeviation="4" result="coloredBlur" />
                             <feMerge>
-                                <feMergeCenter in="coloredBlur" />
-                                <feMergeCenter in="SourceGraphic" />
+                                <feMergeNode in="coloredBlur" />
+                                <feMergeNode in="SourceGraphic" />
                             </feMerge>
                         </filter>
                     </defs>

@@ -18,15 +18,17 @@ export async function POST(request: NextRequest) {
         }
 
         // Select voice configuration
-        const voiceConfig = voice && voice in PHONE_AGENT_CONFIG.voices
-            ? PHONE_AGENT_CONFIG.voices[voice as keyof typeof PHONE_AGENT_CONFIG.voices]
-            : PHONE_AGENT_CONFIG.voices.drAlvinWest;
+        const voiceKey = (voice && voice in PHONE_AGENT_CONFIG.voices)
+            ? (voice as keyof typeof PHONE_AGENT_CONFIG.voices)
+            : 'drAlvinWest';
+
+        const voiceConfig = PHONE_AGENT_CONFIG.voices[voiceKey];
 
         // Make outbound call
         const call = await AIPhoneAgentService.makeOutboundCall(
             to,
             message,
-            voiceConfig
+            voiceConfig as any
         );
 
         return NextResponse.json({

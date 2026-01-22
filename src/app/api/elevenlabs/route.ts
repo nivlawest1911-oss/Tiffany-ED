@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { ElevenLabsClient } from "elevenlabs";
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';

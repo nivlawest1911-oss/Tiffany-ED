@@ -109,7 +109,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         title: 'Sovereign Identity Synchronicity',
         description: 'Observe the zero-latency synchronization between the user and their digital twin.',
         thumbnail: '/images/avatars/executive_leader.png',
-        videoUrl: '/videos/features/twin-sync-demo.mp4',
+        videoUrl: '/videos/briefings/principal_briefing.mp4',
         duration: '2:15',
         category: 'Identity',
         aiGenerated: true,
@@ -123,7 +123,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         title: 'Quantum Edge Architecture',
         description: 'A deep dive into the triple-redundant cloud infrastructure powering the EdIntel ecosystem.',
         thumbnail: '/images/features/feature_suite_master.png',
-        videoUrl: '/videos/features/cloud-infra-briefing.mp4',
+        videoUrl: '/videos/briefings/data_briefing.mp4',
         duration: '6:30',
         category: 'Infrastructure',
         aiGenerated: true,
@@ -153,7 +153,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         title: 'Daily District News (InVideo)',
         description: 'Automated synthesis of daily bulletins into engaging, broadcast-quality video updates.',
         thumbnail: '/images/integrations/invideo_thumb.png',
-        videoUrl: '/videos/features/data-analysis-demo.mp4', // Simulating InVideo Output
+        videoUrl: '/videos/briefings/data_briefing.mp4', // Fixed from broken path
         duration: '3:00',
         category: 'Broadcast',
         aiGenerated: true,
@@ -213,7 +213,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         title: 'Sovereign Directive: CEO Update',
         description: 'Direct neural uplink from the Executive Sovereign regarding Q1 strategic alignment.',
         thumbnail: '/images/avatars/executive_leader.png',
-        videoUrl: '/videos/briefings/executive_directive.mp4',
+        videoUrl: '/videos/briefings/principal_briefing.mp4', // Fixed from missing executive_directive.mp4
         duration: '1:15',
         category: 'Internal - Executive',
         aiGenerated: true, // It's an AI avatar of the human
@@ -241,7 +241,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         title: 'Fiscal Audit Walkthrough',
         description: 'Automated breakdown of the annual budget audit for board presentation.',
         thumbnail: '/images/features/executive_grant_writer.png',
-        videoUrl: '/videos/features/data-analysis-demo.mp4',
+        videoUrl: '/videos/briefings/data_briefing.mp4', // Fixed from broken path
         duration: '5:30',
         category: 'Finance',
         aiGenerated: true,
@@ -255,7 +255,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         title: 'Neural Strategy Framework',
         description: 'Watch the AI architect a 5-year district growth plan using predictive modeling.',
         thumbnail: '/images/features/strategic_educator_planner.png',
-        videoUrl: '/videos/features/strategy-demo.mp4',
+        videoUrl: '/videos/briefings/principal_briefing.mp4', // Fixed from missing strategy-demo.mp4
         duration: '5:20',
         category: 'Strategy',
         aiGenerated: true,
@@ -269,7 +269,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         title: 'Human Fidelity Calibration',
         description: 'Observe the zero-latency synchronization between human voice and synthetic avatar.',
         thumbnail: '/images/avatars/dr_alvin_west_premium.png',
-        videoUrl: '/videos/features/fidelity-demo.mp4',
+        videoUrl: '/videos/briefings/principal_briefing.mp4', // Fixed from missing fidelity-demo.mp4
         duration: '3:15',
         category: 'Technology',
         aiGenerated: true,
@@ -283,7 +283,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         title: 'Quantum Budget Audit',
         description: 'Real-time fiscal analysis of multi-million dollar district budgets.',
         thumbnail: '/images/features/executive_grant_writer.png',
-        videoUrl: '/videos/features/budget-demo.mp4',
+        videoUrl: '/videos/briefings/data_briefing.mp4', // Fixed from missing budget-demo.mp4
         duration: '4:45',
         category: 'Finance',
         aiGenerated: true,

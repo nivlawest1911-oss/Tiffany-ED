@@ -15,7 +15,7 @@ import {
   Sparkles,
   Terminal
 } from 'lucide-react';
-import Navbar from '@/components/Navbar';
+import FloatingNavbar from '@/components/FloatingNavbar';
 import LeadershipGym from '@/components/bento/LeadershipGym';
 import { useLeadershipRank } from '@/hooks/useLeadershipRank';
 export default function CognitiveCommandCenter() {
@@ -30,7 +30,7 @@ export default function CognitiveCommandCenter() {
 
   return (
     <div className="min-h-screen bg-black text-white selection:bg-cyan-500/30">
-      <Navbar />
+      <FloatingNavbar />
 
       {/* Ambient Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">

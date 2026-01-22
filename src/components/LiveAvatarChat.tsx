@@ -135,6 +135,7 @@ export default function LiveAvatarChat({
                 body: JSON.stringify({
                     avatarId: heygenId || 'default', // Dynamic ID with fallback
                     text: text,
+                    voiceId: avatarVoice,
                     action: 'create'
                 })
             });

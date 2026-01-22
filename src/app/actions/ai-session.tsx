@@ -9,7 +9,8 @@
 'use server';
 
 import { google } from '@ai-sdk/google';
-import { streamText, streamUI } from 'ai/rsc';
+import { streamText } from 'ai';
+import { streamUI } from '@ai-sdk/rsc';
 import { sql } from '@vercel/postgres';
 import { z } from 'zod';
 import { ReactNode } from 'react';
@@ -97,7 +98,7 @@ export async function startEdIntelSession(
 
         // Stream UI with Generative Artifacts
         const result = await streamUI({
-            model: google('gemini-3-pro'),
+            model: google('gemini-1.5-pro') as any,
 
             // High thinking level for legal compliance
             experimental_thinking_level: 'high',
@@ -123,7 +124,7 @@ export async function startEdIntelSession(
                 // Evidence Folder Analysis
                 analyzeEvidenceFolder: {
                     description: 'Analyze student evidence folder for compliance and risk assessment',
-                    parameters: z.object({
+                    inputSchema: z.object({
                         studentId: z.string(),
                         focusArea: z.enum(['literacy', 'numeracy', 'behavior', 'iep', 'all']),
                     }),
@@ -135,14 +136,14 @@ export async function startEdIntelSession(
               AND (category = ${focusArea} OR ${focusArea} = 'all')
             `;
 
-                        return <EvidenceFolderCard data={ rows } studentId = { studentId } />;
+                        return <EvidenceFolderCard data={rows} studentId={studentId} />;
                     },
                 },
 
                 // Compliance Check
                 checkCompliance: {
                     description: 'Verify compliance with Alabama Administrative Code 290-8-9, Literacy Act, or Numeracy Act',
-                    parameters: z.object({
+                    inputSchema: z.object({
                         documentType: z.enum(['iep', 'literacy_plan', 'numeracy_plan', 'observation']),
                         documentId: z.string(),
                     }),
@@ -150,55 +151,55 @@ export async function startEdIntelSession(
                         // Perform compliance audit
                         const complianceResults = await performComplianceAudit(documentType, documentId);
 
-                        return <ComplianceChecklist results={ complianceResults } />;
+                        return <ComplianceChecklist results={complianceResults} />;
                     },
                 },
 
                 // Literacy Act Report Generator
                 generateLiteracyReport: {
                     description: 'Generate Individual Reading Plan (IRP) per Alabama Literacy Act § 16-6G-5',
-                    parameters: z.object({
+                    inputSchema: z.object({
                         studentId: z.string(),
                         deficiencyAreas: z.array(z.string()),
                     }),
                     generate: async ({ studentId, deficiencyAreas }) => {
-                        return <LiteracyActReport studentId={ studentId } deficiencies = { deficiencyAreas } />;
+                        return <LiteracyActReport studentId={studentId} deficiencies={deficiencyAreas} />;
                     },
                 },
 
                 // Numeracy Act Alert
                 flagNumeracyIntervention: {
                     description: 'Flag student for Tier I math intervention per Alabama Numeracy Act Section 5',
-                    parameters: z.object({
+                    inputSchema: z.object({
                         studentId: z.string(),
                         assessmentScore: z.number(),
                     }),
                     generate: async ({ studentId, assessmentScore }) => {
-                        return <NumeracyActAlert studentId={ studentId } score = { assessmentScore } />;
+                        return <NumeracyActAlert studentId={studentId} score={assessmentScore} />;
                     },
                 },
 
                 // IEP Architect (SB 280 Streamliner)
                 architectIEP: {
                     description: 'Create or update IEP using Alabama Paperwork Streamlining Act (SB 280) unified platform',
-                    parameters: z.object({
+                    inputSchema: z.object({
                         studentId: z.string(),
                         iepType: z.enum(['initial', 'annual', 'amendment']),
                     }),
                     generate: async ({ studentId, iepType }) => {
-                        return <IEPArchitect studentId={ studentId } type = { iepType } />;
+                        return <IEPArchitect studentId={studentId} type={iepType} />;
                     },
                 },
 
                 // CHOOSE Act Eligibility Calculator
                 calculateCHOOSEEligibility: {
                     description: 'Calculate Education Savings Account (ESA) eligibility under Alabama CHOOSE Act',
-                    parameters: z.object({
+                    inputSchema: z.object({
                         householdIncome: z.number(),
                         householdSize: z.number(),
                     }),
                     generate: async ({ householdIncome, householdSize }) => {
-                        return <CHOOSEActCalculator income={ householdIncome } size = { householdSize } />;
+                        return <CHOOSEActCalculator income={householdIncome} size={householdSize} />;
                     },
                 },
             },
@@ -242,7 +243,7 @@ export async function startEdIntelSession(
           )
         `;
             },
-        });
+        } as any);
 
         return result;
     } catch (error: any) {
@@ -282,7 +283,7 @@ export async function startLiveChat(
     message: string
 ) {
     const result = await streamText({
-        model: google('gemini-3-flash'),
+        model: google('gemini-1.5-flash') as any,
 
         // Low thinking for speed
         experimental_thinking_level: 'low',
@@ -291,7 +292,7 @@ export async function startLiveChat(
     For complex legal questions, suggest using the Deep Research mode.`,
 
         messages: [{ role: 'user', content: message }],
-    });
+    } as any);
 
-    return result.toDataStreamResponse();
+    return result.toTextStreamResponse();
 }

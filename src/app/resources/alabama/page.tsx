@@ -12,14 +12,14 @@ import {
   Globe,
   Scale
 } from 'lucide-react';
-import Navbar from '@/components/Navbar';
+import FloatingNavbar from '@/components/FloatingNavbar';
 
 interface Resource {
   title: string;
   description: string;
   url: string;
   category: 'State' | 'District' | 'Policy' | 'Community';
-  icon: React.ReactCenter;
+  icon: React.ReactNode;
 }
 
 export default function AlabamaResources() {
@@ -63,7 +63,7 @@ export default function AlabamaResources() {
 
   return (
     <div className="min-h-screen bg-black text-white selection:bg-blue-500/30">
-      <Navbar />
+      <FloatingNavbar />
 
       {/* Geometric Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none opacity-20">

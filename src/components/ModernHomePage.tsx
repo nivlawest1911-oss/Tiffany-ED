@@ -1,448 +1,392 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
-import {
-    Sparkles, Clock, Users, TrendingUp, CheckCircle, ArrowRight,
-    FileText, Brain, MessageSquare, Award, Zap, BarChart3, Play, Mic, Video,
-    Camera, Download, Copy, Star, Trophy, Rocket, Target, Lightbulb, Code,
-    Bell, Settings, User, Headphones, Wand2, Globe
-} from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useScroll, useSpring, useTransform, useMotionValue, useSpring as useMotionSpring } from 'framer-motion';
+import { Sparkles, ArrowRight, Users, Activity, Cpu, Fingerprint, ScanEye, Zap, Shield, Brain, Globe, Radio, ChevronRight, TrendingUp, Search, Terminal, Command, MessageSquare, Mic } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 
-// Core Layout - Dynamic
+// Core Components (Safe)
 const FloatingNavbar = dynamic(() => import('./FloatingNavbar'), { ssr: false });
-const UnusualHero = dynamic(() => import('./UnusualHero').then(mod => ({ default: mod.UnusualHero })), { ssr: false });
 const Footer = dynamic(() => import('./Footer'), { ssr: false });
 
-// Feature Components - Dynamic
-const FeatureVideos = dynamic(() => import('./FeatureVideos'), { ssr: false });
-const VideoTestimonials = dynamic(() => import('./VideoTestimonials'), { ssr: false });
-const HowItWorksVideo = dynamic(() => import('./HowItWorksVideo'), { ssr: false });
-const PremiumPricingTable = dynamic(() => import('./PremiumPricingTable'), { ssr: false });
-const SpotlightCard = dynamic(() => import('./SpotlightCard'), { ssr: false });
 
-// AI Components - Dynamic
+// --- ANIMATION VARIANTS ---
+const fadeInUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+};
 
-const StrategicPurpose = dynamic(() => import('./StrategicPurpose'), { ssr: false });
-const CloudExtensionsGrid = dynamic(() => import('./cloud/CloudExtensionsGrid'), { ssr: false });
-
-const ResearchFoundations = dynamic(() => import('./ResearchFoundations'), { ssr: false });
-const StrategicAssociations = dynamic(() => import('./StrategicAssociations'), { ssr: false });
-const LeadershipResources = dynamic(() => import('./LeadershipResources'), { ssr: false });
-const LeadershipCinematics = dynamic(() => import('./LeadershipCinematics'), { ssr: false });
-const AITwinGenerator = dynamic(() => import('./ai-twin-generator').then(mod => ({ default: mod.AITwinGenerator })), { ssr: false });
-const VoiceIdentity = dynamic(() => import('./VoiceIdentity'), { ssr: false });
-const OnboardingFlow = dynamic(() => import('./OnboardingFlow'), { ssr: false });
-const AIFeaturesOnboarding = dynamic(() => import('./AIFeaturesOnboarding'), { ssr: false });
-const HolographicBriefing = dynamic(() => import('./HolographicBriefing'), { ssr: false });
-const LiveBriefingConsole = dynamic(() => import('./LiveBriefingConsole'), { ssr: false });
-const CommandPalette = dynamic(() => import('./CommandPalette'), { ssr: false });
-const NotificationCenter = dynamic(() => import('./NotificationCenter'), { ssr: false });
-
-const AIAvatarGallery = dynamic(() => import('./AIAvatarGallery'), {
-    ssr: false,
-    loading: () => <div className="h-96 w-full animate-pulse bg-white/5 rounded-3xl" />
-});
-
-
-// Dashboards - Dynamic
-const InteractiveDashboard = dynamic(() => import('./InteractiveDashboard'), { ssr: false });
-const AnalyticsDashboard = dynamic(() => import('./AnalyticsDashboard'), { ssr: false });
-
-// Showcase - Dynamic
-const FeatureShowcaseGrid = dynamic(() => import('./FeatureShowcaseGrid'), { ssr: false });
-const SequentialRecallGame = dynamic(() => import('./SequentialRecallGame'), { ssr: false });
-const ProfessionalReferral = dynamic(() => import('./ProfessionalReferral'), { ssr: false });
-const SubscriberStream = dynamic(() => import('./SubscriberStream'), { ssr: false });
-const GlobalReachCounter = dynamic(() => import('./GlobalReachCounter'), { ssr: false });
-const InnovationMarketplace = dynamic(() => import('./InnovationMarketplace'), { ssr: false });
-
-// Complete Bento Grid - Dynamic Imports
-const ProfileIdentity = dynamic(() => import('./bento/ProfileIdentity'), { ssr: false });
-const AutomatedIEPAudit = dynamic(() => import('./bento/AutomatedIEPAudit'), { ssr: false });
-const AvatarStudio = dynamic(() => import('./bento/AvatarStudio'), { ssr: false });
-const AvatarMasterclass = dynamic(() => import('./bento/AvatarMasterclass'), { ssr: false });
-const EQGenerator = dynamic(() => import('./bento/EQGenerator'), { ssr: false });
-const ExecutiveDashboard = dynamic(() => import('./bento/ExecutiveDashboard'), { ssr: false });
-const IEPGenerator = dynamic(() => import('./bento/IEPGenerator'), { ssr: false });
-const LeadershipGenerator = dynamic(() => import('./bento/LeadershipGenerator'), { ssr: false });
-const LessonPlanGenerator = dynamic(() => import('./bento/LessonPlanGenerator'), { ssr: false });
-const LeadershipGym = dynamic(() => import('./bento/LeadershipGym'), { ssr: false });
-const LeadershipTraining = dynamic(() => import('./bento/LeadershipTraining'), { ssr: false });
-const LeadershipStream = dynamic(() => import('./bento/LeadershipStream'), { ssr: false });
-const BusinessSolutions = dynamic(() => import('./bento/BusinessSolutions'), { ssr: false });
-const CommunityFeed = dynamic(() => import('./bento/CommunityFeed'), { ssr: false });
-const IdentityManager = dynamic(() => import('./bento/IdentityManager'), { ssr: false });
-const PrivacyPolicy = dynamic(() => import('./bento/PrivacyPolicy'), { ssr: false });
-const AchievementGuide = dynamic(() => import('./bento/AchievementGuide'), { ssr: false });
-const SkillMatrix = dynamic(() => import('./bento/SkillMatrix'), { ssr: false });
-const SocialHub = dynamic(() => import('./bento/SocialHub'), { ssr: false });
-const SystemHealthTile = dynamic(() => import('./bento/SystemHealthTile'), { ssr: false });
-const DistrictBudgetOptimizer = dynamic(() => import('./bento/DistrictBudgetOptimizer'), { ssr: false });
-const LiteracyCoachAI = dynamic(() => import('./bento/LiteracyCoachAI'), { ssr: false });
-const SpecialEdLawAuditor = dynamic(() => import('./bento/SpecialEdLawAuditor'), { ssr: false });
-const ProfessionalBackground = dynamic(() => import('./ProfessionalBackground'), { ssr: false });
-const SovereignDelegate = dynamic(() => import('./SovereignDelegate'), { ssr: false });
-const AIVideoShowcase = dynamic(() => import('./AIVideoShowcase'), { ssr: false });
-const GenerativeMediaStudio = dynamic(() => import('./GenerativeMediaStudio'), { ssr: false });
-const PrincipalAcademy = dynamic(() => import('./PrincipalAcademy'), { ssr: false });
-const CloudCommandCenter = dynamic(() => import('./CloudCommandCenter'), { ssr: false });
-
-export default function ModernHomePage() {
-    const [mounted, setMounted] = useState(false);
-    const [showOnboarding, setShowOnboarding] = useState(false);
-    const [showCommandPalette, setShowCommandPalette] = useState(false);
-    const [showNotifications, setShowNotifications] = useState(false);
-    const [activeDelegate, setActiveDelegate] = useState(0);
-    const [showLiveDemo, setShowLiveDemo] = useState(false);
-
-    const { scrollYProgress } = useScroll();
-    const scaleX = useSpring(scrollYProgress, {
-        stiffness: 100,
-        damping: 30,
-        restDelta: 0.001
-    });
-
-    // Prevent SSR issues
-    useEffect(() => {
-        setMounted(true);
-    }, []);
-
-    // Check if first visit for onboarding
-    useEffect(() => {
-        if (!mounted) return;
-        const hasVisited = localStorage.getItem('edintel_visited');
-        if (!hasVisited) {
-            setTimeout(() => setShowOnboarding(true), 2000);
-            localStorage.setItem('edintel_visited', 'true');
+const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.2
         }
-    }, [mounted]);
-
-    // Keyboard shortcut for command palette
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-                e.preventDefault();
-                setShowCommandPalette(true);
-            }
-        };
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
-    }, []);
-
-    const stats = [
-        { value: '47K+', label: 'Educators', icon: Users, color: 'from-blue-500 to-cyan-500' },
-        { value: '1.5M+', label: 'Hours Saved', icon: Clock, color: 'from-emerald-500 to-teal-500' },
-        { value: '$38M+', label: 'Funds Optimized', icon: TrendingUp, color: 'from-purple-500 to-pink-500' },
-        { value: '1,400+', label: 'AL Districts', icon: Award, color: 'from-orange-500 to-red-500' },
-        { value: '48', label: 'US States', icon: Globe, color: 'from-indigo-500 to-blue-500' },
-    ];
-
-    const features = [
-        {
-            icon: Brain,
-            title: "IEP Specialist",
-            description: "Legally defensible goals in minutes.",
-            color: "from-violet-500 to-purple-600",
-            link: "/generators/iep-architect",
-            image: "/images/iep_architect_mockup.png",
-            badge: "Top Rated"
-        },
-        {
-            icon: Sparkles,
-            title: "Lesson Planner",
-            description: "Adaptive standards-aligned plans.",
-            color: "from-fuchsia-500 to-pink-600",
-            link: "/generators/lesson-planner",
-            image: "/images/lesson_planner_mockup.png",
-            badge: "New",
-            prompts: [
-                "Design a 5th Grade math lesson on fractions that incorporates Kente pattern geometry and culturally-responsive narratives.",
-                "Design a high school American History unit on the Reconstruction Era focusing on economic strategy and legislative policy.",
-                "Create a middle school science lab protocol for renewable energy, tiered for ELL and GT learners."
-            ]
-        },
-        {
-            icon: FileText,
-            title: "Grant Writer",
-            description: "Persuasive funding engine.",
-            color: "from-blue-500 to-cyan-600",
-            link: "/generators/grant-compliance-auditor",
-            image: "/images/grant_writer_mockup.png"
-        }
-    ];
-
-    const delegates = [
-        {
-            name: "Dr. Alvin West",
-            role: "Executive Principal",
-            avatar: "/images/avatars/dr_alvin_west_premium.png",
-            color: "from-amber-600 to-indigo-950",
-            voiceSettings: { pitch: 0.85, rate: 0.9, lang: 'en-US' }
-        },
-        {
-            name: "Keisha Reynolds",
-            role: "Secondary Principal",
-            avatar: "/images/avatars/keisha_reynolds_premium.png",
-            color: "from-emerald-600 to-emerald-900",
-            voiceSettings: { pitch: 1.05, rate: 0.95, lang: 'en-US' }
-        },
-        {
-            name: "Dr. Isaiah Vance",
-            role: "Associate Superintendent",
-            avatar: "/images/avatars/isaiah_vance_premium.png",
-            color: "from-zinc-600 to-zinc-900",
-            voiceSettings: { pitch: 0.95, rate: 1.05, lang: 'en-US' }
-        },
-        {
-            name: "Dr. Emily Robinson",
-            role: "Literacy & Data Scientist",
-            avatar: "/images/avatars/emily_robinson_premium.png",
-            color: "from-violet-600 to-purple-800",
-            voiceSettings: { pitch: 1.15, rate: 0.95, lang: 'en-US' }
-        },
-    ];
-
-    if (!mounted) {
-        return (
-            <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 flex items-center justify-center">
-                <div className="flex flex-col items-center gap-6">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5 }}
-                        className="relative"
-                    >
-                        <img
-                            src="/edintel-sovereign-logo.jpg"
-                            alt="EdIntel SOVEREIGN"
-                            className="w-64 h-64 object-contain drop-shadow-2xl"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-indigo-500/20 to-transparent blur-3xl"></div>
-                    </motion.div>
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.3 }}
-                        className="font-mono text-sm tracking-widest text-indigo-400"
-                    >
-                        INITIALIZING SOVEREIGN INTELLIGENCE...
-                    </motion.p>
-                </div>
-            </div>
-        );
     }
+};
+
+// --- COMPONENTS ---
+
+// 1. CINEMATIC INTRO (Replaces BIOS Boot)
+const SystemIntroVideo = dynamic(() => import('./SystemIntroVideo'), { ssr: false });
+
+// 2. PARALLAX BACKGROUND (Follows Mouse)
+function ParallaxBackground() {
+    const mouseX = useMotionValue(0);
+    const mouseY = useMotionValue(0);
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+        const { clientX, clientY } = e;
+        const moveX = clientX - (typeof window !== 'undefined' ? window.innerWidth : 1000) / 2;
+        const moveY = clientY - (typeof window !== 'undefined' ? window.innerHeight : 1000) / 2;
+        mouseX.set(moveX * 0.05); // Sensitivity
+        mouseY.set(moveY * 0.05);
+    };
 
     return (
-        <div className="min-h-screen bg-[#030303] text-zinc-100 selection:bg-indigo-500/30 relative overflow-hidden font-sans">
-            <ProfessionalBackground />
-
-            {/* Scroll Progress Bar */}
+        <div
+            className="fixed inset-0 z-0 overflow-hidden pointer-events-none"
+            onMouseMove={handleMouseMove}
+        >
+            <div className="absolute inset-0 bg-[#030303]/90 z-10" />
             <motion.div
-                className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-amber-500 z-[100] origin-left"
-                style={{ scaleX }}
-            />
+                style={{ x: mouseX, y: mouseY }}
+                className="absolute inset-[-10%] w-[120%] h-[120%]"
+            >
+                <video
+                    autoPlay loop muted playsInline
+                    className="w-full h-full object-cover opacity-40 scale-110"
+                >
+                    <source src="https://storage.googleapis.com/edintel-evidence-edintel-sovereign-2027/briefings/data_briefing.mp4" type="video/mp4" />
+                </video>
+            </motion.div>
+            <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-20 z-20" />
+        </div>
+    );
+}
 
-            <FloatingNavbar />
+function ParticleField() {
+    const [particles, setParticles] = useState<any[]>([]);
+    useEffect(() => {
+        setParticles(Array.from({ length: 20 }).map((_, i) => ({
+            id: i,
+            x: Math.random() * 100,
+            y: Math.random() * 100,
+            size: Math.random() * 3 + 1,
+            duration: Math.random() * 10 + 10
+        })));
+    }, []);
 
-            <AnimatePresence>{showCommandPalette && <CommandPalette onClose={() => setShowCommandPalette(false)} />}</AnimatePresence>
-            <AnimatePresence>{showNotifications && <NotificationCenter onClose={() => setShowNotifications(false)} />}</AnimatePresence>
-            <AnimatePresence>{showOnboarding && <OnboardingFlow onCompleteAction={() => setShowOnboarding(false)} />}</AnimatePresence>
+    return (
+        <div className="fixed inset-0 pointer-events-none z-10 overflow-hidden">
+            {particles.map((p) => (
+                <motion.div
+                    key={p.id}
+                    className="absolute bg-white/20 rounded-full"
+                    initial={{ left: `${p.x}%`, top: `${p.y}%`, opacity: 0 }}
+                    animate={{ top: [`${p.y}%`, `${p.y - 20}%`], opacity: [0.2, 0] }}
+                    transition={{ duration: p.duration, repeat: Infinity, ease: "linear" }}
+                    style={{ width: p.size, height: p.size }}
+                />
+            ))}
+        </div>
+    );
+}
 
-            {/* AI Features Onboarding */}
-            <AIFeaturesOnboarding />
 
-            <main className="relative z-10">
-                <UnusualHero />
+// 3. LIVE INTERACTIVE TERMINAL (Simulates Chat)
+function InteractiveTerminal({ onCommand }: { onCommand: (cmd: string) => void }) {
+    const [input, setInput] = useState('');
+    const [isListening, setIsListening] = useState(false);
 
-                {/* CONSOLIDATED TRUST BAR */}
-                <section className="relative -mt-20 mb-32 max-w-6xl mx-auto px-4">
-                    <div className="bg-zinc-900/20 backdrop-blur-3xl border border-white/5 rounded-[3rem] p-10 shadow-3xl">
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
-                            {stats.map((stat, index) => (
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!input.trim()) return;
+        onCommand(input);
+        setInput('');
+    };
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="w-full max-w-xl mt-8 relative z-30"
+        >
+            <form onSubmit={handleSubmit} className="relative group">
+                {/* Glowing Border Animation */}
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 via-purple-500 to-indigo-500 rounded-xl opacity-75 blur group-focus-within:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt" />
+
+                <div className="relative flex items-center bg-black backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden">
+                    <div className="pl-4 text-cyan-500 animate-pulse">
+                        <Terminal size={20} />
+                    </div>
+                    <input
+                        type="text"
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        placeholder="Type command to Dr. West..."
+                        className="w-full bg-transparent border-none text-white px-4 py-5 focus:outline-none placeholder:text-zinc-600 font-mono text-sm tracking-wide"
+                    />
+                    <div className="flex items-center gap-2 pr-2">
+                        <button
+                            type="button"
+                            onClick={() => setIsListening(!isListening)}
+                            className={`p-2 rounded-lg transition-colors ${isListening ? 'bg-red-500/20 text-red-500' : 'hover:bg-white/10 text-zinc-400'}`}
+                        >
+                            <Mic size={18} className={isListening ? 'animate-pulse' : ''} />
+                        </button>
+                        <button
+                            type="submit"
+                            className="p-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg transition-colors"
+                        >
+                            <ArrowRight size={18} />
+                        </button>
+                    </div>
+                </div>
+            </form>
+            {/* Typing Suggestions */}
+            <div className="flex gap-2 mt-4 overflow-x-auto pb-2 scrollbar-hide">
+                {['Generate Budget Report', 'Analyze IEP Compliance', 'Start Crisis Protocol'].map((cmd, i) => (
+                    <button
+                        key={i}
+                        onClick={() => onCommand(cmd)}
+                        className="px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] text-zinc-400 hover:bg-white/10 hover:text-white transition-all whitespace-nowrap"
+                    >
+                        {cmd}
+                    </button>
+                ))}
+            </div>
+        </motion.div>
+    );
+}
+
+// 4. HOLOGRAPHIC HERO (Interactive)
+function HolographicHero({ activeAgent, agents, message }: { activeAgent: number, agents: any[], message: string | null }) {
+    const agent = agents[activeAgent];
+
+    return (
+        <AnimatePresence mode="wait">
+            <motion.div
+                key={activeAgent}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 1.05 }}
+                transition={{ duration: 0.8 }}
+                className="relative w-full h-[600px] md:h-[700px] rounded-[3rem] overflow-hidden border-2 border-cyan-500/20 shadow-[0_0_80px_rgba(6,182,212,0.15)] group"
+            >
+                {/* VIDEO FEED */}
+                <div className="absolute inset-0 bg-zinc-900">
+                    <video
+                        autoPlay loop muted playsInline
+                        key={agent.video}
+                        className="w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-[10s]"
+                    >
+                        <source src={agent.video} type="video/mp4" />
+                    </video>
+                    {/* Digital Noise Overlay */}
+                    <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
+                </div>
+
+                {/* HOLOGRAPHIC UI OVERLAY */}
+                <div className="absolute inset-0 z-20 pointer-events-none p-8 flex flex-col justify-between">
+                    {/* Top Bar */}
+                    <div className="flex justify-between items-start">
+                        <div className="flex gap-4">
+                            <motion.div
+                                initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }}
+                                className="px-3 py-1 bg-black/60 backdrop-blur border border-cyan-500/30 rounded text-cyan-400 text-xs font-mono"
+                            >
+                                SIGNAL: STRONG
+                            </motion.div>
+                            <motion.div
+                                initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.1 }}
+                                className="px-3 py-1 bg-black/60 backdrop-blur border border-purple-500/30 rounded text-purple-400 text-xs font-mono"
+                            >
+                                ENCRYPTION: AES-256
+                            </motion.div>
+                        </div>
+                        <Activity className="text-cyan-500 animate-pulse" />
+                    </div>
+
+                    {/* Chat Response Overlay */}
+                    <AnimatePresence>
+                        {message && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -20 }}
+                                className="absolute top-1/2 left-8 right-8 md:right-1/3 bg-black/80 backdrop-blur-xl border-l-4 border-cyan-500 p-6 rounded-r-xl shadow-2xl"
+                            >
+                                <div className="text-xs text-cyan-500 font-bold mb-2 uppercase flex items-center gap-2">
+                                    <MessageSquare size={12} /> Response from {agent.name.split(' ')[1]}
+                                </div>
+                                <p className="text-white text-lg md:text-xl font-light leading-relaxed">
+                                    "{message}"
+                                </p>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    {/* Bottom Info */}
+                    <div className="space-y-2">
+                        <motion.h2
+                            initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
+                            className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter"
+                        >
+                            {agent.name}
+                        </motion.h2>
+                        <p className="text-cyan-400 font-mono text-sm tracking-widest uppercase">{agent.role}</p>
+                    </div>
+                </div>
+
+                {/* Scanning Effect */}
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.05)_1px,transparent_1px)] bg-[size:100%_4px] pointer-events-none" />
+                <motion.div
+                    className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-400/10 to-transparent h-[20%] pointer-events-none"
+                    animate={{ top: ['-20%', '120%'] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                />
+            </motion.div>
+        </AnimatePresence>
+    );
+}
+
+// 5. MAIN PAGE
+export default function ModernHomePage() {
+    const [mounted, setMounted] = useState(false);
+    const [booted, setBooted] = useState(false);
+    const [activeAgentIndex, setActiveAgentIndex] = useState(0);
+    const [agentMessage, setAgentMessage] = useState<string | null>(null);
+    const router = useRouter();
+
+    const { scrollYProgress } = useScroll();
+    const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+
+    useEffect(() => setMounted(true), []);
+
+    // Auto-rotate unless interacting
+    useEffect(() => {
+        if (agentMessage) return; // Don't rotate if reading message
+        const timer = setInterval(() => { setActiveAgentIndex(prev => (prev + 1) % 3); }, 8000);
+        return () => clearInterval(timer);
+    }, [agentMessage]);
+
+    const handleCommand = (cmd: string) => {
+        // Simulate Agent Response
+        setAgentMessage("Processing command...");
+        setTimeout(() => {
+            setAgentMessage(`Accessing ${cmd} protocol. Redirecting to secure module...`);
+            setTimeout(() => {
+                if (cmd.toLowerCase().includes('budget')) router.push('/generators/district-budget');
+                else if (cmd.toLowerCase().includes('iep')) router.push('/generators/iep-architect');
+                else router.push('/generators');
+            }, 2000);
+        }, 1000);
+    };
+
+    const agents = [
+        { id: 'sovereign_1', name: "Dr. Alvin West", role: "Strategic Crisis Lead", video: "https://storage.googleapis.com/edintel-evidence-edintel-sovereign-2027/briefings/principal_briefing.mp4", clearance: "QUANTUM" },
+        { id: 'delegate_2', name: "Keisha Reynolds", role: "Secondary Principal", video: "https://storage.googleapis.com/edintel-evidence-edintel-sovereign-2027/briefings/principal_briefing.mp4", clearance: "L4" },
+        { id: 'delegate_4', name: "Andre Patterson", role: "Behavior Lead", video: "https://storage.googleapis.com/edintel-evidence-edintel-sovereign-2027/briefings/counselor_briefing.mp4", clearance: "L3" }
+    ];
+
+    if (!mounted) return null;
+
+    return (
+        <div className="min-h-screen bg-[#030303] text-zinc-100 font-sans overflow-x-hidden selection:bg-cyan-500/30 cursor-crosshair">
+            <AnimatePresence>
+                {!booted && <SystemIntroVideo onComplete={() => setBooted(true)} />}
+            </AnimatePresence>
+
+            {booted && (
+                <>
+                    <ParallaxBackground />
+                    <ParticleField />
+                    <motion.div className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 via-purple-500 to-indigo-500 z-[100] origin-left" style={{ scaleX }} />
+                    <FloatingNavbar />
+
+                    <main className="relative z-10 pt-24 pb-24">
+                        {/* HERO SECTION */}
+                        <section className="relative min-h-[90vh] flex flex-col items-center justify-center px-4 max-w-[1700px] mx-auto">
+                            <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                                {/* LEFT: CONTROL INTERFACE */}
                                 <motion.div
-                                    key={index}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: index * 0.1 }}
-                                    className="text-center"
+                                    className="lg:col-span-5 relative z-20"
+                                    initial="hidden" animate="visible" variants={staggerContainer}
                                 >
-                                    <div className="text-4xl md:text-5xl font-black text-white mb-2 tracking-tighter">
-                                        {stat.value}
-                                    </div>
-                                    <div className="w-20 h-20 rounded-2xl bg-zinc-900 border border-zinc-800 overflow-hidden relative">
-                                        <img
-                                            src="/images/avatars/dr_alvin_west_premium.png"
-                                            alt="Dr. Alvin West"
-                                            className="w-full h-full object-cover"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                                    </div>
-                                    <div className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">{stat.label}</div>
+                                    <motion.div variants={fadeInUp} className="flex items-center gap-3 mb-8">
+                                        <div className="px-3 py-1 bg-cyan-950/30 border border-cyan-500/30 rounded text-cyan-400 text-xs font-mono flex items-center gap-2">
+                                            <Globe size={12} className="animate-spin-slow" />
+                                            CONNECTED TO MAINNET
+                                        </div>
+                                    </motion.div>
+
+                                    <motion.h1 variants={fadeInUp} className="text-6xl md:text-8xl font-black text-white mb-6 uppercase tracking-tighter leading-[0.85]">
+                                        Animated<br />
+                                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-purple-400 animate-gradient-x">
+                                            Sovereignty
+                                        </span>
+                                    </motion.h1>
+
+                                    <motion.p variants={fadeInUp} className="text-xl text-zinc-400 mb-8 max-w-lg leading-relaxed border-l-4 border-cyan-500 pl-6">
+                                        Engage with the <span className="text-white font-bold">First Live-Action AI Matrix</span>.
+                                        Type a command below to initiate a neural link with your autonomous cabinet.
+                                    </motion.p>
+
+                                    {/* INTERACTIVE TERMINAL */}
+                                    <InteractiveTerminal onCommand={handleCommand} />
+
                                 </motion.div>
-                            ))}
-                        </div>
-                        <div className="mt-10 pt-10 border-t border-white/5 opacity-40">
-                            <SubscriberStream />
-                        </div>
-                        <CloudExtensionsGrid /> {/* NEW */}
-                    </div>
-                </section>
 
-
-
-                {/* THE CORE INTELLIGENCE */}
-                <section className="py-24 max-w-7xl mx-auto px-4">
-                    <div className="flex flex-col lg:flex-row items-center justify-between mb-20 gap-16">
-                        <div className="max-w-xl">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-6">
-                                <BarChart3 size={12} />
-                                <span>District Intelligence</span>
+                                {/* RIGHT: HOLOGRAPHIC DISPLAY */}
+                                <div className="lg:col-span-7 relative">
+                                    <HolographicHero activeAgent={activeAgentIndex} agents={agents} message={agentMessage} />
+                                </div>
                             </div>
-                            <h2 className="text-5xl md:text-7xl font-bold tracking-tight text-white leading-none mb-8">
-                                Leadership at the <br />
-                                <span className="text-zinc-600 italic">Speed of Thought.</span>
-                            </h2>
-                            <p className="text-xl text-zinc-400 leading-relaxed font-light mb-10">
-                                Transforming fragmented data into actionable leadership grids. Real-time analytics, automated audits, and strategic local intelligence.
-                            </p>
-                            <Link href="/dashboard" className="inline-flex items-center gap-4 px-8 py-4 rounded-full bg-white text-black hover:scale-105 transition-all text-sm font-black uppercase tracking-widest">
-                                <span>Launch Executive Roadmap</span>
-                                <ArrowRight className="w-5 h-5" />
-                            </Link>
-                        </div>
-                        <div className="w-full lg:w-1/2">
-                            <InteractiveDashboard />
-                        </div>
-                    </div>
-                </section>
+                        </section>
 
-                {/* THE WORKSPACE - Top 8 Professional Tools */}
-                <section className="py-32 bg-[#080808]">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center mb-20">
-                            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">The Leadership Workspace</h2>
-                            <p className="text-zinc-500 max-w-2xl mx-auto text-lg">
-                                Access the most powerful AI infrastructure in education. Grouped for efficiency, designed for results.
-                            </p>
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
-                            {/* Flagship Flagships (Span 6/12 on LG) */}
-                            <div className="lg:col-span-6"><IEPGenerator /></div>
-                            <div className="lg:col-span-6"><DistrictBudgetOptimizer /></div>
-
-                            {/* Standard Tools (Span 4/12 on LG) */}
-                            <div className="lg:col-span-4"><LessonPlanGenerator /></div>
-                            <div className="lg:col-span-4"><SpecialEdLawAuditor /></div>
-                            <div className="lg:col-span-4"><LiteracyCoachAI /></div>
-
-                            {/* Secondary Support (Span 3/12 on LG) */}
-                            <div className="lg:col-span-3"><AutomatedIEPAudit /></div>
-                            <div className="lg:col-span-3"><ExecutiveDashboard /></div>
-                            <div className="lg:col-span-3"><LeadershipGenerator /></div>
-                            <div className="lg:col-span-3"><AvatarStudio /></div>
-
-                            {/* Identity/EQ (Span 6/12) */}
-                            <div className="lg:col-span-6"><EQGenerator /></div>
-                            <div className="lg:col-span-6"><ProfileIdentity /></div>
-                        </div>
-
-                        <div className="mt-16 flex justify-center">
-                            <Link href="/generators">
-                                <motion.button
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    className="px-8 py-4 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs uppercase tracking-widest transition-all shadow-xl shadow-indigo-500/20"
+                        {/* INFINITE MARQUEE */}
+                        <section className="py-20 bg-black/50 border-y border-white/5 overflow-hidden backdrop-blur-sm relative z-20">
+                            <div className="w-full overflow-hidden">
+                                <motion.div
+                                    className="flex gap-6 w-max"
+                                    animate={{ x: ["0%", "-50%"] }}
+                                    transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
                                 >
-                                    Explore All 70+ Tools
-                                </motion.button>
-                            </Link>
-                        </div>
-                    </div>
-                </section>
-
-                {/* THE DELEGATES - AI Avatar Gallery */}
-                <section className="py-32 overflow-hidden">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 text-center">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-4">
-                            <Users size={12} />
-                            <span>Professional AI Staff</span>
-                        </div>
-                        <h2 className="text-3xl md:text-6xl font-black text-white uppercase tracking-tighter mb-4">
-                            Global Team, <span className="text-zinc-600">Local Impact.</span>
-                        </h2>
-                        <p className="text-zinc-500 max-w-xl mx-auto">
-                            Add professional AI assistants to your team as virtual specialists, coaches, or departmental leads.
-                        </p>
-                    </div>
-                    <AIAvatarGallery />
-                </section>
-
-                {/* INNOVATION SHOWCASE - Demos & Videos */}
-                <AIVideoShowcase />
-
-                <GenerativeMediaStudio />
-
-                <section className="py-32 bg-zinc-950/50">
-                    <LeadershipCinematics />
-                </section>
-
-                <PrincipalAcademy />
-                <AITwinGenerator />
-
-                <ResearchFoundations />
-
-                <StrategicPurpose />
-                <StrategicAssociations />
-                <LeadershipResources />
-
-                <CloudCommandCenter />
-
-                {/* PRICING & FINAL CALL */}
-                <section id="pricing" className="py-32 bg-[#050505]">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
-                        <div className="text-center mb-16">
-                            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">Invest in Excellence.</h2>
-                            <p className="text-zinc-500">Transparent pricing for every leadership vector.</p>
-                        </div>
-                        <PremiumPricingTable />
-                    </div>
-
-                    {/* Final CTA Strip */}
-                    <div className="px-4">
-                        <div className="max-w-5xl mx-auto bg-gradient-to-br from-indigo-600 to-purple-700 rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl shadow-indigo-500/20 group">
-                            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_2px,transparent_2px),linear-gradient(90deg,rgba(255,255,255,0.05)_2px,transparent_2px)] bg-[size:4px_4px] opacity-20 mix-blend-overlay" />
-                            <div className="absolute top-0 right-0 p-12 opacity-10 group-hover:scale-110 transition-transform">
-                                <Sparkles size={200} />
+                                    {[...agents, ...agents, ...agents].map((agent, i) => (
+                                        <div key={i} className="w-[300px] h-[400px] rounded-2xl overflow-hidden relative border border-white/10 group">
+                                            <video autoPlay loop muted playsInline className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity"><source src={agent.video} type="video/mp4" /></video>
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent" />
+                                            <div className="absolute bottom-4 left-4">
+                                                <div className="flex items-center gap-2 mb-1"><div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" /><span className="text-[10px] text-green-500 uppercase">Live</span></div>
+                                                <p className="text-white font-bold">{agent.name}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </motion.div>
                             </div>
-                            <h2 className="relative text-4xl md:text-7xl font-black text-white mb-8 tracking-tighter">
-                                ARCHITECT YOUR <br /> FUTURE TODAY.
-                            </h2>
-                            <Link href="/signup">
-                                <button className="relative px-12 py-5 bg-white text-black font-black uppercase tracking-widest text-sm rounded-full hover:scale-105 transition-transform shadow-xl">
-                                    Start 30-Day Free Trial
-                                </button>
-                            </Link>
-                        </div>
-                    </div>
-                </section>
-            </main>
+                        </section>
 
-            {/* Footer */}
-            <Footer />
+                        {/* CTA */}
+                        <section className="relative py-40 overflow-hidden flex items-center justify-center">
+                            <div className="relative z-10 text-center max-w-4xl px-4">
+                                <Link href="/signup">
+                                    <button className="relative px-16 py-8 bg-white text-black font-black uppercase tracking-widest text-xl hover:bg-cyan-400 transition-all shadow-[0_0_50px_rgba(255,255,255,0.4)] group overflow-hidden">
+                                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                                        <span className="relative">Initiate Protocol Omega</span>
+                                    </button>
+                                </Link>
+                            </div>
+                        </section>
+                    </main>
+                    <Footer />
 
-
-
-
-
-
-
-            {/* Sovereign Command Interface */}
-            <SovereignDelegate />
+                </>
+            )}
         </div>
     );
 }

@@ -207,6 +207,7 @@ export default function NotFound() {
                 <LiveAvatarChat
                     avatarName="Dr. Alvin West"
                     avatarRole="Executive Guide"
+                    avatarImage="/images/avatars/dr_alvin_west_premium.png"
                     avatarVideo="/videos/dr_alvin_talking.mp4"
                     avatarVoice="/audio/dr_alvin.mp3"
                     onClose={() => setShowAvatarChat(false)}

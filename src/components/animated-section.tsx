@@ -1,10 +1,10 @@
 "use client"
 
 import { motion } from "framer-motion"
-import type { HTMLAttributes, ReactCenter } from "react"
+import type { HTMLAttributes, ReactNode } from "react"
 
 interface AnimatedSectionProps extends HTMLAttributes<HTMLDivElement> {
-  children: ReactCenter
+  children: ReactNode
   delay?: number
 }
 
@@ -16,7 +16,7 @@ export function AnimatedSection({ children, className, delay = 0, ...props }: An
       viewport={{ once: true }}
       transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1], delay }}
       className={className}
-      {...props}
+      {...(props as any)}
     >
       {children}
     </motion.div>

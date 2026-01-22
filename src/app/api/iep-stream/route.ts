@@ -72,10 +72,10 @@ Always structure IEPs with:
             system: systemPrompt,
             messages,
             temperature: 0.7,
-            maxTokens: 2000,
+            maxOutputTokens: 2000,
         });
 
-        return result.toDataStreamResponse();
+        return result.toTextStreamResponse();
     } catch (error) {
         console.error('IEP Generation Error:', error);
         return new Response(

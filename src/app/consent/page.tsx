@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ShieldCheck,
@@ -13,7 +13,7 @@ import {
   Stamp,
   Download
 } from 'lucide-react';
-import Navbar from '@/components/Navbar';
+import FloatingNavbar from '@/components/FloatingNavbar';
 
 export default function ParentalOptIn() {
   const [submitted, setSubmitted] = useState(false);
@@ -44,7 +44,7 @@ export default function ParentalOptIn() {
 
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 transition-colors duration-500">
-      <Navbar />
+      <FloatingNavbar />
 
       <main className="max-w-4xl mx-auto px-6 py-16">
         <AnimatePresence mode="wait">

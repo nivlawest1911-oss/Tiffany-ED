@@ -12,7 +12,7 @@ interface CabinetAgent {
     name: string;
     status: AgentStatus;
     currentTask?: string;
-    icon: React.ReactCenter;
+    icon: React.ReactNode;
     color: string;
 }
 

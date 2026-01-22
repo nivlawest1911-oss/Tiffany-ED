@@ -45,7 +45,7 @@ export interface UnifiedPaymentRequest {
 
 export interface UnifiedPaymentResponse {
     paymentId: string;
-    status: 'pending' | 'processing' | 'completed' | 'failed' | 'cancelled';
+    status: 'pending' | 'processing' | 'confirming' | 'completed' | 'failed' | 'cancelled' | 'expired';
     method: PaymentMethod;
     amount: number;
     currency: string;

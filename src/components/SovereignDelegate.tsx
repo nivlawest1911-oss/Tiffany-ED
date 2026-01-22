@@ -14,6 +14,9 @@ import LiveAvatarChat from './LiveAvatarChat';
 import { useHumanBehavior } from '@/hooks/useHumanBehavior';
 import { useLeadershipRank } from '@/hooks/useLeadershipRank';
 import { CORE_AVATARS } from '@/data/avatars';
+import { usePathname } from 'next/navigation';
+import { SOVEREIGN_PROTOCOLS, DEFAULT_PROTOCOL } from '@/data/sovereign-protocols';
+
 const HolographicBriefing = dynamic(() => import('./HolographicBriefing'), { ssr: false });
 
 interface Delegate {
@@ -22,8 +25,10 @@ interface Delegate {
     role: string;
     status: 'active' | 'busy' | 'offline';
     avatar: string;
+    video: string;
     specialty: string;
     heygenId?: string;
+    voiceId?: string;
     clearance: 'L1' | 'L2' | 'L3' | 'Sovereign' | 'Executive Sovereign' | 'Quantum';
 }
 
@@ -33,9 +38,35 @@ interface SovereignDelegateProps {
 }
 
 export default function SovereignDelegate({ initialOpen = false, greetingOverride }: SovereignDelegateProps) {
+    // 1. SAFE RENDER GATE - Prevents Hydration Mismatch
+    const [isMounted, setIsMounted] = useState(false);
+    useEffect(() => setIsMounted(true), []);
+
     const { user } = useAuth();
+    const pathname = usePathname();
     const { isSovereign } = useLeadershipRank();
-    const isExecutive = isSovereign;
+
+    // 2. State & Hooks
+    const [currentProtocol, setCurrentProtocol] = useState(DEFAULT_PROTOCOL);
+    const [showNotification, setShowNotification] = useState(false);
+
+    // Call hook at top level - NEVER inside JSX
+    const humanBehavior = useHumanBehavior(true);
+
+    // Context Logic
+    useEffect(() => {
+        if (!isMounted) return;
+        const protocol = SOVEREIGN_PROTOCOLS[pathname] || DEFAULT_PROTOCOL;
+        setCurrentProtocol(protocol);
+
+        // Announce context change with a slight delay
+        const delay = setTimeout(() => {
+            setShowNotification(true);
+        }, 1000);
+
+        const hide = setTimeout(() => setShowNotification(false), 9000);
+        return () => { clearTimeout(delay); clearTimeout(hide); };
+    }, [pathname, isMounted]);
 
     const INITIAL_DELEGATES: Delegate[] = CORE_AVATARS.map(avatar => ({
         id: avatar.id,
@@ -43,8 +74,10 @@ export default function SovereignDelegate({ initialOpen = false, greetingOverrid
         role: avatar.role,
         status: (avatar.status as 'active' | 'busy' | 'offline') || 'active',
         avatar: avatar.avatar,
+        video: avatar.video,
         specialty: avatar.specialty,
         heygenId: avatar.heygenId,
+        voiceId: avatar.voiceId,
         clearance: (avatar.clearance as Delegate['clearance']) || 'L1'
     }));
 
@@ -73,8 +106,16 @@ export default function SovereignDelegate({ initialOpen = false, greetingOverrid
         }
     }, [isRecording]);
 
-    // Auto-open Sovereign Mode on 'Ctrl+Space' shortcut idea?
+    const [twinImage, setTwinImage] = useState<string | null>(null);
     useEffect(() => {
+        if (typeof window !== 'undefined') {
+            setTwinImage(localStorage.getItem('edintel_twin_image'));
+        }
+    }, []);
+
+    // Auto-open Sovereign Mode on 'Ctrl+Space'
+    useEffect(() => {
+        if (!isMounted) return;
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.ctrlKey && e.code === 'Space') {
                 e.preventDefault();
@@ -83,7 +124,7 @@ export default function SovereignDelegate({ initialOpen = false, greetingOverrid
         };
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, []);
+    }, [isMounted]);
 
     const [isScanningIdentity, setIsScanningIdentity] = useState(false);
 
@@ -94,33 +135,59 @@ export default function SovereignDelegate({ initialOpen = false, greetingOverrid
         }
     }, [isOpen]);
 
+    if (!isMounted) return null;
+
     return (
         <>
-            {/* The Trigger Pill - Always Visible but Discrete */}
+            {/* The Trigger Pill - NOW A LIVE VIDEO BUBBLE */}
             <motion.div
-                className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-auto"
-                initial={{ y: 100 }}
-                animate={{ y: 0 }}
-                transition={{ delay: 1 }}
+                className="fixed bottom-6 right-6 z-50 pointer-events-auto group flex flex-col items-end gap-2"
+                initial={{ y: 100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 1, type: "spring" }}
             >
+                {/* CONTEXTUAL SPEECH BUBBLE */}
+                <AnimatePresence>
+                    {(showNotification) && (
+                        <motion.div
+                            key="notification-bubble"
+                            initial={{ opacity: 0, scale: 0.8, x: 20 }}
+                            animate={{ opacity: 1, scale: 1, x: 0 }}
+                            exit={{ opacity: 0, scale: 0.8, x: 20 }}
+                            onClick={() => { setIsOpen(true); setShowBriefing(true); }}
+                            className="bg-black/90 backdrop-blur-xl border border-amber-500/30 p-4 rounded-2xl rounded-br-none max-w-xs shadow-2xl cursor-pointer hover:bg-zinc-900 transition-colors mb-2 mr-2 pointer-events-auto"
+                        >
+                            <div className="flex items-center gap-2 mb-1">
+                                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                <span className="text-[9px] font-bold text-amber-500 uppercase tracking-widest">{currentProtocol.context}</span>
+                            </div>
+                            <p className="text-xs text-zinc-300 leading-relaxed font-medium">
+                                "{currentProtocol.message}"
+                            </p>
+                            {currentProtocol.suggestedAction && (
+                                <div className="mt-2 text-[9px] text-cyan-400 font-bold uppercase tracking-wider flex items-center gap-1">
+                                    <span className="text-white">Suggested:</span> {currentProtocol.actionLabel || 'Execute'} <ChevronRight size={8} />
+                                </div>
+                            )}
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+
                 <button
                     onClick={() => setIsOpen(true)}
-                    className="group relative flex items-center gap-3 px-6 py-3 rounded-full bg-black/80 backdrop-blur-xl border border-white/10 hover:border-amber-500/50 shadow-2xl transition-all"
+                    className="relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-amber-500/50 shadow-[0_0_30px_rgba(245,158,11,0.2)] bg-black transition-transform hover:scale-105 hover:border-amber-400 group-hover:shadow-[0_0_50px_rgba(245,158,11,0.4)]"
                 >
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-amber-500/0 via-amber-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <video
+                        src={selectedDelegate ? selectedDelegate.video : ''}
+                        autoPlay loop muted playsInline
+                        className={`w-full h-full object-cover scale-150 translate-y-2 pointer-events-none transition-all duration-500 ${currentProtocol.videoBehavior === 'focus' ? 'brightness-110 saturate-120' : ''}`}
+                    />
 
-                    <div className="relative flex h-3 w-3">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
-                    </div>
+                    {/* Living Status Ring */}
+                    <div className={`absolute inset-0 rounded-full border border-amber-500/20 animate-spin-slow ${currentProtocol.videoBehavior === 'alert' ? 'border-red-500/40' : ''}`} />
 
-                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-300 group-hover:text-amber-100 transition-colors">
-                        Sovereign Command
-                    </span>
-
-                    <span className="px-1.5 py-0.5 rounded bg-white/10 text-[9px] font-mono text-zinc-500 border border-white/5">
-                        CTRL+SPC
-                    </span>
+                    {/* Status Dot */}
+                    <div className="absolute bottom-2 right-2 w-3 h-3 bg-emerald-500 border-2 border-black rounded-full shadow-[0_0_10px_#10b981]" />
                 </button>
             </motion.div>
 
@@ -128,6 +195,7 @@ export default function SovereignDelegate({ initialOpen = false, greetingOverrid
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
+                        key="main-modal"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
@@ -135,6 +203,7 @@ export default function SovereignDelegate({ initialOpen = false, greetingOverrid
                         onClick={() => setIsOpen(false)}
                     >
                         <motion.div
+                            key="modal-content"
                             initial={{ scale: 0.9, y: 50 }}
                             animate={{ scale: 1, y: 0 }}
                             exit={{ scale: 0.9, y: 50 }}
@@ -269,17 +338,17 @@ export default function SovereignDelegate({ initialOpen = false, greetingOverrid
                                                             <div className="absolute inset-0 rounded-full border-2 border-amber-500/20 animate-spin-slow" />
                                                             <div className="absolute inset-2 rounded-full border border-amber-500/10 animate-reverse-spin" />
                                                             <motion.img
-                                                                src={selectedDelegate.id === 'user_twin' ? (localStorage.getItem('edintel_twin_image') || selectedDelegate.avatar) : selectedDelegate.avatar}
+                                                                src={selectedDelegate.id === 'user_twin' ? (twinImage || selectedDelegate.avatar) : selectedDelegate.avatar}
                                                                 alt={selectedDelegate.name}
                                                                 className="w-full h-full rounded-full object-cover p-2"
-                                                                animate={useHumanBehavior(true).behaviorStyles}
+                                                                animate={humanBehavior.behaviorStyles}
                                                                 transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
                                                             />
                                                         </div>
                                                         <div>
                                                             <h3 className="text-2xl font-black text-white uppercase tracking-tighter">{selectedDelegate.specialty}</h3>
                                                             <p className="text-sm text-zinc-400 mt-2 max-w-sm mx-auto leading-relaxed">
-                                                                Connecting to {selectedDelegate.name}'s neural index. All communications are encrypted and executive-privileged.
+                                                                {currentProtocol.message}
                                                             </p>
                                                         </div>
 
@@ -389,11 +458,13 @@ export default function SovereignDelegate({ initialOpen = false, greetingOverrid
             <AnimatePresence>
                 {isChatOpen && selectedDelegate && (
                     <LiveAvatarChat
+                        key="live-chat"
                         isOpen={isChatOpen}
                         onClose={() => setIsChatOpen(false)}
                         avatarName={selectedDelegate.name}
                         avatarRole={selectedDelegate.role}
                         avatarImage={selectedDelegate.avatar}
+                        avatarVoice={selectedDelegate.voiceId}
                         greetingText={greetingOverride || `Sovereign Uplink Established. I am ${selectedDelegate.name}. How can I assist you with high-level strategy today?`}
                         theme="professional"
                         heygenId={selectedDelegate.heygenId}
@@ -407,16 +478,18 @@ export default function SovereignDelegate({ initialOpen = false, greetingOverrid
             <AnimatePresence>
                 {showBriefing && selectedDelegate && (
                     <HolographicBriefing
+                        key="hologram"
                         isOpen={showBriefing}
                         onClose={() => setShowBriefing(false)}
-                        title="Executive Sovereign Briefing"
-                        description={`Connecting to secure neural feed of ${selectedDelegate.name}. Analyzing district-level metadata... Stand by for directive.`}
+                        title={currentProtocol.context || "Executive Sovereign Briefing"}
+                        description={currentProtocol.message || `Connecting to secure neural feed of ${selectedDelegate.name}. Stand by for directive.`}
                         avatarImage={selectedDelegate.avatar}
+                        videoSrc={selectedDelegate.video}
                         role={selectedDelegate.role}
                         theme="professional"
                         // Stats can be dynamic later, hardcoded for impact now
                         stats={{
-                            time: "08:42 AM",
+                            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
                             saved: "127h",
                             accuracy: "99.8%"
                         }}
@@ -426,7 +499,3 @@ export default function SovereignDelegate({ initialOpen = false, greetingOverrid
         </>
     );
 }
-
-// Add Tailwind animation if not present elsewhere
-// animate-spin-slow: animation: spin 8s linear infinite;
-// animate-reverse-spin: animation: spin 6s linear infinite reverse;

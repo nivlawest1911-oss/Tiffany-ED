@@ -10,6 +10,7 @@ import Footer from "@/components/Footer"
 import MedicalDisclaimer from "@/components/MedicalDisclaimer"
 import { AuthProvider } from "@/context/AuthContext"
 import "./globals.css"
+import SovereignDelegate from "@/components/SovereignDelegate"
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -84,6 +85,7 @@ export default function RootLayout({
       <body className={`${spaceGrotesk.variable} ${geistMono.variable} font-sans antialiased`} suppressHydrationWarning>
         <AuthProvider>
           {children}
+          <SovereignDelegate />
           <CommandPalette />
           <ClientLayoutValues />
           <MedicalDisclaimer />

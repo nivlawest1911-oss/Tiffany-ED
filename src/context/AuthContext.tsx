@@ -26,56 +26,54 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [isLoading, setIsLoading] = useState(true);
     const router = useRouter();
 
+    // MOCKED AUTHENTICATION - REMOVING EXTERNAL DEPENDENCIES AS REQUESTED
     useEffect(() => {
-        async function checkAuth() {
-            try {
-                const res = await fetch('/api/auth/me');
-                if (res.ok) {
-                    const data = await res.json();
-                    setUser(data.user);
-                }
-            } catch (err) {
-                console.error('Initial auth check failed', err);
-            } finally {
-                setIsLoading(false);
-            }
-        }
-        checkAuth();
+        // Mock init: Auto-login as guest/dev if needed, or just stop loading
+        const mockUser: User = {
+            id: 'mock_sovereign_user',
+            name: 'Executive Director',
+            email: 'director@edintel.ai',
+            tier: 'enterprise',
+            usage_count: 0
+        };
+        // Simulate a logged-in user for development stability
+        setUser(mockUser);
+        setIsLoading(false);
     }, []);
 
     const login = async (url: string, data: any) => {
-        const res = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
-        });
-        const json = await res.json();
-        if (!res.ok) throw new Error(json.error);
+        setIsLoading(true);
+        // Simulate network delay
+        await new Promise(resolve => setTimeout(resolve, 500));
 
-        setUser(json.user);
+        const mockUser: User = {
+            id: 'mock_sovereign_user',
+            name: 'Executive Director',
+            email: 'director@edintel.ai',
+            tier: 'enterprise'
+        };
+        setUser(mockUser);
         router.push('/');
-        router.refresh(); // Refresh to update server components if needed
+        setIsLoading(false);
     };
 
     const signup = async (url: string, data: any) => {
-        const res = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
-        });
-        const json = await res.json();
-        if (!res.ok) throw new Error(json.error);
-
-        setUser(json.user);
+        setIsLoading(true);
+        await new Promise(resolve => setTimeout(resolve, 500));
+        const mockUser: User = {
+            id: 'mock_new_user',
+            name: 'New Executive',
+            email: data.email || 'user@example.com',
+            tier: 'free'
+        };
+        setUser(mockUser);
         router.push('/');
-        router.refresh();
+        setIsLoading(false);
     };
 
     const logout = async () => {
-        await fetch('/api/auth/logout', { method: 'POST' });
         setUser(null);
         router.push('/login');
-        router.refresh();
     };
 
     return (

@@ -63,7 +63,7 @@ function TalkingAvatarTestimonial({ testimonial, theme = 'professional' }: { tes
 
     // Simulated Lip Sync Animation Loop
     useEffect(() => {
-        let interval: CenterJS.Timeout;
+        let interval: NodeJS.Timeout;
         if (isSpeaking) {
             interval = setInterval(() => {
                 // Randomize "mouth" openness/audio level

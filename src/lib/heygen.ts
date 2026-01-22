@@ -1,7 +1,7 @@
 const HEYGEN_API_URL = 'https://api.heygen.com/v2';
 const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY;
 
-export async function createHeyGenVideo(avatarId: string, text: string) {
+export async function createHeyGenVideo(avatarId: string, text: string, voiceId?: string) {
     if (!HEYGEN_API_KEY) {
         throw new Error('HEYGEN_API_KEY is not configured');
     }
@@ -24,7 +24,7 @@ export async function createHeyGenVideo(avatarId: string, text: string) {
                     voice: {
                         type: 'text',
                         input_text: text,
-                        voice_id: 'en-US-ChristopherNeural', // Default high-authority voice
+                        voice_id: voiceId || 'en-US-ChristopherNeural', // Default high-authority voice
                     },
                 },
             ],

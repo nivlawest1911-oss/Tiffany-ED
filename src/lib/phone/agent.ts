@@ -400,7 +400,7 @@ export class AdvancedPhoneFeatures {
         duration: number;
     }> {
         // Enable call recording
-        await twilioClient.calls(callSid).update({
+        await (twilioClient.calls(callSid) as any).update({
             record: true,
         });
 

@@ -10,7 +10,7 @@ import VoiceIdentity from './VoiceIdentity';
 import LiveBriefingConsole from './LiveBriefingConsole';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 import { useAuth } from '@/context/AuthContext';
-import { GENERATORS } from '@/data/generators';
+import { generators as GENERATORS } from '@/data/generators';
 
 interface EnhancedGeneratorProps {
     generatorId: string;

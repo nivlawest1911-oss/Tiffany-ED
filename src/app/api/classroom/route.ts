@@ -1,4 +1,4 @@
-﻿import { generateProfessionalResponse } from '@/lib/leadership-ai';
+import { generateProfessionalResponse } from '@/lib/leadership-ai';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
