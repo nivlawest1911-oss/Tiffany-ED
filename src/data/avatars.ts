@@ -34,7 +34,7 @@ export const CORE_AVATARS: AvatarDefinition[] = [
         heygenId: 'josh_lite3_20230714',
         voiceId: 'TxGEqnSArWdgf43uNMcG', // Josh
         clearance: 'Quantum',
-        video: 'https://storage.googleapis.com/edintel-evidence-edintel-sovereign-2027/principal_briefing.mp4',
+        video: '/videos/briefings/principal_briefing.mp4',
         description: 'High-stakes crisis management and strategic communication director. Ensures district stability during critical periods.',
         achievements: ['Crisis Protocol Author', 'Safe Schools Liaison', 'Strategic Stability Expert'],
         color: 'from-amber-600 to-zinc-900'
@@ -49,7 +49,7 @@ export const CORE_AVATARS: AvatarDefinition[] = [
         heygenId: '36506d33758b4563a948259b37a4e57d',
         voiceId: '21m00Tcm4TlvDq8ikWAM', // Rachel
         clearance: 'L3',
-        video: 'https://storage.googleapis.com/edintel-evidence-edintel-sovereign-2027/principal_briefing.mp4',
+        video: '/videos/briefings/principal_briefing.mp4',
         description: 'Leadership strategist for school culture and teacher efficacy. Keisha specializes in high-impact instructional coaching and building resilient school communities.',
         achievements: ['M.Ed School Leadership', 'National Principal Finalist', '15+ Years Mastery'],
         color: 'from-emerald-600 to-emerald-900'
@@ -64,7 +64,7 @@ export const CORE_AVATARS: AvatarDefinition[] = [
         heygenId: '135ea5597b4f4c8c83e02c637a7b9868',
         voiceId: 'ErXw9S197X3R3mTSST9C', // Antoni
         clearance: 'L3',
-        video: 'https://storage.googleapis.com/edintel-evidence-edintel-sovereign-2027/principal_briefing.mp4',
+        video: '/videos/briefings/principal_briefing.mp4',
         description: 'Elite policy strategist focused on district governance and legislative compliance. Dr. Vance ensures administrative actions are professional, transparent, and aligned with standards.',
         achievements: ['Ed.D Policy & Law', 'State Governance Lead', '400+ Policies Authored'],
         color: 'from-zinc-600 to-zinc-900'
@@ -79,7 +79,7 @@ export const CORE_AVATARS: AvatarDefinition[] = [
         heygenId: 'josh_lite3_20230714',
         voiceId: 'ODq5zOfpSjrW7G7A6iY8', // James
         clearance: 'L2',
-        video: 'https://storage.googleapis.com/edintel-evidence-edintel-sovereign-2027/counselor_briefing.mp4',
+        video: '/videos/briefings/counselor_briefing.mp4',
         description: 'Lead strategist for positive behavior environments. Andre develops frameworks that improve school climate and student outcomes through data-informed empathy.',
         achievements: ['Expert PBIS Trainer', 'FBA Specialist', '200+ Schools Transformed'],
         color: 'from-orange-600 to-red-800'
@@ -94,7 +94,7 @@ export const CORE_AVATARS: AvatarDefinition[] = [
         heygenId: '36506d33758b4563a948259b37a4e57d',
         voiceId: 'EXAVITQu4vr4xnSDxMaL', // Bella
         clearance: 'L2',
-        video: 'https://storage.googleapis.com/edintel-evidence-edintel-sovereign-2027/data_briefing.mp4',
+        video: '/videos/briefings/data_briefing.mp4',
         description: 'Specialist in literacy and student performance analytics. Dr. Robinson bridges the gap between data and actionable classroom intervention strategies.',
         achievements: ['PhD English Education', 'Data Science Specialist', 'Literacy Grant Lead'],
         color: 'from-violet-600 to-purple-800'
@@ -109,7 +109,7 @@ export const CORE_AVATARS: AvatarDefinition[] = [
         heygenId: '36506d33758b4563a948259b37a4e57d',
         voiceId: 'MF3mGyEYCl7XYW7LpInj', // Elli
         clearance: 'L3',
-        video: 'https://storage.googleapis.com/edintel-evidence-edintel-sovereign-2027/data_briefing.mp4',
+        video: '/videos/briefings/data_briefing.mp4',
         description: 'Expert in special education policy and inclusive learning. Dr. Washington ensures every learner has a clear, data-backed success path that honors their unique needs.',
         achievements: ['BCBA-D Certified', 'PhD Behavioral Science', '5000+ IEP Audits'],
         color: 'from-pink-600 to-rose-800'
@@ -124,7 +124,7 @@ export const CORE_AVATARS: AvatarDefinition[] = [
         heygenId: 'josh_lite3_20230714',
         voiceId: 'AZnzlk1XjtbaicYn0nS5', // Nicole
         clearance: 'L3',
-        video: 'https://storage.googleapis.com/edintel-evidence-edintel-sovereign-2027/data_briefing.mp4',
+        video: '/videos/briefings/data_briefing.mp4',
         description: 'Strategic lead for budget optimization and capital recovery. Director Nova specializes in identified zero-waste implementation and ROI maximization.',
         achievements: ['Fiscal Architect', 'Grant Recovery Specialist', '$10M+ Capital Reclaimed'],
         color: 'from-emerald-600 to-teal-900'

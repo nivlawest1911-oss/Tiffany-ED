@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useSpring, useTransform, useMotionValue, useSpring as useMotionSpring } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useSpring, useTransform, useMotionValue, useSpring as useMotionSpring, Variants } from 'framer-motion';
 import { Sparkles, ArrowRight, Users, Activity, Cpu, Fingerprint, ScanEye, Zap, Shield, Brain, Globe, Radio, ChevronRight, TrendingUp, Search, Terminal, Command, MessageSquare, Mic } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -10,12 +10,16 @@ import dynamic from 'next/dynamic';
 // Core Components (Safe)
 const FloatingNavbar = dynamic(() => import('./FloatingNavbar'), { ssr: false });
 const Footer = dynamic(() => import('./Footer'), { ssr: false });
-
+const NeuralBackground = dynamic(() => import('./ui/NeuralBackground'), { ssr: false });
 
 // --- ANIMATION VARIANTS ---
-const fadeInUp = {
+const fadeInUp: Variants = {
     hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+    }
 };
 
 const staggerContainer = {
@@ -289,9 +293,9 @@ export default function ModernHomePage() {
     };
 
     const agents = [
-        { id: 'sovereign_1', name: "Dr. Alvin West", role: "Strategic Crisis Lead", video: "https://storage.googleapis.com/edintel-evidence-edintel-sovereign-2027/briefings/principal_briefing.mp4", clearance: "QUANTUM" },
-        { id: 'delegate_2', name: "Keisha Reynolds", role: "Secondary Principal", video: "https://storage.googleapis.com/edintel-evidence-edintel-sovereign-2027/briefings/principal_briefing.mp4", clearance: "L4" },
-        { id: 'delegate_4', name: "Andre Patterson", role: "Behavior Lead", video: "https://storage.googleapis.com/edintel-evidence-edintel-sovereign-2027/briefings/counselor_briefing.mp4", clearance: "L3" }
+        { id: 'sovereign_1', name: "Dr. Alvin West", role: "Strategic Crisis Lead", video: "/videos/briefings/principal_briefing.mp4", clearance: "QUANTUM" },
+        { id: 'delegate_2', name: "Keisha Reynolds", role: "Secondary Principal", video: "/videos/briefings/principal_briefing.mp4", clearance: "L4" },
+        { id: 'delegate_4', name: "Andre Patterson", role: "Behavior Lead", video: "/videos/briefings/counselor_briefing.mp4", clearance: "L3" }
     ];
 
     if (!mounted) return null;
@@ -305,6 +309,9 @@ export default function ModernHomePage() {
             {booted && (
                 <>
                     <ParallaxBackground />
+                    <motion.div style={{ opacity: scaleX }}>
+                        <NeuralBackground />
+                    </motion.div>
                     <ParticleField />
                     <motion.div className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 via-purple-500 to-indigo-500 z-[100] origin-left" style={{ scaleX }} />
                     <FloatingNavbar />
