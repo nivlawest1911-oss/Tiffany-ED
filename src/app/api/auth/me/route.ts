@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { sql } from '@/lib/db';
+import { sendWelcomeEmail } from '@/services/email-service';
 
 export async function GET() {
     const session = await getSession();
@@ -36,12 +37,19 @@ export async function POST(req: Request) {
         if (!email) return NextResponse.json({ error: 'Email required' }, { status: 400 });
 
         // Upsert into legacy users table
-        await sql`
+        const result = await sql`
             INSERT INTO users (id, name, email, created_at, subscription_tier)
             VALUES (${id || email}, ${name}, ${email}, NOW(), 'free')
             ON CONFLICT (email) DO UPDATE 
             SET name = EXCLUDED.name, id = EXCLUDED.id
+            RETURNING *
         `;
+
+        // If it's a new user (or we want to re-greet), send the welcome email
+        // We can check if it was an insert vs update if needed, but for now we'll trigger it
+        if (result.rows.length > 0) {
+            await sendWelcomeEmail(email, name);
+        }
 
         return NextResponse.json({ success: true });
     } catch (error: any) {
