@@ -1,6 +1,6 @@
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Trophy, Shield, Zap, Sparkles, ChevronRight, Star } from 'lucide-react';
+import { Trophy, ChevronRight, Star } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 import Confetti from 'react-confetti';

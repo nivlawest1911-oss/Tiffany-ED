@@ -153,12 +153,14 @@ export async function GET(request: NextRequest) {
 
         if (!user) {
             // Create new user
+            const newId = crypto.randomUUID();
             const { rows: newUsers } = await sql`
                 INSERT INTO users (
+                    id,
                     email, 
                     name, 
                     role, 
-                    subscriptionTier,
+                    subscription_tier,
                     stripe_customer_id,
                     google_id,
                     avatar_url,
@@ -166,6 +168,7 @@ export async function GET(request: NextRequest) {
                     updated_at
                 )
                 VALUES (
+                    ${newId},
                     ${email}, 
                     ${name}, 
                     'educator', 
@@ -176,7 +179,7 @@ export async function GET(request: NextRequest) {
                     NOW(),
                     NOW()
                 )
-                RETURNING id, email, name, role, subscriptionTier
+                RETURNING id, email, name, role, subscription_tier as "subscriptionTier"
             `;
             user = newUsers[0];
             console.log(`[DATABASE] New user created: ${email} (${detectedTier})`);
@@ -184,7 +187,7 @@ export async function GET(request: NextRequest) {
             // Update existing user
             const updates: string[] = [];
             const needsUpdate =
-                user.subscriptiontier !== detectedTier ||
+                user.subscription_tier !== detectedTier ||
                 user.stripe_customer_id !== stripeCustomerId ||
                 user.google_id !== googleId ||
                 user.avatar_url !== picture;
@@ -193,14 +196,14 @@ export async function GET(request: NextRequest) {
                 await sql`
                     UPDATE users 
                     SET 
-                        subscriptionTier = ${detectedTier},
+                        subscription_tier = ${detectedTier},
                         stripe_customer_id = ${stripeCustomerId},
                         google_id = ${googleId},
                         avatar_url = ${picture},
                         updated_at = NOW()
                     WHERE id = ${user.id}
                 `;
-                user.subscriptiontier = detectedTier;
+                user.subscriptionTier = detectedTier; // Keep camelCase for session logic
                 console.log(`[DATABASE] User updated: ${email} -> ${detectedTier}`);
             }
         }
@@ -210,7 +213,7 @@ export async function GET(request: NextRequest) {
             id: user.id.toString(),
             email: user.email,
             name: user.name,
-            tier: user.subscriptiontier || 'free'
+            tier: user.subscriptionTier || user.subscription_tier || 'free'
         });
 
         console.log(`[SESSION] Created for ${email}`);

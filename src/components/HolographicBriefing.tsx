@@ -2,9 +2,10 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, PlayCircle, Maximize2, Sparkles, Activity, Shield } from 'lucide-react';
+import { X, Mic, Info, Play, Activity, Target } from 'lucide-react';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 import { useHumanBehavior } from '@/hooks/useHumanBehavior';
+import AbilityAnimation from './AbilityAnimation';
 
 interface HolographicBriefingProps {
     isOpen: boolean;
@@ -16,7 +17,8 @@ interface HolographicBriefingProps {
     thumbnail?: string;
     avatarImage?: string; // For the delegate
     role?: string;
-    theme?: 'default' | 'professional';
+    theme?: 'default' | 'professional' | 'sovereign';
+    abilityType?: 'strategy' | 'compliance' | 'analytics' | 'curriculum' | 'identity' | 'communication';
 }
 
 
@@ -29,9 +31,10 @@ export default function HolographicBriefing({
     stats,
     videoSrc,
     thumbnail,
-    avatarImage = "/images/avatars/executive_leader.png", // Default avatar
+    avatarImage = "/images/avatars/dr_alvin_west_premium.png", // Consistent AA default
     role = "Executive Lead",
-    theme = 'default'
+    theme = 'professional',
+    abilityType
 }: HolographicBriefingProps) {
     const { playClick, playHover, playSuccess } = useProfessionalSounds();
     const [isSpeaking, setIsSpeaking] = useState(false);
@@ -62,26 +65,23 @@ export default function HolographicBriefing({
     }, [isOpen]);
 
     const startBriefing = () => {
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel();
+        if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
 
-            // Text to speak: Title, then description
-            const text = `Starting briefing for ${title}. ${description}`;
+        window.speechSynthesis.cancel();
+        setIsSpeaking(false);
+
+        const text = `${title}. ${description}`;
+
+        const buildUtterance = (voices: SpeechSynthesisVoice[]) => {
             const utterance = new SpeechSynthesisUtterance(text);
 
-            // Attempt to find a "Professional" voice
-            const voices = window.speechSynthesis.getVoices();
-
-            // Heuristic for gender based on role/title if not explicit
-            // Defaulting to "Professional Guide" (Male usually for Dr. West) or check props
             // Targeted Voice Selection for "Dr. Alvin West"
             const isAlvin = role.toLowerCase().includes('executive') || role.toLowerCase().includes('alvin') || title.toLowerCase().includes('finance');
 
             let preferredVoice;
             if (isAlvin) {
-                // Prioritize deep authoritative voices
                 preferredVoice = voices.find(v =>
-                    v.name.includes('Daniel') || // UK Male (Often Premium)
+                    v.name.includes('Daniel') ||
                     v.name.includes('Google UK English Male') ||
                     v.name.includes('Rocko') ||
                     v.name.includes('Google US English')
@@ -100,16 +100,29 @@ export default function HolographicBriefing({
                     );
                 }
             }
+
             if (preferredVoice) utterance.voice = preferredVoice;
-
-            utterance.rate = 1.05; // Slightly faster for efficiency
+            utterance.rate = 1.05;
             utterance.pitch = 1.0;
-
             utterance.onstart = () => setIsSpeaking(true);
             utterance.onend = () => setIsSpeaking(false);
-            utterance.onerror = () => setIsSpeaking(false);
+            utterance.onerror = (e) => {
+                console.error("Speech Synthesis Error:", e);
+                setIsSpeaking(false);
+            };
 
             window.speechSynthesis.speak(utterance);
+        };
+
+        const voices = window.speechSynthesis.getVoices();
+        if (voices.length === 0) {
+            window.speechSynthesis.onvoiceschanged = () => {
+                const refreshedVoices = window.speechSynthesis.getVoices();
+                buildUtterance(refreshedVoices);
+                window.speechSynthesis.onvoiceschanged = null; // Clean up
+            };
+        } else {
+            buildUtterance(voices);
         }
     };
 
@@ -188,22 +201,31 @@ export default function HolographicBriefing({
                             {videoSrc ? (
                                 <video
                                     src={videoSrc}
+                                    poster={thumbnail} // Shadow Render
                                     className="w-full h-full object-cover opacity-60"
                                     autoPlay
                                     loop
                                     muted
                                     playsInline
+                                    onLoadedMetadata={(e) => {
+                                        e.currentTarget.play().catch(e => console.warn("Background Video Autoplay Blocked", e));
+                                    }}
                                 />
                             ) : thumbnail ? (
                                 <img src={thumbnail} className="w-full h-full object-cover opacity-50" alt="Context" />
                             ) : (
                                 <div className="absolute inset-0 bg-zinc-950 flex items-center justify-center">
-                                    <div className="text-center">
-                                        <div className="w-12 h-12 border-t border-white/10 rounded-full animate-spin mx-auto mb-4" />
-                                        <p className="text-zinc-600 text-[10px] uppercase font-bold tracking-widest">Loading Briefing...</p>
-                                    </div>
+                                    <AbilityAnimation type={abilityType || 'strategy'} />
                                 </div>
                             )}
+
+                            {/* Floating HUD Elements */}
+                            <div className="absolute top-6 left-6 z-30 flex flex-col gap-2">
+                                <div className="bg-black/60 backdrop-blur-md border border-amber-500/20 px-3 py-1.5 rounded-full flex items-center gap-2">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                    <span className="text-[9px] font-bold text-white uppercase tracking-widest leading-none">NEURAL_LINK: STABLE</span>
+                                </div>
+                            </div>
 
                             {/* Overlay Grid */}
                             <div className="absolute inset-0 bg-[linear-gradient(rgba(17,24,39,0)_2px,transparent_2px),linear-gradient(90deg,rgba(17,24,39,0)_2px,transparent_2px)] bg-[size:30px_30px] opacity-20 pointer-events-none" />
@@ -253,6 +275,7 @@ export default function HolographicBriefing({
                                     onClick={onClose}
                                     onMouseEnter={playHover}
                                     onClickCapture={playClick}
+                                    data-no-intelligence="true"
                                     className="p-2 rounded-full hover:bg-white/10 text-zinc-400 hover:text-white transition-colors"
                                 >
                                     <X size={20} />
@@ -289,6 +312,10 @@ export default function HolographicBriefing({
                                                     ref={videoRef}
                                                     src={videoSrc}
                                                     loop muted playsInline
+                                                    poster={avatarImage} // Shadow Render
+                                                    onLoadedMetadata={(e) => {
+                                                        e.currentTarget.play().catch(e => console.warn("Avatar Video Autoplay Blocked", e));
+                                                    }}
                                                     className="w-full h-full object-cover transform scale-125" // Scale up slightly to focus on face
                                                 />
                                             </motion.div>
@@ -371,9 +398,17 @@ export default function HolographicBriefing({
                                                 ))}
                                             </div>
                                         ) : (
-                                            <div className="text-xs text-zinc-600 uppercase tracking-widest flex items-center gap-2">
-                                                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-                                                Awaiting Input
+                                            <div className="flex flex-col items-center gap-3">
+                                                <div className="text-[10px] text-zinc-600 uppercase tracking-widest flex items-center gap-2">
+                                                    <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+                                                    Awaiting Logic
+                                                </div>
+                                                <button
+                                                    onClick={() => startBriefing()}
+                                                    className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[9px] font-black text-white hover:bg-white/10 uppercase tracking-widest transition-all"
+                                                >
+                                                    Relay Audio
+                                                </button>
                                             </div>
                                         )}
                                     </div>

@@ -1,6 +1,6 @@
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Globe, Shield, Zap, AlertTriangle, MapPin, Search, Maximize2, Activity } from 'lucide-react';
+import { Globe, Shield, MapPin, Search, Maximize2 } from 'lucide-react';
 import { useState } from 'react';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 

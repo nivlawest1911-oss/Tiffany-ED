@@ -1,23 +1,25 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import {
-    Users, Shield, Activity, Brain, Command,
-    MessageSquare, AlertCircle, FileText, X,
-    ChevronRight, Mic, Video, Radio, Target,
-    Github, Globe, Cloud, Zap, Cpu
+    Shield, Activity, Command,
+    MessageSquare, X,
+    ChevronRight, Mic, Video, Radio,
+    Github, Cloud, Zap
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import LiveAvatarChat from './LiveAvatarChat';
-import { useHumanBehavior } from '@/hooks/useHumanBehavior';
 import { useLeadershipRank } from '@/hooks/useLeadershipRank';
 import { CORE_AVATARS } from '@/data/avatars';
 import { usePathname } from 'next/navigation';
 import { SOVEREIGN_PROTOCOLS, DEFAULT_PROTOCOL } from '@/data/sovereign-protocols';
+import HumanAvatar from './ui/HumanAvatar';
 
 const HolographicBriefing = dynamic(() => import('./HolographicBriefing'), { ssr: false });
+const SovereignMediaVault = dynamic(() => import('./SovereignMediaVault'), { ssr: false });
+const Conversation = dynamic(() => import('./cvi/components/conversation').then(mod => mod.Conversation), { ssr: false });
 
 interface Delegate {
     id: string;
@@ -49,9 +51,6 @@ export default function SovereignDelegate({ initialOpen = false, greetingOverrid
     // 2. State & Hooks
     const [currentProtocol, setCurrentProtocol] = useState(DEFAULT_PROTOCOL);
     const [showNotification, setShowNotification] = useState(false);
-
-    // Call hook at top level - NEVER inside JSX
-    const humanBehavior = useHumanBehavior(true);
 
     // Context Logic
     useEffect(() => {
@@ -86,9 +85,10 @@ export default function SovereignDelegate({ initialOpen = false, greetingOverrid
     const [selectedDelegate, setSelectedDelegate] = useState<Delegate | null>(INITIAL_DELEGATES[0]);
     const [isChatOpen, setIsChatOpen] = useState(false);
     const [showBriefing, setShowBriefing] = useState(false);
-    const [activeTab, setActiveTab] = useState<'uplink' | 'voice'>('uplink');
+    const [activeTab, setActiveTab] = useState<'uplink' | 'voice' | 'vault'>('uplink');
     const [isRecording, setIsRecording] = useState(false);
     const [voiceProgress, setVoiceProgress] = useState(0);
+    const [isTavusActive, setIsTavusActive] = useState(false);
 
     // Voice Calibration Logic
     useEffect(() => {
@@ -128,12 +128,26 @@ export default function SovereignDelegate({ initialOpen = false, greetingOverrid
 
     const [isScanningIdentity, setIsScanningIdentity] = useState(false);
 
+
     useEffect(() => {
         if (isOpen) {
             setIsScanningIdentity(true);
             setTimeout(() => setIsScanningIdentity(false), 2000);
         }
     }, [isOpen]);
+
+    // Live System Metrics Simulation
+    const [systemStats, setSystemStats] = useState({ cpu: 12, latency: 45, memory: 34 });
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setSystemStats({
+                cpu: Math.floor(Math.random() * 30) + 10,
+                latency: Math.floor(Math.random() * 40) + 15,
+                memory: Math.floor(Math.random() * 20) + 30
+            });
+        }, 1500);
+        return () => clearInterval(interval);
+    }, []);
 
     if (!isMounted) return null;
 
@@ -164,6 +178,10 @@ export default function SovereignDelegate({ initialOpen = false, greetingOverrid
                             <p className="text-xs text-zinc-300 leading-relaxed font-medium">
                                 "{currentProtocol.message}"
                             </p>
+                            <div className="mt-3 pt-3 border-t border-white/5">
+                                <p className="text-[8px] text-amber-500/80 font-black uppercase tracking-[0.2em] mb-1">Quantum Feature Active</p>
+                                <p className="text-[10px] text-zinc-400">Shift + Click any button/link for <span className="text-amber-400 font-bold">Deep Strategic Info</span>.</p>
+                            </div>
                             {currentProtocol.suggestedAction && (
                                 <div className="mt-2 text-[9px] text-cyan-400 font-bold uppercase tracking-wider flex items-center gap-1">
                                     <span className="text-white">Suggested:</span> {currentProtocol.actionLabel || 'Execute'} <ChevronRight size={8} />
@@ -173,22 +191,60 @@ export default function SovereignDelegate({ initialOpen = false, greetingOverrid
                     )}
                 </AnimatePresence>
 
-                <button
+                <motion.button
                     onClick={() => setIsOpen(true)}
-                    className="relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-amber-500/50 shadow-[0_0_30px_rgba(245,158,11,0.2)] bg-black transition-transform hover:scale-105 hover:border-amber-400 group-hover:shadow-[0_0_50px_rgba(245,158,11,0.4)]"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-visible bg-black transition-all duration-300"
                 >
-                    <video
-                        src={selectedDelegate ? selectedDelegate.video : ''}
-                        autoPlay loop muted playsInline
-                        className={`w-full h-full object-cover scale-150 translate-y-2 pointer-events-none transition-all duration-500 ${currentProtocol.videoBehavior === 'focus' ? 'brightness-110 saturate-120' : ''}`}
+                    {/* Outer Rotating Ring */}
+                    <motion.div
+                        className="absolute inset-0 rounded-full"
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                    >
+                        <div className={`absolute inset-0 rounded-full border-2 ${currentProtocol.videoBehavior === 'alert' ? 'border-red-500/50' : 'border-amber-500/50'} border-t-transparent`} />
+                    </motion.div>
+
+                    {/* Pulsing Glow */}
+                    <motion.div
+                        className={`absolute inset-0 rounded-full ${currentProtocol.videoBehavior === 'alert' ? 'shadow-[0_0_30px_rgba(239,68,68,0.3)]' : 'shadow-[0_0_30px_rgba(245,158,11,0.3)]'}`}
+                        animate={{ opacity: [0.5, 1, 0.5] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                     />
 
-                    {/* Living Status Ring */}
-                    <div className={`absolute inset-0 rounded-full border border-amber-500/20 animate-spin-slow ${currentProtocol.videoBehavior === 'alert' ? 'border-red-500/40' : ''}`} />
+                    {/* Video/Avatar Container */}
+                    <div className="absolute inset-0 rounded-full overflow-hidden border-2 border-amber-500/30 hover:border-amber-400/50 transition-colors">
+                        {selectedDelegate?.video ? (
+                            <video
+                                src={selectedDelegate.video}
+                                poster={selectedDelegate.avatar} // Shadow Render
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                onLoadedMetadata={(e) => {
+                                    e.currentTarget.playbackRate = 1.0;
+                                    e.currentTarget.play().catch(err => console.log("Force-Motion Handshake:", err));
+                                }}
+                                className={`w-full h-full object-cover scale-150 translate-y-2 pointer-events-none transition-all duration-500 ${currentProtocol.videoBehavior === 'focus' ? 'brightness-110 saturate-120' : ''}`}
+                            />
+                        ) : (
+                            <HumanAvatar
+                                src={selectedDelegate?.avatar || '/images/avatars/executive_leader.png'}
+                                alt={selectedDelegate?.name || 'Delegate'}
+                                className="w-full h-full object-cover"
+                            />
+                        )}
+                    </div>
 
-                    {/* Status Dot */}
-                    <div className="absolute bottom-2 right-2 w-3 h-3 bg-emerald-500 border-2 border-black rounded-full shadow-[0_0_10px_#10b981]" />
-                </button>
+                    {/* Status Dot with Pulse */}
+                    <motion.div
+                        className="absolute bottom-2 right-2 w-3 h-3 bg-emerald-500 border-2 border-black rounded-full shadow-[0_0_10px_#10b981]"
+                        animate={{ scale: [1, 1.2, 1] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                </motion.button>
             </motion.div>
 
             {/* Main Command Interface */}
@@ -245,15 +301,30 @@ export default function SovereignDelegate({ initialOpen = false, greetingOverrid
                                     <div className="flex items-center gap-2">
                                         <Cloud size={12} className="text-white/60" />
                                         <div className="flex flex-col">
-                                            <span className="text-[8px] text-zinc-600 font-bold uppercase">Google Cloud</span>
-                                            <span className="text-[9px] text-emerald-500 font-mono">NODE: ALABAMA_1</span>
+                                            <span className="text-[8px] text-zinc-600 font-bold uppercase">Cloud Mainframe</span>
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-[9px] text-emerald-500 font-mono">LATENCY: {systemStats.latency}ms</span>
+                                                <span className="text-[9px] text-amber-500 font-mono">CPU: {systemStats.cpu}%</span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <Zap size={12} className="text-amber-500" />
                                         <div className="flex flex-col">
-                                            <span className="text-[8px] text-zinc-600 font-bold uppercase">Vercel Edge</span>
-                                            <span className="text-[9px] text-emerald-500 font-mono">GLOBAL_MESH</span>
+                                            <span className="text-[8px] text-zinc-600 font-bold uppercase">Linguistic Matrix</span>
+                                            <select
+                                                className="bg-transparent text-[9px] text-emerald-500 font-mono outline-none cursor-pointer border-none p-0 h-auto"
+                                                onChange={async (e) => {
+                                                    const lang = e.target.value;
+                                                    console.log("💎 Switching Linguistic Matrix to:", lang);
+                                                    // In a real app, this would trigger path translation or content translation API
+                                                }}
+                                            >
+                                                <option value="en">MESH: ENGLISH</option>
+                                                <option value="es">MESH: SPANISH</option>
+                                                <option value="fr">MESH: FRENCH</option>
+                                                <option value="zh">MESH: CHINESE</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -274,14 +345,17 @@ export default function SovereignDelegate({ initialOpen = false, greetingOverrid
                                     {delegates.map((delegate) => (
                                         <button
                                             key={delegate.id}
-                                            onClick={() => setSelectedDelegate(delegate)}
+                                            onClick={() => {
+                                                setSelectedDelegate(delegate);
+                                                setIsChatOpen(true); // Open chat immediately for all agents
+                                            }}
                                             className={`w-full p-3 rounded-xl flex items-center gap-3 transition-all ${selectedDelegate?.id === delegate.id
                                                 ? 'bg-amber-500/10 border border-amber-500/30'
                                                 : 'hover:bg-white/5 border border-transparent'
                                                 }`}
                                         >
                                             <div className="relative">
-                                                <img
+                                                <HumanAvatar
                                                     src={delegate.avatar}
                                                     alt={delegate.name}
                                                     onError={(e) => e.currentTarget.src = '/images/avatars/executive_leader.png'}
@@ -329,20 +403,40 @@ export default function SovereignDelegate({ initialOpen = false, greetingOverrid
                                                 >
                                                     Voice Calibration
                                                 </button>
+                                                <button
+                                                    onClick={() => setActiveTab('vault')}
+                                                    className={`text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full transition-all ${activeTab === 'vault' ? 'bg-amber-500/20 text-amber-500 ring-1 ring-amber-500/50' : 'text-zinc-500 hover:text-zinc-300'}`}
+                                                >
+                                                    Quantum Vault
+                                                </button>
                                             </div>
 
                                             {activeTab === 'uplink' ? (
                                                 <div className="h-full flex flex-col">
                                                     <div className="flex-1 flex flex-col items-center justify-center text-center space-y-6">
                                                         <div className="relative w-32 h-32">
-                                                            <div className="absolute inset-0 rounded-full border-2 border-amber-500/20 animate-spin-slow" />
-                                                            <div className="absolute inset-2 rounded-full border border-amber-500/10 animate-reverse-spin" />
-                                                            <motion.img
+                                                            {/* Outer Rotating Ring */}
+                                                            <motion.div
+                                                                className="absolute inset-0 rounded-full border-2 border-amber-500/30 border-t-transparent"
+                                                                animate={{ rotate: 360 }}
+                                                                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                                                            />
+                                                            {/* Inner Counter-Rotating Ring */}
+                                                            <motion.div
+                                                                className="absolute inset-2 rounded-full border border-amber-500/20 border-b-transparent"
+                                                                animate={{ rotate: -360 }}
+                                                                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                                                            />
+                                                            {/* Pulsing Glow */}
+                                                            <motion.div
+                                                                className="absolute inset-0 rounded-full shadow-[0_0_40px_rgba(245,158,11,0.3)]"
+                                                                animate={{ opacity: [0.3, 0.8, 0.3] }}
+                                                                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                                                            />
+                                                            <HumanAvatar
                                                                 src={selectedDelegate.id === 'user_twin' ? (twinImage || selectedDelegate.avatar) : selectedDelegate.avatar}
                                                                 alt={selectedDelegate.name}
                                                                 className="w-full h-full rounded-full object-cover p-2"
-                                                                animate={humanBehavior.behaviorStyles}
-                                                                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
                                                             />
                                                         </div>
                                                         <div>
@@ -361,8 +455,15 @@ export default function SovereignDelegate({ initialOpen = false, greetingOverrid
                                                                 Initiate Uplink
                                                             </button>
                                                             <button
+                                                                onClick={() => setIsTavusActive(true)}
+                                                                className="flex-1 py-4 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-xl font-bold uppercase text-xs tracking-widest hover:scale-105 transition-all shadow-lg shadow-amber-900/30 flex items-center justify-center gap-2 border border-amber-400/30"
+                                                            >
+                                                                <Radio size={16} className="animate-pulse" />
+                                                                Relay Audio
+                                                            </button>
+                                                            <button
                                                                 onClick={() => setShowBriefing(true)}
-                                                                className="flex-1 py-4 bg-zinc-800 text-white rounded-xl font-bold uppercase text-xs tracking-widest hover:bg-zinc-700 transition-colors flex items-center justify-center gap-2"
+                                                                className="w-full py-4 bg-zinc-800 text-white rounded-xl font-bold uppercase text-xs tracking-widest hover:bg-zinc-700 transition-colors flex items-center justify-center gap-2"
                                                             >
                                                                 <Video size={16} />
                                                                 Visual Briefing
@@ -370,19 +471,29 @@ export default function SovereignDelegate({ initialOpen = false, greetingOverrid
                                                         </div>
                                                     </div>
                                                 </div>
+                                            ) : activeTab === 'vault' ? (
+                                                <SovereignMediaVault />
                                             ) : (
                                                 <div className="h-full flex flex-col items-center justify-center text-center space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
                                                     <div className="w-24 h-24 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center relative overflow-hidden">
                                                         {isRecording ? (
                                                             <>
-                                                                <div className="absolute inset-0 bg-red-500/20 animate-pulse" />
-                                                                <div className="flex items-end items-center gap-1 h-12">
-                                                                    {[1, 2, 3, 4, 5].map(i => (
+                                                                <div className="absolute inset-0 bg-red-500/10 animate-pulse rounded-full" />
+                                                                <div className="flex items-end items-center gap-0.5 h-12">
+                                                                    {[...Array(12)].map((_, i) => (
                                                                         <motion.div
                                                                             key={i}
                                                                             className="w-1 bg-red-500 rounded-full"
-                                                                            animate={{ height: [10, 40, 10] }}
-                                                                            transition={{ duration: 0.5, repeat: Infinity, delay: i * 0.1 }}
+                                                                            animate={{
+                                                                                height: [8, Math.random() * 32 + 8, 8],
+                                                                                opacity: [0.6, 1, 0.6]
+                                                                            }}
+                                                                            transition={{
+                                                                                duration: 0.2 + (Math.random() * 0.1),
+                                                                                repeat: Infinity,
+                                                                                delay: i * 0.05,
+                                                                                ease: "easeInOut"
+                                                                            }}
                                                                         />
                                                                     ))}
                                                                 </div>
@@ -489,6 +600,7 @@ export default function SovereignDelegate({ initialOpen = false, greetingOverrid
                         videoSrc={selectedDelegate.video}
                         role={selectedDelegate.role}
                         theme="professional"
+                        abilityType={currentProtocol.abilityType || 'strategy'}
                         // Stats can be dynamic later, hardcoded for impact now
                         stats={{
                             time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
@@ -496,6 +608,36 @@ export default function SovereignDelegate({ initialOpen = false, greetingOverrid
                             accuracy: "99.8%"
                         }}
                     />
+                )}
+            </AnimatePresence>
+            {/* Tavus Conversational Interface Overlay */}
+            <AnimatePresence>
+                {isTavusActive && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-xl flex items-center justify-center p-4 md:p-12"
+                    >
+                        <div className="w-full max-w-5xl h-full max-h-[800px] relative">
+                            <Conversation
+                                onLeave={() => setIsTavusActive(false)}
+                                style={{ borderRadius: '2rem' }}
+                            />
+
+                            {/* Dr. West's Historical Context HUD */}
+                            <div className="absolute top-12 right-12 z-50 w-64 space-y-4 pointer-events-none">
+                                <div className="bg-black/60 backdrop-blur-md border border-amber-500/30 p-4 rounded-2xl">
+                                    <h4 className="text-[10px] font-black text-amber-500 uppercase tracking-widest mb-2">Heritage Grounding</h4>
+                                    <ul className="text-[9px] text-zinc-400 font-mono space-y-1">
+                                        <li>{'>'} PRICHARD_1925_ACTIVE</li>
+                                        <li>{'>'} AFRICATOWN_LINK_SECURE</li>
+                                        <li>{'>'} MCTS_LEGACY_VERSION_1.4</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </motion.div>
                 )}
             </AnimatePresence>
         </>

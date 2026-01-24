@@ -1,6 +1,6 @@
 'use client';
 import { useSchoolData } from '@/hooks/biometric/useSchoolData';
-import { Timer, Zap } from 'lucide-react';
+import { Zap } from 'lucide-react';
 
 export default function EfficiencyPulse() {
   const { totalHoursSaved } = useSchoolData();

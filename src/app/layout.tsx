@@ -11,6 +11,7 @@ import MedicalDisclaimer from "@/components/MedicalDisclaimer"
 import { AuthProvider } from "@/context/AuthContext"
 import "./globals.css"
 import SovereignDelegate from "@/components/SovereignDelegate"
+import { IntelligenceProvider } from "@/context/IntelligenceContext"
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -75,6 +76,8 @@ export const viewport: Viewport = {
   initialScale: 1,
 }
 
+import NeuralCursor from "@/components/NeuralCursor"
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -84,12 +87,15 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${spaceGrotesk.variable} ${geistMono.variable} font-sans antialiased`} suppressHydrationWarning>
         <AuthProvider>
-          {children}
-          <SovereignDelegate />
-          <CommandPalette />
-          <ClientLayoutValues />
-          <MedicalDisclaimer />
-          <Footer />
+          <IntelligenceProvider>
+            <NeuralCursor />
+            {children}
+            <SovereignDelegate />
+            <CommandPalette />
+            <ClientLayoutValues />
+            <MedicalDisclaimer />
+            <Footer />
+          </IntelligenceProvider>
         </AuthProvider>
         <Analytics />
         <SpeedInsights />

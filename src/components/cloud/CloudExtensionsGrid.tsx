@@ -1,5 +1,5 @@
 'use client';
-import { Brain, Eye, Languages, Video, Cpu, ShieldCheck, Database, HardDrive, Map, GitBranch, Key } from 'lucide-react';
+import { Brain, Eye, Languages, Video, Cpu, Database, HardDrive, Map, GitBranch, Key } from 'lucide-react';
 
 const extensions = [
     {

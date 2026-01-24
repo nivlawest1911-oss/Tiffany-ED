@@ -1,6 +1,6 @@
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Users, FileText, AlertTriangle, ShieldCheck, Zap, Activity } from 'lucide-react';
+import { Users, ShieldCheck, Zap, Activity } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 // Agent Status Types

@@ -3,10 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
-    Sparkles, FileText, Brain, MessageSquare, Award, Zap, Users, Calendar,
-    BookOpen, Clipboard, Target, TrendingUp, Shield as LucideShield, Heart, Lightbulb,
-    Code, BarChart3, Megaphone, Palette, Video, GraduationCap, Trophy,
-    Rocket, Search, Filter, ArrowRight, CheckCircle
+    Sparkles, TrendingUp, Shield as LucideShield, Search, ArrowRight
 } from "lucide-react";
 import Link from 'next/link';
 import SpotlightCard from './SpotlightCard';

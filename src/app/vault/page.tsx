@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Lock, FileText, Download, Gavel, Search, Key, RefreshCw, Eye, ScrollText, CheckCircle, Brain } from 'lucide-react';
+import { Lock, FileText, Download, Gavel, Search, Key, Eye, ScrollText, Brain } from 'lucide-react';
 import FloatingNavbar from '@/components/FloatingNavbar';
 import Link from 'next/link';
 

@@ -1,5 +1,5 @@
 'use client';
-import { Play, ClipboardCheck, LayoutGrid, Award, Info, Plus, ChevronRight, Brain, Target, Zap, Shield as LucideShield } from 'lucide-react';
+import { Play, ChevronRight, Brain, Target, Zap, Shield as LucideShield } from 'lucide-react';
 import { useState } from 'react';
 
 export default function LeadershipTraining() {

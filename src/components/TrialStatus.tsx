@@ -1,5 +1,4 @@
 'use client';
-import { motion } from 'framer-motion';
 import { Clock, TrendingUp, DollarSign, Shield } from 'lucide-react';
 import { useLeadershipRank } from '@/hooks/useLeadershipRank';
 import { useAuth } from '@/context/AuthContext';

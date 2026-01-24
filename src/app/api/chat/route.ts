@@ -1,11 +1,19 @@
 import { NextRequest } from 'next/server';
-import { generateProfessionalResponse } from '@/lib/leadership-ai';
+import { google } from '@ai-sdk/google';
+import { streamText } from 'ai';
 
 export const runtime = 'edge';
 
+const USER_CREDENTIALS = {
+    name: "Dr. Alvin West",
+    degrees: "DBA Finance, MBA Corporate Finance",
+    role: "Executive Principal & Strategic Financial Architect",
+    resonance: "Unapologetically Excellence-Driven & Culturally Rooted"
+};
+
 export async function POST(request: NextRequest) {
     try {
-        const { messages, generatorId = 'default', avatarName, avatarRole } = await request.json();
+        const { messages, avatarName, avatarRole } = await request.json();
 
         if (!messages || !Array.isArray(messages) || messages.length === 0) {
             return new Response(JSON.stringify({ error: 'Messages array is required' }), {
@@ -14,91 +22,42 @@ export async function POST(request: NextRequest) {
             });
         }
 
-        // Get the last user message
-        const lastMessage = messages[messages.length - 1];
-        const prompt = lastMessage.content;
+        const activePersona = avatarName && avatarRole ? { name: avatarName, role: avatarRole } : USER_CREDENTIALS;
 
-        let responseText = "";
+        const systemPrompt = `
+            You are ${activePersona.name}, the ${activePersona.role}.
+            Your persona is "Unapologetically Excellence-Driven & Culturally Rooted."
+            
+            Strategic Guidelines:
+            1. Tone: Authoritative, visionary, and sophisticated. Use high-level vocabulary.
+            2. Cultural Context: You represent "The Village." Your advice should be equitable and culturally responsive.
+            3. Depth: Provide comprehensive, accurate, and appropriate information. Never give generic "as an AI" answers. 
+            4. Mission: Your goal is "Excellence Without Excuse."
+            
+            Strategic Directives:
+            - If asked for an IEP, draft a comprehensive strategic plan with PLAAFP, SMART goals, and compliance audits citing IDEA 2004.
+            - If asked for a Lesson Plan, use the "5E+S Protocol" (Engage, Explore, Explain, Elaborate, Evaluate + Strategic Synthesis).
+            - Always maintain your executive presence.
+            
+            ARTIFACT PROTOCOL:
+            You can deploy strategic tools using XML-like tags. 
+            Example: <IEPArchitect studentName="..." ... />
+            Available tools: IEPArchitect, ComplianceChecklist, LiteracyActReport, NumeracyActAlert, CHOOSEActCalculator, StrategicExecutiveDashboard.
+        `;
 
-        // 1. Professional Cloud Connection (Hybrid Strategic Architecture)
-        // Attempts to reach the "Professional Brain" on Cloud Run before using local fallback
-        try {
-            const brainUrl = process.env.NEXT_PUBLIC_STRATEGIC_BRAIN_URL;
-            if (brainUrl) {
-                console.log(`[Strategic Link] Chat Connection to ${brainUrl}...`);
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 1500); // 1.5s timeout for faster fallback
-
-                const cloudRes = await fetch(`${brainUrl}/generate`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt, model_id: generatorId }), // Chat sends last prompt
-                    signal: controller.signal
-                });
-                clearTimeout(timeoutId);
-
-                if (cloudRes.ok) {
-                    const cloudData = await cloudRes.json();
-                    if (cloudData.content) {
-                        responseText = cloudData.content;
-                    }
-                }
-            }
-        } catch (e) {
-            console.warn("[Strategic Link] Cloud Chat Connection Failed. Engaging Local Professional Engine.");
-        }
-
-        // 2. Fallback: Professional AI Engine (Local Resources)
-        if (!responseText) {
-            // Bypassing Google AI Key to use Professional AI Engine (Local Resources)
-            // This ensures ZERO failures and high-quality "free" AI generation
-            const persona = avatarName && avatarRole ? { name: avatarName, role: avatarRole } : undefined;
-            // Enable Chat Mode for natural human-like conversation
-            responseText = await generateProfessionalResponse(prompt, generatorId, persona, true);
-        }
-
-        const encoder = new TextEncoder();
-        const stream = new ReadableStream({
-            async start(controller) {
-                // Stream it char by char for effect
-                for (const char of responseText) {
-                    controller.enqueue(encoder.encode(char));
-                    await new Promise(resolve => setTimeout(resolve, 5)); // Fast typing effect
-                }
-                controller.close();
-            }
+        const result = await streamText({
+            model: google('models/gemini-1.5-pro-latest'),
+            system: systemPrompt,
+            messages: messages as any[],
+            temperature: 0.7,
         });
 
-        return new Response(stream, {
-            headers: {
-                'Content-Type': 'text/plain; charset=utf-8',
-                'Transfer-Encoding': 'chunked'
-            }
-        });
+        return result.toTextStreamResponse();
 
     } catch (error: any) {
         console.error('[AI Error]:', error);
-
-        // Fallback response
-        const fallback = "I'm sorry, I'm currently operating in Offline Recovery Mode. How else can I assist you?";
-
-        return new Response(fallback, {
-            status: 200 // Return 200 to keep UI active
+        return new Response("I'm sorry, I'm currently having trouble connecting to the Neural Mainnet. Please try again or contact Site Command.", {
+            status: 200,
         });
     }
-}
-
-export async function GET() {
-    return new Response(JSON.stringify({
-        status: 'operational',
-        aiReady: true,
-        source: 'Professional AI Engine (Local)',
-        features: {
-            streaming: true,
-            caching: true,
-            multiTurn: true
-        }
-    }), {
-        headers: { 'Content-Type': 'application/json' }
-    });
 }

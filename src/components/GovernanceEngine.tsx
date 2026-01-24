@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Gavel, Scale, BookOpen, Scroll, CheckCircle, AlertTriangle, Users } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Gavel, Scale, BookOpen, Users } from 'lucide-react';
 
 interface MotionTemplate {
     id: string;

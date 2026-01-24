@@ -2,12 +2,11 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Shield as LucideShield, Brain, Zap, Target, Users, Key, Clock, Award, CheckCircle, ArrowRight } from 'lucide-react';
+import { Shield as LucideShield, Brain, Zap, Key, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
 import FloatingNavbar from '@/components/FloatingNavbar';
 import CircadianFilter from '@/components/graphics/CircadianFilter';
-import HolographicBriefing from '@/components/HolographicBriefing';
 import { FounderDossier } from '@/components/founder-dossier';
 
 export default function AboutPage() {

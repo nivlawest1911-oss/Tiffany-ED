@@ -18,7 +18,7 @@ export const strategicCloud = {
         try {
             const res = await fetch(`${GOOGLE_CLOUD_URL}/`);
             return res.ok;
-        } catch (e) {
+        } catch (_e) {
             console.warn("Professional Cloud Connection Offline - Falling back to local neural engine.");
             return false;
         }
@@ -37,7 +37,7 @@ export const strategicCloud = {
 
             if (!res.ok) throw new Error("Cloud Synapse Failed");
             return await res.json();
-        } catch (e) {
+        } catch (_e) {
             throw new Error("Professional Cloud unreachable");
         }
     },
@@ -57,7 +57,7 @@ export const strategicCloud = {
             });
             if (!res.ok) throw new Error("Vision Connection Failed");
             return await res.json();
-        } catch (e) {
+        } catch (_e) {
             console.warn("Visual Cortex Offline - Returning simulation.");
             return {
                 status: "simulated",

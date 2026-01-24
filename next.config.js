@@ -1,12 +1,25 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // TypeScript bypass is still supported and essential
     typescript: {
         ignoreBuildErrors: true,
     },
-    // Empty turbopack config disables it and uses Webpack
-    turbopack: {},
-    // DO NOT add the eslint block here. It is gone in v16.
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: '**.supabase.co',
+            },
+            {
+                protocol: 'https',
+                hostname: '**.vercel-storage.com',
+            },
+            {
+                protocol: 'https',
+                hostname: '**.googleusercontent.com',
+            }
+        ],
+    },
+    // Turbo is enabled via CLI flags in v16, keeping config clean
 };
 
 module.exports = nextConfig;

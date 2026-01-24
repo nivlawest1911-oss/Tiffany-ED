@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Play, Sparkles, CheckCircle, Video, Radio } from 'lucide-react';
+import { Play, CheckCircle, Video, Radio } from 'lucide-react';
 import VideoPlayer from './VideoPlayer';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 import HolographicBriefing from './HolographicBriefing';

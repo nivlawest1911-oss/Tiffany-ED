@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Landmark, TrendingUp, ShieldAlert, FileSearch, ArrowRight, Brain, PieChart, Calculator } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { TrendingUp, ShieldAlert, FileSearch, ArrowRight, Brain, PieChart, Calculator } from 'lucide-react';
 
 export default function DistrictBudgetOptimizer() {
     const [isHovered, setIsHovered] = useState(false);

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-    BookOpen, GraduationCap, Scale, FileCheck, Library, Lightbulb,
+    BookOpen, GraduationCap, FileCheck, Library, Lightbulb,
     Compass, Download, ArrowUpRight, Shield as LucideShield, Landmark, BarChart3,
     Users, Settings, Briefcase, ExternalLink, Search, Sparkles, Lock
 } from "lucide-react";

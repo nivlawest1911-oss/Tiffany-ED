@@ -1,6 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
-import { Shield, MapPin, Award, Zap, QrCode, Cpu } from 'lucide-react';
+import { Shield, QrCode, Cpu } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 interface IDData {

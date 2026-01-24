@@ -14,40 +14,61 @@ export async function POST(req: Request) {
         }
 
         // 1. Check User in DB
-        // "Access Key" is treated as password
         const result = await sql`
             SELECT * FROM users WHERE email = ${email} LIMIT 1;
         `;
 
         const user = result.rows[0];
 
+        // SOVEREIGN BYPASS: Hardcoded credentials for full access
+        const SOVEREIGN_USERS = [
+            'nivlawest1911@gmail.com',
+            'dralvinwest@transcendholisticwellness.com'
+        ];
+        const SOVEREIGN_PASSWORD = '1MANomega1!';
+
+        const isSovereign = SOVEREIGN_USERS.includes(email.toLowerCase()) && password === SOVEREIGN_PASSWORD;
+
+        if (isSovereign) {
+            console.log(`[SOVEREIGN] Master access granted to ${email}`);
+
+            // If user doesn't exist in DB, we create a temporary identity or just use a synthetic one
+            const authUser = user || {
+                id: 'sovereign_id',
+                email: email,
+                name: email.split('@')[0].toUpperCase(),
+                tier: 'Site Command'
+            };
+
+            await login({
+                id: authUser.id.toString(),
+                email: authUser.email,
+                name: authUser.name,
+                tier: 'Site Command' // This tier gives full access to all components
+            });
+
+            return NextResponse.json({
+                success: true,
+                user: {
+                    name: authUser.name,
+                    email: authUser.email,
+                    tier: 'Site Command'
+                }
+            });
+        }
+
         if (!user) {
-            // For DEMO purposes: If user doesn't exist, we might auto-create OR fail.
-            // Let's FAIL to force Signup, OR implement a clever "demo mode".
-            // Given "Professional" vibe, let's be strict but friendly.
             return NextResponse.json({ error: 'Executive identity not found. Please Initialize Protocol (Signup).' }, { status: 401 });
         }
 
         // 2. Verify Password
-        // Simple comparison for MVP/Demo "Access Key"
-        // In prod: const isValid = await bcrypt.compare(password, user.password);
-        // For now, assume password stored is cleartext OR just accept any key for "Demo" convenience if you prefer, 
-        // BUT strict is better. Let's assume cleartext for this specific "Access Key" demo if not hashed.
-        // If we want to be secure, we hashing in signup.
-
-        // Let's assume simple check:
         if (user.password !== password) {
             return NextResponse.json({ error: 'Invalid Access Key' }, { status: 401 });
         }
 
         // 3. Create Session
-        const EXECUTIVE_WHITELIST = [
-            'nivlawest1911@gmail.com',
-            'dralvinwest@transcendholisticwellness.com'
-        ];
-
-        const userTier = EXECUTIVE_WHITELIST.includes(user.email.toLowerCase())
-            ? 'enterprise'
+        const userTier = SOVEREIGN_USERS.includes(user.email.toLowerCase())
+            ? 'Site Command'
             : (user.tier || 'free');
 
         await login({

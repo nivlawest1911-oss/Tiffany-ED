@@ -1,6 +1,6 @@
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mic, CheckCircle, FileText, ChevronRight, AlertTriangle, Zap, Activity } from 'lucide-react';
+import { Mic, ChevronRight, AlertTriangle, Activity } from 'lucide-react';
 import { useState } from 'react';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 

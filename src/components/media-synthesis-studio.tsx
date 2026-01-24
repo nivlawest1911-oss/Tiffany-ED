@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Video, Mic, Film, Play, Download, Wand2, Sparkles, MonitorPlay } from "lucide-react"
+import { Mic, Film, Play, Download, Wand2, Sparkles, MonitorPlay } from "lucide-react"
 
 const videoTemplates = [
     {

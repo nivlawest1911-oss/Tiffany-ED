@@ -1,0 +1,48 @@
+name: Sovereign Industrial Backup
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Midnight daily
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 'Authenticate to Google Cloud'
+        id: 'auth'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          # Using Workload Identity Federation as per Sovereignty Directive
+          workload_identity_provider: '${{ secrets.GCP_WIF_PROVIDER }}'
+          service_account: '${{ secrets.GCP_WIF_SERVICE_ACCOUNT }}'
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v2'
+
+      - name: 'Install PostgreSQL Client'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+
+      - name: 'Execute Sovereign Data Harvest'
+        env:
+          PGPASSWORD: ${{ secrets.DB_PASSWORD }}
+        run: |
+          TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+          FILENAME="edintel_sovereign_backup_${TIMESTAMP}.sql"
+          # Harvest from primary database cluster
+          pg_dump -h "${{ secrets.DB_HOST }}" -U "${{ secrets.DB_USER }}" -d "${{ secrets.DB_NAME }}" > $FILENAME
+          
+          # Inject into Google Cloud Storage (GCS Vault)
+          gsutil cp $FILENAME gs://${{ secrets.GCP_BACKUP_BUCKET }}/backups/
+
+      - name: 'Strategic Verification'
+        run: echo "🚀 Sovereign Backup Synchronized to GCS Vault."

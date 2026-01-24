@@ -1,7 +1,6 @@
 'use server';
 
 import Stripe from 'stripe';
-import { PRICING_PLANS } from '@/lib/stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
     apiVersion: '2025-01-27.acacia' as any,
@@ -113,6 +112,44 @@ export async function getStripeHandshake(): Promise<StripeHandshake> {
         };
     } catch (error) {
         console.error("[SOVEREIGN] Stripe handshake failed:", error);
+        throw error;
+    }
+}
+
+/**
+ * Creates a direct Stripe Checkout session for a specific plan.
+ * Used for high-stakes administrative procurement.
+ */
+export async function createSovereignCheckout(priceId: string, planName: string, userId?: string) {
+    if (!process.env.STRIPE_SECRET_KEY) {
+        throw new Error("STRIPE_SECRET_KEY is not configured on this node.");
+    }
+
+    try {
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items: [
+                {
+                    price: priceId,
+                    quantity: 1,
+                },
+            ],
+            mode: 'subscription',
+            success_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/pricing`,
+            subscription_data: {
+                trial_period_days: 30,
+            },
+            metadata: {
+                userId: userId || 'anonymous',
+                planName: planName,
+                protocol: 'SOVEREIGN_DIRECT_INITIATION'
+            }
+        });
+
+        return { url: session.url };
+    } catch (error) {
+        console.error("[SOVEREIGN] Failed to create checkout session:", error);
         throw error;
     }
 }

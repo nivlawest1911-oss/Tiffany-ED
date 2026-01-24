@@ -1,11 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     Sparkles, Video, Image as ImageIcon, FileText,
-    Cpu, Activity, CheckCircle, Smartphone,
-    Layers, Zap, Command, Loader2
+    Cpu, CheckCircle, Zap, Command, Loader2
 } from 'lucide-react';
 
 const GENERATED_ASSETS = [

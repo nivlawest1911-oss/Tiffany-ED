@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Building2, TrendingUp, Users, DollarSign, ArrowRight, Shield as LucideShield, PieChart, Activity, Lock, Phone } from 'lucide-react';
+import { Building2, TrendingUp, Shield as LucideShield, PieChart, Activity, Lock, Phone } from 'lucide-react';
 import FloatingNavbar from '@/components/FloatingNavbar';
 import { generateProfessionalResponse } from '@/lib/leadership-ai';
 
@@ -31,13 +31,21 @@ export default function DistrictStrategyCommand() {
             Output Structure:
             1. Executive Diagnosis: Blunt assessment of the current trajectory based on pain points.
             2. The "Professional" Solution: High-level strategic shift needed (mention operational excellence).
-            3. Projected ROI Analysis: Estimate financial recovery if changes are made (use fake but realistic multiplier logic, e.g. "Recovering $1,200 per teacher in lost time").
+            3. Projected ROI Analysis: Estimate financial recovery if changes are made.
             4. Implementation Vector: 3-Phase rollout plan over 90 days.
             
-            Tone: Authoritative, C-Suite Professional, Financially Astute. "Million Dollar Consulting" voice.`;
+            Tone: Authoritative, C-Suite Professional, Financially Astute.`;
 
-            const response = await generateProfessionalResponse(prompt, 'district-strategy');
-            setStrategyDoc(response);
+            const response = await fetch('/api/generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt, generatorId: 'district-strategy' })
+            });
+
+            if (!response.ok) throw new Error('Generation failed');
+
+            const text = await response.text();
+            setStrategyDoc(text);
             setStep(2);
         } catch (error) {
             console.error("Strategy Gen Error", error);

@@ -1,11 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-    Github, Zap, Cloud, Server, Shield, Activity,
-    ArrowRight, CheckCircle, Terminal, Globe,
-    Cpu, Database, Layout, Rocket
+    Github, Zap, Cloud, Activity, Terminal, Rocket
 } from 'lucide-react';
 
 const LOG_MESSAGES = [

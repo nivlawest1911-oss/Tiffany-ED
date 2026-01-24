@@ -1,7 +1,7 @@
 "use client";
 
 import { strategicCloud } from '@/lib/professional-cloud';
-import { Wifi, WifiOff, Activity } from 'lucide-react';
+import { Wifi, WifiOff } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export default function ConnectionStatus() {

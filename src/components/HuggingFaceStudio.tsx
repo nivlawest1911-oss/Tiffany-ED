@@ -15,10 +15,8 @@ import {
     Brain,
     Zap,
     Eye,
-    MessageSquare,
     Wand2,
     Camera,
-    Volume2,
     Search,
 } from 'lucide-react';
 

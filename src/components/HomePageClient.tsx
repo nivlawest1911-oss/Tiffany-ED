@@ -2,17 +2,16 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { auth } from '../firebase/index';
-import { onAuthStateChanged, User } from '@/firebase';
+import { supabase } from '@/lib/supabase';
 
 export default function HomePageClient() {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
     });
-    return () => unsubscribe();
+    return () => subscription.unsubscribe();
   }, []);
 
   return (

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Shield, Key, Lock, Eye, EyeOff, Server, Cpu, Database, Zap, Activity, User as UserIcon } from 'lucide-react';
+import { Shield, Key, Lock, Eye, EyeOff, Cpu, Database, Zap, Activity, User as UserIcon, Mic, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface ApiKey {
@@ -38,6 +38,19 @@ export default function SovereignApiVault() {
         bigquery: ''
     });
 
+    // Load keys from localStorage on mount
+    React.useEffect(() => {
+        const stored = localStorage.getItem('admin_keys');
+        if (stored) {
+            try {
+                const parsed = JSON.parse(stored);
+                setKeys(prev => ({ ...prev, ...parsed }));
+            } catch (e) {
+                console.error("Failed to parse admin_keys", e);
+            }
+        }
+    }, []);
+
     const [isVisible, setIsVisible] = useState<{ [key: string]: boolean }>({
         openai: false,
         elevenlabs: false,
@@ -50,8 +63,12 @@ export default function SovereignApiVault() {
 
     const services = [
         { id: 'openai', label: 'OpenAI (GPT-4o)', icon: Cpu, color: 'text-green-400', desc: 'Reasoning Engine' },
+        { id: 'heygen', label: 'HeyGen Avatar (Stream)', icon: UserIcon, color: 'text-rose-400', desc: 'Real-Time Human' },
+        { id: 'elevenlabs', label: 'ElevenLabs Voice', icon: Activity, color: 'text-blue-400', desc: 'Vocal Synthesis' },
         { id: 'vertex', label: 'Vertex AI Super', icon: Zap, color: 'text-amber-400', desc: 'Sovereign Intelligence' },
         { id: 'vision', label: 'Vision AI', icon: Eye, color: 'text-cyan-400', desc: 'Visual Synthesis' },
+        { id: 'stt', label: 'Neural Speech (STT)', icon: Mic, color: 'text-rose-400', desc: 'Auditory Perception' },
+        { id: 'translate', label: 'Linguistic Core', icon: Globe, color: 'text-emerald-400', desc: 'Global Translation' },
         { id: 'bigquery', label: 'BigQuery Data', icon: Database, color: 'text-indigo-400', desc: 'Analytics Core' }
     ];
 
@@ -60,11 +77,15 @@ export default function SovereignApiVault() {
     };
 
     const updateKey = (id: string, value: string) => {
-        setKeys(prev => ({ ...prev, [id]: value }));
+        setKeys(prev => {
+            const newKeys = { ...prev, [id]: value };
+            localStorage.setItem('admin_keys', JSON.stringify(newKeys));
+            return newKeys;
+        });
     };
 
     return (
-        <div className="fixed top-24 right-4 z-50 font-sans">
+        <div className="fixed top-24 right-4 z-[100] font-sans">
             <AnimatePresence mode="wait">
                 {!isOpen && (
                     <motion.button

@@ -2,14 +2,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import FloatingNavbar from '@/components/FloatingNavbar';
 import Footer from '@/components/Footer';
-import VideoPlayer from '@/components/VideoPlayer';
 import VoiceIdentityComponent from '@/components/VoiceIdentity';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
-import { ArrowRight, Shield as LucideShield, Award, Users, Brain, Lock, Radio, Facebook } from 'lucide-react';
-import Link from 'next/link';
+import { Shield as LucideShield, Award, Users, Brain, Lock } from 'lucide-react';
 import ProfessionalBroadcastCenter from '@/components/bento/ProfessionalBroadcastCenter';
 import ProfessionalSocialConnection from '@/components/bento/ProfessionalSocialConnection';
 

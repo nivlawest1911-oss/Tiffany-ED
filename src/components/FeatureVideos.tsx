@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Brain, Sparkles, BarChart3, Zap, Play, Radio } from 'lucide-react';
-import VideoPlayer from './VideoPlayer';
 import Link from 'next/link';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 import HolographicBriefing from './HolographicBriefing';
@@ -41,7 +40,7 @@ export default function FeatureVideos() {
             icon: BarChart3,
             title: 'Data Intelligence',
             description: 'Transform raw assessment noise into clear executive intelligence. We visualize complex data arrays into actionable leadership grids for immediate decision making.',
-            video: '/videos/briefings/data_briefing.mp4',
+            video: '', // REPLACED: Stock footage removed
             thumbnail: '/images/features/collaborative_intelligence_team.png',
             color: 'from-indigo-500 to-blue-600',
             link: '/generators/data-analyzer',

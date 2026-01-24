@@ -1,6 +1,6 @@
 'use client';
 import { useSchoolData } from '@/hooks/biometric/useSchoolData';
-import { BookOpen, ExternalLink, Box } from 'lucide-react';
+import { BookOpen } from 'lucide-react';
 
 export default function ResourceLibrary() {
   const { resources = [], students = [] } = useSchoolData();

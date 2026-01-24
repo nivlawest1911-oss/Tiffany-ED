@@ -1,8 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { DollarSign, User, BadgeCheck, Zap, Globe } from "lucide-react";
+import { User, BadgeCheck, Zap, Globe } from "lucide-react";
 
 interface SubscriberEvent {
     id: string;

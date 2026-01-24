@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Quote, Star, Play, Pause, Volume2, Mic } from 'lucide-react';
+import { Quote, Star, Play, Pause, Mic } from 'lucide-react';
 
 // Waveform Bar Component
 function AudioWaveformBar({ index, theme }: { index: number, theme: 'default' | 'professional' }) {

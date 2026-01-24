@@ -30,8 +30,16 @@ export default function GrantWriterLite() {
             3. Budget Justification (High Level)
             4. Expected Impact (ROI)`;
 
-            const response = await generateProfessionalResponse(prompt, 'grant-writer');
-            setGeneratedGrant(response);
+            const response = await fetch('/api/generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt, generatorId: 'grant-writer' })
+            });
+
+            if (!response.ok) throw new Error('Grant generation failed');
+
+            const text = await response.text();
+            setGeneratedGrant(text);
             setStep(2);
         } catch (error) {
             console.error("Grant Gen Error", error);

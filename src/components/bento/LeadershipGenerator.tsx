@@ -7,7 +7,6 @@ import {
     BrainCircuit,
     Loader2,
     Sparkles,
-    FileText,
     Users,
     AlertCircle,
     ShieldCheck,

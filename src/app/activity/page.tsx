@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
-    Activity, Clock, TrendingUp, Users, FileText, Brain,
-    Sparkles, Award, Target, Zap, Calendar, Filter
+    Activity, Clock, Users, FileText, Brain,
+    Sparkles, Award, Target, Calendar
 } from 'lucide-react';
 import Link from 'next/link';
 import FloatingNavbar from '@/components/FloatingNavbar';

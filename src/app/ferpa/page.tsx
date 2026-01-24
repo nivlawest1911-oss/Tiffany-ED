@@ -1,6 +1,6 @@
 'use client';
 
-import { ShieldCheck, Lock, Database, FileKey, Check, Server, EyeOff, FileText, Smartphone } from 'lucide-react';
+import { ShieldCheck, Lock, FileKey, Check, Server, EyeOff } from 'lucide-react';
 import FloatingNavbar from '@/components/FloatingNavbar';
 import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';

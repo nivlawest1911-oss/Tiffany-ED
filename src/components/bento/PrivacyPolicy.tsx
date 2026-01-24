@@ -1,5 +1,5 @@
 'use client';
-import { Shield as LucideShield, Lock, Eye, FileText, Scale, UserCheck, Database, Globe, ArrowRight, Zap, Brain } from "lucide-react";
+import { Shield as LucideShield, Lock, Eye, FileText, Scale, UserCheck, Database, Globe, ArrowRight, Brain } from "lucide-react";
 import { useState, useEffect } from 'react';
 
 

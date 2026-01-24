@@ -3,8 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
-    Home, Sparkles, Clock, User, Menu, X, Search, Bell,
-    FileText, TrendingUp, Settings, LogOut
+    Home, Sparkles, Clock, User, Menu, X, Search, Bell, TrendingUp, Settings, LogOut
 } from 'lucide-react';
 import Link from 'next/link';
 

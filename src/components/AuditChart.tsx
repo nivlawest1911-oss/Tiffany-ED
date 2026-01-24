@@ -1,7 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { firestore } from '@/firebase';
-import { collection, query, getDocs, orderBy } from '@/firebase';
+import { supabase } from '@/lib/supabase';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from 'recharts';
 
 export default function AuditChart() {
@@ -11,16 +10,20 @@ export default function AuditChart() {
     const fetchData = async () => {
       const counts: Record<string, number> = {};
       try {
-        const q = query(collection(firestore, 'strategicAudits'), orderBy('timestamp', 'asc'));
-        const snapshot = await getDocs(q);
+        const { data: audits, error } = await supabase
+          .from('strategic_audits')
+          .select('created_at')
+          .order('created_at', { ascending: true });
+
+        if (error) throw error;
 
         // Group audits by date
-        snapshot.docs.forEach(doc => {
-          const date = doc.data().timestamp?.toDate().toLocaleDateString() || 'Pending';
+        audits.forEach(audit => {
+          const date = new Date(audit.created_at).toLocaleDateString() || 'Pending';
           counts[date] = (counts[date] || 0) + 1;
         });
       } catch (e) {
-        console.warn("Audit chart fetch failed (permissions?), using fallback", e);
+        console.warn("Audit chart fetch failed (Supabase), using fallback", e);
       }
 
       let formattedData = Object.keys(counts).map(date => ({

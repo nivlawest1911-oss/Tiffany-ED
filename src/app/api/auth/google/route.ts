@@ -1,11 +1,20 @@
 import { NextResponse } from 'next/server';
 
-export async function GET() {
+export async function GET(request: Request) {
     const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
-    const REDIRECT_URI = `${process.env.NEXT_PUBLIC_APP_URL || 'https://edintel-app.vercel.app'}/api/auth/google/callback`;
+
+    // Attempt to get domain from request if NEXT_PUBLIC_APP_URL is missing
+    const host = request.headers.get('host');
+    const protocol = host?.includes('localhost') ? 'http' : 'https';
+    const domain = process.env.NEXT_PUBLIC_APP_URL || `${protocol}://${host}`;
+
+    const REDIRECT_URI = `${domain}/api/auth/google/callback`;
 
     if (!GOOGLE_CLIENT_ID) {
-        return NextResponse.json({ error: 'Google Client ID missing' }, { status: 500 });
+        return NextResponse.json({
+            error: 'Google Client ID missing',
+            message: 'Please ensure GOOGLE_CLIENT_ID is set in your environment.'
+        }, { status: 500 });
     }
 
     const scope = 'openid email profile';

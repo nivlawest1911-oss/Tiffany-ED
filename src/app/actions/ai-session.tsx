@@ -13,7 +13,6 @@ import { streamText } from 'ai';
 import { streamUI } from '@ai-sdk/rsc';
 import { sql } from '@vercel/postgres';
 import { z } from 'zod';
-import { ReactNode } from 'react';
 
 // Import Generative UI Components
 import { EvidenceFolderCard } from '@/components/artifacts/EvidenceFolderCard';

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Globe, Users, Zap, TrendingUp } from 'lucide-react';
+import { Globe, Zap, TrendingUp } from 'lucide-react';
 
 export default function GlobalReachCounter() {
     const [count, setCount] = useState(1245678);

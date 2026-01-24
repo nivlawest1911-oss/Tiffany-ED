@@ -1,8 +1,8 @@
 
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-import { Mic, Play, Square, Share2 } from 'lucide-react';
+import { useState, useRef } from 'react';
+import { Mic, Square } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface VoiceIdentityProps {

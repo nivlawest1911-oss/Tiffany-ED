@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Award, Shield, Star, Users, Briefcase, GraduationCap, Zap, Globe } from 'lucide-react';
+import { Award, Shield, Users, Zap, Globe } from 'lucide-react';
 
 const HIGHLIGHTS = [
     {

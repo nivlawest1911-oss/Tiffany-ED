@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import FloatingNavbar from '@/components/FloatingNavbar';
 import Footer from '@/components/Footer';
 import HolographicBriefing from '@/components/HolographicBriefing';
+import AnimatedEducatorHero from '@/components/AnimatedEducatorHero';
 
 export default function ContactPage() {
     const [formState, setFormState] = useState({ name: '', email: '', message: '' });
@@ -180,12 +181,11 @@ export default function ContactPage() {
                         transition={{ duration: 0.5, delay: 0.2 }}
                         className="bg-zinc-900/50 backdrop-blur-sm border border-white/10 rounded-3xl p-8 lg:p-10 relative overflow-hidden"
                     >
-                        <div className="absolute inset-0 z-0 opacity-20">
-                            <img
-                                src="/images/contact_command.png"
-                                alt="Command Center Interface"
-                                className="w-full h-full object-cover"
-                            />
+                        {/* Animated Background - Replaced static image */}
+                        <div className="absolute inset-0 z-0 opacity-30 rounded-3xl overflow-hidden">
+                            <div className="scale-150 -translate-y-20">
+                                <AnimatedEducatorHero />
+                            </div>
                             <div className="absolute inset-0 bg-gradient-to-br from-zinc-900 via-zinc-900/95 to-indigo-950/90" />
                         </div>
 
@@ -254,32 +254,167 @@ export default function ContactPage() {
                 </div>
             </div>
 
-            {/* New Community Section */}
-            <section className="relative py-24 bg-zinc-950 overflow-hidden border-t border-white/5">
+            {/* Professional Community Section */}
+            <section className="relative py-32 bg-gradient-to-b from-black via-zinc-950 to-black overflow-hidden border-t border-white/5">
+                {/* Animated Background */}
                 <div className="absolute inset-0 z-0">
-                    <img
-                        src="/images/community_connection.png"
-                        alt="Diverse educators connecting"
-                        className="w-full h-full object-cover opacity-10"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/80 to-transparent" />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(99,102,241,0.1),transparent_50%)]" />
+                    <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-pulse" />
+                    <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
                 </div>
 
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                    <h2 className="text-3xl sm:text-4xl font-black text-white mb-6">
-                        Join the Professional Community
-                    </h2>
-                    <p className="text-xl text-zinc-400 max-w-2xl mx-auto mb-8">
-                        Connect with other forward-thinking educators who are reclaiming their time and expertise with EdIntel.
-                    </p>
-                    <div className="flex justify-center gap-4">
-                        <button className="px-8 py-3 rounded-xl bg-indigo-600/20 text-indigo-300 border border-indigo-500/30 hover:bg-indigo-600/30 transition-all font-semibold backdrop-blur-sm">
-                            Join Discord
-                        </button>
-                        <button className="px-8 py-3 rounded-xl bg-white/5 text-white border border-white/10 hover:bg-white/10 transition-all font-semibold backdrop-blur-sm">
-                            Newsletter
-                        </button>
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    {/* Header */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                        className="text-center mb-16"
+                    >
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-bold uppercase tracking-widest mb-6 border border-indigo-500/20">
+                            <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
+                            Professional Network
+                        </div>
+                        <h2 className="text-4xl sm:text-5xl font-black text-white mb-6 bg-gradient-to-r from-white via-indigo-200 to-purple-200 bg-clip-text text-transparent">
+                            Join the Professional Community
+                        </h2>
+                        <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
+                            Connect with <span className="text-white font-semibold">5,000+ forward-thinking educators</span> who are reclaiming their time and expertise with EdIntel. Share strategies, get support, and shape the future of education.
+                        </p>
+                    </motion.div>
+
+                    {/* Community Cards */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                        {/* Discord Card */}
+                        <motion.a
+                            href="https://discord.gg/edintel"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.2 }}
+                            className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-600/20 to-purple-600/20 border border-indigo-500/30 hover:border-indigo-500/50 transition-all duration-300 p-8"
+                        >
+                            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/0 to-purple-500/0 group-hover:from-indigo-500/10 group-hover:to-purple-500/10 transition-all duration-300" />
+
+                            <div className="relative z-10">
+                                <div className="flex items-start justify-between mb-6">
+                                    <div className="p-4 rounded-xl bg-indigo-500/20 group-hover:bg-indigo-500/30 transition-colors">
+                                        <MessageSquare className="w-8 h-8 text-indigo-400" />
+                                    </div>
+                                    <div className="px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-xs font-bold border border-green-500/30">
+                                        LIVE
+                                    </div>
+                                </div>
+
+                                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-indigo-300 transition-colors">
+                                    Join Discord Community
+                                </h3>
+
+                                <p className="text-zinc-400 mb-6 leading-relaxed">
+                                    Real-time collaboration, instant support, and exclusive workshops. Connect with educators, share resources, and get help from our team.
+                                </p>
+
+                                <div className="space-y-2 mb-6">
+                                    <div className="flex items-center gap-2 text-sm text-zinc-300">
+                                        <CheckCircle className="w-4 h-4 text-green-500" />
+                                        <span>24/7 Community Support</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 text-sm text-zinc-300">
+                                        <CheckCircle className="w-4 h-4 text-green-500" />
+                                        <span>Weekly Office Hours with Dr. West</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 text-sm text-zinc-300">
+                                        <CheckCircle className="w-4 h-4 text-green-500" />
+                                        <span>Exclusive Templates & Resources</span>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-center gap-2 text-indigo-400 font-semibold group-hover:gap-3 transition-all">
+                                    <span>Join 5,000+ Educators</span>
+                                    <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                </div>
+                            </div>
+                        </motion.a>
+
+                        {/* Newsletter Card */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.3 }}
+                            className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-600/20 to-pink-600/20 border border-purple-500/30 hover:border-purple-500/50 transition-all duration-300 p-8"
+                        >
+                            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 to-pink-500/0 group-hover:from-purple-500/10 group-hover:to-pink-500/10 transition-all duration-300" />
+
+                            <div className="relative z-10">
+                                <div className="flex items-start justify-between mb-6">
+                                    <div className="p-4 rounded-xl bg-purple-500/20 group-hover:bg-purple-500/30 transition-colors">
+                                        <Mail className="w-8 h-8 text-purple-400" />
+                                    </div>
+                                    <div className="px-3 py-1 rounded-full bg-purple-500/20 text-purple-400 text-xs font-bold border border-purple-500/30">
+                                        WEEKLY
+                                    </div>
+                                </div>
+
+                                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-purple-300 transition-colors">
+                                    Subscribe to Newsletter
+                                </h3>
+
+                                <p className="text-zinc-400 mb-6 leading-relaxed">
+                                    Get weekly insights, AI education trends, platform updates, and exclusive tips delivered to your inbox every Monday.
+                                </p>
+
+                                <form onSubmit={(e) => { e.preventDefault(); alert('Newsletter subscription coming soon!'); }} className="space-y-4">
+                                    <input
+                                        type="email"
+                                        placeholder="your.email@district.edu"
+                                        required
+                                        className="w-full bg-black/50 backdrop-blur-md border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition-colors placeholder:text-zinc-500"
+                                    />
+                                    <button
+                                        type="submit"
+                                        className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-purple-500/25 transition-all group-hover:scale-[1.02]"
+                                    >
+                                        <span>Subscribe Now</span>
+                                        <Send className="w-4 h-4" />
+                                    </button>
+                                </form>
+
+                                <p className="text-xs text-zinc-500 mt-4 text-center">
+                                    Join 12,000+ subscribers • Unsubscribe anytime
+                                </p>
+                            </div>
+                        </motion.div>
                     </div>
+
+                    {/* Social Proof */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.4 }}
+                        className="text-center"
+                    >
+                        <div className="flex items-center justify-center gap-8 flex-wrap">
+                            <div className="text-center">
+                                <div className="text-3xl font-bold text-white mb-1">5,000+</div>
+                                <div className="text-sm text-zinc-500">Discord Members</div>
+                            </div>
+                            <div className="h-12 w-px bg-white/10" />
+                            <div className="text-center">
+                                <div className="text-3xl font-bold text-white mb-1">12,000+</div>
+                                <div className="text-sm text-zinc-500">Newsletter Subscribers</div>
+                            </div>
+                            <div className="h-12 w-px bg-white/10" />
+                            <div className="text-center">
+                                <div className="text-3xl font-bold text-white mb-1">98%</div>
+                                <div className="text-sm text-zinc-500">Satisfaction Rate</div>
+                            </div>
+                        </div>
+                    </motion.div>
                 </div>
             </section>
 

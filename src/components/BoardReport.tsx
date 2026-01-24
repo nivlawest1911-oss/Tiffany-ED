@@ -1,16 +1,23 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { firestore } from '@/firebase';
-import { collection, query, getDocs, where } from '@/firebase';
+import { supabase } from '@/lib/supabase';
 
 export default function BoardReport() {
   const [stats, setStats] = useState({ total: 0, compliant: 0, hotspots: 0 });
 
   useEffect(() => {
     const fetchStats = async () => {
-      const snapshot = await getDocs(collection(firestore, 'strategicAudits'));
-      const all = snapshot.docs.length;
-      const consentCount = snapshot.docs.filter(d => d.data().requiresConsent === true).length;
+      const { data: audits, error } = await supabase
+        .from('strategic_audits')
+        .select('*');
+
+      if (error) {
+        console.warn("Board report fetch failed (Supabase), using fallback");
+        return;
+      }
+
+      const all = audits.length;
+      const consentCount = audits.filter(d => d.requires_consent === true).length;
       setStats({ total: all, compliant: consentCount, hotspots: 3 });
     };
     fetchStats();

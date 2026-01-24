@@ -1,10 +1,8 @@
 'use client';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import HolographicBriefing from './HolographicBriefing';
 import {
     Clock,
-    FileText,
     Users,
     TrendingUp,
     Sparkles,

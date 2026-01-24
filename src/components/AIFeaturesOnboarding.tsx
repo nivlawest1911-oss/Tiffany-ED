@@ -8,8 +8,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-    Sparkles, Brain, Mic, Image, FileText, Workflow, X,
-    ChevronRight, ChevronLeft, Check, Rocket, Zap
+    Sparkles, Brain, Mic, X,
+    ChevronRight, ChevronLeft, Check, Rocket
 } from 'lucide-react';
 import Link from 'next/link';
 

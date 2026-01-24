@@ -1,6 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
-import { Activity, Shield, Zap, Target, TrendingUp, Cpu } from 'lucide-react';
+import { Activity, Shield, Zap, Target, TrendingUp } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 export default function LeadershipMetrics() {

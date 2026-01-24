@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Grid, List, Zap, Shield as LucideShield, BookOpen, Users, Activity, Briefcase } from 'lucide-react';
+import { Search, Grid, Zap, Shield as LucideShield, BookOpen, Users, Activity, Briefcase } from 'lucide-react';
 import { GENERATORS } from '@/data/generators';
 import ProfessionalBackground from '@/components/ProfessionalBackground';
 

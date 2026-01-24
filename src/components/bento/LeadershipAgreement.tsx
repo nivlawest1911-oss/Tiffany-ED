@@ -1,5 +1,5 @@
 'use client';
-import { ScrollText, Gavel, ShieldAlert, Cpu, UserCheck, Flame, Scale, ArrowRight, Zap, CheckCircle2 } from 'lucide-react';
+import { Gavel, ShieldAlert, Cpu, UserCheck, Flame, Scale, ArrowRight, Zap, CheckCircle2 } from 'lucide-react';
 import { useState } from 'react';
 
 export default function LeadershipAgreement() {

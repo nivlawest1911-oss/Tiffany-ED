@@ -1,7 +1,7 @@
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, Lock, Unlock, AlertCircle, CheckCircle2, ShieldCheck, Activity, Zap } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { Shield, Lock, Unlock, ShieldCheck, Activity, Zap } from 'lucide-react';
+import { useState } from 'react';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 
 export default function PolicyShield() {

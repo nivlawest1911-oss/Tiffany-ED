@@ -1,8 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { motion } from 'framer-motion';
-import { Mic, Activity, Globe, Shield as LucideShield, Cpu, Lock } from "lucide-react";
+import { Activity, Globe } from "lucide-react";
 import { generateProfessionalResponse } from '../lib/leadership-ai';
 import GenerativeLogStream from './GenerativeLogStream';
 

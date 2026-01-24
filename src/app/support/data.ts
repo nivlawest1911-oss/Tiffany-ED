@@ -1,5 +1,4 @@
 // src/app/support/data.ts
-import { ShieldCheck, Wallet, FileText, Zap, Users, BarChart3, Lock, MessageSquare } from 'lucide-react';
 
 export const POPULAR_ARTICLES = [
     { id: 1, title: 'How to allocate Professional Tokens to sub-nodes?' },

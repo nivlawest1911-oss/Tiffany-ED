@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Sparkles, Brain, Shield, Globe, Cpu } from 'lucide-react';
+import { Brain } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 const NOISE_SVG = `data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E`;
@@ -14,16 +14,18 @@ export default function SystemIntroVideo({ onComplete }: { onComplete: () => voi
             setTimeout(() => setPhase(1), 1000), // Logo Stroke
             setTimeout(() => setPhase(2), 2500), // Fill & Glow
             setTimeout(() => setPhase(3), 3500), // Text Reveal
-            setTimeout(() => setPhase(4), 4500), // Fade Out
-            setTimeout(onComplete, 5500)
+            setTimeout(() => setPhase(4), 3000), // Fade Out
+            setTimeout(onComplete, 3500)
         ];
         return () => phases.forEach(clearTimeout);
     }, [onComplete]);
 
     return (
         <motion.div
-            className="fixed inset-0 z-[100] bg-black flex items-center justify-center overflow-hidden"
-            exit={{ opacity: 0, duration: 1 }}
+            className="fixed inset-0 z-[100] bg-black flex items-center justify-center overflow-hidden cursor-pointer"
+            onClick={onComplete} // Allow click to skip
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1 }}
         >
             {/* Background Neural Noise */}
             <div className="absolute inset-0 opacity-20">

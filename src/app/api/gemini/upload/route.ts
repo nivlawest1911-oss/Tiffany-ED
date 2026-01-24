@@ -5,7 +5,6 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { put } from '@vercel/blob';
-import { GeminiMediaManager } from '@/lib/gemini/workspace';
 
 export async function POST(request: NextRequest) {
     try {

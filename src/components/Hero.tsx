@@ -4,7 +4,6 @@ import Link from "next/link"
 import Image from "next/image"
 import { useRef, useState, useEffect } from "react"
 import { gsap } from "gsap"
-import { Plus } from "lucide-react"
 
 export function Hero() {
   const cardRef = useRef<HTMLDivElement>(null)

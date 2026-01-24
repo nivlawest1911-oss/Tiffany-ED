@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { BookOpen, Sparkles, Languages, PenTool, ArrowRight, Brain, Lightbulb, GraduationCap } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { BookOpen, Sparkles, Languages, PenTool, ArrowRight, Brain, GraduationCap } from 'lucide-react';
 
 export default function LiteracyCoachAI() {
     const [isHovered, setIsHovered] = useState(false);

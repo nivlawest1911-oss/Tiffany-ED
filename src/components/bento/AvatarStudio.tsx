@@ -3,24 +3,17 @@ import { useState } from 'react';
 import {
     User,
     Sparkles,
-    Download,
-    Settings,
     Zap,
     Shield as LucideShield,
-    Film,
     Video,
     Globe,
     Activity,
     Dna,
-    Binary,
     CheckCircle2,
     Loader2,
-    ArrowRight,
     Type,
     Copy,
-    List,
-    Volume2,
-    Mic
+    Volume2
 } from "lucide-react";
 
 

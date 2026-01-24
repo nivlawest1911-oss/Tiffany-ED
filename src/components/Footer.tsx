@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Crown, Mail, MapPin, Twitter, Facebook, Linkedin, Github, Phone, MessageSquare, Video } from 'lucide-react';
+import { Crown, Mail, MapPin, Facebook, Linkedin, Phone, MessageSquare, Video } from 'lucide-react';
 import EdIntelLogo from './EdIntelLogo';
 import HolographicBriefing from './HolographicBriefing';
 

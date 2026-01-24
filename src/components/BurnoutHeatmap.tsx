@@ -1,5 +1,5 @@
 'use client';
-import { Activity, Flame, Clock, CalendarDays } from 'lucide-react';
+import { Activity, Flame } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function BurnoutHeatmap() {

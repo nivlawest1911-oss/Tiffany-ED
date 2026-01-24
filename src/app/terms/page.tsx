@@ -1,125 +1,78 @@
 'use client';
 
-import { Scale, AlertCircle, Gavel, Check, ScrollText } from 'lucide-react';
-import FloatingNavbar from '@/components/FloatingNavbar';
-import Footer from '@/components/Footer';
+import React from 'react';
 import { motion } from 'framer-motion';
+import { FileText, Zap, Scale, Clock, ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
 
 export default function TermsPage() {
     return (
-        <main className="min-h-screen bg-black text-white selection:bg-indigo-500/30">
-            <FloatingNavbar />
+        <div className="min-h-screen bg-[#0a0a0c] text-white p-8 md:p-24 selection:bg-emerald-500/30">
+            <div className="max-w-4xl mx-auto">
+                <Link href="/" className="inline-flex items-center gap-2 text-[10px] uppercase font-black tracking-widest text-zinc-600 hover:text-emerald-400 transition-colors mb-16 group">
+                    <ArrowLeft className="w-3 h-3 group-hover:-translate-x-1 transition-transform" /> Return to Command Deck
+                </Link>
 
-            {/* Header */}
-            <div className="pt-32 pb-16 px-6 relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-[500px] bg-purple-900/10 blur-[120px] pointer-events-none" />
+                <header className="mb-20">
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className="w-10 h-10 rounded-2xl bg-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-900/40 text-black">
+                            <FileText className="w-6 h-6" />
+                        </div>
+                        <span className="text-[10px] uppercase font-black tracking-[0.5em] text-emerald-500">Service Governance Layer</span>
+                    </div>
+                    <h1 className="text-5xl md:text-7xl font-black italic uppercase tracking-tighter leading-none mb-8">
+                        Terms of <span className="text-emerald-500">Sovereignty</span>
+                    </h1>
+                    <p className="text-zinc-500 text-[10px] tracking-[0.4em] uppercase font-bold italic">
+                        Effective Date: January 2026 // Mobile County District Node
+                    </p>
+                </header>
 
-                <div className="max-w-4xl mx-auto text-center relative z-10">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-black uppercase tracking-widest mb-6"
-                    >
-                        <Scale size={12} />
-                        <span>Service Agreement</span>
-                    </motion.div>
+                <div className="space-y-16">
+                    <section className="p-10 bg-white/[0.02] border border-white/5 rounded-[3rem]">
+                        <div className="flex items-center gap-4 mb-8">
+                            <Clock className="text-emerald-500 w-6 h-6" />
+                            <h2 className="text-2xl font-black uppercase italic tracking-tight">The 14-Day Pilot Protocol</h2>
+                        </div>
+                        <p className="text-zinc-400 leading-relaxed font-medium">
+                            Access is granted for a 14-day zero-cost evaluation period to authorized building administrators. Failure to cancel the pilot prior to the 15th day will initiate the $79.00/month Site License via the registered institutional payment method.
+                        </p>
+                    </section>
 
-                    <motion.h1
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.1 }}
-                        className="text-5xl md:text-7xl font-black mb-6 tracking-tight"
-                    >
-                        Terms of Service
-                    </motion.h1>
+                    <section className="p-10 bg-white/[0.02] border border-white/5 rounded-[3rem]">
+                        <div className="flex items-center gap-4 mb-8">
+                            <Zap className="text-emerald-500 w-6 h-6" />
+                            <h2 className="text-2xl font-black uppercase italic tracking-tight">Liquid Energy Economy</h2>
+                        </div>
+                        <p className="text-zinc-400 leading-relaxed font-medium">
+                            Neural processing tokens ("Liquid Energy") are non-refundable and represent strategic processing power allocated from the School Vault. Misuse of the IEP Narrative Architect for non-educational or non-compliant purposes may result in building-wide node suspension.
+                        </p>
+                    </section>
 
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
-                        className="text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed"
-                    >
-                        The conditions governing the use of the EdIntel Professional platform and the deployment of its capabilities.
-                    </motion.p>
+                    <section className="p-10 bg-white/[0.02] border border-white/5 rounded-[3rem]">
+                        <div className="flex items-center gap-4 mb-8">
+                            <Scale className="text-emerald-500 w-6 h-6" />
+                            <h2 className="text-2xl font-black uppercase italic tracking-tight">Professional Liability</h2>
+                        </div>
+                        <p className="text-zinc-400 leading-relaxed font-medium">
+                            EdIntel Sovereign is a decision-support architecture. All AI-generated narratives, smart-drafts, and compliance logs must be reviewed, edited, and authenticated by a certified educator or building administrator before final submission or signature.
+                        </p>
+                    </section>
+
+                    <footer className="pt-20 border-t border-white/5">
+                        <div className="bg-emerald-600/[0.03] border border-emerald-500/20 p-10 rounded-[2.5rem] mb-12">
+                            <h3 className="text-sm font-black uppercase text-emerald-400 tracking-[0.2em] mb-4 text-center italic">Service Administrator</h3>
+                            <p className="text-center text-[10px] text-zinc-500 uppercase tracking-widest font-bold leading-loose">
+                                Transcend Holistic Wellness, LLC <br />
+                                Mobile, AL // United States District Code: 36601
+                            </p>
+                        </div>
+                        <p className="text-[10px] text-center text-zinc-700 uppercase tracking-[0.5em] font-black italic">
+                            Sovereign Terms Framework v4.2.1 Stable
+                        </p>
+                    </footer>
                 </div>
             </div>
-
-            {/* Content Container */}
-            <section className="px-6 pb-24 max-w-4xl mx-auto">
-                <div className="p-8 md:p-12 rounded-3xl bg-zinc-950 border border-white/5 prose prose-invert prose-zinc max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-purple-400 hover:prose-a:text-purple-300">
-
-                    <div className="flex items-center gap-4 p-4 rounded-xl bg-purple-500/10 border border-purple-500/20 not-prose mb-12">
-                        <AlertCircle className="w-6 h-6 text-purple-400 flex-shrink-0" />
-                        <p className="text-sm text-purple-200 m-0">
-                            By accessing or using EdIntel Professional, you agree to be bound by these Terms. If you disagree with any part of the terms, you must not use the Service.
-                        </p>
-                    </div>
-
-                    <h2>1. Use of Service</h2>
-                    <p>
-                        EdIntel Professional grants you a limited, non-exclusive, non-transferable, and revocable license to use the Service strictly in accordance with these Terms.
-                    </p>
-                    <ul>
-                        <li>You must be a verified educator or administrator to access certain features.</li>
-                        <li>You agree not to use the Service for any illegal or unauthorized purpose.</li>
-                        <li>You must not attempt to reverse engineer or disrupt the integrity of our strategic infrastructure.</li>
-                    </ul>
-
-                    <h2>2. Intellectual Property Rights</h2>
-                    <p>
-                        <strong>Your Content:</strong> You retain full ownership of all data, text, and files you upload or generate using the Service ("User Content"). We claim no intellectual property rights over the material you provide to the Service.
-                    </p>
-                    <p>
-                        <strong>Our Content:</strong> The Service itself, including its original content, features, and functionality (but excluding User Content), is and will remain the exclusive property of EdIntel Professional and its licensors.
-                    </p>
-
-                    <h2>3. FERPA Compliance & Education Records</h2>
-                    <p>
-                        We acknowledge that User Content may include personally identifiable information from education records that are subject to FERPA. We agree to be considered a "School Official" with a legitimate educational interest in such records, as defined under FERPA.
-                    </p>
-                    <ul className="not-prose grid gap-2 my-6">
-                        <li className="flex items-start gap-3 text-zinc-400 text-sm">
-                            <Check className="w-4 h-4 text-green-500 mt-1" />
-                            <span>We will not disclose any education records to third parties except as required by law.</span>
-                        </li>
-                        <li className="flex items-start gap-3 text-zinc-400 text-sm">
-                            <Check className="w-4 h-4 text-green-500 mt-1" />
-                            <span>We maintain a comprehensive security program reasonably designed to protect the security, privacy, confidentiality, and integrity of student personal information.</span>
-                        </li>
-                    </ul>
-
-                    <h2>4. Limitation of Liability</h2>
-                    <p>
-                        In no event shall EdIntel Professional, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your access to or use of or inability to access or use the Service.
-                    </p>
-
-                    <h2>5. Termination</h2>
-                    <p>
-                        We may terminate or suspend your account immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms. Upon termination, your right to use the Service will immediately cease.
-                    </p>
-
-                    <h2>6. Governing Law</h2>
-                    <p>
-                        These Terms shall be governed and construed in accordance with the laws of Alabama, United States, without regard to its conflict of law provisions.
-                    </p>
-
-                    <hr className="border-white/10 my-12" />
-
-                    <h3>Contact Us</h3>
-                    <p>
-                        If you have any questions about these Terms, please contact us via our secure uplink at:
-                    </p>
-                    <p className="not-prose">
-                        <a href="mailto:dralvinwest@transcendholisticwellness.com" className="inline-flex items-center gap-2 text-purple-400 hover:text-white transition-colors font-medium">
-                            <ScrollText size={16} />
-                            dralvinwest@transcendholisticwellness.com
-                        </a>
-                    </p>
-
-                </div>
-            </section>
-
-            <Footer />
-        </main>
+        </div>
     );
 }

@@ -3,8 +3,7 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-    Search, Globe, MapPin, School, TrendingUp,
-    Zap, ChevronRight, Filter, Activity,
+    Search, Globe, MapPin, School, TrendingUp, ChevronRight, Filter, Activity,
     Database, Target, Cpu, LayoutGrid, List
 } from "lucide-react";
 

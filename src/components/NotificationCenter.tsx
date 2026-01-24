@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-    Bell, X, CheckCircle, Sparkles, AlertCircle, Info, TrendingUp,
+    Bell, X, CheckCircle, AlertCircle, Info, TrendingUp,
     Settings, Trash2, Clock
 } from 'lucide-react';
 

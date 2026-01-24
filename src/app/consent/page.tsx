@@ -2,15 +2,11 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  ShieldCheck,
-  FileText,
   CheckCircle,
   AlertTriangle,
-  ChevronRight,
   Scale,
   Fingerprint,
   Building2,
-  Stamp,
   Download
 } from 'lucide-react';
 import FloatingNavbar from '@/components/FloatingNavbar';

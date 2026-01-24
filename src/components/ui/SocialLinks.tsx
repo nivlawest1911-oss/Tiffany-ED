@@ -1,12 +1,9 @@
 'use client';
 import {
-    Twitter,
     Linkedin,
     Facebook,
-    Instagram,
     Youtube,
     Globe,
-    Github,
     Video
 } from 'lucide-react';
 

@@ -1,5 +1,5 @@
 'use client';
-import { Brain, Zap, Target, BookOpen, Activity, AlertCircle, ChevronRight, Shield as LucideShield, Zap as Lightning } from "lucide-react";
+import { Zap, Activity, AlertCircle, ChevronRight } from "lucide-react";
 
 export default function SkillMatrix() {
     // Leadership data structure reflecting professional competency domains

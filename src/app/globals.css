@@ -384,5 +384,64 @@ html {
 .animate-grain {
   animation: grain 8s steps(10) infinite;
 }
-.animate-spin-slow { animation: spin 8s linear infinite; }
-.animate-reverse-spin { animation: spin-reverse 6s linear infinite; }
+
+.animate-spin-slow {
+  animation: spin 8s linear infinite;
+}
+
+.animate-reverse-spin {
+  animation: spin-reverse 6s linear infinite;
+}
+
+/* 🌊 Liquid Glow & Antigravity Styles */
+@keyframes liquid-flow {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+.wellness-glow-container {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: #050505;
+  /* Deep Obsidian base */
+  transition: opacity 1s ease-in-out;
+}
+
+.blob {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+  mix-blend-mode: screen;
+}
+
+.blob-emerald {
+  background: radial-gradient(circle, #10b981, transparent 70%);
+  top: -10%;
+  left: -10%;
+  animation: liquid-flow 15s infinite alternate ease-in-out;
+}
+
+.blob-gold {
+  background: radial-gradient(circle, #fbbf24, transparent 70%);
+  bottom: -10%;
+  right: -10%;
+  animation: liquid-flow 20s infinite alternate-reverse ease-in-out;
+}

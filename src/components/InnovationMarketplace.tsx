@@ -1,8 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ShoppingBag, TrendingUp, DollarSign, Star, User, ArrowRight } from 'lucide-react';
-import Image from 'next/image';
+import { ShoppingBag, Star, ArrowRight } from 'lucide-react';
 
 export default function InnovationMarketplace() {
     const listings = [

@@ -1,6 +1,6 @@
 'use client';
 
-import { Search, ChevronRight, Eye, Calendar, BookOpen, AlertCircle } from 'lucide-react';
+import { Search, ChevronRight, Eye, Calendar, AlertCircle } from 'lucide-react';
 import React from 'react';
 
 export default function ProtocolTopicDetail() {

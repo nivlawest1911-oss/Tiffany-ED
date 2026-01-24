@@ -11,7 +11,7 @@ const AUTHORIZED_EMAILS = [
 ];
 
 export default function AdminGuard({ children }: { children: React.ReactNode }) {
-  const { user, loading } = useAuth();
+  const { user, isLoading: loading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {

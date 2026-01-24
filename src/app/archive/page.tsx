@@ -1,8 +1,8 @@
 'use client';
-import { useEffect, useState, Suspense } from 'react';
+import { useState, Suspense } from 'react';
 import { jsPDF } from 'jspdf';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Trash2, Download, Edit2, Save, X, Database, Lock, Globe, FileText } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Trash2, Download, Edit2, Save, Database, Lock, FileText } from 'lucide-react';
 import AdminGuard from '@/components/AdminGuard';
 import SuccessBadge from '@/components/SuccessBadge';
 

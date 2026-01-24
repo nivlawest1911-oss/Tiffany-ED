@@ -1,5 +1,5 @@
 'use client';
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 
 interface TileProps {
   title: string;

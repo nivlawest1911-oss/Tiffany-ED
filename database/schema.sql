@@ -2,6 +2,28 @@
 -- Run this in Vercel Postgres Dashboard
 
 -- ============================================
+-- RESET (Clean Slate for App Tables)
+-- ============================================
+DROP TABLE IF EXISTS avatar_sessions CASCADE;
+DROP TABLE IF EXISTS agent_missions CASCADE;
+DROP TABLE IF EXISTS classroom_observations CASCADE;
+DROP TABLE IF EXISTS intervention_plans CASCADE;
+DROP TABLE IF EXISTS edintel_media CASCADE;
+DROP TABLE IF EXISTS usage_analytics CASCADE;
+
+-- ============================================
+-- USERS TABLE (Dependency)
+-- ============================================
+CREATE TABLE IF NOT EXISTS users (
+  id TEXT PRIMARY KEY,
+  name TEXT,
+  email TEXT UNIQUE,
+  image TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- ============================================
 -- MEDIA STORAGE TABLE
 -- ============================================
 CREATE TABLE IF NOT EXISTS edintel_media (
@@ -84,7 +106,7 @@ END $$;
 -- ============================================
 CREATE TABLE IF NOT EXISTS avatar_sessions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  user_id TEXT REFERENCES users(id) ON DELETE CASCADE,
   avatar_name TEXT NOT NULL,
   session_type TEXT CHECK (session_type IN ('greeting', 'briefing', 'conversation', 'intervention')),
   video_url TEXT,
@@ -104,7 +126,7 @@ CREATE INDEX IF NOT EXISTS idx_avatar_created ON avatar_sessions(created_at DESC
 -- ============================================
 CREATE TABLE IF NOT EXISTS classroom_observations (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  user_id TEXT REFERENCES users(id) ON DELETE CASCADE,
   media_id INTEGER REFERENCES edintel_media(id) ON DELETE SET NULL,
   classroom_name TEXT,
   observation_date DATE DEFAULT CURRENT_DATE,
@@ -130,7 +152,7 @@ CREATE TABLE IF NOT EXISTS intervention_plans (
   strategy TEXT,
   expected_outcome TEXT,
   status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'active', 'completed', 'cancelled')),
-  created_by INTEGER REFERENCES users(id),
+  created_by TEXT REFERENCES users(id),
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -144,7 +166,7 @@ CREATE INDEX IF NOT EXISTS idx_intervention_student ON intervention_plans(studen
 -- ============================================
 CREATE TABLE IF NOT EXISTS usage_analytics (
   id SERIAL PRIMARY KEY,
-  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  user_id TEXT REFERENCES users(id) ON DELETE CASCADE,
   event_type TEXT NOT NULL,
   event_data JSONB,
   tokens_consumed INTEGER DEFAULT 0,

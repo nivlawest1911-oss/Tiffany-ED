@@ -2,10 +2,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import {
-    Send, Sparkles, Shield, AlertTriangle,
-    CheckCircle, MessageSquare, Brain,
-    ArrowRight, Zap, RefreshCw, X, ChevronRight,
-    Users, Lock
+    Send, Sparkles, MessageSquare, RefreshCw, X
 } from 'lucide-react';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 

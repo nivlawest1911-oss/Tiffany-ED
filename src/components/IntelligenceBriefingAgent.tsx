@@ -1,7 +1,7 @@
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mic, MessageSquare, Briefcase, ChevronRight, Zap, Globe, AlertCircle, Terminal, Activity } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { Mic, ChevronRight, Zap, Terminal, Activity } from 'lucide-react';
+import { useState } from 'react';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 
 interface IntelSignal {

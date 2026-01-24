@@ -1,18 +1,25 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { firestore } from '@/firebase';
-import { collection, query, getDocs } from '@/firebase';
+import { supabase } from '@/lib/supabase';
 
 export default function ResourceMap() {
   const [rankings, setRankings] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const snapshot = await getDocs(collection(firestore, 'strategicAudits'));
+      const { data: audits, error } = await supabase
+        .from('strategic_audits')
+        .select('target_school');
+
+      if (error) {
+        console.warn("Resource map fetch failed (Supabase), using fallback");
+        return;
+      }
+
       const counts: Record<string, number> = {};
 
-      snapshot.docs.forEach(doc => {
-        const school = doc.data().targetSchool || 'District Wide';
+      audits.forEach(audit => {
+        const school = audit.target_school || 'District Wide';
         counts[school] = (counts[school] || 0) + 1;
       });
 

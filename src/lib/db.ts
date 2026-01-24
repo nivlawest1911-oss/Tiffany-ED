@@ -4,13 +4,17 @@ export async function createUsersTable() {
   try {
     await sql`
       CREATE TABLE IF NOT EXISTS users (
-        id SERIAL PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
+        id TEXT PRIMARY KEY,
+        name VARCHAR(255),
         email VARCHAR(255) UNIQUE NOT NULL,
-        password VARCHAR(255),
-        tier VARCHAR(50) DEFAULT 'free',
+        password_hash VARCHAR(255),
+        role VARCHAR(50) DEFAULT 'educator',
+        subscription_tier VARCHAR(50) DEFAULT 'free',
         stripe_customer_id VARCHAR(255),
-        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+        google_id VARCHAR(255) UNIQUE,
+        avatar_url TEXT,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP WITH TIME ZONE
       );
     `;
     // console.log('Users table created or already exists');

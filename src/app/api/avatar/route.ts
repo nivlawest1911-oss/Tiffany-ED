@@ -68,7 +68,7 @@ export async function POST(req: NextRequest) {
 
             } else {
                 console.warn("[Replicate] Token Missing. Using fallback video.");
-                professorUrl = "/videos/briefings/principal_briefing.mp4";
+                professorUrl = ""; // REPLACED: Stock footage removed
             }
 
             // 2. VAULTING: Ensure EdIntel owns the URL (Memory Bank)

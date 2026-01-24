@@ -2,18 +2,38 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowRight, Globe } from 'lucide-react';
-import Image from 'next/image';
+import { Menu, X, Globe } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import EdIntelLogo from './EdIntelLogo';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
+import { useIntelligence } from '@/context/IntelligenceContext';
+import { getIntelligenceFor } from '@/lib/intelligence-engine';
+import { Info } from 'lucide-react';
 
 export default function FloatingNavbar() {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const { user, logout } = useAuth();
-    const { playHover } = useProfessionalSounds();
+    const { playHover, playClick } = useProfessionalSounds();
+    const { generateBriefing } = useIntelligence();
+
+    const handleGenerateInfo = (e: React.MouseEvent, label: string) => {
+        e.preventDefault();
+        e.stopPropagation();
+        playClick();
+        const info = getIntelligenceFor(label);
+        if (info) {
+            generateBriefing({
+                title: info.title,
+                description: info.description,
+                stats: info.stats,
+                role: info.role,
+                avatarImage: info.avatar
+            });
+        }
+    };
 
     useEffect(() => {
         const handleScroll = () => {
@@ -24,8 +44,9 @@ export default function FloatingNavbar() {
     }, []);
 
     const navLinks = [
+        { name: 'Professional Center', href: '/professional', badge: 'NEW' },
         { name: 'The Room', href: '/the-room' },
-        { name: 'Features', href: '/#features' },
+        { name: 'Features', href: '/#features', scroll: true },
         {
             name: 'AI Hub',
             href: '#',
@@ -33,12 +54,33 @@ export default function FloatingNavbar() {
                 { name: 'Gemini Workspace', href: '/gemini-workspace', badge: 'NEW' },
                 { name: 'Hugging Face Studio', href: '/huggingface', badge: 'AI' },
                 { name: 'AI Phone Center', href: '/phone', badge: 'LIVE' },
+                { name: 'Video Studio', href: '/video-studio', badge: 'PRO' },
+                { name: 'SOVEREIGN Core', href: '/sovereign', badge: 'FX' },
             ]
         },
-        { name: 'Pricing', href: '/#pricing' },
+        { name: 'Pricing', href: '/#pricing', scroll: true },
         { name: 'About', href: '/about' },
         { name: 'Contact', href: '/contact' },
     ];
+
+    const pathname = usePathname();
+
+    // Smooth scroll handler for anchor links
+    const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+        if (href.startsWith('/#')) {
+            // Only intercept if we are already on the home page
+            if (pathname === '/') {
+                e.preventDefault();
+                const id = href.replace('/#', '');
+                const element = document.getElementById(id);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    setMobileMenuOpen(false);
+                }
+            }
+            // If not on home page, let the default Link behavior handle navigation to '/'
+        }
+    };
 
     return (
         <motion.nav
@@ -73,7 +115,9 @@ export default function FloatingNavbar() {
                                 <div key={link.name} className="relative group">
                                     {link.submenu ? (
                                         <>
-                                            <button
+                                            <Link
+                                                href="/ai-hub"
+                                                data-no-intelligence="true"
                                                 className="text-xs font-black text-zinc-400 hover:text-noble-gold uppercase tracking-widest transition-all flex items-center gap-2"
                                                 onMouseEnter={() => playHover()}
                                             >
@@ -85,7 +129,7 @@ export default function FloatingNavbar() {
                                                 >
                                                     ▼
                                                 </motion.span>
-                                            </button>
+                                            </Link>
                                             {/* Dropdown Menu */}
                                             <div className="absolute top-full left-0 mt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[200]">
                                                 <div className="bg-noble-black/95 backdrop-blur-3xl border border-white/10 rounded-2xl p-4 shadow-2xl min-w-[280px]">
@@ -95,12 +139,22 @@ export default function FloatingNavbar() {
                                                             <Link
                                                                 key={sublink.name}
                                                                 href={sublink.href}
+                                                                data-no-intelligence="true"
                                                                 className="flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group/item"
                                                                 onMouseEnter={() => playHover()}
                                                             >
-                                                                <span className="text-sm font-bold text-zinc-300 group-hover/item:text-white">
-                                                                    {sublink.name}
-                                                                </span>
+                                                                <div className="flex flex-col">
+                                                                    <span className="text-sm font-bold text-zinc-300 group-hover/item:text-white">
+                                                                        {sublink.name}
+                                                                    </span>
+                                                                    <button
+                                                                        onClick={(e) => handleGenerateInfo(e, sublink.name)}
+                                                                        className="text-[9px] text-zinc-500 hover:text-amber-400 font-black uppercase tracking-widest mt-1 flex items-center gap-1"
+                                                                    >
+                                                                        <Info size={10} />
+                                                                        <span>Deep Info</span>
+                                                                    </button>
+                                                                </div>
                                                                 {sublink.badge && (
                                                                     <span className={`text-[8px] font-black px-2 py-1 rounded-full ${sublink.badge === 'NEW' ? 'bg-emerald-500/20 text-emerald-400' :
                                                                         sublink.badge === 'AI' ? 'bg-purple-500/20 text-purple-400' :
@@ -116,24 +170,50 @@ export default function FloatingNavbar() {
                                             </div>
                                         </>
                                     ) : (
-                                        <Link
-                                            href={link.href}
-                                            className="text-xs font-black text-zinc-400 hover:text-noble-gold uppercase tracking-widest transition-all"
-                                            onMouseEnter={() => playHover()}
-                                        >
-                                            {link.name}
-                                        </Link>
+                                        <div className="flex flex-col">
+                                            <Link
+                                                href={link.href}
+                                                data-no-intelligence="true"
+                                                className="text-xs font-black text-zinc-400 hover:text-noble-gold uppercase tracking-widest transition-all"
+                                                onMouseEnter={() => playHover()}
+                                                onClick={(e) => (link as any).scroll ? handleSmoothScroll(e, link.href) : undefined}
+                                            >
+                                                {link.name}
+                                                {(link as any).badge && (
+                                                    <span className="ml-2 text-[8px] font-black px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400">
+                                                        {(link as any).badge}
+                                                    </span>
+                                                )}
+                                            </Link>
+                                            <button
+                                                onClick={(e) => handleGenerateInfo(e, link.name)}
+                                                className="text-[8px] text-zinc-600 hover:text-amber-400 font-black uppercase tracking-widest mt-0.5 flex items-center gap-1 self-start"
+                                            >
+                                                <Info size={8} />
+                                                <span>Strat Briefing</span>
+                                            </button>
+                                        </div>
                                     )}
                                 </div>
                             ))}
                         </div>
 
                         {/* CTA / User Profile */}
-                        <div className="hidden md:flex items-center gap-6">
-                            <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[10px] font-black text-zinc-400 hover:text-white hover:border-kente-green/50 transition-all group">
-                                <Globe size={14} className="group-hover:text-kente-green" />
-                                <span>PROTOCOL: INT</span>
-                            </button>
+                        <div className="hidden md:flex items-center gap-3">
+                            {/* Protocol Button */}
+                            <Link href="/identity">
+                                <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[10px] font-black text-zinc-400 hover:text-white hover:border-kente-green/50 transition-all group" onMouseEnter={() => playHover()}>
+                                    <Globe size={14} className="group-hover:text-kente-green" />
+                                    <span>PROTOCOL: INT</span>
+                                </button>
+                            </Link>
+
+                            {/* Executive Director Enterprise Button */}
+                            <Link href="/enterprise">
+                                <button className="px-4 py-2 rounded-full bg-gradient-to-r from-noble-gold/20 to-amber-600/20 border border-noble-gold/30 text-[9px] font-black text-noble-gold hover:from-noble-gold/30 hover:to-amber-600/30 transition-all uppercase tracking-wider" onMouseEnter={() => playHover()}>
+                                    Executive Director Enterprise
+                                </button>
+                            </Link>
 
                             {user ? (
                                 <div className="flex items-center gap-6">
@@ -212,8 +292,8 @@ export default function FloatingNavbar() {
                                                             <span>{sublink.name}</span>
                                                             {sublink.badge && (
                                                                 <span className={`text-[8px] font-black px-2 py-1 rounded-full ${sublink.badge === 'NEW' ? 'bg-emerald-500/20 text-emerald-400' :
-                                                                        sublink.badge === 'AI' ? 'bg-purple-500/20 text-purple-400' :
-                                                                            'bg-red-500/20 text-red-400'
+                                                                    sublink.badge === 'AI' ? 'bg-purple-500/20 text-purple-400' :
+                                                                        'bg-red-500/20 text-red-400'
                                                                     }`}>
                                                                     {sublink.badge}
                                                                 </span>

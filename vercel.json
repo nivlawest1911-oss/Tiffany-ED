@@ -8,5 +8,11 @@
         "env": {
             "NEXT_PRIVATE_SKIP_TURBOPACK": "1"
         }
-    }
+    },
+    "crons": [
+        {
+            "path": "/api/reports/daily-sovereignty",
+            "schedule": "0 12 * * *"
+        }
+    ]
 }

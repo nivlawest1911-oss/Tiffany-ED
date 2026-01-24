@@ -4,7 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { AIPhoneAgentService, PHONE_AGENT_CONFIG } from '@/lib/phone/agent';
+import { AIPhoneAgentService } from '@/lib/phone/agent';
 
 export async function POST(request: NextRequest) {
     try {

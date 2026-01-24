@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Sparkles, Shield as LucideShield, Zap, ArrowRight, Eye, X, BookOpen, Target, Activity, FileText, Globe } from "lucide-react";
+import { Play, Sparkles, Shield as LucideShield, Zap, ArrowRight, Eye, X, Activity, FileText } from "lucide-react";
 import { useState } from 'react';
 
 const CINEMATIC_ASSETS = [

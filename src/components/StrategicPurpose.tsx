@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Heart, Users, Scale, Sparkles, Sprout, GraduationCap, MapPin, ArrowRight, Globe, Activity } from "lucide-react";
+import { Heart, Users, Scale, Sprout, GraduationCap, MapPin, ArrowRight, Globe, Activity } from "lucide-react";
 
 export default function StrategicPurpose() {
     const pillars = [

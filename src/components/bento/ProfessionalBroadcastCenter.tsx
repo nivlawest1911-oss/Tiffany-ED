@@ -1,6 +1,6 @@
 'use client';
 
-import { Play, Heart, MessageCircle, Share2, Radio, Signal, Wifi, Disc, Video, ExternalLink } from 'lucide-react';
+import { Play, Share2, Radio, Signal, Disc, ExternalLink } from 'lucide-react';
 import React from 'react';
 
 export default function ProfessionalBroadcastCenter() {

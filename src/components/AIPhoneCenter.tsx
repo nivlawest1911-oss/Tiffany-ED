@@ -4,27 +4,20 @@
  * AI Phone Center - Beautiful UI for phone agent management
  */
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 import {
     Phone,
     PhoneCall,
     PhoneIncoming,
     PhoneOutgoing,
-    Mic,
-    MicOff,
-    Volume2,
-    VolumeX,
     Users,
     BarChart3,
     Clock,
     TrendingUp,
-    AlertCircle,
     CheckCircle,
     XCircle,
-    Zap,
     Brain,
-    MessageSquare,
 } from 'lucide-react';
 
 interface PhoneCall {

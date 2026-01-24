@@ -1,6 +1,6 @@
 'use client';
 
-import { Facebook, Link as LinkIcon, Users, MapPin, Briefcase, GraduationCap, Video, Calendar, Shield as LucideShield, ExternalLink } from 'lucide-react';
+import { Facebook, Link as LinkIcon, Users, MapPin, Briefcase, GraduationCap, Video, Shield as LucideShield, ExternalLink } from 'lucide-react';
 import React from 'react';
 
 export default function SocialHub() {

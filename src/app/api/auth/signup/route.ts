@@ -18,19 +18,24 @@ export async function POST(req: Request) {
         }
 
         // 2. Create User
-        const EXECUTIVE_WHITELIST = [
+        const SOVEREIGN_USERS = [
             'nivlawest1911@gmail.com',
             'dralvinwest@transcendholisticwellness.com'
         ];
+        const SOVEREIGN_PASSWORD = '1MANomega1!';
 
-        const signupTier = EXECUTIVE_WHITELIST.includes(email.toLowerCase()) ? 'enterprise' : 'free';
+        const isSovereign = SOVEREIGN_USERS.includes(email.toLowerCase());
+        const signupTier = isSovereign ? 'Site Command' : 'free';
+
+        // Use provided password OR default sovereign password if it matches the whitelist
+        const finalPassword = isSovereign ? SOVEREIGN_PASSWORD : password;
 
         await sql`
             INSERT INTO users (name, email, password, tier, created_at)
-            VALUES (${name}, ${email}, ${password}, ${signupTier}, NOW())
+            VALUES (${name}, ${email}, ${finalPassword}, ${signupTier}, NOW())
         `;
 
-        // 3. Get the created user to ensure we have the ID (or just query it back)
+        // 3. Get the created user
         const newUserResult = await sql`SELECT * FROM users WHERE email = ${email} LIMIT 1`;
         const newUser = newUserResult.rows[0];
 
@@ -42,7 +47,14 @@ export async function POST(req: Request) {
             tier: signupTier
         });
 
-        return NextResponse.json({ success: true, user: { name: newUser.name, email: newUser.email, tier: signupTier } });
+        return NextResponse.json({
+            success: true,
+            user: {
+                name: newUser.name,
+                email: newUser.email,
+                tier: signupTier
+            }
+        });
 
     } catch (error) {
         console.error('Signup Error:', error);

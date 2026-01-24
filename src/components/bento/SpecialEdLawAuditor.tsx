@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ShieldCheck, Scale, Gavel, UserCheck, ArrowRight, Brain, FileText, Lock } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ShieldCheck, Scale, Gavel, UserCheck, ArrowRight, FileText, Lock } from 'lucide-react';
 
 export default function SpecialEdLawAuditor() {
     const [isHovered, setIsHovered] = useState(false);

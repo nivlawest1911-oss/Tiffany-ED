@@ -2,16 +2,22 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle, Sparkles, Zap, Crown, ArrowRight, Info, User, Shield as LucideShield, Copy, Check, Download, Bot } from "lucide-react";
+import { CheckCircle, Sparkles, Zap, Crown, Info, User, Shield as LucideShield } from "lucide-react";
 import Link from 'next/link';
-import HolographicBriefing from './HolographicBriefing';
-import { getStripeHandshake, StripeHandshake } from '@/app/actions/professional-stripe';
+import { getStripeHandshake, StripeHandshake, createSovereignCheckout } from '@/app/actions/professional-stripe';
+import { useAuth } from '@/context/AuthContext';
+import { useIntelligence } from '@/context/IntelligenceContext';
+import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 
 export default function PremiumPricingTable() {
     const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
     const [showBriefing, setShowBriefing] = useState(false);
     const [pricing, setPricing] = useState<StripeHandshake | null>(null);
     const [openFaq, setOpenFaq] = useState<number | null>(null);
+    const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
+    const { user } = useAuth();
+    const { generateBriefing } = useIntelligence();
+    const { playClick, playHover, playSuccess } = useProfessionalSounds();
 
     useEffect(() => {
         async function loadPricing() {
@@ -219,20 +225,59 @@ export default function PremiumPricingTable() {
                                     ))}
                                 </ul>
 
-                                <Link href={plan.link}>
-                                    <button className={`w-full py-5 rounded-[2rem] font-black text-xs uppercase tracking-[0.3em] transition-all shadow-xl active:scale-95 ${plan.popular
+                                <button
+                                    onClick={async (e) => {
+                                        e.preventDefault();
+                                        playClick();
+                                        if (plan.name === 'Initiate') {
+                                            window.location.href = plan.link;
+                                            return;
+                                        }
+
+                                        try {
+                                            setLoadingPlan(plan.name);
+                                            const priceId = billingCycle === 'monthly' ? (pricing as any)[idx === 1 ? 'practitioner' : idx === 2 ? 'director' : 'siteCommand'].id : (pricing as any)[idx === 1 ? 'practitioner' : idx === 2 ? 'director' : 'siteCommand'].annualId;
+                                            const { url } = await createSovereignCheckout(priceId, plan.name, user?.id);
+                                            if (url) window.location.href = url;
+                                        } catch (err) {
+                                            console.error("Checkout failed", err);
+                                            setLoadingPlan(null);
+                                        }
+                                    }}
+                                    disabled={loadingPlan !== null}
+                                    className={`w-full py-5 rounded-[2rem] font-black text-xs uppercase tracking-[0.3em] transition-all shadow-xl active:scale-95 flex items-center justify-center gap-3 ${plan.popular
                                         ? 'bg-noble-gold text-black hover:bg-white shadow-noble-gold/40'
                                         : 'bg-white/10 text-white hover:bg-white border border-white/10 hover:text-black'
-                                        }`}>
-                                        {plan.cta}
-                                    </button>
-                                </Link>
+                                        } ${loadingPlan === plan.name ? 'opacity-50 cursor-wait' : ''}`}>
+                                    {loadingPlan === plan.name ? (
+                                        <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                                    ) : (
+                                        <>
+                                            {plan.cta}
+                                            <Zap size={14} className={plan.popular ? 'animate-pulse' : ''} />
+                                        </>
+                                    )}
+                                </button>
+
+                                <button
+                                    onClick={() => generateBriefing({
+                                        title: `${plan.name} Strategic Briefing`,
+                                        description: plan.description + " This plan includes our proprietary high-fidelity neural processing and culturally-responsive interface standards.",
+                                        stats: { time: 'Instant', saved: idx === 1 ? '40h/mo' : idx === 2 ? '100h/mo' : 'Building Wide', accuracy: '99.9%' },
+                                        role: idx === 0 ? 'Protocol Initiate' : idx === 1 ? 'Practitioner' : idx === 2 ? 'Executive' : 'Sovereign Command',
+                                        avatarImage: idx === 3 ? '/images/avatars/executive_leader.png' : '/images/avatars/dr_alvin_west_premium.png'
+                                    })}
+                                    className="mt-4 text-[9px] text-zinc-500 hover:text-noble-gold font-black uppercase tracking-widest transition-colors flex items-center justify-center gap-2 group/info"
+                                >
+                                    <Info size={10} className="group-hover/info:rotate-12 transition-transform" />
+                                    Deep Strategic Briefing
+                                </button>
 
                                 {plan.price.monthly > 0 && (
                                     <Link
                                         href={`/payment?plan=${plan.name === 'Director Pack' ? 'director' :
-                                                plan.name === 'Site Command' ? 'site_command' :
-                                                    'practitioner'
+                                            plan.name === 'Site Command' ? 'site_command' :
+                                                'practitioner'
                                             }&amount=${plan.price[billingCycle]}`}
                                         className="block mt-3 text-center"
                                     >

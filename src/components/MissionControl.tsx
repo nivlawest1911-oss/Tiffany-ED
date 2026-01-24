@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Brain, Eye, Target, User, Activity, Zap, CheckCircle, AlertCircle, Clock } from 'lucide-react';
 
 interface Agent {

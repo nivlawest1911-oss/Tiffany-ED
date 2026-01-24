@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Image, Video, FileText, Send, ThumbsUp, MessageSquare, Repeat, Share2, MoreHorizontal, Globe, Bookmark, Users, Calendar } from 'lucide-react';
+import { Image, Video, FileText, ThumbsUp, MessageSquare, Repeat, Share2, MoreHorizontal, Globe, Bookmark, Users, Calendar } from 'lucide-react';
 import { useLeadershipFeed, FeedPost } from '@/hooks/useLeadershipFeed';
 
 export default function CommunityFeed() {

@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { HeartPulse, MessageSquare, BrainCircuit, Loader2, Sparkles } from 'lucide-react';
+import { HeartPulse, BrainCircuit, Loader2 } from 'lucide-react';
 
 export default function LeadershipIntelligence() {
   const [input, setInput] = useState('');

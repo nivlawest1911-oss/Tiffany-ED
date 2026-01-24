@@ -1,54 +1,26 @@
 'use client';
-import { Check, Zap, Shield as LucideShield, Crown, Rocket, Star, ArrowRight, Sparkles, Database, Infinity as InfinityIcon } from "lucide-react";
+import { Check, Zap, Rocket, Star, ArrowRight, Sparkles } from "lucide-react";
 import { useState, useTransition, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { createCheckoutSession } from '@/app/actions/stripe';
-import { firestore } from '@/firebase';
-import { collection, query, where, getDocs } from '@/firebase';
+import { getStripeHandshake, StripeHandshake, createSovereignCheckout } from '@/app/actions/professional-stripe';
+import { useAuth } from '@/context/AuthContext';
 
 export default function PricingMatrix() {
-    const [priceData, setPriceData] = useState<Record<string, { monthly: number; annual: number; monthlyId?: string; annualId?: string }>>({});
+    const [pricing, setPricing] = useState<StripeHandshake | null>(null);
     const [isAnnual, setIsAnnual] = useState(false);
     const [isPending, startTransition] = useTransition();
+    const { user } = useAuth();
 
     useEffect(() => {
-        const fetchStripePrices = async () => {
+        async function loadPricing() {
             try {
-                const q = query(collection(firestore, 'products'), where('active', '==', true));
-                const snapshot = await getDocs(q);
-
-                const newPriceData: Record<string, any> = {};
-
-                await Promise.all(snapshot.docs.map(async (doc) => {
-                    const productData = doc.data();
-                    const pricesCollection = collection(doc.ref, 'prices');
-                    const pricesSnapshot = await getDocs(query(pricesCollection, where('active', '==', true)));
-
-                    const prices: any = {};
-                    pricesSnapshot.forEach(priceDoc => {
-                        const priceData = priceDoc.data();
-                        if (priceData.interval === 'month') {
-                            prices.monthly = priceData.unit_amount ? priceData.unit_amount / 100 : 0;
-                            prices.monthlyId = priceDoc.id; // Stripe Price ID
-                        } else if (priceData.interval === 'year') {
-                            prices.annual = priceData.unit_amount ? priceData.unit_amount / 100 : 0;
-                            prices.annualId = priceDoc.id;
-                        }
-                    });
-
-                    if (productData.name) {
-                        newPriceData[productData.name] = prices;
-                    }
-                }));
-
-                if (Object.keys(newPriceData).length > 0) {
-                    setPriceData(newPriceData);
-                }
-            } catch (e) {
-                console.log("EdIntel Integration: Extension check skipped (permissions)", e);
+                const data = await getStripeHandshake();
+                setPricing(data);
+            } catch (error) {
+                console.error("Failed to handshake with Stripe:", error);
             }
-        };
-        fetchStripePrices();
+        }
+        loadPricing();
     }, []);
 
     const tiers = [
@@ -74,11 +46,11 @@ export default function PricingMatrix() {
         {
             name: "Professional",
             price: isAnnual
-                ? (priceData['Practitioner']?.annual || 44.99)
-                : (priceData['Practitioner']?.monthly || 49.99),
+                ? (pricing?.practitioner.annual || 44.99)
+                : (pricing?.practitioner.monthly || 49.99),
             priceId: isAnnual
-                ? priceData['Practitioner']?.annualId
-                : priceData['Practitioner']?.monthlyId,
+                ? pricing?.practitioner.annualId
+                : pricing?.practitioner.id,
             icon: <Rocket className="text-cyan-400" size={24} />,
             color: "cyan",
             accent: "from-cyan-500 to-blue-600",
@@ -100,11 +72,11 @@ export default function PricingMatrix() {
         {
             name: "Building Leader",
             price: isAnnual
-                ? (priceData['Site Command']?.annual || 69.99)
-                : (priceData['Site Command']?.monthly || 79.99),
+                ? (pricing?.siteCommand.annual || 69.99)
+                : (pricing?.siteCommand.monthly || 79.99),
             priceId: isAnnual
-                ? priceData['Site Command']?.annualId
-                : priceData['Site Command']?.monthlyId,
+                ? pricing?.siteCommand.annualId
+                : pricing?.siteCommand.id,
             icon: <Zap className="text-violet-400" size={24} />,
             color: "violet",
             accent: "from-violet-500 to-fuchsia-600",
@@ -121,29 +93,6 @@ export default function PricingMatrix() {
                 "Building Performance Dashboard",
                 "School-Level Grant Support"
             ]
-        },
-        {
-            name: "District Director",
-            price: isAnnual
-                ? (priceData['Director Pack']?.annual || 59.99)
-                : (priceData['Director Pack']?.monthly || 69.99),
-            priceId: isAnnual
-                ? priceData['Director Pack']?.annualId
-                : priceData['Director Pack']?.monthlyId,
-            icon: <LucideShield className="text-noble-gold" size={24} />,
-            color: "amber",
-            accent: "from-noble-gold to-yellow-600",
-            shadowColor: "shadow-amber-900/40",
-            iconColor: "text-amber-400",
-            idealFor: "District Leadership",
-            value: "Centralized district-wide intelligence. Includes 30-Day Trial.",
-            features: [
-                "Everything in Professional",
-                "District-Wide Leadership Console",
-                "Executive Performance Analytics",
-                "Tier 1 Support Priority",
-                "State Compliance Safeguards"
-            ]
         }
     ];
 
@@ -155,305 +104,103 @@ export default function PricingMatrix() {
     ];
 
     return (
-        <div className="w-full max-w-7xl mx-auto">
+        <div className="w-full max-w-7xl mx-auto p-4 md:p-8">
             {/* Header Section */}
             <div className="text-center mb-16 relative">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-500/20 blur-[120px] rounded-full pointer-events-none" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-500/10 blur-[120px] rounded-full pointer-events-none" />
 
                 <div className="inline-flex items-center gap-2 mb-4 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-widest backdrop-blur-md animate-pulse">
-                    <Star size={12} fill="currentColor" /> 14-Day Professional Trial Active
+                    <Star size={12} fill="currentColor" /> 30-Day Professional Trial Active
                 </div>
 
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-widest mb-6 backdrop-blur-md">
                     <Sparkles size={12} /> ROI Capture Protocol
                 </div>
 
-                <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter uppercase mb-6 relative z-10">
-                    Professional <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-violet-500">Value</span>
+                <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase mb-6 relative z-10">
+                    Sovereign <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-violet-500 text-noble-gold">Value</span>
                 </h2>
 
-                <p className="text-zinc-400 text-sm md:text-base font-medium max-w-2xl mx-auto leading-relaxed relative z-10">
-                    Invest in clarity. Our pricing structure is engineered to recapture lost administrative hours and ensure strategic legal protection from day one.
-                </p>
-
                 {/* Toggle */}
-                <div className="mt-10 inline-flex p-1.5 bg-zinc-900/80 backdrop-blur-xl border border-zinc-800 rounded-2xl relative z-10 shadow-2xl">
+                <div className="mt-10 inline-flex p-1 bg-zinc-900/80 backdrop-blur-xl border border-zinc-800 rounded-2xl relative z-10">
                     <button
                         onClick={() => setIsAnnual(false)}
-                        className={`px-8 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${!isAnnual ? 'bg-zinc-800 text-white shadow-lg' : 'text-zinc-500 hover:text-zinc-300'}`}
+                        className={`px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${!isAnnual ? 'bg-zinc-800 text-white shadow-lg' : 'text-zinc-500 hover:text-zinc-300'}`}
                     >
-                        Monthly Sync
+                        Monthly
                     </button>
                     <button
                         onClick={() => setIsAnnual(true)}
-                        className={`px-8 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${isAnnual ? 'bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-lg' : 'text-zinc-500 hover:text-zinc-300'}`}
+                        className={`px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${isAnnual ? 'bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-lg' : 'text-zinc-500 hover:text-zinc-300'}`}
                     >
-                        Annual Nexus <span className="ml-2 text-[9px] bg-white/20 px-1.5 py-0.5 rounded text-white">-20%</span>
+                        Annual
                     </button>
                 </div>
             </div>
 
             {/* Pricing Cards */}
-            <motion.div
-                initial="hidden"
-                animate="visible"
-                variants={{
-                    hidden: { opacity: 0 },
-                    visible: {
-                        opacity: 1,
-                        transition: {
-                            staggerChildren: 0.15
-                        }
-                    }
-                }}
-                className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10"
-            >
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
                 {tiers.map((tier, idx) => (
                     <motion.div
                         key={idx}
-                        variants={{
-                            hidden: { opacity: 0, y: 30 },
-                            visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "backOut" } }
-                        }}
-                        whileHover={{ y: -10, transition: { duration: 0.2 } }}
-                        className={`relative p-1 rounded-[2.5rem] transition-all duration-500 group ${tier.highlight ? 'z-10' : ''}`}
+                        whileHover={{ y: -5 }}
+                        className={`relative p-0.5 rounded-[2rem] transition-all bg-zinc-900 border border-white/5`}
                     >
-                        {/* Card Glow/Border Gradient */}
-                        <div className={`absolute inset-0 rounded-[2.5rem] bg-gradient-to-b ${tier.highlight ? tier.accent : 'from-zinc-800 to-zinc-950'} opacity-100`} />
-
-                        {/* Inner Card Content */}
-                        <div className="relative h-full bg-zinc-950 rounded-[2.4rem] p-8 flex flex-col overflow-hidden">
-                            {/* Top Highlight Badge */}
-                            {tier.highlight && (
-                                <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-violet-500 to-transparent opacity-50" />
-                            )}
-
-                            {/* Founder Recommendation Badge */}
-                            {(tier as any).recommended && (
-                                <div className="absolute top-4 right-4 animate-bounce-subtle">
-                                    <div className="px-3 py-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full shadow-lg shadow-cyan-500/30 flex items-center gap-2 border border-white/10">
-                                        <div className="w-4 h-4 rounded-full overflow-hidden border border-white/50">
-                                            <img src="/images/dr_alvin_west.png" alt="Dr. West" className="w-full h-full object-cover" />
-                                        </div>
-                                        <span className="text-[9px] font-black text-white uppercase tracking-widest">Dr. West's Choice</span>
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* Header */}
-                            <div className="mb-8">
-                                <div className={`w-14 h-14 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 shadow-xl ${tier.shadowColor}`}>
+                        <div className="relative h-full bg-zinc-950 rounded-[1.9rem] p-6 flex flex-col">
+                            <div className="mb-6">
+                                <div className={`w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center mb-4 ${tier.shadowColor}`}>
                                     {tier.icon}
                                 </div>
-                                <h3 className="text-2xl font-black text-white uppercase tracking-tight italic">{tier.name}</h3>
-                                <p className="text-xs font-bold text-zinc-500 uppercase tracking-widest mt-2">{tier.idealFor}</p>
+                                <h3 className="text-xl font-black text-white uppercase italic">{tier.name}</h3>
+                                <p className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest mt-1">{tier.idealFor}</p>
                             </div>
 
-                            {/* Price */}
-                            <div className="mb-8 pb-8 border-b border-zinc-900">
+                            <div className="mb-6 pb-6 border-b border-zinc-900">
                                 <div className="flex items-baseline gap-1">
-                                    {typeof tier.price === 'number' && <span className="text-2xl font-bold text-zinc-500">$</span>}
-                                    <span className={`text-6xl font-black tracking-tighter text-white`}>
-                                        {typeof tier.price === 'number' ? tier.price : tier.price}
+                                    {typeof tier.price === 'number' && <span className="text-xl font-bold text-zinc-500">$</span>}
+                                    <span className={`text-4xl font-black tracking-tighter text-white`}>
+                                        {tier.price}
                                     </span>
-                                    {typeof tier.price === 'number' && <span className="text-sm font-bold text-zinc-600 uppercase tracking-widest">/ Mo</span>}
+                                    {typeof tier.price === 'number' && <span className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest">/ Mo</span>}
                                 </div>
-                                <p className="mt-4 text-[11px] text-zinc-400 font-medium leading-relaxed border-l-2 border-zinc-800 pl-3">
-                                    "{tier.value}"
-                                </p>
                             </div>
 
-                            {/* Features */}
-                            <ul className="space-y-4 mb-10 flex-1">
-                                {tier.features.map((feat, fidx) => (
-                                    <li key={fidx} className="flex items-start gap-3 text-sm text-zinc-300 font-medium">
-                                        <Check size={16} className={`${tier.iconColor} mt-0.5 shrink-0`} />
-                                        <span className="leading-tight">{feat}</span>
+                            <ul className="space-y-3 mb-8 flex-1">
+                                {tier.features.slice(0, 4).map((feat, fidx) => (
+                                    <li key={fidx} className="flex items-start gap-2 text-xs text-zinc-400 font-medium">
+                                        <Check size={14} className={`${tier.iconColor} mt-0.5 shrink-0`} />
+                                        <span>{feat}</span>
                                     </li>
                                 ))}
                             </ul>
 
-                            {/* Action Button */}
                             <button
                                 disabled={isPending}
                                 onClick={() => {
-                                    if (tier.price === 'Custom') {
-                                        window.location.href = 'mailto:sales@edintel.ai?subject=Professional%20District%20Inquiry';
-                                    } else if (tier.price === 'Free') {
+                                    if (tier.price === 'Free') {
                                         window.location.href = '/signup';
                                     } else {
                                         startTransition(async () => {
                                             try {
-                                                // Use priceId if matched from Firestore, otherwise fallback to name lookup
-                                                await createCheckoutSession(tier.priceId || tier.name, isAnnual);
+                                                if (tier.priceId) {
+                                                    const { url } = await createSovereignCheckout(tier.priceId, tier.name, user?.id);
+                                                    if (url) window.location.href = url;
+                                                }
                                             } catch (error) {
                                                 console.error("Stripe Connection Error:", error);
-                                                alert("Secure Protocol Link Failed: Please refresh and try again.");
                                             }
                                         });
                                     }
                                 }}
-                                className={`w-full py-4 rounded-xl font-black text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-all duration-300 group-hover:scale-[1.02] ${tier.highlight
-                                    ? `bg-gradient-to-r ${tier.accent} text-white shadow-lg shadow-violet-900/40 hover:shadow-violet-900/60`
-                                    : 'bg-zinc-900 text-white hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700'} ${isPending ? 'opacity-50 cursor-not-allowed' : ''}`}>
-                                {tier.price === 'Custom' ? 'Contact Protocol' : tier.price === 'Free' ? 'Initialize Center' : (
-                                    <span className="flex items-center gap-2">
-                                        {isPending ? (
-                                            <>
-                                                <div className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                                Initializing...
-                                            </>
-                                        ) : (
-                                            <>
-                                                <LucideShield size={12} className="text-emerald-400" /> Secure Invoice
-                                            </>
-                                        )}
-                                    </span>
-                                )} {tier.price !== 'Custom' && !isPending && <ArrowRight size={14} />}
+                                className={`w-full py-3 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-all ${tier.highlight
+                                    ? `bg-noble-gold text-black`
+                                    : 'bg-zinc-800 text-white hover:bg-zinc-700'} ${isPending ? 'opacity-50' : ''}`}>
+                                {isPending ? 'Processing...' : (tier.price === 'Free' ? 'Initialize' : 'Authorize Protocol')}
+                                <ArrowRight size={12} />
                             </button>
                         </div>
                     </motion.div>
                 ))}
-            </motion.div>
-
-            {/* Bottom Grid: Tokens & Services */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-16 max-w-6xl mx-auto">
-                {/* Token Economy */}
-                <div className="p-8 rounded-[2.5rem] bg-zinc-900/30 border border-zinc-800/50 backdrop-blur-sm relative overflow-hidden group">
-                    <div className="absolute top-0 right-0 p-8 opacity-20 group-hover:opacity-40 transition-opacity duration-1000">
-                        <InfinityIcon size={120} className="text-amber-500" />
-                    </div>
-
-                    <div className="relative z-10">
-                        <div className="flex items-center gap-3 mb-4">
-                            <div className="p-2 bg-amber-500/10 rounded-lg text-amber-500"><Database size={20} /></div>
-                            <h3 className="text-xl font-black text-white uppercase tracking-tight">Token Economy</h3>
-                        </div>
-                        <p className="text-sm text-zinc-400 mb-8 max-w-sm">
-                            Fuel high-compute operations like bulk audits and avatar synthesis. Tokens never expire.
-                        </p>
-
-                        <div className="flex flex-col gap-4">
-                            <div className="flex items-center justify-between p-4 rounded-xl bg-black/40 border border-zinc-800/50">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center text-amber-500 font-bold text-xs">1K</div>
-                                    <div>
-                                        <div className="text-sm font-bold text-white uppercase">Standard Pack</div>
-                                        <div className="text-[10px] text-zinc-500">Starter Fuel</div>
-                                    </div>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <span className="text-lg font-black text-white">$9.99</span>
-                                    <button
-                                        disabled={isPending}
-                                        onClick={() => startTransition(async () => {
-                                            try {
-                                                await createCheckoutSession('STRIPE_PRICE_TOKEN_1K', false, 'payment');
-                                            } catch (e) { alert("Token Connection Failed. Please try again."); }
-                                        })}
-                                        className="p-2 bg-amber-600 rounded-lg text-white hover:bg-amber-500 transition-colors disabled:opacity-50"
-                                    >
-                                        <ArrowRight size={14} />
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div className="flex items-center justify-between p-4 rounded-xl bg-black/40 border border-zinc-800/50 relative">
-                                <div className="absolute -top-2 left-6 px-2 py-0.5 bg-amber-500 text-black text-[9px] font-black uppercase rounded-full">Best Value</div>
-                                <div className="flex items-center gap-3">
-                                    <div className="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-500 font-bold text-xs">5K</div>
-                                    <div>
-                                        <div className="text-sm font-bold text-white uppercase">Professional Pack</div>
-                                        <div className="text-[10px] text-zinc-500">Bulk Operations</div>
-                                    </div>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <span className="text-lg font-black text-white">$39.99</span>
-                                    <button
-                                        disabled={isPending}
-                                        onClick={() => startTransition(async () => {
-                                            try {
-                                                await createCheckoutSession('STRIPE_PRICE_TOKEN_5K', false, 'payment');
-                                            } catch (e) { alert("Token Connection Failed. Please try again."); }
-                                        })}
-                                        className="p-2 bg-amber-600 rounded-lg text-white hover:bg-amber-500 transition-colors disabled:opacity-50"
-                                    >
-                                        <ArrowRight size={14} />
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div className="flex items-center justify-between p-4 rounded-xl bg-black/40 border border-zinc-800/50">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-400 font-bold text-xs">10K</div>
-                                    <div>
-                                        <div className="text-sm font-bold text-white uppercase">Director Pack</div>
-                                        <div className="text-[10px] text-zinc-500">District Scale</div>
-                                    </div>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <span className="text-lg font-black text-white">$69.99</span>
-                                    <button
-                                        disabled={isPending}
-                                        onClick={() => startTransition(async () => {
-                                            try {
-                                                await createCheckoutSession('STRIPE_PRICE_TOKEN_10K', false, 'payment');
-                                            } catch (e) { alert("Token Connection Failed. Please try again."); }
-                                        })}
-                                        className="p-2 bg-amber-600 rounded-lg text-white hover:bg-amber-500 transition-colors disabled:opacity-50"
-                                    >
-                                        <ArrowRight size={14} />
-                                    </button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                {/* Professional Services */}
-                <div className="p-8 rounded-[2.5rem] bg-zinc-900/30 border border-zinc-800/50 backdrop-blur-sm">
-                    <div className="flex items-center gap-3 mb-6">
-                        <div className="p-2 bg-blue-500/10 rounded-lg text-blue-500"><Crown size={20} /></div>
-                        <h3 className="text-xl font-black text-white uppercase tracking-tight">Strategic Services</h3>
-                    </div>
-                    <div className="space-y-3">
-                        {additionalRates.map((rate, i) => (
-                            <div key={i} className="flex justify-between items-center p-3 rounded-xl bg-black/20 hover:bg-black/40 transition-colors border border-transparent hover:border-zinc-800 cursor-default">
-                                <div>
-                                    <p className="text-xs font-bold text-zinc-300 uppercase">{rate.service}</p>
-                                    <p className="text-[10px] text-zinc-600 font-mono">{rate.deliverable}</p>
-                                </div>
-                                <span className="text-sm font-black text-blue-400">{rate.price}</span>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Founder's Personal Guarantee */}
-                <div className="md:col-span-2 p-8 rounded-[2.5rem] bg-gradient-to-br from-zinc-900 to-black border border-white/10 relative overflow-hidden group">
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-
-                    <div className="relative z-10 flex flex-col md:flex-row items-center gap-8 text-center md:text-left">
-                        <div className="shrink-0 relative">
-                            <div className="w-24 h-24 rounded-full border-4 border-zinc-800 shadow-2xl overflow-hidden relative z-10">
-                                <img src="/images/dr_alvin_west.png" alt="Dr. Alvin West" className="w-full h-full object-cover" />
-                            </div>
-                            <div className="absolute -bottom-2 -right-2 bg-emerald-500 text-black p-1.5 rounded-full z-20"><Check size={16} strokeWidth={4} /></div>
-                        </div>
-
-                        <div>
-                            <h3 className="text-2xl font-black text-white uppercase italic tracking-tight mb-2">My "Professional Time" Guarantee</h3>
-                            <p className="text-zinc-400 text-sm leading-relaxed max-w-2xl">
-                                "If you don't recover at least <span className="text-white font-bold">10 hours of personal time</span> in your first 30 days using the Practitioner Protocol, I will personally refund your subscription and provide a free 1-on-1 strategy session to fix your workflow. We are in the business of liberation, not just software."
-                            </p>
-                            <div className="mt-4 flex items-center justify-center md:justify-start gap-4">
-                                <div className="h-px w-16 bg-zinc-800" />
-                                <span className="font-handwriting text-2xl text-emerald-500 font-bold rotate-[-2deg] opacity-90">Dr. Alvin West</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     );

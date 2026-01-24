@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  # ==========================================
+  # SOVEREIGN AUDIO2FACE CORE (NVIDIA ACE 3.0)
+  # ==========================================
+  # This microservice receives audio buffers from Gemini 3 Pro
+  # and returns high-fidelity blendshapes (60FPS) via gRPC.
+  a2f-core:
+    image: nvcr.io/nvidia/ace/a2f-generative:3.0.0
+    container_name: sovereign-a2f
+    runtime: nvidia
+    environment:
+      - ACCEPT_EULA=Y
+      - NVIDIA_VISIBLE_DEVICES=all
+      - A2F_ENABLE_DIFFUSION=1 # Enables the new V3 diffusion model for micro-expressions
+      - A2F_LIPSET_PRESET=arkit_52 # Standard Apple ARKit 52 blendshapes for web compatibility
+      - GRPC_PORT=50051
+      - METRICS_PORT=8002
+    ports:
+      - "50051:50051" # gRPC for Audio-to-Animation stream
+      - "8002:8002" # Prometheus metrics
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
+    healthcheck:
+      test: [ "CMD", "grpc_health_probe", "-addr=:50051" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  # ==========================================
+  # EMOTION & TONE ANALYZER (Sidecar)
+  # ==========================================
+  # Analyzes audio sentiment in real-time to adjust
+  # the 'emotion_strength' parameter in A2F.
+  tone-analyzer:
+    image: gcr.io/edintel/tone-analyzer:v1
+    build:
+      context: ./tone-analyzer
+    environment:
+      - MODEL_TYPE=paralinguistic-v2
+      - TARGET_A2F_HOST=a2f-core
+    depends_on:
+      - a2f-core
+
+  # ==========================================
+  # WEB GATEWAY (gRPC-Web Proxy)
+  # ==========================================
+  # Transcodes gRPC to WebSocket for the Next.js frontend.
+  gateway:
+    image: envoyproxy/envoy:v1.29-latest
+    volumes:
+      - ./envoy-config.yaml:/etc/envoy/envoy.yaml
+    ports:
+      - "8080:8080" # Web-accessible WebSocket port
+    depends_on:
+      - a2f-core
+
+networks:
+  sovereign-mesh:
+    driver: bridge

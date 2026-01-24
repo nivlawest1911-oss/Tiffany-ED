@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { BookOpen, Shield, Zap, ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 

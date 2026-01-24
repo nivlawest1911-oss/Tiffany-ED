@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Share2, Users, Gift, Copy, CheckCircle, Globe, Zap } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Share2, Gift, Copy, CheckCircle, Globe } from 'lucide-react';
 
 export default function ProfessionalReferral() {
     const [copied, setCopied] = useState(false);

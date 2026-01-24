@@ -1,6 +1,6 @@
 'use client';
 
-import { User, Fingerprint, Zap, AlertTriangle, Upload, Trash2, Camera, Settings, Disc } from 'lucide-react';
+import { User, Fingerprint, Zap, Upload, Trash2, Camera, Settings } from 'lucide-react';
 import React, { useState } from 'react';
 
 export default function IdentityManager() {

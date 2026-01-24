@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Home, Search, ArrowLeft, Sparkles, MessageSquare } from 'lucide-react';
+import { Home, ArrowLeft, MessageSquare } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import LiveAvatarChat from '@/components/LiveAvatarChat';

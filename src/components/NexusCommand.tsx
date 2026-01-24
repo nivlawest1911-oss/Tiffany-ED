@@ -1,7 +1,7 @@
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Command, Zap, Shield, Globe, Users, FileText, X, ChevronRight, Terminal } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
+import { Command, Zap, Shield, Globe, Users, FileText, ChevronRight, Terminal } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 

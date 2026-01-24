@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { Crown, Brain, Zap } from 'lucide-react';
 import React from 'react';
+import HumanAvatar from './HumanAvatar';
 
 interface Delegate {
     id: string;
@@ -20,7 +20,7 @@ export default function DelegateOverlay() {
             name: 'Dr. Alvin West',
             role: 'Executive Twin',
             color: 'emerald',
-            icon: <img src="/images/avatars/executive_leader.png" alt="Dr. West" className="w-full h-full object-cover" />,
+            icon: <HumanAvatar src="/images/avatars/executive_leader.png" alt="Dr. West" className="w-full h-full object-cover" />,
             message: "Strategic directives align with district goals.",
             position: { x: 85, y: 15 }
         },
@@ -29,7 +29,7 @@ export default function DelegateOverlay() {
             name: 'Keisha Reynolds',
             role: 'Instructional Lead',
             color: 'blue',
-            icon: <img src="/images/avatars/curriculum_strategist.png" alt="Keisha" className="w-full h-full object-cover" />,
+            icon: <HumanAvatar src="/images/avatars/curriculum_strategist.png" alt="Keisha" className="w-full h-full object-cover" />,
             message: "I've drafted 3 new lesson plan hooks for you.",
             position: { x: 10, y: 70 }
         },
@@ -38,7 +38,7 @@ export default function DelegateOverlay() {
             name: 'Dr. Isaiah Vance',
             role: 'Compliance Lead',
             color: 'orange',
-            icon: <img src="/images/avatars/special_ed_director.png" alt="Isaiah" className="w-full h-full object-cover" />,
+            icon: <HumanAvatar src="/images/avatars/special_ed_director.png" alt="Isaiah" className="w-full h-full object-cover" />,
             message: "IEP audit complete. 0 high-risk nodes detected.",
             position: { x: 90, y: 80 }
         }

@@ -1,5 +1,5 @@
 'use client';
-import { Linkedin, Globe, BookOpen, GraduationCap, Award, Briefcase, ChevronRight } from 'lucide-react';
+import { Linkedin, BookOpen, GraduationCap, Award, ChevronRight } from 'lucide-react';
 
 export default function ProfileIdentity() {
     return (

@@ -2,8 +2,8 @@
 
 import { motion } from 'framer-motion';
 import {
-    Brain, Sparkles, HandCoins, Compass, Flame, Video, HeartHandshake, History,
-    ArrowRight, Zap, Globe, Cpu, Network
+    Brain, HandCoins, Flame,
+    ArrowRight, Globe, Cpu, Network
 } from 'lucide-react';
 import Link from 'next/link';
 import FloatingNavbar from '@/components/FloatingNavbar';

@@ -3,11 +3,11 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-    User, Briefcase, GraduationCap, Brain, Heart, Target,
-    Sparkles, Video, Mic, MessageSquare, Play, Phone, Star, Scale, Shield
+    User, Video, Play
 } from 'lucide-react';
 import LiveAvatarChat from './LiveAvatarChat';
 import { CORE_AVATARS } from '@/data/avatars';
+import HumanAvatar from './ui/HumanAvatar';
 
 // Comprehensive AI Avatar Team
 const AI_AVATARS = CORE_AVATARS;
@@ -84,7 +84,7 @@ export default function AIAvatarGallery() {
                                         <div className="absolute -inset-2 rounded-full border border-dashed border-white/10 group-hover:border-[#00d2ff]/30 group-hover:rotate-180 transition-all duration-[3000ms]" />
 
                                         <div className="relative w-full h-full rounded-full overflow-hidden">
-                                            <img
+                                            <HumanAvatar
                                                 src={avatar.avatar}
                                                 alt={avatar.name}
                                                 className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
@@ -214,13 +214,21 @@ export default function AIAvatarGallery() {
                         >
                             <div className="grid grid-cols-1 lg:grid-cols-2">
                                 <div className="relative aspect-square lg:aspect-auto bg-black border-r border-white/5">
-                                    <video
-                                        src={selectedAvatar.video}
-                                        autoPlay
-                                        loop
-                                        muted
-                                        className="w-full h-full object-cover opacity-60"
-                                    />
+                                    {selectedAvatar.video ? (
+                                        <video
+                                            src={selectedAvatar.video}
+                                            autoPlay
+                                            loop
+                                            muted
+                                            className="w-full h-full object-cover opacity-60"
+                                        />
+                                    ) : (
+                                        <HumanAvatar
+                                            src={selectedAvatar.avatar}
+                                            alt={selectedAvatar.name}
+                                            className="w-full h-full object-cover opacity-60"
+                                        />
+                                    )}
                                     <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/80 via-transparent to-transparent" />
                                 </div>
 

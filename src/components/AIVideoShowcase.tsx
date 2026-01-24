@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Pause, Volume2, VolumeX, Maximize, X, Sparkles, User, Mic } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, Maximize, X, Sparkles, Mic } from 'lucide-react';
 
 interface VideoShowcase {
     id: number;
@@ -53,7 +53,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         title: 'Strategic Presence: Live Conversation',
         description: 'Witness the future of leadership as Dr. Alvin West interacts in real-time with zero latency.',
         thumbnail: '/images/avatars/dr_alvin_west_premium.png',
-        videoUrl: '/videos/briefings/principal_briefing.mp4',
+        videoUrl: '', // REPLACED: Stock footage removed
         duration: '2:30',
         category: 'AI Avatars',
         aiGenerated: false,
@@ -67,7 +67,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         title: 'District Intelligence Command Center',
         description: 'Macro-level data visualization transformed into micro-level tactical directives.',
         thumbnail: '/images/features/collaborative_intelligence_team.png',
-        videoUrl: '/videos/briefings/data_briefing.mp4',
+        videoUrl: '', // REPLACED: Stock footage removed
         duration: '5:15',
         category: 'Analytics',
         aiGenerated: true,
@@ -81,7 +81,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         title: 'Behavioral Support System',
         description: 'Constructing tiered intervention strategies that prioritize self-regulation over compliance.',
         thumbnail: '/images/features/behavior_intervention_specialist.png',
-        videoUrl: '/videos/briefings/counselor_briefing.mp4',
+        videoUrl: '', // REPLACED: Stock footage removed
         duration: '3:50',
         category: 'Behavior',
         aiGenerated: true,
@@ -95,7 +95,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         title: 'Literacy Optimization Architecture',
         description: 'Bridging the achievement gap through data-backed reading intervention blueprints.',
         thumbnail: '/images/features/executive_grant_writer.png',
-        videoUrl: '/videos/briefings/principal_briefing.mp4',
+        videoUrl: '', // REPLACED: Stock footage removed
         duration: '4:40',
         category: 'Literacy',
         aiGenerated: true,
@@ -109,7 +109,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         title: 'Sovereign Identity Synchronicity',
         description: 'Observe the zero-latency synchronization between the user and their digital twin.',
         thumbnail: '/images/avatars/executive_leader.png',
-        videoUrl: '/videos/briefings/principal_briefing.mp4',
+        videoUrl: '', // REPLACED: Stock footage removed
         duration: '2:15',
         category: 'Identity',
         aiGenerated: true,
@@ -123,7 +123,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         title: 'Quantum Edge Architecture',
         description: 'A deep dive into the triple-redundant cloud infrastructure powering the EdIntel ecosystem.',
         thumbnail: '/images/features/feature_suite_master.png',
-        videoUrl: '/videos/briefings/data_briefing.mp4',
+        videoUrl: '', // REPLACED: Stock footage removed
         duration: '6:30',
         category: 'Infrastructure',
         aiGenerated: true,
@@ -138,7 +138,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         title: 'Global Parent Communication (HeyGen)',
         description: 'Instant translation of administrative updates into 40+ languages with perfect lip-sync.',
         thumbnail: '/images/integrations/heygen_thumb.png',
-        videoUrl: '/videos/briefings/principal_briefing.mp4', // Simulating HeyGen Output
+        videoUrl: '', // REPLACED: Stock footage removed
         duration: '2:15',
         category: 'Communications',
         aiGenerated: true,
@@ -153,7 +153,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         title: 'Daily District News (InVideo)',
         description: 'Automated synthesis of daily bulletins into engaging, broadcast-quality video updates.',
         thumbnail: '/images/integrations/invideo_thumb.png',
-        videoUrl: '/videos/briefings/data_briefing.mp4', // Fixed from broken path
+        videoUrl: '', // REPLACED: Stock footage removed
         duration: '3:00',
         category: 'Broadcast',
         aiGenerated: true,
@@ -168,7 +168,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         title: 'Accessible Learning Materials (Captions)',
         description: 'Automatic high-fidelity captioning and dubbing for universal design compliance.',
         thumbnail: '/images/integrations/captions_thumb.png',
-        videoUrl: '/videos/briefings/counselor_briefing.mp4', // Simulating Captions Output
+        videoUrl: '', // REPLACED: Stock footage removed
         duration: '1:45',
         category: 'Accessibility',
         aiGenerated: true,
@@ -183,7 +183,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         title: 'Micro-PD Generation (Opus)',
         description: 'Intelligent extraction of viral moments from long-form professional development sessions.',
         thumbnail: '/images/integrations/opus_thumb.png',
-        videoUrl: '/videos/briefings/data_briefing.mp4', // Simulating Opus Output
+        videoUrl: '', // REPLACED: Stock footage removed
         duration: '0:58',
         category: 'Professional Dev',
         aiGenerated: true,
@@ -213,7 +213,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         title: 'Sovereign Directive: CEO Update',
         description: 'Direct neural uplink from the Executive Sovereign regarding Q1 strategic alignment.',
         thumbnail: '/images/avatars/executive_leader.png',
-        videoUrl: '/videos/briefings/principal_briefing.mp4', // Fixed from missing executive_directive.mp4
+        videoUrl: '', // REPLACED: Stock footage removed
         duration: '1:15',
         category: 'Internal - Executive',
         aiGenerated: true, // It's an AI avatar of the human
@@ -227,7 +227,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         title: 'Parent Engagement Protocol',
         description: 'Simulated interaction with a concerned parent using conflict resolution vectors.',
         thumbnail: '/images/avatars/parent_simulation.png',
-        videoUrl: '/videos/briefings/counselor_briefing.mp4',
+        videoUrl: '', // REPLACED: Stock footage removed
         duration: '2:45',
         category: 'Simulation',
         aiGenerated: true,
@@ -241,7 +241,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         title: 'Fiscal Audit Walkthrough',
         description: 'Automated breakdown of the annual budget audit for board presentation.',
         thumbnail: '/images/features/executive_grant_writer.png',
-        videoUrl: '/videos/briefings/data_briefing.mp4', // Fixed from broken path
+        videoUrl: '', // REPLACED: Stock footage removed
         duration: '5:30',
         category: 'Finance',
         aiGenerated: true,
@@ -255,7 +255,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         title: 'Neural Strategy Framework',
         description: 'Watch the AI architect a 5-year district growth plan using predictive modeling.',
         thumbnail: '/images/features/strategic_educator_planner.png',
-        videoUrl: '/videos/briefings/principal_briefing.mp4', // Fixed from missing strategy-demo.mp4
+        videoUrl: '', // REPLACED: Stock footage removed
         duration: '5:20',
         category: 'Strategy',
         aiGenerated: true,
@@ -269,7 +269,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         title: 'Human Fidelity Calibration',
         description: 'Observe the zero-latency synchronization between human voice and synthetic avatar.',
         thumbnail: '/images/avatars/dr_alvin_west_premium.png',
-        videoUrl: '/videos/briefings/principal_briefing.mp4', // Fixed from missing fidelity-demo.mp4
+        videoUrl: '', // REPLACED: Stock footage removed
         duration: '3:15',
         category: 'Technology',
         aiGenerated: true,
@@ -283,7 +283,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         title: 'Quantum Budget Audit',
         description: 'Real-time fiscal analysis of multi-million dollar district budgets.',
         thumbnail: '/images/features/executive_grant_writer.png',
-        videoUrl: '/videos/briefings/data_briefing.mp4', // Fixed from missing budget-demo.mp4
+        videoUrl: '', // REPLACED: Stock footage removed
         duration: '4:45',
         category: 'Finance',
         aiGenerated: true,
@@ -331,45 +331,50 @@ export default function AIVideoShowcase() {
     }, []);
 
     const speakBriefing = (text: string, name: string) => {
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel();
+        if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
+
+        window.speechSynthesis.cancel();
+        setIsSpeaking(false);
+
+        const buildAndSpeak = (voices: SpeechSynthesisVoice[]) => {
             const utterance = new SpeechSynthesisUtterance(text);
-
-            const voices = window.speechSynthesis.getVoices();
-
             const isAlvin = name.toLowerCase().includes('alvin');
             const isMale = name.toLowerCase().includes('marcus') || name.toLowerCase().includes('david') || name.toLowerCase().includes('andre');
 
             let preferredVoice;
-
             if (isAlvin) {
-                // SPECIAL EXECUTIVE VOICE -- Attempt to find deep/authoritative voices
                 preferredVoice = voices.find(v =>
-                    v.name === 'Daniel' || // Premium iOS/Mac
-                    v.name.includes('Google UK English Male') || // Deep
-                    v.name.includes('Rocko') // Android deep
+                    v.name === 'Daniel' || v.name.includes('Google UK English Male') || v.name.includes('Rocko')
                 ) || voices.find(v => v.name.includes('David'));
             } else if (isMale) {
                 preferredVoice = voices.find(v =>
-                    (v.name.includes('Male') || v.name.includes('Guy') || v.name.includes('David') || v.name.includes('Google US English'))
-                    && v.lang.startsWith('en')
+                    (v.name.includes('Male') || v.name.includes('Guy') || v.name.includes('David')) && v.lang.startsWith('en')
                 );
             } else {
                 preferredVoice = voices.find(v =>
-                    (v.name.includes('Female') || v.name.includes('Samantha') || v.name.includes('Zira') || v.name.includes('Google US English'))
-                    && v.lang.startsWith('en')
+                    (v.name.includes('Female') || v.name.includes('Samantha') || v.name.includes('Zira')) && v.lang.startsWith('en')
                 );
             }
 
             if (preferredVoice) utterance.voice = preferredVoice;
             utterance.rate = 1.0;
             utterance.pitch = 1.0;
-
             utterance.onstart = () => setIsSpeaking(true);
             utterance.onend = () => setIsSpeaking(false);
             utterance.onerror = () => setIsSpeaking(false);
 
             window.speechSynthesis.speak(utterance);
+        };
+
+        const voices = window.speechSynthesis.getVoices();
+        if (voices.length === 0) {
+            window.speechSynthesis.onvoiceschanged = () => {
+                const refreshedVoices = window.speechSynthesis.getVoices();
+                buildAndSpeak(refreshedVoices);
+                window.speechSynthesis.onvoiceschanged = null;
+            };
+        } else {
+            buildAndSpeak(voices);
         }
     };
 

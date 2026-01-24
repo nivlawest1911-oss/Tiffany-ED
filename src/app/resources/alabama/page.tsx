@@ -2,7 +2,6 @@
 import { motion } from 'framer-motion';
 import {
   ExternalLink,
-  Link2,
   Building2,
   GraduationCap,
   ShieldAlert,

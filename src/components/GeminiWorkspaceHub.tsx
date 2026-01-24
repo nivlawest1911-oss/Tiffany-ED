@@ -15,15 +15,7 @@ import {
     Sparkles,
     FolderOpen,
     Search,
-    Tag,
-    TrendingUp,
-    CheckCircle,
-    XCircle,
     Loader2,
-    Download,
-    Eye,
-    Trash2,
-    Star,
     Brain,
 } from 'lucide-react';
 import { useDropzone } from 'react-dropzone';

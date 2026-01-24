@@ -1,6 +1,6 @@
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mic, Activity, Globe, X, Send, Video, Maximize2 } from 'lucide-react';
+import { Mic, Globe, X, Video, Maximize2 } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 
 // Free-tier capable interaction types

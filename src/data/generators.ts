@@ -1,10 +1,10 @@
 import {
-    FileText, MessageSquare, GraduationCap, GraduationCap as StudentCap, Brain, Lightbulb, Sparkles, Send, Copy, Check, Loader2, BookOpen, Users,
-    Mic, Volume2, Accessibility, Code, Database, Megaphone, Palette, Calendar, ClipboardCheck, TrendingUp, Award, Target,
+    FileText, MessageSquare, GraduationCap, GraduationCap as StudentCap, Brain, Lightbulb, Sparkles, Check, BookOpen, Users,
+    Mic, Code, Database, Megaphone, Palette, ClipboardCheck, TrendingUp, Target,
     Briefcase, BookMarked, PenTool, Video, Beaker, Calculator, HandCoins, Bus, ClipboardList,
-    PieChart, Layers, Gamepad2, ShieldAlert, Mail, ScrollText, Map, UserCheck, FileJson, Table, HeartHandshake, Smile,
+    PieChart, Layers, Gamepad2, ShieldAlert, Mail, ScrollText, UserCheck, FileJson, Table, HeartHandshake, Smile,
     GanttChart, Trophy, Glasses, BarChart3, Globe, Star, Scale, Clock, ShoppingBag, Presentation, HardHat,
-    History, Heart, Flame, Compass, Music, MapPin, Zap
+    History, Heart, Flame, Compass
 } from "lucide-react"
 
 import { CORE_AVATARS } from './avatars';
@@ -33,8 +33,8 @@ export const generators = [
         color: "#00d2ff",
         avatar: AVATARS.SPED,
         heroImage: "/images/iep_architect_mockup.png",
-        heroVideo: "/videos/briefings/compliance_briefing.mp4",
-        welcomeVideo: "/videos/briefings/maya_briefing.mp4",
+        heroVideo: "", // REPLACED: Stock footage removed
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/compliance_voice.wav",
         prompts: [
             "Draft 3 annual IEP goals for a 4th-grade student with autism focusing on executive function and social-emotional regulation.",
@@ -50,8 +50,8 @@ export const generators = [
         color: "#d946ef",
         avatar: AVATARS.CURRICULUM,
         heroImage: "/images/lesson_planner_mockup.png",
-        heroVideo: "/videos/briefings/curriculum_briefing.mp4",
-        welcomeVideo: "/videos/briefings/keisha_briefing.mp4",
+        heroVideo: "", // REPLACED: Stock footage removed
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: [
             "Design a 5th Grade math lesson on fractions that incorporates Kente pattern geometry and culturally-responsive narratives.",
@@ -67,7 +67,7 @@ export const generators = [
         color: "#6366f1",
         avatar: AVATARS.DATA,
         heroVideo: "/videos/features/data-analysis-demo.mp4",
-        welcomeVideo: "/videos/briefings/emily_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/data_voice.wav",
         prompts: [
             "Analyze 3rd-grade reading fluency data and identify the top 3 phonemic awareness clusters requiring intervention.",
@@ -82,8 +82,8 @@ export const generators = [
         icon: Users,
         color: "#ec4899",
         avatar: AVATARS.BEHAVIOR,
-        heroVideo: "/videos/briefings/behavior_briefing.mp4",
-        welcomeVideo: "/videos/briefings/andre_briefing.mp4",
+        heroVideo: "", // REPLACED: Stock footage removed
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/principal_voice.mp3",
         prompts: [
             "Draft an FBA for a student exhibiting avoidant behaviors during high-stakes testing, including hypothesized functions.",
@@ -98,8 +98,8 @@ export const generators = [
         icon: ClipboardList,
         color: "#f59e0b",
         avatar: AVATARS.PRINCIPAL,
-        heroVideo: "/videos/briefings/principal_briefing.mp4",
-        welcomeVideo: "/videos/briefings/alvin_briefing.mp4",
+        heroVideo: "", // REPLACED: Stock footage removed
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/principal_voice.wav",
         prompts: [
             "Generate an emergency 'Day 1' sub plan for a 1st-grade classroom including literacy and social-emotional activities.",
@@ -114,8 +114,8 @@ export const generators = [
         icon: FileJson,
         color: "#8b5cf6",
         avatar: AVATARS.FINANCE,
-        heroVideo: "/videos/briefings/finance_briefing.mp4",
-        welcomeVideo: "/videos/briefings/isaiah_briefing.mp4",
+        heroVideo: "", // REPLACED: Stock footage removed
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/data_voice.wav",
         prompts: [
             "Audit a Title I spending ledger for allowable costs under the latest ESSA guidelines.",
@@ -130,8 +130,8 @@ export const generators = [
         icon: Table,
         color: "#06b6d4",
         avatar: AVATARS.CURRICULUM,
-        heroVideo: "/videos/briefings/curriculum_briefing.mp4",
-        welcomeVideo: "/videos/briefings/emily_briefing.mp4",
+        heroVideo: "", // REPLACED: Stock footage removed
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: [
             "Create a 5-tier mastery rubric for a 9th-grade persuasive essay, focusing on evidence-based synthesis and rhetorical strategy.",
@@ -146,8 +146,8 @@ export const generators = [
         icon: HeartHandshake,
         color: "#ec4899",
         avatar: AVATARS.COUNSELOR,
-        heroVideo: "/videos/briefings/counselor_briefing.mp4",
-        welcomeVideo: "/videos/briefings/keisha_briefing.mp4",
+        heroVideo: "", // REPLACED: Stock footage removed
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: [
             "Draft a restorative circle script for a classroom dealing with themes of digital citizenship and mutual respect.",
@@ -162,8 +162,8 @@ export const generators = [
         icon: GanttChart,
         color: "#6366f1",
         avatar: AVATARS.PRINCIPAL,
-        heroVideo: "/videos/briefings/principal_briefing.mp4",
-        welcomeVideo: "/videos/briefings/alvin_briefing.mp4",
+        heroVideo: "", // REPLACED: Stock footage removed
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/principal_voice.wav",
         prompts: [
             "Optimize a high-school block schedule to ensure all core-subject teachers have synchronized planning windows.",
@@ -179,7 +179,7 @@ export const generators = [
         color: "#f97316",
         avatar: AVATARS.COMPLIANCE,
         heroVideo: "/videos/features/iep-architect-demo.mp4",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/compliance_voice.wav",
         prompts: ["Eligibility checklist", "GPA tracking template", "NCAA requirement guide"]
     },
@@ -191,36 +191,36 @@ export const generators = [
         color: "#3b82f6",
         avatar: AVATARS.CURRICULUM,
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: ["Dyslexia-friendly worksheet", "Reading intervention list", "Parent resource guide"]
     },
     // Re-adding essential existing ones for the demo to work fully
-    { id: "email-composer", name: "Email Composer", description: "Professional communications", icon: MessageSquare, color: "#10b981", avatar: AVATARS.PRINCIPAL, heroImage: "/images/features/strategic_communications_director.png", heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/principal_briefing.mp4", voiceWelcome: "/voice-profiles/principal_voice.wav", prompts: ["Parent conference follow-up", "Staff announcement"] },
-    { id: "policy-advisor", name: "Policy Advisor", description: "Navigate regulations", icon: Scale, color: "#8b5cf6", avatar: AVATARS.COMPLIANCE, heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/principal_briefing.mp4", voiceWelcome: "/voice-profiles/compliance_voice.wav", prompts: ["IDEA compliance check", "504 plan requirements"] },
-    { id: "cognitive-coach", name: "Cognitive Coach", description: "Executive function strategies", icon: Brain, color: "#ec4899", avatar: AVATARS.COUNSELOR, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Working memory activities"] },
-    { id: "idea-generator", name: "Idea Generator", description: "Creative solutions", icon: Lightbulb, color: "#f59e0b", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Engagement strategies"] },
-    { id: "code-commander", name: "Code Commander", description: "Learn coding", icon: Code, color: "#06b6d4", avatar: AVATARS.DATA, heroVideo: "/videos/features/data-analysis-demo.mp4", welcomeVideo: "/videos/briefings/data_briefing.mp4", voiceWelcome: "/voice-profiles/data_voice.wav", prompts: ["Debug my Python code"] },
-    { id: "comms-director", name: "Comms Director", description: "PR content", icon: Megaphone, color: "#f97316", avatar: AVATARS.PRINCIPAL, heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/principal_briefing.mp4", voiceWelcome: "/voice-profiles/principal_voice.wav", prompts: ["Draft school newsletter"] },
-    { id: "design-studio", name: "Design Studio", description: "Creative layout", icon: Palette, color: "#e11d48", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Yearbook layout ideas"] },
-    { id: "meeting-prep", name: "Meeting Prep", description: "Agendas & talking points", icon: Briefcase, color: "#0ea5e9", avatar: AVATARS.PRINCIPAL, heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/principal_briefing.mp4", voiceWelcome: "/voice-profiles/principal_voice.wav", prompts: ["Board meeting agenda"] },
-    { id: "assessment-builder", name: "Assessment Builder", description: "Create assessments", icon: ClipboardCheck, color: "#8b5cf6", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Multiple choice quiz"] },
-    { id: "differentiation-planner", name: "Differentiation", description: "Tiered activities", icon: Target, color: "#ec4899", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Tier 1, 2, 3 activities"] },
-    { id: "parent-communicator", name: "Parent Communicator", description: "Communication logs", icon: MessageSquare, color: "#f59e0b", avatar: AVATARS.COUNSELOR, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Weekly progress update"] },
-    { id: "student-goal-setter", name: "Student Goal Setter", description: "SMART goals", icon: StudentCap, color: "#06b6d4", avatar: AVATARS.COUNSELOR, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Academic goal template"] },
-    { id: "study-guide-maker", name: "Study Guide Maker", description: "Review materials", icon: BookMarked, color: "#a855f7", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Chapter summary"] },
-    { id: "writing-coach", name: "Writing Coach", description: "Essay feedback", icon: PenTool, color: "#f97316", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Essay outline help"] },
-    { id: "video-lesson-planner", name: "Video Lesson Planner", description: "Video scripts", icon: Video, color: "#d946ef", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Flipped classroom script"] },
-    { id: "college-essay-coach", name: "College Essay Coach", description: "Ivy League feedback", icon: StudentCap, color: "#d4af37", avatar: AVATARS.COUNSELOR, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Review college essay draft"] },
-    { id: "science-fair-mentor", name: "Science Fair Mentor", description: "Project ideas", icon: Beaker, color: "#0ea5e9", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Science fair project ideas"] },
-    { id: "math-tutor-pro", name: "Math Tutor Pro", description: "Math help", icon: Calculator, color: "#f59e0b", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Explain math problem"] },
-    { id: "debate-prep", name: "Debate Prep", description: "Argument builder", icon: Mic, color: "#ef4444", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Argument builder"] },
-    { id: "bus-route-optimizer", name: "Transport Logistics", description: "Route efficiency", icon: Bus, color: "#f59e0b", avatar: AVATARS.DATA, heroVideo: "/videos/features/data-analysis-demo.mp4", welcomeVideo: "/videos/briefings/data_briefing.mp4", voiceWelcome: "/voice-profiles/data_voice.wav", prompts: ["Optimize bus route"] },
-    { id: "budget-allocator", name: "Budget Allocator", description: "Finance modeling", icon: PieChart, color: "#06b6d4", avatar: AVATARS.DATA, heroVideo: "/videos/features/data-analysis-demo.mp4", welcomeVideo: "/videos/briefings/data_briefing.mp4", voiceWelcome: "/voice-profiles/data_voice.wav", prompts: ["Budget analysis"] },
-    { id: "project-pbl-architect", name: "PBL Specialist", description: "Project design", icon: Layers, color: "#ec4899", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["PBL unit plan"] },
-    { id: "quiz-gamifier", name: "Quiz Gamifier", description: "Gamification", icon: Gamepad2, color: "#8b5cf6", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "/videos/briefings/counselor_briefing.mp4", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Gamify quiz review"] },
-    { id: "safety-drill-master", name: "Safety Drill Master", description: "Crisis planning", icon: ShieldAlert, color: "#ef4444", avatar: AVATARS.COMPLIANCE, heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/principal_briefing.mp4", voiceWelcome: "/voice-profiles/compliance_voice.wav", prompts: ["Fire drill procedure"] },
-    { id: "newsletter-wizard", name: "Newsletter Wizard", description: "Community updates", icon: Mail, color: "#3b82f6", avatar: AVATARS.PRINCIPAL, heroImage: "/images/features/strategic_communications_director.png", heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/principal_briefing.mp4", voiceWelcome: "/voice-profiles/principal_voice.wav", prompts: ["Weekly newsletter"] },
+    { id: "email-composer", name: "Email Composer", description: "Professional communications", icon: MessageSquare, color: "#10b981", avatar: AVATARS.PRINCIPAL, heroImage: "/images/features/strategic_communications_director.png", heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/principal_voice.wav", prompts: ["Parent conference follow-up", "Staff announcement"] },
+    { id: "policy-advisor", name: "Policy Advisor", description: "Navigate regulations", icon: Scale, color: "#8b5cf6", avatar: AVATARS.COMPLIANCE, heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/compliance_voice.wav", prompts: ["IDEA compliance check", "504 plan requirements"] },
+    { id: "cognitive-coach", name: "Cognitive Coach", description: "Executive function strategies", icon: Brain, color: "#ec4899", avatar: AVATARS.COUNSELOR, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Working memory activities"] },
+    { id: "idea-generator", name: "Idea Generator", description: "Creative solutions", icon: Lightbulb, color: "#f59e0b", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Engagement strategies"] },
+    { id: "code-commander", name: "Code Commander", description: "Learn coding", icon: Code, color: "#06b6d4", avatar: AVATARS.DATA, heroVideo: "/videos/features/data-analysis-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/data_voice.wav", prompts: ["Debug my Python code"] },
+    { id: "comms-director", name: "Comms Director", description: "PR content", icon: Megaphone, color: "#f97316", avatar: AVATARS.PRINCIPAL, heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/principal_voice.wav", prompts: ["Draft school newsletter"] },
+    { id: "design-studio", name: "Design Studio", description: "Creative layout", icon: Palette, color: "#e11d48", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Yearbook layout ideas"] },
+    { id: "meeting-prep", name: "Meeting Prep", description: "Agendas & talking points", icon: Briefcase, color: "#0ea5e9", avatar: AVATARS.PRINCIPAL, heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/principal_voice.wav", prompts: ["Board meeting agenda"] },
+    { id: "assessment-builder", name: "Assessment Builder", description: "Create assessments", icon: ClipboardCheck, color: "#8b5cf6", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Multiple choice quiz"] },
+    { id: "differentiation-planner", name: "Differentiation", description: "Tiered activities", icon: Target, color: "#ec4899", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Tier 1, 2, 3 activities"] },
+    { id: "parent-communicator", name: "Parent Communicator", description: "Communication logs", icon: MessageSquare, color: "#f59e0b", avatar: AVATARS.COUNSELOR, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Weekly progress update"] },
+    { id: "student-goal-setter", name: "Student Goal Setter", description: "SMART goals", icon: StudentCap, color: "#06b6d4", avatar: AVATARS.COUNSELOR, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Academic goal template"] },
+    { id: "study-guide-maker", name: "Study Guide Maker", description: "Review materials", icon: BookMarked, color: "#a855f7", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Chapter summary"] },
+    { id: "writing-coach", name: "Writing Coach", description: "Essay feedback", icon: PenTool, color: "#f97316", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Essay outline help"] },
+    { id: "video-lesson-planner", name: "Video Lesson Planner", description: "Video scripts", icon: Video, color: "#d946ef", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Flipped classroom script"] },
+    { id: "college-essay-coach", name: "College Essay Coach", description: "Ivy League feedback", icon: StudentCap, color: "#d4af37", avatar: AVATARS.COUNSELOR, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Review college essay draft"] },
+    { id: "science-fair-mentor", name: "Science Fair Mentor", description: "Project ideas", icon: Beaker, color: "#0ea5e9", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Science fair project ideas"] },
+    { id: "math-tutor-pro", name: "Math Tutor Pro", description: "Math help", icon: Calculator, color: "#f59e0b", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Explain math problem"] },
+    { id: "debate-prep", name: "Debate Prep", description: "Argument builder", icon: Mic, color: "#ef4444", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Argument builder"] },
+    { id: "bus-route-optimizer", name: "Transport Logistics", description: "Route efficiency", icon: Bus, color: "#f59e0b", avatar: AVATARS.DATA, heroVideo: "/videos/features/data-analysis-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/data_voice.wav", prompts: ["Optimize bus route"] },
+    { id: "budget-allocator", name: "Budget Allocator", description: "Finance modeling", icon: PieChart, color: "#06b6d4", avatar: AVATARS.DATA, heroVideo: "/videos/features/data-analysis-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/data_voice.wav", prompts: ["Budget analysis"] },
+    { id: "project-pbl-architect", name: "PBL Specialist", description: "Project design", icon: Layers, color: "#ec4899", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["PBL unit plan"] },
+    { id: "quiz-gamifier", name: "Quiz Gamifier", description: "Gamification", icon: Gamepad2, color: "#8b5cf6", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Gamify quiz review"] },
+    { id: "safety-drill-master", name: "Safety Drill Master", description: "Crisis planning", icon: ShieldAlert, color: "#ef4444", avatar: AVATARS.COMPLIANCE, heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/compliance_voice.wav", prompts: ["Fire drill procedure"] },
+    { id: "newsletter-wizard", name: "Newsletter Wizard", description: "Community updates", icon: Mail, color: "#3b82f6", avatar: AVATARS.PRINCIPAL, heroImage: "/images/features/strategic_communications_director.png", heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/principal_voice.wav", prompts: ["Weekly newsletter"] },
 
     // --- ADMINISTRATIVE SUPPORT ---
     {
@@ -230,8 +230,8 @@ export const generators = [
         icon: UserCheck,
         color: "#d97706", // Amber
         avatar: AVATARS.DATA,
-        heroVideo: "/videos/briefings/data_briefing.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        heroVideo: "", // REPLACED: Stock footage removed
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/data_voice.wav",
         prompts: ["Analyze climate survey", "Identify retention risks", "Draft retention plan"]
     },
@@ -243,7 +243,7 @@ export const generators = [
         color: "#7c3aed", // Purple
         avatar: AVATARS.CURRICULUM,
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: ["Audit reading list", "Check discipline policy", "Review hiring practices"]
     },
@@ -255,7 +255,7 @@ export const generators = [
         color: "#10b981", // Emerald
         avatar: AVATARS.PRINCIPAL,
         heroVideo: "/videos/features/data-analysis-demo.mp4",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/principal_voice.wav",
         prompts: ["Model 5% budget cut", "Project Title I allocation", "Analyze vendor ROI"]
     },
@@ -266,8 +266,8 @@ export const generators = [
         icon: TrendingUp,
         color: "#3b82f6", // Blue
         avatar: AVATARS.DATA,
-        heroVideo: "/videos/briefings/data_briefing.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        heroVideo: "", // REPLACED: Stock footage removed
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/data_voice.wav",
         prompts: ["Forecast kindergarten enrollment", "Analyze zoning changes", "Predict class sizes"]
     },
@@ -279,7 +279,7 @@ export const generators = [
         color: "#db2777", // Pink-600
         avatar: AVATARS.CURRICULUM,
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: ["Montessori layout ideas", "Calm corner design", "Seating chart for 25 students"]
     },
@@ -291,7 +291,7 @@ export const generators = [
         color: "#059669", // Emerald-600
         avatar: AVATARS.COUNSELOR,
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: ["5-minute stress relief", "Boundary setting scripts", "End-of-day decompression"]
     },
@@ -303,7 +303,7 @@ export const generators = [
         color: "#7c3aed", // Violet-600
         avatar: AVATARS.PRINCIPAL,
         heroVideo: "/videos/features/iep-architect-demo.mp4",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/principal_voice.wav",
         prompts: ["Draft STEM magnet vision", "3-year tech rollout plan", "Mission statement refresh"]
     },
@@ -314,8 +314,8 @@ export const generators = [
         icon: Briefcase,
         color: "#db2777", // Pink-600
         avatar: AVATARS.DATA,
-        heroVideo: "/videos/briefings/data_briefing.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        heroVideo: "", // REPLACED: Stock footage removed
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/data_voice.wav",
         prompts: ["Math teacher interview questions", "Performance improvement plan", "Rejection letter template"]
     },
@@ -327,7 +327,7 @@ export const generators = [
         color: "#ea580c", // Orange-600
         avatar: AVATARS.COUNSELOR,
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: ["Circle facilitator script", "Re-entry meeting agenda", "Apology letter scaffold"]
     },
@@ -339,7 +339,7 @@ export const generators = [
         color: "#16a34a", // Green-600
         avatar: AVATARS.PRINCIPAL,
         heroVideo: "/videos/features/iep-architect-demo.mp4",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/principal_voice.wav",
         prompts: ["Title I needs assessment", "STEM grant narrative", "Community partnership output"]
     },
@@ -351,7 +351,7 @@ export const generators = [
         color: "#dc2626", // Red-600
         avatar: AVATARS.COMPLIANCE,
         heroVideo: "/videos/features/iep-architect-demo.mp4",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/compliance_voice.wav",
         prompts: ["Severe weather checklist", "Parent reunification logic", "Media holding statement"]
     },
@@ -363,7 +363,7 @@ export const generators = [
         color: "#2563eb", // Blue-600
         avatar: AVATARS.CURRICULUM,
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: ["Data dive protocol", "Student work analysis", "PLC norm setting"]
     },
@@ -375,7 +375,7 @@ export const generators = [
         color: "#4f46e5", // Indigo-600
         avatar: AVATARS.COMPLIANCE,
         heroVideo: "/videos/features/iep-architect-demo.mp4",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/compliance_voice.wav",
         prompts: ["504 plan for anxiety", "Accommodation review meeting agenda", "Manifestation determination review"]
     },
@@ -387,7 +387,7 @@ export const generators = [
         color: "#e11d48", // Rose-600
         avatar: AVATARS.CURRICULUM,
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: ["Post-observation feedback script", "Co-teaching station rotation plan", "Growth mindset coaching questions"]
     },
@@ -399,7 +399,7 @@ export const generators = [
         color: "#0d9488", // Teal-600
         avatar: AVATARS.PRINCIPAL,
         heroVideo: "/videos/features/iep-architect-demo.mp4",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/principal_voice.wav",
         prompts: ["Title I parent meeting invite", "Community partnership proposal", "Monthly family newsletter"]
     },
@@ -410,8 +410,8 @@ export const generators = [
         icon: Code,
         color: "#0891b2", // Cyan-600
         avatar: AVATARS.DATA,
-        heroVideo: "/videos/briefings/data_briefing.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        heroVideo: "", // REPLACED: Stock footage removed
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/data_voice.wav",
         prompts: ["District AI usage policy", "1:1 device rollout plan", "Digital citizenship lesson"]
     },
@@ -423,7 +423,7 @@ export const generators = [
         color: "#475569", // Slate-600
         avatar: AVATARS.PRINCIPAL,
         heroVideo: "/videos/features/iep-architect-demo.mp4",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/principal_voice.wav",
         prompts: ["Superintendent's report summary", "Policy change impact analysis", "Budget presentation script"]
     },
@@ -435,7 +435,7 @@ export const generators = [
         color: "#f97316", // Orange-500
         avatar: AVATARS.COUNSELOR,
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: ["School culture audit survey", "Staff appreciation week plan", "Inclusive assembly script"]
     },
@@ -446,8 +446,8 @@ export const generators = [
         icon: Briefcase,
         color: "#0284c7", // Sky-600
         avatar: AVATARS.DATA,
-        heroVideo: "/videos/briefings/data_briefing.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        heroVideo: "", // REPLACED: Stock footage removed
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/data_voice.wav",
         prompts: ["Industry advisory board agenda", "Internship evaluation rubric", "Work-based learning agreement"]
     },
@@ -459,7 +459,7 @@ export const generators = [
         color: "#d946ef", // Fuchsia-600
         avatar: AVATARS.CURRICULUM,
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: ["Sheltered instruction strategy", "Parent letter in Spanish/English", "WIDA access goal setting"]
     },
@@ -471,7 +471,7 @@ export const generators = [
         color: "#f59e0b", // Amber-500
         avatar: AVATARS.CURRICULUM,
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: ["Project-based extension for Math", "Depth and Complexity prompts", "Independent study contract"]
     },
@@ -483,7 +483,7 @@ export const generators = [
         color: "#b91c1c", // Red-700
         avatar: AVATARS.COMPLIANCE,
         heroVideo: "/videos/features/iep-architect-demo.mp4",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/compliance_voice.wav",
         prompts: ["Facility usage schedule", "Coach evaluation rubric", "Parent athlete handbook"]
     },
@@ -495,7 +495,7 @@ export const generators = [
         color: "#1e293b", // Slate-800
         avatar: AVATARS.PRINCIPAL,
         heroVideo: "/videos/features/iep-architect-demo.mp4",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/principal_voice.wav",
         prompts: ["Alumni newsletter template", "Career day invitation", "Fundraising campaign email"]
     },
@@ -507,7 +507,7 @@ export const generators = [
         color: "#4338ca", // Indigo-700
         avatar: AVATARS.COMPLIANCE,
         heroVideo: "/videos/features/iep-architect-demo.mp4",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/compliance_voice.wav",
         prompts: ["Behavior contract template", "Incident reflection sheet", "Suspension alternative list"]
     },
@@ -518,8 +518,8 @@ export const generators = [
         icon: ClipboardCheck,
         color: "#0f766e", // Teal-700
         avatar: AVATARS.DATA,
-        heroVideo: "/videos/briefings/data_briefing.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        heroVideo: "", // REPLACED: Stock footage removed
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/data_voice.wav",
         prompts: ["Proctor training agenda", "Testing room schedule builder", "Irregularity report template"]
     },
@@ -531,7 +531,7 @@ export const generators = [
         color: "#374151", // Gray-700
         avatar: AVATARS.PRINCIPAL,
         heroVideo: "/videos/features/iep-architect-demo.mp4",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/principal_voice.wav",
         prompts: ["Custodial cleaning checklist", "Safety walk-through audit", "Summer maintenance timeline"]
     },
@@ -542,8 +542,8 @@ export const generators = [
         icon: Bus,
         color: "#d97706", // Amber-600
         avatar: AVATARS.DATA,
-        heroVideo: "/videos/briefings/data_briefing.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        heroVideo: "", // REPLACED: Stock footage removed
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/data_voice.wav",
         prompts: ["Driver safety memo", "Bus conduct report", "Field trip transport request"]
     },
@@ -555,7 +555,7 @@ export const generators = [
         color: "#be123c", // Rose-700
         avatar: AVATARS.PRINCIPAL,
         heroVideo: "/videos/features/iep-architect-demo.mp4",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/principal_voice.wav",
         prompts: ["Sub handbook table of contents", "Emergency lesson plan template", "Sub feedback form"]
     },
@@ -567,7 +567,7 @@ export const generators = [
         color: "#6d28d9", // Violet-700
         avatar: AVATARS.COUNSELOR,
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: ["Suicide risk assessment protocol", "Grief counseling script", "Safety plan template"]
     },
@@ -579,7 +579,7 @@ export const generators = [
         color: "#ec4899", // Pink-500
         avatar: AVATARS.CURRICULUM,
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: ["Teacher spotlight post", "Snow day announcement", "Bond referendum info post"]
     },
@@ -591,7 +591,7 @@ export const generators = [
         color: "#be185d", // Pink-700
         avatar: AVATARS.CURRICULUM,
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: ["Phonemic awareness drill", "Decodable text generator", "Reading fluency rubric"]
     },
@@ -602,8 +602,8 @@ export const generators = [
         icon: Calculator,
         color: "#059669", // Emerald-600
         avatar: AVATARS.DATA,
-        heroVideo: "/videos/briefings/data_briefing.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        heroVideo: "", // REPLACED: Stock footage removed
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/data_voice.wav",
         prompts: ["Fraction intervention scaffold", "Word problem visualizer", "Math fact fluency game"]
     },
@@ -615,7 +615,7 @@ export const generators = [
         color: "#fbbf24", // Amber-400
         avatar: AVATARS.COUNSELOR,
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: ["Sensory bin activity guide", "Social-emotional circle time", "Kindergarten readiness checklist"]
     },
@@ -627,7 +627,7 @@ export const generators = [
         color: "#4f46e5", // Indigo-600
         avatar: AVATARS.COMPLIANCE,
         heroVideo: "/videos/features/iep-architect-demo.mp4",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/compliance_voice.wav",
         prompts: ["Transition assessment tool", "Job coaching script", "Independent living goal"]
     },
@@ -639,7 +639,7 @@ export const generators = [
         color: "#0891b2", // Cyan-600
         avatar: AVATARS.CURRICULUM,
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: ["Digital citizenship lesson", "Research source evaluation", "Makerspace challenge card"]
     },
@@ -651,7 +651,7 @@ export const generators = [
         color: "#db2777", // Pink-600
         avatar: AVATARS.CURRICULUM,
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: ["Cognate wall list", "Translanguaging strategy", "Bilingual newsletter blurb"]
     },
@@ -663,7 +663,7 @@ export const generators = [
         color: "#1e3a8a", // Blue-900
         avatar: AVATARS.COMPLIANCE,
         heroVideo: "/videos/features/iep-architect-demo.mp4",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/compliance_voice.wav",
         prompts: ["Title I schoolwide plan", "Equitable services consultation", "Supplement vs Supplant guide"]
     },
@@ -675,7 +675,7 @@ export const generators = [
         color: "#7c3aed", // Violet-600
         avatar: AVATARS.CURRICULUM,
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: ["PBL unit with STEM theme", "Magnet recruitment plan", "Theme integration rubric"]
     },
@@ -686,8 +686,8 @@ export const generators = [
         icon: Clock,
         color: "#c2410c", // Orange-700
         avatar: AVATARS.DATA,
-        heroVideo: "/videos/briefings/data_briefing.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        heroVideo: "", // REPLACED: Stock footage removed
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/data_voice.wav",
         prompts: ["Truancy diversion contract", "Attendance success plan", "Home visit protocol"]
     },
@@ -698,8 +698,8 @@ export const generators = [
         icon: Database,
         color: "#374151", // Gray-700
         avatar: AVATARS.DATA,
-        heroVideo: "/videos/briefings/data_briefing.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        heroVideo: "", // REPLACED: Stock footage removed
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/data_voice.wav",
         prompts: ["Enrollment verification letter", "Transcript audit checklist", "Withdrawal form template"]
     },
@@ -711,7 +711,7 @@ export const generators = [
         color: "#065f46", // Emerald-800
         avatar: AVATARS.PRINCIPAL,
         heroVideo: "/videos/features/iep-architect-demo.mp4",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/principal_voice.wav",
         prompts: ["Technology RFP template", "Vendor evaluation matrix", "Sole source justification"]
     },
@@ -723,7 +723,7 @@ export const generators = [
         color: "#be185d", // Pink-700
         avatar: AVATARS.CURRICULUM,
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: ["New teacher induction agenda", "Differentiated PD survey", "Instructional rounds protocol"]
     },
@@ -735,7 +735,7 @@ export const generators = [
         color: "#fb923c", // Orange-400
         avatar: AVATARS.COUNSELOR,
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: ["Dispute resolution letter", "Needs assessment for shelter", "Transport request form"]
     },
@@ -747,7 +747,7 @@ export const generators = [
         color: "#4f46e5", // Indigo-600
         avatar: AVATARS.COUNSELOR,
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: ["Best interest determination meeting", "DCF school stability plan", "Records transfer checklist"]
     },
@@ -759,7 +759,7 @@ export const generators = [
         color: "#ef4444", // Red-500
         avatar: AVATARS.COMPLIANCE,
         heroVideo: "/videos/features/iep-architect-demo.mp4",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/compliance_voice.wav",
         prompts: ["Seizure action plan template", "Allergy awareness letter", "Immunization audit log"]
     },
@@ -771,7 +771,7 @@ export const generators = [
         color: "#8b5cf6", // Violet-500
         avatar: AVATARS.CURRICULUM,
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: ["Enrichment club rotation schedule", "Snack program tracking sheet", "Dismissal safety protocol"]
     },
@@ -783,7 +783,7 @@ export const generators = [
         color: "#10b981", // Emerald-500
         avatar: AVATARS.PRINCIPAL,
         heroVideo: "/videos/features/iep-architect-demo.mp4",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/principal_voice.wav",
         prompts: ["Volunteer orientation handbook", "Background check process memo", "Appreciation breakfast script"]
     },
@@ -795,7 +795,7 @@ export const generators = [
         color: "#111827", // Gray-900
         avatar: AVATARS.COMPLIANCE,
         heroVideo: "/videos/features/iep-architect-demo.mp4",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/compliance_voice.wav",
         prompts: ["Perimeter security checklist", "Visitor entry protocol", "Door prop audit log"]
     },
@@ -807,7 +807,7 @@ export const generators = [
         color: "#831843", // Pink-900
         avatar: AVATARS.COMPLIANCE,
         heroVideo: "/videos/features/iep-architect-demo.mp4",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/compliance_voice.wav",
         prompts: ["Investigation timeline checklist", "No-contact order template", "Equity climate survey"]
     },
@@ -818,8 +818,8 @@ export const generators = [
         icon: Calculator,
         color: "#14532d", // Green-900
         avatar: AVATARS.DATA,
-        heroVideo: "/videos/briefings/data_briefing.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        heroVideo: "", // REPLACED: Stock footage removed
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/data_voice.wav",
         prompts: ["Budget narrative justification", "Title I spending spreadsheet", "Cost-benefit analysis for tech"]
     },
@@ -831,7 +831,7 @@ export const generators = [
         color: "#0369a1", // Sky-700
         avatar: AVATARS.CURRICULUM,
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: ["Makerspace safety rules", "Robotics club charter", "Engineering design process rubric"]
     },
@@ -843,7 +843,7 @@ export const generators = [
         color: "#c026d3", // Fuchsia-600
         avatar: AVATARS.CURRICULUM,
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: ["STEAM project proposal", "Visual thinking strategy script", "Music in math lesson plan"]
     },
@@ -855,7 +855,7 @@ export const generators = [
         color: "#3f3f46", // Zinc-700
         avatar: AVATARS.PRINCIPAL,
         heroVideo: "/videos/features/iep-architect-demo.mp4",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/principal_voice.wav",
         prompts: ["Contract language clarification", "Grievance response template", "MOU drafting guide"]
     },
@@ -867,7 +867,7 @@ export const generators = [
         color: "#b45309", // Amber-700
         avatar: AVATARS.PRINCIPAL,
         heroVideo: "/videos/features/iep-architect-demo.mp4",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/principal_voice.wav",
         prompts: ["Renovation timeline visualizer", "FF&E inventory log", "Construction safety memo"]
     },
@@ -881,7 +881,7 @@ export const generators = [
         color: "#065f46", // Emerald-900
         avatar: AVATARS.PRINCIPAL,
         heroImage: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&q=80",
-        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         prompts: ["Community wealth building strategy", "Grant narrative for economic development", "Small business resilience protocol"]
     },
     {
@@ -892,7 +892,7 @@ export const generators = [
         color: "#7c2d12", // Red-950
         avatar: AVATARS.COUNSELOR,
         heroImage: "https://images.unsplash.com/photo-1523810192022-5a0fb9aa77d4?auto=format&fit=crop&q=80",
-        welcomeVideo: "/videos/briefings/executive_professor.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         prompts: ["Cultural heritage mapping", "Restorative identity narrative", "Healing through oral history analysis"]
     },
     {
@@ -903,7 +903,7 @@ export const generators = [
         color: "#4a044e", // Fuchsia-950
         avatar: AVATARS.COUNSELOR,
         heroImage: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80",
-        welcomeVideo: "/videos/briefings/executive_professor.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         prompts: ["Stress management for leaders", "Trauma-informed classroom audit", "Emotional intelligence growth plan"]
     },
     {
@@ -914,7 +914,7 @@ export const generators = [
         color: "#1e1b4b", // Indigo-950
         avatar: AVATARS.CURRICULUM,
         heroImage: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         prompts: ["Documentary series outline on History", "Global curriculum for STEM excellence", "Transmedia storytelling for adult learners"]
     },
     {
@@ -925,7 +925,7 @@ export const generators = [
         color: "#1e3a8a", // Blue-900
         avatar: AVATARS.PRINCIPAL,
         heroImage: "https://images.unsplash.com/photo-1544427928-c49cd0491f97?auto=format&fit=crop&q=80",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         prompts: ["Faith community partnership strategy", "Values-based restorative justice guide", "Spiritual nourishment protocol for leaders"]
     },
 
@@ -939,7 +939,7 @@ export const generators = [
         color: "#1e1b4b", // Indigo-950
         avatar: AVATARS.CURRICULUM,
         heroImage: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&q=80",
-        welcomeVideo: "/videos/briefings/executive_professor.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/prophetic_voice.wav",
         prompts: ["The ethics of artificial consciousness", "Metaphysics of digital reality", "Socratic dialogue on leadership"]
     },
@@ -951,7 +951,7 @@ export const generators = [
         color: "#451a03", // Orange-950
         avatar: AVATARS.COMPLIANCE,
         heroImage: "https://images.unsplash.com/photo-1461360228754-6e81c478585b?auto=format&fit=crop&q=80",
-        welcomeVideo: "/videos/briefings/executive_professor.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         prompts: ["Pre-colonial African administrative systems", "The industrial revolution fallback analysis", "Oral traditions vs. Recorded history"]
     },
     {
@@ -962,7 +962,7 @@ export const generators = [
         color: "#4c1d95", // Violet-950
         avatar: AVATARS.PRINCIPAL,
         heroImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80",
-        welcomeVideo: "/videos/briefings/executive_professor.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         prompts: ["Education in the 2050s", "Post-scarcity economic models", "The evolution of human-AI symbiosis"]
     },
     {
@@ -973,7 +973,7 @@ export const generators = [
         color: "#701a75", // Fuchsia-950
         avatar: AVATARS.COUNSELOR,
         heroImage: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80",
-        welcomeVideo: "/videos/briefings/executive_professor.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         prompts: ["Restorative breathing for educators", "Overcoming digital burnout", "Mindfulness through an African-centric lens"]
     },
     {
@@ -984,7 +984,7 @@ export const generators = [
         color: "#164e63", // Cyan-950
         avatar: AVATARS.CURRICULUM,
         heroImage: "https://images.unsplash.com/photo-1474932430478-3a7fb9065ba0?auto=format&fit=crop&q=80",
-        welcomeVideo: "/videos/briefings/executive_professor.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         prompts: ["Fable about the Lion and the Satellite", "Professional myth-making session", "The story of the Digital Ancestors"]
     },
     {
@@ -994,8 +994,8 @@ export const generators = [
         icon: HandCoins,
         color: "#1d4ed8",
         avatar: AVATARS.FINANCE,
-        heroVideo: "/videos/briefings/data_briefing.mp4",
-        welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
+        heroVideo: "", // REPLACED: Stock footage removed
+        welcomeVideo: "", // REPLACED: Stock footage removed
         prompts: ["Analyze capital recovery opportunities", "Draft financial intelligence brief", "Audit district spending ROI"]
     },
     {
@@ -1006,7 +1006,7 @@ export const generators = [
         color: "#7e22ce",
         avatar: AVATARS.LITERACY,
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         prompts: ["Generate phonics routine", "Draft comprehension assessment", "Audit literacy curriculum"]
     },
     {
@@ -1017,8 +1017,34 @@ export const generators = [
         color: "#b45309",
         avatar: AVATARS.COMPLIANCE,
         heroVideo: "/videos/features/iep-architect-demo.mp4",
-        welcomeVideo: "/videos/briefings/principal_briefing.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
         prompts: ["Audit IEP for IDEA compliance", "Draft legal defensibility brief", "Verify parental rights validation"]
+    },
+    {
+        id: 'risk-analyzer',
+        name: 'Litigation Risk Audit',
+        description: 'Instant legal exposure analysis. Calculate potential liability scores and get mitigation steps before you get sued.',
+        icon: Scale,
+        color: 'from-red-500 to-orange-600',
+        avatar: AVATARS.COMPLIANCE,
+        prompts: [
+            "Perform a litigation risk audit for a district-wide discipline policy change.",
+            "Calculate potential liability score for a student transport incident.",
+            "Draft a mitigation plan for a pending SPED legal challenge."
+        ]
+    },
+    {
+        id: 'district-strategy',
+        name: 'District Strategy Command',
+        description: 'Generate board-level turnaround briefs. Operational strategy diagnosis for Superintendents.',
+        icon: TrendingUp,
+        color: 'from-amber-500 to-orange-600',
+        avatar: AVATARS.PRINCIPAL,
+        prompts: [
+            "Generate a board-level briefing for a district turnaround strategy.",
+            "Analyze operational efficiency for the central office staff.",
+            "Draft a 5-year strategic roadmap for academic excellence."
+        ]
     }
 ];
 

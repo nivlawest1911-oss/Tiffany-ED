@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shield as LucideShield, AlertTriangle, Lock, FileText, Gavel, CheckCircle, ArrowRight, Activity, Loader2 } from 'lucide-react';
+import { Shield as LucideShield, AlertTriangle, Lock, FileText, Gavel, ArrowRight, Activity, Loader2 } from 'lucide-react';
 import FloatingNavbar from '@/components/FloatingNavbar';
 import { generateProfessionalResponse } from '@/lib/leadership-ai';
 
@@ -29,13 +29,21 @@ export default function RiskAnalyzer() {
             
             Tone: Warning, Legal, Protective, "Professional".`;
 
-            const response = await generateProfessionalResponse(prompt, 'risk-analyzer');
+            const response = await fetch('/api/generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt, generatorId: 'risk-analyzer' })
+            });
+
+            if (!response.ok) throw new Error('Analysis failed');
+
+            const text = await response.text();
 
             // Fake parsing the score for the visual meter (if the AI puts it at the start)
-            const scoreMatch = response.match(/(\d{1,3})/);
+            const scoreMatch = text.match(/(\d{1,3})/);
             const score = scoreMatch ? parseInt(scoreMatch[0]) : 75;
             setRiskScore(score);
-            setAnalysis(response);
+            setAnalysis(text);
         } catch (error) {
             console.error(error);
         }

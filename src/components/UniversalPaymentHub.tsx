@@ -17,7 +17,6 @@ import {
     Loader,
     Bitcoin,
     DollarSign,
-    Euro,
     TrendingUp,
     Shield,
     Clock,

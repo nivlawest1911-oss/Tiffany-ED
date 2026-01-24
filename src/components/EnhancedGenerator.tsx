@@ -1,16 +1,15 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Loader2, Copy, Check, Sparkles, Download, ArrowRight, Bot, Zap, History, ChevronLeft, X, Mic, Volume2, FileText, BarChart3, Upload } from 'lucide-react';
+import { Loader2, Copy, Check, Sparkles, Download, ArrowRight, Bot, Zap, History, ChevronLeft, X, Mic, Volume2, FileText, BarChart3 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import VideoPlayer from './VideoPlayer';
-import VoiceIdentity from './VoiceIdentity';
 import LiveBriefingConsole from './LiveBriefingConsole';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 import { useAuth } from '@/context/AuthContext';
 import { generators as GENERATORS } from '@/data/generators';
+import TalkingDelegateOverlay from '@/components/TalkingDelegateOverlay';
 
 interface EnhancedGeneratorProps {
     generatorId: string;
@@ -59,6 +58,7 @@ export default function EnhancedGenerator({
         role: delegateRole || "Superintendent Delegate",
         image: delegateImage || "/images/avatars/dr_alvin_west_premium.png"
     });
+    const [showDelegateOverlay, setShowDelegateOverlay] = useState(false);
 
     const delegates = [
         { name: "Dr. Alvin", role: "Superintendent Delegate", image: "/images/avatars/dr_alvin_west_premium.png" },
@@ -240,6 +240,7 @@ Context:
                 if (synthesisRes.ok) {
                     const synthData = await synthesisRes.json();
                     setProfessorVideo(synthData.professorUrl);
+                    setShowDelegateOverlay(true); // Automatically show talking human when ready
                     // Re-save with the vaulted URL for permanence
                     saveToHistory(input, fullResponse, synthData.professorUrl);
                     console.log("[Greyhawk] Professor Synthesized & Vaulted:", synthData.professorUrl);
@@ -621,12 +622,7 @@ Context:
 
                                             {/* Output Actions */}
                                             <button
-                                                onClick={() => {
-                                                    const cleanText = completion.replace(/[*#_`]/g, '');
-                                                    const utterance = new SpeechSynthesisUtterance(cleanText);
-                                                    window.speechSynthesis.cancel();
-                                                    window.speechSynthesis.speak(utterance);
-                                                }}
+                                                onClick={() => setShowDelegateOverlay(true)}
                                                 className="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-emerald-600/20 hover:text-emerald-300 hover:border-emerald-500/30 border border-white/5 text-xs text-zinc-400 transition-all flex items-center gap-1"
                                                 title="Read Aloud"
                                             >
@@ -652,14 +648,6 @@ Context:
                                                 Sentiment
                                             </button>
 
-                                            <button
-                                                onClick={handleStrategicVox}
-                                                className="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-pink-600/20 hover:text-pink-300 hover:border-pink-500/30 border border-white/5 text-xs text-zinc-400 transition-all flex items-center gap-1"
-                                                title="Play Strategic Voice"
-                                            >
-                                                <Volume2 className="w-3 h-3" />
-                                                Vox
-                                            </button>
                                         </div>
                                     )}
                                 </div>
@@ -745,8 +733,18 @@ Context:
                 {/* FLOATING DELEGATE ORB - REMOVED TO PREVENT DUPLICATES (Unified via SovereignDelegate) */}
             </div>
 
-            {/* Tactical Scanlines */}
+            {/* Tactial Scanlines */}
             <div className="fixed inset-0 pointer-events-none z-[70] opacity-[0.03] scan-line" />
+
+            <TalkingDelegateOverlay
+                isOpen={showDelegateOverlay}
+                onClose={() => setShowDelegateOverlay(false)}
+                script={completion}
+                avatarImage={selectedDelegate.image}
+                videoSrc={professorVideo}
+                name={selectedDelegate.name}
+                role={selectedDelegate.role}
+            />
         </div>
     );
 }

@@ -1,11 +1,19 @@
 import { NextRequest } from 'next/server';
-import { generateProfessionalResponse } from '@/lib/leadership-ai';
+import { google } from '@ai-sdk/google';
+import { streamText } from 'ai';
 
 export const runtime = 'edge';
 
+const USER_CREDENTIALS = {
+    name: "Dr. Alvin West",
+    degrees: "DBA Finance, MBA Corporate Finance",
+    role: "Executive Principal & Strategic Financial Architect",
+    resonance: "Unapologetically Excellence-Driven & Culturally Rooted"
+};
+
 export async function POST(request: NextRequest) {
     try {
-        const { prompt, generatorId } = await request.json();
+        const { prompt, generatorId, systemInstruction } = await request.json();
 
         if (!prompt) {
             return new Response(JSON.stringify({ error: 'Prompt is required' }), {
@@ -14,56 +22,33 @@ export async function POST(request: NextRequest) {
             });
         }
 
-        // 1. Professional Cloud Connection (Google Vertex AI via Python Backend)
-        // Attempts to reach the "Professional Brain" on Cloud Run before using local fallback
-        try {
-            const brainUrl = process.env.NEXT_PUBLIC_STRATEGIC_BRAIN_URL;
-            if (brainUrl) {
-                console.log(`[Strategic Link] Connectioning to ${brainUrl}...`);
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 8000); // 8s timeout for high-quality AI
+        const activePersona = USER_CREDENTIALS;
 
-                const cloudRes = await fetch(`${brainUrl}/generate`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt, model_id: generatorId }),
-                    signal: controller.signal
-                });
-                clearTimeout(timeoutId);
+        // SYSTEM PROMPT: FORCING HIGH-FIDELITY SOVEREIGN PERSONA
+        const systemPrompt = systemInstruction || `
+            You are ${activePersona.name}, the ${activePersona.role}.
+            Your persona is "Unapologetically Excellence-Driven & Culturally Rooted."
+            
+            Strategic Guidelines:
+            1. Tone: Authoritative, visionary, and sophisticated. Use high-level vocabulary.
+            2. Cultural Context: You represent "The Village." Your advice should be equitable and culturally responsive.
+            3. Depth: Provide comprehensive, accurate, and appropriate information. Never give generic "as an AI" answers. 
+            4. Mission: Your goal is "Excellence Without Excuse."
+            
+            Identify as the specialist for ${generatorId || 'this area'}.
+        `;
 
-                if (cloudRes.ok) {
-                    const cloudData = await cloudRes.json();
-                    if (cloudData.content) {
-                        return new Response(cloudData.content, {
-                            status: 200,
-                            headers: { 'Content-Type': 'text/plain; charset=utf-8', 'X-Professional-Source': 'Vertex-AI' }
-                        });
-                    }
-                }
-            }
-        } catch (e) {
-            console.warn("[Strategic Link] Cloud Connection Failed/Timed Out. Engaging Local Professional Engine.");
-        }
-
-        // 2. Fallback: Professional AI Engine (Local Resources)
-        // Bypassing Google AI Key to use Professional AI Engine (Local Resources)
-        // This ensures ZERO failures and high-quality "free" AI generation
-        const responseText = await generateProfessionalResponse(prompt, generatorId || 'general');
-
-        return new Response(responseText, {
-            status: 200,
-            headers: { 'Content-Type': 'text/plain; charset=utf-8', 'X-Professional-Source': 'Local-Engine' }
+        const result = await streamText({
+            model: google('models/gemini-1.5-pro-latest'),
+            system: systemPrompt,
+            prompt: prompt,
+            temperature: 0.7,
         });
 
-    } catch (error) {
+        return result.toTextStreamResponse();
+
+    } catch (error: any) {
         console.error('Generation Error:', error);
-
-        // Ultimate Fallback - Use Professional Engine even on error
-        const fallback = await generateProfessionalResponse("Fallback Request", "error");
-
-        return new Response(fallback, {
-            status: 200, // Return 200 even on error to prevent frontend breakage
-            headers: { 'Content-Type': 'text/plain; charset=utf-8' }
-        });
+        return new Response(error.message || 'Generation failed', { status: 500 });
     }
 }

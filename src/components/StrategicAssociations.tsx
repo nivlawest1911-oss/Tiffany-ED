@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Shield as LucideShield, Users, Landmark, Globe, Briefcase, Award, ArrowRight } from 'lucide-react';
+import { Shield as LucideShield, Landmark, Globe, Briefcase, Award, ArrowRight } from 'lucide-react';
 
 export default function StrategicAssociations() {
     const associations = [

@@ -2,13 +2,11 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Brain,
   Zap,
   Target,
   Trophy,
   Activity,
   ShieldCheck,
-  ChevronRight,
   BarChart3,
   Lock,
   Cpu,

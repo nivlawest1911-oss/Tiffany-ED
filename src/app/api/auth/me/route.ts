@@ -8,10 +8,9 @@ export async function GET() {
         return NextResponse.json({ user: null });
     }
 
-    // Fetch fresh usage data
     try {
         const result = await sql`
-            SELECT usage_count, tier FROM users WHERE id = ${session.user.id}
+            SELECT subscription_tier FROM users WHERE email = ${session.user.email} LIMIT 1
         `;
 
         if (result.rows.length > 0) {
@@ -19,8 +18,7 @@ export async function GET() {
             return NextResponse.json({
                 user: {
                     ...session.user,
-                    usage_count: freshData.usage_count,
-                    tier: freshData.tier // Ensure tier is up to date too
+                    tier: freshData.subscription_tier
                 }
             });
         }
@@ -29,4 +27,25 @@ export async function GET() {
     }
 
     return NextResponse.json({ user: session.user });
+}
+
+export async function POST(req: Request) {
+    try {
+        const { email, name, id } = await req.json();
+
+        if (!email) return NextResponse.json({ error: 'Email required' }, { status: 400 });
+
+        // Upsert into legacy users table
+        await sql`
+            INSERT INTO users (id, name, email, created_at, subscription_tier)
+            VALUES (${id || email}, ${name}, ${email}, NOW(), 'free')
+            ON CONFLICT (email) DO UPDATE 
+            SET name = EXCLUDED.name, id = EXCLUDED.id
+        `;
+
+        return NextResponse.json({ success: true });
+    } catch (error: any) {
+        console.error("[Neural Bridge Sync Error]", error);
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
 }

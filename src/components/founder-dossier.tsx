@@ -3,7 +3,7 @@
 import { useState, useRef } from 'react';
 import Image from "next/image"
 import { motion } from "framer-motion"
-import { Award, BookOpen, GraduationCap, Shield as LucideShield, ExternalLink, Linkedin, Briefcase, CheckCircle2, Facebook, Download, Activity, Lock, Pause, Volume2 } from "lucide-react"
+import { Award, BookOpen, GraduationCap, ExternalLink, Linkedin, Briefcase, Facebook, Download, Activity, Lock, Pause, Volume2 } from "lucide-react"
 
 const publications = [
   { title: "Effective Strategies to Sustain Small Businesses", subtitle: "Doctoral Dissertation • Walden University (2023)" },
