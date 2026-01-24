@@ -92,12 +92,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const signup = async (email: string, password?: string, name?: string) => {
         setIsLoading(true);
         try {
-            const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://edintel-app.vercel.app';
+            // Strategic URL detection: prioritize environment var, fallback to dynamic origin
+            const baseUrl = typeof window !== 'undefined'
+                ? window.location.origin
+                : (process.env.NEXT_PUBLIC_APP_URL || 'https://edintel-app.vercel.app');
+
             const { data, error } = await supabase.auth.signUp({
                 email,
                 password: password || 'temporary-vault-key-2026',
                 options: {
-                    emailRedirectTo: `${appUrl}/dashboard`,
+                    emailRedirectTo: `${baseUrl}/dashboard`,
                     data: {
                         full_name: name || email.split('@')[0],
                         tier: 'free'
