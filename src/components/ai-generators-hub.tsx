@@ -194,7 +194,7 @@ Your request has been processed. Here's a tailored response based on Alabama edu
   }
 
   return (
-    <section id="ai-generators" className="px-4 md:px-8 py-16 md:py-24 relative overflow-hidden">
+    <div id="ai-generators" className="p-8 md:p-12 relative overflow-hidden">
       {/* Holographic background effect */}
       <div className="absolute inset-0 holographic opacity-10 pointer-events-none" />
 
@@ -233,9 +233,8 @@ Your request has been processed. Here's a tailored response based on Alabama edu
                     setResponse("")
                     setPrompt("")
                   }}
-                  className={`w-full p-4 rounded-2xl text-left transition-all touch-target ${
-                    activeGenerator.id === gen.id ? "glass-card-emerald scale-[1.02]" : "glass-card hover:scale-[1.01]"
-                  }`}
+                  className={`w-full p-4 rounded-2xl text-left transition-all touch-target ${activeGenerator.id === gen.id ? "glass-card-emerald scale-[1.02]" : "glass-card hover:scale-[1.01]"
+                    }`}
                   style={{
                     borderColor: activeGenerator.id === gen.id ? gen.color : undefined,
                   }}
@@ -315,9 +314,8 @@ Your request has been processed. Here's a tailored response based on Alabama edu
                 />
                 <button
                   onClick={handleVoiceInput}
-                  className={`absolute right-4 top-4 p-2 rounded-lg transition-all ${
-                    isListening ? "bg-red-500 text-white" : "bg-white/10 text-gray-400 hover:text-white"
-                  }`}
+                  className={`absolute right-4 top-4 p-2 rounded-lg transition-all ${isListening ? "bg-red-500 text-white" : "bg-white/10 text-gray-400 hover:text-white"
+                    }`}
                   aria-label="Voice input"
                 >
                   <Mic className="w-5 h-5" />
@@ -393,6 +391,6 @@ Your request has been processed. Here's a tailored response based on Alabama edu
           </div>
         </div>
       </div>
-    </section>
+    </div>
   )
 }

@@ -43,6 +43,7 @@ import SystemHealthDashboard from '@/components/SystemHealthDashboard';
 import SovereignVitalityHUD from '@/components/SovereignVitalityHUD';
 import AuditLog from '@/components/admin/AuditLog';
 import SelfHealingButton from '@/components/admin/SelfHealingButton';
+import { AIGeneratorsHub } from '@/components/ai-generators-hub';
 
 export default function Dashboard() {
     const { user, isLoading } = useAuth();
@@ -276,6 +277,11 @@ export default function Dashboard() {
                                 <div className="text-[9px] text-zinc-500 mt-1">{kpi.sub}</div>
                             </motion.div>
                         ))}
+                    </div>
+
+                    {/* Strategic Intelligence Hub */}
+                    <div className="mb-10 relative overflow-hidden rounded-[3.5rem] bg-zinc-900/40 border border-white/5 backdrop-blur-xl">
+                        <AIGeneratorsHub />
                     </div>
 
                     {/* Dashboard Grid */}
