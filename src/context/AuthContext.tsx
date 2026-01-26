@@ -18,6 +18,7 @@ interface AuthContextType {
     login: (email: string, password?: string) => Promise<void>;
     signup: (email: string, password?: string, name?: string) => Promise<void>;
     loginWithGoogle: () => Promise<void>;
+    loginWithFacebook: () => Promise<void>;
     logout: () => Promise<void>;
     updateUser: (data: Partial<User>) => Promise<void>;
 }
@@ -152,9 +153,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     const loginWithGoogle = async () => {
-        // Feature flagged off until configured in Supabase Dashboard
-        alert("Sovereign Protocol: Google Auth requires configuration in Supabase Dashboard. Please use Email access for now.");
-        /*
         try {
             const { error } = await supabase.auth.signInWithOAuth({
                 provider: 'google',
@@ -165,7 +163,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             console.error("[SOVEREIGN] Google OAuth initiation failed:", err);
             throw err;
         }
-        */
+    };
+
+    const loginWithFacebook = async () => {
+        try {
+            const { error } = await supabase.auth.signInWithOAuth({
+                provider: 'facebook',
+                options: { redirectTo: `${window.location.origin}/dashboard` }
+            });
+            if (error) throw error;
+        } catch (err: any) {
+            console.error("[SOVEREIGN] Facebook OAuth initiation failed:", err);
+            throw err;
+        }
     };
 
     const logout = async () => {
@@ -175,7 +185,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     return (
-        <AuthContext.Provider value={{ user, isLoading, login, signup, loginWithGoogle, logout, updateUser }}>
+        <AuthContext.Provider value={{ user, isLoading, login, signup, loginWithGoogle, loginWithFacebook, logout, updateUser }}>
             {children}
         </AuthContext.Provider>
     );
