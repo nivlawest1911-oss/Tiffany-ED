@@ -1,3 +1,4 @@
+// Force Vercel Cache Invalidation: Refactored background images
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     typescript: {
