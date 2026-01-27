@@ -46,8 +46,36 @@ export async function logout() {
     cookieStore.set('session', '', { expires: new Date(0) });
 }
 
+import { createServerClient } from '@supabase/auth-helpers-nextjs';
+
 export async function getSession() {
     const cookieStore = await cookies();
+
+    // 1. Try Supabase Session first (Modern)
+    try {
+        const supabase = createServerClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL!,
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+            { cookies: { getAll: () => cookieStore.getAll(), setAll: () => { } } }
+        );
+        const { data: { session } } = await supabase.auth.getSession();
+
+        if (session?.user) {
+            const metadata = session.user.user_metadata || {};
+            return {
+                user: {
+                    id: session.user.id,
+                    email: session.user.email!,
+                    name: metadata.full_name || session.user.email?.split('@')[0] || 'Executive',
+                    tier: metadata.tier || 'free'
+                }
+            };
+        }
+    } catch (e) {
+        console.error("[AUTH] Supabase session check failed", e);
+    }
+
+    // 2. Fallback: Legacy JWT Session
     const session = cookieStore.get('session')?.value;
     if (!session) return null;
     return await decrypt(session);

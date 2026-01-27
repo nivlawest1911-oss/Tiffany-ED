@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
+import { toast } from 'sonner';
 
 interface User {
     name: string;
@@ -36,13 +37,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             if (session?.user) {
                 // Ensure we capture metadata consistently
                 const metadata = session.user.user_metadata || {};
+                const usage = metadata.usage_count || 0;
+
                 setUser({
                     id: session.user.id,
                     email: session.user.email!,
                     name: metadata.full_name || session.user.email?.split('@')[0] || 'Executive',
                     tier: (metadata.tier as any) || 'free',
-                    usage_count: metadata.usage_count || 0
+                    usage_count: usage
                 });
+
+                // 🚨 MONITOR TOKEN BALANCE (1,000 unit limit for free tier)
+                if (usage > 900 && metadata.tier === 'free') {
+                    toast.error("Alert: Sovereign Tokens Low. Refuel at the Command Center.", {
+                        description: `Usage at ${usage}/1000 units. Upgrade requested.`,
+                        duration: 10000,
+                    });
+                }
             } else {
                 setUser(null);
             }

@@ -1,8 +1,6 @@
 import { NextRequest } from 'next/server';
 import { sql } from '@vercel/postgres';
 
-export const runtime = 'edge';
-
 // Save a generation to the database
 export async function POST(request: NextRequest) {
     try {

@@ -3,8 +3,10 @@ export const dynamic = 'force-dynamic';
 import { SystemStatus } from '@/components/admin/SystemStatus';
 import { ShieldCheck, ArrowLeft, RefreshCcw } from 'lucide-react';
 import Link from 'next/link';
+import { cookies } from 'next/headers';
 
-export default function StatusPage() {
+export default async function StatusPage() {
+    await cookies(); // Force dynamic execution context
     return (
         <div className="min-h-screen bg-[#0a0a0c] text-white p-8 md:p-16 selection:bg-emerald-500/30">
             <div className="max-w-7xl mx-auto">

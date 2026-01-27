@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = 'force-dynamic';
+
 import React from 'react';
 import { Share2, Lock, CheckCircle2, Shield, AlertCircle } from 'lucide-react';
 import Link from 'next/link';

@@ -1,7 +1,9 @@
-import DashboardClient from './DashboardClient';
-
 export const dynamic = 'force-dynamic';
 
-export default function DashboardPage() {
+import DashboardClient from '@/app/admin/dashboard/DashboardClient';
+import { cookies } from 'next/headers';
+
+export default async function DashboardPage() {
+    await cookies(); // Force dynamic execution context
     return <DashboardClient />;
 }

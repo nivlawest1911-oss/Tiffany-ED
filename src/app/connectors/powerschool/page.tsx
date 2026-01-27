@@ -1,9 +1,11 @@
-'use client';
+export const dynamic = 'force-dynamic';
 
 import { Database, Shield, Zap, ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
+import { cookies } from 'next/headers';
 
-export default function PowerSchoolGuide() {
+export default async function PowerSchoolGuide() {
+    await cookies();
     return (
         <div className="min-h-screen bg-black text-zinc-100 font-sans p-6 md:p-12 lg:p-24 selection:bg-zinc-800">
             <div className="max-w-4xl mx-auto">
