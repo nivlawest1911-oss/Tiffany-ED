@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -9,31 +9,13 @@ import { useAuth } from '@/context/AuthContext';
 import EdIntelLogo from './EdIntelLogo';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 import { useIntelligence } from '@/context/IntelligenceContext';
-import { getIntelligenceFor } from '@/lib/intelligence-engine';
-import { Info } from 'lucide-react';
 
 export default function FloatingNavbar() {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const { user, logout } = useAuth();
-    const { playHover, playClick } = useProfessionalSounds();
+    const { playHover } = useProfessionalSounds();
     const { generateBriefing } = useIntelligence();
-
-    const handleGenerateInfo = (e: React.MouseEvent, label: string) => {
-        e.preventDefault();
-        e.stopPropagation();
-        playClick();
-        const info = getIntelligenceFor(label);
-        if (info) {
-            generateBriefing({
-                title: info.title,
-                description: info.description,
-                stats: info.stats,
-                role: info.role,
-                avatarImage: info.avatar
-            });
-        }
-    };
 
     useEffect(() => {
         const handleScroll = () => {
@@ -110,55 +92,44 @@ export default function FloatingNavbar() {
                         </Link>
 
                         {/* Desktop Nav */}
-                        <div className="hidden md:flex items-center gap-10">
+                        <div className="hidden md:flex items-center gap-8">
                             {navLinks.map((link) => (
                                 <div key={link.name} className="relative group">
                                     {link.submenu ? (
                                         <>
                                             <Link
                                                 href="/ai-hub"
-                                                data-no-intelligence="true"
-                                                className="text-xs font-black text-zinc-400 hover:text-noble-gold uppercase tracking-widest transition-all flex items-center gap-2"
+                                                className="text-xs font-bold text-zinc-400 hover:text-white uppercase tracking-widest transition-colors flex items-center gap-1.5 py-2"
                                                 onMouseEnter={() => playHover()}
                                             >
                                                 {link.name}
                                                 <motion.span
                                                     animate={{ rotate: [0, 180] }}
                                                     transition={{ duration: 0.3 }}
-                                                    className="group-hover:rotate-180 transition-transform"
+                                                    className="group-hover:rotate-180 transition-transform text-[8px]"
                                                 >
                                                     ▼
                                                 </motion.span>
                                             </Link>
                                             {/* Dropdown Menu */}
-                                            <div className="absolute top-full left-0 mt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[200]">
-                                                <div className="bg-noble-black/95 backdrop-blur-3xl border border-white/10 rounded-2xl p-4 shadow-2xl min-w-[280px]">
-                                                    <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-kente-yellow via-kente-green to-kente-red rounded-t-2xl" />
-                                                    <div className="flex flex-col gap-2 mt-2">
+                                            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[200]">
+                                                <div className="bg-noble-black/95 backdrop-blur-3xl border border-white/10 rounded-2xl p-2 shadow-2xl min-w-[240px] overflow-hidden">
+                                                    <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-noble-gold to-transparent opacity-50" />
+                                                    <div className="flex flex-col gap-1">
                                                         {link.submenu.map((sublink) => (
                                                             <Link
                                                                 key={sublink.name}
                                                                 href={sublink.href}
-                                                                data-no-intelligence="true"
                                                                 className="flex items-center justify-between px-4 py-3 rounded-xl hover:bg-white/5 transition-all group/item"
                                                                 onMouseEnter={() => playHover()}
                                                             >
-                                                                <div className="flex flex-col">
-                                                                    <span className="text-sm font-bold text-zinc-300 group-hover/item:text-white">
-                                                                        {sublink.name}
-                                                                    </span>
-                                                                    <button
-                                                                        onClick={(e) => handleGenerateInfo(e, sublink.name)}
-                                                                        className="text-[9px] text-zinc-500 hover:text-amber-400 font-black uppercase tracking-widest mt-1 flex items-center gap-1"
-                                                                    >
-                                                                        <Info size={10} />
-                                                                        <span>Deep Info</span>
-                                                                    </button>
-                                                                </div>
+                                                                <span className="text-sm font-medium text-zinc-300 group-hover/item:text-white transition-colors">
+                                                                    {sublink.name}
+                                                                </span>
                                                                 {sublink.badge && (
-                                                                    <span className={`text-[8px] font-black px-2 py-1 rounded-full ${sublink.badge === 'NEW' ? 'bg-emerald-500/20 text-emerald-400' :
-                                                                        sublink.badge === 'AI' ? 'bg-purple-500/20 text-purple-400' :
-                                                                            'bg-red-500/20 text-red-400'
+                                                                    <span className={`text-[9px] font-black px-2 py-0.5 rounded-full ${sublink.badge === 'NEW' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
+                                                                        sublink.badge === 'AI' ? 'bg-purple-500/10 text-purple-400 border border-purple-500/20' :
+                                                                            'bg-amber-500/10 text-amber-400 border border-amber-500/20'
                                                                         }`}>
                                                                         {sublink.badge}
                                                                     </span>
@@ -170,78 +141,52 @@ export default function FloatingNavbar() {
                                             </div>
                                         </>
                                     ) : (
-                                        <div className="flex flex-col">
-                                            <Link
-                                                href={link.href}
-                                                data-no-intelligence="true"
-                                                className="text-xs font-black text-zinc-400 hover:text-noble-gold uppercase tracking-widest transition-all"
-                                                onMouseEnter={() => playHover()}
-                                                onClick={(e) => (link as any).scroll ? handleSmoothScroll(e, link.href) : undefined}
-                                            >
-                                                {link.name}
-                                                {(link as any).badge && (
-                                                    <span className="ml-2 text-[8px] font-black px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400">
-                                                        {(link as any).badge}
-                                                    </span>
-                                                )}
-                                            </Link>
-                                            <button
-                                                onClick={(e) => handleGenerateInfo(e, link.name)}
-                                                className="text-[8px] text-zinc-600 hover:text-amber-400 font-black uppercase tracking-widest mt-0.5 flex items-center gap-1 self-start"
-                                            >
-                                                <Info size={8} />
-                                                <span>Strat Briefing</span>
-                                            </button>
-                                        </div>
+                                        <Link
+                                            href={link.href}
+                                            className="text-xs font-bold text-zinc-400 hover:text-white uppercase tracking-widest transition-colors py-2 block"
+                                            onMouseEnter={() => playHover()}
+                                            onClick={(e) => (link as any).scroll ? handleSmoothScroll(e, link.href) : undefined}
+                                        >
+                                            {link.name}
+                                        </Link>
                                     )}
                                 </div>
                             ))}
                         </div>
 
                         {/* CTA / User Profile */}
-                        <div className="hidden md:flex items-center gap-3">
-                            {/* Protocol Button */}
-                            <Link href="/identity">
-                                <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[10px] font-black text-zinc-400 hover:text-white hover:border-kente-green/50 transition-all group" onMouseEnter={() => playHover()}>
-                                    <Globe size={14} className="group-hover:text-kente-green" />
-                                    <span>PROTOCOL: INT</span>
-                                </button>
-                            </Link>
-
-                            {/* Executive Director Enterprise Button */}
+                        <div className="hidden md:flex items-center gap-4">
+                            {/* Enterprise Link */}
                             <Link href="/enterprise">
-                                <button className="px-4 py-2 rounded-full bg-gradient-to-r from-noble-gold/20 to-amber-600/20 border border-noble-gold/30 text-[9px] font-black text-noble-gold hover:from-noble-gold/30 hover:to-amber-600/30 transition-all uppercase tracking-wider" onMouseEnter={() => playHover()}>
-                                    Executive Director Enterprise
+                                <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-noble-gold/5 border border-noble-gold/20 text-[10px] font-black text-noble-gold hover:bg-noble-gold/10 transition-all uppercase tracking-wider" onMouseEnter={() => playHover()}>
+                                    <Globe size={12} />
+                                    <span>Enterprise</span>
                                 </button>
                             </Link>
 
                             {user ? (
-                                <div className="flex items-center gap-6">
-                                    <div className="flex items-center gap-3">
-                                        <div className="text-right">
-                                            <p className="text-[10px] font-black text-white uppercase tracking-tighter leading-none">{user.name}</p>
-                                            <p className="text-[8px] font-black text-noble-gold uppercase tracking-[0.2em] mt-1">{user.tier}</p>
+                                <div className="flex items-center gap-4 pl-4 border-l border-white/10">
+                                    <Link href="/dashboard" className="group flex items-center gap-3">
+                                        <div className="text-right hidden lg:block">
+                                            <p className="text-[10px] font-black text-white uppercase tracking-tighter">{user.name}</p>
+                                            <div className="flex items-center justify-end gap-1 text-[8px] font-bold text-emerald-400 uppercase tracking-wider">
+                                                <div className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
+                                                Online
+                                            </div>
                                         </div>
-                                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-noble-gold/20 to-indigo-500/20 border border-noble-gold/30 flex items-center justify-center font-black text-noble-gold text-xs shadow-lg">
-                                            {user.name?.[0].toUpperCase()}
+                                        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-zinc-800 to-black border border-white/10 flex items-center justify-center font-black text-white text-xs shadow-inner group-hover:border-noble-gold/50 transition-colors">
+                                            {user.name?.[0]?.toUpperCase()}
                                         </div>
-                                    </div>
-                                    <button
-                                        onClick={() => logout()}
-                                        className="text-[10px] font-black text-zinc-500 hover:text-kente-red uppercase tracking-widest transition-colors"
-                                        onMouseEnter={() => playHover()}
-                                    >
-                                        Exit
-                                    </button>
+                                    </Link>
                                 </div>
                             ) : (
-                                <div className="flex items-center gap-6">
+                                <div className="flex items-center gap-4 pl-4 border-l border-white/10">
                                     <Link href="/login" className="text-[10px] font-black text-zinc-400 hover:text-white uppercase tracking-widest transition-colors" onMouseEnter={() => playHover()}>
-                                        Sign In
+                                        Log In
                                     </Link>
                                     <Link href="/signup">
-                                        <button className="px-6 py-3 rounded-xl bg-white text-black text-[10px] font-black uppercase tracking-[0.2em] transition-all hover:bg-noble-gold shadow-xl shadow-noble-gold/20 active:scale-95" onMouseEnter={() => playHover()}>
-                                            Initialize
+                                        <button className="px-5 py-2.5 rounded-xl bg-white text-black text-[10px] font-black uppercase tracking-[0.15em] hover:bg-noble-gold transition-colors shadow-lg active:scale-95" onMouseEnter={() => playHover()}>
+                                            Start
                                         </button>
                                     </Link>
                                 </div>

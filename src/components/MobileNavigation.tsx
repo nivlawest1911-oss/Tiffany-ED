@@ -1,201 +1,197 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { usePathname, useRouter } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
-    Home, Sparkles, Clock, User, Menu, X, Search, Bell, TrendingUp, Settings, LogOut
+    Home, Sparkles, LayoutDashboard, User, Menu, X,
+    Settings, LogOut, Globe, CreditCard, Shield, GraduationCap
 } from 'lucide-react';
 import Link from 'next/link';
+import { useAuth } from '@/context/AuthContext';
+import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 
 export default function MobileNavigation() {
-    const [activeTab, setActiveTab] = useState('home');
+    const pathname = usePathname();
+    const router = useRouter();
     const [menuOpen, setMenuOpen] = useState(false);
+    const { user, logout } = useAuth();
+    const { playClick } = useProfessionalSounds();
 
+    const isActiveTab = (path: string) => {
+        if (path === '/' && pathname === '/') return true;
+        if (path !== '/' && pathname?.startsWith(path)) return true;
+        return false;
+    };
+
+    const handleNavigation = (path: string) => {
+        playClick();
+        router.push(path);
+    };
+
+    // 📱 REFINED TABS FOR SOVEREIGN USERS
     const bottomTabs = [
         { id: 'home', label: 'Home', icon: Home, link: '/' },
-        { id: 'generators', label: 'Tools', icon: Sparkles, link: '/all-tools' },
-        { id: 'activity', label: 'Activity', icon: Clock, link: '/analytics' },
-        { id: 'profile', label: 'Profile', icon: User, link: '/profile' },
-        { id: 'more', label: 'More', icon: Menu, link: '#', action: () => setMenuOpen(true) },
+        { id: 'ai-hub', label: 'AI Hub', icon: Sparkles, link: '/ai-hub' },
+        { id: 'dashboard', label: 'Command', icon: LayoutDashboard, link: '/dashboard' },
+        { id: 'identity', label: 'Identity', icon: User, link: '/identity' },
+        { id: 'more', label: 'More', icon: Menu, action: () => setMenuOpen(true) },
     ];
 
     const menuItems = [
-        { label: 'Dashboard', icon: Home, link: '/dashboard' },
-        { label: 'All Tools', icon: Sparkles, link: '/all-tools' },
-        { label: 'Analytics', icon: TrendingUp, link: '/analytics' },
-        { label: 'Notifications', icon: Bell, link: '/notifications' },
+        { label: 'Professional Center', icon: GraduationCap, link: '/professional' },
+        { label: 'Enterprise & Pricing', icon: CreditCard, link: '/pricing' },
+        { label: 'Sovereign Protocol', icon: Shield, link: '/sovereign' },
         { label: 'Settings', icon: Settings, link: '/settings' },
-        { label: 'Sign Out', icon: LogOut, link: '/logout', danger: true },
     ];
 
     return (
         <>
-            {/* Mobile Header */}
-            <div className="lg:hidden fixed top-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-xl border-b border-purple-500/20">
-                <div className="flex items-center justify-between p-4">
-                    {/* Logo */}
-                    <div className="flex items-center gap-2">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
-                            <Sparkles className="w-5 h-5 text-white" />
-                        </div>
-                        <span className="text-white font-bold text-lg">EdIntel</span>
-                    </div>
-
-                    {/* Actions */}
-                    <div className="flex items-center gap-2">
-                        <motion.button
-                            whileTap={{ scale: 0.95 }}
-                            className="p-2 rounded-lg bg-purple-500/20 text-purple-300"
-                        >
-                            <Search className="w-5 h-5" />
-                        </motion.button>
-                        <motion.button
-                            whileTap={{ scale: 0.95 }}
-                            className="p-2 rounded-lg bg-purple-500/20 text-purple-300 relative"
-                        >
-                            <Bell className="w-5 h-5" />
-                            <div className="absolute top-1 right-1 w-2 h-2 rounded-full bg-pink-500" />
-                        </motion.button>
-                    </div>
-                </div>
-            </div>
-
-            {/* Bottom Navigation */}
-            <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-xl border-t border-purple-500/20 safe-area-inset-bottom">
-                <div className="flex items-center justify-around px-2 py-2">
+            {/* Bottom Navigation Bar */}
+            <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#0A0A0A]/95 backdrop-blur-xl border-t border-white/10 safe-area-inset-bottom pb-safe">
+                <div className="flex items-center justify-around px-2 py-3">
                     {bottomTabs.map((tab) => {
-                        const isActive = activeTab === tab.id;
+                        const isActive = tab.link ? isActiveTab(tab.link) : false;
+                        const isMore = tab.id === 'more';
 
                         return (
-                            <Link
+                            <button
                                 key={tab.id}
-                                href={tab.link}
-                                onClick={(e) => {
-                                    if (tab.action) {
-                                        e.preventDefault();
-                                        tab.action();
-                                    } else {
-                                        setActiveTab(tab.id);
-                                    }
+                                onClick={() => {
+                                    playClick();
+                                    if (tab.action) tab.action();
+                                    else if (tab.link) router.push(tab.link);
                                 }}
+                                className="relative flex flex-col items-center gap-1 min-w-[60px]"
                             >
-                                <motion.button
-                                    whileTap={{ scale: 0.9 }}
-                                    className={`flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-all min-w-[64px] ${isActive
-                                            ? 'bg-gradient-to-br from-purple-500/20 to-pink-500/20'
-                                            : ''
-                                        }`}
-                                >
-                                    <div className={`p-2 rounded-lg transition-all ${isActive
-                                            ? 'bg-gradient-to-br from-purple-500 to-pink-500 shadow-lg shadow-purple-500/50'
-                                            : 'bg-transparent'
-                                        }`}>
-                                        <tab.icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-purple-400'
-                                            }`} />
-                                    </div>
-                                    <span className={`text-xs font-medium ${isActive ? 'text-white' : 'text-purple-400'
-                                        }`}>
-                                        {tab.label}
-                                    </span>
-                                </motion.button>
-                            </Link>
+                                <div className={`p-2 rounded-xl transition-all duration-300 ${isActive
+                                    ? 'bg-gradient-to-br from-noble-gold to-amber-600 shadow-lg shadow-noble-gold/20'
+                                    : isMore && menuOpen ? 'bg-white/10' : 'bg-transparent'
+                                    }`}>
+                                    <tab.icon
+                                        size={20}
+                                        className={`transition-colors duration-300 ${isActive ? 'text-black' : 'text-zinc-500'
+                                            } ${isMore && menuOpen ? 'text-white' : ''}`}
+                                    />
+                                </div>
+                                <span className={`text-[9px] font-bold uppercase tracking-wider transition-colors duration-300 ${isActive ? 'text-noble-gold' : 'text-zinc-600'
+                                    } ${isMore && menuOpen ? 'text-white' : ''}`}>
+                                    {tab.label}
+                                </span>
+                            </button>
                         );
                     })}
                 </div>
             </div>
 
-            {/* Full Screen Menu */}
-            {menuOpen && (
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="lg:hidden fixed inset-0 z-50 bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950"
-                >
-                    {/* Header */}
-                    <div className="flex items-center justify-between p-6 border-b border-purple-500/20">
-                        <h2 className="text-2xl font-bold text-white">Menu</h2>
-                        <motion.button
-                            whileTap={{ scale: 0.9 }}
-                            onClick={() => setMenuOpen(false)}
-                            className="p-2 rounded-xl bg-purple-500/20 text-purple-300"
-                        >
-                            <X className="w-6 h-6" />
-                        </motion.button>
-                    </div>
-
-                    {/* Profile Card */}
-                    <div className="p-6">
-                        <div className="p-6 rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/40">
-                            <div className="flex items-center gap-4 mb-4">
-                                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xl font-bold">
-                                    AW
-                                </div>
-                                <div>
-                                    <div className="text-white font-bold text-lg">Dr. Alvin West II</div>
-                                    <div className="text-purple-300 text-sm">Administrator</div>
-                                </div>
+            {/* Sovereign Full Screen Menu */}
+            <AnimatePresence>
+                {menuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: '100%' }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: '100%' }}
+                        transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                        className="lg:hidden fixed inset-0 z-40 bg-[#050505] overflow-y-auto"
+                    >
+                        {/* Menu Header */}
+                        <div className="sticky top-0 bg-[#050505]/95 backdrop-blur-xl border-b border-white/10 p-4 flex items-center justify-between z-50">
+                            <div className="flex items-center gap-2">
+                                <Shield className="text-noble-gold w-6 h-6" />
+                                <span className="text-white font-black uppercase tracking-widest text-sm">Sovereign Menu</span>
                             </div>
-                            <div className="grid grid-cols-3 gap-3">
-                                <div className="p-3 rounded-lg bg-black/20 text-center">
-                                    <div className="text-white font-bold">342</div>
-                                    <div className="text-purple-300 text-xs">Generations</div>
-                                </div>
-                                <div className="p-3 rounded-lg bg-black/20 text-center">
-                                    <div className="text-white font-bold">127h</div>
-                                    <div className="text-purple-300 text-xs">Saved</div>
-                                </div>
-                                <div className="p-3 rounded-lg bg-black/20 text-center">
-                                    <div className="text-white font-bold">98%</div>
-                                    <div className="text-purple-300 text-xs">Score</div>
-                                </div>
-                            </div>
+                            <button
+                                onClick={() => { playClick(); setMenuOpen(false); }}
+                                className="p-2 rounded-full bg-white/5 text-zinc-400 hover:text-white"
+                            >
+                                <X size={24} />
+                            </button>
                         </div>
-                    </div>
 
-                    {/* Menu Items */}
-                    <div className="px-6 space-y-2">
-                        {menuItems.map((item, index) => (
-                            <Link key={index} href={item.link}>
-                                <motion.button
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: index * 0.05 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    onClick={() => setMenuOpen(false)}
-                                    className={`w-full flex items-center gap-4 p-4 rounded-xl transition-all ${item.danger
-                                            ? 'bg-red-500/10 hover:bg-red-500/20 border border-red-500/20'
-                                            : 'bg-black/40 hover:bg-purple-500/20 border border-purple-500/20'
-                                        }`}
-                                >
-                                    <div className={`p-2 rounded-lg ${item.danger
-                                            ? 'bg-red-500/20'
-                                            : 'bg-purple-500/20'
-                                        }`}>
-                                        <item.icon className={`w-5 h-5 ${item.danger ? 'text-red-400' : 'text-purple-400'
-                                            }`} />
+                        {/* User Identity Card */}
+                        <div className="p-6">
+                            {user ? (
+                                <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-zinc-900 to-black border border-white/10 p-6">
+                                    <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-kente-yellow via-kente-green to-kente-red opacity-50" />
+
+                                    <div className="flex items-center gap-4 mb-6">
+                                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-noble-gold/20 to-amber-600/20 border border-noble-gold/30 flex items-center justify-center text-xl font-black text-noble-gold shadow-lg shadow-noble-gold/10">
+                                            {user.name?.[0]?.toUpperCase()}
+                                        </div>
+                                        <div>
+                                            <h3 className="text-white font-black text-lg leading-tight uppercase tracking-tight">{user.name}</h3>
+                                            <div className="flex items-center gap-2 mt-1">
+                                                <span className="px-2 py-0.5 rounded-full bg-noble-gold/10 border border-noble-gold/20 text-[9px] font-bold text-noble-gold uppercase tracking-wider">
+                                                    {user.tier}
+                                                </span>
+                                                <span className="flex items-center gap-1 text-[9px] font-bold text-emerald-500 uppercase tracking-wider">
+                                                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                                    Active
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <span className={`font-medium ${item.danger ? 'text-red-400' : 'text-white'
-                                        }`}>
-                                        {item.label}
-                                    </span>
-                                </motion.button>
-                            </Link>
-                        ))}
-                    </div>
 
-                    {/* Footer */}
-                    <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-purple-500/20">
-                        <div className="text-center text-purple-400 text-sm">
-                            EdIntel v4.0.2 • Made with ♥ in Mobile, AL
+                                    <div className="grid grid-cols-2 gap-3">
+                                        <button onClick={() => handleNavigation('/profile')} className="p-3 rounded-2xl bg-white/5 border border-white/5 hover:border-noble-gold/30 transition-all text-center group">
+                                            <div className="text-2xl font-black text-white group-hover:text-noble-gold transition-colors">{user.usage_count || 0}</div>
+                                            <div className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest mt-1">Operations</div>
+                                        </button>
+                                        <button className="p-3 rounded-2xl bg-white/5 border border-white/5 text-center">
+                                            <div className="text-2xl font-black text-white">PRO</div>
+                                            <div className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest mt-1">Status</div>
+                                        </button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="text-center py-8 rounded-3xl bg-zinc-900/50 border border-white/5">
+                                    <h3 className="text-white font-bold mb-4">Initialize Session</h3>
+                                    <div className="flex justify-center gap-4">
+                                        <Link href="/login">
+                                            <button className="px-6 py-2 rounded-full bg-white/10 text-white font-bold text-sm">Login</button>
+                                        </Link>
+                                        <Link href="/signup">
+                                            <button className="px-6 py-2 rounded-full bg-noble-gold text-black font-bold text-sm">Sign Up</button>
+                                        </Link>
+                                    </div>
+                                </div>
+                            )}
                         </div>
-                    </div>
-                </motion.div>
-            )}
 
-            {/* Content Spacer */}
-            <div className="lg:hidden h-16" /> {/* Top spacer */}
-            <div className="lg:hidden h-20" /> {/* Bottom spacer */}
+                        {/* Navigation Links */}
+                        <div className="px-6 space-y-3 pb-32">
+                            {menuItems.map((item, index) => (
+                                <Link key={index} href={item.link} onClick={() => setMenuOpen(false)}>
+                                    <div className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all group">
+                                        <div className="flex items-center gap-4">
+                                            <div className="p-2.5 rounded-xl bg-black border border-white/10 text-zinc-400 group-hover:text-noble-gold group-hover:border-noble-gold/30 transition-all">
+                                                <item.icon size={20} />
+                                            </div>
+                                            <span className="text-sm font-bold text-zinc-300 group-hover:text-white uppercase tracking-wide">
+                                                {item.label}
+                                            </span>
+                                        </div>
+                                        <Globe size={16} className="text-zinc-700 -rotate-45" />
+                                    </div>
+                                </Link>
+                            ))}
+
+                            {user && (
+                                <button
+                                    onClick={() => { logout(); setMenuOpen(false); }}
+                                    className="w-full mt-8 p-4 rounded-2xl border border-red-500/20 bg-red-500/5 text-red-500 font-bold uppercase tracking-widest text-xs hover:bg-red-500/10 transition-all flex items-center justify-center gap-2"
+                                >
+                                    <LogOut size={16} />
+                                    <span>Disconnect</span>
+                                </button>
+                            )}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* Bottom Spacer */}
+            <div className="lg:hidden h-24" />
         </>
     );
 }

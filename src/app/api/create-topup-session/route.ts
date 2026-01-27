@@ -12,7 +12,7 @@ export async function POST(request: Request) {
         console.log(`[PROFESSIONAL PAYMENT] Initializing Real Capital Injection for User: ${userId}, Quantity: ${quantity}`);
 
         // Base URL for redirects
-        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://edintel-app.vercel.app';
 
         // Create real Stripe session
         const session = await createTopupSession(

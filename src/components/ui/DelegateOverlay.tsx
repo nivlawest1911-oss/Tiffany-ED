@@ -78,7 +78,7 @@ export default function DelegateOverlay() {
 
     return (
         <div className="fixed inset-0 pointer-events-none z-[100] overflow-hidden">
-            {/* Professional Identity Center (Top Right) - Replaced Firebase Auth */}
+            {/* Professional Identity Center (Top Right) */}
             <div className="absolute top-6 right-6 pointer-events-auto">
                 <div className="flex items-center gap-3 pl-4 pr-3 py-2 bg-zinc-950/90 backdrop-blur-md border border-zinc-800 rounded-full shadow-2xl">
                     <div className="flex flex-col items-end">

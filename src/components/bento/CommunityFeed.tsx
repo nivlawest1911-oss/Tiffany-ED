@@ -4,7 +4,7 @@ import { Image, Video, FileText, ThumbsUp, MessageSquare, Repeat, Share2, MoreHo
 import { useLeadershipFeed, FeedPost } from '@/hooks/useLeadershipFeed';
 
 export default function CommunityFeed() {
-    // Integrated Firebase Hook
+    // Integrated Leadership Feed Hook
     const { posts: feed } = useLeadershipFeed();
 
     const [input, setInput] = useState('');

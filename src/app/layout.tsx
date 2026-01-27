@@ -12,6 +12,9 @@ import { AuthProvider } from "@/context/AuthContext"
 import "./globals.css"
 import SovereignDelegate from "@/components/SovereignDelegate"
 import { IntelligenceProvider } from "@/context/IntelligenceContext"
+import { TavusProvider } from "@/context/TavusContext"
+import TavusPlayer from "@/components/TavusPlayer"
+import FacebookSDK from "@/components/social/FacebookSDK"
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -88,13 +91,16 @@ export default function RootLayout({
       <body className={`${spaceGrotesk.variable} ${geistMono.variable} font-sans antialiased`} suppressHydrationWarning>
         <AuthProvider>
           <IntelligenceProvider>
-            <NeuralCursor />
-            {children}
-            <SovereignDelegate />
-            <CommandPalette />
-            <ClientLayoutValues />
-            <MedicalDisclaimer />
-            <Footer />
+            <TavusProvider>
+              <FacebookSDK />
+              <NeuralCursor />
+              {children}
+              <SovereignDelegate />
+              <CommandPalette />
+              <ClientLayoutValues />
+              <MedicalDisclaimer />
+              <Footer />
+            </TavusProvider>
           </IntelligenceProvider>
         </AuthProvider>
         <Analytics />
