@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { ShieldCheck, User, Users, Zap, Search, Bell, Settings, Filter, Download, Activity } from 'lucide-react';
