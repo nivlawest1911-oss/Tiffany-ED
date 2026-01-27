@@ -1,5 +1,5 @@
-<<<<<<< HEAD
 # EdIntel Sovereign
+
 **Cognitive Leadership Platform**
 
 ![Vercel Deploy](https://therealsj.github.io/vercel-badge/vercel-deploy-button.svg)
@@ -7,6 +7,7 @@
 A Vercel-native, sovereign education intelligence platform connecting directly to Google Cloud's Generative AI.
 
 ## 🏗️ Architecture
+
 - **Host**: Vercel (Next.js App Router)
 - **Intelligence**: Google Cloud Vertex AI / Gemini (`generativelanguage.googleapis.com`)
 - **Database**: Sovereign Mode (Simulated / Local State)
@@ -15,42 +16,47 @@ A Vercel-native, sovereign education intelligence platform connecting directly t
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Node.js 18+
 - Vercel CLI (`npm i -g vercel`)
 - Google Cloud API Key (`GOOGLE_GENAI_API_KEY`)
 
 ### Installation
 
-1.  **Clone & Install**:
+1. **Clone & Install**:
+
     ```bash
     git clone https://github.com/nivlawest1911-oss/Tiffany-ED.git
     cd edintel-app
     npm install
     ```
 
-2.  **Dev Environment**:
+2. **Dev Environment**:
+
     ```bash
     npm run dev
     ```
 
-3.  **Deploy**:
+3. **Deploy**:
+
     ```bash
     npx vercel --prod
     ```
 
 ## 🔐 Environment Variables
+
 Set these in your Vercel Project Settings:
+
 - `GOOGLE_GENAI_API_KEY`: Required for AI generation.
 - `STRIPE_SECRET_KEY`: Optional for payment links.
 
 ## 🛡️ License
+
 Proprietary / Sovereign.
-=======
-# Welcome to your Lovable project
 
-## Project info
+---
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+# Lovable Project Integration
 
 ## How can I edit this code?
 
@@ -102,7 +108,7 @@ npm run dev
 
 This project is built with:
 
-- Vite
+- Next.js (App Router)
 - TypeScript
 - React
 - shadcn-ui
@@ -111,12 +117,3 @@ This project is built with:
 ## How can I deploy this project?
 
 Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
->>>>>>> elevate/main

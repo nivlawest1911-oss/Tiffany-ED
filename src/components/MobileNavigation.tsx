@@ -103,6 +103,7 @@ export default function MobileNavigation() {
                             <button
                                 onClick={() => { playClick(); setMenuOpen(false); }}
                                 className="p-2 rounded-full bg-white/5 text-zinc-400 hover:text-white"
+                                aria-label="Close Menu"
                             >
                                 <X size={24} />
                             </button>

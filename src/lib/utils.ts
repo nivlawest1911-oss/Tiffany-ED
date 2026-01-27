@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -31,7 +30,7 @@ export function formatDuration(seconds: number): string {
  * Debounce function
  */
 export function debounce<Args extends any[]>(
-   
+
   func: (...args: Args) => any,
   wait: number
 ): (...args: Args) => void {
@@ -46,7 +45,7 @@ export function debounce<Args extends any[]>(
  * Throttle function
  */
 export function throttle<Args extends any[]>(
-   
+
   func: (...args: Args) => any,
   limit: number
 ): (...args: Args) => void {
@@ -111,11 +110,3 @@ export const isClient = typeof window !== 'undefined';
  * Check if code is running on server
  */
 export const isServer = typeof window === 'undefined';
-=======
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
->>>>>>> elevate/main
