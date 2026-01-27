@@ -1,8 +1,5 @@
-'use client';
-
 export const dynamic = 'force-dynamic';
 
-import React from 'react';
 import { SystemStatus } from '@/components/admin/SystemStatus';
 import { ShieldCheck, ArrowLeft, RefreshCcw } from 'lucide-react';
 import Link from 'next/link';
