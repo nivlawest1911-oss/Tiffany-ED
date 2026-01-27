@@ -5,6 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { BLOG_POSTS } from '../posts';
 import { ArrowLeft, Calendar, User, Tag, Share2 } from 'lucide-react';
 import Link from 'next/link';
+import { CARBON_FIBRE_BG } from '@/lib/constants';
 
 export default function BlogPostDetailClient() {
     const params = useParams();
@@ -123,7 +124,7 @@ export default function BlogPostDetailClient() {
                 <div className="p-12 rounded-[3rem] bg-gradient-to-r from-amber-600 to-amber-700 text-center space-y-8 shadow-2xl shadow-amber-900/40 relative overflow-hidden group">
                     <div
                         className="absolute inset-0 opacity-10"
-                        style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/carbon-fibre.png')" }}
+                        style={{ backgroundImage: CARBON_FIBRE_BG }}
                     />
                     <h2 className="text-3xl font-black uppercase tracking-tighter relative z-10">Implement this Protocol</h2>
                     <p className="max-w-md mx-auto relative z-10 font-medium text-amber-50">

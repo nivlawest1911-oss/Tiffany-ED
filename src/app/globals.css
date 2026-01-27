@@ -16,7 +16,7 @@
   --color-royal-purple: #6b46c1;
 }
 
-@custom-variant dark (&:is(.dark *));
+/* @custom-variant dark (&:is(.dark *)); - Temporarily removed to debug Vercel build error */
 
 :root {
   /* Enhanced African American Aesthetic - Kente-inspired palette */

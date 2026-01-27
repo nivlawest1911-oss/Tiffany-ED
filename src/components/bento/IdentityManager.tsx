@@ -2,6 +2,7 @@
 
 import { User, Fingerprint, Zap, Upload, Trash2, Camera, Settings } from 'lucide-react';
 import React, { useState } from 'react';
+import { SOCIAL_HUB_AVATAR } from '@/lib/images';
 
 export default function IdentityManager() {
     const [avatarActive, setAvatarActive] = useState(true);
@@ -41,7 +42,7 @@ export default function IdentityManager() {
                         <div className={`w-40 h-40 rounded-3xl border-4 ${avatarActive ? 'border-amber-600' : 'border-zinc-800'} overflow-hidden relative shadow-2xl transition-all duration-500`}>
                             {avatarActive ? (
                                 <img
-                                    src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop"
+                                    src={SOCIAL_HUB_AVATAR}
                                     alt="User Profile"
                                     className="w-full h-full object-cover"
                                 />

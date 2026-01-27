@@ -2,6 +2,7 @@
 
 import { Facebook, Link as LinkIcon, Users, MapPin, Briefcase, GraduationCap, Video, Shield as LucideShield, ExternalLink } from 'lucide-react';
 import React from 'react';
+import { SOCIAL_HUB_BANNER, SOCIAL_HUB_AVATAR, SOCIAL_HUB_TIKTOK, SOCIAL_HUB_FACEBOOK } from '@/lib/images';
 
 export default function ProfessionalSocialConnection() {
     return (
@@ -13,7 +14,7 @@ export default function ProfessionalSocialConnection() {
                 {/* Banner - Professional Aesthetic */}
                 <div
                     className="h-48 w-full bg-cover bg-center relative"
-                    style={{ backgroundImage: "url('https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=1974&auto=format&fit=crop')" }}
+                    style={{ backgroundImage: `url('${SOCIAL_HUB_BANNER}')` }}
                 >
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent to-zinc-950" />
                     <div className="absolute top-6 right-6 px-4 py-2 rounded-full bg-blue-600/90 backdrop-blur-md text-white text-xs font-bold uppercase tracking-widest flex items-center gap-2 shadow-lg">
@@ -27,7 +28,7 @@ export default function ProfessionalSocialConnection() {
                         <div className="relative">
                             <div className="w-40 h-40 rounded-full p-1 bg-gradient-to-br from-blue-500 to-amber-500 shadow-2xl">
                                 <img
-                                    src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop"
+                                    src={SOCIAL_HUB_AVATAR}
                                     alt="Alvin West Jr."
                                     className="w-full h-full rounded-full object-cover border-4 border-zinc-950"
                                 />
@@ -94,7 +95,7 @@ export default function ProfessionalSocialConnection() {
                             <a href="https://www.tiktok.com/@alvinwestii" target="_blank" className="group relative aspect-video rounded-xl bg-zinc-900 overflow-hidden border border-zinc-800 hover:border-pink-500 transition-all cursor-pointer">
                                 <div
                                     className="absolute inset-0 bg-cover bg-center opacity-50 group-hover:opacity-70 transition-opacity"
-                                    style={{ backgroundImage: "url('https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1974&auto=format&fit=crop')" }}
+                                    style={{ backgroundImage: `url('${SOCIAL_HUB_TIKTOK}')` }}
                                 />
                                 <div className="absolute flex flex-col justify-end inset-0 p-4 bg-gradient-to-t from-black/90 to-transparent">
                                     <div className="flex items-center gap-2 mb-2">
@@ -106,7 +107,7 @@ export default function ProfessionalSocialConnection() {
                             <a href="https://www.facebook.com/alvin.west.18" target="_blank" className="group relative aspect-video rounded-xl bg-zinc-900 overflow-hidden border border-zinc-800 hover:border-blue-600 transition-all cursor-pointer">
                                 <div
                                     className="absolute inset-0 bg-cover bg-center opacity-50 group-hover:opacity-70 transition-opacity"
-                                    style={{ backgroundImage: "url('https://images.unsplash.com/photo-1544367563-12123d896889?q=80&w=2070&auto=format&fit=crop')" }}
+                                    style={{ backgroundImage: `url('${SOCIAL_HUB_FACEBOOK}')` }}
                                 />
                                 <div className="absolute flex flex-col justify-end inset-0 p-4 bg-gradient-to-t from-black/90 to-transparent">
                                     <div className="flex items-center gap-2 mb-2">

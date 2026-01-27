@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { CARBON_FIBRE_BG } from '@/lib/constants';
 import {
     User,
     Sparkles,
@@ -259,7 +260,7 @@ export default function AvatarStudio() {
             {/* Background Grid/Glow */}
             <div
                 className="absolute inset-0 opacity-5"
-                style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/carbon-fibre.png')" }}
+                style={{ backgroundImage: CARBON_FIBRE_BG }}
             />
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-600/10 blur-[150px] -mr-64 -mt-64 pointer-events-none group-hover:bg-purple-600/20 transition-all duration-1000" />
 

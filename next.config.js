@@ -1,4 +1,4 @@
-// Force Vercel Cache Invalidation: Refactored background images
+// Force Vercel Cache Invalidation: Removed carbon fibre constant value
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     typescript: {

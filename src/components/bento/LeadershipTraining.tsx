@@ -1,6 +1,18 @@
 'use client';
 import { Play, ChevronRight, Brain, Target, Zap, Shield as LucideShield } from 'lucide-react';
 import { useState } from 'react';
+import {
+    TRAINING_HUB_HERO,
+    ASSESSMENT_LITERACY,
+    ASSESSMENT_SPED,
+    ASSESSMENT_POLICY,
+    SIM_IEP,
+    SIM_OBSERVATION,
+    SIM_KEYNOTE,
+    SIM_CONFLICT,
+    SIM_COACHING,
+    SIM_EMERGENCY
+} from '@/lib/images';
 
 export default function LeadershipTraining() {
     const [activeSection, setActiveSection] = useState<'assessments' | 'training' | 'simulators'>('training');
@@ -23,7 +35,7 @@ export default function LeadershipTraining() {
             tags: ["Standardized Evaluation", "State Compliance"],
             skills: ["Phonemic Awareness", "Fluency", "Comprehension"],
             overflow: "+6 Standards",
-            img: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=800&q=80",
+            img: ASSESSMENT_LITERACY,
             buttonText: "Start Assessment"
         },
         {
@@ -31,7 +43,7 @@ export default function LeadershipTraining() {
             tags: ["Legal Review", "IEP Integrity"],
             skills: ["Documentation", "Case Management", "Legal Alignment"],
             overflow: "+12 Items",
-            img: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80",
+            img: ASSESSMENT_SPED,
             buttonText: "Verify Records"
         },
         {
@@ -39,18 +51,18 @@ export default function LeadershipTraining() {
             tags: ["Professional Learning", "Policy Alignment"],
             skills: ["Policy Analysis", "Local Regulation", "Custom Guidelines"],
             overflow: "Global",
-            img: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80",
+            img: ASSESSMENT_POLICY,
             buttonText: "Initialize Review"
         }
     ];
 
     const simulators = [
-        { title: "IEP Meeting Simulator", skills: ["Negotiation", "Empathy"], img: "https://images.unsplash.com/photo-1543269865-cbf427effbad?w=400&q=80", isNew: true },
-        { title: "Classroom Observation", skills: ["Precision", "Tact"], img: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400&q=80", isNew: false },
-        { title: "Strategic Board Keynote", skills: ["Authority", "Clarity"], img: "https://images.unsplash.com/photo-1475721027187-4024733923f6?w=400&q=80", isNew: true },
-        { title: "Conflict Resolution", skills: ["Mediation", "Logic"], img: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&q=80", isNew: false },
-        { title: "Data-Driven Coaching", skills: ["Analytics", "Mentorship"], img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&q=80", isNew: false },
-        { title: "Emergency Communications", skills: ["Rapid Response", "Communication"], img: "https://images.unsplash.com/photo-1557426272-fc759fbb7a8d?w=400&q=80", isNew: true },
+        { title: "IEP Meeting Simulator", skills: ["Negotiation", "Empathy"], img: SIM_IEP, isNew: true },
+        { title: "Classroom Observation", skills: ["Precision", "Tact"], img: SIM_OBSERVATION, isNew: false },
+        { title: "Strategic Board Keynote", skills: ["Authority", "Clarity"], img: SIM_KEYNOTE, isNew: true },
+        { title: "Conflict Resolution", skills: ["Mediation", "Logic"], img: SIM_CONFLICT, isNew: false },
+        { title: "Data-Driven Coaching", skills: ["Analytics", "Mentorship"], img: SIM_COACHING, isNew: false },
+        { title: "Emergency Communications", skills: ["Rapid Response", "Communication"], img: SIM_EMERGENCY, isNew: true },
     ];
 
     return (
@@ -93,7 +105,7 @@ export default function LeadershipTraining() {
             <div className="relative w-full aspect-[21/9] rounded-[2.5rem] overflow-hidden mb-10 group/hero border border-zinc-200 shadow-xl bg-white">
                 <div className="absolute inset-0 bg-gradient-to-r from-white via-white/50 to-transparent z-10" />
                 <img
-                    src="https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?w=800&q=80"
+                    src={TRAINING_HUB_HERO}
                     className="absolute inset-0 w-full h-full object-cover grayscale opacity-20 group-hover/hero:scale-105 transition-transform duration-1000"
                     alt="Training Hub"
                 />

@@ -1,6 +1,7 @@
 'use client';
 
 import { Search, ChevronRight, Eye, Calendar, AlertCircle } from 'lucide-react';
+import { CARBON_FIBRE_BG } from '@/lib/constants';
 import React from 'react';
 
 export default function ProtocolTopicDetailClient() {
@@ -45,7 +46,7 @@ export default function ProtocolTopicDetailClient() {
             <section className="relative py-16 px-6 bg-zinc-900 border-b border-zinc-800 flex flex-col items-center justify-center text-center overflow-hidden">
                 <div
                     className="absolute inset-0 opacity-10"
-                    style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/carbon-fibre.png')" }}
+                    style={{ backgroundImage: CARBON_FIBRE_BG }}
                 />
                 <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-amber-900/10 to-transparent pointer-events-none" />
 

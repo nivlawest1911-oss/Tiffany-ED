@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { Award, Shield, Users, Zap, Globe } from 'lucide-react';
+import { CARBON_FIBRE_BG } from '@/lib/constants';
+import { PRINCIPAL_ACADEMY_HERO } from '@/lib/images';
 
 const HIGHLIGHTS = [
     {
@@ -28,7 +30,7 @@ export default function PrincipalAcademy() {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.1),transparent_50%)]" />
             <div
                 className="absolute inset-0 opacity-20"
-                style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/carbon-fibre.png')" }}
+                style={{ backgroundImage: CARBON_FIBRE_BG }}
             />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -79,7 +81,7 @@ export default function PrincipalAcademy() {
                         className="relative h-[600px] rounded-[4rem] overflow-hidden border border-white/10 shadow-2xl group"
                     >
                         <img
-                            src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=2071"
+                            src={PRINCIPAL_ACADEMY_HERO}
                             alt="Academy Intelligence"
                             className="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-1000"
                         />

@@ -13,6 +13,7 @@ import {
     Copy,
     Download
 } from 'lucide-react';
+import { NOISE_PATTERN } from '@/lib/images';
 
 type ProtocolType = 'ef-reframing' | 'meeting-agenda' | 'feedback' | 'crisis' | 'conflict' | 'discipline';
 
@@ -143,7 +144,7 @@ export default function LeadershipGenerator() {
             <div className="absolute top-0 right-0 w-64 h-64 bg-pink-600/10 blur-[100px] -mr-32 -mt-32 pointer-events-none" />
             <div
                 className="absolute inset-0 opacity-20"
-                style={{ backgroundImage: "url('https://grainy-gradients.vercel.app/noise.svg')" }}
+                style={{ backgroundImage: `url('${NOISE_PATTERN}')` }}
             />
 
             {/* Neural Connections */}

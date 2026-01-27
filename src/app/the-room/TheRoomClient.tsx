@@ -9,6 +9,7 @@ import Link from 'next/link';
 import FloatingNavbar from '@/components/FloatingNavbar';
 import Footer from '@/components/Footer';
 import CircadianFilter from '@/components/graphics/CircadianFilter';
+import { THE_ROOM_HERO } from '@/lib/images';
 
 const commandCenters = [
     {
@@ -155,7 +156,7 @@ export default function TheRoomClient() {
                     </div>
                     <div className="flex-1 w-full aspect-square relative rounded-[3rem] overflow-hidden border border-white/5 group">
                         <img
-                            src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&q=80"
+                            src={THE_ROOM_HERO}
                             className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                             alt="Strategic Creation"
                         />

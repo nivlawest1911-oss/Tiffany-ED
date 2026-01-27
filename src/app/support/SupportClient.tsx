@@ -1,6 +1,7 @@
 'use client';
 
 import { Search, ArrowRight, Wallet, Zap, ShieldCheck, Lock, BarChart3, Users } from 'lucide-react';
+import { CARBON_FIBRE_BG } from '@/lib/constants';
 import Link from 'next/link';
 import SupportCategoryCard from '@/components/bento/SupportCategoryCard';
 import { CATEGORIES, POPULAR_ARTICLES } from '@/app/support/data';
@@ -22,7 +23,7 @@ export default function SupportClient() {
             <section className="relative py-24 px-6 bg-zinc-900 border-b border-zinc-800 flex flex-col items-center justify-center text-center overflow-hidden">
                 <div
                     className="absolute inset-0 opacity-20"
-                    style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/carbon-fibre.png')" }}
+                    style={{ backgroundImage: CARBON_FIBRE_BG }}
                 />
                 <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-amber-900/10 to-transparent pointer-events-none" />
 
@@ -81,7 +82,7 @@ export default function SupportClient() {
                     <div className="p-8 rounded-[2rem] bg-gradient-to-br from-amber-600 to-amber-700 shadow-2xl shadow-amber-900/50 text-center relative overflow-hidden group">
                         <div
                             className="absolute inset-0 opacity-10 mix-blend-overlay"
-                            style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/carbon-fibre.png')" }}
+                            style={{ backgroundImage: CARBON_FIBRE_BG }}
                         />
                         <div className="relative z-10">
                             <h3 className="text-2xl font-black uppercase tracking-tight text-white mb-2">Need Priority Aid?</h3>

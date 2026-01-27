@@ -2,6 +2,7 @@
 
 import { Facebook, Globe, Laptop, BookOpen, Brain, Briefcase, ExternalLink, Leaf, Shield as LucideShield, ArrowRight } from "lucide-react";
 import React from 'react';
+import { BUSINESS_SOLUTIONS_BG } from '@/lib/images';
 import Link from 'next/link';
 
 export default function BusinessSolutions() {
@@ -12,7 +13,7 @@ export default function BusinessSolutions() {
                 {/* Dynamic Background */}
                 <div
                     className="absolute inset-0 bg-cover bg-center opacity-20 group-hover:opacity-30 transition-opacity duration-1000 grayscale group-hover:grayscale-0"
-                    style={{ backgroundImage: "url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop')" }}
+                    style={{ backgroundImage: `url('${BUSINESS_SOLUTIONS_BG}')` }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-teal-950/90 via-zinc-950/90 to-transparent" />
 

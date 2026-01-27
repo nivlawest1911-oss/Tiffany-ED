@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { CARBON_FIBRE_BG } from '@/lib/constants';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     Zap,
@@ -37,7 +38,7 @@ export default function CognitiveClient() {
                 <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-900/20 blur-[120px] rounded-full animate-pulse-slow" />
                 <div
                     className="absolute inset-0 opacity-10"
-                    style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/carbon-fibre.png')" }}
+                    style={{ backgroundImage: CARBON_FIBRE_BG }}
                 />
             </div>
 

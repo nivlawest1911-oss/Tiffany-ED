@@ -1,6 +1,7 @@
 'use client';
 
 import { Search, ChevronRight, FileText, Zap, Shield as LucideShield, HelpCircle, Terminal, Cpu, Clock, Key } from 'lucide-react';
+import { CARBON_FIBRE_BG } from '@/lib/constants';
 import React from 'react';
 import Link from 'next/link';
 
@@ -86,7 +87,7 @@ export default function GettingStartedClient() {
             <section className="relative py-16 px-6 bg-zinc-900 border-b border-zinc-800 flex flex-col items-center justify-center text-center overflow-hidden">
                 <div
                     className="absolute inset-0 opacity-20"
-                    style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/carbon-fibre.png')" }}
+                    style={{ backgroundImage: CARBON_FIBRE_BG }}
                 />
                 <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-amber-600/10 to-transparent pointer-events-none" />
 

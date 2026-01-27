@@ -4,6 +4,7 @@ import Link from 'next/link';
 import FeatureCard from '@/components/bento/FeatureCard';
 import { FEATURES } from '@/app/whats-edintel/features';
 import { ArrowRight } from 'lucide-react';
+import { CARBON_FIBRE_BG } from '@/lib/constants';
 
 export default function WhatsEdIntelClient() {
     return (
@@ -50,7 +51,7 @@ export default function WhatsEdIntelClient() {
             <section className="bg-zinc-900 border-y border-zinc-800 py-24 mb-20 overflow-hidden relative">
                 <div
                     className="absolute inset-0 opacity-10"
-                    style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/carbon-fibre.png')" }}
+                    style={{ backgroundImage: CARBON_FIBRE_BG }}
                 />
                 <div className="max-w-7xl mx-auto px-6 relative z-10">
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

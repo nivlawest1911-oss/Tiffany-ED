@@ -1,5 +1,6 @@
 'use client';
 import { Shield as LucideShield, Lock, Eye, FileText, Scale, UserCheck, Database, Globe, ArrowRight, Brain } from "lucide-react";
+import { CARBON_FIBRE_BG } from '@/lib/constants';
 import { useState, useEffect } from 'react';
 
 
@@ -66,7 +67,7 @@ export default function PrivacyPolicy() {
             {/* Background Grain/Grid */}
             <div
                 className="absolute inset-0 opacity-5"
-                style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/carbon-fibre.png')" }}
+                style={{ backgroundImage: CARBON_FIBRE_BG }}
             />
 
             <div className="relative z-10">

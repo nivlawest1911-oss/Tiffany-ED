@@ -1,5 +1,6 @@
 'use client';
 import { Linkedin, BookOpen, GraduationCap, Award, ChevronRight } from 'lucide-react';
+import { SOCIAL_HUB_AVATAR } from '@/lib/images';
 
 export default function ProfileIdentity() {
     return (
@@ -14,7 +15,7 @@ export default function ProfileIdentity() {
                             {/* Profile Image Placeholders - recommend replacing with actual asset if available locally */}
                             {/* Profile Image - AI Generated Professional Headshot */}
                             <img
-                                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop"
+                                src={SOCIAL_HUB_AVATAR}
                                 alt="Caleb West, DBA"
                                 className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
                             />

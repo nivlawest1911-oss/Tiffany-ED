@@ -1,27 +1,29 @@
 'use client';
 
 import { Play, Share2, Radio, Signal, Disc, ExternalLink } from 'lucide-react';
+import { CARBON_FIBRE_BG } from '@/lib/constants';
 import React from 'react';
+import { BROADCAST_THUMB_1, BROADCAST_THUMB_2, BROADCAST_THUMB_3 } from '@/lib/images';
 
 export default function ProfessionalBroadcastCenter() {
     const recentBroadcasts = [
         {
             id: 1,
-            thumbnail: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=1974&auto=format&fit=crop",
+            thumbnail: BROADCAST_THUMB_1,
             views: "2.5k",
             desc: "Teacher Burnout Tools // Mental Resilience",
             duration: "0:59"
         },
         {
             id: 2,
-            thumbnail: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop",
+            thumbnail: BROADCAST_THUMB_2,
             views: "1.2k",
             desc: "Holistic Synergy: Mind, Academia, Finance",
             duration: "1:15"
         },
         {
             id: 3,
-            thumbnail: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop",
+            thumbnail: BROADCAST_THUMB_3,
             views: "3.4k",
             desc: "Network Update: Community Milestones",
             duration: "0:15"
@@ -33,7 +35,7 @@ export default function ProfessionalBroadcastCenter() {
             {/* Background FX */}
             <div
                 className="absolute inset-0 opacity-10"
-                style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/carbon-fibre.png')" }}
+                style={{ backgroundImage: CARBON_FIBRE_BG }}
             />
             <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/10 blur-[100px] rounded-full pointer-events-none" />
 

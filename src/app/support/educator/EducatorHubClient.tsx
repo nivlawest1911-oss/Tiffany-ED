@@ -3,6 +3,7 @@
 import { Users, UserPlus, Settings, MessageSquare, BarChart3, Database, Shield as LucideShield, FileText, ChevronRight, Search } from 'lucide-react';
 import React from 'react';
 import Link from 'next/link';
+import { EDUCATOR_HUB_HERO } from '@/lib/images';
 
 export default function EducatorHubClient() {
     const articles = [
@@ -78,7 +79,7 @@ export default function EducatorHubClient() {
             <section className="relative py-16 px-6 bg-zinc-900 border-b border-zinc-800 flex flex-col items-center justify-center text-center overflow-hidden">
                 <div className="absolute inset-0">
                     <img
-                        src="https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2574&auto=format&fit=crop"
+                        src={EDUCATOR_HUB_HERO}
                         alt="Background"
                         className="w-full h-full object-cover opacity-10 grayscale mix-blend-overlay"
                     />

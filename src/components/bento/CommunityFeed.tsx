@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { Image, Video, FileText, ThumbsUp, MessageSquare, Repeat, Share2, MoreHorizontal, Globe, Bookmark, Users, Calendar } from 'lucide-react';
 import { useLeadershipFeed, FeedPost } from '@/hooks/useLeadershipFeed';
+import { SOCIAL_HUB_AVATAR } from '@/lib/images';
 
 export default function CommunityFeed() {
     // Integrated Leadership Feed Hook
@@ -17,7 +18,7 @@ export default function CommunityFeed() {
                     <div className="h-20 bg-gradient-to-r from-cyan-900 to-blue-900" />
                     <div className="px-4 pb-4 relative">
                         <img
-                            src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop"
+                            src={SOCIAL_HUB_AVATAR}
                             alt="Alvin West II"
                             className="w-16 h-16 rounded-2xl border-4 border-zinc-900 absolute -top-8 object-cover shadow-xl"
                         />

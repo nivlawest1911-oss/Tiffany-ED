@@ -297,8 +297,9 @@ function ImageGenerationPanel({ loading, setLoading, result, setResult }: any) {
                     </div>
 
                     <div>
-                        <label className="text-sm font-semibold text-slate-300 mb-2 block">Type</label>
+                        <label htmlFor="image-gen-type" className="text-sm font-semibold text-slate-300 mb-2 block">Type</label>
                         <select
+                            id="image-gen-type"
                             value={type}
                             onChange={(e) => setType(e.target.value)}
                             className="w-full bg-slate-900/50 border border-slate-700 rounded-2xl p-4 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"

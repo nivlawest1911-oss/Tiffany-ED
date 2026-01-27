@@ -8,6 +8,17 @@ import {
 } from "lucide-react"
 
 import { CORE_AVATARS } from './avatars';
+import {
+    ECONOMIC_ORACLE_IMAGE,
+    IDENTITY_RESTORATION_IMAGE,
+    WELLNESS_FORGE_IMAGE,
+    GLOBAL_LEARNING_IMAGE,
+    FAITH_ORACLE_IMAGE,
+    AI_PHILOSOPHER_IMAGE,
+    AI_HISTORIAN_IMAGE,
+    AI_FUTURIST_IMAGE,
+    AI_STORYTELLER_IMAGE
+} from '@/lib/images';
 
 // Map specific tools to "Delegate" avatars using the Single Source of Truth
 // STRICT: Ensure all Avatars are African American Professionals from the verified list
@@ -880,7 +891,7 @@ export const generators = [
         icon: HandCoins,
         color: "#065f46", // Emerald-900
         avatar: AVATARS.PRINCIPAL,
-        heroImage: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&q=80",
+        heroImage: ECONOMIC_ORACLE_IMAGE,
         welcomeVideo: "", // REPLACED: Stock footage removed
         prompts: ["Community wealth building strategy", "Grant narrative for economic development", "Small business resilience protocol"]
     },
@@ -891,7 +902,7 @@ export const generators = [
         icon: Compass,
         color: "#7c2d12", // Red-950
         avatar: AVATARS.COUNSELOR,
-        heroImage: "https://images.unsplash.com/photo-1523810192022-5a0fb9aa77d4?auto=format&fit=crop&q=80",
+        heroImage: IDENTITY_RESTORATION_IMAGE,
         welcomeVideo: "", // REPLACED: Stock footage removed
         prompts: ["Cultural heritage mapping", "Restorative identity narrative", "Healing through oral history analysis"]
     },
@@ -902,7 +913,7 @@ export const generators = [
         icon: Flame,
         color: "#4a044e", // Fuchsia-950
         avatar: AVATARS.COUNSELOR,
-        heroImage: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80",
+        heroImage: WELLNESS_FORGE_IMAGE,
         welcomeVideo: "", // REPLACED: Stock footage removed
         prompts: ["Stress management for leaders", "Trauma-informed classroom audit", "Emotional intelligence growth plan"]
     },
@@ -913,7 +924,7 @@ export const generators = [
         icon: Video,
         color: "#1e1b4b", // Indigo-950
         avatar: AVATARS.CURRICULUM,
-        heroImage: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80",
+        heroImage: GLOBAL_LEARNING_IMAGE,
         welcomeVideo: "", // REPLACED: Stock footage removed
         prompts: ["Documentary series outline on History", "Global curriculum for STEM excellence", "Transmedia storytelling for adult learners"]
     },
@@ -924,7 +935,7 @@ export const generators = [
         icon: HeartHandshake,
         color: "#1e3a8a", // Blue-900
         avatar: AVATARS.PRINCIPAL,
-        heroImage: "https://images.unsplash.com/photo-1544427928-c49cd0491f97?auto=format&fit=crop&q=80",
+        heroImage: FAITH_ORACLE_IMAGE,
         welcomeVideo: "", // REPLACED: Stock footage removed
         prompts: ["Faith community partnership strategy", "Values-based restorative justice guide", "Spiritual nourishment protocol for leaders"]
     },
@@ -938,7 +949,7 @@ export const generators = [
         icon: Brain,
         color: "#1e1b4b", // Indigo-950
         avatar: AVATARS.CURRICULUM,
-        heroImage: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&q=80",
+        heroImage: AI_PHILOSOPHER_IMAGE,
         welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/prophetic_voice.wav",
         prompts: ["The ethics of artificial consciousness", "Metaphysics of digital reality", "Socratic dialogue on leadership"]
@@ -950,7 +961,7 @@ export const generators = [
         icon: History,
         color: "#451a03", // Orange-950
         avatar: AVATARS.COMPLIANCE,
-        heroImage: "https://images.unsplash.com/photo-1461360228754-6e81c478585b?auto=format&fit=crop&q=80",
+        heroImage: AI_HISTORIAN_IMAGE,
         welcomeVideo: "", // REPLACED: Stock footage removed
         prompts: ["Pre-colonial African administrative systems", "The industrial revolution fallback analysis", "Oral traditions vs. Recorded history"]
     },
@@ -961,7 +972,7 @@ export const generators = [
         icon: Sparkles,
         color: "#4c1d95", // Violet-950
         avatar: AVATARS.PRINCIPAL,
-        heroImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80",
+        heroImage: AI_FUTURIST_IMAGE,
         welcomeVideo: "", // REPLACED: Stock footage removed
         prompts: ["Education in the 2050s", "Post-scarcity economic models", "The evolution of human-AI symbiosis"]
     },
@@ -972,7 +983,7 @@ export const generators = [
         icon: Heart,
         color: "#701a75", // Fuchsia-950
         avatar: AVATARS.COUNSELOR,
-        heroImage: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80",
+        heroImage: WELLNESS_FORGE_IMAGE,
         welcomeVideo: "", // REPLACED: Stock footage removed
         prompts: ["Restorative breathing for educators", "Overcoming digital burnout", "Mindfulness through an African-centric lens"]
     },
@@ -983,7 +994,7 @@ export const generators = [
         icon: ScrollText,
         color: "#164e63", // Cyan-950
         avatar: AVATARS.CURRICULUM,
-        heroImage: "https://images.unsplash.com/photo-1474932430478-3a7fb9065ba0?auto=format&fit=crop&q=80",
+        heroImage: AI_STORYTELLER_IMAGE,
         welcomeVideo: "", // REPLACED: Stock footage removed
         prompts: ["Fable about the Lion and the Satellite", "Professional myth-making session", "The story of the Digital Ancestors"]
     },
