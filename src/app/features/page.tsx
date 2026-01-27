@@ -1,3 +1,4 @@
+import { cookies } from 'next/headers';
 import { Sparkles } from 'lucide-react';
 import React from 'react';
 import FeaturesContent from './FeaturesContent';
@@ -7,7 +8,10 @@ export const metadata = {
     description: 'Explore the powerful AI features of EdIntel Professional.',
 };
 
-export default function FeaturesLanding() {
+export const dynamic = 'force-dynamic';
+
+export default async function FeaturesLanding() {
+    await cookies(); // Force dynamic rendering
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 relative overflow-hidden">
             {/* Animated background - Static CSS for better LCP */}

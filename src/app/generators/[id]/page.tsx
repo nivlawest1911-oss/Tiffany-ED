@@ -13,13 +13,12 @@ const AVATAR_MAP: Record<string, { name: string, role: string, image: string }> 
     'finance': { name: "Director Nova", role: "Capital Recovery Lead", image: "/images/avatars/executive_leader.png" }
 };
 
-export async function generateStaticParams() {
-    return generators.map((gen) => ({
-        id: gen.id,
-    }));
-}
+import { cookies } from 'next/headers';
+
+export const dynamic = 'force-dynamic';
 
 export default async function GeneratorPage({ params }: { params: Promise<{ id: string }> }) {
+    await cookies(); // Force dynamic rendering
     const { id } = await params;
     const generator = generators.find((g) => g.id === id);
 

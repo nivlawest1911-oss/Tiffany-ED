@@ -1,21 +1,9 @@
-'use client';
+import { cookies } from 'next/headers';
+import AllToolsClient from './AllToolsClient';
 
-import FloatingNavbar from '@/components/FloatingNavbar';
-import FeatureShowcaseGrid from '@/components/FeatureShowcaseGrid';
-import Footer from '@/components/Footer';
-import FeatureVideos from '@/components/FeatureVideos';
+export const dynamic = 'force-dynamic';
 
-export default function AllToolsPage() {
-    return (
-        <main className="min-h-screen bg-black">
-            <FloatingNavbar />
-            <div className="pt-24">
-                <FeatureShowcaseGrid />
-                <FeatureVideos />
-            </div>
-
-            {/* Sovereign Interface Unified */}
-            <Footer />
-        </main>
-    );
+export default async function AllToolsPage() {
+    await cookies(); // Force dynamic rendering
+    return <AllToolsClient />;
 }
