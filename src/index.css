@@ -1,0 +1,187 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* EdIntel Sovereign - Command Center Design System */
+
+@layer base {
+  :root {
+    /* Core dark theme - command center aesthetic */
+    --background: 160 10% 6%;
+    --foreground: 160 10% 95%;
+
+    --card: 160 12% 8%;
+    --card-foreground: 160 10% 95%;
+
+    --popover: 160 12% 8%;
+    --popover-foreground: 160 10% 95%;
+
+    /* Emerald primary - sovereign green */
+    --primary: 160 84% 39%;
+    --primary-foreground: 160 10% 6%;
+
+    /* Deep slate secondary */
+    --secondary: 160 15% 12%;
+    --secondary-foreground: 160 10% 85%;
+
+    --muted: 160 10% 15%;
+    --muted-foreground: 160 10% 55%;
+
+    /* Gold accent for highlights */
+    --accent: 45 93% 58%;
+    --accent-foreground: 160 10% 6%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 160 15% 18%;
+    --input: 160 15% 15%;
+    --ring: 160 84% 39%;
+
+    --radius: 0.5rem;
+
+    /* Custom tokens */
+    --glow-primary: 160 84% 39%;
+    --glow-accent: 45 93% 58%;
+    --grid-line: 160 15% 12%;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(180deg, hsl(160 84% 39% / 0.15) 0%, transparent 50%);
+    --gradient-card: linear-gradient(135deg, hsl(160 12% 10%) 0%, hsl(160 12% 6%) 100%);
+    --gradient-border: linear-gradient(135deg, hsl(160 84% 39% / 0.5), hsl(160 84% 39% / 0.1));
+    
+    /* Shadows */
+    --shadow-glow: 0 0 40px hsl(160 84% 39% / 0.3);
+    --shadow-card: 0 4px 24px hsl(0 0% 0% / 0.4);
+    
+    --sidebar-background: 160 12% 8%;
+    --sidebar-foreground: 160 10% 85%;
+    --sidebar-primary: 160 84% 39%;
+    --sidebar-primary-foreground: 160 10% 6%;
+    --sidebar-accent: 160 15% 15%;
+    --sidebar-accent-foreground: 160 10% 85%;
+    --sidebar-border: 160 15% 18%;
+    --sidebar-ring: 160 84% 39%;
+  }
+
+  .dark {
+    --background: 160 10% 6%;
+    --foreground: 160 10% 95%;
+    --card: 160 12% 8%;
+    --card-foreground: 160 10% 95%;
+    --popover: 160 12% 8%;
+    --popover-foreground: 160 10% 95%;
+    --primary: 160 84% 39%;
+    --primary-foreground: 160 10% 6%;
+    --secondary: 160 15% 12%;
+    --secondary-foreground: 160 10% 85%;
+    --muted: 160 10% 15%;
+    --muted-foreground: 160 10% 55%;
+    --accent: 45 93% 58%;
+    --accent-foreground: 160 10% 6%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 160 15% 18%;
+    --input: 160 15% 15%;
+    --ring: 160 84% 39%;
+    --sidebar-background: 160 12% 8%;
+    --sidebar-foreground: 160 10% 85%;
+    --sidebar-primary: 160 84% 39%;
+    --sidebar-primary-foreground: 160 10% 6%;
+    --sidebar-accent: 160 15% 15%;
+    --sidebar-accent-foreground: 160 10% 85%;
+    --sidebar-border: 160 15% 18%;
+    --sidebar-ring: 160 84% 39%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  code, pre, .mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer utilities {
+  .text-gradient-hero {
+    background: linear-gradient(180deg, hsl(160 84% 55%) 0%, hsl(160 84% 35%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-outline {
+    -webkit-text-stroke: 2px hsl(160 84% 39%);
+    -webkit-text-fill-color: transparent;
+  }
+
+  .glow-primary {
+    box-shadow: 0 0 30px hsl(160 84% 39% / 0.4), 0 0 60px hsl(160 84% 39% / 0.2);
+  }
+
+  .glow-text {
+    text-shadow: 0 0 20px hsl(160 84% 39% / 0.5), 0 0 40px hsl(160 84% 39% / 0.3);
+  }
+
+  .border-gradient {
+    border: 1px solid transparent;
+    background: linear-gradient(var(--gradient-card)) padding-box,
+                linear-gradient(135deg, hsl(160 84% 39% / 0.5), hsl(160 84% 39% / 0.1)) border-box;
+  }
+
+  .grid-pattern {
+    background-image: 
+      linear-gradient(hsl(160 15% 12% / 0.5) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(160 15% 12% / 0.5) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .scan-line {
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      hsl(160 84% 39% / 0.03) 50%,
+      transparent 100%
+    );
+    animation: scan 8s linear infinite;
+  }
+
+  @keyframes scan {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+}
