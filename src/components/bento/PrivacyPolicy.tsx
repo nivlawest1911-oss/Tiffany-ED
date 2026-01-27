@@ -64,7 +64,10 @@ export default function PrivacyPolicy() {
     return (
         <div className="p-10 rounded-[2.5rem] bg-zinc-950 text-white border border-zinc-900 shadow-3xl relative overflow-hidden group">
             {/* Background Grain/Grid */}
-            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-5" />
+            <div
+                className="absolute inset-0 opacity-5"
+                style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/carbon-fibre.png')" }}
+            />
 
             <div className="relative z-10">
                 <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-8">

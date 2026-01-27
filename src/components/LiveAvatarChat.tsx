@@ -796,7 +796,10 @@ export default function LiveAvatarChat({
                                     {/* Cinematic Grain & Scanlines */}
                                     {cinematicMode && (
                                         <>
-                                            <div className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat" />
+                                            <div
+                                                className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-20 bg-repeat"
+                                                style={{ backgroundImage: "url('https://grainy-gradients.vercel.app/noise.svg')" }}
+                                            />
                                             <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/60 via-transparent to-black/30" />
                                             <div className="absolute top-0 left-0 right-0 h-[1px] bg-white/5 animate-scanline" />
                                         </>

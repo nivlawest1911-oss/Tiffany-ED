@@ -141,7 +141,10 @@ export default function LeadershipGenerator() {
         <div className="p-8 rounded-3xl bg-zinc-950 text-white border border-zinc-800 shadow-2xl relative overflow-hidden group">
             {/* Background Glow & Neural Web */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-pink-600/10 blur-[100px] -mr-32 -mt-32 pointer-events-none" />
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />
+            <div
+                className="absolute inset-0 opacity-20"
+                style={{ backgroundImage: "url('https://grainy-gradients.vercel.app/noise.svg')" }}
+            />
 
             {/* Neural Connections */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20">

@@ -41,7 +41,10 @@ export default function GeminiWorkspaceHub() {
         <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
             {/* Header */}
             <div className="relative overflow-hidden bg-gradient-to-r from-purple-600/20 to-pink-600/20 border-b border-purple-500/30">
-                <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
+                <div
+                    className="absolute inset-0 opacity-10"
+                    style={{ backgroundImage: "url('/grid.svg')" }}
+                />
                 <div className="relative max-w-7xl mx-auto px-6 py-12">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -124,8 +127,8 @@ function TabButton({ active, onClick, icon: Icon, label }: any) {
             whileTap={{ scale: 0.98 }}
             onClick={onClick}
             className={`px-6 py-3 rounded-xl font-semibold transition-all ${active
-                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50'
-                    : 'bg-slate-800/50 text-slate-400 hover:text-white'
+                ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50'
+                : 'bg-slate-800/50 text-slate-400 hover:text-white'
                 }`}
         >
             <span className="flex items-center gap-2">
@@ -232,8 +235,8 @@ function ImportTab({ onImport }: { onImport: (content: ImportedContent) => void 
                 <div
                     {...getRootProps()}
                     className={`border-2 border-dashed rounded-2xl p-12 text-center cursor-pointer transition-all ${isDragActive
-                            ? 'border-purple-500 bg-purple-500/10'
-                            : 'border-slate-600 hover:border-purple-500/50'
+                        ? 'border-purple-500 bg-purple-500/10'
+                        : 'border-slate-600 hover:border-purple-500/50'
                         }`}
                 >
                     <input {...getInputProps()} />
@@ -353,8 +356,8 @@ function LibraryTab({ content, searchQuery, onSearch }: any) {
                                 key={cat}
                                 onClick={() => setSelectedCategory(cat)}
                                 className={`px-4 py-2 rounded-lg whitespace-nowrap transition-all ${selectedCategory === cat
-                                        ? 'bg-purple-600 text-white'
-                                        : 'bg-slate-700/50 text-slate-400 hover:text-white'
+                                    ? 'bg-purple-600 text-white'
+                                    : 'bg-slate-700/50 text-slate-400 hover:text-white'
                                     }`}
                             >
                                 {cat}

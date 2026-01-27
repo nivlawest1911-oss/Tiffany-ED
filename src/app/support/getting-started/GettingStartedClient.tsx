@@ -84,7 +84,10 @@ export default function GettingStartedClient() {
         <main className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-white font-sans">
             {/* Header / Search Hero */}
             <section className="relative py-16 px-6 bg-zinc-900 border-b border-zinc-800 flex flex-col items-center justify-center text-center overflow-hidden">
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20" />
+                <div
+                    className="absolute inset-0 opacity-20"
+                    style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/carbon-fibre.png')" }}
+                />
                 <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-amber-600/10 to-transparent pointer-events-none" />
 
                 <div className="relative z-10 w-full max-w-2xl space-y-8">

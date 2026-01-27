@@ -76,7 +76,10 @@ export default function EducatorHubClient() {
         <main className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-white font-sans">
             {/* Hero Section */}
             <section className="relative py-16 px-6 bg-zinc-900 border-b border-zinc-800 flex flex-col items-center justify-center text-center overflow-hidden">
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2574&auto=format&fit=crop')] bg-cover bg-center opacity-10 grayscale mix-blend-overlay" />
+                <div
+                    className="absolute inset-0 bg-cover bg-center opacity-10 grayscale mix-blend-overlay"
+                    style={{ backgroundImage: "url('https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2574&auto=format&fit=crop')" }}
+                />
                 <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/20 to-transparent pointer-events-none" />
 
                 <div className="relative z-10 w-full max-w-3xl space-y-6">

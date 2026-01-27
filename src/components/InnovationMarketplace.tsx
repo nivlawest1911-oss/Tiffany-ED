@@ -65,7 +65,10 @@ export default function InnovationMarketplace() {
                             whileHover={{ y: -10 }}
                             className="bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden group hover:border-purple-500/50 transition-all shadow-xl"
                         >
-                            <div className="h-48 bg-zinc-800 relative group-hover:scale-105 transition-transform duration-500 bg-[url('/placeholders/curriculum_bg.jpg')] bg-cover bg-center">
+                            <div
+                                className="h-48 bg-zinc-800 relative group-hover:scale-105 transition-transform duration-500 bg-cover bg-center"
+                                style={{ backgroundImage: "url('/placeholders/curriculum_bg.jpg')" }}
+                            >
                                 <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 to-transparent" />
                                 <div className="absolute bottom-4 left-4 flex items-center gap-2">
                                     <div className="w-8 h-8 rounded-full border border-white/20 overflow-hidden">

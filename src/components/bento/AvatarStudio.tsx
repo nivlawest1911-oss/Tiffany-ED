@@ -257,7 +257,10 @@ export default function AvatarStudio() {
     return (
         <div className="p-10 rounded-[2.5rem] bg-zinc-950 text-white border border-zinc-900 shadow-3xl relative overflow-hidden group">
             {/* Background Grid/Glow */}
-            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-5" />
+            <div
+                className="absolute inset-0 opacity-5"
+                style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/carbon-fibre.png')" }}
+            />
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-600/10 blur-[150px] -mr-64 -mt-64 pointer-events-none group-hover:bg-purple-600/20 transition-all duration-1000" />
 
             <div className="relative z-10">

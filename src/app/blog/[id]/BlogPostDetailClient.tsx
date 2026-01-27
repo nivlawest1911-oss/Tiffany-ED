@@ -121,7 +121,10 @@ export default function BlogPostDetailClient() {
             {/* CTA */}
             <section className="max-w-4xl mx-auto px-6 mt-24">
                 <div className="p-12 rounded-[3rem] bg-gradient-to-r from-amber-600 to-amber-700 text-center space-y-8 shadow-2xl shadow-amber-900/40 relative overflow-hidden group">
-                    <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10" />
+                    <div
+                        className="absolute inset-0 opacity-10"
+                        style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/carbon-fibre.png')" }}
+                    />
                     <h2 className="text-3xl font-black uppercase tracking-tighter relative z-10">Implement this Protocol</h2>
                     <p className="max-w-md mx-auto relative z-10 font-medium text-amber-50">
                         Ready to deploy these insights to your district architecture? Start your 14-day sovereign pilot today.

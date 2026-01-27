@@ -75,7 +75,10 @@ function ParallaxBackground() {
                     <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
                 </div>
             </motion.div>
-            <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-20 z-20" />
+            <div
+                className="absolute inset-0 bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-20 z-20"
+                style={{ backgroundImage: "url('/grid.svg')" }}
+            />
         </div>
     );
 }
@@ -209,7 +212,10 @@ function HolographicHero({ activeAgent, agents, message }: { activeAgent: number
                         />
                     )}
                     {/* Digital Noise Overlay */}
-                    <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay" />
+                    <div
+                        className="absolute inset-0 opacity-[0.03] mix-blend-overlay"
+                        style={{ backgroundImage: "url('/noise.png')" }}
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
                 </div>
 
@@ -414,7 +420,10 @@ export default function ModernHomePage() {
 
                         {/* VOICE IDENTITY SHOWCASE */}
                         <section className="py-24 bg-zinc-900 border-y border-white/5 relative overflow-hidden">
-                            <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5" />
+                            <div
+                                className="absolute inset-0 opacity-5"
+                                style={{ backgroundImage: "url('/grid.svg')" }}
+                            />
                             <div className="max-w-7xl mx-auto px-6 relative z-10">
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
@@ -436,7 +445,10 @@ export default function ModernHomePage() {
 
                         {/* HUGGING FACE AVATAR SHOWCASE */}
                         <section className="py-24 bg-zinc-950 border-y border-white/5 relative overflow-hidden">
-                            <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
+                            <div
+                                className="absolute inset-0 opacity-10"
+                                style={{ backgroundImage: "url('/grid.svg')" }}
+                            />
                             <div className="max-w-7xl mx-auto px-6 relative z-10">
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}

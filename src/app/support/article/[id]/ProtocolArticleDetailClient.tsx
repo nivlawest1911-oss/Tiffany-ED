@@ -8,7 +8,10 @@ export default function ProtocolArticleDetailClient() {
         <main className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-white font-sans">
             {/* Header / Search Hero */}
             <section className="relative py-12 px-6 bg-zinc-900 border-b border-zinc-800 flex flex-col items-center justify-center text-center overflow-hidden">
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10" />
+                <div
+                    className="absolute inset-0 opacity-10"
+                    style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/carbon-fibre.png')" }}
+                />
                 <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-amber-900/10 to-transparent pointer-events-none" />
 
                 <div className="relative z-10 w-full max-w-2xl space-y-6">

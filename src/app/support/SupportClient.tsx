@@ -20,7 +20,10 @@ export default function SupportClient() {
         <main className="min-h-screen bg-zinc-950 text-white overflow-x-hidden">
             {/* Search Hero */}
             <section className="relative py-24 px-6 bg-zinc-900 border-b border-zinc-800 flex flex-col items-center justify-center text-center overflow-hidden">
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20" />
+                <div
+                    className="absolute inset-0 opacity-20"
+                    style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/carbon-fibre.png')" }}
+                />
                 <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-amber-900/10 to-transparent pointer-events-none" />
 
                 <div className="relative z-10 max-w-3xl w-full space-y-8">
@@ -76,7 +79,10 @@ export default function SupportClient() {
 
                     {/* Premium Contact Card */}
                     <div className="p-8 rounded-[2rem] bg-gradient-to-br from-amber-600 to-amber-700 shadow-2xl shadow-amber-900/50 text-center relative overflow-hidden group">
-                        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 mix-blend-overlay" />
+                        <div
+                            className="absolute inset-0 opacity-10 mix-blend-overlay"
+                            style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/carbon-fibre.png')" }}
+                        />
                         <div className="relative z-10">
                             <h3 className="text-2xl font-black uppercase tracking-tight text-white mb-2">Need Priority Aid?</h3>
                             <p className="text-amber-100/80 text-xs font-medium mb-8 leading-relaxed">

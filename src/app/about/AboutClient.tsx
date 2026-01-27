@@ -122,7 +122,10 @@ export default function AboutClient() {
 
             {/* 4. Timeline / Mission Stats - Data Stream */}
             <section className="py-32 bg-zinc-950 px-6 border-y border-white/5 overflow-hidden relative">
-                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />
+                <div
+                    className="absolute inset-0 opacity-20"
+                    style={{ backgroundImage: "url('https://grainy-gradients.vercel.app/noise.svg')" }}
+                />
 
                 <div className="max-w-6xl mx-auto relative z-10">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12 divide-y md:divide-y-0 md:divide-x divide-white/10">

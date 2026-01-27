@@ -11,7 +11,10 @@ export default function ProfessionalSocialConnection() {
 
             <div className="relative bg-zinc-950 rounded-[2.4rem] overflow-hidden">
                 {/* Banner - Professional Aesthetic */}
-                <div className="h-48 w-full bg-[url('https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=1974&auto=format&fit=crop')] bg-cover bg-center relative">
+                <div
+                    className="h-48 w-full bg-cover bg-center relative"
+                    style={{ backgroundImage: "url('https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=1974&auto=format&fit=crop')" }}
+                >
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent to-zinc-950" />
                     <div className="absolute top-6 right-6 px-4 py-2 rounded-full bg-blue-600/90 backdrop-blur-md text-white text-xs font-bold uppercase tracking-widest flex items-center gap-2 shadow-lg">
                         <Facebook size={14} fill="currentColor" /> Community Hub Online
@@ -89,7 +92,10 @@ export default function ProfessionalSocialConnection() {
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <a href="https://www.tiktok.com/@alvinwestii" target="_blank" className="group relative aspect-video rounded-xl bg-zinc-900 overflow-hidden border border-zinc-800 hover:border-pink-500 transition-all cursor-pointer">
-                                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1974&auto=format&fit=crop')] bg-cover bg-center opacity-50 group-hover:opacity-70 transition-opacity" />
+                                <div
+                                    className="absolute inset-0 bg-cover bg-center opacity-50 group-hover:opacity-70 transition-opacity"
+                                    style={{ backgroundImage: "url('https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1974&auto=format&fit=crop')" }}
+                                />
                                 <div className="absolute flex flex-col justify-end inset-0 p-4 bg-gradient-to-t from-black/90 to-transparent">
                                     <div className="flex items-center gap-2 mb-2">
                                         <span className="px-2 py-1 rounded bg-black/50 border border-pink-500/50 text-pink-400 text-[9px] font-black uppercase tracking-wider backdrop-blur-md">TikTok Feed</span>
@@ -98,7 +104,10 @@ export default function ProfessionalSocialConnection() {
                                 </div>
                             </a>
                             <a href="https://www.facebook.com/alvin.west.18" target="_blank" className="group relative aspect-video rounded-xl bg-zinc-900 overflow-hidden border border-zinc-800 hover:border-blue-600 transition-all cursor-pointer">
-                                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1544367563-12123d896889?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-50 group-hover:opacity-70 transition-opacity" />
+                                <div
+                                    className="absolute inset-0 bg-cover bg-center opacity-50 group-hover:opacity-70 transition-opacity"
+                                    style={{ backgroundImage: "url('https://images.unsplash.com/photo-1544367563-12123d896889?q=80&w=2070&auto=format&fit=crop')" }}
+                                />
                                 <div className="absolute flex flex-col justify-end inset-0 p-4 bg-gradient-to-t from-black/90 to-transparent">
                                     <div className="flex items-center gap-2 mb-2">
                                         <span className="px-2 py-1 rounded bg-blue-600 text-[9px] font-bold text-white uppercase">Facebook Community</span>

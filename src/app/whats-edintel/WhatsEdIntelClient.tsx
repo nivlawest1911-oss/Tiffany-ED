@@ -48,7 +48,10 @@ export default function WhatsEdIntelClient() {
 
             {/* Audience Segmentation */}
             <section className="bg-zinc-900 border-y border-zinc-800 py-24 mb-20 overflow-hidden relative">
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10" />
+                <div
+                    className="absolute inset-0 opacity-10"
+                    style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/carbon-fibre.png')" }}
+                />
                 <div className="max-w-7xl mx-auto px-6 relative z-10">
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         {/* For Educators */}

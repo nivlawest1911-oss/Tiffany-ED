@@ -46,7 +46,10 @@ export default function AIPhoneCenter() {
         <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900">
             {/* Header */}
             <div className="relative overflow-hidden bg-gradient-to-r from-indigo-600/20 to-purple-600/20 border-b border-indigo-500/30">
-                <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
+                <div
+                    className="absolute inset-0 opacity-10"
+                    style={{ backgroundImage: "url('/grid.svg')" }}
+                />
                 <div className="relative max-w-7xl mx-auto px-6 py-12">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -374,16 +377,16 @@ function CallHistoryTable({ calls }: { calls: PhoneCall[] }) {
                             <td className="p-4 text-slate-300">{call.duration}s</td>
                             <td className="p-4">
                                 <span className={`inline-flex items-center gap-1 ${call.sentiment === 'positive' ? 'text-green-400' :
-                                        call.sentiment === 'negative' ? 'text-red-400' :
-                                            'text-slate-400'
+                                    call.sentiment === 'negative' ? 'text-red-400' :
+                                        'text-slate-400'
                                     }`}>
                                     {call.sentiment || 'N/A'}
                                 </span>
                             </td>
                             <td className="p-4">
                                 <span className={`inline-flex items-center gap-1 ${call.status === 'completed' ? 'text-green-400' :
-                                        call.status === 'failed' ? 'text-red-400' :
-                                            'text-yellow-400'
+                                    call.status === 'failed' ? 'text-red-400' :
+                                        'text-yellow-400'
                                     }`}>
                                     {call.status === 'completed' && <CheckCircle className="w-4 h-4" />}
                                     {call.status === 'failed' && <XCircle className="w-4 h-4" />}

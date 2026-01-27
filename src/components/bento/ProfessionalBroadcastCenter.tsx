@@ -31,7 +31,10 @@ export default function ProfessionalBroadcastCenter() {
     return (
         <div className="w-full max-w-4xl mx-auto p-1 bg-gradient-to-br from-purple-900 to-zinc-900 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
             {/* Background FX */}
-            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10" />
+            <div
+                className="absolute inset-0 opacity-10"
+                style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/carbon-fibre.png')" }}
+            />
             <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/10 blur-[100px] rounded-full pointer-events-none" />
 
             <div className="relative bg-zinc-950/90 backdrop-blur-xl rounded-[2.4rem] p-8 md:p-10 border border-white/5">
