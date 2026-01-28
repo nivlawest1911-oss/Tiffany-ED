@@ -334,14 +334,15 @@ Context:
                         loop
                         muted
                         playsInline
-                        className="w-full h-full object-cover scale-105 opacity-40 blur-[2px]"
+                        className="w-full h-full object-cover scale-105 opacity-40"
                     />
                 ) : heroImage ? (
                     <Image
                         src={heroImage}
                         alt="Background"
                         fill
-                        className="object-cover scale-105 opacity-30 blur-[2px]"
+                        priority
+                        className="object-cover scale-105 opacity-30 blur-[1px]"
                     />
                 ) : (
                     <div className="w-full h-full bg-gradient-to-br from-noble-black via-zinc-950 to-indigo-950/20" />
