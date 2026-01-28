@@ -129,7 +129,7 @@ export async function createTopupSession(
         payment_method_types: ['card'],
         line_items: [
             {
-                price: PRICING_PLANS.tokens.priceId,
+                price: PRICING_PLANS.credits.priceId,
                 quantity: quantity,
             },
         ],
