@@ -216,7 +216,9 @@ export class AIPhoneAgentService {
     ): Promise<string> {
         // Use Google Gemini for intelligent response
         const { GoogleGenerativeAI } = await import('@google/generative-ai');
-        const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENAI_API_KEY!);
+        const apiKey = process.env.GOOGLE_GENAI_API_KEY;
+        if (!apiKey) throw new Error("GOOGLE_GENAI_API_KEY is missing");
+        const genAI = new GoogleGenerativeAI(apiKey);
         const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
 
         const prompt = `You are ${context.agent || 'Dr. Alvin West'}, an AI assistant for EdIntel Professional, an educational technology platform for Alabama schools.
@@ -426,7 +428,9 @@ export class AdvancedPhoneFeatures {
     }> {
         // Use AI to determine best routing
         const { GoogleGenerativeAI } = await import('@google/generative-ai');
-        const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENAI_API_KEY!);
+        const apiKey = process.env.GOOGLE_GENAI_API_KEY;
+        if (!apiKey) throw new Error("GOOGLE_GENAI_API_KEY is missing");
+        const genAI = new GoogleGenerativeAI(apiKey);
         const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
 
         const prompt = `Analyze this caller request and determine routing:

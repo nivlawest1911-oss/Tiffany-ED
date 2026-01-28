@@ -41,12 +41,20 @@ model User {
   school            String?
   position          String?  // Principal, Teacher, Counselor
   
+  // Organization Link
+  organizationId    String?  @map("organization_id")
+  organization      Organization? @relation(fields: [organizationId], references: [id])
+  
   // Subscription & Billing
   stripeCustomerId  String?  @unique @map("stripe_customer_id")
   subscriptionTier  String   @default("free") @map("subscription_tier")
   subscriptionStatus String  @default("inactive") @map("subscription_status")
   tokensRemaining   Int      @default(10) @map("tokens_remaining")
   xpPoints          Int      @default(0) @map("xp_points")
+  
+  // Trial Logic
+  trialEndsAt       DateTime? @map("trial_ends_at")
+  isTrialConverted  Boolean   @default(false) @map("is_trial_converted")
   
   // Auth & Identity
   googleId          String?  @unique @map("google_id")
@@ -70,7 +78,38 @@ model User {
   
   @@index([email])
   @@index([district, school])
+  @@index([organizationId])
   @@map("users")
+}
+
+// ============================================
+// ORGANIZATIONS & DISTRICTS
+// ============================================
+
+model Organization {
+  id                String   @id @default(cuid())
+  name              String
+  tier              String   @default("SCHOOL_SITE") // SCHOOL_SITE, DISTRICT_MATRIX, EXECUTIVE_COMMAND
+  
+  // Trial management
+  trialStartsAt     DateTime @default(now()) @map("trial_starts_at")
+  trialEndsAt       DateTime @map("trial_ends_at")
+  isTrialConverted  Boolean  @default(false) @map("is_trial_converted")
+  
+  // Token Economy
+  usageTokens       Int      @default(0) @map("usage_tokens")
+  
+  // Structure
+  address           String?
+  contactEmail      String?  @map("contact_email")
+  
+  // Relations
+  users             User[]
+  
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+
+  @@map("organizations")
 }
 
 // ============================================

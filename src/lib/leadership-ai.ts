@@ -1,5 +1,10 @@
-import { google } from '@ai-sdk/google';
+import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { generateText } from 'ai';
+
+// Lazy-initialized provider to bypass build-time API key requirement
+const getGoogleProvider = () => createGoogleGenerativeAI({
+  apiKey: process.env.GOOGLE_GENAI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY || ''
+});
 
 const USER_CREDENTIALS = {
   name: "Dr. Alvin West",
@@ -47,7 +52,7 @@ export async function generateProfessionalResponse(
     }
 
     const { text } = await generateText({
-      model: google('models/gemini-1.5-pro-latest'), // Using Gemini Pro for superior reasoning
+      model: getGoogleProvider()('models/gemini-1.5-pro-latest'), // Using Gemini Pro for superior reasoning
       system: systemPrompt,
       prompt: prompt,
       temperature: 0.7,

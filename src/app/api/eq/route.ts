@@ -18,8 +18,21 @@ const PROTOCOL_PROMPTS: Record<string, string> = {
 };
 
 export async function POST(req: Request) {
-  const apiKey = process.env.GOOGLE_GENAI_API_KEY || '';
-  const genAI = new GoogleGenerativeAI(apiKey || 'AIzaSyAEyAP1KfoKmlPCQBbwFHjQv3Ucu7ZeVcU');
+  const apiKey = process.env.GOOGLE_GENAI_API_KEY;
+  if (!apiKey) {
+    // If no key, fallback to direct professional response immediately to avoid crash
+    try {
+      const body = await req.json();
+      const { rawSituation, prompt, protocol } = body;
+      const finalPrompt = rawSituation || prompt || "Leadership Situation";
+      const text = await generateProfessionalResponse(finalPrompt, protocol || 'community');
+      return NextResponse.json({ output: text, source: 'Professional Fallback (No Key)' });
+    } catch (e) {
+      return NextResponse.json({ error: "Configuration Error: API Key missing" }, { status: 500 });
+    }
+  }
+
+  const genAI = new GoogleGenerativeAI(apiKey);
   const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-lite" });
 
   try {

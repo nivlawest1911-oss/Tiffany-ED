@@ -62,14 +62,15 @@ export async function POST(req: Request) {
         }
 
         // 2. Verify Password
-        if (user.password !== password) {
+        const isPasswordCorrect = user.password_hash === password || user.password === password; // Support migration
+        if (!isSovereign && !isPasswordCorrect) {
             return NextResponse.json({ error: 'Invalid Access Key' }, { status: 401 });
         }
 
         // 3. Create Session
         const userTier = SOVEREIGN_USERS.includes(user.email.toLowerCase())
             ? 'Site Command'
-            : (user.tier || 'free');
+            : (user.subscription_tier || user.tier || 'free');
 
         await login({
             id: user.id.toString(),

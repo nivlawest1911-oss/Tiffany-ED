@@ -5,7 +5,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { initCryptoPayments } from '@/lib/payments/crypto';
-import { prisma } from '@/lib/prisma';
+import prisma from '@/lib/prisma';
 
 export async function POST(request: NextRequest) {
     try {

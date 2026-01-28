@@ -2,17 +2,25 @@
     "buildCommand": "npm run build",
     "framework": "nextjs",
     "regions": [
-        "iad1"
+        "ord1"
     ],
+    "env": {
+        "TZ": "America/Chicago"
+    },
     "build": {
         "env": {
-            "NEXT_PRIVATE_SKIP_TURBOPACK": "1"
+            "NEXT_PRIVATE_SKIP_TURBOPACK": "1",
+            "TZ": "America/Chicago"
         }
     },
     "crons": [
         {
             "path": "/api/reports/daily-sovereignty",
             "schedule": "0 12 * * *"
+        },
+        {
+            "path": "/api/cron/expire-trials",
+            "schedule": "0 6 * * *"
         }
     ]
 }

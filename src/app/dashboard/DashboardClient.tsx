@@ -47,6 +47,9 @@ import { AIGeneratorsHub } from '@/components/ai-generators-hub';
 import SummaryCards from '@/components/dashboard/SummaryCards';
 import SovereignAdvisorInterface from '@/components/dashboard/SovereignAdvisorInterface';
 import ActionFeed from '@/components/dashboard/ActionFeed';
+import { TrialBanner } from '@/components/subscription/TrialBanner';
+import { TokenNudge } from '@/components/TokenNudge';
+import { getTrialDaysRemaining } from '@/lib/subscription';
 
 export default function DashboardClient() {
     const { user, isLoading } = useAuth();
@@ -162,6 +165,14 @@ export default function DashboardClient() {
                 <div className="fixed inset-0 pointer-events-none opacity-20 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] z-[-1]" />
 
                 <div className="relative max-w-[1600px] mx-auto p-6 pt-24 min-h-screen flex flex-col">
+                    {/* Trial Banner Integration */}
+                    {user?.trialEndsAt && (
+                        <TrialBanner
+                            daysRemaining={getTrialDaysRemaining(user.trialEndsAt)}
+                            tokenCount={user.tokensRemaining || 0}
+                            onPurchase={() => window.location.href = '/pricing'}
+                        />
+                    )}
 
                     {/* Header: Sovereign Standard */}
                     <header className="flex flex-col md:flex-row items-center justify-between mb-12">
@@ -224,6 +235,13 @@ export default function DashboardClient() {
 
                 <MobileTacticalCommand />
                 <SovereignDelegate /> {/* Keeps the global delegate active if needed, or we rely on the Interface */}
+
+                {/* Strategic Notifications */}
+                <TokenNudge
+                    daysRemaining={user.trialEndsAt ? getTrialDaysRemaining(user.trialEndsAt) : 0}
+                    tokensRemaining={user.tokensRemaining || 0}
+                    isTrial={!user.isTrialConverted}
+                />
             </div>
         </WellnessWrapper>
     );

@@ -164,6 +164,7 @@ export async function GET(request: NextRequest) {
                     stripe_customer_id,
                     google_id,
                     avatar_url,
+                    trial_ends_at,
                     created_at,
                     updated_at
                 )
@@ -176,6 +177,7 @@ export async function GET(request: NextRequest) {
                     ${stripeCustomerId},
                     ${googleId},
                     ${picture},
+                    ${(new Date(Date.now() + 14 * 24 * 60 * 60 * 1000)).toISOString()},
                     NOW(),
                     NOW()
                 )

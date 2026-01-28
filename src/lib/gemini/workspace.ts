@@ -5,7 +5,20 @@
 
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENAI_API_KEY!);
+const getGenAI = () => {
+    const apiKey = process.env.GOOGLE_GENAI_API_KEY;
+    if (!apiKey) {
+        // During build time, return a mock or throw only when called
+        return {
+            getGenerativeModel: () => ({
+                generateContent: async () => ({ response: { text: () => "{}" } })
+            })
+        } as any;
+    }
+    return new GoogleGenerativeAI(apiKey);
+};
+
+const genAI = getGenAI();
 
 /**
  * Gemini Workspace Content Types

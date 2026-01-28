@@ -5,39 +5,30 @@ import { createOpenAI } from '@ai-sdk/openai';
 import { createXai } from '@ai-sdk/xai';
 import { NextRequest } from 'next/server';
 
-// Initialize AI providers
-const google = createGoogleGenerativeAI({
-    apiKey: process.env.GOOGLE_GENAI_API_KEY || '',
-});
-
-const anthropic = createAnthropic({
-    apiKey: process.env.ANTHROPIC_API_KEY || '',
-});
-
-const openai = createOpenAI({
-    apiKey: process.env.OPENAI_API_KEY || '',
-});
-
-const xai = createXai({
-    apiKey: process.env.XAI_API_KEY || '',
-});
-
-export const runtime = 'edge';
-
-// Model selector function
+// Lazy initials for AI providers
 function getModel(provider: string = 'google') {
     switch (provider) {
-        case 'anthropic':
+        case 'anthropic': {
+            const anthropic = createAnthropic({ apiKey: process.env.ANTHROPIC_API_KEY || '' });
             return anthropic('claude-sonnet-4-20250514');
-        case 'openai':
+        }
+        case 'openai': {
+            const openai = createOpenAI({ apiKey: process.env.OPENAI_API_KEY || '' });
             return openai('gpt-4o');
-        case 'xai':
+        }
+        case 'xai': {
+            const xai = createXai({ apiKey: process.env.XAI_API_KEY || '' });
             return xai('grok-2-1212');
+        }
         case 'google':
-        default:
+        default: {
+            const google = createGoogleGenerativeAI({ apiKey: process.env.GOOGLE_GENAI_API_KEY || '' });
             return google('gemini-1.5-pro');
+        }
     }
 }
+
+export const runtime = 'edge';
 
 export async function POST(req: NextRequest) {
     try {

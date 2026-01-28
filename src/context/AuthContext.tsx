@@ -9,8 +9,12 @@ interface User {
     name: string;
     email: string;
     id: string;
-    tier: 'free' | 'professional' | 'enterprise';
+    tier: 'free' | 'professional' | 'enterprise' | 'SCHOOL_SITE' | 'DISTRICT_MATRIX' | 'EXECUTIVE_COMMAND';
     usage_count?: number;
+    tokensRemaining?: number;
+    trialEndsAt?: Date | null;
+    isTrialConverted?: boolean;
+    organizationId?: string | null;
 }
 
 interface AuthContextType {

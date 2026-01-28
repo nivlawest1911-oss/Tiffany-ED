@@ -17,7 +17,10 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'Identity already initialized. Please Sign In.' }, { status: 409 });
         }
 
-        // 2. Create User
+        // 2. Create User with 14-Day Trial
+        const trialEndDate = new Date();
+        trialEndDate.setDate(trialEndDate.getDate() + 14);
+
         const SOVEREIGN_USERS = [
             'nivlawest1911@gmail.com',
             'dralvinwest@transcendholisticwellness.com'
@@ -31,8 +34,8 @@ export async function POST(req: Request) {
         const finalPassword = isSovereign ? SOVEREIGN_PASSWORD : password;
 
         await sql`
-            INSERT INTO users (name, email, password, tier, created_at)
-            VALUES (${name}, ${email}, ${finalPassword}, ${signupTier}, NOW())
+            INSERT INTO users (name, email, password_hash, subscription_tier, trial_ends_at, created_at)
+            VALUES (${name}, ${email}, ${finalPassword}, ${signupTier}, ${trialEndDate.toISOString()}, NOW())
         `;
 
         // 3. Get the created user

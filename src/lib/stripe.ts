@@ -120,7 +120,8 @@ export async function createTopupSession(
         client_reference_id: userId,
         metadata: {
             userId,
-            tokenQuantity: quantity.toString(),
+            orgId: userId, // Assuming userId acts as orgId in this context if orgId is missing
+            tokenAmount: quantity.toString(),
             type: 'token_topup',
             source: 'Professional Delegate Console'
         },
