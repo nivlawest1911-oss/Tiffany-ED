@@ -89,7 +89,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {(process.env.NODE_ENV === "development" || process.env.VERCEL_ENV === "preview") && (
+        {(process.env.NODE_ENV === "development" || process.env.VERCEL_ENV === "preview" || process.env.VERCEL_ENV === "production" || process.env.NODE_ENV === "production") && (
           // eslint-disable-next-line @next/next/no-sync-scripts
           <script
             data-recording-token="94iiEpYqEzfg7cRVmAVcgyVxJr0P0aY8nunNQkKS"
