@@ -62,11 +62,7 @@ export default function LandingPageClient() {
             {/* Hero Section */}
             <section className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-32">
                 <div className="relative z-10 text-center space-y-12 max-w-7xl">
-                    <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="flex flex-col items-center gap-6"
-                    >
+                    <div className="flex flex-col items-center gap-6 animate-in fade-in slide-in-from-bottom-4 duration-1000 fill-mode-forwards">
                         <div className="inline-flex items-center gap-3 px-5 py-2 border border-emerald-500/20 rounded-full bg-emerald-500/5 mb-2 backdrop-blur-md">
                             <Activity className="w-3 h-3 text-emerald-500 animate-pulse" />
                             <span className="text-[9px] uppercase tracking-[0.5em] text-emerald-400 font-black">
@@ -74,26 +70,16 @@ export default function LandingPageClient() {
                             </span>
                         </div>
                         <ComplianceBadge />
-                    </motion.div>
+                    </div>
 
-                    <motion.h1
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1, duration: 1 }}
-                        className="text-7xl md:text-[10rem] lg:text-[12rem] font-black italic uppercase tracking-tighter leading-[0.75] mb-16 drop-shadow-[0_0_50px_rgba(16,185,129,0.2)]"
-                    >
+                    <h1 className="text-7xl md:text-[10rem] lg:text-[12rem] font-black italic uppercase tracking-tighter leading-[0.75] mb-16 drop-shadow-[0_0_50px_rgba(16,185,129,0.2)] animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-100 fill-mode-forwards">
                         Sovereign <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-600">Intelligence</span>
-                    </motion.h1>
+                    </h1>
 
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.4 }}
-                        className="text-lg md:text-3xl text-zinc-400 font-medium max-w-4xl mx-auto tracking-tight leading-snug"
-                    >
+                    <p className="text-lg md:text-3xl text-zinc-400 font-medium max-w-4xl mx-auto tracking-tight leading-snug animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-300 fill-mode-forwards">
                         Autonomous strategic layers for the Modern Educator. <br className="hidden md:block" />
                         Designed in Alabama to reclaim instructional time through high-fidelity AI.
-                    </motion.p>
+                    </p>
 
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
