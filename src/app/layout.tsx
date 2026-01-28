@@ -88,6 +88,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {(process.env.NODE_ENV === "development" || process.env.VERCEL_ENV === "preview") && (
+          // eslint-disable-next-line @next/next/no-sync-scripts
+          <script
+            data-recording-token="94iiEpYqEzfg7cRVmAVcgyVxJr0P0aY8nunNQkKS"
+            data-is-production-environment="false"
+            src="https://snippet.meticulous.ai/v1/meticulous.js"
+          />
+        )}
+      </head>
       <body className={`${spaceGrotesk.variable} ${geistMono.variable} font-sans antialiased`} suppressHydrationWarning>
         <AuthProvider>
           <IntelligenceProvider>
