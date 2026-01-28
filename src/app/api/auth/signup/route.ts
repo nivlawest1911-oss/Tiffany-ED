@@ -17,9 +17,9 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'Identity already initialized. Please Sign In.' }, { status: 409 });
         }
 
-        // 2. Create User with 14-Day Trial
+        // 2. Create User with 30-Day Trial
         const trialEndDate = new Date();
-        trialEndDate.setDate(trialEndDate.getDate() + 14);
+        trialEndDate.setDate(trialEndDate.getDate() + 30);
 
         const SOVEREIGN_USERS = [
             'nivlawest1911@gmail.com',

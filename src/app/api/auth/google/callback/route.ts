@@ -177,7 +177,7 @@ export async function GET(request: NextRequest) {
                     ${stripeCustomerId},
                     ${googleId},
                     ${picture},
-                    ${(new Date(Date.now() + 14 * 24 * 60 * 60 * 1000)).toISOString()},
+                    ${(new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)).toISOString()},
                     NOW(),
                     NOW()
                 )
