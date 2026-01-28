@@ -8,38 +8,19 @@ import { LeadIntake } from '@/components/LeadIntake';
 import { ComplianceBadge } from '@/components/legal/FerpaBadge';
 
 export default function LandingPageClient() {
-    const mouseX = useMotionValue(0);
-    const mouseY = useMotionValue(0);
-    const springX = useSpring(mouseX, { stiffness: 50, damping: 20 });
-    const springY = useSpring(mouseY, { stiffness: 50, damping: 20 });
-
-    useEffect(() => {
-        const handleMouseMove = (e: MouseEvent) => {
-            mouseX.set(e.clientX - window.innerWidth / 2);
-            mouseY.set(e.clientY - window.innerHeight / 2);
-        };
-        window.addEventListener('mousemove', handleMouseMove);
-        return () => window.removeEventListener('mousemove', handleMouseMove);
-    }, [mouseX, mouseY]);
-
     return (
         <div className="min-h-screen bg-[#050507] text-white selection:bg-emerald-500/30 overflow-x-hidden font-sans">
-            {/* 🌌 Neural Fabric Background Layer */}
+            {/* 🌌 Neural Fabric Background Layer - Optimized (CSS Only) */}
             <div className="fixed inset-0 z-0 pointer-events-none opacity-40">
-                <motion.div
-                    style={{ x: springX, y: springY }}
-                    className="absolute inset-[-10%]"
-                >
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.1)_0%,transparent_70%)]" />
-                    <div className="absolute inset-0" style={{
-                        backgroundImage: 'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)',
-                        backgroundSize: '80px 80px'
-                    }} />
-                    <div className="absolute inset-0 opacity-20" style={{
-                        backgroundImage: 'radial-gradient(#10b981 1px, transparent 1px)',
-                        backgroundSize: '20px 20px'
-                    }} />
-                </motion.div>
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.1)_0%,transparent_70%)]" />
+                <div className="absolute inset-0" style={{
+                    backgroundImage: 'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)',
+                    backgroundSize: '80px 80px'
+                }} />
+                <div className="absolute inset-0 opacity-20" style={{
+                    backgroundImage: 'radial-gradient(#10b981 1px, transparent 1px)',
+                    backgroundSize: '20px 20px'
+                }} />
             </div>
 
             {/* Navigation */}
