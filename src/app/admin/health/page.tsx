@@ -11,6 +11,10 @@ async function checkDatabase() {
     }
 }
 
+
+
+export const dynamic = 'force-dynamic';
+
 export default async function HealthPage() {
     const dbStatus = await checkDatabase();
     const env = process.env.NODE_ENV;
