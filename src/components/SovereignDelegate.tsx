@@ -219,13 +219,13 @@ export default function SovereignDelegate({ initialOpen = false, greetingOverrid
                             <video
                                 src={selectedDelegate.video}
                                 poster={selectedDelegate.avatar} // Shadow Render
-                                autoPlay
-                                loop
                                 muted
                                 playsInline
-                                onLoadedMetadata={(e) => {
-                                    e.currentTarget.playbackRate = 1.0;
-                                    e.currentTarget.play().catch(err => console.log("Force-Motion Handshake:", err));
+                                ref={(el) => {
+                                    if (el) {
+                                        el.onmouseenter = () => el.play();
+                                        el.onmouseleave = () => el.pause();
+                                    }
                                 }}
                                 className={`w-full h-full object-cover scale-150 translate-y-2 pointer-events-none transition-all duration-500 ${currentProtocol.videoBehavior === 'focus' ? 'brightness-110 saturate-120' : ''}`}
                             />
