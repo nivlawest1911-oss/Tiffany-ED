@@ -9,55 +9,73 @@ export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_dummy
 
 // Pricing plans configuration
 export const PRICING_PLANS = {
-    initiate: {
-        name: 'Initiate',
+    starter: {
+        name: 'EdIntel Starter',
+        sku: 'novice_educator',
         price: 0,
         priceId: null,
+        description: 'Basic AI tools for individual teachers exploring AI.',
         features: [
-            '5 AI generations per month',
-            'Basic templates',
-            'Community support',
+            'Basic Chat Agents',
+            '5 AI Lesson Plans / mo',
+            '1GB Secure Storage',
+            'Standard AI Model (Flash)',
+            'Community Support'
         ],
+        metadata: {
+            ai_model: "Standard",
+            lesson_plans: "5",
+            agents: "Basic"
+        }
     },
-    practitioner: {
-        name: 'Practitioner',
-        price: 49.99,
-        priceId: process.env.STRIPE_PRACTITIONER_PRICE_ID || 'price_1SleigJZzJ2JsTizzhcHtd36',
+    pro: {
+        name: 'EdIntel Pro',
+        sku: 'master_teacher',
+        price: 19.00,
+        priceId: process.env.STRIPE_PRO_PRICE_ID || 'price_pro_tier_19',
+        description: 'Full AI suite with image generation, grading agents, and analytics.',
         features: [
-            'Unlimited AI generations',
-            'All 70+ specialized tools',
-            'Priority email support',
-            'Export to PDF/Word',
-            'FERPA-compliant storage',
+            'Unlimited Lesson Plans',
+            'Full Agent Access (IEP Writer, Grader)',
+            '50 AI Images / mo',
+            '5 mins AI Video / mo',
+            'Export to PDF/Word/Slides',
+            'Advanced Model (GPT-4/Gemini Pro)'
         ],
+        metadata: {
+            ai_model: "Advanced",
+            lesson_plans: "Unlimited",
+            image_generation: "50",
+            video_generation: "5",
+            agents: "Full"
+        }
     },
-    director: {
-        name: 'Director Pack',
-        price: 69.99,
-        priceId: process.env.STRIPE_DIRECTOR_PRICE_ID || 'price_director_m',
+    campus: {
+        name: 'EdIntel Campus',
+        sku: 'district_admin',
+        price: 'Custom',
+        priceId: process.env.STRIPE_CAMPUS_PRICE_ID || 'price_campus_custom',
+        description: 'For schools/districts. Includes admin dashboard & SSO.',
         features: [
-            'Everything in Practitioner',
-            'Advanced Leadership Modules',
-            'Staff Retention Analytics',
-            'Classroom Obs Synthesizer',
-            'Strategic Briefing Console',
+            'Volume Pricing ($15/seat for 10+)',
+            'SSO Enabled',
+            'Admin Analytics Dashboard',
+            'FERPA/COPPA Compliance Signed',
+            'Priority Support'
         ],
+        metadata: {
+            sso: "Enabled",
+            admin_dashboard: "Enabled",
+            privacy_compliance: "FERPA/COPPA"
+        }
     },
-    siteCommand: {
-        name: 'Site Command',
-        price: 79.99,
-        priceId: process.env.STRIPE_SITE_COMMAND_PRICE_ID || 'price_1SleihJZzJ2JsTizmaXKM4ow',
-        features: [
-            'Everything in Director Pack',
-            '10 User Licenses',
-            'Building ROI Dashboard',
-            'Priority Implementation Support',
-            'Strategic Link API Access',
-        ],
-    },
-    tokens: {
-        unitPrice: 0.50, // 50 cents per token
-        priceId: process.env.STRIPE_TOKEN_PRICE_ID || 'price_1SleijJZzJ2JsTizToken1K',
+    credits: {
+        name: 'AI Credits Pack',
+        sku: 'usage_credits',
+        price: 5.00,
+        unitAmount: 500,
+        priceId: process.env.STRIPE_CREDITS_PRICE_ID || 'price_credit_pack_5',
+        description: '500 Credits for expensive tasks (Video, 4K Images).',
     }
 };
 
