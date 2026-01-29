@@ -2,6 +2,7 @@
 
 import { Play, Share2, Radio, Signal, Disc, ExternalLink } from 'lucide-react';
 import React from 'react';
+import { default as NextImage } from 'next/image';
 import { BROADCAST_THUMB_1, BROADCAST_THUMB_2, BROADCAST_THUMB_3 } from '@/lib/assets';
 
 export default function LeadershipStream() {
@@ -91,7 +92,7 @@ export default function LeadershipStream() {
                             rel="noopener noreferrer"
                             className="group/card relative aspect-[9/16] rounded-2xl overflow-hidden bg-zinc-900 border border-zinc-800 hover:border-purple-500 transition-all cursor-pointer shadow-xl block"
                         >
-                            <img src={video.thumbnail} alt={video.desc} className="w-full h-full object-cover opacity-60 group-hover/card:opacity-90 group-hover/card:scale-105 transition-all duration-700" />
+                            <NextImage src={video.thumbnail} alt={video.desc} width={288} height={512} className="w-full h-full object-cover opacity-60 group-hover/card:opacity-90 group-hover/card:scale-105 transition-all duration-700" />
 
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
 

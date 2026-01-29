@@ -2,6 +2,7 @@
 
 import { User, Fingerprint, Zap, Upload, Trash2, Camera, Settings } from 'lucide-react';
 import React, { useState } from 'react';
+import { default as NextImage } from 'next/image';
 import { SOCIAL_HUB_AVATAR } from '@/lib/assets';
 
 export default function IdentityManager() {
@@ -41,10 +42,11 @@ export default function IdentityManager() {
                     <div className="relative group">
                         <div className={`w-40 h-40 rounded-3xl border-4 ${avatarActive ? 'border-amber-600' : 'border-zinc-800'} overflow-hidden relative shadow-2xl transition-all duration-500`}>
                             {avatarActive ? (
-                                <img
+                                <NextImage
                                     src={SOCIAL_HUB_AVATAR}
                                     alt="User Profile"
-                                    className="w-full h-full object-cover"
+                                    className="object-cover"
+                                    fill
                                 />
                             ) : (
                                 <div className="w-full h-full bg-zinc-900 flex items-center justify-center">

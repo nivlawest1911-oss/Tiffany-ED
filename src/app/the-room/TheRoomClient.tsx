@@ -6,6 +6,7 @@ import {
     ArrowRight, Globe, Cpu, Network
 } from 'lucide-react';
 import Link from 'next/link';
+import { default as NextImage } from 'next/image';
 import FloatingNavbar from '@/components/FloatingNavbar';
 import Footer from '@/components/Footer';
 import CircadianFilter from '@/components/graphics/CircadianFilter';
@@ -155,10 +156,11 @@ export default function TheRoomClient() {
                         </div>
                     </div>
                     <div className="flex-1 w-full aspect-square relative rounded-[3rem] overflow-hidden border border-white/5 group">
-                        <img
+                        <NextImage
                             src={THE_ROOM_HERO}
-                            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                            className="object-cover transition-transform duration-1000 group-hover:scale-110"
                             alt="Strategic Creation"
+                            fill
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
                         <div className="absolute bottom-10 left-10">

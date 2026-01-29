@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Award, Shield, Users, Zap, Globe } from 'lucide-react';
+import { default as NextImage } from 'next/image';
 
 import { PRINCIPAL_ACADEMY_HERO } from '@/lib/assets';
 
@@ -79,10 +80,11 @@ export default function PrincipalAcademy() {
                         viewport={{ once: true }}
                         className="relative h-[600px] rounded-[4rem] overflow-hidden border border-white/10 shadow-2xl group"
                     >
-                        <img
+                        <NextImage
                             src={PRINCIPAL_ACADEMY_HERO}
                             alt="Academy Intelligence"
-                            className="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-1000"
+                            fill
+                            className="object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-1000"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
 
