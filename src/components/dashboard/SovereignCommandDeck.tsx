@@ -22,10 +22,11 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function SovereignCommandDeck() {
     const { user, logout } = useAuth();
-    const { data: balance, error } = useSWR(user ? `/api/tokens/balance?userId=${user.uid}` : null, fetcher);
+    const { data: balance, error } = useSWR(user ? `/api/tokens/balance?userId=${user.id}` : null, fetcher);
 
     // Calculate Trial Days Remaining (Assuming 30 Day Trial)
-    const trialStart = user?.metadata?.creationTime ? new Date(user.metadata.creationTime).getTime() : Date.now();
+    // Fallback since creation time isn't strictly typed in AuthContext yet
+    const trialStart = (user as any)?.created_at ? new Date((user as any).created_at).getTime() : Date.now();
     const trialEnd = trialStart + (30 * 24 * 60 * 60 * 1000); // 30 days in ms
     const daysRemaining = Math.max(0, Math.ceil((trialEnd - Date.now()) / (1000 * 60 * 60 * 24)));
     const isTrialActive = daysRemaining > 0;
@@ -47,7 +48,7 @@ export default function SovereignCommandDeck() {
 
                 <div className="flex items-center gap-6">
                     <div className="hidden md:block text-right">
-                        <p className="text-sm font-medium text-white">{user?.displayName || 'Sovereign User'}</p>
+                        <p className="text-sm font-medium text-white">{user?.name || 'Sovereign User'}</p>
                         <Badge variant="outline" className="text-[10px] border-emerald-500/50 text-emerald-400 bg-emerald-500/10">
                             STATUS: ACTIVE
                         </Badge>
@@ -117,21 +118,47 @@ export default function SovereignCommandDeck() {
                 </Card>
             </div>
 
-            {/* 4. Intelligence Nodes (Quick Actions) */}
-            <div>
-                <h3 className="text-slate-400 font-mono text-xs tracking-widest uppercase mb-4">Initialize Intelligence Node</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {QUICK_NODES.map((node) => (
-                        <Card key={node.name} className="bg-slate-900/40 border-white/5 hover:border-emerald-500/50 hover:bg-slate-900/60 transition-all cursor-pointer group p-4">
-                            <div className="flex items-center justify-between mb-3">
-                                <div className={`p-2 rounded-lg bg-white/5 ${node.color} group-hover:scale-110 transition-transform`}>
+            {/* 4. Strategic Modules & Intelligence Nodes */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 className="text-slate-400 font-mono text-xs tracking-widest uppercase mb-4">Strategic Modules</h3>
+                    <div className="space-y-4">
+                        <Card onClick={() => window.location.href = '/dashboard/agents'} className="bg-gradient-to-r from-purple-900/40 to-slate-900/40 border-purple-500/20 hover:border-purple-500/50 p-4 cursor-pointer group flex items-center gap-4 transition-all">
+                            <div className="p-3 bg-purple-500/10 rounded-xl group-hover:scale-110 transition-transform">
+                                <Users className="w-6 h-6 text-purple-400" />
+                            </div>
+                            <div>
+                                <h4 className="font-bold text-slate-200 text-lg group-hover:text-purple-400 transition-colors">Digital Teams</h4>
+                                <p className="text-xs text-slate-500 uppercase tracking-wider">Agentic Orchestration Layer</p>
+                            </div>
+                        </Card>
+                        <Card onClick={() => window.location.href = '/video-studio'} className="bg-gradient-to-r from-sky-900/40 to-slate-900/40 border-sky-500/20 hover:border-sky-500/50 p-4 cursor-pointer group flex items-center gap-4 transition-all">
+                            <div className="p-3 bg-sky-500/10 rounded-xl group-hover:scale-110 transition-transform">
+                                <Zap className="w-6 h-6 text-sky-400" />
+                            </div>
+                            <div>
+                                <h4 className="font-bold text-slate-200 text-lg group-hover:text-sky-400 transition-colors">Virtual Film Studio</h4>
+                                <p className="text-xs text-slate-500 uppercase tracking-wider">Generative Media Suite</p>
+                            </div>
+                        </Card>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 className="text-slate-400 font-mono text-xs tracking-widest uppercase mb-4">Initialize Intelligence Node</h3>
+                    <div className="grid grid-cols-2 gap-4">
+                        {QUICK_NODES.map((node) => (
+                            <Card key={node.name} onClick={() => window.location.href = node.path} className="bg-slate-900/40 border-white/5 hover:border-emerald-500/50 hover:bg-slate-900/60 transition-all cursor-pointer group p-4 flex flex-col justify-between h-32">
+                                <div className={`self-start p-2 rounded-lg bg-white/5 ${node.color} group-hover:scale-110 transition-transform`}>
                                     <node.icon className="w-6 h-6" />
                                 </div>
-                                <ChevronRight className="w-4 h-4 text-slate-600 group-hover:text-white transition-colors" />
-                            </div>
-                            <h4 className="font-bold text-slate-200 group-hover:text-emerald-400 transition-colors">{node.name}</h4>
-                        </Card>
-                    ))}
+                                <div className="flex justify-between items-end">
+                                    <h4 className="font-bold text-slate-200 text-sm group-hover:text-emerald-400 transition-colors max-w-[80%] leading-tight">{node.name}</h4>
+                                    <ChevronRight className="w-4 h-4 text-slate-600 group-hover:text-white transition-colors" />
+                                </div>
+                            </Card>
+                        ))}
+                    </div>
                 </div>
             </div>
 
