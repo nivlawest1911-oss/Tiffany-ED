@@ -13,7 +13,6 @@ import "./globals.css"
 import SovereignDelegate from "@/components/SovereignDelegate"
 import { IntelligenceProvider } from "@/context/IntelligenceContext"
 import { TavusProvider } from "@/context/TavusContext"
-import TavusPlayer from "@/components/TavusPlayer"
 import FacebookSDK from "@/components/social/FacebookSDK"
 
 const spaceGrotesk = Space_Grotesk({

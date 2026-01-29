@@ -1,4 +1,4 @@
-import { TavusConversation, TavusReplica } from '@/types/tavus';
+import { TavusConversation } from '@/types/tavus';
 
 const TAVUS_API_KEY = process.env.NEXT_PUBLIC_TAVUS_API_KEY;
 const TAVUS_API_URL = 'https://api.tavus.io/v2';

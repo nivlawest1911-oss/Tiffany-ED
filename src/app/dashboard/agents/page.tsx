@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Bot, User, Send, Brain, FileText, CheckCircle2, RefreshCw } from 'lucide-react';
 

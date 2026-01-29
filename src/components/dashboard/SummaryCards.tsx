@@ -1,5 +1,5 @@
 import React from 'react';
-import { Clock, Zap, Shield, Activity, TrendingUp, Users } from 'lucide-react';
+import { Clock, Zap, Shield, TrendingUp, Users } from 'lucide-react';
 
 export default function SummaryCards() {
     const [hoveredCard, setHoveredCard] = React.useState<number | null>(null);

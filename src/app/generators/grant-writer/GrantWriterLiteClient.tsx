@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, DollarSign, ArrowRight, Download, CheckCircle, AlertCircle, FileText, Loader2 } from 'lucide-react';
 import FloatingNavbar from '@/components/FloatingNavbar';
-import { generateProfessionalResponse } from '@/lib/leadership-ai';
 
 export default function GrantWriterLiteClient() {
     const [step, setStep] = useState(1);

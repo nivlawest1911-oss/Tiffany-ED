@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Loader2, Sparkles, Brain, Send, Shield, Zap } from 'lucide-react';
+import { Loader2, Brain, Send, Shield, Zap } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import AbilityAnimation from '../AbilityAnimation';
 

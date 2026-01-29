@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback } from 'react';
 import { tavusService } from '@/services/tavus-service';
 import { useAuth } from '@/context/AuthContext';
 // import { useToast } from '@/components/ui/use-toast';

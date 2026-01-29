@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import { FileText, Zap, Scale, Clock, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 

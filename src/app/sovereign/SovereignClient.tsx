@@ -2,7 +2,6 @@
 
 import FloatingNavbar from '@/components/FloatingNavbar';
 import Footer from '@/components/Footer';
-import SovereignCore from '@/components/SovereignCore';
 import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
 import { Shield, Lock, Zap, Brain, Network, Database, Eye, Cpu } from 'lucide-react';

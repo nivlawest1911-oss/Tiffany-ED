@@ -2,11 +2,9 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Card } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Sparkles, Clapperboard, Film, Image as ImageIcon, Zap, Upload, Play, Wand2 } from 'lucide-react';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Sparkles, Clapperboard, Film, Zap, Upload, Play, Wand2 } from 'lucide-react';
 import { HeyGenStreamingAvatar } from '@/components/heygen/StreamingAvatar';
-import { HeyGenVideoGenerator } from '@/components/heygen/VideoGenerator';
 
 export default function VideoStudioClient() {
     const [activeTab, setActiveTab] = useState('sora');

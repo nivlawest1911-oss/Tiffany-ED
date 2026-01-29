@@ -6,7 +6,7 @@ export default function CircadianFilter() {
   const [hour, setHour] = useState(0);
 
   useEffect(() => {
-    // eslint-disable-next-line
+     
     setMounted(true);
     setHour(new Date().getHours());
     const timer = setInterval(() => setHour(new Date().getHours()), 60000);

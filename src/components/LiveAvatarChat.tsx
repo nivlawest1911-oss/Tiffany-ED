@@ -7,7 +7,6 @@ import HumanAvatar from './ui/HumanAvatar';
 import { useHumanBehavior } from '@/hooks/useHumanBehavior';
 import SovereignApiVault from './admin/SovereignApiVault';
 import { heyGenService } from '@/services/heygen-streaming';
-import AnimatedEducatorHero from './AnimatedEducatorHero';
 import { useMultimodalAvatar } from '@/hooks/useMultimodalAvatar';
 
 function MouthBar({ index, eqAura }: { index: number, eqAura: string }) {

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle, Sparkles, Zap, Crown, Info, User, Shield as LucideShield } from "lucide-react";
+import { CheckCircle, Sparkles, Zap, Info, Shield as LucideShield } from "lucide-react";
 import Link from 'next/link';
 import { getStripeHandshake, StripeHandshake, createSovereignCheckout } from '@/app/actions/professional-stripe';
 import { useAuth } from '@/context/AuthContext';

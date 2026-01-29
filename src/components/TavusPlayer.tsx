@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Loader2, X, Mic, MicOff, Maximize2, Minimize2 } from 'lucide-react';
+import { Loader2, X, Maximize2, Minimize2 } from 'lucide-react';
 import { useTavus } from '@/context/TavusContext';
 
 export default function TavusPlayer() {

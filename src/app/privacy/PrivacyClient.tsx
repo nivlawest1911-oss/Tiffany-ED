@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Shield, Lock, EyeOff, Trash2, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 

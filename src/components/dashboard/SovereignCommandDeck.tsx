@@ -1,9 +1,8 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import useSWR from 'swr';
-import { motion } from 'framer-motion';
-import { Brain, Scroll, Scale, Users, Shield, LogOut, ChevronRight, Activity, Zap } from 'lucide-react';
+import { Brain, Users, Shield, LogOut, ChevronRight, Activity, Zap } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';

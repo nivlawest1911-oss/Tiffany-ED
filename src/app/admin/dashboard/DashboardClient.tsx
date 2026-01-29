@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { ShieldCheck, User, Users, Zap, Search, Bell, Settings, Filter, Download, Activity } from 'lucide-react';
+import { ShieldCheck, User, Users, Zap, Filter, Download, Activity } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { TransferTerminal } from '@/components/admin/TransferTerminal';
 import { UsageForecast } from '@/components/admin/UsageForecast';

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Loader2, Mic, Video, X } from 'lucide-react';
+import { Video, X } from 'lucide-react';
 import { useTavus } from '@/context/TavusContext';
 
 export default function SovereignAdvisorInterface() {

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-    Search, Grid, List, Eye, Code, Palette, Zap, Copy, Check, Play
+    Search, Grid, List, Eye, Palette, Zap, Copy, Check, Play
 } from 'lucide-react';
 import Link from 'next/link';
 

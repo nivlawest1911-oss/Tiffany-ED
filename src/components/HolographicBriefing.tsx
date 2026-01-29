@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Mic, Info, Play, Activity, Target } from 'lucide-react';
+import { X } from 'lucide-react';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 import { useHumanBehavior } from '@/hooks/useHumanBehavior';
 import AbilityAnimation from './AbilityAnimation';

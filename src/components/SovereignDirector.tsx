@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, Radio, Activity, MessageSquare, Video, Maximize2, Zap, Brain } from 'lucide-react';
+import { Shield, Radio, Activity, Brain } from 'lucide-react';
 import dynamic from 'next/dynamic';
 
 const Conversation = dynamic(() => import('./cvi/components/conversation').then(mod => mod.Conversation), { ssr: false });

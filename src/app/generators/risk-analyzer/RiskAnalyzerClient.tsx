@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Shield as LucideShield, AlertTriangle, Lock, FileText, Gavel, ArrowRight, Activity, Loader2 } from 'lucide-react';
 import FloatingNavbar from '@/components/FloatingNavbar';
-import { generateProfessionalResponse } from '@/lib/leadership-ai';
 
 export default function RiskAnalyzerClient() {
     const [scenario, setScenario] = useState('');

@@ -25,7 +25,7 @@ export default function FacebookSDK() {
 
         // Load SDK script
         (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
+            let js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) { return; }
             js = d.createElement(s) as HTMLScriptElement;
             js.id = id;

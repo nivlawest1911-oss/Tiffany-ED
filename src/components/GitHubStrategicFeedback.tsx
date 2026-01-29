@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Github, Send, CheckCircle2, AlertCircle, Terminal } from 'lucide-react';
+import { Github, Send, CheckCircle2, Terminal } from 'lucide-react';
 
 export default function GitHubStrategicFeedback() {
     const [feedback, setFeedback] = useState('');

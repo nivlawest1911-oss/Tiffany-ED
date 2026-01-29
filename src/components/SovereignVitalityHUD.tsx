@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { ShieldCheck, Zap, Database, Globe } from 'lucide-react';
 
 export default function SovereignVitalityHUD() {

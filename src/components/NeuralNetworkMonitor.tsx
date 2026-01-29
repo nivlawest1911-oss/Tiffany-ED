@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { Activity, Cpu, Globe, Zap, Database, Github } from 'lucide-react';
 
 export default function NeuralNetworkMonitor() {

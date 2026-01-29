@@ -3,9 +3,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-    Sparkles, Upload, Box, Wand2, FileVideo, Trash2, Maximize2, X
+    Sparkles, Upload, Box, Wand2, FileVideo, Trash2, X
 } from 'lucide-react';
-import HumanAvatar from './ui/HumanAvatar';
 
 interface MediaItem {
     id: string;

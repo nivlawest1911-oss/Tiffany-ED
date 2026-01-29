@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Camera, Upload, ShieldCheck, FileText, Loader2, CheckCircle2, ChevronRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Camera, Upload, ShieldCheck, Loader2, CheckCircle2, ChevronRight } from 'lucide-react';
 
 export default function VisualIEPScanner() {
     const [isScanning, setIsScanning] = useState(false);

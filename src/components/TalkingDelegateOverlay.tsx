@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Volume2, Activity, Play, Pause } from 'lucide-react';
+import { X, Play, Pause } from 'lucide-react';
 import Image from 'next/image';
 
 interface TalkingDelegateOverlayProps {

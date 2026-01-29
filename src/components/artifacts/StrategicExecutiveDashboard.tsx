@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { TrendingUp, Users, ShieldCheck, DollarSign, Activity, Target, ArrowUpRight, ArrowDownRight } from 'lucide-react';
+import { ShieldCheck, Activity, Target, ArrowUpRight, ArrowDownRight } from 'lucide-react';
 
 interface MetricProps {
     label: string;

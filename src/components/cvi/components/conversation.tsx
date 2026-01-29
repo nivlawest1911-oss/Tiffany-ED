@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { PhoneOff, Mic, MicOff, Video, VideoOff, Settings, Maximize2 } from 'lucide-react';
+import { PhoneOff, Mic, MicOff, Video, VideoOff } from 'lucide-react';
 
 interface ConversationProps {
     conversationUrl?: string;

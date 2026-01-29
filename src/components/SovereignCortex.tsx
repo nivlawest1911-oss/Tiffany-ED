@@ -3,10 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-    Cpu, Database, Globe, Zap, Shield, Search,
+    Cpu, Database, Globe, Zap, Shield,
     MessageSquare, Eye, Mic, Book, Cloud,
-    BarChart3, Binary, HardDrive, Activity,
-    Share2, Terminal, Layers, Video, Youtube,
+    BarChart3, Binary, HardDrive, Activity, Terminal, Layers, Video, Youtube,
     Film, Workflow
 } from 'lucide-react';
 

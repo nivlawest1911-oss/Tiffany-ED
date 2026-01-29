@@ -1,26 +1,15 @@
 'use client';
 
 import { useAuth } from '@/context/AuthContext';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
-import {
-    Zap, Shield as LucideShield, Sparkles, Activity, Clock, Command, ArrowUpRight,
-    BarChart3, Users, FileText, Globe, Brain, ArrowRight, MessageSquare,
-    Binary, Eye, ChevronRight
+import { Shield as LucideShield
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import TrialStatus from '@/components/TrialStatus';
-import LeadershipCapacity from '@/components/LeadershipCapacity';
 import ComplianceTrafficLight from '@/components/ComplianceTrafficLight';
 import ProfessionalID from '@/components/ProfessionalID';
-import ProfessionalMetrics from '@/components/ProfessionalMetrics';
 import { useLeadershipRank } from '@/hooks/useLeadershipRank';
-import NeuralNetworkMonitor from '@/components/NeuralNetworkMonitor';
-import GitHubStrategicFeedback from '@/components/GitHubStrategicFeedback';
-import SovereignCortex from '@/components/SovereignCortex';
-import { SupportTerminal } from '@/components/admin/SupportTerminal';
-import { ComplianceBadge } from '@/components/legal/FerpaBadge';
 
 const MobileTacticalCommand = dynamic(() => import('@/components/MobileTacticalCommand'), { ssr: false });
 const IntelligenceBriefingAgent = dynamic(() => import('@/components/IntelligenceBriefingAgent'), { ssr: false });
@@ -33,17 +22,9 @@ const DistrictTopologyMap = dynamic(() => import('@/components/DistrictTopologyM
 const ProfessionalVault = dynamic(() => import('@/components/LeadershipVault'), { ssr: false });
 const NexusCommand = dynamic(() => import('@/components/NexusCommand'), { ssr: false });
 const ProfessionalPromotion = dynamic(() => import('@/components/ProfessionalPromotion'), { ssr: false });
-import ZeroGravityToggle from '@/components/ZeroGravityToggle';
 import WellnessWrapper from '@/components/WellnessWrapper';
 import FlourishBuddy from '@/components/FlourishBuddy';
-import { FuelCellWidget } from '@/components/FuelCellWidget';
-import SovereignPulse from '@/components/SovereignPulse';
-import SovereignAvatar from '@/components/SovereignAvatar';
-import SystemHealthDashboard from '@/components/SystemHealthDashboard';
 import SovereignVitalityHUD from '@/components/SovereignVitalityHUD';
-import AuditLog from '@/components/admin/AuditLog';
-import SelfHealingButton from '@/components/admin/SelfHealingButton';
-import { AIGeneratorsHub } from '@/components/ai-generators-hub';
 import SummaryCards from '@/components/dashboard/SummaryCards';
 import SovereignAdvisorInterface from '@/components/dashboard/SovereignAdvisorInterface';
 import ActionFeed from '@/components/dashboard/ActionFeed';

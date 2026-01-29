@@ -137,7 +137,7 @@ export class VideoAIService {
         const startTime = Date.now();
 
         try {
-            let currentVideoUrl = videoUrl;
+            const currentVideoUrl = videoUrl;
 
             // Build enhancement prompt
             const enhancementTasks: string[] = [];

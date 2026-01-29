@@ -1,6 +1,6 @@
 'use client';
 import { AuroraCard } from '../flow/AuroraCard';
-import { TrendingUp, Clock } from 'lucide-react';
+import { TrendingUp } from 'lucide-react';
 import React from 'react';
 
 export const ROICalculator = ({ narrativeCount }: { narrativeCount: number }) => {

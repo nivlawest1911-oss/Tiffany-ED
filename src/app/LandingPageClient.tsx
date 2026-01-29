@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { ShieldCheck, ArrowRight, CheckCircle2, ChevronRight, Hexagon, Activity, Cpu, Workflow, BarChart3, Zap, Sparkles } from 'lucide-react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { LeadIntake } from '@/components/LeadIntake';
 import { ComplianceBadge } from '@/components/legal/FerpaBadge';
 

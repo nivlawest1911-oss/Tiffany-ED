@@ -1,0 +1,36 @@
+﻿node.exe : Vercel CLI 50.1.3
+At C:\Users\nivla\AppData\Ro
+aming\npm\vercel.ps1:24 
+char:5
++     & "node$exe"  "$basedi
+r/node_modules/vercel/dist/v
+c.js" $args
++     ~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~
+    + CategoryInfo          
+    : NotSpecified: (Verce  
+  l CLI 50.1.3:String) []   
+ , RemoteException
+    + FullyQualifiedErrorId 
+    : NativeCommandError
+ 
+Retrieving projectΓÇª
+Deploying nivlawest1911-oss-
+projects/edintel-app
+Uploading 
+[--------------------] 
+(0.0B/11.1KB)
+Uploading 
+[====================] 
+(11.1KB/11.1KB)
+Inspect: https://vercel.com/
+nivlawest1911-oss-projects/e
+dintel-app/HoR84g1Avedq3pY17
+oKXrysVxMnF [3s]
+Production: https://edintel-
+eobig92dj-nivlawest1911-oss-
+projects.vercel.app [3s]
+Note: Deployment is still 
+processing...
+https://edintel-eobig92dj-nivlawest1911-oss-projects.vercel.app

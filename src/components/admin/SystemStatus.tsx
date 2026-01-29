@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Activity, ShieldCheck, Database, HardDrive, Cpu, Wifi, Globe, Clock, CheckCircle2, AlertCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Activity, ShieldCheck, Database, HardDrive, Cpu, Globe } from 'lucide-react';
 
 interface SystemNode {
     id: string;

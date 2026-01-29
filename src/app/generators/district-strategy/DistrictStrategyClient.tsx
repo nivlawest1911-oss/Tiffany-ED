@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Building2, TrendingUp, Shield as LucideShield, PieChart, Activity, Lock, Phone } from 'lucide-react';
 import FloatingNavbar from '@/components/FloatingNavbar';
-import { generateProfessionalResponse } from '@/lib/leadership-ai';
 
 export default function DistrictStrategyClient() {
     const [step, setStep] = useState(1);

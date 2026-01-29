@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Target, Shield, BarChart3, BookOpen, Brain, Zap, Cpu, Search, Activity, FileText } from 'lucide-react';
+import { Target, Shield, BookOpen, Cpu } from 'lucide-react';
 
 interface AbilityAnimationProps {
     type: 'strategy' | 'compliance' | 'analytics' | 'curriculum' | 'identity' | 'communication';

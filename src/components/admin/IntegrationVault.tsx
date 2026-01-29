@@ -1,6 +1,6 @@
 'use client';
 import { AuroraCard } from '../flow/AuroraCard';
-import { Lock, Server, RefreshCw } from 'lucide-react';
+import { Lock } from 'lucide-react';
 import React from 'react';
 
 export const IntegrationVault = ({ schoolName }: { schoolName: string }) => {
