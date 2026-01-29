@@ -2,12 +2,9 @@ import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 
 const PRICE_IDS = {
-    practitioner_monthly: process.env.STRIPE_PRACTITIONER_PRICE_ID || 'price_1SleigJZzJ2JsTizzhcHtd36',
-    practitioner_annual: process.env.STRIPE_PRACTITIONER_ANNUAL_ID || 'price_1SleigJZzJ2JsTizAnnual',
-    director_monthly: process.env.STRIPE_DIRECTOR_PRICE_ID || 'price_director_m',
-    director_annual: process.env.STRIPE_DIRECTOR_ANNUAL_ID || 'price_director_a',
-    site_command_monthly: process.env.STRIPE_SITE_COMMAND_PRICE_ID || 'price_1SleihJZzJ2JsTizmaXKM4ow',
-    site_command_annual: process.env.STRIPE_SITE_COMMAND_ANNUAL_ID || 'price_1SleihJZzJ2JsTizAnnual'
+    pro_monthly: process.env.STRIPE_PRO_PRICE_ID || 'price_pro_tier_19',
+    pro_annual: process.env.STRIPE_PRO_ANNUAL_ID || 'price_pro_tier_annual_190',
+    credits: process.env.STRIPE_CREDITS_PRICE_ID || 'price_credit_pack_5'
 };
 
 export async function POST(req: Request) {
@@ -16,16 +13,16 @@ export async function POST(req: Request) {
         const { email, plan, name, isAnnual } = body;
 
         let priceId;
-        const billingType = isAnnual ? 'annual' : 'monthly';
+        let mode: 'subscription' | 'payment' = 'subscription';
 
-        if (plan === 'pro' || plan === 'practitioner') {
-            priceId = isAnnual ? PRICE_IDS.practitioner_annual : PRICE_IDS.practitioner_monthly;
-        } else if (plan === 'director') {
-            priceId = isAnnual ? PRICE_IDS.director_annual : PRICE_IDS.director_monthly;
-        } else if (plan === 'enterprise' || plan === 'site_command') {
-            priceId = isAnnual ? PRICE_IDS.site_command_annual : PRICE_IDS.site_command_monthly;
+        if (plan === 'pro' || plan === 'master_teacher') {
+            priceId = isAnnual ? PRICE_IDS.pro_annual : PRICE_IDS.pro_monthly;
+            mode = 'subscription';
+        } else if (plan === 'credits' || plan === 'tokens') {
+            priceId = PRICE_IDS.credits;
+            mode = 'payment';
         } else {
-            return NextResponse.json({ error: 'Invalid plan configuration selected.' }, { status: 400 });
+            return NextResponse.json({ error: 'Invalid or custom plan selected. Please contact sales for Campus plans.' }, { status: 400 });
         }
 
         const session = await stripe.checkout.sessions.create({
@@ -36,13 +33,14 @@ export async function POST(req: Request) {
                     quantity: 1,
                 },
             ],
-            mode: 'subscription',
+            mode: mode,
             success_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/signup`,
+            cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/pricing`,
             customer_email: email,
             metadata: {
-                name: name, //Store name to create user later if needed
-                plan: plan
+                name: name,
+                plan: plan,
+                env: process.env.NODE_ENV
             }
         });
 
