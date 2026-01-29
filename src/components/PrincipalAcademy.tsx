@@ -2,8 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { Award, Shield, Users, Zap, Globe } from 'lucide-react';
-import { CARBON_FIBRE_BG } from '@/lib/constants';
-import { PRINCIPAL_ACADEMY_HERO } from '@/lib/images';
+
+import { PRINCIPAL_ACADEMY_HERO } from '@/lib/assets';
 
 const HIGHLIGHTS = [
     {
@@ -29,8 +29,7 @@ export default function PrincipalAcademy() {
             {/* Background elements */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.1),transparent_50%)]" />
             <div
-                className="absolute inset-0 opacity-20"
-                style={{ backgroundImage: CARBON_FIBRE_BG }}
+                className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[length:40px_40px]"
             />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

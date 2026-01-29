@@ -9,7 +9,7 @@ import Link from 'next/link';
 import FloatingNavbar from '@/components/FloatingNavbar';
 import Footer from '@/components/Footer';
 import CircadianFilter from '@/components/graphics/CircadianFilter';
-import { THE_ROOM_HERO } from '@/lib/images';
+import { THE_ROOM_HERO } from '@/lib/assets';
 
 const commandCenters = [
     {

@@ -3,7 +3,7 @@
 import { Play, Share2, Radio, Signal, Disc, ExternalLink } from 'lucide-react';
 
 import React from 'react';
-import { BROADCAST_THUMB_1, BROADCAST_THUMB_2, BROADCAST_THUMB_3 } from '@/lib/images';
+import { BROADCAST_THUMB_1, BROADCAST_THUMB_2, BROADCAST_THUMB_3 } from '@/lib/assets';
 
 export default function ProfessionalBroadcastCenter() {
     const recentBroadcasts = [

@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Image, Video, FileText, ThumbsUp, MessageSquare, Repeat, Share2, MoreHorizontal, Globe, Bookmark, Users, Calendar } from 'lucide-react';
 import { useLeadershipFeed, FeedPost } from '@/hooks/useLeadershipFeed';
-import { SOCIAL_HUB_AVATAR } from '@/lib/images';
+import { SOCIAL_HUB_AVATAR } from '@/lib/assets';
 
 export default function CommunityFeed() {
     // Integrated Leadership Feed Hook

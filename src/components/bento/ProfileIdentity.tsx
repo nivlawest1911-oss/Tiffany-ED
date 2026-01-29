@@ -1,6 +1,6 @@
 'use client';
 import { Linkedin, BookOpen, GraduationCap, Award, ChevronRight } from 'lucide-react';
-import { SOCIAL_HUB_AVATAR } from '@/lib/images';
+import { SOCIAL_HUB_AVATAR } from '@/lib/assets';
 
 export default function ProfileIdentity() {
     return (

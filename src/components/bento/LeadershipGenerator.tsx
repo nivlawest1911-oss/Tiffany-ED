@@ -13,7 +13,7 @@ import {
     Copy,
     Download
 } from 'lucide-react';
-import { NOISE_PATTERN } from '@/lib/images';
+import { NOISE_PATTERN } from '@/lib/assets';
 
 type ProtocolType = 'ef-reframing' | 'meeting-agenda' | 'feedback' | 'crisis' | 'conflict' | 'discipline';
 

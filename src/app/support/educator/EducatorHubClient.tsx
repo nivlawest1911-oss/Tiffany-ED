@@ -4,7 +4,7 @@ import { Users, UserPlus, Settings, MessageSquare, BarChart3, Database, Shield a
 import React from 'react';
 import Link from 'next/link';
 import NextImage from 'next/image';
-import { EDUCATOR_HUB_HERO } from '@/lib/images';
+import { EDUCATOR_HUB_HERO } from '@/lib/assets';
 
 export default function EducatorHubClient() {
     const articles = [

@@ -2,7 +2,7 @@
 
 import { Facebook, Link as LinkIcon, Users, MapPin, Briefcase, GraduationCap, Video, Shield as LucideShield, ExternalLink } from 'lucide-react';
 import React from 'react';
-import { SOCIAL_HUB_BANNER, SOCIAL_HUB_AVATAR, SOCIAL_HUB_TIKTOK, SOCIAL_HUB_FACEBOOK } from '@/lib/images';
+import { SOCIAL_HUB_BANNER, SOCIAL_HUB_AVATAR, SOCIAL_HUB_TIKTOK, SOCIAL_HUB_FACEBOOK } from '@/lib/assets';
 
 export default function ProfessionalSocialConnection() {
     return (

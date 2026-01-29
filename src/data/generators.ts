@@ -18,7 +18,7 @@ import {
     AI_HISTORIAN_IMAGE,
     AI_FUTURIST_IMAGE,
     AI_STORYTELLER_IMAGE
-} from '@/lib/images';
+} from '@/lib/assets';
 
 // Map specific tools to "Delegate" avatars using the Single Source of Truth
 // STRICT: Ensure all Avatars are African American Professionals from the verified list

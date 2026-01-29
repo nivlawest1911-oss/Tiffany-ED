@@ -1,5 +1,5 @@
 // src/app/whats-edintel/features.ts
-import { FEATURE_SYNC_ENGINE, FEATURE_TOKEN_ECONOMY, FEATURE_AVATAR_LAB } from '@/lib/images';
+import { FEATURE_SYNC_ENGINE, FEATURE_TOKEN_ECONOMY, FEATURE_AVATAR_LAB } from '@/lib/assets';
 
 export const FEATURES = [
     {

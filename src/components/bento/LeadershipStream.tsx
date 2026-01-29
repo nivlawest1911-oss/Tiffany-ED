@@ -1,9 +1,8 @@
 'use client';
 
 import { Play, Share2, Radio, Signal, Disc, ExternalLink } from 'lucide-react';
-import { CARBON_FIBRE_BG } from '@/lib/constants';
 import React from 'react';
-import { BROADCAST_THUMB_1, BROADCAST_THUMB_2, BROADCAST_THUMB_3 } from '@/lib/images';
+import { BROADCAST_THUMB_1, BROADCAST_THUMB_2, BROADCAST_THUMB_3 } from '@/lib/assets';
 
 export default function LeadershipStream() {
     const recentBroadcasts = [
@@ -32,11 +31,8 @@ export default function LeadershipStream() {
 
     return (
         <div className="w-full max-w-4xl mx-auto p-1 bg-gradient-to-br from-purple-900 to-zinc-900 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
-            {/* Background FX */}
-            <div
-                className="absolute inset-0 opacity-10"
-                style={{ backgroundImage: CARBON_FIBRE_BG }}
-            />
+            {/* Background FX - CLEAN */}
+            <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[length:40px_40px]" />
             <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/10 blur-[100px] rounded-full pointer-events-none" />
 
             <div className="relative bg-zinc-950/90 backdrop-blur-xl rounded-[2.4rem] p-8 md:p-10 border border-white/5">

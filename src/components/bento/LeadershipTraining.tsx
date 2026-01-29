@@ -12,7 +12,7 @@ import {
     SIM_CONFLICT,
     SIM_COACHING,
     SIM_EMERGENCY
-} from '@/lib/images';
+} from '@/lib/assets';
 
 export default function LeadershipTraining() {
     const [activeSection, setActiveSection] = useState<'assessments' | 'training' | 'simulators'>('training');

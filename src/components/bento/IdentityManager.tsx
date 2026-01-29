@@ -2,7 +2,7 @@
 
 import { User, Fingerprint, Zap, Upload, Trash2, Camera, Settings } from 'lucide-react';
 import React, { useState } from 'react';
-import { SOCIAL_HUB_AVATAR } from '@/lib/images';
+import { SOCIAL_HUB_AVATAR } from '@/lib/assets';
 
 export default function IdentityManager() {
     const [avatarActive, setAvatarActive] = useState(true);
