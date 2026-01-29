@@ -7,11 +7,10 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
 });
 
 export type StripeHandshake = {
-    practitioner: { monthly: number; annual: number; id: string; annualId: string };
-    siteCommand: { monthly: number; annual: number; id: string; annualId: string };
-    director: { monthly: number; annual: number; id: string; annualId: string };
-    sovereign: { monthly: number; annual: number; id: string; annualId: string };
-    sovereignVault: { price: number; id: string };
+    starter: { monthly: number; annual: number; id: string | null; annualId: string | null };
+    pro: { monthly: number; annual: number; id: string; annualId: string };
+    campus: { monthly: number; annual: number; id: string; annualId: string };
+    credits: { price: number; id: string };
 };
 
 /**
@@ -22,33 +21,27 @@ export async function getStripeHandshake(): Promise<StripeHandshake> {
     if (!process.env.STRIPE_SECRET_KEY) {
         console.warn("[SOVEREIGN] No STRIPE_SECRET_KEY found. Falling back to actual Stripe configurations.");
         return {
-            practitioner: {
-                monthly: 49.99,
-                annual: 44.99,
-                id: process.env.STRIPE_PRACTITIONER_PRICE_ID || 'price_1SleigJZzJ2JsTizzhcHtd36',
-                annualId: process.env.STRIPE_PRACTITIONER_ANNUAL_ID || 'price_1SleigJZzJ2JsTizAnnual'
+            starter: {
+                monthly: 0,
+                annual: 0,
+                id: null,
+                annualId: null
             },
-            director: {
-                monthly: 69.99,
-                annual: 59.99,
-                id: process.env.STRIPE_DIRECTOR_PRICE_ID || 'price_director_m',
-                annualId: process.env.STRIPE_DIRECTOR_ANNUAL_ID || 'price_director_a'
+            pro: {
+                monthly: 19.00,
+                annual: 190.00,
+                id: process.env.STRIPE_PRO_PRICE_ID || 'price_pro_tier_19',
+                annualId: process.env.STRIPE_PRO_ANNUAL_ID || 'price_pro_tier_annual_190'
             },
-            siteCommand: {
-                monthly: 79.99,
-                annual: 69.99,
-                id: process.env.STRIPE_SITE_COMMAND_PRICE_ID || 'price_1SleihJZzJ2JsTizmaXKM4ow',
-                annualId: process.env.STRIPE_SITE_COMMAND_ANNUAL_ID || 'price_1SleihJZzJ2JsTizAnnual'
+            campus: {
+                monthly: 0, // Custom
+                annual: 0,
+                id: process.env.STRIPE_CAMPUS_PRICE_ID || 'price_campus_custom',
+                annualId: process.env.STRIPE_CAMPUS_ANNUAL_ID || 'price_campus_custom_annual'
             },
-            sovereign: {
-                monthly: 39.99,
-                annual: 34.99,
-                id: process.env.STRIPE_SOVEREIGN_PRICE_ID || 'price_sovereign_m',
-                annualId: process.env.STRIPE_SOVEREIGN_ANNUAL_ID || 'price_sovereign_a'
-            },
-            sovereignVault: {
-                price: 2997,
-                id: process.env.STRIPE_VAULT_PRICE_ID || 'price_1SleiiJZzJ2JsTizVault'
+            credits: {
+                price: 5.00,
+                id: process.env.STRIPE_CREDITS_PRICE_ID || 'price_credit_pack_5'
             }
         };
     }
@@ -70,44 +63,32 @@ export async function getStripeHandshake(): Promise<StripeHandshake> {
             });
         };
 
-        const practiceMonthly = findPrice('Practitioner', 'month');
-        const practiceAnnual = findPrice('Practitioner', 'year');
-        const directorMonthly = findPrice('Director', 'month');
-        const directorAnnual = findPrice('Director', 'year');
-        const siteMonthly = findPrice('Site Command', 'month');
-        const siteAnnual = findPrice('Site Command', 'year');
-        const sovereignMonthly = findPrice('Professional Pack', 'month');
-        const sovereignAnnual = findPrice('Professional Pack', 'year');
-        const vault = findPrice('Vault', null);
+        const proMonthly = findPrice('Pro', 'month');
+        const proAnnual = findPrice('Pro', 'year');
+        const credits = findPrice('Credits', null);
 
         return {
-            practitioner: {
-                monthly: practiceMonthly?.unit_amount ? practiceMonthly.unit_amount / 100 : 49.99,
-                annual: practiceAnnual?.unit_amount ? practiceAnnual.unit_amount / 100 : 44.99,
-                id: practiceMonthly?.id || 'price_practice_m',
-                annualId: practiceAnnual?.id || 'price_practice_a'
+            starter: {
+                monthly: 0,
+                annual: 0,
+                id: null,
+                annualId: null
             },
-            director: {
-                monthly: directorMonthly?.unit_amount ? directorMonthly.unit_amount / 100 : 69.99,
-                annual: directorAnnual?.unit_amount ? directorAnnual.unit_amount / 100 : 59.99,
-                id: directorMonthly?.id || 'price_director_m',
-                annualId: directorAnnual?.id || 'price_director_a'
+            pro: {
+                monthly: proMonthly?.unit_amount ? proMonthly.unit_amount / 100 : 19.00,
+                annual: proAnnual?.unit_amount ? proAnnual.unit_amount / 100 : 190.00,
+                id: proMonthly?.id || 'price_pro_m',
+                annualId: proAnnual?.id || 'price_pro_a'
             },
-            siteCommand: {
-                monthly: siteMonthly?.unit_amount ? siteMonthly.unit_amount / 100 : 79.99,
-                annual: siteAnnual?.unit_amount ? siteAnnual.unit_amount / 100 : 69.99,
-                id: siteMonthly?.id || 'price_site_m',
-                annualId: siteAnnual?.id || 'price_site_a'
+            campus: {
+                monthly: 0,
+                annual: 0,
+                id: 'price_campus_custom',
+                annualId: 'price_campus_custom'
             },
-            sovereign: {
-                monthly: sovereignMonthly?.unit_amount ? sovereignMonthly.unit_amount / 100 : 39.99,
-                annual: sovereignAnnual?.unit_amount ? sovereignAnnual.unit_amount / 100 : 34.99,
-                id: sovereignMonthly?.id || 'price_sovereign_m',
-                annualId: sovereignAnnual?.id || 'price_sovereign_a'
-            },
-            sovereignVault: {
-                price: vault?.unit_amount ? vault.unit_amount / 100 : 2997,
-                id: vault?.id || 'price_vault'
+            credits: {
+                price: credits?.unit_amount ? credits.unit_amount / 100 : 5.00,
+                id: credits?.id || 'price_credits_5'
             }
         };
     } catch (error) {
