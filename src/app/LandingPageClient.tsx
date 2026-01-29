@@ -142,80 +142,81 @@ export default function LandingPageClient() {
                     </div>
 
                     <div className="grid grid-cols-1 xl:grid-cols-3 gap-10">
-                        {/* Individual Node */}
+                        {/* 1. Starter / Novice Educator */}
                         <div className="p-12 bg-black/40 border border-white/10 rounded-[4rem] hover:border-white/20 transition-all relative group backdrop-blur-2xl">
                             <div className="flex justify-between items-start mb-14">
-                                <h3 className="text-2xl font-black uppercase italic tracking-tight">Personnel Node</h3>
-                                <span className="text-[10px] text-zinc-600 uppercase font-black bg-white/5 px-4 py-1.5 rounded-full border border-white/5 tracking-[0.2em]">Level 1 Clearance</span>
+                                <h3 className="text-2xl font-black uppercase italic tracking-tight">Novice Educator</h3>
+                                <span className="text-[10px] text-zinc-600 uppercase font-black bg-white/5 px-4 py-1.5 rounded-full border border-white/5 tracking-[0.2em]">Tier 1 Entry</span>
                             </div>
-                            <div className="text-7xl font-black text-white italic mb-14">$14<span className="text-xl text-zinc-700 tracking-normal non-italic font-bold ml-2">/mo</span></div>
+                            <div className="text-7xl font-black text-white italic mb-14">$0<span className="text-xl text-zinc-700 tracking-normal non-italic font-bold ml-2">/mo</span></div>
                             <ul className="space-y-8 mb-16">
                                 {[
-                                    '100 Neural Energy Units / mo',
-                                    'IEP Narrative Architect',
-                                    'Standard Legal Vault access',
-                                    'Basic Sentiment Analysis'
+                                    '5 AI Lesson Plans / mo',
+                                    'Basic Chat Agents',
+                                    'Standard AI Model (Flash)',
+                                    '1GB Secure Storage',
+                                    'Community Support'
                                 ].map((li, i) => (
                                     <li key={i} className="flex items-center gap-4 text-xs font-black uppercase tracking-widest text-zinc-400">
                                         <CheckCircle2 className="w-5 h-5 text-zinc-800 group-hover:text-emerald-500/40 transition-colors" /> {li}
                                     </li>
                                 ))}
                             </ul>
-                            <button className="w-full py-6 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-[0.4em] hover:bg-white/5 transition-all hover:border-white/20">Connect Endpoint</button>
+                            <Link href="/signup" className="block w-full text-center py-6 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-[0.4em] hover:bg-white/5 transition-all hover:border-white/20 text-white">Initialize Token</Link>
                         </div>
 
-                        {/* School Site Node (Featured) */}
+                        {/* 2. Pro / Master Teacher (Featured) */}
                         <div className="p-12 bg-emerald-600/5 border-2 border-emerald-500 rounded-[4rem] relative shadow-[0_0_80px_rgba(16,185,129,0.15)] group backdrop-blur-3xl overflow-hidden">
                             <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-emerald-500 text-black text-[10px] font-black px-10 py-3 rounded-full uppercase tracking-[0.5em] shadow-xl shadow-emerald-900/40">
-                                District Standard Choice
+                                Recommended
                             </div>
                             <div className="flex justify-between items-start mb-14 mt-6">
                                 <div className="flex items-center gap-3">
                                     <Zap className="w-7 h-7 text-emerald-500" />
-                                    <h3 className="text-2xl font-black uppercase italic tracking-tight">School Site Node</h3>
+                                    <h3 className="text-2xl font-black uppercase italic tracking-tight">Master Teacher</h3>
                                 </div>
-                                <span className="text-[10px] text-emerald-500 uppercase font-black tracking-[0.2em]">Live Building</span>
+                                <span className="text-[10px] text-emerald-500 uppercase font-black tracking-[0.2em]">Pro License</span>
                             </div>
-                            <div className="text-7xl font-black text-white italic mb-14 text-emerald-400">$79<span className="text-xl text-emerald-500/30 tracking-normal non-italic font-bold ml-2">/mo</span></div>
+                            <div className="text-7xl font-black text-white italic mb-14 text-emerald-400">$19<span className="text-xl text-emerald-500/30 tracking-normal non-italic font-bold ml-2">/mo</span></div>
                             <ul className="space-y-8 mb-16">
                                 {[
-                                    '1,000 Bulk Energy Reserve',
-                                    'Site Command Center (Admin View)',
-                                    'Departmental Leaderboards',
-                                    'Resource Depletion Forecasting',
-                                    '14-Day Free Pilot Protocol'
+                                    'Unlimited Lesson Plans',
+                                    'Full Agent Access (IEP, Grader)',
+                                    'Advanced Model (GPT-4/Gemini)',
+                                    '50 AI Images / mo',
+                                    'Export to PDF / Word / Slides'
                                 ].map((li, i) => (
                                     <li key={i} className="flex items-center gap-4 text-xs font-black uppercase tracking-widest text-zinc-200">
                                         <CheckCircle2 className="w-5 h-5 text-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" /> {li}
                                     </li>
                                 ))}
                             </ul>
-                            <Link href="#request" className="block w-full py-6 bg-emerald-600 text-black text-center text-[10px] font-black uppercase tracking-[0.4em] rounded-2xl hover:bg-emerald-400 transition-all shadow-xl shadow-emerald-900/60 hover:scale-105 active:scale-95">
-                                Deploy Site Node
+                            <Link href="/pricing?plan=pro" className="block w-full py-6 bg-emerald-600 text-black text-center text-[10px] font-black uppercase tracking-[0.4em] rounded-2xl hover:bg-emerald-400 transition-all shadow-xl shadow-emerald-900/60 hover:scale-105 active:scale-95">
+                                Upgrade & Deploy
                             </Link>
                         </div>
 
-                        {/* District Core */}
+                        {/* 3. Campus / District Admin */}
                         <div className="p-12 bg-black/40 border border-white/10 rounded-[4rem] hover:border-white/20 transition-all relative group backdrop-blur-2xl">
                             <div className="flex justify-between items-start mb-14">
-                                <h3 className="text-2xl font-black uppercase italic tracking-tight">District Core</h3>
-                                <span className="text-[10px] text-blue-500/50 uppercase font-black bg-white/5 px-4 py-1.5 rounded-full border border-white/5 tracking-[0.2em]">Tier 3 Matrix</span>
+                                <h3 className="text-2xl font-black uppercase italic tracking-tight">EdIntel Campus</h3>
+                                <span className="text-[10px] text-blue-500/50 uppercase font-black bg-white/5 px-4 py-1.5 rounded-full border border-white/5 tracking-[0.2em]">Enterprise</span>
                             </div>
                             <div className="text-7xl font-black text-zinc-600 italic mb-14 uppercase tracking-tighter">Custom</div>
                             <ul className="space-y-8 mb-16">
                                 {[
-                                    'Unlimited Neural Capacity',
-                                    'Multi-Site Oversight Node',
-                                    'Custom State Standard Logic',
-                                    'On-Premise API Integration',
-                                    'Priority Neural-Link Support'
+                                    'Volume Pricing ($15/seat for 10+)',
+                                    'Admin Analytics Dashboard',
+                                    'SSO Integration',
+                                    'FERPA/COPPA Compliance Signed',
+                                    'Priority Support'
                                 ].map((li, i) => (
                                     <li key={i} className="flex items-center gap-4 text-xs font-black uppercase tracking-widest text-zinc-500">
                                         <CheckCircle2 className="w-5 h-5 text-zinc-800" /> {li}
                                     </li>
                                 ))}
                             </ul>
-                            <button className="w-full py-6 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-[0.4em] hover:bg-white/5 transition-all">Liaison Handshake</button>
+                            <Link href="#request" className="block w-full text-center py-6 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-[0.4em] hover:bg-white/5 transition-all">Contact Sales</Link>
                         </div>
                     </div>
                 </div>
