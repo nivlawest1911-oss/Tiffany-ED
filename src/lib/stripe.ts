@@ -2,7 +2,7 @@ import Stripe from 'stripe';
 
 // Initialize Stripe with your secret key
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_dummy_key_for_build', {
-    // @ts-ignore - Stripe types might be ahead/behind
+    // @ts-expect-error - Stripe apiVersion might have type mismatch in some versions
     apiVersion: '2023-10-16',
     typescript: true,
 });

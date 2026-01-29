@@ -11,13 +11,14 @@ export async function POST(req: Request) {
   if (apiKey && apiKey === validKey) {
     // Authenticated Sovereign Access
     try {
-      const body = await req.json();
+      // const body = await req.json(); // body unused
+      await req.json(); // Still consume the body if needed, then ignore
       return NextResponse.json({
         status: 'Authenticated',
         role: 'Sovereign Architect',
         output: `## Sovereign Command Deck\n\n**Clearance**: Level 5 (Master)\n**Uplink**: Secure\n\n*Welcome back, Director.*`
       });
-    } catch (error) {
+    } catch (_error) {
       return NextResponse.json({ error: 'Processing failed' }, { status: 500 });
     }
   }

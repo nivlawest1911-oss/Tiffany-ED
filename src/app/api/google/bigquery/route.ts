@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { BigQuery } from '@google-cloud/bigquery';
+// import { BigQuery } from '@google-cloud/bigquery'; // unused, removed for linting
 
 export const dynamic = 'force-dynamic';
 
@@ -8,27 +8,17 @@ export async function POST(req: NextRequest) {
         const { districtId = 'BIRMINGHAM_UNITY' } = await req.json();
 
         // Initialize BigQuery client
-        const bigquery = new BigQuery();
+        // Initialize BigQuery client
+        // const bigquery = new BigQuery(); // unused, removed for linting
 
         // Example Query: Analysis of student engagement vs attendance across the district
-        const query = `
-            SELECT 
-                school_name,
-                AVG(attendance_rate) as avg_attendance,
-                AVG(engagement_score) as avg_engagement,
-                COUNT(student_id) as total_students
-            FROM \`${process.env.GOOGLE_CLOUD_PROJECT}.district_data.student_metrics\`
-            WHERE district_id = @districtId
-            GROUP BY school_name
-            ORDER BY avg_engagement DESC
-            LIMIT 5
-        `;
+        // const query = ... // unused, removed for linting
 
-        const options = {
+        /* const options = {
             query: query,
             location: 'US',
             params: { districtId },
-        };
+        }; */ // unused, removed for linting
 
         // In a real environment, we'd run: const [rows] = await bigquery.query(options);
         // For demonstration of the integration:

@@ -33,8 +33,8 @@ export const UsageHistory = ({ logs }: { logs: any[] }) => {
                     >
                         <div className="flex items-center gap-4">
                             <div className={`w-9 h-9 rounded-xl flex items-center justify-center border transition-colors ${log.amount > 0
-                                    ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20'
-                                    : 'bg-red-500/10 text-red-400 border-red-500/20'
+                                ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20'
+                                : 'bg-red-500/10 text-red-400 border-red-500/20'
                                 }`}>
                                 {log.amount > 0 ? <ArrowDownLeft size={16} /> : <ArrowUpRight size={16} />}
                             </div>
@@ -43,7 +43,7 @@ export const UsageHistory = ({ logs }: { logs: any[] }) => {
                                     {log.feature_used || (log.amount > 0 ? 'System Core Refill' : 'Neural Synthesis Event')}
                                 </p>
                                 <p className="text-[8px] text-zinc-500 uppercase font-mono mt-1">
-                                    {new Date(log.created_at).toLocaleString()} // REF: {log.id.substring(0, 8)}
+                                    {new Date(log.created_at).toLocaleString()} {" // "} REF: {log.id.substring(0, 8)}
                                 </p>
                             </div>
                         </div>

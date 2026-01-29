@@ -187,7 +187,7 @@ export async function GET(request: NextRequest) {
             console.log(`[DATABASE] New user created: ${email} (${detectedTier})`);
         } else {
             // Update existing user
-            const updates: string[] = [];
+            // const updates: string[] = []; // unused, removed for linting
             const needsUpdate =
                 user.subscription_tier !== detectedTier ||
                 user.stripe_customer_id !== stripeCustomerId ||

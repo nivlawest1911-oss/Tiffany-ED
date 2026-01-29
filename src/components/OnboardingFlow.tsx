@@ -98,7 +98,7 @@ export default function OnboardingFlow({ onCompleteAction }: { onCompleteAction?
                     </div>
                     {formData.districtName && (
                         <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="text-[10px] text-indigo-400 font-mono uppercase tracking-widest pl-2">
-                            Detected New Node: {formData.districtName} // Initializing Neural Pathway...
+                            Detected New Node: {formData.districtName} {" // "} Initializing Neural Pathway...
                         </motion.div>
                     )}
                 </div>

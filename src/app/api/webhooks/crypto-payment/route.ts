@@ -95,7 +95,6 @@ async function handlePaymentSuccess(payload: any) {
         console.log(`Activating ${tier} subscription for user ${userId}`);
 
         // 3. Update User Subscription in Database
-        // @ts-ignore
         const user = await prisma.user.update({
             where: { id: userId },
             data: {

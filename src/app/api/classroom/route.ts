@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     const text = await generateProfessionalResponse(message, mode || 'general');
 
     return Response.json({ text });
-  } catch (error) {
+  } catch (_error) {
     return Response.json({ error: "Aide offline" }, { status: 500 });
   }
 }

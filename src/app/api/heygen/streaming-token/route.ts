@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
  * HeyGen Streaming Avatar Token Endpoint
  * Generates access tokens for WebRTC streaming sessions
  */
-export async function POST(request: NextRequest) {
+export async function POST(_request: NextRequest) {
     try {
         const apiKey = process.env.HEYGEN_API_KEY;
 

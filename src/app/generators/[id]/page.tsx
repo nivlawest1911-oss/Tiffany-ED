@@ -27,7 +27,6 @@ export default async function GeneratorPage({ params }: { params: Promise<{ id: 
     }
 
     const Icon = generator.icon;
-    // @ts-ignore - Avatar field exists in data but might not be in type definition yet
     const avatarKey = generator.avatar || 'principal';
     const delegate = AVATAR_MAP[avatarKey] || AVATAR_MAP['principal'];
 

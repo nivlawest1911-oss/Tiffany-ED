@@ -129,7 +129,7 @@ export default function EnhancedGenerator({
             return;
         }
 
-        // @ts-ignore - SpeechRecognition types are tricky
+        // @ts-expect-error - SpeechRecognition types are tricky
         const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
         const recognition = new SpeechRecognition();
 

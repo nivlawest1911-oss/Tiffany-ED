@@ -127,7 +127,7 @@ export async function startEdIntelSession(
                         studentId: z.string(),
                         focusArea: z.enum(['literacy', 'numeracy', 'behavior', 'iep', 'all']),
                     }),
-                    generate: async ({ studentId, focusArea }) => {
+                    generate: async ({ studentId, focusArea }: { studentId: string; focusArea: string }) => {
                         // Query evidence folder from Cloud SQL
                         const { rows } = await sql`
               SELECT * FROM evidence_folders
@@ -146,7 +146,7 @@ export async function startEdIntelSession(
                         documentType: z.enum(['iep', 'literacy_plan', 'numeracy_plan', 'observation']),
                         documentId: z.string(),
                     }),
-                    generate: async ({ documentType, documentId }) => {
+                    generate: async ({ documentType, documentId }: { documentType: string; documentId: string }) => {
                         // Perform compliance audit
                         const complianceResults = await performComplianceAudit(documentType, documentId);
 
@@ -161,7 +161,7 @@ export async function startEdIntelSession(
                         studentId: z.string(),
                         deficiencyAreas: z.array(z.string()),
                     }),
-                    generate: async ({ studentId, deficiencyAreas }) => {
+                    generate: async ({ studentId, deficiencyAreas }: { studentId: string; deficiencyAreas: string[] }) => {
                         return <LiteracyActReport studentId={studentId} deficiencies={deficiencyAreas} />;
                     },
                 },
@@ -173,7 +173,7 @@ export async function startEdIntelSession(
                         studentId: z.string(),
                         assessmentScore: z.number(),
                     }),
-                    generate: async ({ studentId, assessmentScore }) => {
+                    generate: async ({ studentId, assessmentScore }: { studentId: string; assessmentScore: number }) => {
                         return <NumeracyActAlert studentId={studentId} score={assessmentScore} />;
                     },
                 },
@@ -185,7 +185,7 @@ export async function startEdIntelSession(
                         studentId: z.string(),
                         iepType: z.enum(['initial', 'annual', 'amendment']),
                     }),
-                    generate: async ({ studentId, iepType }) => {
+                    generate: async ({ studentId, iepType }: { studentId: string; iepType: 'initial' | 'annual' | 'amendment' }) => {
                         return <IEPArchitect studentId={studentId} type={iepType} />;
                     },
                 },
@@ -197,14 +197,14 @@ export async function startEdIntelSession(
                         householdIncome: z.number(),
                         householdSize: z.number(),
                     }),
-                    generate: async ({ householdIncome, householdSize }) => {
+                    generate: async ({ householdIncome, householdSize }: { householdIncome: number; householdSize: number }) => {
                         return <CHOOSEActCalculator income={householdIncome} size={householdSize} />;
                     },
                 },
             },
 
             // Capture thought signature for next turn
-            onFinish: async ({ thoughtSignature, usage }) => {
+            onFinish: async ({ thoughtSignature, usage }: { thoughtSignature: any; usage: any }) => {
                 // Save thought signature to database
                 await sql`
           INSERT INTO avatar_sessions (
@@ -256,7 +256,7 @@ export async function startEdIntelSession(
 /**
  * Perform compliance audit against Alabama regulations
  */
-async function performComplianceAudit(documentType: string, documentId: string) {
+async function performComplianceAudit(_documentType: string, _documentId: string) {
     // This would query your evidence folder and cross-reference with regulations
     // Placeholder for demonstration
     return {

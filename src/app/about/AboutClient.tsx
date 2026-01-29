@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Shield as LucideShield, Brain, Zap, Key, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
@@ -10,7 +9,7 @@ import CircadianFilter from '@/components/graphics/CircadianFilter';
 import { FounderDossier } from '@/components/founder-dossier';
 
 export default function AboutClient() {
-    const [showBriefing, setShowBriefing] = useState(false);
+
     return (
         <main className="min-h-screen bg-black text-white selection:bg-indigo-500/30 overflow-x-hidden">
             <CircadianFilter />
