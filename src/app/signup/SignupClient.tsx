@@ -26,7 +26,7 @@ function SignupForm() {
         setError('');
 
         try {
-            const premiumPlans = ['pro', 'practitioner', 'director', 'enterprise', 'site_command'];
+            const premiumPlans = ['pro'];
             if (premiumPlans.includes(plan)) {
                 const response = await fetch('/api/checkout', {
                     method: 'POST',
