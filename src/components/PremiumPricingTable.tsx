@@ -33,76 +33,58 @@ export default function PremiumPricingTable() {
 
     const plans = [
         {
-            name: 'Initiate',
+            name: 'EdIntel Starter',
             price: { monthly: 0, annual: 0 },
-            description: 'Professional Initiate: Essential educational AI protocols.',
+            description: 'Basic AI tools for individual teachers exploring AI.',
             features: [
-                '5 AI generations per month',
-                'Basic templates',
-                'Community support',
+                'Basic Chat Agents',
+                '5 AI Lesson Plans / mo',
+                '1GB Secure Storage',
+                'Standard AI Model (Flash)',
+                'Community Support',
             ],
-            cta: 'Initialize Center',
+            cta: 'Initialize Token',
             link: '/signup',
             popular: false,
             icon: Sparkles,
         },
         {
-            name: 'Practitioner',
+            name: 'EdIntel Pro',
             price: {
-                monthly: pricing?.practitioner.monthly || 49.99,
-                annual: pricing?.practitioner.annual || 44.99
+                monthly: pricing?.pro.monthly || 19.00,
+                annual: pricing?.pro.annual || 190.00
             },
-            description: 'For specialized educators. Includes 30-day trial.',
+            description: 'Full AI suite with image generation, grading agents, and analytics.',
             features: [
-                'Unlimited AI generations',
-                'All 70+ specialized tools',
-                'Priority email support',
-                'Export to PDF/Word',
-                'FERPA-compliant storage',
+                'Unlimited Lesson Plans',
+                'Full Agent Access (IEP, Grader)',
+                '50 AI Images / mo',
+                'Advanced Model (GPT-4/Gemini)',
+                'Export to PDF/Word/Slides',
             ],
-            cta: 'Start 30-Day Trial',
+            cta: 'Upgrade & Deploy',
             link: `/signup?plan=pro${billingCycle === 'annual' ? '&billing=annual' : ''}`,
-            priceId: billingCycle === 'monthly' ? pricing?.practitioner.id : pricing?.practitioner.annualId,
+            priceId: billingCycle === 'monthly' ? pricing?.pro.id : pricing?.pro.annualId,
             popular: true,
-            icon: User,
+            icon: Zap,
         },
         {
-            name: 'Director Pack',
+            name: 'EdIntel Campus',
             price: {
-                monthly: pricing?.director.monthly || 69.99,
-                annual: pricing?.director.annual || 59.99
+                monthly: 0, // Custom
+                annual: 0
             },
-            description: 'For leadership and administration. Includes 30-day trial.',
+            description: 'For schools/districts. Includes admin dashboard & SSO.',
             features: [
-                'Everything in Practitioner',
-                'Advanced Leadership Modules',
-                'Staff Retention Analytics',
-                'Classroom Obs Synthesizer',
-                'Strategic Briefing Console',
+                'Volume Pricing ($15/seat)',
+                'SSO Enabled',
+                'Admin Analytics Dashboard',
+                'FERPA/COPPA Compliance',
+                'Priority Support',
             ],
-            cta: 'Deploy Director Center',
-            link: `/signup?plan=director${billingCycle === 'annual' ? '&billing=annual' : ''}`,
-            priceId: billingCycle === 'monthly' ? pricing?.director.id : pricing?.director.annualId,
-            popular: false,
-            icon: Crown,
-        },
-        {
-            name: 'Site Command',
-            price: {
-                monthly: pricing?.siteCommand.monthly || 79.99,
-                annual: pricing?.siteCommand.annual || 69.99
-            },
-            description: 'Full Building Command. Includes 30-day trial.',
-            features: [
-                'Everything in Director Pack',
-                '10 User Licenses',
-                'Building ROI Dashboard',
-                'Priority Implementation Support',
-                'Strategic Link API Access',
-            ],
-            cta: 'Deploy Site Command',
-            link: `/signup?plan=enterprise${billingCycle === 'annual' ? '&billing=annual' : ''}`,
-            priceId: billingCycle === 'monthly' ? pricing?.siteCommand.id : pricing?.siteCommand.annualId,
+            cta: 'Contact Sales',
+            link: '#request',
+            priceId: null, // Custom
             popular: false,
             icon: LucideShield,
         },
@@ -229,14 +211,24 @@ export default function PremiumPricingTable() {
                                     onClick={async (e) => {
                                         e.preventDefault();
                                         playClick();
-                                        if (plan.name === 'Initiate') {
+                                        if (plan.name === 'EdIntel Starter') {
                                             window.location.href = plan.link;
+                                            return;
+                                        }
+
+                                        if (plan.name === 'EdIntel Campus') {
+                                            window.location.href = '#request';
                                             return;
                                         }
 
                                         try {
                                             setLoadingPlan(plan.name);
-                                            const priceId = billingCycle === 'monthly' ? (pricing as any)[idx === 1 ? 'practitioner' : idx === 2 ? 'director' : 'siteCommand'].id : (pricing as any)[idx === 1 ? 'practitioner' : idx === 2 ? 'director' : 'siteCommand'].annualId;
+                                            // Ensure priceId is defined for Pro (it is set in the plan object)
+                                            const priceId = (plan as any).priceId;
+                                            if (!priceId) {
+                                                console.error("Price ID missing for plan:", plan.name);
+                                                return;
+                                            }
                                             const { url } = await createSovereignCheckout(priceId, plan.name, user?.id);
                                             if (url) window.location.href = url;
                                         } catch (err) {
