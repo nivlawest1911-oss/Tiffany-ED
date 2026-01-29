@@ -3,6 +3,7 @@
 import { Users, UserPlus, Settings, MessageSquare, BarChart3, Database, Shield as LucideShield, FileText, ChevronRight, Search } from 'lucide-react';
 import React from 'react';
 import Link from 'next/link';
+import NextImage from 'next/image';
 import { EDUCATOR_HUB_HERO } from '@/lib/images';
 
 export default function EducatorHubClient() {
@@ -78,10 +79,11 @@ export default function EducatorHubClient() {
             {/* Hero Section */}
             <section className="relative py-16 px-6 bg-zinc-900 border-b border-zinc-800 flex flex-col items-center justify-center text-center overflow-hidden">
                 <div className="absolute inset-0">
-                    <img
+                    <NextImage
                         src={EDUCATOR_HUB_HERO}
                         alt="Background"
-                        className="w-full h-full object-cover opacity-10 grayscale mix-blend-overlay"
+                        fill
+                        className="object-cover opacity-10 grayscale mix-blend-overlay"
                     />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/20 to-transparent pointer-events-none" />

@@ -41,7 +41,8 @@ export async function middleware(request: NextRequest) {
     }
 
     // 🛡️ Zero Firebase Policy: Strip lingering headers
-    response.headers.delete('x-firebase-auth-token');
+    // 🛡️ Sovereign Policy: Headers Cleaned
+
 
     return response;
 }

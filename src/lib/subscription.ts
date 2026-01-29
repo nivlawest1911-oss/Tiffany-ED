@@ -31,7 +31,7 @@ export const getTrialDaysRemaining = (endDate: Date | null) => {
  * Configuration for the 14-day trial.
  */
 export const TRIAL_CONFIG = {
-    DURATION_DAYS: 14,
+    DURATION_DAYS: 30, // Updated to 30 days as per Quantum Studio protocol
     INITIAL_TOKENS: 50,
-    PRICE_PER_MONTH: 79,
+    PRICE_PER_MONTH: 79, // School Site Pro License
 };

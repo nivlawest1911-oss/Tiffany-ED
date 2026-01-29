@@ -20,25 +20,25 @@ Deploying nivlawest1911-oss-
 projects/edintel-app
 Uploading 
 [--------------------] 
-(0.0B/41.3KB)
+(0.0B/116.9KB)
 Uploading 
-[========------------] 
-(16.7KB/41.3KB)
+[=====---------------] 
+(32.0KB/116.9KB)
 Uploading 
-[=============-------] 
-(27.3KB/41.3KB)
+[==========----------] 
+(64.2KB/116.9KB)
 Uploading 
-[=================---] 
-(36.2KB/41.3KB)
+[================----] 
+(96.4KB/116.9KB)
 Uploading 
 [====================] 
-(41.3KB/41.3KB)
+(116.9KB/116.9KB)
 Inspect: https://vercel.com/
 nivlawest1911-oss-projects/e
-dintel-app/AT3B9bu1vbCnWnysQ
-iFWYiRCvBHT [3s]
+dintel-app/goioZq84cNNYHZzD9
+XqVuDp9apfP [3s]
 Production: https://edintel-
-bx0xfmg72-nivlawest1911-oss-
+pyqtxz5o9-nivlawest1911-oss-
 projects.vercel.app [3s]
 Building...
 Building...
@@ -52,7 +52,7 @@ of deployment files...
 Building: Skipping build 
 cache, deployment was 
 triggered without cache.
-Building: Downloading 1106 
+Building: Downloading 1107 
 deployment files...
 Building: Warning: Detected 
 "engines": { "node": ">=20" 
@@ -103,7 +103,7 @@ prisma/schema.prisma
 Building: Γ£ö Generated 
 Prisma Client (v5.22.0) to .
 /node_modules/@prisma/client
- in 146ms
+ in 143ms
 Building: Start by 
 importing your Prisma 
 Client (See: https://pris.ly
@@ -150,106 +150,6 @@ Building: - Environments:
 Building: Creating an 
 optimized production build 
 ...
-Building: ΓÜá Compiled with 
-warnings in 45s
-Building: ./src/app/cognitiv
-e/CognitiveClient.tsx
-Building: Attempted import 
-error: 'CARBON_FIBRE_BG' is 
-not exported from 
-'@/lib/constants' (imported 
-as 'CARBON_FIBRE_BG').
-Building: Import trace for 
-requested module:
-Building: ./src/app/cognitiv
-e/CognitiveClient.tsx
-Building: ./src/app/support/
-SupportClient.tsx
-Building: Attempted import 
-error: 'CARBON_FIBRE_BG' is 
-not exported from 
-'@/lib/constants' (imported 
-as 'CARBON_FIBRE_BG').
-Building: Import trace for 
-requested module:
-Building: ./src/app/support/
-SupportClient.tsx
-Building: ./src/app/support/
-SupportClient.tsx
-Building: Attempted import 
-error: 'CARBON_FIBRE_BG' is 
-not exported from 
-'@/lib/constants' (imported 
-as 'CARBON_FIBRE_BG').
-Building: Import trace for 
-requested module:
-Building: ./src/app/support/
-SupportClient.tsx
-Building: ./src/app/support/
-article/[id]/ProtocolArticle
-DetailClient.tsx
-Building: Attempted import 
-error: 'CARBON_FIBRE_BG' is 
-not exported from 
-'@/lib/constants' (imported 
-as 'CARBON_FIBRE_BG').
-Building: Import trace for 
-requested module:
-Building: ./src/app/support/
-article/[id]/ProtocolArticle
-DetailClient.tsx
-Building: ./src/app/support/
-getting-started/GettingStart
-edClient.tsx
-Building: Attempted import 
-error: 'CARBON_FIBRE_BG' is 
-not exported from 
-'@/lib/constants' (imported 
-as 'CARBON_FIBRE_BG').
-Building: Import trace for 
-requested module:
-Building: ./src/app/support/
-getting-started/GettingStart
-edClient.tsx
-Building: ./src/app/support/
-topic/ProtocolTopicDetailCli
-ent.tsx
-Building: Attempted import 
-error: 'CARBON_FIBRE_BG' is 
-not exported from 
-'@/lib/constants' (imported 
-as 'CARBON_FIBRE_BG').
-Building: Import trace for 
-requested module:
-Building: ./src/app/support/
-topic/ProtocolTopicDetailCli
-ent.tsx
-Building: ./src/app/whats-ed
-intel/WhatsEdIntelClient.tsx
-Building: Attempted import 
-error: 'CARBON_FIBRE_BG' is 
-not exported from 
-'@/lib/constants' (imported 
-as 'CARBON_FIBRE_BG').
-Building: Import trace for 
-requested module:
-Building: ./src/app/whats-ed
-intel/WhatsEdIntelClient.tsx
-Building: ./src/components/b
-ento/ProfessionalBroadcastCe
-nter.tsx
-Building: Attempted import 
-error: 'CARBON_FIBRE_BG' is 
-not exported from 
-'@/lib/constants' (imported 
-as 'CARBON_FIBRE_BG').
-Building: Import trace for 
-requested module:
-Building: ./src/components/b
-ento/ProfessionalBroadcastCe
-nter.tsx
-Building: ./src/app/identity
-/IdentityClient.tsx
 Building: <w> [webpack.cache
 .PackFileCacheStrategy] 
 Serializing big strings 
@@ -261,15 +161,7 @@ needed)
 Building: <w> [webpack.cache
 .PackFileCacheStrategy] 
 Serializing big strings 
-(453kiB) impacts 
-deserialization performance 
-(consider using Buffer 
-instead and decode when 
-needed)
-Building: <w> [webpack.cache
-.PackFileCacheStrategy] 
-Serializing big strings 
-(453kiB) impacts 
+(454kiB) impacts 
 deserialization performance 
 (consider using Buffer 
 instead and decode when 
@@ -278,6 +170,14 @@ Building: <w> [webpack.cache
 .PackFileCacheStrategy] 
 Serializing big strings 
 (454kiB) impacts 
+deserialization performance 
+(consider using Buffer 
+instead and decode when 
+needed)
+Building: <w> [webpack.cache
+.PackFileCacheStrategy] 
+Serializing big strings 
+(455kiB) impacts 
 deserialization performance 
 (consider using Buffer 
 instead and decode when 
@@ -676,4 +576,4 @@ or-yellow-500:oklch(79.5%
 86.047);--color-yellow-600:o
 Error: Command "npm run 
 build" exited with 1
-https://edintel-bx0xfmg72-nivlawest1911-oss-projects.vercel.app
+https://edintel-pyqtxz5o9-nivlawest1911-oss-projects.vercel.app

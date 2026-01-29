@@ -175,7 +175,9 @@ export default function VideoStudioClient() {
                                                     1920x1080 // 60fps
                                                 </div>
                                                 <div className="flex gap-2">
-                                                    <button className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center hover:scale-110 transition-transform">
+                                                    <button
+                                                        aria-label="Play Visualization"
+                                                        className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center hover:scale-110 transition-transform">
                                                         <Play className="w-5 h-5 fill-black" />
                                                     </button>
                                                 </div>

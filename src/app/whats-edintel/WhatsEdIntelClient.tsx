@@ -4,7 +4,7 @@ import Link from 'next/link';
 import FeatureCard from '@/components/bento/FeatureCard';
 import { FEATURES } from '@/app/whats-edintel/features';
 import { ArrowRight } from 'lucide-react';
-import { CARBON_FIBRE_BG } from '@/lib/constants';
+
 
 export default function WhatsEdIntelClient() {
     return (
@@ -50,8 +50,7 @@ export default function WhatsEdIntelClient() {
             {/* Audience Segmentation */}
             <section className="bg-zinc-900 border-y border-zinc-800 py-24 mb-20 overflow-hidden relative">
                 <div
-                    className="absolute inset-0 opacity-10"
-                    style={{ backgroundImage: CARBON_FIBRE_BG }}
+                    className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-zinc-800/20 to-transparent"
                 />
                 <div className="max-w-7xl mx-auto px-6 relative z-10">
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

@@ -1,7 +1,7 @@
 'use client';
 
 import { Search, ChevronRight, FileText, Zap, Shield as LucideShield, HelpCircle, Terminal, Cpu, Clock, Key } from 'lucide-react';
-import { CARBON_FIBRE_BG } from '@/lib/constants';
+
 import React from 'react';
 import Link from 'next/link';
 
@@ -86,8 +86,7 @@ export default function GettingStartedClient() {
             {/* Header / Search Hero */}
             <section className="relative py-16 px-6 bg-zinc-900 border-b border-zinc-800 flex flex-col items-center justify-center text-center overflow-hidden">
                 <div
-                    className="absolute inset-0 opacity-20"
-                    style={{ backgroundImage: CARBON_FIBRE_BG }}
+                    className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-zinc-800/20 to-transparent"
                 />
                 <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-amber-600/10 to-transparent pointer-events-none" />
 

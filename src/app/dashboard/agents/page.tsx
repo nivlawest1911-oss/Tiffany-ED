@@ -2,24 +2,25 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Card } from '@/components/ui/card';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Bot, User, Send, Brain, FileText, CheckCircle2, RefreshCw } from 'lucide-react';
+import { Bot, User, Send, Brain, FileText, CheckCircle2, RefreshCw, Sparkles, Image as ImageIcon } from 'lucide-react';
 
 const AGENTS = [
-    { id: 'curriculum', name: 'Curriculum Architect', role: 'Instructional Design', avatar: '/images/avatars/curriculum.png', color: 'bg-emerald-500' },
-    { id: 'feedback', name: 'Feedback Sentinel', role: 'Quality Assurance', avatar: '/images/avatars/feedback.png', color: 'bg-rose-500' },
-    { id: 'compliance', name: 'Compliance Officer', role: 'FERPA/Policy', avatar: '/images/avatars/compliance.png', color: 'bg-blue-500' },
+    { id: 'iep', name: 'IEP Architect', role: 'Legal-Compliant Goals', avatar: '/images/avatars/iep.png', color: 'bg-indigo-500' },
+    { id: 'lesson', name: 'Lesson Wizard', role: '5-Day Curriculum', avatar: '/images/avatars/lesson.png', color: 'bg-cyan-500' },
+    { id: 'visual', name: 'Visual Lab', role: 'Generative Assets', avatar: '/images/avatars/visual.png', color: 'bg-pink-500' },
 ];
 
 export default function AgenticOrchestrationPage() {
     const [messages, setMessages] = useState<{ role: 'user' | 'agent', agentId?: string, content: string }[]>([
-        { role: 'agent', agentId: 'curriculum', content: 'Protocol Initialized. EdIntel Curriculum Architect ready for collaborative design. What is the instructional objective?' }
+        { role: 'agent', agentId: 'iep', content: 'IEP Architect Online. Ready to construct legal-compliant goals aligned with Alabama State Standards.' }
     ]);
     const [inputValue, setInputValue] = useState('');
     const [isThinking, setIsThinking] = useState(false);
+    const [activeAgent, setActiveAgent] = useState('iep');
 
     const handleSend = () => {
         if (!inputValue.trim()) return;
@@ -28,103 +29,111 @@ export default function AgenticOrchestrationPage() {
         setInputValue('');
         setIsThinking(true);
 
+        const currentAgent = AGENTS.find(a => a.id === activeAgent);
+
         // Simulation of Agentic Workflow
         setTimeout(() => {
-            setMessages(prev => [...prev, { role: 'agent', agentId: 'curriculum', content: `Analyzing objective: "${inputValue}". Constructing pedagogical framework...` }]);
-        }, 1000);
+            setMessages(prev => [...prev, { role: 'agent', agentId: activeAgent, content: `Processing request via ${currentAgent?.name} node...` }]);
+        }, 800);
 
         setTimeout(() => {
-            setMessages(prev => [...prev, { role: 'agent', agentId: 'feedback', content: `Monitoring alignment. Suggestion: Ensure modification strategies for diverse learners are explicitly defined.` }]);
+            setMessages(prev => [...prev, { role: 'agent', agentId: activeAgent, content: `Drafting content based on Mobile County parameters. Visualizing output...` }]);
             setIsThinking(false);
         }, 2500);
     };
 
     return (
-        <div className="min-h-screen bg-black p-6 md:p-12 font-sans selection:bg-purple-500/30">
-            {/* Background Ambience */}
-            <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(168,85,247,0.15)_0%,transparent_50%)] pointer-events-none" />
-            <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(16,185,129,0.1)_0%,transparent_50%)] pointer-events-none" />
+        <div className="font-sans font-inter h-[calc(100vh-2rem)]">
+            <div className="max-w-[1600px] mx-auto h-full grid grid-cols-1 lg:grid-cols-4 gap-6">
 
-            <div className="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-4 gap-8 h-[calc(100vh-6rem)]">
-
-                {/* Left Panel: Digital Team */}
-                <div className="lg:col-span-1 space-y-6">
+                {/* Left Panel: Agent Selection */}
+                <div className="lg:col-span-1 space-y-6 h-full flex flex-col">
                     <div>
-                        <h1 className="text-3xl font-black uppercase tracking-tight text-white mb-2">Digital<br /><span className="text-purple-500">Teams</span></h1>
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Orchestration Layer v2.0</p>
+                        <div className="flex items-center gap-2 mb-2">
+                            <Sparkles className="w-4 h-4 text-cyan-500 animate-pulse" />
+                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-500">CogniFit Workspace</span>
+                        </div>
+                        <h1 className="text-3xl font-black uppercase tracking-tighter text-white">Agent <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Studio</span></h1>
                     </div>
 
-                    <Card className="bg-zinc-900/50 border-white/10 backdrop-blur-xl p-4 overflow-hidden relative">
-                        <div className="absolute top-0 left-0 w-1 h-full bg-purple-500" />
-                        <h3 className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4 ml-2">Active Protocol</h3>
-                        <div className="space-y-4">
+                    <div className="bg-slate-950/40 border border-white/5 backdrop-blur-3xl rounded-3xl p-4 overflow-hidden relative shadow-2xl flex-1 flex flex-col">
+                        <div className="absolute top-0 left-0 w-1 h-full bg-indigo-500/50" />
+                        <h3 className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-500 mb-6 ml-2">Select Neural Node</h3>
+                        <div className="space-y-3 flex-1 overflow-y-auto custom-scrollbar">
                             {AGENTS.map(agent => (
-                                <div key={agent.id} className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors cursor-pointer group">
-                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${agent.color}/20 border border-white/10 relative`}>
-                                        <Bot className={`w-5 h-5 text-white`} />
-                                        <div className={`absolute -bottom-1 -right-1 w-3 h-3 rounded-full ${agent.color} border-2 border-black`} />
+                                <button
+                                    key={agent.id}
+                                    onClick={() => setActiveAgent(agent.id)}
+                                    className={`w-full flex items-center gap-4 p-4 rounded-2xl border transition-all duration-300 group relative overflow-hidden ${activeAgent === agent.id
+                                        ? 'bg-indigo-600/10 border-indigo-500/50 shadow-[0_0_20px_rgba(99,102,241,0.15)]'
+                                        : 'bg-white/5 border-transparent hover:bg-white/10 hover:border-white/10'
+                                        }`}
+                                >
+                                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${agent.color}/10 border border-white/10 relative group-hover:scale-110 transition-transform`}>
+                                        {agent.id === 'visual' ? <ImageIcon className={`w-5 h-5 text-white`} /> : <Bot className={`w-5 h-5 text-white`} />}
+                                        <div className={`absolute -bottom-1 -right-1 w-2.5 h-2.5 rounded-full ${agent.color} border-2 border-[#020617] shadow-[0_0_5px_currentColor]`} />
                                     </div>
-                                    <div>
-                                        <div className="text-sm font-bold text-white group-hover:text-purple-300 transition-colors">{agent.name}</div>
-                                        <div className="text-[10px] text-zinc-500 uppercase tracking-wider">{agent.role}</div>
+                                    <div className="text-left">
+                                        <div className={`text-sm font-bold transition-colors ${activeAgent === agent.id ? 'text-white' : 'text-slate-400 group-hover:text-white'}`}>{agent.name}</div>
+                                        <div className="text-[9px] text-slate-600 uppercase tracking-wider font-bold group-hover:text-slate-500">{agent.role}</div>
                                     </div>
-                                </div>
+                                    {activeAgent === agent.id && (
+                                        <motion.div layoutId="active-agent" className="absolute right-4 w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_10px_cyan]" />
+                                    )}
+                                </button>
                             ))}
                         </div>
 
-                        <div className="mt-6 pt-6 border-t border-white/5">
-                            <h3 className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4 ml-2">Workflow State</h3>
-                            <div className="flex flex-col gap-2">
-                                <div className="flex items-center gap-2 text-xs text-emerald-400">
-                                    <CheckCircle2 className="w-3 h-3" /> <span>Analysis Phase</span>
+                        <div className="mt-8 pt-6 border-t border-white/5">
+                            <h3 className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-500 mb-4 ml-2">System Status</h3>
+                            <div className="flex flex-col gap-3">
+                                <div className="flex items-center gap-3 text-xs text-cyan-400 font-medium bg-cyan-950/20 p-2 rounded-lg border border-cyan-500/10">
+                                    <CheckCircle2 className="w-3.5 h-3.5" /> <span>Neural Core: Online</span>
                                 </div>
-                                <div className="flex items-center gap-2 text-xs text-zinc-600">
-                                    <RefreshCw className="w-3 h-3 animate-spin" /> <span>Drafting Content</span>
-                                </div>
-                                <div className="flex items-center gap-2 text-xs text-zinc-600">
-                                    <div className="w-3 h-3 rounded-full border border-zinc-600" /> <span>Compliance Review</span>
+                                <div className="flex items-center gap-3 text-xs text-indigo-400 font-medium bg-indigo-950/20 p-2 rounded-lg border border-indigo-500/10">
+                                    <RefreshCw className="w-3.5 h-3.5 animate-spin" /> <span>Context Window: 128k</span>
                                 </div>
                             </div>
                         </div>
-                    </Card>
+                    </div>
                 </div>
 
                 {/* Main Panel: Orchestration Canvas (Chat) */}
-                <Card className="lg:col-span-3 bg-zinc-900/50 border-white/10 backdrop-blur-xl flex flex-col relative overflow-hidden">
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-emerald-500" />
+                <div className="lg:col-span-3 bg-slate-950/40 border border-white/5 backdrop-blur-3xl rounded-[2.5rem] flex flex-col relative overflow-hidden shadow-2xl h-full">
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 via-cyan-500 to-indigo-500 opacity-50" />
 
                     {/* Chat Area */}
-                    <ScrollArea className="flex-1 p-8">
-                        <div className="space-y-8">
+                    <ScrollArea className="flex-1 p-8 sm:p-10">
+                        <div className="space-y-10 max-w-4xl mx-auto">
                             {messages.map((msg, idx) => (
                                 <motion.div
                                     key={idx}
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    className={`flex gap-4 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}
+                                    className={`flex gap-6 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}
                                 >
                                     {msg.role === 'agent' ? (
-                                        <div className={`w-10 h-10 rounded-full flex items-center justify-center bg-zinc-800 border border-white/10 shrink-0`}>
-                                            <Bot className="w-5 h-5 text-purple-400" />
+                                        <div className={`w-12 h-12 rounded-2xl flex items-center justify-center bg-indigo-500/10 border border-indigo-500/20 shrink-0 shadow-[0_0_15px_rgba(99,102,241,0.1)]`}>
+                                            <Bot className="w-6 h-6 text-indigo-400" />
                                         </div>
                                     ) : (
-                                        <div className="w-10 h-10 rounded-full flex items-center justify-center bg-zinc-800 border border-white/10 shrink-0">
-                                            <User className="w-5 h-5 text-emerald-400" />
+                                        <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-cyan-500/10 border border-cyan-500/20 shrink-0 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
+                                            <User className="w-6 h-6 text-cyan-400" />
                                         </div>
                                     )}
 
                                     <div className={`flex flex-col max-w-[80%] ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
-                                        <div className="flex items-baseline gap-2 mb-1">
-                                            <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider">
-                                                {msg.role === 'user' ? 'Direct Command' : AGENTS.find(a => a.id === msg.agentId)?.name || 'System'}
+                                        <div className="flex items-baseline gap-3 mb-2">
+                                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                                                {msg.role === 'user' ? 'Operator' : AGENTS.find(a => a.id === msg.agentId)?.name || 'System Node'}
                                             </span>
-                                            <span className="text-[9px] text-zinc-600 font-mono">
+                                            <span className="text-[9px] text-slate-700 font-mono font-bold">
                                                 {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                             </span>
                                         </div>
-                                        <div className={`p-4 rounded-2xl text-sm leading-relaxed ${msg.role === 'user'
-                                                ? 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-100 rounded-tr-sm'
-                                                : 'bg-white/5 border border-white/10 text-zinc-300 rounded-tl-sm'
+                                        <div className={`p-6 rounded-3xl text-sm leading-relaxed shadow-lg backdrop-blur-md ${msg.role === 'user'
+                                            ? 'bg-gradient-to-br from-cyan-950/50 to-indigo-900/50 border border-cyan-500/20 text-cyan-50 rounded-tr-sm'
+                                            : 'bg-white/[0.03] border border-white/10 text-slate-300 rounded-tl-sm'
                                             }`}>
                                             {msg.content}
                                         </div>
@@ -132,12 +141,12 @@ export default function AgenticOrchestrationPage() {
                                 </motion.div>
                             ))}
                             {isThinking && (
-                                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-4">
-                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center bg-zinc-800 border border-white/10 shrink-0`}>
-                                        <Bot className="w-5 h-5 text-zinc-500 animate-pulse" />
+                                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-6 max-w-4xl mx-auto">
+                                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center bg-indigo-500/10 border border-indigo-500/20 shrink-0`}>
+                                        <Bot className="w-6 h-6 text-indigo-500 animate-pulse" />
                                     </div>
-                                    <div className="h-10 flex items-center">
-                                        <span className="text-xs font-bold text-zinc-600 uppercase tracking-widest animate-pulse">Orchestrating Logic...</span>
+                                    <div className="h-12 flex items-center">
+                                        <span className="text-[10px] font-black text-indigo-400 uppercase tracking-widest animate-pulse">Orchestrating Logic...</span>
                                     </div>
                                 </motion.div>
                             )}
@@ -145,37 +154,42 @@ export default function AgenticOrchestrationPage() {
                     </ScrollArea>
 
                     {/* Input Area */}
-                    <div className="p-6 bg-black/40 border-t border-white/5">
-                        <div className="flex gap-4">
-                            <Input
-                                value={inputValue}
-                                onChange={(e) => setInputValue(e.target.value)}
-                                onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                                placeholder="Issue command to digital team..."
-                                className="flex-1 bg-white/5 border-white/10 text-white placeholder:text-zinc-600 focus:border-purple-500/50 h-14 rounded-xl px-6 font-medium"
-                            />
-                            <Button
-                                onClick={handleSend}
-                                className="h-14 w-14 rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-lg shadow-purple-900/20"
-                            >
-                                <Send className="w-5 h-5" />
-                            </Button>
-                        </div>
-                        <div className="flex justify-between items-center mt-4 px-2">
-                            <div className="flex gap-4">
-                                <button className="text-[10px] font-bold uppercase tracking-widest text-zinc-600 hover:text-white flex items-center gap-2 transition-colors">
-                                    <Brain className="w-3 h-3" /> Add Context
-                                </button>
-                                <button className="text-[10px] font-bold uppercase tracking-widest text-zinc-600 hover:text-white flex items-center gap-2 transition-colors">
-                                    <FileText className="w-3 h-3" /> Upload Brief
-                                </button>
+                    <div className="p-6 md:p-8 bg-black/20 border-t border-white/5 backdrop-blur-xl">
+                        <div className="max-w-4xl mx-auto">
+                            <div className="relative">
+                                <Input
+                                    value={inputValue}
+                                    onChange={(e) => setInputValue(e.target.value)}
+                                    // onKeyDown={(e) => e.key === 'Enter' && handleSend()} // Disabled plain enter to encourage usage of button or specific action
+                                    onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSend())}
+                                    placeholder={`Issue command to ${AGENTS.find(a => a.id === activeAgent)?.name || 'Agent'}...`}
+                                    className="bg-white/5 border-white/10 text-white placeholder:text-slate-600 focus:border-indigo-500/50 h-16 rounded-2xl px-6 pr-20 font-medium shadow-inner text-base tracking-wide"
+                                />
+                                <div className="absolute right-2 top-2 bottom-2">
+                                    <Button
+                                        onClick={handleSend}
+                                        className="h-full aspect-square rounded-xl bg-gradient-to-r from-indigo-600 to-cyan-600 hover:brightness-110 text-white shadow-lg shadow-indigo-900/20 transition-all hover:scale-105 active:scale-95"
+                                    >
+                                        <Send className="w-5 h-5" />
+                                    </Button>
+                                </div>
                             </div>
-                            <div className="text-[9px] font-black uppercase tracking-widest text-zinc-700">
-                                Secure Channel // End-to-End Encrypted
+                            <div className="flex justify-between items-center mt-6 px-2">
+                                <div className="flex gap-6">
+                                    <button className="text-[9px] font-black uppercase tracking-widest text-slate-500 hover:text-cyan-400 flex items-center gap-2 transition-colors group">
+                                        <Brain className="w-3 h-3 group-hover:text-cyan-400 transition-colors" /> Add Context
+                                    </button>
+                                    <button className="text-[9px] font-black uppercase tracking-widest text-slate-500 hover:text-cyan-400 flex items-center gap-2 transition-colors group">
+                                        <FileText className="w-3 h-3 group-hover:text-cyan-400 transition-colors" /> Upload Brief
+                                    </button>
+                                </div>
+                                <div className="text-[8px] font-black uppercase tracking-[0.3em] text-indigo-500/40">
+                                    Quantum Encrypted // Mobile County Node
+                                </div>
                             </div>
                         </div>
                     </div>
-                </Card>
+                </div>
             </div>
         </div>
     );

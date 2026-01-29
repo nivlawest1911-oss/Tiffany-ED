@@ -1,7 +1,7 @@
 'use client';
 
 import { Play, Share2, Radio, Signal, Disc, ExternalLink } from 'lucide-react';
-import { CARBON_FIBRE_BG } from '@/lib/constants';
+
 import React from 'react';
 import { BROADCAST_THUMB_1, BROADCAST_THUMB_2, BROADCAST_THUMB_3 } from '@/lib/images';
 
@@ -34,8 +34,7 @@ export default function ProfessionalBroadcastCenter() {
         <div className="w-full max-w-4xl mx-auto p-1 bg-gradient-to-br from-purple-900 to-zinc-900 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
             {/* Background FX */}
             <div
-                className="absolute inset-0 opacity-10"
-                style={{ backgroundImage: CARBON_FIBRE_BG }}
+                className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-purple-800/20 to-transparent"
             />
             <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/10 blur-[100px] rounded-full pointer-events-none" />
 

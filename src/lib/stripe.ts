@@ -29,25 +29,24 @@ export const PRICING_PLANS = {
         }
     },
     pro: {
-        name: 'EdIntel Pro',
-        sku: 'master_teacher',
-        price: 19.00,
-        priceId: process.env.STRIPE_PRO_PRICE_ID || 'price_pro_tier_19',
-        description: 'Full AI suite with image generation, grading agents, and analytics.',
+        name: 'School Site Pro',
+        sku: 'school_site_license',
+        price: 79.00,
+        priceId: process.env.STRIPE_PRO_PRICE_ID || 'price_school_site_pro_79',
+        description: 'Complete Site License for Mobile County Schools. Includes 30-Day Full Access Trial.',
         features: [
-            'Unlimited Lesson Plans',
-            'Full Agent Access (IEP Writer, Grader)',
-            '50 AI Images / mo',
-            '5 mins AI Video / mo',
-            'Export to PDF/Word/Slides',
+            'Unlimited Teacher Accounts',
+            'Full Agent Access (IEP, Grader, Behavior)',
+            'Unlimited AI Lesson Plans',
+            'Priority District Support',
+            'FERPA/COPPA Compliant',
             'Advanced Model (GPT-4/Gemini Pro)'
         ],
         metadata: {
             ai_model: "Advanced",
-            lesson_plans: "Unlimited",
-            image_generation: "50",
-            video_generation: "5",
-            agents: "Full"
+            license_type: "Site License",
+            trial: "30 Days",
+            district: "Mobile County Schools"
         }
     },
     campus: {
@@ -55,7 +54,7 @@ export const PRICING_PLANS = {
         sku: 'district_admin',
         price: 'Custom',
         priceId: process.env.STRIPE_CAMPUS_PRICE_ID || 'price_campus_custom',
-        description: 'For schools/districts. Includes admin dashboard & SSO.',
+        description: 'For Multi-School Deployments. Includes Central Dashboard.',
         features: [
             'Volume Pricing ($15/seat for 10+)',
             'SSO Enabled',
@@ -69,13 +68,28 @@ export const PRICING_PLANS = {
             privacy_compliance: "FERPA/COPPA"
         }
     },
-    credits: {
-        name: 'AI Credits Pack',
-        sku: 'usage_credits',
-        price: 5.00,
-        unitAmount: 500,
-        priceId: process.env.STRIPE_CREDITS_PRICE_ID || 'price_credit_pack_5',
-        description: '500 Credits for expensive tasks (Video, 4K Images).',
+    token_tiers: {
+        starter: {
+            name: 'Token Refill: Starter',
+            price: 12.00,
+            amount: 1000,
+            priceId: process.env.STRIPE_TOKEN_STARTER_ID || 'price_token_1k_12',
+            description: '1,000 Tokens for essential tasks.'
+        },
+        pro: {
+            name: 'Token Refill: Growth',
+            price: 49.00,
+            amount: 5000,
+            priceId: process.env.STRIPE_TOKEN_GROWTH_ID || 'price_token_5k_49',
+            description: '5,000 Tokens for heavy media generation.'
+        },
+        elite: {
+            name: 'Token Refill: Elite',
+            price: 99.00,
+            amount: 15000,
+            priceId: process.env.STRIPE_TOKEN_ELITE_ID || 'price_token_15k_99',
+            description: '15,000 Tokens for district-wide usage.'
+        }
     }
 };
 
@@ -95,6 +109,13 @@ export async function createCheckoutSession(
                 quantity: 1,
             },
         ],
+        subscription_data: {
+            trial_period_days: 30,
+            metadata: {
+                userId,
+                source: "EdIntel Site License"
+            }
+        },
         success_url: successUrl,
         cancel_url: cancelUrl,
         consent_collection: {
@@ -108,7 +129,8 @@ export async function createCheckoutSession(
         metadata: {
             userId,
             environment: process.env.NODE_ENV,
-            source: 'EdIntel Professional App'
+            source: 'EdIntel Professional App',
+            district_target: 'Mobile County Schools'
         },
     });
 
@@ -120,7 +142,7 @@ export async function createCheckoutSession(
  */
 export async function createTopupSession(
     userId: string,
-    quantity: number,
+    priceId: string, // Changed from quantity logic to direct priceId
     successUrl: string,
     cancelUrl: string
 ) {
@@ -129,8 +151,8 @@ export async function createTopupSession(
         payment_method_types: ['card'],
         line_items: [
             {
-                price: PRICING_PLANS.credits.priceId,
-                quantity: quantity,
+                price: priceId,
+                quantity: 1,
             },
         ],
         success_url: successUrl,
@@ -139,9 +161,8 @@ export async function createTopupSession(
         metadata: {
             userId,
             orgId: userId, // Assuming userId acts as orgId in this context if orgId is missing
-            tokenAmount: quantity.toString(),
             type: 'token_topup',
-            source: 'Professional Delegate Console'
+            source: 'Quantum Studio Token Wallet'
         },
     });
 

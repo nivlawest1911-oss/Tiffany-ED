@@ -1,7 +1,7 @@
 'use client';
 
 import { Search, ChevronRight, Eye, ThumbsUp, ThumbsDown, User, Printer } from 'lucide-react';
-import { CARBON_FIBRE_BG } from '@/lib/constants';
+
 import React from 'react';
 
 export default function ProtocolArticleDetailClient() {
@@ -10,8 +10,7 @@ export default function ProtocolArticleDetailClient() {
             {/* Header / Search Hero */}
             <section className="relative py-12 px-6 bg-zinc-900 border-b border-zinc-800 flex flex-col items-center justify-center text-center overflow-hidden">
                 <div
-                    className="absolute inset-0 opacity-10"
-                    style={{ backgroundImage: CARBON_FIBRE_BG }}
+                    className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-zinc-800/20 to-transparent"
                 />
                 <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-amber-900/10 to-transparent pointer-events-none" />
 

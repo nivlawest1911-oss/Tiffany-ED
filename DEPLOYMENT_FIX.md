@@ -1,17 +1,17 @@
-# 🚀 EMERGENCY FIX DEPLOYED
+# Deployment Fix: CSS Loader URL Error
 
-**Timestamp:** 2026-01-17
-**Status:** ✅ Code Pushed to GitHub
+## Issue
 
-## 🚨 Issue Resolved
-**Problem:** "AI features are not working." - The API was returning JSON, but the frontend was expecting plain text, causing the "Generation Protocol" to display raw JSON or fail.
-**Fix:**
-1.  **Backend (`src/app/api/generate/route.ts`):** Modified the response to return `text/plain` directly.
-2.  **Frontend (`src/components/ClientGenerator.tsx`):** Updated the fetch logic to use `res.text()` instead of `res.json()`.
+Vercel deployment failed with `Error: Cannot find module './&'`.
+This was caused by a URL in `src/lib/images.ts` being used in a context (likely Tailwind arbitrary value or processed CSS) where query parameters containing `&` (e.g., `?q=80&w=2574...`) were misinterpreted by `css-loader` or Webpack as a module request during the build process on Vercel's environment.
 
-## 🔗 Next Steps
-- Verify the live site once the deployment completes.
-- The AI generators should now stream text correctly to the console.
+## Fix
 
-**System Status:** RECOVERING
-**Sovereign Node:** ONLINE
+- Simplified `EDUCATOR_HUB_HERO` and `THE_ROOM_HERO` URLs in `src/lib/images.ts` to remove query parameters.
+- Forced cache invalidation in `src/app/globals.css`.
+- Triggered deployment with `vercel --prod --force` to skip build cache.
+
+## Verification
+
+- Local build passed.
+- Vercel build pending verification.

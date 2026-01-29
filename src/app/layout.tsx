@@ -1,7 +1,6 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Space_Grotesk } from "next/font/google"
-import { Geist_Mono } from "next/font/google"
+import { Outfit, Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import CommandPalette from "@/components/CommandPalette"
@@ -15,33 +14,35 @@ import { IntelligenceProvider } from "@/context/IntelligenceContext"
 import { TavusProvider } from "@/context/TavusContext"
 import FacebookSDK from "@/components/social/FacebookSDK"
 
-const spaceGrotesk = Space_Grotesk({
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  variable: "--font-outfit",
+  display: "swap",
 })
 
-const geistMono = Geist_Mono({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-geist-mono",
+  variable: "--font-inter",
+  display: "swap",
 })
 
 export const metadata: Metadata = {
-  title: "EdIntel SOVEREIGN | Professional AI for Educational Leadership",
+  title: "Quantum Studio | EdIntel Intelligence OS",
   description:
-    "Empowering educational leaders with SOVEREIGN-level AI intelligence. Optimize time, ensure compliance, and focus on student success. Professional tools for modern education.",
-  generator: "v0.app",
+    "The Operating System for the Modern Educator. Reclaiming instructional time through spatial logistics & high-fidelity AI. Authorized for Mobile County Schools.",
+  generator: "Quantum Studio v5.0",
   metadataBase: new URL('https://edintel-app.vercel.app'),
   openGraph: {
-    title: "EdIntel SOVEREIGN | Professional AI for Educational Leadership",
-    description: "SOVEREIGN-level AI intelligence for educational excellence. Transform your leadership with advanced AI tools.",
+    title: "Quantum Studio | EdIntel Intelligence OS",
+    description: "Spatial Glassmorphism interface enabling seamless transitions between instructional modules. Token Economy and AI Agents included.",
     url: 'https://edintel-app.vercel.app',
-    siteName: 'EdIntel SOVEREIGN',
+    siteName: 'Quantum Studio',
     images: [
       {
-        url: '/edintel-sovereign-logo.jpg',
+        url: '/quantum-studio-og.jpg',
         width: 1200,
-        height: 1200,
-        alt: 'EdIntel SOVEREIGN - Professional AI for Education',
+        height: 630,
+        alt: 'Quantum Studio Interface',
       },
     ],
     locale: 'en_US',
@@ -49,26 +50,12 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'EdIntel SOVEREIGN | Professional AI for Education',
-    description: 'SOVEREIGN-level AI intelligence for educational leaders.',
-    images: ['/edintel-sovereign-logo.jpg'],
+    title: 'Quantum Studio | EdIntel',
+    description: 'The Operating System for the Modern Educator.',
+    images: ['/quantum-studio-og.jpg'],
   },
   icons: {
-    icon: [
-      {
-        url: "/edintel-sovereign-logo.jpg",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/edintel-sovereign-logo.jpg",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/globe.svg",
-        type: "image/svg+xml",
-      },
-    ],
-    apple: "/edintel-sovereign-logo.jpg",
+    icon: "/favicon.ico",
   },
 }
 
@@ -97,7 +84,7 @@ export default function RootLayout({
           />
         )}
       </head>
-      <body className={`${spaceGrotesk.variable} ${geistMono.variable} font-sans antialiased`} suppressHydrationWarning>
+      <body className={`${outfit.variable} ${inter.variable} font-sans antialiased`} suppressHydrationWarning>
         <AuthProvider>
           <IntelligenceProvider>
             <TavusProvider>
