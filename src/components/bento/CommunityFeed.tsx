@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
-import { Image, Video, FileText, ThumbsUp, MessageSquare, Repeat, Share2, MoreHorizontal, Globe, Bookmark, Users, Calendar } from 'lucide-react';
+import { Image as LucideImage, Video, FileText, ThumbsUp, MessageSquare, Repeat, Share2, MoreHorizontal, Globe, Bookmark, Users, Calendar } from 'lucide-react';
+import { default as NextImage } from 'next/image';
 import { useLeadershipFeed, FeedPost } from '@/hooks/useLeadershipFeed';
 import { SOCIAL_HUB_AVATAR } from '@/lib/assets';
 
@@ -17,9 +18,11 @@ export default function CommunityFeed() {
                 <div className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden relative">
                     <div className="h-20 bg-gradient-to-r from-cyan-900 to-blue-900" />
                     <div className="px-4 pb-4 relative">
-                        <img
+                        <NextImage
                             src={SOCIAL_HUB_AVATAR}
                             alt="Alvin West II"
+                            width={64}
+                            height={64}
                             className="w-16 h-16 rounded-2xl border-4 border-zinc-900 absolute -top-8 object-cover shadow-xl"
                         />
                         <div className="mt-10">
@@ -68,7 +71,7 @@ export default function CommunityFeed() {
                     </div>
                     <div className="flex justify-between px-4 pt-2">
                         <button className="flex items-center gap-2 text-xs font-bold text-zinc-400 hover:text-blue-400 transition-colors">
-                            <Image size={16} className="text-blue-500" /> Media
+                            <LucideImage size={16} className="text-blue-500" /> Media
                         </button>
                         <button className="flex items-center gap-2 text-xs font-bold text-zinc-400 hover:text-purple-400 transition-colors">
                             <Video size={16} className="text-purple-500" /> Video
