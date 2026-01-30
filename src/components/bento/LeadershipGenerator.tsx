@@ -143,7 +143,7 @@ export default function LeadershipGenerator() {
             {/* Background Glow & Neural Web */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-pink-600/10 blur-[100px] -mr-32 -mt-32 pointer-events-none" />
             <div
-                className="absolute inset-0 opacity-20"
+                className="absolute inset-0 opacity-20 pointer-events-none"
                 style={{ backgroundImage: `url('${NOISE_PATTERN}')` }}
             />
 
@@ -214,6 +214,7 @@ export default function LeadershipGenerator() {
                                 value={stakeholder}
                                 onChange={(e) => setStakeholder(e.target.value as any)}
                                 className="bg-transparent border-none text-[10px] font-bold text-zinc-500 hover:text-pink-400 cursor-pointer focus:outline-none"
+                                aria-label="Select Stakeholder"
                             >
                                 <option value="Staff">STAFF</option>
                                 <option value="Parent">PARENT</option>
@@ -223,6 +224,7 @@ export default function LeadershipGenerator() {
                                 value={intensity}
                                 onChange={(e) => setIntensity(e.target.value as any)}
                                 className="bg-transparent border-none text-[10px] font-bold text-zinc-500 hover:text-pink-400 cursor-pointer focus:outline-none"
+                                aria-label="Select Urgency Intensity"
                             >
                                 <option value="Low">LOW URGENCY</option>
                                 <option value="Medium">MEDIUM URGENCY</option>
@@ -238,7 +240,7 @@ export default function LeadershipGenerator() {
                     >
                         {isGenerating && (
                             <div className="absolute inset-0 bg-pink-700/50 flex items-center justify-center z-0">
-                                <div className="w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" style={{ backgroundSize: '200% 100%' }} />
+                                <div className="w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer bg-[length:200%_100%]" />
                             </div>
                         )}
 

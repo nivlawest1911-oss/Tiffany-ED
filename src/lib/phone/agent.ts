@@ -277,7 +277,7 @@ Your response:`;
     /**
      * Get caller information from database
      */
-    private static async getCallerInfo(phoneNumber: string) {
+    private static async getCallerInfo(_phoneNumber: string) {
         // Query database for caller information
         // This would integrate with your user database
         return {
@@ -315,7 +315,7 @@ Your response:`;
     static async makeOutboundCall(
         to: string,
         message: string,
-        voiceConfig = PHONE_AGENT_CONFIG.voices.drAlvinWest
+        _voiceConfig = PHONE_AGENT_CONFIG.voices.drAlvinWest
     ) {
         try {
             const call = await twilioClient.calls.create({
@@ -420,7 +420,7 @@ export class AdvancedPhoneFeatures {
      */
     static async intelligentRouting(
         transcript: string,
-        context: any
+        _context: any
     ): Promise<{
         department: string;
         priority: 'low' | 'medium' | 'high' | 'urgent';
@@ -491,7 +491,7 @@ export class CallAnalyticsService {
     /**
      * Generate call insights
      */
-    static async generateInsights(timeRange: {
+    static async generateInsights(_timeRange: {
         start: Date;
         end: Date;
     }): Promise<{
