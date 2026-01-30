@@ -1,5 +1,5 @@
 @import "tailwindcss";
-/* Rebuild Trigger 1 */
+/* Rebuild Trigger 2 - Final Fix */
 
 @theme {
   --radius-sm: calc(var(--radius) - 4px);
@@ -17,15 +17,14 @@
   --color-royal-purple: #6b46c1;
 }
 
-/* @custom-variant dark (&:is(.dark *)); - Temporarily removed to debug Vercel build error */
 
 :root {
   /* 🌌 QUANTUM STUDIO PALETTE */
   /* Midnight Navy - Primary Background */
   --quantum-navy: #020617;
-  /* Cyan - Primary Accent & Data */
+  /* Cyan - Primary Accent and Data */
   --quantum-cyan: #06b6d4;
-  /* Indigo - Secondary Accent & Depth */
+  /* Indigo - Secondary Accent and Depth */
   --quantum-indigo: #6366f1;
 
   /* Text Colors */
@@ -419,7 +418,7 @@ html {
   animation: spin-reverse 6s linear infinite;
 }
 
-/* 🌊 Liquid Glow & Antigravity Styles */
+/* Liquid Glow and Antigravity Styles */
 @keyframes liquid-flow {
   0% {
     transform: translate(0, 0) scale(1);
