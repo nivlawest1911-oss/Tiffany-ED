@@ -11,9 +11,11 @@ import {
     AlertCircle,
     ShieldCheck,
     Copy,
-    Download
+    Download,
+    CheckCircle
 } from 'lucide-react';
 import { NOISE_PATTERN } from '@/lib/assets';
+import { useToast } from '@/hooks/use-toast';
 
 type ProtocolType = 'ef-reframing' | 'meeting-agenda' | 'feedback' | 'crisis' | 'conflict' | 'discipline';
 
@@ -25,6 +27,7 @@ interface Protocol {
 }
 
 export default function LeadershipGenerator() {
+    const { toast } = useToast();
     const [situation, setSituation] = useState('');
     const [stakeholder, setStakeholder] = useState<'Parent' | 'Staff' | 'District'>('Staff');
     const [intensity, setIntensity] = useState<'Low' | 'Medium' | 'High'>('Medium');
@@ -84,7 +87,14 @@ export default function LeadershipGenerator() {
     ];
 
     const handleGenerate = async () => {
-        if (!situation.trim()) return;
+        if (!situation.trim()) {
+            toast({
+                title: "Input Required",
+                description: "Please describe the situation to generate a protocol.",
+                variant: "destructive"
+            });
+            return;
+        }
 
         setIsGenerating(true);
         setGenStep(0);
@@ -123,9 +133,18 @@ export default function LeadershipGenerator() {
 
             clearInterval(stepInterval);
             setOutput(data.output);
+            toast({
+                title: "Protocol Generated",
+                description: "Your executive protocol is ready for review.",
+            });
         } catch (e: any) {
             clearInterval(stepInterval);
             setOutput(`EdIntel Leadership Center connection interrupted. ${e.message}`);
+            toast({
+                title: "Generation Failed",
+                description: e.message || "Could not connect to AI services.",
+                variant: "destructive"
+            });
         } finally {
             setIsGenerating(false);
             clearInterval(stepInterval);
@@ -135,6 +154,10 @@ export default function LeadershipGenerator() {
     const copyToClipboard = () => {
         navigator.clipboard.writeText(output);
         setCopied(true);
+        toast({
+            title: "Copied to Clipboard",
+            description: "Protocol copied to your clipboard.",
+        });
         setTimeout(() => setCopied(false), 2000);
     };
 
@@ -301,25 +324,5 @@ export default function LeadershipGenerator() {
                 </div>
             </div>
         </div>
-    );
-}
-
-function CheckCircle(props: any) {
-    return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-            <path d="m9 11 3 3L22 4" />
-        </svg>
     );
 }

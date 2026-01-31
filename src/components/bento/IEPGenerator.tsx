@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
-import { FileText, Sparkles, Download, Copy, CheckCircle, User, Target, BookOpen, Calendar } from 'lucide-react';
+import { FileText, Sparkles, Download, Copy, CheckCircle, User, Target, BookOpen, Calendar, Loader2 } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 interface IEPSection {
     title: string;
@@ -8,6 +9,7 @@ interface IEPSection {
 }
 
 export default function IEPGenerator() {
+    const { toast } = useToast();
     const [studentName, setStudentName] = useState('');
     const [grade, setGrade] = useState('');
     const [disability, setDisability] = useState('');
@@ -56,7 +58,11 @@ export default function IEPGenerator() {
 
     const handleGenerate = async () => {
         if (!studentName || !grade || !disability || !concernArea) {
-            alert('Please fill in all fields');
+            toast({
+                title: "Incomplete Form",
+                description: "Please fill in all student details to generate the IEP.",
+                variant: "destructive"
+            });
             return;
         }
 
@@ -153,9 +159,18 @@ Use clinical language and ensure 80% accuracy criteria over 5 consecutive trials
 
             setGeneratedIEP(sections);
             clearInterval(stepInterval);
-        } catch (error) {
+            toast({
+                title: "IEP Generated",
+                description: "The Individualized Education Program has been successfully drafted.",
+            });
+        } catch (error: any) {
             console.error('Error generating IEP:', error);
-            alert('Error generating IEP. Please try again.');
+
+            toast({
+                title: "Generation Failed",
+                description: error.message || 'Error generating IEP. Please try again.',
+                variant: 'destructive',
+            });
             clearInterval(stepInterval);
         } finally {
             setIsGenerating(false);
@@ -192,7 +207,19 @@ Use clinical language and ensure 80% accuracy criteria over 5 consecutive trials
 
         navigator.clipboard.writeText(fullIEP);
         setCopied(true);
+        toast({
+            title: "Copied to Clipboard",
+            description: "Full IEP content copied for use.",
+        });
         setTimeout(() => setCopied(false), 2000);
+    };
+
+    const handleCopySection = (content: string, title: string) => {
+        navigator.clipboard.writeText(content);
+        toast({
+            title: "Section Copied",
+            description: `${title} copied to clipboard.`,
+        });
     };
 
     const handleDownload = () => {
@@ -209,6 +236,11 @@ Use clinical language and ensure 80% accuracy criteria over 5 consecutive trials
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
+
+        toast({
+            title: "Download Started",
+            description: "Your IEP file is being downloaded.",
+        });
     };
 
     return (
@@ -312,7 +344,7 @@ Use clinical language and ensure 80% accuracy criteria over 5 consecutive trials
                 )}
 
                 <div className="relative z-10 flex items-center gap-2">
-                    {isGenerating ? <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" /> : <Sparkles size={20} />}
+                    {isGenerating ? <Loader2 className="animate-spin" size={20} /> : <Sparkles size={20} />}
                     <span>{isGenerating ? generationSteps[genStep] : 'Generate Complete IEP'}</span>
                 </div>
 
@@ -360,10 +392,7 @@ Use clinical language and ensure 80% accuracy criteria over 5 consecutive trials
                                         {section.title}
                                     </h4>
                                     <button
-                                        onClick={() => {
-                                            navigator.clipboard.writeText(section.content);
-                                            // Optional: visual feedback
-                                        }}
+                                        onClick={() => handleCopySection(section.content, section.title)}
                                         className="opacity-0 group-hover/section:opacity-100 p-1.5 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-md transition-all text-zinc-400 hover:text-indigo-500"
                                         title={`Copy ${section.title}`}
                                     >

@@ -1,94 +1,30 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle, Sparkles, Zap, Info, Shield as LucideShield } from "lucide-react";
-import Link from 'next/link';
-import { getStripeHandshake, StripeHandshake, createSovereignCheckout } from '@/app/actions/professional-stripe';
+import { CheckCircle, Sparkles, Zap, Info, Star, Crown, GraduationCap, Briefcase, Building } from "lucide-react";
+import { createSovereignCheckout } from '@/app/actions/professional-stripe';
 import { useAuth } from '@/context/AuthContext';
 import { useIntelligence } from '@/context/IntelligenceContext';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
+import { SOVEREIGN_TIERS } from '@/lib/pricing-config';
+
+// Icon mapping helper
+const IconMap: Record<string, any> = {
+    Building: Building,
+    Crown: Crown,
+    Briefcase: Briefcase,
+    GraduationCap: GraduationCap,
+    Star: Star,
+    Sparkles: Sparkles
+};
 
 export default function PremiumPricingTable() {
-    const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
-    const [showBriefing, setShowBriefing] = useState(false);
-    const [pricing, setPricing] = useState<StripeHandshake | null>(null);
     const [openFaq, setOpenFaq] = useState<number | null>(null);
     const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
     const { user } = useAuth();
     const { generateBriefing } = useIntelligence();
-    const { playClick, playHover, playSuccess } = useProfessionalSounds();
-
-    useEffect(() => {
-        async function loadPricing() {
-            try {
-                const data = await getStripeHandshake();
-                setPricing(data);
-            } catch (error) {
-                console.error("Failed to handshake with Stripe:", error);
-            }
-        }
-        loadPricing();
-    }, []);
-
-    const plans = [
-        {
-            name: 'EdIntel Starter',
-            price: { monthly: 0, annual: 0 },
-            description: 'Basic AI tools for individual teachers exploring AI.',
-            features: [
-                'Basic Chat Agents',
-                '5 AI Lesson Plans / mo',
-                '1GB Secure Storage',
-                'Standard AI Model (Flash)',
-                'Community Support',
-            ],
-            cta: 'Initialize Token',
-            link: '/signup',
-            popular: false,
-            icon: Sparkles,
-        },
-        {
-            name: 'EdIntel Pro',
-            price: {
-                monthly: pricing?.pro.monthly || 19.00,
-                annual: pricing?.pro.annual || 190.00
-            },
-            description: 'Full AI suite with image generation, grading agents, and analytics.',
-            features: [
-                'Unlimited Lesson Plans',
-                'Full Agent Access (IEP, Grader)',
-                '50 AI Images / mo',
-                'Advanced Model (GPT-4/Gemini)',
-                'Export to PDF/Word/Slides',
-            ],
-            cta: 'Upgrade & Deploy',
-            link: `/signup?plan=pro${billingCycle === 'annual' ? '&billing=annual' : ''}`,
-            priceId: billingCycle === 'monthly' ? pricing?.pro.id : pricing?.pro.annualId,
-            popular: true,
-            icon: Zap,
-        },
-        {
-            name: 'EdIntel Campus',
-            price: {
-                monthly: 0, // Custom
-                annual: 0
-            },
-            description: 'For schools/districts. Includes admin dashboard & SSO.',
-            features: [
-                'Volume Pricing ($15/seat)',
-                'SSO Enabled',
-                'Admin Analytics Dashboard',
-                'FERPA/COPPA Compliance',
-                'Priority Support',
-            ],
-            cta: 'Contact Sales',
-            link: '#request',
-            priceId: null, // Custom
-            popular: false,
-            icon: LucideShield,
-        },
-    ];
+    const { playClick } = useProfessionalSounds();
 
     const faqs = [
         {
@@ -97,7 +33,7 @@ export default function PremiumPricingTable() {
         },
         {
             question: 'Can I switch plans anytime?',
-            answer: 'Yes! Upgrade or downgrade your plan at any time. Changes take effect immediately, and we\'ll prorate any charges.',
+            answer: 'Yes! Upgrade or downgrade your plan at any time. Changes take effect immediately.',
         },
         {
             question: 'Is my data secure and FERPA-compliant?',
@@ -110,205 +46,151 @@ export default function PremiumPricingTable() {
     ];
 
     return (
-        <div className="min-h-screen bg-black text-white py-24 px-6 relative overflow-hidden">
-            {/* Kente Pattern Header */}
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-kente-yellow via-kente-green to-kente-red z-50" />
-
-            <div className="max-w-7xl mx-auto relative z-10">
+        <div className="relative z-10">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="text-center mb-16"
                 >
-                    <h1 className="text-6xl md:text-8xl font-black text-white mb-6 tracking-tight uppercase">
-                        The <span className="text-noble-gold">Professional</span> Standard
-                    </h1>
-                    <p className="text-xl text-zinc-400 mb-8 max-w-2xl mx-auto font-medium">
-                        Strategic pricing architectures built for educational leadership. Initialize your protocol with a 30-day trial. All plans include Kente-inspired Executive Holography and Vertex AI Supreme processing.
-                    </p>
-
-                    {/* Billing Toggle */}
-                    <div className="flex flex-col items-center gap-6">
-                        <div className="inline-flex items-center gap-4 p-2 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10">
-                            <button
-                                onClick={() => setBillingCycle('monthly')}
-                                className={`px-8 py-3 rounded-xl font-bold transition-all uppercase text-xs tracking-widest ${billingCycle === 'monthly'
-                                    ? 'bg-white text-black shadow-2xl'
-                                    : 'text-zinc-500 hover:text-white'
-                                    }`}
-                            >
-                                Monthly
-                            </button>
-                            <button
-                                onClick={() => setBillingCycle('annual')}
-                                className={`px-8 py-3 rounded-xl font-bold transition-all flex items-center gap-2 uppercase text-xs tracking-widest ${billingCycle === 'annual'
-                                    ? 'bg-noble-gold text-black shadow-2xl'
-                                    : 'text-zinc-500 hover:text-white'
-                                    }`}
-                            >
-                                Annual
-                                <span className="px-2 py-0.5 rounded-md bg-black/20 text-black text-[10px] font-black">
-                                    -20%
-                                </span>
-                            </button>
-                        </div>
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-intel-gold/10 border border-intel-gold/30 text-intel-gold text-[10px] font-black uppercase tracking-[0.3em] mb-6">
+                        System Protocol // v5.1
                     </div>
+                    <h1 className="text-6xl md:text-8xl font-black text-white mb-6 tracking-tight uppercase italic">
+                        The <span className="text-gold-gradient">Sovereign</span> Tier
+                    </h1>
+                    <p className="text-xl text-zinc-500 mb-8 max-w-2xl mx-auto font-light leading-relaxed italic">
+                        "Strategic pricing architectures built for educational leadership. Initialize your protocol with a 30-day trial. High-fidelity neural processing included."
+                    </p>
                 </motion.div>
 
                 {/* Pricing Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-24">
-                    {plans.map((plan, idx) => (
-                        <motion.div
-                            key={plan.name}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.1 * idx }}
-                            className={`relative group ${plan.popular ? 'lg:scale-105 z-20' : 'z-10'}`}
-                        >
-                            {plan.popular && (
-                                <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-noble-gold text-black text-[10px] font-black uppercase tracking-widest shadow-2xl z-30">
-                                    Strategic Choice
-                                </div>
-                            )}
-
-                            {/* Kente Ribbon for Popular Plan */}
-                            {plan.popular && (
-                                <div className="absolute inset-0 rounded-[2.5rem] border-2 border-transparent bg-gradient-to-r from-kente-yellow via-kente-green to-kente-red [mask-image:linear-gradient(white,white)_padding-box,linear-gradient(white,white)] transition-all duration-500 opacity-20" />
-                            )}
-
-                            <div className={`h-full flex flex-col rounded-[2.5rem] p-10 transition-all duration-500 border ${plan.popular
-                                ? 'bg-white/10 border-noble-gold/50 shadow-2xl shadow-noble-gold/10'
-                                : 'bg-white/5 border-white/10 hover:border-white/20'
-                                } backdrop-blur-3xl group-hover:bg-white/[0.07]`}>
-
-                                <div className="mb-8">
-                                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-8 bg-gradient-to-br ${plan.popular ? 'from-noble-gold to-kente-red' : 'from-zinc-800 to-zinc-900'} border border-white/10 shadow-xl`}>
-                                        <plan.icon size={28} className={plan.popular ? 'text-black' : 'text-zinc-400'} />
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-24">
+                    {SOVEREIGN_TIERS.map((tier, idx) => {
+                        const Icon = IconMap[tier.icon] || Star;
+                        return (
+                            <motion.div
+                                key={tier.id}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.1 * idx }}
+                                className={`relative group ${tier.popular ? 'lg:scale-105 z-20' : 'z-10'}`}
+                            >
+                                {tier.popular && (
+                                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-6 py-1.5 rounded-full bg-intel-gold text-black text-[10px] font-black uppercase tracking-[0.2em] shadow-2xl z-30">
+                                        Strategic Choice
                                     </div>
-                                    <h3 className="text-3xl font-black text-white mb-2 tracking-tighter uppercase">{plan.name}</h3>
-                                    <div className="flex items-baseline gap-1 mb-4">
-                                        <span className="text-5xl font-black text-white tracking-tighter">${plan.price[billingCycle]}</span>
-                                        <span className="text-zinc-500 text-[10px] font-black uppercase tracking-[0.2em]">
-                                            {plan.name === 'Professional Vault' ? '/ Lifetime' : billingCycle === 'monthly' ? '/ Mo' : '/ Mo, Annual'}
-                                        </span>
-                                    </div>
-                                    <p className="text-sm text-zinc-400 font-medium leading-relaxed">{plan.description}</p>
-                                </div>
-
-                                <ul className="space-y-4 mb-10 flex-grow">
-                                    {plan.features.map((feature, fIdx) => (
-                                        <li key={fIdx} className="flex items-start gap-4">
-                                            <div className={`mt-1 flex-shrink-0 ${plan.popular ? 'text-noble-gold' : 'text-zinc-600'}`}>
-                                                <CheckCircle size={18} />
-                                            </div>
-                                            <span className="text-sm text-zinc-300 font-medium leading-tight">{feature}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <button
-                                    onClick={async (e) => {
-                                        e.preventDefault();
-                                        playClick();
-                                        if (plan.name === 'EdIntel Starter') {
-                                            window.location.href = plan.link;
-                                            return;
-                                        }
-
-                                        if (plan.name === 'EdIntel Campus') {
-                                            window.location.href = '#request';
-                                            return;
-                                        }
-
-                                        try {
-                                            setLoadingPlan(plan.name);
-                                            // Ensure priceId is defined for Pro (it is set in the plan object)
-                                            const priceId = (plan as any).priceId;
-                                            if (!priceId) {
-                                                console.error("Price ID missing for plan:", plan.name);
-                                                return;
-                                            }
-                                            const { url } = await createSovereignCheckout(priceId, plan.name, user?.id);
-                                            if (url) window.location.href = url;
-                                        } catch (err) {
-                                            console.error("Checkout failed", err);
-                                            setLoadingPlan(null);
-                                        }
-                                    }}
-                                    disabled={loadingPlan !== null}
-                                    className={`w-full py-5 rounded-[2rem] font-black text-xs uppercase tracking-[0.3em] transition-all shadow-xl active:scale-95 flex items-center justify-center gap-3 ${plan.popular
-                                        ? 'bg-noble-gold text-black hover:bg-white shadow-noble-gold/40'
-                                        : 'bg-white/10 text-white hover:bg-white border border-white/10 hover:text-black'
-                                        } ${loadingPlan === plan.name ? 'opacity-50 cursor-wait' : ''}`}>
-                                    {loadingPlan === plan.name ? (
-                                        <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                                    ) : (
-                                        <>
-                                            {plan.cta}
-                                            <Zap size={14} className={plan.popular ? 'animate-pulse' : ''} />
-                                        </>
-                                    )}
-                                </button>
-
-                                <button
-                                    onClick={() => generateBriefing({
-                                        title: `${plan.name} Strategic Briefing`,
-                                        description: plan.description + " This plan includes our proprietary high-fidelity neural processing and culturally-responsive interface standards.",
-                                        stats: { time: 'Instant', saved: idx === 1 ? '40h/mo' : idx === 2 ? '100h/mo' : 'Building Wide', accuracy: '99.9%' },
-                                        role: idx === 0 ? 'Protocol Initiate' : idx === 1 ? 'Practitioner' : idx === 2 ? 'Executive' : 'Sovereign Command',
-                                        avatarImage: idx === 3 ? '/images/avatars/executive_leader.png' : '/images/avatars/dr_alvin_west_premium.png'
-                                    })}
-                                    className="mt-4 text-[9px] text-zinc-500 hover:text-noble-gold font-black uppercase tracking-widest transition-colors flex items-center justify-center gap-2 group/info"
-                                >
-                                    <Info size={10} className="group-hover/info:rotate-12 transition-transform" />
-                                    Deep Strategic Briefing
-                                </button>
-
-                                {plan.price.monthly > 0 && (
-                                    <Link
-                                        href={`/payment?plan=${plan.name === 'Director Pack' ? 'director' :
-                                            plan.name === 'Site Command' ? 'site_command' :
-                                                'practitioner'
-                                            }&amount=${plan.price[billingCycle]}`}
-                                        className="block mt-3 text-center"
-                                    >
-                                        <span className="text-[10px] text-zinc-500 hover:text-noble-gold transition-colors font-bold uppercase tracking-wider border-b border-transparent hover:border-noble-gold">
-                                            Pay with Crypto / Universal Hub
-                                        </span>
-                                    </Link>
                                 )}
 
-                                <p className="text-center text-[9px] text-zinc-600 uppercase font-black tracking-widest mt-6 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    Secure Encrypted Protocol // KENTE_SYNC_ACTIVE
-                                </p>
-                            </div>
-                        </motion.div>
-                    ))}
+                                <div className={`h-full flex flex-col rounded-[2.5rem] p-12 transition-all duration-500 border ${tier.popular
+                                    ? 'bg-intel-gold/5 border-intel-gold/40 shadow-[0_20px_60px_rgba(197,164,126,0.1)]'
+                                    : 'bg-white/5 border-white/5 hover:border-intel-gold/30'
+                                    } backdrop-blur-3xl overflow-hidden`}>
+
+                                    {/* Kente Accent for Cards */}
+                                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-kente-yellow via-kente-green to-kente-red opacity-30" />
+
+                                    <div className="mb-10 relative">
+                                        <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-10 bg-black/60 border ${tier.popular ? 'border-intel-gold/50 text-intel-gold' : 'border-white/10 text-zinc-600'} shadow-2xl`}>
+                                            <Icon size={32} strokeWidth={1.5} />
+                                        </div>
+                                        <h3 className="text-3xl font-black text-white mb-3 tracking-tighter uppercase italic">{tier.name}</h3>
+                                        <div className="flex items-baseline gap-2 mb-6">
+                                            <span className="text-6xl font-black text-white tracking-tighter">${tier.price}</span>
+                                            <span className="text-zinc-500 text-[10px] font-black uppercase tracking-[0.2em]">
+                                                / Mo
+                                            </span>
+                                        </div>
+                                        <p className="text-sm text-zinc-400 font-light leading-relaxed italic">"{tier.description}"</p>
+                                    </div>
+
+                                    <ul className="space-y-5 mb-12 flex-grow">
+                                        {tier.features.map((feature, fIdx) => (
+                                            <li key={fIdx} className="flex items-start gap-4 group/item">
+                                                <div className={`mt-1 flex-shrink-0 transition-colors ${tier.popular ? 'text-intel-gold' : 'text-zinc-700'}`}>
+                                                    <CheckCircle size={16} />
+                                                </div>
+                                                <span className="text-sm text-zinc-300 font-medium leading-tight group-hover/item:text-white transition-colors">{feature}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <button
+                                        onClick={async (e) => {
+                                            e.preventDefault();
+                                            playClick();
+                                            if (tier.stripeLink && tier.stripeLink.startsWith('http')) {
+                                                window.location.href = tier.stripeLink;
+                                                return;
+                                            }
+
+                                            try {
+                                                setLoadingPlan(tier.name);
+                                                if (tier.stripeLink) {
+                                                    const { url } = await createSovereignCheckout(tier.stripeLink, tier.name, user?.id);
+                                                    if (url) window.location.href = url;
+                                                }
+                                            } catch (err) {
+                                                setLoadingPlan(null);
+                                            }
+                                        }}
+                                        disabled={loadingPlan !== null}
+                                        className={`w-full py-6 rounded-2xl font-black text-[10px] uppercase tracking-[0.4em] transition-all shadow-xl active:scale-95 flex items-center justify-center gap-3 ${tier.popular
+                                            ? 'bg-intel-gold text-black hover:bg-white'
+                                            : 'bg-white/5 text-white hover:bg-intel-gold hover:text-black border border-white/10 hover:border-intel-gold'
+                                            } ${loadingPlan === tier.name ? 'opacity-50 cursor-wait' : ''}`}>
+                                        {loadingPlan === tier.name ? (
+                                            <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                                        ) : (
+                                            <>
+                                                {tier.price === 0 ? 'Start Free' : 'Deploy Node'}
+                                                <Zap size={14} className={tier.popular ? 'animate-pulse' : ''} />
+                                            </>
+                                        )}
+                                    </button>
+
+                                    <button
+                                        onClick={() => generateBriefing({
+                                            title: `${tier.name} Strategic Briefing`,
+                                            description: tier.description + " This plan includes our proprietary high-fidelity neural processing and culturally-responsive interface standards.",
+                                            stats: { time: 'Instant', saved: tier.price > 50 ? '100h/mo' : '40h/mo', accuracy: '99.9%' },
+                                            role: tier.badge || 'Protocol Initiate',
+                                            avatarImage: tier.price > 60 ? '/images/avatars/executive_leader.png' : '/images/avatars/dr_alvin_west_premium.png'
+                                        })}
+                                        className="mt-6 text-[9px] text-zinc-600 hover:text-intel-gold font-black uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2 group/info"
+                                    >
+                                        <Info size={10} className="group-hover/info:rotate-12 transition-transform" />
+                                        Deep Strategic Briefing // 01
+                                    </button>
+                                </div>
+                            </motion.div>
+                        );
+                    })}
                 </div>
 
                 {/* FAQ Section */}
                 <div className="max-w-4xl mx-auto">
-                    <div className="text-center mb-12">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-noble-gold/10 border border-noble-gold/20 text-noble-gold text-[10px] font-black uppercase tracking-widest mb-4">
+                    <div className="text-center mb-16">
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded bg-intel-gold/10 border border-intel-gold/20 text-intel-gold text-[10px] font-black uppercase tracking-[0.3em] mb-4 italic">
                             Support Protocols
                         </div>
-                        <h2 className="text-4xl font-black text-white uppercase tracking-tight">Frequently Asked Protocols</h2>
+                        <h2 className="text-5xl font-black text-white uppercase tracking-tighter italic">Common Queries</h2>
                     </div>
 
-                    <div className="grid gap-4">
+                    <div className="grid gap-6">
                         {faqs.map((faq, idx) => (
                             <div
                                 key={idx}
-                                className="rounded-[2rem] bg-white/[0.03] border border-white/5 overflow-hidden transition-all hover:border-white/10"
+                                className="rounded-3xl bg-zinc-900/40 border border-white/5 overflow-hidden transition-all hover:border-intel-gold/40 backdrop-blur-xl group"
                             >
                                 <button
                                     onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                                    className="w-full px-10 py-8 flex items-center justify-between text-left group"
+                                    className="w-full px-12 py-10 flex items-center justify-between text-left"
                                 >
-                                    <span className="text-xl font-black text-zinc-200 uppercase tracking-tighter group-hover:text-white transition-colors">{faq.question}</span>
-                                    <div className={`p-2 rounded-full transition-all duration-500 ${openFaq === idx ? 'bg-noble-gold rotate-180' : 'bg-white/5'}`}>
-                                        <Zap size={18} className={openFaq === idx ? 'text-black' : 'text-zinc-600'} />
+                                    <span className="text-2xl font-black text-zinc-400 uppercase tracking-tighter group-hover:text-white transition-colors">{faq.question}</span>
+                                    <div className={`p-3 rounded-xl transition-all duration-500 ${openFaq === idx ? 'bg-intel-gold rotate-180' : 'bg-black/40'}`}>
+                                        <Zap size={20} className={openFaq === idx ? 'text-black' : 'text-zinc-600'} />
                                     </div>
                                 </button>
                                 <AnimatePresence>
@@ -319,8 +201,8 @@ export default function PremiumPricingTable() {
                                             exit={{ height: 0, opacity: 0 }}
                                             className="overflow-hidden"
                                         >
-                                            <div className="px-10 pb-10 text-zinc-400 leading-relaxed font-medium text-lg border-t border-white/5 pt-6">
-                                                {faq.answer}
+                                            <div className="px-12 pb-12 text-zinc-400 leading-relaxed font-light text-xl italic border-t border-white/5 pt-8">
+                                                "{faq.answer}"
                                             </div>
                                         </motion.div>
                                     )}
@@ -330,11 +212,6 @@ export default function PremiumPricingTable() {
                     </div>
                 </div>
             </div>
-
-            {/* Background Decorations */}
-            <div className="absolute top-0 left-0 w-full h-screen bg-[radial-gradient(ellipse_at_top_left,rgba(212,175,55,0.05)_0%,transparent_50%)] pointer-events-none" />
-            <div className="absolute bottom-0 right-0 w-full h-screen bg-[radial-gradient(ellipse_at_bottom_right,rgba(139,0,0,0.05)_0%,transparent_50%)] pointer-events-none" />
-            <div className="absolute inset-0 bg-grid-pattern opacity-5 pointer-events-none" />
         </div>
     );
 }

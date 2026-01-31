@@ -69,7 +69,7 @@ export default function HuggingFaceAvatar({
         return () => {
             if (audioSrc) URL.revokeObjectURL(audioSrc);
         };
-    }, [textToSpeak]);
+    }, [textToSpeak, audioSrc]);
 
     return (
         <div className={`relative overflow-hidden rounded-3xl border border-white/10 bg-zinc-950 group ${className}`}>

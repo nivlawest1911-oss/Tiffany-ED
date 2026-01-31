@@ -1,0 +1,55 @@
+﻿   Γû▓ Next.js 15.5.10
+   - Environments: .env.local, .env.production, .env
+
+   Creating an optimized production build ...
+node.exe : Failed to compile.
+At C:\Users\nivla\AppData\Roam
+ing\npm\npx.ps1:24 char:5
++     & "node$exe"  "$basedir/
+node_modules/npm/bin/npx-cli.j
+s" $args
++     ~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~
+    + CategoryInfo          : 
+    NotSpecified: (Failed to  
+   compile.:String) [], Rem   
+ oteException
+    + FullyQualifiedErrorId : 
+    NativeCommandError
+ 
+
+./src/components/layout/Sovere
+ignShell.tsx
+Error:   [31mx[0m 
+Expression expected
+   ,-[[36;1;4mC:\Users\nivla\
+edintel-app\src\components\lay
+out\SovereignShell.tsx[0m:5:1
+]
+ [2m2[0m | 
+ [2m3[0m | ChevronRight,
+ [2m4[0m |     Sparkles
+ [2m5[0m | } from 
+'lucide-react';
+   : [35;1m^[0m
+ [2m6[0m | import Link from 
+'next/link';
+ [2m7[0m | import { 
+usePathname } from 
+'next/navigation';
+ [2m7[0m | 
+   `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested 
+module:
+./src/components/layout/Sovere
+ignShell.tsx
+
+
+> Build failed because of 
+webpack errors
+

@@ -32,7 +32,7 @@ export async function sendWelcomeEmail(email: string, name: string) {
                 <ul style="padding-left: 20px;">
                     <li style="margin-bottom: 10px;"><strong>14-Day Full Access Trial:</strong> You have 14 days of unrestricted access to the complete Sovereign Intelligence suite.</li>
                     <li style="margin-bottom: 10px;"><strong>The Token System:</strong> Your account has been credited with your initial strategic tokens. These power your interactions with the Sovereign Mentor and the Neuro-Resilience Briefing engine.</li>
-                    <li><strong>Command Deck:</strong> <a href="https://edintel-app.vercel.app/dashboard" style="color: #10b981; font-weight: bold;">Access your dashboard here</a> to begin your first briefing.</li>
+                    <li><strong>Command Deck:</strong> <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://edintel-prod-ready.vercel.app'}/dashboard" style="color: #10b981; font-weight: bold;">Access your dashboard here</a> to begin your first briefing.</li>
                 </ul>
             </div>
 

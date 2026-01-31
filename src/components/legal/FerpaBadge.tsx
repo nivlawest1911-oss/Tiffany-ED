@@ -1,20 +1,68 @@
 'use client';
 
 import React from 'react';
-import { ShieldCheck, Scale } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ShieldCheck, Scale, Lock as LockIcon } from 'lucide-react';
+import SovereignInteractionAgent from '../SovereignInteractionAgent';
 
 export const ComplianceBadge = () => {
     return (
-        <div className="flex items-center gap-6 p-4 bg-emerald-500/5 border border-emerald-500/20 rounded-xl backdrop-blur-sm">
-            <div className="flex items-center gap-2 text-emerald-400">
-                <ShieldCheck size={20} className="drop-shadow-[0_0_8px_rgba(52,211,153,0.5)]" />
-                <span className="text-[10px] font-black uppercase tracking-widest leading-none">FERPA Compliant</span>
-            </div>
-            <div className="w-px h-4 bg-white/10" />
-            <div className="flex items-center gap-2 text-emerald-400">
-                <Scale size={20} className="drop-shadow-[0_0_8px_rgba(52,211,153,0.5)]" />
-                <span className="text-[10px] font-black uppercase tracking-widest leading-none">AL Literacy Act Ready</span>
-            </div>
-        </div>
+        <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="flex flex-wrap items-center justify-center gap-6 p-4 md:p-6 liquid-glass border-noble-gold/20 shadow-[0_0_20px_rgba(212,175,55,0.1)] rounded-[2rem]"
+        >
+            <SovereignInteractionAgent
+                title="FERPA Secure"
+                description="FERPA Compliant Data Governance. Ensuring 100% student data privacy and regulatory compliance through the Sovereign security mesh."
+                agentId="strategic"
+            >
+                <div className="flex items-center gap-3 cursor-help group/badge">
+                    <div className="w-8 h-8 rounded-lg bg-noble-gold/10 flex items-center justify-center border border-noble-gold/30 group-hover/badge:border-noble-gold/60 transition-colors">
+                        <ShieldCheck size={18} className="text-noble-gold drop-shadow-[0_0_8px_rgba(212,175,55,0.5)]" />
+                    </div>
+                    <div className="flex flex-col">
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] leading-none text-white group-hover/badge:text-noble-gold transition-colors">FERPA Secure</span>
+                        <span className="text-[8px] font-bold uppercase tracking-widest text-white/40 mt-1">Data Governance</span>
+                    </div>
+                </div>
+            </SovereignInteractionAgent>
+
+            <div className="hidden md:block w-px h-8 bg-white/10" />
+
+            <SovereignInteractionAgent
+                title="Literacy Act Ready"
+                description="Alabama Literacy Act Synchronization. All instructional protocols are mapped directly to Alabama's latest reading and math standards."
+                agentId="philosopher"
+            >
+                <div className="flex items-center gap-3 cursor-help group/badge">
+                    <div className="w-8 h-8 rounded-lg bg-noble-gold/10 flex items-center justify-center border border-noble-gold/30 group-hover/badge:border-noble-gold/60 transition-colors">
+                        <Scale size={18} className="text-noble-gold drop-shadow-[0_0_8px_rgba(212,175,55,0.5)]" />
+                    </div>
+                    <div className="flex flex-col">
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] leading-none text-white group-hover/badge:text-noble-gold transition-colors">Literacy Act ready</span>
+                        <span className="text-[8px] font-bold uppercase tracking-widest text-white/40 mt-1">Alabama Standards</span>
+                    </div>
+                </div>
+            </SovereignInteractionAgent>
+
+            <div className="hidden md:block w-px h-8 bg-white/10" />
+
+            <SovereignInteractionAgent
+                title="Sovereign Vault"
+                description="Sovereign Vault Encryption. Your academic data is secured with industrial-grade, end-to-end encryption and biometric gatekeeping."
+                agentId="tactical"
+            >
+                <div className="flex items-center gap-3 cursor-help group/badge">
+                    <div className="w-8 h-8 rounded-lg bg-noble-gold/10 flex items-center justify-center border border-noble-gold/30 group-hover/badge:border-noble-gold/60 transition-colors">
+                        <LockIcon size={18} className="text-noble-gold drop-shadow-[0_0_8px_rgba(212,175,55,0.5)]" />
+                    </div>
+                    <div className="flex flex-col">
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] leading-none text-white group-hover/badge:text-noble-gold transition-colors">Sovereign Vault</span>
+                        <span className="text-[8px] font-bold uppercase tracking-widest text-white/40 mt-1">End-to-End Encrypted</span>
+                    </div>
+                </div>
+            </SovereignInteractionAgent>
+        </motion.div>
     );
 };

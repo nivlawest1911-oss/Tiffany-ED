@@ -15,7 +15,7 @@ interface ApiKey {
 export default function SovereignApiVault() {
     const [isOpen, setIsOpen] = useState(false);
 
-    const INITIAL_KEYS: ApiKey[] = [
+    const _INITIAL_KEYS: ApiKey[] = [
         { id: 'openai', name: 'Neural Processing (GPT-4o)', key: 'sk-proj-••••••••••••••••••••••••••••••••3a2f', status: 'active', usage: 12 },
         { id: 'google', name: 'Quantum Reasoning (Gemini 2.0)', key: 'AIzaSy••••••••••••••••••••••••••••7b9d', status: 'active', usage: 45 },
         { id: 'vertex', name: 'Vertex AI Sovereign (Gemini 1.5 Pro)', key: 'vtx-••••••••••••••••••••••••••••1a2b', status: 'active', usage: 89 },

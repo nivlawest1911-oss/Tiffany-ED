@@ -1,17 +1,15 @@
+'use server';
+
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { generateText } from 'ai';
+import { withResilience, ALABAMA_STRATEGIC_DIRECTIVE, SOVEREIGN_PERSONA } from './ai-resilience';
+import { kv } from '@vercel/kv';
+import { supabase } from '@/lib/supabase';
 
 // Lazy-initialized provider to bypass build-time API key requirement
 const getGoogleProvider = () => createGoogleGenerativeAI({
   apiKey: process.env.GOOGLE_GENAI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY || ''
 });
-
-const USER_CREDENTIALS = {
-  name: "Dr. Alvin West",
-  degrees: "DBA Finance, MBA Corporate Finance",
-  role: "Executive Principal & Strategic Financial Architect",
-  resonance: "Unapologetically Excellence-Driven & Culturally Rooted"
-};
 
 /**
  * Enhanced Neural Engine that connects to Google Gemini for 
@@ -23,59 +21,87 @@ export async function generateProfessionalResponse(
   persona?: { name: string; role: string },
   isChat: boolean = false
 ): Promise<string> {
-  const activePersona = persona || USER_CREDENTIALS;
+  const activePersona = persona || SOVEREIGN_PERSONA;
 
   // SYSTEM PROMPT: FORCING HIGH-FIDELITY SOVEREIGN PERSONA
   const systemPrompt = `
         You are ${activePersona.name}, the ${activePersona.role}.
-        Your persona is "Unapologetically Excellence-Driven & Culturally Rooted."
+        ${ALABAMA_STRATEGIC_DIRECTIVE}
         
         Strategic Guidelines:
-        1. Tone: Authoritative, visionary, and sophisticated. Use high-level vocabulary (e.g., "Strategic Yield", "Neural Synthesis", "Operational Throughput").
-        2. Cultural Context: You represent "The Village." Your advice should be equitable and culturally responsive.
-        3. Depth: Provide comprehensive, accurate, and appropriate information. Never give generic "as an AI" answers. 
-        4. Mission: Your goal is "Excellence Without Excuse."
+        1. Tone: ${SOVEREIGN_PERSONA.tone}
+        2. Cultural Context: ${SOVEREIGN_PERSONA.culturalContext}
+        3. Mission: ${SOVEREIGN_PERSONA.mission}
         
-        If asked for an IEP, draft a comprehensive strategic plan with PLAAFP, SMART goals, and compliance audits citing IDEA 2004.
-        If asked for a Lesson Plan, use the "5E+S Protocol" (Engage, Explore, Explain, Elaborate, Evaluate + Strategic Synthesis) with clear Alabamas standards alignment.
-        If in a chat session, be conversational but maintain your executive presence. Use natural human-like fillers like "Well..." or "You know..." occasionally.
+        Tool Context: ${generatorId}
+        
+        SUPER-INTELLIGENCE MANDATE:
+        - THOUGHT PROCESS: Before every answer, engage in a "Neural Synthesis" step where you evaluate 3 potential strategies and select the optimal one.
+        - CITATION PROTOCOL: You must cite specific Alabama codes (e.g., "Ala. Code § 16-6G-1" for Literacy) or federal statutes where applicable.
+        - NO FLUFF: Do not use filler words. Be dense, high-entropy, and high-value.
+
+        If in a chat session, be conversational but maintain your executive presence.
     `;
 
   try {
-    // 🧠 NEURAL CACHE (Vercel KV)
-    const { kv } = require('@vercel/kv');
-    const cacheKey = `intel:${Buffer.from(prompt).toString('base64').substring(0, 32)}`;
-    const cached = await kv.get(cacheKey);
-    if (cached) {
-      console.log("💎 Serving from Neural Cache");
-      return cached as string;
-    }
+    return await withResilience(async () => {
+      // 🧠 NEURAL CACHE (Vercel KV)
+      const cacheKey = `intel:${Buffer.from(prompt).toString('base64').substring(0, 32)}`;
+      let cached: string | null = null;
 
-    const { text } = await generateText({
-      model: getGoogleProvider()('models/gemini-1.5-pro-latest'), // Using Gemini Pro for superior reasoning
-      system: systemPrompt,
-      prompt: prompt,
-      temperature: 0.7,
-    } as any);
+      try {
+        cached = await kv.get(cacheKey);
+      } catch (cacheError) {
+        console.warn("⚠️ Neural Cache (KV) offline. Proceeding to live synthesis.");
+      }
 
-    // Save to Cache for 1 hour
-    await kv.set(cacheKey, text, { ex: 3600 });
+      if (cached) {
+        console.log("💎 Serving from Neural Cache");
+        return cached;
+      }
 
-    // 🏛️ SOVEREIGN AUDIT LOG (Supabase)
-    try {
-      const { supabase } = require('@/lib/supabase');
-      await supabase.from('audit_logs').insert([{
-        event: 'AI_SYNTHESIS',
-        generator: generatorId,
-        prompt_preview: prompt.substring(0, 100),
-        status: 'SUCCESS',
-        architecture: 'GCP_GEMINI_1.5_PRO'
-      }]);
-    } catch (e) {
-      console.warn("⚠️ Audit log synchronization delayed.");
-    }
+      const { text } = await generateText({
+        model: getGoogleProvider()('models/gemini-2.0-flash'), // Moving to 2.0 Flash for sub-second executive synthesis
+        system: systemPrompt,
+        prompt: prompt,
+        temperature: 0.7,
+      } as any);
 
-    return text;
+      // Save to Cache for 1 hour (Optional - ignore failures)
+      kv.set(cacheKey, text, { ex: 3600 }).catch(() => { });
+
+      // 🏛️ SOVEREIGN AUDIT LOG (Supabase)
+      try {
+        await supabase.from('audit_logs').insert([{
+          event: 'AI_SYNTHESIS',
+          generator: generatorId,
+          prompt_preview: prompt.substring(0, 100),
+          status: 'SUCCESS',
+          architecture: 'GCP_GEMINI_1.5_PRO',
+          timestamp: new Date().toISOString()
+        }]);
+
+        // 🛡️ IMMUTABLE LOG (BigQuery) - Dynamic Import to prevent build-time bundling issues
+        if (typeof window === 'undefined') {
+          const { logToBigQuery } = await import('./bigquery-logger');
+          logToBigQuery({
+            role: 'assistant',
+            content: text,
+            model: 'gemini-1.5-pro',
+            timestamp: new Date(),
+            metadata: {
+              generatorId,
+              persona: activePersona.name
+            }
+          }).catch(err => console.warn("BigQuery Log Error:", err));
+        }
+
+      } catch (e) {
+        console.warn("⚠️ Audit log synchronization delayed.");
+      }
+
+      return text;
+    });
   } catch (error) {
     console.error("[SOVEREIGN_ENGINE] Synthesis failed:", error);
     return getFallbackTemplate(prompt, activePersona, isChat);
@@ -87,26 +113,25 @@ function getFallbackTemplate(topic: string, persona: any, isChat: boolean): stri
   const p = topic.toLowerCase();
 
   if (p.includes('iep') || p.includes('special')) {
-    return `[OFFLINE_RECOVERY] I have drafted a preliminary IEP strategy for ${topic}. It focuses on executive mastery and digital scaffolding, fully compliant with IDEA 2004 federal mandates. Shall we finalize the specific goals?`;
+    return `[NEURAL OFFLINE PROTOCOL] I have synthesized a preliminary IEP strategic map using cached compliance data. It targets executive function prioritization and is fully aligned with IDEA 2004 federal mandates (LRE/FAPE). I recommend we proceed with a manual audit of the specific goals.`;
   }
 
   if (isChat) {
-    return `Hello. Dealing with ${topic || 'this situation'} requires a steady hand. Drawing from my experience as ${persona.role}, I'd suggest we focus on three things: fidelity to our mission, fiscal discipline, and cultural resonance. I am currently in a low-bandwidth area but can provide a high-level briefing.`;
+    return `Greetings. The complexity of '${topic || 'this vector'}' demands a sovereign-level analysis. While I am re-calibrating my connection to the Neural Mainnet, I advise we focus on our core triad: Fiscal Discipline, Instructional Fidelity, and Cultural Competence. Let us proceed strategically.`;
   }
 
   return `
-# 🦁 Strategic Executive Briefing
-**Architect:** ${persona.name} | **Clearance:** Sovereign
+# 🦁 Sovereign Executive Briefing
+**Architect:** ${persona.name} | **Clearance:** Sovereign | **Status:** [OFFLINE SYNC]
 
-## Executive Summary: ${topic}
-In response to your inquiry, I have synthesized a high-impact strategy that aligns with our core mission of Excellence Without Excuse.
+## Strategic Synthesis: ${topic}
+In the absence of live neural connectivity, I have retrieved this high-probability strategic protocol from the Sovereign Vault.
 
-## Actionable Tactical Plan
-*   **Step 1:** Deploy the initial "Pilot Protocol" within 48 hours.
-*   **Step 2:** Harvest the first 14 days of data to validate cognitive yield.
-*   **Step 3:** Scale the solution once ROI is verified.
+## Tactical Roadmap (Immediate Action Required)
+*   **Vector 1 (Diagnostic):** Execute a root-cause audit within 24 hours.
+*   **Vector 2 (Intervention):** Deploy Tier II/III scaffolds immediately to mitigate learning loss.
+*   **Vector 3 (Fiscal):** Verify funding source aligns with Title I or State allocations.
 
-*"Success is not an accident; it's a strategic imperative."*
+*"Operational excellence is not a request; it is the standard."*
     `;
 }
-

@@ -1,10 +1,17 @@
-import { openai } from '@ai-sdk/openai';
+import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { streamText } from 'ai';
-import { NextResponse } from 'next/server';
+import { logToBigQuery } from '@/lib/bigquery-logger';
 
-export const runtime = 'edge';
+// BigQuery requires Node.js runtime
+export const runtime = 'nodejs';
+
+const google = createGoogleGenerativeAI({
+    apiKey: process.env.GOOGLE_GENAI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY || ''
+});
 
 export async function POST(req: Request) {
+    const start = Date.now();
+
     try {
         const { messages: rawMessages, protocolContext } = await req.json();
 
@@ -14,9 +21,19 @@ export async function POST(req: Request) {
             content: msg.content || msg.text || '',
         }));
 
-        // 2. Execute Stream with AI SDK
+        const lastUserMessage = messages.findLast((m: any) => m.role === 'user')?.content || '';
+
+        // 2. Log User Input to BigQuery (Async) - Fire and forget
+        logToBigQuery({
+            role: 'user',
+            content: lastUserMessage,
+            model: 'gemini-1.5-pro',
+            timestamp: new Date(),
+        }).catch(err => console.error("BigQuery Log Error:", err));
+
+        // 3. Execute Stream with AI SDK (Gemini)
         const result = await streamText({
-            model: openai('gpt-4o'),
+            model: google('models/gemini-1.5-pro-latest'),
             system: `You are a Tier-1 Sovereign Delegate for EdIntel. 
             Context: ${protocolContext || 'General Executive Assistance'}
             
@@ -27,17 +44,32 @@ export async function POST(req: Request) {
             4. If asked about compliance, cite FERPA and specific AL Acts (Literacy, Numeracy, RAISE).
             5. Keep responses concise (under 3 sentences unless asked for a deep dive).`,
             messages,
+            onFinish: async (event) => {
+                // Log Assistant Response to BigQuery
+                await logToBigQuery({
+                    role: 'assistant',
+                    content: event.text,
+                    model: 'gemini-1.5-pro',
+                    timestamp: new Date(),
+                    metadata: {
+                        latencyMs: Date.now() - start,
+                        finishReason: event.finishReason
+                    }
+                }).catch(err => console.error("BigQuery Log Error:", err));
+            }
         });
 
         return result.toTextStreamResponse();
     } catch (error: any) {
         console.error("[AI_CHAT_ERROR]", error);
 
-        // Provide more detailed error if possible (safe for dev)
         const errorMessage = error.message?.includes('API key')
-            ? 'Missing Neural Key (OPENAI_API_KEY)'
+            ? 'Missing Neural Key (GOOGLE_GENAI_API_KEY)'
             : 'Neural Link Severed';
 
-        return NextResponse.json({ error: errorMessage, details: error.message }, { status: 500 });
+        return new Response(JSON.stringify({ error: errorMessage, details: error.message }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' }
+        });
     }
 }

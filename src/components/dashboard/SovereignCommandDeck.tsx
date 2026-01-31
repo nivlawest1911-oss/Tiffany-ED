@@ -28,7 +28,7 @@ export default function SovereignCommandDeck() {
     const trialStart = (user as any)?.created_at ? new Date((user as any).created_at).getTime() : Date.now();
     const trialEnd = trialStart + (30 * 24 * 60 * 60 * 1000); // 30 days in ms
     const daysRemaining = Math.max(0, Math.ceil((trialEnd - Date.now()) / (1000 * 60 * 60 * 24)));
-    const isTrialActive = daysRemaining > 0;
+    const _isTrialActive = daysRemaining > 0;
 
     return (
         <div className="w-full max-w-7xl mx-auto p-6 space-y-8 text-white min-h-screen bg-[#050507]">

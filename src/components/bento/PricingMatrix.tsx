@@ -1,107 +1,24 @@
 'use client';
-import { Check, Zap, Rocket, Star, ArrowRight, Sparkles } from "lucide-react";
-import { useState, useTransition, useEffect } from 'react';
+import { Check, Star, ArrowRight, Sparkles, Crown, GraduationCap, Briefcase, Building } from "lucide-react";
+import { useTransition } from 'react';
 import { motion } from 'framer-motion';
-import { getStripeHandshake, StripeHandshake, createSovereignCheckout } from '@/app/actions/professional-stripe';
+import { createSovereignCheckout } from '@/app/actions/professional-stripe';
 import { useAuth } from '@/context/AuthContext';
+import { SOVEREIGN_TIERS } from '@/lib/pricing-config';
+
+// Icon mapping helper
+const IconMap: Record<string, any> = {
+    Building: Building,
+    Crown: Crown,
+    Briefcase: Briefcase,
+    GraduationCap: GraduationCap,
+    Star: Star,
+    Sparkles: Sparkles
+};
 
 export default function PricingMatrix() {
-    const [pricing, setPricing] = useState<StripeHandshake | null>(null);
-    const [isAnnual, setIsAnnual] = useState(false);
     const [isPending, startTransition] = useTransition();
     const { user } = useAuth();
-
-    useEffect(() => {
-        async function loadPricing() {
-            try {
-                const data = await getStripeHandshake();
-                setPricing(data);
-            } catch (error) {
-                console.error("Failed to handshake with Stripe:", error);
-            }
-        }
-        loadPricing();
-    }, []);
-
-    const tiers = [
-        {
-            name: "Basic",
-            price: "Free",
-            priceId: null,
-            icon: <Sparkles className="text-zinc-400" size={24} />,
-            color: "zinc",
-            accent: "from-zinc-500 to-zinc-600",
-            shadowColor: "shadow-zinc-900/20",
-            iconColor: "text-zinc-400",
-            idealFor: "Observers & New Users",
-            value: "Getting started with professional growth.",
-            features: [
-                "Basic Resource Access",
-                "Community Feed Access",
-                "Daily Usage Credits (5 per day)",
-                "Grant Writing Templates",
-                "Professional Resource Vault"
-            ]
-        },
-        {
-            name: "Professional",
-            price: isAnnual
-                ? (pricing?.practitioner.annual || 44.99)
-                : (pricing?.practitioner.monthly || 49.99),
-            priceId: isAnnual
-                ? pricing?.practitioner.annualId
-                : pricing?.practitioner.id,
-            icon: <Rocket className="text-cyan-400" size={24} />,
-            color: "cyan",
-            accent: "from-cyan-500 to-blue-600",
-            shadowColor: "shadow-cyan-900/20",
-            iconColor: "text-cyan-400",
-            idealFor: "Classroom Teachers & Specialists",
-            value: "Enhance your classroom efficiency. Includes 30-Day Trial.",
-            recommended: true,
-            subtitle: "Most Popular",
-            features: [
-                "30-Day Free Trial Included",
-                "IEP Narrative Smart-Drafting",
-                "Full Legal Resource Access",
-                "Unlimited AI Generations",
-                "Advanced Literacy Support",
-                "Priority Support Access"
-            ]
-        },
-        {
-            name: "Building Leader",
-            price: isAnnual
-                ? (pricing?.siteCommand.annual || 69.99)
-                : (pricing?.siteCommand.monthly || 79.99),
-            priceId: isAnnual
-                ? pricing?.siteCommand.annualId
-                : pricing?.siteCommand.id,
-            icon: <Zap className="text-violet-400" size={24} />,
-            color: "violet",
-            accent: "from-violet-500 to-fuchsia-600",
-            shadowColor: "shadow-violet-900/20",
-            iconColor: "text-violet-400",
-            highlight: true,
-            idealFor: "Principals & Building Admin",
-            value: "Building-wide efficiency and stability. Includes 30-Day Trial.",
-            features: [
-                "30-Day Free Trial Included",
-                "Classroom Review Synthesizer",
-                "Staff Retention Analytics",
-                "Automated SPED Compliance",
-                "Building Performance Dashboard",
-                "School-Level Grant Support"
-            ]
-        }
-    ];
-
-    const additionalRates = [
-        { service: "Onsite Full-Day Protocol", price: "$6,500", deliverable: "Staff Overhaul & Implementation" },
-        { service: "Keynote Address", price: "$10,000", deliverable: "Visionary Leadership Speech" },
-        { service: "Virtual Masterclass", price: "$3,500", deliverable: "90-min Rapid Tool Deployment" },
-        { service: "Executive Coaching", price: "$2,500", deliverable: "Monthly 1:1 Strategic Alignment" }
-    ];
 
     return (
         <div className="w-full max-w-7xl mx-auto p-4 md:p-8">
@@ -118,89 +35,95 @@ export default function PricingMatrix() {
                 </div>
 
                 <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase mb-6 relative z-10">
-                    Sovereign <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-violet-500 text-noble-gold">Value</span>
+                    Sovereign <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-violet-500 gold-gradient-text">Value</span>
                 </h2>
-
-                {/* Toggle */}
-                <div className="mt-10 inline-flex p-1 bg-zinc-900/80 backdrop-blur-xl border border-zinc-800 rounded-2xl relative z-10">
-                    <button
-                        onClick={() => setIsAnnual(false)}
-                        className={`px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${!isAnnual ? 'bg-zinc-800 text-white shadow-lg' : 'text-zinc-500 hover:text-zinc-300'}`}
-                    >
-                        Monthly
-                    </button>
-                    <button
-                        onClick={() => setIsAnnual(true)}
-                        className={`px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${isAnnual ? 'bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-lg' : 'text-zinc-500 hover:text-zinc-300'}`}
-                    >
-                        Annual
-                    </button>
-                </div>
             </div>
 
             {/* Pricing Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
-                {tiers.map((tier, idx) => (
-                    <motion.div
-                        key={idx}
-                        whileHover={{ y: -5 }}
-                        className={`relative p-0.5 rounded-[2rem] transition-all bg-zinc-900 border border-white/5`}
-                    >
-                        <div className="relative h-full bg-zinc-950 rounded-[1.9rem] p-6 flex flex-col">
-                            <div className="mb-6">
-                                <div className={`w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center mb-4 ${tier.shadowColor}`}>
-                                    {tier.icon}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10 pb-12">
+                {SOVEREIGN_TIERS.map((tier, idx) => {
+                    const Icon = IconMap[tier.icon] || Star;
+                    return (
+                        <motion.div
+                            key={tier.id}
+                            whileHover={{ y: -5 }}
+                            className={`relative p-0.5 rounded-[2rem] transition-all duration-500`}
+                        >
+                            <div className={`relative h-full rounded-[1.9rem] p-6 flex flex-col liquid-glass overflow-hidden group`}>
+                                {/* Liquid animated background for paid tiers */}
+                                {tier.price > 0 && (
+                                    <div className="absolute inset-0 bg-gradient-to-br from-noble-gold/5 via-noble-navy/50 to-noble-navy opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                                )}
+
+                                <div className="relative z-10 mb-6">
+                                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-colors duration-300 ${tier.price > 30 ? 'bg-noble-gold/20 text-noble-gold' : 'bg-white/5 text-slate-400'}`}>
+                                        <Icon size={24} />
+                                    </div>
+                                    <h3 className={`text-xl font-black uppercase italic ${tier.price > 30 ? 'text-noble-gold' : 'text-white'}`}>{tier.name}</h3>
+                                    <p className="text-[9px] font-bold text-zinc-400 uppercase tracking-widest mt-1">{tier.idealFor}</p>
                                 </div>
-                                <h3 className="text-xl font-black text-white uppercase italic">{tier.name}</h3>
-                                <p className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest mt-1">{tier.idealFor}</p>
-                            </div>
 
-                            <div className="mb-6 pb-6 border-b border-zinc-900">
-                                <div className="flex items-baseline gap-1">
-                                    {typeof tier.price === 'number' && <span className="text-xl font-bold text-zinc-500">$</span>}
-                                    <span className={`text-4xl font-black tracking-tighter text-white`}>
-                                        {tier.price}
-                                    </span>
-                                    {typeof tier.price === 'number' && <span className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest">/ Mo</span>}
+                                <div className="relative z-10 mb-6 pb-6 border-b border-white/10">
+                                    <div className="flex items-baseline gap-1">
+                                        {tier.price > 0 && <span className="text-xl font-bold text-zinc-500">$</span>}
+                                        <span className={`text-4xl font-black tracking-tighter text-white`}>
+                                            {tier.price === 0 ? 'Free' : tier.price}
+                                        </span>
+                                        {tier.price > 0 && <span className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest">/ Mo</span>}
+                                    </div>
+                                    {tier.price > 0 && (
+                                        <div className="mt-2 text-[10px] text-emerald-400 font-bold uppercase tracking-wider flex items-center gap-1">
+                                            <Sparkles size={10} /> 30-Day Free Trial
+                                        </div>
+                                    )}
                                 </div>
-                            </div>
 
-                            <ul className="space-y-3 mb-8 flex-1">
-                                {tier.features.slice(0, 4).map((feat, fidx) => (
-                                    <li key={fidx} className="flex items-start gap-2 text-xs text-zinc-400 font-medium">
-                                        <Check size={14} className={`${tier.iconColor} mt-0.5 shrink-0`} />
-                                        <span>{feat}</span>
-                                    </li>
-                                ))}
-                            </ul>
+                                <ul className="space-y-3 mb-8 flex-1 relative z-10">
+                                    {tier.features.slice(0, 4).map((feat, fidx) => (
+                                        <li key={fidx} className="flex items-start gap-2 text-xs text-zinc-300 font-medium">
+                                            <Check size={14} className={`${tier.price > 30 ? 'text-noble-gold' : 'text-zinc-500'} mt-0.5 shrink-0`} />
+                                            <span>{feat}</span>
+                                        </li>
+                                    ))}
+                                </ul>
 
-                            <button
-                                disabled={isPending}
-                                onClick={() => {
-                                    if (tier.price === 'Free') {
-                                        window.location.href = '/signup';
-                                    } else {
+                                <button
+                                    disabled={isPending}
+                                    onClick={() => {
+                                        if (tier.price === 0) {
+                                            window.location.href = '/signup';
+                                            return;
+                                        }
+
+                                        if (tier.stripeLink && tier.stripeLink.startsWith('http')) {
+                                            window.location.href = tier.stripeLink;
+                                            return;
+                                        }
+
                                         startTransition(async () => {
                                             try {
-                                                if (tier.priceId) {
-                                                    const { url } = await createSovereignCheckout(tier.priceId, tier.name, user?.id);
+                                                if (tier.stripeLink) {
+                                                    const { url } = await createSovereignCheckout(tier.stripeLink, tier.name, user?.id);
                                                     if (url) window.location.href = url;
                                                 }
                                             } catch (error) {
                                                 console.error("Stripe Connection Error:", error);
                                             }
                                         });
-                                    }
-                                }}
-                                className={`w-full py-3 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-all ${tier.highlight
-                                    ? `bg-noble-gold text-black`
-                                    : 'bg-zinc-800 text-white hover:bg-zinc-700'} ${isPending ? 'opacity-50' : ''}`}>
-                                {isPending ? 'Processing...' : (tier.price === 'Free' ? 'Initialize' : 'Authorize Protocol')}
-                                <ArrowRight size={12} />
-                            </button>
-                        </div>
-                    </motion.div>
-                ))}
+                                    }}
+                                    className={`relative w-full py-3 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-all overflow-hidden
+                                        ${tier.price >= 40
+                                            ? `bg-noble-gold text-noble-navy hover:shadow-[0_0_20px_rgba(212,175,55,0.4)]`
+                                            : 'bg-white/10 text-white hover:bg-white/20 hover:text-noble-gold'} 
+                                        ${isPending ? 'opacity-50' : ''}`}
+                                >
+                                    {isPending ? 'Processing...' : (tier.price === 0 ? 'Initialize' : 'Start 30-Day Trial')}
+                                    <ArrowRight size={12} />
+                                </button>
+                            </div>
+                        </motion.div>
+                    );
+                })}
             </div>
         </div>
     );

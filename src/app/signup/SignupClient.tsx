@@ -14,7 +14,7 @@ function SignupForm() {
     const [error, setError] = useState('');
     const [isProcessing, setIsProcessing] = useState(false);
     const [showBriefing, setShowBriefing] = useState(false);
-    const router = useRouter();
+    const _router = useRouter();
     const searchParams = useSearchParams();
     const plan = searchParams.get('plan') || 'free';
     const billing = searchParams.get('billing');

@@ -2,9 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import Replicate from 'replicate';
 import { depositToMemoryBank } from '@/lib/memory-bank';
 import { getSession } from '@/lib/auth';
+import { withResilience } from '@/lib/ai-resilience';
 
 export const dynamic = 'force-dynamic';
-export const runtime = 'nodejs'; // Required for Replicate/Blob integrations usually
+export const runtime = 'nodejs';
 
 const replicate = new Replicate({
     auth: process.env.REPLICATE_API_TOKEN,
@@ -25,53 +26,48 @@ export async function POST(req: NextRequest) {
 
         console.log(`[Greyhawk] Initiating Professor Synthesis for: ${professorType}`);
 
-        // 1. Call Replicate (Talking Head Synthesis)
-        // Using common Talking Head model: sora-style or sadtalker
-        // Note: In a real production environment, this would be an async task.
-        // For the Professional experience, we trigger the synthesis.
-
         let professorUrl = "";
 
         try {
             if (process.env.REPLICATE_API_TOKEN) {
                 console.log("[Replicate] Step 1: Generating Audio with XTTS-v2...");
-                // 1. Generate Speech (XTTS-v2)
-                const audioOutput: any = await replicate.run(
-                    "lucataco/xtts-v2:684c4b215403e51af6587d159a2G974780277bd7d1c1f9ed2f95d24d275fc88b",
-                    {
-                        input: {
-                            text: script,
-                            speaker: "https://replicate.delivery/pbxt/JtQiYxWSN0mSDR4u77m808080808080808080808080808080/female.wav", // Default professional voice
-                            language: "en"
+                const audioUrl: any = await withResilience(async () => {
+                    return await replicate.run(
+                        "lucataco/xtts-v2:684c4b215403e51af6587d159a2G974780277bd7d1c1f9ed2f95d24d275fc88b",
+                        {
+                            input: {
+                                text: script,
+                                speaker: "https://replicate.delivery/pbxt/JtQiYxWSN0mSDR4u77m808080808080808080808080808080/female.wav",
+                                language: "en"
+                            }
                         }
-                    }
-                );
-                const audioUrl = audioOutput;
+                    );
+                });
                 console.log("[Replicate] Audio Ready:", audioUrl);
 
                 console.log("[Replicate] Step 2: Synchronizing with SadTalker...");
-                // 2. Generate Video (SadTalker)
-                const videoOutput: any = await replicate.run(
-                    "cjwbw/sadtalker:380d302633005a96860000000000000000000000000000000000000000000000",
-                    {
-                        input: {
-                            source_image: avatarUrl || "/images/avatars/dr_alvin_west_premium.png",
-                            driven_audio: audioUrl,
-                            still: true,
-                            preprocess: "full",
-                            enhance: true
+                const videoOutput: any = await withResilience(async () => {
+                    return await replicate.run(
+                        "cjwbw/sadtalker:380d302633005a96860000000000000000000000000000000000000000000000",
+                        {
+                            input: {
+                                source_image: avatarUrl || "/images/avatars/dr_alvin_west_premium.png",
+                                driven_audio: audioUrl,
+                                still: true,
+                                preprocess: "full",
+                                enhance: true
+                            }
                         }
-                    }
-                );
+                    );
+                });
                 professorUrl = videoOutput;
                 console.log("[Replicate] Video Ready:", professorUrl);
 
             } else {
                 console.warn("[Replicate] Token Missing. Using fallback video.");
-                professorUrl = ""; // REPLACED: Stock footage removed
+                professorUrl = "";
             }
 
-            // 2. VAULTING: Ensure EdIntel owns the URL (Memory Bank)
             const vaultedUrl = await depositToMemoryBank(professorUrl, `temple/professors/${professorType}-${Date.now()}.mp4`);
 
             return NextResponse.json({

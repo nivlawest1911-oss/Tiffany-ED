@@ -15,21 +15,27 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading && !user) {
-      router.push('/login');
+    if (!loading) {
+      if (!user) {
+        router.push('/login');
+      } else if (!AUTHORIZED_EMAILS.includes(user.email)) {
+        console.warn(`[Security] Unauthorized access attempt by ${user.email}`);
+        router.push('/login?error=Unauthorized');
+      }
     }
-    // Strict email check can be re-enabled here if needed
   }, [user, loading, router]);
 
-  if (loading) return (
-    <div className="min-h-screen flex items-center justify-center bg-zinc-950 text-white">
-      <div className="p-10 rounded-3xl bg-zinc-900 border border-zinc-800 shadow-2xl text-center space-y-4">
-        <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto" />
-        <h2 className="text-xl font-bold tracking-widest uppercase animate-pulse">Verifying Executive Credentials...</h2>
-        <p className="text-zinc-500 text-xs font-mono">Project Alpha Secure Gateway</p>
+  if (loading || !user || !AUTHORIZED_EMAILS.includes(user.email)) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-zinc-950 text-white">
+        <div className="p-10 rounded-3xl bg-zinc-900 border border-zinc-800 shadow-2xl text-center space-y-4">
+          <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto" />
+          <h2 className="text-xl font-bold tracking-widest uppercase animate-pulse">Verifying Executive Credentials...</h2>
+          <p className="text-zinc-500 text-xs font-mono">Project Alpha Secure Gateway</p>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 
   return <>{children}</>;
 }

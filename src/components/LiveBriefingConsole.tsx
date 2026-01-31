@@ -27,11 +27,12 @@ export default function LiveBriefingConsole({ name, description, role, color, pr
 
     // 1. Initialize User Webcam (Secure Connection)
     useEffect(() => {
+        const currentVideo = userVideoRef.current;
         const startWebcam = async () => {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
-                if (userVideoRef.current) {
-                    userVideoRef.current.srcObject = stream;
+                if (currentVideo) {
+                    currentVideo.srcObject = stream;
                 }
             } catch (err) {
                 console.error("Secure Connection Failed:", err);
@@ -40,9 +41,9 @@ export default function LiveBriefingConsole({ name, description, role, color, pr
         startWebcam();
 
         return () => {
-            // Cleanup stream
-            if (userVideoRef.current && userVideoRef.current.srcObject) {
-                const tracks = (userVideoRef.current.srcObject as MediaStream).getTracks();
+            // Cleanup stream using the captured video element
+            if (currentVideo && currentVideo.srcObject) {
+                const tracks = (currentVideo.srcObject as MediaStream).getTracks();
                 tracks.forEach(track => track.stop());
             }
         };

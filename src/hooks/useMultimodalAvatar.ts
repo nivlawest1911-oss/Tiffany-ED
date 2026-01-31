@@ -27,6 +27,7 @@ interface UseMultimodalAvatarProps {
     onTokenDeduct?: (amount: number) => void;
     onXPGain?: (amount: number) => void;
     onSpeak?: (text: string) => boolean; // Returns true if handled externally
+    voiceId?: string; // Optional: Explicit voice ID/gender hint
 }
 
 interface UseMultimodalAvatarReturn {
@@ -62,13 +63,22 @@ interface UseMultimodalAvatarReturn {
     speak: (text: string) => void;
 }
 
+const LEADERSHIP_ARCHETYPES: Record<string, { tone: string, rate: number, pitch: number }> = {
+    'alvin': { tone: 'visionary', rate: 0.9, pitch: 0.85 },
+    'marcus': { tone: 'philosophical', rate: 0.8, pitch: 0.7 },
+    'sarah': { tone: 'tactical', rate: 1.1, pitch: 1.05 },
+    'andré': { tone: 'innovative', rate: 1.0, pitch: 0.9 },
+    'default': { tone: 'professional', rate: 0.95, pitch: 0.9 }
+};
+
 export function useMultimodalAvatar({
     avatarName,
     avatarRole,
     engine = 'duix',
     onTokenDeduct,
     onXPGain,
-    onSpeak // Optional: Allow external component to handle speech (e.g. HeyGen)
+    onSpeak, // Optional: Allow external component to handle speech (e.g. HeyGen)
+    voiceId
 }: UseMultimodalAvatarProps): UseMultimodalAvatarReturn {
 
     const { user } = useAuth();
@@ -81,77 +91,30 @@ export function useMultimodalAvatar({
     const [sessionId, setSessionId] = useState<string | null>(null);
     const [sentiment, setSentiment] = useState<'neutral' | 'positive' | 'urgent' | 'distressed'>('neutral');
     const [error, setError] = useState<string | null>(null);
-    const [messageQueue, setMessageQueue] = useState<string>('');
 
     // Multimodal State
     const [mode, setMode] = useState<'cloud-socket' | 'edge-stream'>('edge-stream'); // Default to HTTP Stream for now
     const [isListening, setIsListening] = useState(false);
     const [isSpeaking, setIsSpeaking] = useState(false);
 
-    // Voice & Personality Config
-    const LEADERSHIP_ARCHETYPES: Record<string, { tone: string, rate: number, pitch: number }> = {
-        'alvin': { tone: 'visionary', rate: 0.9, pitch: 0.85 },
-        'marcus': { tone: 'philosophical', rate: 0.8, pitch: 0.7 },
-        'sarah': { tone: 'tactical', rate: 1.1, pitch: 1.05 },
-        'andré': { tone: 'innovative', rate: 1.0, pitch: 0.9 },
-        'default': { tone: 'professional', rate: 0.95, pitch: 0.9 }
-    };
-
-    const getArchetype = () => {
+    const getArchetype = useCallback(() => {
         const lowerName = avatarName.toLowerCase();
+        // Check voiceId hints
+        if (voiceId === '21m00Tcm4TlvDq8ikWAM' || voiceId === 'EXAVITQu4vr4xnSDxMaL' || voiceId === 'MF3mGyEYCl7XYW7LpInj' || voiceId === 'AZnzlk1XjtbaicYn0nS5') {
+            return { tone: 'authoritative-female', rate: 1.0, pitch: 1.05 };
+        }
+
         if (lowerName.includes('alvin')) return LEADERSHIP_ARCHETYPES['alvin'];
         if (lowerName.includes('marcus')) return LEADERSHIP_ARCHETYPES['marcus'];
         if (lowerName.includes('sarah')) return LEADERSHIP_ARCHETYPES['sarah'];
         if (lowerName.includes('andre') || lowerName.includes('andré')) return LEADERSHIP_ARCHETYPES['andré'];
         return LEADERSHIP_ARCHETYPES['default'];
-    };
+    }, [avatarName, voiceId]);
 
     const wsRef = useRef<WebSocket | null>(null);
     const messageQueueRef = useRef<string>('');
-    const requestStartTimeRef = useRef<number>(0);
     const recognitionRef = useRef<any>(null);
     const synthesisRef = useRef<SpeechSynthesisUtterance | null>(null);
-
-    // ============================================
-    // SPEECH RECOGNITION (STT)
-    // ============================================
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-            if (SpeechRecognition) {
-                const recognition = new SpeechRecognition();
-                recognition.continuous = false;
-                recognition.interimResults = false;
-                recognition.lang = 'en-US';
-
-                recognition.onstart = () => setIsListening(true);
-                recognition.onend = () => setIsListening(false);
-
-                recognition.onresult = (event: any) => {
-                    const text = event.results[0][0].transcript;
-                    sendMessage(text); // Auto-send on speech end
-                };
-
-                recognitionRef.current = recognition;
-            }
-        }
-    }, [avatarName]); // Re-init if avatar changes? mostly stable.
-
-    const startListening = useCallback(() => {
-        if (recognitionRef.current && !isListening) {
-            try {
-                recognitionRef.current.start();
-            } catch (e) {
-                console.warn("Speech recognition already active or blocking", e);
-            }
-        }
-    }, [isListening]);
-
-    const stopListening = useCallback(() => {
-        if (recognitionRef.current && isListening) {
-            recognitionRef.current.stop();
-        }
-    }, [isListening]);
 
     // ============================================
     // TEXT TO SPEECH (TTS)
@@ -191,10 +154,13 @@ export function useMultimodalAvatar({
 
         // Voice Selection Logic
         const voices = window.speechSynthesis.getVoices();
+        const lowerName = avatarName.toLowerCase();
+        const isFemale = lowerName.includes('keisha') || lowerName.includes('emily') || lowerName.includes('maya') || lowerName.includes('nova') || voiceId?.includes('Rachel') || voiceId?.includes('Bella') || voiceId?.includes('Elli') || voiceId?.includes('Nicole');
+
         const preferredVoice = voices.find(v =>
-            avatarName.toLowerCase().includes('alvin')
-                ? (v.name.includes('Daniel') || v.name.includes('Google UK English Male'))
-                : (v.name.includes('Google US English') || v.name.includes('Samantha'))
+            isFemale
+                ? (v.name.includes('Google US English') || v.name.includes('Samantha') || v.name.includes('Female'))
+                : (v.name.includes('Daniel') || v.name.includes('Google UK English Male') || v.name.includes('Male'))
         );
         if (preferredVoice) utterance.voice = preferredVoice;
 
@@ -204,34 +170,7 @@ export function useMultimodalAvatar({
 
         synthesisRef.current = utterance;
         window.speechSynthesis.speak(utterance);
-    }, [avatarName]);
-
-    // ============================================
-    // CONNECT TO CLOUD RUN AVATAR ENGINE
-    // ============================================
-    const connect = useCallback(async () => {
-        const wsUrl = process.env.NEXT_PUBLIC_AVATAR_ENGINE_WS_URL;
-
-        if (wsUrl && mode === 'cloud-socket') {
-            // ... existing WebSocket logic ...
-            try {
-                const ws = new WebSocket(wsUrl);
-                wsRef.current = ws;
-                ws.onopen = () => {
-                    setIsConnected(true);
-                    ws.send(JSON.stringify({ type: 'INIT_SESSION', data: { userId: user?.id, avatarName, avatarRole, engine } }));
-                };
-                ws.onmessage = (event) => handleServerMessage(JSON.parse(event.data));
-                ws.onclose = () => setIsConnected(false);
-            } catch (e) {
-                console.warn("WebSocket failed, falling back to Edge Stream");
-                setMode('edge-stream');
-            }
-        } else {
-            // Edge Stream Mode (Simulated Connection)
-            setIsConnected(true);
-        }
-    }, [user, avatarName, avatarRole, engine, mode]);
+    }, [avatarName, onSpeak, voiceId, getArchetype]);
 
     // ============================================
     // SEND MESSAGE (UNIFIED)
@@ -302,6 +241,31 @@ export function useMultimodalAvatar({
     }, [messages, avatarRole, avatarName, mode, speak, onTokenDeduct]);
 
     // ============================================
+    // SPEECH RECOGNITION (STT)
+    // ============================================
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+            if (SpeechRecognition) {
+                const recognition = new SpeechRecognition();
+                recognition.continuous = false;
+                recognition.interimResults = false;
+                recognition.lang = 'en-US';
+
+                recognition.onstart = () => setIsListening(true);
+                recognition.onend = () => setIsListening(false);
+
+                recognition.onresult = (event: any) => {
+                    const text = event.results[0][0].transcript;
+                    sendMessage(text); // Auto-send on speech end
+                };
+
+                recognitionRef.current = recognition;
+            }
+        }
+    }, [sendMessage]);
+
+    // ============================================
     // HANDLE SERVER MESSAGES
     // ============================================
     const handleServerMessage = useCallback((message: any) => {
@@ -358,6 +322,49 @@ export function useMultimodalAvatar({
     }, [speak, onXPGain]);
 
     // ============================================
+    // CONNECT TO CLOUD RUN AVATAR ENGINE
+    // ============================================
+    const connect = useCallback(async () => {
+        const wsUrl = process.env.NEXT_PUBLIC_AVATAR_ENGINE_WS_URL;
+
+        if (wsUrl && mode === 'cloud-socket') {
+            // ... existing WebSocket logic ...
+            try {
+                const ws = new WebSocket(wsUrl);
+                wsRef.current = ws;
+                ws.onopen = () => {
+                    setIsConnected(true);
+                    ws.send(JSON.stringify({ type: 'INIT_SESSION', data: { userId: user?.id, avatarName, avatarRole, engine } }));
+                };
+                ws.onmessage = (event) => handleServerMessage(JSON.parse(event.data));
+                ws.onclose = () => setIsConnected(false);
+            } catch (e) {
+                console.warn("WebSocket failed, falling back to Edge Stream");
+                setMode('edge-stream');
+            }
+        } else {
+            // Edge Stream Mode (Simulated Connection)
+            setIsConnected(true);
+        }
+    }, [user, avatarName, avatarRole, engine, mode, handleServerMessage]);
+
+    const startListening = useCallback(() => {
+        if (recognitionRef.current && !isListening) {
+            try {
+                recognitionRef.current.start();
+            } catch (e) {
+                console.warn("Speech recognition already active or blocking", e);
+            }
+        }
+    }, [isListening]);
+
+    const stopListening = useCallback(() => {
+        if (recognitionRef.current && isListening) {
+            recognitionRef.current.stop();
+        }
+    }, [isListening]);
+
+    // ============================================
     // RETRIEVE MEMORY
     // ============================================
     const retrieveMemory = useCallback(async (query: string): Promise<any[]> => {
@@ -372,8 +379,8 @@ export function useMultimodalAvatar({
                     resolve(message.data.memories);
                 }
             };
-            wsRef.current.addEventListener('message', handler);
-            wsRef.current.send(JSON.stringify({ type: 'RETRIEVE_MEMORY', data: { query, limit: 5 } }));
+            wsRef.current?.addEventListener('message', handler);
+            wsRef.current?.send(JSON.stringify({ type: 'RETRIEVE_MEMORY', data: { query, limit: 5 } }));
         });
     }, [mode]);
 

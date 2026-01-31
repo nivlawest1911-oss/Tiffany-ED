@@ -1,5 +1,7 @@
 import { OpenAI } from 'openai';
 import { sql } from '@/lib/db';
+import { withResilience, ALABAMA_STRATEGIC_DIRECTIVE } from '@/lib/ai-resilience';
+import { kv } from '@vercel/kv';
 
 /**
  * SOVEREIGN AGENT SERVICE: Metacognitive Reasoning Layer
@@ -10,7 +12,7 @@ import { sql } from '@/lib/db';
  * 3. Proactive Autonomous Actions
  */
 
-// Initialize Primary LLM (this would ideally be GPT-4 Turbo or similar high reasoning model)
+// Initialize Primary LLM
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 });
@@ -45,7 +47,21 @@ export class SovereignAgentService {
      * GENERATE PLAN: Breaks a complex request into tactical steps.
      */
     private async generatePlan(goal: string, context: any) {
+        const cacheKey = `plan:${Buffer.from(goal).toString('base64').substring(0, 32)}`;
+
+        try {
+            const cached = await kv.get<string>(cacheKey);
+            if (cached) {
+                console.log("[Sovereign Agent] Plan retrieved from Neural Cache.");
+                return cached;
+            }
+        } catch (e) {
+            console.warn("Neural Cache unavailable for planning.");
+        }
+
         const prompt = `
+        ${ALABAMA_STRATEGIC_DIRECTIVE}
+        
         IDENTITY: You are the "Sovereign Planner" for EdIntel.
         MISSION: Achieve the user's goal with maximum efficiency and sovereign authority.
         CONTEXT: User is ${context.role} in Mobile County.
@@ -60,15 +76,21 @@ export class SovereignAgentService {
         2. [Tool_Name]: [Specific Action]
         
         REASONING:
-        Provide a brief "Chain of Thought" explaining why this sequence is optimal.
+        Provide a brief "Chain of Thought" explaining why this sequence is optimal and how it aligns with Alabama statutes.
         `;
 
-        const response = await openai.chat.completions.create({
-            model: "gpt-4-turbo-preview", // Assume access for reasoning
-            messages: [{ role: "system", content: prompt }]
+        const plan = await withResilience(async () => {
+            const response = await openai.chat.completions.create({
+                model: "gpt-4o", // Upgraded for superior multi-modal reasoning
+                messages: [{ role: "system", content: prompt }]
+            });
+            return response.choices[0].message.content || "Plan Generation Failed";
         });
 
-        return response.choices[0].message.content || "Plan Generation Failed";
+        // Cache the plan for 30 minutes
+        kv.set(cacheKey, plan, { ex: 1800 }).catch(() => { });
+
+        return plan;
     }
 
     /**
@@ -76,6 +98,8 @@ export class SovereignAgentService {
      */
     private async criticReview(plan: string) {
         const prompt = `
+        ${ALABAMA_STRATEGIC_DIRECTIVE}
+
         IDENTITY: You are the "Sovereign Critic". You are skeptical and precision-obsessed.
         INPUT PLAN:
         ${plan}
@@ -83,33 +107,32 @@ export class SovereignAgentService {
         TASK:
         Review the plan for:
         1. Hallucinations (Does it reference tables that don't exist?)
-        2. Tone (Is it consistent with 'sovereign_vibe.md'?)
-        3. Safety (Does it expose FERPA data?)
+        2. Tone (Is it consistent with the Sovereign Persona?)
+        3. Safety (Does it expose FERPA data or violate Alabama Numeracy/Literacy Acts?)
 
         OUTPUT:
         If safe, return the plan exactly.
-        If unsafe, rewrite the plan with corrections and enable the [CORRECTED] tag.
+        If unsafe, rewrite the plan with corrections and initiate the [CORRECTED] tag.
         `;
 
-        const response = await openai.chat.completions.create({
-            model: "gpt-3.5-turbo", // Faster model for quick check
-            messages: [{ role: "system", content: prompt }]
-        });
+        return withResilience(async () => {
+            const response = await openai.chat.completions.create({
+                model: "gpt-4o-mini", // Upgraded from 3.5 for high-speed precision
+                messages: [{ role: "system", content: prompt }]
+            });
 
-        const reviewedPlan = response.choices[0].message.content;
-        if (reviewedPlan?.includes('[CORRECTED]')) {
-            console.log("[Sovereign Critic] Plan was corrected for safety/policy.");
-        }
-        return reviewedPlan;
+            const reviewedPlan = response.choices[0].message.content;
+            if (reviewedPlan?.includes('[CORRECTED]')) {
+                console.log("[Sovereign Critic] Plan was corrected for safety/policy.");
+            }
+            return reviewedPlan || plan;
+        });
     }
 
     /**
      * EXECUTE PLAN: Simulated execution of the steps.
      */
     private async executePlan(plan: any) {
-        // In a real implementation, this would parse the steps and call the actual TS functions.
-        // For now, we log the "Super Intelligent" intent.
-
         return {
             status: "EXECUTING",
             plan_trace: plan,
@@ -121,11 +144,9 @@ export class SovereignAgentService {
      * PROACTIVE MONITOR: Runs on a cron/webhook to find issues before the user asks.
      */
     async runProactiveScan() {
-        // Example: Check for low usage tokens
         const result = await sql`SELECT school_id, token_balance FROM school_sovereignty WHERE token_balance < 100`;
 
         if (result.rows.length > 0) {
-            // Trigger Autonomous Alert
             return {
                 alert: true,
                 type: "CRITICAL_RESOURCE_LOW",

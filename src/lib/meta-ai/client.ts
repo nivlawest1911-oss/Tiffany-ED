@@ -3,6 +3,8 @@
  * Integration for Meta's Llama models via various providers
  */
 
+import { withResilience, ALABAMA_STRATEGIC_DIRECTIVE } from '../ai-resilience';
+
 export interface MetaAIConfig {
     apiKey?: string;
     provider?: 'together' | 'replicate' | 'huggingface' | 'openrouter';
@@ -116,34 +118,36 @@ export class MetaAIClient {
         endpoint: string,
         options: RequestInit = {}
     ): Promise<T> {
-        const url = `${this.baseUrl}${endpoint}`;
+        return withResilience(async () => {
+            const url = `${this.baseUrl}${endpoint}`;
 
-        const headers: Record<string, string> = {
-            'Content-Type': 'application/json',
-            ...options.headers as Record<string, string>,
-        };
+            const headers: Record<string, string> = {
+                'Content-Type': 'application/json',
+                ...options.headers as Record<string, string>,
+            };
 
-        if (this.provider === 'together' || this.provider === 'openrouter') {
-            headers['Authorization'] = `Bearer ${this.apiKey}`;
-        } else if (this.provider === 'replicate') {
-            headers['Authorization'] = `Token ${this.apiKey}`;
-        } else if (this.provider === 'huggingface') {
-            headers['Authorization'] = `Bearer ${this.apiKey}`;
-        }
+            if (this.provider === 'together' || this.provider === 'openrouter') {
+                headers['Authorization'] = `Bearer ${this.apiKey}`;
+            } else if (this.provider === 'replicate') {
+                headers['Authorization'] = `Token ${this.apiKey}`;
+            } else if (this.provider === 'huggingface') {
+                headers['Authorization'] = `Bearer ${this.apiKey}`;
+            }
 
-        const response = await fetch(url, {
-            ...options,
-            headers,
+            const response = await fetch(url, {
+                ...options,
+                headers,
+            });
+
+            if (!response.ok) {
+                const error = await response.json().catch(() => ({}));
+                const err = new Error(`Meta AI API Error: ${response.status} - ${error.message || response.statusText}`) as any;
+                err.status = response.status;
+                throw err;
+            }
+
+            return response.json();
         });
-
-        if (!response.ok) {
-            const error = await response.json().catch(() => ({}));
-            throw new Error(
-                `Meta AI API Error: ${response.status} - ${error.message || response.statusText}`
-            );
-        }
-
-        return response.json();
     }
 
     // ============================================
@@ -273,9 +277,18 @@ export class MetaAIClient {
     async complete(prompt: string, options?: {
         max_tokens?: number;
         temperature?: number;
+        systemMessage?: string;
     }): Promise<string> {
+        const messages: ChatMessage[] = [];
+
+        if (options?.systemMessage) {
+            messages.push({ role: 'system', content: options.systemMessage });
+        }
+
+        messages.push({ role: 'user', content: prompt });
+
         const response = await this.chat({
-            messages: [{ role: 'user', content: prompt }],
+            messages,
             max_tokens: options?.max_tokens,
             temperature: options?.temperature,
         });
@@ -363,21 +376,45 @@ Format as JSON.`;
     }
 
     /**
-     * Generate quiz questions
+     * Generate quiz questions with Sovereign OS: Quiz Synthesis Directive
      */
     async generateQuiz(
         topic: string,
         numQuestions: number = 5,
         questionType: 'multiple-choice' | 'short-answer' | 'essay' = 'multiple-choice'
     ): Promise<any[]> {
-        const prompt = `Generate ${numQuestions} ${questionType} questions about ${topic}.
-Format as JSON array with: question, options (if multiple-choice), answer, explanation.`;
+        const systemMessage = `
+            ${ALABAMA_STRATEGIC_DIRECTIVE}
+            
+            SOVEREIGN OS: QUIZ SYNTHESIS SPECIFIC
+            Target: ${topic}
+            Count: ${numQuestions} questions
+            Type: ${questionType}
 
-        const response = await this.complete(prompt, { max_tokens: 2000 });
+            Format: Return ONLY a JSON array of objects with the following schema:
+            {
+              "question": "string",
+              "options": ["string"] (required for multiple-choice),
+              "answer": "string",
+              "explanation": "string (Reasoning Logic block)",
+              "standard": "Alabama Math 5.x citation",
+              "realWorldContext": "string"
+            }
+        `;
+
+        const userPrompt = `Generate ${numQuestions} ${questionType} questions about ${topic} following the Sovereign OS Directive. Ensure high-fidelity compliance.`;
+
+        const response = await this.complete(userPrompt, {
+            max_tokens: 3000,
+            systemMessage
+        });
 
         try {
-            return JSON.parse(response);
-        } catch {
+            // Clean up Llama 3.3 potential markdown formatting
+            const jsonStr = response.replace(/```json/g, '').replace(/```/g, '').trim();
+            return JSON.parse(jsonStr);
+        } catch (error) {
+            console.error("[Synthesis Failure] Parsing error:", error);
             return [];
         }
     }

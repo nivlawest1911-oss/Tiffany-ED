@@ -11,11 +11,17 @@ import { motion } from 'framer-motion';
 // Dynamic Imports for Global Command features
 const NexusCommand = dynamic(() => import('@/components/NexusCommand'), { ssr: false });
 const ProfessionalBroadcaster = dynamic(() => import('@/components/LeadershipBroadcaster'), { ssr: false });
+import TrialAlert from '@/components/TrialAlert';
+import { useTrialStatus } from '@/hooks/useTrialStatus';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
     const { user, isLoading } = useAuth();
     const [isNexusOpen, setIsNexusOpen] = React.useState(false);
     const [isBroadcasterOpen, setIsBroadcasterOpen] = React.useState(false);
+
+    // Trial Intelligence Uplink: Tracking the 14-day window
+    // In production, siteId would be fetched from the user profile or current context
+    const { remainingDays, isExpiring } = useTrialStatus(user?.id || '');
 
     // Global Key Listener for Nexus
     React.useEffect(() => {
@@ -77,6 +83,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
             {/* Main Content Area */}
             <main className="relative z-10 lg:pl-32 p-4 min-h-screen transition-all duration-300">
+                {isExpiring && remainingDays !== null && (
+                    <TrialAlert remainingDays={remainingDays} />
+                )}
+
                 <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}

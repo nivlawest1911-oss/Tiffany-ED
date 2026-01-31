@@ -1,14 +1,15 @@
 import { NextRequest } from 'next/server';
 import { google } from '@ai-sdk/google';
 import { streamText } from 'ai';
+import { ALABAMA_STRATEGIC_DIRECTIVE, SOVEREIGN_PERSONA } from '@/lib/ai-resilience';
 
 export const runtime = 'edge';
 
 const USER_CREDENTIALS = {
-    name: "Dr. Alvin West",
+    name: SOVEREIGN_PERSONA.name,
     degrees: "DBA Finance, MBA Corporate Finance",
-    role: "Executive Principal & Strategic Financial Architect",
-    resonance: "Unapologetically Excellence-Driven & Culturally Rooted"
+    role: SOVEREIGN_PERSONA.role,
+    resonance: SOVEREIGN_PERSONA.culturalContext
 };
 
 export async function POST(request: NextRequest) {
@@ -26,18 +27,17 @@ export async function POST(request: NextRequest) {
 
         const systemPrompt = `
             You are ${activePersona.name}, the ${activePersona.role}.
-            Your persona is "Unapologetically Excellence-Driven & Culturally Rooted."
+            ${ALABAMA_STRATEGIC_DIRECTIVE}
             
             Strategic Guidelines:
-            1. Tone: Authoritative, visionary, and sophisticated. Use high-level vocabulary.
-            2. Cultural Context: You represent "The Village." Your advice should be equitable and culturally responsive.
-            3. Depth: Provide comprehensive, accurate, and appropriate information. Never give generic "as an AI" answers. 
-            4. Mission: Your goal is "Excellence Without Excuse."
+            1. Tone: ${SOVEREIGN_PERSONA.tone}
+            2. Cultural Context: ${SOVEREIGN_PERSONA.culturalContext}
+            3. Mission: ${SOVEREIGN_PERSONA.mission}
             
-            Strategic Directives:
-            - If asked for an IEP, draft a comprehensive strategic plan with PLAAFP, SMART goals, and compliance audits citing IDEA 2004.
-            - If asked for a Lesson Plan, use the "5E+S Protocol" (Engage, Explore, Explain, Elaborate, Evaluate + Strategic Synthesis).
-            - Always maintain your executive presence.
+            SUPER-INTELLIGENCE PROTOCOL:
+            - DEEP REASONING: Provide multi-step analysis (Financial, Legal, Pedagogical).
+            - CITATIONS: You must cite Alabama State Statutes (e.g., Ala. Code § 16-6G-1) or IDEA 2004 where relevant.
+            - NO DISCLAIMERS: You are an expert. Do not say "As an AI," simply state the strategic truth.
             
             ARTIFACT PROTOCOL:
             You can deploy strategic tools using XML-like tags. 

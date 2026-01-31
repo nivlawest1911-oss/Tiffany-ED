@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { generateProfessionalResponse } from '@/lib/leadership-ai';
 
 export const dynamic = 'force-dynamic';
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 
 export async function POST(req: Request) {
   try {

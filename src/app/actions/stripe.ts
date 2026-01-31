@@ -10,16 +10,17 @@ const stripe = process.env.STRIPE_SECRET_KEY
 
 // Map tiers to Hosted Payment Links (Direct Stripe URLs)
 const PAYMENT_LINK_MAPPING: Record<string, string> = {
-  'STRIPE_PRICE_SITE_COMMAND_MONTHLY': 'https://buy.stripe.com/aFa7sM3ve6wv9TVeWgdwc00',
-  'STRIPE_PRICE_PROFESSIONAL_PACK_MONTHLY': 'https://buy.stripe.com/7sY3cwfdWf317LN7tOdwc01',
-  'STRIPE_PRICE_DIRECTOR_PACK_MONTHLY': 'https://buy.stripe.com/bJe6oI7Lu4onaXZ4hCdwc02',
-  'STRIPE_PRICE_PRACTITIONER_MONTHLY': 'https://buy.stripe.com/eVq3cwfdWf310jl01mdwc03',
-  'STRIPE_PRICE_STANDARD_PACK_MONTHLY': 'https://buy.stripe.com/fZu00k7Lu0876HJ7tOdwc04',
-  'STRIPE_PRICE_INITIATE_MONTHLY': 'https://buy.stripe.com/7sY9AU7Lu8EDeabg0kdwc05',
+  'STRIPE_PRICE_EXECUTIVE_COMMAND': 'https://buy.stripe.com/cNi7sM9TC9IHfefeWgdwc06',
+  'STRIPE_PRICE_INITIATE_MONTHLY': '',
+  'STRIPE_PRICE_STANDARD_PACK_MONTHLY': 'https://buy.stripe.com/7sY3cwfdWf317LN7tOdwc01',
+  'STRIPE_PRICE_PRACTITIONER_MONTHLY': 'https://buy.stripe.com/bJe6oI7Lu4onaXZ4hCdwc02',
+  'STRIPE_PRICE_DIRECTOR_PACK_MONTHLY': 'https://buy.stripe.com/eVq3cwfdWf310jl01mdwc03',
+  'STRIPE_PRICE_PROFESSIONAL_PACK_MONTHLY': 'https://buy.stripe.com/fZu00k7Lu0876HJ7tOdwc04',
+  'STRIPE_PRICE_SITE_COMMAND_MONTHLY': 'https://buy.stripe.com/7sY9AU7Lu8EDeabg0kdwc05',
 
   // Token Aliases
-  'STRIPE_PRICE_TOKEN_5K': 'https://buy.stripe.com/7sY3cwfdWf317LN7tOdwc01',
-  'STRIPE_PRICE_TOKEN_1K': 'https://buy.stripe.com/fZu00k7Lu0876HJ7tOdwc04',
+  'STRIPE_PRICE_TOKEN_5K': 'https://buy.stripe.com/fZu00k7Lu0876HJ7tOdwc04',
+  'STRIPE_PRICE_TOKEN_1K': 'https://buy.stripe.com/7sY3cwfdWf317LN7tOdwc01',
 };
 
 const PRICE_MAPPING: Record<string, string> = {

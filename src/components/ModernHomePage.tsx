@@ -10,7 +10,7 @@ import { CORE_AVATARS } from '@/data/avatars';
 import HumanAvatar from './ui/HumanAvatar';
 
 // Core Components (Safe)
-const FloatingNavbar = dynamic(() => import('./FloatingNavbar'), { ssr: false });
+
 const Footer = dynamic(() => import('./Footer'), { ssr: false });
 const NeuralBackground = dynamic(() => import('./ui/NeuralBackground'), { ssr: false });
 
@@ -134,8 +134,8 @@ function InteractiveTerminal({ onCommand }: { onCommand: (cmd: string) => void }
                 {/* Glowing Border Animation */}
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 via-purple-500 to-indigo-500 rounded-xl opacity-75 blur group-focus-within:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt" />
 
-                <div className="relative flex items-center bg-black backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden">
-                    <div className="pl-4 text-cyan-500 animate-pulse">
+                <div className="relative flex items-center bg-black backdrop-blur-xl border border-intel-gold/20 rounded-xl overflow-hidden shadow-[inset_0_0_20px_rgba(197,164,126,0.05)]">
+                    <div className="pl-4 text-intel-gold animate-pulse">
                         <Terminal size={20} />
                     </div>
                     <input
@@ -155,7 +155,7 @@ function InteractiveTerminal({ onCommand }: { onCommand: (cmd: string) => void }
                         </button>
                         <button
                             type="submit"
-                            className="p-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg transition-colors"
+                            className="p-2 bg-intel-gold hover:bg-white text-black rounded-lg transition-colors font-black"
                         >
                             <ArrowRight size={18} />
                         </button>
@@ -190,7 +190,7 @@ function HolographicHero({ activeAgent, agents, message }: { activeAgent: number
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 1.05 }}
                 transition={{ duration: 0.8 }}
-                className="relative w-full h-[600px] md:h-[700px] rounded-[3rem] overflow-hidden border-2 border-cyan-500/20 shadow-[0_0_80px_rgba(6,182,212,0.15)] group"
+                className="relative w-full h-[600px] md:h-[700px] rounded-[3rem] overflow-hidden border-2 border-intel-gold/20 shadow-[0_0_80px_rgba(197,164,126,0.1)] group"
             >
                 {/* VIDEO FEED */}
                 <div className="absolute inset-0 bg-zinc-900">
@@ -226,9 +226,9 @@ function HolographicHero({ activeAgent, agents, message }: { activeAgent: number
                         <div className="flex gap-4">
                             <motion.div
                                 initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }}
-                                className="px-3 py-1 bg-black/60 backdrop-blur border border-cyan-500/30 rounded text-cyan-400 text-xs font-mono"
+                                className="px-3 py-1 bg-black/60 backdrop-blur border border-intel-gold/30 rounded text-intel-gold text-xs font-mono"
                             >
-                                SIGNAL: STRONG
+                                SIGNAL: STABLE
                             </motion.div>
                             <motion.div
                                 initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.1 }}
@@ -247,9 +247,9 @@ function HolographicHero({ activeAgent, agents, message }: { activeAgent: number
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -20 }}
-                                className="absolute top-1/2 left-8 right-8 md:right-1/3 bg-black/80 backdrop-blur-xl border-l-4 border-cyan-500 p-6 rounded-r-xl shadow-2xl"
+                                className="absolute top-1/2 left-8 right-8 md:right-1/3 bg-black/80 backdrop-blur-xl border-l-4 border-intel-gold p-6 rounded-r-xl shadow-2xl"
                             >
-                                <div className="text-xs text-cyan-500 font-bold mb-2 uppercase flex items-center gap-2">
+                                <div className="text-xs text-intel-gold font-bold mb-2 uppercase flex items-center gap-2">
                                     <MessageSquare size={12} /> Response from {agent.name.split(' ')[1]}
                                 </div>
                                 <p className="text-white text-lg md:text-xl font-light leading-relaxed">
@@ -267,14 +267,14 @@ function HolographicHero({ activeAgent, agents, message }: { activeAgent: number
                         >
                             {agent.name}
                         </motion.h2>
-                        <p className="text-cyan-400 font-mono text-sm tracking-widest uppercase">{agent.role}</p>
+                        <p className="text-intel-gold font-mono text-sm tracking-widest uppercase">{agent.role}</p>
                     </div>
                 </div>
 
                 {/* Scanning Effect */}
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.05)_1px,transparent_1px)] bg-[size:100%_4px] pointer-events-none" />
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(197,164,126,0.05)_1px,transparent_1px)] bg-[size:100%_4px] pointer-events-none" />
                 <motion.div
-                    className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-400/10 to-transparent h-[20%] pointer-events-none"
+                    className="absolute inset-0 bg-gradient-to-b from-transparent via-intel-gold/10 to-transparent h-[20%] pointer-events-none"
                     animate={{ top: ['-20%', '120%'] }}
                     transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                 />
@@ -341,7 +341,7 @@ export default function ModernHomePage() {
                     </motion.div>
                     <ParticleField />
                     <motion.div className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 via-purple-500 to-indigo-500 z-[100] origin-left" style={{ scaleX }} />
-                    <FloatingNavbar />
+
 
                     <main className="relative z-10 pt-24 pb-24">
                         {/* HERO SECTION */}
@@ -359,16 +359,19 @@ export default function ModernHomePage() {
                                         </div>
                                     </motion.div>
 
-                                    <motion.h1 variants={fadeInUp} className="text-6xl md:text-8xl font-black text-white mb-6 uppercase tracking-tighter leading-[0.85]">
-                                        Animated<br />
-                                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-purple-400 animate-gradient-x">
-                                            Sovereignty
-                                        </span>
+                                    <motion.h1 variants={fadeInUp} className="text-7xl md:text-9xl font-black text-white mb-8 uppercase tracking-tighter leading-[0.8] italic text-gold-gradient">
+                                        Sovereign OS
                                     </motion.h1>
 
-                                    <motion.p variants={fadeInUp} className="text-xl text-zinc-400 mb-8 max-w-lg leading-relaxed border-l-4 border-cyan-500 pl-6">
-                                        Engage with the <span className="text-white font-bold">First Live-Action AI Matrix</span>.
-                                        Type a command below to initiate a neural link with your autonomous cabinet.
+                                    <motion.div variants={fadeInUp} className="relative mb-10">
+                                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-intel-gold to-transparent" />
+                                        <p className="text-2xl text-white/90 font-light leading-relaxed pl-8 italic max-w-xl">
+                                            "Strategic architectures for the modern educator. Empowering leadership through superior intelligence and executive automation."
+                                        </p>
+                                    </motion.div>
+
+                                    <motion.p variants={fadeInUp} className="text-zinc-500 mb-10 max-w-md leading-relaxed pl-8 text-sm uppercase tracking-widest font-bold">
+                                        Reclaiming instructional time through <span className="text-intel-gold">spatial logistics</span> & high-fidelity AI components.
                                     </motion.p>
 
                                     {/* INTERACTIVE TERMINAL */}
@@ -395,7 +398,7 @@ export default function ModernHomePage() {
                                         <div key={i} className="w-[300px] h-[400px] rounded-2xl overflow-hidden relative border border-white/10 group bg-zinc-900">
                                             <HumanAvatar
                                                 src={agent.avatar}
-                                                alt={agent.name}
+                                                alt={agent.name || 'AI Avatar'}
                                                 className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-700"
                                             />
                                             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />

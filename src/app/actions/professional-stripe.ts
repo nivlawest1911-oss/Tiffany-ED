@@ -28,10 +28,10 @@ export async function getStripeHandshake(): Promise<StripeHandshake> {
                 annualId: null
             },
             pro: {
-                monthly: 19.00,
-                annual: 190.00,
-                id: process.env.STRIPE_PRO_PRICE_ID || 'price_pro_tier_19',
-                annualId: process.env.STRIPE_PRO_ANNUAL_ID || 'price_pro_tier_annual_190'
+                monthly: 39.99,
+                annual: 383.88,
+                id: process.env.STRIPE_PRO_PRICE_ID || 'price_pro_tier_39',
+                annualId: process.env.STRIPE_PRO_ANNUAL_ID || 'price_pro_tier_annual_383'
             },
             campus: {
                 monthly: 0, // Custom
@@ -116,8 +116,8 @@ export async function createSovereignCheckout(priceId: string, planName: string,
                 },
             ],
             mode: 'subscription',
-            success_url: `${process.env.NEXT_PUBLIC_APP_URL || 'https://edintel-app.vercel.app'}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || 'https://edintel-app.vercel.app'}/pricing`,
+            success_url: `${process.env.NEXT_PUBLIC_APP_URL || ''}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || ''}/pricing`,
             subscription_data: {
                 trial_period_days: 30,
             },

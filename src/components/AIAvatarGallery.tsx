@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-    User, Video, Play
+    Video, Play, Shield, Zap, Lock, Eye, Star
 } from 'lucide-react';
 import LiveAvatarChat from './LiveAvatarChat';
 import { CORE_AVATARS } from '@/data/avatars';
@@ -23,173 +23,186 @@ export default function AIAvatarGallery() {
     };
 
     return (
-        <div className="relative py-32 bg-[#050505] overflow-hidden border-y border-white/5">
-            {/* Minimalist Grid Background */}
-            <div className="absolute inset-0 opacity-20 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:32px_32px]" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]" />
+        <div className="relative py-32 bg-black overflow-hidden border-y border-white/5">
+            {/* Minimalist Grid Background - Sovereign Style */}
+            <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.15)_0,transparent_100%)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:32px_32px]" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 {/* Header */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="mb-20 text-center"
+                    className="mb-24 text-center"
                 >
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/50 text-[10px] font-bold uppercase tracking-[0.3em] mb-6">
-                        <User size={12} />
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-noble-gold/10 border border-noble-gold/20 text-noble-gold text-[10px] font-black uppercase tracking-[0.4em] mb-8">
+                        <Lock size={12} />
                         <span>Executive Intelligence Assets</span>
                     </div>
-                    <h2 className="text-4xl sm:text-7xl font-black text-white mb-6 uppercase tracking-tighter italic">
-                        The Professional <span className="text-zinc-600 not-italic">Team.</span>
+                    <h2 className="text-5xl sm:text-8xl font-black text-white mb-8 uppercase tracking-tighter italic">
+                        Strategic <span className="gold-gradient-text not-italic font-black">Delegates.</span>
                     </h2>
-                    <p className="text-base text-zinc-500 max-w-2xl mx-auto font-medium">
-                        Six specialized nodes of high-fidelity synthetic intelligence. <br className="hidden md:block" />
-                        Accessible instantly for strategic leadership and administrative throughput.
+                    <p className="text-lg text-zinc-500 max-w-2xl mx-auto font-medium leading-relaxed italic">
+                        The Professional AI Team. Six specialized nodes of high-fidelity synthetic intelligence, architected for strategic leadership throughput.
                     </p>
                 </motion.div>
 
                 {/* Avatar Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32">
+                    {AI_AVATARS.map((avatar, index) => {
+                        const IconComponent = avatar.icon;
+                        return (
+                            <motion.div
+                                key={avatar.id}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: index * 0.1 }}
+                                className="group relative"
+                            >
+                                <div className="relative h-full liquid-glass border-white/10 p-10 hover:border-noble-gold/40 transition-all duration-700 hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.7)] group-hover:-translate-y-2">
+                                    {/* Noble Glow */}
+                                    <div className="absolute -top-12 -left-12 w-48 h-48 bg-noble-gold opacity-0 group-hover:opacity-10 blur-[96px] transition-opacity duration-1000" />
 
-                    {AI_AVATARS.map((avatar, index) => (
-                        <motion.div
-                            key={avatar.id}
-                            initial={{ opacity: 0, y: 10 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: (index + 1) * 0.05 }}
-                            className="group relative"
-                        >
-                            <div className="relative h-full bg-zinc-900/40 backdrop-blur-md border border-white/5 rounded-[2rem] p-8 hover:border-white/20 transition-all duration-500 hover:shadow-2xl hover:shadow-black">
-                                {/* Subtle Glow */}
-                                <div className={`absolute -top-12 -left-12 w-32 h-32 bg-gradient-to-br ${avatar.color} opacity-0 group-hover:opacity-10 blur-[64px] transition-opacity duration-700`} />
-
-                                {/* Header with Icon */}
-                                <div className="flex items-center justify-between mb-8">
-                                    <div className={`p-3 rounded-2xl bg-white/5 border border-white/10 text-white/40 group-hover:text-white transition-colors`}>
-                                        <avatar.icon size={20} />
+                                    {/* Header with Icon */}
+                                    <div className="flex items-center justify-between mb-10">
+                                        <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 text-white/40 group-hover:text-noble-gold group-hover:border-noble-gold/30 transition-all">
+                                            {IconComponent ? <IconComponent size={22} /> : <div className="w-[22px] h-[22px] bg-noble-gold/20 rounded-full" />}
+                                        </div>
+                                        <div className="flex items-center gap-2 px-3 py-1 bg-emerald-950/20 rounded-full border border-emerald-500/30">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+                                            <span className="text-[9px] font-black text-emerald-500 uppercase tracking-widest">Quantum-Active</span>
+                                        </div>
                                     </div>
-                                    <div className="flex items-center gap-2 px-2 py-1 bg-green-950/30 rounded-full border border-green-900/50">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                                        <span className="text-[9px] font-bold text-green-500 uppercase tracking-widest">Active</span>
-                                    </div>
-                                </div>
 
-                                {/* Main Avatar UI */}
-                                <div className="flex flex-col items-center text-center">
-                                    <div className="relative w-24 h-24 mb-6 group-hover:scale-105 transition-transform duration-500">
-                                        <div className="absolute inset-0 rounded-full border border-white/10 group-hover:border-[#00d2ff]/50 transition-all duration-500" />
-                                        {/* Holographic Ring */}
-                                        <div className="absolute -inset-2 rounded-full border border-dashed border-white/10 group-hover:border-[#00d2ff]/30 group-hover:rotate-180 transition-all duration-[3000ms]" />
+                                    {/* Main Avatar UI */}
+                                    <div className="flex flex-col items-center text-center">
+                                        <div className="relative w-32 h-32 mb-8 group-hover:scale-110 transition-transform duration-700 ease-out">
+                                            <div className="absolute inset-0 rounded-full border border-white/10 group-hover:border-noble-gold/50 transition-all duration-700" />
 
-                                        <div className="relative w-full h-full rounded-full overflow-hidden">
-                                            <HumanAvatar
-                                                src={avatar.avatar}
-                                                alt={avatar.name}
-                                                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-                                            />
-                                            {/* Scanline Overlay */}
-                                            <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-10 bg-[length:100%_4px,3px_100%] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
+                                            {/* Holographic Spinning Rings */}
+                                            <div className="absolute -inset-2 rounded-full border border-dashed border-white/5 group-hover:border-noble-gold/30 group-hover:rotate-180 transition-all duration-[6000ms]" />
+                                            <div className="absolute -inset-4 rounded-full border border-dotted border-white/5 group-hover:border-noble-gold/10 group-hover:-rotate-180 transition-all duration-[8000ms]" />
 
-                                            {/* Live Tag */}
-                                            <div className="absolute bottom-1 right-1 bg-black/60 backdrop-blur-md px-1.5 py-0.5 rounded text-[8px] font-black text-[#00d2ff] uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity z-20">
-                                                LIVE
+                                            <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-transparent group-hover:border-noble-gold/20">
+                                                <HumanAvatar
+                                                    src={avatar.avatar || '/images/placeholders/avatar.png'}
+                                                    alt={avatar.name || 'AI Delegate'}
+                                                    className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000"
+                                                />
+                                                {/* Scanning Line Overlay */}
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                                                <div className="absolute bottom-2 left-0 right-0 h-[10%] bg-noble-gold/20 blur-md opacity-0 group-hover:opacity-100 animate-scanline" />
                                             </div>
                                         </div>
+
+                                        <h3 className="text-2xl font-black text-white uppercase tracking-tighter mb-1 italic group-hover:gold-gradient-text transition-all">{avatar.name}</h3>
+                                        <p className="text-[10px] font-black text-noble-gold uppercase tracking-[0.4em] mb-6 opacity-60 group-hover:opacity-100 transition-opacity">{avatar.role}</p>
+
+                                        <p className="text-sm text-zinc-500 leading-relaxed font-medium mb-10 group-hover:text-zinc-300 transition-colors">
+                                            {avatar.description}
+                                        </p>
                                     </div>
 
-                                    <h3 className="text-xl font-black text-white uppercase tracking-tight mb-1">{avatar.name}</h3>
-                                    <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.2em] mb-4">{avatar.role}</p>
+                                    {/* Achievements & Expertise */}
+                                    <div className="space-y-4 mb-12">
+                                        {avatar.achievements.slice(0, 2).map((achievement, i) => (
+                                            <div key={i} className="flex items-center gap-4 text-[11px] text-zinc-500 font-mono italic">
+                                                <div className="w-1.5 h-1.5 rounded-full bg-noble-gold/20 group-hover:bg-noble-gold transition-colors" />
+                                                <span className="group-hover:text-white/60 transition-colors">{achievement}</span>
+                                            </div>
+                                        ))}
+                                    </div>
 
-                                    <p className="text-sm text-zinc-500 leading-relaxed font-medium mb-8">
-                                        {avatar.description}
-                                    </p>
+                                    {/* Action Matrix */}
+                                    <div className="grid grid-cols-2 gap-4 pt-8 border-t border-white/5">
+                                        <button
+                                            onClick={() => setSelectedAvatar(avatar)}
+                                            title={`View ${avatar.name} Profile`}
+                                            className="h-12 rounded-xl bg-white/[0.03] border border-white/10 hover:bg-white/[0.08] hover:border-white/20 text-white/40 hover:text-white text-[10px] font-black uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2"
+                                        >
+                                            <Eye size={14} />
+                                            Protocol
+                                        </button>
+                                        <button
+                                            onClick={() => startConversation(avatar)}
+                                            title={`Start chat with ${avatar.name}`}
+                                            className="h-12 rounded-xl bg-noble-gold text-black text-[10px] font-black uppercase tracking-[0.2em] transition-all hover:scale-[1.05] shadow-[0_0_20px_rgba(212,175,55,0.2)] flex items-center justify-center gap-2"
+                                        >
+                                            <Zap size={14} fill="currentColor" />
+                                            Initialize
+                                        </button>
+                                    </div>
                                 </div>
-
-                                {/* Achievements & Expertise */}
-                                <div className="space-y-3 mb-10">
-                                    {avatar.achievements.slice(0, 2).map((achievement, i) => (
-                                        <div key={i} className="flex items-center gap-3 text-xs text-zinc-400 font-mono">
-                                            <div className="w-1 h-1 rounded-full bg-zinc-800" />
-                                            <span>{achievement}</span>
-                                        </div>
-                                    ))}
-                                </div>
-
-                                {/* Action Matrix */}
-                                <div className="grid grid-cols-2 gap-3 pt-6 border-t border-white/5">
-                                    <button
-                                        onClick={() => setSelectedAvatar(avatar)}
-                                        className="h-10 rounded-full bg-white/5 border border-white/5 hover:bg-white/10 text-white/50 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-all"
-                                    >
-                                        Profile
-                                    </button>
-                                    <button
-                                        onClick={() => startConversation(avatar)}
-                                        className="h-10 rounded-full bg-white text-black text-[10px] font-black uppercase tracking-widest transition-all hover:scale-105"
-                                    >
-                                        Start Chat
-                                    </button>
-                                </div>
-                            </div>
-                        </motion.div>
-                    ))}
+                            </motion.div>
+                        );
+                    })}
                 </div>
 
-                {/* Secure Video Archives Section */}
+                {/* Secure Video Archives Section - Refined for Sovereign OS */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="mb-20 rounded-[2.5rem] bg-zinc-900/30 border border-white/5 p-8 md:p-12"
+                    className="mb-32 p-12 liquid-glass border-white/5 bg-white/[0.01]"
                 >
-                    <div className="flex items-center justify-between mb-8">
-                        <h3 className="text-2xl font-black text-white uppercase tracking-tight">Secure Video Archives</h3>
-                        <div className="flex items-center gap-2 text-xs font-bold text-zinc-500 uppercase tracking-widest">
-                            <Video size={14} />
-                            <span>Encrypted Vault</span>
+                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-12">
+                        <div>
+                            <div className="flex items-center gap-3 mb-2">
+                                <Video className="text-noble-gold" size={20} />
+                                <h3 className="text-3xl font-black text-white uppercase tracking-tighter italic">Intelligence <span className="text-zinc-600">Archives.</span></h3>
+                            </div>
+                            <p className="text-sm text-zinc-500 font-medium italic">Encrypted situational briefings and performance audits.</p>
                         </div>
+                        <button
+                            title="Expand video archives"
+                            className="px-8 py-3 rounded-xl bg-white/5 border border-white/10 text-white/60 font-black text-[10px] uppercase tracking-[0.3em] hover:bg-white/10 hover:text-white transition-all"
+                        >
+                            Access Full Vault
+                        </button>
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {[
-                            { title: "Strategic Protocol Alpha", duration: "12:04", color: "bg-amber-600", date: "Yesterday", locked: false },
-                            { title: "District Crisis Management", duration: "08:30", color: "bg-red-600", date: "2 days ago", locked: false },
-                            { title: "Fiscal Growth Vectors", duration: "15:45", color: "bg-emerald-600", date: "3 days ago", locked: false },
-                            { title: "Community Synergy", duration: "09:20", color: "bg-indigo-600", date: "1 week ago", locked: true },
-                            { title: "Compliance Audit Walkthrough", duration: "12:44", color: "bg-emerald-500", date: "Yesterday", locked: false },
-                            { title: "Strategic Board Protocol", duration: "45:10", color: "bg-indigo-500", date: "2 days ago", locked: true },
-                            { title: "Fiscal Solvency Review", duration: "30:00", color: "bg-amber-500", date: "1 week ago", locked: false },
-                            { title: "Crisis Communication Drill", duration: "08:15", color: "bg-rose-500", date: "1 month ago", locked: false }
+                            { title: "Strategic Protocol Alpha", duration: "12:04", color: "bg-noble-gold" },
+                            { title: "District Crisis Management", duration: "08:30", color: "bg-rose-600" },
+                            { title: "Fiscal Growth Vectors", duration: "15:45", color: "bg-emerald-600" },
+                            { title: "Compliance Audit Walkthrough", duration: "12:44", color: "bg-noble-gold" }
                         ].map((video, i) => (
-                            <div key={i} className="group relative aspect-video bg-black rounded-xl overflow-hidden border border-white/10 hover:border-white/30 transition-all cursor-pointer">
-                                <div className={`absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4`}>
-                                    <div>
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <div className={`w-2 h-2 rounded-full ${video.color}`} />
-                                            <span className="text-[10px] font-bold text-white/70 tracking-wider">RESTRICTED</span>
-                                        </div>
-                                        <h4 className="text-sm font-bold text-white leading-tight group-hover:text-amber-400 transition-colors">{video.title}</h4>
+                            <motion.div
+                                key={i}
+                                whileHover={{ y: -5 }}
+                                className="group relative aspect-video bg-black rounded-2xl overflow-hidden border border-white/5 hover:border-noble-gold/40 transition-all cursor-pointer shadow-2xl"
+                            >
+                                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
+                                <div className="absolute inset-0 flex items-center justify-center z-20 opacity-0 group-hover:opacity-100 transition-all">
+                                    <div className="w-14 h-14 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white scale-90 group-hover:scale-100 transition-transform">
+                                        <Play size={20} fill="white" className="ml-1" />
                                     </div>
                                 </div>
-                                <div className="absolute top-2 right-2 px-1.5 py-0.5 rounded bg-black/60 backdrop-blur-md text-[9px] font-mono text-white/80">
+                                <div className="absolute bottom-4 left-5 right-5 z-20">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <div className={`w-1.5 h-1.5 rounded-full ${video.color} shadow-[0_0_8px_currentColor]`} />
+                                        <span className="text-[8px] font-black text-white/50 uppercase tracking-[0.3em]">Classified // E3</span>
+                                    </div>
+                                    <h4 className="text-sm font-black text-white uppercase tracking-tight italic group-hover:text-noble-gold transition-colors">{video.title}</h4>
+                                </div>
+                                <div className="absolute top-4 right-4 z-20 px-2 py-1 rounded bg-black/60 backdrop-blur-md border border-white/10 text-[9px] font-mono text-white/80">
                                     {video.duration}
                                 </div>
-                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40 backdrop-blur-[2px]">
-                                    <div className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center">
-                                        <Play size={16} fill="currentColor" />
-                                    </div>
-                                </div>
-                            </div>
+                            </motion.div>
                         ))}
                     </div>
                 </motion.div>
 
                 {/* Bottom Trust Indicators */}
-                <div className="flex flex-wrap justify-center gap-12 opacity-30 grayscale hover:grayscale-0 transition-all duration-700">
+                <div className="flex flex-wrap justify-center gap-16 opacity-10 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-1000">
                     {['BIP COMPLIANT', 'IEP DATA SECURED', 'STANDARDS MAPPED', 'EXECUTIVE AUTHORIZED'].map((label, i) => (
-                        <div key={i} className="text-[10px] font-black tracking-[0.4em] text-white">
-                            {label}
+                        <div key={i} className="flex items-center gap-3">
+                            <Shield size={14} className="text-noble-gold" />
+                            <span className="text-[10px] font-black tracking-[0.5em] text-white underline decoration-noble-gold/30 underline-offset-8 decoration-2">{label}</span>
                         </div>
                     ))}
                 </div>
@@ -202,61 +215,84 @@ export default function AIAvatarGallery() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl"
+                        className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/98 backdrop-blur-3xl"
                         onClick={() => setSelectedAvatar(null)}
                     >
                         <motion.div
-                            initial={{ scale: 0.95, opacity: 0, y: 20 }}
+                            initial={{ scale: 0.9, opacity: 0, y: 40 }}
                             animate={{ scale: 1, opacity: 1, y: 0 }}
-                            exit={{ scale: 0.95, opacity: 0, y: 20 }}
-                            className="relative max-w-5xl w-full bg-zinc-950 border border-white/10 rounded-[3rem] overflow-hidden shadow-[0_0_100px_rgba(0,0,0,1)]"
+                            exit={{ scale: 0.9, opacity: 0, y: 40 }}
+                            className="relative max-w-6xl w-full liquid-glass border-noble-gold/20 flex flex-col lg:flex-row overflow-hidden shadow-[0_0_150px_rgba(212,175,55,0.1)]"
                             onClick={(e) => e.stopPropagation()}
                         >
-                            <div className="grid grid-cols-1 lg:grid-cols-2">
-                                <div className="relative aspect-square lg:aspect-auto bg-black border-r border-white/5">
-                                    {selectedAvatar.video ? (
-                                        <video
-                                            src={selectedAvatar.video}
-                                            autoPlay
-                                            loop
-                                            muted
-                                            className="w-full h-full object-cover opacity-60"
-                                        />
-                                    ) : (
-                                        <HumanAvatar
-                                            src={selectedAvatar.avatar}
-                                            alt={selectedAvatar.name}
-                                            className="w-full h-full object-cover opacity-60"
-                                        />
-                                    )}
-                                    <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/80 via-transparent to-transparent" />
+                            <div className="lg:w-1/2 relative bg-black border-r border-white/5">
+                                {selectedAvatar.video ? (
+                                    <video
+                                        src={selectedAvatar.video}
+                                        autoPlay
+                                        loop
+                                        muted
+                                        className="w-full h-full object-cover opacity-80"
+                                    />
+                                ) : (
+                                    <HumanAvatar
+                                        src={selectedAvatar.avatar || ''}
+                                        alt={selectedAvatar.name || ''}
+                                        className="w-full h-full object-cover opacity-80"
+                                    />
+                                )}
+                                <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-transparent" />
+                                <div className="absolute top-10 left-10 p-6 liquid-glass border-noble-gold/30 bg-black/40">
+                                    <div className="flex items-center gap-3 mb-2">
+                                        <Zap size={16} className="text-noble-gold" />
+                                        <span className="text-[10px] font-black text-noble-gold uppercase tracking-[0.5em]">System Diagnostics</span>
+                                    </div>
+                                    <div className="space-y-1">
+                                        <p className="text-[9px] font-mono text-white/50 lowercase italic">Neural Fidelity: 99.8%</p>
+                                        <p className="text-[9px] font-mono text-white/50 lowercase italic">Latency Bias: -12ms</p>
+                                    </div>
                                 </div>
+                            </div>
 
-                                <div className="p-12 md:p-20 flex flex-col justify-center">
-                                    <h3 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tight mb-4">{selectedAvatar.name}</h3>
-                                    <p className="text-xs font-bold text-amber-500 uppercase tracking-[0.4em] mb-8">{selectedAvatar.role}</p>
+                            <div className="p-16 md:p-24 lg:w-1/2 flex flex-col justify-center bg-zinc-950/50">
+                                <div className="flex items-center gap-3 mb-6">
+                                    <Star className="text-noble-gold" size={16} fill="currentColor" />
+                                    <span className="text-[11px] font-black text-noble-gold uppercase tracking-[0.4em]">Elite Intelligent Asset</span>
+                                </div>
+                                <h3 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter mb-4 italic leading-none">{selectedAvatar.name}</h3>
+                                <p className="text-xs font-black text-zinc-500 uppercase tracking-[0.5em] mb-10 border-l-2 border-noble-gold pl-6">{selectedAvatar.role}</p>
 
-                                    <p className="text-xl text-zinc-400 leading-relaxed font-medium mb-12">
+                                <div className="space-y-8 mb-16">
+                                    <p className="text-xl text-zinc-400 leading-relaxed font-medium italic">
                                         {selectedAvatar.description}
                                     </p>
-
-                                    <div className="flex gap-4">
-                                        <button
-                                            onClick={() => {
-                                                setSelectedAvatar(null);
-                                                startConversation(selectedAvatar);
-                                            }}
-                                            className="px-10 py-5 bg-white text-black text-xs font-black uppercase tracking-widest rounded-full hover:scale-105 transition-transform"
-                                        >
-                                            Engage Virtual Presence
-                                        </button>
-                                        <button
-                                            onClick={() => setSelectedAvatar(null)}
-                                            className="px-6 py-5 bg-white/5 text-white/50 text-xs font-bold uppercase tracking-widest rounded-full hover:bg-white/10 transition-colors"
-                                        >
-                                            Dismiss
-                                        </button>
+                                    <div className="flex flex-wrap gap-4">
+                                        {selectedAvatar.achievements.map((a, i) => (
+                                            <span key={i} className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-[10px] font-black text-white/60 uppercase tracking-widest italic">
+                                                {a}
+                                            </span>
+                                        ))}
                                     </div>
+                                </div>
+
+                                <div className="flex flex-col sm:flex-row gap-6">
+                                    <button
+                                        onClick={() => {
+                                            setSelectedAvatar(null);
+                                            startConversation(selectedAvatar);
+                                        }}
+                                        title="Establish connection"
+                                        className="px-12 py-6 bg-noble-gold text-black text-xs font-black uppercase tracking-[0.3em] rounded-2xl hover:scale-[1.05] transition-transform shadow-[0_20px_40px_-10px_rgba(212,175,55,0.4)]"
+                                    >
+                                        Establish Neural Uplink
+                                    </button>
+                                    <button
+                                        onClick={() => setSelectedAvatar(null)}
+                                        title="Close profile"
+                                        className="px-8 py-6 liquid-glass border-white/10 text-white/40 text-xs font-black uppercase tracking-[0.3em] hover:text-white transition-colors"
+                                    >
+                                        Close Terminal
+                                    </button>
                                 </div>
                             </div>
                         </motion.div>
@@ -267,7 +303,7 @@ export default function AIAvatarGallery() {
             {/* Live Chat System */}
             {showLiveChat && activeAvatar && (
                 <LiveAvatarChat
-                    avatarName={activeAvatar.name}
+                    avatarName={activeAvatar.name || 'AI Delegate'}
                     avatarRole={activeAvatar.role}
                     avatarVideo={activeAvatar.video}
                     avatarVoice={activeAvatar.voiceId || ''}
@@ -280,6 +316,21 @@ export default function AIAvatarGallery() {
                     onClose={() => setShowLiveChat(false)}
                 />
             )}
+
+            <style jsx global>{`
+                .gold-gradient-text {
+                    background: linear-gradient(135deg, #FFF 0%, #D4AF37 50%, #8A6D3B 100%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+                @keyframes scanline {
+                    0% { transform: translateY(-100%); }
+                    100% { transform: translateY(1000%); }
+                }
+                .animate-scanline {
+                    animation: scanline 8s linear infinite;
+                }
+            `}</style>
         </div>
     );
 }

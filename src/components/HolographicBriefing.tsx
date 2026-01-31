@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
+import { X, Shield, Activity, Wifi, Zap, Lock, Command } from 'lucide-react';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 import { useHumanBehavior } from '@/hooks/useHumanBehavior';
 import AbilityAnimation from './AbilityAnimation';
@@ -13,15 +13,12 @@ interface HolographicBriefingProps {
     title: string;
     description: string;
     stats?: { time: string; saved: string; accuracy: string; };
-    videoSrc?: string; // Fallback or background
+    videoSrc?: string;
     thumbnail?: string;
-    avatarImage?: string; // For the delegate
+    avatarImage?: string;
     role?: string;
-    theme?: 'default' | 'professional' | 'sovereign';
     abilityType?: 'strategy' | 'compliance' | 'analytics' | 'curriculum' | 'identity' | 'communication';
 }
-
-
 
 export default function HolographicBriefing({
     isOpen,
@@ -31,9 +28,8 @@ export default function HolographicBriefing({
     stats,
     videoSrc,
     thumbnail,
-    avatarImage = "/images/avatars/dr_alvin_west_premium.png", // Consistent AA default
+    avatarImage = "/images/avatars/dr_alvin_west_premium.png",
     role = "Executive Lead",
-    theme = 'professional',
     abilityType
 }: HolographicBriefingProps) {
     const { playClick, playHover, playSuccess } = useProfessionalSounds();
@@ -42,7 +38,6 @@ export default function HolographicBriefing({
     const humanBehavior = useHumanBehavior(isOpen);
     const videoRef = useRef<HTMLVideoElement>(null);
 
-    // SYNC ANIMATION
     useEffect(() => {
         if (videoRef.current) {
             if (isSpeaking) {
@@ -53,10 +48,9 @@ export default function HolographicBriefing({
         }
     }, [isSpeaking]);
 
-    // Effect to handle opening/speaking
     useEffect(() => {
         if (isOpen) {
-            playSuccess(); // Initial activation sound
+            playSuccess();
             startBriefing();
         } else {
             handleStopSpeaking();
@@ -66,60 +60,31 @@ export default function HolographicBriefing({
 
     const startBriefing = () => {
         if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
-
         window.speechSynthesis.cancel();
         setIsSpeaking(false);
 
         const text = `${title}. ${description}`;
-
         const buildUtterance = (voices: SpeechSynthesisVoice[]) => {
             const utterance = new SpeechSynthesisUtterance(text);
-
-            // Targeted Voice Selection for "Dr. Alvin West"
             const isAlvin = role.toLowerCase().includes('executive') || role.toLowerCase().includes('alvin') || title.toLowerCase().includes('finance');
 
-            let preferredVoice;
-            if (isAlvin) {
-                preferredVoice = voices.find(v =>
-                    v.name.includes('Daniel') ||
-                    v.name.includes('Google UK English Male') ||
-                    v.name.includes('Rocko') ||
-                    v.name.includes('Google US English')
-                );
-            } else {
-                const isMale = role.toLowerCase().includes('principal') || role.toLowerCase().includes('executive');
-                if (isMale) {
-                    preferredVoice = voices.find(v =>
-                        (v.name.includes('Male') || v.name.includes('Guy') || v.name.includes('David'))
-                        && v.lang.startsWith('en')
-                    );
-                } else {
-                    preferredVoice = voices.find(v =>
-                        (v.name.includes('Female') || v.name.includes('Samantha') || v.name.includes('Zira') || v.name.includes('Google US English'))
-                        && v.lang.startsWith('en')
-                    );
-                }
-            }
+            let preferredVoice = voices.find(v =>
+                (isAlvin ? (v.name.includes('Daniel') || v.name.includes('UK English Male')) : v.name.includes('Male')) && v.lang.startsWith('en')
+            );
 
             if (preferredVoice) utterance.voice = preferredVoice;
-            utterance.rate = 1.05;
+            utterance.rate = 1.0;
             utterance.pitch = 1.0;
             utterance.onstart = () => setIsSpeaking(true);
             utterance.onend = () => setIsSpeaking(false);
-            utterance.onerror = (e) => {
-                console.error("Speech Synthesis Error:", e);
-                setIsSpeaking(false);
-            };
-
             window.speechSynthesis.speak(utterance);
         };
 
         const voices = window.speechSynthesis.getVoices();
         if (voices.length === 0) {
             window.speechSynthesis.onvoiceschanged = () => {
-                const refreshedVoices = window.speechSynthesis.getVoices();
-                buildUtterance(refreshedVoices);
-                window.speechSynthesis.onvoiceschanged = null; // Clean up
+                buildUtterance(window.speechSynthesis.getVoices());
+                window.speechSynthesis.onvoiceschanged = null;
             };
         } else {
             buildUtterance(voices);
@@ -127,307 +92,173 @@ export default function HolographicBriefing({
     };
 
     const handleStopSpeaking = () => {
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel();
-        }
+        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
         setIsSpeaking(false);
     };
 
-    function VoiceVisualizer({ index }: { index: number }) {
-        return (
-            <motion.div
-                className={`w-1 rounded-full ${theme === 'professional' ? 'bg-amber-400/30' : 'bg-indigo-400/30'} blur-[1px]`}
-                animate={{
-                    height: [2, Math.random() * 24 + 4, 2],
-                    opacity: [0.2, 0.5, 0.2]
-                }}
-                transition={{
-                    repeat: Infinity,
-                    duration: 0.1 + (Math.random() * 0.15),
-                    delay: index * 0.02,
-                    ease: "easeInOut"
-                }}
-            />
-        );
-    }
-
-    // Simulated progress bar while speaking
     useEffect(() => {
         if (isSpeaking) {
             const interval = setInterval(() => {
-                setProgress(prev => (prev < 100 ? prev + 0.5 : 100)); // Simulate analysis progress
-            }, 50);
+                setProgress(prev => (prev < 100 ? prev + 0.5 : 100));
+            }, 100);
             return () => clearInterval(interval);
-        } else {
-            setProgress(100);
         }
     }, [isSpeaking]);
-
-    // Theme-based colors
-    const accentColor = theme === 'professional' ? 'text-amber-400' : 'text-indigo-400';
-    const borderColor = theme === 'professional' ? 'border-amber-500/30' : 'border-indigo-500/20';
-    const gradientBg = theme === 'professional' ? 'from-purple-900 to-amber-900' : 'from-indigo-500 to-purple-600';
 
     return (
         <AnimatePresence>
             {isOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8">
-                    {/* Backdrop */}
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-12">
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={onClose}
-                        className="absolute inset-0 bg-black/90 backdrop-blur-md"
+                        className="absolute inset-0 bg-black/95 backdrop-blur-xl"
                     />
 
-                    {/* Holographic Container */}
                     <motion.div
-                        initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                        initial={{ scale: 0.9, opacity: 0, y: 40 }}
                         animate={{ scale: 1, opacity: 1, y: 0 }}
-                        exit={{ scale: 0.9, opacity: 0, y: 20 }}
-                        className={`relative w-full max-w-5xl aspect-video bg-zinc-950 border ${theme === 'professional' ? 'border-amber-500/20' : 'border-white/10'} rounded-3xl overflow-hidden shadow-2xl ${theme === 'professional' ? 'shadow-amber-500/20' : 'shadow-indigo-500/20'} flex flex-col md:flex-row`}
+                        exit={{ scale: 0.9, opacity: 0, y: 40 }}
+                        className="relative w-full max-w-7xl aspect-video bg-zinc-950 border border-noble-gold/20 rounded-[3rem] overflow-hidden shadow-[0_0_100px_rgba(212,175,55,0.15)] flex flex-col md:flex-row"
                     >
-                        {/* LEFT COLUMN: Visual/Video Context */}
-                        <div className="md:w-2/3 h-64 md:h-full relative bg-black border-r border-white/10 overflow-hidden">
-                            {/* Theme Pattern Overlay (Kente-ish) */}
-                            {theme === 'professional' && (
-                                <div className="absolute inset-0 opacity-10 pointer-events-none z-10" style={{
-                                    backgroundImage: `repeating-linear-gradient(45deg, #d97706 0px, #d97706 2px, transparent 2px, transparent 10px), repeating-linear-gradient(-45deg, #7c3aed 0px, #7c3aed 2px, transparent 2px, transparent 10px)`
-                                }} />
-                            )}
+                        {/* Interactive UI Layers */}
+                        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-5 pointer-events-none" />
 
-                            {/* Background Video/Image OR Generative Stream */}
+                        {/* LEFT: Neural Context Stream */}
+                        <div className="md:w-[65%] h-64 md:h-full relative overflow-hidden border-r border-white/5 bg-black">
                             {videoSrc ? (
                                 <video
                                     src={videoSrc}
-                                    poster={thumbnail} // Shadow Render
-                                    className="w-full h-full object-cover opacity-60"
-                                    autoPlay
-                                    loop
-                                    muted
-                                    playsInline
-                                    onLoadedMetadata={(e) => {
-                                        e.currentTarget.play().catch(e => console.warn("Background Video Autoplay Blocked", e));
-                                    }}
+                                    className="w-full h-full object-cover opacity-40 mix-blend-screen"
+                                    autoPlay loop muted playsInline
                                 />
-                            ) : thumbnail ? (
-                                <img src={thumbnail} className="w-full h-full object-cover opacity-50" alt="Context" />
                             ) : (
-                                <div className="absolute inset-0 bg-zinc-950 flex items-center justify-center">
+                                <div className="absolute inset-0 bg-zinc-950 flex items-center justify-center scale-75">
                                     <AbilityAnimation type={abilityType || 'strategy'} />
                                 </div>
                             )}
 
-                            {/* Floating HUD Elements */}
-                            <div className="absolute top-6 left-6 z-30 flex flex-col gap-2">
-                                <div className="bg-black/60 backdrop-blur-md border border-amber-500/20 px-3 py-1.5 rounded-full flex items-center gap-2">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                                    <span className="text-[9px] font-bold text-white uppercase tracking-widest leading-none">NEURAL_LINK: STABLE</span>
+                            {/* HUD Overlays */}
+                            <div className="absolute top-10 left-10 z-20 flex flex-col gap-4">
+                                <div className="flex items-center gap-3 px-4 py-2 liquid-glass border-noble-gold/30">
+                                    <Wifi size={14} className="text-noble-gold animate-pulse" />
+                                    <span className="text-[10px] font-black text-white uppercase tracking-[0.3em]">Neural Uplink: Stable</span>
+                                </div>
+                                <div className="flex items-center gap-3 px-4 py-2 liquid-glass border-emerald-500/30">
+                                    <Lock size={14} className="text-emerald-500" />
+                                    <span className="text-[10px] font-black text-white uppercase tracking-[0.3em]">Sovereign Encryption</span>
                                 </div>
                             </div>
 
-                            {/* Overlay Grid */}
-                            <div className="absolute inset-0 bg-[linear-gradient(rgba(17,24,39,0)_2px,transparent_2px),linear-gradient(90deg,rgba(17,24,39,0)_2px,transparent_2px)] bg-[size:30px_30px] opacity-20 pointer-events-none" />
+                            <div className="absolute bottom-10 left-10 right-10 flex justify-between items-end z-20">
+                                {stats && (
+                                    <div className="flex gap-6">
+                                        {[
+                                            { label: 'Latency', value: stats.time, icon: Activity },
+                                            { label: 'Throughput', value: stats.saved, icon: Zap },
+                                            { label: 'Fidelity', value: stats.accuracy, icon: Shield }
+                                        ].map((s, i) => (
+                                            <div key={i} className="liquid-glass p-4 min-w-[120px] border-white/10">
+                                                <div className="flex items-center gap-2 mb-2 opacity-40">
+                                                    <s.icon size={12} />
+                                                    <span className="text-[8px] font-black uppercase tracking-widest">{s.label}</span>
+                                                </div>
+                                                <div className="text-xl font-black text-white">{s.value}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
 
-                            <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent pointer-events-none" />
-
-                            {/* Stats Overlay */}
-                            {stats && (
-                                <div className="absolute bottom-6 left-6 grid grid-cols-3 gap-4 z-20">
-                                    <div className="bg-black/60 backdrop-blur-md border border-white/10 p-3 rounded-lg">
-                                        <div className="text-xs text-zinc-400 uppercase">Save Time</div>
-                                        <div className="text-xl font-bold text-white">{stats.time}</div>
-                                    </div>
-                                    <div className="bg-black/60 backdrop-blur-md border border-white/10 p-3 rounded-lg">
-                                        <div className="text-xs text-zinc-400 uppercase">Efficiency</div>
-                                        <div className="text-xl font-bold text-emerald-400">{stats.saved}</div>
-                                    </div>
-                                    <div className="bg-black/60 backdrop-blur-md border border-white/10 p-3 rounded-lg">
-                                        <div className="text-xs text-zinc-400 uppercase">Accuracy</div>
-                                        <div className={`text-xl font-bold ${accentColor}`}>{stats.accuracy}</div>
-                                    </div>
-                                </div>
-                            )}
+                            {/* Scanning Line */}
+                            <motion.div
+                                className="absolute inset-0 bg-gradient-to-b from-transparent via-noble-gold/5 to-transparent h-px w-full z-10"
+                                animate={{ top: ['0%', '100%'] }}
+                                transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
+                            />
                         </div>
 
-                        {/* RIGHT COLUMN: The Briefing Delegate */}
-                        <div className="md:w-1/3 flex flex-col bg-zinc-900/50 backdrop-blur-xl relative overflow-hidden">
-                            {/* Theme Pattern for Right Column */}
-                            {theme === 'professional' && (
-                                <div className="absolute inset-0 opacity-5 pointer-events-none" style={{
-                                    backgroundImage: `radial-gradient(circle at center, #d97706 1px, transparent 1px)`,
-                                    backgroundSize: '20px 20px'
-                                }} />
-                            )}
-
+                        {/* RIGHT: Sovereign Delegate */}
+                        <div className="md:w-[35%] flex flex-col bg-zinc-950/80 backdrop-blur-3xl relative">
                             {/* Header */}
-                            <div className="p-6 border-b border-white/5 flex justify-between items-start">
+                            <div className="p-10 border-b border-white/5 flex justify-between items-center">
                                 <div>
-                                    <h3 className={`text-xs font-bold ${accentColor} uppercase tracking-widest mb-1`}>
-                                        Active Briefing
-                                    </h3>
-                                    <h2 className="text-2xl font-black text-white leading-tight">
-                                        {title}
-                                    </h2>
+                                    <p className="text-[10px] font-black text-noble-gold uppercase tracking-[0.4em] mb-2">Protocol Analysis</p>
+                                    <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter leading-none">{title}</h3>
                                 </div>
-                                <button
-                                    onClick={onClose}
-                                    onMouseEnter={playHover}
-                                    onClickCapture={playClick}
-                                    data-no-intelligence="true"
-                                    className="p-2 rounded-full hover:bg-white/10 text-zinc-400 hover:text-white transition-colors"
-                                >
-                                    <X size={20} />
+                                <button onClick={onClose} className="p-3 bg-white/5 hover:bg-white/10 text-white/50 hover:text-white rounded-full transition-all">
+                                    <X size={24} />
                                 </button>
                             </div>
 
-                            {/* Delegate Avatar Area */}
-                            <div className="flex-1 flex flex-col items-center justify-center p-8 relative">
-                                <div className={`relative w-32 h-32 rounded-full p-1 bg-gradient-to-br ${gradientBg} mb-6 shadow-2xl ${theme === 'professional' ? 'shadow-amber-500/30' : 'shadow-indigo-500/30'}`}>
-                                    <div className="w-full h-full rounded-full overflow-hidden border-2 border-black bg-black z-10 relative">
-                                        {videoSrc ? (
-                                            <motion.div
-                                                className="w-full h-full"
-                                                animate={isSpeaking ? {
-                                                    x: [0, -4, 4, -2, 0],
-                                                    y: [0, -1, 1, -0.5, 0],
-                                                    rotate: [0, -1, 1, -0.5, 0],
-                                                    scale: [1, 1.04, 1.02, 1.04, 1],
-                                                    ...humanBehavior.behaviorStyles
-                                                } : {
-                                                    ...humanBehavior.behaviorStyles
-                                                }}
-                                                transition={isSpeaking ? {
-                                                    duration: 4,
-                                                    repeat: Infinity,
-                                                    ease: "easeInOut"
-                                                } : {
-                                                    duration: 3,
-                                                    repeat: Infinity,
-                                                    ease: "easeInOut"
-                                                }}
-                                            >
-                                                <video
-                                                    ref={videoRef}
-                                                    src={videoSrc}
-                                                    loop muted playsInline
-                                                    poster={avatarImage} // Shadow Render
-                                                    onLoadedMetadata={(e) => {
-                                                        e.currentTarget.play().catch(e => console.warn("Avatar Video Autoplay Blocked", e));
-                                                    }}
-                                                    className="w-full h-full object-cover transform scale-125" // Scale up slightly to focus on face
-                                                />
-                                            </motion.div>
-                                        ) : (
+                            {/* Speaker Node */}
+                            <div className="flex-1 flex flex-col items-center justify-center p-10 relative">
+                                <div className="relative group">
+                                    <div className={`w-40 h-40 rounded-full p-1 bg-gradient-to-br from-noble-gold via-white/20 to-zinc-900 shadow-[0_0_50px_rgba(212,175,55,0.2)] ${isSpeaking ? 'animate-pulse' : ''}`}>
+                                        <div className="w-full h-full rounded-full overflow-hidden bg-black relative">
                                             <motion.img
                                                 src={avatarImage}
-                                                onError={(e) => e.currentTarget.src = '/images/avatars/executive_leader.png'}
                                                 alt={role}
-                                                className="w-full h-full object-cover"
-                                                animate={isSpeaking ? {
-                                                    x: [0, -4, 4, -2, 0],
-                                                    y: [0, -1, 1, -0.5, 0],
-                                                    rotate: [0, -1, 1, -0.5, 0],
-                                                    scale: [1, 1.04, 1.02, 1.04, 1],
-                                                    ...humanBehavior.behaviorStyles
-                                                } : {
-                                                    ...humanBehavior.behaviorStyles
-                                                }}
-                                                transition={isSpeaking ? {
-                                                    duration: 4,
-                                                    repeat: Infinity,
-                                                    ease: "easeInOut"
-                                                } : {
-                                                    duration: 3,
-                                                    repeat: Infinity,
-                                                    ease: "easeInOut"
-                                                }}
+                                                className="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 transition-all duration-700"
+                                                animate={isSpeaking ? { scale: [1, 1.05, 1], filter: 'brightness(1.2)' } : {}}
                                             />
-                                        )}
-
-                                        {/* Holographic Scanline for Avatar */}
-                                        <motion.div
-                                            className="absolute inset-0 bg-gradient-to-b from-transparent via-amber-500/20 to-transparent h-1 w-full z-20"
-                                            animate={{ top: ["-10%", "110%"] }}
-                                            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                                        />
-
-                                        {/* Identity Check Glitch overlay */}
-                                        <AnimatePresence>
                                             {isSpeaking && (
-                                                <motion.div
-                                                    initial={{ opacity: 0 }}
-                                                    animate={{ opacity: [0, 0.2, 0] }}
-                                                    transition={{ duration: 0.15, repeat: Infinity }}
-                                                    className="absolute inset-0 bg-amber-500/10 mix-blend-overlay z-20 pointer-events-none"
-                                                />
+                                                <div className="absolute inset-0 bg-black/40 flex items-center justify-center gap-1.5">
+                                                    {[...Array(6)].map((_, i) => (
+                                                        <motion.div
+                                                            key={i}
+                                                            className="w-1 bg-noble-gold rounded-full"
+                                                            animate={{ height: [4, 32, 4] }}
+                                                            transition={{ duration: 0.5, repeat: Infinity, delay: i * 0.1 }}
+                                                        />
+                                                    ))}
+                                                </div>
                                             )}
-                                        </AnimatePresence>
-
-                                        {isSpeaking && (
-                                            <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px] flex items-center justify-center gap-1">
-                                                {[...Array(8)].map((_, i) => (
-                                                    <VoiceVisualizer key={i} index={i} />
-                                                ))}
-                                            </div>
-                                        )}
+                                        </div>
                                     </div>
-                                    {/* Speaking Ripple (Subdued) */}
-                                    {isSpeaking && (
-                                        <div className="absolute inset-0 rounded-full border border-white/20 animate-ping opacity-20" />
-                                    )}
+                                    {isSpeaking && <div className="absolute -inset-4 border border-noble-gold/30 rounded-full animate-ping opacity-20" />}
                                 </div>
 
-                                <div className="text-center w-full">
-                                    <div className="text-sm font-medium text-zinc-500 mb-1">{role}</div>
-                                    <div className="h-16 flex items-center justify-center">
-                                        {isSpeaking ? (
-                                            <div className="flex gap-1 h-8 items-end">
-                                                {[...Array(5)].map((_, i) => (
-                                                    <motion.div
-                                                        key={i}
-                                                        className={`w-1 bg-gradient-to-t ${gradientBg} rounded-full`}
-                                                        animate={{ height: [10, 32, 10] }}
-                                                        transition={{
-                                                            repeat: Infinity,
-                                                            duration: 0.5 + Math.random() * 0.5,
-                                                            delay: i * 0.1
-                                                        }}
-                                                    />
-                                                ))}
-                                            </div>
-                                        ) : (
-                                            <div className="flex flex-col items-center gap-3">
-                                                <div className="text-[10px] text-zinc-600 uppercase tracking-widest flex items-center gap-2">
-                                                    <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-                                                    Awaiting Logic
-                                                </div>
-                                                <button
-                                                    onClick={() => startBriefing()}
-                                                    className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[9px] font-black text-white hover:bg-white/10 uppercase tracking-widest transition-all"
-                                                >
-                                                    Relay Audio
-                                                </button>
-                                            </div>
-                                        )}
-                                    </div>
+                                <div className="mt-8 text-center">
+                                    <h4 className="text-white font-black uppercase text-sm tracking-widest">{role}</h4>
+                                    <p className="text-noble-gold/50 text-[10px] font-black uppercase tracking-[0.3em] mt-1">Sovereign Asset Node</p>
                                 </div>
                             </div>
 
-                            {/* Live Transcript / Description */}
-                            <div className="p-6 bg-black/20 border-t border-white/5 h-48 overflow-y-auto">
-                                <p className="text-sm text-zinc-300 leading-relaxed font-mono">
-                                    <span className={`${accentColor} mr-2`}>{">>>"}</span>
-                                    {description}
-                                </p>
-                                {/* Progress Line */}
-                                <div className="mt-4 h-1 w-full bg-zinc-800 rounded-full overflow-hidden">
-                                    <motion.div
-                                        className={`h-full ${theme === 'professional' ? 'bg-amber-500' : 'bg-indigo-500'}`}
-                                        initial={{ width: 0 }}
-                                        animate={{ width: `${progress}%` }}
-                                    />
+                            {/* Transcript / Action Area */}
+                            <div className="p-10 bg-black/40 border-t border-white/5 space-y-6">
+                                <div className="space-y-4">
+                                    <p className="text-sm text-white/60 leading-relaxed font-mono">
+                                        <span className="text-noble-gold mr-3">{">>>"}</span>
+                                        {description}
+                                    </p>
+                                    <div className="h-1 bg-white/5 rounded-full overflow-hidden">
+                                        <motion.div
+                                            className="h-full bg-noble-gold shadow-[0_0_10px_#D4AF37]"
+                                            initial={{ width: 0 }}
+                                            animate={{ width: `${progress}%` }}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="flex gap-4">
+                                    <motion.button
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        onClick={() => startBriefing()}
+                                        className="flex-1 sovereign-button bg-white text-black py-4 text-[10px]"
+                                    >
+                                        <Command size={14} className="mr-2" />
+                                        Relay Audio
+                                    </motion.button>
+                                    <button
+                                        onClick={onClose}
+                                        className="px-6 py-4 liquid-glass border-white/10 text-white/40 hover:text-white transition-all text-[10px] font-black uppercase"
+                                    >
+                                        Dismiss
+                                    </button>
                                 </div>
                             </div>
                         </div>

@@ -1,8 +1,7 @@
 'use client';
 import PremiumPricingTable from '@/components/PremiumPricingTable';
 import CircadianFilter from '@/components/graphics/CircadianFilter';
-import { Shield as LucideShield, ArrowLeft } from 'lucide-react';
-import Link from 'next/link';
+import { Shield as LucideShield } from 'lucide-react';
 
 export default function PricingClient() {
     return (
@@ -11,17 +10,15 @@ export default function PricingClient() {
 
             <div className="max-w-7xl mx-auto px-6 pt-12">
                 {/* Minimal Header */}
-                <div className="flex items-center justify-between mb-8">
-                    <Link href="/" className="flex items-center gap-2 group text-zinc-500 hover:text-zinc-300 transition-colors">
-                        <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-                        <span className="text-xs font-bold uppercase tracking-widest">Return to Command</span>
-                    </Link>
-
-                    <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 bg-noble-gold rounded-lg flex items-center justify-center shadow-lg shadow-noble-gold/20">
-                            <LucideShield className="text-black" size={14} />
+                <div className="mb-8">
+                    <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-intel-gold/10 rounded-xl flex items-center justify-center border border-intel-gold/30">
+                            <LucideShield className="text-intel-gold" size={20} />
                         </div>
-                        <span className="text-sm font-black tracking-tight uppercase text-white">EdIntel Professional</span>
+                        <div>
+                            <h2 className="text-2xl font-black tracking-tight uppercase text-white italic">Professional Protocol</h2>
+                            <p className="text-[10px] text-zinc-600 uppercase tracking-widest font-black">Secure Deployment Tier</p>
+                        </div>
                     </div>
                 </div>
 

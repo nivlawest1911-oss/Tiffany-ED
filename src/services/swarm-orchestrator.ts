@@ -1,5 +1,6 @@
 import { OpenAI } from 'openai';
 import { SovereignSystemState, initializeSovereignState } from '@/lib/swarm-state';
+import { withResilience, ALABAMA_STRATEGIC_DIRECTIVE } from '@/lib/ai-resilience';
 
 /**
  * SOVEREIGN SWARM ORCHESTRATOR
@@ -26,25 +27,30 @@ export class SwarmOrchestrator {
         const steps = await this.decompose(goal);
         this.state.swarmMesh.supervisor.decomposition = steps;
 
-        // 2. Delegate to Workers
+        // 2. Delegation Step
         for (const step of steps) {
             await this.assignToWorker(step);
         }
     }
 
     private async decompose(goal: string): Promise<string[]> {
-        // LLM Call to break down goal
         const prompt = `
+        ${ALABAMA_STRATEGIC_DIRECTIVE}
+        
+        TASK: Break this GOAL into 3-5 atomic steps solvable by single tools (SQL, Email, or Report).
         GOAL: ${goal}
-        CONTEXT: Mobile County Education System.
-        TASK: Break this into 3-5 atomic steps solvable by single tools (SQL, Email, or Report).
+        
+        Ensure steps prioritize Alabama educational statutes and ROI.
         `;
-        const res = await openai.chat.completions.create({
-            model: "gpt-4-turbo-preview",
-            messages: [{ role: "system", content: prompt }]
+
+        return withResilience(async () => {
+            const res = await openai.chat.completions.create({
+                model: "gpt-4o", // Upgraded for strategic decomposition
+                messages: [{ role: "system", content: prompt }]
+            });
+            const plan = res.choices[0].message.content?.split('\n').filter(s => s.trim().length > 0) || [];
+            return plan;
         });
-        const plan = res.choices[0].message.content?.split('\n').filter(s => s.trim().length > 0) || [];
-        return plan;
     }
 
     /**
@@ -57,7 +63,7 @@ export class SwarmOrchestrator {
         console.log(`[Worker ${workerId}] Received Task: ${task}`);
 
         // 1. Propose Action
-        const proposedAction = `Simulated Action for: ${task}`; // Replace with actual LLM tool selection
+        const proposedAction = `Simulated Action for: ${task}`;
 
         // 2. CRITIC NODE: Audit
         const approved = await this.criticAudit(proposedAction, task);
@@ -65,7 +71,6 @@ export class SwarmOrchestrator {
         if (approved) {
             this.state.swarmMesh.workers[workerId].status = "ACTING";
             console.log(`[Worker ${workerId}] Executing: ${proposedAction}`);
-            // efficientToolExecution(proposedAction);
 
             // Log to Episodic Memory
             this.state.episodicLog.push({
@@ -78,7 +83,7 @@ export class SwarmOrchestrator {
         } else {
             console.warn(`[Critic] BLOCKED Action: ${proposedAction}`);
             this.state.swarmMesh.workers[workerId].status = "IDLE";
-            // Trigger Recursion/Self-Correction here
+            this.state.swarmMesh.critic.flagsRaised++;
         }
     }
 
@@ -86,13 +91,26 @@ export class SwarmOrchestrator {
      * CRITIC NODE: Semantic Audit
      */
     private async criticAudit(action: string, context: string): Promise<boolean> {
-        // Here we would check against the 'semanticGrid'
-        // Example: Does this action violate a "Sovereign Rule"?
-        const isSafe = true; // Placeholder for LLM Semantic Check
-        if (!isSafe) {
-            this.state.swarmMesh.critic.flagsRaised++;
-        }
-        return isSafe;
+        const prompt = `
+        ${ALABAMA_STRATEGIC_DIRECTIVE}
+
+        CRITIC AUDIT:
+        Action: ${action}
+        Context: ${context}
+
+        Return 'APPROVED' if the action is safe, compliant, and professionally sound. 
+        Return 'BLOCKED' if it violates FERPA, Alabama law, or EdIntel tone.
+        `;
+
+        const result = await withResilience(async () => {
+            const res = await openai.chat.completions.create({
+                model: "gpt-4o-mini",
+                messages: [{ role: "system", content: prompt }]
+            });
+            return res.choices[0].message.content || 'BLOCKED';
+        });
+
+        return result.toUpperCase().includes('APPROVED');
     }
 }
 

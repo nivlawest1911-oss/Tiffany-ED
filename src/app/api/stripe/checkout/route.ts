@@ -66,7 +66,9 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const origin = request.headers.get('origin') || process.env.NEXT_PUBLIC_APP_URL || 'https://edintel-app.vercel.app';
+        const host = request.headers.get('host');
+        const protocol = host?.includes('localhost') ? 'http' : 'https';
+        const origin = request.headers.get('origin') || process.env.NEXT_PUBLIC_APP_URL || `${protocol}://${host}`;
         const successUrl = `${origin}/dashboard?session_id={CHECKOUT_SESSION_ID}&success=true`;
         const cancelUrl = `${origin}/pricing?canceled=true`;
 

@@ -3,14 +3,10 @@ import { NextResponse } from 'next/server';
 export async function GET(request: Request) {
     const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 
-    // Attempt to get domain from request if NEXT_PUBLIC_APP_URL is missing
+    // Use request host to ensure redirect stays on the current domain
     const host = request.headers.get('host');
     const protocol = host?.includes('localhost') ? 'http' : 'https';
-    // Force Vercel URL if not localhost to fix Redirect Mismatch
-    let domain = process.env.NEXT_PUBLIC_APP_URL || `${protocol}://${host}`;
-    if (!domain.includes('localhost') && !process.env.NEXT_PUBLIC_APP_URL) {
-        domain = 'https://edintel-app.vercel.app';
-    }
+    const domain = process.env.NEXT_PUBLIC_APP_URL || `${protocol}://${host}`;
 
     const REDIRECT_URI = `${domain}/api/auth/google/callback`;
     console.log('[Auth] Using Redirect URI:', REDIRECT_URI);

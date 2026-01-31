@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import StreamingAvatar, { AvatarQuality, TaskType } from '@heygen/streaming-avatar';
 
 interface AIAgentAvatarProps {
@@ -12,20 +12,31 @@ export default function AIAgentAvatar({ textToSpeak = "", className = "" }: AIAg
     const [isLoading, setIsLoading] = useState(true);
     const videoRef = useRef<HTMLVideoElement>(null);
 
+    const handleSpeak = React.useCallback(async (text: string) => {
+        if (avatar) {
+            await avatar.speak({
+                text: text,
+                task_type: TaskType.REPEAT,
+            });
+        }
+    }, [avatar]);
+
+    useEffect(() => {
+        if (avatar && streamReady && textToSpeak) {
+            handleSpeak(textToSpeak);
+        }
+    }, [textToSpeak, avatar, streamReady, handleSpeak]);
+
     useEffect(() => {
         async function initAvatar() {
             try {
                 // Fetch secure session token from backend
-                // Note: You must implement this API route
                 const res = await fetch('/api/heygen-token');
                 if (!res.ok) throw new Error('Failed to fetch token');
 
                 const { token } = await res.json();
-
-                // Initialize streaming avatar
                 const newAvatar = new StreamingAvatar({ token });
 
-                // Setup event listeners
                 newAvatar.on('stream_ready', (event) => {
                     if (videoRef.current && event.detail) {
                         videoRef.current.srcObject = event.detail;
@@ -43,7 +54,7 @@ export default function AIAgentAvatar({ textToSpeak = "", className = "" }: AIAg
 
                 await newAvatar.createStartAvatar({
                     quality: AvatarQuality.High,
-                    avatarName: 'default', // You would make this dynamic
+                    avatarName: 'default',
                 });
 
                 setAvatar(newAvatar);
@@ -62,23 +73,7 @@ export default function AIAgentAvatar({ textToSpeak = "", className = "" }: AIAg
                 avatar.stopAvatar();
             }
         };
-    }, []);
-
-    // React to text changes
-    useEffect(() => {
-        if (avatar && streamReady && textToSpeak) {
-            handleSpeak(textToSpeak);
-        }
-    }, [textToSpeak, avatar, streamReady]);
-
-    const handleSpeak = async (text: string) => {
-        if (avatar) {
-            await avatar.speak({
-                text: text,
-                task_type: TaskType.REPEAT,
-            });
-        }
-    };
+    }, [avatar]);
 
     return (
         <div className={`avatar-container relative w-full h-full overflow-hidden rounded-3xl border border-white/10 bg-black ${className}`}>

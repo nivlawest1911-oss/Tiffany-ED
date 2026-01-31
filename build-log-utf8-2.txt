@@ -1,0 +1,50 @@
+﻿t\compiled\webpack\bundle5.js:
+29:109949)
+    at codeGen (C:\Users\nivla
+\edintel-app\node_modules\next
+\dist\compiled\webpack\bundle5
+.js:29:129383)
+    at symbolIterator (C:\User
+s\nivla\edintel-app\node_modul
+es\next\dist\compiled\neo-asyn
+c\async.js:1:14402)
+    at timesSync (C:\Users\niv
+la\edintel-app\node_modules\ne
+xt\dist\compiled\neo-async\asy
+nc.js:1:5027)
+    at Object.eachLimit (C:\Us
+ers\nivla\edintel-app\node_mod
+ules\next\dist\compiled\neo-as
+ync\async.js:1:14208)
+    at C:\Users\nivla\edintel-
+app\node_modules\next\dist\com
+piled\webpack\bundle5.js:29:12
+9630
+    at processQueue (C:\Users\
+nivla\edintel-app\node_modules
+\next\dist\compiled\webpack\bu
+ndle5.js:29:1448645)
+    at process.processTicksAnd
+Rejections (node:internal/proc
+ess/task_queues:84:11)
+
+Generated code for C:\Users\ni
+vla\edintel-app\node_modules\n
+ext\dist\build\webpack\loaders
+\css-loader\src\index.js??rule
+Set[1].rules[14].oneOf[10].use
+[2]!C:\Users\nivla\edintel-app
+\node_modules\next\dist\build\
+webpack\loaders\postcss-loader
+\src\index.js??ruleSet[1].rule
+s[14].oneOf[10].use[3]!C:\User
+s\nivla\edintel-app\src\app\gl
+obals.css
+
+Import trace for requested 
+module:
+./src/app/globals.css
+
+
+> Build failed because of 
+webpack errors

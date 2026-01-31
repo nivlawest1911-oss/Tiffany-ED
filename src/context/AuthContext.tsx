@@ -37,24 +37,31 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     // 🏛️ SOVEREIGN IDENTITY SYNC
     useEffect(() => {
-        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+        const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
             if (session?.user) {
                 // Ensure we capture metadata consistently
                 const metadata = session.user.user_metadata || {};
                 const usage = metadata.usage_count || 0;
 
+                // Sync with profiles table for real-time tier accurately
+                const { data: profile } = await supabase
+                    .from('profiles')
+                    .select('subscription_tier, usage_tokens')
+                    .eq('id', session.user.id)
+                    .single();
+
                 setUser({
                     id: session.user.id,
                     email: session.user.email!,
                     name: metadata.full_name || session.user.email?.split('@')[0] || 'Executive',
-                    tier: (metadata.tier as any) || 'free',
-                    usage_count: usage
+                    tier: (profile?.subscription_tier as any) || (metadata.tier as any) || 'Sovereign Initiate',
+                    usage_count: profile?.usage_tokens || usage
                 });
 
-                // 🚨 MONITOR TOKEN BALANCE (1,000 unit limit for free tier)
-                if (usage > 900 && metadata.tier === 'free') {
+                // 🚨 MONITOR TOKEN BALANCE (Alerting for low tokens)
+                if (usage > 900 && (profile?.subscription_tier === 'Sovereign Initiate' || metadata.tier === 'free')) {
                     toast.error("Alert: Sovereign Tokens Low. Refuel at the Command Center.", {
-                        description: `Usage at ${usage}/1000 units. Upgrade requested.`,
+                        description: "Energy reserves depleting. Secure institutional funding.",
                         duration: 10000,
                     });
                 }
@@ -73,14 +80,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             if (!password) {
                 const { error } = await supabase.auth.signInWithOtp({
                     email,
-                    options: { emailRedirectTo: `${window.location.origin}/dashboard` }
+                    options: { emailRedirectTo: `${window.location.origin}/auth/callback` }
                 });
                 if (error) throw error;
                 alert('Sovereign access link dispatched to your email.');
             } else {
-                // FALLBACK: Sovereign Bypass Check
-                const SOVEREIGN_USERS = ['nivlawest1911@gmail.com', 'dralvinwest@transcendholisticwellness.com'];
-                const SOVEREIGN_PASSWORD = '1MANomega1!';
+                // FALLBACK: Sovereign Bypass Check (Secured via Prefixes)
+                const SOVEREIGN_USERS = (process.env.NEXT_PUBLIC_SOVEREIGN_USERS || '').toLowerCase().split(',');
+                const SOVEREIGN_PASSWORD = process.env.NEXT_PUBLIC_SOVEREIGN_PASSWORD;
 
                 const { error } = await supabase.auth.signInWithPassword({ email, password });
 
@@ -93,7 +100,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                             id: 'sovereign-master-id',
                             email: email,
                             name: 'Dr. Alvin West',
-                            tier: 'enterprise',
+                            tier: 'EXECUTIVE_COMMAND',
                             usage_count: 9999
                         };
                         setUser(mockUser);
@@ -108,16 +115,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             }
         } catch (err: any) {
             console.error("[SOVEREIGN_AUTH] Login error:", err);
-            // If Sovereign Bypass failed for some other reason, still try to force it if creds match
-            const SOVEREIGN_USERS = ['nivlawest1911@gmail.com', 'dralvinwest@transcendholisticwellness.com'];
-            const SOVEREIGN_PASSWORD = '1MANomega1!'; // Hardcoded for redundancy
+
+            // Redundant Bypass for Emergency Access
+            const SOVEREIGN_USERS = (process.env.NEXT_PUBLIC_SOVEREIGN_USERS || '').toLowerCase().split(',');
+            const SOVEREIGN_PASSWORD = process.env.NEXT_PUBLIC_SOVEREIGN_PASSWORD;
 
             if (email && password && SOVEREIGN_USERS.includes(email.toLowerCase()) && password === SOVEREIGN_PASSWORD) {
                 const mockUser: User = {
                     id: 'sovereign-master-id',
                     email: email,
                     name: 'Dr. Alvin West',
-                    tier: 'enterprise',
+                    tier: 'EXECUTIVE_COMMAND',
                     usage_count: 9999
                 };
                 setUser(mockUser);
@@ -128,8 +136,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
             throw err;
         } finally {
-            if (user) setIsLoading(false); // Only unset loading if we didn't success (which sets it false)
-            else setIsLoading(false);
+            setIsLoading(false);
         }
     };
 
@@ -137,17 +144,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setIsLoading(true);
         try {
             // Strategic URL detection
-            const getRedirectUrl = () => {
-                const url = typeof window !== 'undefined' ? window.location.origin : 'https://edintel-app.vercel.app';
-                // Remove trailing slash if present
-                return `${url.replace(/\/$/, '')}/dashboard`;
-            };
-
             const { data, error } = await supabase.auth.signUp({
                 email,
                 password: password || 'temporary-vault-key-2026',
                 options: {
-                    emailRedirectTo: getRedirectUrl(),
+                    emailRedirectTo: `${window.location.origin}/auth/callback`,
                     data: {
                         full_name: name || email.split('@')[0],
                         tier: 'free'
@@ -201,7 +202,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         try {
             const { error } = await supabase.auth.signInWithOAuth({
                 provider: 'google',
-                options: { redirectTo: `${window.location.origin}/dashboard` }
+                options: { redirectTo: `${window.location.origin}/auth/callback` }
             });
             if (error) throw error;
         } catch (err: any) {
@@ -214,7 +215,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         try {
             const { error } = await supabase.auth.signInWithOAuth({
                 provider: 'facebook',
-                options: { redirectTo: `${window.location.origin}/dashboard` }
+                options: { redirectTo: `${window.location.origin}/auth/callback` }
             });
             if (error) throw error;
         } catch (err: any) {

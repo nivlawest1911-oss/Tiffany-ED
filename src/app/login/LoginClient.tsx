@@ -13,7 +13,7 @@ export default function LoginClient() {
     const [error, setError] = useState('');
     const [isLoggingIn, setIsLoggingIn] = useState(false);
     const [showBriefing, setShowBriefing] = useState(false);
-    const router = useRouter();
+    const _router = useRouter();
     const { login, loginWithGoogle, loginWithFacebook } = useAuth();
 
     // Mouse Tracking Logic for Neural Grid

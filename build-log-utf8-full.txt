@@ -1,0 +1,456 @@
+﻿   Γû▓ Next.js 15.5.10
+   - Environments: .env.local, .env.production, .env
+
+   Creating an optimized production build ...
+node.exe : [Error: Cannot 
+apply unknown utility class `h
+over:shadow-[0_0_20px_rgba(212
+,`]
+At C:\Users\nivla\AppData\Roam
+ing\npm\npx.ps1:24 char:5
++     & "node$exe"  "$basedir/
+node_modules/npm/bin/npx-cli.j
+s" $args
++     ~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~
+    + CategoryInfo          : 
+    NotSpecified: ([Error: C  
+  annot ...0px_rgba(212,`]:   
+ String) [], RemoteExcepti    
+on
+    + FullyQualifiedErrorId : 
+    NativeCommandError
+ 
+Failed to compile.
+
+./src/app/globals.css:1:1
+Syntax error: tailwindcss: C:\
+Users\nivla\edintel-app\src\ap
+p\globals.css Cannot apply 
+unknown utility class `hover:s
+hadow-[0_0_20px_rgba(212,`
+
+[1m[31m>[39m[22m[90m 1 | 
+[39m[36m@import[39m [32m"t
+ailwindcss"[39m[33m;[39m
+ [90m   | 
+[39m[1m[31m^[39m[22m
+ [90m 2 | [39m
+ [90m 3 | 
+[39m[36m@theme[39m 
+[33m{[39m
+
+./src/app/globals.css
+Syntax error: tailwindcss: C:\
+Users\nivla\edintel-app\src\ap
+p\globals.css Cannot apply 
+unknown utility class `hover:s
+hadow-[0_0_20px_rgba(212,` 
+(1:1)
+
+[1m[31m>[39m[22m[90m 1 | 
+[39m[36m@import[39m [32m"t
+ailwindcss"[39m[33m;[39m
+ [90m   | 
+[39m[1m[31m^[39m[22m
+ [90m 2 | [39m
+ [90m 3 | 
+[39m[36m@theme[39m 
+[33m{[39m
+
+    at tryRunOrWebpackError (C
+:\Users\nivla\edintel-app\node
+_modules\next\dist\compiled\we
+bpack\bundle5.js:29:316119)
+    at 
+__webpack_require_module__ (C:
+\Users\nivla\edintel-app\node_
+modules\next\dist\compiled\web
+pack\bundle5.js:29:131532)
+    at __nested_webpack_requir
+e_161494__ (C:\Users\nivla\edi
+ntel-app\node_modules\next\dis
+t\compiled\webpack\bundle5.js:
+29:130967)
+    at C:\Users\nivla\edintel-
+app\node_modules\next\dist\com
+piled\webpack\bundle5.js:29:13
+1824
+    at symbolIterator (C:\User
+s\nivla\edintel-app\node_modul
+es\next\dist\compiled\neo-asyn
+c\async.js:1:14444)
+    at done (C:\Users\nivla\ed
+intel-app\node_modules\next\di
+st\compiled\neo-async\async.js
+:1:14824)
+    at Hook.eval [as 
+callAsync] (eval at create (C:
+\Users\nivla\edintel-app\node_
+modules\next\dist\compiled\web
+pack\bundle5.js:14:9224), 
+<anonymous>:15:1)
+    at 
+Hook.CALL_ASYNC_DELEGATE [as 
+_callAsync] (C:\Users\nivla\ed
+intel-app\node_modules\next\di
+st\compiled\webpack\bundle5.js
+:14:6378)
+    at C:\Users\nivla\edintel-
+app\node_modules\next\dist\com
+piled\webpack\bundle5.js:29:13
+0687
+    at symbolIterator (C:\User
+s\nivla\edintel-app\node_modul
+es\next\dist\compiled\neo-asyn
+c\async.js:1:14402)
+    at timesSync (C:\Users\niv
+la\edintel-app\node_modules\ne
+xt\dist\compiled\neo-async\asy
+nc.js:1:5027)
+    at Object.eachLimit (C:\Us
+ers\nivla\edintel-app\node_mod
+ules\next\dist\compiled\neo-as
+ync\async.js:1:14208)
+    at C:\Users\nivla\edintel-
+app\node_modules\next\dist\com
+piled\webpack\bundle5.js:29:13
+0247
+    at symbolIterator (C:\User
+s\nivla\edintel-app\node_modul
+es\next\dist\compiled\neo-asyn
+c\async.js:1:14444)
+    at timesSync (C:\Users\niv
+la\edintel-app\node_modules\ne
+xt\dist\compiled\neo-async\asy
+nc.js:1:5027)
+    at Object.eachLimit (C:\Us
+ers\nivla\edintel-app\node_mod
+ules\next\dist\compiled\neo-as
+ync\async.js:1:14208)
+    at C:\Users\nivla\edintel-
+app\node_modules\next\dist\com
+piled\webpack\bundle5.js:29:12
+9985
+    at symbolIterator (C:\User
+s\nivla\edintel-app\node_modul
+es\next\dist\compiled\neo-asyn
+c\async.js:1:14444)
+    at done (C:\Users\nivla\ed
+intel-app\node_modules\next\di
+st\compiled\neo-async\async.js
+:1:14824)
+    at C:\Users\nivla\edintel-
+app\node_modules\next\dist\com
+piled\webpack\bundle5.js:29:12
+9496
+    at C:\Users\nivla\edintel-
+app\node_modules\next\dist\com
+piled\webpack\bundle5.js:29:11
+0331
+    at C:\Users\nivla\edintel-
+app\node_modules\next\dist\com
+piled\webpack\bundle5.js:29:31
+5955
+    at Hook.eval [as 
+callAsync] (eval at create (C:
+\Users\nivla\edintel-app\node_
+modules\next\dist\compiled\web
+pack\bundle5.js:14:9224), 
+<anonymous>:6:1)
+    at Cache.store (C:\Users\n
+ivla\edintel-app\node_modules\
+next\dist\compiled\webpack\bun
+dle5.js:29:16215)
+    at ItemCacheFacade.store (
+C:\Users\nivla\edintel-app\nod
+e_modules\next\dist\compiled\w
+ebpack\bundle5.js:29:17460)
+    at C:\Users\nivla\edintel-
+app\node_modules\next\dist\com
+piled\webpack\bundle5.js:29:11
+0318
+    at C:\Users\nivla\edintel-
+app\node_modules\next\dist\com
+piled\webpack\bundle5.js:29:16
+169
+    at Hook.eval [as 
+callAsync] (eval at create (C:
+\Users\nivla\edintel-app\node_
+modules\next\dist\compiled\web
+pack\bundle5.js:14:9224), 
+<anonymous>:6:1)
+    at Cache.get (C:\Users\niv
+la\edintel-app\node_modules\ne
+xt\dist\compiled\webpack\bundl
+e5.js:29:15944)
+    at ItemCacheFacade.get (C:
+\Users\nivla\edintel-app\node_
+modules\next\dist\compiled\web
+pack\bundle5.js:29:17292)
+    at Compilation._codeGenera
+tionModule (C:\Users\nivla\edi
+ntel-app\node_modules\next\dis
+t\compiled\webpack\bundle5.js:
+29:109949)
+    at codeGen (C:\Users\nivla
+\edintel-app\node_modules\next
+\dist\compiled\webpack\bundle5
+.js:29:129383)
+    at symbolIterator (C:\User
+s\nivla\edintel-app\node_modul
+es\next\dist\compiled\neo-asyn
+c\async.js:1:14402)
+    at timesSync (C:\Users\niv
+la\edintel-app\node_modules\ne
+xt\dist\compiled\neo-async\asy
+nc.js:1:5027)
+    at Object.eachLimit (C:\Us
+ers\nivla\edintel-app\node_mod
+ules\next\dist\compiled\neo-as
+ync\async.js:1:14208)
+    at C:\Users\nivla\edintel-
+app\node_modules\next\dist\com
+piled\webpack\bundle5.js:29:12
+9630
+    at processQueue (C:\Users\
+nivla\edintel-app\node_modules
+\next\dist\compiled\webpack\bu
+ndle5.js:29:1448645)
+    at process.processTicksAnd
+Rejections (node:internal/proc
+ess/task_queues:84:11)
+-- inner error --
+Syntax error: tailwindcss: C:\
+Users\nivla\edintel-app\src\ap
+p\globals.css Cannot apply 
+unknown utility class `hover:s
+hadow-[0_0_20px_rgba(212,` 
+(1:1)
+
+[1m[31m>[39m[22m[90m 1 | 
+[39m[36m@import[39m [32m"t
+ailwindcss"[39m[33m;[39m
+ [90m   | 
+[39m[1m[31m^[39m[22m
+ [90m 2 | [39m
+ [90m 3 | 
+[39m[36m@theme[39m 
+[33m{[39m
+
+    at Object.<anonymous> (C:\
+Users\nivla\edintel-app\node_m
+odules\next\dist\build\webpack
+\loaders\css-loader\src\index.
+js??ruleSet[1].rules[14].oneOf
+[10].use[2]!C:\Users\nivla\edi
+ntel-app\node_modules\next\dis
+t\build\webpack\loaders\postcs
+s-loader\src\index.js??ruleSet
+[1].rules[14].oneOf[10].use[3]
+!C:\Users\nivla\edintel-app\sr
+c\app\globals.css:1:7)
+    at C:\Users\nivla\edintel-
+app\node_modules\next\dist\com
+piled\webpack\bundle5.js:29:96
+2717
+    at Hook.eval [as call] 
+(eval at create (C:\Users\nivl
+a\edintel-app\node_modules\nex
+t\dist\compiled\webpack\bundle
+5.js:14:9002), 
+<anonymous>:7:1)
+    at Hook.CALL_DELEGATE [as 
+_call] (C:\Users\nivla\edintel
+-app\node_modules\next\dist\co
+mpiled\webpack\bundle5.js:14:6
+272)
+    at C:\Users\nivla\edintel-
+app\node_modules\next\dist\com
+piled\webpack\bundle5.js:29:13
+1565
+    at tryRunOrWebpackError (C
+:\Users\nivla\edintel-app\node
+_modules\next\dist\compiled\we
+bpack\bundle5.js:29:316073)
+    at 
+__webpack_require_module__ (C:
+\Users\nivla\edintel-app\node_
+modules\next\dist\compiled\web
+pack\bundle5.js:29:131532)
+    at __nested_webpack_requir
+e_161494__ (C:\Users\nivla\edi
+ntel-app\node_modules\next\dis
+t\compiled\webpack\bundle5.js:
+29:130967)
+    at C:\Users\nivla\edintel-
+app\node_modules\next\dist\com
+piled\webpack\bundle5.js:29:13
+1824
+    at symbolIterator (C:\User
+s\nivla\edintel-app\node_modul
+es\next\dist\compiled\neo-asyn
+c\async.js:1:14444)
+    at done (C:\Users\nivla\ed
+intel-app\node_modules\next\di
+st\compiled\neo-async\async.js
+:1:14824)
+    at Hook.eval [as 
+callAsync] (eval at create (C:
+\Users\nivla\edintel-app\node_
+modules\next\dist\compiled\web
+pack\bundle5.js:14:9224), 
+<anonymous>:15:1)
+    at 
+Hook.CALL_ASYNC_DELEGATE [as 
+_callAsync] (C:\Users\nivla\ed
+intel-app\node_modules\next\di
+st\compiled\webpack\bundle5.js
+:14:6378)
+    at C:\Users\nivla\edintel-
+app\node_modules\next\dist\com
+piled\webpack\bundle5.js:29:13
+0687
+    at symbolIterator (C:\User
+s\nivla\edintel-app\node_modul
+es\next\dist\compiled\neo-asyn
+c\async.js:1:14402)
+    at timesSync (C:\Users\niv
+la\edintel-app\node_modules\ne
+xt\dist\compiled\neo-async\asy
+nc.js:1:5027)
+    at Object.eachLimit (C:\Us
+ers\nivla\edintel-app\node_mod
+ules\next\dist\compiled\neo-as
+ync\async.js:1:14208)
+    at C:\Users\nivla\edintel-
+app\node_modules\next\dist\com
+piled\webpack\bundle5.js:29:13
+0247
+    at symbolIterator (C:\User
+s\nivla\edintel-app\node_modul
+es\next\dist\compiled\neo-asyn
+c\async.js:1:14444)
+    at timesSync (C:\Users\niv
+la\edintel-app\node_modules\ne
+xt\dist\compiled\neo-async\asy
+nc.js:1:5027)
+    at Object.eachLimit (C:\Us
+ers\nivla\edintel-app\node_mod
+ules\next\dist\compiled\neo-as
+ync\async.js:1:14208)
+    at C:\Users\nivla\edintel-
+app\node_modules\next\dist\com
+piled\webpack\bundle5.js:29:12
+9985
+    at symbolIterator (C:\User
+s\nivla\edintel-app\node_modul
+es\next\dist\compiled\neo-asyn
+c\async.js:1:14444)
+    at done (C:\Users\nivla\ed
+intel-app\node_modules\next\di
+st\compiled\neo-async\async.js
+:1:14824)
+    at C:\Users\nivla\edintel-
+app\node_modules\next\dist\com
+piled\webpack\bundle5.js:29:12
+9496
+    at C:\Users\nivla\edintel-
+app\node_modules\next\dist\com
+piled\webpack\bundle5.js:29:11
+0331
+    at C:\Users\nivla\edintel-
+app\node_modules\next\dist\com
+piled\webpack\bundle5.js:29:31
+5955
+    at Hook.eval [as 
+callAsync] (eval at create (C:
+\Users\nivla\edintel-app\node_
+modules\next\dist\compiled\web
+pack\bundle5.js:14:9224), 
+<anonymous>:6:1)
+    at Cache.store (C:\Users\n
+ivla\edintel-app\node_modules\
+next\dist\compiled\webpack\bun
+dle5.js:29:16215)
+    at ItemCacheFacade.store (
+C:\Users\nivla\edintel-app\nod
+e_modules\next\dist\compiled\w
+ebpack\bundle5.js:29:17460)
+    at C:\Users\nivla\edintel-
+app\node_modules\next\dist\com
+piled\webpack\bundle5.js:29:11
+0318
+    at C:\Users\nivla\edintel-
+app\node_modules\next\dist\com
+piled\webpack\bundle5.js:29:16
+169
+    at Hook.eval [as 
+callAsync] (eval at create (C:
+\Users\nivla\edintel-app\node_
+modules\next\dist\compiled\web
+pack\bundle5.js:14:9224), 
+<anonymous>:6:1)
+    at Cache.get (C:\Users\niv
+la\edintel-app\node_modules\ne
+xt\dist\compiled\webpack\bundl
+e5.js:29:15944)
+    at ItemCacheFacade.get (C:
+\Users\nivla\edintel-app\node_
+modules\next\dist\compiled\web
+pack\bundle5.js:29:17292)
+    at Compilation._codeGenera
+tionModule (C:\Users\nivla\edi
+ntel-app\node_modules\next\dis
+t\compiled\webpack\bundle5.js:
+29:109949)
+    at codeGen (C:\Users\nivla
+\edintel-app\node_modules\next
+\dist\compiled\webpack\bundle5
+.js:29:129383)
+    at symbolIterator (C:\User
+s\nivla\edintel-app\node_modul
+es\next\dist\compiled\neo-asyn
+c\async.js:1:14402)
+    at timesSync (C:\Users\niv
+la\edintel-app\node_modules\ne
+xt\dist\compiled\neo-async\asy
+nc.js:1:5027)
+    at Object.eachLimit (C:\Us
+ers\nivla\edintel-app\node_mod
+ules\next\dist\compiled\neo-as
+ync\async.js:1:14208)
+    at C:\Users\nivla\edintel-
+app\node_modules\next\dist\com
+piled\webpack\bundle5.js:29:12
+9630
+    at processQueue (C:\Users\
+nivla\edintel-app\node_modules
+\next\dist\compiled\webpack\bu
+ndle5.js:29:1448645)
+    at process.processTicksAnd
+Rejections (node:internal/proc
+ess/task_queues:84:11)
+
+Generated code for C:\Users\ni
+vla\edintel-app\node_modules\n
+ext\dist\build\webpack\loaders
+\css-loader\src\index.js??rule
+Set[1].rules[14].oneOf[10].use
+[2]!C:\Users\nivla\edintel-app
+\node_modules\next\dist\build\
+webpack\loaders\postcss-loader
+\src\index.js??ruleSet[1].rule
+s[14].oneOf[10].use[3]!C:\User
+s\nivla\edintel-app\src\app\gl
+obals.css
+
+Import trace for requested 
+module:
+./src/app/globals.css
+
+
+> Build failed because of 
+webpack errors
+

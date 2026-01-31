@@ -55,6 +55,12 @@ export async function GET(request: NextRequest) {
 
         const client = getMetaAIClient();
 
+        if (format === 'quiz') {
+            const numQuestions = parseInt(searchParams.get('numQuestions') || '5');
+            const questions = await client.generateQuiz(topic, numQuestions);
+            return NextResponse.json({ questions });
+        }
+
         const content = await client.generateEducationalContent(topic, gradeLevel, {
             format: format || 'explanation',
         });

@@ -4,22 +4,21 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import {
-    Shield, Activity, Command,
+    Shield, Activity,
     MessageSquare, X,
-    ChevronRight, Mic, Video, Radio,
-    Github, Cloud, Zap
+    Mic, Trophy, Zap, Bell,
+    Cpu
 } from 'lucide-react';
-import { useAuth } from '@/context/AuthContext';
 import LiveAvatarChat from './LiveAvatarChat';
-import { useLeadershipRank } from '@/hooks/useLeadershipRank';
+import { useAuth } from '@/context/AuthContext';
 import { CORE_AVATARS } from '@/data/avatars';
 import { usePathname } from 'next/navigation';
 import { SOVEREIGN_PROTOCOLS, DEFAULT_PROTOCOL } from '@/data/sovereign-protocols';
 import HumanAvatar from './ui/HumanAvatar';
+import EdIntelPivot from './ui/EdIntelPivot';
+import SovereignInteractionAgent from './SovereignInteractionAgent';
 
-const HolographicBriefing = dynamic(() => import('./HolographicBriefing'), { ssr: false });
 const SovereignMediaVault = dynamic(() => import('./SovereignMediaVault'), { ssr: false });
-const Conversation = dynamic(() => import('./cvi/components/conversation').then(mod => mod.Conversation), { ssr: false });
 
 interface Delegate {
     id: string;
@@ -39,31 +38,27 @@ interface SovereignDelegateProps {
     greetingOverride?: string;
 }
 
-export default function SovereignDelegate({ initialOpen = false, greetingOverride }: SovereignDelegateProps) {
-    // 1. SAFE RENDER GATE - Prevents Hydration Mismatch
+export default function SovereignDelegate({ initialOpen = false }: SovereignDelegateProps) {
     const [isMounted, setIsMounted] = useState(false);
     useEffect(() => setIsMounted(true), []);
 
-    const { user } = useAuth();
     const pathname = usePathname();
-    const { isSovereign } = useLeadershipRank();
+    const { user } = useAuth();
+    if (user) console.log("Identity Clearance Established");
 
-    // 2. State & Hooks
     const [currentProtocol, setCurrentProtocol] = useState(DEFAULT_PROTOCOL);
     const [showNotification, setShowNotification] = useState(false);
 
-    // Context Logic
     useEffect(() => {
         if (!isMounted) return;
         const protocol = SOVEREIGN_PROTOCOLS[pathname] || DEFAULT_PROTOCOL;
         setCurrentProtocol(protocol);
 
-        // Announce context change with a slight delay
         const delay = setTimeout(() => {
             setShowNotification(true);
-        }, 1000);
+        }, 2000);
 
-        const hide = setTimeout(() => setShowNotification(false), 9000);
+        const hide = setTimeout(() => setShowNotification(false), 10000);
         return () => { clearTimeout(delay); clearTimeout(hide); };
     }, [pathname, isMounted]);
 
@@ -84,13 +79,10 @@ export default function SovereignDelegate({ initialOpen = false, greetingOverrid
     const [isOpen, setIsOpen] = useState(initialOpen);
     const [selectedDelegate, setSelectedDelegate] = useState<Delegate | null>(INITIAL_DELEGATES[0]);
     const [isChatOpen, setIsChatOpen] = useState(false);
-    const [showBriefing, setShowBriefing] = useState(false);
     const [activeTab, setActiveTab] = useState<'uplink' | 'voice' | 'vault'>('uplink');
     const [isRecording, setIsRecording] = useState(false);
     const [voiceProgress, setVoiceProgress] = useState(0);
-    const [isTavusActive, setIsTavusActive] = useState(false);
 
-    // Voice Calibration Logic
     useEffect(() => {
         if (isRecording) {
             const interval = setInterval(() => {
@@ -99,547 +91,415 @@ export default function SovereignDelegate({ initialOpen = false, greetingOverrid
                         setIsRecording(false);
                         return 100;
                     }
-                    return prev + 2;
+                    return prev + 1.5;
                 });
-            }, 50);
+            }, 60);
             return () => clearInterval(interval);
+        } else {
+            setVoiceProgress(0);
         }
     }, [isRecording]);
-
-    const [twinImage, setTwinImage] = useState<string | null>(null);
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            setTwinImage(localStorage.getItem('edintel_twin_image'));
-        }
-    }, []);
-
-    // Auto-open Sovereign Mode on 'Ctrl+Space'
-    useEffect(() => {
-        if (!isMounted) return;
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.ctrlKey && e.code === 'Space') {
-                e.preventDefault();
-                setIsOpen(prev => !prev);
-            }
-        };
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [isMounted]);
-
-    const [isScanningIdentity, setIsScanningIdentity] = useState(false);
-
-
-    useEffect(() => {
-        if (isOpen) {
-            setIsScanningIdentity(true);
-            setTimeout(() => setIsScanningIdentity(false), 2000);
-        }
-    }, [isOpen]);
-
-    // Live System Metrics Simulation
-    const [systemStats, setSystemStats] = useState({ cpu: 12, latency: 45, memory: 34 });
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setSystemStats({
-                cpu: Math.floor(Math.random() * 30) + 10,
-                latency: Math.floor(Math.random() * 40) + 15,
-                memory: Math.floor(Math.random() * 20) + 30
-            });
-        }, 1500);
-        return () => clearInterval(interval);
-    }, []);
 
     if (!isMounted) return null;
 
     return (
-        <>
-            {/* The Trigger Pill - NOW A LIVE VIDEO BUBBLE */}
-            <motion.div
-                className="fixed bottom-6 right-6 z-50 pointer-events-auto group flex flex-col items-end gap-2"
-                initial={{ y: 100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 1, type: "spring" }}
-            >
-                {/* CONTEXTUAL SPEECH BUBBLE */}
-                <AnimatePresence>
-                    {(showNotification) && (
-                        <motion.div
-                            key="notification-bubble"
-                            initial={{ opacity: 0, scale: 0.8, x: 20 }}
-                            animate={{ opacity: 1, scale: 1, x: 0 }}
-                            exit={{ opacity: 0, scale: 0.8, x: 20 }}
-                            onClick={() => { setIsOpen(true); setShowBriefing(true); }}
-                            className="bg-black/90 backdrop-blur-xl border border-amber-500/30 p-4 rounded-2xl rounded-br-none max-w-xs shadow-2xl cursor-pointer hover:bg-zinc-900 transition-colors mb-2 mr-2 pointer-events-auto"
-                        >
-                            <div className="flex items-center gap-2 mb-1">
-                                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                                <span className="text-[9px] font-bold text-amber-500 uppercase tracking-widest">{currentProtocol.context}</span>
+        <div className="fixed bottom-8 right-8 z-[100] flex flex-col items-end gap-6 pointer-events-none">
+            {/* Context Notification Toast */}
+            <AnimatePresence>
+                {showNotification && !isOpen && !isChatOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, x: 50, scale: 0.9, rotate: 2 }}
+                        animate={{ opacity: 1, x: 0, scale: 1, rotate: 0 }}
+                        exit={{ opacity: 0, scale: 0.9, x: 20 }}
+                        className="pointer-events-auto liquid-glass p-5 pr-14 max-w-sm relative group border-noble-gold/40 shadow-[0_0_40px_rgba(212,175,55,0.15)] rounded-[1.5rem]"
+                    >
+                        <div className="flex items-start gap-4">
+                            <div className="w-10 h-10 rounded-xl bg-noble-gold/10 flex items-center justify-center text-noble-gold border border-noble-gold/30">
+                                <Bell size={18} className="animate-pulse" />
                             </div>
-                            <p className="text-xs text-zinc-300 leading-relaxed font-medium">
-                                "{currentProtocol.message}"
-                            </p>
-                            <div className="mt-3 pt-3 border-t border-white/5">
-                                <p className="text-[8px] text-amber-500/80 font-black uppercase tracking-[0.2em] mb-1">Quantum Feature Active</p>
-                                <p className="text-[10px] text-zinc-400">Shift + Click any button/link for <span className="text-amber-400 font-bold">Deep Strategic Info</span>.</p>
-                            </div>
-                            {currentProtocol.suggestedAction && (
-                                <div className="mt-2 text-[9px] text-cyan-400 font-bold uppercase tracking-wider flex items-center gap-1">
-                                    <span className="text-white">Suggested:</span> {currentProtocol.actionLabel || 'Execute'} <ChevronRight size={8} />
+                            <div className="flex-1">
+                                <div className="flex items-center gap-2 mb-1">
+                                    <span className="text-[9px] font-black uppercase text-noble-gold tracking-[0.3em]">Neural Protocol</span>
+                                    <div className="w-1 h-1 rounded-full bg-noble-gold animate-ping" />
                                 </div>
-                            )}
+                                <p className="text-sm text-white font-bold leading-tight">{currentProtocol.message}</p>
+                                <p className="text-[10px] text-white/40 mt-1 uppercase tracking-widest font-black italic">Sovereign OS // Auto-Sync</p>
+                            </div>
+                        </div>
+                        <button
+                            onClick={() => setShowNotification(false)}
+                            className="absolute top-4 right-4 p-1 text-white/20 hover:text-white transition-colors"
+                            title="Dismiss Notification"
+                        >
+                            <X size={16} />
+                        </button>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* Tactical Intelligence Node */}
+            <div className="pointer-events-auto pr-4">
+                <SovereignInteractionAgent
+                    title="Intelligence Pivot"
+                    description="Open the real-time system diagnostic and tactical synchronization module."
+                    agentId="tactical"
+                    position="left"
+                >
+                    <EdIntelPivot />
+                </SovereignInteractionAgent>
+            </div>
+
+            {/* Launch Action Node */}
+            <motion.button
+                onClick={() => setIsOpen(!isOpen)}
+                whileHover={{ scale: 1.05, rotate: isOpen ? -90 : 0 }}
+                whileTap={{ scale: 0.9 }}
+                className="pointer-events-auto group relative w-20 h-20 rounded-[2rem] liquid-glass border-noble-gold/50 flex items-center justify-center shadow-[0_0_50px_rgba(212,175,55,0.3)] transition-all duration-500 overflow-hidden"
+                title={isOpen ? "Close Command Center" : "Open Sovereign Command Center"}
+            >
+                <div className="absolute inset-0 bg-gradient-to-br from-noble-gold/20 via-transparent to-noble-gold/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <AnimatePresence mode="wait">
+                    {isOpen ? (
+                        <motion.div key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }}>
+                            <X className="text-white w-8 h-8" strokeWidth={1.5} />
+                        </motion.div>
+                    ) : (
+                        <motion.div key="open" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }}>
+                            <Shield className="text-noble-gold w-8 h-8 drop-shadow-[0_0_10px_rgba(212,175,55,0.8)]" strokeWidth={1.5} />
                         </motion.div>
                     )}
                 </AnimatePresence>
+            </motion.button>
 
-                <motion.button
-                    onClick={() => setIsOpen(true)}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-visible bg-black transition-all duration-300"
-                >
-                    {/* Outer Rotating Ring */}
-                    <motion.div
-                        className="absolute inset-0 rounded-full"
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                    >
-                        <div className={`absolute inset-0 rounded-full border-2 ${currentProtocol.videoBehavior === 'alert' ? 'border-red-500/50' : 'border-amber-500/50'} border-t-transparent`} />
-                    </motion.div>
-
-                    {/* Pulsing Glow */}
-                    <motion.div
-                        className={`absolute inset-0 rounded-full ${currentProtocol.videoBehavior === 'alert' ? 'shadow-[0_0_30px_rgba(239,68,68,0.3)]' : 'shadow-[0_0_30px_rgba(245,158,11,0.3)]'}`}
-                        animate={{ opacity: [0.5, 1, 0.5] }}
-                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                    />
-
-                    {/* Video/Avatar Container */}
-                    <div className="absolute inset-0 rounded-full overflow-hidden border-2 border-amber-500/30 hover:border-amber-400/50 transition-colors">
-                        {selectedDelegate?.video ? (
-                            <video
-                                src={selectedDelegate.video}
-                                poster={selectedDelegate.avatar} // Shadow Render
-                                muted
-                                playsInline
-                                ref={(el) => {
-                                    if (el) {
-                                        el.onmouseenter = () => el.play();
-                                        el.onmouseleave = () => el.pause();
-                                    }
-                                }}
-                                className={`w-full h-full object-cover scale-150 translate-y-2 pointer-events-none transition-all duration-500 ${currentProtocol.videoBehavior === 'focus' ? 'brightness-110 saturate-120' : ''}`}
-                            />
-                        ) : (
-                            <HumanAvatar
-                                src={selectedDelegate?.avatar || '/images/avatars/executive_leader.png'}
-                                alt={selectedDelegate?.name || 'Delegate'}
-                                className="w-full h-full object-cover"
-                            />
-                        )}
-                    </div>
-
-                    {/* Status Dot with Pulse */}
-                    <motion.div
-                        className="absolute bottom-2 right-2 w-3 h-3 bg-emerald-500 border-2 border-black rounded-full shadow-[0_0_10px_#10b981]"
-                        animate={{ scale: [1, 1.2, 1] }}
-                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                    />
-                </motion.button>
-            </motion.div>
-
-            {/* Main Command Interface */}
+            {/* Sovereign Command Center */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        key="main-modal"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[60] flex items-end justify-center sm:items-center p-4 bg-black/60 backdrop-blur-sm"
-                        onClick={() => setIsOpen(false)}
+                        initial={{ opacity: 0, scale: 0.95, y: 40, filter: 'blur(10px)' }}
+                        animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
+                        exit={{ opacity: 0, scale: 0.95, y: 40, filter: 'blur(10px)' }}
+                        className="pointer-events-auto w-full h-screen md:w-[900px] md:h-[700px] bg-[#0A0E1A]/90 backdrop-blur-3xl flex flex-col overflow-hidden border border-white/10 md:rounded-[3rem] shadow-[0_0_100px_rgba(0,0,0,0.9)] fixed inset-0 md:relative z-[150]"
                     >
-                        <motion.div
-                            key="modal-content"
-                            initial={{ scale: 0.9, y: 50 }}
-                            animate={{ scale: 1, y: 0 }}
-                            exit={{ scale: 0.9, y: 50 }}
-                            className="w-full max-w-4xl bg-[#09090b] border border-zinc-800 rounded-3xl overflow-hidden shadow-2xl relative"
-                            onClick={(e) => e.stopPropagation()}
-                        >
-                            <div className="px-8 py-6 border-b border-white/5 flex items-center justify-between bg-zinc-900/50 relative overflow-hidden">
-                                {isScanningIdentity && (
-                                    <motion.div
-                                        initial={{ top: -100 }}
-                                        animate={{ top: "100%" }}
-                                        transition={{ duration: 2, ease: "linear" }}
-                                        className="absolute left-0 right-0 h-1 bg-amber-500/50 shadow-[0_0_20px_rgba(245,158,11,0.5)] z-20 pointer-events-none"
-                                    />
-                                )}
-                                <div className="flex items-center gap-4 relative z-10">
-                                    <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center border border-amber-500/20">
-                                        <Command className="text-amber-500 w-5 h-5" />
-                                    </div>
-                                    <div>
-                                        <h2 className="text-lg font-bold text-white tracking-tight">
-                                            {isScanningIdentity ? 'Biometric Calibration...' : 'Sovereign Delegate Protocol'}
-                                        </h2>
-                                        <p className="text-xs text-zinc-500 font-mono">
-                                            {isScanningIdentity ? 'VERIFYING RETINAL MESH' : 'AUTHORIZED: EXECUTIVE LEVEL'}
-                                        </p>
-                                    </div>
-                                </div>
-
-                                {/* CLOUD INFRASTRUCTURE HUD */}
-                                <div className="hidden md:flex items-center gap-6 px-6 py-2 rounded-2xl bg-black/40 border border-white/5">
-                                    <div className="flex items-center gap-2">
-                                        <Github size={12} className="text-white/60" />
-                                        <div className="flex flex-col">
-                                            <span className="text-[8px] text-zinc-600 font-bold uppercase">Github</span>
-                                            <span className="text-[9px] text-emerald-500 font-mono">CI/CD: ACTIVE</span>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                        <Cloud size={12} className="text-white/60" />
-                                        <div className="flex flex-col">
-                                            <span className="text-[8px] text-zinc-600 font-bold uppercase">Cloud Mainframe</span>
-                                            <div className="flex items-center gap-2">
-                                                <span className="text-[9px] text-emerald-500 font-mono">LATENCY: {systemStats.latency}ms</span>
-                                                <span className="text-[9px] text-amber-500 font-mono">CPU: {systemStats.cpu}%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                        <Zap size={12} className="text-amber-500" />
-                                        <div className="flex flex-col">
-                                            <span className="text-[8px] text-zinc-600 font-bold uppercase">Linguistic Matrix</span>
-                                            <select
-                                                className="bg-transparent text-[9px] text-emerald-500 font-mono outline-none cursor-pointer border-none p-0 h-auto"
-                                                onChange={async (e) => {
-                                                    const lang = e.target.value;
-                                                    console.log("💎 Switching Linguistic Matrix to:", lang);
-                                                    // In a real app, this would trigger path translation or content translation API
-                                                }}
-                                            >
-                                                <option value="en">MESH: ENGLISH</option>
-                                                <option value="es">MESH: SPANISH</option>
-                                                <option value="fr">MESH: FRENCH</option>
-                                                <option value="zh">MESH: CHINESE</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <button
-                                    onClick={() => setIsOpen(false)}
-                                    className="p-2 rounded-full hover:bg-white/5 text-zinc-500 hover:text-white transition-colors"
+                        {/* Elite Status Bar */}
+                        <div className="p-6 bg-white/[0.03] border-b border-white/5 flex items-center justify-between">
+                            <div className="flex items-center gap-6">
+                                <SovereignInteractionAgent
+                                    title="Neural Synchronicity"
+                                    description="Active system heat map showing real-time connectivity across the district command mesh."
+                                    agentId="visionary"
+                                    position="bottom"
                                 >
-                                    <X size={20} />
-                                </button>
+                                    <div className="flex items-center gap-3 px-4 py-2 bg-noble-gold/10 rounded-xl border border-noble-gold/30 shadow-[0_0_15px_rgba(212,175,55,0.1)] cursor-help">
+                                        <Activity size={14} className="text-noble-gold animate-pulse" />
+                                        <span className="text-[10px] font-black text-noble-gold uppercase tracking-[0.3em]">Neural Status: Operational</span>
+                                    </div>
+                                </SovereignInteractionAgent>
+                                <div className="hidden md:flex flex-col">
+                                    <div className="text-[8px] font-black text-white/30 uppercase tracking-[0.4em] flex items-center gap-2">
+                                        <Activity size={10} className="text-noble-gold/50" />
+                                        Signal Strength
+                                    </div>
+                                    <div className="text-[11px] font-black text-white/80 uppercase tracking-widest italic">Encrypted Broadcast Sync</div>
+                                </div>
                             </div>
+                            <div className="flex items-center gap-4">
+                                <div className="flex flex-col items-end mr-4">
+                                    <div className="text-[8px] font-black text-white/30 uppercase tracking-[0.4em]">Live Listeners</div>
+                                    <div className="text-xs font-black text-noble-gold tracking-tight">12.4k Distributed</div>
+                                </div>
+                                <div className="w-px h-8 bg-white/10 mx-2" />
+                                <SovereignInteractionAgent
+                                    title="Leadership Roster"
+                                    description="Review the tactical achievements and professional milestones recorded in the Sovereign ledger."
+                                    agentId="strategic"
+                                    position="left"
+                                >
+                                    <button
+                                        className="w-10 h-10 rounded-xl bg-white/5 hover:bg-noble-gold hover:text-black transition-all flex items-center justify-center group"
+                                        title="View Leadership Achievements"
+                                    >
+                                        <Trophy size={16} className="text-white/40 group-hover:text-inherit" />
+                                    </button>
+                                </SovereignInteractionAgent>
+                            </div>
+                        </div>
 
-                            {/* Content Grid */}
-                            <div className="grid grid-cols-1 md:grid-cols-12 min-h-[400px]">
-                                {/* Sidebar: Delegate Selection */}
-                                <div className="col-span-12 md:col-span-4 border-r border-white/5 bg-zinc-900/20 p-4 space-y-2">
-                                    <div className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest px-2 mb-2">Available Delegates</div>
-                                    {delegates.map((delegate) => (
-                                        <button
-                                            key={delegate.id}
-                                            onClick={() => {
-                                                setSelectedDelegate(delegate);
-                                                setIsChatOpen(true); // Open chat immediately for all agents
-                                            }}
-                                            className={`w-full p-3 rounded-xl flex items-center gap-3 transition-all ${selectedDelegate?.id === delegate.id
-                                                ? 'bg-amber-500/10 border border-amber-500/30'
-                                                : 'hover:bg-white/5 border border-transparent'
-                                                }`}
-                                        >
-                                            <div className="relative">
+                        <div className="flex-1 grid grid-cols-12 overflow-hidden">
+                            {/* Delegate Roster Sidebar */}
+                            <div className={`${selectedDelegate && !isChatOpen ? 'hidden md:block' : 'block'} col-span-12 md:col-span-4 border-r border-white/5 bg-black/40 overflow-y-auto p-4 md:p-6 space-y-3 custom-scrollbar`}>
+                                <div className="flex items-center justify-between mb-6 px-2">
+                                    <p className="text-[10px] font-black text-noble-gold uppercase tracking-[0.3em]">Available Hosts</p>
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                                        <span className="text-[8px] font-bold text-red-500 uppercase tracking-widest">Live Now</span>
+                                    </div>
+                                </div>
+                                {delegates.map((delegate) => (
+                                    <button
+                                        key={delegate.id}
+                                        onClick={() => {
+                                            setSelectedDelegate(delegate);
+                                        }}
+                                        className={`w-full p-3 md:p-4 rounded-2xl flex items-center gap-4 transition-all duration-500 group relative overflow-hidden
+                                            ${selectedDelegate?.id === delegate.id
+                                                ? 'bg-noble-gold/15 border border-noble-gold/40 shadow-[0_0_20px_rgba(212,175,55,0.05)]'
+                                                : 'hover:bg-white/5 border border-transparent opacity-60 hover:opacity-100'
+                                            }`}
+                                    >
+                                        <div className="relative z-10">
+                                            <div className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl overflow-hidden border-2 transition-all duration-500 ${selectedDelegate?.id === delegate.id ? 'border-noble-gold' : 'border-white/10 group-hover:border-noble-gold/30'}`}>
                                                 <HumanAvatar
                                                     src={delegate.avatar}
                                                     alt={delegate.name}
-                                                    onError={(e) => e.currentTarget.src = '/images/avatars/executive_leader.png'}
-                                                    className="w-10 h-10 rounded-full object-cover border border-white/10"
+                                                    className="w-full h-full object-cover"
                                                 />
-                                                <div className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-[#09090b] ${delegate.status === 'active' ? 'bg-emerald-500' : 'bg-amber-500'
-                                                    }`} />
                                             </div>
-                                            <div className="text-left">
-                                                <div className={`text-sm font-bold ${selectedDelegate?.id === delegate.id ? 'text-amber-100' : 'text-zinc-300'}`}>
-                                                    {delegate.name}
-                                                </div>
-                                                <div className="text-[10px] text-zinc-500">{delegate.role}</div>
-                                                {(delegate.name.includes("Alvin") || delegate.id === 'user_twin') && (
-                                                    <div className="flex items-center gap-1 mt-0.5">
-                                                        <Mic size={8} className="text-emerald-500" />
-                                                        <span className="text-[8px] text-emerald-500 font-mono tracking-tight uppercase">Voice Synced</span>
-                                                    </div>
-                                                )}
-                                            </div>
-                                            {selectedDelegate?.id === delegate.id && (
-                                                <div className="ml-auto">
-                                                    <Activity size={14} className="text-amber-500" />
-                                                </div>
-                                            )}
-                                        </button>
-                                    ))}
-                                </div>
-
-                                {/* Main Interaction Area */}
-                                <div className="col-span-12 md:col-span-8 p-8 relative flex flex-col">
-                                    {selectedDelegate ? (
-                                        <>
-                                            {/* Tabs */}
-                                            <div className="flex items-center gap-4 mb-8 border-b border-white/5 pb-4">
-                                                <button
-                                                    onClick={() => setActiveTab('uplink')}
-                                                    className={`text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full transition-all ${activeTab === 'uplink' ? 'bg-amber-500/20 text-amber-500 ring-1 ring-amber-500/50' : 'text-zinc-500 hover:text-zinc-300'}`}
-                                                >
-                                                    Neural Uplink
-                                                </button>
-                                                <button
-                                                    onClick={() => setActiveTab('voice')}
-                                                    className={`text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full transition-all ${activeTab === 'voice' ? 'bg-amber-500/20 text-amber-500 ring-1 ring-amber-500/50' : 'text-zinc-500 hover:text-zinc-300'}`}
-                                                >
-                                                    Voice Calibration
-                                                </button>
-                                                <button
-                                                    onClick={() => setActiveTab('vault')}
-                                                    className={`text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full transition-all ${activeTab === 'vault' ? 'bg-amber-500/20 text-amber-500 ring-1 ring-amber-500/50' : 'text-zinc-500 hover:text-zinc-300'}`}
-                                                >
-                                                    Quantum Vault
-                                                </button>
-                                            </div>
-
-                                            {activeTab === 'uplink' ? (
-                                                <div className="h-full flex flex-col">
-                                                    <div className="flex-1 flex flex-col items-center justify-center text-center space-y-6">
-                                                        <div className="relative w-32 h-32">
-                                                            {/* Outer Rotating Ring */}
-                                                            <motion.div
-                                                                className="absolute inset-0 rounded-full border-2 border-amber-500/30 border-t-transparent"
-                                                                animate={{ rotate: 360 }}
-                                                                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                                                            />
-                                                            {/* Inner Counter-Rotating Ring */}
-                                                            <motion.div
-                                                                className="absolute inset-2 rounded-full border border-amber-500/20 border-b-transparent"
-                                                                animate={{ rotate: -360 }}
-                                                                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                                                            />
-                                                            {/* Pulsing Glow */}
-                                                            <motion.div
-                                                                className="absolute inset-0 rounded-full shadow-[0_0_40px_rgba(245,158,11,0.3)]"
-                                                                animate={{ opacity: [0.3, 0.8, 0.3] }}
-                                                                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                                                            />
-                                                            <HumanAvatar
-                                                                src={selectedDelegate.id === 'user_twin' ? (twinImage || selectedDelegate.avatar) : selectedDelegate.avatar}
-                                                                alt={selectedDelegate.name}
-                                                                className="w-full h-full rounded-full object-cover p-2"
-                                                            />
-                                                        </div>
-                                                        <div>
-                                                            <h3 className="text-2xl font-black text-white uppercase tracking-tighter">{selectedDelegate.specialty}</h3>
-                                                            <p className="text-sm text-zinc-400 mt-2 max-w-sm mx-auto leading-relaxed">
-                                                                {currentProtocol.message}
-                                                            </p>
-                                                        </div>
-
-                                                        <div className="flex flex-wrap justify-center gap-3 w-full max-w-md">
-                                                            <button
-                                                                onClick={() => setIsChatOpen(true)}
-                                                                className="flex-1 py-4 bg-white text-black rounded-xl font-bold uppercase text-xs tracking-widest hover:scale-105 transition-transform flex items-center justify-center gap-2"
-                                                            >
-                                                                <MessageSquare size={16} />
-                                                                Initiate Uplink
-                                                            </button>
-                                                            <button
-                                                                onClick={() => setIsTavusActive(true)}
-                                                                className="flex-1 py-4 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-xl font-bold uppercase text-xs tracking-widest hover:scale-105 transition-all shadow-lg shadow-amber-900/30 flex items-center justify-center gap-2 border border-amber-400/30"
-                                                            >
-                                                                <Radio size={16} className="animate-pulse" />
-                                                                Relay Audio
-                                                            </button>
-                                                            <button
-                                                                onClick={() => setShowBriefing(true)}
-                                                                className="w-full py-4 bg-zinc-800 text-white rounded-xl font-bold uppercase text-xs tracking-widest hover:bg-zinc-700 transition-colors flex items-center justify-center gap-2"
-                                                            >
-                                                                <Video size={16} />
-                                                                Visual Briefing
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            ) : activeTab === 'vault' ? (
-                                                <SovereignMediaVault />
-                                            ) : (
-                                                <div className="h-full flex flex-col items-center justify-center text-center space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                                                    <div className="w-24 h-24 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center relative overflow-hidden">
-                                                        {isRecording ? (
-                                                            <>
-                                                                <div className="absolute inset-0 bg-red-500/10 animate-pulse rounded-full" />
-                                                                <div className="flex items-end items-center gap-0.5 h-12">
-                                                                    {[...Array(12)].map((_, i) => (
-                                                                        <motion.div
-                                                                            key={i}
-                                                                            className="w-1 bg-red-500 rounded-full"
-                                                                            animate={{
-                                                                                height: [8, Math.random() * 32 + 8, 8],
-                                                                                opacity: [0.6, 1, 0.6]
-                                                                            }}
-                                                                            transition={{
-                                                                                duration: 0.2 + (Math.random() * 0.1),
-                                                                                repeat: Infinity,
-                                                                                delay: i * 0.05,
-                                                                                ease: "easeInOut"
-                                                                            }}
-                                                                        />
-                                                                    ))}
-                                                                </div>
-                                                            </>
-                                                        ) : voiceProgress === 100 ? (
-                                                            <Shield className="w-10 h-10 text-emerald-500" />
-                                                        ) : (
-                                                            <Mic className="w-10 h-10 text-zinc-500" />
-                                                        )}
-                                                    </div>
-
-                                                    <div className="space-y-4 max-w-md">
-                                                        <h4 className="text-lg font-bold text-white uppercase tracking-tight">
-                                                            {voiceProgress === 100 ? 'Voice Matrix Secure' : 'Neural Voice Calibration'}
-                                                        </h4>
-                                                        <div className="p-6 rounded-2xl bg-zinc-900/50 border border-white/5 relative">
-                                                            <p className="font-serif italic text-zinc-400 text-lg">
-                                                                "I, {selectedDelegate.name}, authorize the use of my neural pattern for executive decision making."
-                                                            </p>
-                                                            {voiceProgress === 100 && (
-                                                                <div className="absolute inset-0 flex items-center justify-center bg-zinc-950/80 backdrop-blur-sm rounded-2xl">
-                                                                    <div className="flex items-center gap-2 text-emerald-500 font-bold uppercase tracking-widest text-xs">
-                                                                        <Shield size={14} />
-                                                                        Verified
-                                                                    </div>
-                                                                </div>
-                                                            )}
-                                                        </div>
-                                                    </div>
-
-                                                    {voiceProgress < 100 && (
-                                                        <button
-                                                            onClick={() => { setIsRecording(true); setVoiceProgress(0); }}
-                                                            disabled={isRecording}
-                                                            className={`px-8 py-4 rounded-full font-bold uppercase tracking-widest text-xs transition-all ${isRecording
-                                                                ? 'bg-red-500/10 text-red-500 cursor-not-allowed'
-                                                                : 'bg-zinc-100 text-zinc-900 hover:scale-105 shadow-xl'
-                                                                }`}
-                                                        >
-                                                            {isRecording ? 'Calibrating...' : 'Begin Voice Capture'}
-                                                        </button>
-                                                    )}
-
-                                                    {/* Progress Bar */}
-                                                    {(isRecording || voiceProgress > 0) && (
-                                                        <div className="w-64 h-2 bg-zinc-800 rounded-full overflow-hidden">
-                                                            <motion.div
-                                                                className={`h-full ${voiceProgress === 100 ? 'bg-emerald-500' : 'bg-amber-500'}`}
-                                                                style={{ width: `${voiceProgress}%` }}
-                                                            />
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            )}
-                                        </>
-                                    ) : (
-                                        <div className="h-full flex flex-col items-center justify-center text-zinc-600 opacity-50">
-                                            <Radio size={48} className="mb-4" />
-                                            <p className="font-mono text-xs uppercase tracking-widest">Select a Sovereign Delegate to Begin</p>
+                                            <div className={`absolute -bottom-1 -right-1 w-3 h-3 md:w-4 md:h-4 rounded-full border-2 border-black ${delegate.status === 'active' ? 'bg-emerald-500 animate-pulse' : 'bg-red-500'}`} />
                                         </div>
-                                    )}
-                                </div>
+                                        <div className="text-left flex-1 relative z-10">
+                                            <div className={`text-xs md:text-sm font-black uppercase tracking-tight ${selectedDelegate?.id === delegate.id ? 'text-white' : 'text-white/40 group-hover:text-white'}`}>
+                                                {delegate.name}
+                                            </div>
+                                            <div className="text-[8px] md:text-[9px] text-noble-gold/60 uppercase tracking-widest font-black italic mt-0.5">{delegate.role}</div>
+                                        </div>
+                                    </button>
+                                ))}
                             </div>
 
-                            {/* Decorative Footer */}
-                            <div className="h-1 bg-gradient-to-r from-amber-600 via-purple-600 to-indigo-600" />
-                        </motion.div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+                            <div className={`${!selectedDelegate ? 'hidden md:flex' : 'flex'} col-span-12 md:col-span-8 p-6 md:p-10 relative flex-col bg-zinc-950/40`}>
+                                {selectedDelegate ? (
+                                    <>
+                                        {/* Navigation Protocols */}
+                                        <div className="flex items-center gap-4 md:gap-8 mb-6 md:mb-10 border-b border-white/5 pb-6 overflow-x-auto no-scrollbar">
+                                            {[
+                                                { id: 'uplink', label: 'Podcast', icon: Zap },
+                                                { id: 'voice', label: 'Audio', icon: Mic },
+                                                { id: 'vault', label: 'Vault', icon: Shield }
+                                            ].map(tab => (
+                                                <button
+                                                    key={tab.id}
+                                                    onClick={() => setActiveTab(tab.id as any)}
+                                                    className={`flex items-center gap-2 md:gap-3 text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] md:tracking-[0.3em] transition-all relative whitespace-nowrap
+                                                        ${activeTab === tab.id ? 'text-noble-gold' : 'text-white/30 hover:text-white/60'}`}
+                                                >
+                                                    <tab.icon size={13} className={activeTab === tab.id ? 'animate-pulse' : ''} />
+                                                    {tab.label}
+                                                </button>
+                                            ))}
+                                            {selectedDelegate && (
+                                                <button
+                                                    onClick={() => setSelectedDelegate(null)}
+                                                    className="md:hidden ml-auto text-[9px] font-black uppercase tracking-widest text-zinc-600"
+                                                >
+                                                    Back
+                                                </button>
+                                            )}
+                                        </div>
 
-            {/* The Actual Conversation Interface */}
-            <AnimatePresence>
-                {isChatOpen && selectedDelegate && (
-                    <LiveAvatarChat
-                        key="live-chat"
-                        isOpen={isChatOpen}
-                        onClose={() => setIsChatOpen(false)}
-                        avatarName={selectedDelegate.name}
-                        avatarRole={selectedDelegate.role}
-                        avatarImage={selectedDelegate.avatar}
-                        avatarVoice={selectedDelegate.voiceId}
-                        greetingText={greetingOverride || `Sovereign Uplink Established. I am ${selectedDelegate.name}. How can I assist you with high-level strategy today?`}
-                        theme="professional"
-                        heygenId={selectedDelegate.heygenId}
-                        avatarVideo={selectedDelegate.video}
-                        tokensRemaining={9999} // Unlimited for Sovereign
-                        onShowBriefing={() => setShowBriefing(true)}
-                        protocolContext={currentProtocol ? `${currentProtocol.context}: ${currentProtocol.message}` : undefined}
-                    />
-                )}
-            </AnimatePresence>
+                                        <div className="flex-1 overflow-y-auto pr-4 custom-scrollbar relative">
+                                            <AnimatePresence mode="wait">
+                                                <motion.div
+                                                    key={activeTab}
+                                                    initial={{ opacity: 0, y: 15, filter: 'blur(10px)' }}
+                                                    animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                                                    exit={{ opacity: 0, y: -15, filter: 'blur(10px)' }}
+                                                    transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
+                                                    className="h-full"
+                                                >
+                                                    {activeTab === 'uplink' && (
+                                                        <div className="h-full flex flex-col items-center justify-center text-center space-y-10 py-10">
+                                                            <div className="relative group">
+                                                                <div className="absolute -inset-10 bg-noble-gold/10 rounded-full blur-3xl opacity-30 group-hover:opacity-60 transition-opacity" />
+                                                                <div className="relative w-40 h-40 md:w-56 md:h-56">
+                                                                    <motion.div
+                                                                        className="absolute -inset-4 md:-inset-6 rounded-full border border-noble-gold/20 border-t-noble-gold"
+                                                                        animate={{ rotate: 360 }}
+                                                                        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                                                                    />
+                                                                    <motion.div
+                                                                        className="absolute -inset-2 md:-inset-3 rounded-full border border-noble-gold/10 border-b-noble-gold/40"
+                                                                        animate={{ rotate: -360 }}
+                                                                        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                                                                    />
+                                                                    <div className="w-full h-full rounded-[2.5rem] md:rounded-[3.5rem] overflow-hidden border-2 border-noble-gold/30 p-2 bg-black/60 shadow-[0_0_80px_rgba(212,175,55,0.2)] transform group-hover:scale-105 transition-all duration-700">
+                                                                        <HumanAvatar
+                                                                            src={selectedDelegate.avatar}
+                                                                            alt={selectedDelegate.name}
+                                                                            className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
 
-            {/* Visual Briefing Overlay */}
-            <AnimatePresence>
-                {showBriefing && selectedDelegate && (
-                    <HolographicBriefing
-                        key="hologram"
-                        isOpen={showBriefing}
-                        onClose={() => setShowBriefing(false)}
-                        title={currentProtocol.context || "Executive Sovereign Briefing"}
-                        description={currentProtocol.message || `Connecting to secure neural feed of ${selectedDelegate.name}. Stand by for directive.`}
-                        avatarImage={selectedDelegate.avatar}
-                        videoSrc={selectedDelegate.video}
-                        role={selectedDelegate.role}
-                        theme="professional"
-                        abilityType={currentProtocol.abilityType || 'strategy'}
-                        // Stats can be dynamic later, hardcoded for impact now
-                        stats={{
-                            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                            saved: "127h",
-                            accuracy: "99.8%"
-                        }}
-                    />
-                )}
-            </AnimatePresence>
-            {/* Tavus Conversational Interface Overlay */}
-            <AnimatePresence>
-                {isTavusActive && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-xl flex items-center justify-center p-4 md:p-12"
-                    >
-                        <div className="w-full max-w-5xl h-full max-h-[800px] relative">
-                            <Conversation
-                                onLeave={() => setIsTavusActive(false)}
-                                style={{ borderRadius: '2rem' }}
-                            />
+                                                            <div className="space-y-4">
+                                                                <h3 className="text-2xl md:text-4xl font-black italic uppercase tracking-tighter gold-gradient-text px-4">
+                                                                    {selectedDelegate.specialty}
+                                                                </h3>
+                                                                <p className="text-xs md:text-sm text-white/50 leading-relaxed max-w-sm mx-auto font-medium px-6">
+                                                                    {currentProtocol.message}
+                                                                </p>
+                                                            </div>
 
-                            {/* Dr. West's Historical Context HUD */}
-                            <div className="absolute top-12 right-12 z-50 w-64 space-y-4 pointer-events-none">
-                                <div className="bg-black/60 backdrop-blur-md border border-amber-500/30 p-4 rounded-2xl">
-                                    <h4 className="text-[10px] font-black text-amber-500 uppercase tracking-widest mb-2">Heritage Grounding</h4>
-                                    <ul className="text-[9px] text-zinc-400 font-mono space-y-1">
-                                        <li>{'>'} PRICHARD_1925_ACTIVE</li>
-                                        <li>{'>'} AFRICATOWN_LINK_SECURE</li>
-                                        <li>{'>'} MCTS_LEGACY_VERSION_1.4</li>
-                                    </ul>
-                                </div>
+                                                            <motion.button
+                                                                whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(212,175,55,0.4)', backgroundColor: '#E5C158' }}
+                                                                whileTap={{ scale: 0.95 }}
+                                                                onClick={() => setIsChatOpen(true)}
+                                                                className="px-8 md:px-12 py-4 md:py-5 bg-noble-gold text-black rounded-2xl font-black uppercase text-[9px] md:text-[10px] tracking-[0.3em] md:tracking-[0.5em] flex items-center gap-4 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
+                                                            >
+                                                                <MessageSquare size={18} fill="currentColor" />
+                                                                Join Live Broadcast
+                                                            </motion.button>
+                                                        </div>
+                                                    )}
+
+                                                    {activeTab === 'voice' && (
+                                                        <div className="h-full flex flex-col justify-center py-10 px-4">
+                                                            <div className="liquid-glass p-12 border-noble-gold/20 text-center space-y-12 rounded-[3rem] bg-white/[0.02]">
+                                                                <div className="space-y-3">
+                                                                    <h4 className="font-black text-noble-gold uppercase tracking-[0.6em] text-[10px]">Neural Voice Interface</h4>
+                                                                    <p className="text-[9px] text-white/40 uppercase tracking-[0.4em] font-black italic">Calibration & Frequency Mapping</p>
+                                                                </div>
+
+                                                                <div className="flex flex-col items-center gap-12">
+                                                                    <div className="relative">
+                                                                        <motion.button
+                                                                            whileHover={{ scale: 1.1 }}
+                                                                            whileTap={{ scale: 0.9 }}
+                                                                            onClick={() => setIsRecording(!isRecording)}
+                                                                            className={`w-36 h-36 rounded-full flex items-center justify-center relative z-10 transition-all duration-500 shadow-2xl ${isRecording ? 'bg-red-600/90 text-white animate-pulse shadow-[0_0_60px_rgba(220,38,38,0.5)] border-4 border-white/20' : 'bg-white/5 border-2 border-noble-gold/30 text-noble-gold hover:bg-noble-gold/15'}`}
+                                                                        >
+                                                                            <Mic size={48} strokeWidth={1.5} />
+                                                                        </motion.button>
+
+                                                                        <svg className="absolute inset-[-15px] w-[calc(100%+30px)] h-[calc(100%+30px)] -rotate-90 pointer-events-none opacity-40">
+                                                                            <circle cx="50%" cy="50%" r="48%" fill="none" stroke="rgba(212,175,55,0.1)" strokeWidth="4" />
+                                                                            <motion.circle
+                                                                                cx="50%" cy="50%" r="48%"
+                                                                                fill="none" stroke="#D4AF37" strokeWidth="4"
+                                                                                strokeDasharray="100 100"
+                                                                                animate={{ strokeDashoffset: 100 - voiceProgress }}
+                                                                                className="drop-shadow-[0_0_15px_#D4AF37]"
+                                                                            />
+                                                                        </svg>
+                                                                    </div>
+
+                                                                    <div className="space-y-6">
+                                                                        <div className="h-6 flex items-center justify-center gap-2 px-8">
+                                                                            {[...Array(16)].map((_, i) => (
+                                                                                <motion.div
+                                                                                    key={i}
+                                                                                    className={`w-1.5 rounded-full ${isRecording ? 'bg-white shadow-[0_0_10px_white]' : 'bg-white/10'}`}
+                                                                                    animate={isRecording ? { height: [6, 24, 6] } : { height: 6 }}
+                                                                                    transition={{ repeat: Infinity, duration: 0.4 + Math.random() * 0.4, delay: i * 0.04 }}
+                                                                                />
+                                                                            ))}
+                                                                        </div>
+                                                                        <p className={`font-mono text-[10px] uppercase tracking-[0.5em] transition-all duration-500 font-bold ${isRecording ? 'text-white scale-110' : 'text-white/20'}`}>
+                                                                            {isRecording ? "Transmitting Neural Signal" : "Ready for Input"}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div className="grid grid-cols-2 gap-6 pt-4">
+                                                                    <div className="p-5 bg-white/5 rounded-2xl border border-white/10 text-left backdrop-blur-md">
+                                                                        <span className="text-[9px] font-black text-white/30 uppercase tracking-[0.5em] block mb-2">Engine</span>
+                                                                        <span className="text-[11px] font-black text-white uppercase italic tracking-wider">Eleven v3.5-Turbo</span>
+                                                                    </div>
+                                                                    <div className="p-5 bg-white/5 rounded-2xl border border-white/10 text-left backdrop-blur-md">
+                                                                        <span className="text-[9px] font-black text-white/30 uppercase tracking-[0.5em] block mb-2">Stability</span>
+                                                                        <span className="text-[11px] font-black text-emerald-400 uppercase italic tracking-wider">0.4ms // Resonant</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    )}
+
+                                                    {activeTab === 'vault' && (
+                                                        <div className="h-full py-6">
+                                                            <SovereignMediaVault />
+                                                        </div>
+                                                    )}
+                                                </motion.div>
+                                            </AnimatePresence>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <div className="flex-1 flex flex-col items-center justify-center text-white/10 gap-6">
+                                        <Cpu size={64} className="opacity-20 stroke-[1px]" />
+                                        <p className="font-mono text-[10px] uppercase tracking-[0.5em] font-black">System Ready // Select Node</p>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Quantum Footer */}
+                        <div className="px-10 py-4 bg-black/60 border-t border-white/5 flex items-center justify-between text-[8px] font-black text-white/20 uppercase tracking-[0.4em]">
+                            <div className="flex items-center gap-4">
+                                <span className="flex items-center gap-2">
+                                    <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
+                                    Server: Alabama-Central-1
+                                </span>
+                                <span>Session: {Math.random().toString(36).substr(2, 6).toUpperCase()}</span>
+                            </div>
+                            <div className="flex items-center gap-6">
+                                <span className="hover:text-noble-gold transition-colors cursor-pointer">Protocol Status</span>
+                                <span className="hover:text-noble-gold transition-colors cursor-pointer">Security Ledger</span>
+                                <span className="text-noble-gold/40">© 2026 Sovereign OS</span>
                             </div>
                         </div>
                     </motion.div>
                 )}
             </AnimatePresence>
-        </>
+
+            {/* Premium Interaction Overlay */}
+            <AnimatePresence>
+                {isChatOpen && selectedDelegate && (
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
+                        animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                        exit={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
+                        className="pointer-events-auto fixed inset-0 z-[120] bg-black/90 backdrop-blur-md flex flex-col items-center justify-center p-4 md:p-6"
+                    >
+                        {/* Header removed to allow LiveAvatarChat to control full experience */}
+                        <div className="flex-1 overflow-hidden relative">
+                            {/* LiveAvatarChat wrapper to handle consistent experience */}
+                            <div className="absolute inset-0 overflow-y-auto custom-scrollbar">
+                                <LiveAvatarChat
+                                    avatarName={selectedDelegate.name}
+                                    avatarRole={selectedDelegate.role}
+                                    avatarImage={selectedDelegate.avatar}
+                                    avatarVideo={selectedDelegate.video}
+                                    heygenId={selectedDelegate.heygenId}
+                                    avatarVoice={selectedDelegate.voiceId}
+                                    onClose={() => setIsChatOpen(false)}
+                                    protocolContext={`${selectedDelegate.specialty}: ${currentProtocol.message}`}
+                                />
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            <style jsx global>{`
+                .gold-gradient-text {
+                    background: linear-gradient(135deg, #FFF 0%, #D4AF37 50%, #8A6D3B 100%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+                .custom-scrollbar::-webkit-scrollbar {
+                    width: 4px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-track {
+                    background: transparent;
+                }
+                .custom-scrollbar::-webkit-scrollbar-thumb {
+                    background: rgba(212, 175, 55, 0.1);
+                    border-radius: 10px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+                    background: rgba(212, 175, 55, 0.3);
+                }
+            `}</style>
+        </div>
     );
 }

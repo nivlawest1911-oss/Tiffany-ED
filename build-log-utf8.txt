@@ -1,0 +1,58 @@
+﻿   Γû▓ Next.js 15.5.10
+   - Environments: .env.local, .env.production, .env
+
+   Creating an optimized production build ...
+node.exe : Failed to compile.
+At C:\Users\nivla\AppData\Roam
+ing\npm\npx.ps1:24 char:5
++     & "node$exe"  "$basedir/
+node_modules/npm/bin/npx-cli.j
+s" $args
++     ~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~
+    + CategoryInfo          : 
+    NotSpecified: (Failed to  
+   compile.:String) [], Rem   
+ oteException
+    + FullyQualifiedErrorId : 
+    NativeCommandError
+ 
+
+./src/app/admin/grants/GrantWr
+iterClient.tsx
+Error:   [31mx[0m Expected 
+'</', got ')'
+     ,-[[36;1;4mC:\Users\nivl
+a\edintel-app\src\app\admin\gr
+ants\GrantWriterClient.tsx[0m
+:122:1]
+ [2m119[0m |                
+             </div>
+ [2m120[0m |                
+         </motion.div>
+ [2m121[0m |                
+     )
+ [2m122[0m |         )}
+     : [35;1m        ^[0m
+ [2m123[0m |                
+ </AnimatePresence>
+ [2m124[0m |             
+</motion.div>
+ [2m124[0m |         </div>
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested 
+module:
+./src/app/admin/grants/GrantWr
+iterClient.tsx
+./src/app/admin/grants/page.ts
+x
+
+
+> Build failed because of 
+webpack errors
+

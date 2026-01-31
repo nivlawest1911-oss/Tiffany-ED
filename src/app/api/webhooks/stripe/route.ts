@@ -1,83 +1,54 @@
 import { NextResponse } from 'next/server';
-import { headers } from 'next/headers';
 import Stripe from 'stripe';
-import prisma from '@/lib/prisma';
-import { sql } from '@/lib/db';
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_dummy', {
-    apiVersion: '2023-10-16' as any,
-});
+import { createClient } from '@supabase/supabase-js';
 
 export async function POST(req: Request) {
-    const body = await req.text();
-    const headersList = await headers();
-    const signature = headersList.get('stripe-signature')!;
-    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || 'whsec_dummy';
+    if (!process.env.STRIPE_SECRET_KEY || !process.env.STRIPE_WEBHOOK_SECRET) {
+        return NextResponse.json({ error: 'Stripe credentials missing' }, { status: 500 });
+    }
+
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2025-10-28' as any });
+
+    const supabaseAdmin = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
+
+    const signature = req.headers.get('Stripe-Signature')!;
+
+    if (!signature) {
+        return NextResponse.json({ error: 'No signature' }, { status: 400 });
+    }
+
+    const bodyBuffer = await req.arrayBuffer();
+    const body = Buffer.from(bodyBuffer);
 
     let event: Stripe.Event;
 
     try {
-        if (!signature || webhookSecret === 'whsec_dummy') {
-            return NextResponse.json({ received: true, note: 'Verification skipped' });
-        }
-        event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
+        event = stripe.webhooks.constructEvent(body, signature, process.env.STRIPE_WEBHOOK_SECRET);
     } catch (err: any) {
-        console.error(`Webhook Signature Verification Failed: ${err.message}`);
         return NextResponse.json({ error: `Webhook Error: ${err.message}` }, { status: 400 });
     }
 
-    // Handle the successful payment for tokens
+    // The "Sovereign" Event: When a checkout link is successfully finished
     if (event.type === 'checkout.session.completed') {
         const session = event.data.object as Stripe.Checkout.Session;
 
-        // We pass the organizationId and tokenAmount in the 'metadata' field when creating the session
-        const orgId = session.metadata?.orgId;
-        const tokensPurchased = parseInt(session.metadata?.tokenAmount || '0');
-        const tierName = session.metadata?.tierName;
-        const checkoutId = session.id;
+        // We update the user profile in Supabase based on their email or client_reference_id
+        const { error } = await supabaseAdmin
+            .from('profiles')
+            .update({
+                subscription_tier: session.metadata?.plan_name || 'Standard Pack',
+                stripe_customer_id: session.customer as string,
+                trial_active: true,
+                trial_end_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
+            })
+            .eq('email', session.customer_details?.email);
 
-        if (orgId && checkoutId) {
-            try {
-                // [IDEMPOTENCY] Check if this checkout has already been processed
-                const { rows: processed } = await sql`
-                    SELECT 1 FROM processed_checkouts WHERE checkout_id = ${checkoutId}
-                `;
-
-                if (processed.length > 0) {
-                    console.log(`⚠️ Stripe Webhook: Checkout ${checkoutId} already processed. Skipping.`);
-                    return NextResponse.json({ received: true });
-                }
-
-                const updateData: any = {
-                    isTrialConverted: true,
-                };
-
-                if (tokensPurchased > 0) {
-                    updateData.usageTokens = {
-                        increment: tokensPurchased,
-                    };
-                }
-
-                if (tierName) {
-                    updateData.tier = tierName;
-                }
-
-                // Update Organization
-                await prisma.organization.update({
-                    where: { id: orgId },
-                    data: updateData,
-                });
-
-                // [IDEMPOTENCY] Record that this checkout is finished
-                await sql`
-                    INSERT INTO processed_checkouts (checkout_id) VALUES (${checkoutId})
-                `;
-
-                console.log(`✅ Organization ${orgId} updated: Tier=${tierName || 'N/A'}, Tokens=+${tokensPurchased}`);
-            } catch (dbErr) {
-                console.error(`❌ Failed to credit tokens to Org ${orgId}:`, dbErr);
-                return NextResponse.json({ error: "Database update failed" }, { status: 500 });
-            }
+        if (error) {
+            console.error('Supabase Update Error:', error);
+            return NextResponse.json({ error: 'Supabase Update Failed' }, { status: 500 });
         }
     }
 

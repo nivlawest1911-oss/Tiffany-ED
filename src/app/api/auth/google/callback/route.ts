@@ -24,7 +24,11 @@ export async function GET(request: NextRequest) {
 
     const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
     const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
-    const REDIRECT_URI = `${process.env.NEXT_PUBLIC_APP_URL || 'https://edintel-app.vercel.app'}/api/auth/google/callback`;
+
+    const host = request.headers.get('host');
+    const protocol = host?.includes('localhost') ? 'http' : 'https';
+    const domain = process.env.NEXT_PUBLIC_APP_URL || `${protocol}://${host}`;
+    const REDIRECT_URI = `${domain}/api/auth/google/callback`;
 
     // Handle OAuth errors
     if (error) {
@@ -187,7 +191,6 @@ export async function GET(request: NextRequest) {
             console.log(`[DATABASE] New user created: ${email} (${detectedTier})`);
         } else {
             // Update existing user
-            // const updates: string[] = []; // unused, removed for linting
             const needsUpdate =
                 user.subscription_tier !== detectedTier ||
                 user.stripe_customer_id !== stripeCustomerId ||
@@ -225,8 +228,6 @@ export async function GET(request: NextRequest) {
 
     } catch (error: any) {
         console.error('[GOOGLE AUTH] Callback error:', error);
-        return NextResponse.redirect(
-            new URL(`/login?error=auth_failed&message=${encodeURIComponent(error.message || 'Unknown error')}`, request.url)
-        );
+        return NextResponse.redirect(new URL('/login?error=auth_failed', request.url));
     }
 }

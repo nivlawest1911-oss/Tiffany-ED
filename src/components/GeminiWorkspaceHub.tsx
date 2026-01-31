@@ -34,7 +34,6 @@ interface ImportedContent {
 export default function GeminiWorkspaceHub() {
     const [activeTab, setActiveTab] = useState<'import' | 'library' | 'workflows'>('import');
     const [importedContent, setImportedContent] = useState<ImportedContent[]>([]);
-    const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
 
     return (
@@ -42,8 +41,7 @@ export default function GeminiWorkspaceHub() {
             {/* Header */}
             <div className="relative overflow-hidden bg-gradient-to-r from-purple-600/20 to-pink-600/20 border-b border-purple-500/30">
                 <div
-                    className="absolute inset-0 opacity-10"
-                    style={{ backgroundImage: "url('/grid.svg')" }}
+                    className="absolute inset-0 opacity-10 bg-[url('/grid.svg')]"
                 />
                 <div className="relative max-w-7xl mx-auto px-6 py-12">
                     <motion.div
@@ -89,7 +87,6 @@ export default function GeminiWorkspaceHub() {
                     />
                 </div>
 
-                {/* Content */}
                 <AnimatePresence mode="wait">
                     {activeTab === 'import' && (
                         <ImportTab
@@ -273,6 +270,7 @@ function ImportTab({ onImport }: { onImport: (content: ImportedContent) => void 
                             value={contentType}
                             onChange={(e) => setContentType(e.target.value as any)}
                             className="w-full bg-slate-900/50 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            aria-label="Content Type"
                         >
                             <option value="conversation">Conversation</option>
                             <option value="prompt">Prompt</option>
