@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import {
     Shield, Activity,
-    MessageSquare, X,
-    Mic, Trophy, Zap, Bell,
+    X,
+    Trophy, Zap, Bell,
     Cpu, Brain
 } from 'lucide-react';
 import LiveAvatarChat from './LiveAvatarChat';
@@ -94,7 +94,7 @@ export default function SovereignDelegate({ initialOpen = false }: SovereignDele
 
     const handleDelegateSelection = useCallback((delegate: Delegate) => {
         setSelectedDelegate(delegate);
-        setActiveTab('matrix'); // Auto-switch to Matrix (Chat) view
+        setActiveTab('uplink'); // Optimization: Immediate Visual Link (Avatar First)
         try {
             if (['Sovereign', 'Executive Sovereign', 'Quantum'].includes(delegate.clearance)) {
                 celebrate(
@@ -297,8 +297,7 @@ export default function SovereignDelegate({ initialOpen = false }: SovereignDele
                                                 { id: 'pivot', label: 'Pivot', icon: Trophy },
                                                 { id: 'vault', label: 'Vault', icon: Shield },
                                                 { id: 'matrix', label: 'Matrix', icon: Activity },
-                                                { id: 'admin', label: 'Admin', icon: Cpu },
-                                                { id: 'voice', label: 'Audio', icon: Mic }
+                                                { id: 'admin', label: 'Admin', icon: Cpu }
                                             ].map(tab => (
                                                 <button
                                                     key={tab.id}
@@ -331,60 +330,23 @@ export default function SovereignDelegate({ initialOpen = false }: SovereignDele
                                                     className="h-full"
                                                 >
                                                     {activeTab === 'uplink' && (
-                                                        <div className="h-full flex flex-col items-center justify-center text-center space-y-10 py-10">
-                                                            <div className="relative group">
-                                                                <div className="absolute -inset-10 bg-noble-gold/10 rounded-full blur-3xl opacity-30 group-hover:opacity-60 transition-opacity" />
-                                                                <div className="relative w-40 h-40 md:w-56 md:h-56">
-                                                                    <motion.div
-                                                                        className="absolute -inset-4 md:-inset-6 rounded-full border border-noble-gold/20 border-t-noble-gold"
-                                                                        animate={{ rotate: 360 }}
-                                                                        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                                                                    />
-                                                                    <motion.div
-                                                                        className="absolute -inset-2 md:-inset-3 rounded-full border border-noble-gold/10 border-b-noble-gold/40"
-                                                                        animate={{ rotate: -360 }}
-                                                                        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                                                                    />
-                                                                    <div className="w-full h-full rounded-[2.5rem] md:rounded-[3.5rem] overflow-hidden border-2 border-noble-gold/30 p-2 bg-black/60 shadow-[0_0_80px_rgba(212,175,55,0.2)] transform group-hover:scale-105 transition-all duration-700">
-                                                                        <HumanAvatar
-                                                                            src={selectedDelegate.avatar}
-                                                                            alt={selectedDelegate.name}
-                                                                            className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
-                                                                        />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div className="space-y-4">
-                                                                <h3 className="text-2xl md:text-4xl font-black italic uppercase tracking-tighter gold-gradient-text px-4">
-                                                                    {selectedDelegate.specialty}
-                                                                </h3>
-                                                                <p className="text-xs md:text-sm text-white/50 leading-relaxed max-w-sm mx-auto font-medium px-6">
-                                                                    {currentProtocol.message}
-                                                                </p>
-                                                            </div>
-
-                                                            <motion.button
-                                                                whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(212,175,55,0.4)', backgroundColor: '#E5C158' }}
-                                                                whileTap={{ scale: 0.95 }}
-                                                                onClick={() => setIsChatOpen(true)}
-                                                                className="px-8 md:px-12 py-4 md:py-5 bg-noble-gold text-black rounded-2xl font-black uppercase text-[9px] md:text-[10px] tracking-[0.3em] md:tracking-[0.5em] flex items-center gap-4 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
-                                                            >
-                                                                <MessageSquare size={18} fill="currentColor" />
-                                                                Join Live Broadcast
-                                                            </motion.button>
-                                                        </div>
-                                                    )}
-
-                                                    {activeTab === 'voice' && (
                                                         <div className="h-full flex flex-col justify-center py-6 px-4">
                                                             <div className="h-full rounded-[3rem] overflow-hidden border border-noble-gold/20 shadow-2xl bg-black relative">
                                                                 <SovereignAvatarInterface
                                                                     avatarId={selectedDelegate?.heygenId}
                                                                 />
+                                                                {/* Overlay Label */}
+                                                                <div className="absolute top-6 left-8 z-20 flex items-center gap-2 pointer-events-none">
+                                                                    <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse shadow-[0_0_10px_red]" />
+                                                                    <span className="text-[10px] text-white/80 font-black uppercase tracking-widest bg-black/40 px-3 py-1 rounded-lg backdrop-blur-md border border-white/5">
+                                                                        Hybrid Protocol: Active
+                                                                    </span>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     )}
+
+
 
                                                     {activeTab === 'vault' && (
                                                         <div className="h-full py-6">
