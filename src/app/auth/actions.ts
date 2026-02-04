@@ -4,7 +4,7 @@ import { supabase } from '@/lib/supabase';
  * 🏛️ Bio-Auth Initiator: Handshakes with Google/Apple for Sovereign Protocol Login.
  * Compliant with AL Code 290-8-9 auditing requirements.
  */
-export async function initiateBioAuth(provider: 'google' | 'apple') {
+export async function initiateBioAuth(provider: 'google' | 'apple' | 'facebook') {
     const { data, error } = await supabase.auth.signInWithOAuth({
         provider: provider,
         options: {

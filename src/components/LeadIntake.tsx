@@ -4,8 +4,10 @@ import React, { useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import { ShieldCheck, ArrowRight, Loader2, Sparkles, Building2, Mail, Command } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useCelebrate } from '@/context/CelebrationContext';
 
 export const LeadIntake = () => {
+    const { celebrate } = useCelebrate();
     const [email, setEmail] = useState('');
     const [school, setSchool] = useState('');
     const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
@@ -25,7 +27,14 @@ export const LeadIntake = () => {
                 }]);
 
             if (error) throw error;
-            setTimeout(() => setStatus('success'), 1500);
+            setTimeout(() => {
+                setStatus('success');
+                celebrate(
+                    'Pilot Authorized',
+                    'Your district has been successfully queued for Sovereign integration.',
+                    'prime'
+                );
+            }, 1500);
         } catch (err) {
             console.error("Submission failed:", err);
             alert("Institutional handshake timeout. Please check your connection or contact Dr. West.");
@@ -67,7 +76,7 @@ export const LeadIntake = () => {
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.9, opacity: 0 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
                         className="liquid-glass p-1 md:p-1 relative overflow-hidden"
                     >
                         <form onSubmit={handleSubmit} className="relative z-10 p-10 space-y-8">

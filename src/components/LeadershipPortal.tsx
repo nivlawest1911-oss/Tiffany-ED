@@ -63,7 +63,7 @@ export default function ProfessionalPortal() {
     if (!mounted) return null;
 
     return (
-        <div className="fixed bottom-24 right-8 z-40 pointer-events-none">
+        <div className="fixed bottom-36 right-8 z-40 pointer-events-none">
             <AnimatePresence>
                 {isOpen && (
                     <motion.div

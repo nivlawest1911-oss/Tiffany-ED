@@ -17,7 +17,7 @@ export default function ComplianceGuard() {
                     <div>
                         <h4 className="text-xs font-black text-emerald-500 uppercase tracking-widest mb-1">Due Process Shield Active</h4>
                         <p className="text-xs text-zinc-300 leading-snug mb-2">
-                            Session ID #9921 monitored for <span className="text-white font-bold">AL Code 290-8-9</span> compliance.
+                            Session ID #9921 monitored for <a href="https://alabamaadministrativecode.state.al.us/docs/ed/290-8-9.pdf" target="_blank" rel="noopener noreferrer" className="text-white font-bold hover:text-emerald-400 underline decoration-dotted underline-offset-2 transition-colors">AL Code 290-8-9</a> compliance.
                         </p>
 
                         <div className="flex gap-2">

@@ -310,12 +310,20 @@ export class MetaAIClient {
         const format = options?.format || 'explanation';
         const length = options?.length || 'medium';
 
-        const prompt = `Create a ${format} about ${topic} for ${gradeLevel} students. 
-Length: ${length}. 
-Make it engaging, clear, and age-appropriate.`;
+        const prompt = `
+            ${ALABAMA_STRATEGIC_DIRECTIVE}
+            
+            Create a ${format} about ${topic} for ${gradeLevel} students. 
+            Length: ${length}. 
+            
+            MANDATORY:
+            1. Ensure engagement, clarity, and age-appropriateness.
+            2. Ground all pedagogical claims in evidence-based research.
+            3. For literacy topics, align with Science of Reading (SOR).
+        `;
 
         return this.complete(prompt, {
-            max_tokens: length === 'short' ? 500 : length === 'medium' ? 1000 : 2000,
+            max_tokens: length === 'short' ? 800 : length === 'medium' ? 1500 : 3000,
         });
     }
 
@@ -347,18 +355,27 @@ Provide clean, well-commented code.`;
         strengths: string[];
         improvements: string[];
     }> {
-        const prompt = `Analyze this student work:
-${work}
-
-${rubric ? `Using this rubric:\n${rubric}\n` : ''}
-
-Provide:
-1. Overall score (0-100)
-2. Detailed feedback
-3. Key strengths
-4. Areas for improvement
-
-Format as JSON.`;
+        const prompt = `
+            ${ALABAMA_STRATEGIC_DIRECTIVE}
+            
+            Analyze this student work:
+            ${work}
+            
+            ${rubric ? `Using this rubric:\n${rubric}\n` : ''}
+            
+            You must provide a clinically precise analysis.
+            Requirements:
+            1. Scrutinize for factual accuracy and evidence of deep understanding (DOK 3/4).
+            2. Ground feedback in cognitive science principles.
+            
+            Provide JSON response:
+            {
+              "score": number (0-100),
+              "feedback": "string (Professional, actionable advice)",
+              "strengths": ["string"],
+              "improvements": ["string"]
+            }
+        `;
 
         const response = await this.complete(prompt);
 

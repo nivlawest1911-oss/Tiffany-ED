@@ -14,6 +14,8 @@ import FacebookSDK from '@/components/social/FacebookSDK';
 import NeuralCursor from '@/components/NeuralCursor';
 import TavusPlayer from '@/components/TavusPlayer';
 import SovereignShell from '@/components/layout/SovereignShell';
+import SovereignScroll from '@/components/layout/SovereignScroll';
+import { CelebrationProvider } from '@/context/CelebrationContext';
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -44,18 +46,22 @@ export default function RootLayout({
         <AuthProvider>
           <IntelligenceProvider>
             <TavusProvider>
-              <FacebookSDK />
-              <NeuralCursor />
+              <CelebrationProvider>
+                <FacebookSDK />
+                <NeuralCursor />
 
-              <SovereignShell>
-                {children}
-              </SovereignShell>
+                <SovereignScroll>
+                  <SovereignShell>
+                    {children}
+                  </SovereignShell>
+                </SovereignScroll>
 
-              <SovereignDelegate />
-              <TavusPlayer />
-              <CommandPalette />
-              <ClientLayoutValues />
-              <MedicalDisclaimer />
+                <SovereignDelegate />
+                <TavusPlayer />
+                <CommandPalette />
+                <ClientLayoutValues />
+                <MedicalDisclaimer />
+              </CelebrationProvider>
             </TavusProvider>
           </IntelligenceProvider>
         </AuthProvider>

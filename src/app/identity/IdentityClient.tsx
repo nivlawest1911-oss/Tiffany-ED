@@ -7,18 +7,18 @@ import VoiceIdentityComponent from '@/components/VoiceIdentity';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 import { Shield as LucideShield, Award, Users, Brain, Lock } from 'lucide-react';
 import ProfessionalBroadcastCenter from '@/components/bento/ProfessionalBroadcastCenter';
-import ProfessionalSocialConnection from '@/components/bento/ProfessionalSocialConnection';
+import Image from 'next/image';
 
 export default function IdentityClient() {
     const { playHover, playClick } = useProfessionalSounds();
 
     const team = [
         {
-            name: "Dr. Alvin West",
-            role: "Professional Architect",
+            name: "Dr. Alvin West II",
+            role: "Chief AI Strategist | DBA, Ph.D., MBA",
             image: "/avatars/alvin_west.png",
             voice: "/voice-profiles/alvin_deep.mp3",
-            bio: "Visionary leader bridging the gap between neural architecture and educational excellence.",
+            bio: "Chief Architect of EdIntel. Distinguished researcher in sustainable business strategies (DBA), organizational leadership, and BCI/AI twin technology. Chair of Special Programs, Mathematics, & Gifted Education.",
             color: "from-amber-500 to-orange-600"
         },
         {
@@ -98,19 +98,12 @@ export default function IdentityClient() {
             {/* Social Broadcast Centers */}
             <section className="py-12 px-6 relative z-10 bg-zinc-950/50">
                 <div className="max-w-7xl mx-auto flex flex-col gap-12">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5 }}
-                        viewport={{ once: true }}
-                    >
-                        <ProfessionalSocialConnection />
-                    </motion.div>
+                    {/* Removed ProfessionalSocialConnection as per request */}
 
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
+                        transition={{ duration: 0.5 }}
                         viewport={{ once: true }}
                     >
                         <ProfessionalBroadcastCenter />
@@ -130,6 +123,7 @@ export default function IdentityClient() {
                             viewport={{ once: true }}
                             className="group relative"
                             onMouseEnter={playHover}
+                            onClick={playClick}
                         >
                             <div className={`absolute inset-0 bg-gradient-to-br ${member.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-3xl blur-xl`} />
 
@@ -142,7 +136,7 @@ export default function IdentityClient() {
 
                                 <div className="mb-6 relative">
                                     <div className="w-24 h-24 rounded-2xl overflow-hidden ring-4 ring-white/10 group-hover:ring-white/30 transition-all bg-black">
-                                        <img src={member.image} alt={member.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                                        <Image src={member.image} alt={member.name} width={100} height={100} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                                     </div>
                                     <div className="absolute -bottom-2 -right-2 scale-75 origin-bottom-right">
                                         <VoiceIdentityComponent src={member.voice} label="Voice Connection" />

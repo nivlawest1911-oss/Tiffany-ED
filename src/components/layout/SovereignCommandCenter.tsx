@@ -15,6 +15,7 @@ import {
     Video
 } from 'lucide-react';
 import Link from 'next/link';
+import { StatutoryDisclaimer } from '../SovereignRegulatory';
 import HolographicBriefing from '../HolographicBriefing';
 
 export function SovereignCommandCenter() {
@@ -62,6 +63,8 @@ export function SovereignCommandCenter() {
                             </Link>
                         ))}
                     </div>
+
+                    {/* Integrated Compliance Shield - Moved to Sidebar for better visibility */}
                 </div>
 
                 {/* Platform Links */}
@@ -139,6 +142,13 @@ export function SovereignCommandCenter() {
                     <Link href="/privacy" className="text-[9px] font-black uppercase tracking-widest text-zinc-800 hover:text-white transition-colors">Privacy</Link>
                     <Link href="/terms" className="text-[9px] font-black uppercase tracking-widest text-zinc-800 hover:text-white transition-colors">Terms</Link>
                     <Link href="/ferpa" className="text-[9px] font-black uppercase tracking-widest text-zinc-800 hover:text-white transition-colors">FERPA</Link>
+                </div>
+            </div>
+
+            {/* Statutory Disclaimer - Integrated into Footer */}
+            <div className="mt-8 border-t border-white/5 pt-4 -mx-12 px-12 bg-black/60">
+                <div className="max-w-7xl mx-auto">
+                    <StatutoryDisclaimer />
                 </div>
             </div>
 

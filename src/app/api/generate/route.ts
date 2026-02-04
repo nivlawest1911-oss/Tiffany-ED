@@ -20,54 +20,70 @@ export async function POST(request: NextRequest) {
         const isQuizTool = generatorId === 'quiz-gamifier' || generatorId === 'assessment-builder';
 
         if (isQuizTool) {
-            // HIGH-FIDELITY SYNTHESIS: Switch to Llama 3.3 for Sovereign Quiz Directive
-            const metaClient = getMetaAIClient('together');
+            // Check for API Key presence for Meta/Together
+            if (!process.env.TOGETHER_API_KEY) {
+                console.warn("[Configuration] TOGETHER_API_KEY missing, falling back to Gemini.");
+                // Fallback to Gemini handled below by skipping this block
+            } else {
+                // HIGH-FIDELITY SYNTHESIS: Switch to Llama 3.3 for Sovereign Quiz Directive
+                const metaClient = getMetaAIClient('together');
 
-            const directive = `
-                ${ALABAMA_STRATEGIC_DIRECTIVE}
-                
-                SOVEREIGN OS: QUIZ SYNTHESIS SPECIFIC
-                Tool Name: ${generatorId}
-                User: ${activePersona.name} (${activePersona.role})
-            `;
+                const directive = `
+                    ${ALABAMA_STRATEGIC_DIRECTIVE}
+                    
+                    SOVEREIGN OS: QUIZ SYNTHESIS SPECIFIC
+                    Tool Name: ${generatorId}
+                    User: ${activePersona.name} (${activePersona.role})
+                `;
 
-            try {
-                // Use streaming completion for the UI
-                const stream = metaClient.chatStream({
-                    messages: [
-                        { role: 'system', content: directive },
-                        { role: 'user', content: prompt }
-                    ],
-                    temperature: 0.7,
-                    max_tokens: 3000
-                });
+                try {
+                    // Use streaming completion for the UI
+                    const stream = metaClient.chatStream({
+                        messages: [
+                            { role: 'system', content: directive },
+                            { role: 'user', content: prompt }
+                        ],
+                        temperature: 0.7,
+                        max_tokens: 3000
+                    });
 
-                // Convert Meta AI AsyncGenerator to a response compatible with AI SDK
-                const encoder = new TextEncoder();
-                const readableStream = new ReadableStream({
-                    async start(controller) {
-                        try {
-                            for await (const chunk of stream) {
-                                controller.enqueue(encoder.encode(chunk));
+                    // Convert Meta AI AsyncGenerator to a response compatible with AI SDK
+                    const encoder = new TextEncoder();
+                    const readableStream = new ReadableStream({
+                        async start(controller) {
+                            try {
+                                for await (const chunk of stream) {
+                                    controller.enqueue(encoder.encode(chunk));
+                                }
+                                controller.close();
+                            } catch (err) {
+                                controller.error(err);
                             }
-                            controller.close();
-                        } catch (err) {
-                            controller.error(err);
                         }
-                    }
-                });
+                    });
 
-                return new Response(readableStream, {
-                    headers: { 'Content-Type': 'text/plain; charset=utf-8' }
-                });
-            } catch (llamaError) {
-                console.warn("[Synthesis Failover] Llama 3.3 overloaded, falling back to Gemini.", llamaError);
-                // Continue to Gemini fallback
+                    return new Response(readableStream, {
+                        headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+                    });
+                } catch (llamaError) {
+                    console.warn("[Synthesis Failover] Llama 3.3 overloaded, falling back to Gemini.", llamaError);
+                    // Continue to Gemini fallback
+                }
             }
         }
 
+        // Check for Google API Key (support standard Vercel AI SDK env var or generic one)
+        const googleApiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GOOGLE_API_KEY;
+
+        if (!googleApiKey) {
+            console.error("[Configuration Critical] BOTH GOOGLE_GENERATIVE_AI_API_KEY and GOOGLE_API_KEY are missing from environment variables.");
+            return NextResponse.json({
+                error: 'System Configuration Error: Neural Engine Offline (Missing Google API Key). Please add GOOGLE_GENERATIVE_AI_API_KEY to your env variables.'
+            }, { status: 500 });
+        }
+
         // SYSTEM PROMPT: FORCING HIGH-FIDELITY SOVEREIGN PERSONA
-        const systemPrompt = systemInstruction || `
+        const systemPrompt = `
             ${ALABAMA_STRATEGIC_DIRECTIVE}
             
             You are ${activePersona.name}, the ${activePersona.role}.
@@ -78,11 +94,13 @@ export async function POST(request: NextRequest) {
             3. Mission: ${activePersona.mission}
             4. Goal: 79 school site signups in Mobile County, Alabama.
             
-            Identify as the specialist for ${generatorId || 'this area'}.
+            Tool Context: ${generatorId || 'General Intelligence'}
+            ${systemInstruction ? `Specific Task Note: ${systemInstruction}` : ''}
         `;
 
+        // Use standard model ID for Vercel AI SDK Google provider
         const result = await streamText({
-            model: google('models/gemini-1.5-pro-latest'),
+            model: google('gemini-1.5-pro'),
             system: systemPrompt,
             prompt: prompt,
             temperature: 0.7,

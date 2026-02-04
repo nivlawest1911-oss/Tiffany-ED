@@ -27,8 +27,8 @@ export interface AvatarDefinition {
 export const CORE_AVATARS: AvatarDefinition[] = [
     {
         id: 'sovereign_1',
-        name: 'Dr. Alvin West',
-        role: 'Strategic Crisis Lead',
+        name: 'Dr. Alvin West II',
+        role: 'Chief AI Strategist | DBA, Ph.D., MBA',
         status: 'online',
         avatar: '/images/avatars/dr_alvin_west_premium.png',
         specialty: 'Strategic Leadership & Universal I.E.P. Advisor',
@@ -36,8 +36,8 @@ export const CORE_AVATARS: AvatarDefinition[] = [
         voiceId: 'JBFqnCBv79x13pTo1U5r', // Dr. West Custom Clone
         clearance: 'Quantum',
         video: '/videos/dr-west-loop.mp4', // Strategic Kling AI Loop
-        description: 'Strategic Superintendent & Universal Advisor. Expert in Crisis Communication and High-Level IEP Compliance Strategy.',
-        achievements: ['Crisis Protocol Author', 'Safe Schools Liaison', 'Master IEP Strategist'],
+        description: 'Strategic Superintendent & Chief AI Architect. Distinguished researcher in sustainable business strategies, organizational leadership, and crisis communication.',
+        achievements: ['DBA, Ph.D., MBA', 'Published Researcher', 'Master IEP Strategist'],
         color: 'from-amber-600 to-zinc-900'
     },
     {

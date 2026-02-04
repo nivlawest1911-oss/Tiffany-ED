@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { GoogleGenerativeAI } from '@google/generative-ai';
 import { generateProfessionalResponse } from '@/lib/leadership-ai';
 
 // Initialize directly with SDK to bypass Genkit configuration issues
@@ -32,22 +31,22 @@ export async function POST(req: Request) {
     }
   }
 
-  const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-lite" });
+
 
   try {
     const body = await req.json();
-
-    // Extract structured data from the new frontend components
     const { rawSituation, stakeholder, intensity, protocol, prompt } = body;
+    const { ALABAMA_STRATEGIC_DIRECTIVE, SOVEREIGN_PERSONA } = await import('@/lib/ai-resilience');
 
-    // Base prompt logic
     let finalPrompt = "";
 
     if (rawSituation) {
       const systemInstruction = PROTOCOL_PROMPTS[protocol as string] || PROTOCOL_PROMPTS['default'];
       finalPrompt = `
+        ${ALABAMA_STRATEGIC_DIRECTIVE}
+        
         ACT AS: ${systemInstruction}
+        PERSONA: ${SOVEREIGN_PERSONA.name}, ${SOVEREIGN_PERSONA.role}
         
         CONTEXT:
         - Stakeholder: ${stakeholder || 'General Staff'}
@@ -56,27 +55,19 @@ export async function POST(req: Request) {
         SITUATION:
         ${rawSituation}
         
-        INSTRUCTIONS:
-        Provide a structured, actionable response suitable for a school principal or administrator. 
-        Output should be professionally formatted (using Markdown).
+        MANDATE:
+        1. Eliminate non-factual or unsubstantiated generalities.
+        2. Provide specific, clinically precise next steps citing research-based peer-reviewed models (e.g. Hattie, Marzano).
+        3. If legal/compliance related (Discipline/IDEA), cite specific Alabama or Federal codes.
       `;
     } else if (prompt) {
-      // Legacy support for direct prompt calls
-      finalPrompt = prompt;
+      finalPrompt = `${ALABAMA_STRATEGIC_DIRECTIVE}\n\n${prompt}`;
     } else {
       return NextResponse.json({ error: "Missing situation or prompt data." }, { status: 400 });
     }
 
-    // Force Professional fallback if no valid key is provided
-    if (!apiKey || apiKey.includes('AIzaSy')) {
-      const text = await generateProfessionalResponse(finalPrompt, protocol || 'community');
-      return NextResponse.json({ output: text });
-    }
-
-    const result = await model.generateContent(finalPrompt);
-    const response = await result.response;
-    const text = response.text();
-
+    // ALWAYS use generateProfessionalResponse for consistent, resilient, and logged generations
+    const text = await generateProfessionalResponse(finalPrompt, protocol || 'eq-node', SOVEREIGN_PERSONA);
     return NextResponse.json({ output: text });
   } catch (error) {
     console.error("EQ NODE ERROR:", error);

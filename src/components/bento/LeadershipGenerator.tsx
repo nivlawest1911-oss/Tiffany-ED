@@ -45,19 +45,19 @@ export default function LeadershipGenerator() {
         },
         {
             id: 'conflict',
-            name: 'Touchy Sit',
+            name: 'Conflict Navigator',
             icon: <AlertCircle size={18} className="text-orange-400" />,
             description: 'Navigate difficult, touchy, and challenging administrative situations.'
         },
         {
             id: 'discipline',
-            name: 'Discipline Comp',
+            name: 'Discipline Check',
             icon: <ShieldCheck size={18} className="text-blue-400" />,
             description: 'Check legal compliance for suspensions and behavioral removals (IDEA/504).'
         },
         {
             id: 'meeting-agenda',
-            name: 'Meeting Protocol',
+            name: 'Meeting Agenda',
             icon: <Users size={18} />,
             description: 'Generate high-impact agendas for school leadership.'
         },
@@ -69,7 +69,7 @@ export default function LeadershipGenerator() {
         },
         {
             id: 'crisis',
-            name: 'Crisis Comm',
+            name: 'Crisis Comms',
             icon: <AlertCircle size={18} className="text-red-400" />,
             description: 'Draft urgent memos for high-stakes events.'
         },
@@ -208,18 +208,25 @@ export default function LeadershipGenerator() {
                 </div>
 
                 {/* Protocol Selector */}
-                <div className="grid grid-cols-3 md:grid-cols-6 gap-2 mb-8">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-8">
                     {protocols.map((p) => (
                         <button
                             key={p.id}
                             onClick={() => setActiveProtocol(p.id)}
-                            className={`flex flex-col items-center gap-2 p-3 rounded-2xl border transition-all duration-300 ${activeProtocol === p.id
-                                ? 'bg-pink-600/20 border-pink-500 text-pink-400 shadow-lg shadow-pink-600/5'
-                                : 'bg-zinc-900/50 border-zinc-800 text-zinc-500 hover:border-zinc-700'
+                            className={`flex flex-col items-center justify-center gap-3 p-3 rounded-2xl border transition-all duration-300 min-h-[90px] group/btn relative overflow-hidden ${activeProtocol === p.id
+                                ? 'bg-pink-600/20 border-pink-500 text-pink-400 shadow-[0_0_20px_rgba(236,72,153,0.3)]'
+                                : 'bg-zinc-900/40 border-zinc-800/50 text-zinc-500 hover:border-pink-500/30 hover:bg-zinc-800/50 hover:text-zinc-300'
                                 }`}
                         >
-                            {p.icon}
-                            <span className="text-[10px] font-bold uppercase tracking-wider">{p.name}</span>
+                            {/* Hover Gradient */}
+                            <div className={`absolute inset-0 bg-gradient-to-br from-pink-500/10 to-transparent opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500 ${activeProtocol === p.id ? 'opacity-100' : ''}`} />
+
+                            <div className="relative z-10">
+                                {p.icon}
+                            </div>
+                            <span className="relative z-10 text-[10px] font-bold uppercase tracking-wider text-center leading-tight">
+                                {p.name}
+                            </span>
                         </button>
                     ))}
                 </div>

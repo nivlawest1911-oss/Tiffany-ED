@@ -122,12 +122,13 @@ export function useMultimodalAvatar({
     const speak = useCallback((text: string) => {
         // 1. Check for External Handler (e.g. HeyGen / Azure)
         if (onSpeak && onSpeak(text)) {
-            // External handler accepted the task.
+            // External handler (like HeyGen) handles the actual speech/video
             setIsSpeaking(true);
 
-            // Heuristic Timeout to reset speaking state
+            // Heuristic Timeout to reset speaking state for UI feedback
+            // Adjusted for 120 wpm (2.0 words/sec) + 2.5s overhead for HeyGen generation latency
             const wordCount = text.split(/\s+/).length;
-            const estimatedDurationMs = Math.max(2000, (wordCount / 2.5) * 1000); // ~150 wpm min 2s
+            const estimatedDurationMs = Math.max(3000, (wordCount / 2.0) * 1000) + 2500;
             setTimeout(() => {
                 setIsSpeaking(false);
             }, estimatedDurationMs);
@@ -139,10 +140,18 @@ export function useMultimodalAvatar({
 
         window.speechSynthesis.cancel();
 
-        // HUMAN-LIKE REFINEMENT: Inject natural fillers
+        // HUMAN-LIKE REFINEMENT: Inject natural fillers to satisfy "they don't communicate" complaint
+        // We make them sound more active and engaged
         let naturalText = text;
-        if (Math.random() > 0.6) {
-            const fillers = ["Well, ", "You know, ", "Basically, ", "So, ", "I mean, "];
+        if (Math.random() > 0.7) {
+            const fillers = [
+                "I see, ",
+                "Understood. ",
+                "Acknowledged, ",
+                "From my perspective, ",
+                "Looking at the data, ",
+                "Interestingly, "
+            ];
             naturalText = fillers[Math.floor(Math.random() * fillers.length)] + text;
         }
 
@@ -152,16 +161,28 @@ export function useMultimodalAvatar({
         utterance.rate = archetype.rate;
         utterance.pitch = archetype.pitch;
 
-        // Voice Selection Logic
-        const voices = window.speechSynthesis.getVoices();
-        const lowerName = avatarName.toLowerCase();
-        const isFemale = lowerName.includes('keisha') || lowerName.includes('emily') || lowerName.includes('maya') || lowerName.includes('nova') || voiceId?.includes('Rachel') || voiceId?.includes('Bella') || voiceId?.includes('Elli') || voiceId?.includes('Nicole');
+        // ACCURATE GENDER MATCHING: Explicit mapping for CORE_AVATARS IDs
+        const femaleVoiceIds = [
+            '21m00Tcm4TlvDq8ikWAM', // Rachel
+            'EXAVITQu4vr4xnSDxMaL', // Bella
+            'MF3mGyEYCl7XYW7LpInj', // Elli
+            'AZnzlk1XjtbaicYn0nS5'  // Nicole
+        ];
 
+        const lowerName = avatarName.toLowerCase();
+        const isFemale = femaleVoiceIds.includes(voiceId || '') ||
+            lowerName.includes('keisha') ||
+            lowerName.includes('emily') ||
+            lowerName.includes('maya') ||
+            lowerName.includes('nova');
+
+        const voices = window.speechSynthesis.getVoices();
         const preferredVoice = voices.find(v =>
             isFemale
-                ? (v.name.includes('Google US English') || v.name.includes('Samantha') || v.name.includes('Female'))
-                : (v.name.includes('Daniel') || v.name.includes('Google UK English Male') || v.name.includes('Male'))
+                ? (v.name.includes('Google US English') || v.name.includes('Samantha') || v.name.includes('Female') || v.name.includes('Zira'))
+                : (v.name.includes('Daniel') || v.name.includes('Google UK English Male') || v.name.includes('Male') || v.name.includes('David'))
         );
+
         if (preferredVoice) utterance.voice = preferredVoice;
 
         utterance.onstart = () => setIsSpeaking(true);

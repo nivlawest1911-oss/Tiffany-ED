@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { toast } from 'sonner';
+import { useCelebrate } from './CelebrationContext';
 
 interface User {
     name: string;
@@ -31,13 +32,14 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
+    const { celebrate } = useCelebrate();
     const [user, setUser] = useState<User | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const router = useRouter();
 
     // 🏛️ SOVEREIGN IDENTITY SYNC
     useEffect(() => {
-        const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+        const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
             if (session?.user) {
                 // Ensure we capture metadata consistently
                 const metadata = session.user.user_metadata || {};
@@ -50,16 +52,27 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     .eq('id', session.user.id)
                     .single();
 
-                setUser({
+                const newUser: User = {
                     id: session.user.id,
                     email: session.user.email!,
                     name: metadata.full_name || session.user.email?.split('@')[0] || 'Executive',
                     tier: (profile?.subscription_tier as any) || (metadata.tier as any) || 'Sovereign Initiate',
                     usage_count: profile?.usage_tokens || usage
-                });
+                };
+
+                setUser(newUser);
+
+                // Celebrate login
+                if (event === 'SIGNED_IN') {
+                    celebrate(
+                        `Welcome back, ${newUser.name}`,
+                        'Sovereign access protocols synchronized. Your executive suite is ready.',
+                        'success'
+                    );
+                }
 
                 // 🚨 MONITOR TOKEN BALANCE (Alerting for low tokens)
-                if (usage > 900 && (profile?.subscription_tier === 'Sovereign Initiate' || metadata.tier === 'free')) {
+                if (newUser.usage_count! > 900 && (newUser.tier === 'free' as any)) {
                     toast.error("Alert: Sovereign Tokens Low. Refuel at the Command Center.", {
                         description: "Energy reserves depleting. Secure institutional funding.",
                         duration: 10000,
@@ -72,7 +85,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         });
 
         return () => subscription.unsubscribe();
-    }, []);
+    }, [celebrate]);
 
     const login = async (email: string, password?: string) => {
         setIsLoading(true);
@@ -85,55 +98,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 if (error) throw error;
                 alert('Sovereign access link dispatched to your email.');
             } else {
-                // FALLBACK: Sovereign Bypass Check (Secured via Prefixes)
-                const SOVEREIGN_USERS = (process.env.NEXT_PUBLIC_SOVEREIGN_USERS || '').toLowerCase().split(',');
-                const SOVEREIGN_PASSWORD = process.env.NEXT_PUBLIC_SOVEREIGN_PASSWORD;
-
                 const { error } = await supabase.auth.signInWithPassword({ email, password });
-
-                if (error) {
-                    // Check if it's the Sovereign Bypass
-                    if (SOVEREIGN_USERS.includes(email.toLowerCase()) && password === SOVEREIGN_PASSWORD) {
-                        console.log("[SOVEREIGN_AUTH] Initiating Master Override Protocol...");
-                        // FORCE LOGIN (Mock Session for Sovereign Access)
-                        const mockUser: User = {
-                            id: 'sovereign-master-id',
-                            email: email,
-                            name: 'Dr. Alvin West',
-                            tier: 'EXECUTIVE_COMMAND',
-                            usage_count: 9999
-                        };
-                        setUser(mockUser);
-                        setIsLoading(false);
-                        router.push('/dashboard');
-                        return;
-                    }
-                    throw error;
-                }
-
+                if (error) throw error;
                 router.push('/dashboard');
             }
         } catch (err: any) {
             console.error("[SOVEREIGN_AUTH] Login error:", err);
-
-            // Redundant Bypass for Emergency Access
-            const SOVEREIGN_USERS = (process.env.NEXT_PUBLIC_SOVEREIGN_USERS || '').toLowerCase().split(',');
-            const SOVEREIGN_PASSWORD = process.env.NEXT_PUBLIC_SOVEREIGN_PASSWORD;
-
-            if (email && password && SOVEREIGN_USERS.includes(email.toLowerCase()) && password === SOVEREIGN_PASSWORD) {
-                const mockUser: User = {
-                    id: 'sovereign-master-id',
-                    email: email,
-                    name: 'Dr. Alvin West',
-                    tier: 'EXECUTIVE_COMMAND',
-                    usage_count: 9999
-                };
-                setUser(mockUser);
-                setIsLoading(false);
-                router.push('/dashboard');
-                return;
-            }
-
             throw err;
         } finally {
             setIsLoading(false);
@@ -143,7 +113,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const signup = async (email: string, password?: string, name?: string) => {
         setIsLoading(true);
         try {
-            // Strategic URL detection
             const { data, error } = await supabase.auth.signUp({
                 email,
                 password: password || 'temporary-vault-key-2026',
@@ -157,26 +126,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             });
             if (error) throw error;
 
-            if (data.session || data.user) {
-                // 🏛️ DB SYNC: Provision in custom users table
-                try {
-                    await fetch('/api/auth/me', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            email,
-                            name: name || email.split('@')[0],
-                            id: data.user?.id
-                        })
-                    });
-                } catch (syncErr) {
-                    console.warn("[SOVEREIGN_SYNC] Legacy DB sync delayed", syncErr);
-                }
-            }
-
             if (data.user && !data.session) {
                 alert("Sovereign Protocol Initiated: Please check your inbox to authorize your institutional identity.");
             } else if (data.session) {
+                celebrate(
+                    'Identity Authorized',
+                    'Welcome to the Sovereign OS. Your education intelligence journey begins now.',
+                    'achievement'
+                );
                 router.push('/dashboard');
             }
         } catch (err: any) {
@@ -199,29 +156,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     const loginWithGoogle = async () => {
-        try {
-            const { error } = await supabase.auth.signInWithOAuth({
-                provider: 'google',
-                options: { redirectTo: `${window.location.origin}/auth/callback` }
-            });
-            if (error) throw error;
-        } catch (err: any) {
-            console.error("[SOVEREIGN] Google OAuth initiation failed:", err);
-            throw err;
-        }
+        await supabase.auth.signInWithOAuth({
+            provider: 'google',
+            options: { redirectTo: `${window.location.origin}/auth/callback` }
+        });
     };
 
     const loginWithFacebook = async () => {
-        try {
-            const { error } = await supabase.auth.signInWithOAuth({
-                provider: 'facebook',
-                options: { redirectTo: `${window.location.origin}/auth/callback` }
-            });
-            if (error) throw error;
-        } catch (err: any) {
-            console.error("[SOVEREIGN] Facebook OAuth initiation failed:", err);
-            throw err;
-        }
+        await supabase.auth.signInWithOAuth({
+            provider: 'facebook',
+            options: { redirectTo: `${window.location.origin}/auth/callback` }
+        });
     };
 
     const logout = async () => {

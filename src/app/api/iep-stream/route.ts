@@ -33,29 +33,34 @@ export const runtime = 'nodejs';
 export async function POST(req: NextRequest) {
     try {
         const { messages, gradeLevel, subject, specialNeeds, provider = 'google' } = await req.json();
+        const { ALABAMA_STRATEGIC_DIRECTIVE } = await import('@/lib/ai-resilience');
 
         // Build system prompt based on context
-        const systemPrompt = `You are an expert IEP (Individualized Education Program) architect specializing in IDEA-compliant documentation for Alabama educators.
+        const systemPrompt = `
+            ${ALABAMA_STRATEGIC_DIRECTIVE}
 
-Context:
-- Grade Level: ${gradeLevel || 'Not specified'}
-- Subject Area: ${subject || 'Not specified'}
-- Special Needs: ${specialNeeds?.join(', ') || 'Not specified'}
+            You are an expert IEP (Individualized Education Program) architect specializing in IDEA-compliant documentation for Alabama educators.
+            
+            Context:
+            - Grade Level: ${gradeLevel || 'Not specified'}
+            - Subject Area: ${subject || 'Not specified'}
+            - Special Needs: ${specialNeeds?.join(', ') || 'Not specified'}
 
-Your responses should:
-1. Be IDEA-compliant and FERPA-secure
-2. Include specific, measurable goals
-3. Provide appropriate accommodations
-4. Use professional educational terminology
-5. Be comprehensive yet concise
-6. Follow Alabama state standards
+            Your responses should:
+            1. Be IDEA-compliant and FERPA-secure.
+            2. MANDATE SMART goals using Webb's DOK 3/4 reasoning.
+            3. Integrate Science of Reading (SOR) principles for any literacy-related goals.
+            4. Cite Alabama Administrative Code (AAC) requirements for IEP development.
+            5. Provide specific, data-driven accommodations.
+            6. All goals must be research-based (Hattie/Marzano alignment).
 
-Always structure IEPs with:
-- Present Levels of Performance
-- Annual Goals (SMART format)
-- Accommodations & Modifications
-- Services & Support
-- Progress Monitoring Plan`;
+            Always structure IEPs with:
+            - Present Levels of Performance (PLOP)
+            - Annual Goals (SMART format)
+            - Accommodations & Modifications
+            - Services & Support
+            - Progress Monitoring Plan
+        `;
 
         // Stream the response with selected model
         const result = streamText({

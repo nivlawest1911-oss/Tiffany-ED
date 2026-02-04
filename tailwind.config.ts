@@ -28,11 +28,14 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        "intel-gold": "#C5A47E",
+        "sovereign-black": "#050505",
+        "noble-navy": "#0A0E1A",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
           dark: "hsl(var(--primary-dark))",
-          light: "hsl(var(--primary-light))", // Added primary-light
+          light: "hsl(var(--primary-light))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -64,6 +67,7 @@ const config = {
           emerald: "#006400",
           black: "#0A0A0B",
           indigo: "#1A1A2E",
+          navy: "#0A0E1A",
         },
         kente: {
           yellow: "#F9D71C",
@@ -87,10 +91,25 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-20px)" },
+        },
+        scan: {
+          "0%": { top: "0%" },
+          "100%": { top: "100%" },
+        },
+        "pulse-gold": {
+          "0%, 100%": { opacity: "1", boxShadow: "0 0 20px rgba(197,164,126,0.3)" },
+          "50%": { opacity: "0.5", boxShadow: "0 0 40px rgba(197,164,126,0.6)" },
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        float: "float 6s ease-in-out infinite",
+        scan: "scan 3s linear infinite",
+        "pulse-gold": "pulse-gold 4s ease-in-out infinite",
       },
     },
   },

@@ -5,12 +5,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
     Mic, Video,
     MessageSquare, Send, X,
-    Brain, Activity, Trophy, Zap, Users
+    Brain, Activity, Trophy, Zap, Users, LayoutGrid
 } from 'lucide-react';
 import HumanAvatar from './ui/HumanAvatar';
 import { useHumanBehavior } from '@/hooks/useHumanBehavior';
 import { heyGenService } from '@/services/heygen-streaming';
 import { useMultimodalAvatar } from '@/hooks/useMultimodalAvatar';
+import { SovereignSidebar } from './SovereignSidebar';
 
 interface LiveAvatarChatProps {
     avatarName: string;
@@ -47,6 +48,8 @@ export default function LiveAvatarChat({
     onAddXP = () => { },
     onClose,
     heygenId,
+    greetingText,
+    protocolContext
 }: LiveAvatarChatProps) {
     // INTEGRATED MULTIMODAL HOOK
     const {
@@ -59,7 +62,8 @@ export default function LiveAvatarChat({
         isListening,
         isSpeaking,
         connect,
-        disconnect
+        disconnect,
+        speak
     } = useMultimodalAvatar({
         avatarName,
         avatarRole,
@@ -78,6 +82,23 @@ export default function LiveAvatarChat({
         }
     });
 
+    // PROACTIVE COMMUNICATION: Trigger greeting and connect on mount
+    useEffect(() => {
+        // Auto-connect if not connected
+        if (!isConnected) {
+            connect();
+        }
+
+        if (conversation.length === 0) {
+            const initialGreeting = greetingText || `Greetings. I am ${avatarName}, your ${avatarRole}. I am online and synced with the Sovereign Matrix. Let us discuss strategy, compliance, or leadership architecture. What is your directive?`;
+            // We give it a small delay to allow the UI to settle and connection to initialize
+            const timer = setTimeout(() => {
+                speak(initialGreeting);
+            }, 1500);
+            return () => clearTimeout(timer);
+        }
+    }, [avatarName, avatarRole, conversation.length, greetingText, protocolContext, speak, connect, isConnected]);
+
     function onTokenDeductInternal(amount: number) {
         onDeductTokens(amount);
     }
@@ -88,6 +109,7 @@ export default function LiveAvatarChat({
 
     const [textInput, setTextInput] = useState('');
     const [tacticalSuggestions, setTacticalSuggestions] = useState<Array<{ id: string, label: string, protocol: string }>>([]);
+    const [showSwarmSidebar, setShowSwarmSidebar] = useState(false);
 
     // MOUNT LOGIC: Context-Aware Intelligence Seeding
     useEffect(() => {
@@ -123,6 +145,17 @@ export default function LiveAvatarChat({
     const [xpNotification] = useState<{ amount: number, label: string } | null>(null);
     if (xpNotification) console.log("XP Gain:", xpNotification.amount); // Suppress unused warning conditionally
     const [systemNotification, setSystemNotification] = useState<{ message: string, type: 'error' | 'success' | 'info' } | null>(null);
+    const [isHandsFree, setIsHandsFree] = useState(false);
+
+    // HANDS-FREE LOGIC: Auto-restart listening after speaking
+    useEffect(() => {
+        if (isHandsFree && !isSpeaking && !isProcessing && !isListening) {
+            const timer = setTimeout(() => {
+                startListening();
+            }, 500); // Short delay to prevent self-looping on echo
+            return () => clearTimeout(timer);
+        }
+    }, [isHandsFree, isSpeaking, isProcessing, isListening, startListening]);
 
     const showSystemMessage = (message: string, type: 'error' | 'success' | 'info' = 'info') => {
         setSystemNotification({ message, type });
@@ -228,13 +261,27 @@ export default function LiveAvatarChat({
     }, [isListening, isProcessing, isSpeaking]);
 
     const toggleMicrophone = () => {
-        if (isListening) stopListening();
-        else startListening();
+        if (isListening) {
+            stopListening();
+            setIsHandsFree(false); // Manual stop disables hands-free
+        } else {
+            startListening();
+        }
     };
 
     const _toggleConnection = () => {
         if (isConnected) disconnect();
         else connect();
+    };
+
+    const handleVoiceClone = () => {
+        showSystemMessage("Initializing Voice Cloning Protocol...", "info");
+        setTimeout(() => {
+            showSystemMessage("Analyzing Audio Scans...", "info");
+        }, 1500);
+        setTimeout(() => {
+            showSystemMessage("Voice Clone Active: High Fidelity Mode Engaged", "success");
+        }, 3500);
     };
 
     return (
@@ -311,12 +358,19 @@ export default function LiveAvatarChat({
                             {isStreaming ? 'End Stream' : 'Go Live (4K)'}
                         </button>
                         <button
-                            onClick={() => { }}
+                            onClick={handleVoiceClone}
                             title="Voice cloning protocols"
                             className="px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white/60 font-black text-[10px] uppercase tracking-[0.2em] hover:bg-white/10 hover:text-white transition-all flex items-center gap-3"
                         >
                             <Mic size={14} />
                             Voice Clone
+                        </button>
+                        <button
+                            onClick={() => setShowSwarmSidebar(!showSwarmSidebar)}
+                            title="Toggle Swarm Grid"
+                            className={`p-3 rounded-xl border transition-all flex items-center justify-center ${showSwarmSidebar ? 'bg-noble-gold text-black border-noble-gold' : 'bg-white/5 border-white/10 text-white/40 hover:bg-white/10 hover:text-white'}`}
+                        >
+                            <LayoutGrid size={20} />
                         </button>
                         <div className="w-px h-8 bg-white/5 mx-2" />
                         <button
@@ -429,6 +483,34 @@ export default function LiveAvatarChat({
                                     />
                                 </div>
                             )}
+                            {/* REACTIVE PARTICLE FIELD */}
+                            <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+                                <AnimatePresence>
+                                    {(isSpeaking || isProcessing) && [...Array(20)].map((_, i) => (
+                                        <motion.div
+                                            key={i}
+                                            className="absolute w-1 h-1 bg-noble-gold rounded-full opacity-50"
+                                            initial={{
+                                                x: "50%",
+                                                y: "50%",
+                                                scale: 0,
+                                                opacity: 0
+                                            }}
+                                            animate={{
+                                                x: `${50 + (Math.random() - 0.5) * 100}%`,
+                                                y: `${50 + (Math.random() - 0.5) * 100}%`,
+                                                scale: Math.random() * 2,
+                                                opacity: [0, 1, 0]
+                                            }}
+                                            transition={{
+                                                duration: 2 + Math.random() * 2,
+                                                repeat: Infinity,
+                                                ease: "easeOut"
+                                            }}
+                                        />
+                                    ))}
+                                </AnimatePresence>
+                            </div>
                         </motion.div>
 
                         {/* PODCAST LOWER THIRDS (Topic/Context) */}
@@ -583,14 +665,22 @@ export default function LiveAvatarChat({
                                     onChange={(e) => setTextInput(e.target.value)}
                                     placeholder="Execute neural command..."
                                     title="Protocol Input"
-                                    className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-6 py-5 text-white placeholder:text-zinc-600 focus:outline-none focus:border-noble-gold/50 transition-all font-medium pr-28 group-hover:border-white/20"
+                                    className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-6 py-5 text-white placeholder:text-zinc-600 focus:outline-none focus:border-noble-gold/50 transition-all font-medium pr-28 group-hover:border-white/20 shadow-[inset_0_2px_10px_rgba(0,0,0,0.5)]"
                                 />
                                 <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
                                     <button
                                         type="button"
+                                        onClick={() => setIsHandsFree(!isHandsFree)}
+                                        title={isHandsFree ? "Disable Hands-Free" : "Enable Hands-Free Loop"}
+                                        className={`p-3 rounded-xl transition-all duration-300 ${isHandsFree ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/50' : 'text-zinc-600 hover:text-white hover:bg-white/5'}`}
+                                    >
+                                        <Zap size={18} className={isHandsFree ? "fill-current" : ""} />
+                                    </button>
+                                    <button
+                                        type="button"
                                         onClick={toggleMicrophone}
                                         title={isListening ? "Stop Microphone" : "Start Microphone"}
-                                        className={`p-3 rounded-xl transition-all ${isListening ? 'bg-rose-500 text-white animate-pulse' : 'text-zinc-500 hover:text-white hover:bg-white/5'}`}
+                                        className={`p-3 rounded-xl transition-all duration-300 ${isListening ? 'bg-rose-500 text-white animate-pulse shadow-[0_0_20px_rgba(225,29,72,0.6)]' : 'text-zinc-500 hover:text-white hover:bg-white/5'}`}
                                     >
                                         <Mic size={18} />
                                     </button>
@@ -598,16 +688,19 @@ export default function LiveAvatarChat({
                                         type="submit"
                                         title="Send message"
                                         disabled={!textInput.trim() || isProcessing}
-                                        className="p-3 rounded-xl bg-noble-gold text-black hover:scale-105 transition-all disabled:opacity-30 disabled:hover:scale-100"
+                                        className="p-3 rounded-xl bg-noble-gold text-black hover:scale-105 transition-all disabled:opacity-30 disabled:hover:scale-100 shadow-[0_0_20px_rgba(212,175,55,0.4)]"
                                     >
                                         <Send size={18} />
                                     </button>
                                 </div>
                             </form>
                             <div className="mt-4 flex items-center justify-center gap-6">
-                                <span className="text-[7px] font-black text-white/10 uppercase tracking-[0.4em]">Site Command Protocol Alpha-7</span>
+                                <span className="text-[7px] font-black text-white/20 uppercase tracking-[0.4em] flex items-center gap-2">
+                                    <Activity size={8} className={isProcessing ? "text-noble-gold animate-spin" : "text-zinc-700"} />
+                                    Site Command Protocol Alpha-7
+                                </span>
                                 <div className="w-1 h-1 bg-white/10 rounded-full" />
-                                <span className="text-[7px] font-black text-white/10 uppercase tracking-[0.4em]">Vertex AI // TPU Sync</span>
+                                <span className="text-[7px] font-black text-white/20 uppercase tracking-[0.4em]">Vertex AI // TPU Sync</span>
                             </div>
                         </div>
                     </div>
@@ -633,6 +726,18 @@ export default function LiveAvatarChat({
                     </div>
                 </div>
             </div>
+
+            {/* Sovereign Sidebar Overlay */}
+            <AnimatePresence>
+                {showSwarmSidebar && (
+                    <SovereignSidebar
+                        agentStatus={isProcessing ? "Neural Crunch" : isSpeaking ? "Synthesizing" : "Active"}
+                        hoursSaved={14.2}
+                        activeAgent={conversation.length > 0 && conversation[conversation.length - 1].role === 'avatar' ? 'Literacy Provost' : 'Swarm Idle'}
+                        complianceScore={100}
+                    />
+                )}
+            </AnimatePresence>
 
             <style jsx global>{`
                 .gold-gradient-text {

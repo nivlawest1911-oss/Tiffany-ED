@@ -1,8 +1,14 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+import Image from 'next/image';
 
-export default function NeuralBackground() {
+interface NeuralBackgroundProps {
+    mediaSrc?: string;
+    mediaType?: 'video' | 'image';
+}
+
+export default function NeuralBackground({ mediaSrc, mediaType }: NeuralBackgroundProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
@@ -12,44 +18,49 @@ export default function NeuralBackground() {
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
 
-        let width = canvas.width = window.innerWidth;
-        let height = canvas.height = window.innerHeight;
+        let animationFrameId: number;
+
+        const resize = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
+
+        window.addEventListener('resize', resize);
+        resize();
 
         const particles: Particle[] = [];
-        const particleCount = 100;
-        const connectionDistance = 150;
+        const particleCount = 60;
 
         class Particle {
             x: number;
             y: number;
-            vx: number;
-            vy: number;
             size: number;
+            speedX: number;
+            speedY: number;
 
             constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
+                this.x = Math.random() * canvas!.width;
+                this.y = Math.random() * canvas!.height;
                 this.size = Math.random() * 2 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
             }
 
             update() {
-                this.x += this.vx;
-                this.y += this.vy;
+                this.x += this.speedX;
+                this.y += this.speedY;
 
-                if (this.x < 0) this.x = width;
-                if (this.x > width) this.x = 0;
-                if (this.y < 0) this.y = height;
-                if (this.y > height) this.y = 0;
+                if (this.x > canvas!.width) this.x = 0;
+                if (this.x < 0) this.x = canvas!.width;
+                if (this.y > canvas!.height) this.y = 0;
+                if (this.y < 0) this.y = canvas!.height;
             }
 
             draw() {
-                if (!ctx) return;
-                ctx.fillStyle = 'rgba(6, 182, 212, 0.5)'; // Cyan
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
+                ctx!.fillStyle = 'rgba(197, 164, 126, 0.2)';
+                ctx!.beginPath();
+                ctx!.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx!.fill();
             }
         }
 
@@ -57,51 +68,71 @@ export default function NeuralBackground() {
             particles.push(new Particle());
         }
 
-        function animate() {
-            if (!ctx) return;
-            ctx.clearRect(0, 0, width, height);
+        const animate = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             // Draw connections
-            ctx.strokeStyle = 'rgba(6, 182, 212, 0.15)';
-            ctx.lineWidth = 1;
-
+            ctx.strokeStyle = 'rgba(197, 164, 126, 0.05)';
+            ctx.lineWidth = 0.5;
             for (let i = 0; i < particles.length; i++) {
-                const p1 = particles[i];
-                p1.update();
-                p1.draw();
-
                 for (let j = i + 1; j < particles.length; j++) {
-                    const p2 = particles[j];
-                    const dx = p1.x - p2.x;
-                    const dy = p1.y - p2.y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    if (dist < connectionDistance) {
+                    if (distance < 150) {
                         ctx.beginPath();
-                        ctx.moveTo(p1.x, p1.y);
-                        ctx.lineTo(p2.x, p2.y);
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
                         ctx.stroke();
                     }
                 }
             }
-            requestAnimationFrame(animate);
-        }
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            animationFrameId = requestAnimationFrame(animate);
+        };
 
         animate();
 
-        const handleResize = () => {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
+        return () => {
+            window.removeEventListener('resize', resize);
+            cancelAnimationFrame(animationFrameId);
         };
-
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
     }, []);
 
     return (
-        <canvas
-            ref={canvasRef}
-            className="fixed inset-0 z-0 pointer-events-none opacity-40 mix-blend-screen"
-        />
+        <>
+            {mediaSrc && (
+                <div className="fixed inset-0 z-0 overflow-hidden">
+                    {mediaType === 'video' ? (
+                        <video
+                            src={mediaSrc}
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            className="w-full h-full object-cover opacity-30 animate-in fade-in duration-1000"
+                        />
+                    ) : (
+                        <Image
+                            src={mediaSrc}
+                            alt="Background"
+                            fill
+                            className="object-cover opacity-30 animate-in fade-in duration-1000"
+                        />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-b from-black via-zinc-950/80 to-zinc-950/90" />
+                </div>
+            )}
+            <canvas
+                ref={canvasRef}
+                className="fixed inset-0 pointer-events-none z-0 opacity-40 mix-blend-screen"
+            />
+        </>
     );
 }

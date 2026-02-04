@@ -1,77 +1,89 @@
 "use client"
 
 import { useState } from "react"
+import { motion } from "framer-motion"
 import {
   FileText,
-  MessageSquare,
-  GraduationCap,
-  Shield as LucideShield,
+  Shield,
   Brain,
   Lightbulb,
-  Sparkles,
-  Send,
-  Copy,
   Check,
   Loader2,
   BookOpen,
-  Users,
   Mic,
-  Volume2,
-  Accessibility,
+  BarChart3,
+  Cpu,
+  Zap,
+  Copy,
+  Sparkles
 } from "lucide-react"
+import { useCelebrate } from '@/context/CelebrationContext';
 
 const generators = [
   {
-    id: "iep-architect",
-    name: "IEP Architect",
-    description: "Generate compliant IEP drafts with SMART goals",
+    id: "iep-specialist",
+    name: "IEP ARCHITECT",
+    role: "Compliance & Inclusion Specialist",
+    description: "Generate clinically precise, legally defensible IEP drafts aligned with Alabama Code.",
+    detailedPrompt: "You are the Sovereign IEP Architect. Your goal is to generate high-fidelity, legally defensible Individualized Education Program (IEP) components. Focus on SMART goals that are specific, measurable, attainable, relevant, and time-bound. Reference specific Alabama courses of study and IDEA 2004 compliance markers. Tone: Clinical, empathetic, and authoritative.",
     icon: FileText,
     color: "#00d2ff",
-    prompts: ["Generate annual IEP goals for...", "Create transition plan for...", "Draft accommodations for..."],
-  },
-  {
-    id: "email-composer",
-    name: "Email Composer",
-    description: "Professional communications for any audience",
-    icon: MessageSquare,
-    color: "#10b981",
-    prompts: ["Parent conference follow-up", "Staff announcement", "District update"],
+    prompts: ["Draft a goal for Reading Comprehension (3rd Grade)", "Create behavior intervention strategies for ADHD", "Summarize PLAAFP data into a narrative"],
   },
   {
     id: "lesson-planner",
-    name: "Lesson Planner",
-    description: "Standards-aligned lesson plans in seconds",
-    icon: GraduationCap,
+    name: "CURRICULUM SYNDICATE",
+    role: "Instructional Design Lead",
+    description: "Design rigorous, Tier 1 instruction plans aligned to ALSOL (Alabama Course of Study).",
+    detailedPrompt: "You are the Curriculum Syndicate Lead. Design a 5E instructional plan that targets Alabama Course of Study standards. Ensure the lesson includes Tier 2/3 scaffolding, explicit vocabulary instruction (Science of Reading aligned), and a clear formative assessment data check. Tone: Academic, inspiring, and structured.",
+    icon: BookOpen,
+    color: "#10b981",
+    prompts: ["Plan a 5th Grade Science lesson on Ecosystems", "Create a Tier 2 scaffold for quadratic equations", "Design a project-based learning unit on Civics"],
+  },
+  {
+    id: "data-analyst",
+    name: "DATA QUANT",
+    role: "Strategic Analyst",
+    description: "Process complex assessment vectors to identify achievement gaps and growth trends.",
+    detailedPrompt: "You are the Data Quant. Analyze the provided data context (or hypothetical scenario) to find 'red flag' regression trends and 'green flag' growth areas. Suggest specific instructional pivots based on the data. Tone: Objective, analytical, and strategic.",
+    icon: BarChart3,
     color: "#d4af37",
-    prompts: ["Alabama Course of Study aligned", "Differentiated instruction", "Project-based learning"],
+    prompts: ["Analyze 3rd grade reading fluency drop", "Correlate attendance with math failure rates", "Suggest interventions for the 'bubble' students"],
   },
   {
     id: "policy-advisor",
-    name: "Policy Advisor",
-    description: "Navigate ALSDE regulations with confidence",
-    icon: LucideShield,
+    name: "COMPLIANCE SENTINEL",
+    role: "Legal & Ethics Officer",
+    description: "Navigate federal and state education codes (ALSDE, IDEA, ESSA) with absolute precision.",
+    detailedPrompt: "You are the Compliance Sentinel. specific tailored advice on school law, student privacy (FERPA), and special education compliance (IDEA/Section 504). Cite specific codes when possible. Tone: Legalistic, protective, and precise.",
+    icon: Shield,
     color: "#8b5cf6",
-    prompts: ["IDEA compliance check", "504 plan requirements", "FERPA guidelines"],
+    prompts: ["Explain Manifestation Determination Review steps", "Check 504 Plan eligibility criteria", "Clarify FERPA regarding parent emails"],
   },
   {
     id: "cognitive-coach",
-    name: "Cognitive Coach",
-    description: "Executive function strategies and interventions",
+    name: "NEURAL COACH",
+    role: "Executive Function Specialist",
+    description: "Evidence-based interventions for EF deficits, ADHD, and neurodivergent learning profiles.",
+    detailedPrompt: "You are the Neural Coach. Provide specific, actionable strategies for improving executive functions (working memory, inhibition, cognitive flexibility). Base advice on neuroscience and self-regulation research (e.g., Barkley, Dawson & Guare). Tone: Supportive, scientific, and practical.",
     icon: Brain,
     color: "#ec4899",
-    prompts: ["Working memory activities", "Self-regulation techniques", "Focus interventions"],
+    prompts: ["Strategies for impulse control in middle school", "Working memory scaffolds for math", "De-escalation script for sensory overload"],
   },
   {
     id: "idea-generator",
-    name: "Idea Generator",
-    description: "Creative solutions for classroom challenges",
+    name: "INNOVATION ENGINE",
+    role: "Creative Director",
+    description: "Generate novel engagement hook and culturally responsive classroom strategies.",
+    detailedPrompt: "You are the Innovation Engine. Generate creative, out-of-the-box ideas for classroom engagement, school culture, and parent partnerships. Focus on culturally responsive pedagogy and 'stickiness'. Tone: Energetic, visionary, and creative.",
     icon: Lightbulb,
     color: "#f59e0b",
-    prompts: ["Engagement strategies", "Behavior interventions", "Parent involvement"],
+    prompts: ["Gamify a history review session", "Creative parent night themes", "Morning meeting activity for trust building"],
   },
 ]
 
 export function AIGeneratorsHub() {
+  const { celebrate } = useCelebrate();
   const [activeGenerator, setActiveGenerator] = useState(generators[0])
   const [prompt, setPrompt] = useState("")
   const [isGenerating, setIsGenerating] = useState(false)
@@ -84,102 +96,47 @@ export function AIGeneratorsHub() {
     setIsGenerating(true)
     setResponse("")
 
-    // Simulate AI generation with streaming effect
-    const sampleResponses: Record<string, string> = {
-      "iep-architect": `## Annual IEP Goals - Generated Draft
+    try {
+      const res = await fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          prompt,
+          generatorId: activeGenerator.id,
+          systemInstruction: `
+            ${activeGenerator.detailedPrompt}
+            OBJECTIVE: ${activeGenerator.description}
+            CONTEXT: The user is an Alabama Educator/Administrator using Sovereign OS.
+            CRITICAL: Output must be formatted with Markdown (bolding key terms, using bullet points).
+          `
+        })
+      });
 
-**Student:** [Name] | **Grade:** [Grade] | **Date:** ${new Date().toLocaleDateString()}
+      if (!res.ok) throw new Error('Neural Link Interrupted');
 
-### Goal 1: Reading Comprehension
-By the end of the IEP period, the student will improve reading comprehension skills from a 2nd grade level to a 3rd grade level as measured by curriculum-based assessments with 80% accuracy across 3 consecutive trials.
+      const reader = res.body?.getReader();
+      const decoder = new TextDecoder();
 
-**Objectives:**
-1. Student will identify main idea in grade-level passages with 75% accuracy
-2. Student will make inferences using text evidence with 70% accuracy
-3. Student will summarize key details in sequential order with 80% accuracy
+      if (reader) {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          const chunk = decoder.decode(value);
+          setResponse((prev) => prev + chunk);
+        }
 
-**Accommodations:**
-- Extended time on reading assignments (1.5x)
-- Text-to-speech technology access
-- Graphic organizers for comprehension tasks
-- Preferential seating near instruction
-
-*Generated based on Alabama Course of Study Standards and IDEA compliance requirements.*`,
-      "email-composer": `## Professional Email Draft
-
-**Subject:** Follow-Up: Parent-Teacher Conference - [Student Name]
-
-Dear [Parent/Guardian Name],
-
-Thank you for taking the time to meet with me during our recent parent-teacher conference. I truly appreciate your partnership in supporting [Student's] educational journey.
-
-As discussed, here are the key action items we agreed upon:
-
-1. **Reading Practice:** 20 minutes of daily reading at home
-2. **Homework Check-in:** Review completed assignments each evening
-3. **Communication:** Weekly progress updates via email
-
-I'm excited about the strategies we've outlined and confident that with our collaborative efforts, [Student] will continue to make meaningful progress.
-
-Please don't hesitate to reach out if you have any questions or concerns.
-
-Warm regards,
-[Your Name]
-[Title] | [School Name]
-[Contact Information]`,
-      "lesson-planner": `## Lesson Plan: Alabama Course of Study Aligned
-
-**Subject:** [Subject] | **Grade:** [Grade] | **Duration:** 45 minutes
-
-### Learning Objectives
-Students will be able to:
-- Demonstrate understanding of [concept]
-- Apply [skill] in real-world scenarios
-- Collaborate effectively in group settings
-
-### Alabama Standards Addressed
-- [Standard Code]: [Description]
-
-### Materials Needed
-- Interactive whiteboard
-- Student devices (1:1)
-- Manipulatives/handouts
-
-### Lesson Sequence
-
-**Hook (5 min):** Engaging opening question or demonstration
-
-**Direct Instruction (10 min):** Teacher-led explanation with visual supports
-
-**Guided Practice (15 min):** Collaborative group activity
-
-**Independent Practice (10 min):** Individual application
-
-**Closure (5 min):** Exit ticket and reflection
-
-### Differentiation
-- **Tier 1:** Standard instruction with visual supports
-- **Tier 2:** Small group re-teaching with manipulatives
-- **Tier 3:** 1:1 support with modified expectations`,
+        celebrate(
+          'Intelligence Synthesized',
+          `${activeGenerator.name} has successfully architected your solution.`,
+          'success'
+        );
+      }
+    } catch (error: any) {
+      console.error('Generation failure:', error);
+      setResponse(`⚠️ CRITICAL ERROR: Neural synthesis failed. Reference: ${error.message}. Please restart the Sovereign Protocol.`);
+    } finally {
+      setIsGenerating(false)
     }
-
-    // Simulate streaming response
-    const fullResponse =
-      sampleResponses[activeGenerator.id] ||
-      `## ${activeGenerator.name} Response
-
-Your request has been processed. Here's a tailored response based on Alabama education standards and best practices...
-
-[Generated content would appear here based on your specific prompt]
-
-*Powered by EdIntel Professional AI - Peer-reviewed methodology from Frontiers in Psychology (2025)*`
-
-    for (let i = 0; i <= fullResponse.length; i += 3) {
-      await new Promise((resolve) => setTimeout(resolve, 10))
-      setResponse(fullResponse.slice(0, i))
-    }
-    setResponse(fullResponse)
-    setIsGenerating(false)
   }
 
   const handleCopy = () => {
@@ -188,43 +145,53 @@ Your request has been processed. Here's a tailored response based on Alabama edu
     setTimeout(() => setCopied(false), 2000)
   }
 
-  const handleVoiceInput = () => {
-    setIsListening(!isListening)
-    // Voice recognition would be implemented here
+  const handleVoiceToggle = () => {
+    setIsListening(!isListening);
+    if (!isListening) {
+      // Simulation of voice activation
+      const voicePrompt = " [Listening for directives...]";
+      setPrompt(prev => prev + voicePrompt);
+      setTimeout(() => {
+        setPrompt(prev => prev.replace(voicePrompt, ""));
+      }, 3000);
+    }
   }
 
   return (
-    <div id="ai-generators" className="p-8 md:p-12 relative overflow-hidden">
-      {/* Holographic background effect */}
-      <div className="absolute inset-0 holographic opacity-10 pointer-events-none" />
+    <div id="ai-generators" className="w-full relative overflow-hidden bg-black rounded-b-[3rem]">
 
-      <div className="max-w-7xl mx-auto relative">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#00d2ff]/10 border border-[#00d2ff]/30 text-[#00d2ff] text-sm mb-4 float-animation">
-            <Sparkles className="w-4 h-4" />
-            AI-POWERED GENERATORS
+      {/* Header Section */}
+      <div className="text-center pt-10 mb-12 relative z-10">
+        <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-noble-gold/10 border border-noble-gold/30 text-noble-gold text-[10px] font-black uppercase tracking-[0.3em] mb-6 shadow-[0_0_20px_rgba(212,175,55,0.15)] animate-pulse-slow">
+          <Cpu className="w-4 h-4" />
+          Sovereign Neural Grid
+        </div>
+        <h2 className="font-black italic tracking-tighter text-4xl md:text-5xl text-white mb-4 uppercase">
+          Strategic <span className="gold-gradient-text">Intelligence</span> Hub
+        </h2>
+        <p className="text-white/40 text-xs md:text-sm max-w-2xl mx-auto uppercase tracking-widest font-medium flex items-center justify-center gap-2">
+          <Sparkles className="w-4 h-4 text-noble-gold" />
+          Deploy specialized AI agents for high-fidelity compliance & operations.
+          <Sparkles className="w-4 h-4 text-noble-gold" />
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 px-8 pb-12">
+
+        {/* Generator Selection Sidebar */}
+        <div className="lg:col-span-4 space-y-3">
+          <div className="flex items-center justify-between px-2 mb-4">
+            <p className="text-[10px] font-black text-white/30 uppercase tracking-[0.3em]">Select Agent</p>
+            <div className="flex items-center gap-1.5 opacity-50">
+              <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
+              <span className="text-[9px] font-black text-emerald-500 uppercase tracking-widest">Grid Online</span>
+            </div>
           </div>
-          <h2 className="font-black tracking-tighter text-4xl md:text-6xl text-white mb-4">
-            Strategic <span className="gradient-text">Intelligence</span> Hub
-          </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Six specialized AI assistants designed for Alabama educators. Generate IEPs, emails, lesson plans, and more
-            in seconds.
-          </p>
-        </div>
 
-        {/* Accessibility notice */}
-        <div className="flex items-center justify-center gap-2 mb-8 text-sm text-gray-400">
-          <Accessibility className="w-4 h-4" />
-          <span>Fully accessible with voice input, screen reader support, and keyboard navigation</span>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Generator Selection */}
-          <div className="space-y-3">
-            <p className="text-xs text-gray-500 uppercase tracking-widest mb-4 font-semibold">Select AI Generator</p>
+          <div className="space-y-3 max-h-[600px] overflow-y-auto custom-scrollbar pr-2">
             {generators.map((gen) => {
               const Icon = gen.icon
+              const isActive = activeGenerator.id === gen.id;
               return (
                 <button
                   key={gen.id}
@@ -233,164 +200,139 @@ Your request has been processed. Here's a tailored response based on Alabama edu
                     setResponse("")
                     setPrompt("")
                   }}
-                  className={`w-full p-4 rounded-2xl text-left transition-all touch-target ${activeGenerator.id === gen.id ? "glass-card-emerald scale-[1.02]" : "glass-card hover:scale-[1.01]"
+                  className={`w-full p-4 rounded-2xl text-left transition-all duration-300 relative overflow-hidden group border
+                            ${isActive
+                      ? "bg-noble-gold/10 border-noble-gold/40 shadow-[0_0_30px_rgba(212,175,55,0.1)]"
+                      : "bg-white/[0.02] border-white/5 hover:bg-white/[0.05] hover:border-white/10"
                     }`}
-                  style={{
-                    borderColor: activeGenerator.id === gen.id ? gen.color : undefined,
-                  }}
-                  aria-pressed={activeGenerator.id === gen.id}
                 >
-                  <div className="flex items-center gap-4">
-                    <div
-                      className="w-12 h-12 rounded-xl flex items-center justify-center pulse-glow"
-                      style={{ backgroundColor: `${gen.color}20` }}
-                    >
-                      <Icon className="w-6 h-6" style={{ color: gen.color }} />
+                  {isActive && (
+                    <motion.div
+                      layoutId="active-glow"
+                      className="absolute inset-0 bg-gradient-to-r from-noble-gold/10 to-transparent opacity-20"
+                    />
+                  )}
+
+                  <div className="relative z-10 flex items-center gap-4">
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-500
+                                ${isActive ? 'bg-black text-noble-gold border border-noble-gold/30' : 'bg-white/5 text-white/20 group-hover:text-white/60'}`}>
+                      <Icon className="w-6 h-6" strokeWidth={1.5} />
                     </div>
-                    <div>
-                      <h3 className="font-bold text-white text-lg">{gen.name}</h3>
-                      <p className="text-sm text-gray-400">{gen.description}</p>
+
+                    <div className="flex-1">
+                      <h3 className={`font-black text-sm uppercase tracking-wider transition-colors ${isActive ? 'text-white' : 'text-white/40 group-hover:text-white/80'}`}>
+                        {gen.name}
+                      </h3>
+                      <p className="text-[9px] font-bold text-noble-gold/60 uppercase tracking-wider">{gen.role}</p>
                     </div>
+
+                    {isActive && <div className="w-2 h-2 rounded-full bg-noble-gold shadow-[0_0_10px_#D4AF37]" />}
                   </div>
                 </button>
               )
             })}
           </div>
+        </div>
 
-          {/* Generator Interface */}
-          <div className="lg:col-span-2 glass-card p-6 md:p-8 rounded-3xl relative overflow-hidden">
-            {/* Scan line effect */}
-            <div className="absolute inset-0 scan-line pointer-events-none" />
+        {/* Tactical Interface */}
+        <div className="lg:col-span-8 flex flex-col h-full min-h-[600px] bg-black/40 border border-white/10 rounded-[2.5rem] overflow-hidden relative shadow-2xl">
+          {/* Background Grid */}
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:20px_20px] opacity-20 pointer-events-none" />
 
-            <div className="relative">
-              <div className="flex items-center justify-between mb-6">
+          {/* Interface Header */}
+          <div className="p-8 border-b border-white/5 relative z-10 bg-white/[0.01]">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-16 h-16 rounded-2xl bg-noble-gold/10 flex items-center justify-center border border-noble-gold/20 shadow-[0_0_30px_rgba(212,175,55,0.1)]">
+                <activeGenerator.icon className="w-8 h-8 text-noble-gold" strokeWidth={1.5} />
+              </div>
+              <div>
+                <h3 className="text-2xl font-black italic text-white uppercase tracking-tight">{activeGenerator.name}</h3>
                 <div className="flex items-center gap-3">
-                  {(() => {
-                    const Icon = activeGenerator.icon
-                    return (
-                      <div
-                        className="w-10 h-10 rounded-xl flex items-center justify-center"
-                        style={{ backgroundColor: `${activeGenerator.color}20` }}
-                      >
-                        <Icon className="w-5 h-5" style={{ color: activeGenerator.color }} />
-                      </div>
-                    )
-                  })()}
-                  <div>
-                    <h3 className="font-black tracking-tighter text-xl text-white">{activeGenerator.name}</h3>
-                    <p className="text-xs text-gray-400">Professional AI v4.0</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="text-xs text-emerald-400">Online</span>
-                </div>
-              </div>
-
-              {/* Quick Prompts */}
-              <div className="mb-4">
-                <p className="text-xs text-gray-500 uppercase tracking-wider mb-2">Quick Prompts</p>
-                <div className="flex flex-wrap gap-2">
-                  {activeGenerator.prompts.map((p, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setPrompt(p)}
-                      className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-sm text-gray-300 hover:bg-white/10 hover:border-white/20 transition-all touch-target"
-                    >
-                      {p}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Input Area */}
-              <div className="relative mb-4">
-                <textarea
-                  value={prompt}
-                  onChange={(e) => setPrompt(e.target.value)}
-                  placeholder={`Describe what you need from ${activeGenerator.name}...`}
-                  className="w-full h-32 p-4 pr-12 bg-black/30 border border-white/10 rounded-2xl text-white placeholder:text-gray-500 resize-none focus:outline-none focus:border-[#00d2ff]/50 text-lg"
-                  aria-label="AI prompt input"
-                />
-                <button
-                  onClick={handleVoiceInput}
-                  className={`absolute right-4 top-4 p-2 rounded-lg transition-all ${isListening ? "bg-red-500 text-white" : "bg-white/10 text-gray-400 hover:text-white"
-                    }`}
-                  aria-label="Voice input"
-                >
-                  <Mic className="w-5 h-5" />
-                </button>
-              </div>
-
-              <button
-                onClick={handleGenerate}
-                disabled={isGenerating || !prompt.trim()}
-                className="w-full py-4 bg-gradient-to-r from-[#00d2ff] to-[#10b981] text-black font-bold rounded-xl hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 text-lg touch-target"
-                aria-busy={isGenerating}
-              >
-                {isGenerating ? (
-                  <>
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                    Generating Response...
-                  </>
-                ) : (
-                  <>
-                    <Send className="w-5 h-5" />
-                    Generate with Professional AI
-                  </>
-                )}
-              </button>
-
-              {/* Response Area */}
-              {response && (
-                <div className="mt-6 p-6 bg-black/30 border border-white/10 rounded-2xl relative">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-2">
-                      <Sparkles className="w-4 h-4 text-[#00d2ff]" />
-                      <span className="text-sm text-gray-400">AI Response</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={() => {
-                          /* Text to speech */
-                        }}
-                        className="p-2 rounded-lg bg-white/5 text-gray-400 hover:text-white transition-all"
-                        aria-label="Read aloud"
-                      >
-                        <Volume2 className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={handleCopy}
-                        className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 text-gray-400 hover:text-white transition-all"
-                      >
-                        {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-                        {copied ? "Copied!" : "Copy"}
-                      </button>
-                    </div>
-                  </div>
-                  <div className="prose prose-invert prose-sm max-w-none">
-                    <pre className="whitespace-pre-wrap font-sans text-gray-200 text-base leading-relaxed">
-                      {response}
-                    </pre>
-                  </div>
-                </div>
-              )}
-
-              {/* Research Citation */}
-              <div className="mt-6 flex items-center justify-between text-xs text-gray-500">
-                <div className="flex items-center gap-2">
-                  <BookOpen className="w-4 h-4" />
-                  <span>Peer-reviewed: Frontiers in Psychology (2025)</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Users className="w-4 h-4" />
-                  <span>47,000+ Alabama educators served</span>
+                  <div className="px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20 text-[9px] font-black text-emerald-500 uppercase tracking-widest">v4.2-Stable</div>
+                  <span className="text-[10px] font-bold text-white/30 uppercase tracking-wider">Latency: Negligible</span>
                 </div>
               </div>
             </div>
+
+            <p className="text-sm font-medium text-white/60 leading-relaxed border-l-2 border-noble-gold/30 pl-4">{activeGenerator.description}</p>
+          </div>
+
+          {/* Interaction Zone */}
+          <div className="p-8 flex-1 flex flex-col gap-6 relative z-10 overflow-hidden">
+            {!response ? (
+              <>
+                <div className="space-y-3">
+                  <span className="text-[10px] font-black text-white/30 uppercase tracking-[0.3em]">Quick Directives</span>
+                  <div className="flex flex-wrap gap-3">
+                    {activeGenerator.prompts.map((p, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setPrompt(p)}
+                        className="px-4 py-3 rounded-xl bg-white/5 border border-white/5 hover:border-noble-gold/30 hover:bg-noble-gold/5 text-xs font-bold text-zinc-400 hover:text-white transition-all text-left uppercase tracking-wide"
+                      >
+                        <span className="text-noble-gold mr-2">➜</span> {p}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex-1 min-h-[200px] relative mt-4">
+                  <textarea
+                    value={prompt}
+                    onChange={(e) => setPrompt(e.target.value)}
+                    placeholder={`INITIATE ${activeGenerator.name} PROTOCOL...`}
+                    className="w-full h-full bg-black/50 border border-white/10 rounded-2xl p-6 text-white placeholder:text-zinc-700 font-mono text-sm resize-none focus:outline-none focus:border-noble-gold/50 transition-all shadow-inner relative z-10"
+                  />
+                  <div className="absolute bottom-4 right-4 z-20 flex gap-2">
+                    <button
+                      onClick={handleVoiceToggle}
+                      className={`p-3 rounded-xl border border-white/5 transition-all ${isListening ? 'bg-red-500/20 text-red-400 border-red-500/50 animate-pulse' : 'bg-white/5 text-white/40 hover:text-white'}`}
+                      aria-label={isListening ? "Stop recording" : "Start voice input"}
+                      title={isListening ? "Stop Recording" : "Voice Input"}
+                    >
+                      <Mic size={18} />
+                    </button>
+                    <button
+                      onClick={handleGenerate}
+                      disabled={!prompt.trim() || isGenerating}
+                      className="px-6 py-3 rounded-xl bg-noble-gold text-black font-black uppercase text-[10px] tracking-[0.2em] shadow-[0_0_30px_rgba(212,175,55,0.3)] hover:scale-105 transition-all disabled:opacity-50 disabled:hover:scale-100 flex items-center gap-3"
+                    >
+                      {isGenerating ? <Loader2 className="animate-spin" size={14} /> : <Zap size={14} fill="currentColor" />}
+                      {isGenerating ? "Synthesizing..." : "Execute"}
+                    </button>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="flex-1 flex flex-col h-[500px]">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-[10px] font-black text-emerald-500 uppercase tracking-[0.3em] flex items-center gap-2">
+                    <Check size={12} strokeWidth={4} /> Synchronization Complete
+                  </span>
+                  <div className="flex gap-2">
+                    <button onClick={() => setResponse("")} className="px-3 py-1.5 rounded-lg bg-white/5 text-[9px] font-black uppercase text-white/40 hover:text-white tracking-widest transition-all">New Task</button>
+                    <button onClick={handleCopy} className="px-3 py-1.5 rounded-lg bg-noble-gold/10 text-[9px] font-black uppercase text-noble-gold hover:bg-noble-gold/20 tracking-widest transition-all">
+                      {copied ? 'Copied' : 'Copy'}
+                    </button>
+                  </div>
+                </div>
+                <div className="flex-1 bg-black/40 border border-white/10 rounded-2xl p-8 overflow-y-auto custom-scrollbar shadow-inner relative">
+                  <div className="prose prose-invert prose-sm max-w-none">
+                    <div className="text-zinc-300 font-medium leading-relaxed whitespace-pre-wrap font-sans">
+                      {response}
+                    </div>
+                  </div>
+                  {/* Watermark */}
+                  <div className="absolute bottom-6 right-6 opacity-5 pointer-events-none">
+                    <Shield size={100} />
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
+
     </div>
   )
 }

@@ -10,15 +10,16 @@ import {
     Fingerprint,
     Coins,
     Search,
-    Home
+    Home,
+    Facebook
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { initiateBioAuth } from '@/app/auth/actions';
-import { DueProcessShield, StatutoryDisclaimer } from '../SovereignRegulatory';
 import SovereignInteractionAgent from '../SovereignInteractionAgent';
 import { SovereignCommandCenter } from './SovereignCommandCenter';
+import NeuralBackground from '../ui/NeuralBackground';
 
 interface CoreTool {
     id: string;
@@ -71,6 +72,7 @@ export default function SovereignShell({ children }: { children: React.ReactNode
 
     return (
         <div className="flex h-screen bg-sovereign-black text-white font-sans overflow-hidden selection:bg-intel-gold selection:text-black">
+            <NeuralBackground />
 
             <aside className="hidden md:flex w-24 hover:w-72 bg-black border-r border-intel-gold/10 transition-all duration-500 ease-in-out group z-50 flex-col items-center py-8 relative">
                 <div className="absolute inset-0 bg-gradient-to-b from-intel-gold/[0.02] to-transparent pointer-events-none" />
@@ -157,17 +159,27 @@ export default function SovereignShell({ children }: { children: React.ReactNode
                             AL Code 290-8-9
                         </div>
 
-                        <button
-                            onClick={() => initiateBioAuth('google')}
-                            className="bg-white text-black px-6 md:px-10 py-3 md:py-3.5 rounded-2xl text-[9px] md:text-[10px] font-black uppercase tracking-[0.4em] hover:bg-intel-gold transition-all duration-500 shadow-2xl relative overflow-hidden group/btn"
-                        >
-                            <div className="absolute inset-0 bg-black/5 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500" />
-                            <div className="relative z-10 flex items-center gap-3 italic">
-                                <Fingerprint className="w-4 h-4" />
-                                <span className="hidden xs:inline">Bio-Auth Access</span>
-                                <span className="xs:hidden">Auth</span>
-                            </div>
-                        </button>
+                        <div className="flex items-center gap-2">
+                            <button
+                                onClick={() => initiateBioAuth('facebook')}
+                                className="bg-[#1877F2]/10 text-[#1877F2] border border-[#1877F2]/20 p-3.5 rounded-2xl hover:bg-[#1877F2] hover:text-white transition-all duration-300 shadow-lg group/fb"
+                                title="Login with Facebook"
+                            >
+                                <Facebook className="w-4 h-4 group-hover/fb:scale-110 transition-transform" />
+                            </button>
+
+                            <button
+                                onClick={() => initiateBioAuth('google')}
+                                className="bg-white text-black px-6 md:px-10 py-3 md:py-3.5 rounded-2xl text-[9px] md:text-[10px] font-black uppercase tracking-[0.4em] hover:bg-intel-gold transition-all duration-500 shadow-2xl relative overflow-hidden group/btn"
+                            >
+                                <div className="absolute inset-0 bg-black/5 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500" />
+                                <div className="relative z-10 flex items-center gap-3 italic">
+                                    <Fingerprint className="w-4 h-4" />
+                                    <span className="hidden xs:inline">Bio-Auth Access</span>
+                                    <span className="xs:hidden">Auth</span>
+                                </div>
+                            </button>
+                        </div>
                     </div>
                 </header>
 
@@ -206,7 +218,6 @@ export default function SovereignShell({ children }: { children: React.ReactNode
                     </div>
 
                     <SovereignCommandCenter />
-                    <StatutoryDisclaimer />
 
                     {/* Quick Search FAB */}
                     <button
@@ -216,10 +227,81 @@ export default function SovereignShell({ children }: { children: React.ReactNode
                         <Search className="w-6 h-6 sm:w-7 sm:h-7 group-hover:scale-110 transition-transform" />
                     </button>
 
-                    {/* Floating Regulatory Status on Desktop */}
-                    <div className="fixed bottom-12 left-32 z-50 hidden xl:block">
-                        <DueProcessShield />
-                    </div>
+                    {/* Floating Regulatory Status removed - relocated to Command Center */}
+
+                    {/* ANCHORED FOOTER */}
+                    <footer className="mt-auto border-t border-white/[0.04] bg-black/20 backdrop-blur-lg relative z-30 pb-32 md:pb-12">
+                        <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-12 md:py-16">
+                            <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
+                                {/* Branding & Vision */}
+                                <div className="col-span-1 md:col-span-4 space-y-6">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-10 h-10 border border-intel-gold/40 rounded-xl flex items-center justify-center text-intel-gold font-black bg-white/[0.02] italic">
+                                            Ei
+                                        </div>
+                                        <div>
+                                            <h4 className="text-xl font-black italic text-white uppercase tracking-tighter leading-none">EdIntel Sovereign</h4>
+                                            <span className="text-[10px] text-zinc-500 uppercase tracking-[0.3em] font-bold">Operating System v4.0</span>
+                                        </div>
+                                    </div>
+                                    <p className="text-xs text-zinc-500 leading-relaxed max-w-sm uppercase tracking-wide font-medium">
+                                        The world's highest fidelity educational intelligence grid. Autonomous agents, biometric security, and executive automation.
+                                    </p>
+                                </div>
+
+                                {/* Dr. West Legacy Anchor */}
+                                <div className="col-span-1 md:col-span-5 space-y-6">
+                                    <div className="flex items-center gap-4">
+                                        <div className="h-px bg-intel-gold/20 flex-1" />
+                                        <span className="text-[9px] font-black text-intel-gold uppercase tracking-[0.4em] whitespace-nowrap italic">Architect & Visionary</span>
+                                        <div className="h-px bg-intel-gold/20 flex-1" />
+                                    </div>
+                                    <div className="flex items-start gap-6">
+                                        <div className="relative w-16 h-16 rounded-2xl overflow-hidden border border-intel-gold/20 shrink-0">
+                                            <Image
+                                                src="/images/dr_alvin_west.png"
+                                                alt="Dr. Alvin West"
+                                                fill
+                                                className="object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <h5 className="text-sm font-black text-white uppercase tracking-widest italic">Dr. Alvin West</h5>
+                                            <p className="text-[10px] text-zinc-400 uppercase tracking-widest leading-relaxed">
+                                                Founder, Transcend Academic<br /> Business & Cognitive Solutions
+                                            </p>
+                                            <div className="flex items-center gap-4 pt-1">
+                                                <a href="mailto:contact@edintel.io" className="text-[10px] font-black text-intel-gold hover:text-white uppercase tracking-wider transition-colors">Neural Uplink</a>
+                                                <span className="text-white/10">|</span>
+                                                <a href="#" className="text-[10px] font-black text-intel-gold hover:text-white uppercase tracking-wider transition-colors">Legacy Profile</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* System Links */}
+                                <div className="col-span-1 md:col-span-3 space-y-6">
+                                    <h5 className="text-[10px] font-black text-white/30 uppercase tracking-[0.4em]">System Nodes</h5>
+                                    <ul className="space-y-3">
+                                        <li><Link href="/legal/sovereignty" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Data Sovereignty</Link></li>
+                                        <li><Link href="/legal/compliance" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Federal Compliance</Link></li>
+                                        <li><Link href="/status" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Grid Status</Link></li>
+                                        <li><Link href="/admin/access" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Admin Portal</Link></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6">
+                                <p className="text-[9px] text-zinc-700 uppercase tracking-[0.2em] font-black italic">
+                                    © 2026 EdIntel Sovereign OS. All Rights Reserved.
+                                </p>
+                                <div className="flex items-center gap-2 px-3 py-1 bg-white/[0.02] rounded-full border border-white/5">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                    <span className="text-[8px] font-black text-emerald-500 uppercase tracking-widest">System Operational</span>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
                 </main>
             </div>
 

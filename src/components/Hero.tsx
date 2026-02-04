@@ -109,7 +109,7 @@ export function Hero() {
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="absolute -left-4 top-0 hidden lg:block"
+            className="absolute left-4 bottom-20 hidden lg:block"
           >
             <div className="border-gradient rounded-lg p-4 bg-card/80 backdrop-blur-sm max-w-xs">
               <div className="flex items-center gap-2 mb-2">
@@ -120,7 +120,7 @@ export function Hero() {
               </div>
               <p className="text-xs text-muted-foreground">
                 Session ID #9921 monitored for{" "}
-                <span className="text-foreground font-medium">AL Code 290-8-9</span>{" "}
+                <a href="https://alabamaadministrativecode.state.al.us/docs/ed/290-8-9.pdf" target="_blank" rel="noopener noreferrer" className="text-foreground font-medium hover:text-primary underline decoration-dotted underline-offset-4 cursor-pointer transition-colors">AL Code 290-8-9</a>{" "}
                 compliance.
               </p>
               <div className="flex gap-2 mt-3">
@@ -139,7 +139,7 @@ export function Hero() {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 1 }}
-            className="absolute -right-4 top-0 hidden lg:block"
+            className="absolute right-4 bottom-20 hidden lg:block"
           >
             <div className="border-gradient rounded-lg p-4 bg-card/80 backdrop-blur-sm max-w-xs">
               <div className="flex items-center gap-2 mb-2">

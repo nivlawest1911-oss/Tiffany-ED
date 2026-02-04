@@ -37,7 +37,7 @@ export default function BusinessSolutions() {
                         </h1>
                         <div className="flex flex-col gap-2 border-l-4 border-teal-500 pl-6 py-2">
                             <p className="text-xl font-bold text-zinc-200">Academic, Business & Professional Strategy</p>
-                            <p className="text-sm font-mono text-zinc-400">Led by Dr. Alvin West, Jr. (Ph.D., MBA, DBA)</p>
+                            <p className="text-sm font-mono text-zinc-400">Led by Dr. Alvin West II (DBA, Ph.D., MBA)</p>
                         </div>
 
                         <div className="flex flex-wrap gap-3 pt-4">
