@@ -1,32 +1,29 @@
 'use client';
 
-import React from 'react';
-
 export default function SovereignTerminal() {
     return (
-        <div className="sovereign-card">
-            {/* Header */}
-            <div className="flex justify-between items-center p-5 border-b border-gray-800 text-xs tracking-widest text-gray-500 uppercase">
-                <span>ALABAMA SOVEREIGN // NODE-01</span>
-                <span className="text-green-500">● ACTIVE</span>
+        <div className="dashboard-card">
+            <div className="card-header">
+                <div className="flex justify-between items-center text-xs text-gray-500 uppercase tracking-wider">
+                    <span>Alabama Sovereign // Node-01</span>
+                    <span className="text-green-500">● Active</span>
+                </div>
             </div>
 
-            {/* Content */}
-            <div className="terminal-output">
-                <h2 className="text-2xl text-white font-bold mb-6">INITIALIZE SITE NODE</h2>
-                <div className="space-y-3 text-sm leading-relaxed">
+            <div className="card-body">
+                <h2 className="text-xl font-bold text-white mb-4">Initialize Site Node</h2>
+                <div className="space-y-2 text-sm text-gray-400 font-mono">
                     <p>&gt; Establishing neural handshake...</p>
                     <p>&gt; Loading Mobile County Directive...</p>
                     <p>&gt; FERPA encryption layer secured.</p>
                     <p>&gt; Bento ecosystem sync complete.</p>
                     <p>&gt; Optimizing instructional nodes...</p>
-                    <p className="mt-4 text-green-400 font-bold">&gt; SYSTEM STATUS: OPTIMAL</p>
+                    <p className="text-green-400 font-bold mt-4">&gt; SYSTEM STATUS: OPTIMAL</p>
                 </div>
             </div>
 
-            {/* Command Deck */}
-            <div className="command-deck">
-                🔒 ACCESS COMMAND DECK
+            <div className="card-footer">
+                🔒 Access Command Deck
             </div>
         </div>
     );
