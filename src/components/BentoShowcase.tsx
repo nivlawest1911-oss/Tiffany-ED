@@ -1,7 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Globe
+import {
+    Globe
 } from 'lucide-react';
 
 // Import existing Bento Tiles
@@ -18,6 +19,7 @@ import NeuralSyncGym from './bento/LeadershipGym';
 import SovereignSocialUplink from './bento/ProfessionalSocialConnection';
 import AutomatedIEPAudit from './bento/AutomatedIEPAudit';
 import PricingMatrix from './bento/PricingMatrix';
+import SovereignBroadcastNode from './bento/ProfessionalBroadcastCenter';
 
 export default function BentoShowcase() {
     return (
@@ -89,6 +91,11 @@ export default function BentoShowcase() {
                     {/* 10. Automated Audit */}
                     <div className="col-span-1 row-span-1 rounded-3xl overflow-hidden border border-white/10 bg-zinc-950">
                         <AutomatedIEPAudit />
+                    </div>
+
+                    {/* 11. Broadcast Node */}
+                    <div className="col-span-1 md:col-span-2 row-span-1 rounded-3xl overflow-hidden border border-white/10 bg-zinc-950">
+                        <SovereignBroadcastNode />
                     </div>
 
                 </div>

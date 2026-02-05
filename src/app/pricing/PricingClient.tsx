@@ -1,5 +1,5 @@
 'use client';
-import PremiumPricingTable from '@/components/PremiumPricingTable';
+import PricingMatrix from '@/components/bento/PricingMatrix';
 import CircadianFilter from '@/components/graphics/CircadianFilter';
 import { Shield as LucideShield } from 'lucide-react';
 
@@ -10,7 +10,7 @@ export default function PricingClient() {
 
             <div className="max-w-7xl mx-auto px-6 pt-12">
                 {/* Minimal Header */}
-                <div className="mb-8">
+                <div className="mb-8 hidden">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 bg-intel-gold/10 rounded-xl flex items-center justify-center border border-intel-gold/30">
                             <LucideShield className="text-intel-gold" size={20} />
@@ -22,7 +22,7 @@ export default function PricingClient() {
                     </div>
                 </div>
 
-                <PremiumPricingTable />
+                <PricingMatrix />
             </div>
         </main>
     );

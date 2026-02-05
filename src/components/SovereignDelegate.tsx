@@ -15,20 +15,21 @@ import { CORE_AVATARS } from '@/data/avatars';
 import { usePathname } from 'next/navigation';
 import { SOVEREIGN_PROTOCOLS, DEFAULT_PROTOCOL } from '@/data/sovereign-protocols';
 import HumanAvatar from './ui/HumanAvatar';
-import { SovereignPivotDashboard } from './ui/EdIntelPivot';
+
 import SovereignInteractionAgent from './SovereignInteractionAgent';
 
 import { useCelebrate } from '@/context/CelebrationContext';
 
+import { SovereignBrief } from './SovereignBrief';
+import { NarrativeArchitect } from './NarrativeArchitect';
+import { RecidivismEngine } from './RecidivismEngine';
+
 const SovereignMediaVault = dynamic(() => import('./SovereignMediaVault'), { ssr: false });
-const AIGeneratorsHub = dynamic(() => import('./ai-generators-hub').then(m => m.AIGeneratorsHub), { ssr: false });
-const SovereignCortex = dynamic(() => import('./SovereignCortex'), { ssr: false });
 const SovereignAvatarInterface = dynamic(() => import('./SovereignAvatarInterface'), { ssr: false });
 
 // Admin Components
 const SystemStatus = dynamic(() => import('./admin/SystemStatus').then(m => m.SystemStatus), { ssr: false });
 const DistrictControl = dynamic(() => import('./admin/DistrictControl').then(m => m.DistrictControl), { ssr: false });
-const ROICalculator = dynamic(() => import('./admin/ROICalculator').then(m => m.ROICalculator), { ssr: false });
 
 interface Delegate {
     id: string;
@@ -90,11 +91,22 @@ export default function SovereignDelegate({ initialOpen = false }: SovereignDele
     const [isOpen, setIsOpen] = useState(initialOpen);
     const [selectedDelegate, setSelectedDelegate] = useState<Delegate | null>(INITIAL_DELEGATES[0]);
     const [isChatOpen, setIsChatOpen] = useState(false);
-    const [activeTab, setActiveTab] = useState<'uplink' | 'voice' | 'vault' | 'intelligence' | 'pivot' | 'matrix' | 'admin'>('uplink');
+    const [activeTab, setActiveTab] = useState<'uplink' | 'brief' | 'architect' | 'reform' | 'vault' | 'admin'>('uplink');
 
     const handleDelegateSelection = useCallback((delegate: Delegate) => {
         setSelectedDelegate(delegate);
-        setActiveTab('uplink'); // Optimization: Immediate Visual Link (Avatar First)
+
+        // Smart Default Routing based on Role
+        if (delegate.role.includes('Superintendent') || delegate.role.includes('Officer')) {
+            setActiveTab('brief');
+        } else if (delegate.role.includes('Curriculum') || delegate.role.includes('Instruction')) {
+            setActiveTab('architect');
+        } else if (delegate.role.includes('Support') || delegate.role.includes('Counselor')) {
+            setActiveTab('reform');
+        } else {
+            setActiveTab('uplink'); // Default back to Avatar if generic
+        }
+
         try {
             if (['Sovereign', 'Executive Sovereign', 'Quantum'].includes(delegate.clearance)) {
                 celebrate(
@@ -110,14 +122,7 @@ export default function SovereignDelegate({ initialOpen = false }: SovereignDele
 
     const handleTabChange = useCallback((tab: typeof activeTab) => {
         setActiveTab(tab);
-        if (tab === 'matrix' || tab === 'intelligence') {
-            celebrate(
-                `Entering ${tab.charAt(0).toUpperCase() + tab.slice(1)} Mode`,
-                'Synthesizing multi-dimensional institutional data streams.',
-                'success'
-            );
-        }
-    }, [celebrate]);
+    }, []);
 
     useEffect(() => {
         const handleOpenChat = (e: any) => {
@@ -193,17 +198,20 @@ export default function SovereignDelegate({ initialOpen = false }: SovereignDele
                 </AnimatePresence>
             </motion.button>
 
-            {/* Sovereign Command Center */}
+            {/* Sovereign Command Center Aggregator */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95, y: 40, filter: 'blur(10px)' }}
                         animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
                         exit={{ opacity: 0, scale: 0.95, y: 40, filter: 'blur(10px)' }}
-                        className="pointer-events-auto w-full h-screen md:w-[900px] md:h-[700px] bg-[#0A0E1A]/90 backdrop-blur-3xl flex flex-col overflow-hidden border border-white/10 md:rounded-[3rem] shadow-[0_0_100px_rgba(0,0,0,0.9)] fixed inset-0 md:relative z-[150]"
+                        className="pointer-events-auto w-full h-screen md:w-[1000px] md:h-[750px] bg-[#0A0E1A]/95 backdrop-blur-3xl flex flex-col overflow-hidden border border-white/10 md:rounded-[3rem] shadow-[0_0_100px_rgba(0,0,0,0.9)] fixed inset-0 md:relative z-[150]"
                     >
+                        {/* Mawu Lisa / Linnentown Geometric Overlay */}
+                        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/black-scales.png')] opacity-[0.15] pointer-events-none mix-blend-overlay" />
+
                         {/* Elite Status Bar */}
-                        <div className="p-6 bg-white/[0.03] border-b border-white/5 flex items-center justify-between">
+                        <div className="p-6 bg-white/[0.03] border-b border-white/5 flex items-center justify-between relative z-10">
                             <div className="flex items-center gap-6">
                                 <SovereignInteractionAgent
                                     title="Neural Synchronicity"
@@ -213,15 +221,15 @@ export default function SovereignDelegate({ initialOpen = false }: SovereignDele
                                 >
                                     <div className="flex items-center gap-3 px-4 py-2 bg-noble-gold/10 rounded-xl border border-noble-gold/30 shadow-[0_0_15px_rgba(212,175,55,0.1)] cursor-help">
                                         <Activity size={14} className="text-noble-gold animate-pulse" />
-                                        <span className="text-[10px] font-black text-noble-gold uppercase tracking-[0.3em]">Neural Status: Operational</span>
+                                        <span className="text-[10px] font-black text-noble-gold uppercase tracking-[0.3em]">Swarm: Active</span>
                                     </div>
                                 </SovereignInteractionAgent>
                                 <div className="hidden md:flex flex-col">
                                     <div className="text-[8px] font-black text-white/30 uppercase tracking-[0.4em] flex items-center gap-2">
                                         <Activity size={10} className="text-noble-gold/50" />
-                                        Signal Strength
+                                        Executive Aggregator
                                     </div>
-                                    <div className="text-[11px] font-black text-white/80 uppercase tracking-widest italic">Encrypted Broadcast Sync</div>
+                                    <div className="text-[11px] font-black text-white/80 uppercase tracking-widest italic">100+ Nodes Unified</div>
                                 </div>
                             </div>
                             <div className="flex items-center gap-4">
@@ -230,169 +238,119 @@ export default function SovereignDelegate({ initialOpen = false }: SovereignDele
                                     <div className="text-xs font-black text-noble-gold tracking-tight">12.4k Distributed</div>
                                 </div>
                                 <div className="w-px h-8 bg-white/10 mx-2" />
-                                <SovereignInteractionAgent
-                                    title="Leadership Roster"
-                                    description="Review the tactical achievements and professional milestones recorded in the Sovereign ledger."
-                                    agentId="strategic"
-                                    position="left"
-                                >
-                                    <button
-                                        className="w-10 h-10 rounded-xl bg-white/5 hover:bg-noble-gold hover:text-black transition-all flex items-center justify-center group"
-                                        title="View Leadership Achievements"
-                                    >
-                                        <Trophy size={16} className="text-white/40 group-hover:text-inherit" />
-                                    </button>
-                                </SovereignInteractionAgent>
                             </div>
                         </div>
 
-                        <div className="flex-1 grid grid-cols-12 overflow-hidden">
-                            {/* Delegate Roster Sidebar */}
-                            <div className={`${selectedDelegate && !isChatOpen ? 'hidden md:block' : 'block'} col-span-12 md:col-span-4 border-r border-white/5 bg-black/40 overflow-y-auto p-4 md:p-6 space-y-3 custom-scrollbar`}>
+                        <div className="flex-1 grid grid-cols-12 overflow-hidden relative z-10">
+                            {/* Delegate Swarm Selector */}
+                            <div className={`${selectedDelegate && !isChatOpen ? 'hidden md:block' : 'block'} col-span-12 md:col-span-3 border-r border-white/5 bg-black/40 overflow-y-auto p-4 md:p-5 space-y-3 custom-scrollbar`}>
                                 <div className="flex items-center justify-between mb-6 px-2">
-                                    <p className="text-[10px] font-black text-noble-gold uppercase tracking-[0.3em]">Available Hosts</p>
+                                    <p className="text-[10px] font-black text-noble-gold uppercase tracking-[0.2em]">Swarm Agents</p>
                                     <div className="flex items-center gap-2">
-                                        <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                                        <span className="text-[8px] font-bold text-red-500 uppercase tracking-widest">Live Now</span>
+                                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                                     </div>
                                 </div>
                                 {delegates.map((delegate) => (
                                     <button
                                         key={delegate.id}
                                         onClick={() => handleDelegateSelection(delegate)}
-                                        className={`w-full p-3 md:p-4 rounded-2xl flex items-center gap-4 transition-all duration-500 group relative overflow-hidden
+                                        className={`w-full p-2.5 rounded-2xl flex items-center gap-3 transition-all duration-500 group relative overflow-hidden
                                             ${selectedDelegate?.id === delegate.id
                                                 ? 'bg-noble-gold/15 border border-noble-gold/40 shadow-[0_0_20px_rgba(212,175,55,0.05)]'
                                                 : 'hover:bg-white/5 border border-transparent opacity-60 hover:opacity-100'
                                             }`}
                                     >
                                         <div className="relative z-10">
-                                            <div className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl overflow-hidden border-2 transition-all duration-500 ${selectedDelegate?.id === delegate.id ? 'border-noble-gold' : 'border-white/10 group-hover:border-noble-gold/30'}`}>
+                                            <div className={`w-10 h-10 rounded-xl overflow-hidden border transition-all duration-500 ${selectedDelegate?.id === delegate.id ? 'border-noble-gold' : 'border-white/10 group-hover:border-noble-gold/30'}`}>
                                                 <HumanAvatar
                                                     src={delegate.avatar}
                                                     alt={delegate.name}
                                                     className="w-full h-full object-cover"
                                                 />
                                             </div>
-                                            <div className={`absolute -bottom-1 -right-1 w-3 h-3 md:w-4 md:h-4 rounded-full border-2 border-black ${['active', 'online'].includes(delegate.status) ? 'bg-emerald-500 animate-pulse' : 'bg-red-500'}`} />
                                         </div>
                                         <div className="text-left flex-1 relative z-10">
-                                            <div className={`text-xs md:text-sm font-black uppercase tracking-tight ${selectedDelegate?.id === delegate.id ? 'text-white' : 'text-white/40 group-hover:text-white'}`}>
+                                            <div className={`text-[10px] font-black uppercase tracking-tight truncate ${selectedDelegate?.id === delegate.id ? 'text-white' : 'text-white/40 group-hover:text-white'}`}>
                                                 {delegate.name}
                                             </div>
-                                            <div className="text-[8px] md:text-[9px] text-noble-gold/60 uppercase tracking-widest font-black italic mt-0.5">{delegate.role}</div>
+                                            <div className="text-[7px] text-noble-gold/60 uppercase tracking-widest font-black italic mt-0.5 truncate">{delegate.role.split(' ')[0]}</div>
                                         </div>
                                     </button>
                                 ))}
                             </div>
 
-                            <div className={`${!selectedDelegate ? 'hidden md:flex' : 'flex'} col-span-12 md:col-span-8 p-6 md:p-10 relative flex-col bg-zinc-950/40`}>
+                            <div className={`${!selectedDelegate ? 'hidden md:flex' : 'flex'} col-span-12 md:col-span-9 p-0 relative flex-col bg-zinc-950/40`}>
                                 {selectedDelegate ? (
                                     <>
-                                        {/* Navigation Protocols */}
-                                        <div className="flex items-center gap-4 md:gap-5 mb-6 md:mb-10 border-b border-white/5 pb-6 overflow-x-auto no-scrollbar">
+                                        {/* Unified Aggregator Nav */}
+                                        <div className="flex items-center gap-2 px-6 pt-4 border-b border-white/5 overflow-x-auto no-scrollbar bg-black/20">
                                             {[
-                                                { id: 'uplink', label: 'Live Signal', icon: Zap },
-                                                { id: 'intelligence', label: 'Intelligence', icon: Brain },
-                                                { id: 'pivot', label: 'Pivot', icon: Trophy },
+                                                { id: 'brief', label: 'Executive Brief', icon: Activity },
+                                                { id: 'uplink', label: 'Avatar Uplink', icon: Zap },
+                                                { id: 'architect', label: 'Narrative Architect', icon: Brain },
+                                                { id: 'reform', label: 'Restorative Reform', icon: Trophy },
                                                 { id: 'vault', label: 'Vault', icon: Shield },
-                                                { id: 'matrix', label: 'Matrix', icon: Activity },
-                                                { id: 'admin', label: 'Admin', icon: Cpu }
+                                                { id: 'admin', label: 'District', icon: Cpu }
                                             ].map(tab => (
                                                 <button
                                                     key={tab.id}
                                                     onClick={() => handleTabChange(tab.id as any)}
-                                                    className={`flex items-center gap-2 md:gap-2 text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] md:tracking-[0.2em] transition-all relative whitespace-nowrap
-                                                        ${activeTab === tab.id ? 'text-noble-gold' : 'text-white/30 hover:text-white/60'}`}
+                                                    className={`py-4 px-4 border-b-2 text-[9px] font-black uppercase tracking-[0.2em] transition-all relative whitespace-nowrap flex items-center gap-2
+                                                        ${activeTab === tab.id
+                                                            ? 'border-noble-gold text-noble-gold bg-gradient-to-t from-noble-gold/5 to-transparent'
+                                                            : 'border-transparent text-white/30 hover:text-white/60 hover:bg-white/5'}`}
                                                 >
-                                                    <tab.icon size={13} className={activeTab === tab.id ? 'animate-pulse' : ''} />
+                                                    <tab.icon size={13} className={activeTab === tab.id ? 'fill-current' : ''} />
                                                     {tab.label}
                                                 </button>
                                             ))}
-                                            {selectedDelegate && (
-                                                <button
-                                                    onClick={() => setSelectedDelegate(null)}
-                                                    className="md:hidden ml-auto text-[9px] font-black uppercase tracking-widest text-zinc-600"
-                                                >
-                                                    Back
-                                                </button>
-                                            )}
                                         </div>
 
-                                        <div className="flex-1 overflow-y-auto pr-4 custom-scrollbar relative">
+                                        <div className="flex-1 overflow-hidden relative p-4 md:p-6">
                                             <AnimatePresence mode="wait">
                                                 <motion.div
                                                     key={activeTab}
-                                                    initial={{ opacity: 0, y: 15, filter: 'blur(10px)' }}
-                                                    animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                                                    exit={{ opacity: 0, y: -15, filter: 'blur(10px)' }}
-                                                    transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
-                                                    className="h-full"
+                                                    initial={{ opacity: 0, y: 15 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    exit={{ opacity: 0, y: -15, position: 'absolute' }}
+                                                    transition={{ duration: 0.3 }}
+                                                    className="h-full w-full"
                                                 >
+                                                    {activeTab === 'brief' && <SovereignBrief />}
+
                                                     {activeTab === 'uplink' && (
-                                                        <div className="h-full flex flex-col justify-center py-6 px-4">
-                                                            <div className="h-full rounded-[3rem] overflow-hidden border border-noble-gold/20 shadow-2xl bg-black relative">
+                                                        <div className="h-full flex flex-col justify-center py-2">
+                                                            <div className="h-full rounded-[2.5rem] overflow-hidden border border-noble-gold/20 shadow-2xl bg-black relative">
                                                                 <SovereignAvatarInterface
                                                                     avatarId={selectedDelegate?.heygenId}
                                                                 />
-                                                                {/* Overlay Label */}
-                                                                <div className="absolute top-6 left-8 z-20 flex items-center gap-2 pointer-events-none">
-                                                                    <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse shadow-[0_0_10px_red]" />
-                                                                    <span className="text-[10px] text-white/80 font-black uppercase tracking-widest bg-black/40 px-3 py-1 rounded-lg backdrop-blur-md border border-white/5">
-                                                                        Hybrid Protocol: Active
-                                                                    </span>
+                                                                {/* Overlay Label for Context */}
+                                                                <div className="absolute bottom-6 left-8 z-20 pointer-events-none">
+                                                                    <div className="text-[10px] font-black text-noble-gold uppercase tracking-[0.4em] mb-1">Live Connection</div>
+                                                                    <div className="text-xl font-black text-white italic uppercase">{selectedDelegate.name}</div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     )}
 
+                                                    {activeTab === 'architect' && <NarrativeArchitect />}
 
+                                                    {activeTab === 'reform' && <RecidivismEngine />}
 
                                                     {activeTab === 'vault' && (
-                                                        <div className="h-full py-6">
-                                                            <SovereignMediaVault selectedDelegate={selectedDelegate} />
-                                                        </div>
-                                                    )}
-
-                                                    {activeTab === 'intelligence' && (
-                                                        <div className="h-full py-6 overflow-y-auto no-scrollbar">
-                                                            <div className="bg-white/[0.02] rounded-[2.5rem] border border-white/5 p-4 md:p-8">
-                                                                <AIGeneratorsHub />
-                                                            </div>
-                                                        </div>
-                                                    )}
-
-                                                    {activeTab === 'pivot' && (
-                                                        <div className="h-full py-6 overflow-y-auto no-scrollbar">
-                                                            <div className="bg-white/[0.02] rounded-[2.5rem] border border-white/5 p-4 md:p-8 h-full">
-                                                                <SovereignPivotDashboard />
-                                                            </div>
-                                                        </div>
-                                                    )}
-
-                                                    {activeTab === 'matrix' && (
-                                                        <div className="h-full py-6 overflow-y-auto no-scrollbar">
-                                                            <SovereignCortex />
-                                                        </div>
+                                                        <SovereignMediaVault selectedDelegate={selectedDelegate} />
                                                     )}
 
                                                     {activeTab === 'admin' && (
-                                                        <div className="h-full py-6 overflow-y-auto no-scrollbar space-y-8">
-                                                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                                                                <SystemStatus />
-                                                                <div className="bg-white/[0.02] rounded-[2.5rem] border border-white/5 p-8">
-                                                                    <DistrictControl
-                                                                        districtName="Mobile County Public Schools"
-                                                                        schools={[
-                                                                            { id: '1', name: 'Prichard High', vault_balance: 1420 },
-                                                                            { id: '2', name: 'LeFlore Academy', vault_balance: 890 }
-                                                                        ]}
-                                                                    />
-                                                                </div>
-                                                            </div>
-                                                            <div className="max-w-md">
-                                                                <ROICalculator narrativeCount={142} />
-                                                            </div>
+                                                        <div className="h-full py-2 overflow-y-auto custom-scrollbar space-y-6">
+                                                            <SystemStatus />
+                                                            <DistrictControl
+                                                                districtName="Mobile County Public Schools"
+                                                                schools={[
+                                                                    { id: '1', name: 'Prichard High', vault_balance: 1420 },
+                                                                    { id: '2', name: 'LeFlore Academy', vault_balance: 890 }
+                                                                ]}
+                                                            />
                                                         </div>
                                                     )}
                                                 </motion.div>
@@ -401,15 +359,17 @@ export default function SovereignDelegate({ initialOpen = false }: SovereignDele
                                     </>
                                 ) : (
                                     <div className="flex-1 flex flex-col items-center justify-center text-white/10 gap-6">
-                                        <Cpu size={64} className="opacity-20 stroke-[1px]" />
-                                        <p className="font-mono text-[10px] uppercase tracking-[0.5em] font-black">System Ready // Select Node</p>
+                                        <div className="w-32 h-32 rounded-full border border-noble-gold/20 flex items-center justify-center animate-pulse-slow">
+                                            <Shield size={64} className="opacity-20 stroke-[1px]" />
+                                        </div>
+                                        <p className="font-mono text-[10px] uppercase tracking-[0.5em] font-black">System Ready // Select Neural Node</p>
                                     </div>
                                 )}
                             </div>
                         </div>
 
                         {/* Quantum Footer */}
-                        <div className="px-10 py-4 bg-black/60 border-t border-white/5 flex items-center justify-between text-[8px] font-black text-white/20 uppercase tracking-[0.4em]">
+                        <div className="px-10 py-4 bg-black/60 border-t border-white/5 flex items-center justify-between text-[8px] font-black text-white/20 uppercase tracking-[0.4em] z-10">
                             <div className="flex items-center gap-4">
                                 <span className="flex items-center gap-2">
                                     <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
@@ -419,7 +379,6 @@ export default function SovereignDelegate({ initialOpen = false }: SovereignDele
                             </div>
                             <div className="flex items-center gap-6">
                                 <span className="hover:text-noble-gold transition-colors cursor-pointer">Protocol Status</span>
-                                <span className="hover:text-noble-gold transition-colors cursor-pointer">Security Ledger</span>
                                 <span className="text-noble-gold/40">© 2026 Sovereign OS</span>
                             </div>
                         </div>
@@ -427,30 +386,27 @@ export default function SovereignDelegate({ initialOpen = false }: SovereignDele
                 )}
             </AnimatePresence>
 
-            {/* Premium Interaction Overlay */}
+            {/* Premium Interaction Overlay - Only for Full Chat */}
             <AnimatePresence>
                 {isChatOpen && selectedDelegate && (
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
                         animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
                         exit={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
-                        className="pointer-events-auto fixed inset-0 z-[200] bg-black/90 backdrop-blur-md flex flex-col items-center justify-center p-4 md:p-6"
+                        className="pointer-events-auto fixed inset-0 z-[200] bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center p-4 md:p-6"
                     >
-                        {/* Header removed to allow LiveAvatarChat to control full experience */}
-                        <div className="flex-1 overflow-hidden relative">
-                            {/* LiveAvatarChat wrapper to handle consistent experience */}
-                            <div className="absolute inset-0 overflow-y-auto custom-scrollbar">
-                                <LiveAvatarChat
-                                    avatarName={selectedDelegate.name}
-                                    avatarRole={selectedDelegate.role}
-                                    avatarImage={selectedDelegate.avatar}
-                                    avatarVideo={selectedDelegate.video}
-                                    heygenId={selectedDelegate.heygenId}
-                                    avatarVoice={selectedDelegate.voiceId}
-                                    onClose={() => setIsChatOpen(false)}
-                                    protocolContext={`SYSTEM OVERRIDE: You are acting as ${selectedDelegate.name} (${selectedDelegate.role}). Current Objective: ${selectedDelegate.specialty}. STATUS: ${currentProtocol.message}. INSTRUCTION: Be extremely intellectual, authoritative yet empathetic. Speak like a high-level strategic consultant for a sovereign education system. Refer to the user as 'Principal' or 'Superintendent'.`}
-                                />
-                            </div>
+                        {/* LiveAvatarChat has its own close button which triggers setIsChatOpen(false) */}
+                        <div className="w-full h-full max-w-[1600px] relative">
+                            <LiveAvatarChat
+                                avatarName={selectedDelegate.name}
+                                avatarRole={selectedDelegate.role}
+                                avatarImage={selectedDelegate.avatar}
+                                avatarVideo={selectedDelegate.video}
+                                heygenId={selectedDelegate.heygenId}
+                                avatarVoice={selectedDelegate.voiceId}
+                                onClose={() => setIsChatOpen(false)}
+                                protocolContext={`SYSTEM OVERRIDE: You are acting as ${selectedDelegate.name} (${selectedDelegate.role}). Current Objective: ${selectedDelegate.specialty}. STATUS: ${currentProtocol.message}. INSTRUCTION: Be extremely intellectual, authoritative yet empathetic. Speak like a high-level strategic consultant for a sovereign education system.`}
+                            />
                         </div>
                     </motion.div>
                 )}
@@ -484,6 +440,11 @@ export default function SovereignDelegate({ initialOpen = false }: SovereignDele
                 }
                 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
                     background: rgba(212, 175, 55, 0.3);
+                }
+                
+                /* Texture Utility Class attempt */
+                .bg-mawu-lisa {
+                    background-image: url('https://www.transparenttextures.com/patterns/black-scales.png');
                 }
             `}</style>
         </div>

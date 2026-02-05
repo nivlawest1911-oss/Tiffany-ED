@@ -8,6 +8,8 @@ import {
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
+import { SOVEREIGN_STRIPE_LINKS } from '@/app/config/sovereign-manifest';
+
 // Correct Dynamic Imports
 const ParallaxBackground = dynamic(() => import('@/components/ui/ParallaxBackground'), { ssr: false });
 const ParticleField = dynamic(() => import('@/components/ui/ParticleField'), { ssr: false });
@@ -98,18 +100,17 @@ export default function LandingPageClient() {
 
                         <motion.h1
                             variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}
-                            className="text-6xl md:text-[8rem] font-black italic uppercase tracking-tighter leading-[0.8] mb-12 drop-shadow-2xl"
+                            className="text-6xl md:text-[7rem] font-black italic uppercase tracking-tighter leading-[0.8] mb-12 drop-shadow-2xl"
                         >
-                            EDINTEL <br />
-                            <span className="gold-gradient-text not-italic">SOVEREIGN</span>
+                            Initialize Your <br />
+                            <span className="gold-gradient-text not-italic">Site Node</span>
                         </motion.h1>
 
                         <motion.p
                             variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
                             className="text-xl md:text-2xl text-zinc-400 font-bold italic uppercase tracking-tighter leading-snug max-w-xl mb-12"
                         >
-                            Stop the Burnout. Reclaim Your Time. <br />
-                            Sovereign intelligence designed to lift the weight of decision fatigue for Alabama's educators.
+                            The official entrance protocol for Mobile County Schools and surrounding Alabama districts.
                         </motion.p>
 
                         <motion.div
@@ -128,11 +129,14 @@ export default function LandingPageClient() {
                                 description="Start your 14-day premium trial. Access the full 41-module strategic ecosystem."
                                 agentId="visionary"
                             >
-                                <button className="sovereign-button px-12 py-6 text-xs group relative overflow-hidden flex items-center justify-center gap-3">
+                                <a
+                                    href={SOVEREIGN_STRIPE_LINKS.INITIATE}
+                                    className="sovereign-button px-12 py-6 text-xs group relative overflow-hidden flex items-center justify-center gap-3 w-full sm:w-auto text-center"
+                                >
                                     <Zap size={18} className="text-black group-hover:rotate-12 transition-transform" />
-                                    <span>Initialize Sovereign Profile</span>
+                                    <span>Begin 14-Day Initiation</span>
                                     <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
-                                </button>
+                                </a>
                             </SovereignInteractionAgent>
 
                             <button className="px-12 py-6 bg-white/5 border border-white/10 text-white font-black uppercase text-[10px] tracking-[0.4em] rounded-2xl hover:border-intel-gold/50 hover:bg-white/10 transition-all text-center backdrop-blur-xl group flex items-center justify-center gap-3">

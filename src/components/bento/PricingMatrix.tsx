@@ -41,13 +41,15 @@ export default function PricingMatrix() {
 
             {/* Pricing Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10 pb-12">
-                {SOVEREIGN_TIERS.map((tier, idx) => {
+                {SOVEREIGN_TIERS.map((tier) => {
                     const Icon = IconMap[tier.icon] || Star;
+                    const isRobust = tier.robust;
+
                     return (
                         <motion.div
                             key={tier.id}
                             whileHover={{ y: -5 }}
-                            className={`relative p-0.5 rounded-[2rem] transition-all duration-500`}
+                            className={`relative p-0.5 rounded-[2rem] transition-all duration-500 ${isRobust && tier.price >= 79 ? 'ring-2 ring-amber-500 shadow-[0_0_30px_rgba(245,158,11,0.3)]' : ''}`}
                         >
                             <div className={`relative h-full rounded-[1.9rem] p-6 flex flex-col liquid-glass overflow-hidden group`}>
                                 {/* Liquid animated background for paid tiers */}
@@ -56,8 +58,16 @@ export default function PricingMatrix() {
                                 )}
 
                                 <div className="relative z-10 mb-6">
-                                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-colors duration-300 ${tier.price > 30 ? 'bg-noble-gold/20 text-noble-gold' : 'bg-white/5 text-slate-400'}`}>
-                                        <Icon size={24} />
+                                    <div className="flex justify-between items-start">
+                                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-colors duration-300 ${tier.price > 30 ? 'bg-noble-gold/20 text-noble-gold' : 'bg-white/5 text-slate-400'}`}>
+                                            <Icon size={24} />
+                                        </div>
+                                        {isRobust && tier.price >= 79 && (
+                                            <span className="bg-amber-500 text-black px-2 py-1 text-[9px] font-black uppercase tracking-wider rounded">Most Robust</span>
+                                        )}
+                                        {tier.price === 0 && (
+                                            <span className="bg-zinc-700 text-white px-2 py-1 text-[9px] font-black uppercase tracking-wider rounded">Start Here</span>
+                                        )}
                                     </div>
                                     <h3 className={`text-xl font-black uppercase italic ${tier.price > 30 ? 'text-noble-gold' : 'text-white'}`}>{tier.name}</h3>
                                     <p className="text-[9px] font-bold text-zinc-400 uppercase tracking-widest mt-1">{tier.idealFor}</p>
@@ -65,17 +75,15 @@ export default function PricingMatrix() {
 
                                 <div className="relative z-10 mb-6 pb-6 border-b border-white/10">
                                     <div className="flex items-baseline gap-1">
-                                        {tier.price > 0 && <span className="text-xl font-bold text-zinc-500">$</span>}
+                                        <span className="text-xl font-bold text-zinc-500">$</span>
                                         <span className={`text-4xl font-black tracking-tighter text-white`}>
-                                            {tier.price === 0 ? 'Free' : tier.price}
+                                            {tier.price}
                                         </span>
-                                        {tier.price > 0 && <span className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest">/ Mo</span>}
+                                        <span className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest">/ Mo</span>
                                     </div>
-                                    {tier.price > 0 && (
-                                        <div className="mt-2 text-[10px] text-emerald-400 font-bold uppercase tracking-wider flex items-center gap-1">
-                                            <Sparkles size={10} /> 30-Day Free Trial
-                                        </div>
-                                    )}
+                                    <div className="mt-2 text-[10px] text-emerald-400 font-bold uppercase tracking-wider flex items-center gap-1">
+                                        <Sparkles size={10} /> {(tier as any).trialDuration || '30 Days'} Protocol
+                                    </div>
                                 </div>
 
                                 <ul className="space-y-3 mb-8 flex-1 relative z-10">
@@ -90,13 +98,9 @@ export default function PricingMatrix() {
                                 <button
                                     disabled={isPending}
                                     onClick={() => {
-                                        if (tier.price === 0) {
-                                            window.location.href = '/signup';
-                                            return;
-                                        }
-
                                         if (tier.stripeLink && tier.stripeLink.startsWith('http')) {
-                                            window.location.href = tier.stripeLink;
+                                            const separator = tier.stripeLink.includes('?') ? '&' : '?';
+                                            window.location.href = `${tier.stripeLink}${separator}client_reference_id=${user?.id}`;
                                             return;
                                         }
 
@@ -112,12 +116,12 @@ export default function PricingMatrix() {
                                         });
                                     }}
                                     className={`relative w-full py-3 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-all overflow-hidden
-                                        ${tier.price >= 40
+                                        ${tier.price >= 69 || isRobust
                                             ? `bg-noble-gold text-noble-navy hover:shadow-[0_0_20px_rgba(212,175,55,0.4)]`
                                             : 'bg-white/10 text-white hover:bg-white/20 hover:text-noble-gold'} 
                                         ${isPending ? 'opacity-50' : ''}`}
                                 >
-                                    {isPending ? 'Processing...' : (tier.price === 0 ? 'Initialize' : 'Start 30-Day Trial')}
+                                    {isPending ? 'Processing...' : (tier.price === 0 ? 'Initiate Protocol' : 'Ascend to Command')}
                                     <ArrowRight size={12} />
                                 </button>
                             </div>
