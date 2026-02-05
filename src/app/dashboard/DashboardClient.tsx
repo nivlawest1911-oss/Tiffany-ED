@@ -10,7 +10,13 @@ import SovereignAdvisorInterface from '@/components/dashboard/SovereignAdvisorIn
 import ActionFeed from '@/components/dashboard/ActionFeed';
 import { Zap, Activity } from 'lucide-react';
 
-export default function DashboardClient() {
+import { SovereignAutomation } from '@/components/SovereignAutomation';
+
+interface DashboardClientProps {
+    tierName?: string;
+}
+
+export default function DashboardClient({ tierName = 'Sovereign Initiate' }: DashboardClientProps) {
 
     // Note: Auth checks and Layout (Dock, Global Status) are handled in /dashboard/layout.tsx
 
@@ -42,6 +48,7 @@ export default function DashboardClient() {
                 {/* Row 1: KPI Cards */}
                 <div className="md:col-span-12">
                     <SummaryCards />
+                    <SovereignAutomation tier={tierName} />
                 </div>
 
                 {/* Row 2: Analytics (L) & Token Wallet (R) */}

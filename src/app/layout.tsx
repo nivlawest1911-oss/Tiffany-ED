@@ -41,7 +41,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
+      <head>
+        {/* Creative Protocol SDKs */}
+        <script src="https://sdk.canva.com/designbutton/v2/api.js" async></script>
+        <script src="https://sdk.cc-embed.adobe.com/v1/CCEverywhere.js" async></script>
+      </head>
       <body className={`${outfit.variable} ${inter.variable} font-sans antialiased bg-sovereign-black text-white`} suppressHydrationWarning>
         <AuthProvider>
           <IntelligenceProvider>
