@@ -1,5 +1,4 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+import { createSovereignServerClient } from '@/lib/supabase-server';
 import { SovereignIDManager } from '@/components/SovereignIDManager';
 import React from 'react';
 
@@ -8,7 +7,7 @@ export default async function DashboardLayout({
 }: {
     children: React.ReactNode;
 }) {
-    const supabase = createServerComponentClient({ cookies });
+    const supabase = await createSovereignServerClient();
 
     // Fetch the subscription data for the logged-in architect
     const { data: { session } } = await supabase.auth.getSession();

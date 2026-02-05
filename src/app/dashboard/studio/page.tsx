@@ -1,5 +1,4 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+import { createSovereignServerClient } from '@/lib/supabase-server';
 import React from 'react';
 import { DesignBridge } from '@/components/DesignBridge';
 import { StudioVideoSection } from '@/components/StudioVideoSection';
@@ -8,8 +7,7 @@ import { StudioVideoSection } from '@/components/StudioVideoSection';
 export const dynamic = 'force-dynamic';
 
 export default async function StudioPage() {
-    await cookies();
-    const supabase = createServerComponentClient({ cookies });
+    const supabase = await createSovereignServerClient();
 
     const { data: { session } } = await supabase.auth.getSession();
     let userTier = "Sovereign Initiate";
