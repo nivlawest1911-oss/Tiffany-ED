@@ -7,45 +7,104 @@ interface PrincipalTacticalHUDProps {
     tier: string;
 }
 
+// Individual card components for grid integration
+export const MorningSynthesisCard = () => (
+    <div className="dashboard-card border-l-4 border-amber-500">
+        <div className="card-header">
+            <div className="text-xs text-amber-500 uppercase tracking-wider font-black">
+                Morning Synthesis // Leadership
+            </div>
+        </div>
+        <div className="card-body">
+            <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="text-sm font-bold text-emerald-500">SITE STATUS: OPTIMAL</span>
+                </div>
+                <p className="text-sm text-gray-300 leading-relaxed">
+                    All systems operational. Neural network synchronized across 47 nodes.
+                </p>
+                <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg">
+                    <p className="text-xs text-amber-400 font-mono">
+                        ⚠️ ACTION REQUIRED: Review 3 compliance flags for upcoming state audit
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div className="card-footer">
+            View Full Report
+        </div>
+    </div>
+);
+
+export const CognitiveLoadCard = () => (
+    <div className="dashboard-card border-l-4 border-indigo-500">
+        <div className="card-header">
+            <div className="text-xs text-indigo-500 uppercase tracking-wider font-black">
+                Cognitive Load Alert // Leadership
+            </div>
+        </div>
+        <div className="card-body">
+            <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-indigo-500 animate-pulse" />
+                    <span className="text-sm font-bold text-indigo-400">HIGH LOAD DETECTED</span>
+                </div>
+                <p className="text-sm text-gray-300 leading-relaxed">
+                    Department: <span className="text-indigo-400 font-bold">Special Education</span>
+                </p>
+                <div className="p-3 bg-indigo-500/10 border border-indigo-500/20 rounded-lg">
+                    <p className="text-xs text-indigo-400 font-mono">
+                        💡 SUGGESTION: Deploy Antigravity automated documentation support
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div className="card-footer">
+            Deploy Support
+        </div>
+    </div>
+);
+
+export const StudioActionCard = () => (
+    <div className="dashboard-card border-l-4 border-zinc-500">
+        <div className="card-header">
+            <div className="text-xs text-gray-500 uppercase tracking-wider font-black">
+                Studio Action // Leadership
+            </div>
+        </div>
+        <div className="card-body">
+            <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-amber-500 animate-pulse" />
+                    <span className="text-sm font-bold text-white">VICTORY DATA DETECTED</span>
+                </div>
+                <p className="text-sm text-gray-300 leading-relaxed">
+                    Football team secured championship win. Community engagement opportunity identified.
+                </p>
+                <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg cursor-pointer hover:bg-amber-500/20 transition-all">
+                    <p className="text-xs text-amber-400 font-bold">
+                        🎬 Generate 'Victory Blast' Video? →
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div className="card-footer">
+            Launch Studio
+        </div>
+    </div>
+);
+
 export const PrincipalTacticalHUD = ({ _siteMetrics, tier }: PrincipalTacticalHUDProps) => {
-    // Only Site Command and Director Pack see the HUD
     const isLeadership = ['Site Command', 'Director Pack'].includes(tier);
 
     if (!isLeadership) return null;
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 animate-in fade-in slide-in-from-top-4 duration-700">
-            {/* Morning Briefing Node */}
-            <div className="p-5 bg-zinc-900/50 backdrop-blur-sm border-l-2 border-amber-500 rounded-r-xl group hover:bg-zinc-800/80 transition-all">
-                <h4 className="text-[10px] font-mono text-amber-500 uppercase mb-2 tracking-widest font-black">Morning Synthesis</h4>
-                <p className="text-xs text-zinc-300 leading-relaxed font-medium">
-                    Site status is <span className="text-emerald-500 font-bold">OPTIMAL</span>.
-                    <br />
-                    <span className="text-[10px] text-zinc-500 uppercase mt-2 block">Recommendation: Review 3 compliance flags for the upcoming state audit.</span>
-                </p>
-            </div>
-
-            {/* Staff Morale Node */}
-            <div className="p-5 bg-zinc-900/50 backdrop-blur-sm border-l-2 border-indigo-500 rounded-r-xl group hover:bg-zinc-800/80 transition-all">
-                <h4 className="text-[10px] font-mono text-indigo-500 uppercase mb-2 tracking-widest font-black">Cognitive Load Alert</h4>
-                <p className="text-xs text-zinc-300 leading-relaxed font-medium">
-                    High cognitive load detected in <span className="text-indigo-400 font-bold">Special Ed</span>.
-                    <br />
-                    <span className="text-[10px] text-zinc-500 uppercase mt-2 block">Suggesting automated documentation support via Antigravity.</span>
-                </p>
-            </div>
-
-            {/* Community Push Node */}
-            <div className="p-5 bg-zinc-900/50 backdrop-blur-sm border-l-2 border-zinc-500 rounded-r-xl group hover:bg-zinc-800/80 transition-all">
-                <h4 className="text-[10px] font-mono text-zinc-400 uppercase mb-2 tracking-widest font-black">Studio Action</h4>
-                <p className="text-xs text-zinc-300 leading-relaxed font-medium">
-                    Football victory data detected.
-                    <br />
-                    <span className="text-amber-500 underline decoration-amber-500/30 cursor-pointer font-bold mt-2 block hover:text-amber-400 transition-colors">
-                        Generate 'Victory Blast' Video?
-                    </span>
-                </p>
-            </div>
-        </div>
+        <>
+            <MorningSynthesisCard />
+            <CognitiveLoadCard />
+            <StudioActionCard />
+        </>
     );
 };
