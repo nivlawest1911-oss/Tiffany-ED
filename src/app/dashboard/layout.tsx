@@ -47,12 +47,10 @@ export default async function DashboardLayout({
                     <TacticalHeader />
 
                     {/* 3. SCROLLABLE CANVAS: Where the magic happens */}
-                    <main className="flex-1 overflow-y-auto p-10 lg:p-16 scrollbar-hide">
-                        <div className="max-w-7xl mx-auto">
-                            <PageTransition>
-                                {children}
-                            </PageTransition>
-                        </div>
+                    <main className="flex-1 overflow-y-auto scrollbar-hide">
+                        <PageTransition>
+                            {children}
+                        </PageTransition>
                     </main>
                 </div>
             </div>
