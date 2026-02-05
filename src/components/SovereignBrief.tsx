@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle2, TrendingUp, AlertTriangle, Brain, FileText, Zap, Users } from 'lucide-react';
+import { CheckCircle2, AlertTriangle, Brain, FileText, Zap } from 'lucide-react';
 
 export function SovereignBrief() {
     return (

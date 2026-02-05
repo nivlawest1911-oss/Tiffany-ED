@@ -7,7 +7,7 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
     try {
         const body = await request.json();
-        const { userId, studentId, reportData } = body;
+        const { _userId, studentId, _reportData } = body;
 
         console.log(`[ PROFESSIONAL SIS ] Syncing report for Student ${studentId} via PowerSchool`);
 

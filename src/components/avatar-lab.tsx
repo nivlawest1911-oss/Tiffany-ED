@@ -28,13 +28,7 @@ const colorSchemes = [
   { id: "kente", colors: ["#d4af37", "#228b22", "#dc143c"], name: "Kente" },
 ]
 
-const accessories = [
-  { id: "none", name: "None" },
-  { id: "glasses", name: "Glasses" },
-  { id: "headwrap", name: "Headwrap" },
-  { id: "earrings", name: "Earrings" },
-  { id: "necklace", name: "Necklace" },
-]
+
 
 function ParticleBackground() {
   const [particles, setParticles] = useState<Array<{ left: number, top: number, delay: number }>>([]);
@@ -68,7 +62,6 @@ export function AvatarLab() {
   const [selectedStyle, setSelectedStyle] = useState("professional")
   const [selectedScheme, setSelectedScheme] = useState("strategic")
   const [selectedTone, setSelectedTone] = useState("tone1")
-  const [selectedAccessory, setSelectedAccessory] = useState("none")
   const [isGenerating, setIsGenerating] = useState(false)
   const [avatarGenerated, setAvatarGenerated] = useState(false)
   const [rotation, setRotation] = useState(0)

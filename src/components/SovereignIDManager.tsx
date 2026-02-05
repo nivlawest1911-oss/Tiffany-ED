@@ -1,9 +1,6 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
-// import { supabase } from '../lib/supabase'; // User asked to use their specific client logic, assuming import exists or will be provided. 
-// For now, mocking or assuming prop usage as per user snippet. 
-// The user provided snippet uses 'userSubscription' prop.
 
 interface SovereignIDManagerProps {
     userSubscription: any;
@@ -13,13 +10,13 @@ export const SovereignIDManager = ({ userSubscription }: SovereignIDManagerProps
     const [timeLeft, setTimeLeft] = useState<string | null>(null);
     const [isExpired, setIsExpired] = useState(false);
 
-    // Hardcoded logic based on your 6 price points
+    // Tier-based logic
     const activeTier = userSubscription?.tier_name || "Sovereign Initiate";
 
     const trialEnd = useMemo(() => {
         return userSubscription?.trial_end
             ? new Date(userSubscription.trial_end)
-            : new Date(Date.now() + 14 * 24 * 60 * 60 * 1000); // Default to 14 days from now if null for demo
+            : new Date(Date.now() + 14 * 24 * 60 * 60 * 1000); // Default to 14 days from now
     }, [userSubscription?.trial_end]);
 
     useEffect(() => {
@@ -65,20 +62,29 @@ export const SovereignIDManager = ({ userSubscription }: SovereignIDManagerProps
     }
 
     return (
-        <div className="bg-zinc-900 border-b border-zinc-800 p-4 flex justify-between items-center sticky top-0 z-50">
+        <div className="bg-black/80 backdrop-blur-xl border-b border-zinc-900 p-4 flex justify-between items-center sticky top-0 z-50">
             <div className="flex items-center gap-4">
-                <div className="h-10 w-10 rounded-full bg-amber-500/10 border border-amber-500/50 flex items-center justify-center">
-                    <span className="text-amber-500 font-bold text-xs">ID</span>
+                <div className="h-10 w-10 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center animate-pulse">
+                    <div className="w-4 h-4 rounded-full bg-amber-500 shadow-[0_0_15px_rgba(245,158,11,0.5)]" />
                 </div>
                 <div>
-                    <h1 className="text-zinc-100 font-bold tracking-tight text-sm uppercase">{activeTier}</h1>
-                    <p className="text-[10px] text-zinc-500 font-mono">SOVEREIGN ARCHITECT ID: {userSubscription?.user_id?.slice(0, 8) || 'GUEST'}</p>
+                    <h1 className="text-zinc-100 font-black tracking-tighter text-sm uppercase italic">{activeTier}</h1>
+                    <p className="text-[10px] text-zinc-500 font-mono tracking-widest uppercase">
+                        Node ID: {userSubscription?.user_id?.slice(0, 8) || 'AL_MB_NODE_01'}
+                    </p>
                 </div>
             </div>
 
-            <div className="text-right">
-                <p className="text-[10px] text-amber-500 font-mono uppercase tracking-widest">Neural Link Time Remaining</p>
-                <p className="text-xl font-black font-mono text-zinc-100">{timeLeft}</p>
+            <div className="text-right flex items-center gap-6">
+                <div className="hidden md:block">
+                    <p className="text-[9px] text-zinc-500 font-mono uppercase tracking-[0.3em] mb-1">District</p>
+                    <p className="text-xs font-black text-white italic uppercase tracking-wider">Mobile County</p>
+                </div>
+                <div className="h-10 w-px bg-zinc-800" />
+                <div>
+                    <p className="text-[9px] text-amber-500 font-mono uppercase tracking-[0.3em] mb-1">Trial Remaining</p>
+                    <p className="text-xl font-black font-mono text-zinc-100 tracking-tighter">{timeLeft}</p>
+                </div>
             </div>
         </div>
     );

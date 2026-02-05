@@ -37,6 +37,20 @@ export const SovereignAutomation = ({ tier }: SovereignAutomationProps) => {
         }, 2000);
     };
 
+    const abortProtocol = () => {
+        // 1. Broadcast to the Chrome Extension
+        window.postMessage({
+            type: "ANTIGRAVITY_KILL_SIGNAL",
+            timestamp: new Date().toISOString()
+        }, "*");
+
+        // 2. Update the local UI state
+        setLog(prev => [...prev, "!!! ABORT SIGNAL SENT", "Terminating browser process..."]);
+        setIsNavigating(false);
+
+        console.log("%c [Sovereign] Protocol Aborted by User", "color: #ef4444; font-weight: bold;");
+    };
+
     return (
         <div className="mt-8 border border-zinc-800 bg-zinc-900/50 rounded-xl overflow-hidden">
             <div className="bg-zinc-800 p-3 flex justify-between items-center">
@@ -47,22 +61,28 @@ export const SovereignAutomation = ({ tier }: SovereignAutomationProps) => {
             </div>
 
             <div className="p-6">
-                <div className="bg-black p-4 rounded font-mono text-[10px] text-green-400 h-32 overflow-y-auto mb-4 border border-zinc-800">
-                    {log.map((line, i) => <div key={i}>{`> ${line}`}</div>)}
+                <div className="bg-black p-4 rounded font-mono text-[10px] text-green-400 h-32 overflow-y-auto mb-4 border border-zinc-800 scrollbar-hide">
+                    {log.map((line, i) => <div key={i} className={line.startsWith('!!!') ? 'text-red-500' : ''}>{`> ${line}`}</div>)}
                 </div>
 
-                <button
-                    onClick={startProtocol}
-                    // Initiate triggers 'UPGRADE_REQUIRED' logic, but we keep button enabled to show the error in the log/UI as per request "Initiate ($0.00) tier will see the button, but clicking it will trigger..."
-                    // Wait, user said "Initiate ($0.00) tier will see the button, but clicking it will trigger an 'Upgrade Required' modal to the Site Command ($79.99) tier." 
-                    // AND in component code provided: "disabled={tier === 'Sovereign Initiate' ... {tier === 'Sovereign Initiate' ? 'UPGRADE TO UNLOCK AUTOMATION' : 'EXECUTE BROWSER PROTOCOL'}"
-                    // I will follow the visual component code provided by the user as it effectively acts as a block/CTA.
-                    disabled={tier === 'Sovereign Initiate'}
-                    className="w-full py-3 bg-zinc-100 text-black font-bold rounded-lg hover:bg-amber-500 transition-all disabled:opacity-50 disabled:grayscale disabled:cursor-not-allowed"
-                >
-                    {tier === 'Sovereign Initiate' ? 'UPGRADE TO UNLOCK AUTOMATION' : 'EXECUTE BROWSER PROTOCOL'}
-                </button>
+                <div className="flex gap-3">
+                    <button
+                        onClick={startProtocol}
+                        disabled={tier === 'Sovereign Initiate' || isNavigating}
+                        className="flex-1 py-3 bg-zinc-100 text-black font-bold rounded-lg hover:bg-amber-500 transition-all disabled:opacity-50 disabled:grayscale disabled:cursor-not-allowed"
+                    >
+                        {tier === 'Sovereign Initiate' ? 'UPGRADE TO UNLOCK' : 'EXECUTE PROTOCOL'}
+                    </button>
+                    {isNavigating && (
+                        <button
+                            onClick={abortProtocol}
+                            className="px-6 py-3 bg-red-600 text-white font-bold rounded-lg hover:bg-red-500 transition-all"
+                        >
+                            ABORT
+                        </button>
+                    )}
+                </div>
             </div>
         </div>
     );
-};
+}

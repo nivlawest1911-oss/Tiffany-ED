@@ -14,7 +14,6 @@ import {
   BarChart3,
   Cpu,
   Zap,
-  Copy,
   Sparkles
 } from "lucide-react"
 import { useCelebrate } from '@/context/CelebrationContext';

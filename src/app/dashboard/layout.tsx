@@ -1,5 +1,10 @@
 import { createSovereignServerClient } from '@/lib/supabase-server';
 import { SovereignIDManager } from '@/components/SovereignIDManager';
+import { Sidebar } from '@/components/dashboard/Sidebar';
+import { TacticalHeader } from '@/components/dashboard/TacticalHeader';
+import { PageTransition } from '@/components/dashboard/PageTransition';
+import { SovereignVibeProvider } from '@/context/SovereignVibeContext';
+import { AmbientBackground } from '@/components/dashboard/AmbientBackground';
 import React from 'react';
 
 export default async function DashboardLayout({
@@ -9,7 +14,6 @@ export default async function DashboardLayout({
 }) {
     const supabase = await createSovereignServerClient();
 
-    // Fetch the subscription data for the logged-in architect
     const { data: { session } } = await supabase.auth.getSession();
 
     let subscriptionData = null;
@@ -22,27 +26,36 @@ export default async function DashboardLayout({
             .single();
         subscriptionData = data;
 
-        // If we don't have subscription data but have a user, pass a constructed object or let the Manager handle null
-        // The Manager handles userSubscription?.tier_name check, so passing subscriptionData (which might be null) should be fine,
-        // but passing user_id is useful for the ID display.
         if (!subscriptionData) {
             subscriptionData = { user_id: session.user.id };
         }
     }
 
     return (
-        <div className="min-h-screen bg-zinc-950 flex flex-col">
-            {/* The Sovereign ID Manager acts as the persistent header */}
-            <SovereignIDManager userSubscription={subscriptionData} />
+        <SovereignVibeProvider>
+            <div className="flex h-screen w-full bg-zinc-950 text-zinc-100 selection:bg-amber-500/30 overflow-hidden font-sans relative">
+                {/* 0. CINEMATIC AMBIENCE */}
+                <AmbientBackground />
 
-            <main className="flex-1 overflow-y-auto p-6">
-                {children}
-            </main>
+                <SovereignIDManager userSubscription={subscriptionData} />
 
-            {/* Optional: Footer protocol for the Mobile County Rollout */}
-            <footer className="p-4 border-t border-zinc-900 text-[10px] text-zinc-600 font-mono text-center">
-                EDINTEL SOVEREIGN PROTOCOL v1.0 | MOBILE_AL_USA
-            </footer>
-        </div>
+                {/* 1. NANO-NAV: Slim, non-intrusive sidebar */}
+                <Sidebar />
+
+                <div className="flex-1 app-wrapper relative overflow-hidden">
+                    {/* 2. THE GLASS HEADER: Standardized top bar */}
+                    <TacticalHeader />
+
+                    {/* 3. SCROLLABLE CANVAS: Where the magic happens */}
+                    <main className="flex-1 overflow-y-auto p-10 lg:p-16 scrollbar-hide">
+                        <div className="max-w-7xl mx-auto">
+                            <PageTransition>
+                                {children}
+                            </PageTransition>
+                        </div>
+                    </main>
+                </div>
+            </div>
+        </SovereignVibeProvider>
     );
 }

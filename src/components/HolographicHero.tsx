@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Hexagon, Zap, Shield } from 'lucide-react';
+import { Zap, Shield } from 'lucide-react';
 import HumanAvatar from './ui/HumanAvatar';
 
 interface HolographicHeroProps {

@@ -68,8 +68,8 @@ export async function POST(request: NextRequest) {
 
                 const userEmail = session.customer_email || session.metadata?.user_email;
                 const customerId = session.customer as string;
-                const tier = session.metadata?.tier || 'free';
-                const isSubscription = session.mode === 'subscription';
+                const _tier = session.metadata?.tier || 'free';
+                const _isSubscription = session.mode === 'subscription';
 
                 if (userEmail) {
                     try {

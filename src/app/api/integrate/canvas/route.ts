@@ -7,7 +7,7 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
     try {
         const body = await request.json();
-        const { userId, workloadType, data } = body;
+        const { userId, workloadType, _data } = body;
 
         console.log(`[ DISTRICT UPLINK ] Syncing ${workloadType} to Canvas for User: ${userId}`);
 

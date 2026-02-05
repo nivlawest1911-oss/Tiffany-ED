@@ -16,6 +16,7 @@ import TavusPlayer from '@/components/TavusPlayer';
 import SovereignShell from '@/components/layout/SovereignShell';
 import SovereignScroll from '@/components/layout/SovereignScroll';
 import { CelebrationProvider } from '@/context/CelebrationContext';
+import { SovereignMediaLayer } from '@/components/SovereignMediaLayer';
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -47,6 +48,7 @@ export default function RootLayout({
         <script src="https://sdk.cc-embed.adobe.com/v1/CCEverywhere.js" async></script>
       </head>
       <body className={`${outfit.variable} ${inter.variable} font-sans antialiased bg-sovereign-black text-white`} suppressHydrationWarning>
+        <SovereignMediaLayer />
         <AuthProvider>
           <IntelligenceProvider>
             <TavusProvider>

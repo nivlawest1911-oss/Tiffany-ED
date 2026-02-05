@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Shield, Activity, Wifi, Zap, Lock, Command } from 'lucide-react';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
@@ -27,15 +27,15 @@ export default function HolographicBriefing({
     description,
     stats,
     videoSrc,
-    thumbnail,
+    thumbnail: _thumbnail,
     avatarImage = "/images/avatars/dr_alvin_west_premium.png",
     role = "Executive Lead",
     abilityType
 }: HolographicBriefingProps) {
-    const { playClick, playHover, playSuccess } = useProfessionalSounds();
+    const { playClick: _playClick, playHover: _playHover, playSuccess } = useProfessionalSounds();
     const [isSpeaking, setIsSpeaking] = useState(false);
     const [progress, setProgress] = useState(0);
-    const humanBehavior = useHumanBehavior(isOpen);
+    const _humanBehavior = useHumanBehavior(isOpen);
     const videoRef = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
@@ -48,17 +48,7 @@ export default function HolographicBriefing({
         }
     }, [isSpeaking]);
 
-    useEffect(() => {
-        if (isOpen) {
-            playSuccess();
-            startBriefing();
-        } else {
-            handleStopSpeaking();
-        }
-        return () => handleStopSpeaking();
-    }, [isOpen]);
-
-    const startBriefing = () => {
+    const startBriefing = useCallback(() => {
         if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
         window.speechSynthesis.cancel();
         setIsSpeaking(false);
@@ -68,7 +58,7 @@ export default function HolographicBriefing({
             const utterance = new SpeechSynthesisUtterance(text);
             const isAlvin = role.toLowerCase().includes('executive') || role.toLowerCase().includes('alvin') || title.toLowerCase().includes('finance');
 
-            let preferredVoice = voices.find(v =>
+            const preferredVoice = voices.find(v =>
                 (isAlvin ? (v.name.includes('Daniel') || v.name.includes('UK English Male')) : v.name.includes('Male')) && v.lang.startsWith('en')
             );
 
@@ -89,7 +79,17 @@ export default function HolographicBriefing({
         } else {
             buildUtterance(voices);
         }
-    };
+    }, [title, description, role]);
+
+    useEffect(() => {
+        if (isOpen) {
+            playSuccess();
+            startBriefing();
+        } else {
+            handleStopSpeaking();
+        }
+        return () => handleStopSpeaking();
+    }, [isOpen, playSuccess, startBriefing]);
 
     const handleStopSpeaking = () => {
         if ('speechSynthesis' in window) window.speechSynthesis.cancel();

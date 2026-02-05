@@ -7,7 +7,7 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
     try {
         const body = await request.json();
-        const { userId, districtId } = body;
+        const { _userId, districtId } = body;
 
         console.log(`[ ROSTER SYNC ] Initializing Clever Handshake for District: ${districtId}`);
 

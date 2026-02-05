@@ -6,7 +6,7 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
     try {
         const body = await request.json();
-        const { userId, content, title, avatarName, priority = 'NORMAL' } = body;
+        const { userId, _content, title, avatarName, priority = 'NORMAL' } = body;
 
         console.log(`[PROFESSIONAL INTEGRATION] Connectioning to Google Workspace...`);
         console.log(`[TARGET] User: ${userId} | Entity: ${title || 'Unnamed Synthesis'} | Delegate: ${avatarName || 'System'}`);

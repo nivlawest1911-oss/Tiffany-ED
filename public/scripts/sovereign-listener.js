@@ -26,3 +26,21 @@ window.addEventListener("message", (event) => {
         alert("Neural Authorization Failed: This protocol requires Site Command elevation.");
     }
 });
+
+// ANTIGRAVITY KILL SIGNAL LISTENER
+window.addEventListener("message", (event) => {
+    if (event.source !== window) return;
+
+    if (event.data.type === "ANTIGRAVITY_KILL_SIGNAL") {
+        // 1. Tell the background script to stop all automation
+        if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.sendMessage) {
+            chrome.runtime.sendMessage({ action: "STOP_ALL_TASKS" }, (_response) => {
+                console.log("%c [Antigravity] Process Terminated.", "color: red;");
+
+                // 2. Visual feedback: Flash the screen red briefly to confirm the kill
+                document.body.style.border = "4px solid red";
+                setTimeout(() => document.body.style.border = "none", 500);
+            });
+        }
+    }
+});

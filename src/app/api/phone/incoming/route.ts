@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
         console.log(`[Phone] Incoming call: ${from} → ${to} (${callSid})`);
 
         // Handle incoming call
-        const callInfo = await AIPhoneAgentService.handleIncomingCall(callSid, from);
+        const _callInfo = await AIPhoneAgentService.handleIncomingCall(callSid, from);
 
         // Generate greeting
         const greeting = `Hello! Thank you for calling EdIntel Professional. 
