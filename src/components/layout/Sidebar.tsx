@@ -1,0 +1,265 @@
+"use client"
+
+import React from "react"
+
+import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import Image from "next/image"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import {
+    LayoutDashboard,
+    Users,
+    FileEdit,
+    Bot,
+    Settings,
+    ChevronLeft,
+    ChevronRight,
+    Video,
+    Mic,
+    ImageIcon,
+    Brain,
+    Link2,
+    Heart,
+    Building,
+    Gavel,
+    Shield,
+    Phone,
+    BarChart3,
+    Database,
+    BookOpen,
+    Globe,
+    Zap,
+} from "lucide-react"
+import { cn } from "@/lib/utils"
+
+interface NavSection {
+    title: string
+    items: { icon: React.ComponentType<{ className?: string }>; label: string; id: string; badge?: string; href?: string }[]
+}
+
+const navSections: NavSection[] = [
+    {
+        title: "Core",
+        items: [
+            { icon: LayoutDashboard, label: "Command Center", id: "command", href: "/admin/dashboard" },
+
+            { icon: Zap, label: "AI Hub", id: "ai-hub", badge: "Live" },
+            { icon: Bot, label: "Agent Swarm", id: "agents" },
+        ],
+    },
+    {
+        title: "Media Studio",
+        items: [
+            { icon: Video, label: "Video Studio", id: "video", href: "/studio" },
+            { icon: Mic, label: "Voice Lab", id: "voice", href: "/studio" },
+            { icon: ImageIcon, label: "Asset Lab", id: "images", href: "/studio" },
+            { icon: Globe, label: "Gemini Workspace", id: "gemini" },
+        ],
+    },
+    {
+        title: "Classroom",
+        items: [
+            { icon: Brain, label: "Super-Tools", id: "tools", href: "/education" },
+            { icon: Link2, label: "Connectors", id: "connectors", href: "/education" },
+            { icon: Heart, label: "Cognitive / EQ", id: "cognitive", href: "/education" },
+            { icon: Users, label: "Student Intel", id: "students", href: "/education" },
+        ],
+    },
+    {
+        title: "Executive",
+        items: [
+            { icon: FileEdit, label: "Grant Architect", id: "grants", href: "/command" },
+            { icon: Building, label: "Board Room", id: "board", href: "/command" },
+            { icon: Gavel, label: "The Room", id: "the-room", href: "/command" },
+            { icon: Shield, label: "Sovereign AI", id: "sovereign" },
+        ],
+    },
+    {
+        title: "Operations",
+        items: [
+            { icon: Phone, label: "Comms Center", id: "comms", href: "/comms" },
+            { icon: BarChart3, label: "Analytics", id: "analytics" },
+            { icon: Database, label: "Vault", id: "vault" },
+            { icon: BookOpen, label: "Resources", id: "resources" },
+            { icon: Settings, label: "Admin", id: "admin", href: "/admin" },
+        ],
+    },
+]
+
+export function Sidebar() {
+    const [collapsed, setCollapsed] = useState(false)
+    const [localActive, setLocalActive] = useState("command")
+    const pathname = usePathname()
+
+    return (
+        <motion.aside
+            initial={{ width: 240 }}
+            animate={{ width: collapsed ? 72 : 240 }}
+            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+            className="relative z-20 flex h-screen flex-col border-r border-white/10 bg-black/40 backdrop-blur-xl"
+        >
+            {/* Logo */}
+            <div className="flex h-16 items-center gap-3 px-4 border-b border-white/5 shrink-0">
+                <div className="relative flex h-10 w-10 shrink-0 items-center justify-center">
+                    <Image
+                        src="/images/edintel-sovereign-logo.png"
+                        alt="EdIntel Sovereign"
+                        width={40}
+                        height={40}
+                        className="rounded-lg object-contain"
+                        priority
+                    />
+                    <div
+                        className="absolute inset-0 rounded-lg opacity-40 shadow-[0_0_12px_rgba(6,182,212,0.3)] animate-pulse"
+                        style={{
+                            background: "radial-gradient(circle, rgba(6,182,212,0.3), transparent 70%)",
+                        }}
+                    />
+                </div>
+                <AnimatePresence>
+                    {!collapsed && (
+                        <motion.div
+                            initial={{ opacity: 0, width: 0 }}
+                            animate={{ opacity: 1, width: "auto" }}
+                            exit={{ opacity: 0, width: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="overflow-hidden whitespace-nowrap"
+                        >
+                            <span className="text-sm font-bold tracking-wide text-white">EdIntel</span>
+                            <span className="ml-1 inline-flex rounded-full px-1.5 py-0.5 text-[9px] font-bold text-[#06b6d4] border border-[#06b6d4]/30 bg-[#06b6d4]/10">
+                                SOVEREIGN
+                            </span>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </div>
+
+            {/* Navigation */}
+            <nav className="flex-1 overflow-y-auto py-2 px-3">
+                {navSections.map((section) => (
+                    <div key={section.title} className="mb-2">
+                        <AnimatePresence>
+                            {!collapsed && (
+                                <motion.p
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    className="px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.15em] text-white/20"
+                                >
+                                    {section.title}
+                                </motion.p>
+                            )}
+                        </AnimatePresence>
+                        <div className="space-y-0.5">
+                            {section.items.map((item) => {
+                                const isActive = item.href
+                                    ? pathname === item.href
+                                    : localActive === item.id
+
+                                const className = cn(
+                                    "group relative flex w-full items-center gap-3 rounded-xl px-3 py-2 text-[13px] font-medium transition-all duration-200",
+                                    isActive
+                                        ? "text-white"
+                                        : "text-white/40 hover:text-white/70 hover:bg-white/5"
+                                )
+
+                                const content = (
+                                    <>
+                                        {isActive && (
+                                            <motion.div
+                                                layoutId="sidebar-active"
+                                                className="absolute inset-0 rounded-xl bg-white/10 border border-white/10"
+                                                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                                            />
+                                        )}
+                                        {isActive && (
+                                            <motion.div
+                                                layoutId="sidebar-pill"
+                                                className="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-1 rounded-full bg-gradient-to-b from-[#7c3aed] to-[#06b6d4] shadow-[0_0_12px_rgba(124, 58, 237, 0.6)]"
+                                                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                                            />
+                                        )}
+                                        <item.icon className="relative z-10 h-4 w-4 shrink-0" />
+                                        <AnimatePresence>
+                                            {!collapsed && (
+                                                <motion.span
+                                                    initial={{ opacity: 0, width: 0 }}
+                                                    animate={{ opacity: 1, width: "auto" }}
+                                                    exit={{ opacity: 0, width: 0 }}
+                                                    transition={{ duration: 0.2 }}
+                                                    className="relative z-10 overflow-hidden whitespace-nowrap flex items-center gap-2"
+                                                >
+                                                    {item.label}
+                                                    {item.badge && (
+                                                        <span className="rounded-full bg-emerald-500/15 px-1.5 py-0.5 text-[8px] font-bold text-emerald-400">
+                                                            {item.badge}
+                                                        </span>
+                                                    )}
+                                                </motion.span>
+                                            )}
+                                        </AnimatePresence>
+                                    </>
+                                )
+
+                                if (item.href) {
+                                    return (
+                                        <Link
+                                            key={item.id}
+                                            href={item.href}
+                                            className={className}
+                                            suppressHydrationWarning
+                                        >
+                                            {content}
+                                        </Link>
+                                    )
+                                }
+
+                                return (
+                                    <button
+                                        key={item.id}
+                                        type="button"
+                                        onClick={() => setLocalActive(item.id)}
+                                        className={className}
+                                        suppressHydrationWarning
+                                    >
+                                        {content}
+                                    </button>
+                                )
+                            })}
+                        </div>
+                    </div>
+                ))}
+            </nav>
+
+            {/* System Health Badge */}
+            <div className="border-t border-white/5 px-3 py-2 shrink-0">
+                <AnimatePresence>
+                    {!collapsed && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="flex items-center gap-2 rounded-lg border border-white/5 bg-white/[0.02] px-3 py-2 mb-2"
+                        >
+                            <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_6px] shadow-emerald-500/50" />
+                            <div className="flex-1 min-w-0">
+                                <p className="text-[10px] font-medium text-white/50">All Systems</p>
+                                <p className="text-[9px] text-emerald-400/70">Operational</p>
+                            </div>
+                            <span className="text-[9px] text-white/20">99.9%</span>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+                <button
+                    type="button"
+                    suppressHydrationWarning
+                    onClick={() => setCollapsed(!collapsed)}
+                    className="flex w-full items-center justify-center rounded-lg p-2 text-white/40 transition-colors hover:bg-white/5 hover:text-white/70"
+                >
+                    {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+                </button>
+            </div>
+        </motion.aside>
+    )
+}
