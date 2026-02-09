@@ -1,95 +1,133 @@
 'use client';
 
+import {
+    Shield,
+    Lock,
+    Search,
+    Filter,
+    Download,
+    ExternalLink,
+    FileText,
+    FileCode,
+    FileSpreadsheet,
+    ChevronRight,
+    Search as SearchIcon,
+    Terminal
+} from 'lucide-react';
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Lock, FileText, Download, Gavel, Search, Key, Eye, ScrollText, Brain } from 'lucide-react';
-import FloatingNavbar from '@/components/FloatingNavbar';
-import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function ProfessionalVaultClient() {
-    const [searchTerm, setSearchTerm] = useState('');
-    const [activeTab, setActiveTab] = useState('all'); // all, legal, policy, contract, intel
-    const [archivedIntel, setArchivedIntel] = useState<any[]>([]);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState('All');
 
-    const staticDocuments = [
-        { id: 'ferpa', title: 'FERPA Leadership Defense', type: 'legal', date: '2024-03-15', status: 'Verified', confidence: '100%' },
-        { id: 'iep', title: 'IEP Due Process Shield (Template)', type: 'legal', date: '2024-03-10', status: 'Verified', confidence: '99%' },
-        { id: 'contract', title: 'Teacher Contract: IP Protection', type: 'contract', date: '2024-02-28', status: 'Draft', confidence: '95%' },
-        { id: 'ai-policy', title: 'AI Usage Policy (Board Approved)', type: 'policy', date: '2024-02-15', status: 'Active', confidence: '100%' },
-        { id: 'manifesto', title: 'Manifesto for Digital Rights', type: 'policy', date: '2024-01-01', status: 'Immutable', confidence: '100%' },
-        { id: 'privacy', title: 'Vendor Data Privacy Rider', type: 'contract', date: '2024-03-20', status: 'Verified', confidence: '98%' },
+    const documents = [
+        {
+            id: 'doc-1',
+            title: 'FERPA Compliance Protocol v2.4',
+            category: 'Legal',
+            type: 'PDF',
+            size: '2.4 MB',
+            updated: '2025-12-10',
+            icon: FileText,
+            color: 'text-blue-400',
+            bgColor: 'bg-blue-500/10'
+        },
+        {
+            id: 'doc-2',
+            title: 'AI Ethics & Algorithmic Disclosure',
+            category: 'Compliance',
+            type: 'DOCX',
+            size: '1.2 MB',
+            updated: '2025-12-12',
+            icon: Shield,
+            color: 'text-amber-400',
+            bgColor: 'bg-amber-500/10'
+        },
+        {
+            id: 'doc-3',
+            title: 'Data Sovereignty Master Agreement',
+            category: 'Government',
+            type: 'PDF',
+            size: '4.8 MB',
+            updated: '2025-12-08',
+            icon: Lock,
+            color: 'text-purple-400',
+            bgColor: 'bg-purple-500/10'
+        },
+        {
+            id: 'doc-4',
+            title: 'Intervention Logic Flowchart',
+            category: 'Technical',
+            type: 'SVG',
+            size: '850 KB',
+            updated: '2025-12-14',
+            icon: FileCode,
+            color: 'text-emerald-400',
+            bgColor: 'bg-emerald-500/10'
+        },
+        {
+            id: 'doc-5',
+            title: 'District ROI & Vitality Forecast',
+            category: 'Analytics',
+            type: 'XLSX',
+            size: '3.1 MB',
+            updated: '2025-12-11',
+            icon: FileSpreadsheet,
+            color: 'text-rose-400',
+            bgColor: 'bg-rose-500/10'
+        }
     ];
 
-    // Load AI Intel from LocalStorage
-    useState(() => {
-        if (typeof window !== 'undefined') {
-            try {
-                const intel = JSON.parse(localStorage.getItem('leadership_intel') || localStorage.getItem('sovereign_intel') || '[]');
-                setArchivedIntel(intel);
-            } catch (e) { console.error(e); }
-        }
+    const categories = ['All', 'Legal', 'Compliance', 'Government', 'Technical', 'Analytics'];
+
+    const filteredDocuments = documents.filter(doc => {
+        const matchesSearch = doc.title.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesCategory = selectedCategory === 'All' || doc.category === selectedCategory;
+        return matchesSearch && matchesCategory;
     });
 
-    const documents = [...archivedIntel, ...staticDocuments];
-    const filteredDocs = documents.filter(doc => (activeTab === 'all' || doc.type === activeTab) && doc.title.toLowerCase().includes(searchTerm.toLowerCase()));
-
     return (
-        <div className="min-h-screen bg-black text-white selection:bg-amber-500/30 font-sans">
-            <FloatingNavbar />
-
-            <div className="fixed inset-0 pointer-events-none z-0">
-                <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 z-50" />
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] opacity-10" />
-            </div>
-
-            <main className="max-w-7xl mx-auto px-6 py-24 relative z-10">
+        <main className="content-stage">
+            <div className="max-w-7xl mx-auto px-6 py-24 relative z-10">
                 {/* Header */}
-                <div className="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-white/10 pb-8">
-                    <div>
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-950/50 border border-amber-500/30 text-amber-500 text-[10px] font-black uppercase tracking-[0.2em] mb-4">
-                            <Lock size={12} />
-                            <span>Level 5 Security Clearance</span>
-                        </div>
-                        <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tight">
-                            Professional <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-600">Vault</span>
-                        </h1>
-                        <p className="text-zinc-500 max-w-xl mt-4">
-                            The ultimate repository of legal defenses, ironclad contracts, and strategic policies. Protect your career and your institution.
-                        </p>
+                <header className="mb-12">
+                    <div className="flex items-center gap-2 text-amber-500 text-xs font-black uppercase tracking-widest mb-4">
+                        <Terminal size={14} />
+                        <span>Sovereign Knowledge Base</span>
                     </div>
-
-                    <div className="mt-8 md:mt-0 flex gap-4">
-                        <div className="text-right">
-                            <div className="text-xs text-zinc-500 uppercase tracking-widest mb-1">Vault Status</div>
-                            <div className="text-emerald-500 font-bold flex items-center justify-end gap-2 text-sm">
-                                <Lock size={16} /> SECURE
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter mb-4">
+                        Professional <span className="text-amber-500 italic">Vault</span>
+                    </h1>
+                    <p className="text-xl text-zinc-400 max-w-2xl">
+                        Decrypted administrative protocols, compliance blueprints, and tactical intelligence for the Sovereign educator.
+                    </p>
+                </header>
 
                 {/* Controls */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
-                    <div className="lg:col-span-6">
-                        <div className="relative">
-                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" size={20} />
-                            <input
-                                type="text"
-                                placeholder="Search the Vault..."
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full bg-zinc-900 border border-zinc-800 rounded-xl py-4 pl-12 pr-4 text-white focus:border-amber-500 outline-none transition-all"
-                            />
-                        </div>
+                <div className="flex flex-col md:flex-row gap-6 mb-12">
+                    <div className="relative flex-1 group">
+                        <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-amber-500 transition-colors" size={20} />
+                        <input
+                            type="text"
+                            placeholder="Search decrypted files..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="w-full bg-zinc-900/50 border border-white/10 rounded-2xl py-4 pl-12 pr-6 text-white placeholder:text-zinc-600 focus:outline-none focus:border-amber-500/50 transition-all font-mono text-sm"
+                        />
                     </div>
-                    <div className="lg:col-span-6 flex gap-2">
-                        {['all', 'legal', 'contract', 'policy', 'intel'].map(tab => (
+
+                    <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-none">
+                        {categories.map((cat) => (
                             <button
-                                key={tab}
-                                onClick={() => setActiveTab(tab)}
-                                className={`flex-1 rounded-xl font-bold text-[10px] uppercase tracking-wider transition-all border ${activeTab === tab ? 'bg-amber-600 border-amber-500 text-white' : 'bg-zinc-900 border-zinc-800 text-zinc-500 hover:text-white'}`}
+                                key={cat}
+                                onClick={() => setSelectedCategory(cat)}
+                                className={`px-6 py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all whitespace-nowrap border ${selectedCategory === cat
+                                        ? 'bg-amber-500 text-black border-amber-500 shadow-lg shadow-amber-500/20'
+                                        : 'bg-zinc-900 text-zinc-500 border-white/5 hover:border-white/20'
+                                    }`}
                             >
-                                {tab}
+                                {cat}
                             </button>
                         ))}
                     </div>
@@ -97,70 +135,69 @@ export default function ProfessionalVaultClient() {
 
                 {/* Document Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {filteredDocs.map((doc: any) => (
-                        <motion.div
-                            key={doc.id}
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            whileHover={{ y: -5 }}
-                            className="bg-zinc-900/50 border border-zinc-800 p-6 rounded-2xl group cursor-pointer hover:border-amber-500/30 transition-all relative overflow-hidden"
-                        >
-                            <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                                <Gavel size={80} />
-                            </div>
-
-                            <div className="flex justify-between items-start mb-6">
-                                <div className={`p-3 rounded-lg ${doc.type === 'legal' ? 'bg-red-900/20 text-red-500' : doc.type === 'contract' ? 'bg-blue-900/20 text-blue-500' : doc.type === 'intel' ? 'bg-purple-900/20 text-purple-500' : 'bg-green-900/20 text-green-500'}`}>
-                                    {doc.type === 'legal' ? <Gavel size={24} /> : doc.type === 'contract' ? <FileText size={24} /> : doc.type === 'intel' ? <Brain size={24} /> : <ScrollText size={24} />}
+                    <AnimatePresence mode="popLayout">
+                        {filteredDocuments.map((doc, idx) => (
+                            <motion.div
+                                key={doc.id}
+                                layout
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.9 }}
+                                transition={{ duration: 0.2 }}
+                                className="group p-8 rounded-3xl bg-zinc-900/80 border border-white/5 hover:border-amber-500/30 transition-all hover:shadow-2xl hover:shadow-amber-500/5 relative overflow-hidden"
+                            >
+                                <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <ExternalLink size={14} className="text-zinc-500 hover:text-amber-500 cursor-pointer" />
                                 </div>
-                                <div className="px-2 py-1 rounded bg-zinc-950 border border-zinc-800 text-[10px] font-mono text-zinc-400">
-                                    {doc.date}
+
+                                <div className={`w-14 h-14 rounded-2xl ${doc.bgColor} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+                                    <doc.icon className={doc.color} size={28} />
                                 </div>
-                            </div>
 
-                            <h3 className="text-lg font-bold text-white mb-2 leading-tight group-hover:text-amber-500 transition-colors">
-                                {doc.title}
-                                {doc.delegate && <span className="block text-[10px] text-zinc-500 mt-1 uppercase tracking-widest">Architect: {doc.delegate}</span>}
-                            </h3>
+                                <div className="space-y-4">
+                                    <div className="space-y-1">
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-[10px] font-mono text-amber-500/50">{doc.category}</span>
+                                            <span className="w-1 h-1 rounded-full bg-zinc-800" />
+                                            <span className="text-[10px] font-mono text-zinc-600">{doc.type} • {doc.size}</span>
+                                        </div>
+                                        <h3 className="text-xl font-bold text-white group-hover:text-amber-400 transition-colors leading-tight">
+                                            {doc.title}
+                                        </h3>
+                                    </div>
 
-                            <div className="flex items-center gap-4 text-xs font-mono text-zinc-500 mb-6">
-                                <span className="flex items-center gap-1"><CheckCircleIcon status={doc.status} /> {doc.status}</span>
-                                <span className="flex items-center gap-1 text-amber-500/80"><Key size={10} /> {doc.rank || `Conf: ${doc.confidence}`}</span>
-                            </div>
-
-                            <div className="flex gap-2">
-                                <button className="flex-1 py-2 bg-zinc-950 hover:bg-zinc-800 border border-zinc-800 rounded-lg text-xs font-bold uppercase tracking-wider text-zinc-300 transition-colors flex items-center justify-center gap-2">
-                                    <Eye size={12} /> Preview
-                                </button>
-                                <button className="flex-1 py-2 bg-white text-black rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2">
-                                    <Download size={12} /> Access
-                                </button>
-                            </div>
-                        </motion.div>
-                    ))}
-
-                    {/* Upsell Card - The "Secret" Files */}
-                    <div className="bg-gradient-to-br from-amber-900/20 to-black border border-dashed border-amber-900/50 p-6 rounded-2xl flex flex-col items-center justify-center text-center group cursor-pointer hover:border-amber-500/50 transition-all">
-                        <div className="p-4 bg-amber-500/10 rounded-full text-amber-500 mb-4 group-hover:scale-110 transition-transform">
-                            <Lock size={32} />
-                        </div>
-                        <h3 className="text-lg font-bold text-white mb-2">Unlock Master Files</h3>
-                        <p className="text-xs text-zinc-500 mb-6 max-w-[200px]">
-                            Access 500+ premium executive templates, including Board Resignation Letters and Liability Waivers.
-                        </p>
-                        <Link href="/pricing">
-                            <button className="px-6 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-xs font-bold uppercase tracking-wider transition-all shadow-lg shadow-amber-900/20">
-                                Upgrade Clearance
-                            </button>
-                        </Link>
-                    </div>
+                                    <div className="flex items-center justify-between pt-4 border-t border-white/5">
+                                        <span className="text-[10px] font-mono text-zinc-600 uppercase tracking-widest">Modified: {doc.updated}</span>
+                                        <button className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-amber-500 hover:text-amber-400 transition-colors">
+                                            <Download size={14} />
+                                            Download
+                                        </button>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </AnimatePresence>
                 </div>
-            </main>
-        </div>
-    );
-}
 
-function CheckCircleIcon({ status }: { status: string }) {
-    if (status === 'Verified' || status === 'Active' || status === 'Immutable') return <div className="w-2 h-2 rounded-full bg-emerald-500" />;
-    return <div className="w-2 h-2 rounded-full bg-zinc-600" />;
+                {/* Upsell Card */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    className="mt-20 p-12 rounded-[2.5rem] bg-gradient-to-br from-amber-500/20 to-zinc-900 border border-amber-500/20 text-center relative overflow-hidden"
+                >
+                    <div className="absolute top-0 right-0 p-12 opacity-10">
+                        <Lock size={120} />
+                    </div>
+
+                    <h2 className="text-3xl font-black text-white mb-4">Request Classified Access</h2>
+                    <p className="text-zinc-400 max-w-xl mx-auto mb-8 font-medium">
+                        Custom district governance documents and enterprise-level risk assessments are available upon credential verification.
+                    </p>
+                    <button className="px-12 py-5 bg-amber-500 text-black font-black uppercase text-xs tracking-widest hover:bg-amber-400 transition-all rounded-2xl shadow-xl shadow-amber-500/20">
+                        Verify Credentials
+                    </button>
+                </motion.div>
+            </div>
+        </main>
+    );
 }

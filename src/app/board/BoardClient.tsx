@@ -25,11 +25,11 @@ const item = {
 
 export default function BoardClient() {
     return (
-        <motion.div
+        <motion.main
             initial="hidden"
             animate="show"
             variants={container}
-            className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 font-sans p-8 md:p-12 transition-colors duration-500"
+            className="content-stage"
         >
             <div className="max-w-6xl mx-auto space-y-12">
                 <motion.header variants={item} className="text-center space-y-4 relative pt-6">
@@ -106,6 +106,6 @@ export default function BoardClient() {
                     </Link>
                 </motion.footer>
             </div>
-        </motion.div >
+        </motion.main>
     );
 }

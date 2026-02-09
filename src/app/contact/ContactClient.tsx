@@ -1,13 +1,10 @@
 'use client';
-// Deployment: 2026-01-12T01:23:00-06:00
 
 import { useState } from 'react';
 import { Mail, MessageSquare, Phone, Send, MapPin, CheckCircle, Shield as LucideShield } from 'lucide-react';
 import { motion } from 'framer-motion';
-import FloatingNavbar from '@/components/FloatingNavbar';
-import Footer from '@/components/Footer';
 import HolographicBriefing from '@/components/HolographicBriefing';
-import AnimatedEducatorHero from '@/components/AnimatedEducatorHero';
+import Image from 'next/image';
 
 export default function ContactClient() {
     const [formState, setFormState] = useState({ name: '', email: '', message: '' });
@@ -25,12 +22,9 @@ export default function ContactClient() {
     };
 
     return (
-        <main className="min-h-screen bg-black text-white selection:bg-indigo-500/30">
-            <FloatingNavbar />
-
-            <div className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <main className="content-stage">
+            <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto py-12">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-
                     {/* Contact Info Column */}
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
@@ -60,21 +54,25 @@ export default function ContactClient() {
                         <HolographicBriefing
                             isOpen={showBriefing}
                             onClose={() => setShowBriefing(false)}
-                            title="Secure Comms Connection"
-                            description="Channel Open. You are now connected to the Professional Command Center. All transmissions are encrypted. Use this channel for strategic inquiries, partnership proposals, or technical directives. We are listening."
-                            role="Communications Director"
-                            avatarImage="/images/avatars/executive_leader.png"
-                            thumbnail="/images/features/iep-architect-demo.mp4"
-                            stats={{ time: "OPEN", saved: "SECURE", accuracy: "100%" }}
+                            agentId="strategic"
+                            title="Secure Comms Protocol"
+                            description="I am Keisha Reynolds. You are establishing a direct uplink to the EdIntel Command Center. All transmissions are encrypted and prioritized by the professional strategy cluster."
+                            briefingSteps={[
+                                "Initialize secure handshake protocol.",
+                                "Package inquiry data for executive review.",
+                                "Route transmission via encrypted district channels.",
+                                "Deploy strategic response framework within 24 hours."
+                            ]}
                         />
 
                         {/* Founder Profile */}
                         <div className="flex items-center gap-6 mb-12 p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-indigo-500/30 transition-colors">
                             <div className="relative w-24 h-24 flex-shrink-0">
-                                <img
+                                <Image
                                     src="/images/avatars/dr_alvin_west_premium.png"
                                     alt="Dr. Alvin West"
-                                    className="w-full h-full object-cover rounded-xl border border-white/20 shadow-lg"
+                                    fill
+                                    className="object-cover rounded-xl border border-white/20 shadow-lg"
                                 />
                                 <div className="absolute -bottom-2 -right-2 w-6 h-6 rounded-full bg-green-500 border-4 border-zinc-900 flex items-center justify-center">
                                     <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
@@ -92,7 +90,7 @@ export default function ContactClient() {
                         {/* Professional Protocol Visualization */}
                         <div className="mb-12 relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/50 p-6">
                             <div className="absolute top-0 right-0 p-4 opacity-30">
-                                <img src="/images/protocol_interface.png" alt="Protocol HUD" className="w-32 h-auto" />
+                                <Image src="/images/protocol_interface.png" alt="Protocol HUD" width={128} height={128} className="w-32 h-auto" />
                             </div>
 
                             <h3 className="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-4 flex items-center gap-2">
@@ -106,7 +104,14 @@ export default function ContactClient() {
                                     { step: '02', title: 'Transmission', desc: 'Message packet routed to Professional Command prioritization queue.', color: 'border-l-purple-500' },
                                     { step: '03', title: 'Deployment', desc: 'Strategic response formulated and deployed within 24 hours.', color: 'border-l-pink-500' }
                                 ].map((phase, idx) => (
-                                    <div key={idx} className={`pl-4 border-l-2 ${phase.color} fade-in-up`} style={{ animationDelay: `${idx * 150}ms` }}>
+                                    <motion.div
+                                        key={idx}
+                                        initial={{ opacity: 0, x: -20 }}
+                                        whileInView={{ opacity: 1, x: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: idx * 0.15, duration: 0.7 }}
+                                        className={`pl-4 border-l-2 ${phase.color}`}
+                                    >
                                         <div className="flex items-baseline gap-2 mb-1">
                                             <span className="text-xs font-mono text-zinc-500">{phase.step}</span>
                                             <h4 className="text-sm font-bold text-white">{phase.title}</h4>
@@ -114,7 +119,7 @@ export default function ContactClient() {
                                         <p className="text-xs text-zinc-400 leading-relaxed max-w-[90%]">
                                             {phase.desc}
                                         </p>
-                                    </div>
+                                    </motion.div>
                                 ))}
                             </div>
                         </div>
@@ -181,14 +186,6 @@ export default function ContactClient() {
                         transition={{ duration: 0.5, delay: 0.2 }}
                         className="bg-zinc-900/50 backdrop-blur-sm border border-white/10 rounded-3xl p-8 lg:p-10 relative overflow-hidden"
                     >
-                        {/* Animated Background - Replaced static image */}
-                        <div className="absolute inset-0 z-0 opacity-30 rounded-3xl overflow-hidden">
-                            <div className="scale-150 -translate-y-20">
-                                <AnimatedEducatorHero />
-                            </div>
-                            <div className="absolute inset-0 bg-gradient-to-br from-zinc-900 via-zinc-900/95 to-indigo-950/90" />
-                        </div>
-
                         {submitted ? (
                             <div className="h-full flex flex-col items-center justify-center text-center py-20 relative z-10">
                                 <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mb-6 border border-green-500/20">
@@ -206,45 +203,45 @@ export default function ContactClient() {
                         ) : (
                             <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
                                 <div>
-                                    <label className="block text-xs font-bold uppercase tracking-widest text-zinc-500 mb-2">Identity</label>
+                                    <label className="block text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-3 ml-1">Command Identity</label>
                                     <input
                                         type="text"
                                         required
                                         value={formState.name}
                                         onChange={e => setFormState({ ...formState, name: e.target.value })}
-                                        className="w-full bg-black/50 backdrop-blur-md border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors"
-                                        placeholder="Dr. Name"
+                                        className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-indigo-500/50 focus:bg-white/[0.05] transition-all placeholder:text-zinc-700"
+                                        placeholder="Dr. Professional Name"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold uppercase tracking-widest text-zinc-500 mb-2">Comms Frequency</label>
+                                    <label className="block text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-3 ml-1">Comms Frequency</label>
                                     <input
                                         type="email"
                                         required
                                         value={formState.email}
                                         onChange={e => setFormState({ ...formState, email: e.target.value })}
-                                        className="w-full bg-black/50 backdrop-blur-md border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors"
+                                        className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-indigo-500/50 focus:bg-white/[0.05] transition-all placeholder:text-zinc-700"
                                         placeholder="email@district.edu"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold uppercase tracking-widest text-zinc-500 mb-2">Transmission</label>
+                                    <label className="block text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-3 ml-1">Transmission Directive</label>
                                     <textarea
                                         required
                                         rows={4}
                                         value={formState.message}
                                         onChange={e => setFormState({ ...formState, message: e.target.value })}
-                                        className="w-full bg-black/50 backdrop-blur-md border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition-colors resize-none"
-                                        placeholder="How can we advance your strategy?"
+                                        className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-indigo-500/50 focus:bg-white/[0.05] transition-all placeholder:text-zinc-700 resize-none"
+                                        placeholder="Outline your strategic objectives..."
                                     />
                                 </div>
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-indigo-500/25 transition-all disabled:opacity-50 border border-white/10"
+                                    className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-black uppercase tracking-[0.4em] text-[10px] py-6 rounded-2xl flex items-center justify-center gap-3 hover:shadow-[0_0_30px_rgba(79,70,229,0.3)] transition-all disabled:opacity-50 border border-white/10 group"
                                 >
-                                    {isSubmitting ? 'Transmitting...' : 'Initialize Connection'}
-                                    <Send size={18} />
+                                    {isSubmitting ? 'Transmitting...' : 'Initialize Secure Connection'}
+                                    <Send size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                                 </button>
                             </form>
                         )}
@@ -258,7 +255,7 @@ export default function ContactClient() {
                 <div className="absolute inset-0 z-0">
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(99,102,241,0.1),transparent_50%)]" />
                     <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-pulse" />
-                    <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+                    <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-700" />
                 </div>
 
                 <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -415,8 +412,6 @@ export default function ContactClient() {
                     </motion.div>
                 </div>
             </section>
-
-            <Footer />
         </main>
     );
 }

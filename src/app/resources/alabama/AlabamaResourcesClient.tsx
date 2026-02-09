@@ -12,8 +12,8 @@ import {
     Globe,
     Scale
 } from 'lucide-react';
-import FloatingNavbar from '@/components/FloatingNavbar';
-import React from 'react';
+import React, { useState } from 'react';
+import HolographicBriefing from '@/components/HolographicBriefing';
 
 interface Resource {
     title: string;
@@ -24,6 +24,7 @@ interface Resource {
 }
 
 export default function AlabamaResourcesClient() {
+    const [showBriefing, setShowBriefing] = useState(false);
     const resources: Resource[] = [
         {
             title: "Alabama State Dept of Education",
@@ -63,17 +64,14 @@ export default function AlabamaResourcesClient() {
     ];
 
     return (
-        <div className="min-h-screen bg-black text-white selection:bg-blue-500/30">
-            <FloatingNavbar />
-
-            {/* Geometric Background */}
-            <div className="fixed inset-0 overflow-hidden pointer-events-none opacity-20">
-                <div className="absolute top-0 left-0 w-full h-full bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px]" />
+        <main className="content-stage">
+            {/* Geometric Background Decals */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-10">
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 blur-[150px] rounded-full" />
                 <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-emerald-600/10 blur-[150px] rounded-full" />
             </div>
 
-            <main className="relative z-10 max-w-6xl mx-auto px-6 py-20">
+            <div className="relative z-10 max-w-6xl mx-auto py-12">
                 {/* Header Section */}
                 <div className="mb-20 space-y-6">
                     <div className="flex items-center gap-3 text-blue-500 font-black uppercase tracking-[0.3em] text-xs">
@@ -85,6 +83,27 @@ export default function AlabamaResourcesClient() {
                     <p className="text-zinc-500 max-w-2xl text-lg font-medium leading-relaxed">
                         Access official state mandates, district portals, and legal frameworks critical for the EdIntel Professional Pilot and Institutional Compliance.
                     </p>
+
+                    <HolographicBriefing
+                        isOpen={showBriefing}
+                        onClose={() => setShowBriefing(false)}
+                        agentId="strategic"
+                        title="Regional Hub Briefing"
+                        description="Connecting to the Alabama Strategic Node. We have indexed official resources from ALSDE and local districts to ensure your institutional alignment."
+                        briefingSteps={[
+                            "Sync with Alabama Department of Education standards.",
+                            "Map Mobile County Public School policies.",
+                            "Review Special Education legal frameworks.",
+                            "Access community-sector partnership nodes."
+                        ]}
+                    />
+
+                    <button
+                        onClick={() => setShowBriefing(true)}
+                        className="mt-4 px-6 py-2 rounded-full border border-blue-500/20 bg-blue-500/5 text-blue-400 text-[9px] font-black uppercase tracking-[0.3em] hover:bg-blue-500/10 transition-all"
+                    >
+                        Initialize Regional Briefing
+                    </button>
                 </div>
 
                 {/* Categories */}
@@ -133,7 +152,7 @@ export default function AlabamaResourcesClient() {
                             <Info size={32} className="text-white" />
                         </div>
                         <div>
-                            <p className="text-lg font-bold">Missing a Regional Center?</p>
+                            <p className="text-lg font-bold text-white">Missing a Regional Center?</p>
                             <p className="text-sm text-zinc-400">Request the addition of local AL educational frameworks for better AI grounding.</p>
                         </div>
                     </div>
@@ -141,11 +160,7 @@ export default function AlabamaResourcesClient() {
                         Submit Resource Center
                     </button>
                 </div>
-            </main>
-
-            <footer className="py-20 border-t border-zinc-900 opacity-30 text-center">
-                <p className="text-[10px] font-black uppercase tracking-[0.4em]">Leadership Hub // Mobile County Education Command</p>
-            </footer>
-        </div>
+            </div>
+        </main>
     );
 }

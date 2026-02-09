@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Quote, Star, Play, Pause, Mic } from 'lucide-react';
+import Image from 'next/image';
 
 // Waveform Bar Component
 function AudioWaveformBar({ index, theme }: { index: number, theme: 'default' | 'professional' }) {
@@ -24,8 +25,6 @@ function AudioWaveformBar({ index, theme }: { index: number, theme: 'default' | 
 // --- Talking Avatar Component ---
 function TalkingAvatarTestimonial({ testimonial, theme = 'professional' }: { testimonial: any, theme?: 'default' | 'professional' }) {
     const [isSpeaking, setIsSpeaking] = useState(false);
-    const [audioLevel, setAudioLevel] = useState(0); // For simulated lip sync
-
     // Voice Configuration
     const speak = () => {
         if ('speechSynthesis' in window) {
@@ -61,23 +60,8 @@ function TalkingAvatarTestimonial({ testimonial, theme = 'professional' }: { tes
         setIsSpeaking(false);
     };
 
-    // Simulated Lip Sync Animation Loop
-    useEffect(() => {
-        let interval: NodeJS.Timeout;
-        if (isSpeaking) {
-            interval = setInterval(() => {
-                // Randomize "mouth" openness/audio level
-                setAudioLevel(Math.random() * 100);
-            }, 100);
-        } else {
-            setAudioLevel(0);
-        }
-        return () => clearInterval(interval);
-    }, [isSpeaking]);
-
     // Theme Colors
     const borderColor = theme === 'professional' ? 'border-amber-500/30' : 'border-indigo-500/30';
-    const glowColor = theme === 'professional' ? 'shadow-amber-500/20' : 'shadow-indigo-500/20';
     const accentColor = theme === 'professional' ? 'text-amber-400' : 'text-indigo-400';
 
     return (
@@ -91,10 +75,11 @@ function TalkingAvatarTestimonial({ testimonial, theme = 'professional' }: { tes
             <div className="relative aspect-video mb-6 rounded-xl overflow-hidden bg-black border border-white/5 group-hover:border-white/10 transition-colors">
                 {/* Background Image/Avatar */}
                 <div className="absolute inset-0">
-                    <img
+                    <Image
                         src={testimonial.thumbnail}
                         alt={testimonial.name}
-                        className={`w-full h-full object-cover transition-transform duration-700 ${isSpeaking ? 'scale-110' : 'scale-100'}`}
+                        fill
+                        className={`object-cover transition-transform duration-700 ${isSpeaking ? 'scale-110' : 'scale-100'}`}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
                 </div>

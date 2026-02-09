@@ -1,8 +1,3 @@
-'use client';
-// Deployment: 2026-01-12T01:23:00-06:00
-
-import FloatingNavbar from '@/components/FloatingNavbar';
-import Footer from '@/components/Footer';
 import { Shield as LucideShield, Sparkles } from "lucide-react";
 
 export default function TestMediaClient() {
@@ -20,17 +15,15 @@ export default function TestMediaClient() {
     ];
 
     return (
-        <main className="min-h-screen bg-black text-white selection:bg-indigo-500/30">
-            <FloatingNavbar />
-
-            <div className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <main className="content-stage">
+            <div className="py-12 max-w-7xl mx-auto">
                 {/* Header */}
                 <div className="text-center mb-16">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-bold uppercase tracking-widest mb-6">
                         <LucideShield size={14} />
                         <span>Professional Delegates</span>
                     </div>
-                    <h1 className="text-5xl md:text-6xl font-black text-white mb-6 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    <h1 className="text-5xl md:text-6xl font-black text-white mb-6 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent italic">
                         EdIntel AI Delegates
                     </h1>
                     <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
@@ -93,8 +86,6 @@ export default function TestMediaClient() {
                     </div>
                 </div>
             </div>
-
-            <Footer />
         </main>
     );
 }

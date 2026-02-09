@@ -1,9 +1,12 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { Activity, Globe } from "lucide-react";
+import NextImage from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Activity, Globe, X } from "lucide-react";
 import { generateProfessionalResponse } from '../lib/leadership-ai';
 import GenerativeLogStream from './GenerativeLogStream';
+import AIAgentAvatar from './AIAgentAvatar';
 
 interface LiveBriefingConsoleProps {
     name: string;
@@ -19,11 +22,11 @@ interface LiveBriefingConsoleProps {
 export default function LiveBriefingConsole({ name, description, role, color, prompts, onComplete, videoSrc, avatarImage }: LiveBriefingConsoleProps) {
     const [text, setText] = useState('');
     const [isSpeaking, setIsSpeaking] = useState(false);
-    const hasStartedRef = useRef(false);
     const videoRef = useRef<HTMLVideoElement>(null);
     const userVideoRef = useRef<HTMLVideoElement>(null);
     const [currentScript, setCurrentScript] = useState(`Briefing Started. Target: ${name}. \n\nObjective: ${description} \n\nI am here to assist as your ${role}. Ready to help you lead effectively.`);
     const [logType, setLogType] = useState<'IEP' | 'GRANT' | 'DATA' | 'POLICY' | 'DEFAULT'>('DEFAULT');
+    const [showLiveAvatar, setShowLiveAvatar] = useState(false);
 
     // 1. Initialize User Webcam (Secure Connection)
     useEffect(() => {
@@ -150,10 +153,13 @@ export default function LiveBriefingConsole({ name, description, role, color, pr
                     />
                 ) : (
                     <div className="relative w-64 h-64">
-                        <img
+                        <NextImage
                             src={avatarImage || "/images/avatars/executive_leader.png"}
                             alt="Avatar"
+                            width={256}
+                            height={256}
                             className={`w-full h-full object-cover rounded-full border-4 border-${themeColor}-500/30 transition-transform duration-500 ${isSpeaking ? 'scale-105' : 'scale-100'}`}
+                            priority
                         />
                         {isSpeaking && (
                             <div className={`absolute inset-0 rounded-full border-2 border-${themeColor}-400 animate-ping`} />
@@ -162,6 +168,29 @@ export default function LiveBriefingConsole({ name, description, role, color, pr
                 )}
                 {/* Vignette Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/50" />
+
+                {/* LIVE AVATAR OVERLAY */}
+                <AnimatePresence>
+                    {showLiveAvatar && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="absolute inset-0 z-50 bg-black"
+                        >
+                            <AIAgentAvatar
+                                textToSpeak={currentScript}
+                            />
+                            <button
+                                onClick={() => setShowLiveAvatar(false)}
+                                className="absolute top-6 right-6 z-[60] p-3 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 font-black"
+                                title="Close Live Link"
+                            >
+                                <X size={20} className="text-white" />
+                            </button>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
 
             {/* USER WEBCAM (Secure Connection PIP) */}
@@ -242,13 +271,21 @@ export default function LiveBriefingConsole({ name, description, role, color, pr
 
                 {/* Viral Broadcast Button */}
                 <button
+                    onClick={() => setShowLiveAvatar(true)}
+                    className="mt-4 flex items-center gap-2 px-4 py-2 bg-indigo-500/20 backdrop-blur-xl border border-indigo-500/50 hover:bg-indigo-500/40 text-xs text-indigo-200 rounded-lg transition-all group/broadcast"
+                >
+                    <Activity className="w-3 h-3 animate-pulse" />
+                    <span className="font-bold uppercase tracking-widest">Neural strategic link</span>
+                </button>
+
+                <button
                     onClick={() => {
                         navigator.clipboard.writeText(window.location.href);
                         setText("Link copied to clipboard. Shared access enabled.");
                         setIsSpeaking(true);
                         setTimeout(() => setIsSpeaking(false), 3000);
                     }}
-                    className="mt-4 flex items-center gap-2 px-4 py-2 bg-red-500/20 backdrop-blur-xl border border-red-500/50 hover:bg-red-500/40 text-xs text-red-200 rounded-lg transition-all group/broadcast"
+                    className="mt-2 flex items-center gap-2 px-4 py-2 bg-red-500/20 backdrop-blur-xl border border-red-500/50 hover:bg-red-500/40 text-xs text-red-200 rounded-lg transition-all group/broadcast"
                 >
                     <Globe className="w-3 h-3 animate-pulse" />
                     <span className="font-bold uppercase tracking-widest">Share Stream</span>

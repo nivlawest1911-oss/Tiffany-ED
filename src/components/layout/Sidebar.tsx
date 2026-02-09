@@ -44,45 +44,45 @@ const navSections: NavSection[] = [
         items: [
             { icon: LayoutDashboard, label: "Command Center", id: "command", href: "/admin/dashboard" },
 
-            { icon: Zap, label: "AI Hub", id: "ai-hub", badge: "Live" },
+            { icon: Zap, label: "AI Hub", id: "ai-hub", badge: "Live", href: "/admin/command" },
             { icon: Bot, label: "Agent Swarm", id: "agents" },
         ],
     },
     {
         title: "Media Studio",
         items: [
-            { icon: Video, label: "Video Studio", id: "video", href: "/studio" },
-            { icon: Mic, label: "Voice Lab", id: "voice", href: "/studio" },
-            { icon: ImageIcon, label: "Asset Lab", id: "images", href: "/studio" },
+            { icon: Video, label: "Video Studio", id: "video", href: "/admin/studio" },
+            { icon: Mic, label: "Voice Lab", id: "voice", href: "/admin/studio" },
+            { icon: ImageIcon, label: "Asset Lab", id: "images", href: "/admin/studio" },
             { icon: Globe, label: "Gemini Workspace", id: "gemini" },
         ],
     },
     {
         title: "Classroom",
         items: [
-            { icon: Brain, label: "Super-Tools", id: "tools", href: "/education" },
-            { icon: Link2, label: "Connectors", id: "connectors", href: "/education" },
-            { icon: Heart, label: "Cognitive / EQ", id: "cognitive", href: "/education" },
-            { icon: Users, label: "Student Intel", id: "students", href: "/education" },
+            { icon: Brain, label: "Super-Tools", id: "tools", href: "/admin/academic" },
+            { icon: Link2, label: "Connectors", id: "connectors", href: "/admin/academic" },
+            { icon: Heart, label: "Cognitive / EQ", id: "cognitive", href: "/admin/academic" },
+            { icon: Users, label: "Student Intel", id: "students", href: "/admin/academic" },
         ],
     },
     {
         title: "Executive",
         items: [
-            { icon: FileEdit, label: "Grant Architect", id: "grants", href: "/command" },
-            { icon: Building, label: "Board Room", id: "board", href: "/command" },
-            { icon: Gavel, label: "The Room", id: "the-room", href: "/command" },
+            { icon: FileEdit, label: "Grant Architect", id: "grants", href: "/admin/command" },
+            { icon: Building, label: "Board Room", id: "board", href: "/admin/command" },
+            { icon: Gavel, label: "The Room", id: "the-room", href: "/admin/command" },
             { icon: Shield, label: "Sovereign AI", id: "sovereign" },
         ],
     },
     {
         title: "Operations",
         items: [
-            { icon: Phone, label: "Comms Center", id: "comms", href: "/comms" },
+            { icon: Phone, label: "Comms Center", id: "comms", href: "/admin/comms" },
             { icon: BarChart3, label: "Analytics", id: "analytics" },
             { icon: Database, label: "Vault", id: "vault" },
             { icon: BookOpen, label: "Resources", id: "resources" },
-            { icon: Settings, label: "Admin", id: "admin", href: "/admin" },
+            { icon: Settings, label: "Admin", id: "admin", href: "/admin/management" },
         ],
     },
 ]
@@ -236,19 +236,43 @@ export function Sidebar() {
             <div className="border-t border-white/5 px-3 py-2 shrink-0">
                 <AnimatePresence>
                     {!collapsed && (
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className="flex items-center gap-2 rounded-lg border border-white/5 bg-white/[0.02] px-3 py-2 mb-2"
-                        >
-                            <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_6px] shadow-emerald-500/50" />
-                            <div className="flex-1 min-w-0">
-                                <p className="text-[10px] font-medium text-white/50">All Systems</p>
-                                <p className="text-[9px] text-emerald-400/70">Operational</p>
+                        <>
+                            <div className="flex items-center gap-2 rounded-lg border border-white/5 bg-white/[0.02] px-3 py-2 mb-2">
+                                <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_6px] shadow-emerald-500/50" />
+                                <div className="flex-1 min-w-0">
+                                    <p className="text-[10px] font-medium text-white/50">All Systems</p>
+                                    <p className="text-[9px] text-emerald-400/70">Operational</p>
+                                </div>
+                                <span className="text-[9px] text-white/20">99.9%</span>
                             </div>
-                            <span className="text-[9px] text-white/20">99.9%</span>
-                        </motion.div>
+
+                            {/* Founder Footer Section */}
+                            <div className="p-4 mt-auto border-t border-white/5 bg-slate-950/30 backdrop-blur-md rounded-xl mb-2 overflow-hidden">
+                                <div className="flex items-center space-x-3 hover:bg-white/5 p-2 rounded-xl cursor-pointer transition-colors group">
+                                    <div className="h-10 w-10 rounded-full border border-blue-500/30 flex items-center justify-center overflow-hidden relative shrink-0">
+                                        <Image
+                                            src="/images/avatars/dr_alvin_west_executive.jpg"
+                                            alt="Dr. Alvin West"
+                                            fill
+                                            className="object-cover"
+                                            onError={(e) => {
+                                                // Note: onError behavior with next/image is different, usually handled via state
+                                                const target = e.target as HTMLImageElement;
+                                                target.srcset = 'https://ui-avatars.com/api/?name=Alvin+West&background=0D8ABC&color=fff';
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="flex-1 overflow-hidden">
+                                        <p className="text-xs font-bold text-white group-hover:text-blue-400 transition-colors truncate">
+                                            Dr. Alvin West
+                                        </p>
+                                        <p className="text-[10px] text-slate-500 font-medium uppercase tracking-wider truncate">
+                                            Sovereign Founder
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </>
                     )}
                 </AnimatePresence>
                 <button

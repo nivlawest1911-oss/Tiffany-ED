@@ -60,7 +60,7 @@ export default function ArchiveClient() {
     return (
         <AdminGuard>
             <Suspense fallback={null}><SuccessBadge /></Suspense>
-            <div className="min-h-screen bg-black text-white p-8 md:p-12 transition-colors duration-500 relative overflow-hidden">
+            <main className="content-stage">
                 {/* Kente Pattern Top Strip */}
                 <div className="absolute top-0 left-0 w-full h-1.5 flex overflow-hidden opacity-50">
                     {Array.from({ length: 40 }).map((_, i) => (
@@ -189,7 +189,7 @@ export default function ArchiveClient() {
                         </motion.div>
                     )}
                 </div>
-            </div>
+            </main>
         </AdminGuard>
     );
 }

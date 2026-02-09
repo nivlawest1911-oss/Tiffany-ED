@@ -31,6 +31,7 @@ const config = {
         "intel-gold": "#C5A47E",
         "sovereign-black": "#050505",
         "noble-navy": "#0A0E1A",
+        "glass-border": "rgba(255, 255, 255, 0.1)",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -77,6 +78,12 @@ const config = {
           orange: "#FF8C00",
         }
       },
+      backgroundImage: {
+        'grid': "radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.05) 1px, transparent 0)",
+      },
+      backgroundSize: {
+        'grid': "40px 40px",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -102,6 +109,14 @@ const config = {
         "pulse-gold": {
           "0%, 100%": { opacity: "1", boxShadow: "0 0 20px rgba(197,164,126,0.3)" },
           "50%": { opacity: "0.5", boxShadow: "0 0 40px rgba(197,164,126,0.6)" },
+        },
+        shimmer: {
+          "0%": { backgroundPosition: "-200% center" },
+          "100%": { backgroundPosition: "200% center" },
+        },
+        "glow-pulse": {
+          "0%, 100%": { opacity: "0.4", filter: "blur(6px)", transform: "scale(1)" },
+          "50%": { opacity: "0.6", filter: "blur(8px)", transform: "scale(1.05)" },
         }
       },
       animation: {
@@ -110,6 +125,8 @@ const config = {
         float: "float 6s ease-in-out infinite",
         scan: "scan 3s linear infinite",
         "pulse-gold": "pulse-gold 4s ease-in-out infinite",
+        shimmer: "shimmer 5s linear infinite",
+        "glow-pulse": "glow-pulse 3s ease-in-out infinite",
       },
     },
   },

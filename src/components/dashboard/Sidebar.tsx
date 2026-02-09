@@ -3,6 +3,7 @@
 import React from 'react';
 import { LayoutGrid, Database, Video, Zap, LogOut, Settings } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
 export const Sidebar = () => {
@@ -10,60 +11,55 @@ export const Sidebar = () => {
 
     const navItems = [
         { icon: LayoutGrid, label: 'Dashboard', href: '/dashboard' },
-        { icon: Database, label: 'District Intelligence', href: '/dashboard/data' },
+        { icon: Database, label: 'District Intelligence', href: '/analytics' },
         { icon: Video, label: 'Sovereign Studio', href: '/dashboard/studio' },
-        { icon: Zap, label: 'Antigravity Logs', href: '/dashboard/logs' },
-        { icon: Settings, label: 'Settings', href: '/dashboard/settings' },
+        { icon: Zap, label: 'Antigravity Logs', href: '/admin' },
+        { icon: Settings, label: 'Settings', href: '/settings' },
     ];
 
     return (
-        <aside className="w-20 border-r border-zinc-900 bg-zinc-950 flex flex-col items-center py-8 z-50">
-            {/* BRAND LOGO PILL */}
-            <Link href="/dashboard" className="mb-12 group">
-                <div className="h-10 w-10 bg-amber-500 rounded-xl flex items-center justify-center font-black text-black group-hover:scale-110 transition-all shadow-[0_0_20px_rgba(245,158,11,0.2)]">
-                    Ei
-                </div>
-            </Link>
+        <aside className="w-64 fixed left-0 top-0 h-full bg-zinc-950/50 backdrop-blur-xl border-r border-white/10 flex flex-col py-8 z-50">
+            {/* BRAND LOGO */}
+            <div className="px-6 mb-12">
+                <Link href="/dashboard" className="flex items-center gap-3 group">
+                    <div className="h-10 w-10 relative group-hover:scale-110 transition-all">
+                        <Image src="/edintel-logo.png" alt="EdIntel Logo" fill className="object-contain" />
+                    </div>
+                    <span className="text-xl font-black tracking-tight text-white uppercase italic">EdIntel<span className="text-noble-gold not-italic">AI</span></span>
+                </Link>
+            </div>
 
             {/* PRIMARY NAV LINKS */}
-            <nav className="flex flex-col gap-8 flex-1">
+            <nav className="flex flex-col gap-2 px-4 flex-1">
                 {navItems.map((item) => {
                     const isActive = pathname === item.href;
                     return (
                         <Link
                             key={item.href}
                             href={item.href}
-                            title={item.label}
-                            aria-label={item.label}
-                            className={`p-3 rounded-2xl transition-all duration-300 relative group ${isActive
-                                    ? 'text-amber-500 bg-amber-500/10 shadow-[0_0_15px_rgba(245,158,11,0.1)]'
-                                    : 'text-zinc-600 hover:text-zinc-300'
+                            className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 group ${isActive
+                                ? 'text-white bg-white/10'
+                                : 'text-zinc-400 hover:text-white hover:bg-white/5'
                                 }`}
                         >
-                            <item.icon size={22} strokeWidth={isActive ? 2.5 : 2} />
-
-                            {/* ACTIVE GLOW BAR */}
-                            {isActive && (
-                                <div className="absolute left-[-1.25rem] top-1/2 -translate-y-1/2 w-1 h-6 bg-amber-500 rounded-r-full shadow-[0_0_10px_rgba(245,158,11,0.5)]" />
-                            )}
-
-                            {/* HOVER LABEL (Optional Tooltip approach) */}
-                            <div className="absolute left-16 top-1/2 -translate-y-1/2 px-2 py-1 bg-zinc-900 border border-zinc-800 text-zinc-400 text-[10px] font-mono whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity rounded">
-                                {item.label}
-                            </div>
+                            <item.icon size={20} strokeWidth={isActive ? 2.5 : 2} className={isActive ? 'text-primary' : 'text-zinc-400 group-hover:text-white'} />
+                            <span className="text-sm font-bold uppercase tracking-wider">{item.label}</span>
                         </Link>
                     );
                 })}
             </nav>
 
             {/* EXIT COMMAND */}
-            <button
-                title="Logout"
-                aria-label="Logout"
-                className="p-3 text-zinc-600 hover:text-red-500 transition-colors mt-auto"
-            >
-                <LogOut size={22} />
-            </button>
+            <div className="px-4 mt-auto">
+                <button
+                    title="Logout"
+                    aria-label="Logout"
+                    className="w-full flex items-center gap-3 px-4 py-3 text-zinc-400 hover:text-red-500 hover:bg-red-500/10 transition-all rounded-xl"
+                >
+                    <LogOut size={20} />
+                    <span className="text-sm font-bold uppercase tracking-wider">Logout</span>
+                </button>
+            </div>
         </aside>
     );
 };

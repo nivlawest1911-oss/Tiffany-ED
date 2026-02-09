@@ -7,9 +7,6 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { default as NextImage } from 'next/image';
-import FloatingNavbar from '@/components/FloatingNavbar';
-import Footer from '@/components/Footer';
-import CircadianFilter from '@/components/graphics/CircadianFilter';
 import { THE_ROOM_HERO } from '@/lib/assets';
 
 const commandCenters = [
@@ -57,12 +54,10 @@ const commandCenters = [
 
 export default function TheRoomClient() {
     return (
-        <main className="min-h-screen bg-black text-white selection:bg-indigo-500/30 overflow-x-hidden">
-            <CircadianFilter />
-            <FloatingNavbar />
+        <main className="content-stage">
 
             {/* Strategic Header */}
-            <div className="relative pt-40 pb-24 px-6 overflow-hidden">
+            <div className="relative py-20 overflow-hidden">
                 <div className="absolute top-0 inset-x-0 h-full bg-[radial-gradient(circle_at_50%_0%,rgba(99,102,241,0.15),transparent_70%)] pointer-events-none" />
 
                 <div className="max-w-7xl mx-auto relative z-10">
@@ -173,7 +168,6 @@ export default function TheRoomClient() {
                 </div>
             </section>
 
-            <Footer />
         </main>
     );
 }

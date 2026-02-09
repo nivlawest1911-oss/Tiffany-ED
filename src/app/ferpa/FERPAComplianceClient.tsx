@@ -1,11 +1,12 @@
 'use client';
 
 import { ShieldCheck, Lock, FileKey, Check, Server, EyeOff } from 'lucide-react';
-import FloatingNavbar from '@/components/FloatingNavbar';
-import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
+import HolographicBriefing from '@/components/HolographicBriefing';
+import { useState } from 'react';
 
 export default function FERPAComplianceClient() {
+    const [showBriefing, setShowBriefing] = useState(false);
     const protocols = [
         {
             icon: Lock,
@@ -34,8 +35,7 @@ export default function FERPAComplianceClient() {
     ];
 
     return (
-        <main className="min-h-screen bg-black text-white selection:bg-emerald-500/30 overflow-x-hidden">
-            <FloatingNavbar />
+        <main className="content-stage">
 
             {/* 1. Hero: Compliance Shield */}
             <div className="relative pt-40 pb-32 px-6 overflow-hidden">
@@ -51,6 +51,27 @@ export default function FERPAComplianceClient() {
                     >
                         <ShieldCheck size={12} /> Compliance Architecture
                     </motion.div>
+
+                    <HolographicBriefing
+                        isOpen={showBriefing}
+                        onClose={() => setShowBriefing(false)}
+                        agentId="strategic"
+                        title="Compliance Protocol"
+                        description="Initializing security handshake. We have verified all institutional data sovereignty layers. The EdIntel system matches the FERPA Ironclad standard."
+                        briefingSteps={[
+                            "Sync AES-256 encryption handshake.",
+                            "Verify Zero-Training data isolation.",
+                            "Establish 'School Official' legal residency.",
+                            "Map building-level purge protocols."
+                        ]}
+                    />
+
+                    <button
+                        onClick={() => setShowBriefing(true)}
+                        className="block mx-auto mb-8 px-6 py-2 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-emerald-400 text-[9px] font-black uppercase tracking-[0.3em] hover:bg-emerald-500/10 transition-all"
+                    >
+                        Initialize Compliance Briefing
+                    </button>
 
                     <motion.h1
                         initial={{ opacity: 0, scale: 0.95 }}
@@ -157,7 +178,6 @@ export default function FERPAComplianceClient() {
                 </div>
             </section>
 
-            <Footer />
         </main>
     );
 }

@@ -73,8 +73,18 @@ function PaymentContent() {
 
 export default function PaymentClient() {
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 py-12">
-            <Suspense fallback={<div className="flex justify-center items-center h-64">Loading payment gateway...</div>}>
+        <div className="min-h-screen bg-black py-12 relative overflow-hidden">
+            {/* Sovereign Background elements */}
+            <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
+                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] scale-150" />
+            </div>
+
+            <Suspense fallback={
+                <div className="flex flex-col justify-center items-center h-64 space-y-4">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-noble-gold"></div>
+                    <div className="text-xs font-black text-noble-gold uppercase tracking-widest">Initialising Secure Protocol...</div>
+                </div>
+            }>
                 <PaymentContent />
             </Suspense>
         </div>

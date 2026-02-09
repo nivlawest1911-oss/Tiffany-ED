@@ -243,7 +243,15 @@ export default function AbilityAnimation({ type }: AbilityAnimationProps) {
             {renderContent()}
 
             {/* Common HUD Overlay elements */}
-            <div className="absolute top-4 left-4 flex items-center gap-2">
+            <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.05] z-30">
+                <motion.div
+                    animate={{ y: ['0%', '100%'] }}
+                    transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+                    className="w-full h-[1px] bg-white shadow-[0_0_10px_white]"
+                />
+            </div>
+
+            <div className="absolute top-4 left-4 flex items-center gap-2 z-40">
                 <motion.div
                     animate={{ scale: [1, 1.2, 1] }}
                     transition={{ duration: 0.5, repeat: Infinity }}

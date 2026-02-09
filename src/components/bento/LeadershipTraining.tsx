@@ -1,5 +1,6 @@
 'use client';
 import { Play, ChevronRight, Brain, Target, Zap, Shield as LucideShield } from 'lucide-react';
+import Image from 'next/image';
 import { useState } from 'react';
 import {
     TRAINING_HUB_HERO,
@@ -104,10 +105,11 @@ export default function LeadershipTraining() {
             {/* Hero Card */}
             <div className="relative w-full aspect-[21/9] rounded-[2.5rem] overflow-hidden mb-10 group/hero border border-zinc-200 shadow-xl bg-white">
                 <div className="absolute inset-0 bg-gradient-to-r from-white via-white/50 to-transparent z-10" />
-                <img
+                <Image
                     src={TRAINING_HUB_HERO}
-                    className="absolute inset-0 w-full h-full object-cover grayscale opacity-20 group-hover/hero:scale-105 transition-transform duration-1000"
+                    className="object-cover grayscale opacity-20 group-hover/hero:scale-105 transition-transform duration-1000"
                     alt="Training Hub"
+                    fill
                 />
 
                 <div className="absolute inset-0 z-20 p-12 flex flex-col justify-between">
@@ -163,7 +165,7 @@ export default function LeadershipTraining() {
                     {diagnostics.map((item, idx) => (
                         <div key={idx} className="bg-white rounded-[2rem] border border-zinc-200 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 group/diag">
                             <div className="h-40 relative">
-                                <img src={item.img} className="w-full h-full object-cover group-hover/diag:scale-110 transition-transform duration-700" alt={item.title} />
+                                <Image src={item.img} className="object-cover group-hover/diag:scale-110 transition-transform duration-700" alt={item.title} fill />
                                 <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent" />
                                 <div className="absolute top-4 left-4 flex gap-2">
                                     {item.tags.map((tag, t) => (
@@ -194,7 +196,7 @@ export default function LeadershipTraining() {
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 animate-in fade-in slide-in-from-bottom-8 duration-700">
                     {simulators.map((game, idx) => (
                         <div key={idx} className="group/game relative aspect-square rounded-2xl overflow-hidden border border-zinc-200 bg-white cursor-pointer shadow-sm hover:shadow-lg transition-all">
-                            <img src={game.img} className="w-full h-full object-cover grayscale group-hover/game:grayscale-0 group-hover/game:scale-110 transition-all duration-700" alt={game.title} />
+                            <Image src={game.img} className="object-cover grayscale group-hover/game:grayscale-0 group-hover/game:scale-110 transition-all duration-700" alt={game.title} fill />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover/game:opacity-100 transition-opacity p-4 flex flex-col justify-end">
                                 <p className="text-[10px] font-black text-white uppercase tracking-tight leading-none mb-1">{game.title}</p>
                                 <div className="flex gap-1">

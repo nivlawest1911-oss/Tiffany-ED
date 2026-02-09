@@ -1,0 +1,76 @@
+﻿
+> edintel-app@1.0.0 prebuild
+> echo clean
+
+clean
+
+> edintel-app@1.0.0 build
+> next build
+
+   Γû▓ Next.js 15.5.10
+   - Environments: .env.local, .env.production, .env
+   - Experiments (use with caution):
+     ┬╖ serverActions
+     ┬╖ optimizePackageImports
+
+   Creating an optimized production build ...
+node.exe : Failed to 
+compile.
+At C:\Users\nivla\App
+Data\Roaming\npm\npm.
+ps1:24 char:5
++     & "node$exe"  "
+$basedir/node_modules
+/npm/bin/npm-cli.js" 
+$args
++     ~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: (Failed    
+ to compile.:Stri    
+ng) [], RemoteEx    
+ception
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+
+./src/components/Enha
+ncedGenerator.tsx
+Error:   [31mx[0m 
+Expected '}', got 
+'<eof>'
+     ,-[[36;1;4mC:\U
+sers\nivla\edintel-ap
+p\src\components\Enha
+ncedGenerator.tsx[0m
+:754:1]
+ [2m751[0m |       
+              />
+ [2m752[0m |       
+          </div>
+ [2m753[0m |       
+      );
+ [2m754[0m |       
+  }
+     : [35;1m       
+  ^[0m
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for 
+requested module:
+./src/components/Enha
+ncedGenerator.tsx
+./src/app/generators/
+[id]/page.tsx
+
+
+> Build failed 
+because of webpack 
+errors

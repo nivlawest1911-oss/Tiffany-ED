@@ -18,15 +18,20 @@ export const VIBES: Vibe[] = [
 interface VibeContextType {
     currentVibe: Vibe;
     setVibe: (vibe: Vibe) => void;
+    isCommandConsoleOpen: boolean;
+    toggleCommandConsole: () => void;
 }
 
 const VibeContext = createContext<VibeContextType | undefined>(undefined);
 
 export const SovereignVibeProvider = ({ children }: { children: ReactNode }) => {
     const [currentVibe, setVibe] = useState<Vibe>(VIBES[0]);
+    const [isCommandConsoleOpen, setIsCommandConsoleOpen] = useState(false);
+
+    const toggleCommandConsole = () => setIsCommandConsoleOpen(prev => !prev);
 
     return (
-        <VibeContext.Provider value={{ currentVibe, setVibe }}>
+        <VibeContext.Provider value={{ currentVibe, setVibe, isCommandConsoleOpen, toggleCommandConsole }}>
             {children}
         </VibeContext.Provider>
     );

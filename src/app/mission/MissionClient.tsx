@@ -1,15 +1,15 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import FloatingNavbar from '@/components/FloatingNavbar';
-import Footer from '@/components/Footer';
 import { Target, Lightbulb, TrendingUp, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import HolographicBriefing from '@/components/HolographicBriefing';
+import React, { useState } from 'react';
 
 export default function MissionClient() {
+    const [showBriefing, setShowBriefing] = useState(false);
     return (
-        <div className="min-h-screen bg-[#0a0a0f] text-white selection:bg-emerald-500/30">
-            <FloatingNavbar />
+        <main className="content-stage">
 
             {/* Hero Section with Parallax Video */}
             <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
@@ -38,6 +38,27 @@ export default function MissionClient() {
                         </h1>
                     </motion.div>
 
+                    <HolographicBriefing
+                        isOpen={showBriefing}
+                        onClose={() => setShowBriefing(false)}
+                        agentId="visionary"
+                        title="Mission Protocol"
+                        description="Welcome to the core of the EdIntel revolution. We aren't just building software; we are architecting the future of educational leadership."
+                        briefingSteps={[
+                            "Defeating administrative friction with neural automation.",
+                            "Empowering educators to reclaim their strategic vision.",
+                            "Scaling institutional impact through Sovereignty.",
+                            "Establishing the standard for AI-integrated leadership."
+                        ]}
+                    />
+
+                    <button
+                        onClick={() => setShowBriefing(true)}
+                        className="inline-flex items-center gap-2 mb-12 px-8 py-3 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-emerald-400 text-xs font-black uppercase tracking-[0.3em] hover:bg-emerald-500/10 transition-all shadow-[0_0_30px_rgba(16,185,129,0.1)]"
+                    >
+                        Initialize Mission Briefing
+                    </button>
+
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -45,8 +66,8 @@ export default function MissionClient() {
                         className="text-2xl md:text-3xl text-zinc-300 font-light max-w-3xl mx-auto leading-relaxed"
                     >
                         To liberate educators from administrative fatigue through
-                        <span className="text-emerald-400 font-bold"> Intelligent Automation</span> and
-                        <span className="text-indigo-400 font-bold"> Strategic Leadership</span>.
+                        <span className="text-emerald-400 font-bold italic"> Intelligent Automation</span> and
+                        <span className="text-indigo-400 font-bold italic"> Strategic Leadership</span>.
                     </motion.p>
                 </div>
             </section>
@@ -107,7 +128,6 @@ export default function MissionClient() {
                 </div>
             </section>
 
-            <Footer />
-        </div>
+        </main>
     );
 }

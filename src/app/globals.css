@@ -1,117 +1,238 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@layer base {
-    :root {
-        --background: 240 10% 3.9%;
-        --foreground: 0 0% 98%;
-        --card: 240 10% 3.9%;
-        --card-foreground: 0 0% 98%;
-        --popover: 240 10% 3.9%;
-        --popover-foreground: 0 0% 98%;
-        --primary: 43 48% 59%;
-        /* Noble Gold #C5A059 */
-        --primary-foreground: 240 5.9% 10%;
-        --secondary: 275 100% 25%;
-        /* Imperial Purple #4B0082 */
-        --secondary-foreground: 0 0% 98%;
-        --muted: 240 3.7% 15.9%;
-        --muted-foreground: 240 5% 64.9%;
-        --accent: 240 3.7% 15.9%;
-        --accent-foreground: 0 0% 98%;
-        --destructive: 0 62.8% 30.6%;
-        --destructive-foreground: 0 0% 98%;
-        --border: 240 3.7% 15.9%;
-        --input: 240 3.7% 15.9%;
-        --ring: 43 48% 59%;
-        --radius: 1rem;
-    }
+@font-face {
+    font-family: 'Ethnocentric';
+    src: url('/fonts/ethnocentric_rg.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Satoshi';
+    src: url('/fonts/Satoshi-Variable.ttf') format('truetype');
+    font-weight: 300 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --font-heading: 'Ethnocentric', sans-serif;
+    --font-sans: var(--font-outfit), 'Inter', sans-serif;
+    --color-background: hsl(222.2 84% 4.9%);
+    --color-foreground: hsl(210 40% 98%);
+    --color-card: hsl(222.2 84% 4.9%);
+    --color-card-foreground: hsl(210 40% 98%);
+    --color-popover: hsl(222.2 84% 4.9%);
+    --color-popover-foreground: hsl(210 40% 98%);
+    --color-primary: hsl(217.2 91.2% 59.8%);
+    --color-primary-foreground: hsl(222.2 47.4% 11.2%);
+    --color-secondary: hsl(217.2 32.6% 17.5%);
+    --color-secondary-foreground: hsl(210 40% 98%);
+    --color-muted: hsl(217.2 32.6% 17.5%);
+    --color-muted-foreground: hsl(215 20.2% 65.1%);
+    --color-accent: hsl(217.2 32.6% 17.5%);
+    --color-accent-foreground: hsl(210 40% 98%);
+    --color-destructive: hsl(0 62.8% 30.6%);
+    --color-destructive-foreground: hsl(210 40% 98%);
+    --color-border: hsl(217.2 32.6% 17.5%);
+    --color-input: hsl(217.2 32.6% 17.5%);
+    --color-ring: hsl(212.7 26.8% 83.9%);
+    --color-noble-gold: #c5a47e;
+    --color-intel-gold: #c5a47e;
+    --color-sovereign-black: #050505;
+    --color-shield-green: #10b981;
 }
 
 @layer base {
     * {
-        @apply border-border;
+        border-color: var(--color-border);
     }
 
     body {
-        @apply bg-background text-foreground;
-        background-color: #050505;
-        background-image:
-            radial-gradient(at 0% 0%, rgba(75, 0, 130, 0.15) 0px, transparent 50%),
-            radial-gradient(at 100% 100%, rgba(197, 160, 89, 0.1) 0px, transparent 50%),
-            radial-gradient(at 50% 50%, rgba(0, 0, 0, 0) 0px, #050505 100%);
+        background-color: var(--color-background);
+        color: var(--color-foreground);
+        font-family: var(--font-sans);
+        font-feature-settings: "rlig" 1, "calt" 1, "cv01" 1, "ss01" 1;
+        background-image: url('/assets/images/carbon-fibre-pattern.png');
+        background-repeat: repeat;
         background-attachment: fixed;
-        min-height: 100vh;
+        line-height: 1.6;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: var(--font-heading);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        line-height: 1.1;
+    }
+
+    button {
+        font-family: var(--font-heading);
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+    }
+
+    p {
+        margin-bottom: 1rem;
     }
 }
 
-@layer components {
-    .glass-card {
-        @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl transition-all duration-300;
-        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+/* --- SOVEREIGN OS CINEMATIC UTILITIES --- */
+
+.shadow-regal {
+    box-shadow: 0 0 20px rgba(197, 164, 126, 0.1), 0 0 40px rgba(0, 0, 0, 0.5);
+}
+
+.glass-panel {
+    background-color: rgba(2, 6, 23, 0.65);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+}
+
+.glass-panel:hover {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 500ms;
+    background-color: rgba(15, 23, 42, 0.8);
+    border-color: rgba(59, 130, 246, 0.3);
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.15);
+}
+
+.text-gradient-gold {
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(to right, #fde68a, #facc15, #d97706);
+}
+
+.text-gradient-blue {
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(to right, #60a5fa, #818cf8, #2563eb);
+}
+
+.animate-aurora-1 {
+    animation: aurora-1 15s infinite alternate linear;
+}
+
+.animate-aurora-2 {
+    animation: aurora-2 25s infinite alternate linear;
+}
+
+.animate-aurora-3 {
+    animation: aurora-3 30s infinite alternate linear;
+}
+
+/* --- ANIMATION KEYFRAMES --- */
+
+@keyframes aurora-1 {
+    0% {
+        top: 0;
+        left: 0;
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0.4;
     }
 
-    .glass-card:hover {
-        @apply bg-white/10 border-white/20;
-        box-shadow: 0 8px 32px 0 rgba(197, 160, 89, 0.15);
-    }
-
-    .text-shimmer {
-        @apply bg-clip-text text-transparent bg-gradient-to-r from-zinc-200 via-zinc-400 to-zinc-200 bg-[length:200%_auto] animate-shimmer;
-    }
-
-    .noble-gradient {
-        @apply bg-gradient-to-br from-[#C5A059] via-[#D4AF37] to-[#B8860B];
+    100% {
+        top: 20%;
+        left: 30%;
+        transform: translate(-20%, 10%) rotate(10deg);
+        opacity: 0.7;
     }
 }
 
-@keyframes shimmer {
-    to {
-        background-position: 200% center;
+@keyframes aurora-2 {
+    0% {
+        bottom: 0;
+        right: 0;
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0.3;
+    }
+
+    100% {
+        bottom: 20%;
+        right: 20%;
+        transform: translate(10%, -10%) rotate(-10deg);
+        opacity: 0.6;
     }
 }
 
-.animate-shimmer {
-    animation: shimmer 5s linear infinite;
+@keyframes aurora-3 {
+    0% {
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(0deg);
+        opacity: 0.2;
+    }
+
+    100% {
+        top: 60%;
+        left: 40%;
+        transform: translate(-30%, -30%) rotate(45deg);
+        opacity: 0.5;
+    }
 }
 
-/* Custom Scrollbar */
+/* --- SCANLINE & GLITCH EFFECTS --- */
+
+.scanline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom,
+            transparent 50%,
+            rgba(0, 0, 0, 0.3) 50%);
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0.15;
+}
+
+.animate-scan {
+    animation: scan 8s linear infinite;
+}
+
+@keyframes scan {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 0 100%;
+    }
+}
+
+/* --- CUSTOM SCROLLBAR (High-End Feel) --- */
+
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
+    height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-    background: transparent;
+    background: #020617;
+    /* slate-950 */
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(197, 160, 89, 0.2);
-    border-radius: 4px;
+    background: #1e293b;
+    /* slate-800 */
+    border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(197, 160, 89, 0.4);
-}
-
-@keyframes glow-pulse {
-
-    0%,
-    100% {
-        opacity: 0.4;
-        filter: blur(6px);
-        transform: scale(1);
-    }
-
-    50% {
-        opacity: 0.6;
-        filter: blur(8px);
-        transform: scale(1.05);
-    }
-}
-
-html {
-    scroll-behavior: smooth;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    background: #3b82f6;
+    /* blue-500 */
 }

@@ -32,6 +32,8 @@ interface CoreTool {
 export default function SovereignShell({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
 
+    const isMarketingRoute = ['/', '/signup', '/login', '/about', '/pricing', '/contact', '/whats-edintel', '/enterprise'].includes(pathname);
+
     const tools: CoreTool[] = [
         {
             id: 'home',
@@ -74,62 +76,64 @@ export default function SovereignShell({ children }: { children: React.ReactNode
         <div className="flex h-screen bg-sovereign-black text-white font-sans overflow-hidden selection:bg-intel-gold selection:text-black">
             <NeuralBackground />
 
-            <aside className="hidden md:flex w-24 hover:w-72 bg-black border-r border-intel-gold/10 transition-all duration-500 ease-in-out group z-50 flex-col items-center py-8 relative">
-                <div className="absolute inset-0 bg-gradient-to-b from-intel-gold/[0.02] to-transparent pointer-events-none" />
+            {!isMarketingRoute && (
+                <aside className="hidden md:flex w-24 hover:w-72 bg-black border-r border-intel-gold/10 transition-all duration-500 ease-in-out group z-50 flex-col items-center py-8 relative">
+                    <div className="absolute inset-0 bg-gradient-to-b from-intel-gold/[0.02] to-transparent pointer-events-none" />
 
-                <Link href="/" className="mb-16 relative group/logo px-4">
-                    <div className="flex flex-col items-center gap-2">
-                        <div className="w-14 h-14 border-2 border-intel-gold/40 rounded-3xl flex items-center justify-center text-intel-gold font-black bg-white/[0.02] shadow-[0_0_40px_rgba(197,164,126,0.2)] group-hover/logo:scale-110 group-hover/logo:border-intel-gold transition-all duration-700 italic relative overflow-hidden">
-                            <div className="absolute inset-0 bg-gold-gradient opacity-10" />
-                            <span className="text-2xl relative z-10">EI</span>
-                        </div>
-                        <span className="text-[10px] font-black uppercase tracking-[0.4em] text-intel-gold mt-4 opacity-0 group-hover:opacity-100 transition-all duration-500 italic">EdIntel</span>
-                    </div>
-                </Link>
-
-                <nav className="flex-1 w-full px-4 space-y-4 relative z-10">
-                    {tools.map((tool) => {
-                        const active = pathname === tool.href;
-                        return (
-                            <div key={tool.id} className="relative">
-                                <SovereignInteractionAgent
-                                    title={tool.label}
-                                    description={tool.desc}
-                                    agentId={tool.id === 'intel' ? 'tactical' : 'visionary'}
-                                    position="right"
-                                    className="w-full"
-                                >
-                                    <Link href={tool.href}>
-                                        <div className={`flex items-center p-4 rounded-2xl cursor-pointer border transition-all duration-500 group/item
-                                            ${active
-                                                ? 'bg-intel-gold/10 border-intel-gold/30 text-intel-gold shadow-[0_0_30px_rgba(197,164,126,0.1)]'
-                                                : 'border-transparent hover:bg-white/[0.03] hover:border-white/10 text-zinc-600 hover:text-white'}`}>
-                                            <tool.icon className={`w-6 h-6 shrink-0 transition-transform duration-500 ${active ? 'scale-110' : 'group-hover/item:scale-110 group-hover/item:text-intel-gold'}`} />
-                                            <span className={`ml-6 text-[11px] font-black uppercase tracking-[0.3em] opacity-0 group-hover:opacity-100 transition-all duration-500 whitespace-nowrap italic
-                                                ${active ? 'translate-x-0' : '-translate-x-4 group-hover:translate-x-0'}`}>
-                                                {tool.label}
-                                            </span>
-                                        </div>
-                                    </Link>
-                                </SovereignInteractionAgent>
+                    <Link href="/" className="mb-16 relative group/logo px-4">
+                        <div className="flex flex-col items-center gap-2">
+                            <div className="w-14 h-14 border-2 border-intel-gold/40 rounded-3xl flex items-center justify-center text-intel-gold font-black bg-white/[0.02] shadow-[0_0_40px_rgba(197,164,126,0.2)] group-hover/logo:scale-110 group-hover/logo:border-intel-gold transition-all duration-700 italic relative overflow-hidden">
+                                <div className="absolute inset-0 bg-gold-gradient opacity-10" />
+                                <span className="text-2xl relative z-10">EI</span>
                             </div>
-                        );
-                    })}
-                </nav>
+                            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-intel-gold mt-4 opacity-0 group-hover:opacity-100 transition-all duration-500 italic">EdIntel</span>
+                        </div>
+                    </Link>
 
-                <div className="w-full px-6 pt-8 border-t border-white/5 mt-auto">
-                    <div className="flex flex-col items-center gap-6 opacity-40 group-hover:opacity-100 transition-opacity pb-8">
-                        <div className="w-10 h-10 rounded-full bg-zinc-900 border border-white/10 overflow-hidden group-hover:border-intel-gold/40 transition-colors relative">
-                            <Image
-                                src="/images/keisha_reynolds_avatar_1768666809673.png"
-                                alt="District Administrator Avatar"
-                                fill
-                                className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-                            />
+                    <nav className="flex-1 w-full px-4 space-y-4 relative z-10">
+                        {tools.map((tool) => {
+                            const active = pathname === tool.href;
+                            return (
+                                <div key={tool.id} className="relative">
+                                    <SovereignInteractionAgent
+                                        title={tool.label}
+                                        description={tool.desc}
+                                        agentId={tool.id === 'intel' ? 'tactical' : 'visionary'}
+                                        position="right"
+                                        className="w-full"
+                                    >
+                                        <Link href={tool.href}>
+                                            <div className={`flex items-center p-4 rounded-2xl cursor-pointer border transition-all duration-500 group/item
+                                            ${active
+                                                    ? 'bg-intel-gold/10 border-intel-gold/30 text-intel-gold shadow-[0_0_30px_rgba(197,164,126,0.1)]'
+                                                    : 'border-transparent hover:bg-white/[0.03] hover:border-white/10 text-zinc-600 hover:text-white'}`}>
+                                                <tool.icon className={`w-6 h-6 shrink-0 transition-transform duration-500 ${active ? 'scale-110' : 'group-hover/item:scale-110 group-hover/item:text-intel-gold'}`} />
+                                                <span className={`ml-6 text-[11px] font-black uppercase tracking-[0.3em] opacity-0 group-hover:opacity-100 transition-all duration-500 whitespace-nowrap italic
+                                                ${active ? 'translate-x-0' : '-translate-x-4 group-hover:translate-x-0'}`}>
+                                                    {tool.label}
+                                                </span>
+                                            </div>
+                                        </Link>
+                                    </SovereignInteractionAgent>
+                                </div>
+                            );
+                        })}
+                    </nav>
+
+                    <div className="w-full px-6 pt-8 border-t border-white/5 mt-auto">
+                        <div className="flex flex-col items-center gap-6 opacity-40 group-hover:opacity-100 transition-opacity pb-8">
+                            <div className="w-10 h-10 rounded-full bg-zinc-900 border border-white/10 overflow-hidden group-hover:border-intel-gold/40 transition-colors relative">
+                                <Image
+                                    src="/images/keisha_reynolds_avatar_1768666809673.png"
+                                    alt="District Administrator Avatar"
+                                    fill
+                                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                                />
+                            </div>
                         </div>
                     </div>
-                </div>
-            </aside>
+                </aside>
+            )}
 
             {/* MAIN CONTENT AREA */}
             <div className="flex-1 flex flex-col relative overflow-hidden">
@@ -137,16 +141,18 @@ export default function SovereignShell({ children }: { children: React.ReactNode
                 {/* 2. THE SOVEREIGN BAR (Header) */}
                 <header className="h-20 md:h-24 border-b border-white/[0.04] flex items-center justify-between px-6 md:px-12 bg-black/40 backdrop-blur-3xl relative z-40">
                     <div className="flex items-center gap-12">
-                        <Link href="/" className="md:hidden">
-                            <div className="w-10 h-10 border border-intel-gold/40 rounded-xl flex items-center justify-center text-intel-gold font-black bg-white/[0.02] italic text-lg">
+                        <Link href="/" className={`${isMarketingRoute ? '' : 'md:hidden'}`}>
+                            <div className="w-10 h-10 border border-intel-gold/40 rounded-xl flex items-center justify-center text-intel-gold font-black bg-white/[0.02] shadow-[0_0_20px_rgba(197,164,126,0.1)] group-hover:scale-110 transition-transform italic text-lg">
                                 Ei
                             </div>
                         </Link>
 
-                        <div className="hidden sm:flex items-center gap-4 group cursor-default">
-                            <div className="w-2.5 h-2.5 rounded-full bg-shield-green animate-pulse shadow-[0_0_15px_rgba(16,185,129,0.5)]" />
-                            <span className="text-[10px] font-black font-mono text-zinc-500 uppercase tracking-[0.5em] italic">Due Process Shield: Active</span>
-                        </div>
+                        {!isMarketingRoute && (
+                            <div className="hidden sm:flex items-center gap-4 group cursor-default">
+                                <div className="w-2.5 h-2.5 rounded-full bg-shield-green animate-pulse shadow-[0_0_15px_rgba(16,185,129,0.5)]" />
+                                <span className="text-[10px] font-black font-mono text-zinc-500 uppercase tracking-[0.5em] italic">Due Process Shield: Active</span>
+                            </div>
+                        )}
 
                         <div className="hidden xl:flex items-center gap-3 px-6 py-2.5 bg-white/[0.02] border border-white/5 rounded-full">
                             <Coins size={12} className="text-intel-gold" />

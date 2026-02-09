@@ -103,7 +103,11 @@ export default function AnalyticsDashboard() {
     ];
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 p-6">
+        <div className="min-h-screen bg-black p-6 relative overflow-hidden">
+            {/* Sovereign Background elements */}
+            <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
+                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] scale-150" />
+            </div>
             <div className="max-w-7xl mx-auto space-y-6">
                 {/* Header */}
                 <motion.div
@@ -112,16 +116,20 @@ export default function AnalyticsDashboard() {
                     className="flex items-center justify-between mb-8"
                 >
                     <div>
-                        <h1 className="text-4xl font-bold text-white mb-2">Analytics Dashboard</h1>
-                        <p className="text-purple-300">Track your impact and productivity</p>
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-noble-gold/10 border border-noble-gold/20 mb-4">
+                            <BarChart3 className="w-4 h-4 text-noble-gold" />
+                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-noble-gold">Operational Intelligence</span>
+                        </div>
+                        <h1 className="text-4xl font-black text-white mb-2 uppercase tracking-tighter">Strategic <span className="text-noble-gold italic">Metrics</span></h1>
+                        <p className="text-zinc-500">Monitoring protocol impact and institutional efficiency.</p>
                     </div>
                     <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold shadow-lg shadow-purple-500/50 flex items-center gap-2"
+                        className="px-6 py-3 rounded-xl bg-noble-gold text-black font-black text-xs uppercase tracking-widest shadow-[0_0_20px_rgba(212,175,55,0.2)] flex items-center gap-2"
                     >
                         <Download className="w-5 h-5" />
-                        Export Report
+                        Export Intelligence
                     </motion.button>
                 </motion.div>
 
@@ -136,11 +144,11 @@ export default function AnalyticsDashboard() {
                             whileHover={{ scale: 1.02, y: -4 }}
                             className="relative group"
                         >
-                            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all" />
-                            <div className="relative p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-purple-500/20 group-hover:border-purple-500/40 transition-all">
+                            <div className="absolute inset-0 bg-noble-gold/5 rounded-2xl blur-xl group-hover:bg-noble-gold/10 transition-all" />
+                            <div className="relative p-6 rounded-2xl bg-zinc-900/40 backdrop-blur-xl border border-white/5 group-hover:border-noble-gold/30 transition-all">
                                 <div className="flex items-start justify-between mb-4">
-                                    <div className={`p-3 rounded-xl bg-gradient-to-br ${card.color}`}>
-                                        <card.icon className="w-6 h-6 text-white" />
+                                    <div className="p-3 rounded-xl bg-zinc-800 border border-noble-gold/20">
+                                        <card.icon className="w-6 h-6 text-noble-gold" />
                                     </div>
                                     <div className={`flex items-center gap-1 text-sm font-medium ${card.trendUp ? 'text-green-400' : 'text-red-400'
                                         }`}>
@@ -149,16 +157,16 @@ export default function AnalyticsDashboard() {
                                     </div>
                                 </div>
                                 <div className="text-3xl font-bold text-white mb-1">{card.value}</div>
-                                <div className="text-sm text-purple-300 mb-4">{card.label}</div>
+                                <div className="text-sm text-zinc-500 mb-4">{card.label}</div>
 
                                 {/* Mini Sparkline */}
                                 <div className="h-8">
                                     <ResponsiveContainer width="100%" height="100%">
-                                        <LineChart data={card.sparkline.map((v, i) => ({ value: v }))}>
+                                        <LineChart data={card.sparkline.map((v) => ({ value: v }))}>
                                             <Line
                                                 type="monotone"
                                                 dataKey="value"
-                                                stroke="#a855f7"
+                                                stroke="#D4AF37"
                                                 strokeWidth={2}
                                                 dot={false}
                                             />
@@ -177,18 +185,18 @@ export default function AnalyticsDashboard() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4 }}
-                        className="p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-purple-500/20"
+                        className="p-6 rounded-2xl bg-zinc-900/40 backdrop-blur-xl border border-white/5"
                     >
                         <div className="flex items-center justify-between mb-6">
                             <div>
                                 <h2 className="text-2xl font-bold text-white mb-1">Usage Over Time</h2>
-                                <p className="text-purple-300 text-sm">Last 10 days</p>
+                                <p className="text-zinc-500 text-sm">Last 10 days</p>
                             </div>
                             <div className="flex gap-2">
-                                <button className="px-3 py-1 rounded-lg bg-purple-500/20 text-purple-300 text-sm">
+                                <button className="px-3 py-1 rounded-lg bg-noble-gold/10 text-noble-gold text-[10px] font-bold uppercase tracking-widest border border-noble-gold/20">
                                     Generations
                                 </button>
-                                <button className="px-3 py-1 rounded-lg bg-black/40 text-purple-400 text-sm hover:bg-purple-500/20">
+                                <button className="px-3 py-1 rounded-lg bg-zinc-900 text-zinc-500 text-[10px] font-bold uppercase tracking-widest hover:text-zinc-300 transition-colors">
                                     Time Saved
                                 </button>
                             </div>
@@ -199,8 +207,8 @@ export default function AnalyticsDashboard() {
                                 <LineChart data={usageData}>
                                     <defs>
                                         <linearGradient id="colorGradient" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#a855f7" stopOpacity={0.3} />
-                                            <stop offset="95%" stopColor="#a855f7" stopOpacity={0} />
+                                            <stop offset="5%" stopColor="#D4AF37" stopOpacity={0.3} />
+                                            <stop offset="95%" stopColor="#D4AF37" stopOpacity={0} />
                                         </linearGradient>
                                     </defs>
                                     <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
@@ -209,7 +217,7 @@ export default function AnalyticsDashboard() {
                                     <Tooltip
                                         contentStyle={{
                                             backgroundColor: '#1e293b',
-                                            border: '1px solid rgba(168, 85, 247, 0.2)',
+                                            border: '1px solid rgba(212, 175, 55, 0.2)',
                                             borderRadius: '8px',
                                             color: '#fff',
                                         }}
@@ -217,10 +225,10 @@ export default function AnalyticsDashboard() {
                                     <Line
                                         type="monotone"
                                         dataKey="generations"
-                                        stroke="#a855f7"
+                                        stroke="#D4AF37"
                                         strokeWidth={3}
                                         fill="url(#colorGradient)"
-                                        dot={{ fill: '#a855f7', r: 4 }}
+                                        dot={{ fill: '#D4AF37', r: 4 }}
                                         activeDot={{ r: 6 }}
                                     />
                                 </LineChart>
@@ -233,7 +241,7 @@ export default function AnalyticsDashboard() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.5 }}
-                        className="p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-purple-500/20"
+                        className="p-6 rounded-2xl bg-zinc-900/40 backdrop-blur-xl border border-white/5"
                     >
                         <h2 className="text-2xl font-bold text-white mb-6">Top Tools</h2>
                         <div className="h-64">
@@ -244,13 +252,13 @@ export default function AnalyticsDashboard() {
                                     <YAxis dataKey="tool" type="category" stroke="#9ca3af" style={{ fontSize: '12px' }} width={120} />
                                     <Tooltip
                                         contentStyle={{
-                                            backgroundColor: '#1e293b',
-                                            border: '1px solid rgba(168, 85, 247, 0.2)',
+                                            backgroundColor: '#000',
+                                            border: '1px solid rgba(212, 175, 55, 0.2)',
                                             borderRadius: '8px',
                                             color: '#fff',
                                         }}
                                     />
-                                    <Bar dataKey="count" fill="#a855f7" radius={[0, 8, 8, 0]} />
+                                    <Bar dataKey="count" fill="#D4AF37" radius={[0, 8, 8, 0]} />
                                 </BarChart>
                             </ResponsiveContainer>
                         </div>
@@ -264,9 +272,9 @@ export default function AnalyticsDashboard() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.6 }}
-                        className="p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-purple-500/20"
+                        className="p-6 rounded-2xl bg-zinc-900/40 backdrop-blur-xl border border-white/5"
                     >
-                        <h2 className="text-2xl font-bold text-white mb-6">AI Insights</h2>
+                        <h2 className="text-2xl font-black text-white mb-6 uppercase tracking-tighter">AI <span className="text-noble-gold italic">Insights</span></h2>
                         <div className="space-y-4">
                             {insights.map((insight, index) => (
                                 <motion.div
@@ -274,14 +282,14 @@ export default function AnalyticsDashboard() {
                                     initial={{ opacity: 0, x: -20 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: 0.7 + index * 0.1 }}
-                                    className="flex items-start gap-4 p-4 rounded-xl bg-purple-500/10 border border-purple-500/20"
+                                    className="flex items-start gap-4 p-4 rounded-xl bg-noble-gold/5 border border-noble-gold/20"
                                 >
-                                    <div className={`p-3 rounded-lg bg-gradient-to-br ${insight.color} flex-shrink-0`}>
-                                        <insight.icon className="w-5 h-5 text-white" />
+                                    <div className="p-3 rounded-lg bg-zinc-800 border border-noble-gold/20 flex-shrink-0">
+                                        <insight.icon className="w-5 h-5 text-noble-gold" />
                                     </div>
                                     <div>
-                                        <h3 className="text-white font-semibold mb-1">{insight.title}</h3>
-                                        <p className="text-purple-300 text-sm">{insight.description}</p>
+                                        <h3 className="text-white font-bold text-sm uppercase tracking-tight mb-1">{insight.title}</h3>
+                                        <p className="text-zinc-500 text-xs leading-relaxed">{insight.description}</p>
                                     </div>
                                 </motion.div>
                             ))}
@@ -293,9 +301,9 @@ export default function AnalyticsDashboard() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.7 }}
-                        className="p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-purple-500/20"
+                        className="p-6 rounded-2xl bg-zinc-900/40 backdrop-blur-xl border border-white/5"
                     >
-                        <h2 className="text-2xl font-bold text-white mb-6">Recent Activity</h2>
+                        <h2 className="text-2xl font-black text-white mb-6 uppercase tracking-tighter">Recent <span className="text-noble-gold italic">Log</span></h2>
                         <div className="space-y-3">
                             {recentActivity.map((activity, index) => (
                                 <motion.div
@@ -303,15 +311,15 @@ export default function AnalyticsDashboard() {
                                     initial={{ opacity: 0, x: -20 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: 0.8 + index * 0.1 }}
-                                    className="flex items-center justify-between p-3 rounded-lg hover:bg-purple-500/10 transition-colors"
+                                    className="flex items-center justify-between p-3 rounded-lg hover:bg-noble-gold/5 transition-colors group"
                                 >
                                     <div className="flex-1">
-                                        <div className="text-white font-medium text-sm">{activity.tool}</div>
-                                        <div className="text-purple-400 text-xs">{activity.date}</div>
+                                        <div className="text-white font-bold text-xs uppercase tracking-tight group-hover:text-noble-gold transition-colors">{activity.tool}</div>
+                                        <div className="text-zinc-600 text-[10px] uppercase font-bold">{activity.date}</div>
                                     </div>
                                     <div className="text-right">
-                                        <div className="text-green-400 font-semibold text-sm">{activity.timeSaved}</div>
-                                        <div className="text-purple-400 text-xs">saved</div>
+                                        <div className="text-noble-gold font-black text-sm">{activity.timeSaved}</div>
+                                        <div className="text-zinc-600 text-[10px] uppercase font-bold tracking-tighter">reclaimed</div>
                                     </div>
                                 </motion.div>
                             ))}

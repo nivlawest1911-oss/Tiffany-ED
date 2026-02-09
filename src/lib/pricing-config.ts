@@ -15,7 +15,8 @@ export const SOVEREIGN_TIERS = [
         popular: false,
         badge: 'FREE',
         trialDuration: '14 Days',
-        robust: false
+        robust: false,
+        tokenAllocation: 500
     },
     {
         id: 'standard-pack',
@@ -79,7 +80,8 @@ export const SOVEREIGN_TIERS = [
         popular: false,
         badge: 'LEADERSHIP',
         trialDuration: '30 Days',
-        robust: true
+        robust: true,
+        tokenAllocation: 20000
     },
     {
         id: 'site-command',
@@ -95,7 +97,8 @@ export const SOVEREIGN_TIERS = [
         popular: true,
         badge: 'COMMAND',
         trialDuration: '30 Days',
-        robust: true // Featured
+        robust: true, // Featured
+        tokenAllocation: 999999999 // Unlimited
     }
 ];
 

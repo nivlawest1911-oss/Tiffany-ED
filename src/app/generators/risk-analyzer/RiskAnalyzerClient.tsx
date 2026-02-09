@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shield as LucideShield, AlertTriangle, Lock, FileText, Gavel, ArrowRight, Activity, Loader2 } from 'lucide-react';
-import FloatingNavbar from '@/components/FloatingNavbar';
+import { Shield as LucideShield, AlertTriangle, Lock, FileText, Gavel, ArrowRight, Activity, Loader2, Sparkles } from 'lucide-react';
+import HolographicBriefing from '@/components/HolographicBriefing';
+
 
 export default function RiskAnalyzerClient() {
     const [scenario, setScenario] = useState('');
@@ -11,6 +12,8 @@ export default function RiskAnalyzerClient() {
     const [isAnalyzing, setIsAnalyzing] = useState(false);
     const [analysis, setAnalysis] = useState<string | null>(null);
     const [riskScore, setRiskScore] = useState(0);
+    const [showBriefing, setShowBriefing] = useState(false);
+
 
     const handleAnalyze = async () => {
         setIsAnalyzing(true);
@@ -50,15 +53,10 @@ export default function RiskAnalyzerClient() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-950 text-white selection:bg-red-500/30 font-sans">
-            <FloatingNavbar />
+        <main className="content-stage">
 
-            <div className="fixed inset-0 pointer-events-none">
-                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-900/10 rounded-full blur-[120px]" />
-                <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-indigo-900/10 rounded-full blur-[120px]" />
-            </div>
 
-            <main className="max-w-7xl mx-auto px-6 py-24 relative z-10">
+            <div className="max-w-7xl mx-auto px-6 py-24 relative z-10">
                 <div className="text-center mb-16">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 text-red-500 text-xs font-bold uppercase tracking-widest mb-6 border border-red-500/20">
                         <AlertTriangle size={14} />
@@ -67,9 +65,31 @@ export default function RiskAnalyzerClient() {
                     <h1 className="text-4xl md:text-6xl font-black mb-6">
                         Litigation <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-600">Risk Audit</span>
                     </h1>
-                    <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
+                    <p className="text-xl text-zinc-400 max-w-2xl mx-auto mb-12">
                         Don't wait for the subpoena. Analyze incidents instantly to predict legal exposure and deploy sovereign mitigation strategies.
                     </p>
+
+                    <HolographicBriefing
+                        isOpen={showBriefing}
+                        onClose={() => setShowBriefing(false)}
+                        agentId="tactical"
+                        title="Liability Mitigation Protocol"
+                        description="I am André Patterson. I will analyze your scenario for structural vulnerabilities and legal friction points to ensure full district compliance."
+                        briefingSteps={[
+                            "Ingest behavioral or operational scenario telemetry.",
+                            "Cross-reference with IDEA, FERPA, and state-level case law.",
+                            "Calculate potential litigation exposure and risk score.",
+                            "Deploy immediate mitigation protocols and legal defensibility."
+                        ]}
+                    />
+
+                    <button
+                        onClick={() => setShowBriefing(true)}
+                        className="px-8 py-4 liquid-glass border-red-500/20 text-red-500 hover:text-white transition-all text-[10px] font-black uppercase tracking-[0.3em] group"
+                    >
+                        <Sparkles size={14} className="inline mr-3 group-hover:rotate-12 transition-transform" />
+                        Initialize Tactical Briefing
+                    </button>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -181,7 +201,7 @@ export default function RiskAnalyzerClient() {
                         </AnimatePresence>
                     </div>
                 </div>
-            </main>
-        </div>
+            </div>
+        </main>
     );
 }

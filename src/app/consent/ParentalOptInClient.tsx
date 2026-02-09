@@ -9,7 +9,6 @@ import {
     Building2,
     Download
 } from 'lucide-react';
-import FloatingNavbar from '@/components/FloatingNavbar';
 
 export default function ParentalOptInClient() {
     const [submitted, setSubmitted] = useState(false);
@@ -39,10 +38,8 @@ export default function ParentalOptInClient() {
     }
 
     return (
-        <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 transition-colors duration-500">
-            <FloatingNavbar />
-
-            <main className="max-w-4xl mx-auto px-6 py-16">
+        <main className="content-stage">
+            <div className="max-w-4xl mx-auto px-6 py-12">
                 <AnimatePresence mode="wait">
                     {!submitted ? (
                         <motion.div
@@ -191,13 +188,7 @@ export default function ParentalOptInClient() {
                         </motion.div>
                     )}
                 </AnimatePresence>
-            </main>
-
-            <footer className="py-12 border-t border-zinc-100 dark:border-zinc-900 opacity-40 text-center">
-                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500">
-                    Professional Governance Center // Mobile County Branch
-                </p>
-            </footer>
-        </div>
+            </div>
+        </main>
     );
 }

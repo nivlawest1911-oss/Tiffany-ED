@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Sparkles, Shield as LucideShield, Zap, ArrowRight, Eye, X, Activity, FileText } from "lucide-react";
+import Image from 'next/image';
 import { useState } from 'react';
 
 const CINEMATIC_ASSETS = [
@@ -95,10 +96,11 @@ export default function LeadershipCinematics() {
                         >
                             <div className="relative aspect-[4/5] rounded-[3rem] overflow-hidden border border-white/10 bg-zinc-900 shadow-2xl transition-all duration-700 group-hover:border-white/30 group-hover:scale-[1.02]">
                                 {/* Image Layer */}
-                                <img
+                                <Image
                                     src={asset.image}
                                     alt={asset.title}
-                                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 grayscale-[0.2] group-hover:grayscale-0"
+                                    fill
+                                    className="object-cover transition-transform duration-1000 group-hover:scale-110 grayscale-[0.2] group-hover:grayscale-0"
                                 />
 
                                 {/* Overlay Gradients & Scanlines */}
@@ -188,10 +190,11 @@ export default function LeadershipCinematics() {
                         >
                             {/* Visual Panel */}
                             <div className="lg:w-1/2 relative h-full">
-                                <img
+                                <Image
                                     src={selectedAsset.image}
                                     alt={selectedAsset.title}
-                                    className="absolute inset-0 w-full h-full object-cover"
+                                    fill
+                                    className="object-cover"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent" />
                                 <div className="absolute top-8 left-8">

@@ -49,9 +49,14 @@ export default function PricingMatrix() {
                         <motion.div
                             key={tier.id}
                             whileHover={{ y: -5 }}
-                            className={`relative p-0.5 rounded-[2rem] transition-all duration-500 ${isRobust && tier.price >= 79 ? 'ring-2 ring-amber-500 shadow-[0_0_30px_rgba(245,158,11,0.3)]' : ''}`}
+                            className={`relative p-0.5 rounded-[2rem] transition-all duration-500 ${tier.name === 'Site Command'
+                                    ? 'ring-2 ring-accent shadow-[0_0_30px_rgba(112,0,255,0.3)]'
+                                    : isRobust && tier.price >= 79
+                                        ? 'ring-2 ring-amber-500 shadow-[0_0_30px_rgba(245,158,11,0.3)]'
+                                        : ''
+                                }`}
                         >
-                            <div className={`relative h-full rounded-[1.9rem] p-6 flex flex-col liquid-glass overflow-hidden group`}>
+                            <div className={`relative h-full rounded-[1.9rem] p-6 flex flex-col glass-panel overflow-hidden group`}>
                                 {/* Liquid animated background for paid tiers */}
                                 {tier.price > 0 && (
                                     <div className="absolute inset-0 bg-gradient-to-br from-noble-gold/5 via-noble-navy/50 to-noble-navy opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />

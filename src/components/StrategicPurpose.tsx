@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Heart, Users, Scale, Sprout, GraduationCap, MapPin, ArrowRight, Globe, Activity } from "lucide-react";
+import Image from 'next/image';
 
 export default function StrategicPurpose() {
     const pillars = [
@@ -122,7 +123,7 @@ export default function StrategicPurpose() {
                             <div className="flex items-center gap-4">
                                 <div className="relative">
                                     <div className="w-14 h-14 rounded-full p-0.5 bg-gradient-to-br from-amber-500 to-amber-700">
-                                        <img src="/images/avatars/executive_leader.png" alt="Dr. Alvin West" className="w-full h-full rounded-full object-cover border-2 border-zinc-950" />
+                                        <Image src="/images/avatars/executive_leader.png" alt="Dr. Alvin West" width={56} height={56} className="rounded-full object-cover border-2 border-zinc-950" />
                                     </div>
                                     <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 border-2 border-zinc-950 rounded-full animate-pulse" />
                                 </div>
@@ -148,10 +149,11 @@ export default function StrategicPurpose() {
                         >
                             <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent" />
                             <div className="relative rounded-[2.8rem] overflow-hidden aspect-[4/5]">
-                                <img
+                                <Image
                                     src="/images/strategic_vision_classroom.png"
                                     alt="Educational Innovation"
-                                    className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 transition-all duration-1000"
+                                    fill
+                                    className="object-cover grayscale opacity-80 group-hover:grayscale-0 transition-all duration-1000"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
 

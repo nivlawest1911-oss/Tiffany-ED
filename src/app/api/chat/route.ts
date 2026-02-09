@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
         `;
 
         const result = await streamText({
-            model: google('models/gemini-1.5-pro-latest'),
+            model: google('gemini-1.5-pro'),
             system: systemPrompt,
             messages: messages as any[],
             temperature: 0.7,

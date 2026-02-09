@@ -18,7 +18,7 @@ const AGENTS = {
     visionary: {
         name: "Dr. Alvin West",
         role: "Sovereign Architect",
-        avatar: "/images/dr_alvin_west.png",
+        avatar: "/images/avatars/dr_alvin_west_premium.png",
         color: "text-noble-gold",
         borderColor: "border-noble-gold/30",
         bgColor: "bg-noble-gold/5"
@@ -26,7 +26,7 @@ const AGENTS = {
     strategic: {
         name: "Keisha Reynolds",
         role: "Strategic Lead",
-        avatar: "/images/keisha_reynolds_avatar_1768666809673.png",
+        avatar: "/images/avatars/keisha_reynolds_premium.png",
         color: "text-emerald-400",
         borderColor: "border-emerald-500/30",
         bgColor: "bg-emerald-500/5"
@@ -34,7 +34,7 @@ const AGENTS = {
     tactical: {
         name: "André Patterson",
         role: "Tactical Specialist",
-        avatar: "/images/andre_patterson_avatar_premium_v2_1768666848273.png",
+        avatar: "/images/avatars/andre_patterson_premium_v2.png",
         color: "text-blue-400",
         borderColor: "border-blue-500/30",
         bgColor: "bg-blue-500/5"
@@ -42,7 +42,7 @@ const AGENTS = {
     philosopher: {
         name: "Dr. Isaiah Vance",
         role: "Ethics & Governance",
-        avatar: "/images/dr_isaiah_vance_avatar_1768666794472.png",
+        avatar: "/images/avatars/dr_isaiah_vance_premium.png",
         color: "text-purple-400",
         borderColor: "border-purple-500/30",
         bgColor: "bg-purple-500/5"

@@ -1,62 +1,95 @@
 'use client';
 
-import FloatingNavbar from '@/components/FloatingNavbar';
-import Footer from '@/components/Footer';
+import React from 'react';
+import { Shield as LucideShield, BarChart3, Users, Zap, CheckCircle, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Building2, Users, TrendingUp, Shield, Zap, Award, CheckCircle } from 'lucide-react';
+import HolographicBriefing from '@/components/HolographicBriefing';
+import Image from 'next/image';
 
 export default function EnterpriseClient() {
+    const [showBriefing, setShowBriefing] = React.useState(false);
     const features = [
-        { icon: Building2, title: 'District-Wide Deployment', description: 'Seamless integration across all schools and departments' },
-        { icon: Users, title: 'Unlimited Users', description: 'Support for entire district staff and administration' },
-        { icon: TrendingUp, title: 'Advanced Analytics', description: 'Comprehensive insights and reporting dashboards' },
-        { icon: Shield, title: 'Enterprise Security', description: 'SOC 2 compliance, SSO, and advanced data protection' },
-        { icon: Zap, title: 'Priority Support', description: 'Dedicated account manager and 24/7 technical support' },
-        { icon: Award, title: 'Custom Training', description: 'Personalized onboarding and professional development' },
+        {
+            icon: LucideShield,
+            title: "District Intelligence Shield",
+            desc: "Custom AI deployment with strict regional compliance and data sovereignty."
+        },
+        {
+            icon: BarChart3,
+            title: "Executive Analytics",
+            desc: "District-wide performance metrics and predictive administrative insights."
+        },
+        {
+            icon: Users,
+            title: "Neural Synergy",
+            desc: "Collaborative AI protocols for massive educator-student clusters."
+        },
+        {
+            icon: Zap,
+            title: "Rapid Deployment",
+            desc: "Zero-config district infrastructure on the Sovereign Grid."
+        }
     ];
 
     const benefits = [
-        'Custom AI model training for your district',
-        'White-label options available',
-        'API access for custom integrations',
-        'Dedicated infrastructure',
-        'SLA guarantees',
-        'Quarterly business reviews',
+        "Unprecedented Administrative Vitality",
+        "Automated Compliance Archiving",
+        "Predictive Resource Allocation",
+        "Sovereign Data Governance"
     ];
 
     return (
-        <div className="min-h-screen bg-black">
-            <FloatingNavbar />
-
+        <main className="content-stage">
             {/* Hero Section */}
-            <section className="relative pt-32 pb-20 px-4 overflow-hidden">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(212,175,55,0.1),transparent_70%)]" />
+            <section className="relative py-20 px-4 overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-b from-blue-600/10 via-transparent to-transparent pointer-events-none" />
 
-                <div className="max-w-6xl mx-auto relative z-10">
+                <div className="max-w-7xl mx-auto relative z-10 text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="text-center"
+                        className="space-y-6"
                     >
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-amber-500/10 border border-amber-500/20 rounded-full mb-6">
-                            <Building2 className="w-4 h-4 text-amber-400" />
-                            <span className="text-xs font-bold text-amber-400 uppercase tracking-wider">Enterprise Solution</span>
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-widest">
+                            <LucideShield size={14} />
+                            Enterprise Protocol
                         </div>
 
-                        <h1 className="text-6xl md:text-7xl font-black text-white mb-6 tracking-tight">
-                            Executive Director <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-600">Enterprise</span>
+                        <HolographicBriefing
+                            isOpen={showBriefing}
+                            onClose={() => setShowBriefing(false)}
+                            agentId="strategic"
+                            title="District Command Briefing"
+                            description="Initializing enterprise-grade handshake. We are scaling the EdIntel ecosystem to meet your regional requirements. Protocol: Maximum Sovereignty."
+                            briefingSteps={[
+                                "Map district neural architecture requirements.",
+                                "Initialize regional data residency shielding.",
+                                "Sync executive analytics for real-time visibility.",
+                                "Establish 24/7 dedicated engineering uplink."
+                            ]}
+                        />
+
+                        <button
+                            onClick={() => setShowBriefing(true)}
+                            className="block mx-auto mb-8 px-6 py-2 rounded-full border border-blue-500/20 bg-blue-500/5 text-blue-400 text-[9px] font-black uppercase tracking-[0.3em] hover:bg-blue-500/10 transition-all"
+                        >
+                            Initialize District Briefing
+                        </button>
+
+                        <h1 className="text-6xl md:text-8xl font-black text-white tracking-tighter">
+                            District-Wide <span className="text-blue-500 italic">Sovereignty</span>
                         </h1>
 
-                        <p className="text-xl text-zinc-400 max-w-3xl mx-auto mb-12">
-                            Transform your entire district with EdIntel's enterprise-grade AI platform. Built for scale, security, and success.
+                        <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
+                            Deploy EdIntel at scale with custom regional controls, unified analytics, and guaranteed data governance for large educational networks.
                         </p>
 
-                        <div className="flex flex-wrap justify-center gap-4">
-                            <button className="px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-xl font-bold hover:scale-105 transition-transform shadow-lg shadow-amber-500/50">
-                                Schedule Demo
+                        <div className="flex flex-wrap justify-center gap-4 pt-4">
+                            <button className="px-8 py-4 bg-white text-black font-black uppercase text-sm tracking-widest hover:bg-blue-500 hover:text-white transition-all rounded-xl">
+                                Request Access
                             </button>
-                            <button className="px-8 py-4 bg-white/5 border border-white/10 text-white rounded-xl font-bold hover:bg-white/10 transition-all">
-                                Contact Sales
+                            <button className="px-8 py-4 bg-zinc-900 text-white font-black uppercase text-sm tracking-widest border border-white/10 hover:border-blue-500/50 transition-all rounded-xl">
+                                System Overview
                             </button>
                         </div>
                     </motion.div>
@@ -65,20 +98,22 @@ export default function EnterpriseClient() {
 
             {/* Features Grid */}
             <section className="py-20 px-4 bg-zinc-950/50">
-                <div className="max-w-6xl mx-auto">
-                    <h2 className="text-4xl font-black text-white text-center mb-12">Enterprise Features</h2>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {features.map((feature, index) => (
+                <div className="max-w-7xl mx-auto">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {features.map((feature, idx) => (
                             <motion.div
-                                key={index}
+                                key={idx}
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.1 }}
-                                className="bg-zinc-900/50 border border-white/10 rounded-2xl p-6 hover:border-amber-500/30 transition-all"
+                                viewport={{ once: true }}
+                                transition={{ delay: idx * 0.1 }}
+                                className="p-8 rounded-2xl bg-zinc-900 border border-white/5 hover:border-blue-500/30 transition-all group"
                             >
-                                <feature.icon className="w-12 h-12 text-amber-400 mb-4" />
+                                <div className="p-3 rounded-xl bg-blue-500/5 w-fit mb-6 group-hover:bg-blue-500/20 transition-colors">
+                                    <feature.icon className="text-blue-500" size={24} />
+                                </div>
                                 <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
-                                <p className="text-zinc-400">{feature.description}</p>
+                                <p className="text-zinc-500 text-sm leading-relaxed">{feature.desc}</p>
                             </motion.div>
                         ))}
                     </div>
@@ -87,45 +122,43 @@ export default function EnterpriseClient() {
 
             {/* Benefits Section */}
             <section className="py-20 px-4">
-                <div className="max-w-4xl mx-auto">
-                    <h2 className="text-4xl font-black text-white text-center mb-12">What's Included</h2>
-                    <div className="grid md:grid-cols-2 gap-4">
-                        {benefits.map((benefit, index) => (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, x: -20 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                transition={{ delay: index * 0.1 }}
-                                className="flex items-center gap-3 bg-zinc-900/30 border border-white/5 rounded-xl p-4"
-                            >
-                                <CheckCircle className="w-6 h-6 text-emerald-400 flex-shrink-0" />
-                                <span className="text-white font-medium">{benefit}</span>
-                            </motion.div>
-                        ))}
+                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div className="space-y-8">
+                        <h2 className="text-4xl font-black text-white">The Professional Standard for <span className="text-blue-500">Scale</span></h2>
+                        <div className="space-y-4">
+                            {benefits.map((benefit, idx) => (
+                                <div key={idx} className="flex items-center gap-4">
+                                    <div className="w-6 h-6 rounded-full bg-blue-500/10 flex items-center justify-center border border-blue-500/30">
+                                        <CheckCircle className="text-blue-500" size={14} />
+                                    </div>
+                                    <span className="text-zinc-300 font-medium">{benefit}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <div className="relative aspect-video">
+                        <div className="absolute inset-0 bg-blue-500/20 blur-[120px] rounded-full" />
+                        <Image
+                            src="/images/enterprise_dashboard_preview.png"
+                            alt="Enterprise Hub"
+                            fill
+                            className="relative z-10 rounded-2xl border border-white/10 shadow-2xl object-cover"
+                        />
                     </div>
                 </div>
             </section>
 
             {/* CTA Section */}
             <section className="py-20 px-4">
-                <div className="max-w-4xl mx-auto text-center">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        className="bg-gradient-to-br from-amber-500/10 to-orange-600/10 border border-amber-500/20 rounded-3xl p-12"
-                    >
-                        <h2 className="text-4xl font-black text-white mb-4">Ready to Transform Your District?</h2>
-                        <p className="text-xl text-zinc-400 mb-8">
-                            Schedule a personalized demo and discover how EdIntel Enterprise can revolutionize your educational operations.
-                        </p>
-                        <button className="px-10 py-5 bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-xl font-bold text-lg hover:scale-105 transition-transform shadow-2xl shadow-amber-500/50">
-                            Get Started Today
-                        </button>
-                    </motion.div>
+                <div className="max-w-4xl mx-auto text-center p-12 rounded-3xl bg-zinc-900 border border-white/10 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-transparent pointer-events-none" />
+                    <h2 className="text-4xl font-black text-white mb-6 relative z-10">Initialize District Protocol</h2>
+                    <p className="text-zinc-400 mb-8 relative z-10">Schedule a secure consultation with our engineering directors to customize your Sovereign Grid deployment.</p>
+                    <button className="relative z-10 px-12 py-5 bg-blue-600 text-white font-black uppercase text-sm tracking-widest hover:bg-blue-500 transition-all rounded-xl inline-flex items-center gap-3">
+                        Contact Sales <ArrowRight size={18} />
+                    </button>
                 </div>
             </section>
-
-            <Footer />
-        </div>
+        </main>
     );
 }

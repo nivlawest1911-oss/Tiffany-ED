@@ -15,6 +15,7 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
         stats: { time: 'Instant', saved: '24h/week', accuracy: '100%' },
         role: 'Executive Sovereign',
         avatar: '/images/avatars/dr_alvin_west_premium.png',
+        video: '/videos/The_Ultimate_Solution_for_Mode.mp4',
         abilityType: 'strategy'
     },
     'The Room': {
@@ -48,7 +49,8 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
         description: 'Aggregate and analyze fragmented district data streams into a unified strategic dashboard. We identify "Opportunity Centers"—pockets of instructional potential—and provide actionable directives for immediate capital recovery.',
         stats: { time: '2 min', saved: '10h/report', accuracy: '100%' },
         role: 'Chief Analyst',
-        avatar: '/images/avatars/data_analyst.png'
+        avatar: '/images/avatars/data_analyst.png',
+        video: '/videos/features/data-analysis-demo.mp4'
     },
     'Sovereign Core': {
         title: 'Sovereign ID Protocol',
@@ -153,7 +155,8 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
         description: 'Immediate generation of communications, logistics, and administrative directives during high-intensity events. Protocol Omega ensures leadership remains clear and decisive under pressure.',
         stats: { time: 'Immediate', saved: 'Critical', accuracy: 'High-Stakes' },
         role: 'Safety Director',
-        avatar: '/images/avatars/special_ed_director.png'
+        avatar: '/images/avatars/special_ed_director.png',
+        video: '/videos/Health for Alabama\'s Educators.mp4'
     },
     'Budget Report': {
         title: 'Fiscal Variance Analysis',
@@ -279,14 +282,16 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
         description: 'Instant legal exposure analysis for all administrative directives. Our engine calculates probability scores for litigation and provides concrete mitigation steps to protect institutional resources and reputation.',
         stats: { time: 'Instant Audit', saved: 'Legal Fees', accuracy: '99%' },
         role: 'Compliance Lead',
-        avatar: '/images/avatars/isaiah_vance_premium.png'
+        avatar: '/images/avatars/isaiah_vance_premium.png',
+        video: '/videos/features/iep-architect-demo.mp4'
     },
     'district-strategy': {
         title: 'District Strategy Command',
         description: 'The ultimate turnaround architect. We synthesize complex district performance vectors into crystalline strategic roadmaps for Superintendents and Boards. Transform data into absolute institutional clarity.',
         stats: { time: 'Real-time', saved: 'Strategic Clarity', accuracy: '100%' },
         role: 'Strategy Director',
-        avatar: '/images/avatars/dr_alvin_west_premium.png'
+        avatar: '/images/avatars/dr_alvin_west_premium.png',
+        video: '/videos/District Command Update.mp4'
     }
 };
 

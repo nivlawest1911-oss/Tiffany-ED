@@ -1,4 +1,4 @@
-import React from 'react';
+import Image from 'next/image';
 
 interface Feature {
     title: string;
@@ -8,18 +8,20 @@ interface Feature {
 
 export default function FeatureCard({ feature }: { feature: Feature }) {
     return (
-        <article className="group bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <div className="relative h-48">
-                <img
+        <article className="group bg-zinc-950/50 backdrop-blur-md border border-white/5 rounded-[2rem] overflow-hidden hover:border-intel-gold/30 transition-all duration-500 shadow-2xl">
+            <div className="relative h-64 overflow-hidden">
+                <Image
                     src={feature.image}
                     alt={feature.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-700 opacity-60 group-hover:opacity-80"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent" />
             </div>
-            <div className="p-6">
-                <h3 className="text-xl font-black text-white mb-2">{feature.title}</h3>
-                <p className="text-sm text-white/70 mb-4">{feature.description}</p>
+            <div className="p-8">
+                <h3 className="text-2xl font-black text-white mb-3 uppercase tracking-tighter">{feature.title}</h3>
+                <p className="text-zinc-400 leading-relaxed mb-4">{feature.description}</p>
+                <div className="h-1 w-12 bg-intel-gold/30 group-hover:w-full transition-all duration-500" />
             </div>
         </article>
     );

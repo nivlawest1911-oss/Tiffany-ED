@@ -6,10 +6,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import LiveBriefingConsole from './LiveBriefingConsole';
+import AIAgentAvatar from './AIAgentAvatar';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 import { useAuth } from '@/context/AuthContext';
 import { generators as GENERATORS } from '@/data/generators';
 import TalkingDelegateOverlay from '@/components/TalkingDelegateOverlay';
+import { NeuralSynthesisHUD } from './NeuralSynthesisHUD';
+// import { checkAccess, SovereignFeature } from '@/lib/sovereign-access'; // Kept for future activation
 
 interface EnhancedGeneratorProps {
     generatorId: string;
@@ -20,7 +23,7 @@ interface EnhancedGeneratorProps {
     heroImage?: string;
     heroVideo?: string;
     welcomeVideo?: string;
-    voiceWelcome?: string;
+    voiceWelcome?: string; // Kept interface but not used in logic yet
     delegateName?: string;
     delegateRole?: string;
     delegateImage?: string;
@@ -35,13 +38,13 @@ export default function EnhancedGenerator({
     heroImage,
     heroVideo,
     welcomeVideo,
-    voiceWelcome,
+    voiceWelcome: _voiceWelcome,
     delegateName,
     delegateRole,
     delegateImage
 }: EnhancedGeneratorProps) {
     // ... (rest of hook logic is unchanged)
-    const { user, isLoading: isAuthLoading } = useAuth();
+    const { user } = useAuth(); // Removed isAuthLoading
     const [input, setInput] = useState('');
     const [completion, setCompletion] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -50,18 +53,20 @@ export default function EnhancedGenerator({
     const [professorVideo, setProfessorVideo] = useState<string | null>(null);
     const [isListening, setIsListening] = useState(false);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
-    const fileInputRef = useRef<HTMLInputElement>(null);
+    // const fileInputRef = useRef<HTMLInputElement>(null); // Removed unused ref
     const messagesEndRef = useRef<HTMLDivElement>(null);
-    const [errorMsg, setErrorMsg] = useState('');
+    const [_errorMsg, setErrorMsg] = useState('');
     const [selectedDelegate, setSelectedDelegate] = useState({
         name: delegateName || "Dr. Alvin",
         role: delegateRole || "Superintendent Delegate",
-        image: delegateImage || "/images/avatars/dr_alvin_west_premium.png"
+        image: delegateImage || "/images/avatars/Dr._alvin_west.png"
     });
     const [showDelegateOverlay, setShowDelegateOverlay] = useState(false);
+    const [showLiveAvatar, setShowLiveAvatar] = useState(false);
+    const [synthesisPhase, setSynthesisPhase] = useState<'ingestion' | 'alignment' | 'selection' | 'ready'>('ready');
 
     const delegates = [
-        { name: "Dr. Alvin", role: "Superintendent Delegate", image: "/images/avatars/dr_alvin_west_premium.png" },
+        { name: "Dr. Alvin", role: "Superintendent Delegate", image: "/images/avatars/Dr._alvin_west.png" },
         { name: "Sarah", role: "Instructional Aide", image: "/images/avatars/sarah_connors_premium.png" },
         { name: "Patrice", role: "Compliance Lead", image: "/images/avatars/executive_leader.png" }
     ];
@@ -129,7 +134,6 @@ export default function EnhancedGenerator({
             return;
         }
 
-        // @ts-expect-error - SpeechRecognition types are tricky
         const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
         const recognition = new SpeechRecognition();
 
@@ -171,10 +175,25 @@ export default function EnhancedGenerator({
             return;
         }
 
+        // Sovereign Access Check
+        // We consider all specific specialized generators as "Advanced" for now, except maybe a basic one if we flagged it.
+        // For safety/demo, we'll gate based on a simple check or warn.
+        // Actually, let's just log the check for now so we don't break their flow if they are on a weird tier,
+        // unless they are 'sovereign-initiate', then we might gate deep features.
+        // const hasAccess = checkAccess(user.tier, SovereignFeature.ADVANCED_GENERATOR); 
+        // if (!hasAccess && generatorId !== 'basic-brief') { ... } 
+
         if (!input.trim() || isLoading) return;
 
         setIsLoading(true);
+        setSynthesisPhase('ingestion');
         setCompletion('');
+
+        // Simulate Neural Synthesis Cycle
+        setTimeout(() => setSynthesisPhase('alignment'), 1500);
+        setTimeout(() => setSynthesisPhase('selection'), 3500);
+        setTimeout(() => setSynthesisPhase('ready'), 5500);
+
         let fullResponse = '';
 
         try {
@@ -245,7 +264,7 @@ Context:
                     saveToHistory(input, fullResponse, synthData.professorUrl);
                     console.log("[Greyhawk] Professor Synthesized & Vaulted:", synthData.professorUrl);
                 }
-            } catch (synthErr) {
+            } catch (_) {
                 console.warn("[Leadership] Synthesis bypass - continuing with TTS fallback.");
             }
 
@@ -294,7 +313,7 @@ Context:
         }
     };
 
-    const handleStrategicVox = async () => {
+    const _handleStrategicVox = async () => {
         // Call Google Cloud Text-to-Speech
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_STRATEGIC_SYSTEM_URL || "http://localhost:8080"}/synthesize-voice`, {
@@ -309,7 +328,6 @@ Context:
             }
         } catch (e) {
             console.error(e);
-            alert("Strategic Voice Module Offline");
         }
     };
 
@@ -481,6 +499,8 @@ Context:
                                         </div>
                                         <button
                                             onClick={() => setShowBriefing(false)}
+                                            title="Close Briefing"
+                                            aria-label="Close Briefing"
                                             className="pointer-events-auto p-2 rounded-full bg-black/50 hover:bg-white/20 text-white transition-colors border border-white/10"
                                         >
                                             <X className="w-5 h-5" />
@@ -489,20 +509,53 @@ Context:
 
                                     {/* Video Feed / Live Console */}
                                     <div className="w-full md:w-2/3 bg-black relative flex items-center justify-center border-r border-white/10 overflow-hidden">
+                                        {/* Neural Synthesis HUD Overlay */}
+                                        <AnimatePresence>
+                                            {isLoading && synthesisPhase !== 'ready' && (
+                                                <motion.div
+                                                    initial={{ opacity: 0 }}
+                                                    animate={{ opacity: 1 }}
+                                                    exit={{ opacity: 0 }}
+                                                    className="absolute inset-0 z-50"
+                                                >
+                                                    <NeuralSynthesisHUD
+                                                        isActive={true}
+                                                        phase={synthesisPhase}
+                                                    />
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+
                                         {/* We replace the video player with the Live Briefing Console */}
                                         <div className="absolute inset-0 z-0 opacity-20">
                                             {/* Fallback visual if needed or background texture */}
                                         </div>
 
-                                        <LiveBriefingConsole
-                                            name={generatorName}
-                                            description={GENERATORS.find(g => g.id === generatorId)?.description || ""}
-                                            role="Professional Delegate"
-                                            color={generatorColor}
-                                            prompts={prompts}
-                                            videoSrc={welcomeVideo}
-                                            avatarImage={delegateImage}
-                                        />
+                                        {showLiveAvatar ? (
+                                            <div className="w-full h-full min-h-[500px] relative rounded-3xl overflow-hidden animate-in fade-in zoom-in duration-700 bg-black/40 backdrop-blur-md">
+                                                <AIAgentAvatar
+                                                    textToSpeak={completion || "Awaiting strategic payload. Neural link stable."}
+                                                />
+                                                <button
+                                                    onClick={() => setShowLiveAvatar(false)}
+                                                    title="Close Neural Link"
+                                                    aria-label="Close Neural Link"
+                                                    className="absolute top-6 right-6 z-[70] p-3 bg-black/60 hover:bg-kente-red text-white rounded-full backdrop-blur-xl border border-white/10 transition-all shadow-2xl font-black"
+                                                >
+                                                    <X size={24} />
+                                                </button>
+                                            </div>
+                                        ) : (
+                                            <LiveBriefingConsole
+                                                name={generatorName}
+                                                description={GENERATORS.find(g => g.id === generatorId)?.description || ""}
+                                                role="Professional Delegate"
+                                                color={generatorColor}
+                                                prompts={prompts}
+                                                videoSrc={welcomeVideo}
+                                                avatarImage={delegateImage}
+                                            />
+                                        )}
                                     </div>
 
 
@@ -621,10 +674,18 @@ Context:
                                             ))}
                                             <div className="w-px h-6 bg-white/10 mx-2" />
 
-                                            {/* Output Actions */}
+                                            <button
+                                                onClick={() => setShowLiveAvatar(true)}
+                                                className="px-3 py-1.5 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/40 text-emerald-300 border border-emerald-500/30 text-xs transition-all flex items-center gap-1 group"
+                                                title="Neural Strategic Link"
+                                            >
+                                                <Zap className="w-3 h-3 group-hover:animate-pulse" />
+                                                Live Sync
+                                            </button>
+
                                             <button
                                                 onClick={() => setShowDelegateOverlay(true)}
-                                                className="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-emerald-600/20 hover:text-emerald-300 hover:border-emerald-500/30 border border-white/5 text-xs text-zinc-400 transition-all flex items-center gap-1"
+                                                className="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-noble-gold/20 hover:text-noble-gold hover:border-noble-gold/30 border border-white/5 text-xs text-zinc-400 transition-all flex items-center gap-1"
                                                 title="Read Aloud"
                                             >
                                                 <Volume2 className="w-3 h-3" />

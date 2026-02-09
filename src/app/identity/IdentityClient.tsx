@@ -1,8 +1,4 @@
-'use client';
-
 import { motion } from 'framer-motion';
-import FloatingNavbar from '@/components/FloatingNavbar';
-import Footer from '@/components/Footer';
 import VoiceIdentityComponent from '@/components/VoiceIdentity';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 import { Shield as LucideShield, Award, Users, Brain, Lock } from 'lucide-react';
@@ -48,11 +44,9 @@ export default function IdentityClient() {
     ];
 
     return (
-        <div className="min-h-screen bg-[#0a0a0f] text-white selection:bg-indigo-500/30">
-            <FloatingNavbar />
-
+        <main className="content-stage">
             {/* Hero Section with Video Background */}
-            <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
+            <section className="relative py-20 flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 z-0 opacity-40">
                     <video
                         src="/videos/features/iep-architect-demo.mp4"
@@ -62,10 +56,10 @@ export default function IdentityClient() {
                         playsInline
                         className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/80 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
                 </div>
 
-                <div className="relative z-10 text-center px-4 max-w-4xl mx-auto mt-20">
+                <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -79,7 +73,7 @@ export default function IdentityClient() {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-white to-white/50 mb-6 tracking-tight"
+                        className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-white to-white/50 mb-6 tracking-tight text-white"
                     >
                         Architects of Intelligence
                     </motion.h1>
@@ -98,8 +92,6 @@ export default function IdentityClient() {
             {/* Social Broadcast Centers */}
             <section className="py-12 px-6 relative z-10 bg-zinc-950/50">
                 <div className="max-w-7xl mx-auto flex flex-col gap-12">
-                    {/* Removed ProfessionalSocialConnection as per request */}
-
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         whileInView={{ opacity: 1, scale: 1 }}
@@ -180,8 +172,6 @@ export default function IdentityClient() {
                     </div>
                 </div>
             </section>
-
-            <Footer />
-        </div >
+        </main>
     );
 }

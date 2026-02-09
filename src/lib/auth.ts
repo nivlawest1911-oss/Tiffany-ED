@@ -46,18 +46,14 @@ export async function logout() {
     cookieStore.set('session', '', { expires: new Date(0) });
 }
 
-import { createServerClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@/utils/supabase/server';
 
 export async function getSession() {
     const cookieStore = await cookies();
 
     // 1. Try Supabase Session first (Modern)
     try {
-        const supabase = createServerClient(
-            process.env.NEXT_PUBLIC_SUPABASE_URL!,
-            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-            { cookies: { getAll: () => cookieStore.getAll(), setAll: () => { } } }
-        );
+        const supabase = await createClient();
         const { data: { session } } = await supabase.auth.getSession();
 
         if (session?.user) {

@@ -33,7 +33,7 @@ export async function POST(req: Request) {
 
         // 3. Execute Stream with AI SDK (Gemini)
         const result = await streamText({
-            model: google('models/gemini-1.5-pro-latest'),
+            model: google('gemini-1.5-pro'),
             system: `You are a Tier-1 Sovereign Delegate for EdIntel. 
             Context: ${protocolContext || 'General Executive Assistance'}
             

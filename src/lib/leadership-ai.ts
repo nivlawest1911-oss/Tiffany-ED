@@ -3,8 +3,12 @@
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { generateText } from 'ai';
 import { withResilience, ALABAMA_STRATEGIC_DIRECTIVE, SOVEREIGN_PERSONA } from './ai-resilience';
+import { COGNITIVE_FITNESS_CONTEXT } from './context/cognitive-fitness';
+import { COMPLIANCE_SYSTEM_PROMPT } from './compliance-engine';
 import { kv } from '@vercel/kv';
 import { supabase } from '@/lib/supabase';
+
+import { querySovereignVault } from './rag/rag-core';
 
 // Lazy-initialized provider to bypass build-time API key requirement
 const getGoogleProvider = () => createGoogleGenerativeAI({
@@ -23,6 +27,9 @@ export async function generateProfessionalResponse(
 ): Promise<string> {
   const activePersona = persona || SOVEREIGN_PERSONA;
 
+  // 📚 VIRTUAL VAULT QUERY (RAG-lite)
+  const vaultContext = await querySovereignVault(prompt);
+
   // SYSTEM PROMPT: FORCING HIGH-FIDELITY SOVEREIGN PERSONA
   const systemPrompt = `
         You are ${activePersona.name}, the ${activePersona.role}.
@@ -36,9 +43,16 @@ export async function generateProfessionalResponse(
         Tool Context: ${generatorId}
         
         SUPER-INTELLIGENCE MANDATE:
-        - THOUGHT PROCESS: Before every answer, engage in a "Neural Synthesis" step where you evaluate 3 potential strategies and select the optimal one.
-        - CITATION PROTOCOL: You must cite specific Alabama codes (e.g., "Ala. Code § 16-6G-1" for Literacy) or federal statutes where applicable.
+        - THOUGHT PROCESS: Before every answer, you MUST engage in a "Neural Synthesis" step. 
+          Output your reasoning inside <neural_synthesis> tags, evaluating 3 distinct strategies and selecting the optimal one.
+        - CITATION PROTOCOL: You must cite specific Alabama codes (e.g., "Ala. Code § 16-6G-1" for Literacy) or federal statutes where applicable. Reference the COMPLIANCE ENGINE.
+        - COGNITIVE CONTEXT: Integrate these research pillars: ${COGNITIVE_FITNESS_CONTEXT.pillars.map(p => p.name + ": " + p.directive).join(" | ")}.
         - NO FLUFF: Do not use filler words. Be dense, high-entropy, and high-value.
+
+        ${vaultContext}
+
+        COMPLIANCE ENGINE PROTOCOL:
+        ${COMPLIANCE_SYSTEM_PROMPT}
 
         If in a chat session, be conversational but maintain your executive presence.
     `;
@@ -51,7 +65,7 @@ export async function generateProfessionalResponse(
 
       try {
         cached = await kv.get(cacheKey);
-      } catch (cacheError) {
+      } catch (_cacheError) {
         console.warn("⚠️ Neural Cache (KV) offline. Proceeding to live synthesis.");
       }
 

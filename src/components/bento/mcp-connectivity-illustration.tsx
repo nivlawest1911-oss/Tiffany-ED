@@ -1,5 +1,6 @@
 import type React from "react"
 import { Search } from "lucide-react"
+import Image from "next/image"
 
 interface McpConnectivityIllustrationProps {
   className?: string
@@ -24,60 +25,18 @@ const McpConnectivityIllustration: React.FC<McpConnectivityIllustrationProps> = 
     >
       {/* Main Message Box */}
       <div
+        className="absolute top-1/2 left-1/2 w-[345px] h-[277px] overflow-hidden rounded-[9.628px] border-[0.802px] border-border bg-gradient-to-b from-background to-transparent backdrop-blur-[16px]"
         style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
           transform: "translate(-50%, calc(-50% + 24px))",
-          width: "345px",
-          height: "277px",
-          background: "linear-gradient(180deg, hsl(var(--background)) 0%, transparent 100%)",
-          backdropFilter: "blur(16px)",
-          borderRadius: "9.628px",
-          border: "0.802px solid hsl(var(--border))",
-          overflow: "hidden",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            height: "100%",
-            width: "100%",
-          }}
-        >
+        <div className="flex flex-col h-full w-full">
           {/* Search Header */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12.837px",
-              padding: "8.826px 12.837px",
-              borderBottom: "0.802px solid hsl(var(--border))",
-              width: "100%",
-              boxSizing: "border-box",
-            }}
-          >
-            <div
-              style={{
-                width: "14.442px",
-                height: "14.442px",
-                position: "relative",
-                flexShrink: 0,
-              }}
-            >
+          <div className="flex items-center gap-[12.837px] px-[12.837px] py-[8.826px] border-b-[0.802px] border-border w-full box-border">
+            <div className="w-[14.442px] h-[14.442px] relative flex-shrink-0">
               <Search className="w-full h-full text-muted-foreground" />
             </div>
-            <span
-              style={{
-                fontFamily: "'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-                fontSize: "12.837px",
-                lineHeight: "19.256px",
-                color: "hsl(var(--muted-foreground))",
-                fontWeight: 400,
-                whiteSpace: "nowrap",
-              }}
-            >
+            <span className="font-[family-name:var(--font-geist-sans)] text-[12.837px] leading-[19.256px] text-muted-foreground font-normal whitespace-nowrap">
               Search for servers
             </span>
           </div>
@@ -85,74 +44,26 @@ const McpConnectivityIllustration: React.FC<McpConnectivityIllustrationProps> = 
           {integrations.map((integration, index) => (
             <div
               key={integration.name}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                padding: "8.826px 12.837px",
-                borderBottom: index < integrations.length - 1 ? "0.479px solid hsl(var(--border))" : "none",
-                width: "100%",
-                boxSizing: "border-box",
-              }}
+              className={`flex items-center justify-between px-[12.837px] py-[8.826px] w-full box-border ${index < integrations.length - 1 ? "border-b-[0.479px] border-border" : ""
+                }`}
             >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "12.837px",
-                }}
-              >
-                <div
-                  style={{
-                    width: "24px",
-                    height: "24px",
-                    position: "relative",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    flexShrink: 0,
-                  }}
-                >
-                  <img
+              <div className="flex items-center gap-[12.837px]">
+                <div className="w-6 h-6 relative flex items-center justify-center flex-shrink-0">
+                  <Image
                     src={integration.icon || "/placeholder.svg"}
                     alt={integration.name}
+                    width={24}
+                    height={24}
                     className="w-full h-full object-contain opacity-70 grayscale" // Apply opacity and grayscale
                   />
                 </div>
-                <span
-                  style={{
-                    fontFamily: "'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-                    fontSize: "12.837px",
-                    lineHeight: "19.256px",
-                    color: "hsl(var(--muted-foreground))",
-                    fontWeight: 400,
-                    whiteSpace: "nowrap",
-                  }}
-                >
+                <span className="font-[family-name:var(--font-geist-sans)] text-[12.837px] leading-[19.256px] text-muted-foreground font-normal whitespace-nowrap">
                   {integration.name}
                 </span>
               </div>
               {integration.installed && (
-                <div
-                  style={{
-                    background: "hsl(var(--primary) / 0.08)",
-                    padding: "1.318px 5.272px",
-                    borderRadius: "3.295px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: "'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-                      fontSize: "9.583px",
-                      lineHeight: "15.333px",
-                      color: "hsl(var(--primary))",
-                      fontWeight: 500,
-                      whiteSpace: "nowrap",
-                    }}
-                  >
+                <div className="bg-primary/10 px-[5.272px] py-[1.318px] rounded-[3.295px] flex items-center justify-center">
+                  <span className="font-[family-name:var(--font-geist-sans)] text-[9.583px] leading-[15.333px] text-primary font-medium whitespace-nowrap">
                     Installed
                   </span>
                 </div>

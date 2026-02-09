@@ -75,9 +75,9 @@ export default function EducatorHubClient() {
     ];
 
     return (
-        <main className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-white font-sans">
+        <main className="content-stage">
             {/* Hero Section */}
-            <section className="relative py-16 px-6 bg-zinc-900 border-b border-zinc-800 flex flex-col items-center justify-center text-center overflow-hidden">
+            <section className="relative py-16 px-6 bg-zinc-900 border-b border-zinc-800 flex flex-col items-center justify-center text-center overflow-hidden rounded-3xl">
                 <div className="absolute inset-0">
                     <NextImage
                         src={EDUCATOR_HUB_HERO}

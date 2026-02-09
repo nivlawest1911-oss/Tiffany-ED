@@ -1,7 +1,5 @@
 'use client';
 
-import FloatingNavbar from '@/components/FloatingNavbar';
-import Footer from '@/components/Footer';
 import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
 import { Shield, Lock, Zap, Brain, Network, Database, Eye, Cpu } from 'lucide-react';
@@ -60,11 +58,9 @@ export default function SovereignClient() {
     ];
 
     return (
-        <div className="min-h-screen bg-black">
-            <FloatingNavbar />
-
+        <main className="content-stage">
             {/* Hero Section with Sovereign Director */}
-            <section className="relative pt-28 pb-12 px-4 overflow-hidden">
+            <section className="relative py-12 px-4 overflow-hidden">
                 <div className="max-w-7xl mx-auto">
                     <SovereignDirector
                         cinematicVideoSrc="/videos/heritage/alvin_west_doctoral_intro.mp4"
@@ -74,7 +70,7 @@ export default function SovereignClient() {
             </section>
 
             {/* Introduction Section */}
-            <section className="relative py-20 px-4 bg-gradient-to-b from-black via-blue-950/10 to-black">
+            <section className="relative py-20 px-4 bg-gradient-to-b from-black via-blue-950/10 to-black rounded-[3rem] border border-white/5 my-12">
                 <div className="max-w-4xl mx-auto text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -100,7 +96,7 @@ export default function SovereignClient() {
             </section>
 
             {/* Stats Bar */}
-            <section className="py-12 px-4 bg-zinc-950/50 border-y border-white/10">
+            <section className="py-12 px-4 bg-zinc-950/50 border-y border-white/10 my-12">
                 <div className="max-w-6xl mx-auto">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                         {stats.map((stat, index) => (
@@ -168,7 +164,7 @@ export default function SovereignClient() {
             </section>
 
             {/* The Activation Story */}
-            <section className="py-20 px-4 bg-gradient-to-b from-black via-amber-950/10 to-black">
+            <section className="py-20 px-4 bg-gradient-to-b from-black via-amber-950/10 to-black rounded-[3rem] border border-white/5 my-12">
                 <div className="max-w-4xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0 }}
@@ -219,8 +215,6 @@ export default function SovereignClient() {
                     </motion.div>
                 </div>
             </section>
-
-            <Footer />
-        </div>
+        </main>
     );
 }

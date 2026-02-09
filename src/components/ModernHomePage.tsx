@@ -11,7 +11,6 @@ import HumanAvatar from './ui/HumanAvatar';
 
 // Core Components (Safe)
 
-const Footer = dynamic(() => import('./Footer'), { ssr: false });
 const NeuralBackground = dynamic(() => import('./ui/NeuralBackground'), { ssr: false });
 
 // New AI Enhancements
@@ -640,7 +639,6 @@ export default function ModernHomePage() {
                                 </div>
                             </section>
                         </main>
-                        <Footer />
 
                     </>
                 )}

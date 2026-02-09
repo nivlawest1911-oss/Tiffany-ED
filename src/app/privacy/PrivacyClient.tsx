@@ -3,11 +3,14 @@
 import React from 'react';
 import { Shield, Lock, EyeOff, Trash2, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import HolographicBriefing from '@/components/HolographicBriefing';
+import { useState } from 'react';
 
 export default function PrivacyClient() {
+    const [showBriefing, setShowBriefing] = useState(false);
     return (
-        <div className="min-h-screen bg-[#0a0a0c] text-white p-8 md:p-24 selection:bg-emerald-500/30">
-            <div className="max-w-4xl mx-auto">
+        <main className="content-stage">
+            <div className="max-w-4xl mx-auto py-12">
                 <Link href="/" className="inline-flex items-center gap-2 text-[10px] uppercase font-black tracking-widest text-zinc-600 hover:text-emerald-400 transition-colors mb-16 group">
                     <ArrowLeft className="w-3 h-3 group-hover:-translate-x-1 transition-transform" /> Return to Command Deck
                 </Link>
@@ -19,6 +22,27 @@ export default function PrivacyClient() {
                         </div>
                         <span className="text-[10px] uppercase font-black tracking-[0.5em] text-emerald-500">Security & Operational Layer</span>
                     </div>
+
+                    <HolographicBriefing
+                        isOpen={showBriefing}
+                        onClose={() => setShowBriefing(false)}
+                        agentId="strategic"
+                        title="Sovereignty Briefing"
+                        description="Data sovereignty is the pillar of the EdIntel system. I am here to detail our transparency and ownership protocols."
+                        briefingSteps={[
+                            "LEAs retain full institutional ownership.",
+                            "NEVER train generalized models on student data.",
+                            "Stateless processing for all narrative synthesis.",
+                            "Admin purge authority is absolute."
+                        ]}
+                    />
+
+                    <button
+                        onClick={() => setShowBriefing(true)}
+                        className="inline-flex items-center gap-2 mb-8 px-6 py-2 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-emerald-400 text-[9px] font-black uppercase tracking-[0.3em] hover:bg-emerald-500/10 transition-all"
+                    >
+                        Initialize Sovereignty Briefing
+                    </button>
                     <h1 className="text-5xl md:text-7xl font-black italic uppercase tracking-tighter leading-none mb-8">
                         Data <span className="text-emerald-500">Sovereignty</span> Protocol
                     </h1>
@@ -72,6 +96,6 @@ export default function PrivacyClient() {
                     </footer>
                 </div>
             </div>
-        </div>
+        </main>
     );
 }

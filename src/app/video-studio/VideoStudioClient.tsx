@@ -24,7 +24,7 @@ export default function VideoStudioClient() {
     };
 
     return (
-        <div className="min-h-screen bg-black text-white p-6 relative overflow-hidden font-sans selection:bg-purple-500/30">
+        <main className="content-stage">
             {/* Background Ambience */}
             <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,rgba(56,189,248,0.15)_0%,transparent_70%)] pointer-events-none" />
             <div className="absolute bottom-0 right-0 w-[800px] h-[800px] bg-purple-900/10 blur-[120px] rounded-full pointer-events-none" />
@@ -190,6 +190,6 @@ export default function VideoStudioClient() {
                     </div>
                 </Tabs>
             </div>
-        </div>
+        </main>
     );
 }

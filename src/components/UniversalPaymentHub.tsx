@@ -22,6 +22,7 @@ import {
     Clock,
     Info,
 } from 'lucide-react';
+import Image from 'next/image';
 import { PaymentMethod, PaymentMethodCapability } from '@/lib/payments/unified';
 
 interface UniversalPaymentHubProps {
@@ -48,7 +49,6 @@ export default function UniversalPaymentHub({
     const [processing, setProcessing] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState(false);
-    const [paymentUrl, setPaymentUrl] = useState<string | null>(null);
     const [qrCode, setQrCode] = useState<string | null>(null);
 
     // Fetch available payment methods
@@ -112,7 +112,6 @@ export default function UniversalPaymentHub({
 
             if (data.checkoutUrl) {
                 // Redirect to checkout page
-                setPaymentUrl(data.checkoutUrl);
                 window.location.href = data.checkoutUrl;
             } else if (data.qrCode) {
                 // Show QR code for crypto payments
@@ -139,10 +138,10 @@ export default function UniversalPaymentHub({
     };
 
     const getCategoryColor = (method: PaymentMethod) => {
-        if (method === 'crypto') return 'from-orange-500 to-yellow-500';
-        if (['card', 'apple_pay', 'google_pay'].includes(method)) return 'from-blue-500 to-cyan-500';
-        if (['paypal', 'afterpay', 'klarna', 'affirm'].includes(method)) return 'from-purple-500 to-pink-500';
-        return 'from-green-500 to-emerald-500';
+        if (method === 'crypto') return 'from-noble-gold to-noble-gold-dark';
+        if (['card', 'apple_pay', 'google_pay'].includes(method)) return 'from-noble-gold to-zinc-700';
+        if (['paypal', 'afterpay', 'klarna', 'affirm'].includes(method)) return 'from-zinc-800 to-zinc-950';
+        return 'from-gray-700 to-gray-900';
     };
 
     if (loading) {
@@ -164,23 +163,23 @@ export default function UniversalPaymentHub({
                 animate={{ opacity: 1, y: 0 }}
                 className="text-center mb-8"
             >
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full text-white text-sm font-semibold mb-4">
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-noble-gold to-noble-gold-dark rounded-full text-white text-sm font-semibold mb-4">
                     <Shield className="w-4 h-4" />
-                    Secure Payment
+                    Secure Sovereign Protocol
                 </div>
-                <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-                    Choose Your Payment Method
+                <h1 className="text-4xl font-black mb-2 uppercase tracking-tighter text-white">
+                    Select <span className="text-noble-gold italic">Payment</span> Method
                 </h1>
-                <p className="text-gray-600 text-lg">
+                <p className="text-white/60 text-lg font-medium">
                     We accept every form of currency - Traditional, Crypto, and Digital Wallets
                 </p>
 
                 {/* Amount Display */}
-                <div className="mt-6 inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl">
-                    <DollarSign className="w-6 h-6 text-green-600" />
+                <div className="mt-6 inline-flex items-center gap-3 px-6 py-3 bg-zinc-900 border border-noble-gold/20 rounded-2xl shadow-2xl">
+                    <DollarSign className="w-6 h-6 text-noble-gold" />
                     <div className="text-left">
-                        <p className="text-sm text-gray-600">Total Amount</p>
-                        <p className="text-2xl font-bold text-gray-900">${amount.toFixed(2)}</p>
+                        <p className="text-[10px] font-black uppercase tracking-widest text-white/30">Total Value</p>
+                        <p className="text-2xl font-black text-white italic">${amount.toFixed(2)}</p>
                     </div>
                 </div>
             </motion.div>
@@ -194,9 +193,9 @@ export default function UniversalPaymentHub({
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: index * 0.05 }}
                         onClick={() => handlePaymentMethodSelect(method.method)}
-                        className={`relative p-6 rounded-2xl border-2 transition-all duration-300 text-left ${selectedMethod === method.method
-                                ? 'border-blue-500 bg-blue-50 shadow-lg shadow-blue-200'
-                                : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-md'
+                        className={`relative p-6 rounded-2xl border transition-all duration-300 text-left ${selectedMethod === method.method
+                            ? 'border-noble-gold bg-noble-gold/10 shadow-lg shadow-noble-gold/20'
+                            : 'border-zinc-800 bg-zinc-900/50 hover:border-zinc-700 hover:shadow-md'
                             }`}
                     >
                         {/* Icon */}
@@ -207,10 +206,10 @@ export default function UniversalPaymentHub({
                         {/* Method Info */}
                         <div className="mb-3">
                             <div className="flex items-center gap-2 mb-1">
-                                <h3 className="text-lg font-bold text-gray-900">{method.name}</h3>
+                                <h3 className="text-lg font-black text-white uppercase tracking-tight">{method.name}</h3>
                                 <span className="text-2xl">{method.icon}</span>
                             </div>
-                            <p className="text-sm text-gray-600">{method.description}</p>
+                            <p className="text-xs text-white/40 font-medium leading-relaxed">{method.description}</p>
                         </div>
 
                         {/* Processing Time */}
@@ -244,7 +243,7 @@ export default function UniversalPaymentHub({
                                 animate={{ scale: 1 }}
                                 className="absolute top-4 right-4"
                             >
-                                <CheckCircle className="w-6 h-6 text-blue-500" />
+                                <CheckCircle className="w-6 h-6 text-noble-gold" />
                             </motion.div>
                         )}
                     </motion.button>
@@ -260,10 +259,10 @@ export default function UniversalPaymentHub({
                         exit={{ opacity: 0, height: 0 }}
                         className="mb-8"
                     >
-                        <div className="bg-gradient-to-r from-purple-50 to-pink-50 border-2 border-purple-200 rounded-2xl p-6">
-                            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                <Globe className="w-5 h-5 text-purple-600" />
-                                Select Currency
+                        <div className="bg-zinc-900 border border-noble-gold/20 rounded-2xl p-6">
+                            <h3 className="text-xs font-black text-noble-gold uppercase tracking-[0.3em] mb-4 flex items-center gap-2">
+                                <Globe className="w-4 h-4" />
+                                Select Channel Currency
                             </h3>
 
                             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
@@ -273,9 +272,9 @@ export default function UniversalPaymentHub({
                                         <button
                                             key={currency}
                                             onClick={() => setSelectedCurrency(currency)}
-                                            className={`px-4 py-3 rounded-xl font-semibold transition-all ${selectedCurrency === currency
-                                                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
-                                                    : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-200'
+                                            className={`px-4 py-3 rounded-xl font-black text-xs uppercase tracking-widest transition-all ${selectedCurrency === currency
+                                                ? 'bg-noble-gold text-black shadow-lg shadow-noble-gold/20'
+                                                : 'bg-black text-white/40 hover:bg-zinc-800 border-2 border-zinc-800'
                                                 }`}
                                         >
                                             {currency}
@@ -316,7 +315,7 @@ export default function UniversalPaymentHub({
                         <p className="text-gray-600 mb-6">Scan the QR code below to complete your payment</p>
 
                         <div className="inline-block p-4 bg-white rounded-2xl shadow-lg">
-                            <img src={qrCode} alt="Payment QR Code" className="w-64 h-64" />
+                            <Image src={qrCode} alt="Payment QR Code" width={256} height={256} className="w-64 h-64" />
                         </div>
 
                         <div className="mt-6 flex items-center justify-center gap-2 text-sm text-gray-600">
@@ -342,17 +341,17 @@ export default function UniversalPaymentHub({
                 <button
                     onClick={handleCreatePayment}
                     disabled={!selectedMethod || processing}
-                    className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl font-semibold hover:shadow-lg hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center gap-2"
+                    className="px-8 py-4 bg-noble-gold text-black rounded-xl font-black text-xs uppercase tracking-[0.2em] hover:shadow-lg hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center gap-2"
                 >
                     {processing ? (
                         <>
                             <Loader className="w-5 h-5 animate-spin" />
-                            Processing...
+                            Initialising...
                         </>
                     ) : (
                         <>
-                            <Zap className="w-5 h-5" />
-                            Complete Payment
+                            <Zap className="w-5 h-5 fill-current" />
+                            Authorise Payment
                         </>
                     )}
                 </button>

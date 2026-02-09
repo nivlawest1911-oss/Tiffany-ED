@@ -7,7 +7,7 @@ import { Sparkles, Image as ImageIcon, Video } from 'lucide-react';
 
 export default function GalleryClient({ query }: { query: string }) {
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950">
+        <main className="content-stage">
             {/* Header */}
             <header className="border-b border-white/10 bg-black/20 backdrop-blur-md">
                 <div className="max-w-7xl mx-auto px-6 py-8">
@@ -34,7 +34,7 @@ export default function GalleryClient({ query }: { query: string }) {
             </header>
 
             {/* Content */}
-            <main className="max-w-7xl mx-auto px-6 py-12">
+            <div className="max-w-7xl mx-auto px-6 py-12">
                 <Suspense fallback={<div className="h-16" />}>
                     <MediaSearch />
                 </Suspense>
@@ -42,7 +42,7 @@ export default function GalleryClient({ query }: { query: string }) {
                 <Suspense key={query} fallback={<MediaSkeleton />}>
                     <MediaBentoGrid query={query} />
                 </Suspense>
-            </main>
+            </div>
 
             {/* Kente Pattern Footer */}
             <div className="max-w-7xl mx-auto px-6 pb-8">
@@ -59,6 +59,6 @@ export default function GalleryClient({ query }: { query: string }) {
                     ))}
                 </div>
             </div>
-        </div>
+        </main>
     );
 }

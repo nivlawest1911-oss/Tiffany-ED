@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import React from "react"
 import { motion } from "framer-motion"
@@ -8,14 +8,13 @@ import {
     Zap,
     Activity,
     ShieldCheck,
-    ChevronRight,
     ArrowUpRight,
-    MoreHorizontal
+    MoreHorizontal,
+    Sparkles as SparkleIcon
 } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Progress } from "@/components/ui/progress"
 import {
     AreaChart,
     Area,
@@ -23,31 +22,35 @@ import {
     YAxis,
     CartesianGrid,
     Tooltip,
-    ResponsiveContainer,
+    ResponsiveContainer
 } from "recharts"
-import { cn } from "@/lib/utils"
 
-const chartData = [
-    { name: "Mon", value: 400 },
-    { name: "Tue", value: 300 },
-    { name: "Wed", value: 600 },
-    { name: "Thu", value: 800 },
-    { name: "Fri", value: 500 },
-    { name: "Sat", value: 900 },
-    { name: "Sun", value: 700 },
-]
+import { ExecutiveBrief } from './zone1-executive-brief'
+import { SovereignDelegate } from '../SovereignDelegate'
+import { GrantArchitect } from './zone3-grant-architect'
+import { BoardRoom } from './zone3-board-room'
 
 const stats = [
-    { label: "Active Students", value: "2,841", trend: "+12.5%", icon: Users, color: "#06b6d4" },
-    { label: "AI Efficiency", value: "98.2%", trend: "+2.1%", icon: Brain, color: "#7c3aed" },
-    { label: "System Uptime", value: "99.99%", trend: "Stable", icon: ShieldCheck, color: "#10b981" },
+    { label: "Active Nodes", value: "48", trend: "+12%", icon: Users, color: "#3b82f6" },
+    { label: "Neural Load", value: "24%", trend: "Optimal", icon: Brain, color: "#a855f7" },
+    { label: "Total Artifacts", value: "1,204", trend: "+18", icon: Activity, color: "#10b981" },
     { label: "Avg Response", value: "1.2s", trend: "-150ms", icon: Zap, color: "#f59e0b" },
+]
+
+const chartData = [
+    { name: 'Mon', value: 400 },
+    { name: 'Tue', value: 300 },
+    { name: 'Wed', value: 500 },
+    { name: 'Thu', value: 280 },
+    { name: 'Fri', value: 590 },
+    { name: 'Sat', value: 320 },
+    { name: 'Sun', value: 410 },
 ]
 
 export default function Dashboard() {
     return (
-        <div className="space-y-8">
-            {/* Welcome Header */}
+        <div className="space-y-12 pb-20">
+            {/* 1. Welcome Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <motion.h1
@@ -57,19 +60,24 @@ export default function Dashboard() {
                     >
                         Welcome back, Dr. West <SparkleIcon className="h-6 w-6 text-cyan-400" />
                     </motion.h1>
-                    <p className="text-slate-400 text-sm mt-1">Here's your district's neural snapshot for today.</p>
+                    <p className="text-slate-400 text-sm mt-1">Sovereign OS // Tactical Overview for Mobile County Schools</p>
                 </div>
                 <div className="flex items-center gap-3">
-                    <Button variant="outline" className="bg-white/5 border-white/10 text-white hover:bg-white/10">
+                    <Button variant="outline" className="bg-white/5 border-white/10 text-white hover:bg-white/10 border-0">
                         Export Report
                     </Button>
-                    <Button className="bg-[#06b6d4] text-black hover:bg-[#06b6d4]/90 font-bold">
-                        Launch Agent
+                    <Button className="bg-cyan-500 text-black hover:bg-cyan-400 font-black px-6 rounded-full shadow-[0_0_20px_rgba(6,182,212,0.4)] transition-all hover:scale-105 active:scale-95">
+                        Live Command
                     </Button>
                 </div>
             </div>
 
-            {/* Stats Grid */}
+            {/* 2. Executive Brief (Zone 1) */}
+            <section className="relative z-10">
+                <ExecutiveBrief />
+            </section>
+
+            {/* 3. Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {stats.map((stat, i) => (
                     <motion.div
@@ -102,89 +110,76 @@ export default function Dashboard() {
                 ))}
             </div>
 
-            {/* Main Charts Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <Card className="lg:col-span-2 bg-white/5 border-white/10 backdrop-blur-sm">
-                    <CardHeader className="flex flex-row items-center justify-between">
-                        <div>
-                            <CardTitle className="text-lg text-white">Learning Trajectory</CardTitle>
-                            <CardDescription className="text-slate-400">District-wide performance indices</CardDescription>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <Button variant="ghost" size="sm" className="text-xs text-white/40 hover:text-white">D</Button>
-                            <Button variant="ghost" size="sm" className="text-xs text-white/40 hover:text-white">W</Button>
-                            <Button variant="ghost" size="sm" className="bg-white/10 text-xs text-white">M</Button>
-                        </div>
-                    </CardHeader>
-                    <CardContent className="h-[300px] w-full p-0 py-4">
-                        <ResponsiveContainer width="100%" height="100%">
-                            <AreaChart data={chartData}>
-                                <defs>
-                                    <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="5%" stopColor="#06b6d4" stopOpacity={0.3} />
-                                        <stop offset="95%" stopColor="#06b6d4" stopOpacity={0} />
-                                    </linearGradient>
-                                </defs>
-                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#ffffff05" />
-                                <XAxis
-                                    dataKey="name"
-                                    stroke="#ffffff20"
-                                    fontSize={10}
-                                    tickLine={false}
-                                    axisLine={false}
-                                />
-                                <YAxis
-                                    stroke="#ffffff20"
-                                    fontSize={10}
-                                    tickLine={false}
-                                    axisLine={false}
-                                />
-                                <Tooltip
-                                    contentStyle={{ backgroundColor: "#0f172a", border: "1px solid #ffffff10", borderRadius: "12px", fontSize: "12px" }}
-                                    itemStyle={{ color: "#fff" }}
-                                />
-                                <Area
-                                    type="monotone"
-                                    dataKey="value"
-                                    stroke="#06b6d4"
-                                    strokeWidth={3}
-                                    fillOpacity={1}
-                                    fill="url(#colorValue)"
-                                />
-                            </AreaChart>
-                        </ResponsiveContainer>
-                    </CardContent>
-                </Card>
+            {/* 4. Sovereign Delegate (Hero Interaction) */}
+            <section className="-mx-8">
+                <div className="bg-slate-900/40 border-y border-white/5 py-4">
+                    <SovereignDelegate />
+                </div>
+            </section>
 
-                <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
-                    <CardHeader>
-                        <CardTitle className="text-lg text-white">Agent Heartbeat</CardTitle>
-                        <CardDescription className="text-slate-400">Live system task execution</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        <div className="space-y-6">
-                            {[
-                                { name: "Lesson Architect", status: "Running", progress: 78, color: "bg-cyan-500" },
-                                { name: "Grant Synthesizer", status: "Success", progress: 100, color: "bg-emerald-500" },
-                                { name: "Cognitive Analyzer", status: "Running", progress: 45, color: "bg-purple-500" },
-                                { name: "Security Grid", status: "Idle", progress: 0, color: "bg-slate-700" },
-                            ].map((agent) => (
-                                <div key={agent.name} className="space-y-2">
-                                    <div className="flex items-center justify-between text-[11px]">
-                                        <span className="font-bold text-white">{agent.name}</span>
-                                        <span className="text-slate-500 uppercase tracking-tighter">{agent.status}</span>
-                                    </div>
-                                    <Progress value={agent.progress} className="h-1 bg-white/5" />
-                                </div>
-                            ))}
-                            <Button variant="ghost" className="w-full text-xs text-cyan-400 hover:text-cyan-300 hover:bg-cyan-400/10 mt-4">
-                                View All Nodes <ChevronRight className="h-3 w-3 ml-1" />
-                            </Button>
-                        </div>
-                    </CardContent>
-                </Card>
+            {/* 5. Tactical Grid (Grant Architect & Board Room) */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div className="lg:col-span-2">
+                    <Card className="h-full bg-white/5 border-white/10 backdrop-blur-sm">
+                        <CardHeader className="flex flex-row items-center justify-between">
+                            <div>
+                                <CardTitle className="text-lg text-white">Learning Trajectory</CardTitle>
+                                <CardDescription className="text-slate-400">District-wide performance indices</CardDescription>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <Button variant="ghost" size="sm" className="text-xs text-white/40 hover:text-white">D</Button>
+                                <Button variant="ghost" size="sm" className="text-xs text-white/40 hover:text-white">W</Button>
+                                <Button variant="ghost" size="sm" className="bg-white/10 text-xs text-white">M</Button>
+                            </div>
+                        </CardHeader>
+                        <CardContent className="h-[350px] w-full p-0 py-4">
+                            <ResponsiveContainer width="100%" height="100%">
+                                <AreaChart data={chartData}>
+                                    <defs>
+                                        <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="5%" stopColor="#06b6d4" stopOpacity={0.3} />
+                                            <stop offset="95%" stopColor="#06b6d4" stopOpacity={0} />
+                                        </linearGradient>
+                                    </defs>
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#ffffff05" />
+                                    <XAxis
+                                        dataKey="name"
+                                        stroke="#ffffff20"
+                                        fontSize={10}
+                                        tickLine={false}
+                                        axisLine={false}
+                                    />
+                                    <YAxis
+                                        stroke="#ffffff20"
+                                        fontSize={10}
+                                        tickLine={false}
+                                        axisLine={false}
+                                    />
+                                    <Tooltip
+                                        contentStyle={{ backgroundColor: "#0f172a", border: "1px solid #ffffff10", borderRadius: "12px", fontSize: "12px" }}
+                                        itemStyle={{ color: "#fff" }}
+                                    />
+                                    <Area
+                                        type="monotone"
+                                        dataKey="value"
+                                        stroke="#06b6d4"
+                                        strokeWidth={3}
+                                        fillOpacity={1}
+                                        fill="url(#colorValue)"
+                                    />
+                                </AreaChart>
+                            </ResponsiveContainer>
+                        </CardContent>
+                    </Card>
+                </div>
+
+                <div className="space-y-6">
+                    <GrantArchitect />
+                    <BoardRoom />
+                </div>
             </div>
 
+            {/* 6. Lower Dashboard (Intel & Directives) */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
                     <CardHeader className="flex flex-row items-center justify-between">
@@ -215,7 +210,7 @@ export default function Dashboard() {
                     </div>
                     <CardHeader>
                         <CardTitle className="text-lg text-white">Priority Directives</CardTitle>
-                        <CardDescription className="text-slate-400">Dr. West, action required on 3 nodes</CardDescription>
+                        <CardDescription className="text-slate-400">Action required on 3 nodes</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-3">
@@ -236,22 +231,6 @@ export default function Dashboard() {
                     </CardContent>
                 </Card>
             </div>
-        </div>
-    )
-}
-
-function SparkleIcon({ className }: { className?: string }) {
-    return (
-        <div className={cn("relative", className)}>
-            <motion.div
-                animate={{
-                    scale: [1, 1.2, 1],
-                    opacity: [0.5, 1, 0.5],
-                }}
-                transition={{ duration: 2, repeat: Infinity }}
-            >
-                <Zap className="h-full w-full" />
-            </motion.div>
         </div>
     )
 }

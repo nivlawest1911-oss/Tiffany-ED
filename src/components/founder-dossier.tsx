@@ -5,6 +5,9 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 import { Award, BookOpen, GraduationCap, ExternalLink, Linkedin, Briefcase, Facebook, Download, Activity, Lock, Pause, Volume2 } from "lucide-react"
 
+
+import { SOCIAL_LINKS } from '@/config/socials';
+
 const publications = [
   { title: "Effective Strategies to Sustain Small Businesses", subtitle: "Doctoral Dissertation • Walden University (2023)" },
   { title: "The Refractive Thinker® Vol. XXIV", subtitle: "Mental Health: Policy & Practice (Contributing Author)" },
@@ -80,7 +83,7 @@ export function FounderDossier() {
 
                 <div className="relative w-64 h-64 rounded-3xl overflow-hidden border-2 border-white/10 shadow-2xl">
                   <Image
-                    src="/images/avatars/dr_alvin_west_premium.png"
+                    src="/images/avatars/dr_alvin_west_executive.jpg"
                     alt="Dr. Alvin E. West II"
                     fill
                     className="object-cover"
@@ -120,10 +123,14 @@ export function FounderDossier() {
                 <p className="text-zinc-400 text-sm">Professional Architect & Executive Consultant</p>
               </div>
 
+
+
+              // ... (inside component)
+
               {/* Social Links */}
               <div className="flex flex-wrap justify-center lg:justify-start gap-2">
                 <a
-                  href="https://www.linkedin.com/in/alvin-west-ii-dba-11a75323"
+                  href={SOCIAL_LINKS.LINKEDIN}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-4 py-2 rounded-lg bg-[#0077b5]/10 border border-[#0077b5]/20 flex items-center gap-2 text-[#0077b5] hover:bg-[#0077b5]/20 transition-all text-xs font-bold uppercase tracking-wide"
@@ -132,7 +139,7 @@ export function FounderDossier() {
                   LinkedIn
                 </a>
                 <a
-                  href="https://www.tiktok.com/@alvinwestii"
+                  href={SOCIAL_LINKS.TIKTOK}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-4 py-2 rounded-lg bg-pink-500/10 border border-pink-500/20 flex items-center gap-2 text-pink-500 hover:bg-pink-500/20 transition-all text-xs font-bold uppercase tracking-wide"
@@ -141,13 +148,22 @@ export function FounderDossier() {
                   TikTok
                 </a>
                 <a
-                  href="https://www.facebook.com/alvin.west.18"
+                  href={SOCIAL_LINKS.FACEBOOK}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-4 py-2 rounded-lg bg-[#1877F2]/10 border border-[#1877F2]/20 flex items-center gap-2 text-[#1877F2] hover:bg-[#1877F2]/20 transition-all text-xs font-bold uppercase tracking-wide"
                 >
                   <Facebook className="w-4 h-4" />
                   Facebook
+                </a>
+                <a
+                  href={SOCIAL_LINKS.YOUTUBE}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 rounded-lg bg-red-600/10 border border-red-600/20 flex items-center gap-2 text-red-500 hover:bg-red-600/20 transition-all text-xs font-bold uppercase tracking-wide"
+                >
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" /></svg>
+                  YouTube
                 </a>
               </div>
 
@@ -165,17 +181,32 @@ export function FounderDossier() {
                 ))}
               </div>
 
-              {/* Leadership Philosophy */}
-              <div className="mt-8 p-6 bg-white/5 rounded-2xl border border-white/5 relative">
+              {/* Leadership Philosophy & Comprehensive Bio */}
+              <div className="mt-8 p-8 bg-white/5 rounded-2xl border border-white/5 relative">
                 <div className="absolute -top-3 left-4 bg-black px-2 text-indigo-400">
                   <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.8954 13.1216 16 12.017 16H9.01703C7.91246 16 7.01703 16.8954 7.01703 18V21H2.01703V18C2.01703 14.134 5.15104 11 9.01703 11H13.517C17.383 11 20.517 14.134 20.517 18V21H14.017ZM11.267 9C9.20003 9 7.51703 7.317 7.51703 5.25C7.51703 3.183 9.20003 1.5 11.267 1.5C13.334 1.5 15.017 3.183 15.017 5.25C15.017 7.317 13.334 9 11.267 9Z" /></svg>
                 </div>
-                <p className="text-zinc-300 text-sm italic leading-relaxed">
-                  "True authority in education isn't about control—it's about the seamless integration of fiscal responsibility, cognitive data, and human compassion."
-                </p>
+
+                <div className="space-y-6 text-zinc-300 text-sm leading-relaxed text-justify">
+                  <p>
+                    Dr. Alvin E. West II stands as a vanguard in the intersection of educational leadership, fiscal sovereignty, and artificial intelligence. As the <strong className="text-white">Founder and Strategic Architect</strong> of Transcend Academic, Business & Cognitive Solutions, Dr. West has pioneered the "Sovereign Node" architecture—a decentralized framework empowering District leaders to reclaim ownership of their institutional data.
+                  </p>
+                  <p>
+                    With a <strong className="text-indigo-400">Doctor of Business Administration (DBA)</strong> from Walden University, where his dissertation <em>"Effective Strategies to Sustain Small Businesses"</em> redefined operational resilience, Dr. West bridges the gap between theoretical academia and tactical execution. His tenure as a Regional Operations Manager in the corporate sector, managing multimillion-dollar portfolios, laid the groundwork for his fiscal-first approach to educational consulting.
+                  </p>
+                  <p>
+                    Dr. West's "EdIntel" ecosystem is not merely software; it is a philosophy of governance. By leveraging advanced AI to automate compliance, grant acquisition, and IEP narrative synthesis, he liberates educators from administrative attrition, allowing them to focus on the human art of teaching. His work is devoid of abstraction—it is built on the concrete pillars of FERPA compliance, fiscal transparency, and unyielding institutional authority.
+                  </p>
+                  <p>
+                    As a visionary, Dr. West challenges the status quo, advocating for a future where educational institutions are not just consumers of technology, but sovereign entities capability of wielding it to shape the minds of tomorrow. His leadership is characterized by a relentless pursuit of excellence and a deep-seated belief in the transformative power of education when coupled with the precision of artificial intelligence.
+                  </p>
+                  <p className="italic border-l-2 border-indigo-500 pl-4 text-zinc-400">
+                    "True authority in education isn't about control—it's about the seamless integration of fiscal responsibility, cognitive data, and human compassion."
+                  </p>
+                </div>
 
                 {/* Simulated Signature */}
-                <div className="mt-4 pt-4 border-t border-white/10 flex justify-end">
+                <div className="mt-8 pt-4 border-t border-white/10 flex justify-end">
                   <motion.svg
                     initial={{ pathLength: 0, opacity: 0 }}
                     whileInView={{ pathLength: 1, opacity: 1 }}

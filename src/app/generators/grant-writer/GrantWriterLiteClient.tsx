@@ -3,16 +3,18 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, DollarSign, ArrowRight, Download, CheckCircle, AlertCircle, FileText, Loader2 } from 'lucide-react';
-import FloatingNavbar from '@/components/FloatingNavbar';
+import HolographicBriefing from '@/components/HolographicBriefing';
 
 export default function GrantWriterLiteClient() {
-    const [step, setStep] = useState(1);
+
     const [goal, setGoal] = useState('');
     const [amount, setAmount] = useState('');
     const [demographics, setDemographics] = useState('');
     const [isGenerating, setIsGenerating] = useState(false);
     const [generatedGrant, setGeneratedGrant] = useState('');
+    const [showBriefing, setShowBriefing] = useState(false);
     const [showPremiumModal, setShowPremiumModal] = useState(false);
+
 
     const handleGenerate = async () => {
         setIsGenerating(true);
@@ -39,7 +41,6 @@ export default function GrantWriterLiteClient() {
 
             const text = await response.text();
             setGeneratedGrant(text);
-            setStep(2);
         } catch (error) {
             console.error("Grant Gen Error", error);
         }
@@ -47,17 +48,9 @@ export default function GrantWriterLiteClient() {
     };
 
     return (
-        <div className="min-h-screen bg-black text-white relative overflow-hidden">
-            <FloatingNavbar />
-
-            {/* Background Effects */}
-            <div className="fixed inset-0 pointer-events-none">
-                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[100px]" />
-                <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[100px]" />
-            </div>
-
-            <main className="max-w-5xl mx-auto px-6 py-24 relative z-10">
-                <div className="text-center mb-16">
+        <>
+            <main className="content-stage">
+                <div className="max-w-7xl mx-auto px-6 py-24 relative z-10">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-6 border border-emerald-500/20">
                         <DollarSign size={14} />
                         <span>Revenue Generator</span>
@@ -68,7 +61,33 @@ export default function GrantWriterLiteClient() {
                     <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
                         Secure funding for your vision. This tool generates high-impact grant narratives proven to win Title 1 and private funding.
                     </p>
+
+                    <div className="mt-12 max-w-3xl mx-auto">
+                        <HolographicBriefing
+                            isOpen={showBriefing}
+                            onClose={() => setShowBriefing(false)}
+                            agentId="strategic"
+                            title="Revenue Acquisition Protocol"
+                            description="I am Keisha Reynolds. I will guide you through the grant-writing framework to maximize your district's federal and private funding capture rates."
+                            briefingSteps={[
+                                "Define the core need using quantitative data nodes.",
+                                "Align proposed solutions with state and federal grant rubrics.",
+                                "Synthesize the impact narrative to demonstrate exponential ROI.",
+                                "Verify compliance with grant-specific reporting mandates."
+                            ]}
+                        />
+
+                        <button
+                            onClick={() => setShowBriefing(true)}
+                            className="mt-8 px-8 py-4 liquid-glass border-emerald-500/20 text-emerald-400 hover:text-white transition-all text-[10px] font-black uppercase tracking-[0.3em] group"
+                        >
+                            <Sparkles size={14} className="inline mr-3 group-hover:rotate-12 transition-transform" />
+                            Initialize Strategic Briefing
+                        </button>
+                    </div>
+
                 </div>
+
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                     {/* Left Panel: Input */}
@@ -236,6 +255,6 @@ export default function GrantWriterLiteClient() {
                     </div>
                 )}
             </AnimatePresence>
-        </div>
+        </>
     );
 }

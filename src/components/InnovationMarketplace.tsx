@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { ShoppingBag, Star, ArrowRight } from 'lucide-react';
+import Image from 'next/image';
 
 export default function InnovationMarketplace() {
     const listings = [
@@ -72,7 +73,7 @@ export default function InnovationMarketplace() {
                                 <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 to-transparent" />
                                 <div className="absolute bottom-4 left-4 flex items-center gap-2">
                                     <div className="w-8 h-8 rounded-full border border-white/20 overflow-hidden">
-                                        <img src={item.image} alt={item.author} className="w-full h-full object-cover" />
+                                        <Image src={item.image} alt={item.author} fill className="object-cover" />
                                     </div>
                                     <span className="text-xs font-bold text-white shadow-black drop-shadow-md">{item.author}</span>
                                 </div>

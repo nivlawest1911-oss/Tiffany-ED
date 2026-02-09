@@ -27,7 +27,7 @@ export default function AIHubClient() {
     });
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 relative overflow-hidden">
+        <main className="content-stage">
             {/* Animated Background */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <motion.div
@@ -388,6 +388,6 @@ export default function AIHubClient() {
                     <p>Powered by 7 AI platforms • 50+ features • Enterprise-grade infrastructure</p>
                 </motion.div>
             </div>
-        </div>
+        </main>
     );
 }

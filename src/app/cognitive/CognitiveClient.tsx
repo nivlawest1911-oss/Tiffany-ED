@@ -13,7 +13,6 @@ import {
     Sparkles,
     Terminal
 } from 'lucide-react';
-import FloatingNavbar from '@/components/FloatingNavbar';
 import LeadershipGym from '@/components/bento/LeadershipGym';
 import { useLeadershipRank } from '@/hooks/useLeadershipRank';
 
@@ -28,8 +27,7 @@ export default function CognitiveClient() {
     }, []);
 
     return (
-        <div className="min-h-screen bg-black text-white selection:bg-cyan-500/30">
-            <FloatingNavbar />
+        <main className="content-stage">
 
             {/* Ambient Background */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none">
@@ -40,7 +38,7 @@ export default function CognitiveClient() {
                 />
             </div>
 
-            <main className="relative z-10 max-w-7xl mx-auto px-6 py-12">
+            <div className="relative z-10 max-w-7xl mx-auto px-6 py-12">
                 {/* Header */}
                 <div className="flex flex-col md:flex-row items-end justify-between gap-8 mb-16">
                     <div className="space-y-4">
@@ -226,7 +224,7 @@ export default function CognitiveClient() {
                         </div>
                     </div>
                 </div>
-            </main>
+            </div>
 
             {/* Footer */}
             <footer className="relative z-10 border-t border-zinc-900 py-12 px-6">
@@ -238,6 +236,6 @@ export default function CognitiveClient() {
                     </div>
                 </div>
             </footer>
-        </div>
+        </main>
     );
 }

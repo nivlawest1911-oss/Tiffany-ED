@@ -11,6 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { useSovereignSwarm } from '@/hooks/useSovereignSwarm';
 import { SovereignBentoGrid, SovereignBentoItem } from '@/components/ui/SovereignBento';
+import { useSovereignVibe } from '@/context/SovereignVibeContext';
 
 // AGGREGATOR NODE DEFINITIONS
 // Replaces "QUICK NODES" with the full "Sovereign Swarm" categories
@@ -20,7 +21,7 @@ const SWARM_AGGREGATORS = [
         name: 'The Sovereign Brief',
         id: 'admin_brief',
         icon: Mic,
-        path: '/admin/brief',
+        path: '/admin/vault',
         color: 'text-amber-400',
         intent: 'Synthesize meeting audio into sovereign vault compliance logs',
         description: 'Auto-logs meetings & updates Vault.',
@@ -29,7 +30,7 @@ const SWARM_AGGREGATORS = [
     {
         category: 'SPED & IEP',
         name: 'Narrative Architect',
-        id: 'iep_architect',
+        id: 'iep-architect',
         icon: Brain,
         path: '/generators/iep-architect',
         color: 'text-emerald-400',
@@ -40,9 +41,9 @@ const SWARM_AGGREGATORS = [
     {
         category: 'Instructional Design',
         name: 'Lesson Architect',
-        id: 'lesson_architect',
+        id: 'lesson-planner',
         icon: FileText,
-        path: '/generators/lesson-architect',
+        path: '/generators/lesson-planner',
         color: 'text-blue-400',
         intent: 'Construct differentiated lesson plan aligned with Science of Reading',
         description: 'Targets Science of Reading benchmarks.',
@@ -65,6 +66,7 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function SovereignCommandDeck() {
     const { user, logout } = useAuth();
+    const { toggleCommandConsole } = useSovereignVibe();
     const { data: balance, error: _error } = useSWR(user ? `/api/tokens/balance?userId=${user.id}` : null, fetcher);
 
     // Sovereign Swarm Integration
@@ -85,7 +87,7 @@ export default function SovereignCommandDeck() {
     };
 
     return (
-        <div className="w-full max-w-7xl mx-auto p-6 space-y-8 text-white min-h-screen bg-[var(--sovereign-black)] legacy-texture">
+        <div className="w-full max-w-7xl mx-auto p-6 space-y-8 text-white min-h-screen bg-[var(--sovereign-black)] legacy-texture overflow-y-auto">
 
             {/* Swarm Intelligence Overlay */}
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -150,6 +152,16 @@ export default function SovereignCommandDeck() {
                             <span className="text-[9px] font-mono text-emerald-400 tracking-widest uppercase">System Optimal</span>
                         </div>
                     </div>
+
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={toggleCommandConsole}
+                        className="text-amber-400 border border-amber-400/20 hover:bg-amber-400/10 uppercase font-bold text-[10px] tracking-widest mr-2"
+                    >
+                        Close Deck
+                    </Button>
+
                     <Button variant="ghost" size="icon" onClick={() => logout()} className="text-slate-400 hover:text-white hover:bg-white/5 rounded-full w-10 h-10 border border-transparent hover:border-white/10">
                         <LogOut className="w-5 h-5" />
                     </Button>
@@ -219,7 +231,6 @@ export default function SovereignCommandDeck() {
             </div>
 
             {/* 4. Super-Intelligence Aggregator (The Swarm) */}
-            {/* 4. Super-Intelligence Aggregator (One-Stop Swarm) */}
             <div>
                 <h3 className="text-noble-gold/60 font-mono text-[10px] tracking-[0.4em] uppercase mb-8 border-b border-white/5 pb-2">Swarm Intelligence Aggregator</h3>
 
@@ -275,4 +286,3 @@ export default function SovereignCommandDeck() {
         </div>
     );
 }
-

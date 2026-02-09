@@ -7,8 +7,13 @@ import IEPGenerator from '@/components/bento/IEPGenerator';
 import LeadershipGenerator from '@/components/bento/LeadershipGenerator';
 import LessonPlanGenerator from '@/components/bento/LessonPlanGenerator';
 import AutomatedIEPAudit from '@/components/bento/AutomatedIEPAudit';
+import HolographicBriefing from '@/components/HolographicBriefing';
+import { useState } from 'react';
+
 
 export default function ToolsClient() {
+    const [showBriefing, setShowBriefing] = useState(false);
+
     return (
         <div className="space-y-12 pb-20 animate-in fade-in slide-in-from-bottom-4 duration-700">
             {/* Header Section */}
@@ -28,7 +33,32 @@ export default function ToolsClient() {
                         <p className="max-w-xl text-zinc-400 text-sm font-medium leading-relaxed tracking-wide">
                             Deploy autonomous agents for executive protocols, compliance auditing, and curriculum synthesis.
                         </p>
+
+                        <div className="pt-4">
+                            <HolographicBriefing
+                                isOpen={showBriefing}
+                                onClose={() => setShowBriefing(false)}
+                                agentId="visionary"
+                                title="Neural Command Center Overview"
+                                description="I am Dr. Alvin West. You have reached the core cognitive layer of the Sovereign OS. Here, you manage the high-stakes intelligence nodes that power your district."
+                                briefingSteps={[
+                                    "Select an Intelligence Node for specialized protocol generation.",
+                                    "Monitor real-time system load and node activity telemetry.",
+                                    "Configure executive-level parameters for targeted interventions.",
+                                    "Deploy generated protocols directly to your professional network."
+                                ]}
+                            />
+
+                            <button
+                                onClick={() => setShowBriefing(true)}
+                                className="px-6 py-3 liquid-glass border-intel-gold/20 text-intel-gold hover:text-white transition-all text-[10px] font-black uppercase tracking-[0.3em] group"
+                            >
+                                <Zap size={14} className="inline mr-3 group-hover:scale-125 transition-transform" />
+                                Initialize Command Briefing
+                            </button>
+                        </div>
                     </div>
+
 
                     <div className="flex items-center gap-4">
                         <div className="px-6 py-3 rounded-2xl bg-black/40 border border-white/10 backdrop-blur-xl flex flex-col items-end">

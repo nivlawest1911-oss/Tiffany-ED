@@ -1,4 +1,4 @@
-import SovereignShell from '@/components/layout/SovereignShell';
+import WorkspaceLayout from '@/components/dashboard/WorkspaceLayout';
 
 export default function AdminLayout({
     children,
@@ -6,8 +6,8 @@ export default function AdminLayout({
     children: React.ReactNode;
 }) {
     return (
-        <SovereignShell>
+        <WorkspaceLayout>
             {children}
-        </SovereignShell>
+        </WorkspaceLayout>
     );
 }

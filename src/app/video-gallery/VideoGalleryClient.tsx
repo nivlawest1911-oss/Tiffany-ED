@@ -2,8 +2,6 @@
 
 import { motion } from 'framer-motion';
 import VideoShowcase from '@/components/VideoShowcase';
-import FloatingNavbar from '@/components/FloatingNavbar';
-import Footer from '@/components/Footer';
 import { Sparkles, Video, Zap, Brain } from 'lucide-react';
 
 export default function VideoGalleryClient() {
@@ -40,11 +38,9 @@ export default function VideoGalleryClient() {
     ];
 
     return (
-        <div className="min-h-screen bg-black">
-            <FloatingNavbar />
-
+        <main className="content-stage">
             {/* Hero Section */}
-            <section className="relative pt-32 pb-20 px-4 overflow-hidden">
+            <section className="relative py-20 px-4 overflow-hidden">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(139,92,246,0.1),transparent_70%)]" />
 
                 <div className="max-w-7xl mx-auto relative z-10">
@@ -154,8 +150,6 @@ export default function VideoGalleryClient() {
                     </motion.div>
                 </div>
             </section>
-
-            <Footer />
-        </div>
+        </main>
     );
 }

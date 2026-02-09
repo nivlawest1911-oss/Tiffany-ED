@@ -2,7 +2,7 @@
 
 /**
  * EdIntel SOVEREIGN - Payment Cancelled Page Client
- * Handles cancelled payments with helpful guidance
+ * Handles cancelled payments with high-fidelity protocol visuals
  */
 
 import React from 'react';
@@ -12,12 +12,25 @@ import Link from 'next/link';
 
 export default function PaymentCancelClient() {
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 via-slate-50 to-zinc-50 flex items-center justify-center p-6">
+        <div className="min-h-screen bg-black flex items-center justify-center p-6 relative overflow-hidden">
+            {/* Sovereign Background elements */}
+            <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
+                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] scale-150" />
+            </div>
+
+            <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.02]">
+                <motion.div
+                    animate={{ y: ['0%', '100%'] }}
+                    transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                    className="w-full h-px bg-white shadow-[0_0_10px_white]"
+                />
+            </div>
+
             <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
+                initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
-                className="max-w-2xl w-full"
+                className="max-w-2xl w-full relative z-10"
             >
                 {/* Cancel Icon */}
                 <motion.div
@@ -27,8 +40,8 @@ export default function PaymentCancelClient() {
                     className="flex justify-center mb-8"
                 >
                     <div className="relative">
-                        <div className="absolute inset-0 bg-orange-400 rounded-full blur-2xl opacity-30" />
-                        <XCircle className="w-32 h-32 text-orange-500 relative" />
+                        <div className="absolute inset-0 bg-red-600 rounded-full blur-3xl opacity-10" />
+                        <XCircle className="w-32 h-32 text-zinc-700 relative" />
                     </div>
                 </motion.div>
 
@@ -37,16 +50,16 @@ export default function PaymentCancelClient() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
-                    className="text-center mb-8"
+                    className="text-center mb-12"
                 >
-                    <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-                        Payment Cancelled
+                    <h1 className="text-5xl font-black mb-4 uppercase tracking-tighter text-white">
+                        Sync <span className="text-white/20">Interrupted</span>
                     </h1>
-                    <p className="text-xl text-gray-600 mb-2">
-                        No charges were made to your account
+                    <p className="text-xl font-bold text-white/60 mb-2">
+                        Transmissions Halted
                     </p>
-                    <p className="text-gray-500">
-                        Your payment was cancelled. You can try again anytime.
+                    <p className="text-white/30 text-xs font-medium uppercase tracking-widest">
+                        Your request was aborted. No credits were deducted.
                     </p>
                 </motion.div>
 
@@ -55,32 +68,25 @@ export default function PaymentCancelClient() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
-                    className="bg-white rounded-2xl shadow-xl p-8 mb-6"
+                    className="bg-zinc-900 border border-zinc-800 rounded-2xl shadow-2xl p-8 mb-8"
                 >
-                    <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                        <HelpCircle className="w-5 h-5 text-blue-600" />
-                        Need Help?
+                    <h3 className="text-xs font-black text-noble-gold uppercase tracking-[0.3em] mb-6 flex items-center gap-2">
+                        <HelpCircle className="w-4 h-4" />
+                        Protocol Support
                     </h3>
 
-                    <div className="space-y-3 mb-6">
-                        <div className="p-4 bg-blue-50 rounded-xl">
-                            <h4 className="font-semibold text-gray-900 mb-1">Payment Issues?</h4>
-                            <p className="text-sm text-gray-600">
-                                If you encountered any technical issues during checkout, please try a different payment method or contact our support team.
+                    <div className="space-y-4 mb-8">
+                        <div className="p-4 bg-zinc-800/50 border border-zinc-700/50 rounded-xl">
+                            <h4 className="font-bold text-white mb-1 uppercase text-xs tracking-wider">Channel Interference?</h4>
+                            <p className="text-sm text-white/40">
+                                If you encountered technical latency during checkout, please verify your credentials or attempt an alternate transmission channel.
                             </p>
                         </div>
 
-                        <div className="p-4 bg-purple-50 rounded-xl">
-                            <h4 className="font-semibold text-gray-900 mb-1">Questions About Pricing?</h4>
-                            <p className="text-sm text-gray-600">
-                                We offer flexible payment options including monthly and annual plans. Check our pricing page for details.
-                            </p>
-                        </div>
-
-                        <div className="p-4 bg-green-50 rounded-xl">
-                            <h4 className="font-semibold text-gray-900 mb-1">Want to Try Free Features?</h4>
-                            <p className="text-sm text-gray-600">
-                                You can still access many free features while you decide. No credit card required.
+                        <div className="p-4 bg-zinc-800/50 border border-zinc-700/50 rounded-xl">
+                            <h4 className="font-bold text-white mb-1 uppercase text-xs tracking-wider">Strategic Deployment?</h4>
+                            <p className="text-sm text-white/40">
+                                Sovereign Network access is available via both annual and lifecycle subscriptions. Review our deployment tiers for details.
                             </p>
                         </div>
                     </div>
@@ -89,18 +95,18 @@ export default function PaymentCancelClient() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <Link
                             href="/payment"
-                            className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl font-semibold hover:shadow-lg hover:scale-105 transition-all"
+                            className="flex items-center justify-center gap-2 px-6 py-4 bg-noble-gold text-black rounded-xl font-black uppercase text-xs tracking-widest hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] hover:scale-[1.02] transition-all"
                         >
-                            <RefreshCw className="w-5 h-5" />
-                            Try Again
+                            <RefreshCw className="w-4 h-4" />
+                            Retry Protocol
                         </Link>
 
                         <Link
-                            href="/contact"
-                            className="flex items-center justify-center gap-2 px-6 py-3 bg-gray-100 text-gray-700 rounded-xl font-semibold hover:bg-gray-200 transition-all"
+                            href="/support"
+                            className="flex items-center justify-center gap-2 px-6 py-4 bg-zinc-800 text-white border border-zinc-700 rounded-xl font-black uppercase text-xs tracking-widest hover:bg-zinc-700 transition-all"
                         >
-                            <MessageCircle className="w-5 h-5" />
-                            Contact Support
+                            <MessageCircle className="w-4 h-4" />
+                            Open Comm Link
                         </Link>
                     </div>
                 </motion.div>
@@ -110,21 +116,23 @@ export default function PaymentCancelClient() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.5 }}
-                    className="flex flex-col sm:flex-row gap-4 justify-center"
+                    className="flex flex-col sm:flex-row gap-4 justify-center items-center"
                 >
                     <Link
                         href="/pricing"
-                        className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-gray-700 rounded-xl font-semibold hover:shadow-md transition-all"
+                        className="inline-flex items-center gap-2 text-white/40 hover:text-noble-gold transition-colors text-xs font-black uppercase tracking-widest"
                     >
-                        <ArrowLeft className="w-5 h-5" />
-                        View Pricing
+                        <ArrowLeft className="w-4 h-4" />
+                        Abort to Pricing
                     </Link>
+
+                    <div className="hidden sm:block w-px h-4 bg-zinc-800" />
 
                     <Link
                         href="/dashboard"
-                        className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-gray-700 rounded-xl font-semibold hover:shadow-md transition-all"
+                        className="inline-flex items-center gap-2 text-white/40 hover:text-white transition-colors text-xs font-black uppercase tracking-widest"
                     >
-                        Go to Dashboard
+                        Return to Command
                     </Link>
                 </motion.div>
             </motion.div>

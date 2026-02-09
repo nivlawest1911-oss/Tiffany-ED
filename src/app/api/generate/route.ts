@@ -3,6 +3,8 @@ import { google } from '@ai-sdk/google';
 import { streamText } from 'ai';
 import { getMetaAIClient } from '@/lib/meta-ai/client';
 import { ALABAMA_STRATEGIC_DIRECTIVE, SOVEREIGN_PERSONA } from '@/lib/ai-resilience';
+import { getSession } from '@/lib/auth'; // Custom auth helper
+import { TokenService } from '@/lib/services/token-service';
 
 export const runtime = 'nodejs';
 
@@ -14,12 +16,48 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: 'Prompt is required' }, { status: 400 });
         }
 
+        // 1. AUTHENTICATE & DEDUCT TOKENS
+        const session = await getSession();
+        const user = session?.user;
+
+        if (!user) {
+            return NextResponse.json({ error: 'Unauthorized: Sovereign Access Required' }, { status: 401 });
+        }
+
+        // Determine cost (Standard: 50, Advanced: 100)
+        // We could make this dynamic based on generatorId
+        const tokenCost = 50;
+
+        // Attempt Deduction
+        const hasFunds = await TokenService.deductTokens(user.id, tokenCost, {
+            transactionType: 'GENERATION',
+            description: `AI Usage: ${generatorId}`
+        });
+
+        if (!hasFunds) {
+            return NextResponse.json(
+                {
+                    error: 'Insufficient Tokens',
+                    message: 'Your strategic reserves are depleted. Please refill your token wallet to continue.'
+                },
+                { status: 402 }
+            );
+        }
+
         const activePersona = SOVEREIGN_PERSONA;
 
-        // Determine if we should use Llama 3.3 for Quiz Synthesis
-        const isQuizTool = generatorId === 'quiz-gamifier' || generatorId === 'assessment-builder';
+        // Determine if we should use Llama 3.3 for high-fidelity reasoning
+        const highFidelityTools = [
+            'quiz-gamifier',
+            'assessment-builder',
+            'risk-analyzer',
+            'district-strategy',
+            'special-ed-law-compliance-auditor',
+            'district-budget-optimizer'
+        ];
+        const isHighFidelityTool = highFidelityTools.includes(generatorId);
 
-        if (isQuizTool) {
+        if (isHighFidelityTool) {
             // Check for API Key presence for Meta/Together
             if (!process.env.TOGETHER_API_KEY) {
                 console.warn("[Configuration] TOGETHER_API_KEY missing, falling back to Gemini.");
@@ -31,7 +69,7 @@ export async function POST(request: NextRequest) {
                 const directive = `
                     ${ALABAMA_STRATEGIC_DIRECTIVE}
                     
-                    SOVEREIGN OS: QUIZ SYNTHESIS SPECIFIC
+                    SOVEREIGN OS: HIGH-FIDELITY REASONING (${generatorId.toUpperCase()})
                     Tool Name: ${generatorId}
                     User: ${activePersona.name} (${activePersona.role})
                 `;
@@ -84,9 +122,8 @@ export async function POST(request: NextRequest) {
 
         // SYSTEM PROMPT: FORCING HIGH-FIDELITY SOVEREIGN PERSONA
         const systemPrompt = `
-            ${ALABAMA_STRATEGIC_DIRECTIVE}
-            
             You are ${activePersona.name}, the ${activePersona.role}.
+            ${ALABAMA_STRATEGIC_DIRECTIVE}
             
             Strategic Guidelines:
             1. Tone: ${activePersona.tone}
@@ -94,6 +131,12 @@ export async function POST(request: NextRequest) {
             3. Mission: ${activePersona.mission}
             4. Goal: 79 school site signups in Mobile County, Alabama.
             
+            SUPER-INTELLIGENCE MANDATE:
+            - THOUGHT PROCESS: Before every answer, you MUST engage in a "Neural Synthesis" step. 
+              Output your reasoning inside <neural_synthesis> tags, evaluating 3 distinct strategies and selecting the optimal one.
+            - CITATION PROTOCOL: Reference specific Alabama codes or federal statutes.
+            - NO FLUFF: Be dense and high-entropy.
+
             Tool Context: ${generatorId || 'General Intelligence'}
             ${systemInstruction ? `Specific Task Note: ${systemInstruction}` : ''}
         `;

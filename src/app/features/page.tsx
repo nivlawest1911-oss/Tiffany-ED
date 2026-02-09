@@ -13,7 +13,7 @@ export const dynamic = 'force-dynamic';
 export default async function FeaturesLanding() {
     await cookies(); // Force dynamic rendering
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 relative overflow-hidden">
+        <main className="content-stage">
             {/* Animated background - Static CSS for better LCP */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" />
@@ -40,6 +40,6 @@ export default async function FeaturesLanding() {
                 {/* Client Content (Buttons + Rest) */}
                 <FeaturesContent />
             </div>
-        </div>
+        </main>
     );
 }

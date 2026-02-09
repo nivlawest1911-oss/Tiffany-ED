@@ -3,11 +3,14 @@
 import React from 'react';
 import { FileText, Zap, Scale, Clock, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import HolographicBriefing from '@/components/HolographicBriefing';
+import { useState } from 'react';
 
 export default function TermsClient() {
+    const [showBriefing, setShowBriefing] = useState(false);
     return (
-        <div className="min-h-screen bg-[#0a0a0c] text-white p-8 md:p-24 selection:bg-emerald-500/30">
-            <div className="max-w-4xl mx-auto">
+        <main className="content-stage">
+            <div className="max-w-4xl mx-auto py-12">
                 <Link href="/" className="inline-flex items-center gap-2 text-[10px] uppercase font-black tracking-widest text-zinc-600 hover:text-emerald-400 transition-colors mb-16 group">
                     <ArrowLeft className="w-3 h-3 group-hover:-translate-x-1 transition-transform" /> Return to Command Deck
                 </Link>
@@ -19,6 +22,27 @@ export default function TermsClient() {
                         </div>
                         <span className="text-[10px] uppercase font-black tracking-[0.5em] text-emerald-500">Service Governance Layer</span>
                     </div>
+
+                    <HolographicBriefing
+                        isOpen={showBriefing}
+                        onClose={() => setShowBriefing(false)}
+                        agentId="strategic"
+                        title="Governance Briefing"
+                        description="I am here to outline the professional guardrails of the EdIntel ecosystem. This is a strategic partnership centered on accountability."
+                        briefingSteps={[
+                            "Map 14-day zero-cost pilot protocols.",
+                            "Allocating Liquid Energy compute tokens.",
+                            "Defining Professional Liability and review.",
+                            "Establishing institutional governance."
+                        ]}
+                    />
+
+                    <button
+                        onClick={() => setShowBriefing(true)}
+                        className="inline-flex items-center gap-2 mb-8 px-6 py-2 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-emerald-400 text-[9px] font-black uppercase tracking-[0.3em] hover:bg-emerald-500/10 transition-all"
+                    >
+                        Initialize Governance Briefing
+                    </button>
                     <h1 className="text-5xl md:text-7xl font-black italic uppercase tracking-tighter leading-none mb-8">
                         Terms of <span className="text-emerald-500">Sovereignty</span>
                     </h1>
@@ -72,6 +96,6 @@ export default function TermsClient() {
                     </footer>
                 </div>
             </div>
-        </div>
+        </main>
     );
 }

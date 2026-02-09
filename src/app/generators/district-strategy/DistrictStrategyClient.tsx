@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Building2, TrendingUp, Shield as LucideShield, PieChart, Activity, Lock, Phone } from 'lucide-react';
-import FloatingNavbar from '@/components/FloatingNavbar';
+import { Building2, TrendingUp, Shield as LucideShield, PieChart, Activity, Lock, Phone, Sparkles } from 'lucide-react';
+import HolographicBriefing from '@/components/HolographicBriefing';
+
 
 export default function DistrictStrategyClient() {
-    const [step, setStep] = useState(1);
     const [districtData, setDistrictData] = useState({
         name: '',
         students: '',
@@ -15,6 +15,8 @@ export default function DistrictStrategyClient() {
     });
     const [isGenerating, setIsGenerating] = useState(false);
     const [strategyDoc, setStrategyDoc] = useState('');
+    const [showBriefing, setShowBriefing] = useState(false);
+
 
     const handleGenerate = async () => {
         setIsGenerating(true);
@@ -45,7 +47,6 @@ export default function DistrictStrategyClient() {
 
             const text = await response.text();
             setStrategyDoc(text);
-            setStep(2);
         } catch (error) {
             console.error("Strategy Gen Error", error);
         }
@@ -53,16 +54,10 @@ export default function DistrictStrategyClient() {
     };
 
     return (
-        <div className="min-h-screen bg-black text-white relative overflow-hidden font-sans selection:bg-amber-500/30">
-            <FloatingNavbar />
+        <main className="content-stage">
 
-            {/* Executive Background */}
-            <div className="fixed inset-0 pointer-events-none z-0">
-                <div className="absolute top-0 inset-x-0 h-96 bg-gradient-to-b from-zinc-900 to-black" />
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] opacity-10" />
-            </div>
 
-            <main className="max-w-7xl mx-auto px-6 py-24 relative z-10">
+            <div className="max-w-7xl mx-auto px-6 py-24 relative z-10">
                 <div className="flex items-center justify-between mb-16 border-b border-white/10 pb-8">
                     <div>
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 text-amber-500 text-[10px] font-black uppercase tracking-[0.2em] mb-4 border border-amber-500/20">
@@ -73,6 +68,31 @@ export default function DistrictStrategyClient() {
                             District <span className="text-zinc-500">Strategy</span> <span className="text-amber-500">Command</span>
                         </h1>
                     </div>
+
+                    <div className="mt-8">
+                        <HolographicBriefing
+                            isOpen={showBriefing}
+                            onClose={() => setShowBriefing(false)}
+                            agentId="visionary"
+                            title="Turnaround Strategy Matrix"
+                            description="I am Dr. Alvin West. We will now synthesize your district's raw telemetry into a unified strategic vector for academic excellence and operational solvency."
+                            briefingSteps={[
+                                "Audit existing infrastructure for entropy and budget leaks.",
+                                "Calibrate academic benchmarks against state-level performance nodes.",
+                                "Generate a multi-phase mobilization plan for staff and community.",
+                                "Establish real-time feedback loops for continuous improvement."
+                            ]}
+                        />
+
+                        <button
+                            onClick={() => setShowBriefing(true)}
+                            className="px-8 py-4 liquid-glass border-noble-gold/20 text-noble-gold hover:text-white transition-all text-[10px] font-black uppercase tracking-[0.3em] group"
+                        >
+                            <Sparkles size={14} className="inline mr-3 group-hover:rotate-12 transition-transform" />
+                            Initialize Strategic Briefing
+                        </button>
+                    </div>
+
                     <div className="hidden md:block text-right text-zinc-500 text-xs font-mono">
                         <div>SYSTEM_STATUS: <span className="text-emerald-500">ONLINE</span></div>
                         <div>LATENCY: <span className="text-emerald-500">12ms</span></div>
@@ -234,7 +254,7 @@ export default function DistrictStrategyClient() {
                         </AnimatePresence>
                     </div>
                 </div>
-            </main>
-        </div>
+            </div>
+        </main>
     );
 }

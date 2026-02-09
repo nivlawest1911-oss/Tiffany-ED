@@ -1,68 +1,52 @@
 'use client';
 
-import React from 'react';
+import { Activity } from 'lucide-react';
+import SovereignNode from './layout/SovereignNode';
 
-interface Log {
+interface ActivityLog {
     id: string;
-    created_at: string;
     action: string;
-    details?: string;
+    timestamp: string;
 }
 
 interface SovereignTerminalProps {
-    logs?: Log[];
+    logs?: ActivityLog[];
 }
 
 export default function SovereignTerminal({ logs = [] }: SovereignTerminalProps) {
+    const displayLogs = logs.length > 0 ? logs : [
+        { id: '1', action: 'Establishing neural handshake...', timestamp: new Date().toISOString() },
+        { id: '2', action: 'Loading Mobile County Directives...', timestamp: new Date().toISOString() },
+        { id: '3', action: 'Hento ecosystem sync complete.', timestamp: new Date().toISOString() },
+        { id: '4', action: 'Optimizing instructional nodes...', timestamp: new Date().toISOString() },
+        { id: '5', action: '✓ SYSTEM STATUS: OPTIMAL', timestamp: new Date().toISOString() },
+    ];
+
     return (
-        <div className="dashboard-card">
-            <div className="card-header">
-                <div className="text-xs text-gray-500 uppercase tracking-wider flex items-center justify-between">
-                    <span>Alabama Sovereign // Node-01</span>
-                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                </div>
-            </div>
-
-            <div className="card-body font-mono text-xs">
-                <div className="space-y-2">
-                    {logs.length > 0 ? (
-                        logs.slice(0, 15).map((log, i) => (
-                            <div key={log.id || i} className="text-emerald-400">
-                                <span className="text-gray-600">[{new Date(log.created_at).toLocaleTimeString()}]</span>{' '}
+        <SovereignNode
+            title="ALABAMA SOVEREIGN // NODE-01"
+            videoSrc="/videos/dashboard/terminal-matrix.mp4"
+            fallbackImage="/images/dashboard/terminal-fallback.jpg"
+            actionText="ACCESS COMMAND DECK"
+            onAction={() => console.log('Opening terminal...')}
+        >
+            <div className="space-y-2">
+                {displayLogs.map((log) => (
+                    <div
+                        key={log.id}
+                        className="flex items-start gap-3 p-3 bg-emerald-950/20 border border-emerald-500/20 rounded-lg hover:border-emerald-500/40 transition-colors font-mono text-xs"
+                    >
+                        <Activity className="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" />
+                        <div className="flex-1 min-w-0">
+                            <p className="text-emerald-400">
+                                <span className="text-gray-600">[{new Date(log.timestamp).toLocaleTimeString()}]</span>{' '}
                                 <span className="text-emerald-500">→</span> {log.action}
-                                {log.details && <span className="text-gray-500 ml-2">({log.details})</span>}
-                            </div>
-                        ))
-                    ) : (
-                        <>
-                            <div className="text-emerald-400">
-                                <span className="text-gray-600">[{new Date().toLocaleTimeString()}]</span>{' '}
-                                <span className="text-emerald-500">→</span> Establishing neural handshake...
-                            </div>
-                            <div className="text-emerald-400">
-                                <span className="text-gray-600">[{new Date().toLocaleTimeString()}]</span>{' '}
-                                <span className="text-emerald-500">→</span> Loading Mobile County Directives...
-                            </div>
-                            <div className="text-emerald-400">
-                                <span className="text-gray-600">[{new Date().toLocaleTimeString()}]</span>{' '}
-                                <span className="text-emerald-500">→</span> Hento ecosystem sync complete.
-                            </div>
-                            <div className="text-emerald-400">
-                                <span className="text-gray-600">[{new Date().toLocaleTimeString()}]</span>{' '}
-                                <span className="text-emerald-500">→</span> Optimizing instructional nodes...
-                            </div>
-                            <div className="text-emerald-400">
-                                <span className="text-gray-600">[{new Date().toLocaleTimeString()}]</span>{' '}
-                                <span className="text-emerald-500">✓</span> SYSTEM STATUS: OPTIMAL
-                            </div>
-                        </>
-                    )}
-                </div>
+                            </p>
+                        </div>
+                        <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse flex-shrink-0" />
+                    </div>
+                ))}
             </div>
-
-            <div className="card-footer">
-                Access Command Deck
-            </div>
-        </div>
+        </SovereignNode>
     );
 }

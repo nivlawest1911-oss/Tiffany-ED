@@ -1,21 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { sql } from '@/lib/db';
 import { login } from '@/lib/auth';
-import Stripe from 'stripe';
+import { UserService } from '@/lib/services/user-service';
 
 export const dynamic = 'force-dynamic';
-
-const stripe = process.env.STRIPE_SECRET_KEY
-    ? new Stripe(process.env.STRIPE_SECRET_KEY, {
-        apiVersion: '2023-10-16' as any,
-    })
-    : null;
-
-// Executive whitelist for automatic Site Command access
-const EXECUTIVE_WHITELIST = [
-    'nivlawest1911@gmail.com',
-    'dralvinwest@transcendholisticwellness.com'
-];
 
 export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
@@ -93,137 +80,39 @@ export async function GET(request: NextRequest) {
 
         console.log(`[GOOGLE AUTH] User authenticated: ${email}`);
 
-        // 3. Determine Tier (Executive Whitelist + Stripe Sync)
-        let detectedTier = 'free';
-        let stripeCustomerId: string | null = null;
+        // 3. Sync User & Initialize Tokens (UNIFIED SERVICE)
+        // We use the Google ID as the user ID for this custom flow, or generate one if strictly DB-based.
+        // However, if we want to integrate with Supabase Auth later, this custom flow is separate.
+        // For consistency with the unified UserService which expects a UUID if possible, we should ideally use a UUID.
+        // But the previous code used `crypto.randomUUID()` for new users.
+        // UserService.syncUser handles lookup by email.
+        // We need to pass a valid ID if we want to force one, or let it find/create.
+        // The previous logic generated a UUID. UserService expects an ID to be passed for creation.
 
-        // Executive Whitelist Check
-        if (EXECUTIVE_WHITELIST.includes(email.toLowerCase())) {
-            detectedTier = 'Site Command';
-            console.log(`[SOVEREIGN] Executive access granted: ${email}`);
-        } else if (stripe) {
-            // Stripe Subscription Check
-            try {
-                const customers = await stripe.customers.list({
-                    email,
-                    limit: 1
-                });
+        // We'll generate a UUID to be safe, but UserService will ignore it if user exists by email.
+        const potentialId = crypto.randomUUID();
 
-                if (customers.data.length > 0) {
-                    const customer = customers.data[0];
-                    stripeCustomerId = customer.id;
+        const user = await UserService.syncUser(
+            potentialId,
+            email,
+            name,
+            picture,
+            googleId
+        );
 
-                    const subscriptions = await stripe.subscriptions.list({
-                        customer: customer.id,
-                        status: 'active',
-                        expand: ['data.plan.product'],
-                        limit: 1,
-                    });
+        console.log(`[SOVEREIGN SYNC] User synced: ${user.email} (${user.tier})`);
 
-                    if (subscriptions.data.length > 0) {
-                        const sub = subscriptions.data[0];
-                        const product = sub.items.data[0].plan.product as Stripe.Product;
-                        const productName = product.name.toLowerCase();
-                        const metadata = sub.metadata;
-
-                        // Tier detection priority: metadata > product name
-                        if (metadata?.tier) {
-                            detectedTier = metadata.tier;
-                        } else if (productName.includes('vault') || productName.includes('lifetime')) {
-                            detectedTier = 'Professional Vault';
-                        } else if (productName.includes('site') || productName.includes('command') || productName.includes('enterprise')) {
-                            detectedTier = 'Site Command';
-                        } else if (productName.includes('director')) {
-                            detectedTier = 'Director Pack';
-                        } else if (productName.includes('practitioner') || productName.includes('pro')) {
-                            detectedTier = 'Practitioner';
-                        }
-
-                        console.log(`[STRIPE SYNC] Tier detected: ${detectedTier} for ${email}`);
-                    }
-                }
-            } catch (stripeErr: any) {
-                console.error('[STRIPE SYNC] Error:', stripeErr.message);
-                // Continue with free tier if Stripe check fails
-            }
-        }
-
-        // 4. Check/Create User in Database
-        const { rows: existingUsers } = await sql`
-            SELECT * FROM users WHERE email = ${email}
-        `;
-
-        let user = existingUsers[0];
-
-        if (!user) {
-            // Create new user
-            const newId = crypto.randomUUID();
-            const { rows: newUsers } = await sql`
-                INSERT INTO users (
-                    id,
-                    email, 
-                    name, 
-                    role, 
-                    subscription_tier,
-                    stripe_customer_id,
-                    google_id,
-                    avatar_url,
-                    trial_ends_at,
-                    created_at,
-                    updated_at
-                )
-                VALUES (
-                    ${newId},
-                    ${email}, 
-                    ${name}, 
-                    'educator', 
-                    ${detectedTier},
-                    ${stripeCustomerId},
-                    ${googleId},
-                    ${picture},
-                    ${(new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)).toISOString()},
-                    NOW(),
-                    NOW()
-                )
-                RETURNING id, email, name, role, subscription_tier as "subscriptionTier"
-            `;
-            user = newUsers[0];
-            console.log(`[DATABASE] New user created: ${email} (${detectedTier})`);
-        } else {
-            // Update existing user
-            const needsUpdate =
-                user.subscription_tier !== detectedTier ||
-                user.stripe_customer_id !== stripeCustomerId ||
-                user.google_id !== googleId ||
-                user.avatar_url !== picture;
-
-            if (needsUpdate) {
-                await sql`
-                    UPDATE users 
-                    SET 
-                        subscription_tier = ${detectedTier},
-                        stripe_customer_id = ${stripeCustomerId},
-                        google_id = ${googleId},
-                        avatar_url = ${picture},
-                        updated_at = NOW()
-                    WHERE id = ${user.id}
-                `;
-                user.subscriptionTier = detectedTier; // Keep camelCase for session logic
-                console.log(`[DATABASE] User updated: ${email} -> ${detectedTier}`);
-            }
-        }
-
-        // 5. Create Secure Session
+        // 4. Create Secure Session (Legacy/Custom JWT)
         await login({
-            id: user.id.toString(),
+            id: user.id, // This comes from DB sync
             email: user.email,
-            name: user.name,
-            tier: user.subscriptionTier || user.subscription_tier || 'free'
+            name: name,
+            tier: user.tier
         });
 
         console.log(`[SESSION] Created for ${email}`);
 
-        // 6. Redirect to dashboard
+        // 5. Redirect to dashboard
         return NextResponse.redirect(new URL('/dashboard?login=success', request.url));
 
     } catch (error: any) {
@@ -231,3 +120,4 @@ export async function GET(request: NextRequest) {
         return NextResponse.redirect(new URL('/login?error=auth_failed', request.url));
     }
 }
+

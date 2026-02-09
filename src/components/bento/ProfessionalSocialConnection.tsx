@@ -2,6 +2,7 @@
 
 import { Facebook, Link as LinkIcon, Users, MapPin, Briefcase, GraduationCap, Video, Shield as LucideShield, ExternalLink } from 'lucide-react';
 import React from 'react';
+import Image from 'next/image';
 import { SOCIAL_HUB_BANNER, SOCIAL_HUB_AVATAR, SOCIAL_HUB_TIKTOK, SOCIAL_HUB_FACEBOOK } from '@/lib/assets';
 
 export default function ProfessionalSocialConnection() {
@@ -26,11 +27,12 @@ export default function ProfessionalSocialConnection() {
                     <div className="flex flex-col md:flex-row gap-8 items-start">
                         {/* Profile Picture */}
                         <div className="relative">
-                            <div className="w-40 h-40 rounded-full p-1 bg-gradient-to-br from-blue-500 to-amber-500 shadow-2xl">
-                                <img
+                            <div className="w-40 h-40 rounded-full p-1 bg-gradient-to-br from-blue-500 to-amber-500 shadow-2xl relative">
+                                <Image
                                     src={SOCIAL_HUB_AVATAR}
                                     alt="Alvin West Jr."
-                                    className="w-full h-full rounded-full object-cover border-4 border-zinc-950"
+                                    fill
+                                    className="rounded-full object-cover border-4 border-zinc-950"
                                 />
                             </div>
                             <div className="absolute bottom-2 right-2 w-8 h-8 bg-blue-600 rounded-full border-4 border-zinc-950 flex items-center justify-center text-white" title="Verified Creator">

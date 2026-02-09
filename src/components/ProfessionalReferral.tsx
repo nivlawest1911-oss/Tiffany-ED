@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Share2, Gift, Copy, CheckCircle, Globe } from 'lucide-react';
+import Image from 'next/image';
 
 export default function ProfessionalReferral() {
     const [copied, setCopied] = useState(false);
@@ -111,8 +112,14 @@ export default function ProfessionalReferral() {
                             {/* "Live" Social Proof */}
                             <div className="absolute -bottom-10 md:-bottom-12 left-1/2 -translate-x-1/2 flex -space-x-3">
                                 {[1, 2, 3, 4].map((i) => (
-                                    <div key={i} className="w-8 h-8 rounded-full border-2 border-zinc-900 bg-zinc-800 overflow-hidden">
-                                        <img src={`/images/avatars/avatar_${i}.png`} onError={(e) => e.currentTarget.src = `https://api.dicebear.com/7.x/avataaars/svg?seed=${i}`} alt="User" />
+                                    <div key={i} className="w-8 h-8 rounded-full border-2 border-zinc-900 bg-zinc-800 overflow-hidden relative">
+                                        <Image
+                                            src={`/images/avatars/avatar_${i}.png`}
+                                            onError={(e: any) => e.currentTarget.src = `https://api.dicebear.com/7.x/avataaars/svg?seed=${i}`}
+                                            alt="User"
+                                            fill
+                                            className="object-cover"
+                                        />
                                     </div>
                                 ))}
                                 <div className="w-8 h-8 rounded-full border-2 border-zinc-900 bg-zinc-800 flex items-center justify-center text-[9px] font-bold text-white">

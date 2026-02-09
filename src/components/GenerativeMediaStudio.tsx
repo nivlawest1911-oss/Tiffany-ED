@@ -6,6 +6,7 @@ import {
     Sparkles, Video, Image as ImageIcon, FileText,
     Cpu, CheckCircle, Zap, Command, Loader2
 } from 'lucide-react';
+import Image from 'next/image';
 
 const GENERATED_ASSETS = [
     {
@@ -267,7 +268,7 @@ export default function GenerativeMediaStudio() {
                                         </div>
                                     ) : (
                                         <div className="aspect-video bg-zinc-900 relative">
-                                            <img src={generatedResult.url} alt="Generated" className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" />
+                                            <Image src={generatedResult.url} alt="Generated" fill className="object-cover opacity-80 hover:opacity-100 transition-opacity" />
                                         </div>
                                     )}
 

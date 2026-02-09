@@ -1,7 +1,3 @@
-'use client';
-
-import FloatingNavbar from '@/components/FloatingNavbar';
-import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
 import { Crown, Award, Users, TrendingUp, Shield, Zap } from 'lucide-react';
 
@@ -16,11 +12,9 @@ export default function ProfessionalCenterClient() {
     ];
 
     return (
-        <div className="min-h-screen bg-black">
-            <FloatingNavbar />
-
+        <main className="content-stage">
             {/* Hero Section */}
-            <section className="relative pt-32 pb-20 px-4 overflow-hidden">
+            <section className="relative py-12 px-4 overflow-hidden">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(99,102,241,0.1),transparent_70%)]" />
 
                 <div className="max-w-6xl mx-auto relative z-10">
@@ -57,16 +51,17 @@ export default function ProfessionalCenterClient() {
             {/* Features Grid */}
             <section className="py-20 px-4">
                 <div className="max-w-6xl mx-auto">
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {features.map((feature, index) => (
                             <motion.div
                                 key={index}
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ delay: index * 0.1 }}
-                                className="bg-zinc-900/50 border border-white/10 rounded-2xl p-6 hover:border-purple-500/30 transition-all"
+                                viewport={{ once: true }}
+                                className="bg-zinc-900/50 border border-white/10 rounded-2xl p-6 hover:border-purple-500/30 transition-all group"
                             >
-                                <feature.icon className="w-12 h-12 text-purple-400 mb-4" />
+                                <feature.icon className="w-12 h-12 text-purple-400 mb-4 group-hover:scale-110 transition-transform" />
                                 <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
                                 <p className="text-zinc-400">{feature.description}</p>
                             </motion.div>
@@ -74,8 +69,6 @@ export default function ProfessionalCenterClient() {
                     </div>
                 </div>
             </section>
-
-            <Footer />
-        </div>
+        </main>
     );
 }

@@ -16,6 +16,7 @@ import {
     Copy,
     Volume2
 } from "lucide-react";
+import Image from 'next/image';
 
 
 interface AvatarConfig {
@@ -274,7 +275,7 @@ export default function AvatarStudio() {
                             <div className="h-8 w-px bg-zinc-800" />
                         </div>
                         <div className="w-20 h-20 bg-white dark:bg-zinc-900 rounded-[2rem] shadow-2xl relative z-10 transition-transform group-hover:scale-105 active:scale-95 cursor-pointer flex items-center justify-center overflow-hidden border border-zinc-200 dark:border-zinc-800 p-2">
-                            <img src="/images/edintel-logo.png" alt="EdIntel Logo" className="w-full h-full object-contain" />
+                            <Image src="/images/edintel-logo.png" alt="EdIntel Logo" fill className="object-contain p-2" />
                         </div>
                         <div>
                             <h2 className="text-3xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-indigo-300 to-zinc-400">
@@ -305,7 +306,7 @@ export default function AvatarStudio() {
                                         className={`flex-shrink-0 group/av relative w-24 transition-all ${config.avatarUrl === avatar.img ? 'scale-110' : 'opacity-50 hover:opacity-100'}`}
                                     >
                                         <div className={`aspect-square rounded-2xl overflow-hidden border-2 transition-all ${config.avatarUrl === avatar.img ? 'border-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.4)]' : 'border-zinc-800'}`}>
-                                            <img src={avatar.img} alt={avatar.name} className="w-full h-full object-cover" />
+                                            <Image src={avatar.img} alt={avatar.name} fill className="object-cover" />
                                         </div>
                                         <p className="text-[8px] font-bold uppercase tracking-tighter mt-2 text-center text-zinc-400 group-hover/av:text-purple-400">{avatar.name}</p>
                                     </button>
@@ -415,7 +416,7 @@ export default function AvatarStudio() {
                                         />
                                     ) : (
                                         <div className="w-32 h-32 rounded-full overflow-hidden flex items-center justify-center border-4 border-purple-500/20 relative z-10 shadow-3xl">
-                                            <img src={config.avatarUrl} alt={config.name} className="w-full h-full object-cover grayscale group-hover/avatar:grayscale-0 transition-all duration-700" />
+                                            <Image src={config.avatarUrl} alt={config.name} fill className="object-cover grayscale group-hover/avatar:grayscale-0 transition-all duration-700" />
                                             {isGeneratingVideo && (
                                                 <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center">
                                                     <Loader2 className="animate-spin text-purple-400 mb-2" size={24} />

@@ -6,14 +6,60 @@ import { X, Shield, Activity, Wifi, Zap, Lock, Command } from 'lucide-react';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 import { useHumanBehavior } from '@/hooks/useHumanBehavior';
 import AbilityAnimation from './AbilityAnimation';
+import AIAgentAvatar from './AIAgentAvatar';
+
+interface Agent {
+    name: string;
+    role: string;
+    avatar: string;
+    videoSrc?: string;
+    musicSrc?: string;
+    abilityType: 'strategy' | 'compliance' | 'analytics' | 'curriculum' | 'identity' | 'communication';
+}
+
+const AGENTS: Record<string, Agent> = {
+    visionary: {
+        name: "Dr. Alvin West",
+        role: "Sovereign Architect",
+        avatar: "/images/avatars/dr_alvin_west_premium.png",
+        videoSrc: "/videos/briefings/principal_briefing.mp4",
+        musicSrc: "/music/The Future of Education - Orchestral.mp3",
+        abilityType: 'strategy' as const
+    },
+    strategic: {
+        name: "Keisha Reynolds",
+        role: "Strategic Lead",
+        avatar: "/images/avatars/keisha_reynolds_premium.png",
+        videoSrc: "/videos/briefings/counselor_briefing.mp4",
+        abilityType: 'strategy' as const
+    },
+    tactical: {
+        name: "André Patterson",
+        role: "Tactical Specialist",
+        avatar: "/images/avatars/andre_patterson_premium.png",
+        videoSrc: "/videos/Briefing - Andre Patterson (Behavior Specialist).mp4",
+        musicSrc: "/music/Cyberpunk High Tension - Cinematic Track.mp3",
+        abilityType: 'compliance' as const
+    },
+    philosopher: {
+        name: "Dr. Isaiah Vance",
+        role: "Ethics & Governance",
+        avatar: "/images/avatars/isaiah_vance_premium.png",
+        videoSrc: "/videos/briefings/compliance_briefing.mp4",
+        abilityType: 'compliance' as const
+    }
+};
 
 interface HolographicBriefingProps {
     isOpen: boolean;
     onClose: () => void;
     title: string;
     description: string;
+    agentId?: keyof typeof AGENTS;
+    briefingSteps?: string[];
     stats?: { time: string; saved: string; accuracy: string; };
     videoSrc?: string;
+    musicSrc?: string;
     thumbnail?: string;
     avatarImage?: string;
     role?: string;
@@ -25,15 +71,26 @@ export default function HolographicBriefing({
     onClose,
     title,
     description,
+    agentId,
+    briefingSteps,
     stats,
     videoSrc,
+    musicSrc,
     thumbnail: _thumbnail,
-    avatarImage = "/images/avatars/dr_alvin_west_premium.png",
-    role = "Executive Lead",
+    avatarImage,
+    role,
     abilityType
 }: HolographicBriefingProps) {
-    const { playClick: _playClick, playHover: _playHover, playSuccess } = useProfessionalSounds();
+    const agent = agentId ? AGENTS[agentId] : null;
+    const finalAvatar = avatarImage || agent?.avatar || "/images/avatars/dr_alvin_west_premium.png";
+    const finalRole = role || agent?.role || "Executive Lead";
+    const finalAbility = abilityType || agent?.abilityType || 'strategy';
+    const finalVideo = videoSrc || agent?.videoSrc;
+    const finalMusic = musicSrc || agent?.musicSrc;
+
+    const { playClick: _playClick, playHover: _playHover, playSuccess, playMusic, stopMusic } = useProfessionalSounds();
     const [isSpeaking, setIsSpeaking] = useState(false);
+    const [showLiveAvatar, setShowLiveAvatar] = useState(false);
     const [progress, setProgress] = useState(0);
     const _humanBehavior = useHumanBehavior(isOpen);
     const videoRef = useRef<HTMLVideoElement>(null);
@@ -52,11 +109,12 @@ export default function HolographicBriefing({
         if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
         window.speechSynthesis.cancel();
         setIsSpeaking(false);
+        if (finalMusic) playMusic(finalMusic);
 
         const text = `${title}. ${description}`;
         const buildUtterance = (voices: SpeechSynthesisVoice[]) => {
             const utterance = new SpeechSynthesisUtterance(text);
-            const isAlvin = role.toLowerCase().includes('executive') || role.toLowerCase().includes('alvin') || title.toLowerCase().includes('finance');
+            const isAlvin = finalRole.toLowerCase().includes('executive') || finalRole.toLowerCase().includes('alvin') || title.toLowerCase().includes('finance');
 
             const preferredVoice = voices.find(v =>
                 (isAlvin ? (v.name.includes('Daniel') || v.name.includes('UK English Male')) : v.name.includes('Male')) && v.lang.startsWith('en')
@@ -79,7 +137,13 @@ export default function HolographicBriefing({
         } else {
             buildUtterance(voices);
         }
-    }, [title, description, role]);
+    }, [title, description, finalRole, finalMusic, playMusic]);
+
+    const handleStopSpeaking = useCallback(() => {
+        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+        setIsSpeaking(false);
+        stopMusic();
+    }, [stopMusic]);
 
     useEffect(() => {
         if (isOpen) {
@@ -89,12 +153,7 @@ export default function HolographicBriefing({
             handleStopSpeaking();
         }
         return () => handleStopSpeaking();
-    }, [isOpen, playSuccess, startBriefing]);
-
-    const handleStopSpeaking = () => {
-        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-        setIsSpeaking(false);
-    };
+    }, [isOpen, playSuccess, startBriefing, handleStopSpeaking]);
 
     useEffect(() => {
         if (isSpeaking) {
@@ -128,17 +187,18 @@ export default function HolographicBriefing({
 
                         {/* LEFT: Neural Context Stream */}
                         <div className="md:w-[65%] h-64 md:h-full relative overflow-hidden border-r border-white/5 bg-black">
-                            {videoSrc ? (
+                            {finalVideo ? (
                                 <video
-                                    src={videoSrc}
+                                    src={finalVideo}
                                     className="w-full h-full object-cover opacity-40 mix-blend-screen"
                                     autoPlay loop muted playsInline
                                 />
                             ) : (
                                 <div className="absolute inset-0 bg-zinc-950 flex items-center justify-center scale-75">
-                                    <AbilityAnimation type={abilityType || 'strategy'} />
+                                    <AbilityAnimation type={finalAbility} />
                                 </div>
                             )}
+
 
                             {/* HUD Overlays */}
                             <div className="absolute top-10 left-10 z-20 flex flex-col gap-4">
@@ -172,12 +232,45 @@ export default function HolographicBriefing({
                                 )}
                             </div>
 
+                            {/* Visual Synthesis Overlay */}
+                            <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.03] z-20">
+                                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] scale-150" />
+                                <motion.div
+                                    animate={{ y: ['0%', '100%'] }}
+                                    transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                                    className="w-full h-px bg-noble-gold shadow-[0_0_10px_#D4AF37]"
+                                />
+                            </div>
+
                             {/* Scanning Line */}
                             <motion.div
                                 className="absolute inset-0 bg-gradient-to-b from-transparent via-noble-gold/5 to-transparent h-px w-full z-10"
                                 animate={{ top: ['0%', '100%'] }}
                                 transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
                             />
+
+                            {/* LIVE AVATAR OVERLAY */}
+                            <AnimatePresence>
+                                {showLiveAvatar && (
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0.95 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.95 }}
+                                        className="absolute inset-0 z-50 bg-black"
+                                    >
+                                        <AIAgentAvatar
+                                            textToSpeak={description}
+                                        />
+                                        <button
+                                            onClick={() => setShowLiveAvatar(false)}
+                                            className="absolute top-6 right-6 z-[60] p-3 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 transition-all"
+                                            title="Close Live Sync"
+                                        >
+                                            <X size={20} className="text-white" />
+                                        </button>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </div>
 
                         {/* RIGHT: Sovereign Delegate */}
@@ -199,11 +292,12 @@ export default function HolographicBriefing({
                                     <div className={`w-40 h-40 rounded-full p-1 bg-gradient-to-br from-noble-gold via-white/20 to-zinc-900 shadow-[0_0_50px_rgba(212,175,55,0.2)] ${isSpeaking ? 'animate-pulse' : ''}`}>
                                         <div className="w-full h-full rounded-full overflow-hidden bg-black relative">
                                             <motion.img
-                                                src={avatarImage}
-                                                alt={role}
+                                                src={finalAvatar}
+                                                alt={finalRole}
                                                 className="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 transition-all duration-700"
                                                 animate={isSpeaking ? { scale: [1, 1.05, 1], filter: 'brightness(1.2)' } : {}}
                                             />
+
                                             {isSpeaking && (
                                                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center gap-1.5">
                                                     {[...Array(6)].map((_, i) => (
@@ -222,9 +316,10 @@ export default function HolographicBriefing({
                                 </div>
 
                                 <div className="mt-8 text-center">
-                                    <h4 className="text-white font-black uppercase text-sm tracking-widest">{role}</h4>
+                                    <h4 className="text-white font-black uppercase text-sm tracking-widest">{finalRole}</h4>
                                     <p className="text-noble-gold/50 text-[10px] font-black uppercase tracking-[0.3em] mt-1">Sovereign Asset Node</p>
                                 </div>
+
                             </div>
 
                             {/* Transcript / Action Area */}
@@ -234,13 +329,32 @@ export default function HolographicBriefing({
                                         <span className="text-noble-gold mr-3">{">>>"}</span>
                                         {description}
                                     </p>
-                                    <div className="h-1 bg-white/5 rounded-full overflow-hidden">
+
+                                    {briefingSteps && briefingSteps.length > 0 && (
+                                        <div className="space-y-3 mt-6">
+                                            {briefingSteps.map((step, idx) => (
+                                                <motion.div
+                                                    key={idx}
+                                                    initial={{ opacity: 0, x: -10 }}
+                                                    animate={{ opacity: 1, x: 0 }}
+                                                    transition={{ delay: 0.1 * idx }}
+                                                    className="flex items-start gap-3"
+                                                >
+                                                    <span className="text-noble-gold text-[10px] mt-1 font-black">0{idx + 1}</span>
+                                                    <span className="text-[11px] text-zinc-400 uppercase tracking-widest leading-relaxed">{step}</span>
+                                                </motion.div>
+                                            ))}
+                                        </div>
+                                    )}
+
+                                    <div className="h-1 bg-white/5 rounded-full overflow-hidden mt-6">
                                         <motion.div
                                             className="h-full bg-noble-gold shadow-[0_0_10px_#D4AF37]"
                                             initial={{ width: 0 }}
                                             animate={{ width: `${progress}%` }}
                                         />
                                     </div>
+
                                 </div>
 
                                 <div className="flex gap-4">

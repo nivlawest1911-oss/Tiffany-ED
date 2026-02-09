@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/utils/supabase/client';
+const supabase = createClient();
 import { ShieldCheck, ArrowRight, Loader2, Sparkles, Building2, Mail, Command } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCelebrate } from '@/context/CelebrationContext';

@@ -33,7 +33,7 @@ export default async function DashboardLayout({
 
     return (
         <SovereignVibeProvider>
-            <div className="flex h-screen w-full bg-zinc-950 text-zinc-100 selection:bg-amber-500/30 overflow-hidden font-sans relative">
+            <div className="flex min-h-screen w-full bg-background text-foreground antialiased selection:bg-primary/30 overflow-hidden font-sans relative">
                 {/* 0. CINEMATIC AMBIENCE */}
                 <AmbientBackground />
 
@@ -42,12 +42,12 @@ export default async function DashboardLayout({
                 {/* 1. NANO-NAV: Slim, non-intrusive sidebar */}
                 <Sidebar />
 
-                <div className="flex-1 app-wrapper relative overflow-hidden">
+                <div className="flex-1 flex flex-col min-h-screen relative ml-64 overflow-hidden">
                     {/* 2. THE GLASS HEADER: Standardized top bar */}
                     <TacticalHeader />
 
                     {/* 3. SCROLLABLE CANVAS: Where the magic happens */}
-                    <main className="flex-1 overflow-y-auto scrollbar-hide">
+                    <main className="flex-1 overflow-y-auto scrollbar-hide p-8">
                         <PageTransition>
                             {children}
                         </PageTransition>

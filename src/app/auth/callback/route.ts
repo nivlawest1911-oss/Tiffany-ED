@@ -1,38 +1,36 @@
-import { createServerClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
+import { createClient } from '@/utils/supabase/server';
+import { UserService } from '@/lib/services/user-service';
 
 export async function GET(request: Request) {
     const requestUrl = new URL(request.url);
     const code = requestUrl.searchParams.get('code');
+    const origin = requestUrl.origin;
 
     if (code) {
-        const cookieStore = await cookies();
-        const supabase = createServerClient(
-            process.env.NEXT_PUBLIC_SUPABASE_URL!,
-            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-            {
-                cookies: {
-                    getAll() {
-                        return cookieStore.getAll();
-                    },
-                    setAll(cookiesToSet) {
-                        try {
-                            cookiesToSet.forEach(({ name, value, options }) =>
-                                cookieStore.set(name, value, options)
-                            );
-                        } catch (_error) {
-                            // The `set` method was called from a Server Component.
-                            // This can be ignored if you have middleware refreshing
-                            // user sessions.
-                        }
-                    },
-                },
+        const supabase = await createClient();
+        const { data: { session }, error } = await supabase.auth.exchangeCodeForSession(code);
+
+        if (!error && session?.user) {
+            // UNIFIED SYNC: Ensure public.users record exists and tokens are initialized
+            try {
+                const { id, email, user_metadata } = session.user;
+                const name = user_metadata?.full_name || email?.split('@')[0] || 'Educator';
+                const avatar = user_metadata?.avatar_url || user_metadata?.picture;
+
+                await UserService.syncUser(
+                    id,
+                    email!,
+                    name,
+                    avatar
+                );
+                console.log(`[AUTH CALLBACK] Synced user ${email} to sovereign records.`);
+            } catch (err) {
+                console.error("[AUTH CALLBACK] User sync failed:", err);
+                // Continue anyway, don't block login
             }
-        );
-        await supabase.auth.exchangeCodeForSession(code);
+        }
     }
 
-    // URL to redirect to after sign in process completes
-    return NextResponse.redirect(new URL('/dashboard', request.url));
+    return NextResponse.redirect(`${origin}/dashboard`);
 }

@@ -1,49 +1,83 @@
 'use client';
 
-import React from 'react';
+import { Eye, CheckCircle2, Activity } from 'lucide-react';
+import SovereignNode from './layout/SovereignNode';
 
-export default function SovereignIntelligenceNode() {
-    const observations = [
-        { time: '14:23', event: 'Compliance: Student AI_Code_290-8-9', status: 'RESOLVED' },
-        { time: '13:45', event: 'Roster Index: 841 Records', status: 'SYNCED' },
-        { time: '12:30', event: 'Cognitive Gym: 23 Active Sessions', status: 'MONITORING' },
-        { time: '11:15', event: 'Leadership Protocol: Activated', status: 'ACTIVE' },
+interface Observation {
+    id: string;
+    title: string;
+    status: 'RESOLVED' | 'SYNCED' | 'MONITORING' | 'ACTIVE';
+    timestamp: string;
+}
+
+interface SovereignIntelligenceNodeProps {
+    observations?: Observation[];
+}
+
+export default function SovereignIntelligenceNode({ observations = [] }: SovereignIntelligenceNodeProps) {
+    const defaultObservations: Observation[] = [
+        { id: '1', title: 'Student engagement metrics optimized', status: 'RESOLVED', timestamp: new Date().toISOString() },
+        { id: '2', title: 'Attendance patterns synchronized', status: 'SYNCED', timestamp: new Date().toISOString() },
+        { id: '3', title: 'Behavioral intervention protocols active', status: 'MONITORING', timestamp: new Date().toISOString() },
+        { id: '4', title: 'Academic performance tracking live', status: 'ACTIVE', timestamp: new Date().toISOString() },
     ];
 
-    return (
-        <div className="dashboard-card">
-            <div className="card-header">
-                <div className="text-xs text-gray-500 uppercase tracking-wider flex items-center justify-between">
-                    <span>Intelligence Agent // Node-02</span>
-                    <div className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
-                </div>
-            </div>
+    const displayObservations = observations.length > 0 ? observations : defaultObservations;
 
-            <div className="card-body">
-                <h3 className="text-sm font-bold text-white mb-4 uppercase tracking-wider">
-                    Live Observation Feed
-                </h3>
-                <div className="space-y-3">
-                    {observations.map((obs, i) => (
-                        <div key={i} className="flex items-start gap-3 p-2 bg-zinc-900/50 rounded border border-zinc-800 hover:border-indigo-500/30 transition-colors">
-                            <span className="text-xs font-mono text-indigo-500 flex-shrink-0">{obs.time}</span>
+    const getStatusColor = (status: Observation['status']) => {
+        switch (status) {
+            case 'RESOLVED': return 'text-green-400 border-green-500/30 bg-green-950/20';
+            case 'SYNCED': return 'text-blue-400 border-blue-500/30 bg-blue-950/20';
+            case 'MONITORING': return 'text-yellow-400 border-yellow-500/30 bg-yellow-950/20';
+            case 'ACTIVE': return 'text-purple-400 border-purple-500/30 bg-purple-950/20';
+            default: return 'text-gray-400 border-gray-500/30 bg-gray-950/20';
+        }
+    };
+
+    const getStatusIcon = (status: Observation['status']) => {
+        switch (status) {
+            case 'RESOLVED': return <CheckCircle2 className="w-4 h-4" />;
+            case 'SYNCED': return <CheckCircle2 className="w-4 h-4" />;
+            case 'MONITORING': return <Eye className="w-4 h-4" />;
+            case 'ACTIVE': return <Activity className="w-4 h-4" />;
+            default: return <Eye className="w-4 h-4" />;
+        }
+    };
+
+    return (
+        <SovereignNode
+            title="INTELLIGENCE NODE // SURVEILLANCE"
+            videoSrc="/videos/dashboard/surveillance-grid.mp4"
+            fallbackImage="/images/dashboard/surveillance-fallback.jpg"
+            actionText="OPEN FULL INTELLIGENCE"
+            onAction={() => console.log('Opening intelligence...')}
+            delay={0.1}
+        >
+            <div className="space-y-3">
+                {displayObservations.map((obs) => (
+                    <div
+                        key={obs.id}
+                        className={`p-3 border rounded-lg transition-all hover:scale-[1.02] ${getStatusColor(obs.status)}`}
+                    >
+                        <div className="flex items-start gap-3">
+                            <div className="mt-0.5 flex-shrink-0">
+                                {getStatusIcon(obs.status)}
+                            </div>
                             <div className="flex-1 min-w-0">
-                                <p className="text-xs text-gray-300">{obs.event}</p>
-                                <span className={`text-[10px] font-bold uppercase ${obs.status === 'RESOLVED' ? 'text-emerald-500' :
-                                        obs.status === 'ACTIVE' ? 'text-amber-500' :
-                                            'text-gray-500'
-                                    }`}>
-                                    {obs.status}
-                                </span>
+                                <p className="text-sm font-medium">{obs.title}</p>
+                                <div className="flex items-center gap-2 mt-1">
+                                    <span className="text-xs opacity-60">
+                                        {new Date(obs.timestamp).toLocaleString()}
+                                    </span>
+                                    <span className="text-xs px-2 py-0.5 rounded-full bg-black/30 border border-current/20">
+                                        {obs.status}
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                    ))}
-                </div>
+                    </div>
+                ))}
             </div>
-
-            <div className="card-footer">
-                View Analytics
-            </div>
-        </div>
+        </SovereignNode>
     );
 }

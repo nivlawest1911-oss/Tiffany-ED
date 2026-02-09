@@ -119,6 +119,7 @@ export class ProfessionalAudioEngine {
     // Needs to be loopable and managed carefully
     private ambientOsc: OscillatorNode | null = null;
     private ambientGain: GainNode | null = null;
+    private musicElement: HTMLAudioElement | null = null;
 
     toggleAmbient(play: boolean) {
         if (!this.context || !this.masterGain) return;
@@ -157,6 +158,28 @@ export class ProfessionalAudioEngine {
             }
         }
     }
+
+    playMusic(src: string, loop: boolean = true) {
+        if (typeof window === 'undefined') return;
+
+        if (this.musicElement) {
+            this.musicElement.pause();
+            this.musicElement.src = src;
+        } else {
+            this.musicElement = new Audio(src);
+        }
+
+        this.musicElement.loop = loop;
+        this.musicElement.volume = 0.2; // Keep it subtle
+        this.musicElement.play().catch(e => console.warn("Music play failed", e));
+    }
+
+    stopMusic() {
+        if (this.musicElement) {
+            this.musicElement.pause();
+            this.musicElement.currentTime = 0;
+        }
+    }
 }
 
 // Lazy singleton instance - only created when first accessed
@@ -172,5 +195,7 @@ export const professionalAudio = {
     playHover: () => professionalAudio.instance.playHover(),
     playClick: () => professionalAudio.instance.playClick(),
     playSuccess: () => professionalAudio.instance.playSuccess(),
-    toggleAmbient: (play: boolean) => professionalAudio.instance.toggleAmbient(play)
+    toggleAmbient: (play: boolean) => professionalAudio.instance.toggleAmbient(play),
+    playMusic: (src: string, loop?: boolean) => professionalAudio.instance.playMusic(src, loop),
+    stopMusic: () => professionalAudio.instance.stopMusic()
 };
