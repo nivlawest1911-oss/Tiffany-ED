@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Crown, Mail, MapPin, Facebook, Linkedin, Phone, MessageSquare, Video } from 'lucide-react';
 import EdIntelLogo from './EdIntelLogo';
-import HolographicBriefing from './HolographicBriefing';
+import HolographicBriefing from '@/components/intelligence/HolographicBriefing';
 
 export default function Footer() {
     const [systemStatusOpen, setSystemStatusOpen] = useState(false);

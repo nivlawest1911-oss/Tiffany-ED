@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * EdIntel SOVEREIGN - Payment Page
+ * EdIntel EdIntel - Payment Page
  * Universal payment processing for all subscription tiers
  */
 
@@ -44,9 +44,9 @@ function PaymentContent() {
     } else if (planParam === 'site_command') {
         defaultAmount = 79.99;
         defaultDesc = 'Site Command';
-    } else if (planParam === 'sovereign') {
+    } else if (planParam === 'EdIntel') {
         defaultAmount = 39.99;
-        defaultDesc = 'Sovereign Professional';
+        defaultDesc = 'EdIntel Professional';
     }
 
     const amount = amountParam ? parseFloat(amountParam) : defaultAmount;
@@ -74,7 +74,7 @@ function PaymentContent() {
 export default function PaymentClient() {
     return (
         <div className="min-h-screen bg-black py-12 relative overflow-hidden">
-            {/* Sovereign Background elements */}
+            {/* EdIntel Background elements */}
             <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] scale-150" />
             </div>

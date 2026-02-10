@@ -3,11 +3,11 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle, Sparkles, Zap, Info, Star, Crown, GraduationCap, Briefcase, Building } from "lucide-react";
-import { createSovereignCheckout } from '@/app/actions/professional-stripe';
+import { createEdIntelCheckout } from '@/app/actions/professional-stripe';
 import { useAuth } from '@/context/AuthContext';
 import { useIntelligence } from '@/context/IntelligenceContext';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
-import { SOVEREIGN_TIERS } from '@/lib/pricing-config';
+import { EdIntel_TIERS } from '@/lib/pricing-config';
 
 // Icon mapping helper
 const IconMap: Record<string, any> = {
@@ -58,7 +58,7 @@ export default function PremiumPricingTable() {
                         System Protocol // v5.1
                     </div>
                     <h1 className="text-6xl md:text-8xl font-black text-white mb-6 tracking-tight uppercase italic">
-                        The <span className="text-gold-gradient">Sovereign</span> Tier
+                        The <span className="text-gold-gradient">EdIntel</span> Tier
                     </h1>
                     <p className="text-xl text-zinc-500 mb-8 max-w-2xl mx-auto font-light leading-relaxed italic">
                         "Strategic pricing architectures built for educational leadership. Initialize your protocol with a 30-day trial. High-fidelity neural processing included."
@@ -67,7 +67,7 @@ export default function PremiumPricingTable() {
 
                 {/* Pricing Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-24">
-                    {SOVEREIGN_TIERS.map((tier, idx) => {
+                    {EdIntel_TIERS.map((tier, idx) => {
                         const Icon = IconMap[tier.icon] || Star;
                         return (
                             <motion.div
@@ -128,7 +128,7 @@ export default function PremiumPricingTable() {
                                             try {
                                                 setLoadingPlan(tier.name);
                                                 if (tier.stripeLink) {
-                                                    const { url } = await createSovereignCheckout(tier.stripeLink, tier.name, user?.id);
+                                                    const { url } = await createEdIntelCheckout(tier.stripeLink, tier.name, user?.id);
                                                     if (url) window.location.href = url;
                                                 }
                                             } catch (err) {

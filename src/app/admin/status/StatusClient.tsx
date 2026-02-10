@@ -22,7 +22,7 @@ export default function StatusClient() {
                             <span className="text-[11px] uppercase font-black tracking-[0.6em] text-intel-gold italic">Security & Operational Layer</span>
                         </div>
                         <h1 className="text-5xl md:text-8xl font-black italic uppercase tracking-lighter leading-none">
-                            Infrastructure <span className="text-gold-gradient">Sovereignty</span>
+                            Infrastructure <span className="text-gold-gradient">EdIntelty</span>
                         </h1>
                         <p className="text-zinc-600 text-sm md:text-xl font-medium mt-10 italic max-w-2xl tracking-tight leading-relaxed">
                             "Real-time neural telemetry and institutional health monitoring for the Mobile County district deployment."
@@ -86,7 +86,7 @@ export default function StatusClient() {
                 </div>
 
                 <footer className="mt-40 pt-16 border-t border-white/5 text-center pb-20">
-                    <p className="text-[10px] font-black uppercase text-zinc-700 tracking-[0.6em] italic">System Status: Sovereign Operational Layer // v4.2.1 Stable</p>
+                    <p className="text-[10px] font-black uppercase text-zinc-700 tracking-[0.6em] italic">System Status: EdIntel Operational Layer // v4.2.1 Stable</p>
                     <p className="text-[9px] text-zinc-800 uppercase font-black mt-6 tracking-[0.3em] italic opacity-50">Encrypted analytical output by transcendence holistic wellness, LLC</p>
                 </footer>
             </div>

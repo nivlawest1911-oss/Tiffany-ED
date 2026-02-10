@@ -111,6 +111,7 @@ export class HeyGenClient {
                 'Content-Type': 'application/json',
                 ...options.headers,
             },
+            signal: options.signal,
         });
 
         if (!response.ok) {
@@ -130,15 +131,15 @@ export class HeyGenClient {
     /**
      * List all available avatars
      */
-    async listAvatars(): Promise<{ avatars: HeyGenAvatar[] }> {
-        return this.request('/v2/avatars');
+    async listAvatars(signal?: AbortSignal): Promise<{ avatars: HeyGenAvatar[] }> {
+        return this.request('/v2/avatars', { signal });
     }
 
     /**
      * Get specific avatar details
      */
-    async getAvatar(avatarId: string): Promise<HeyGenAvatar> {
-        return this.request(`/v2/avatars/${avatarId}`);
+    async getAvatar(avatarId: string, signal?: AbortSignal): Promise<HeyGenAvatar> {
+        return this.request(`/v2/avatars/${avatarId}`, { signal });
     }
 
     // ============================================
@@ -148,8 +149,8 @@ export class HeyGenClient {
     /**
      * List all available voices
      */
-    async listVoices(): Promise<{ voices: HeyGenVoice[] }> {
-        return this.request('/v2/voices');
+    async listVoices(signal?: AbortSignal): Promise<{ voices: HeyGenVoice[] }> {
+        return this.request('/v2/voices', { signal });
     }
 
     /**
@@ -169,18 +170,19 @@ export class HeyGenClient {
     /**
      * Generate a video with avatar
      */
-    async generateVideo(request: VideoGenerationRequest): Promise<VideoGenerationResponse> {
+    async generateVideo(request: VideoGenerationRequest, signal?: AbortSignal): Promise<VideoGenerationResponse> {
         return this.request('/v2/video/generate', {
             method: 'POST',
             body: JSON.stringify(request),
+            signal,
         });
     }
 
     /**
      * Check video generation status
      */
-    async getVideoStatus(videoId: string): Promise<VideoGenerationResponse> {
-        return this.request(`/v1/video_status.get?video_id=${videoId}`);
+    async getVideoStatus(videoId: string, signal?: AbortSignal): Promise<VideoGenerationResponse> {
+        return this.request(`/v1/video_status.get?video_id=${videoId}`, { signal });
     }
 
     /**
@@ -192,6 +194,7 @@ export class HeyGenClient {
             maxAttempts?: number;
             intervalMs?: number;
             onProgress?: (status: VideoGenerationResponse) => void;
+            signal?: AbortSignal;
         } = {}
     ): Promise<VideoGenerationResponse> {
         const { maxAttempts = 60, intervalMs = 5000, onProgress } = options;
@@ -211,7 +214,16 @@ export class HeyGenClient {
                 throw new Error(`Video generation failed: ${status.error}`);
             }
 
-            await new Promise(resolve => setTimeout(resolve, intervalMs));
+            // Cancellable delay
+            await new Promise((resolve, reject) => {
+                const timeout = setTimeout(resolve, intervalMs);
+                if (options.signal) {
+                    options.signal.addEventListener('abort', () => {
+                        clearTimeout(timeout);
+                        reject(new DOMException('Aborted', 'AbortError'));
+                    }, { once: true });
+                }
+            });
         }
 
         throw new Error('Video generation timeout');
@@ -300,6 +312,7 @@ export class HeyGenClient {
         options?: {
             title?: string;
             translate_audio_only?: boolean;
+            signal?: AbortSignal;
         }
     ): Promise<{ translate_id: string }> {
         return this.request('/v2/video_translate', {
@@ -310,6 +323,7 @@ export class HeyGenClient {
                 title: options?.title,
                 translate_audio_only: options?.translate_audio_only || false,
             }),
+            signal: options?.signal,
         });
     }
 
@@ -350,10 +364,10 @@ export class HeyGenClient {
     /**
      * Verify webhook signature
      */
-    verifyWebhookSignature(
-        payload: string,
-        signature: string,
-        secret: string
+    static verifyWebhookSignature(
+        _payload: any,
+        _signature: string,
+        _secret: string
     ): boolean {
         // Implement HMAC verification
         // This is a placeholder - actual implementation depends on HeyGen's webhook signing method
@@ -396,7 +410,8 @@ export async function generateTalkingAvatar(
         title?: string;
         background?: string;
         aspectRatio?: '16:9' | '9:16' | '1:1';
-    }
+    },
+    signal?: AbortSignal
 ): Promise<VideoGenerationResponse> {
     const client = getHeyGenClient();
 
@@ -421,7 +436,7 @@ export async function generateTalkingAvatar(
         title: options?.title,
     };
 
-    return client.generateVideo(request);
+    return client.generateVideo(request, signal);
 }
 
 /**
@@ -429,15 +444,17 @@ export async function generateTalkingAvatar(
  */
 export async function generateAndWaitForVideo(
     request: VideoGenerationRequest,
-    onProgress?: (status: VideoGenerationResponse) => void
+    onProgress?: (status: VideoGenerationResponse) => void,
+    signal?: AbortSignal
 ): Promise<VideoGenerationResponse> {
     const client = getHeyGenClient();
 
-    const { video_id } = await client.generateVideo(request);
+    const { video_id } = await client.generateVideo(request, signal);
 
     return client.waitForVideo(video_id, {
         onProgress,
         maxAttempts: 120, // 10 minutes max
         intervalMs: 5000,
+        signal,
     });
 }

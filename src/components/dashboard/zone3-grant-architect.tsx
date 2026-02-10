@@ -1,6 +1,6 @@
 import React from 'react';
 import { Zap } from 'lucide-react';
-import { SovereignPlayer } from '@/components/ui/SovereignPlayer';
+import { EdIntelPlayer } from '@/components/ui/EdIntelPlayer';
 
 export function GrantArchitect() {
     return (
@@ -12,7 +12,7 @@ export function GrantArchitect() {
 
             {/* Embedded Strategy Briefing */}
             <div className="relative rounded-lg overflow-hidden border border-white/10 shadow-lg">
-                <SovereignPlayer
+                <EdIntelPlayer
                     src="/videos/EdTech_Solution_Video_Generation (1).mp4"
                     title="Protocol: Funding Acquisition"
                     poster="/images/avatars/dr_alvin_west_official.png"

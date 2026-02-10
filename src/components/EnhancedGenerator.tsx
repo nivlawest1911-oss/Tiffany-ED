@@ -6,13 +6,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import LiveBriefingConsole from './LiveBriefingConsole';
-import AIAgentAvatar from './AIAgentAvatar';
+import AIAgentAvatar from '@/components/shared/AIAgentAvatar';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 import { useAuth } from '@/context/AuthContext';
 import { generators as GENERATORS } from '@/data/generators';
 import TalkingDelegateOverlay from '@/components/TalkingDelegateOverlay';
 import { NeuralSynthesisHUD } from './NeuralSynthesisHUD';
-// import { checkAccess, SovereignFeature } from '@/lib/sovereign-access'; // Kept for future activation
+// import { checkAccess, EdIntelFeature } from '@/lib/EdIntel-access'; // Kept for future activation
 
 interface EnhancedGeneratorProps {
     generatorId: string;
@@ -64,6 +64,19 @@ export default function EnhancedGenerator({
     const [showDelegateOverlay, setShowDelegateOverlay] = useState(false);
     const [showLiveAvatar, setShowLiveAvatar] = useState(false);
     const [synthesisPhase, setSynthesisPhase] = useState<'ingestion' | 'alignment' | 'selection' | 'ready'>('ready');
+
+    // Handshake Optimization: AbortController Ref
+    const abortControllerRef = useRef<AbortController | null>(null);
+
+    // Cleanup on unmount
+    useEffect(() => {
+        return () => {
+            if (abortControllerRef.current) {
+                console.log('Unmounting EnhancedGenerator: Aborting pending requests');
+                abortControllerRef.current.abort();
+            }
+        };
+    }, []);
 
     const delegates = [
         { name: "Dr. Alvin", role: "Superintendent Delegate", image: "/images/avatars/Dr._alvin_west.png" },
@@ -175,24 +188,32 @@ export default function EnhancedGenerator({
             return;
         }
 
-        // Sovereign Access Check
+        // EdIntel Access Check
         // We consider all specific specialized generators as "Advanced" for now, except maybe a basic one if we flagged it.
         // For safety/demo, we'll gate based on a simple check or warn.
         // Actually, let's just log the check for now so we don't break their flow if they are on a weird tier,
-        // unless they are 'sovereign-initiate', then we might gate deep features.
-        // const hasAccess = checkAccess(user.tier, SovereignFeature.ADVANCED_GENERATOR); 
+        // unless they are 'EdIntel-initiate', then we might gate deep features.
+        // const hasAccess = checkAccess(user.tier, EdIntelFeature.ADVANCED_GENERATOR); 
         // if (!hasAccess && generatorId !== 'basic-brief') { ... } 
 
         if (!input.trim() || isLoading) return;
+
+        // Cancel previous request
+        if (abortControllerRef.current) {
+            abortControllerRef.current.abort();
+        }
+
+        const controller = new AbortController();
+        abortControllerRef.current = controller;
 
         setIsLoading(true);
         setSynthesisPhase('ingestion');
         setCompletion('');
 
         // Simulate Neural Synthesis Cycle
-        setTimeout(() => setSynthesisPhase('alignment'), 1500);
-        setTimeout(() => setSynthesisPhase('selection'), 3500);
-        setTimeout(() => setSynthesisPhase('ready'), 5500);
+        setTimeout(() => !controller.signal.aborted && setSynthesisPhase('alignment'), 1500);
+        setTimeout(() => !controller.signal.aborted && setSynthesisPhase('selection'), 3500);
+        setTimeout(() => !controller.signal.aborted && setSynthesisPhase('ready'), 5500);
 
         let fullResponse = '';
 
@@ -218,7 +239,8 @@ Always expand with:
 Context:
 - Tool Name: ${generatorName}
 - User Role: ${user.tier} Executive`
-                })
+                }),
+                signal: controller.signal
             });
 
             if (response.status === 402) {
@@ -235,12 +257,19 @@ Context:
                 while (true) {
                     const { done, value } = await reader.read();
                     if (done) break;
+                    if (controller.signal.aborted) {
+                        reader.cancel();
+                        break;
+                    }
 
                     const text = decoder.decode(value);
                     setCompletion(prev => prev + text);
                     fullResponse += text; // Accumulate the full response
                 }
             }
+
+            if (controller.signal.aborted) return;
+
             playSuccess(); // Completion Sound Cue
             saveToHistory(input, fullResponse); // Save to local history using actual input
 
@@ -254,8 +283,12 @@ Context:
                         script: fullResponse.substring(0, 500), // First part for the talking head
                         professorType: selectedDelegate.name,
                         avatarUrl: selectedDelegate.image
-                    })
+                    }),
+                    signal: controller.signal
                 });
+
+                if (controller.signal.aborted) return;
+
                 if (synthesisRes.ok) {
                     const synthData = await synthesisRes.json();
                     setProfessorVideo(synthData.professorUrl);
@@ -264,15 +297,24 @@ Context:
                     saveToHistory(input, fullResponse, synthData.professorUrl);
                     console.log("[Greyhawk] Professor Synthesized & Vaulted:", synthData.professorUrl);
                 }
-            } catch (_) {
-                console.warn("[Leadership] Synthesis bypass - continuing with TTS fallback.");
+            } catch (err: any) {
+                if (err.name !== 'AbortError') {
+                    console.warn("[Leadership] Synthesis bypass - continuing with TTS fallback.");
+                }
             }
 
         } catch (error: any) {
+            if (error.name === 'AbortError') {
+                console.log('Generation aborted');
+                return;
+            }
             console.error('Generation error:', error);
             setErrorMsg(error.message || 'Generation failed. Please try again.');
         } finally {
-            setIsLoading(false);
+            if (abortControllerRef.current === controller) {
+                setIsLoading(false);
+                abortControllerRef.current = null;
+            }
         }
     };
 
@@ -298,36 +340,70 @@ Context:
     };
 
     const handleAnalyzeSentiment = async () => {
+        // Cancel previous request
+        if (abortControllerRef.current) {
+            abortControllerRef.current.abort();
+        }
+
+        const controller = new AbortController();
+        abortControllerRef.current = controller;
+
         // Call Google Cloud Natural Language API
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_STRATEGIC_SYSTEM_URL || "http://localhost:8080"}/analyze-sentiment`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ text: completion.substring(0, 1000) }) // Analyze first 1000 chars
+                body: JSON.stringify({ text: completion.substring(0, 1000) }), // Analyze first 1000 chars
+                signal: controller.signal
             });
+
+            if (controller.signal.aborted) return;
+
             const data = await res.json();
             alert(`Professional Sentiment Analysis:\nScore: ${data.sentiment_score}\nMagnitude: ${data.sentiment_magnitude}\nAssessment: ${data.emotion}`);
-        } catch (e) {
+        } catch (e: any) {
+            if (e.name === 'AbortError') return;
             console.error(e);
             alert("Sentiment Analysis Module Offline");
+        } finally {
+            if (abortControllerRef.current === controller) {
+                abortControllerRef.current = null;
+            }
         }
     };
 
     const _handleStrategicVox = async () => {
+        // Cancel previous request
+        if (abortControllerRef.current) {
+            abortControllerRef.current.abort();
+        }
+
+        const controller = new AbortController();
+        abortControllerRef.current = controller;
+
         // Call Google Cloud Text-to-Speech
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_STRATEGIC_SYSTEM_URL || "http://localhost:8080"}/synthesize-voice`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ text: completion.substring(0, 500) }) // synthesize first 500 chars for demo
+                body: JSON.stringify({ text: completion.substring(0, 500) }), // synthesize first 500 chars for demo
+                signal: controller.signal
             });
+
+            if (controller.signal.aborted) return;
+
             const data = await res.json();
             if (data.audio_url) {
                 const audio = new Audio(data.audio_url);
                 audio.play();
             }
-        } catch (e) {
+        } catch (e: any) {
+            if (e.name === 'AbortError') return;
             console.error(e);
+        } finally {
+            if (abortControllerRef.current === controller) {
+                abortControllerRef.current = null;
+            }
         }
     };
 
@@ -792,7 +868,7 @@ Context:
             {/* FLOATING DELEGATE ORB - REINTEGRATED & ENHANCED */}
             <div className="fixed bottom-10 right-10 z-[60] scale-90 md:scale-100 hover:scale-110 transition-transform duration-500">
                 <div className="absolute -inset-4 bg-noble-gold/20 rounded-full blur-2xl animate-pulse" />
-                {/* FLOATING DELEGATE ORB - REMOVED TO PREVENT DUPLICATES (Unified via SovereignDelegate) */}
+                {/* FLOATING DELEGATE ORB - REMOVED TO PREVENT DUPLICATES (Unified via EdIntelDelegate) */}
             </div>
 
             {/* Tactial Scanlines */}

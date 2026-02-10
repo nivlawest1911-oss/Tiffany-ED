@@ -1,0 +1,50 @@
+﻿
+C:\Users\nivla\edintel-app\src\app\admin\management\page.tsx
+   4:8   error    'Image' is defined but never used                                                                                                                                                                                                                                                        unused-imports/no-unused-imports
+  15:21  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\nivla\edintel-app\src\app\api\tokens\purchase\route.ts
+  160:27  warning  'request' is defined but never used. Allowed unused args must match /^_/u  unused-imports/no-unused-vars
+
+C:\Users\nivla\edintel-app\src\app\api\tokens\webhook\route.ts
+  92:34  warning  'metadata' is assigned a value but never used. Allowed unused vars must match /^_/u  unused-imports/no-unused-vars
+
+C:\Users\nivla\edintel-app\src\app\archive\ArchiveClient.tsx
+  30:21  warning  'setLoading' is assigned a value but never used. Allowed unused vars must match /^_/u  unused-imports/no-unused-vars
+
+C:\Users\nivla\edintel-app\src\app\blog\[id]\BlogPostDetailClient.tsx
+  31:17  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\nivla\edintel-app\src\app\cognitive\CognitiveClient.tsx
+  20:12  warning  'user' is assigned a value but never used. Allowed unused vars must match /^_/u     unused-imports/no-unused-vars
+  20:18  warning  'setUser' is assigned a value but never used. Allowed unused vars must match /^_/u  unused-imports/no-unused-vars
+
+C:\Users\nivla\edintel-app\src\app\dashboard\page.tsx
+  21:9  warning  'subscription' is assigned a value but never used. Allowed unused vars must match /^_/u  unused-imports/no-unused-vars
+
+C:\Users\nivla\edintel-app\src\app\generators\GeneratorsIndexClient.tsx
+  13:22  warning  'setViewMode' is assigned a value but never used. Allowed unused vars must match /^_/u  unused-imports/no-unused-vars
+  28:15  warning  'desc' is assigned a value but never used. Allowed unused vars must match /^_/u         unused-imports/no-unused-vars
+
+C:\Users\nivla\edintel-app\src\app\generators\district-strategy\DistrictStrategyClient.tsx
+  216:49  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  222:45  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\nivla\edintel-app\src\app\not-found.tsx
+  91:33  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\nivla\edintel-app\src\app\test-dashboard\page.tsx
+  11:17  warning  Do not include stylesheets manually. See: https://nextjs.org/docs/messages/no-css-tags  @next/next/no-css-tags
+
+C:\Users\nivla\edintel-app\src\app\test-media\TestMediaClient.tsx
+  46:33  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\nivla\edintel-app\src\app\vault\ProfessionalVaultClient.tsx
+    6:5   error    'Search' is defined but never used                                     unused-imports/no-unused-imports
+    7:5   error    'Filter' is defined but never used                                     unused-imports/no-unused-imports
+   13:5   error    'ChevronRight' is defined but never used                               unused-imports/no-unused-imports
+  139:54  warning  'idx' is defined but never used. Allowed unused args must match /^_/u  unused-imports/no-unused-vars
+
+Γ£û 20 problems (4 errors, 16 warnings)
+  4 errors and 0 warnings potentially fixable with the `--fix` option.
+

@@ -88,7 +88,7 @@ export default function NeuralCursor() {
                 )}
             </AnimatePresence>
 
-            {/* Coordinate Display (Subtle Sovereign Motif) */}
+            {/* Coordinate Display (Subtle EdIntel Motif) */}
             <motion.div
                 className="absolute text-[6px] font-black text-emerald-500/20 uppercase tracking-widest font-mono whitespace-nowrap"
                 style={{

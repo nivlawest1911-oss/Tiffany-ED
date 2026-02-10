@@ -37,6 +37,8 @@ export default function TalkingDelegateOverlay({
     useEffect(() => {
         if (!isOpen || !script || videoSrc) return;
 
+        const controller = new AbortController();
+
         const fetchAudio = async () => {
             setIsLoading(true);
             setError(null);
@@ -46,38 +48,41 @@ export default function TalkingDelegateOverlay({
                 const response = await fetch('/api/huggingface/tts', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ text: script.substring(0, 500) }) // Limit for demo speed
+                    body: JSON.stringify({ text: script.substring(0, 500) }), // Limit for demo speed
+                    signal: controller.signal
                 });
 
                 if (!response.ok) throw new Error('Failed to synthesize speech');
 
                 const blob = await response.blob();
+                if (controller.signal.aborted) return;
+
                 const url = URL.createObjectURL(blob);
                 setAudioSrc(url);
                 setIsLoading(false);
 
                 // Auto-play
                 setTimeout(() => {
-                    if (audioRef.current) {
+                    if (audioRef.current && !controller.signal.aborted) {
                         audioRef.current.play().catch(e => console.error("Autoplay blocked", e));
                     }
                 }, 500);
 
             } catch (err: any) {
+                if (err.name === 'AbortError') return;
                 console.error("TTS Error:", err);
                 setError("Voice synthesis unavailable. Using backup protocol.");
                 setIsLoading(false);
-                // Fallback to browser TTS if server fails?
-                // For now, just show error state.
             }
         };
 
         fetchAudio();
 
         return () => {
+            controller.abort();
             if (audioSrc) URL.revokeObjectURL(audioSrc);
         };
-    }, [isOpen, script]);
+    }, [isOpen, script]); // Removed videoSrc from dependency to match logic (it's in the if check)
 
     // Lip-Sync Simulation (Randomized Jaw Movement when playing)
     useEffect(() => {

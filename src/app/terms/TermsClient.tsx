@@ -3,7 +3,7 @@
 import React from 'react';
 import { FileText, Zap, Scale, Clock, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
-import HolographicBriefing from '@/components/HolographicBriefing';
+import HolographicBriefing from '@/components/intelligence/HolographicBriefing';
 import { useState } from 'react';
 
 export default function TermsClient() {
@@ -44,7 +44,7 @@ export default function TermsClient() {
                         Initialize Governance Briefing
                     </button>
                     <h1 className="text-5xl md:text-7xl font-black italic uppercase tracking-tighter leading-none mb-8">
-                        Terms of <span className="text-emerald-500">Sovereignty</span>
+                        Terms of <span className="text-emerald-500">EdIntelty</span>
                     </h1>
                     <p className="text-zinc-500 text-[10px] tracking-[0.4em] uppercase font-bold italic">
                         Effective Date: January 2026 // Mobile County District Node
@@ -78,7 +78,7 @@ export default function TermsClient() {
                             <h2 className="text-2xl font-black uppercase italic tracking-tight">Professional Liability</h2>
                         </div>
                         <p className="text-zinc-400 leading-relaxed font-medium">
-                            EdIntel Sovereign is a decision-support architecture. All AI-generated narratives, smart-drafts, and compliance logs must be reviewed, edited, and authenticated by a certified educator or building administrator before final submission or signature.
+                            EdIntel EdIntel is a decision-support architecture. All AI-generated narratives, smart-drafts, and compliance logs must be reviewed, edited, and authenticated by a certified educator or building administrator before final submission or signature.
                         </p>
                     </section>
 
@@ -91,7 +91,7 @@ export default function TermsClient() {
                             </p>
                         </div>
                         <p className="text-[10px] text-center text-zinc-700 uppercase tracking-[0.5em] font-black italic">
-                            Sovereign Terms Framework v4.2.1 Stable
+                            EdIntel Terms Framework v4.2.1 Stable
                         </p>
                     </footer>
                 </div>

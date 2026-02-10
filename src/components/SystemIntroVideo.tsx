@@ -97,7 +97,7 @@ export default function SystemIntroVideo({ onComplete }: { onComplete: () => voi
                     className="mt-2 flex items-center gap-3 text-xs md:text-sm font-mono text-cyan-500 tracking-[0.5em] uppercase"
                 >
                     <span className="w-2 h-2 bg-cyan-500 rounded-full animate-pulse" />
-                    Sovereign Intelligence
+                    EdIntel Intelligence
                     <span className="w-2 h-2 bg-cyan-500 rounded-full animate-pulse" />
                 </motion.div>
             </div>

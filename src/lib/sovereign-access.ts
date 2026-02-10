@@ -1,6 +1,6 @@
-import { SOVEREIGN_TIERS } from './pricing-config';
+import { EdIntel_TIERS } from './pricing-config';
 
-export enum SovereignFeature {
+export enum EdIntelFeature {
     BASIC_GENERATOR = 'basic_generator',
     ADVANCED_GENERATOR = 'advanced_generator',
     VIDEO_STUDIO = 'video_studio',
@@ -9,14 +9,14 @@ export enum SovereignFeature {
 }
 
 const FEATURE_ACCESS: Record<string, string[]> = {
-    [SovereignFeature.BASIC_GENERATOR]: ['sovereign-initiate', 'standard-pack', 'sovereign-pack', 'practitioner', 'director-pack', 'site-command'],
-    [SovereignFeature.ADVANCED_GENERATOR]: ['sovereign-pack', 'practitioner', 'director-pack', 'site-command'],
-    [SovereignFeature.VIDEO_STUDIO]: ['practitioner', 'director-pack', 'site-command'],
-    [SovereignFeature.DISTRICT_ANALYTICS]: ['director-pack', 'site-command'],
-    [SovereignFeature.UNLIMITED_TOKENS]: ['site-command']
+    [EdIntelFeature.BASIC_GENERATOR]: ['EdIntel-initiate', 'standard-pack', 'EdIntel-pack', 'practitioner', 'director-pack', 'site-command'],
+    [EdIntelFeature.ADVANCED_GENERATOR]: ['EdIntel-pack', 'practitioner', 'director-pack', 'site-command'],
+    [EdIntelFeature.VIDEO_STUDIO]: ['practitioner', 'director-pack', 'site-command'],
+    [EdIntelFeature.DISTRICT_ANALYTICS]: ['director-pack', 'site-command'],
+    [EdIntelFeature.UNLIMITED_TOKENS]: ['site-command']
 };
 
-export function checkAccess(userTier: string | undefined, feature: SovereignFeature): boolean {
+export function checkAccess(userTier: string | undefined, feature: EdIntelFeature): boolean {
     if (!userTier) return false;
 
     // Normalize tier string (handle potential case differences or legacy data)
@@ -33,6 +33,6 @@ export function checkAccess(userTier: string | undefined, feature: SovereignFeat
 }
 
 export function getUpgradeLink(targetTierId: string): string {
-    const tier = SOVEREIGN_TIERS.find(t => t.id === targetTierId);
+    const tier = EdIntel_TIERS.find(t => t.id === targetTierId);
     return tier?.stripeLink || '#';
 }

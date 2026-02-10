@@ -8,18 +8,28 @@ export default function ConnectionStatus() {
     const [isOnline, setIsOnline] = useState(false);
     const [latency, setLatency] = useState(0);
 
-    const checkConnection = async () => {
+    const checkConnection = async (signal?: AbortSignal) => {
         const start = Date.now();
-        const online = await strategicCloud.checkConnection();
+        const online = await strategicCloud.checkConnection(signal);
+        if (signal?.aborted) return;
         const end = Date.now();
         setIsOnline(online);
         if (online) setLatency(end - start);
     };
 
     useEffect(() => {
-        checkConnection();
-        const interval = setInterval(checkConnection, 30000); // Check every 30s
-        return () => clearInterval(interval);
+        const controller = new AbortController();
+
+        checkConnection(controller.signal);
+
+        const interval = setInterval(() => {
+            checkConnection(controller.signal);
+        }, 30000); // Check every 30s
+
+        return () => {
+            controller.abort();
+            clearInterval(interval);
+        };
     }, []);
 
     return (

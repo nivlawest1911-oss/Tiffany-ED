@@ -19,12 +19,14 @@ export class HeyGenStreamingService {
      * This is a client-side implementation that connects directly to HeyGen's Agora/WebRTC bridge.
      * Note: This requires a specialised Trial Token from HeyGen API.
      */
-    async startSession(avatarId: string, apiKey: string): Promise<MediaStream> {
+    async startSession(avatarId: string, apiKey: string, signal?: AbortSignal): Promise<MediaStream> {
         try {
             console.log('Initializing HeyGen Stream with ID:', avatarId);
 
+            if (signal?.aborted) throw new DOMException('Aborted', 'AbortError');
+
             // 1. Get Access Token (In a real app, this should be proxied via backend to hide API Key)
-            // But for this "Sovereign" local app, we use the key directly as requested by the user.
+            // But for this "EdIntel" local app, we use the key directly as requested by the user.
             const tokenResponse = await fetch('https://api.heygen.com/v1/streaming.new_session', {
                 method: 'POST',
                 headers: {
@@ -37,7 +39,8 @@ export class HeyGenStreamingService {
                     voice: {
                         // Optional voice settings
                     }
-                })
+                }),
+                signal
             });
 
             if (!tokenResponse.ok) {
@@ -47,8 +50,10 @@ export class HeyGenStreamingService {
             const sessionData = await tokenResponse.json();
             console.log('Session Data:', sessionData);
 
+            if (signal?.aborted) throw new DOMException('Aborted', 'AbortError');
+
             if (!sessionData.data || !sessionData.data.sdp) {
-                throw new Error('Invalid Session Data from HeyGen');
+                throw new Error('Invalid Session Data from HeyGen: ' + JSON.stringify(sessionData));
             }
 
             this.sessionId = sessionData.data.session_id;
@@ -63,19 +68,24 @@ export class HeyGenStreamingService {
                 if (event.streams && event.streams[0]) {
                     console.log('Received Remote Stream');
                     this.mediaStream = event.streams[0];
-                    // Dispatch event or callback? We return the stream.
                 }
             };
 
             // 4. Set Remote Description
             await this.peerConnection.setRemoteDescription(new RTCSessionDescription(sessionData.data.sdp));
 
+            if (signal?.aborted) {
+                this.peerConnection.close();
+                this.peerConnection = null;
+                throw new DOMException('Aborted during SDP negotiation', 'AbortError');
+            }
+
             // 5. Create Answer
             const answer = await this.peerConnection.createAnswer();
             await this.peerConnection.setLocalDescription(answer);
 
             // 6. Send Answer back to HeyGen
-            await fetch('https://api.heygen.com/v1/streaming.start', {
+            const startResponse = await fetch('https://api.heygen.com/v1/streaming.start', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -84,13 +94,25 @@ export class HeyGenStreamingService {
                 body: JSON.stringify({
                     session_id: this.sessionId,
                     sdp: answer
-                })
+                }),
+                signal
             });
+
+            if (!startResponse.ok) {
+                const errorData = await startResponse.json().catch(() => ({}));
+                throw new Error(`HeyGen Session Start Failed: ${errorData.message || startResponse.statusText}`);
+            }
 
             console.log('HeyGen Stream Connected!');
 
             // Add a small delay for connection stabilization
-            await new Promise(r => setTimeout(r, 2000));
+            await new Promise((resolve, reject) => {
+                const timeoutId = setTimeout(resolve, 2000);
+                signal?.addEventListener('abort', () => {
+                    clearTimeout(timeoutId);
+                    reject(new DOMException('Aborted during stabilization', 'AbortError'));
+                }, { once: true });
+            });
 
             if (this.mediaStream) return this.mediaStream;
 
@@ -109,8 +131,10 @@ export class HeyGenStreamingService {
         }
     }
 
-    async speak(text: string, apiKey: string) {
+    async speak(text: string, apiKey: string, signal?: AbortSignal) {
         if (!this.sessionId) return;
+
+        if (signal?.aborted) return;
 
         await fetch('https://api.heygen.com/v1/streaming.task', {
             method: 'POST',
@@ -121,7 +145,8 @@ export class HeyGenStreamingService {
             body: JSON.stringify({
                 session_id: this.sessionId,
                 text: text
-            })
+            }),
+            signal
         });
     }
 

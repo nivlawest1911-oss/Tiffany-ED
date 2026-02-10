@@ -39,7 +39,7 @@ export default function VideoStudioClient() {
                     <div>
                         <div className="flex items-center gap-3 mb-2">
                             <span className="px-3 py-1 rounded-full bg-white/10 border border-white/20 text-[10px] uppercase font-black tracking-[0.3em] text-sky-400">
-                                Sovereign Media Suite
+                                EdIntel Media Suite
                             </span>
                         </div>
                         <h1 className="text-6xl md:text-7xl font-black uppercase italic tracking-tighter bg-gradient-to-r from-white via-zinc-200 to-zinc-500 bg-clip-text text-transparent">

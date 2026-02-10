@@ -20,7 +20,7 @@ export interface AvatarConfig {
 /**
  * Create realistic talking avatar video
  */
-export async function createAvatarVideo(config: AvatarConfig) {
+export async function createAvatarVideo(config: AvatarConfig, signal?: AbortSignal) {
     if (!HEYGEN_API_KEY) {
         console.warn('HeyGen API key not configured');
         return null;
@@ -59,6 +59,7 @@ export async function createAvatarVideo(config: AvatarConfig) {
                 aspect_ratio: config.ratio || '16:9',
                 test: false,
             }),
+            signal
         });
 
         if (!response.ok) {
@@ -76,7 +77,7 @@ export async function createAvatarVideo(config: AvatarConfig) {
 /**
  * Check video generation status
  */
-export async function getVideoStatus(videoId: string) {
+export async function getVideoStatus(videoId: string, signal?: AbortSignal) {
     if (!HEYGEN_API_KEY) {
         return null;
     }
@@ -86,6 +87,7 @@ export async function getVideoStatus(videoId: string) {
             headers: {
                 'X-Api-Key': HEYGEN_API_KEY,
             },
+            signal
         });
 
         if (!response.ok) {
@@ -102,7 +104,7 @@ export async function getVideoStatus(videoId: string) {
 /**
  * Get available avatars
  */
-export async function getAvatars() {
+export async function getAvatars(signal?: AbortSignal) {
     if (!HEYGEN_API_KEY) {
         return [];
     }
@@ -112,6 +114,7 @@ export async function getAvatars() {
             headers: {
                 'X-Api-Key': HEYGEN_API_KEY,
             },
+            signal
         });
 
         if (!response.ok) {
@@ -129,7 +132,7 @@ export async function getAvatars() {
 /**
  * Create streaming avatar session (real-time)
  */
-export async function createStreamingSession(avatarId: string) {
+export async function createStreamingSession(avatarId: string, signal?: AbortSignal) {
     if (!HEYGEN_API_KEY) {
         return null;
     }
@@ -148,6 +151,7 @@ export async function createStreamingSession(avatarId: string) {
                     voice_id: 'en-US-JennyNeural',
                 },
             }),
+            signal
         });
 
         if (!response.ok) {

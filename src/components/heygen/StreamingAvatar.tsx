@@ -43,15 +43,17 @@ export function HeyGenStreamingAvatar({
 
     const mediaStream = useRef<HTMLVideoElement>(null);
     const avatar = useRef<StreamingAvatar | null>(null);
+    const abortControllerRef = useRef<AbortController | null>(null);
 
     // ============================================
     // SESSION MANAGEMENT
     // ============================================
 
-    async function fetchAccessToken() {
+    async function fetchAccessToken(signal?: AbortSignal) {
         try {
             const response = await fetch('/api/heygen/streaming-token', {
                 method: 'POST',
+                signal
             });
 
             if (!response.ok) {
@@ -67,11 +69,23 @@ export function HeyGenStreamingAvatar({
     }
 
     async function startSession() {
+        if (isLoadingSession) return;
+
+        // Cancel any existing session init
+        if (abortControllerRef.current) {
+            abortControllerRef.current.abort();
+        }
+
+        const controller = new AbortController();
+        abortControllerRef.current = controller;
+
         setIsLoadingSession(true);
         setDebug('Initializing session...');
 
         try {
-            const newToken = await fetchAccessToken();
+            const newToken = await fetchAccessToken(controller.signal);
+
+            if (controller.signal.aborted) return;
 
             avatar.current = new StreamingAvatar({
                 token: newToken,
@@ -95,6 +109,7 @@ export function HeyGenStreamingAvatar({
             });
 
             avatar.current.on(StreamingEvents.STREAM_READY, (event) => {
+                if (controller.signal.aborted) return;
                 console.log('Stream ready:', event.detail);
                 setDebug('Session started successfully');
                 setStream(event.detail);
@@ -125,16 +140,28 @@ export function HeyGenStreamingAvatar({
                 disableIdleTimeout: false,
             });
 
+            if (controller.signal.aborted) {
+                await avatar.current.stopAvatar();
+                return;
+            }
+
             setData(res);
             setDebug('Session created');
-        } catch (error) {
+        } catch (error: any) {
+            if (error.name === 'AbortError') {
+                setDebug('Session initialization aborted');
+                return;
+            }
             console.error('Error starting session:', error);
             setDebug(`Error: ${error instanceof Error ? error.message : 'Unknown error'}`);
             if (onError && error instanceof Error) {
                 onError(error);
             }
         } finally {
-            setIsLoadingSession(false);
+            if (abortControllerRef.current === controller) {
+                setIsLoadingSession(false);
+                abortControllerRef.current = null;
+            }
         }
     }
 
@@ -238,7 +265,7 @@ export function HeyGenStreamingAvatar({
         return () => {
             endSession();
         };
-    }, []);
+    }, [autoStart, startSession]);
 
     // ============================================
     // RENDER

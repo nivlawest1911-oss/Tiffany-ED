@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import SovereignShell from '@/components/layout/SovereignShell';
+import EdIntelShell from '@/components/layout/EdIntelShell';
 import { Shield, Lock, Eye, ShieldAlert, Fingerprint } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -14,7 +14,7 @@ export default function SecurityVaultPage() {
     ];
 
     return (
-        <SovereignShell>
+        <EdIntelShell>
             <div className="space-y-16 pb-20">
                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 pb-12 border-b border-white/5 relative overflow-hidden p-10 bg-white/[0.02] rounded-[3rem] backdrop-blur-3xl">
                     <div className="absolute top-0 right-0 w-64 h-64 bg-intel-gold/5 blur-[100px] -z-10" />
@@ -119,6 +119,6 @@ export default function SecurityVaultPage() {
                     </div>
                 </div>
             </div>
-        </SovereignShell>
+        </EdIntelShell>
     );
 }

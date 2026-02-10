@@ -12,9 +12,11 @@ export default function AdminPage() {
                 style={{ background: "linear-gradient(135deg, rgba(124,58,237,0.08), rgba(15,23,42,0.4))" }}
             >
                 <div className="flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-amber-500/40 bg-[#0a0f1a]">
-                    <img
+                    <Image
                         src={FOUNDER_BIO.image || "/placeholder.svg"}
                         alt={FOUNDER_BIO.name}
+                        width={112}
+                        height={112}
                         className="h-full w-full object-cover"
                     />
                 </div>
@@ -22,7 +24,7 @@ export default function AdminPage() {
                     <div className="flex items-center gap-3 mb-2">
                         <h1 className="text-2xl font-bold text-white">{FOUNDER_BIO.name}</h1>
                         <span className="flex items-center gap-1 rounded-full border border-amber-500/30 bg-amber-500/15 px-2.5 py-1 text-[10px] font-bold text-amber-400">
-                            <Crown className="h-3 w-3" /> SOVEREIGN
+                            <Crown className="h-3 w-3" /> EdIntel
                         </span>
                     </div>
                     <p className="text-sm text-white/40 max-w-xl">{FOUNDER_BIO.role}</p>

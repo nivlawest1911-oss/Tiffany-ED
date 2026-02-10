@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import { useSovereignVibe, VIBES } from '@/context/SovereignVibeContext';
+import { useEdIntelVibe, VIBES } from '@/context/EdIntelVibeContext';
 
 export const VibeController = () => {
-    const { currentVibe, setVibe } = useSovereignVibe();
+    const { currentVibe, setVibe } = useEdIntelVibe();
 
     return (
         <div className="flex bg-zinc-900/80 backdrop-blur-xl border border-white/5 p-1 rounded-full shadow-2xl scale-90 md:scale-100">

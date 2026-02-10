@@ -4,7 +4,7 @@ import React, { createContext, useContext, useState, useCallback, useEffect } fr
 import dynamic from 'next/dynamic';
 import { getIntelligenceFor } from '@/lib/intelligence-engine';
 
-const HolographicBriefing = dynamic(() => import('@/components/HolographicBriefing'), { ssr: false });
+const HolographicBriefing = dynamic(() => import('@/components/intelligence/HolographicBriefing'), { ssr: false });
 
 interface BriefingData {
     title: string;

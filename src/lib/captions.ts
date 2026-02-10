@@ -1,7 +1,7 @@
 const CAPTIONS_API_URL = 'https://api.mirage.app/v1'; // Base URL for the new Mirage/Captions API
 const CAPTIONS_API_KEY = process.env.CAPTIONS_API_KEY;
 
-export async function getCaptionsProject(stableId: string) {
+export async function getCaptionsProject(stableId: string, signal?: AbortSignal) {
     if (!CAPTIONS_API_KEY) {
         throw new Error('CAPTIONS_API_KEY is not configured');
     }
@@ -12,6 +12,7 @@ export async function getCaptionsProject(stableId: string) {
             'x-api-key': CAPTIONS_API_KEY,
             'Content-Type': 'application/json',
         },
+        signal
     });
 
     if (!response.ok) {

@@ -1,6 +1,6 @@
 export const FOUNDER_BIO = {
     name: "Dr. Alvin West",
-    role: "Sovereign Delegate & Chief Architect of EdIntel. Pioneer in educational AI, dedicated to transforming district intelligence through sovereign neural protocols.",
+    role: "EdIntel Delegate & Chief Architect of EdIntel. Pioneer in educational AI, dedicated to transforming district intelligence through EdIntel neural protocols.",
     image: "/images/dr_alvin_west.png",
     credentials: ["PhD Education", "AI Governance", "Systemic Reform Architect"]
 };
@@ -11,7 +11,7 @@ export const PRICING_TIERS = [
         name: "Initiate Protocol",
         price: "$0",
         period: "/14 days",
-        description: "Trial access to core Sovereign nodes for individual observers.",
+        description: "Trial access to core EdIntel nodes for individual observers.",
         features: ["Onboarding Protocol", "Basic Neural Access", "District Identity Sync", "Security Baseline"],
         href: "/signup",
         buttonText: "Start Trial",
@@ -19,13 +19,13 @@ export const PRICING_TIERS = [
         highlight: false
     },
     {
-        id: "sovereign",
-        name: "Sovereign Pack",
+        id: "EdIntel",
+        name: "EdIntel Pack",
         price: "$39.99",
         period: "/mo",
         description: "High-fidelity AI tools designed for individual educator growth.",
         features: ["Advanced Node Logic", "Enhanced Dataset Link", "Priority Support", "Neural Memory Bank"],
-        href: "/signup?plan=sovereign",
+        href: "/signup?plan=EdIntel",
         buttonText: "Level Up",
         badge: "Value",
         highlight: false
@@ -46,5 +46,5 @@ export const PRICING_TIERS = [
 
 export const LEGAL_POLICIES = {
     ferpa: "EdIntel protocols are engineered for strict FERPA compliance. No student-identifiable data is processed on-device or at rest without district-sanctioned anonymization layers.",
-    privacy: "Our privacy first initiative ensures that district datasets remain sovereign. EdIntel agents do not train on private data, maintaining absolute data integrity and confidentiality."
+    privacy: "Our privacy first initiative ensures that district datasets remain EdIntel. EdIntel agents do not train on private data, maintaining absolute data integrity and confidentiality."
 };

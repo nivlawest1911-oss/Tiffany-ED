@@ -71,7 +71,7 @@ export class InVideoClient {
 
         const headers: Record<string, string> = {
             'Content-Type': 'application/json',
-            ...options.headers as Record<string, string>,
+            ...(options.headers as Record<string, string>),
         };
 
         if (this.apiKey) {
@@ -81,6 +81,7 @@ export class InVideoClient {
         const response = await fetch(url, {
             ...options,
             headers,
+            signal: options.signal, // Explicitly pass the signal for maximum robustness
         });
 
         if (!response.ok) {
@@ -100,28 +101,30 @@ export class InVideoClient {
     /**
      * Create video from text prompt
      */
-    async createFromPrompt(request: VideoCreationRequest): Promise<VideoProject> {
+    async createFromPrompt(request: VideoCreationRequest, signal?: AbortSignal): Promise<VideoProject> {
         return this.request('/v2/videos/create', {
             method: 'POST',
             body: JSON.stringify(request),
+            signal,
         });
     }
 
     /**
      * Create video from script
      */
-    async createFromScript(request: ScriptToVideoRequest): Promise<VideoProject> {
+    async createFromScript(request: ScriptToVideoRequest, signal?: AbortSignal): Promise<VideoProject> {
         return this.request('/v2/videos/script', {
             method: 'POST',
             body: JSON.stringify(request),
+            signal,
         });
     }
 
     /**
      * Get video project status
      */
-    async getProject(projectId: string): Promise<VideoProject> {
-        return this.request(`/v2/videos/${projectId}`);
+    async getProject(projectId: string, signal?: AbortSignal): Promise<VideoProject> {
+        return this.request(`/v2/videos/${projectId}`, { signal });
     }
 
     /**
@@ -131,13 +134,13 @@ export class InVideoClient {
         limit?: number;
         offset?: number;
         status?: string;
-    }): Promise<{ projects: VideoProject[]; total: number }> {
+    }, signal?: AbortSignal): Promise<{ projects: VideoProject[]; total: number }> {
         const params = new URLSearchParams();
         if (options?.limit) params.append('limit', options.limit.toString());
         if (options?.offset) params.append('offset', options.offset.toString());
         if (options?.status) params.append('status', options.status);
 
-        return this.request(`/v2/videos?${params.toString()}`);
+        return this.request(`/v2/videos?${params.toString()}`, { signal });
     }
 
     // ============================================
@@ -147,10 +150,11 @@ export class InVideoClient {
     /**
      * Edit existing video with AI
      */
-    async editVideo(request: EditRequest): Promise<VideoProject> {
+    async editVideo(request: EditRequest, signal?: AbortSignal): Promise<VideoProject> {
         return this.request(`/v2/videos/${request.project_id}/edit`, {
             method: 'POST',
             body: JSON.stringify(request),
+            signal,
         });
     }
 
@@ -160,7 +164,8 @@ export class InVideoClient {
     async regenerateScenes(
         projectId: string,
         sceneIndices: number[],
-        instructions?: string
+        instructions?: string,
+        signal?: AbortSignal
     ): Promise<VideoProject> {
         return this.request(`/v2/videos/${projectId}/regenerate`, {
             method: 'POST',
@@ -168,6 +173,7 @@ export class InVideoClient {
                 scenes: sceneIndices,
                 instructions,
             }),
+            signal,
         });
     }
 
@@ -176,11 +182,13 @@ export class InVideoClient {
      */
     async changeVoice(
         projectId: string,
-        voiceId: string
+        voiceId: string,
+        signal?: AbortSignal
     ): Promise<VideoProject> {
         return this.request(`/v2/videos/${projectId}/voice`, {
             method: 'PUT',
             body: JSON.stringify({ voice_id: voiceId }),
+            signal,
         });
     }
 
@@ -193,11 +201,13 @@ export class InVideoClient {
             genre?: string;
             mood?: string;
             music_url?: string;
-        }
+        },
+        signal?: AbortSignal
     ): Promise<VideoProject> {
         return this.request(`/v2/videos/${projectId}/music`, {
             method: 'PUT',
             body: JSON.stringify(options),
+            signal,
         });
     }
 
@@ -214,7 +224,8 @@ export class InVideoClient {
             quality?: '720p' | '1080p' | '4k';
             format?: 'mp4' | 'mov' | 'webm';
             watermark?: boolean;
-        }
+        },
+        signal?: AbortSignal
     ): Promise<{
         export_id: string;
         status: string;
@@ -222,18 +233,19 @@ export class InVideoClient {
         return this.request(`/v2/videos/${projectId}/export`, {
             method: 'POST',
             body: JSON.stringify(options),
+            signal,
         });
     }
 
     /**
      * Get export status
      */
-    async getExportStatus(exportId: string): Promise<{
+    async getExportStatus(exportId: string, signal?: AbortSignal): Promise<{
         status: 'processing' | 'completed' | 'failed';
         download_url?: string;
         error?: string;
     }> {
-        return this.request(`/v2/exports/${exportId}`);
+        return this.request(`/v2/exports/${exportId}`, { signal });
     }
 
     /**
@@ -245,12 +257,17 @@ export class InVideoClient {
             maxAttempts?: number;
             intervalMs?: number;
             onProgress?: (progress: number) => void;
+            signal?: AbortSignal;
         } = {}
     ): Promise<VideoProject> {
-        const { maxAttempts = 120, intervalMs = 5000, onProgress } = options;
+        const { maxAttempts = 120, intervalMs = 5000, onProgress, signal } = options;
 
         for (let attempt = 0; attempt < maxAttempts; attempt++) {
-            const project = await this.getProject(projectId);
+            if (signal?.aborted) {
+                throw new DOMException('Aborted', 'AbortError');
+            }
+
+            const project = await this.getProject(projectId, signal);
 
             if (onProgress && project.progress) {
                 onProgress(project.progress);
@@ -264,7 +281,16 @@ export class InVideoClient {
                 throw new Error(`Video creation failed: ${project.error}`);
             }
 
-            await new Promise(resolve => setTimeout(resolve, intervalMs));
+            // Cancellable delay
+            await new Promise((resolve, reject) => {
+                const timeout = setTimeout(resolve, intervalMs);
+                if (signal) {
+                    signal.addEventListener('abort', () => {
+                        clearTimeout(timeout);
+                        reject(new DOMException('Aborted', 'AbortError'));
+                    }, { once: true });
+                }
+            });
         }
 
         throw new Error('Video creation timeout');
@@ -277,7 +303,7 @@ export class InVideoClient {
     /**
      * List available templates
      */
-    async listTemplates(category?: string): Promise<{
+    async listTemplates(category?: string, signal?: AbortSignal): Promise<{
         templates: Array<{
             id: string;
             name: string;
@@ -287,7 +313,7 @@ export class InVideoClient {
         }>;
     }> {
         const params = category ? `?category=${category}` : '';
-        return this.request(`/v2/templates${params}`);
+        return this.request(`/v2/templates${params}`, { signal });
     }
 
     /**
@@ -299,7 +325,8 @@ export class InVideoClient {
             text_replacements?: Record<string, string>;
             media_replacements?: Record<string, string>;
             voice_id?: string;
-        }
+        },
+        signal?: AbortSignal
     ): Promise<VideoProject> {
         return this.request('/v2/videos/template', {
             method: 'POST',
@@ -307,6 +334,7 @@ export class InVideoClient {
                 template_id: templateId,
                 ...customizations,
             }),
+            signal,
         });
     }
 
@@ -320,7 +348,7 @@ export class InVideoClient {
     async searchStockFootage(query: string, options?: {
         limit?: number;
         orientation?: 'landscape' | 'portrait' | 'square';
-    }): Promise<{
+    }, signal?: AbortSignal): Promise<{
         results: Array<{
             id: string;
             url: string;
@@ -336,6 +364,7 @@ export class InVideoClient {
                 type: 'video',
                 ...options,
             }),
+            signal,
         });
     }
 
@@ -346,7 +375,7 @@ export class InVideoClient {
     /**
      * List available voices
      */
-    async listVoices(language?: string): Promise<{
+    async listVoices(language?: string, signal?: AbortSignal): Promise<{
         voices: Array<{
             id: string;
             name: string;
@@ -356,7 +385,7 @@ export class InVideoClient {
         }>;
     }> {
         const params = language ? `?language=${language}` : '';
-        return this.request(`/v2/voices${params}`);
+        return this.request(`/v2/voices${params}`, { signal });
     }
 
     /**
@@ -364,7 +393,8 @@ export class InVideoClient {
      */
     async generateVoiceover(
         text: string,
-        voiceId: string
+        voiceId: string,
+        signal?: AbortSignal
     ): Promise<{
         audio_url: string;
         duration: number;
@@ -375,6 +405,7 @@ export class InVideoClient {
                 text,
                 voice_id: voiceId,
             }),
+            signal,
         });
     }
 }
@@ -405,7 +436,8 @@ export async function quickCreateVideo(
         style?: 'professional' | 'casual' | 'educational';
         aspectRatio?: '16:9' | '9:16' | '1:1';
         duration?: number;
-    }
+    },
+    signal?: AbortSignal
 ): Promise<string> {
     const client = getInVideoClient();
 
@@ -414,9 +446,9 @@ export async function quickCreateVideo(
         style: options?.style || 'professional',
         aspect_ratio: options?.aspectRatio || '16:9',
         duration: options?.duration,
-    });
+    }, signal);
 
-    const completed = await client.waitForVideo(project.id);
+    const completed = await client.waitForVideo(project.id, { signal });
 
     if (!completed.video_url) {
         throw new Error('Video URL not available');
@@ -433,12 +465,13 @@ export async function createEducationalVideo(
     options?: {
         voiceType?: 'male' | 'female';
         includeMusic?: boolean;
-    }
+    },
+    signal?: AbortSignal
 ): Promise<VideoProject> {
     const client = getInVideoClient();
 
     return client.createFromScript({
         script,
         background_music: options?.includeMusic ?? true,
-    });
+    }, signal);
 }

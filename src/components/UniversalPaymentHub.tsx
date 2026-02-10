@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * EdIntel SOVEREIGN - Universal Payment Hub
+ * EdIntel EdIntel - Universal Payment Hub
  * Beautiful UI for accepting ALL forms of currency
  */
 
@@ -165,7 +165,7 @@ export default function UniversalPaymentHub({
             >
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-noble-gold to-noble-gold-dark rounded-full text-white text-sm font-semibold mb-4">
                     <Shield className="w-4 h-4" />
-                    Secure Sovereign Protocol
+                    Secure EdIntel Protocol
                 </div>
                 <h1 className="text-4xl font-black mb-2 uppercase tracking-tighter text-white">
                     Select <span className="text-noble-gold italic">Payment</span> Method

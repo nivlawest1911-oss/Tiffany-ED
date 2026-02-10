@@ -7,7 +7,7 @@ import {
     Compass, Download, ArrowUpRight, Shield as LucideShield, Landmark, BarChart3,
     Users, Settings, Briefcase, ExternalLink, Search, Sparkles, Lock
 } from "lucide-react";
-import { ProfessionalNewsTicker } from './ProfessionalNewsTicker';
+import { ProfessionalNewsTicker } from '@/components/dossier/ProfessionalNewsTicker';
 
 interface ResourceItem {
     title?: string;
@@ -236,15 +236,15 @@ export default function LeadershipResources() {
     const data = mode === 'teacher' ? TEACHER_RESOURCES : ADMIN_RESOURCES;
 
     const filteredAlabama = data.alabama.filter(item =>
-        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.desc.toLowerCase().includes(searchQuery.toLowerCase())
+        (item.title?.toLowerCase().includes(searchQuery.toLowerCase()) ?? false) ||
+        (item.category?.toLowerCase().includes(searchQuery.toLowerCase()) ?? false) ||
+        (item.desc?.toLowerCase().includes(searchQuery.toLowerCase()) ?? false)
     );
 
     const filteredMobile = data.mobile.filter(item =>
-        item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.detail.toLowerCase().includes(searchQuery.toLowerCase())
+        (item.name?.toLowerCase().includes(searchQuery.toLowerCase()) ?? false) ||
+        (item.type?.toLowerCase().includes(searchQuery.toLowerCase()) ?? false) ||
+        (item.detail?.toLowerCase().includes(searchQuery.toLowerCase()) ?? false)
     );
 
     return (

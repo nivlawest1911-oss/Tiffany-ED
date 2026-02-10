@@ -89,7 +89,7 @@ export async function POST(request: NextRequest) {
  * Completes purchase and adds tokens to ledger
  */
 async function handlePaymentSuccess(paymentIntent: Stripe.PaymentIntent) {
-    const { id: paymentIntentId, metadata } = paymentIntent;
+    const { id: paymentIntentId } = paymentIntent;
     const chargeId = paymentIntent.latest_charge as string;
 
     console.log(`✅ Payment succeeded: ${paymentIntentId}`);

@@ -112,7 +112,7 @@ export default function MissionControl() {
                             <Zap className="w-10 h-10 text-amber-500" />
                             MISSION CONTROL
                         </h1>
-                        <p className="text-purple-300">Sovereign Multi-Agent Swarm • EdIntel Professional</p>
+                        <p className="text-purple-300">EdIntel Multi-Agent Swarm • EdIntel Professional</p>
                     </div>
                     <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl px-6 py-4">
                         <div className="text-xs text-zinc-400 uppercase tracking-widest mb-1">System Status</div>

@@ -24,7 +24,7 @@ const generators = [
     name: "IEP ARCHITECT",
     role: "Compliance & Inclusion Specialist",
     description: "Generate clinically precise, legally defensible IEP drafts aligned with Alabama Code.",
-    detailedPrompt: "You are the Sovereign IEP Architect. Your goal is to generate high-fidelity, legally defensible Individualized Education Program (IEP) components. Focus on SMART goals that are specific, measurable, attainable, relevant, and time-bound. Reference specific Alabama courses of study and IDEA 2004 compliance markers. Tone: Clinical, empathetic, and authoritative.",
+    detailedPrompt: "You are the EdIntel IEP Architect. Your goal is to generate high-fidelity, legally defensible Individualized Education Program (IEP) components. Focus on SMART goals that are specific, measurable, attainable, relevant, and time-bound. Reference specific Alabama courses of study and IDEA 2004 compliance markers. Tone: Clinical, empathetic, and authoritative.",
     icon: FileText,
     color: "#00d2ff",
     prompts: ["Draft a goal for Reading Comprehension (3rd Grade)", "Create behavior intervention strategies for ADHD", "Summarize PLAAFP data into a narrative"],
@@ -105,7 +105,7 @@ export function AIGeneratorsHub() {
           systemInstruction: `
             ${activeGenerator.detailedPrompt}
             OBJECTIVE: ${activeGenerator.description}
-            CONTEXT: The user is an Alabama Educator/Administrator using Sovereign OS.
+            CONTEXT: The user is an Alabama Educator/Administrator using EdIntel OS.
             CRITICAL: Output must be formatted with Markdown (bolding key terms, using bullet points).
           `
         })
@@ -132,7 +132,7 @@ export function AIGeneratorsHub() {
       }
     } catch (error: any) {
       console.error('Generation failure:', error);
-      setResponse(`⚠️ CRITICAL ERROR: Neural synthesis failed. Reference: ${error.message}. Please restart the Sovereign Protocol.`);
+      setResponse(`⚠️ CRITICAL ERROR: Neural synthesis failed. Reference: ${error.message}. Please restart the EdIntel Protocol.`);
     } finally {
       setIsGenerating(false)
     }
@@ -163,7 +163,7 @@ export function AIGeneratorsHub() {
       <div className="text-center pt-10 mb-12 relative z-10">
         <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-noble-gold/10 border border-noble-gold/30 text-noble-gold text-[10px] font-black uppercase tracking-[0.3em] mb-6 shadow-[0_0_20px_rgba(212,175,55,0.15)] animate-pulse-slow">
           <Cpu className="w-4 h-4" />
-          Sovereign Neural Grid
+          EdIntel Neural Grid
         </div>
         <h2 className="font-black italic tracking-tighter text-4xl md:text-5xl text-white mb-4 uppercase">
           Strategic <span className="gold-gradient-text">Intelligence</span> Hub

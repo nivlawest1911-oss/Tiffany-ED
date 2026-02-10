@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Loader2, Video, Wand2, Download, Eye } from 'lucide-react';
@@ -20,11 +20,31 @@ export function HeyGenVideoGenerator({ className = '' }: VideoGeneratorProps) {
     const [progress, setProgress] = useState(0);
     const [error, setError] = useState<string | null>(null);
 
+    // Ref for aborting fetch and polling
+    const abortControllerRef = useRef<AbortController | null>(null);
+
+    // Cleanup on unmount
+    useEffect(() => {
+        return () => {
+            if (abortControllerRef.current) {
+                abortControllerRef.current.abort();
+            }
+        };
+    }, []);
+
     const handleGenerate = async () => {
         if (!script.trim()) {
             setError('Please enter a script');
             return;
         }
+
+        // Cancel previous operation
+        if (abortControllerRef.current) {
+            abortControllerRef.current.abort();
+        }
+
+        const controller = new AbortController();
+        abortControllerRef.current = controller;
 
         setIsGenerating(true);
         setError(null);
@@ -42,7 +62,10 @@ export function HeyGenVideoGenerator({ className = '' }: VideoGeneratorProps) {
                     title: 'EdIntel Educational Content',
                     aspectRatio: '16:9',
                 }),
+                signal: controller.signal
             });
+
+            if (controller.signal.aborted) return;
 
             if (!response.ok) {
                 throw new Error('Failed to generate video');
@@ -51,43 +74,71 @@ export function HeyGenVideoGenerator({ className = '' }: VideoGeneratorProps) {
             const data = await response.json();
             setVideoId(data.videoId);
 
-            // Poll for completion
-            const pollInterval = setInterval(async () => {
+            // Poll for completion with AbortSignal check
+            let attempts = 0;
+            const maxAttempts = 120; // 10 minutes (5s interval)
+
+            while (attempts < maxAttempts) {
+                if (controller.signal.aborted) break;
+
+                attempts++;
+
                 try {
                     const statusResponse = await fetch(
-                        `/api/heygen/generate-video?videoId=${data.videoId}`
+                        `/api/heygen/generate-video?videoId=${data.videoId}`,
+                        { signal: controller.signal }
                     );
                     const status = await statusResponse.json();
+
+                    if (controller.signal.aborted) return;
 
                     if (status.status === 'completed' && status.video_url) {
                         setVideoUrl(status.video_url);
                         setProgress(100);
-                        clearInterval(pollInterval);
                         setIsGenerating(false);
+                        return;
                     } else if (status.status === 'failed') {
                         throw new Error('Video generation failed');
                     } else {
                         // Estimate progress
                         setProgress(prev => Math.min(prev + 5, 90));
                     }
-                } catch (err) {
-                    clearInterval(pollInterval);
-                    setError(err instanceof Error ? err.message : 'Unknown error');
-                    setIsGenerating(false);
+                } catch (pollErr: any) {
+                    if (pollErr.name === 'AbortError') return;
+                    throw pollErr;
                 }
-            }, 5000);
 
-            // Timeout after 10 minutes
-            setTimeout(() => {
-                clearInterval(pollInterval);
-                if (isGenerating) {
-                    setError('Video generation timeout');
-                    setIsGenerating(false);
-                }
-            }, 600000);
-        } catch (err) {
+                // Wait 5 seconds before next poll
+                await new Promise((resolve, reject) => {
+                    const timeout = setTimeout(resolve, 5000);
+                    controller.signal.addEventListener('abort', () => {
+                        clearTimeout(timeout);
+                        reject(new DOMException('Aborted', 'AbortError'));
+                    });
+                });
+            }
+
+            if (attempts >= maxAttempts && !controller.signal.aborted) {
+                throw new Error('Video generation timeout');
+            }
+
+        } catch (err: any) {
+            if (err.name === 'AbortError') {
+                console.log('Generation aborted');
+                return;
+            }
             setError(err instanceof Error ? err.message : 'Failed to generate video');
             setIsGenerating(false);
+        } finally {
+            if (abortControllerRef.current === controller) {
+                abortControllerRef.current = null;
+                // Only unset loading if we finished (success or error), not if we just started a new one (handled by new ref check?)
+                // Actually if specific controller finishes, we turn off loading.
+                // If a NEW controller started, ref wouldn't match, so we don't turn off loading (the new one keeps it on).
+                if (!abortControllerRef.current) setIsGenerating(false);
+                // Wait, if we cleared it above? No.
+                // If this is the current controller, we are done.
+            }
         }
     };
 
@@ -177,7 +228,7 @@ export function HeyGenVideoGenerator({ className = '' }: VideoGeneratorProps) {
                     ) : (
                         <div className="flex items-center gap-3">
                             <Wand2 className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-                            <span>Generate Sovereign Video</span>
+                            <span>Generate EdIntel Video</span>
                         </div>
                     )}
                 </Button>

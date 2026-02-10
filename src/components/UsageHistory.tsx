@@ -13,7 +13,7 @@ export const UsageHistory = ({ logs }: { logs: any[] }) => {
                         <FileText className="w-4 h-4 text-indigo-400" />
                     </div>
                     <div>
-                        <h3 className="text-[10px] tracking-[0.3em] uppercase text-zinc-400 font-black">Sovereign Ledger</h3>
+                        <h3 className="text-[10px] tracking-[0.3em] uppercase text-zinc-400 font-black">EdIntel Ledger</h3>
                         <p className="text-[8px] text-zinc-600 uppercase font-bold">Encrypted Transaction History</p>
                     </div>
                 </div>

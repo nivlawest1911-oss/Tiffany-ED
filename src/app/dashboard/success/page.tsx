@@ -18,18 +18,18 @@ export default function SuccessPage() {
                 animate={{ opacity: 1, y: 0 }}
                 className="relative z-10 w-full max-w-2xl p-12 glass-morphism rounded-[32px] border border-[#d4af37]/20 text-center mx-4"
             >
-                {/* Hyper-Realistic Sovereign Representation - Dr. Alvin West */}
+                {/* Hyper-Realistic EdIntel Representation - Dr. Alvin West */}
                 <div className="mx-auto w-32 h-32 rounded-full border-2 border-[#d4af37] mb-6 overflow-hidden shadow-[0_0_30px_rgba(212,175,55,0.4)] bg-zinc-900 relative">
                     <HumanAvatar
                         src="/images/avatars/dr_alvin_west_premium.png"
-                        alt="Dr. Alvin West - Sovereign Architect"
+                        alt="Dr. Alvin West - EdIntel Architect"
                         className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#000b18]/60 to-transparent pointer-events-none" />
                 </div>
 
                 <h1 className="text-4xl md:text-5xl font-bold text-[#d4af37] mb-4 tracking-tight">
-                    Welcome, Sovereign
+                    Welcome, EdIntel
                 </h1>
 
                 <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-md mx-auto">

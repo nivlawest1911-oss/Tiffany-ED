@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Loader2, Brain, Send, Shield, Zap, Activity } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import AbilityAnimation from '../AbilityAnimation';
+import AbilityAnimation from '@/components/shared/AbilityAnimation';
 
 export interface MetaAIChatProps {
     className?: string;
@@ -17,8 +17,28 @@ export function MetaAIChat({ className = '' }: MetaAIChatProps) {
     const [isLoading, setIsLoading] = useState(false);
     const [provider, setProvider] = useState<'together' | 'replicate'>('together');
 
+    // Ref to hold the controller for the active request
+    const abortControllerRef = useRef<AbortController | null>(null);
+
+    // Cleanup on unmount
+    useEffect(() => {
+        return () => {
+            if (abortControllerRef.current) {
+                abortControllerRef.current.abort();
+            }
+        };
+    }, []);
+
     const handleSend = async () => {
         if (!input.trim() || isLoading) return;
+
+        // Cancel previous request if any (though UI prevents it via isLoading)
+        if (abortControllerRef.current) {
+            abortControllerRef.current.abort();
+        }
+
+        const controller = new AbortController();
+        abortControllerRef.current = controller;
 
         const userMessage = { role: 'user', content: input };
         setMessages(prev => [...prev, userMessage]);
@@ -33,6 +53,7 @@ export function MetaAIChat({ className = '' }: MetaAIChatProps) {
                     messages: [...messages, userMessage],
                     provider,
                 }),
+                signal: controller.signal
             });
 
             if (!response.ok) {
@@ -40,19 +61,26 @@ export function MetaAIChat({ className = '' }: MetaAIChatProps) {
             }
 
             const data = await response.json();
+            // Check if aborted before updating state
+            if (controller.signal.aborted) return;
+
             const assistantMessage = data.choices[0]?.message;
 
             if (assistantMessage) {
                 setMessages(prev => [...prev, assistantMessage]);
             }
-        } catch (error) {
+        } catch (error: any) {
+            if (error.name === 'AbortError') return;
             console.error('Error:', error);
             setMessages(prev => [...prev, {
                 role: 'assistant',
                 content: 'Sorry, I encountered an error. Please try again.',
             }]);
         } finally {
-            setIsLoading(false);
+            if (abortControllerRef.current === controller) {
+                setIsLoading(false);
+                abortControllerRef.current = null;
+            }
         }
     };
 
@@ -78,7 +106,7 @@ export function MetaAIChat({ className = '' }: MetaAIChatProps) {
                                 <h3 className="text-2xl font-black text-white uppercase tracking-tighter">Meta AI</h3>
                                 <div className="px-2 py-0.5 bg-blue-500/10 border border-blue-500/30 rounded text-[10px] text-blue-400 font-black uppercase tracking-widest">Llama 3.3</div>
                             </div>
-                            <p className="text-xs text-zinc-500 font-medium uppercase tracking-widest mt-1 italic">Sovereign Neural Interface</p>
+                            <p className="text-xs text-zinc-500 font-medium uppercase tracking-widest mt-1 italic">EdIntel Neural Interface</p>
                         </div>
                     </div>
 
@@ -88,6 +116,7 @@ export function MetaAIChat({ className = '' }: MetaAIChatProps) {
                             value={provider}
                             onChange={(e) => setProvider(e.target.value as any)}
                             className="px-4 py-2 bg-black border border-white/10 rounded-xl text-white text-[10px] font-bold uppercase tracking-widest focus:outline-none focus:ring-1 focus:ring-blue-500/50 hover:bg-zinc-900 transition-all cursor-pointer"
+                            title="Select AI Provider"
                         >
                             <option value="together">Together AI (Fast)</option>
                             <option value="replicate">Replicate (Deep)</option>

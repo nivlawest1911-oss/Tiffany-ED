@@ -101,7 +101,7 @@ export default function CommandPage() {
                             <div>
                                 <h3 className="text-sm font-semibold text-white/80">Risk Alert: Data Retention Policy</h3>
                                 <p className="text-xs text-white/40">
-                                    Current policy expires in 14 days. Recommend automated renewal via Sovereign Agent.
+                                    Current policy expires in 14 days. Recommend automated renewal via EdIntel Agent.
                                 </p>
                             </div>
                         </div>

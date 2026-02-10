@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { AgentSwarmController, Agent } from './agents';
+import { depositToMemoryBank } from './memory-bank';
 
 // Edge Runtime for low latency
 export const runtime = 'edge';
@@ -25,7 +26,7 @@ export const DECISION_ORACLE = {
 // Now connected to Supabase where applicable
 
 export class LiteracyArchitect {
-    static async get_student_gap(intent: string) {
+    static async get_student_gap(_intent: string) {
         // Fallback or simulated delay if not hitting DB directly yet
         // In full prod, this would be: await supabase.from('literacy_gaps').select('*')...
         await new Promise(resolve => setTimeout(resolve, 50));
@@ -39,7 +40,7 @@ export class LiteracyArchitect {
 }
 
 export class ReformEngine {
-    static async get_behavioral_history(intent: string) {
+    static async get_behavioral_history(_intent: string) {
         await new Promise(resolve => setTimeout(resolve, 60));
         return {
             incidents_last_30_days: 2,
@@ -67,7 +68,7 @@ export class WellnessShield {
 }
 
 export class CommunicationShield {
-    static async sanitize_email(rawText: string) {
+    static async sanitize_email(_rawText: string) {
         // 1. Affective Engine: Strip "User is shouting" markers
         // 2. Fact Extraction: Pull out dates, student names, specific complaints
         await new Promise(resolve => setTimeout(resolve, 80)); // Simulate NLP processing
@@ -81,14 +82,14 @@ export class CommunicationShield {
     }
 }
 
-export class SovereignVault {
+export class EdIntelVault {
     userId: string;
     constructor(userId: string) {
         this.userId = userId;
     }
 
     async logInteraction(input: string, output: string, meta: any) {
-        console.log(`[SOVEREIGN VAULT] Logging interaction for ${this.userId}`);
+        console.log(`[EdIntel VAULT] Logging interaction for ${this.userId}`);
 
         const { error } = await supabase
             .from('vault_logs')
@@ -118,17 +119,17 @@ export class AvatarDirector {
         // Returns stream URL and audio buffer
         return {
             audio_out: 'stream_buffer_placeholder',
-            video_frame: 'rtmp://stream.edintel.sovereign/live/' + generateId()
+            video_frame: 'rtmp://stream.edintel.EdIntel/live/' + generateId()
         };
     }
 }
 
-// --- SOVEREIGN OS (The Brain) ---
+// --- EdIntel OS (The Brain) ---
 
-export class SovereignOS {
+export class EdIntelOS {
     userId: string;
     context: Record<string, any>;
-    vault: SovereignVault;
+    vault: EdIntelVault;
     swarm: AgentSwarmController;
     activeSession: boolean;
     wellnessShield: WellnessShield;
@@ -136,10 +137,24 @@ export class SovereignOS {
     constructor(userId: string, context: Record<string, any>) {
         this.userId = userId;
         this.context = context;
-        this.vault = new SovereignVault(userId);
+        this.vault = new EdIntelVault(userId);
         this.swarm = new AgentSwarmController();
         this.wellnessShield = new WellnessShield();
         this.activeSession = true;
+
+        // Initialize Context Continuity from Memory Bank (async)
+        this.restoreIntelligentContinuity();
+    }
+
+    private async restoreIntelligentContinuity() {
+        try {
+            // In a real implementation, this would fetch the latest session summary
+            // For now, we simulate the 'Intelligent Continuity' layer
+            console.log(`[EdIntel OS] Restoring Intelligent Continuity for ${this.userId}...`);
+            this.context.lastObjective = 'Optimize Superintendent Workflow';
+        } catch (error) {
+            console.error('[EdIntel OS] Continuity Restoration Failure:', error);
+        }
     }
 
     /**
@@ -154,22 +169,32 @@ export class SovereignOS {
         // 2. SELECT OPTIMAL AGENT(S)
         const primaryAgent = this.swarm.getBestFitAgent(userSpeech); // Using speech/intent for registry lookup
 
-        // 2a. CHECK COGNITIVE LOAD (Decision Fatigue Meter)
+        // 2a. CHECK COGNITIVE LOAD & STRESS MARKERS (Decision Fatigue Meter)
         const cognitiveLoad = await this.swarm.measure_cognitive_load(userSpeech);
+        const hasStressMarkers = /URGENT|CRITICAL|FAILING|EMERGENCY/i.test(userSpeech);
+        const refinedLoad = hasStressMarkers ? Math.min(1, cognitiveLoad + 0.3) : cognitiveLoad;
 
-        // 3. QUERY RELEVANT ENGINES (Neural Mapping)
+        // 3. QUERY RELEVANT ENGINES (Neural Mapping - Parallelized)
         const engineData = await this.execute_neural_query(intent);
 
-        // 4. GENERATE SOVEREIGN RESPONSE
-        // Using new formulate_response logic
-        const responsePayload = await this.formulate_response(intent, engineData, cognitiveLoad);
+        // 4. GENERATE EdIntel RESPONSE
+        // Using stress-aware load score
+        const responsePayload = await this.formulate_response(intent, engineData, refinedLoad);
         const responseText = responsePayload.message || responsePayload.toString();
 
         // 5. AVATAR & VOICE SYNTHESIS
         const avOutput = await AvatarDirector.generate_live_feed(primaryAgent.id, responseText, sentiment);
 
-        // 6. LOG TO SOVEREIGN VAULT
+        // 6. LOG TO EdIntel VAULT & PERSIST CONTEXT
         await this.vault.logInteraction(userSpeech, responseText, engineData);
+
+        // PERSIST: If response is substantial, deposit summary to Memory Bank
+        if (responseText.length > 200) {
+            await depositToMemoryBank(
+                `data:text/plain;base64,${Buffer.from(responseText).toString('base64')}`,
+                `continuity/${this.userId}/summary-${Date.now()}.txt`
+            );
+        }
 
         return {
             agent: primaryAgent,
@@ -178,7 +203,7 @@ export class SovereignOS {
             engineData,
             avOutput,
             meta: {
-                cognitiveLoad,
+                cognitiveLoad: refinedLoad,
                 mode: responsePayload.type === 'BINARY_DECISION' ? 'BINARY_PROTOCOL' : 'STANDARD',
                 payload: responsePayload
             }
@@ -216,31 +241,34 @@ export class SovereignOS {
 
         if (error) {
             console.warn("Token deduction failed (likely insufficient tokens or missing user profile):", error.message);
-            // throw new Error("Insufficient tokens for this Sovereign Action."); // Optional: Enforce strictly in prod
+            // throw new Error("Insufficient tokens for this EdIntel Action."); // Optional: Enforce strictly in prod
         }
     }
 
     async execute_neural_query(_intent: string) {
         // 1. Check/Deduct tokens first
-        await this.deduct_tokens(TOKEN_COSTS.LIGHTWEIGHT); // Standard neural swarm query
+        await this.deduct_tokens(TOKEN_COSTS.LIGHTWEIGHT);
 
-        const studentId = this.context.activeStudent || 'student_001'; // Default if not in context
+        const studentId = this.context.activeStudent || 'student_001';
 
+        // PARALLELIZED & COMPETITIVE PRE-FETCHING
+        // We execute all relevant queries concurrently to minimize total latency
         const results = await Promise.allSettled([
-            // Querying the "Big Five" from Literacy Architect
+            // Primary Data: Literacy
             supabase.from('literacy_stats').select('*').eq('student_id', studentId).single(),
-
-            // Fetching Behavioral Heatmaps from Reform Engine
+            // Supplemental Data: Behavior
             supabase.from('behavior_logs').select('count').eq('type', 'frustration').gte('created_at', new Date().toISOString().split('T')[0]),
-
-            // Real-time Wellness check
-            this.wellnessShield.getLiveBurnoutStats()
+            // Environmental/System Data: Wellness
+            this.wellnessShield.getLiveBurnoutStats(),
+            // Context Data: Continuity Bridge
+            Promise.resolve({ lastObjective: this.context.lastObjective || 'N/A' })
         ]);
 
         return {
             literacy: results[0].status === 'fulfilled' ? (results[0].value as any).data || await LiteracyArchitect.get_student_gap(_intent) : null,
             behavior: results[1].status === 'fulfilled' ? (results[1].value as any).data || await ReformEngine.get_behavioral_history(_intent) : null,
-            wellness: results[2].status === 'fulfilled' ? (results[2].value as any) : 0
+            wellness: results[2].status === 'fulfilled' ? (results[2].value as any) : 0,
+            continuity: results[3].status === 'fulfilled' ? (results[3].value as any) : null
         };
     }
 
@@ -284,4 +312,4 @@ export class SovereignOS {
 }
 
 // Singleton Instance for Client-Side Demo
-export const sovereignOS = new SovereignOS('DrWest_001', { District: 'Mobile County', Role: 'Superintendent' });
+export const EdIntelOS = new EdIntelOS('DrWest_001', { District: 'Mobile County', Role: 'Superintendent' });

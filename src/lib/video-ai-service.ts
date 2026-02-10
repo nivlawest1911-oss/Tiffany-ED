@@ -57,7 +57,8 @@ export class VideoAIService {
             voiceId?: string;
             duration?: number;
             style?: 'professional' | 'casual' | 'educational';
-        } = {}
+        } = {},
+        signal?: AbortSignal
     ): Promise<VideoCreationResult> {
         const startTime = Date.now();
 
@@ -73,11 +74,12 @@ export class VideoAIService {
                     options.avatarId || 'default',
                     options.voiceId || 'en-US-JennyNeural',
                     topic,
-                    { aspectRatio: '16:9' }
+                    { aspectRatio: '16:9' },
+                    signal
                 );
                 // Wait for video completion
                 const client = getHeyGenClient();
-                const completed = await client.waitForVideo(videoResponse.video_id);
+                const completed = await client.waitForVideo(videoResponse.video_id, { signal });
                 if (!completed.video_url) {
                     throw new Error('Video URL not available');
                 }
@@ -90,7 +92,7 @@ export class VideoAIService {
                     style: options.style || 'educational',
                     aspectRatio: '16:9',
                     duration: options.duration || 60,
-                });
+                }, signal);
                 platform = 'invideo';
             }
 
@@ -104,7 +106,7 @@ export class VideoAIService {
                 position: 'bottom',
                 animation: 'fade',
                 highlight_color: '#FFD700',
-            });
+            }, signal);
 
             const processingTime = Date.now() - startTime;
 
@@ -132,7 +134,8 @@ export class VideoAIService {
             addTransitions?: boolean;
             removeFillerWords?: boolean;
             style?: 'professional' | 'casual' | 'cinematic';
-        } = {}
+        } = {},
+        signal?: AbortSignal
     ): Promise<VideoCreationResult> {
         const startTime = Date.now();
 
@@ -153,7 +156,7 @@ export class VideoAIService {
             const enhancedVideoUrl = await enhanceVideo(currentVideoUrl, prompt, {
                 addCaptions: enhancements.addCaptions ?? true,
                 style: enhancements.style || 'professional',
-            });
+            }, signal);
 
             const processingTime = Date.now() - startTime;
 
@@ -179,7 +182,8 @@ export class VideoAIService {
             avatarId?: string;
             voiceId?: string;
             background?: string;
-        } = {}
+        } = {},
+        signal?: AbortSignal
     ): Promise<VideoCreationResult> {
         const startTime = Date.now();
 
@@ -193,12 +197,13 @@ export class VideoAIService {
                 {
                     background: options.background || '#1a1a2e',
                     aspectRatio: '16:9',
-                }
+                },
+                signal
             );
 
             // Wait for video completion
             const client = getHeyGenClient();
-            const completed = await client.waitForVideo(videoResponse.video_id);
+            const completed = await client.waitForVideo(videoResponse.video_id, { signal });
             if (!completed.video_url) {
                 throw new Error('Video URL not available');
             }
@@ -226,7 +231,8 @@ export class VideoAIService {
         options: {
             style?: 'professional' | 'casual' | 'educational';
             duration?: number;
-        } = {}
+        } = {},
+        signal?: AbortSignal
     ): Promise<VideoCreationResult> {
         const startTime = Date.now();
 
@@ -237,7 +243,7 @@ export class VideoAIService {
                 style: options.style || 'educational',
                 aspectRatio: '16:9',
                 duration: options.duration || 60,
-            });
+            }, signal);
 
             const processingTime = Date.now() - startTime;
 
@@ -259,14 +265,15 @@ export class VideoAIService {
      */
     async translateVideo(
         videoUrl: string,
-        targetLanguage: string
+        targetLanguage: string,
+        signal?: AbortSignal
     ): Promise<VideoCreationResult> {
         const startTime = Date.now();
 
         try {
             console.log(`Translating video to ${targetLanguage}...`);
 
-            const result = await this.heygenClient.translateVideo(videoUrl, targetLanguage);
+            const result = await this.heygenClient.translateVideo(videoUrl, targetLanguage, { signal });
 
             // Poll for completion
             let attempts = 0;
@@ -289,7 +296,16 @@ export class VideoAIService {
                     throw new Error('Translation failed');
                 }
 
-                await new Promise(resolve => setTimeout(resolve, 5000));
+                // Cancellable delay
+                await new Promise((resolve, reject) => {
+                    const timeout = setTimeout(resolve, 5000);
+                    if (signal) {
+                        signal.addEventListener('abort', () => {
+                            clearTimeout(timeout);
+                            reject(new DOMException('Aborted', 'AbortError'));
+                        }, { once: true });
+                    }
+                });
                 attempts++;
             }
 

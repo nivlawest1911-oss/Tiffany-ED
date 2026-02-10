@@ -4,7 +4,7 @@
  * Gemini Workspace Hub - Import and manage content from Google Gemini
  */
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     Upload,
@@ -143,18 +143,38 @@ function ImportTab({ onImport }: { onImport: (content: ImportedContent) => void 
     const [textContent, setTextContent] = useState('');
     const [contentType, setContentType] = useState<ImportedContent['type']>('conversation');
     const [loading, setLoading] = useState(false);
+    const abortControllerRef = useRef<AbortController | null>(null);
+
+    // Cleanup on unmount
+    useEffect(() => {
+        return () => {
+            if (abortControllerRef.current) {
+                abortControllerRef.current.abort();
+            }
+        };
+    }, []);
 
     const onDrop = useCallback(async (acceptedFiles: File[]) => {
         setLoading(true);
+
+        if (abortControllerRef.current) abortControllerRef.current.abort();
+        const controller = new AbortController();
+        abortControllerRef.current = controller;
+
         try {
             for (const file of acceptedFiles) {
+                if (controller.signal.aborted) break;
+
                 const formData = new FormData();
                 formData.append('file', file);
 
                 const response = await fetch('/api/gemini/upload', {
                     method: 'POST',
                     body: formData,
+                    signal: controller.signal
                 });
+
+                if (controller.signal.aborted) break;
 
                 const data = await response.json();
 
@@ -172,10 +192,15 @@ function ImportTab({ onImport }: { onImport: (content: ImportedContent) => void 
                     onImport(imported);
                 }
             }
-        } catch (error) {
-            console.error('Upload error:', error);
+        } catch (error: any) {
+            if (error.name !== 'AbortError') {
+                console.error('Upload error:', error);
+            }
         } finally {
-            setLoading(false);
+            if (abortControllerRef.current === controller) {
+                setLoading(false);
+                abortControllerRef.current = null;
+            }
         }
     }, [onImport]);
 
@@ -192,6 +217,11 @@ function ImportTab({ onImport }: { onImport: (content: ImportedContent) => void 
         if (!textContent.trim()) return;
 
         setLoading(true);
+
+        if (abortControllerRef.current) abortControllerRef.current.abort();
+        const controller = new AbortController();
+        abortControllerRef.current = controller;
+
         try {
             const response = await fetch('/api/gemini/import', {
                 method: 'POST',
@@ -200,7 +230,10 @@ function ImportTab({ onImport }: { onImport: (content: ImportedContent) => void 
                     content: textContent,
                     type: contentType,
                 }),
+                signal: controller.signal
             });
+
+            if (controller.signal.aborted) return;
 
             const data = await response.json();
 
@@ -208,10 +241,15 @@ function ImportTab({ onImport }: { onImport: (content: ImportedContent) => void 
                 onImport(data.content);
                 setTextContent('');
             }
-        } catch (error) {
-            console.error('Import error:', error);
+        } catch (error: any) {
+            if (error.name !== 'AbortError') {
+                console.error('Import error:', error);
+            }
         } finally {
-            setLoading(false);
+            if (abortControllerRef.current === controller) {
+                setLoading(false);
+                abortControllerRef.current = null;
+            }
         }
     };
 

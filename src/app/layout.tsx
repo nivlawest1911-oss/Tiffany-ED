@@ -4,15 +4,17 @@ import './globals.css';
 import { AuthProvider } from '@/context/AuthContext';
 import { CelebrationProvider } from '@/context/CelebrationContext';
 import { IntelligenceProvider } from '@/context/IntelligenceContext';
+import { EdIntelVibeProvider } from "@/context/EdIntelVibeContext";
 import { Toaster } from 'sonner';
+import AppLayout from '@/components/layout/AppLayout';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' });
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
 
 export const metadata: Metadata = {
-  title: 'Sovereign OS | Digital Command',
-  description: 'The definitive operating layer for autonomous digital assets and sovereign identity.',
+  title: 'EdIntel Professional | EdIntel Delegate',
+  description: 'The definitive AI operating layer for autonomous professionals and institutional intelligence.',
   icons: {
     icon: '/favicon.ico',
     apple: '/apple-touch-icon.png',
@@ -30,7 +32,11 @@ export default function RootLayout({
         <CelebrationProvider>
           <IntelligenceProvider>
             <AuthProvider>
-              {children}
+              <EdIntelVibeProvider>
+                <AppLayout>
+                  {children}
+                </AppLayout>
+              </EdIntelVibeProvider>
             </AuthProvider>
           </IntelligenceProvider>
         </CelebrationProvider>

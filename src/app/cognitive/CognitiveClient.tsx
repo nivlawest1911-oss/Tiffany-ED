@@ -17,7 +17,7 @@ import LeadershipGym from '@/components/bento/LeadershipGym';
 import { useLeadershipRank } from '@/hooks/useLeadershipRank';
 
 export default function CognitiveClient() {
-    const [user, setUser] = useState<any>({ uid: 'SIMULATED-LEADERSHIP-CENTER', displayName: 'Executive Director' });
+    // const [user, setUser] = useState<any>({ uid: 'SIMULATED-LEADERSHIP-CENTER', displayName: 'Executive Director' });
     const [activeTab, setActiveTab] = useState<'simulator' | 'analytics' | 'certification'>('simulator');
 
     const { addXP, xp, currentRank, progressToNext } = useLeadershipRank();

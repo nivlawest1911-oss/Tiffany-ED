@@ -27,7 +27,7 @@ const DEMO_AUDITS = [
 
 export default function ArchiveClient() {
     const [audits, setAudits] = useState<any[]>(DEMO_AUDITS);
-    const [loading, setLoading] = useState(false);
+    const [loading] = useState(false);
     const [editingId, setEditingId] = useState<string | null>(null);
     const [feedbackText, setFeedbackText] = useState('');
 

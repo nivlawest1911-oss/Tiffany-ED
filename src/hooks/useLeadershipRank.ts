@@ -17,7 +17,7 @@ export const LEADERSHIP_RANKS: LeadershipRank[] = [
     { title: "Strategic Lead", level: 3, minXP: 150, color: "text-indigo-500", clearance: "Strategic Access" },
     { title: "Executive Principal", level: 4, minXP: 400, color: "text-amber-500", clearance: "Executive Access" },
     { title: "District Superintendent", level: 5, minXP: 1000, color: "text-red-500", clearance: "Superintendent Access" },
-    { title: "Sovereign Executive", level: 6, minXP: 5000, color: "text-indigo-400 font-black", clearance: "Quantum Sovereign" },
+    { title: "EdIntel Executive", level: 6, minXP: 5000, color: "text-indigo-400 font-black", clearance: "Quantum EdIntel" },
 ];
 
 const EXECUTIVE_EMAILS = [
@@ -29,11 +29,11 @@ export function useLeadershipRank() {
     const { user } = useAuth();
     const [xp, setXp] = useState(0);
     const [currentRank, setCurrentRank] = useState(LEADERSHIP_RANKS[0]);
-    const [isSovereign, setIsSovereign] = useState(false);
+    const [isEdIntel, setIsEdIntel] = useState(false);
 
     // Load XP on mount
     useEffect(() => {
-        const savedXP = localStorage.getItem('leadership_xp') || localStorage.getItem('sovereign_xp');
+        const savedXP = localStorage.getItem('leadership_xp') || localStorage.getItem('EdIntel_xp');
         if (savedXP) setXp(parseInt(savedXP));
     }, []);
 
@@ -47,11 +47,11 @@ export function useLeadershipRank() {
         // Determine rank
         let newRank;
         if (onWhitelist) {
-            newRank = LEADERSHIP_RANKS[5]; // Sovereign Rank
-            setIsSovereign(true);
+            newRank = LEADERSHIP_RANKS[5]; // EdIntel Rank
+            setIsEdIntel(true);
         } else {
             newRank = LEADERSHIP_RANKS.slice().reverse().find(r => xp >= r.minXP) || LEADERSHIP_RANKS[0];
-            setIsSovereign(false);
+            setIsEdIntel(false);
         }
 
         if (newRank.level !== currentRank.level) {
@@ -75,6 +75,6 @@ export function useLeadershipRank() {
         nextRank,
         progressToNext,
         allRanks: LEADERSHIP_RANKS,
-        isSovereign
+        isEdIntel
     };
 }

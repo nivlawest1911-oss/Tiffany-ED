@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 
-// 🔒 Sovereign Verification Token
+// 🔒 EdIntel Verification Token
 // This must match exactly what you enter in the Facebook Developer Console
-const VERIFY_TOKEN = process.env.FACEBOOK_WEBHOOK_VERIFY_TOKEN || 'edintel_sovereign_verify_2026';
+const VERIFY_TOKEN = process.env.FACEBOOK_WEBHOOK_VERIFY_TOKEN || 'edintel_EdIntel_verify_2026';
 
 /**
  * GET Handler - For Verification Challenge

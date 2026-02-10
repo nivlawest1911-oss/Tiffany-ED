@@ -2,9 +2,9 @@
 import { Check, Star, ArrowRight, Sparkles, Crown, GraduationCap, Briefcase, Building } from "lucide-react";
 import { useTransition } from 'react';
 import { motion } from 'framer-motion';
-import { createSovereignCheckout } from '@/app/actions/professional-stripe';
+import { createEdIntelCheckout } from '@/app/actions/professional-stripe';
 import { useAuth } from '@/context/AuthContext';
-import { SOVEREIGN_TIERS } from '@/lib/pricing-config';
+import { EdIntel_TIERS } from '@/lib/pricing-config';
 
 // Icon mapping helper
 const IconMap: Record<string, any> = {
@@ -35,13 +35,13 @@ export default function PricingMatrix() {
                 </div>
 
                 <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase mb-6 relative z-10">
-                    Sovereign <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-violet-500 gold-gradient-text">Value</span>
+                    EdIntel <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-violet-500 gold-gradient-text">Value</span>
                 </h2>
             </div>
 
             {/* Pricing Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10 pb-12">
-                {SOVEREIGN_TIERS.map((tier) => {
+                {EdIntel_TIERS.map((tier) => {
                     const Icon = IconMap[tier.icon] || Star;
                     const isRobust = tier.robust;
 
@@ -112,7 +112,7 @@ export default function PricingMatrix() {
                                         startTransition(async () => {
                                             try {
                                                 if (tier.stripeLink) {
-                                                    const { url } = await createSovereignCheckout(tier.stripeLink, tier.name, user?.id);
+                                                    const { url } = await createEdIntelCheckout(tier.stripeLink, tier.name, user?.id);
                                                     if (url) window.location.href = url;
                                                 }
                                             } catch (error) {

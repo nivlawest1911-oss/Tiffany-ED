@@ -1,5 +1,5 @@
 /**
- * EdIntel SOVEREIGN - Unified Payment System
+ * EdIntel EdIntel - Unified Payment System
  * Accepts ALL forms of currency: Fiat, Crypto, Digital Wallets, Regional Methods
  */
 

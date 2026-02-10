@@ -27,7 +27,7 @@ export function HeroLanding({ onScrollToContent, onInitialize }: HeroLandingProp
                 >
                     <div className="h-px w-12 bg-gradient-to-r from-transparent via-noble-gold to-transparent" />
                     <span className="text-[10px] md:text-xs font-black text-noble-gold uppercase tracking-[0.3em]">
-                        Sovereign Operating System
+                        EdIntel Operating System
                     </span>
                     <div className="h-px w-12 bg-gradient-to-r from-transparent via-noble-gold to-transparent" />
                 </motion.div>
@@ -50,7 +50,7 @@ export function HeroLanding({ onScrollToContent, onInitialize }: HeroLandingProp
                         transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
                         className="block bg-gradient-to-br from-noble-gold via-noble-gold to-amber-600 bg-clip-text text-transparent drop-shadow-[0_0_50px_rgba(212,175,55,0.4)]"
                     >
-                        Sovereign
+                        EdIntel
                     </motion.span>
                 </motion.h1>
 
@@ -62,7 +62,7 @@ export function HeroLanding({ onScrollToContent, onInitialize }: HeroLandingProp
                     className="text-lg md:text-xl lg:text-2xl text-white/60 font-light max-w-3xl mx-auto mb-12 leading-relaxed"
                 >
                     Orchestrate your educational ecosystem with AI-powered delegates,
-                    real-time intelligence, and sovereign-grade security protocols.
+                    real-time intelligence, and EdIntel-grade security protocols.
                 </motion.p>
 
                 {/* CTA Button */}

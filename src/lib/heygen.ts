@@ -1,7 +1,7 @@
 const HEYGEN_API_URL = 'https://api.heygen.com/v2';
 const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY;
 
-export async function createHeyGenVideo(avatarId: string, text: string, voiceId?: string) {
+export async function createHeyGenVideo(avatarId: string, text: string, voiceId?: string, signal?: AbortSignal) {
     if (!HEYGEN_API_KEY) {
         throw new Error('HEYGEN_API_KEY is not configured');
     }
@@ -29,6 +29,7 @@ export async function createHeyGenVideo(avatarId: string, text: string, voiceId?
                 },
             ],
         }),
+        signal
     });
 
     if (!response.ok) {
@@ -40,7 +41,7 @@ export async function createHeyGenVideo(avatarId: string, text: string, voiceId?
     return data.data.video_id;
 }
 
-export async function getHeyGenVideoStatus(videoId: string) {
+export async function getHeyGenVideoStatus(videoId: string, signal?: AbortSignal) {
     if (!HEYGEN_API_KEY) {
         throw new Error('HEYGEN_API_KEY is not configured');
     }
@@ -50,6 +51,7 @@ export async function getHeyGenVideoStatus(videoId: string) {
         headers: {
             'X-Api-Key': HEYGEN_API_KEY,
         },
+        signal
     });
 
     if (!response.ok) {

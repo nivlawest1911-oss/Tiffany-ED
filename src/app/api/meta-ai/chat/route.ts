@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
             model,
             temperature,
             max_tokens,
-        });
+        }, { signal: request.signal });
 
         return NextResponse.json(response);
     } catch (error) {

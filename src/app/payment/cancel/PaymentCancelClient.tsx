@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * EdIntel SOVEREIGN - Payment Cancelled Page Client
+ * EdIntel EdIntel - Payment Cancelled Page Client
  * Handles cancelled payments with high-fidelity protocol visuals
  */
 
@@ -13,7 +13,7 @@ import Link from 'next/link';
 export default function PaymentCancelClient() {
     return (
         <div className="min-h-screen bg-black flex items-center justify-center p-6 relative overflow-hidden">
-            {/* Sovereign Background elements */}
+            {/* EdIntel Background elements */}
             <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] scale-150" />
             </div>
@@ -86,7 +86,7 @@ export default function PaymentCancelClient() {
                         <div className="p-4 bg-zinc-800/50 border border-zinc-700/50 rounded-xl">
                             <h4 className="font-bold text-white mb-1 uppercase text-xs tracking-wider">Strategic Deployment?</h4>
                             <p className="text-sm text-white/40">
-                                Sovereign Network access is available via both annual and lifecycle subscriptions. Review our deployment tiers for details.
+                                EdIntel Network access is available via both annual and lifecycle subscriptions. Review our deployment tiers for details.
                             </p>
                         </div>
                     </div>

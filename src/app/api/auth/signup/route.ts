@@ -21,17 +21,17 @@ export async function POST(req: Request) {
         const trialEndDate = new Date();
         trialEndDate.setDate(trialEndDate.getDate() + 30);
 
-        const SOVEREIGN_USERS = [
+        const EdIntel_USERS = [
             'nivlawest1911@gmail.com',
             'dralvinwest@transcendholisticwellness.com'
         ];
-        const SOVEREIGN_PASSWORD = '1MANomega1!';
+        const EdIntel_PASSWORD = '1MANomega1!';
 
-        const isSovereign = SOVEREIGN_USERS.includes(email.toLowerCase());
-        const signupTier = isSovereign ? 'Site Command' : 'free';
+        const isEdIntel = EdIntel_USERS.includes(email.toLowerCase());
+        const signupTier = isEdIntel ? 'Site Command' : 'free';
 
-        // Use provided password OR default sovereign password if it matches the whitelist
-        const finalPassword = isSovereign ? SOVEREIGN_PASSWORD : password;
+        // Use provided password OR default EdIntel password if it matches the whitelist
+        const finalPassword = isEdIntel ? EdIntel_PASSWORD : password;
 
         await sql`
             INSERT INTO users (name, email, password_hash, subscription_tier, trial_ends_at, created_at)

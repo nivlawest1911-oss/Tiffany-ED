@@ -56,11 +56,17 @@ export class GeminiWorkspaceService {
     static async importContent(
         content: string,
         type: GeminiContent['type'],
-        metadata?: Partial<GeminiContent['metadata']>
+        metadata?: Partial<GeminiContent['metadata']>,
+        signal?: AbortSignal
     ): Promise<GeminiContent> {
+        if (signal?.aborted) {
+            console.warn('[EdIntel] Import operation was pre-emptively aborted.');
+            throw new Error('AbortError');
+        }
+
         const id = `gemini_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
-        const analysis = await this.analyzeContent(content);
+        const analysis = await this.analyzeContent(content, signal);
 
         return {
             id,
@@ -82,7 +88,7 @@ export class GeminiWorkspaceService {
     /**
      * Analyze content using AI
      */
-    private static async analyzeContent(content: string): Promise<{
+    private static async analyzeContent(content: string, signal?: AbortSignal): Promise<{
         title: string;
         tags: string[];
         category: string;
@@ -90,7 +96,7 @@ export class GeminiWorkspaceService {
     }> {
         const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
-        const prompt = `Analyze this content for EdIntel Professional (an educational AI platform for Alabama schools):
+        const analysisPrompt = `Analyze this content for EdIntel Professional (an educational AI platform for Alabama schools):
 
 Content: "${content.substring(0, 1000)}"
 
@@ -102,10 +108,20 @@ Return JSON with:
   "relatedFeatures": ["feature names that could use this content"]
 }`;
 
-        return withResilience(async () => {
-            const result = await model.generateContent(prompt);
-            const response = result.response.text();
+        const onAbort = () => {
+            console.error(`[EdIntel-Resilience] Abort triggered during content analysis for: "${analysisPrompt.substring(0, 30)}..."`);
+            // Additional impact analysis could be logged here
+        };
+        signal?.addEventListener('abort', onAbort, { once: true });
 
+        return withResilience(async () => {
+            try {
+                const result = await model.generateContent(analysisPrompt, { signal } as any);
+                return result.response.text();
+            } finally {
+                signal?.removeEventListener('abort', onAbort);
+            }
+        }, { signal }).then(response => {
             const jsonMatch = response.match(/\{[\s\S]*\}/);
             if (jsonMatch) {
                 return JSON.parse(jsonMatch[0]);
@@ -123,7 +139,7 @@ Return JSON with:
     /**
      * Convert Gemini conversation to EdIntel workflow
      */
-    static async convertToWorkflow(conversation: string): Promise<{
+    static async convertToWorkflow(conversation: string, signal?: AbortSignal): Promise<{
         name: string;
         steps: Array<{ action: string; description: string }>;
         aiPrompts: string[];
@@ -144,7 +160,7 @@ Return JSON with:
 }`;
 
         return withResilience(async () => {
-            const result = await model.generateContent(prompt);
+            const result = await model.generateContent(prompt, { signal } as any);
             const response = result.response.text();
 
             const jsonMatch = response.match(/\{[\s\S]*\}/);
@@ -157,13 +173,13 @@ Return JSON with:
                 steps: [],
                 aiPrompts: [],
             };
-        });
+        }, { signal });
     }
 
     /**
      * Extract educational content from Gemini media
      */
-    static async extractEducationalContent(imageUrl: string): Promise<{
+    static async extractEducationalContent(imageUrl: string, signal?: AbortSignal): Promise<{
         type: 'lesson_plan' | 'iep_goal' | 'assessment' | 'visual_aid' | 'other';
         content: string;
         suggestions: string[];
@@ -182,7 +198,7 @@ Return JSON with:
 }`;
 
         return withResilience(async () => {
-            const result = await model.generateContent(prompt);
+            const result = await model.generateContent(prompt, { signal } as any);
             const response = result.response.text();
 
             const jsonMatch = response.match(/\{[\s\S]*\}/);
@@ -195,13 +211,13 @@ Return JSON with:
                 content: '',
                 suggestions: [],
             };
-        });
+        }, { signal });
     }
 
     /**
      * Sync prompts from Gemini to EdIntel generators (Parallel Processed)
      */
-    static async syncPromptsToGenerators(prompts: string[]): Promise<{
+    static async syncPromptsToGenerators(prompts: string[], signal?: AbortSignal): Promise<{
         synced: number;
         generators: Array<{ name: string; prompt: string }>;
     }> {
@@ -219,7 +235,7 @@ Return JSON with:
 }`;
 
             return withResilience(async () => {
-                const result = await model.generateContent(analysisPrompt);
+                const result = await model.generateContent(analysisPrompt, { signal } as any);
                 const response = result.response.text();
 
                 const jsonMatch = response.match(/\{[\s\S]*\}/);
@@ -231,7 +247,7 @@ Return JSON with:
                     };
                 }
                 return null;
-            });
+            }, { signal });
         });
 
         const results = await Promise.all(tasks);
@@ -246,7 +262,7 @@ Return JSON with:
     /**
      * Create EdIntel content library from Gemini workspace
      */
-    static async createContentLibrary(workspace: GeminiWorkspace): Promise<{
+    static async createContentLibrary(workspace: GeminiWorkspace, signal?: AbortSignal): Promise<{
         categories: Record<string, GeminiContent[]>;
         totalItems: number;
         recommendations: string[];
@@ -287,11 +303,11 @@ Return JSON array of recommendations:
 ["recommendation 1", "recommendation 2", ...]`;
 
         const recommendations = await withResilience(async () => {
-            const result = await model.generateContent(prompt);
+            const result = await model.generateContent(prompt, { signal } as any);
             const response = result.response.text();
             const jsonMatch = response.match(/\[[\s\S]*\]/);
             return jsonMatch ? JSON.parse(jsonMatch[0]) : [];
-        });
+        }, { signal });
 
         return {
             categories,
@@ -303,7 +319,7 @@ Return JSON array of recommendations:
     /**
      * Auto-tag content with AI
      */
-    static async autoTagContent(content: string): Promise<string[]> {
+    static async autoTagContent(content: string, signal?: AbortSignal): Promise<string[]> {
         const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
         const prompt = `Generate relevant tags for this educational content:
@@ -314,11 +330,11 @@ Return JSON array of 5-10 relevant tags:
 ["tag1", "tag2", ...]`;
 
         return withResilience(async () => {
-            const result = await model.generateContent(prompt);
+            const result = await model.generateContent(prompt, { signal } as any);
             const response = result.response.text();
             const jsonMatch = response.match(/\[[\s\S]*\]/);
             return jsonMatch ? JSON.parse(jsonMatch[0]) : [];
-        });
+        }, { signal });
     }
 
     /**
@@ -326,7 +342,8 @@ Return JSON array of 5-10 relevant tags:
      */
     static async searchContent(
         workspace: GeminiWorkspace,
-        query: string
+        query: string,
+        signal?: AbortSignal
     ): Promise<GeminiContent[]> {
         const allContent = [
             ...workspace.conversations,
@@ -346,11 +363,11 @@ Return JSON array of matching content IDs (by relevance):
 ["id1", "id2", ...]`;
 
         const matchingIds = await withResilience(async () => {
-            const result = await model.generateContent(prompt);
+            const result = await model.generateContent(prompt, { signal } as any);
             const response = result.response.text();
             const jsonMatch = response.match(/\[[\s\S]*\]/);
             return jsonMatch ? JSON.parse(jsonMatch[0]) : [];
-        });
+        }, { signal });
 
         return allContent.filter(c => matchingIds.includes(c.id));
     }
@@ -369,7 +386,8 @@ export class GeminiMediaManager {
             title?: string;
             description?: string;
             tags?: string[];
-        }
+        },
+        signal?: AbortSignal
     ): Promise<{
         url: string;
         id: string;
@@ -384,10 +402,11 @@ export class GeminiMediaManager {
         const response = await fetch('/api/upload', {
             method: 'POST',
             body: formData,
+            signal,
         });
 
         const data = await response.json();
-        const analysis = await this.analyzeMedia(data.url);
+        const analysis = await this.analyzeMedia(data.url, signal);
 
         return {
             url: data.url,
@@ -399,7 +418,7 @@ export class GeminiMediaManager {
     /**
      * Analyze media with AI
      */
-    private static async analyzeMedia(url: string): Promise<{
+    private static async analyzeMedia(url: string, signal?: AbortSignal): Promise<{
         type: string;
         content: string;
         educationalValue: string;
@@ -420,7 +439,7 @@ Return JSON with:
 }`;
 
         return withResilience(async () => {
-            const result = await model.generateContent(prompt);
+            const result = await model.generateContent(prompt, { signal } as any);
             const response = result.response.text();
 
             const jsonMatch = response.match(/\{[\s\S]*\}/);
@@ -434,20 +453,21 @@ Return JSON with:
                 educationalValue: '5',
                 suggestedUse: [],
             };
-        });
+        }, { signal });
     }
 
     /**
      * Batch import from Gemini (Parallel Processed)
      */
-    static async batchImport(files: File[]): Promise<{
+    static async batchImport(files: File[], signal?: AbortSignal): Promise<{
         imported: number;
         failed: number;
         items: Array<{ url: string; title: string }>;
     }> {
         const tasks = files.map(async (file) => {
             try {
-                const result = await this.uploadMedia(file);
+                if (signal?.aborted) throw new Error('Aborted');
+                const result = await this.uploadMedia(file, undefined, signal);
                 return {
                     url: result.url,
                     title: file.name,

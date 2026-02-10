@@ -107,7 +107,7 @@ export function RecidivismEngine({ classVibe = 92 }: RecidivismEngineProps) {
                         <Brain size={48} className="text-noble-gold mb-6 animate-pulse" />
                         <h3 className="text-2xl font-black text-white italic uppercase mb-2">Restorative Session Active</h3>
                         <p className="text-zinc-400 text-sm max-w-md mx-auto mb-8">
-                            The AI Sovereign Twin is currently guiding the student through a reflective "Goblin Tools" protocol to de-escalate tension.
+                            The AI EdIntel Twin is currently guiding the student through a reflective "Goblin Tools" protocol to de-escalate tension.
                         </p>
                         <div className="flex gap-4">
                             <button className="px-6 py-3 bg-noble-gold text-black font-black uppercase tracking-widest rounded-xl hover:scale-105 transition-transform">Monitor Audio</button>

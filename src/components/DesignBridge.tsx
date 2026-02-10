@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { SovereignGate } from '@/components/SovereignGate';
+import { EdIntelGate } from '@/components/sovereign/EdIntelGate';
 
 interface DesignBridgeProps {
     type: string;
@@ -15,7 +15,7 @@ declare global {
 }
 
 export const DesignBridge = ({ type, tier }: DesignBridgeProps) => {
-    const isAuthorized = tier !== 'Sovereign Initiate';
+    const isAuthorized = tier !== 'EdIntel Initiate';
     const [showGate, setShowGate] = React.useState(false);
 
     const launchCanva = async () => {
@@ -49,7 +49,7 @@ export const DesignBridge = ({ type, tier }: DesignBridgeProps) => {
                     {isAuthorized ? `Open ${type}` : 'Upgrade Required'}
                 </button>
             </div>
-            <SovereignGate
+            <EdIntelGate
                 isOpen={showGate}
                 onClose={() => setShowGate(false)}
                 toolName={type}

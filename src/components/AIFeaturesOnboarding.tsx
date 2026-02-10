@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * EdIntel SOVEREIGN - AI Features Onboarding
+ * EdIntel EdIntel - AI Features Onboarding
  * Interactive tutorial for Gemini Workspace, Hugging Face Studio, and AI Phone Center
  */
 
@@ -28,7 +28,7 @@ interface OnboardingStep {
 const onboardingSteps: OnboardingStep[] = [
     {
         id: 'welcome',
-        title: 'Welcome to EdIntel SOVEREIGN AI Hub',
+        title: 'Welcome to EdIntel EdIntel AI Hub',
         description: 'Discover three powerful AI systems designed to revolutionize your educational leadership workflow.',
         icon: Rocket,
         color: 'from-indigo-500 to-purple-600',

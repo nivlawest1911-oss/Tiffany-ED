@@ -10,7 +10,7 @@ const features = [
   },
   {
     icon: Shield,
-    title: "Sovereign Router",
+    title: "EdIntel Router",
     description:
       "Proprietary data pathways keeping institutional intelligence within your building. Zero-leak protocol.",
   },

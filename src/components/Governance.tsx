@@ -4,7 +4,7 @@ import { FileText, Scale, Users, Clock } from "lucide-react";
 const policies = [
   {
     icon: FileText,
-    title: "Data Sovereignty",
+    title: "Data EdIntelty",
     description: "All district data remains within your institutional boundaries. No third-party training or external access without explicit authorization.",
   },
   {

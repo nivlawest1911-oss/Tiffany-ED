@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { useEdIntelVibe } from '@/context/EdIntelVibeContext';
 
 interface Particle {
     x: number;
@@ -17,6 +18,8 @@ export function CinematicBackground() {
     const mouseRef = useRef({ x: 0, y: 0 });
     const animationFrameRef = useRef<number | null>(null);
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+    const { isSystemThinking } = useEdIntelVibe();
 
     // Particle count based on screen size
     const getParticleCount = () => {
@@ -48,11 +51,14 @@ export function CinematicBackground() {
     }, []);
 
     // Update particle positions
-    const updateParticles = (width: number, height: number) => {
+    const updateParticles = useCallback((width: number, height: number) => {
+        // Boost speed if system is thinking
+        const speedMultiplier = isSystemThinking ? 2.5 : 1;
+
         particlesRef.current.forEach(particle => {
             // Update position
-            particle.x += particle.vx;
-            particle.y += particle.vy;
+            particle.x += particle.vx * speedMultiplier;
+            particle.y += particle.vy * speedMultiplier;
 
             // Subtle attraction to mouse
             const dx = mouseRef.current.x - particle.x;
@@ -60,8 +66,8 @@ export function CinematicBackground() {
             const distance = Math.sqrt(dx * dx + dy * dy);
 
             if (distance < 200) {
-                particle.vx += dx * 0.00005;
-                particle.vy += dy * 0.00005;
+                particle.vx += dx * 0.00005 * speedMultiplier;
+                particle.vy += dy * 0.00005 * speedMultiplier;
             }
 
             // Apply damping
@@ -75,23 +81,27 @@ export function CinematicBackground() {
             if (particle.y > height) particle.y = 0;
 
             // Keep velocity in check
+            const maxSpeed = isSystemThinking ? 4 : 2;
             const speed = Math.sqrt(particle.vx * particle.vx + particle.vy * particle.vy);
-            if (speed > 2) {
-                particle.vx = (particle.vx / speed) * 2;
-                particle.vy = (particle.vy / speed) * 2;
+            if (speed > maxSpeed) {
+                particle.vx = (particle.vx / speed) * maxSpeed;
+                particle.vy = (particle.vy / speed) * maxSpeed;
             }
         });
-    };
+    }, [isSystemThinking]);
 
     // Draw particles and connections
-    const draw = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
+    const draw = useCallback((ctx: CanvasRenderingContext2D, width: number, height: number) => {
         // Clear canvas
         ctx.clearRect(0, 0, width, height);
 
         const particles = particlesRef.current;
 
+        // Reactive Colors
+        const baseColor = isSystemThinking ? '197, 164, 126' : '212, 175, 55'; // Noble Gold vs Royal Gold
+        const lineOpacity = isSystemThinking ? 0.25 : 0.15;
+
         // Draw connections between nearby particles
-        ctx.strokeStyle = 'rgba(212, 175, 55, 0.15)'; // Royal Gold
         ctx.lineWidth = 0.5;
 
         for (let i = 0; i < particles.length; i++) {
@@ -101,8 +111,8 @@ export function CinematicBackground() {
                 const distance = Math.sqrt(dx * dx + dy * dy);
 
                 if (distance < 120) {
-                    const opacity = (1 - distance / 120) * 0.3;
-                    ctx.strokeStyle = `rgba(212, 175, 55, ${opacity})`;
+                    const opacity = (1 - distance / 120) * lineOpacity;
+                    ctx.strokeStyle = `rgba(${baseColor}, ${opacity})`;
                     ctx.beginPath();
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);
@@ -114,21 +124,22 @@ export function CinematicBackground() {
         // Draw particles
         particles.forEach(particle => {
             ctx.beginPath();
-            ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(212, 175, 55, ${particle.opacity})`;
+            ctx.arc(particle.x, particle.y, isSystemThinking ? particle.size * 1.5 : particle.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${baseColor}, ${particle.opacity})`;
             ctx.fill();
 
             // Add glow effect
+            const glowSize = isSystemThinking ? particle.size * 6 : particle.size * 3;
             const glow = ctx.createRadialGradient(
                 particle.x, particle.y, 0,
-                particle.x, particle.y, particle.size * 3
+                particle.x, particle.y, glowSize
             );
-            glow.addColorStop(0, `rgba(212, 175, 55, ${particle.opacity * 0.5})`);
-            glow.addColorStop(1, 'rgba(212, 175, 55, 0)');
+            glow.addColorStop(0, `rgba(${baseColor}, ${particle.opacity * 0.5})`);
+            glow.addColorStop(1, `rgba(${baseColor}, 0)`);
             ctx.fillStyle = glow;
             ctx.fill();
         });
-    };
+    }, [isSystemThinking]);
 
     // Animation loop
     const animate = useCallback(() => {
@@ -142,7 +153,7 @@ export function CinematicBackground() {
         draw(ctx, dimensions.width, dimensions.height);
 
         animationFrameRef.current = requestAnimationFrame(animate);
-    }, [dimensions.width, dimensions.height]);
+    }, [dimensions.width, dimensions.height, updateParticles, draw]);
 
     // Handle resize
     useEffect(() => {

@@ -1,20 +1,20 @@
 import React from 'react';
-import SovereignShell from '@/components/layout/SovereignShell';
+import EdIntelShell from '@/components/layout/EdIntelShell';
 import AnalyticsClient from './AnalyticsClient';
 
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'District Analytics | EdIntel Sovereign',
+    title: 'District Analytics | EdIntel EdIntel',
     description: 'BigQuery Powered School Performance Metrics.',
 };
 
 export default function AnalyticsPage() {
     return (
-        <SovereignShell>
+        <EdIntelShell>
             <div className="pb-20">
                 <AnalyticsClient />
             </div>
-        </SovereignShell>
+        </EdIntelShell>
     );
 }

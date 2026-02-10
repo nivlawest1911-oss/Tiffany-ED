@@ -22,30 +22,34 @@ import {
 
 // Map specific tools to "Delegate" avatars using the Single Source of Truth
 // STRICT: Ensure all Avatars are African American Professionals from the verified list
+// O(1) lookup map for maximum initialization performance
+const AVATAR_MAP = Object.fromEntries(CORE_AVATARS.map(a => [a.id, a.avatar]));
+
 const AVATARS = {
-    PRINCIPAL: CORE_AVATARS.find(a => a.id === 'sovereign_1')?.avatar || "/images/avatars/Dr._alvin_west.png",
-    COUNSELOR: CORE_AVATARS.find(a => a.id === 'delegate_2')?.avatar || "/images/avatars/keisha_reynolds_premium.png",
-    CURRICULUM: CORE_AVATARS.find(a => a.id === 'delegate_5')?.avatar || "/images/avatars/emily_robinson_premium.png", // Using Dr. Robinson for Curriculum implies data-backed design
-    DATA: CORE_AVATARS.find(a => a.id === 'delegate_5')?.avatar || "/images/avatars/emily_robinson_premium.png",
-    COMPLIANCE: CORE_AVATARS.find(a => a.id === 'delegate_3')?.avatar || "/images/avatars/isaiah_vance_premium.png",
-    LITERACY: CORE_AVATARS.find(a => a.id === 'delegate_5')?.avatar || "/images/avatars/emily_robinson_premium.png",
-    FINANCE: CORE_AVATARS.find(a => a.id === 'delegate_7')?.avatar || "/images/avatars/executive_leader.png",
-    BEHAVIOR: CORE_AVATARS.find(a => a.id === 'delegate_4')?.avatar || "/images/avatars/andre_patterson_premium.png",
-    SPED: CORE_AVATARS.find(a => a.id === 'delegate_6')?.avatar || "/images/avatars/maya_washington_premium.png"
+    PRINCIPAL: AVATAR_MAP['EdIntel_1'] || "/images/avatars/Dr._alvin_west.png",
+    COUNSELOR: AVATAR_MAP['delegate_2'] || "/images/avatars/keisha_reynolds_premium.png",
+    CURRICULUM: AVATAR_MAP['delegate_5'] || "/images/avatars/emily_robinson_premium.png",
+    DATA: AVATAR_MAP['delegate_5'] || "/images/avatars/emily_robinson_premium.png",
+    COMPLIANCE: AVATAR_MAP['delegate_3'] || "/images/avatars/isaiah_vance_premium.png",
+    LITERACY: AVATAR_MAP['delegate_5'] || "/images/avatars/emily_robinson_premium.png",
+    FINANCE: AVATAR_MAP['delegate_7'] || "/images/avatars/executive_leader.png",
+    BEHAVIOR: AVATAR_MAP['delegate_4'] || "/images/avatars/andre_patterson_premium.png",
+    SPED: AVATAR_MAP['delegate_6'] || "/images/avatars/maya_washington_premium.png"
 }
 
 export const generators = [
     // --- STRATEGIC LEADERSHIP TOOLS ---
     {
         id: "iep-architect",
-        name: "IEP Specialist",
+        name: "IEP Narrative Architect",
+        link: "/dashboard/iep-architect",
         description: "Generate professional IEP drafts with SMART goals and data-driven accommodations. Designed for clarity, compliance, and student success.",
         icon: FileText,
         color: "#00d2ff",
         avatar: AVATARS.SPED,
         heroImage: "/images/features/strategic_iep_architect.png",
         heroVideo: "/videos/features/iep-architect-demo.mp4",
-        welcomeVideo: "/videos/briefings/compliance_briefing.mp4", // Using compliance briefing for special ed protocol
+        welcomeVideo: "/videos/briefings/data_briefing.mp4", // Using compliance briefing for special ed protocol
         voiceWelcome: "/voice-profiles/compliance_voice.wav",
         prompts: [
             "Draft 3 annual IEP goals for a 4th-grade student with autism focusing on executive function and social-emotional regulation, citing specific IDEA LRE requirements.",
@@ -66,7 +70,7 @@ export const generators = [
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: [
             "Design a 5th Grade math lesson on fractions that incorporates Kente pattern geometry and culturally-responsive narratives.",
-            "Design a high school American History unit on the Reconstruction Era focusing on economic sovereignty and legislative policy.",
+            "Design a high school American History unit on the Reconstruction Era focusing on economic EdIntelty and legislative policy.",
             "Create a middle school science lab protocol for renewable energy, tiered for ELL and GT learners."
         ]
     },
@@ -211,7 +215,7 @@ export const generators = [
     // Re-adding essential existing ones for the demo to work fully
     { id: "email-composer", name: "Email Composer", description: "Professional communications", icon: MessageSquare, color: "#10b981", avatar: AVATARS.PRINCIPAL, heroImage: "/images/features/strategic_communications_director.png", heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/principal_briefing.mp4", voiceWelcome: "/voice-profiles/principal_voice.wav", prompts: ["Parent conference follow-up", "Staff announcement"] },
     { id: "policy-advisor", name: "Policy Advisor", description: "Navigate regulations", icon: Scale, color: "#8b5cf6", avatar: AVATARS.COMPLIANCE, heroImage: "/images/features/iep_interface.png", heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/compliance_briefing.mp4", voiceWelcome: "/voice-profiles/compliance_voice.wav", prompts: ["IDEA compliance check", "504 plan requirements"] },
-    { id: "cognitive-coach", name: "Cognitive Coach", description: "Executive function strategies", icon: Brain, color: "#ec4899", avatar: AVATARS.COUNSELOR, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Working memory activities"] },
+    { id: "cognitive-gym", name: "The Cognitive Gym", description: "Executive function training strategies", icon: Brain, color: "#ec4899", avatar: AVATARS.COUNSELOR, link: "/dashboard/cognitive-gym", heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Working memory activities"] },
     { id: "idea-generator", name: "Idea Generator", description: "Creative solutions", icon: Lightbulb, color: "#f59e0b", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Engagement strategies"] },
     { id: "code-commander", name: "Code Commander", description: "Learn coding", icon: Code, color: "#06b6d4", avatar: AVATARS.DATA, heroVideo: "/videos/features/data-analysis-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/data_voice.wav", prompts: ["Debug my Python code"] },
     { id: "comms-director", name: "Comms Director", description: "PR content", icon: Megaphone, color: "#f97316", avatar: AVATARS.PRINCIPAL, heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/principal_voice.wav", prompts: ["Draft school newsletter"] },
@@ -1029,7 +1033,7 @@ export const generators = [
         icon: Scale,
         color: "#b45309",
         heroVideo: "/videos/features/iep-architect-demo.mp4",
-        welcomeVideo: "/videos/briefings/compliance_briefing.mp4",
+        welcomeVideo: "/videos/briefings/data_briefing.mp4",
         prompts: ["Audit IEP for IDEA compliance", "Draft legal defensibility brief", "Verify parental rights validation"]
     },
     {

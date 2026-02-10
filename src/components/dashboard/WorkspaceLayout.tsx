@@ -5,22 +5,22 @@ import React from "react"
 import { AuroraBackground } from "@/components/dashboard/aurora-background"
 import { Sidebar } from "@/components/dashboard/Sidebar"
 import { TacticalHeader } from "@/components/dashboard/TacticalHeader"
-import { SovereignVibeProvider } from "@/context/SovereignVibeContext"
+import { EdIntelVibeProvider } from "@/context/EdIntelVibeContext"
 
-import { useSovereignVibe } from '@/context/SovereignVibeContext';
-import SovereignCommandDeck from './SovereignCommandDeck';
+import { useEdIntelVibe } from '@/context/EdIntelVibeContext';
+import EdIntelCommandDeck from './EdIntelCommandDeck';
 import { AnimatePresence, motion } from 'framer-motion';
 
 export default function WorkspaceLayout({ children }: { children: React.ReactNode }) {
     return (
-        <SovereignVibeProvider>
+        <EdIntelVibeProvider>
             <WorkspaceContent>{children}</WorkspaceContent>
-        </SovereignVibeProvider>
+        </EdIntelVibeProvider>
     )
 }
 
 function WorkspaceContent({ children }: { children: React.ReactNode }) {
-    const { isCommandConsoleOpen } = useSovereignVibe();
+    const { isCommandConsoleOpen } = useEdIntelVibe();
 
     return (
         <div className="relative flex h-screen" style={{ backgroundColor: "#020617" }}>
@@ -35,7 +35,7 @@ function WorkspaceContent({ children }: { children: React.ReactNode }) {
                         exit={{ opacity: 0, y: 20 }}
                         className="fixed inset-0 z-[100] bg-black/95 overflow-y-auto"
                     >
-                        <SovereignCommandDeck />
+                        <EdIntelCommandDeck />
                     </motion.div>
                 )}
             </AnimatePresence>

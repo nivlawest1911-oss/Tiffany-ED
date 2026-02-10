@@ -1,8 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { Check, Sparkles, Star, Crown, GraduationCap, Briefcase, Building } from 'lucide-react';
-import { SOVEREIGN_TIERS } from '@/lib/pricing-config';
+import { EdIntel_TIERS } from '@/lib/pricing-config';
 
 // Icon mapping
 const IconMap: Record<string, any> = {
@@ -25,7 +26,7 @@ export default function PricingSection() {
                 className="text-center mb-16"
             >
                 <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-4">
-                    Sovereign Pricing
+                    EdIntel Pricing
                 </h2>
                 <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                     Choose the tier that matches your institution's needs.
@@ -34,7 +35,7 @@ export default function PricingSection() {
 
             {/* Pricing Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {SOVEREIGN_TIERS.map((tier, index) => {
+                {EdIntel_TIERS.map((tier, index) => {
                     const Icon = IconMap[tier.icon] || Star;
                     const isSiteCommand = tier.name === 'Site Command';
 
@@ -114,14 +115,16 @@ export default function PricingSection() {
                             </ul>
 
                             {/* CTA Button */}
-                            <button
-                                className={`relative z-10 w-full py-4 rounded-xl font-black text-xs uppercase tracking-wider transition-all ${isSiteCommand
-                                    ? 'bg-primary text-primary-foreground hover:shadow-[0_0_20px_rgba(112,0,255,0.6)]'
-                                    : 'bg-muted/50 text-foreground hover:bg-muted'
-                                    }`}
-                            >
-                                {tier.price === 0 ? 'Start Free' : 'Ascend to Command'}
-                            </button>
+                            <Link href="/signup" className="block relative z-10 w-full">
+                                <button
+                                    className={`w-full py-4 rounded-xl font-black text-xs uppercase tracking-wider transition-all ${isSiteCommand
+                                        ? 'bg-primary text-primary-foreground hover:shadow-[0_0_20px_rgba(112,0,255,0.6)]'
+                                        : 'bg-muted/50 text-foreground hover:bg-muted'
+                                        }`}
+                                >
+                                    {tier.price === 0 ? 'Start Free' : 'Ascend to Command'}
+                                </button>
+                            </Link>
                         </motion.div>
                     );
                 })}

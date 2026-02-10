@@ -11,7 +11,7 @@
 
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useAuth } from '@/context/AuthContext';
 
 interface AvatarMessage {
@@ -26,7 +26,7 @@ interface UseMultimodalAvatarProps {
     engine?: 'duix' | 'tavus' | 'heygen' | 'liveportrait' | 'adobe' | 'viggle' | 'did' | 'akool';
     onTokenDeduct?: (amount: number) => void;
     onXPGain?: (amount: number) => void;
-    onSpeak?: (text: string) => boolean; // Returns true if handled externally
+    onSpeak?: (text: string, signal?: AbortSignal) => boolean; // Returns true if handled externally
     voiceId?: string; // Optional: Explicit voice ID/gender hint
 }
 
@@ -60,7 +60,7 @@ interface UseMultimodalAvatarReturn {
     stopListening: () => void;
     isListening: boolean;
     isSpeaking: boolean;
-    speak: (text: string) => void;
+    speak: (text: string, signal?: AbortSignal) => void;
 }
 
 const LEADERSHIP_ARCHETYPES: Record<string, { tone: string, rate: number, pitch: number }> = {
@@ -97,7 +97,7 @@ export function useMultimodalAvatar({
     const [isListening, setIsListening] = useState(false);
     const [isSpeaking, setIsSpeaking] = useState(false);
 
-    const getArchetype = useCallback(() => {
+    const archetype = useMemo(() => {
         const lowerName = avatarName.toLowerCase();
         // Check voiceId hints
         if (voiceId === '21m00Tcm4TlvDq8ikWAM' || voiceId === 'EXAVITQu4vr4xnSDxMaL' || voiceId === 'MF3mGyEYCl7XYW7LpInj' || voiceId === 'AZnzlk1XjtbaicYn0nS5') {
@@ -111,57 +111,11 @@ export function useMultimodalAvatar({
         return LEADERSHIP_ARCHETYPES['default'];
     }, [avatarName, voiceId]);
 
-    const wsRef = useRef<WebSocket | null>(null);
-    const messageQueueRef = useRef<string>('');
-    const recognitionRef = useRef<any>(null);
-    const synthesisRef = useRef<SpeechSynthesisUtterance | null>(null);
+    // MEMOIZE VOICE LOOKUP: Prevent millisecond latency on every speech start
+    const preferredVoice = useMemo(() => {
+        if (typeof window === 'undefined' || !('speechSynthesis' in window)) return null;
+        const voices = window.speechSynthesis.getVoices();
 
-    // ============================================
-    // TEXT TO SPEECH (TTS)
-    // ============================================
-    const speak = useCallback((text: string) => {
-        // 1. Check for External Handler (e.g. HeyGen / Azure)
-        if (onSpeak && onSpeak(text)) {
-            // External handler (like HeyGen) handles the actual speech/video
-            setIsSpeaking(true);
-
-            // Heuristic Timeout to reset speaking state for UI feedback
-            // Adjusted for 120 wpm (2.0 words/sec) + 2.5s overhead for HeyGen generation latency
-            const wordCount = text.split(/\s+/).length;
-            const estimatedDurationMs = Math.max(3000, (wordCount / 2.0) * 1000) + 2500;
-            setTimeout(() => {
-                setIsSpeaking(false);
-            }, estimatedDurationMs);
-
-            return;
-        }
-
-        if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
-
-        window.speechSynthesis.cancel();
-
-        // HUMAN-LIKE REFINEMENT: Inject natural fillers to satisfy "they don't communicate" complaint
-        // We make them sound more active and engaged
-        let naturalText = text;
-        if (Math.random() > 0.7) {
-            const fillers = [
-                "I see, ",
-                "Understood. ",
-                "Acknowledged, ",
-                "From my perspective, ",
-                "Looking at the data, ",
-                "Interestingly, "
-            ];
-            naturalText = fillers[Math.floor(Math.random() * fillers.length)] + text;
-        }
-
-        const utterance = new SpeechSynthesisUtterance(naturalText);
-        const archetype = getArchetype();
-
-        utterance.rate = archetype.rate;
-        utterance.pitch = archetype.pitch;
-
-        // ACCURATE GENDER MATCHING: Explicit mapping for CORE_AVATARS IDs
         const femaleVoiceIds = [
             '21m00Tcm4TlvDq8ikWAM', // Rachel
             'EXAVITQu4vr4xnSDxMaL', // Bella
@@ -176,12 +130,90 @@ export function useMultimodalAvatar({
             lowerName.includes('maya') ||
             lowerName.includes('nova');
 
-        const voices = window.speechSynthesis.getVoices();
-        const preferredVoice = voices.find(v =>
+        const preferred = voices.find(v =>
             isFemale
                 ? (v.name.includes('Google US English') || v.name.includes('Samantha') || v.name.includes('Female') || v.name.includes('Zira'))
                 : (v.name.includes('Daniel') || v.name.includes('Google UK English Male') || v.name.includes('Male') || v.name.includes('David'))
         );
+
+        if (preferred) return preferred;
+
+        // Fallback for dynamic voice list updates
+        return voices.find(v => isFemale ? v.name.includes('Female') : v.name.includes('Male')) || null;
+    }, [avatarName, voiceId]);
+
+    const wsRef = useRef<WebSocket | null>(null);
+    const messageQueueRef = useRef<string>('');
+    const recognitionRef = useRef<any>(null);
+    const synthesisRef = useRef<SpeechSynthesisUtterance | null>(null);
+    const speakingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+    // ============================================
+    // TEXT TO SPEECH (TTS)
+    // ============================================
+    const speak = useCallback((text: string, signal?: AbortSignal) => {
+        // 0. Check for early abort
+        if (signal?.aborted) return;
+
+        // 1. Check for External Handler (e.g. HeyGen / Azure)
+        if (onSpeak && onSpeak(text, signal)) {
+            // External handler (like HeyGen) handles the actual speech/video
+            setIsSpeaking(true);
+
+            // Clear previous timeout if any
+            if (speakingTimeoutRef.current) clearTimeout(speakingTimeoutRef.current);
+
+            // Heuristic Timeout to reset speaking state for UI feedback
+            // Adjusted for 120 wpm (2.0 words/sec) + 2.5s overhead for HeyGen generation latency
+            const wordCount = text.split(/\s+/).length;
+            const estimatedDurationMs = Math.max(3000, (wordCount / 2.0) * 1000) + 2500;
+
+            const timeoutId = setTimeout(() => {
+                setIsSpeaking(false);
+                speakingTimeoutRef.current = null;
+            }, estimatedDurationMs);
+
+            speakingTimeoutRef.current = timeoutId;
+
+            // Optional: Listen to signal to cancel speaking state early
+            signal?.addEventListener('abort', () => {
+                setIsSpeaking(false);
+                if (speakingTimeoutRef.current) {
+                    clearTimeout(speakingTimeoutRef.current);
+                    speakingTimeoutRef.current = null;
+                }
+            }, { once: true });
+
+            return;
+        }
+
+        if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
+
+        window.speechSynthesis.cancel();
+
+        // HUMAN-LIKE REFINEMENT: Weighted fillers for authoritative presence
+        let naturalText = text;
+        if (Math.random() > 0.8) {
+            const fillers = [
+                { t: "I see, ", w: 3 },
+                { t: "Understood. ", w: 3 },
+                { t: "Looking at the district data, ", w: 2 },
+                { t: "From a EdIntel perspective, ", w: 1 },
+                { t: "Interestingly, ", w: 1 }
+            ];
+            const totalWeight = fillers.reduce((acc, f) => acc + f.w, 0);
+            let r = Math.random() * totalWeight;
+            let selected = fillers[0].t;
+            for (const f of fillers) {
+                if (r < f.w) { selected = f.t; break; }
+                r -= f.w;
+            }
+            naturalText = selected + text;
+        }
+
+        const utterance = new SpeechSynthesisUtterance(naturalText);
+        utterance.rate = archetype.rate;
+        utterance.pitch = archetype.pitch;
 
         if (preferredVoice) utterance.voice = preferredVoice;
 
@@ -191,11 +223,13 @@ export function useMultimodalAvatar({
 
         synthesisRef.current = utterance;
         window.speechSynthesis.speak(utterance);
-    }, [avatarName, onSpeak, voiceId, getArchetype]);
+    }, [onSpeak, archetype, preferredVoice]);
 
     // ============================================
     // SEND MESSAGE (UNIFIED)
     // ============================================
+    const abortControllerRef = useRef<AbortController | null>(null);
+
     const sendMessage = useCallback(async (text: string) => {
         // 1. Update Local State
         const userMsg: AvatarMessage = { role: 'user', text, timestamp: new Date().toISOString() };
@@ -211,13 +245,20 @@ export function useMultimodalAvatar({
 
         // 2. HTTP EDGE STREAM FALLBACK (Original LiveAvatarChat Logic)
         try {
+            // Cancel previous request
+            if (abortControllerRef.current) abortControllerRef.current.abort();
+
+            const controller = new AbortController();
+            abortControllerRef.current = controller;
+
             const response = await fetch('/api/ai/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     messages: messages.map(m => ({ role: m.role, content: m.text })).concat([{ role: 'user', content: text }]),
                     protocolContext: `Role: ${avatarRole}. Name: ${avatarName}.`
-                })
+                }),
+                signal: controller.signal
             });
 
             if (!response.ok || !response.body) throw new Error('Network response was not ok');
@@ -248,16 +289,20 @@ export function useMultimodalAvatar({
 
                 // Check for sentence completion to trigger TTS streaming
                 if (sentenceBuffer.match(/[.!?](\s|$)/)) {
-                    speak(sentenceBuffer.trim()); // Speak chunk
+                    speak(sentenceBuffer.trim(), controller.signal); // Speak chunk
                     sentenceBuffer = '';
                 }
             }
-            if (sentenceBuffer.trim()) speak(sentenceBuffer.trim()); // Speak remaining
+            if (sentenceBuffer.trim()) speak(sentenceBuffer.trim(), controller.signal); // Speak remaining
 
         } catch (err: any) {
+            if (err.name === 'AbortError') return;
             setError(err.message);
         } finally {
-            setIsProcessing(false);
+            if (abortControllerRef.current?.signal.aborted === false) {
+                setIsProcessing(false);
+                abortControllerRef.current = null;
+            }
         }
     }, [messages, avatarRole, avatarName, mode, speak, onTokenDeduct]);
 
@@ -322,7 +367,7 @@ export function useMultimodalAvatar({
                     return newMessages;
                 });
                 // NEW: Trigger TTS
-                speak(message.data.text);
+                speak(message.data.text, abortControllerRef.current?.signal);
                 break;
 
             case 'RESPONSE_COMPLETE':
@@ -431,6 +476,8 @@ export function useMultimodalAvatar({
     useEffect(() => {
         return () => {
             disconnect();
+            if (abortControllerRef.current) abortControllerRef.current.abort();
+            if (speakingTimeoutRef.current) clearTimeout(speakingTimeoutRef.current);
         };
     }, [disconnect]);
 

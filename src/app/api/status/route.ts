@@ -4,7 +4,7 @@ export const dynamic = "force-dynamic"
 
 export async function GET() {
     const statusReport: Record<string, string> = {
-        platform: "EdIntel Sovereign OS",
+        platform: "EdIntel EdIntel OS",
         environment: process.env.NODE_ENV || "unknown",
         timestamp: new Date().toISOString(),
         supabase: "PENDING",

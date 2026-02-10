@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ShieldCheck, User, Users, Zap, Filter, Download, Activity } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { TransferTerminal } from '@/components/admin/TransferTerminal';
@@ -28,7 +29,7 @@ export default function AdminCommandCenter() {
                         <div className="w-8 h-8 rounded-xl bg-intel-gold flex items-center justify-center shadow-lg shadow-intel-gold/20">
                             <ShieldCheck className="text-black w-5 h-5" />
                         </div>
-                        <span className="text-[10px] uppercase font-black tracking-[0.5em] text-intel-gold">Sovereign Site Command</span>
+                        <span className="text-[10px] uppercase font-black tracking-[0.5em] text-intel-gold">EdIntel Site Command</span>
                     </div>
                     <h1 className="text-4xl md:text-6xl font-black italic uppercase tracking-tighter leading-none">
                         {schoolName} <span className="text-gold-gradient">Node</span>
@@ -99,7 +100,7 @@ export default function AdminCommandCenter() {
                                         <div className="flex items-center gap-5">
                                             <div className="w-16 h-16 rounded-2xl bg-black/40 border border-white/10 flex items-center justify-center overflow-hidden group-hover:border-intel-gold/50 transition-colors shadow-2xl">
                                                 {staff.avatar_url ? (
-                                                    <img src={staff.avatar_url} alt={`${staff.full_name}'s avatar`} className="w-full h-full object-cover opacity-80" />
+                                                    <Image src={staff.avatar_url} alt={`${staff.full_name}'s avatar`} fill className="object-cover opacity-80" />
                                                 ) : (
                                                     <User className="text-zinc-600 w-8 h-8" />
                                                 )}
@@ -207,7 +208,7 @@ export default function AdminCommandCenter() {
                 </div>
                 <div className="flex gap-8">
                     <button className="text-[9px] uppercase font-black tracking-widest text-zinc-700 hover:text-intel-gold transition-colors">Privacy Shield</button>
-                    <button className="text-[9px] uppercase font-black tracking-widest text-zinc-700 hover:text-intel-gold transition-colors">Terms of Sovereignty</button>
+                    <button className="text-[9px] uppercase font-black tracking-widest text-zinc-700 hover:text-intel-gold transition-colors">Terms of EdIntelty</button>
                     <button className="text-[9px] uppercase font-black tracking-widest text-zinc-700 hover:text-intel-gold transition-colors">Support Neural-Link</button>
                 </div>
             </footer>

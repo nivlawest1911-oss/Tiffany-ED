@@ -7,8 +7,8 @@ import { motion } from 'framer-motion';
 export const RefillStation = () => {
     const handlePurchase = async (tokens: number) => {
         // This will trigger the Stripe Checkout flow in a production update
-        console.log(`💎 Protocol Initiated: Requesting Sovereign Charge of ${tokens} units`);
-        alert(`Initiating Sovereign Charge: ${tokens} units. Connecting to EdIntel Treasury...`);
+        console.log(`💎 Protocol Initiated: Requesting EdIntel Charge of ${tokens} units`);
+        alert(`Initiating EdIntel Charge: ${tokens} units. Connecting to EdIntel Treasury...`);
     };
 
     return (

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-export async function POST() {
+export async function POST(req: Request) {
     try {
         const apiKey = process.env.HEYGEN_API_KEY;
 
@@ -17,6 +17,7 @@ export async function POST() {
                 'x-api-key': apiKey,
                 'Content-Type': 'application/json',
             },
+            signal: req.signal
         });
 
         const data = await response.json();
@@ -35,6 +36,6 @@ export async function POST() {
     }
 }
 
-export async function GET() {
-    return POST();
+export async function GET(req: Request) {
+    return POST(req);
 }

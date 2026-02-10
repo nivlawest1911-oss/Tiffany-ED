@@ -129,7 +129,7 @@ export default function StrategicPurpose() {
                                 </div>
                                 <div>
                                     <div className="text-white font-serif italic text-lg leading-none mb-1">Dr. Alvin West</div>
-                                    <div className="text-zinc-500 text-[9px] font-black uppercase tracking-widest">Executive Sovereign</div>
+                                    <div className="text-zinc-500 text-[9px] font-black uppercase tracking-widest">Executive EdIntel</div>
                                 </div>
                             </div>
                             <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/5 border border-emerald-500/10">

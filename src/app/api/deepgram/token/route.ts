@@ -16,17 +16,17 @@ export async function GET() {
         const projectId = process.env.DEEPGRAM_PROJECT_ID;
 
         // Generate a temporary key (optional, or just return the key if trusting generic env for now)
-        // For 'sovereign' security, we should ideally generate a temp key.
+        // For 'EdIntel' security, we should ideally generate a temp key.
         // However, the simplest integration for the hook is to return a key or sign a URL.
         // Let's create a temporary key using the SDK if possible, or fall back to a specific scoped key.
 
         let key;
         if (projectId) {
             const keyResult = await (deepgram as any).manage.createProjectKey(projectId, {
-                comment: 'Sovereign Ear Ephemeral',
+                comment: 'EdIntel Ear Ephemeral',
                 scopes: ['usage:write'],
                 time_to_live_in_seconds: 60,
-                tags: ['sovereign-ear']
+                tags: ['EdIntel-ear']
             });
             key = keyResult.key;
         } else {

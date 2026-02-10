@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { SovereignPlayer } from '@/components/ui/SovereignPlayer';
+import { EdIntelPlayer } from '@/components/ui/EdIntelPlayer';
 import { motion } from 'framer-motion';
 import { Film } from 'lucide-react';
 
@@ -14,12 +14,12 @@ export function MediaConsole() {
         {
             id: "mode-vid",
             title: "The Ultimate Solution for Mode",
-            src: "/videos/The_Ultimate_Solution_for_Mode.mp4"
+            src: "/videos/The_Ultimate_Solution_for_Mode_Fixed.mp4"
         },
         {
             id: "health-vid",
             title: "Health for Alabama's Educators",
-            src: "/videos/Health for Alabama's Educators.mp4"
+            src: "/videos/Health_for_Alabamas_Educators.mp4"
         },
         {
             id: "noise-free-vid",
@@ -29,12 +29,12 @@ export function MediaConsole() {
         {
             id: "burnout-vid",
             title: "Burnout Fix Awaits",
-            src: "/videos/Burnout Fix Awaits.mp4"
+            src: "/videos/Burnout_Fix_Awaits.mp4"
         },
         {
             id: "district-update-vid",
             title: "District Command Update",
-            src: "/videos/District Command Update.mp4"
+            src: "/videos/District_Command_Update.mp4"
         }
     ];
 
@@ -53,7 +53,7 @@ export function MediaConsole() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.1 }}
                     >
-                        <SovereignPlayer
+                        <EdIntelPlayer
                             src={vid.src}
                             title={vid.title}
                             poster="/images/avatars/dr_alvin_west_official.png"

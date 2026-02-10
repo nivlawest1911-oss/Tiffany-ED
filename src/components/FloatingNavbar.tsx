@@ -8,14 +8,15 @@ import { Menu, X, Globe } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import EdIntelLogo from './EdIntelLogo';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
-import { useIntelligence } from '@/context/IntelligenceContext';
+import { useEdIntelVibe } from '@/context/EdIntelVibeContext';
+import { cn } from '@/lib/utils';
 
 export default function FloatingNavbar() {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const { user, logout } = useAuth();
     const { playHover } = useProfessionalSounds();
-    const { generateBriefing } = useIntelligence();
+    const { isSystemThinking } = useEdIntelVibe();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -26,7 +27,7 @@ export default function FloatingNavbar() {
     }, []);
 
     const navLinks = [
-        { name: 'Professional Center', href: '/professional', badge: 'NEW' },
+        { name: 'Professional Center', href: '/edintel-professional', badge: 'NEW' },
         { name: 'The Room', href: '/the-room' },
         { name: 'Features', href: '/#features', scroll: true },
         {
@@ -37,7 +38,7 @@ export default function FloatingNavbar() {
                 { name: 'Hugging Face Studio', href: '/huggingface', badge: 'AI' },
                 { name: 'AI Phone Center', href: '/phone', badge: 'LIVE' },
                 { name: 'Video Studio', href: '/video-studio', badge: 'PRO' },
-                { name: 'SOVEREIGN Core', href: '/sovereign', badge: 'FX' },
+                { name: 'EdIntel Core', href: '/edintel-professional', badge: 'FX' },
             ]
         },
         { name: 'Pricing', href: '/#pricing', scroll: true },
@@ -73,10 +74,11 @@ export default function FloatingNavbar() {
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div
-                    className={`relative rounded-[2rem] transition-all duration-500 overflow-hidden ${scrolled
-                        ? 'bg-noble-black/80 backdrop-blur-3xl border border-white/10 shadow-2xl p-4'
-                        : 'bg-transparent p-0'
-                        }`}
+                    className={cn(
+                        "relative rounded-[2rem] transition-all duration-500 overflow-hidden",
+                        scrolled ? "bg-noble-black/80 backdrop-blur-3xl border border-white/10 shadow-2xl p-4" : "bg-transparent p-0",
+                        isSystemThinking && scrolled && "border-intel-gold/40 shadow-[0_0_30px_rgba(197,164,126,0.15)]"
+                    )}
                 >
                     {/* Kente Navbar Top Border */}
                     <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-kente-yellow via-kente-green to-kente-red z-[110]" />
@@ -85,9 +87,17 @@ export default function FloatingNavbar() {
                         {/* Logo */}
                         <Link href="/" className="relative z-50 flex items-center gap-4" onMouseEnter={() => playHover()}>
                             <EdIntelLogo />
-                            <div className="hidden md:flex items-center gap-1.5 px-3 py-1 rounded-full bg-noble-gold/10 border border-noble-gold/20 text-[9px] font-black text-noble-gold tracking-widest uppercase animate-pulse">
-                                <div className="w-1.5 h-1.5 rounded-full bg-noble-gold shadow-[0_0_8px_rgba(212,175,55,0.8)]" />
-                                Professional Center
+                            <div className={cn(
+                                "hidden md:flex items-center gap-1.5 px-3 py-1 rounded-full border text-[9px] font-black tracking-widest uppercase transition-all duration-500",
+                                isSystemThinking
+                                    ? "bg-intel-gold/20 border-intel-gold text-intel-gold shadow-[0_0_15px_rgba(197,164,126,0.3)]"
+                                    : "bg-noble-gold/10 border-noble-gold/20 text-noble-gold"
+                            )}>
+                                <div className={cn(
+                                    "w-1.5 h-1.5 rounded-full transition-all duration-500",
+                                    isSystemThinking ? "bg-intel-gold shadow-[0_0_10px_#c5a47e] scale-125" : "bg-noble-gold shadow-[0_0_8px_rgba(212,175,55,0.8)]"
+                                )} />
+                                {isSystemThinking ? "Neural Sync Active" : "Professional Center"}
                             </div>
                         </Link>
 

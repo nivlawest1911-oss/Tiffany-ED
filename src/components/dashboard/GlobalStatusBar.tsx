@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { getTrialDaysRemaining } from '@/lib/subscription';
-import ProfessionalID from '@/components/ProfessionalID';
+import ProfessionalID from '@/components/dossier/ProfessionalID';
 
 export default function GlobalStatusBar() {
     const { user } = useAuth();

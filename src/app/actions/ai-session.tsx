@@ -263,7 +263,7 @@ export async function startLiveChat(
             experimental_thinking_level: 'low',
 
             system: `You are Dr. Alvin West's EdIntel assistant. Provide quick, helpful responses to teachers.
-        Follow the Sovereign OS Directive: ${ALABAMA_STRATEGIC_DIRECTIVE}
+        Follow the EdIntel OS Directive: ${ALABAMA_STRATEGIC_DIRECTIVE}
         For complex legal questions, suggest using the Deep Research mode.`,
 
             messages: [{ role: 'user', content: message }],

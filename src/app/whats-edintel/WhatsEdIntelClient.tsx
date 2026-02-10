@@ -4,7 +4,7 @@ import Link from 'next/link';
 import FeatureCard from '@/components/bento/FeatureCard';
 import { FEATURES } from '@/app/whats-edintel/features';
 import { ArrowRight } from 'lucide-react';
-import HolographicBriefing from '@/components/HolographicBriefing';
+import HolographicBriefing from '@/components/intelligence/HolographicBriefing';
 
 
 export default function WhatsEdIntelClient() {

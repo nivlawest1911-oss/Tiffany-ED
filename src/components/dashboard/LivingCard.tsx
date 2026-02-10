@@ -1,6 +1,6 @@
 'use client';
 
-import SovereignNode from '../layout/SovereignNode';
+import EdIntelNode from '../sovereign/layout/EdIntelNode';
 
 interface LivingCardProps {
     videoUrl: string;
@@ -19,7 +19,7 @@ export const LivingCard = ({
     onAction,
     delay = 0
 }: LivingCardProps) => (
-    <SovereignNode
+    <EdIntelNode
         title={title}
         videoSrc={videoUrl}
         actionText={actionText}
@@ -27,5 +27,5 @@ export const LivingCard = ({
         delay={delay}
     >
         {children}
-    </SovereignNode>
+    </EdIntelNode>
 );

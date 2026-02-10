@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import VoiceIdentityComponent from '@/components/VoiceIdentity';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 import { Shield as LucideShield, Award, Users, Brain, Lock } from 'lucide-react';
-import ProfessionalBroadcastCenter from '@/components/bento/ProfessionalBroadcastCenter';
+import ProfessionalBroadcastCenter from '@/components/dossier/ProfessionalBroadcastCenter';
 import Image from 'next/image';
 
 export default function IdentityClient() {

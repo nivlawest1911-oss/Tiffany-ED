@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import SovereignShell from '@/components/layout/SovereignShell';
+import EdIntelShell from '@/components/layout/EdIntelShell';
 import { Activity, ShieldCheck, Cpu, Zap, Database } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -14,11 +14,11 @@ export default function SystemHealthPage() {
     ];
 
     return (
-        <SovereignShell>
+        <EdIntelShell>
             <div className="space-y-12 pb-20">
                 <header className="mb-16">
                     <h2 className="text-4xl font-black italic uppercase tracking-tighter text-gold-gradient mb-4">Neural Health Matrix</h2>
-                    <p className="text-zinc-500 text-sm font-black uppercase tracking-[0.3em] italic">Real-time telemetrics for the Sovereign OS deployment.</p>
+                    <p className="text-zinc-500 text-sm font-black uppercase tracking-[0.3em] italic">Real-time telemetrics for the EdIntel OS deployment.</p>
                 </header>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -115,6 +115,6 @@ export default function SystemHealthPage() {
                     </div>
                 </div>
             </div>
-        </SovereignShell>
+        </EdIntelShell>
     );
 }

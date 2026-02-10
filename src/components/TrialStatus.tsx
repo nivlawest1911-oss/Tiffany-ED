@@ -4,7 +4,7 @@ import { useLeadershipRank } from '@/hooks/useLeadershipRank';
 import { useAuth } from '@/context/AuthContext';
 
 export default function TrialStatus() {
-    const { isSovereign, currentRank } = useLeadershipRank();
+    const { isEdIntel, currentRank } = useLeadershipRank();
     const { user } = useAuth();
 
     // In a real app, this would be calculated from user.createdAt
@@ -12,7 +12,7 @@ export default function TrialStatus() {
     const hoursSaved = 12.5;
     const moneySaved = hoursSaved * 50; // Approximating $50/hr admin cost
 
-    const isPro = isSovereign || (user?.tier && user.tier !== 'free');
+    const isPro = isEdIntel || (user?.tier && user.tier !== 'free');
 
     return (
         <div className="mb-8 p-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 rounded-2xl animate-gradient-x">

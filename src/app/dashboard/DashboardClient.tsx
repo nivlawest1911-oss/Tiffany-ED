@@ -5,17 +5,17 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import SummaryCards from '@/components/dashboard/SummaryCards';
 import AnalyticsChart from '@/components/dashboard/AnalyticsChart';
-import SovereignAdvisorInterface from '@/components/dashboard/SovereignAdvisorInterface';
+import EdIntelAdvisorInterface from '@/components/dashboard/EdIntelAdvisorInterface';
 import ActionFeed from '@/components/dashboard/ActionFeed';
 import { Zap, Activity } from 'lucide-react';
 
-import { SovereignAutomation } from '@/components/SovereignAutomation';
+import { EdIntelAutomation } from '@/components/sovereign/EdIntelAutomation';
 
 interface DashboardClientProps {
     tierName?: string;
 }
 
-export default function DashboardClient({ tierName = 'Sovereign Initiate' }: DashboardClientProps) {
+export default function DashboardClient({ tierName = 'EdIntel Initiate' }: DashboardClientProps) {
 
     // Note: Auth checks and Layout (Dock, Global Status) are handled in /dashboard/layout.tsx
 
@@ -48,7 +48,7 @@ export default function DashboardClient({ tierName = 'Sovereign Initiate' }: Das
                     {/* Row 1: KPI Cards */}
                     <div className="md:col-span-12">
                         <SummaryCards />
-                        <SovereignAutomation tier={tierName} />
+                        <EdIntelAutomation tier={tierName} />
                     </div>
 
                     {/* Row 2: Analytics (L) */}
@@ -72,7 +72,7 @@ export default function DashboardClient({ tierName = 'Sovereign Initiate' }: Das
                         transition={{ delay: 0.3 }}
                         className="md:col-span-7 bg-slate-950/40 backdrop-blur-xl border border-white/5 rounded-3xl p-6 min-h-[400px]"
                     >
-                        <SovereignAdvisorInterface />
+                        <EdIntelAdvisorInterface />
                     </motion.div>
 
                     <motion.div

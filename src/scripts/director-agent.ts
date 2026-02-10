@@ -8,9 +8,9 @@ const envPath = path.resolve(process.cwd(), '.env.local');
 dotenv.config({ path: envPath });
 
 // ------------------------------------------------------------------
-// THE SOVEREIGN ANIMATOR AGENT (V2)
+// THE EdIntel ANIMATOR AGENT (V2)
 // ------------------------------------------------------------------
-// This agent breathes life into our Sovereign Assets.
+// This agent breathes life into our EdIntel Assets.
 // It takes an existing image and uses SVD to create a cinematic loop.
 // ------------------------------------------------------------------
 
@@ -100,7 +100,7 @@ const outputArg = process.argv[3];
 
 if (!imageArg || !outputArg) {
     console.log("\nUsage: npm run director <image_filename> <output_filename.mp4>");
-    console.log("Example: npm run director sovereign_iep.png iep-demo.mp4\n");
+    console.log("Example: npm run director EdIntel_iep.png iep-demo.mp4\n");
 } else {
     animateAsset(imageArg, outputArg);
 

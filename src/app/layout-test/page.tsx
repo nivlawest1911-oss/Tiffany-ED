@@ -1,5 +1,5 @@
-import SovereignTerminal from '@/components/SovereignTerminal';
-import SovereignIntelligenceNode from '@/components/SovereignIntelligenceNode';
+import EdIntelTerminal from '@/components/sovereign/EdIntelTerminal';
+import EdIntelIntelligenceNode from '@/components/sovereign/EdIntelIntelligenceNode';
 import '../globals.css';
 
 export const dynamic = 'force-dynamic';
@@ -17,8 +17,8 @@ export default function LayoutTest() {
             </div>
 
             <div className="dashboard-grid">
-                <SovereignTerminal />
-                <SovereignIntelligenceNode />
+                <EdIntelTerminal />
+                <EdIntelIntelligenceNode />
 
                 {/* Test Card */}
                 <div className="dashboard-card">

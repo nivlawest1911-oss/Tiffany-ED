@@ -8,7 +8,7 @@ interface TrialAlertProps {
 }
 
 /**
- * Sovereign Alert UI Component
+ * EdIntel Alert UI Component
  * Displays a high-visibility alert for the 14-day trial nearing completion.
  * Established at the $79/site value proposition.
  */
@@ -34,7 +34,7 @@ const TrialAlert: React.FC<TrialAlertProps> = ({ remainingDays }) => {
                     </div>
                 </div>
                 <button className="bg-[#C5A47E] text-black text-[10px] font-black px-6 py-2 rounded-full hover:bg-white transition-all transform hover:scale-105 active:scale-95 uppercase shadow-lg shadow-[#C5A47E]/20">
-                    Activate Sovereign License
+                    Activate EdIntel License
                 </button>
             </div>
         </motion.div>

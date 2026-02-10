@@ -1,5 +1,5 @@
 /**
- * SOVEREIGN RAG-LITE CORE
+ * EdIntel RAG-LITE CORE
  * Simplified retrieval for document-fed strategic context.
  */
 
@@ -30,7 +30,7 @@ const VAULT_CACHE: VaultDocument[] = [
 /**
  * Retrieves relevant context from the virtual vault based on keywords.
  */
-export async function querySovereignVault(query: string): Promise<string> {
+export async function queryEdIntelVault(query: string): Promise<string> {
     const keywords = query.toLowerCase().split(' ');
 
     const relevantDocs = VAULT_CACHE.filter(doc =>

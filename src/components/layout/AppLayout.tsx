@@ -18,27 +18,64 @@ import Image from "next/image"
 
 import { usePathname } from "next/navigation"
 
+import { useEdIntelVibe } from '@/context/EdIntelVibeContext';
+import EdIntelCommandDeck from '@/components/dashboard/EdIntelCommandDeck';
+import { AuroraBackground } from '@/components/dashboard/aurora-background';
+import { VibeController } from '@/components/dashboard/VibeController';
+
 export default function AppLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname()
-    const isMarketingRoute = ['/', '/signup', '/login', '/about', '/pricing', '/contact', '/whats-edintel', '/enterprise'].includes(pathname);
+    const isMarketingRoute = ['/signup', '/login', '/about', '/pricing', '/contact', '/whats-edintel', '/enterprise'].includes(pathname);
+    const isDashboardRoute = pathname?.startsWith('/dashboard');
+    const { isCommandConsoleOpen, toggleCommandConsole } = useEdIntelVibe();
 
-    if (isMarketingRoute) {
+    // CRM/CMD+K Shortcut
+    React.useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
+                e.preventDefault();
+                toggleCommandConsole();
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [toggleCommandConsole]);
+
+    if (isMarketingRoute || isDashboardRoute) {
         return <>{children}</>
     }
 
     return (
-        <div className="flex h-screen bg-[#020617] text-slate-200 overflow-hidden font-sans">
+        <div className="flex h-screen bg-[#020617] text-slate-200 overflow-hidden font-sans relative">
+            <AuroraBackground />
 
-            <Sidebar />
+            {/* COMMAND CONSOLE OVERLAY */}
+            <AnimatePresence>
+                {isCommandConsoleOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 20 }}
+                        className="fixed inset-0 z-[100] bg-black/95 overflow-y-auto"
+                    >
+                        <EdIntelCommandDeck />
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            <AnimatePresence mode="wait">
+                <Sidebar />
+            </AnimatePresence>
             <div className="flex-1 flex flex-col relative overflow-hidden">
                 {/* Top Header */}
                 <header className="h-16 border-b border-white/5 bg-black/20 backdrop-blur-md flex items-center justify-between px-8 z-10 shrink-0">
                     <div className="flex items-center gap-8 flex-1">
-                        <div className="relative max-w-md w-full group">
+                        <div className="relative max-w-md w-full group cursor-pointer" onClick={toggleCommandConsole}>
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/20 group-focus-within:text-[#06b6d4] transition-colors" />
                             <Input
-                                placeholder="Search tools, agents, or assets..."
-                                className="w-full bg-white/5 border-white/10 pl-10 h-9 text-xs focus:ring-[#06b6d4]/20 focus:border-[#06b6d4]/50 transition-all placeholder:text-white/10"
+                                readOnly
+                                placeholder="Search tools, agents, or assets... (⌘K)"
+                                className="w-full bg-white/5 border-white/10 pl-10 h-9 text-xs focus:ring-[#06b6d4]/20 focus:border-[#06b6d4]/50 transition-all placeholder:text-white/10 cursor-pointer pointer-events-none"
                             />
                             <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
                                 <kbd className="hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border border-white/10 bg-white/5 px-1.5 font-mono text-[10px] font-medium text-white/20 opacity-100">
@@ -46,9 +83,23 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                 </kbd>
                             </div>
                         </div>
+
+                        <div className="hidden xl:flex bg-white/5 rounded-full px-4 py-1.5 border border-white/5 shadow-sm items-center gap-4">
+                            <div className="flex items-center gap-2">
+                                <span className="text-[9px] font-mono text-zinc-500 uppercase">District:</span>
+                                <span className="text-[9px] font-mono text-emerald-500 font-bold uppercase tracking-tighter">Optimal</span>
+                            </div>
+                            <div className="w-px h-3 bg-zinc-800"></div>
+                            <div className="flex items-center gap-2">
+                                <span className="text-[9px] font-mono text-zinc-500 uppercase">Latency:</span>
+                                <span className="text-[9px] font-mono text-primary font-black">1.4ms</span>
+                            </div>
+                        </div>
                     </div>
 
                     <div className="flex items-center gap-4">
+                        <VibeController />
+
                         <div className="flex items-center gap-1 bg-white/5 rounded-full p-1 border border-white/10">
                             <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full text-white/40 hover:text-white hover:bg-white/10">
                                 <Bell className="h-4 w-4" />
@@ -116,9 +167,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                         </motion.div>
                     </AnimatePresence>
 
-                    {/* Subtle Background Glows */}
-                    <div className="fixed top-[-10%] right-[-10%] w-[40%] h-[40%] bg-[#7c3aed]/10 blur-[120px] rounded-full pointer-events-none -z-10" />
-                    <div className="fixed bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#06b6d4]/5 blur-[120px] rounded-full pointer-events-none -z-10" />
                 </main>
             </div>
         </div>

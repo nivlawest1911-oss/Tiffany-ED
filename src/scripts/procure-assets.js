@@ -4,7 +4,7 @@ import path from 'path';
 import https from 'https';
 
 // ------------------------------------------------------------------
-// SOVEREIGN ASSET PROCURER
+// EdIntel ASSET PROCURER
 // ------------------------------------------------------------------
 // Downloads high-quality placeholder feedback loops for the UI.
 // ------------------------------------------------------------------
@@ -41,7 +41,7 @@ async function downloadFile(url, filename) {
         return;
     }
 
-    console.log(`⬇️  Downloading Sovereign Asset: ${filename}...`);
+    console.log(`⬇️  Downloading EdIntel Asset: ${filename}...`);
 
     return new Promise((resolve, reject) => {
         const file = fs.createWriteStream(dest);

@@ -6,6 +6,7 @@ import { Home, ArrowLeft, MessageSquare } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import LiveAvatarChat from '@/components/LiveAvatarChat';
+import Image from 'next/image';
 
 export default function NotFound() {
     const router = useRouter();
@@ -88,10 +89,12 @@ export default function NotFound() {
                     >
                         <div className="relative inline-block">
                             <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-purple-500 shadow-lg shadow-purple-500/50 mx-auto mb-4">
-                                <img
+                                <Image
                                     src="/images/dr_alvin_west.png"
                                     alt="Dr. Alvin West"
                                     className="w-full h-full object-cover"
+                                    width={128}
+                                    height={128}
                                 />
                             </div>
                             <motion.div

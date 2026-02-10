@@ -67,17 +67,22 @@ export default function InnovationMarketplace() {
                             className="bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden group hover:border-purple-500/50 transition-all shadow-xl"
                         >
                             <div
-                                className="h-48 bg-zinc-800 relative group-hover:scale-105 transition-transform duration-500 bg-cover bg-center"
-                                style={{ backgroundImage: "url('/placeholders/curriculum_bg.jpg')" }}
+                                className="h-48 bg-zinc-800 relative group-hover:scale-105 transition-transform duration-500"
                             >
-                                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 to-transparent" />
-                                <div className="absolute bottom-4 left-4 flex items-center gap-2">
+                                <Image
+                                    src="/placeholders/curriculum_bg.jpg"
+                                    alt="Curriculum Background"
+                                    fill
+                                    className="object-cover"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 to-transparent z-10" />
+                                <div className="absolute bottom-4 left-4 flex items-center gap-2 z-20">
                                     <div className="w-8 h-8 rounded-full border border-white/20 overflow-hidden">
                                         <Image src={item.image} alt={item.author} fill className="object-cover" />
                                     </div>
                                     <span className="text-xs font-bold text-white shadow-black drop-shadow-md">{item.author}</span>
                                 </div>
-                                <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded-lg text-emerald-400 text-xs font-black uppercase tracking-wider border border-emerald-500/20">
+                                <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded-lg text-emerald-400 text-xs font-black uppercase tracking-wider border border-emerald-500/20 z-20">
                                     Earned: {item.earnings}
                                 </div>
                             </div>

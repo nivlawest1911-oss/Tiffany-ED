@@ -3,14 +3,15 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Grid, Zap, Shield as LucideShield, BookOpen, Users, Activity, Briefcase } from 'lucide-react';
+import { Search, Grid, Shield as LucideShield, BookOpen, Users, Activity, Briefcase } from 'lucide-react';
 import { generators as GENERATORS } from '@/data/generators';
-import ProfessionalBackground from '@/components/ProfessionalBackground';
+import ProfessionalBackground from '@/components/dossier/ProfessionalBackground';
+import EdIntelLogo from '@/components/EdIntelLogo';
 import React from 'react';
 
 export default function GeneratorsIndexClient() {
     const [searchQuery, setSearchQuery] = useState("");
-    const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+    const [viewMode] = useState<'grid' | 'list'>('grid');
     const [activeCategory, setActiveCategory] = useState<string>("All");
 
     // Smart Categorization Logic
@@ -25,7 +26,7 @@ export default function GeneratorsIndexClient() {
 
     const getCategoryForGenerator = (gen: any) => {
         const id = gen.id.toLowerCase();
-        const desc = gen.description.toLowerCase();
+
 
         if (id.includes('communication') || id.includes('newsletter') || id.includes('social') || id.includes('family') || id.includes('volunteer')) return "Community";
         if (id.includes('wellness') || id.includes('health') || id.includes('counselor') || id.includes('restorative') || id.includes('behavior') || id.includes('mental')) return "Wellness";
@@ -59,8 +60,8 @@ export default function GeneratorsIndexClient() {
                     >
                         <div>
                             <div className="flex items-center gap-2 text-noble-gold mb-2">
-                                <Zap className="w-5 h-5" />
-                                <span className="text-[10px] font-black tracking-[0.2em] uppercase">Sovereign Protocol Deck</span>
+                                <EdIntelLogo className="scale-75 origin-left" />
+                                <span className="text-[10px] font-black tracking-[0.2em] uppercase ml-2 border-l border-noble-gold/30 pl-2">EdIntel Protocol Deck</span>
                             </div>
                             <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-2">
                                 Strategic <span className="text-noble-gold italic">Protocols</span>
@@ -118,7 +119,7 @@ export default function GeneratorsIndexClient() {
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.2, delay: idx * 0.05 }}
                             >
-                                <Link href={`/generators/${gen.id}`} className="block h-full">
+                                <Link href={gen.link || `/generators/${gen.id}`} className="block h-full">
                                     <div className="group h-full bg-zinc-900/40 hover:bg-zinc-900/60 backdrop-blur-md border border-white/5 hover:border-noble-gold/30 rounded-3xl p-6 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-noble-gold/5 flex flex-col relative overflow-hidden">
 
                                         {/* Hover Glow */}

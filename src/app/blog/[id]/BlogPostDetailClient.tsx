@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import { BLOG_POSTS } from '../posts';
 import { ArrowLeft, Calendar, User, Tag, Share2 } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function BlogPostDetailClient() {
     const params = useParams();
@@ -28,10 +29,12 @@ export default function BlogPostDetailClient() {
         <main className="min-h-screen bg-zinc-950 text-white font-sans selection:bg-amber-500/30 pb-24">
             {/* Post Header */}
             <div className="relative h-[60vh] w-full overflow-hidden">
-                <img
+                <Image
                     src={post.image}
                     className="absolute inset-0 w-full h-full object-cover opacity-60 grayscale hover:grayscale-0 transition-all duration-1000"
                     alt={post.title}
+                    width={1920}
+                    height={1080}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent" />
 
@@ -125,7 +128,7 @@ export default function BlogPostDetailClient() {
                     />
                     <h2 className="text-3xl font-black uppercase tracking-tighter relative z-10">Implement this Protocol</h2>
                     <p className="max-w-md mx-auto relative z-10 font-medium text-amber-50">
-                        Ready to deploy these insights to your district architecture? Start your 14-day sovereign pilot today.
+                        Ready to deploy these insights to your district architecture? Start your 14-day EdIntel pilot today.
                     </p>
                     <div className="flex justify-center gap-4 relative z-10">
                         <Link href="/signup" className="px-10 py-4 bg-white text-amber-700 rounded-2xl font-black uppercase tracking-[0.2em] text-xs hover:bg-zinc-100 transition-all shadow-xl active:scale-95">

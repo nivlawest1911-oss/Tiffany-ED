@@ -6,7 +6,7 @@ import { Brain, Sparkles, BarChart3, Zap, Play, Radio } from 'lucide-react';
 import Link from 'next/link';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 import NextImage from 'next/image';
-import HolographicBriefing from './HolographicBriefing';
+import HolographicBriefing from '@/components/intelligence/HolographicBriefing';
 
 export default function FeatureVideos() {
     const { playHover, playClick } = useProfessionalSounds();
@@ -20,7 +20,7 @@ export default function FeatureVideos() {
             video: '/videos/features/iep-architect-demo.mp4',
             thumbnail: '/images/features/strategic_iep_architect.png',
             color: 'from-violet-500 to-purple-600',
-            link: '/generators/iep-architect',
+            link: '/dashboard/iep-architect',
             stats: { time: '5 min', saved: '2 hours', accuracy: '99%' },
             role: "Compliance Officer",
             avatar: "/images/avatars/executive_leader.png"

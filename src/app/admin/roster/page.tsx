@@ -1,13 +1,13 @@
 'use client';
 
 import React from 'react';
-import SovereignShell from '@/components/layout/SovereignShell';
+import EdIntelShell from '@/components/layout/EdIntelShell';
 import StudentRosterClient from './StudentRosterClient';
 
 export default function StudentRosterPage() {
     return (
-        <SovereignShell>
+        <EdIntelShell>
             <StudentRosterClient />
-        </SovereignShell>
+        </EdIntelShell>
     );
 }

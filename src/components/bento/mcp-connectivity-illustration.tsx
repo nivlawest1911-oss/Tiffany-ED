@@ -25,10 +25,7 @@ const McpConnectivityIllustration: React.FC<McpConnectivityIllustrationProps> = 
     >
       {/* Main Message Box */}
       <div
-        className="absolute top-1/2 left-1/2 w-[345px] h-[277px] overflow-hidden rounded-[9.628px] border-[0.802px] border-border bg-gradient-to-b from-background to-transparent backdrop-blur-[16px]"
-        style={{
-          transform: "translate(-50%, calc(-50% + 24px))",
-        }}
+        className="absolute top-1/2 left-1/2 w-[345px] h-[277px] overflow-hidden rounded-[9.628px] border-[0.802px] border-border bg-gradient-to-b from-background to-transparent backdrop-blur-[16px] -translate-x-1/2 logo-transform"
       >
         <div className="flex flex-col h-full w-full">
           {/* Search Header */}

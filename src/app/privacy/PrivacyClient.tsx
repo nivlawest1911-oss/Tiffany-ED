@@ -3,7 +3,7 @@
 import React from 'react';
 import { Shield, Lock, EyeOff, Trash2, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
-import HolographicBriefing from '@/components/HolographicBriefing';
+import HolographicBriefing from '@/components/intelligence/HolographicBriefing';
 import { useState } from 'react';
 
 export default function PrivacyClient() {
@@ -27,8 +27,8 @@ export default function PrivacyClient() {
                         isOpen={showBriefing}
                         onClose={() => setShowBriefing(false)}
                         agentId="strategic"
-                        title="Sovereignty Briefing"
-                        description="Data sovereignty is the pillar of the EdIntel system. I am here to detail our transparency and ownership protocols."
+                        title="EdIntelty Briefing"
+                        description="Data EdIntelty is the pillar of the EdIntel system. I am here to detail our transparency and ownership protocols."
                         briefingSteps={[
                             "LEAs retain full institutional ownership.",
                             "NEVER train generalized models on student data.",
@@ -41,10 +41,10 @@ export default function PrivacyClient() {
                         onClick={() => setShowBriefing(true)}
                         className="inline-flex items-center gap-2 mb-8 px-6 py-2 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-emerald-400 text-[9px] font-black uppercase tracking-[0.3em] hover:bg-emerald-500/10 transition-all"
                     >
-                        Initialize Sovereignty Briefing
+                        Initialize EdIntelty Briefing
                     </button>
                     <h1 className="text-5xl md:text-7xl font-black italic uppercase tracking-tighter leading-none mb-8">
-                        Data <span className="text-emerald-500">Sovereignty</span> Protocol
+                        Data <span className="text-emerald-500">EdIntelty</span> Protocol
                     </h1>
                     <p className="text-zinc-500 text-[10px] tracking-[0.4em] uppercase font-bold italic">
                         Effective Date: January 2026 // Mobile County District Node
@@ -58,7 +58,7 @@ export default function PrivacyClient() {
                             <h2 className="text-2xl font-black uppercase italic tracking-tight">Institutional Ownership</h2>
                         </div>
                         <p className="text-zinc-400 leading-relaxed font-medium">
-                            EdIntel Sovereign acts strictly as a "School Official" under FERPA guidelines. All student data ingested into the system remains the sole property of the Local Educational Agency (LEA). EdIntel does not own, sell, or monetize student information in any form.
+                            EdIntel EdIntel acts strictly as a "School Official" under FERPA guidelines. All student data ingested into the system remains the sole property of the Local Educational Agency (LEA). EdIntel does not own, sell, or monetize student information in any form.
                         </p>
                     </section>
 
@@ -78,7 +78,7 @@ export default function PrivacyClient() {
                             <h2 className="text-2xl font-black uppercase italic tracking-tight">Executive Deletion Authority</h2>
                         </div>
                         <p className="text-zinc-400 leading-relaxed font-medium">
-                            District Administrators maintain absolute authority over their Site Node. Every building principal has the unilateral right to purge their site’s 'Sovereign Node' data at any time via the Admin Command Center, ensuring compliance with local data retention laws.
+                            District Administrators maintain absolute authority over their Site Node. Every building principal has the unilateral right to purge their site’s 'EdIntel Node' data at any time via the Admin Command Center, ensuring compliance with local data retention laws.
                         </p>
                     </section>
 
@@ -91,7 +91,7 @@ export default function PrivacyClient() {
                             </p>
                         </div>
                         <p className="text-[10px] text-center text-zinc-700 uppercase tracking-[0.5em] font-black italic">
-                            Sovereign Privacy Framework v4.2.1 Stable
+                            EdIntel Privacy Framework v4.2.1 Stable
                         </p>
                     </footer>
                 </div>

@@ -1,4 +1,5 @@
 import { Shield as LucideShield, Sparkles } from "lucide-react";
+import Image from 'next/image';
 
 export default function TestMediaClient() {
     const avatars = [
@@ -43,10 +44,12 @@ export default function TestMediaClient() {
 
                             {/* Avatar Image */}
                             <div className="relative aspect-square overflow-hidden">
-                                <img
+                                <Image
                                     src={avatar.image}
                                     alt={avatar.name}
                                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                    width={500}
+                                    height={500}
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent opacity-60" />
                             </div>

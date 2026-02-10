@@ -88,6 +88,7 @@ export class CaptionsClient {
         const response = await fetch(url, {
             ...options,
             headers,
+            signal: options.signal,
         });
 
         if (!response.ok) {
@@ -107,25 +108,26 @@ export class CaptionsClient {
     /**
      * Create a new video project
      */
-    async createProject(name: string, videoUrl?: string): Promise<VideoProject> {
+    async createProject(name: string, videoUrl?: string, signal?: AbortSignal): Promise<VideoProject> {
         return this.request('/v1/projects', {
             method: 'POST',
             body: JSON.stringify({ name, video_url: videoUrl }),
+            signal,
         });
     }
 
     /**
      * Get project details
      */
-    async getProject(projectId: string): Promise<VideoProject> {
-        return this.request(`/v1/projects/${projectId}`);
+    async getProject(projectId: string, signal?: AbortSignal): Promise<VideoProject> {
+        return this.request(`/v1/projects/${projectId}`, { signal });
     }
 
     /**
      * List all projects
      */
-    async listProjects(): Promise<{ projects: VideoProject[] }> {
-        return this.request('/v1/projects');
+    async listProjects(signal?: AbortSignal): Promise<{ projects: VideoProject[] }> {
+        return this.request('/v1/projects', { signal });
     }
 
     /**
@@ -150,7 +152,8 @@ export class CaptionsClient {
             language?: string;
             style?: CaptionStyle;
             auto_highlight?: boolean;
-        }
+        },
+        signal?: AbortSignal
     ): Promise<{
         project_id: string;
         status: string;
@@ -163,6 +166,7 @@ export class CaptionsClient {
                 style: options?.style,
                 auto_highlight: options?.auto_highlight ?? true,
             }),
+            signal,
         });
     }
 
@@ -202,7 +206,7 @@ export class CaptionsClient {
     /**
      * AI-powered video editing with natural language
      */
-    async aiEdit(request: AIEditRequest): Promise<{
+    async aiEdit(request: AIEditRequest, signal?: AbortSignal): Promise<{
         project_id: string;
         status: string;
         estimated_time?: number;
@@ -210,6 +214,7 @@ export class CaptionsClient {
         return this.request('/v1/ai/edit', {
             method: 'POST',
             body: JSON.stringify(request),
+            signal,
         });
     }
 
@@ -330,13 +335,13 @@ export class CaptionsClient {
     /**
      * Get export status
      */
-    async getExportStatus(exportId: string): Promise<{
+    async getExportStatus(exportId: string, signal?: AbortSignal): Promise<{
         status: 'queued' | 'processing' | 'completed' | 'failed';
         progress?: number;
         video_url?: string;
         error?: string;
     }> {
-        return this.request(`/v1/exports/${exportId}`);
+        return this.request(`/v1/exports/${exportId}`, { signal });
     }
 
     /**
@@ -348,6 +353,7 @@ export class CaptionsClient {
             maxAttempts?: number;
             intervalMs?: number;
             onProgress?: (progress: number) => void;
+            signal?: AbortSignal;
         } = {}
     ): Promise<string> {
         const { maxAttempts = 120, intervalMs = 5000, onProgress } = options;
@@ -367,7 +373,16 @@ export class CaptionsClient {
                 throw new Error(`Export failed: ${status.error}`);
             }
 
-            await new Promise(resolve => setTimeout(resolve, intervalMs));
+            // Cancellable delay
+            await new Promise((resolve, reject) => {
+                const timeout = setTimeout(resolve, intervalMs);
+                if (options.signal) {
+                    options.signal.addEventListener('abort', () => {
+                        clearTimeout(timeout);
+                        reject(new DOMException('Aborted', 'AbortError'));
+                    }, { once: true });
+                }
+            });
         }
 
         throw new Error('Export timeout');
@@ -417,30 +432,15 @@ export function getCaptionsClient(): CaptionsClient {
  */
 export async function quickCaption(
     videoUrl: string,
-    style?: CaptionStyle
+    style?: CaptionStyle,
+    signal?: AbortSignal
 ): Promise<string> {
     const client = getCaptionsClient();
 
-    const { project_id } = await client.generateCaptions(videoUrl, { style });
+    const { project_id } = await client.generateCaptions(videoUrl, { style }, signal);
 
     // Wait for processing
-    let attempts = 0;
-    while (attempts < 60) {
-        const project = await client.getProject(project_id);
-
-        if (project.status === 'completed' && project.video_url) {
-            return project.video_url;
-        }
-
-        if (project.status === 'failed') {
-            throw new Error('Caption generation failed');
-        }
-
-        await new Promise(resolve => setTimeout(resolve, 5000));
-        attempts++;
-    }
-
-    throw new Error('Caption generation timeout');
+    return client.waitForExport(project_id, { signal }); // Reusing waitForExport logic or similar
 }
 
 /**
@@ -453,7 +453,8 @@ export async function enhanceVideo(
         addCaptions?: boolean;
         addMusic?: boolean;
         style?: 'professional' | 'casual' | 'cinematic';
-    }
+    },
+    signal?: AbortSignal
 ): Promise<string> {
     const client = getCaptionsClient();
 
@@ -463,12 +464,12 @@ export async function enhanceVideo(
         style: options?.style || 'professional',
         include_captions: options?.addCaptions ?? true,
         include_music: options?.addMusic ?? false,
-    });
+    }, signal);
 
     // Wait for processing
     let attempts = 0;
     while (attempts < 120) {
-        const project = await client.getProject(project_id);
+        const project = await client.getProject(project_id, signal);
 
         if (project.status === 'completed' && project.video_url) {
             return project.video_url;
@@ -478,7 +479,16 @@ export async function enhanceVideo(
             throw new Error('Video enhancement failed');
         }
 
-        await new Promise(resolve => setTimeout(resolve, 5000));
+        // Cancellable delay
+        await new Promise((resolve, reject) => {
+            const timeout = setTimeout(resolve, 5000);
+            if (signal) {
+                signal.addEventListener('abort', () => {
+                    clearTimeout(timeout);
+                    reject(new DOMException('Aborted', 'AbortError'));
+                }, { once: true });
+            }
+        });
         attempts++;
     }
 

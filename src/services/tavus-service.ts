@@ -22,12 +22,14 @@ export class TavusService {
     public async createConversation(
         replicaId: string,
         context: Record<string, any>,
-        personaContent: string
+        personaContent: string,
+        signal?: AbortSignal
     ): Promise<TavusConversation> {
         if (!TAVUS_API_KEY) throw new Error("Tavus API Key missing");
 
         return withResilience(async () => {
             console.log("[Tavus] Initializing Phoenix-3 Stream...");
+
             const response = await fetch(`${TAVUS_API_URL}/conversations`, {
                 method: 'POST',
                 headers: {
@@ -43,7 +45,8 @@ export class TavusService {
                         enable_recording: false,
                         enable_transcription: true
                     }
-                })
+                }),
+                signal
             });
 
             if (!response.ok) {
@@ -53,20 +56,21 @@ export class TavusService {
 
             const data = await response.json();
             return data as TavusConversation;
-        });
+        }, { signal });
     }
 
     /**
      * ends an active conversation
      */
-    public async endConversation(conversationId: string): Promise<void> {
+    public async endConversation(conversationId: string, signal?: AbortSignal): Promise<void> {
         if (!TAVUS_API_KEY) return;
         await withResilience(async () => {
             await fetch(`${TAVUS_API_URL}/conversations/${conversationId}/end`, {
                 method: 'POST',
-                headers: { 'x-api-key': TAVUS_API_KEY }
+                headers: { 'x-api-key': TAVUS_API_KEY },
+                signal
             });
-        });
+        }, { signal });
     }
 
     /**

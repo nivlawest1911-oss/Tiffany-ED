@@ -4,7 +4,7 @@ import { BigQuery } from '@google-cloud/bigquery';
 import { createSafeAction, ActionResult } from '@/lib/server-utils';
 
 const bigquery = new BigQuery({
-    projectId: process.env.GCP_PROJECT_ID || 'edintel-sovereign',
+    projectId: process.env.GCP_PROJECT_ID || 'edintel-EdIntel',
     credentials: {
         client_email: process.env.GCP_CLIENT_EMAIL,
         private_key: process.env.GCP_PRIVATE_KEY?.replace(/\\n/g, '\n'),

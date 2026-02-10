@@ -7,7 +7,7 @@ export default function SystemHealthDashboard() {
     const metrics = [
         { label: 'Neural Sync Uptime', value: '99.99%', sub: 'Global Node Active', icon: Activity, color: 'text-blue-400' },
         { label: 'Collective Wellness', value: '84/100', sub: 'Regional Resonance', icon: Heart, color: 'text-emerald-400' },
-        { label: 'Active Sovereigns', value: '1,204', sub: 'Alabama District Sync', icon: ShieldCheck, color: 'text-amber-400' },
+        { label: 'Active EdIntels', value: '1,204', sub: 'Alabama District Sync', icon: ShieldCheck, color: 'text-amber-400' },
         { label: 'Neural Throughput', value: '1.2 GB/s', sub: 'Low Latency Link', icon: Zap, color: 'text-purple-400' }
     ];
 

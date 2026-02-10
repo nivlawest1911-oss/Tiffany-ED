@@ -8,9 +8,9 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    // SOVEREIGN IEP ARCHITECT: ENFORCING CLINICAL PRECISION & STATE COMPLIANCE
+    // EdIntel IEP ARCHITECT: ENFORCING CLINICAL PRECISION & STATE COMPLIANCE
     const prompt = `
-      Act as the Sovereign IEP Architect. Generate a COMPREHENSIVE and CLINICALLY PRECISE IEP based on this data: ${JSON.stringify(body)}.
+      Act as the EdIntel IEP Architect. Generate a COMPREHENSIVE and CLINICALLY PRECISE IEP based on this data: ${JSON.stringify(body)}.
       
       REQUIREMENTS:
       1. LEGAL ALIGNMENT: Must cite IDEA 2004 (LRE/FAPE) and Alabama Administrative Code Chapter 290-8-9 specifically.

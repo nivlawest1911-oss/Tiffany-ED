@@ -5,7 +5,7 @@
  * Beautiful interface for all Hugging Face capabilities
  */
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     Sparkles,
@@ -151,8 +151,21 @@ function TextAnalysisPanel({ loading, setLoading, result, setResult }: any) {
         { id: 'analyze-writing', label: 'Writing Analysis', icon: '✍️' },
     ];
 
+    // Ref for cleanup
+    const abortControllerRef = useRef<AbortController | null>(null);
+
+    useEffect(() => {
+        return () => {
+            if (abortControllerRef.current) abortControllerRef.current.abort();
+        };
+    }, []);
+
     const handleAnalyze = async () => {
         if (!text.trim()) return;
+
+        if (abortControllerRef.current) abortControllerRef.current.abort();
+        const controller = new AbortController();
+        abortControllerRef.current = controller;
 
         setLoading(true);
         setResult(null);
@@ -162,14 +175,24 @@ function TextAnalysisPanel({ loading, setLoading, result, setResult }: any) {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ text, operation }),
+                signal: controller.signal
             });
 
+            if (!response.ok) throw new Error('Analysis failed');
+
             const data = await response.json();
-            setResult(data.result);
-        } catch (error) {
-            console.error('Analysis error:', error);
+            if (!controller.signal.aborted) {
+                setResult(data.result);
+            }
+        } catch (error: any) {
+            if (error.name !== 'AbortError') {
+                console.error('Analysis error:', error);
+            }
         } finally {
-            setLoading(false);
+            if (abortControllerRef.current === controller) {
+                setLoading(false);
+                abortControllerRef.current = null;
+            }
         }
     };
 
@@ -257,8 +280,21 @@ function ImageGenerationPanel({ loading, setLoading, result, setResult }: any) {
     const [prompt, setPrompt] = useState('');
     const [type, setType] = useState('classroom-visual');
 
+    // Ref for cleanup
+    const abortControllerRef = useRef<AbortController | null>(null);
+
+    useEffect(() => {
+        return () => {
+            if (abortControllerRef.current) abortControllerRef.current.abort();
+        };
+    }, []);
+
     const handleGenerate = async () => {
         if (!prompt.trim()) return;
+
+        if (abortControllerRef.current) abortControllerRef.current.abort();
+        const controller = new AbortController();
+        abortControllerRef.current = controller;
 
         setLoading(true);
         setResult(null);
@@ -268,14 +304,22 @@ function ImageGenerationPanel({ loading, setLoading, result, setResult }: any) {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ prompt, type }),
+                signal: controller.signal
             });
 
             const data = await response.json();
-            setResult(data);
-        } catch (error) {
-            console.error('Generation error:', error);
+            if (!controller.signal.aborted) {
+                setResult(data);
+            }
+        } catch (error: any) {
+            if (error.name !== 'AbortError') {
+                console.error('Generation error:', error);
+            }
         } finally {
-            setLoading(false);
+            if (abortControllerRef.current === controller) {
+                setLoading(false);
+                abortControllerRef.current = null;
+            }
         }
     };
 
@@ -378,8 +422,21 @@ function ImageAnalysisPanel({ loading, setLoading, result, setResult }: any) {
         }
     };
 
+    // Ref for cleanup
+    const abortControllerRef = useRef<AbortController | null>(null);
+
+    useEffect(() => {
+        return () => {
+            if (abortControllerRef.current) abortControllerRef.current.abort();
+        };
+    }, []);
+
     const handleAnalyze = async () => {
         if (!image) return;
+
+        if (abortControllerRef.current) abortControllerRef.current.abort();
+        const controller = new AbortController();
+        abortControllerRef.current = controller;
 
         setLoading(true);
         setResult(null);
@@ -392,14 +449,24 @@ function ImageAnalysisPanel({ loading, setLoading, result, setResult }: any) {
             const response = await fetch('/api/huggingface/image-analysis', {
                 method: 'POST',
                 body: formData,
+                signal: controller.signal
             });
 
+            if (!response.ok) throw new Error('Analysis failed');
+
             const data = await response.json();
-            setResult(data.result);
-        } catch (error) {
-            console.error('Analysis error:', error);
+            if (!controller.signal.aborted) {
+                setResult(data.result);
+            }
+        } catch (error: any) {
+            if (error.name !== 'AbortError') {
+                console.error('Analysis error:', error);
+            }
         } finally {
-            setLoading(false);
+            if (abortControllerRef.current === controller) {
+                setLoading(false);
+                abortControllerRef.current = null;
+            }
         }
     };
 

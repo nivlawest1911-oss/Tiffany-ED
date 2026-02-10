@@ -1,7 +1,7 @@
 "use client"
 
 import { Check, Shield as LucideShield, Star, Sparkles, GraduationCap, Building, Crown, Briefcase, Users } from "lucide-react"
-import { SOVEREIGN_TIERS } from '@/lib/pricing-config';
+import { EdIntel_TIERS } from '@/lib/pricing-config';
 
 // Icon mapping helper
 const IconMap: Record<string, any> = {
@@ -14,7 +14,7 @@ const IconMap: Record<string, any> = {
 };
 
 export function PricingSection() {
-  const tiers = SOVEREIGN_TIERS;
+  const tiers = EdIntel_TIERS;
 
   return (
     <section id="pricing" className="px-4 md:px-8 py-16 md:py-24 relative overflow-hidden">

@@ -24,7 +24,7 @@ const initialLogs = [
     { id: 5, time: '08:42:24', level: 'SUCCESS', msg: 'Report generated for Admin Review.' },
 ];
 
-export function SovereignPivotDashboard() {
+export function EdIntelPivotDashboard() {
     const [logs, setLogs] = useState(initialLogs);
     const [latency, setLatency] = useState(12);
     const [isBroadcasting, setIsBroadcasting] = useState(false);
@@ -45,7 +45,7 @@ export function SovereignPivotDashboard() {
                 { level: 'SUCCESS', msg: 'Packet verified: SHA-256' },
                 { level: 'WARN', msg: 'High traffic detected in Sector 4' },
                 { level: 'INFO', msg: 'Optimizing neural weights...' },
-                { level: 'SUCCESS', msg: 'Sovereign Uplink Confirmed' }
+                { level: 'SUCCESS', msg: 'EdIntel Uplink Confirmed' }
             ];
             const randomAction = actions[Math.floor(Math.random() * actions.length)];
             const time = new Date().toLocaleTimeString('en-US', { hour12: false });
@@ -62,14 +62,14 @@ export function SovereignPivotDashboard() {
         setIsBroadcasting(true);
         toast.promise(new Promise(resolve => setTimeout(resolve, 1500)), {
             loading: 'Establishing Secure Uplink...',
-            success: 'Sovereign Broadcast Connected',
+            success: 'EdIntel Broadcast Connected',
             error: 'Connection Failed'
         });
 
         setTimeout(() => {
             // Dispatch event to open LiveAvatarChat with Alvin
             const alvin = {
-                id: 'sovereign_1',
+                id: 'EdIntel_1',
                 name: 'Dr. Alvin West II',
                 role: 'Chief AI Strategist | DBA, Ph.D., MBA',
                 avatar: '/images/avatars/dr_alvin_west_premium.png',
@@ -111,7 +111,7 @@ export function SovereignPivotDashboard() {
                             <div className="space-y-2">
                                 <StatusItem
                                     icon={<Server size={12} />}
-                                    label="Sovereign Core"
+                                    label="EdIntel Core"
                                     status="Active"
                                     color="text-emerald-400"
                                 />
@@ -170,7 +170,7 @@ export function SovereignPivotDashboard() {
                 <div className="mb-6 flex-shrink-0">
                     <h2 className="text-3xl font-black text-white uppercase tracking-tighter italic flex items-center gap-3">
                         <Activity className="text-noble-gold w-6 h-6" />
-                        The Sovereign Pivot
+                        The EdIntel Pivot
                     </h2>
                     <p className="text-zinc-400 text-sm font-light leading-relaxed max-w-lg mt-1">
                         Shift from <span className="text-zinc-500 line-through decoration-zinc-600">reactive chaos</span> to <span className="text-noble-gold font-medium">Absolute Strategic Clarity</span> using our predictive engines.

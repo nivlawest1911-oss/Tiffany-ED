@@ -6,6 +6,7 @@ export interface DeepIntelligence {
     avatar: string;
     video?: string;
     abilityType?: 'strategy' | 'compliance' | 'analytics' | 'curriculum' | 'identity' | 'communication';
+    suggestedNext?: string[]; // Keys of INTELLIGENCE_MAP
 }
 
 export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
@@ -13,13 +14,14 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
         title: 'Professional Strategic Center',
         description: 'You are accessing the core administrative nexus of EdIntel. This environment is designed for high-stakes decision making, combining multi-variate data analysis with culturally-responsive leadership frameworks.',
         stats: { time: 'Instant', saved: '24h/week', accuracy: '100%' },
-        role: 'Executive Sovereign',
+        role: 'Executive EdIntel',
         avatar: '/images/avatars/dr_alvin_west_premium.png',
         video: '/videos/The_Ultimate_Solution_for_Mode.mp4',
-        abilityType: 'strategy'
+        abilityType: 'strategy',
+        suggestedNext: ['IEP Architect', 'Lesson Planner', 'Executive Dashboard']
     },
     'The Room': {
-        title: 'The Sovereign War Room',
+        title: 'The EdIntel War Room',
         description: 'A classified immersive environment for localized tactical deployments. "The Room" allows you to visualize district-wide patterns in real-time, providing a zero-latency feedback loop.',
         stats: { time: 'Real-time', saved: '15h/project', accuracy: '99.9%' },
         role: 'Command Architect',
@@ -33,7 +35,8 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
         role: 'Compliance Architect',
         avatar: '/images/avatars/maya_washington_premium.png',
         video: '/videos/features/iep-architect-demo.mp4',
-        abilityType: 'compliance'
+        abilityType: 'compliance',
+        suggestedNext: ['risk-analyzer', 'Lesson Planner', 'Automated Audit']
     },
     'Lesson Planner': {
         title: 'Quantum Curriculum Foundry',
@@ -42,7 +45,8 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
         role: 'Curriculum Strategist',
         avatar: '/images/avatars/keisha_reynolds_premium.png',
         video: '/videos/features/lesson-planner-demo.mp4',
-        abilityType: 'curriculum'
+        abilityType: 'curriculum',
+        suggestedNext: ['IEP Architect', 'Video Studio', 'Leadership Training']
     },
     'Data Intelligence': {
         title: 'Executive Intelligence Command',
@@ -52,9 +56,9 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
         avatar: '/images/avatars/data_analyst.png',
         video: '/videos/features/data-analysis-demo.mp4'
     },
-    'Sovereign Core': {
-        title: 'Sovereign ID Protocol',
-        description: 'Your Sovereign Identity is a triple-redundant biometric shield fueled by Google Gemini 3 Pro and NVIDIA ACE 3.0. It powers your digital twins with sub-second latency and persistent thought signatures, ensuring your leadership presence is felt across every building without compromising security.',
+    'EdIntel Core': {
+        title: 'EdIntel ID Protocol',
+        description: 'Your EdIntel Identity is a triple-redundant biometric shield fueled by Google Gemini 3 Pro and NVIDIA ACE 3.0. It powers your digital twins with sub-second latency and persistent thought signatures, ensuring your leadership presence is felt across every building without compromising security.',
         stats: { time: '0ms latency', saved: 'Infinite Scale', accuracy: '99.99%' },
         role: 'Identity Architect',
         avatar: '/images/avatars/executive_leader.png'
@@ -68,7 +72,7 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
     },
     'Pricing': {
         title: 'Investment & ROI Analysis',
-        description: 'EdIntel SOVEREIGN is not an expense; it is a capital recovery vehicle. By automating high-overhead administrative tasks, we allow your district to reinvest thousands of human-hours back into direct student instruction.',
+        description: 'EdIntel EdIntel is not an expense; it is a capital recovery vehicle. By automating high-overhead administrative tasks, we allow your district to reinvest thousands of human-hours back into direct student instruction.',
         stats: { time: 'FY2026 Ready', saved: 'High ROI', accuracy: 'Guaranteed' },
         role: 'Fiscal Director',
         avatar: '/images/avatars/special_ed_director.png'
@@ -89,7 +93,7 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
     },
     'About': {
         title: 'Mission & Strategic Vision',
-        description: 'EdIntel SOVEREIGN was founded on the principle of "Instructional Sovereignty." Our mission is to return agency to educational leaders by removing the friction of administrative compliance through advanced technology.',
+        description: 'EdIntel EdIntel was founded on the principle of "Instructional EdIntelty." Our mission is to return agency to educational leaders by removing the friction of administrative compliance through advanced technology.',
         stats: { time: 'Perpetual', saved: 'Infinite', accuracy: 'High Fidelity' },
         role: 'Founder & CEO',
         avatar: '/images/avatars/dr_alvin_west_premium.png'
@@ -117,7 +121,7 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
     },
     'Avatar Masterclass': {
         title: 'Identity Synchronization Protocol',
-        description: 'Master the art of digital presence. Learn to deploy your Sovereign Digital Twin across multiple communication channels while maintaining 100% cultural and professional fidelity.',
+        description: 'Master the art of digital presence. Learn to deploy your EdIntel Digital Twin across multiple communication channels while maintaining 100% cultural and professional fidelity.',
         stats: { time: '2-Session Cert', saved: 'Ubiquity', accuracy: 'Perfect' },
         role: 'Digital Identity Specialist',
         avatar: '/images/avatars/executive_leader.png'
@@ -131,7 +135,7 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
     },
     'Social Uplink': {
         title: 'Professional Advocacy Nexus',
-        description: 'Connect with other Sovereign leaders in a secure, encrypted social environment. Share successful instructional protocols and coordinate advocacy efforts across district lines.',
+        description: 'Connect with other EdIntel leaders in a secure, encrypted social environment. Share successful instructional protocols and coordinate advocacy efforts across district lines.',
         stats: { time: 'Live', saved: 'Collective Power', accuracy: 'Verified' },
         role: 'Community Lead',
         avatar: '/images/avatars/curriculum_strategist.png'
@@ -143,9 +147,9 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
         role: 'Compliance Officer',
         avatar: '/images/avatars/special_ed_director.png'
     },
-    'Sovereign Social': {
-        title: 'Sovereign Social Uplink',
-        description: 'The premier professional network for educational sovereigns. Exchange strategic blueprints and neural voice profiles within a high-trust, biometric-verified ecosystem.',
+    'EdIntel Social': {
+        title: 'EdIntel Social Uplink',
+        description: 'The premier professional network for educational EdIntels. Exchange strategic blueprints and neural voice profiles within a high-trust, biometric-verified ecosystem.',
         stats: { time: 'Syncing', saved: 'Global Network', accuracy: '100%' },
         role: 'Network Director',
         avatar: '/images/avatars/executive_leader.png'
@@ -156,7 +160,7 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
         stats: { time: 'Immediate', saved: 'Critical', accuracy: 'High-Stakes' },
         role: 'Safety Director',
         avatar: '/images/avatars/special_ed_director.png',
-        video: '/videos/Health for Alabama\'s Educators.mp4'
+        video: "/videos/Health for Alabama's Educators.mp4"
     },
     'Budget Report': {
         title: 'Fiscal Variance Analysis',
@@ -167,7 +171,7 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
     },
     'Contact': {
         title: 'Executive Support Uplink',
-        description: 'Direct neural link to the Sovereign Support Team. We provide white-glove onboarding and technical calibration for enterprise leaders during their first 100 days.',
+        description: 'Direct neural link to the EdIntel Support Team. We provide white-glove onboarding and technical calibration for enterprise leaders during their first 100 days.',
         stats: { time: '< 2m', saved: 'Total Support', accuracy: 'Platinum' },
         role: 'Support Lead',
         avatar: '/images/avatars/executive_leader.png'
@@ -202,9 +206,9 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
     },
     'Protocol Omega': {
         title: 'Omega Strategic Deployment',
-        description: 'Protocol Omega is the total activation of all Sovereign systems. It represents the final stage of institutional digital transformation, where every administrative friction point is neutralized by AI strategy.',
+        description: 'Protocol Omega is the total activation of all EdIntel systems. It represents the final stage of institutional digital transformation, where every administrative friction point is neutralized by AI strategy.',
         stats: { time: 'Permanent', saved: 'Enterprise Wide', accuracy: 'Total' },
-        role: 'Executive Sovereign',
+        role: 'Executive EdIntel',
         avatar: '/images/avatars/dr_alvin_west_premium.png'
     },
     'Voice Synthesis': {
@@ -216,7 +220,7 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
     },
     'Signal Strength': {
         title: 'Neural Bandwidth Monitor',
-        description: 'Ensuring your connection to the Sovereign Mainnet remains uncompromised. We monitor latencies and encryption integrity to provide a stable, zero-delay strategic experience.',
+        description: 'Ensuring your connection to the EdIntel Mainnet remains uncompromised. We monitor latencies and encryption integrity to provide a stable, zero-delay strategic experience.',
         stats: { time: '0ms', saved: 'Uptime: 100%', accuracy: 'Secure' },
         role: 'Systems Monitor',
         avatar: '/images/avatars/stem_coordinator.png'
@@ -228,9 +232,9 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
         role: 'Command Architect',
         avatar: '/images/avatars/dr_alvin_west_premium.png'
     },
-    'Sovereign Account': {
-        title: 'Sovereign Credentials',
-        description: 'Your Sovereign account is your key to the entire EdIntel ecosystem. It stores your biometric profiles, custom-trained agents, and all vaulted institutional intelligence.',
+    'EdIntel Account': {
+        title: 'EdIntel Credentials',
+        description: 'Your EdIntel account is your key to the entire EdIntel ecosystem. It stores your biometric profiles, custom-trained agents, and all vaulted institutional intelligence.',
         stats: { time: 'Instant Access', saved: 'Total Control', accuracy: 'Biometric' },
         role: 'Identity Lead',
         avatar: '/images/avatars/executive_leader.png'

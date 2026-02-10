@@ -1,5 +1,5 @@
 /**
- * EdIntel SOVEREIGN - Crypto Payment Webhook Handler
+ * EdIntel EdIntel - Crypto Payment Webhook Handler
  * Processes cryptocurrency payment confirmations
  */
 

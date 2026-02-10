@@ -4,7 +4,7 @@ import path from 'path';
 import https from 'https';
 
 // ------------------------------------------------------------------
-// SOVEREIGN BRIEFING PROCURER
+// EdIntel BRIEFING PROCURER
 // ------------------------------------------------------------------
 // Downloads placeholder "Talking Avatar" briefings for the UI.
 // These are high-quality, royalty-free stock videos of professionals

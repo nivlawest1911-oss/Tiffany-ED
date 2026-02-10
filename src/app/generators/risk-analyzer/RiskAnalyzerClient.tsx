@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Shield as LucideShield, AlertTriangle, Lock, FileText, Gavel, ArrowRight, Activity, Loader2, Sparkles } from 'lucide-react';
-import HolographicBriefing from '@/components/HolographicBriefing';
+import HolographicBriefing from '@/components/intelligence/HolographicBriefing';
 
 
 export default function RiskAnalyzerClient() {
@@ -66,7 +66,7 @@ export default function RiskAnalyzerClient() {
                         Litigation <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-600">Risk Audit</span>
                     </h1>
                     <p className="text-xl text-zinc-400 max-w-2xl mx-auto mb-12">
-                        Don't wait for the subpoena. Analyze incidents instantly to predict legal exposure and deploy sovereign mitigation strategies.
+                        Don't wait for the subpoena. Analyze incidents instantly to predict legal exposure and deploy EdIntel mitigation strategies.
                     </p>
 
                     <HolographicBriefing
@@ -125,7 +125,7 @@ export default function RiskAnalyzerClient() {
                                         placeholder="E.g., A parent is claiming we failed to implement the IEP accommodations for 3 months and is threatening due process..."
                                     />
                                     <p className="text-[10px] text-zinc-600 mt-2 flex items-center gap-1">
-                                        <Lock size={10} /> Data is processed locally and sovereign-encrypted.
+                                        <Lock size={10} /> Data is processed locally and EdIntel-encrypted.
                                     </p>
                                 </div>
 

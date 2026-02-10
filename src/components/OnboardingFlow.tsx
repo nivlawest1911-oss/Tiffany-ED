@@ -47,7 +47,7 @@ export default function OnboardingFlow({ onCompleteAction }: { onCompleteAction?
 
         celebrate(
             'Executive Authorization Complete',
-            'Your Sovereign ID has been minted. Full system access granted.',
+            'Your EdIntel ID has been minted. Full system access granted.',
             'achievement'
         );
 
@@ -75,7 +75,7 @@ export default function OnboardingFlow({ onCompleteAction }: { onCompleteAction?
             content: (
                 <div className="space-y-6">
                     <p className="text-zinc-400 text-sm leading-relaxed border-l-2 border-intel-gold pl-4 py-1 italic">
-                        "Welcome to the Sovereign OS. Define your institutional presence to begin."
+                        "Welcome to the EdIntel OS. Define your institutional presence to begin."
                     </p>
                     <div className="relative group/input">
                         <div className="absolute -inset-1 bg-gradient-to-r from-intel-gold/20 to-amber-500/20 rounded-xl blur opacity-0 group-hover/input:opacity-100 transition-opacity" />
@@ -132,7 +132,7 @@ export default function OnboardingFlow({ onCompleteAction }: { onCompleteAction?
         },
         {
             title: "DEPLOYMENT",
-            subtitle: "Sovereign Link Stable",
+            subtitle: "EdIntel Link Stable",
             icon: Zap,
             content: (
                 <div className="space-y-8 text-center pt-4">

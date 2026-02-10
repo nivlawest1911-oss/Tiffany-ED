@@ -30,7 +30,7 @@ export const Header = () => {
             </div>
             <div>
               <div className="font-semibold text-foreground tracking-tight">
-                EDINTEL SOVEREIGN
+                EDINTEL EdIntel
               </div>
               <div className="text-xs text-muted-foreground font-mono tracking-widest">
                 DISTRICT COMMAND MESH

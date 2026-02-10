@@ -24,7 +24,7 @@ export default function AIAvatarGallery() {
 
     return (
         <div className="relative py-32 bg-black overflow-hidden border-y border-white/5">
-            {/* Minimalist Grid Background - Sovereign Style */}
+            {/* Minimalist Grid Background - EdIntel Style */}
             <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.15)_0,transparent_100%)]" />
             <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:32px_32px]" />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
@@ -141,7 +141,7 @@ export default function AIAvatarGallery() {
                     })}
                 </div>
 
-                {/* Secure Video Archives Section - Refined for Sovereign OS */}
+                {/* Secure Video Archives Section - Refined for EdIntel OS */}
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}

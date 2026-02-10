@@ -62,8 +62,8 @@ export default function ActionFeed() {
                                 <button
                                     onClick={() => {
                                         console.log(`[Swarm] Dispatching Goal: ${action.title}`);
-                                        // In production: await sovereignSwarm.dispatchGoal(`Resolve ${action.title}`);
-                                        alert(`Sovereign Swarm dispatched. Supervisor Decomposing Goal: "Resolve ${action.title}"...`);
+                                        // In production: await EdIntelSwarm.dispatchGoal(`Resolve ${action.title}`);
+                                        alert(`EdIntel Swarm dispatched. Supervisor Decomposing Goal: "Resolve ${action.title}"...`);
                                     }}
                                     className="flex-1 bg-indigo-500/20 hover:bg-cyan-500/20 text-cyan-400 text-[9px] font-black uppercase py-2 rounded-lg flex items-center justify-center gap-2 border border-cyan-500/20 hover:border-cyan-500/40 transition-all"
                                 >

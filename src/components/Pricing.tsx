@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Check, ArrowRight } from "lucide-react";
-import { SOVEREIGN_TIERS } from '@/lib/pricing-config';
+import { EdIntel_TIERS } from '@/lib/pricing-config';
 
 export const Pricing = () => {
   return (
@@ -21,13 +21,13 @@ export const Pricing = () => {
             Scalable Infrastructure
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto italic">
-            "Direct neural integration for district-wide sovereignty."
+            "Direct neural integration for district-wide EdIntelty."
           </p>
         </motion.div>
 
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          {SOVEREIGN_TIERS.map((tier, index) => (
+          {EdIntel_TIERS.map((tier, index) => (
             <motion.div
               key={tier.id}
               initial={{ opacity: 0, y: 30 }}

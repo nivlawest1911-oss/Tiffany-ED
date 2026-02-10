@@ -29,7 +29,7 @@ export default function MobileNavigation() {
         router.push(path);
     };
 
-    // 📱 REFINED TABS FOR SOVEREIGN USERS
+    // 📱 REFINED TABS FOR EdIntel USERS
     const bottomTabs = [
         { id: 'home', label: 'Home', icon: Home, link: '/' },
         { id: 'ai-hub', label: 'AI Hub', icon: Sparkles, link: '/ai-hub' },
@@ -41,7 +41,7 @@ export default function MobileNavigation() {
     const menuItems = [
         { label: 'Professional Center', icon: GraduationCap, link: '/professional' },
         { label: 'Enterprise & Pricing', icon: CreditCard, link: '/pricing' },
-        { label: 'Sovereign Protocol', icon: Shield, link: '/sovereign' },
+        { label: 'EdIntel Protocol', icon: Shield, link: '/EdIntel' },
         { label: 'Settings', icon: Settings, link: '/settings' },
     ];
 
@@ -84,7 +84,7 @@ export default function MobileNavigation() {
                 </div>
             </div>
 
-            {/* Sovereign Full Screen Menu */}
+            {/* EdIntel Full Screen Menu */}
             <AnimatePresence>
                 {menuOpen && (
                     <motion.div
@@ -98,7 +98,7 @@ export default function MobileNavigation() {
                         <div className="sticky top-0 bg-[#050505]/95 backdrop-blur-xl border-b border-white/10 p-4 flex items-center justify-between z-50">
                             <div className="flex items-center gap-2">
                                 <Shield className="text-noble-gold w-6 h-6" />
-                                <span className="text-white font-black uppercase tracking-widest text-sm">Sovereign Menu</span>
+                                <span className="text-white font-black uppercase tracking-widest text-sm">EdIntel Menu</span>
                             </div>
                             <button
                                 onClick={() => { playClick(); setMenuOpen(false); }}

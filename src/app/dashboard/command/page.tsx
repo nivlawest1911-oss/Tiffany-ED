@@ -1,9 +1,9 @@
 import { cookies } from 'next/headers';
-import SovereignCommandDeck from '@/components/dashboard/SovereignCommandDeck';
+import EdIntelCommandDeck from '@/components/dashboard/EdIntelCommandDeck';
 
 export const dynamic = 'force-dynamic';
 
-export default async function SovereignCommandPage() {
+export default async function EdIntelCommandPage() {
     await cookies(); // Force dynamic rendering
-    return <SovereignCommandDeck />;
+    return <EdIntelCommandDeck />;
 }

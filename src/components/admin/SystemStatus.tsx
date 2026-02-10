@@ -18,7 +18,7 @@ export const SystemStatus = () => {
     const [nodes, setNodes] = useState<SystemNode[]>([
         { id: '1', name: 'Neural Core', provider: 'GCP Gemini 1.5', status: 'ONLINE', latency: '42ms', uptime: '99.98%', icon: Cpu },
         { id: '2', name: 'Memory Cluster', provider: 'Supabase PGSQL', status: 'ONLINE', latency: '12ms', uptime: '99.99%', icon: Database },
-        { id: '3', name: 'Sovereign Gateway', provider: 'Vercel Edge', status: 'ONLINE', latency: '8ms', uptime: '100%', icon: Globe },
+        { id: '3', name: 'EdIntel Gateway', provider: 'Vercel Edge', status: 'ONLINE', latency: '8ms', uptime: '100%', icon: Globe },
         { id: '4', name: 'Cold Vault', provider: 'GCS Backup Node', status: 'STANDBY', latency: 'N/A', uptime: '99.9%', icon: HardDrive },
     ]);
 
@@ -145,7 +145,7 @@ export const SystemStatus = () => {
             <div className="mt-16 pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
                 <div className="flex items-center gap-3">
                     <ShieldCheck className="w-4 h-4 text-intel-gold/30" />
-                    <span className="text-[10px] text-zinc-700 uppercase font-black tracking-[0.4em] italic">Encrypted Sovereign Link Passive // ACTIVE_NODE_951</span>
+                    <span className="text-[10px] text-zinc-700 uppercase font-black tracking-[0.4em] italic">Encrypted EdIntel Link Passive // ACTIVE_NODE_951</span>
                 </div>
                 <button className="text-[10px] text-intel-gold/50 hover:text-white uppercase font-black tracking-[0.5em] transition-all flex items-center gap-3 italic group">
                     <Activity className="w-4 h-4 group-hover:animate-spin" /> Initiate Institutional Handshake →

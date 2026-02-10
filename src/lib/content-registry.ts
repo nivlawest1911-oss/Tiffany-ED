@@ -39,9 +39,9 @@ export const CONTENT_REGISTRY = {
             },
             {
                 id: "vid_005",
-                title: "Sovereign OS Layout Enhancements",
+                title: "EdIntel OS Layout Enhancements",
                 type: "video",
-                url: "/videos/EdIntel_Sovereign_OS_Layout_Enhancements.mp4",
+                url: "/videos/EdIntel_EdIntel_OS_Layout_Enhancements.mp4",
                 thumbnail: "/images/avatars/dr_alvin_west_official.png",
                 tier_required: 1
             },

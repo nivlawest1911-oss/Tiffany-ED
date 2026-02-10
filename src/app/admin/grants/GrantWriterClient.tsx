@@ -22,7 +22,7 @@ export default function GrantWriterClient() {
             }
         } catch (error) {
             console.error('Generation call failed:', error);
-            alert('A network error occurred. Please verify your connection to Sovereign HQ.');
+            alert('A network error occurred. Please verify your connection to EdIntel HQ.');
         } finally {
             setIsGenerating(false);
         }

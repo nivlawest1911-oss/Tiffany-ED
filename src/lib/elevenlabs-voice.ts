@@ -13,7 +13,7 @@ export async function generateVoice(text: string, voiceSettings?: {
     similarity_boost?: number;
     style?: number;
     use_speaker_boost?: boolean;
-}) {
+}, signal?: AbortSignal) {
     if (!ELEVENLABS_API_KEY) {
         console.warn('ElevenLabs API key not configured');
         return null;
@@ -39,6 +39,7 @@ export async function generateVoice(text: string, voiceSettings?: {
                         use_speaker_boost: voiceSettings?.use_speaker_boost ?? true,
                     },
                 }),
+                signal
             }
         );
 
@@ -57,14 +58,14 @@ export async function generateVoice(text: string, voiceSettings?: {
 /**
  * Clone Dr. Alvin West's voice (requires voice samples)
  */
-export async function cloneVoice(name: string, audioFiles: File[]) {
+export async function cloneVoice(name: string, audioFiles: File[], signal?: AbortSignal) {
     if (!ELEVENLABS_API_KEY) {
         throw new Error('ElevenLabs API key not configured');
     }
 
     const formData = new FormData();
     formData.append('name', name);
-    audioFiles.forEach((file, index) => {
+    audioFiles.forEach((file, _index) => {
         formData.append(`files`, file);
     });
 
@@ -74,6 +75,7 @@ export async function cloneVoice(name: string, audioFiles: File[]) {
             'xi-api-key': ELEVENLABS_API_KEY,
         },
         body: formData,
+        signal
     });
 
     if (!response.ok) {
@@ -86,7 +88,7 @@ export async function cloneVoice(name: string, audioFiles: File[]) {
 /**
  * Get available voices
  */
-export async function getVoices() {
+export async function getVoices(signal?: AbortSignal) {
     if (!ELEVENLABS_API_KEY) {
         return [];
     }
@@ -96,6 +98,7 @@ export async function getVoices() {
             headers: {
                 'xi-api-key': ELEVENLABS_API_KEY,
             },
+            signal
         });
 
         if (!response.ok) {

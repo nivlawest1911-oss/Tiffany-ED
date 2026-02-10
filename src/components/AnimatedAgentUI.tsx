@@ -35,7 +35,7 @@ export const AnimatedAgentUI = () => {
             <div className="absolute inset-0 pointer-events-none z-10 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
 
             <div className="relative z-20 p-8 h-full flex flex-col justify-end">
-                <h3 className="text-white font-black uppercase text-2xl mb-2">Sovereign Agent</h3>
+                <h3 className="text-white font-black uppercase text-2xl mb-2">EdIntel Agent</h3>
                 <p className="text-zinc-400 text-sm">Interactive State Machine • Online</p>
             </div>
         </motion.div>

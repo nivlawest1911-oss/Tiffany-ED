@@ -36,7 +36,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const { rawSituation, stakeholder, intensity, protocol, prompt } = body;
-    const { ALABAMA_STRATEGIC_DIRECTIVE, SOVEREIGN_PERSONA } = await import('@/lib/ai-resilience');
+    const { ALABAMA_STRATEGIC_DIRECTIVE, EdIntel_PERSONA } = await import('@/lib/ai-resilience');
 
     let finalPrompt = "";
 
@@ -46,7 +46,7 @@ export async function POST(req: Request) {
         ${ALABAMA_STRATEGIC_DIRECTIVE}
         
         ACT AS: ${systemInstruction}
-        PERSONA: ${SOVEREIGN_PERSONA.name}, ${SOVEREIGN_PERSONA.role}
+        PERSONA: ${EdIntel_PERSONA.name}, ${EdIntel_PERSONA.role}
         
         CONTEXT:
         - Stakeholder: ${stakeholder || 'General Staff'}
@@ -67,7 +67,7 @@ export async function POST(req: Request) {
     }
 
     // ALWAYS use generateProfessionalResponse for consistent, resilient, and logged generations
-    const text = await generateProfessionalResponse(finalPrompt, protocol || 'eq-node', SOVEREIGN_PERSONA);
+    const text = await generateProfessionalResponse(finalPrompt, protocol || 'eq-node', EdIntel_PERSONA);
     return NextResponse.json({ output: text });
   } catch (error) {
     console.error("EQ NODE ERROR:", error);

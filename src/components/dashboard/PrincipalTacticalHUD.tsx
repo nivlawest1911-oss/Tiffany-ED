@@ -1,6 +1,6 @@
 'use client';
 
-import SovereignNode from '../layout/SovereignNode';
+import EdIntelNode from '../sovereign/layout/EdIntelNode';
 
 interface PrincipalTacticalHUDProps {
     _siteMetrics?: any;
@@ -9,9 +9,9 @@ interface PrincipalTacticalHUDProps {
 
 // Individual card components for grid integration
 export const MorningSynthesisCard = () => (
-    <SovereignNode
+    <EdIntelNode
         title="MORNING SYNTHESIS // LEADERSHIP"
-        videoSrc="/videos/Sovereign_Brand_Integration.mp4"
+        videoSrc="/videos/EdIntel_Brand_Integration.mp4"
         fallbackImage="/images/dashboard/tactical-fallback.jpg"
         actionText="VIEW FULL REPORT"
         onAction={() => console.log('Opening report...')}
@@ -31,11 +31,11 @@ export const MorningSynthesisCard = () => (
                 </p>
             </div>
         </div>
-    </SovereignNode>
+    </EdIntelNode>
 );
 
 export const CognitiveLoadCard = () => (
-    <SovereignNode
+    <EdIntelNode
         title="COGNITIVE LOAD ALERT // LEADERSHIP"
         videoSrc="/videos/dashboard/cognitive-analysis.mp4"
         fallbackImage="/images/dashboard/cognitive-fallback.jpg"
@@ -57,11 +57,11 @@ export const CognitiveLoadCard = () => (
                 </p>
             </div>
         </div>
-    </SovereignNode>
+    </EdIntelNode>
 );
 
 export const StudioActionCard = () => (
-    <SovereignNode
+    <EdIntelNode
         title="STUDIO ACTION // LEADERSHIP"
         videoSrc="/videos/dashboard/studio-production.mp4"
         fallbackImage="/images/dashboard/studio-fallback.jpg"
@@ -83,7 +83,7 @@ export const StudioActionCard = () => (
                 </p>
             </div>
         </div>
-    </SovereignNode>
+    </EdIntelNode>
 );
 
 export const PrincipalTacticalHUD = ({ _siteMetrics, tier }: PrincipalTacticalHUDProps) => {

@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { SovereignBriefing } from './SovereignBriefing';
+import { EdIntelBriefing } from './EdIntelBriefing';
 
 const DEFAULT_BRIEFING = `DISTRICT: Mobile County Schools
 STATUS: Initializing Neural Link...
-ALERT: Awaiting sovereign credentials.
+ALERT: Awaiting EdIntel credentials.
 ACTION: Initialize tactical interface.`;
 
 export function ExecutiveBrief() {
@@ -46,10 +46,10 @@ ACTION: Check Cloud Console`);
 
     return (
         <div className="grid grid-cols-1 gap-6 mb-8">
-            <SovereignBriefing
+            <EdIntelBriefing
                 summary={summary}
                 loading={isLoading}
-                videoSrc="/videos/District Command Update.mp4"
+                videoSrc="/videos/District_Command_Update.mp4"
             />
         </div>
     );

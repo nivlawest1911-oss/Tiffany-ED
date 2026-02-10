@@ -3,14 +3,14 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-    Search, Grid, List, Eye, Palette, Zap, Copy, Check, Play
+    Search, Grid, List, Eye, Palette, Zap, Copy, Check, Play, Code
 } from 'lucide-react';
 import Link from 'next/link';
 
 // All available components organized by category
 const COMPONENT_LIBRARY = {
     'AI Generators': [
-        { name: 'IEPGenerator', path: '/generators/iep-architect', file: 'bento/IEPGenerator.tsx' },
+        { name: 'IEPGenerator', path: '/dashboard/iep-architect', file: 'bento/IEPGenerator.tsx' },
         { name: 'LessonPlanGenerator', path: '/generators/lesson-planner', file: 'bento/LessonPlanGenerator.tsx' },
         { name: 'LeadershipGenerator', path: '/generators/leadership', file: 'bento/LeadershipGenerator.tsx' },
         { name: 'EQGenerator', path: '/generators/eq', file: 'bento/EQGenerator.tsx' },
@@ -42,7 +42,7 @@ const COMPONENT_LIBRARY = {
         { name: 'SequentialRecallGame', path: '/cognitive', file: 'SequentialRecallGame.tsx' },
     ],
     'Content': [
-        { name: 'UnusualHero', path: '/', file: 'UnusualHero.tsx' },
+        { name: 'EdIntelHero', path: '/', file: 'EdIntel/EdIntelHero.tsx' },
         { name: 'PremiumPricingTable', path: '/pricing', file: 'PremiumPricingTable.tsx' },
         { name: 'VideoTestimonials', path: '/', file: 'VideoTestimonials.tsx' },
         { name: 'FeatureVideos', path: '/', file: 'FeatureVideos.tsx' },
@@ -52,14 +52,14 @@ const COMPONENT_LIBRARY = {
     'Bento Tiles': [
         { name: 'NeuralSyncGym', path: '/cognitive', file: 'bento/NeuralSyncGym.tsx' },
         { name: 'NeuralTrainingCommand', path: '/cognitive', file: 'bento/NeuralTrainingCommand.tsx' },
-        { name: 'ProfessionalBroadcastCenter', path: '/identity', file: 'bento/ProfessionalBroadcastCenter.tsx' },
+        { name: 'ProfessionalBroadcastCenter', path: '/identity', file: 'dossier/ProfessionalBroadcastCenter.tsx' },
         { name: 'ProfessionalEnterpriseModule', path: '/identity', file: 'bento/ProfessionalEnterpriseModule.tsx' },
         { name: 'ProfessionalFeed', path: '/identity', file: 'bento/ProfessionalFeed.tsx' },
         { name: 'ProfessionalIDManager', path: '/identity', file: 'bento/ProfessionalIDManager.tsx' },
         { name: 'ProfessionalPrivacyManifesto', path: '/privacy', file: 'bento/ProfessionalPrivacyManifesto.tsx' },
         { name: 'ProfessionalRankGuide', path: '/identity', file: 'bento/ProfessionalRankGuide.tsx' },
         { name: 'ProfessionalSkillMatrix', path: '/identity', file: 'bento/ProfessionalSkillMatrix.tsx' },
-        { name: 'ProfessionalSocialConnection', path: '/identity', file: 'bento/ProfessionalSocialConnection.tsx' },
+        { name: 'ProfessionalSocialConnection', path: '/identity', file: 'dossier/ProfessionalSocialConnection.tsx' },
         { name: 'SystemHealthTile', path: '/dashboard', file: 'bento/SystemHealthTile.tsx' },
         { name: 'ArchitectIdentityCenter', path: '/about', file: 'bento/ArchitectIdentityCenter.tsx' },
     ],
@@ -103,7 +103,7 @@ export default function ComponentExplorerClient() {
                     className="text-center mb-8"
                 >
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-bold uppercase tracking-widest mb-6">
-                        <code size={14} />
+                        <Code size={14} />
                         <span>Component Library</span>
                     </div>
                     <h1 className="text-5xl font-bold text-white mb-4">
@@ -133,6 +133,7 @@ export default function ComponentExplorerClient() {
                                 ? 'bg-indigo-600 text-white'
                                 : 'bg-white/5 text-zinc-400 hover:bg-white/10'
                                 }`}
+                            aria-label="Grid view"
                         >
                             <Grid className="w-5 h-5" />
                         </button>
@@ -142,6 +143,7 @@ export default function ComponentExplorerClient() {
                                 ? 'bg-indigo-600 text-white'
                                 : 'bg-white/5 text-zinc-400 hover:bg-white/10'
                                 }`}
+                            aria-label="List view"
                         >
                             <List className="w-5 h-5" />
                         </button>
@@ -216,6 +218,7 @@ export default function ComponentExplorerClient() {
                                                 copyImport(component);
                                             }}
                                             className="px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-white text-sm transition-all"
+                                            aria-label="Copy import path"
                                         >
                                             {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
                                         </button>

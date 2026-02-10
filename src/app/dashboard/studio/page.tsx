@@ -1,18 +1,18 @@
-import { createSovereignServerClient } from '@/lib/supabase-server';
+import { createEdIntelServerClient } from '@/lib/supabase-server';
 import React from 'react';
 import { DesignBridge } from '@/components/DesignBridge';
 import { StudioVideoSection } from '@/components/StudioVideoSection';
-import { SovereignPod } from '@/components/dashboard/SovereignPod';
+import { EdIntelPod } from '@/components/dashboard/EdIntelPod';
 import { LivingCard } from '@/components/dashboard/LivingCard';
 
 // Force dynamic since we use cookies/auth
 export const dynamic = 'force-dynamic';
 
 export default async function StudioPage() {
-    const supabase = await createSovereignServerClient();
+    const supabase = await createEdIntelServerClient();
 
     const { data: { session } } = await supabase.auth.getSession();
-    let userTier = "Sovereign Initiate";
+    let userTier = "EdIntel Initiate";
 
     if (session?.user) {
         const { data } = await supabase
@@ -33,7 +33,7 @@ export default async function StudioPage() {
             <div className="flex justify-between items-end border-b border-zinc-900 pb-8">
                 <div>
                     <h1 className="text-5xl font-black tracking-tighter uppercase text-zinc-100 italic">
-                        Sovereign <span className="text-amber-500">Studio</span>
+                        EdIntel <span className="text-amber-500">Studio</span>
                     </h1>
                     <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-[0.3em] mt-2">
                         Creative Engine // Mobile County District_049
@@ -56,7 +56,7 @@ export default async function StudioPage() {
 
                 {/* TOP RIGHT: ASSET STATS & BRANDING (5 Cols) */}
                 <div className="col-span-12 lg:col-span-5 space-y-8">
-                    <SovereignPod title="Asset Intelligence" value="128" status="ready">
+                    <EdIntelPod title="Asset Intelligence" value="128" status="ready">
                         Total AI-generated assets for this site authority.
                         <div className="mt-6 flex flex-col gap-2">
                             <div className="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden">
@@ -68,7 +68,7 @@ export default async function StudioPage() {
                                 <span>Limit: 10GB</span>
                             </div>
                         </div>
-                    </SovereignPod>
+                    </EdIntelPod>
 
                     <div className="p-8 bg-zinc-900/40 border border-zinc-800 rounded-3xl backdrop-blur-sm">
                         <h4 className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest mb-6">District Brand Kit</h4>

@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Map, Activity, Users, AlertTriangle, PlayCircle } from 'lucide-react';
-import { SovereignPlayer } from '@/components/ui/SovereignPlayer';
+import { Map, Activity, Users, AlertTriangle } from 'lucide-react';
+import { EdIntelPlayer } from '@/components/ui/EdIntelPlayer';
 
 export function DistrictStrategy() {
     const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || 'PLACEHOLDER';
@@ -77,7 +77,7 @@ export function DistrictStrategy() {
                         transition={{ delay: 0.2 }}
                         className="bg-slate-900 rounded-2xl border border-white/10 overflow-hidden relative"
                     >
-                        <SovereignPlayer
+                        <EdIntelPlayer
                             src="/videos/OS_Enhancements_AI_and_Layout.mp4"
                             title="System Status: Operational"
                             poster="/images/avatars/dr_alvin_west_official.png"

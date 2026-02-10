@@ -1,7 +1,7 @@
 import { supabase } from '@/lib/supabase';
 
 /**
- * 🏛️ Bio-Auth Initiator: Handshakes with Google/Apple for Sovereign Protocol Login.
+ * 🏛️ Bio-Auth Initiator: Handshakes with Google/Apple for EdIntel Protocol Login.
  * Compliant with AL Code 290-8-9 auditing requirements.
  */
 export async function initiateBioAuth(provider: 'google' | 'apple' | 'facebook') {
@@ -17,7 +17,7 @@ export async function initiateBioAuth(provider: 'google' | 'apple' | 'facebook')
     });
 
     if (error) {
-        console.error('Sovereign Auth Protocol Failure:', error.message);
+        console.error('EdIntel Auth Protocol Failure:', error.message);
         return;
     }
 

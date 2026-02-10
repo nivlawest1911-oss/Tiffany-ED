@@ -1,8 +1,6 @@
 "use client"
 
-import React from "react"
-
-import { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
@@ -32,6 +30,7 @@ import {
     Zap,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import EdIntelLogo from "@/components/EdIntelLogo"
 
 interface NavSection {
     title: string
@@ -43,45 +42,44 @@ const navSections: NavSection[] = [
         title: "Core",
         items: [
             { icon: LayoutDashboard, label: "Command Center", id: "command", href: "/admin/dashboard" },
-
-            { icon: Zap, label: "AI Hub", id: "ai-hub", badge: "Live", href: "/admin/command" },
-            { icon: Bot, label: "Agent Swarm", id: "agents" },
+            { icon: Zap, label: "AI Hub", id: "ai-hub", badge: "Live", href: "/ai-hub" },
+            { icon: Bot, label: "Agent Swarm", id: "agents", href: "/dashboard/agents" },
         ],
     },
     {
         title: "Media Studio",
         items: [
-            { icon: Video, label: "Video Studio", id: "video", href: "/admin/studio" },
-            { icon: Mic, label: "Voice Lab", id: "voice", href: "/admin/studio" },
-            { icon: ImageIcon, label: "Asset Lab", id: "images", href: "/admin/studio" },
-            { icon: Globe, label: "Gemini Workspace", id: "gemini" },
+            { icon: Video, label: "Video Studio", id: "video", href: "/video-studio" },
+            { icon: Mic, label: "Voice Lab", id: "voice", href: "/voice-lab" },
+            { icon: ImageIcon, label: "Asset Lab", id: "images", href: "/asset-lab" },
+            { icon: Globe, label: "Gemini Workspace", id: "gemini", href: "/gemini-workspace" },
         ],
     },
     {
         title: "Classroom",
         items: [
-            { icon: Brain, label: "Super-Tools", id: "tools", href: "/admin/academic" },
-            { icon: Link2, label: "Connectors", id: "connectors", href: "/admin/academic" },
-            { icon: Heart, label: "Cognitive / EQ", id: "cognitive", href: "/admin/academic" },
-            { icon: Users, label: "Student Intel", id: "students", href: "/admin/academic" },
+            { icon: Brain, label: "Super-Tools", id: "tools", href: "/all-tools" },
+            { icon: Link2, label: "Connectors", id: "connectors", href: "/connectors" },
+            { icon: Heart, label: "Cognitive / EQ", id: "cognitive", href: "/cognitive" },
+            { icon: Users, label: "Student Intel", id: "students", href: "/students" },
         ],
     },
     {
         title: "Executive",
         items: [
-            { icon: FileEdit, label: "Grant Architect", id: "grants", href: "/admin/command" },
-            { icon: Building, label: "Board Room", id: "board", href: "/admin/command" },
-            { icon: Gavel, label: "The Room", id: "the-room", href: "/admin/command" },
-            { icon: Shield, label: "Sovereign AI", id: "sovereign" },
+            { icon: FileEdit, label: "Grant Architect", id: "grants", href: "/admin/grants" },
+            { icon: Building, label: "Board Room", id: "board", href: "/board" },
+            { icon: Gavel, label: "The Room", id: "the-room", href: "/the-room" },
+            { icon: Shield, label: "EdIntel AI", id: "EdIntel", href: "/edintel-professional" },
         ],
     },
     {
         title: "Operations",
         items: [
             { icon: Phone, label: "Comms Center", id: "comms", href: "/admin/comms" },
-            { icon: BarChart3, label: "Analytics", id: "analytics" },
-            { icon: Database, label: "Vault", id: "vault" },
-            { icon: BookOpen, label: "Resources", id: "resources" },
+            { icon: BarChart3, label: "Analytics", id: "analytics", href: "/analytics" },
+            { icon: Database, label: "Vault", id: "vault", href: "/vault" },
+            { icon: BookOpen, label: "Resources", id: "resources", href: "/resources" },
             { icon: Settings, label: "Admin", id: "admin", href: "/admin/management" },
         ],
     },
@@ -89,8 +87,21 @@ const navSections: NavSection[] = [
 
 export function Sidebar() {
     const [collapsed, setCollapsed] = useState(false)
+
+    useEffect(() => {
+        const checkMobile = () => {
+            const mobile = window.innerWidth < 768
+            if (mobile) setCollapsed(true)
+        }
+
+        checkMobile()
+        window.addEventListener('resize', checkMobile)
+        return () => window.removeEventListener('resize', checkMobile)
+    }, [])
+
     const [localActive, setLocalActive] = useState("command")
     const pathname = usePathname()
+    const [avatarError, setAvatarError] = useState(false)
 
     return (
         <motion.aside
@@ -99,40 +110,11 @@ export function Sidebar() {
             transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
             className="relative z-20 flex h-screen flex-col border-r border-white/10 bg-black/40 backdrop-blur-xl"
         >
-            {/* Logo */}
+            {/* Logo Section */}
             <div className="flex h-16 items-center gap-3 px-4 border-b border-white/5 shrink-0">
-                <div className="relative flex h-10 w-10 shrink-0 items-center justify-center">
-                    <Image
-                        src="/images/edintel-sovereign-logo.png"
-                        alt="EdIntel Sovereign"
-                        width={40}
-                        height={40}
-                        className="rounded-lg object-contain"
-                        priority
-                    />
-                    <div
-                        className="absolute inset-0 rounded-lg opacity-40 shadow-[0_0_12px_rgba(6,182,212,0.3)] animate-pulse"
-                        style={{
-                            background: "radial-gradient(circle, rgba(6,182,212,0.3), transparent 70%)",
-                        }}
-                    />
-                </div>
-                <AnimatePresence>
-                    {!collapsed && (
-                        <motion.div
-                            initial={{ opacity: 0, width: 0 }}
-                            animate={{ opacity: 1, width: "auto" }}
-                            exit={{ opacity: 0, width: 0 }}
-                            transition={{ duration: 0.2 }}
-                            className="overflow-hidden whitespace-nowrap"
-                        >
-                            <span className="text-sm font-bold tracking-wide text-white">EdIntel</span>
-                            <span className="ml-1 inline-flex rounded-full px-1.5 py-0.5 text-[9px] font-bold text-[#06b6d4] border border-[#06b6d4]/30 bg-[#06b6d4]/10">
-                                SOVEREIGN
-                            </span>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                <Link href="/" className="flex items-center gap-3">
+                    <EdIntelLogo className="scale-75 origin-left" />
+                </Link>
             </div>
 
             {/* Navigation */}
@@ -246,32 +228,30 @@ export function Sidebar() {
                                 <span className="text-[9px] text-white/20">99.9%</span>
                             </div>
 
-                            {/* Founder Footer Section */}
-                            <div className="p-4 mt-auto border-t border-white/5 bg-slate-950/30 backdrop-blur-md rounded-xl mb-2 overflow-hidden">
-                                <div className="flex items-center space-x-3 hover:bg-white/5 p-2 rounded-xl cursor-pointer transition-colors group">
-                                    <div className="h-10 w-10 rounded-full border border-blue-500/30 flex items-center justify-center overflow-hidden relative shrink-0">
-                                        <Image
-                                            src="/images/avatars/dr_alvin_west_executive.jpg"
-                                            alt="Dr. Alvin West"
-                                            fill
-                                            className="object-cover"
-                                            onError={(e) => {
-                                                // Note: onError behavior with next/image is different, usually handled via state
-                                                const target = e.target as HTMLImageElement;
-                                                target.srcset = 'https://ui-avatars.com/api/?name=Alvin+West&background=0D8ABC&color=fff';
-                                            }}
-                                        />
-                                    </div>
-                                    <div className="flex-1 overflow-hidden">
-                                        <p className="text-xs font-bold text-white group-hover:text-blue-400 transition-colors truncate">
-                                            Dr. Alvin West
-                                        </p>
-                                        <p className="text-[10px] text-slate-500 font-medium uppercase tracking-wider truncate">
-                                            Sovereign Founder
-                                        </p>
+                            {/* Founder Footer Section - Clickable Link to About/Dossier */}
+                            <Link href="/about">
+                                <div className="p-4 mt-auto border-t border-white/5 bg-slate-950/30 backdrop-blur-md rounded-xl mb-2 overflow-hidden hover:bg-white/5 transition-colors cursor-pointer group">
+                                    <div className="flex items-center space-x-3 p-2 rounded-xl">
+                                        <div className="h-10 w-10 rounded-full border border-blue-500/30 flex items-center justify-center overflow-hidden relative shrink-0">
+                                            <Image
+                                                src={avatarError ? 'https://ui-avatars.com/api/?name=Alvin+West&background=0D8ABC&color=fff' : "/images/avatars/dr_alvin_west_executive.jpg"}
+                                                alt="Dr. Alvin West"
+                                                fill
+                                                className="object-cover"
+                                                onError={() => setAvatarError(true)}
+                                            />
+                                        </div>
+                                        <div className="flex-1 overflow-hidden">
+                                            <p className="text-xs font-bold text-white group-hover:text-blue-400 transition-colors truncate">
+                                                Dr. Alvin West
+                                            </p>
+                                            <p className="text-[10px] text-slate-500 font-medium uppercase tracking-wider truncate">
+                                                EdIntel Founder
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </Link>
                         </>
                     )}
                 </AnimatePresence>

@@ -1,5 +1,5 @@
 /**
- * EdIntel SOVEREIGN - Payment Status API
+ * EdIntel EdIntel - Payment Status API
  * Check payment status for any payment method
  */
 

@@ -1,5 +1,5 @@
 /**
- * EdIntel SOVEREIGN - Create Payment API
+ * EdIntel EdIntel - Create Payment API
  * Handles payment creation for all supported methods
  */
 

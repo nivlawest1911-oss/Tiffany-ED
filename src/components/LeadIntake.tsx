@@ -23,7 +23,7 @@ export const LeadIntake = () => {
                 .insert([{
                     email,
                     school_name: school,
-                    source: 'Sovereign Website Portal',
+                    source: 'EdIntel Website Portal',
                     status: 'IDENTIFIED'
                 }]);
 
@@ -32,7 +32,7 @@ export const LeadIntake = () => {
                 setStatus('success');
                 celebrate(
                     'Pilot Authorized',
-                    'Your district has been successfully queued for Sovereign integration.',
+                    'Your district has been successfully queued for EdIntel integration.',
                     'prime'
                 );
             }, 1500);
@@ -86,7 +86,7 @@ export const LeadIntake = () => {
                                     <Sparkles className="text-noble-gold w-6 h-6 animate-pulse" />
                                 </div>
                                 <div>
-                                    <h3 className="text-2xl font-black text-white uppercase italic tracking-tighter">Sovereign Intake</h3>
+                                    <h3 className="text-2xl font-black text-white uppercase italic tracking-tighter">EdIntel Intake</h3>
                                     <p className="text-[9px] text-noble-gold/50 uppercase tracking-[0.4em] font-black">Provisioning Portal // v5.1.S</p>
                                 </div>
                             </div>
@@ -127,7 +127,7 @@ export const LeadIntake = () => {
                                 whileHover={{ scale: 1.01 }}
                                 whileTap={{ scale: 0.99 }}
                                 disabled={status === 'submitting'}
-                                className="sovereign-button w-full py-8 text-sm group"
+                                className="EdIntel-button w-full py-8 text-sm group"
                             >
                                 {status === 'submitting' ? (
                                     <div className="flex items-center justify-center gap-3">
@@ -137,14 +137,14 @@ export const LeadIntake = () => {
                                 ) : (
                                     <div className="flex items-center justify-center gap-4">
                                         <Command size={20} className="group-hover:rotate-12 transition-transform" />
-                                        <span>Authorize Sovereign Pilot</span>
+                                        <span>Authorize EdIntel Pilot</span>
                                         <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
                                     </div>
                                 )}
                             </motion.button>
 
                             <p className="pt-6 text-[8px] text-center text-white/20 uppercase tracking-[0.3em] leading-relaxed italic font-bold">
-                                Authentication implies acceptance of Sovereign Data Governance Protocols.<br />
+                                Authentication implies acceptance of EdIntel Data Governance Protocols.<br />
                                 Authorized for Alabama Educational Jurisdictions only.
                             </p>
                         </form>

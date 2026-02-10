@@ -39,7 +39,7 @@ export default function AITwinGenerator() {
                                 Create Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">AI Twin</span>
                             </h2>
                             <p className="text-zinc-400 text-lg leading-relaxed border-l-4 border-indigo-500/30 pl-6">
-                                Upload your biometric data to generate a sovereign digital delegate capable of autonomous leadership tasks, video broadcasts, and strategic communication.
+                                Upload your biometric data to generate a EdIntel digital delegate capable of autonomous leadership tasks, video broadcasts, and strategic communication.
                             </p>
                         </div>
 

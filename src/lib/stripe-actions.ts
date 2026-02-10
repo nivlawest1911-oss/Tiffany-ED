@@ -1,6 +1,6 @@
 import { loadStripe } from '@stripe/stripe-js';
 
-export async function createTokenCheckout(orgId: string, tokenAmount: number, priceInCents: number) {
+export async function createTokenCheckout(orgId: string, tokenAmount: number, priceInCents: number, signal?: AbortSignal) {
     try {
         const response = await fetch('/api/checkout_sessions', {
             method: 'POST',
@@ -11,7 +11,12 @@ export async function createTokenCheckout(orgId: string, tokenAmount: number, pr
                 priceInCents,
                 tierName: "School Site Usage Tokens"
             }),
+            signal
         });
+
+        if (!response.ok) {
+            throw new Error(`Stripe checkout failed: ${response.statusText}`);
+        }
 
         const session = await response.json();
 
@@ -24,6 +29,10 @@ export async function createTokenCheckout(orgId: string, tokenAmount: number, pr
             }
         }
     } catch (error) {
+        if (error instanceof Error && error.name === 'AbortError') {
+            console.log('Stripe checkout cancelled');
+            return;
+        }
         console.error("Stripe Checkout Session Error:", error);
     }
 }

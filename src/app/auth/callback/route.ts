@@ -24,7 +24,7 @@ export async function GET(request: Request) {
                     name,
                     avatar
                 );
-                console.log(`[AUTH CALLBACK] Synced user ${email} to sovereign records.`);
+                console.log(`[AUTH CALLBACK] Synced user ${email} to EdIntel records.`);
             } catch (err) {
                 console.error("[AUTH CALLBACK] User sync failed:", err);
                 // Continue anyway, don't block login

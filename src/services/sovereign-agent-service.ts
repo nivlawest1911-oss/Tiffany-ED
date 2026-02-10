@@ -4,7 +4,7 @@ import { withResilience, ALABAMA_STRATEGIC_DIRECTIVE } from '@/lib/ai-resilience
 import { kv } from '@vercel/kv';
 
 /**
- * SOVEREIGN AGENT SERVICE: Metacognitive Reasoning Layer
+ * EdIntel AGENT SERVICE: Metacognitive Reasoning Layer
  * 
  * Provides:
  * 1. ReAct (Reasoning + Acting) Planning
@@ -22,22 +22,22 @@ const TOOLS_SCHEMA = `
 - SQL_Query: Execute read-only SQL for analytics.
 - Email_Draft: Draft a professional communication via SMTP.
 - Tavus_Uplink: Trigger the AVATAR to speak a specific message.
-- Policy_Check: Scan 'sovereign_vibe.md' and local PDFs for compliance rules.
+- Policy_Check: Scan 'EdIntel_vibe.md' and local PDFs for compliance rules.
 `;
 
-export class SovereignAgentService {
+export class EdIntelAgentService {
 
     /**
      * MAIN ENTRY: Execute a Goal with Metacognitive Planning
      */
-    async executeGoal(goal: string, userContext: any) {
-        console.log(`[Sovereign Agent] Receiving Goal: "${goal}"`);
+    async executeGoal(goal: string, userContext: any, signal?: AbortSignal) {
+        console.log(`[EdIntel Agent] Receiving Goal: "${goal}"`);
 
         // Phase 1: Planning (The "Thought" Step)
-        const plan = await this.generatePlan(goal, userContext);
+        const plan = await this.generatePlan(goal, userContext, signal);
 
         // Phase 2: Criticism (The "Self-Correction" Step)
-        const validatedPlan = await this.criticReview(plan);
+        const validatedPlan = await this.criticReview(plan, signal);
 
         // Phase 3: Execution (The "Action" Step)
         return this.executePlan(validatedPlan);
@@ -46,13 +46,13 @@ export class SovereignAgentService {
     /**
      * GENERATE PLAN: Breaks a complex request into tactical steps.
      */
-    private async generatePlan(goal: string, context: any) {
+    private async generatePlan(goal: string, context: any, signal?: AbortSignal) {
         const cacheKey = `plan:${Buffer.from(goal).toString('base64').substring(0, 32)}`;
 
         try {
             const cached = await kv.get<string>(cacheKey);
             if (cached) {
-                console.log("[Sovereign Agent] Plan retrieved from Neural Cache.");
+                console.log("[EdIntel Agent] Plan retrieved from Neural Cache.");
                 return cached;
             }
         } catch (e) {
@@ -62,8 +62,8 @@ export class SovereignAgentService {
         const prompt = `
         ${ALABAMA_STRATEGIC_DIRECTIVE}
         
-        IDENTITY: You are the "Sovereign Planner" for EdIntel.
-        MISSION: Achieve the user's goal with maximum efficiency and sovereign authority.
+        IDENTITY: You are the "EdIntel Planner" for EdIntel.
+        MISSION: Achieve the user's goal with maximum efficiency and EdIntel authority.
         CONTEXT: User is ${context.role} in Mobile County.
         AVAILABLE TOOLS: ${TOOLS_SCHEMA}
 
@@ -83,9 +83,9 @@ export class SovereignAgentService {
             const response = await openai.chat.completions.create({
                 model: "gpt-4o", // Upgraded for superior multi-modal reasoning
                 messages: [{ role: "system", content: prompt }]
-            });
+            }, { signal });
             return response.choices[0].message.content || "Plan Generation Failed";
-        });
+        }, { signal });
 
         // Cache the plan for 30 minutes
         kv.set(cacheKey, plan, { ex: 1800 }).catch(() => { });
@@ -96,18 +96,18 @@ export class SovereignAgentService {
     /**
      * CRITIC REVIEW: Checks the plan for hallucinations or policy violations.
      */
-    private async criticReview(plan: string) {
+    private async criticReview(plan: string, signal?: AbortSignal) {
         const prompt = `
         ${ALABAMA_STRATEGIC_DIRECTIVE}
 
-        IDENTITY: You are the "Sovereign Critic". You are skeptical and precision-obsessed.
+        IDENTITY: You are the "EdIntel Critic". You are skeptical and precision-obsessed.
         INPUT PLAN:
         ${plan}
 
         TASK:
         Review the plan for:
         1. Hallucinations (Does it reference tables that don't exist?)
-        2. Tone (Is it consistent with the Sovereign Persona?)
+        2. Tone (Is it consistent with the EdIntel Persona?)
         3. Safety (Does it expose FERPA data or violate Alabama Numeracy/Literacy Acts?)
 
         OUTPUT:
@@ -119,14 +119,14 @@ export class SovereignAgentService {
             const response = await openai.chat.completions.create({
                 model: "gpt-4o-mini", // Upgraded from 3.5 for high-speed precision
                 messages: [{ role: "system", content: prompt }]
-            });
+            }, { signal });
 
             const reviewedPlan = response.choices[0].message.content;
             if (reviewedPlan?.includes('[CORRECTED]')) {
-                console.log("[Sovereign Critic] Plan was corrected for safety/policy.");
+                console.log("[EdIntel Critic] Plan was corrected for safety/policy.");
             }
             return reviewedPlan || plan;
-        });
+        }, { signal });
     }
 
     /**
@@ -136,7 +136,7 @@ export class SovereignAgentService {
         return {
             status: "EXECUTING",
             plan_trace: plan,
-            message: "Sovereign Agent is autonomously executing the strategy."
+            message: "EdIntel Agent is autonomously executing the strategy."
         };
     }
 
@@ -144,7 +144,7 @@ export class SovereignAgentService {
      * PROACTIVE MONITOR: Runs on a cron/webhook to find issues before the user asks.
      */
     async runProactiveScan() {
-        const result = await sql`SELECT school_id, token_balance FROM school_sovereignty WHERE token_balance < 100`;
+        const result = await sql`SELECT school_id, token_balance FROM school_EdIntelty WHERE token_balance < 100`;
 
         if (result.rows.length > 0) {
             return {
@@ -158,4 +158,4 @@ export class SovereignAgentService {
     }
 }
 
-export const sovereignAgent = new SovereignAgentService();
+export const EdIntelAgent = new EdIntelAgentService();

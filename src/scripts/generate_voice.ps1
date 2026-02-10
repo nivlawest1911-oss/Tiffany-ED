@@ -1,8 +1,8 @@
 
-# PowerShell Script to Generate Sovereign Voice Asset
+# PowerShell Script to Generate EdIntel Voice Asset
 # Uses Windows System.Speech
 
-$text = "Greetings. I am Doctor West. Welcome to the Sovereign Intelligence Platform. Access granted. Proceed with your protocol."
+$text = "Greetings. I am Doctor West. Welcome to the EdIntel Intelligence Platform. Access granted. Proceed with your protocol."
 $filename = "public\voice-profiles\principal_voice.wav"
 $absolutePath = Join-Path $(Get-Location) $filename
 

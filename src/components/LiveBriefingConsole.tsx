@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Activity, Globe, X } from "lucide-react";
 import { generateProfessionalResponse } from '../lib/leadership-ai';
 import GenerativeLogStream from './GenerativeLogStream';
-import AIAgentAvatar from './AIAgentAvatar';
+import AIAgentAvatar from '@/components/shared/AIAgentAvatar';
 
 interface LiveBriefingConsoleProps {
     name: string;

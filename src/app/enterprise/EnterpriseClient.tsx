@@ -3,7 +3,7 @@
 import React from 'react';
 import { Shield as LucideShield, BarChart3, Users, Zap, CheckCircle, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
-import HolographicBriefing from '@/components/HolographicBriefing';
+import HolographicBriefing from '@/components/intelligence/HolographicBriefing';
 import Image from 'next/image';
 
 export default function EnterpriseClient() {
@@ -12,7 +12,7 @@ export default function EnterpriseClient() {
         {
             icon: LucideShield,
             title: "District Intelligence Shield",
-            desc: "Custom AI deployment with strict regional compliance and data sovereignty."
+            desc: "Custom AI deployment with strict regional compliance and data EdIntelty."
         },
         {
             icon: BarChart3,
@@ -27,7 +27,7 @@ export default function EnterpriseClient() {
         {
             icon: Zap,
             title: "Rapid Deployment",
-            desc: "Zero-config district infrastructure on the Sovereign Grid."
+            desc: "Zero-config district infrastructure on the EdIntel Grid."
         }
     ];
 
@@ -35,7 +35,7 @@ export default function EnterpriseClient() {
         "Unprecedented Administrative Vitality",
         "Automated Compliance Archiving",
         "Predictive Resource Allocation",
-        "Sovereign Data Governance"
+        "EdIntel Data Governance"
     ];
 
     return (
@@ -60,7 +60,7 @@ export default function EnterpriseClient() {
                             onClose={() => setShowBriefing(false)}
                             agentId="strategic"
                             title="District Command Briefing"
-                            description="Initializing enterprise-grade handshake. We are scaling the EdIntel ecosystem to meet your regional requirements. Protocol: Maximum Sovereignty."
+                            description="Initializing enterprise-grade handshake. We are scaling the EdIntel ecosystem to meet your regional requirements. Protocol: Maximum EdIntelty."
                             briefingSteps={[
                                 "Map district neural architecture requirements.",
                                 "Initialize regional data residency shielding.",
@@ -77,7 +77,7 @@ export default function EnterpriseClient() {
                         </button>
 
                         <h1 className="text-6xl md:text-8xl font-black text-white tracking-tighter">
-                            District-Wide <span className="text-blue-500 italic">Sovereignty</span>
+                            District-Wide <span className="text-blue-500 italic">EdIntelty</span>
                         </h1>
 
                         <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
@@ -153,7 +153,7 @@ export default function EnterpriseClient() {
                 <div className="max-w-4xl mx-auto text-center p-12 rounded-3xl bg-zinc-900 border border-white/10 relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-transparent pointer-events-none" />
                     <h2 className="text-4xl font-black text-white mb-6 relative z-10">Initialize District Protocol</h2>
-                    <p className="text-zinc-400 mb-8 relative z-10">Schedule a secure consultation with our engineering directors to customize your Sovereign Grid deployment.</p>
+                    <p className="text-zinc-400 mb-8 relative z-10">Schedule a secure consultation with our engineering directors to customize your EdIntel Grid deployment.</p>
                     <button className="relative z-10 px-12 py-5 bg-blue-600 text-white font-black uppercase text-sm tracking-widest hover:bg-blue-500 transition-all rounded-xl inline-flex items-center gap-3">
                         Contact Sales <ArrowRight size={18} />
                     </button>

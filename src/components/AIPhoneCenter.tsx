@@ -4,7 +4,7 @@
  * AI Phone Center - Beautiful UI for phone agent management
  */
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
     Phone,
@@ -33,9 +33,9 @@ interface PhoneCall {
 }
 
 export default function AIPhoneCenter() {
-    const [activeCalls, setActiveCalls] = useState<PhoneCall[]>([]);
-    const [callHistory, setCallHistory] = useState<PhoneCall[]>([]);
-    const [stats, setStats] = useState({
+    const [activeCalls] = useState<PhoneCall[]>([]);
+    const [callHistory] = useState<PhoneCall[]>([]);
+    const [stats] = useState({
         totalCalls: 0,
         activeNow: 0,
         averageDuration: 0,
@@ -155,7 +155,7 @@ export default function AIPhoneCenter() {
  * Stat Card Component
  */
 function StatCard({ icon: Icon, label, value, trend, color }: any) {
-    const colorClasses = {
+    const colorClasses: Record<string, string> = {
         indigo: 'from-indigo-500 to-indigo-600',
         green: 'from-green-500 to-green-600',
         amber: 'from-amber-500 to-amber-600',
@@ -249,16 +249,28 @@ function OutboundCallForm() {
     const [message, setMessage] = useState('');
     const [voice, setVoice] = useState('drAlvinWest');
     const [loading, setLoading] = useState(false);
+    const abortControllerRef = useRef<AbortController | null>(null);
+
+    useEffect(() => {
+        return () => {
+            if (abortControllerRef.current) abortControllerRef.current.abort();
+        };
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
+
+        if (abortControllerRef.current) abortControllerRef.current.abort();
+        const controller = new AbortController();
+        abortControllerRef.current = controller;
 
         try {
             const response = await fetch('/api/phone/outbound', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ to: phoneNumber, message, voice }),
+                signal: controller.signal
             });
 
             const data = await response.json();
@@ -270,11 +282,15 @@ function OutboundCallForm() {
             } else {
                 alert('Failed to initiate call');
             }
-        } catch (error) {
+        } catch (error: any) {
+            if (error.name === 'AbortError') return;
             console.error('Call error:', error);
             alert('Error making call');
         } finally {
-            setLoading(false);
+            if (abortControllerRef.current === controller) {
+                setLoading(false);
+                abortControllerRef.current = null;
+            }
         }
     };
 

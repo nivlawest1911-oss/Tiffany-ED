@@ -30,6 +30,8 @@ export default function HuggingFaceAvatar({
     useEffect(() => {
         if (!textToSpeak) return;
 
+        const controller = new AbortController();
+
         const generateSpeech = async () => {
             setIsLoading(true);
             setError(null);
@@ -39,14 +41,22 @@ export default function HuggingFaceAvatar({
                 const res = await fetch('/api/huggingface/tts', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ text: textToSpeak })
+                    body: JSON.stringify({ text: textToSpeak }),
+                    signal: controller.signal
                 });
 
                 if (!res.ok) throw new Error("Failed to generate speech");
 
                 const blob = await res.blob();
+                // Check abort before creating object URL to save memory if cancelled
+                if (controller.signal.aborted) return;
+
                 const url = URL.createObjectURL(blob);
-                setAudioSrc(url);
+
+                setAudioSrc(prev => {
+                    if (prev) URL.revokeObjectURL(prev); // Cleanup previous
+                    return url;
+                });
                 setIsLoading(false);
 
                 // Auto-play
@@ -57,6 +67,7 @@ export default function HuggingFaceAvatar({
                 }
 
             } catch (err: any) {
+                if (err.name === 'AbortError') return;
                 console.error("HF Avatar Error:", err);
                 setError(err.message);
                 setIsLoading(false);
@@ -67,9 +78,16 @@ export default function HuggingFaceAvatar({
 
         // Cleanup
         return () => {
+            controller.abort();
+        };
+    }, [textToSpeak]);
+
+    // Cleanup audio URL independently to avoid loops
+    useEffect(() => {
+        return () => {
             if (audioSrc) URL.revokeObjectURL(audioSrc);
         };
-    }, [textToSpeak, audioSrc]);
+    }, [audioSrc]);
 
     return (
         <div className={`relative overflow-hidden rounded-3xl border border-white/10 bg-zinc-950 group ${className}`}>

@@ -8,21 +8,17 @@ export default async function DashboardPage() {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
 
-    let subscription = null;
-
     if (user) {
         // Fetch subscription
-        const { data: subData } = await supabase
+        await supabase
             .from('user_subscriptions')
             .select('*')
             .eq('user_id', user.id)
             .single();
-
-        subscription = subData;
     }
 
     // Tier information can be used for future conditional rendering in Dashboard component
-    // const tier = subscription?.tier_name || 'Sovereign Initiate';
+    // const tier = subscription?.tier_name || 'EdIntel Initiate';
 
     return (
         <div className="min-h-screen bg-transparent">

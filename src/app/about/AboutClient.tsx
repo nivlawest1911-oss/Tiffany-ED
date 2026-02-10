@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import FounderDossier from '@/components/founder-dossier';
 
 export default function AboutClient() {
     return (
@@ -23,7 +24,7 @@ export default function AboutClient() {
                         Mission Brief
                     </h1>
                     <p className="text-xl text-muted-foreground">
-                        Constructing the digital infrastructure for sovereign entities.
+                        Constructing the digital infrastructure for EdIntel entities.
                     </p>
                 </motion.div>
 
@@ -32,7 +33,7 @@ export default function AboutClient() {
                     <div className="glass-panel p-10 rounded-3xl">
                         <h3 className="text-2xl font-bold mb-4 text-white">Strategic Vision</h3>
                         <p className="text-muted-foreground leading-relaxed">
-                            To empower decentralized autonomy through robust, scalable, and secure operational frameworks. We do not just build software; we architect sovereignty.
+                            To empower decentralized autonomy through robust, scalable, and secure operational frameworks. We do not just build software; we architect EdIntelty.
                         </p>
                     </div>
                     <div className="glass-panel p-10 rounded-3xl">
@@ -41,6 +42,10 @@ export default function AboutClient() {
                             Deploying advanced neural interfaces and low-latency grids to ensure absolute control and visibility over your digital domain.
                         </p>
                     </div>
+                </div>
+
+                <div className="mt-20">
+                    <FounderDossier />
                 </div>
             </div>
         </main>

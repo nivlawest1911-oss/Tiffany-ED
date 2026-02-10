@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Building2, TrendingUp, Shield as LucideShield, PieChart, Activity, Lock, Phone, Sparkles } from 'lucide-react';
-import HolographicBriefing from '@/components/HolographicBriefing';
+import HolographicBriefing from '@/components/intelligence/HolographicBriefing';
+import Image from 'next/image';
 
 
 export default function DistrictStrategyClient() {
@@ -213,13 +214,25 @@ export default function DistrictStrategyClient() {
 
                                         <div className="mt-12 pt-8 border-t border-zinc-100 flex items-center justify-between">
                                             <div className="flex items-center gap-4">
-                                                <img src="/images/avatars/dr_alvin_west_premium.png" alt="Dr. West" className="w-16 h-16 rounded-full border-2 border-zinc-100" />
+                                                <Image
+                                                    src="/images/avatars/dr_alvin_west_premium.png"
+                                                    alt="Dr. West"
+                                                    className="w-16 h-16 rounded-full border-2 border-zinc-100"
+                                                    width={64}
+                                                    height={64}
+                                                />
                                                 <div>
                                                     <div className="font-bold text-lg leading-tight">Dr. Alvin West, DBA</div>
                                                     <div className="text-xs text-zinc-500 uppercase tracking-wider">Executive Consultant</div>
                                                 </div>
                                             </div>
-                                            <img src="/logo_dark.png" alt="Professional" className="h-8 opacity-20" />
+                                            <Image
+                                                src="/logo_dark.png"
+                                                alt="Professional"
+                                                className="h-8 w-auto opacity-20"
+                                                width={100}
+                                                height={32}
+                                            />
                                         </div>
                                     </div>
 

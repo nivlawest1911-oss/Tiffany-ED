@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { SovereignGate } from '@/components/SovereignGate';
+import { EdIntelGate } from '@/components/sovereign/EdIntelGate';
 
 interface StudioVideoSectionProps {
     userTier: string;
@@ -71,7 +71,7 @@ export const StudioVideoSection = ({ userTier, isCommandLevel }: StudioVideoSect
                 </div>
             </div>
 
-            <SovereignGate
+            <EdIntelGate
                 isOpen={gateOpen}
                 onClose={() => setGateOpen(false)}
                 toolName={selectedTool}

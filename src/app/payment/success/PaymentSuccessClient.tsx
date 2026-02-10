@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * EdIntel SOVEREIGN - Payment Success Page Client
+ * EdIntel EdIntel - Payment Success Page Client
  * Celebrates successful payment with high-fidelity protocol visuals
  */
 
@@ -23,7 +23,7 @@ export default function PaymentSuccessClient() {
 
     return (
         <div className="min-h-screen bg-black flex items-center justify-center p-6 relative overflow-hidden">
-            {/* Sovereign Background elements */}
+            {/* EdIntel Background elements */}
             <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] scale-150" />
             </div>
@@ -91,7 +91,7 @@ export default function PaymentSuccessClient() {
                         Access <span className="text-noble-gold italic">Granted</span>
                     </h1>
                     <p className="text-xl font-black text-noble-gold uppercase tracking-widest mb-2">
-                        Welcome to the Sovereign Network
+                        Welcome to the EdIntel Network
                     </p>
                     <p className="text-white/40 text-sm font-medium">
                         Your neural protocols have been updated and all premium tiers are now unlocked.
@@ -144,7 +144,7 @@ export default function PaymentSuccessClient() {
                                 className="flex items-center justify-between p-4 bg-zinc-800/50 border border-zinc-700/50 rounded-xl hover:bg-zinc-700 transition-all group"
                             >
                                 <div className="text-left">
-                                    <h4 className="font-bold text-white text-xs uppercase tracking-wider">Sovereign Dashboard</h4>
+                                    <h4 className="font-bold text-white text-xs uppercase tracking-wider">EdIntel Dashboard</h4>
                                     <p className="text-[10px] text-white/40 uppercase">Access all high-tier AI nodes and protocols</p>
                                 </div>
                                 <ArrowRight className="w-4 h-4 text-noble-gold group-hover:translate-x-1 transition-transform" />

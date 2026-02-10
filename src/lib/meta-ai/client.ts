@@ -157,9 +157,9 @@ export class MetaAIClient {
     /**
      * Generate chat completion with Llama
      */
-    async chat(request: ChatCompletionRequest): Promise<ChatCompletionResponse> {
+    async chat(request: ChatCompletionRequest, options?: { signal?: AbortSignal }): Promise<ChatCompletionResponse> {
         if (this.provider === 'replicate') {
-            return this.chatReplicate(request);
+            return this.chatReplicate(request, options);
         }
 
         return this.request('/chat/completions', {
@@ -172,13 +172,14 @@ export class MetaAIClient {
                 top_p: request.top_p || 0.9,
                 stream: request.stream || false,
             }),
+            signal: options?.signal
         });
     }
 
     /**
      * Chat completion for Replicate
      */
-    private async chatReplicate(request: ChatCompletionRequest): Promise<ChatCompletionResponse> {
+    private async chatReplicate(request: ChatCompletionRequest, options?: { signal?: AbortSignal }): Promise<ChatCompletionResponse> {
         // Format messages for Replicate
         const prompt = request.messages
             .map(m => `${m.role}: ${m.content}`)
@@ -194,16 +195,38 @@ export class MetaAIClient {
                     temperature: request.temperature || 0.7,
                 },
             }),
+            signal: options?.signal
         });
 
         // Poll for completion
         const prediction: any = response;
         let attempts = 0;
+
         while (attempts < 60 && prediction.status !== 'succeeded') {
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            const status = await this.request(`/predictions/${prediction.id}`, {});
+            if (options?.signal?.aborted) {
+                throw new DOMException('Aborted', 'AbortError');
+            }
+
+            // Wait 1s with abort support
+            await new Promise((resolve, reject) => {
+                const timeout = setTimeout(resolve, 1000);
+                if (options?.signal) {
+                    options.signal.addEventListener('abort', () => {
+                        clearTimeout(timeout);
+                        reject(new DOMException('Aborted', 'AbortError'));
+                    }, { once: true });
+                }
+            });
+
+            const status = await this.request(`/predictions/${prediction.id}`, {
+                signal: options?.signal
+            });
             Object.assign(prediction, status);
             attempts++;
+        }
+
+        if (prediction.status !== 'succeeded' && !options?.signal?.aborted) {
+            throw new Error(`Replicate prediction failed or timed out: ${prediction.status}`);
         }
 
         return {
@@ -393,7 +416,7 @@ Provide clean, well-commented code.`;
     }
 
     /**
-     * Generate quiz questions with Sovereign OS: Quiz Synthesis Directive
+     * Generate quiz questions with EdIntel OS: Quiz Synthesis Directive
      */
     async generateQuiz(
         topic: string,
@@ -403,7 +426,7 @@ Provide clean, well-commented code.`;
         const systemMessage = `
             ${ALABAMA_STRATEGIC_DIRECTIVE}
             
-            SOVEREIGN OS: QUIZ SYNTHESIS SPECIFIC
+            EdIntel OS: QUIZ SYNTHESIS SPECIFIC
             Target: ${topic}
             Count: ${numQuestions} questions
             Type: ${questionType}
@@ -419,7 +442,7 @@ Provide clean, well-commented code.`;
             }
         `;
 
-        const userPrompt = `Generate ${numQuestions} ${questionType} questions about ${topic} following the Sovereign OS Directive. Ensure high-fidelity compliance.`;
+        const userPrompt = `Generate ${numQuestions} ${questionType} questions about ${topic} following the EdIntel OS Directive. Ensure high-fidelity compliance.`;
 
         const response = await this.complete(userPrompt, {
             max_tokens: 3000,

@@ -107,15 +107,15 @@ const AI_VIDEOS: VideoShowcase[] = [
     },
     {
         id: 11,
-        title: 'Sovereign Identity Synchronicity',
+        title: 'EdIntel Identity Synchronicity',
         description: 'Observe the zero-latency synchronization between the user and their digital twin.',
         thumbnail: '/images/avatars/executive_leader.png',
         videoUrl: '/videos/Burnout Fix Awaits.mp4',
         duration: '2:15',
         category: 'Identity',
         aiGenerated: true,
-        briefingContent: "Identity Link Confirmed. We are witnessing the bilateral transfer of leadership heuristics. The Sovereign Twin doesn't just mimic voice; it inherits the user's specific policy preferences and cultural context. This allows for 'Delegate Without Deployment'—the ability to be in 10 school buildings simultaneously through a unified executive mirror.",
-        brieferName: "Your Sovereign Twin",
+        briefingContent: "Identity Link Confirmed. We are witnessing the bilateral transfer of leadership heuristics. The EdIntel Twin doesn't just mimic voice; it inherits the user's specific policy preferences and cultural context. This allows for 'Delegate Without Deployment'—the ability to be in 10 school buildings simultaneously through a unified executive mirror.",
+        brieferName: "Your EdIntel Twin",
         brieferRole: "Executive Mirror",
         brieferAvatar: "/images/avatars/executive_leader.png"
     },
@@ -154,7 +154,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         title: 'Daily District News (InVideo)',
         description: 'Automated synthesis of daily bulletins into engaging, broadcast-quality video updates.',
         thumbnail: '/images/integrations/invideo_thumb.png',
-        videoUrl: '/videos/EdIntel_Sovereign_OS_Layout_Enhancements.mp4',
+        videoUrl: '/videos/EdIntel_EdIntel_OS_Layout_Enhancements.mp4',
         duration: '3:00',
         category: 'Broadcast',
         aiGenerated: true,
@@ -208,19 +208,19 @@ const AI_VIDEOS: VideoShowcase[] = [
         brieferRole: "Assessment AI",
         brieferAvatar: "/images/avatars/executive_leader.png"
     },
-    // --- SOVEREIGN EXECUTIVE ---
+    // --- EdIntel EXECUTIVE ---
     {
         id: 999,
-        title: 'Sovereign Directive: CEO Update',
-        description: 'Direct neural uplink from the Executive Sovereign regarding Q1 strategic alignment.',
+        title: 'EdIntel Directive: CEO Update',
+        description: 'Direct neural uplink from the Executive EdIntel regarding Q1 strategic alignment.',
         thumbnail: '/images/avatars/executive_leader.png',
         videoUrl: '/videos/Strategic Superintendent Briefing.mp4',
         duration: '1:15',
         category: 'Internal - Executive',
         aiGenerated: true, // It's an AI avatar of the human
-        briefingContent: "Command Authority Recognized. I am sharing this directive from the Executive Sovereign console. Our current trajectory indicates a 14% increase in instructional efficacy across the pilot districts. Accessing the Neural Archives... visualization complete. We are now deploying the 'Titan' protocol for district-wide fiscal optimization. as we move forward, ensure all delegates are aligned with the new compliance vectors.",
+        briefingContent: "Command Authority Recognized. I am sharing this directive from the Executive EdIntel console. Our current trajectory indicates a 14% increase in instructional efficacy across the pilot districts. Accessing the Neural Archives... visualization complete. We are now deploying the 'Titan' protocol for district-wide fiscal optimization. as we move forward, ensure all delegates are aligned with the new compliance vectors.",
         brieferName: "Dr. Alvin West",
-        brieferRole: "Executive Sovereign",
+        brieferRole: "Executive EdIntel",
         brieferAvatar: "/images/avatars/executive_leader.png"
     },
     {
@@ -262,7 +262,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         aiGenerated: true,
         briefingContent: "Initiating Strategy Heuristics. We are currently observing a 5-year predictive model for district expansion. By analyzing demographic shifts and funding vectors, we ensure long-term solvency. This isn't just a plan; it's a dynamic architectural blueprint for educational legacy.",
         brieferName: "Dr. Alvin West (Core)",
-        brieferRole: "Executive Sovereign",
+        brieferRole: "Executive EdIntel",
         brieferAvatar: "/images/avatars/executive_leader.png"
     },
     {
@@ -276,7 +276,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         aiGenerated: true,
         briefingContent: "Calibrating Human Fidelity. This demo showcases our proprietary 'Neural Mirror' technology. Notice how the avatar's micro-expressions and speech patterns perfectly align with the user's biometric data. This is how we eliminate the 'uncanny valley' and create true leadership presence.",
         brieferName: "Dr. Alvin West (Core)",
-        brieferRole: "Executive Sovereign",
+        brieferRole: "Executive EdIntel",
         brieferAvatar: "/images/avatars/executive_leader.png"
     },
     {
@@ -290,7 +290,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         aiGenerated: true,
         briefingContent: "Executing Quantum Audit. We are scanning 14,000 line items across state and federal funding streams. The system identifies potential misallocations and recovers operational capital in micro-seconds. Your budget is no longer a static document; it's an optimized engine for district growth.",
         brieferName: "Dr. Alvin West (Core)",
-        brieferRole: "Executive Sovereign",
+        brieferRole: "Executive EdIntel",
         brieferAvatar: "/images/avatars/executive_leader.png"
     },
 ];

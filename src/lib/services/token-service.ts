@@ -1,12 +1,12 @@
 import { sql } from '@/lib/db';
-import { SOVEREIGN_TIERS } from '@/lib/pricing-config';
+import { EdIntel_TIERS } from '@/lib/pricing-config';
 
 export class TokenService {
     /**
      * Get the initial token allocation for a given tier.
      */
     static getInitialTokensForTier(tierName: string): number {
-        const tier = SOVEREIGN_TIERS.find(t =>
+        const tier = EdIntel_TIERS.find(t =>
             t.name.toLowerCase() === tierName.toLowerCase() ||
             t.id === tierName.toLowerCase()
         );

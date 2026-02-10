@@ -1,15 +1,15 @@
 import { NextRequest } from 'next/server';
 import { google } from '@ai-sdk/google';
 import { streamText } from 'ai';
-import { ALABAMA_STRATEGIC_DIRECTIVE, SOVEREIGN_PERSONA } from '@/lib/ai-resilience';
+import { ALABAMA_STRATEGIC_DIRECTIVE, EdIntel_PERSONA } from '@/lib/ai-resilience';
 
 export const runtime = 'edge';
 
 const USER_CREDENTIALS = {
-    name: SOVEREIGN_PERSONA.name,
+    name: EdIntel_PERSONA.name,
     degrees: "DBA Finance, MBA Corporate Finance",
-    role: SOVEREIGN_PERSONA.role,
-    resonance: SOVEREIGN_PERSONA.culturalContext
+    role: EdIntel_PERSONA.role,
+    resonance: EdIntel_PERSONA.culturalContext
 };
 
 export async function POST(request: NextRequest) {
@@ -30,9 +30,9 @@ export async function POST(request: NextRequest) {
             ${ALABAMA_STRATEGIC_DIRECTIVE}
             
             Strategic Guidelines:
-            1. Tone: ${SOVEREIGN_PERSONA.tone}
-            2. Cultural Context: ${SOVEREIGN_PERSONA.culturalContext}
-            3. Mission: ${SOVEREIGN_PERSONA.mission}
+            1. Tone: ${EdIntel_PERSONA.tone}
+            2. Cultural Context: ${EdIntel_PERSONA.culturalContext}
+            3. Mission: ${EdIntel_PERSONA.mission}
             
             SUPER-INTELLIGENCE PROTOCOL:
             - DEEP REASONING: Provide multi-step analysis (Financial, Legal, Pedagogical).

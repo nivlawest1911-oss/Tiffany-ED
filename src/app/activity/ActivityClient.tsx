@@ -87,7 +87,7 @@ export default function ActivityClient() {
 
     return (
         <main className="content-stage min-h-screen bg-black relative overflow-hidden">
-            {/* Sovereign Background elements */}
+            {/* EdIntel Background elements */}
             <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] scale-150" />
             </div>

@@ -1,10 +1,10 @@
-export class SovereignGraph {
+export class EdIntelGraph {
     // This is the "One-Stop Shop" Logic Manager
     // In a full LangGraph implementation, this defines the Nodes and Edges of conversation flow.
     // For now, it serves as the mock structure to route intents to the correct sub-agent.
 
     static async route(intent: string, context: any) {
-        console.log(`[SovereignGraph] Routing Intent: ${intent}`);
+        console.log(`[EdIntelGraph] Routing Intent: ${intent}`);
 
         // 1. Analyze Intent (Mock Classifier)
         if (intent.includes('IEP') || intent.includes('Special Ed')) {
@@ -23,11 +23,11 @@ export class SovereignGraph {
 
     private static async delegateTo(agentId: string, task: string, _context: any) {
         // Here we would call the specific agent tool or tailored prompt
-        console.log(`[SovereignGraph] Delegated to ${agentId}`);
+        console.log(`[EdIntelGraph] Delegated to ${agentId}`);
         return {
             agent: agentId,
             status: 'processing',
-            message: `Sovereign Protocol Initiated: ${agentId} is analyzing your request.`
+            message: `EdIntel Protocol Initiated: ${agentId} is analyzing your request.`
         };
     }
 }

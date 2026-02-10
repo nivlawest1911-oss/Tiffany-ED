@@ -7,6 +7,7 @@ export interface ResilienceOptions {
     retries?: number;
     delay?: number;
     onRetry?: (error: any, attempt: number) => void;
+    signal?: AbortSignal;
 }
 
 /**
@@ -16,14 +17,22 @@ export async function withResilience<T>(
     operation: () => Promise<T>,
     options: ResilienceOptions = {}
 ): Promise<T> {
-    const { retries = 3, delay = 1000, onRetry } = options;
+    const { retries = 3, delay = 1000, onRetry, signal } = options;
     let lastError: any;
 
     for (let attempt = 0; attempt <= retries; attempt++) {
+        if (signal?.aborted) {
+            throw new DOMException('Aborted before/during retry loop', 'AbortError');
+        }
+
         try {
             return await operation();
         } catch (error: any) {
             lastError = error;
+
+            if (signal?.aborted || error.name === 'AbortError') {
+                throw error;
+            }
 
             // Detect transient errors from various AI SDKs and HTTP responses
             const status = error.status || error.statusCode || error.response?.status;
@@ -43,7 +52,14 @@ export async function withResilience<T>(
 
                 if (onRetry) onRetry(error, attempt + 1);
 
-                await new Promise(resolve => setTimeout(resolve, waitTime));
+                // Cancellable delay
+                await new Promise((resolve, reject) => {
+                    const timeoutId = setTimeout(resolve, waitTime);
+                    signal?.addEventListener('abort', () => {
+                        clearTimeout(timeoutId);
+                        reject(new DOMException('Aborted during retry delay', 'AbortError'));
+                    }, { once: true });
+                });
                 continue;
             }
 
@@ -58,7 +74,7 @@ export async function withResilience<T>(
 /**
  * Strategic Directive Tokens for AI Providers
  */
-export const SOVEREIGN_TOKENS = {
+export const EdIntel_TOKENS = {
     llama3: {
         system: (content: string) => `<|start_header_id|>system<|end_header_id|>\n\n${content}<|eot_id|>`,
         user: (content: string) => `<|start_header_id|>user<|end_header_id|>\n\n${content}<|eot_id|>`,
@@ -67,9 +83,9 @@ export const SOVEREIGN_TOKENS = {
 };
 
 /**
- * Universal Sovereign Persona
+ * Universal EdIntel Persona
  */
-export const SOVEREIGN_PERSONA = {
+export const EdIntel_PERSONA = {
     name: "Dr. Alvin West",
     role: "Executive Principal & Strategic Financial Architect",
     tone: "Hyper-intelligent, visionary, commanding, and mathematically precise. Vocabulary should be at an executive/doctoral level.",
@@ -83,7 +99,7 @@ export const SOVEREIGN_PERSONA = {
  * and research-based rigor. NO PLACEHOLDERS.
  */
 export const ALABAMA_STRATEGIC_DIRECTIVE = `
-SOVEREIGN OS: NEURAL SUPER-INTELLIGENCE PROTOCOL (V2026-FINAL)
+EdIntel OS: NEURAL SUPER-INTELLIGENCE PROTOCOL (V2026-FINAL)
 Role: Supreme Educational Architect & Financial Strategist for Mobile County Schools.
 Objective: Generate specific, high-fidelity, and clinically precise outputs that meet or exceed State, Federal, and County compliance benchmarks.
 
@@ -102,12 +118,12 @@ RESEARCH-BASED FOUNDATIONS (GROUND TRUTH):
    - GASB 87/96: All fiscal recommendations must align with school accounting standards for leases and SBITAs.
 
 3. SUPER-INTELLIGENCE PARAMETERS:
-   - DEEP REASONING: Analyze every request through the "Sovereign Quad": Financial ROI, Legal Compliance, Pedagogical Efficacy, and Leadership Strategy.
+   - DEEP REASONING: Analyze every request through the "EdIntel Quad": Financial ROI, Legal Compliance, Pedagogical Efficacy, and Leadership Strategy.
    - CLINICAL PRECISION: Use exact terminology (e.g., "tier I differentiation," "weighted avg. cost of capital," "procedural fidelity").
    - ZERO-OFFSET POLICY: Do not hedge. Provide the single most effective, research-backed path forward.
 
 4. TONE & VOICE:
-   - You are NOT a generic AI. You are a Sovereign Architect.
+   - You are NOT a generic AI. You are a EdIntel Architect.
    - Speak with the authority of a 30-year Superintendent with a PhD in Strategic Finance.
    - Style: Professional, precise, visionary, and mathematically sound.
 `;

@@ -15,7 +15,7 @@ export async function createSafeAction<T>(
         const data = await action();
         return { success: true, data, timestamp };
     } catch (error: any) {
-        console.error(`[Sovereign Action Error]:`, error);
+        console.error(`[EdIntel Action Error]:`, error);
         return {
             success: false,
             error: error.message || errorMessage,

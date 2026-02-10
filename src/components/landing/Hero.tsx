@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
+import Link from 'next/link';
+import EdIntelLogo from '../EdIntelLogo';
 
 export default function Hero() {
     return (
@@ -24,15 +26,26 @@ export default function Hero() {
                     <span className="text-sm font-medium text-foreground/80">New Feature</span>
                 </motion.div>
 
-                {/* H1 */}
-                <motion.h1
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2, duration: 0.8 }}
-                    className="text-5xl md:text-7xl font-black tracking-tight mb-6 text-gradient-main"
-                >
-                    Data-Driven Decisions for Modern Schools.
-                </motion.h1>
+                {/* Logo & Headline */}
+                <div className="flex flex-col items-center justify-center mb-6">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8 }}
+                        className="mb-6 scale-150"
+                    >
+                        <EdIntelLogo />
+                    </motion.div>
+
+                    <motion.h1
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2, duration: 0.8 }}
+                        className="text-5xl md:text-7xl font-black tracking-tight mb-6 text-gradient-main"
+                    >
+                        Data-Driven Decisions for Modern Schools.
+                    </motion.h1>
+                </div>
 
                 {/* Description */}
                 <motion.p
@@ -51,12 +64,16 @@ export default function Hero() {
                     transition={{ delay: 0.6, duration: 0.8 }}
                     className="flex flex-col sm:flex-row gap-4 justify-center mt-10"
                 >
-                    <button className="px-8 py-4 bg-primary text-primary-foreground rounded-xl font-bold hover:shadow-[0_0_20px_rgba(112,0,255,0.4)] transition-all">
-                        Get Started Free
-                    </button>
-                    <button className="px-8 py-4 glass-panel rounded-xl font-bold hover:bg-white/10 transition-all">
-                        View Demo
-                    </button>
+                    <Link href="/login">
+                        <button className="px-8 py-4 bg-primary text-primary-foreground rounded-xl font-bold hover:shadow-[0_0_20px_rgba(112,0,255,0.4)] transition-all">
+                            Get Started Free
+                        </button>
+                    </Link>
+                    <Link href="/#how-it-works">
+                        <button className="px-8 py-4 glass-panel rounded-xl font-bold hover:bg-white/10 transition-all">
+                            View Demo
+                        </button>
+                    </Link>
                 </motion.div>
             </div>
         </section>

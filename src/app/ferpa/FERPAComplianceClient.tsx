@@ -2,7 +2,7 @@
 
 import { ShieldCheck, Lock, FileKey, Check, Server, EyeOff } from 'lucide-react';
 import { motion } from 'framer-motion';
-import HolographicBriefing from '@/components/HolographicBriefing';
+import HolographicBriefing from '@/components/intelligence/HolographicBriefing';
 import { useState } from 'react';
 
 export default function FERPAComplianceClient() {
@@ -57,7 +57,7 @@ export default function FERPAComplianceClient() {
                         onClose={() => setShowBriefing(false)}
                         agentId="strategic"
                         title="Compliance Protocol"
-                        description="Initializing security handshake. We have verified all institutional data sovereignty layers. The EdIntel system matches the FERPA Ironclad standard."
+                        description="Initializing security handshake. We have verified all institutional data EdIntelty layers. The EdIntel system matches the FERPA Ironclad standard."
                         briefingSteps={[
                             "Sync AES-256 encryption handshake.",
                             "Verify Zero-Training data isolation.",

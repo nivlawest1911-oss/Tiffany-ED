@@ -6,10 +6,10 @@ import { put } from '@vercel/blob';
  * professional teaching media remains owned and accessible by EdIntel.
  */
 
-export async function depositToMemoryBank(url: string, filename: string) {
+export async function depositToMemoryBank(url: string, filename: string, signal?: AbortSignal) {
     try {
         // Fetch the media from the transient URL
-        const response = await fetch(url);
+        const response = await fetch(url, { signal });
         const blob = await response.blob();
 
         // Deposit into the permanent Vault (Vercel Blob)

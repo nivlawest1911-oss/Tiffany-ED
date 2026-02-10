@@ -14,7 +14,7 @@ interface NeuralSynthesisHUDProps {
 export const NeuralSynthesisHUD: React.FC<NeuralSynthesisHUDProps> = ({
     isActive,
     phase,
-    strategies = ["Baseline Operational Scaffolding", "Risk-Mitigated Intervention", "Sovereign Growth Protocol"],
+    strategies = ["Baseline Operational Scaffolding", "Risk-Mitigated Intervention", "EdIntel Growth Protocol"],
     complianceScore = 98.7
 }) => {
     const [scannedLines, setScannedLines] = useState<string[]>([]);

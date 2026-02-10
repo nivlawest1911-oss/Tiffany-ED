@@ -7,7 +7,7 @@ import IEPGenerator from '@/components/bento/IEPGenerator';
 import LeadershipGenerator from '@/components/bento/LeadershipGenerator';
 import LessonPlanGenerator from '@/components/bento/LessonPlanGenerator';
 import AutomatedIEPAudit from '@/components/bento/AutomatedIEPAudit';
-import HolographicBriefing from '@/components/HolographicBriefing';
+import HolographicBriefing from '@/components/intelligence/HolographicBriefing';
 import { useState } from 'react';
 
 
@@ -40,7 +40,7 @@ export default function ToolsClient() {
                                 onClose={() => setShowBriefing(false)}
                                 agentId="visionary"
                                 title="Neural Command Center Overview"
-                                description="I am Dr. Alvin West. You have reached the core cognitive layer of the Sovereign OS. Here, you manage the high-stakes intelligence nodes that power your district."
+                                description="I am Dr. Alvin West. You have reached the core cognitive layer of the EdIntel OS. Here, you manage the high-stakes intelligence nodes that power your district."
                                 briefingSteps={[
                                     "Select an Intelligence Node for specialized protocol generation.",
                                     "Monitor real-time system load and node activity telemetry.",

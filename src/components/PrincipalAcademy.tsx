@@ -42,14 +42,14 @@ export default function PrincipalAcademy() {
                     >
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-500 text-[10px] font-bold uppercase tracking-[0.3em] mb-8">
                             <Award size={12} />
-                            <span>Sovereign Principal Academy</span>
+                            <span>EdIntel Principal Academy</span>
                         </div>
                         <h2 className="text-5xl md:text-7xl font-black text-white mb-8 leading-none tracking-tighter">
                             THE ELITE <br />
                             <span className="text-zinc-600 italic">COMMAND.</span>
                         </h2>
                         <p className="text-xl text-zinc-400 mb-12 font-light leading-relaxed">
-                            Beyond management. This is the inner circle for leaders who architect districts from first principles. Access exclusive simulations, executive briefs, and a global network of sovereign administrators.
+                            Beyond management. This is the inner circle for leaders who architect districts from first principles. Access exclusive simulations, executive briefs, and a global network of EdIntel administrators.
                         </p>
 
                         <div className="space-y-6">

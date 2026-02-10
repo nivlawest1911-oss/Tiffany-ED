@@ -11,7 +11,7 @@ import HumanAvatar from './ui/HumanAvatar';
 import { useHumanBehavior } from '@/hooks/useHumanBehavior';
 import { heyGenService } from '@/services/heygen-streaming';
 import { useMultimodalAvatar } from '@/hooks/useMultimodalAvatar';
-import { SovereignSidebar } from './SovereignSidebar';
+import { EdIntelSidebar } from '@/components/sovereign/EdIntelSidebar';
 
 interface LiveAvatarChatProps {
     avatarName: string;
@@ -30,7 +30,7 @@ interface LiveAvatarChatProps {
     onAddXP?: (amount: number) => void;
     onClose?: () => void;
 
-    // Sovereign integration props
+    // EdIntel integration props
     isOpen?: boolean;
     greetingText?: string;
     theme?: 'default' | 'professional';
@@ -71,11 +71,11 @@ export default function LiveAvatarChat({
         engine: 'duix',
         onTokenDeduct: onTokenDeductInternal,
         onXPGain: onXPGainInternal,
-        onSpeak: (text) => {
+        onSpeak: (text, signal) => {
             if (isStreaming) {
                 const storedKeys = JSON.parse(localStorage.getItem('admin_keys') || '{}');
                 const apiKey = storedKeys?.heygen || '';
-                heyGenService.speak(text, apiKey);
+                heyGenService.speak(text, apiKey, signal);
                 return true;
             }
             return false;
@@ -90,7 +90,7 @@ export default function LiveAvatarChat({
         }
 
         if (conversation.length === 0) {
-            const initialGreeting = greetingText || `Greetings. I am ${avatarName}, your ${avatarRole}. I am online and synced with the Sovereign Matrix. Let us discuss strategy, compliance, or leadership architecture. What is your directive?`;
+            const initialGreeting = greetingText || `Greetings. I am ${avatarName}, your ${avatarRole}. I am online and synced with the EdIntel Matrix. Let us discuss strategy, compliance, or leadership architecture. What is your directive?`;
             // We give it a small delay to allow the UI to settle and connection to initialize
             const timer = setTimeout(() => {
                 speak(initialGreeting);
@@ -165,6 +165,7 @@ export default function LiveAvatarChat({
     // HeyGen Streaming State
     const [isStreaming, setIsStreaming] = useState(false);
     const streamVideoRef = useRef<HTMLVideoElement>(null);
+    const streamAbortControllerRef = useRef<AbortController | null>(null);
 
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
@@ -185,10 +186,14 @@ export default function LiveAvatarChat({
         }
 
         setIsGeneratingVideo(true);
-        setVideoGenerationStatus("Connecting to Sovereign Studio Engine...");
+        setVideoGenerationStatus("Connecting to EdIntel Studio Engine...");
+
+        if (streamAbortControllerRef.current) streamAbortControllerRef.current.abort();
+        const controller = new AbortController();
+        streamAbortControllerRef.current = controller;
 
         try {
-            const stream = await heyGenService.startSession(heygenId || 'josh_lite3_20230714', apiKey);
+            const stream = await heyGenService.startSession(heygenId || 'josh_lite3_20230714', apiKey, controller.signal);
             setIsStreaming(true);
             setIsGeneratingVideo(false);
 
@@ -198,8 +203,13 @@ export default function LiveAvatarChat({
             }
             showSystemMessage("Broadcast Uplink Established", 'success');
         } catch (e: any) {
+            if (e.name === 'AbortError') return;
             showSystemMessage("Streaming Engine Offline: " + e.message, 'error');
             setIsGeneratingVideo(false);
+        } finally {
+            if (streamAbortControllerRef.current === controller) {
+                streamAbortControllerRef.current = null;
+            }
         }
     };
 
@@ -232,6 +242,14 @@ export default function LiveAvatarChat({
         return () => {
             window.removeEventListener('mousemove', handleGlobalMouseMove);
             clearTimeout(calibrationTimer);
+            if (streamAbortControllerRef.current) streamAbortControllerRef.current.abort();
+
+            // Cleanup HeyGen session on unmount
+            const storedKeys = JSON.parse(localStorage.getItem('admin_keys') || '{}');
+            const apiKey = storedKeys?.heygen || '';
+            if (apiKey) {
+                heyGenService.stopSession(apiKey);
+            }
         };
     }, []);
 
@@ -526,7 +544,7 @@ export default function LiveAvatarChat({
                                 <div className="bg-white/5 backdrop-blur-2xl border-l-[6px] border-noble-gold p-8 rounded-r-3xl max-w-lg shadow-2xl relative overflow-hidden group">
                                     <div className="absolute top-0 right-0 w-32 h-32 bg-noble-gold/5 rounded-full blur-3xl" />
                                     <h3 className="text-3xl text-white font-black italic uppercase leading-none mb-3 tracking-tighter">
-                                        "{conversation.length > 0 ? (conversation[conversation.length - 1].role === 'user' ? "Optimizing Strategy" : "Synthesizing Solutions") : "Sovereign Intelligence Session"}"
+                                        "{conversation.length > 0 ? (conversation[conversation.length - 1].role === 'user' ? "Optimizing Strategy" : "Synthesizing Solutions") : "EdIntel Intelligence Session"}"
                                     </h3>
                                     <p className="text-white/40 text-[10px] font-black uppercase tracking-[0.4em] flex items-center gap-3">
                                         <Activity size={14} className="text-emerald-500 animate-pulse" />
@@ -612,7 +630,7 @@ export default function LiveAvatarChat({
                                     <span className="text-[10px] font-bold text-noble-gold uppercase">Dr. West (Host)</span>
                                 </div>
                                 <p className="text-xs text-zinc-300 leading-relaxed">
-                                    Welcome to the Sovereign Broadcast. Ask me anything about district strategy, compliance, or leadership.
+                                    Welcome to the EdIntel Broadcast. Ask me anything about district strategy, compliance, or leadership.
                                 </p>
                             </div>
 
@@ -636,7 +654,7 @@ export default function LiveAvatarChat({
                                     </div>
 
                                     <div className={`group flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
-                                        <span className="text-[10px] font-bold text-zinc-500 mb-1 uppercase tracking-wider">{msg.role === 'user' ? 'Sovereign Leader' : avatarName}</span>
+                                        <span className="text-[10px] font-bold text-zinc-500 mb-1 uppercase tracking-wider">{msg.role === 'user' ? 'EdIntel Leader' : avatarName}</span>
                                         <div className={`p-3.5 rounded-2xl text-xs leading-relaxed max-w-[280px] shadow-lg ${msg.role === 'user'
                                             ? 'bg-zinc-800 text-white rounded-tr-none border border-white/5'
                                             : 'bg-gradient-to-br from-noble-gold/10 to-noble-gold/5 border border-noble-gold/20 text-zinc-100 rounded-tl-none'
@@ -714,7 +732,7 @@ export default function LiveAvatarChat({
                             Session Uplink: Stable
                         </span>
                         <span>Neural Buffer: {Math.round(Math.random() * 10 + 2)}ms</span>
-                        <span>Security: Sovereign-E2EE</span>
+                        <span>Security: EdIntel-E2EE</span>
                     </div>
                     <div className="flex items-center gap-4">
                         <div className="flex gap-1">
@@ -722,15 +740,15 @@ export default function LiveAvatarChat({
                                 <div key={i} className={`w-1 h-3 rounded-full ${i < 4 ? 'bg-noble-gold/40' : 'bg-white/10'}`} />
                             ))}
                         </div>
-                        <span className="text-[8px] font-black text-noble-gold uppercase tracking-[0.4em]">Tier: Sovereign</span>
+                        <span className="text-[8px] font-black text-noble-gold uppercase tracking-[0.4em]">Tier: EdIntel</span>
                     </div>
                 </div>
             </div>
 
-            {/* Sovereign Sidebar Overlay */}
+            {/* EdIntel Sidebar Overlay */}
             <AnimatePresence>
                 {showSwarmSidebar && (
-                    <SovereignSidebar
+                    <EdIntelSidebar
                         agentStatus={isProcessing ? "Neural Crunch" : isSpeaking ? "Synthesizing" : "Active"}
                         hoursSaved={14.2}
                         activeAgent={conversation.length > 0 && conversation[conversation.length - 1].role === 'avatar' ? 'Literacy Provost' : 'Swarm Idle'}

@@ -2,7 +2,7 @@ import { supabase } from '@/lib/supabase';
 import { NextResponse } from 'next/server';
 
 /**
- * 📵 STOP PROTOCOL: Universal Unsubscribe Node for Sovereign Alerts
+ * 📵 STOP PROTOCOL: Universal Unsubscribe Node for EdIntel Alerts
  * Captures inbound WhatsApp 'STOP' commands and blacklists numbers in the global identity cluster.
  */
 export async function POST(req: Request) {
@@ -31,7 +31,7 @@ export async function POST(req: Request) {
                 return NextResponse.json({ error: 'Database handshake failed' }, { status: 500 });
             }
 
-            console.log(`[SOVEREIGN_COMPLIANCE] Number blacklisted: ${fromNumber}`);
+            console.log(`[EdIntel_COMPLIANCE] Number blacklisted: ${fromNumber}`);
         }
 
         return NextResponse.json({ status: 'processed' });

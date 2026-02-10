@@ -1,5 +1,5 @@
 /**
- * EdIntel SOVEREIGN - Cryptocurrency Payment Integration
+ * EdIntel EdIntel - Cryptocurrency Payment Integration
  * Supports Bitcoin, Ethereum, USDC, and other major cryptocurrencies
  */
 
@@ -65,7 +65,7 @@ export class CryptoPaymentService {
     /**
      * Create a new cryptocurrency payment request
      */
-    async createPayment(request: CryptoPaymentRequest): Promise<CryptoPaymentResponse> {
+    async createPayment(request: CryptoPaymentRequest, signal?: AbortSignal): Promise<CryptoPaymentResponse> {
         try {
             // In production, integrate with services like:
             // - Coinbase Commerce
@@ -91,6 +91,7 @@ export class CryptoPaymentService {
                     success_url: `${process.env.NEXT_PUBLIC_APP_URL}/payment/success`,
                     cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/payment/cancel`,
                 }),
+                signal,
             });
 
             if (!response.ok) {
@@ -119,12 +120,13 @@ export class CryptoPaymentService {
     /**
      * Check payment status
      */
-    async getPaymentStatus(paymentId: string): Promise<CryptoPaymentResponse> {
+    async getPaymentStatus(paymentId: string, signal?: AbortSignal): Promise<CryptoPaymentResponse> {
         try {
             const response = await fetch(`https://api.nowpayments.io/v1/payment/${paymentId}`, {
                 headers: {
                     'x-api-key': this.apiKey,
                 },
+                signal,
             });
 
             if (!response.ok) {
@@ -154,12 +156,13 @@ export class CryptoPaymentService {
     /**
      * Get current cryptocurrency exchange rates
      */
-    async getExchangeRates(): Promise<Record<CryptoCurrency, number>> {
+    async getExchangeRates(signal?: AbortSignal): Promise<Record<CryptoCurrency, number>> {
         try {
             const response = await fetch('https://api.nowpayments.io/v1/currencies', {
                 headers: {
                     'x-api-key': this.apiKey,
                 },
+                signal,
             });
 
             if (!response.ok) {
@@ -209,7 +212,7 @@ export class CryptoPaymentService {
     /**
      * Estimate transaction fees
      */
-    async estimateFees(currency: CryptoCurrency, amount: number): Promise<{
+    async estimateFees(currency: CryptoCurrency, amount: number, signal?: AbortSignal): Promise<{
         networkFee: number;
         serviceFee: number;
         totalFee: number;
@@ -219,6 +222,7 @@ export class CryptoPaymentService {
                 headers: {
                     'x-api-key': this.apiKey,
                 },
+                signal,
             });
 
             if (!response.ok) {

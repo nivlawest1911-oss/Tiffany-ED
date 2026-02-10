@@ -16,10 +16,10 @@ import AvatarMasterclass from './bento/AvatarMasterclass';
 import IEPGenerator from './bento/IEPGenerator';
 import LessonPlanGenerator from './bento/LessonPlanGenerator';
 import NeuralSyncGym from './bento/LeadershipGym';
-import SovereignSocialUplink from './bento/ProfessionalSocialConnection';
+import EdIntelSocialUplink from '@/components/dossier/ProfessionalSocialConnection';
 import AutomatedIEPAudit from './bento/AutomatedIEPAudit';
 import PricingMatrix from './bento/PricingMatrix';
-import SovereignBroadcastNode from './bento/ProfessionalBroadcastCenter';
+import EdIntelBroadcastNode from '@/components/dossier/ProfessionalBroadcastCenter';
 
 export default function BentoShowcase() {
     return (
@@ -29,16 +29,16 @@ export default function BentoShowcase() {
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-bold uppercase tracking-widest mb-6"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-noble-gold/10 border border-noble-gold/20 text-noble-gold text-xs font-bold uppercase tracking-widest mb-6"
                     >
-                        <Globe size={14} className="animate-spin-slow" />
+                        <Globe size={14} className="animate-spin-slow shadow-[0_0_8px_rgba(197,164,126,0.3)]" />
                         EdIntel Ecosystem
                     </motion.div>
                     <h2 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter mb-6">
-                        Operational <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-500">Modules</span>
+                        Operational <span className="text-transparent bg-clip-text bg-gradient-to-r from-noble-gold to-amber-500">Modules</span>
                     </h2>
                     <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
-                        A complete suite of autonomous agents, neural tools, and executive protocols designed for the modern educational sovereign.
+                        A complete suite of autonomous agents, neural tools, and executive protocols designed for the modern educational EdIntel.
                     </p>
                 </div>
 
@@ -85,7 +85,7 @@ export default function BentoShowcase() {
 
                     {/* 9. Social Uplink */}
                     <div className="col-span-1 row-span-1 rounded-3xl overflow-hidden border border-white/10 bg-zinc-950">
-                        <SovereignSocialUplink />
+                        <EdIntelSocialUplink />
                     </div>
 
                     {/* 10. Automated Audit */}
@@ -95,7 +95,7 @@ export default function BentoShowcase() {
 
                     {/* 11. Broadcast Node */}
                     <div className="col-span-1 md:col-span-2 row-span-1 rounded-3xl overflow-hidden border border-white/10 bg-zinc-950">
-                        <SovereignBroadcastNode />
+                        <EdIntelBroadcastNode />
                     </div>
 
                 </div>

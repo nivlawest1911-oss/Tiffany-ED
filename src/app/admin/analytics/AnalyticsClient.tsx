@@ -18,7 +18,7 @@ import {
 } from 'recharts';
 import { TrendingUp, Users, Clock, AlertCircle, Database, Zap } from 'lucide-react';
 import { getDistrictAnalytics } from '@/app/actions/bigquery';
-import SovereignInteractionAgent from '@/components/SovereignInteractionAgent';
+import EdIntelInteractionAgent from '@/components/intelligence/EdIntelInteractionAgent';
 
 const TOOLTIP_STYLE = {
     backgroundColor: 'rgba(5, 5, 8, 0.98)',
@@ -109,7 +109,7 @@ export default function AnalyticsClient() {
 
                 <div className="relative z-10 flex flex-col md:flex-row justify-between items-end gap-10">
                     <div className="space-y-6 max-w-3xl">
-                        <SovereignInteractionAgent
+                        <EdIntelInteractionAgent
                             title="Intelligence Operations"
                             description="Real-time multi-tenant aggregation grid. Currently syncing 45,000+ data nodes via Google BigQuery clusters."
                             agentId="strategic"
@@ -118,7 +118,7 @@ export default function AnalyticsClient() {
                                 <Zap size={14} className="text-intel-gold animate-pulse" />
                                 <span className="text-[10px] font-black uppercase text-intel-gold tracking-[0.4em] italic">Tactical AI Active</span>
                             </div>
-                        </SovereignInteractionAgent>
+                        </EdIntelInteractionAgent>
 
                         <h2 className="text-6xl md:text-8xl font-black italic uppercase tracking-tighter text-white leading-none">
                             District <span className="gold-gradient-text">Grid</span>
@@ -149,11 +149,11 @@ export default function AnalyticsClient() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
                     { label: 'Avg Attendance', value: '94.8%', icon: Clock, color: 'text-intel-gold', trend: '+1.2%', desc: 'Instructional Continuity' },
-                    { label: 'Total Enrolled', value: '4,150', icon: Users, color: 'text-zinc-400', trend: '+45', desc: 'Sovereign Node Count' },
+                    { label: 'Total Enrolled', value: '4,150', icon: Users, color: 'text-zinc-400', trend: '+45', desc: 'EdIntel Node Count' },
                     { label: 'Growth Index', value: '88.2', icon: TrendingUp, color: 'text-intel-gold', trend: '+5.4', desc: 'Neural Output' },
                     { label: 'Risk Alerts', value: '12', icon: AlertCircle, color: 'text-red-500', trend: '-2', desc: 'Critical Pathing' }
                 ].map((stat, i) => (
-                    <SovereignInteractionAgent
+                    <EdIntelInteractionAgent
                         key={stat.label}
                         title={stat.label}
                         description={`Analyzing ${stat.label} across the Mobile County Instructional Grid. Predictive trend is ${stat.trend}.`}
@@ -181,7 +181,7 @@ export default function AnalyticsClient() {
                                 <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">{stat.desc}</p>
                             </div>
                         </motion.div>
-                    </SovereignInteractionAgent>
+                    </EdIntelInteractionAgent>
                 ))}
             </div>
 

@@ -78,7 +78,7 @@ export default function ProfessionalPortal() {
                             <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-zinc-900 to-black flex items-center justify-center">
                                 <div className="text-center opacity-50">
                                     <Video className="w-12 h-12 mx-auto mb-2 text-amber-500" />
-                                    <p className="text-[10px] uppercase font-bold tracking-widest text-amber-500 animate-pulse">Sovereign Uplink Secured</p>
+                                    <p className="text-[10px] uppercase font-bold tracking-widest text-amber-500 animate-pulse">EdIntel Uplink Secured</p>
                                     <p className="text-[8px] text-zinc-500 mt-1">ELITE TIER: <span className="text-emerald-500">ACTIVE</span></p>
                                 </div>
                             </div>

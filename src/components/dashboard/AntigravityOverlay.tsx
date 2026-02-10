@@ -23,7 +23,7 @@ export const AntigravityOverlay = () => {
         setLog(prev => [...prev, "!!! ABORT SIGNAL SENT", "Terminating browser process..."]);
         setIsNavigating(false);
 
-        console.log("%c [Sovereign] Protocol Aborted by User", "color: #ef4444; font-weight: bold;");
+        console.log("%c [EdIntel] Protocol Aborted by User", "color: #ef4444; font-weight: bold;");
     };
 
     return (

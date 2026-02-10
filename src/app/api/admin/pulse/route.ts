@@ -27,12 +27,12 @@ export async function GET() {
             status.ai_core.online = true;
         }
     } catch (e) {
-        console.warn("[SOVEREIGN_PULSE] System diagnostic interrupted:", e);
+        console.warn("[EdIntel_PULSE] System diagnostic interrupted:", e);
     }
 
     return NextResponse.json({
         timestamp: new Date().toISOString(),
-        clearance: 'Sovereign',
+        clearance: 'EdIntel',
         nodes: status
     });
 }

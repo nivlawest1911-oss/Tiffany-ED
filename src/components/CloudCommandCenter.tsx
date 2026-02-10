@@ -7,10 +7,10 @@ import {
 } from 'lucide-react';
 
 const LOG_MESSAGES = [
-    "[SYSTEM] Initiating Sovereign Production Audit...",
+    "[SYSTEM] Initiating EdIntel Production Audit...",
     "[AUDIT] Scanning 482 components for design fidelity... 100%",
     "[AUDIT] Verifying Executive Voice Profiles... ENHANCED",
-    "[GITHUB] Fetching latest commit: 'Sovereign Core Alpha v4.2'",
+    "[GITHUB] Fetching latest commit: 'EdIntel Core Alpha v4.2'",
     "[GITHUB] Running Strategic CI/CD Tests... PASSED",
     "[GOOGLE CLOUD] Provisioning TPU-v5 Infrastructure in us-east1...",
     "[GOOGLE CLOUD] Syncing Neural Model Weights (1.4TB)... DONE",
@@ -20,7 +20,7 @@ const LOG_MESSAGES = [
     "[GOOGLE CLOUD] Synchronizing BigQuery Data Vectors... OK",
     "[SYSTEM] Calibrating Human Behavior Engines...",
     "[SYSTEM] Voice Synthesis Core Synchronized.",
-    "[SYSTEM] DEPLOYMENT SUCCESSFUL: edintel.sovereign.ai"
+    "[SYSTEM] DEPLOYMENT SUCCESSFUL: edintel.EdIntel.ai"
 ];
 
 export default function CloudCommandCenter() {
@@ -71,7 +71,7 @@ export default function CloudCommandCenter() {
                         <span>Cloud Infrastructure Status</span>
                     </div>
                     <h2 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter mb-4">
-                        Unified <span className="text-zinc-600">Sovereign Cloud.</span>
+                        Unified <span className="text-zinc-600">EdIntel Cloud.</span>
                     </h2>
                     <p className="text-sm text-zinc-500 max-w-xl mx-auto font-medium">
                         Your strategic intelligence is powered by a triple-redundant edge architecture.
@@ -92,7 +92,7 @@ export default function CloudCommandCenter() {
                             icon: Cloud,
                             title: "Vertex AI Super-Compute",
                             status: "Optimized",
-                            desc: "Sovereign model training on TPU-v5 Pods",
+                            desc: "EdIntel model training on TPU-v5 Pods",
                             color: "text-blue-400"
                         },
                         {
@@ -142,7 +142,7 @@ export default function CloudCommandCenter() {
                                 <div className="px-6 py-4 border-b border-white/5 flex justify-between items-center bg-zinc-950">
                                     <div className="flex items-center gap-3">
                                         <Terminal size={16} className="text-emerald-500" />
-                                        <span className="text-[10px] font-bold text-white uppercase tracking-widest">Sovereign Deployment Terminal</span>
+                                        <span className="text-[10px] font-bold text-white uppercase tracking-widest">EdIntel Deployment Terminal</span>
                                     </div>
                                     <button onClick={() => setShowConsole(false)} className="text-zinc-500 hover:text-white transition-colors">
                                         <X size={16} />
@@ -188,7 +188,7 @@ export default function CloudCommandCenter() {
                                                 <h3 className="text-xl font-black uppercase tracking-tighter">Mission Accomplished</h3>
                                             </div>
                                             <p className="text-sm font-bold opacity-80 mb-4 uppercase tracking-widest">
-                                                The Sovereign Platform is now Live.
+                                                The EdIntel Platform is now Live.
                                             </p>
                                             <button
                                                 onClick={() => {
@@ -196,7 +196,7 @@ export default function CloudCommandCenter() {
                                                 }}
                                                 className="w-full py-4 bg-black text-white font-black uppercase tracking-widest text-xs rounded-xl hover:bg-zinc-800 transition-colors"
                                             >
-                                                Enter Sovereign Hub
+                                                Enter EdIntel Hub
                                             </button>
                                         </motion.div>
                                     )}

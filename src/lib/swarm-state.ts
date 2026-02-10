@@ -1,9 +1,9 @@
 /**
- * SOVEREIGN SWARM STATE SCHEMA (2026)
+ * EdIntel SWARM STATE SCHEMA (2026)
  * Graph-Based Memory Architecture for Long-Horizon Autonomy
  */
 
-export interface SovereignSystemState {
+export interface EdIntelSystemState {
     // 1. SEMANTIC MEMORY (Immutable Facts)
     // The "World Model" of Mobile County
     semanticGrid: {
@@ -14,7 +14,7 @@ export interface SovereignSystemState {
                 keyPersonnel: { role: string, name: string }[];
             }
         };
-        sovereignRules: string[]; // ["Always balance metrics with wellness", "Use authoritative tone"]
+        EdIntelRules: string[]; // ["Always balance metrics with wellness", "Use authoritative tone"]
     };
 
     // 2. EPISODIC MEMORY (Experienced Events)
@@ -51,17 +51,17 @@ export interface SovereignSystemState {
 /**
  * INITIAL STATE FACTORY
  */
-export const initializeSovereignState = (): SovereignSystemState => ({
+export const initializeEdIntelState = (): EdIntelSystemState => ({
     semanticGrid: {
         districts: {
             "mobile_county": {
                 name: "Mobile County Public Schools",
-                policyKeywords: ["Alabama Literacy Act", "Device 1:1", "Sovereign Data"],
+                policyKeywords: ["Alabama Literacy Act", "Device 1:1", "EdIntel Data"],
                 keyPersonnel: [{ role: "Director", name: "Dr. Alvin West" }]
             }
         },
-        sovereignRules: [
-            "Data sovereignty is non-negotiable.",
+        EdIntelRules: [
+            "Data EdIntelty is non-negotiable.",
             "Proactivity > Reactivity.",
             "Every interaction must reinforce professional authority."
         ]

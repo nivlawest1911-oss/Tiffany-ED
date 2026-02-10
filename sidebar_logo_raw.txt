@@ -1,0 +1,76 @@
+﻿
+  } from "lucide-react"
+  import { cn } from "@/lib/utils"
+> import EdIntelLogo from "@/components/EdIntelLogo"
+  
+  interface NavSection {
+      title: string
+      items: { icon: React.ComponentType<{ className?: string }>; label: string; 
+id: string; badge?: string; href?: string }[]
+  }
+  
+  const navSections: NavSection[] = [
+      {
+          title: "Core",
+          items: [
+              { icon: LayoutDashboard, label: "Command Center", id: "command", 
+href: "/admin/dashboard" },
+  
+              { icon: Zap, label: "AI Hub", id: "ai-hub", badge: "Live", href: 
+"/admin/command" },
+              { icon: Bot, label: "Agent Swarm", id: "agents" },
+          ],
+      },
+      {
+          title: "Media Studio",
+          items: [
+              { icon: Video, label: "Video Studio", id: "video", href: 
+"/admin/studio" },
+              { icon: Mic, label: "Voice Lab", id: "voice", href: "/admin/studio" },
+              { icon: ImageIcon, label: "Asset Lab", id: "images", href: 
+"/admin/studio" },
+              { icon: Globe, label: "Gemini Workspace", id: "gemini" },
+          ],
+      },
+              className="relative z-20 flex h-screen flex-col border-r 
+border-white/10 bg-black/40 backdrop-blur-xl"
+          >
+>             {/* Logo */}
+              <div className="flex h-16 items-center gap-3 px-4 border-b 
+border-white/5 shrink-0">
+                  <div className="relative flex h-10 w-10 shrink-0 items-center 
+justify-center">
+                      <Image
+>                         src="/images/sovereign_seal.png"
+                          alt="EdIntel Sovereign"
+                          width={40}
+                          height={40}
+                          className="rounded-lg object-contain"
+                          priority
+                      />
+                      <div
+                          className="absolute inset-0 rounded-lg opacity-40 
+shadow-[0_0_12px_rgba(6,182,212,0.3)] animate-pulse"
+                          style={{
+                              background: "radial-gradient(circle, 
+rgba(6,182,212,0.3), transparent 70%)",
+                          }}
+                      />
+                  </div>
+                  <AnimatePresence>
+                      {!collapsed && (
+                          <motion.div
+                              initial={{ opacity: 0, width: 0 }}
+                              animate={{ opacity: 1, width: "auto" }}
+                              exit={{ opacity: 0, width: 0 }}
+                              transition={{ duration: 0.2 }}
+                              className="overflow-hidden whitespace-nowrap"
+                          >
+                              <span className="text-sm font-bold tracking-wide 
+text-white">EdIntel</span>
+                              <span className="ml-1 inline-flex rounded-full px-1.5 
+py-0.5 text-[9px] font-bold text-[#06b6d4] border border-[#06b6d4]/30 
+bg-[#06b6d4]/10">
+                                  SOVEREIGN
+
+

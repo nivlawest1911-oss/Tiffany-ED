@@ -16,7 +16,7 @@ export const DistrictControl = ({ districtName, schools }: any) => {
                     onClick={() => generateDistrictAudit(districtName, schools)}
                     className="flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest text-white hover:bg-emerald-500 hover:text-black transition-all"
                 >
-                    <Download size={14} /> Export Sovereign Ledger
+                    <Download size={14} /> Export EdIntel Ledger
                 </button>
             </div>
 

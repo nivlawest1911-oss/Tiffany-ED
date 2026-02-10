@@ -95,11 +95,11 @@ export class UserService {
             if (user) {
                 // HEALING: Update the legacy ID to the new Supabase Auth ID to ensure profile continuity
                 try {
-                    console.log(`[SOVEREIGN SYNC] Migrating user identity [${email}] from ${user.id} to ${id}`);
+                    console.log(`[EdIntel SYNC] Migrating user identity [${email}] from ${user.id} to ${id}`);
                     await sql`UPDATE users SET id = ${id}, updated_at = NOW() WHERE email = ${email}`;
                     user.id = id; // Update local reference
                 } catch (migrationError) {
-                    console.error(`[SOVEREIGN SYNC] Identity migration failed. Foreign key constraints may exist.`, migrationError);
+                    console.error(`[EdIntel SYNC] Identity migration failed. Foreign key constraints may exist.`, migrationError);
                     // If migration fails, we might create a duplicate or just fail? 
                     // We'll proceed to update the existing record (using old ID) but warn.
                     // Ideally, we want to migrate.

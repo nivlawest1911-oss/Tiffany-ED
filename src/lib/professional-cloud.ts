@@ -14,9 +14,12 @@ export const strategicCloud = {
     /**
      * Health Check: Verifies if the Google Cloud Brain is online.
      */
-    async checkConnection(): Promise<boolean> {
+    /**
+     * Health Check: Verifies if the Google Cloud Brain is online.
+     */
+    async checkConnection(signal?: AbortSignal): Promise<boolean> {
         try {
-            const res = await fetch(`${GOOGLE_CLOUD_URL}/`);
+            const res = await fetch(`${GOOGLE_CLOUD_URL}/`, { signal });
             return res.ok;
         } catch (_e) {
             console.warn("Professional Cloud Connection Offline - Falling back to local neural engine.");
@@ -27,17 +30,19 @@ export const strategicCloud = {
     /**
      * Ignite Synapse: Sends a heavy payload to the cloud for processing.
      */
-    async igniteSynapse(prompt: string, modelId: string = "strategic-70b"): Promise<DeepThinkResponse> {
+    async igniteSynapse(prompt: string, modelId: string = "strategic-70b", signal?: AbortSignal): Promise<DeepThinkResponse> {
         try {
             const res = await fetch(`${GOOGLE_CLOUD_URL}/generate`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt, model_id: modelId })
+                body: JSON.stringify({ prompt, model_id: modelId }),
+                signal
             });
 
             if (!res.ok) throw new Error("Cloud Synapse Failed");
             return await res.json();
-        } catch (_e) {
+        } catch (e: any) {
+            if (e.name === 'AbortError') throw e;
             throw new Error("Professional Cloud unreachable");
         }
     },
@@ -45,7 +50,7 @@ export const strategicCloud = {
     /**
      * Professional Lens: Uses Cloud Vision to analyze uploaded documents.
      */
-    async analyzeDocument(file: File): Promise<any> {
+    async analyzeDocument(file: File, signal?: AbortSignal): Promise<any> {
         const formData = new FormData();
         formData.append("file", file);
 
@@ -53,11 +58,13 @@ export const strategicCloud = {
             const res = await fetch(`${GOOGLE_CLOUD_URL}/analyze-document`, {
                 method: 'POST',
                 // Content-Type header is automatically set for FormData
-                body: formData
+                body: formData,
+                signal
             });
             if (!res.ok) throw new Error("Vision Connection Failed");
             return await res.json();
-        } catch (_e) {
+        } catch (e: any) {
+            if (e.name === 'AbortError') throw e;
             console.warn("Visual Cortex Offline - Returning simulation.");
             return {
                 status: "simulated",
@@ -70,8 +77,8 @@ export const strategicCloud = {
     /**
      * Strategic Poll: Checks the status of a long-running thought process.
      */
-    async checkNeuralStatus(taskId: string): Promise<DeepThinkResponse> {
-        const res = await fetch(`${GOOGLE_CLOUD_URL}/status/${taskId}`);
+    async checkNeuralStatus(taskId: string, signal?: AbortSignal): Promise<DeepThinkResponse> {
+        const res = await fetch(`${GOOGLE_CLOUD_URL}/status/${taskId}`, { signal });
         return await res.json();
     }
 };

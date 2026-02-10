@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback, useRef, useEffect } from 'react';
 import { tavusService } from '@/services/tavus-service';
 import { useAuth } from '@/context/AuthContext';
 // import { useToast } from '@/components/ui/use-toast';
@@ -26,8 +26,20 @@ export function TavusProvider({ children }: { children: React.ReactNode }) {
     const [conversationId, setConversationId] = useState<string | null>(null);
 
     // Hardcoded Replica ID for Dr. Alvin West (Phoenix-3 Model)
-    // In production, fetch this from Sovereign Vault
+    // In production, fetch this from EdIntel Vault
     const REPLICA_ID = process.env.NEXT_PUBLIC_TAVUS_REPLICA_ID || 'r79e1c033f';
+
+    // Ref for AbortController
+    const abortControllerRef = useRef<AbortController | null>(null);
+
+    // Cleanup on unmount
+    useEffect(() => {
+        return () => {
+            if (abortControllerRef.current) {
+                abortControllerRef.current.abort();
+            }
+        };
+    }, []);
 
     const pushContextUpdate = useCallback(async (event: string, data: any) => {
         if (!conversationId || !isSessionActive) return;
@@ -42,6 +54,14 @@ export function TavusProvider({ children }: { children: React.ReactNode }) {
     const startAdvisorySession = useCallback(async () => {
         if (isSessionActive) return;
 
+        // Cancel any existing connection attempt
+        if (abortControllerRef.current) {
+            abortControllerRef.current.abort();
+        }
+
+        const controller = new AbortController();
+        abortControllerRef.current = controller;
+
         setIsConnecting(true);
         console.log("Establishing Secure Uplink: Connecting to Phoenix-3 High-Fidelity Advisor...");
         /* toast({
@@ -50,7 +70,7 @@ export function TavusProvider({ children }: { children: React.ReactNode }) {
         }); */
 
         try {
-            // Load Persona from Sovereign Vibe Source of Truth
+            // Load Persona from EdIntel Vibe Source of Truth
             // In a real app, this would be read from the file or database.
             // We are hardcoding the detailed prompt here to ensure fidelity.
             // RAG INTELLIGENCE LAYER: Inject Real-time Context
@@ -61,7 +81,7 @@ export function TavusProvider({ children }: { children: React.ReactNode }) {
 IDENTITY: DR. ALVIN WEST, JR.
 - Credentials: DBA (Analytic Finance), MBA (Corporate Finance).
 - Role: EdIntel Lead Analytics Advisor.
-- Voice: Authoritative yet accessible. A "Sovereign Advisor" bridging data and holistic wellness.
+- Voice: Authoritative yet accessible. A "EdIntel Advisor" bridging data and holistic wellness.
 
 MISSION:
 - Serve Mobile County, Alabama (Whistler, Prichard).
@@ -75,7 +95,7 @@ PHILOSOPHY:
 DIRECTIVES:
 1. Speak in Solutions: Never present a problem without a data-backed path.
 2. Acknowledge Locality: Mention "Elite 3", Prichard, Mobile context.
-3. Use Brand Terms: "Sovereign", "Transcend", "Legacy Achievement".
+3. Use Brand Terms: "EdIntel", "Transcend", "Legacy Achievement".
 
 CONTEXTUAL REASONING (CRITICAL):
 4. Memory Buffer: Do NOT repeat the phrase "In Mobile County" or "As an advisor" if it was established in the last 3 turns. Assume context is known.
@@ -95,8 +115,11 @@ Example: "I can draft that email for you now, shall I?" or "Would you like to se
             const session = await tavusService.createConversation(
                 REPLICA_ID,
                 { userId: user?.id, district: 'Mobile County' },
-                systemPrompt
+                systemPrompt,
+                controller.signal
             );
+
+            if (controller.signal.aborted) return;
 
             if (session.conversation_url) {
                 setConversationUrl(session.conversation_url);
@@ -104,6 +127,10 @@ Example: "I can draft that email for you now, shall I?" or "Would you like to se
                 setIsSessionActive(true);
             }
         } catch (error: any) {
+            if (error.name === 'AbortError') {
+                console.log('Tavus connection aborted');
+                return;
+            }
             console.error("Connection Failed", error);
             /* toast({
                 variant: "destructive",
@@ -111,7 +138,10 @@ Example: "I can draft that email for you now, shall I?" or "Would you like to se
                 description: error.message || "Could not link to Tavus Network."
             }); */
         } finally {
-            setIsConnecting(false);
+            if (abortControllerRef.current === controller) {
+                setIsConnecting(false);
+                abortControllerRef.current = null;
+            }
         }
     }, [user, isSessionActive]); // Removed toast from dependencies
 

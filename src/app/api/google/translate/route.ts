@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
         }
 
         const client = new TranslationServiceClient();
-        const projectId = process.env.GOOGLE_CLOUD_PROJECT || 'edintel-sovereign';
+        const projectId = process.env.GOOGLE_CLOUD_PROJECT || 'edintel-EdIntel';
         const location = 'global';
 
         const request = {

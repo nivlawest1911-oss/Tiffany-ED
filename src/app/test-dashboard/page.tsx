@@ -1,5 +1,6 @@
-import SovereignTerminal from '@/components/SovereignTerminal';
-import SovereignIntelligenceNode from '@/components/SovereignIntelligenceNode';
+import EdIntelTerminal from '@/components/sovereign/EdIntelTerminal';
+import EdIntelIntelligenceNode from '@/components/sovereign/EdIntelIntelligenceNode';
+import '@/app/globals.css';
 
 export const dynamic = 'force-dynamic';
 
@@ -8,7 +9,8 @@ export default function TestDashboard() {
         <html lang="en">
             <head>
                 <title>Test Dashboard</title>
-                <link rel="stylesheet" href="/globals.css" />
+                <title>Test Dashboard</title>
+                {/* <link rel="stylesheet" href="/globals.css" /> - Handled by import in layout or here if needed but app router handles globals via layout */}
             </head>
             <body>
                 <div className="min-h-screen bg-black p-8">
@@ -17,8 +19,8 @@ export default function TestDashboard() {
                     </h1>
 
                     <div className="dashboard-grid">
-                        <SovereignTerminal />
-                        <SovereignIntelligenceNode />
+                        <EdIntelTerminal />
+                        <EdIntelIntelligenceNode />
 
                         {/* Test Card */}
                         <div className="dashboard-card">

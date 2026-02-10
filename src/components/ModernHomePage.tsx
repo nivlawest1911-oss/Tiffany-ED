@@ -2,12 +2,15 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring, useMotionValue, Variants } from 'framer-motion';
-import { ArrowRight, Activity, Cpu, Zap, Shield, Brain, Globe, Terminal, MessageSquare, Mic, Clock, LayoutGrid } from 'lucide-react';
+import { ArrowRight, Cpu, Zap, Shield, Brain, Globe, Terminal, Mic, Clock, LayoutGrid } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { CORE_AVATARS } from '@/data/avatars';
 import HumanAvatar from './ui/HumanAvatar';
+import { useEdIntelVibe } from '@/context/EdIntelVibeContext';
+import { EdIntelHero } from './sovereign/EdIntelHero';
 
 // Core Components (Safe)
 
@@ -19,7 +22,7 @@ const BentoShowcase = dynamic(() => import('./BentoShowcase'), { ssr: false });
 const OnboardingFlow = dynamic(() => import('./OnboardingFlow'), { ssr: false });
 const VoiceIdentity = dynamic(() => import('./VoiceIdentity'), { ssr: false });
 const HuggingFaceAvatar = dynamic(() => import('./HuggingFaceAvatar'), { ssr: false });
-const SovereignCore = dynamic(() => import('./SovereignCore'), { ssr: false });
+const EdIntelCore = dynamic(() => import('./sovereign/EdIntelCore'), { ssr: false });
 
 // --- ANIMATION VARIANTS ---
 const fadeInUp: Variants = {
@@ -67,11 +70,11 @@ function ParallaxBackground() {
             <div className="absolute inset-0 bg-[#030303]/90 z-10" />
             <motion.div
                 style={{ x: mouseX, y: mouseY }}
-                className="absolute inset-[-10%] w-[120%] h-[120%] bg-gradient-to-tr from-indigo-950/40 via-blue-900/10 to-indigo-950/40"
+                className="absolute inset-[-10%] w-[120%] h-[120%] bg-gradient-to-tr from-zinc-950 via-zinc-900 to-black"
             >
-                <div className="absolute inset-0 opacity-30 mix-blend-overlay">
-                    <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/20 rounded-full blur-[120px] animate-pulse" />
-                    <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-[120px] animate-pulse delay-1s" />
+                <div className="absolute inset-0 opacity-20 mix-blend-overlay">
+                    <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-noble-gold/10 rounded-full blur-[120px] animate-pulse" />
+                    <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-amber-600/10 rounded-full blur-[120px] animate-pulse delay-1s" />
                 </div>
             </motion.div>
             <div
@@ -83,6 +86,8 @@ function ParallaxBackground() {
 
 function ParticleField() {
     const [particles, setParticles] = useState<any[]>([]);
+    const { isSystemThinking } = useEdIntelVibe();
+
     useEffect(() => {
         setParticles(Array.from({ length: 20 }).map((_, i) => ({
             id: i,
@@ -98,10 +103,24 @@ function ParticleField() {
             {particles.map((p) => (
                 <motion.div
                     key={p.id}
-                    className="absolute bg-white/20 rounded-full"
+                    className={cn(
+                        "absolute rounded-full transition-colors duration-1000",
+                        isSystemThinking ? "bg-intel-gold/40" : "bg-white/20"
+                    )}
                     initial={{ left: `${p.x}%`, top: `${p.y}%`, opacity: 0 }}
-                    animate={{ top: [`${p.y}%`, `${p.y - 20}%`], opacity: [0.2, 0] }}
-                    transition={{ duration: p.duration, repeat: Infinity, ease: "linear" }}
+                    animate={{
+                        top: [
+                            `${p.y}%`,
+                            isSystemThinking ? `${p.y - 40}%` : `${p.y - 20}%`
+                        ],
+                        opacity: isSystemThinking ? [0.4, 0] : [0.2, 0],
+                        scale: isSystemThinking ? [1, 2] : [1, 1]
+                    }}
+                    transition={{
+                        duration: isSystemThinking ? p.duration / 2 : p.duration,
+                        repeat: Infinity,
+                        ease: "linear"
+                    }}
                     style={{ width: `${p.size}px`, height: `${p.size}px` }}
                 />
             ))}
@@ -114,6 +133,7 @@ function ParticleField() {
 function InteractiveTerminal({ onCommand }: { onCommand: (cmd: string) => void }) {
     const [input, setInput] = useState('');
     const [isListening, setIsListening] = useState(false);
+    const { isSystemThinking } = useEdIntelVibe();
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -128,19 +148,25 @@ function InteractiveTerminal({ onCommand }: { onCommand: (cmd: string) => void }
             className="w-full max-w-xl mt-8 relative z-30 group"
         >
             {/* Scanline & Glow Overlay */}
-            <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-noble-gold/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
             <form onSubmit={handleSubmit} className="relative group/form">
                 {/* Dynamic Border */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-cyan-600/20 via-blue-600/20 to-purple-600/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition duration-1000" />
+                <div className="absolute -inset-1 bg-gradient-to-r from-noble-gold/20 via-amber-600/20 to-orange-600/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition duration-1000" />
 
-                <div className="relative bg-zinc-900/80 backdrop-blur-2xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
+                <div className={cn(
+                    "relative bg-zinc-900/80 backdrop-blur-2xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl transition-all duration-500",
+                    isSystemThinking && "border-intel-gold/30 shadow-intel-gold/5"
+                )}>
                     {/* Interior Scanline */}
-                    <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%)] bg-[length:100%_4px] opacity-20" />
+                    <div className={cn(
+                        "absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%)] bg-[length:100%_4px] opacity-20",
+                        isSystemThinking && "opacity-40"
+                    )} />
 
                     <div className="flex items-center p-2">
                         <div className="flex items-center gap-3 pl-4">
-                            <Terminal size={18} className="text-cyan-400 animate-pulse" />
+                            <Terminal size={18} className="text-noble-gold animate-pulse" />
                             <div className="h-4 w-px bg-white/10" />
                         </div>
 
@@ -148,7 +174,7 @@ function InteractiveTerminal({ onCommand }: { onCommand: (cmd: string) => void }
                             type="text"
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
-                            placeholder="INITIATE SOVEREIGN PROTOCOL..."
+                            placeholder="INITIATE EdIntel PROTOCOL..."
                             className="w-full bg-transparent border-none text-white px-4 py-5 focus:outline-none placeholder:text-zinc-600 font-mono text-sm tracking-[0.1em] uppercase transition-all"
                         />
 
@@ -168,7 +194,7 @@ function InteractiveTerminal({ onCommand }: { onCommand: (cmd: string) => void }
                             <button
                                 type="submit"
                                 title="Execute Protocol"
-                                aria-label="Execute sovereign protocol"
+                                aria-label="Execute EdIntel protocol"
                                 className="p-3 bg-gradient-to-br from-intel-gold to-amber-700 hover:from-white hover:to-zinc-300 text-black rounded-xl transition-all duration-300 font-black shadow-lg shadow-intel-gold/10 group-hover/form:scale-105 active:scale-95"
                             >
                                 <ArrowRight size={20} />
@@ -188,7 +214,7 @@ function InteractiveTerminal({ onCommand }: { onCommand: (cmd: string) => void }
                     <button
                         key={i}
                         onClick={() => onCommand(action.label)}
-                        className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.03] border border-white/5 text-[10px] text-zinc-500 font-bold uppercase tracking-widest hover:bg-white/10 hover:text-white hover:border-white/20 transition-all whitespace-nowrap group/btn"
+                        className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.03] border border-white/5 text-[10px] text-zinc-500 font-bold uppercase tracking-widest hover:bg-white/10 hover:text-white hover:border-white/20 transition-all whitespace-nowrap group/btn active:scale-95"
                     >
                         <action.icon size={12} className="text-intel-gold group-hover/btn:scale-110 transition-transform" />
                         {action.label}
@@ -199,109 +225,7 @@ function InteractiveTerminal({ onCommand }: { onCommand: (cmd: string) => void }
     );
 }
 
-// 4. HOLOGRAPHIC HERO (Interactive)
-function HolographicHero({ activeAgent, agents, message }: { activeAgent: number, agents: any[], message: string | null }) {
-    const agent = agents[activeAgent];
 
-    return (
-        <AnimatePresence mode="wait">
-            <motion.div
-                key={activeAgent}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 1.05 }}
-                transition={{ duration: 0.8 }}
-                className="relative w-full h-[600px] md:h-[700px] rounded-[3rem] overflow-hidden border-2 border-intel-gold/20 shadow-[0_0_80px_rgba(197,164,126,0.1)] group"
-            >
-                {/* VIDEO FEED */}
-                <div className="absolute inset-0 bg-zinc-900">
-                    {agent.video && agent.video !== '' && (
-                        <video
-                            autoPlay loop muted playsInline
-                            key={agent.video}
-                            className="w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-[10s]"
-                        >
-                            <source src={agent.video} type="video/mp4" />
-                        </video>
-                    )}
-                    {/* Fallback Image if Video Missing */}
-                    {(!agent.video || agent.video === '') && (
-                        <HumanAvatar
-                            src={agent.avatar}
-                            alt={agent.name}
-                            className="absolute inset-0 w-full h-full object-cover opacity-90"
-                        />
-                    )}
-                    {/* Digital Noise Overlay */}
-                    <div
-                        className="absolute inset-0 opacity-[0.03] mix-blend-overlay bg-noise"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
-                </div>
-
-                {/* HOLOGRAPHIC UI OVERLAY */}
-                <div className="absolute inset-0 z-20 pointer-events-none p-8 flex flex-col justify-between">
-                    {/* Top Bar */}
-                    <div className="flex justify-between items-start">
-                        <div className="flex gap-4">
-                            <motion.div
-                                initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }}
-                                className="px-3 py-1 bg-black/60 backdrop-blur border border-intel-gold/30 rounded text-intel-gold text-xs font-mono"
-                            >
-                                SIGNAL: STABLE
-                            </motion.div>
-                            <motion.div
-                                initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.1 }}
-                                className="px-3 py-1 bg-black/60 backdrop-blur border border-purple-500/30 rounded text-purple-400 text-xs font-mono"
-                            >
-                                ENCRYPTION: AES-256
-                            </motion.div>
-                        </div>
-                        <Activity className="text-cyan-500 animate-pulse" />
-                    </div>
-
-                    {/* Chat Response Overlay */}
-                    <AnimatePresence>
-                        {message && (
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -20 }}
-                                className="absolute top-1/2 left-8 right-8 md:right-1/3 bg-black/80 backdrop-blur-xl border-l-4 border-intel-gold p-6 rounded-r-xl shadow-2xl"
-                            >
-                                <div className="text-xs text-intel-gold font-bold mb-2 uppercase flex items-center gap-2">
-                                    <MessageSquare size={12} /> Response from {agent.name.split(' ')[1]}
-                                </div>
-                                <p className="text-white text-lg md:text-xl font-light leading-relaxed">
-                                    "{message}"
-                                </p>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-
-                    {/* Bottom Info */}
-                    <div className="space-y-2">
-                        <motion.h2
-                            initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
-                            className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter"
-                        >
-                            {agent.name}
-                        </motion.h2>
-                        <p className="text-intel-gold font-mono text-sm tracking-widest uppercase">{agent.role}</p>
-                    </div>
-                </div>
-
-                {/* Scanning Effect */}
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(197,164,126,0.05)_1px,transparent_1px)] bg-[size:100%_4px] pointer-events-none" />
-                <motion.div
-                    className="absolute inset-0 bg-gradient-to-b from-transparent via-intel-gold/10 to-transparent h-[20%] pointer-events-none"
-                    animate={{ top: ['-20%', '120%'] }}
-                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                />
-            </motion.div>
-        </AnimatePresence>
-    );
-}
 
 // 5. MAIN PAGE
 export default function ModernHomePage() {
@@ -310,14 +234,14 @@ export default function ModernHomePage() {
     const [activeAgentIndex, setActiveAgentIndex] = useState(0);
     const [agentMessage, setAgentMessage] = useState<string | null>(null);
     const [showOnboarding, setShowOnboarding] = useState(false);
+    const { isSystemThinking, setSystemThinking } = useEdIntelVibe();
     const router = useRouter();
 
     useEffect(() => {
         // Check for first-time visitor
         const onboarded = localStorage.getItem('onboarding_complete');
         if (!onboarded) {
-            // Delay onboarding until after boot sequence usually, or just check here
-            // We'll trigger it after a short delay
+            // Delay onboarding until after boot sequence
             setTimeout(() => setShowOnboarding(true), 3000);
         }
     }, []);
@@ -329,27 +253,32 @@ export default function ModernHomePage() {
 
     // Auto-rotate unless interacting
     useEffect(() => {
-        if (agentMessage) return; // Don't rotate if reading message
+        if (agentMessage || isSystemThinking) return; // Don't rotate if reading message or thinking
         const timer = setInterval(() => { setActiveAgentIndex(prev => (prev + 1) % CORE_AVATARS.length); }, 8000);
         return () => clearInterval(timer);
-    }, [agentMessage]);
+    }, [agentMessage, isSystemThinking]);
 
     const handleCommand = (cmd: string) => {
+        setSystemThinking(true);
         setAgentMessage(`Accessing ${cmd} protocol...`);
 
-        // Immediate routing
-        if (cmd.toLowerCase().includes('budget')) router.push('/generators/fiscal-strategist');
-        else if (cmd.toLowerCase().includes('iep')) router.push('/generators/iep-architect');
-        else router.push('/generators');
+        // Simulate processing before routing
+        setTimeout(() => {
+            setSystemThinking(false);
+            if (cmd.toLowerCase().includes('budget')) router.push('/generators/fiscal-strategist');
+            else if (cmd.toLowerCase().includes('iep')) router.push('/dashboard/iep-architect');
+            else router.push('/generators');
+        }, 1500);
     };
-
-
 
     if (!mounted) return null;
 
     return (
         <>
-            <div className="min-h-screen bg-[#030303] text-zinc-100 font-sans overflow-auto selection:bg-cyan-500/30">
+            <div className={cn(
+                "min-h-screen bg-[#030303] text-zinc-100 font-sans overflow-auto selection:bg-intel-gold/30 transition-colors duration-1000",
+                isSystemThinking && "bg-[#05060f]"
+            )}>
                 <AnimatePresence>
                     {!booted && <SystemIntroVideo onComplete={() => setBooted(true)} />}
                 </AnimatePresence>
@@ -361,7 +290,13 @@ export default function ModernHomePage() {
                             <NeuralBackground />
                         </motion.div>
                         <ParticleField />
-                        <motion.div className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 via-purple-500 to-indigo-500 z-[100] origin-left" style={{ scaleX }} />
+                        <motion.div
+                            className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-intel-gold via-amber-500 to-orange-600 z-[100] origin-left"
+                            style={{
+                                scaleX,
+                                boxShadow: isSystemThinking ? '0 0 20px rgba(197, 164, 126, 0.5)' : 'none'
+                            }}
+                        />
 
 
                         <main className="relative z-10 pt-24 pb-24">
@@ -374,18 +309,31 @@ export default function ModernHomePage() {
                                         initial="hidden" animate="visible" variants={staggerContainer}
                                     >
                                         <motion.div variants={fadeInUp} className="flex items-center gap-3 mb-8">
-                                            <div className="px-3 py-1 bg-cyan-950/30 border border-cyan-500/30 rounded text-cyan-400 text-xs font-mono flex items-center gap-2">
-                                                <Globe size={12} className="animate-spin-slow" />
-                                                CONNECTED TO MAINNET
+                                            <div className={cn(
+                                                "px-3 py-1 bg-zinc-900/50 backdrop-blur-md border border-white/10 rounded text-zinc-400 text-xs font-mono flex items-center gap-2 transition-all duration-500",
+                                                isSystemThinking && "border-intel-gold/40 text-intel-gold bg-intel-gold/5"
+                                            )}>
+                                                <Globe size={12} className={cn("transition-transform duration-500", isSystemThinking ? "animate-spin" : "animate-spin-slow")} />
+                                                {isSystemThinking ? "EXECUTING PROTOCOLS..." : "CONNECTED TO MAINNET"}
                                             </div>
                                         </motion.div>
 
-                                        <motion.h1 variants={fadeInUp} className="text-7xl md:text-9xl font-black text-white mb-8 uppercase tracking-tighter leading-[0.8] italic text-gold-gradient">
-                                            Sovereign OS
+                                        <motion.h1
+                                            variants={fadeInUp}
+                                            className={cn(
+                                                "text-7xl md:text-9xl font-black text-white mb-8 uppercase tracking-tighter leading-[0.8] italic transition-all duration-1000",
+                                                isSystemThinking ? "opacity-40 scale-95 blur-[2px]" : "gold-gradient-text"
+                                            )}
+                                        >
+                                            EdIntel Professional
                                         </motion.h1>
 
                                         <motion.div variants={fadeInUp} className="relative mb-10">
-                                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-intel-gold to-transparent" />
+                                            <motion.div
+                                                className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-intel-gold to-transparent"
+                                                animate={isSystemThinking ? { height: ["0%", "100%", "0%"] } : { height: "100%" }}
+                                                transition={{ duration: 2, repeat: Infinity }}
+                                            />
                                             <p className="text-2xl text-white/90 font-light leading-relaxed pl-8 italic max-w-xl">
                                                 "Strategic architectures for the modern educator. Empowering leadership through superior intelligence and executive automation."
                                             </p>
@@ -394,6 +342,15 @@ export default function ModernHomePage() {
                                         <motion.p variants={fadeInUp} className="text-zinc-500 mb-10 max-w-md leading-relaxed pl-8 text-sm uppercase tracking-widest font-bold">
                                             Reclaiming instructional time through <span className="text-intel-gold">spatial logistics</span> & high-fidelity AI components.
                                         </motion.p>
+
+                                        {/* Thinking Feedback for Hero Content */}
+                                        {isSystemThinking && (
+                                            <motion.div
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                className="absolute -left-4 top-1/2 -translate-y-1/2 w-1 h-32 bg-intel-gold shadow-[0_0_20px_rgba(197,164,126,0.8)]"
+                                            />
+                                        )}
 
                                         {/* INTERACTIVE TERMINAL */}
                                         <InteractiveTerminal onCommand={handleCommand} />
@@ -408,10 +365,10 @@ export default function ModernHomePage() {
                                                 <motion.div
                                                     key={i}
                                                     variants={fadeInUp}
-                                                    className="p-4 bg-white/[0.03] border border-white/5 rounded-2xl backdrop-blur-md group hover:border-intel-gold/20 transition-all"
+                                                    className="p-4 bg-zinc-900/50 border border-white/5 rounded-2xl backdrop-blur-md group hover:border-noble-gold/20 transition-all shadow-xl"
                                                 >
-                                                    <stat.icon size={16} className={`${stat.color} mb-2 animate-pulse`} />
-                                                    <div className="text-xl font-black text-white">{stat.value}</div>
+                                                    <stat.icon size={16} className="text-noble-gold mb-2 animate-pulse" />
+                                                    <div className="text-xl font-black text-white italic">{stat.value}</div>
                                                     <div className="text-[8px] text-zinc-500 uppercase font-black tracking-widest">{stat.label}</div>
                                                 </motion.div>
                                             ))}
@@ -421,24 +378,36 @@ export default function ModernHomePage() {
 
                                     {/* RIGHT: HOLOGRAPHIC DISPLAY */}
                                     <div className="lg:col-span-7 relative">
-                                        <HolographicHero activeAgent={activeAgentIndex} agents={CORE_AVATARS} message={agentMessage} />
+                                        <EdIntelHero variant="holographic" activeAgent={activeAgentIndex} agents={CORE_AVATARS} message={agentMessage} />
                                     </div>
                                 </div>
                             </section>
 
                             {/* GLOBAL NEURAL FEED - NEW High-Engagement Marquee */}
-                            <section className="bg-black/80 border-y border-intel-gold/10 py-4 relative z-30 overflow-hidden">
-                                <div className="flex gap-12 animate-marquee whitespace-nowrap whitespace-nowrap">
+                            <section className={cn(
+                                "bg-black/80 border-y border-intel-gold/10 py-4 relative z-30 overflow-hidden transition-all duration-700",
+                                isSystemThinking && "border-intel-gold/40 shadow-[0_0_30px_rgba(197,164,126,0.15)]"
+                            )}>
+                                <div className={cn(
+                                    "flex gap-12 animate-marquee whitespace-nowrap",
+                                    isSystemThinking && "animate-marquee-fast"
+                                )}>
                                     {[
                                         "IEP AGENT-7: GENERATING COMPLIANCE ARCHITECTURE...",
                                         "FISCAL CORE: DETECTING REVENUE OPTIMIZATION OPPORTUNITIES...",
                                         "CRISIS MODULE-4: MONITORING DISTRICT SENTIMENT TRENDS...",
-                                        "SOVEREIGN SYNC: UPDATING ALABAMA LEGISLATIVE ALERTS...",
+                                        "EdIntel SYNC: UPDATING ALABAMA LEGISLATIVE ALERTS...",
                                         "NEURAL CORE: 1.5 PB OF EDUCATIONAL DATA INDEXED",
                                         "EXECUTIVE OVERRIDE: READY FOR STRATEGIC DEPLOYMENT",
                                     ].map((protocol, i) => (
-                                        <div key={i} className="flex items-center gap-4 text-[9px] font-black uppercase tracking-[0.4em] text-intel-gold/40">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-intel-gold animate-ping" />
+                                        <div key={i} className={cn(
+                                            "flex items-center gap-4 text-[9px] font-black uppercase tracking-[0.4em] transition-colors duration-500",
+                                            isSystemThinking ? "text-intel-gold" : "text-intel-gold/40"
+                                        )}>
+                                            <div className={cn(
+                                                "w-1.5 h-1.5 rounded-full bg-intel-gold",
+                                                isSystemThinking ? "animate-pulse" : "animate-ping"
+                                            )} />
                                             {protocol}
                                         </div>
                                     ))}
@@ -560,8 +529,8 @@ export default function ModernHomePage() {
                                 )}
                             </AnimatePresence>
 
-                            {/* SOVEREIGN CORE SHOWCASE */}
-                            <section id="sovereign" className="py-24 relative overflow-hidden bg-black/90">
+                            {/* EdIntel CORE SHOWCASE */}
+                            <section id="EdIntel" className="py-24 relative overflow-hidden bg-black/90">
                                 <div className="absolute inset-0 bg-gradient-to-b from-indigo-950/20 via-black to-black opacity-50" />
                                 <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
                                     <motion.div
@@ -572,10 +541,10 @@ export default function ModernHomePage() {
                                     >
                                         <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-amber-500/10 border border-amber-500/20 rounded-full mb-8">
                                             <Zap size={14} className="text-amber-400 fill-amber-400" />
-                                            <span className="text-[10px] font-bold text-amber-400 uppercase tracking-widest">Powered by SOVEREIGN AI</span>
+                                            <span className="text-[10px] font-bold text-amber-400 uppercase tracking-widest">Powered by EdIntel AI</span>
                                         </div>
                                         <h2 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter mb-6">
-                                            The <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-600">Sovereign</span> Core
+                                            The <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-600">EdIntel Professional</span> Core
                                         </h2>
                                         <p className="text-zinc-400 text-lg max-w-2xl mx-auto mb-12">
                                             The absolute nexus of educational intelligence. Transforming raw institutional data into a crystalline matrix of actionable protocols.
@@ -589,7 +558,7 @@ export default function ModernHomePage() {
                                             viewport={{ once: true }}
                                             className="h-[500px] relative rounded-3xl overflow-hidden border border-white/5 bg-zinc-900/50 backdrop-blur-3xl shadow-2xl shadow-amber-500/5"
                                         >
-                                            <SovereignCore />
+                                            <EdIntelCore />
                                         </motion.div>
 
                                         <motion.div
@@ -615,11 +584,15 @@ export default function ModernHomePage() {
                                             ))}
 
                                             <div className="pt-8">
-                                                <Link href="/sovereign">
-                                                    <button className="px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-xl font-black uppercase tracking-wider hover:scale-105 transition-transform flex items-center gap-3">
+                                                <Link href="/EdIntel">
+                                                    <motion.button
+                                                        whileHover={{ scale: 1.05, x: 5 }}
+                                                        whileTap={{ scale: 0.95 }}
+                                                        className="px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-xl font-black uppercase tracking-wider flex items-center gap-3 shadow-lg shadow-amber-500/20"
+                                                    >
                                                         Enter the Matrix
                                                         <ArrowRight size={20} />
-                                                    </button>
+                                                    </motion.button>
                                                 </Link>
                                             </div>
                                         </motion.div>
@@ -631,10 +604,14 @@ export default function ModernHomePage() {
                             <section id="pricing" className="relative py-40 overflow-hidden flex items-center justify-center">
                                 <div className="relative z-10 text-center max-w-4xl px-4">
                                     <Link href="/signup">
-                                        <button className="relative px-16 py-8 bg-white text-black font-black uppercase tracking-widest text-xl hover:bg-cyan-400 transition-all shadow-[0_0_50px_rgba(255,255,255,0.4)] group overflow-hidden">
-                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                                        <motion.button
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
+                                            className="relative px-16 py-8 bg-black border border-noble-gold/30 text-noble-gold font-black uppercase tracking-[0.4em] text-xl hover:bg-noble-gold hover:text-black transition-all shadow-[0_0_50px_rgba(197,164,126,0.15)] group overflow-hidden rounded-2xl"
+                                        >
+                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-noble-gold/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                                             <span className="relative">Initiate Protocol Omega</span>
-                                        </button>
+                                        </motion.button>
                                     </Link>
                                 </div>
                             </section>

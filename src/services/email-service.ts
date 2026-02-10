@@ -20,18 +20,18 @@ export async function sendWelcomeEmail(email: string, name: string) {
         return;
     }
 
-    const subject = 'Welcome to EdIntel SOVEREIGN | Your Master Access Initiated 🚀';
+    const subject = 'Welcome to EdIntel EdIntel | Your Master Access Initiated 🚀';
     const htmlContent = `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #1a1a1a;">
             <h1 style="color: #10b981; text-transform: uppercase; letter-spacing: 2px;">Welcome to the Command Deck</h1>
             <p>Dear ${name},</p>
-            <p>Welcome to the future of educational leadership. Your Master Access to <strong>EdIntel SOVEREIGN (2027)</strong> has been successfully provisioned.</p>
+            <p>Welcome to the future of educational leadership. Your Master Access to <strong>EdIntel EdIntel (2027)</strong> has been successfully provisioned.</p>
             
             <div style="background: #f9fafb; border: 1px solid #e5e7eb; padding: 20px; border-radius: 12px; margin: 20px 0;">
-                <h2 style="font-size: 16px; margin-top: 0;">Your Sovereign Journey Begins Now:</h2>
+                <h2 style="font-size: 16px; margin-top: 0;">Your EdIntel Journey Begins Now:</h2>
                 <ul style="padding-left: 20px;">
-                    <li style="margin-bottom: 10px;"><strong>14-Day Full Access Trial:</strong> You have 14 days of unrestricted access to the complete Sovereign Intelligence suite.</li>
-                    <li style="margin-bottom: 10px;"><strong>The Token System:</strong> Your account has been credited with your initial strategic tokens. These power your interactions with the Sovereign Mentor and the Neuro-Resilience Briefing engine.</li>
+                    <li style="margin-bottom: 10px;"><strong>14-Day Full Access Trial:</strong> You have 14 days of unrestricted access to the complete EdIntel Intelligence suite.</li>
+                    <li style="margin-bottom: 10px;"><strong>The Token System:</strong> Your account has been credited with your initial strategic tokens. These power your interactions with the EdIntel Mentor and the Neuro-Resilience Briefing engine.</li>
                     <li><strong>Command Deck:</strong> <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://edintel-prod-ready.vercel.app'}/dashboard" style="color: #10b981; font-weight: bold;">Access your dashboard here</a> to begin your first briefing.</li>
                 </ul>
             </div>
@@ -46,7 +46,7 @@ export async function sendWelcomeEmail(email: string, name: string) {
             
             <p style="margin-top: 40px; border-top: 1px solid #eee; pt-20px; font-size: 12px; color: #666;">
                 Welcome aboard,<br/>
-                <strong>The EdIntel Sovereignty Team</strong><br/>
+                <strong>The EdIntel EdIntelty Team</strong><br/>
                 <em>Strategic Leadership Node: Alabama/Mobile County</em>
             </p>
         </div>
@@ -74,7 +74,7 @@ export async function sendWelcomeEmail(email: string, name: string) {
         } else {
             console.log(`[EMAIL_SERVICE] Using Resend Relay`);
             await resend.emails.send({
-                from: 'EdIntel Sovereignty <welcome@edintel.app>',
+                from: 'EdIntel EdIntelty <welcome@edintel.app>',
                 to: [email],
                 subject,
                 html: htmlContent,

@@ -23,7 +23,7 @@ export default function LeadershipBroadcaster({ isOpen, onCloseAction }: { isOpe
     const { playClick, playSuccess } = useProfessionalSounds();
 
     useEffect(() => {
-        const identity = JSON.parse(localStorage.getItem('professional_identity') || localStorage.getItem('sovereign_identity') || '{}');
+        const identity = JSON.parse(localStorage.getItem('professional_identity') || localStorage.getItem('EdIntel_identity') || '{}');
         if (identity.leadershipStyle) setLeadershipStyle(identity.leadershipStyle);
     }, []);
 

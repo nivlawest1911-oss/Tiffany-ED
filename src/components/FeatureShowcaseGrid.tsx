@@ -8,7 +8,7 @@ import {
 import Link from 'next/link';
 import NextImage from 'next/image';
 import SpotlightCard from './SpotlightCard';
-import HolographicBriefing from './HolographicBriefing';
+import HolographicBriefing from '@/components/intelligence/HolographicBriefing';
 
 import { generators } from '@/data/generators';
 

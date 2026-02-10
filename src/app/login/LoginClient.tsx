@@ -4,8 +4,9 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Lock, Mail, ArrowRight, ShieldCheck as LucideShield, Hexagon } from 'lucide-react';
-import HolographicBriefing from '@/components/HolographicBriefing';
+import HolographicBriefing from '@/components/intelligence/HolographicBriefing';
 import { useAuth } from '@/context/AuthContext';
+import EdIntelLogo from '@/components/EdIntelLogo';
 
 export default function LoginClient() {
     const [email, setEmail] = useState('');
@@ -39,7 +40,7 @@ export default function LoginClient() {
                 onClose={() => setShowBriefing(false)}
                 agentId="tactical"
                 title="Guardian Protocol"
-                description="Identity verification is required for access to the Sovereign Data Grid. Please provide your institutional credentials."
+                description="Identity verification is required for access to the EdIntel Data Grid. Please provide your institutional credentials."
                 briefingSteps={[
                     "Initialize secure administrative downlink.",
                     "Verify institutional credentials.",
@@ -53,7 +54,7 @@ export default function LoginClient() {
                     initial={{ opacity: 0, scale: 0.98, y: 10 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="sovereign-gatekeeper-card w-full max-w-xl bg-zinc-900/40 backdrop-blur-3xl rounded-[3.5rem] p-12 lg:p-16 border border-white/5 shadow-[0_0_100px_rgba(0,0,0,0.8)] relative z-10"
+                    className="EdIntel-gatekeeper-card w-full max-w-xl bg-zinc-900/40 backdrop-blur-3xl rounded-[3.5rem] p-12 lg:p-16 border border-white/5 shadow-[0_0_100px_rgba(0,0,0,0.8)] relative z-10"
                 >
                     {/* Corner Accents */}
                     <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
@@ -67,24 +68,27 @@ export default function LoginClient() {
                             className="w-24 h-24 bg-gradient-to-br from-indigo-500/20 to-purple-600/20 rounded-[2rem] flex items-center justify-center mx-auto mb-10 border border-white/10 shadow-2xl relative"
                         >
                             <LucideShield size={48} className="text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]" />
-                            <div className="absolute inset-0 rounded-[2rem] border border-white/20 animate-pulse" />
+                                                        <div className="absolute inset-0 rounded-[2rem] border border-white/20 animate-pulse" />
                         </motion.div>
 
-                        <h2 className="text-5xl font-black tracking-tighter text-white uppercase mb-4">
-                            Sovereign <span className="text-indigo-400 italic">Portal</span>
-                        </h2>
+                        <div className="flex justify-center mb-6">
+                                <EdIntelLogo className="scale-125" />
+                            </div>
+                            <h2 className="text-4xl font-black tracking-tighter text-white uppercase mb-4">
+                                Professional <span className="text-indigo-400 italic">Portal</span>
+                            </h2>
 
-                        <button
-                            onClick={() => setShowBriefing(true)}
-                            className="block mx-auto mb-8 px-6 py-2 rounded-full border border-indigo-500/20 bg-indigo-500/5 text-indigo-400 text-[9px] font-black uppercase tracking-[0.3em] hover:bg-indigo-500/10 transition-all"
-                        >
-                            Initialize Security Briefing
-                        </button>
-                        <div className="flex items-center justify-center gap-6">
-                            <div className="h-[2px] w-12 bg-gradient-to-r from-transparent to-indigo-500/50" />
-                            <p className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.5em] whitespace-nowrap">Gatekeeper Protocol // v4.2</p>
-                            <div className="h-[2px] w-12 bg-gradient-to-l from-transparent to-indigo-500/50" />
-                        </div>
+                            <button
+                                onClick={() => setShowBriefing(true)}
+                                className="block mx-auto mb-8 px-6 py-2 rounded-full border border-indigo-500/20 bg-indigo-500/5 text-indigo-400 text-[9px] font-black uppercase tracking-[0.3em] hover:bg-indigo-500/10 transition-all"
+                            >
+                                Initialize Security Briefing
+                            </button>
+                            <div className="flex items-center justify-center gap-6">
+                                <div className="h-[2px] w-12 bg-gradient-to-r from-transparent to-indigo-500/50" />
+                                <p className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.5em] whitespace-nowrap">Gatekeeper Protocol // v4.2</p>
+                                <div className="h-[2px] w-12 bg-gradient-to-l from-transparent to-indigo-500/50" />
+                            </div>
                     </header>
 
                     {error && (

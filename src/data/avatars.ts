@@ -20,13 +20,13 @@ export interface AvatarDefinition {
 /**
  * CORE_AVATARS - The single source of truth for all AI delegates.
  * To integrate user-provided videos:
- * 1. Upload .mp4 to gs://edintel-evidence-edintel-sovereign-2027/
- * 2. Update the 'video' field with: https://storage.googleapis.com/edintel-evidence-edintel-sovereign-2027/filename.mp4
+ * 1. Upload .mp4 to gs://edintel-evidence-edintel-professional-2027/
+ * 2. Update the 'video' field with: https://storage.googleapis.com/edintel-evidence-edintel-professional-2027/filename.mp4
  */
 // CORE_AVATARS - Enhanced Video Distribution for Maximum Diversity
 export const CORE_AVATARS: AvatarDefinition[] = [
     {
-        id: 'sovereign_1',
+        id: 'edintel_1',
         name: 'Dr. Alvin West II',
         role: 'Chief AI Strategist | DBA, Ph.D., MBA',
         status: 'online',
@@ -35,7 +35,7 @@ export const CORE_AVATARS: AvatarDefinition[] = [
         heygenId: 'josh_lite3_20230714',
         voiceId: 'JBFqnCBv79x13pTo1U5r', // Dr. West Custom Clone
         clearance: 'Quantum',
-        video: '/videos/briefings/principal_briefing.mp4', // Sovereign Tactical Briefing
+        video: '/videos/briefings/principal_briefing.mp4', // EdIntel Tactical Briefing
         description: 'Strategic Superintendent & Chief AI Architect. Distinguished researcher in sustainable business strategies, organizational leadership, and crisis communication.',
         achievements: ['DBA, Ph.D., MBA', 'Published Researcher', 'Master IEP Strategist'],
         color: 'from-amber-600 to-zinc-900'
@@ -80,7 +80,7 @@ export const CORE_AVATARS: AvatarDefinition[] = [
         heygenId: 'josh_lite3_20230714',
         voiceId: 'ODq5zOfpSjrW7G7A6iY8', // James
         clearance: 'L2',
-        video: '/videos/EdIntel_ Noise-Free Teaching.mp4',
+        video: '/videos/EdIntel_Noise-Free_Teaching.mp4',
         description: 'Lead strategist for positive behavior environments. Andre develops frameworks that improve school climate and student outcomes through data-informed empathy.',
         achievements: ['Expert PBIS Trainer', 'FBA Specialist', '200+ Schools Transformed'],
         color: 'from-orange-600 to-red-800'

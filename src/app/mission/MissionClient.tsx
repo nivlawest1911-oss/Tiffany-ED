@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { Target, Lightbulb, TrendingUp, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import HolographicBriefing from '@/components/HolographicBriefing';
+import HolographicBriefing from '@/components/intelligence/HolographicBriefing';
 import React, { useState } from 'react';
 
 export default function MissionClient() {
@@ -47,7 +47,7 @@ export default function MissionClient() {
                         briefingSteps={[
                             "Defeating administrative friction with neural automation.",
                             "Empowering educators to reclaim their strategic vision.",
-                            "Scaling institutional impact through Sovereignty.",
+                            "Scaling institutional impact through EdIntelty.",
                             "Establishing the standard for AI-integrated leadership."
                         ]}
                     />

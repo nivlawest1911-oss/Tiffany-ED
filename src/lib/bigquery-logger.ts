@@ -9,7 +9,7 @@ export interface NeuralLogEntry {
 }
 
 /**
- * SOVEREIGN LOGGING PROTOCOL: BigQuery Integration
+ * EdIntel LOGGING PROTOCOL: BigQuery Integration
  * This module only executes on the server to prevent client-side bundling errors.
  */
 export async function logToBigQuery(entry: NeuralLogEntry) {
@@ -35,7 +35,7 @@ export async function logToBigQuery(entry: NeuralLogEntry) {
             },
         });
 
-        const DATASET_ID = 'sovereign_intelligence';
+        const DATASET_ID = 'EdIntel_intelligence';
         const TABLE_ID = 'neural_logs';
 
         await bigquery

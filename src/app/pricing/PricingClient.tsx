@@ -1,7 +1,7 @@
 'use client';
 
 import PricingMatrix from '@/components/bento/PricingMatrix';
-import HolographicBriefing from '@/components/HolographicBriefing';
+import HolographicBriefing from '@/components/intelligence/HolographicBriefing';
 import { useState } from 'react';
 import { CircleDollarSign } from 'lucide-react';
 
@@ -38,7 +38,7 @@ export default function PricingClient() {
                         Strategic <span className="text-noble-gold">Investment</span>
                     </h1>
                     <p className="text-zinc-500 max-w-2xl mx-auto font-medium text-lg leading-relaxed">
-                        Precision-engineered for district-wide sovereignty. Zero hidden costs. Absolute administrative vitality.
+                        Precision-engineered for district-wide EdIntelty. Zero hidden costs. Absolute administrative vitality.
                     </p>
                 </div>
 

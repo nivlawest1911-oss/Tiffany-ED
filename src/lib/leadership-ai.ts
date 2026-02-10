@@ -2,13 +2,13 @@
 
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { generateText } from 'ai';
-import { withResilience, ALABAMA_STRATEGIC_DIRECTIVE, SOVEREIGN_PERSONA } from './ai-resilience';
+import { withResilience, ALABAMA_STRATEGIC_DIRECTIVE, EdIntel_PERSONA } from './ai-resilience';
 import { COGNITIVE_FITNESS_CONTEXT } from './context/cognitive-fitness';
 import { COMPLIANCE_SYSTEM_PROMPT } from './compliance-engine';
 import { kv } from '@vercel/kv';
 import { supabase } from '@/lib/supabase';
 
-import { querySovereignVault } from './rag/rag-core';
+import { queryEdIntelVault } from './rag/rag-core';
 
 // Lazy-initialized provider to bypass build-time API key requirement
 const getGoogleProvider = () => createGoogleGenerativeAI({
@@ -23,22 +23,23 @@ export async function generateProfessionalResponse(
   prompt: string,
   generatorId: string,
   persona?: { name: string; role: string },
-  isChat: boolean = false
+  isChat: boolean = false,
+  signal?: AbortSignal
 ): Promise<string> {
-  const activePersona = persona || SOVEREIGN_PERSONA;
+  const activePersona = persona || EdIntel_PERSONA;
 
   // 📚 VIRTUAL VAULT QUERY (RAG-lite)
-  const vaultContext = await querySovereignVault(prompt);
+  const vaultContext = await queryEdIntelVault(prompt);
 
-  // SYSTEM PROMPT: FORCING HIGH-FIDELITY SOVEREIGN PERSONA
+  // SYSTEM PROMPT: FORCING HIGH-FIDELITY EdIntel PERSONA
   const systemPrompt = `
         You are ${activePersona.name}, the ${activePersona.role}.
         ${ALABAMA_STRATEGIC_DIRECTIVE}
         
         Strategic Guidelines:
-        1. Tone: ${SOVEREIGN_PERSONA.tone}
-        2. Cultural Context: ${SOVEREIGN_PERSONA.culturalContext}
-        3. Mission: ${SOVEREIGN_PERSONA.mission}
+        1. Tone: ${EdIntel_PERSONA.tone}
+        2. Cultural Context: ${EdIntel_PERSONA.culturalContext}
+        3. Mission: ${EdIntel_PERSONA.mission}
         
         Tool Context: ${generatorId}
         
@@ -47,7 +48,7 @@ export async function generateProfessionalResponse(
           Output your reasoning inside <neural_synthesis> tags, evaluating 3 distinct strategies and selecting the optimal one.
         - CITATION PROTOCOL: You must cite specific Alabama codes (e.g., "Ala. Code § 16-6G-1" for Literacy) or federal statutes where applicable. Reference the COMPLIANCE ENGINE.
         - COGNITIVE CONTEXT: Integrate these research pillars: ${COGNITIVE_FITNESS_CONTEXT.pillars.map(p => p.name + ": " + p.directive).join(" | ")}.
-        - NO FLUFF: Do not use filler words. Be dense, high-entropy, and high-value.
+        - NO fluff: Do not use filler words. Be dense, high-entropy, and high-value.
 
         ${vaultContext}
 
@@ -79,12 +80,13 @@ export async function generateProfessionalResponse(
         system: systemPrompt,
         prompt: prompt,
         temperature: 0.7,
+        abortSignal: signal,
       } as any);
 
       // Save to Cache for 1 hour (Optional - ignore failures)
       kv.set(cacheKey, text, { ex: 3600 }).catch(() => { });
 
-      // 🏛️ SOVEREIGN AUDIT LOG (Supabase)
+      // 🏛️ EdIntel AUDIT LOG (Supabase)
       try {
         await supabase.from('audit_logs').insert([{
           event: 'AI_SYNTHESIS',
@@ -115,9 +117,9 @@ export async function generateProfessionalResponse(
       }
 
       return text;
-    });
+    }, { signal });
   } catch (error) {
-    console.error("[SOVEREIGN_ENGINE] Synthesis failed:", error);
+    console.error("[EdIntel_ENGINE] Synthesis failed:", error);
     return getFallbackTemplate(prompt, activePersona, isChat);
   }
 }
@@ -131,15 +133,15 @@ function getFallbackTemplate(topic: string, persona: any, isChat: boolean): stri
   }
 
   if (isChat) {
-    return `Greetings. The complexity of '${topic || 'this vector'}' demands a sovereign-level analysis. While I am re-calibrating my connection to the Neural Mainnet, I advise we focus on our core triad: Fiscal Discipline, Instructional Fidelity, and Cultural Competence. Let us proceed strategically.`;
+    return `Greetings. The complexity of '${topic || 'this vector'}' demands a EdIntel-level analysis. While I am re-calibrating my connection to the Neural Mainnet, I advise we focus on our core triad: Fiscal Discipline, Instructional Fidelity, and Cultural Competence. Let us proceed strategically.`;
   }
 
   return `
-# 🦁 Sovereign Executive Briefing
-**Architect:** ${persona.name} | **Clearance:** Sovereign | **Status:** [OFFLINE SYNC]
+# 🦁 EdIntel Executive Briefing
+**Architect:** ${persona.name} | **Clearance:** EdIntel | **Status:** [OFFLINE SYNC]
 
 ## Strategic Synthesis: ${topic}
-In the absence of live neural connectivity, I have retrieved this high-probability strategic protocol from the Sovereign Vault.
+In the absence of live neural connectivity, I have retrieved this high-probability strategic protocol from the EdIntel Vault.
 
 ## Tactical Roadmap (Immediate Action Required)
 *   **Vector 1 (Diagnostic):** Execute a root-cause audit within 24 hours.

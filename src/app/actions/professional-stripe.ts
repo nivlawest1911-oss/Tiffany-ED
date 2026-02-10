@@ -19,7 +19,7 @@ export type StripeHandshake = {
  */
 export async function getStripeHandshake(): Promise<StripeHandshake> {
     if (!process.env.STRIPE_SECRET_KEY) {
-        console.warn("[SOVEREIGN] No STRIPE_SECRET_KEY found. Falling back to actual Stripe configurations.");
+        console.warn("[EdIntel] No STRIPE_SECRET_KEY found. Falling back to actual Stripe configurations.");
         return {
             starter: {
                 monthly: 0,
@@ -92,7 +92,7 @@ export async function getStripeHandshake(): Promise<StripeHandshake> {
             }
         };
     } catch (error) {
-        console.error("[SOVEREIGN] Stripe handshake failed:", error);
+        console.error("[EdIntel] Stripe handshake failed:", error);
         throw error;
     }
 }
@@ -101,7 +101,7 @@ export async function getStripeHandshake(): Promise<StripeHandshake> {
  * Creates a direct Stripe Checkout session for a specific plan.
  * Used for high-stakes administrative procurement.
  */
-export async function createSovereignCheckout(priceId: string, planName: string, userId?: string) {
+export async function createEdIntelCheckout(priceId: string, planName: string, userId?: string) {
     if (!process.env.STRIPE_SECRET_KEY) {
         throw new Error("STRIPE_SECRET_KEY is not configured on this node.");
     }
@@ -124,13 +124,13 @@ export async function createSovereignCheckout(priceId: string, planName: string,
             metadata: {
                 userId: userId || 'anonymous',
                 planName: planName,
-                protocol: 'SOVEREIGN_DIRECT_INITIATION'
+                protocol: 'EdIntel_DIRECT_INITIATION'
             }
         });
 
         return { url: session.url };
     } catch (error) {
-        console.error("[SOVEREIGN] Failed to create checkout session:", error);
+        console.error("[EdIntel] Failed to create checkout session:", error);
         throw error;
     }
 }

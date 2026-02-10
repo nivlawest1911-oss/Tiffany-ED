@@ -3,14 +3,11 @@
 import {
     Shield,
     Lock,
-    Search,
-    Filter,
     Download,
     ExternalLink,
     FileText,
     FileCode,
     FileSpreadsheet,
-    ChevronRight,
     Search as SearchIcon,
     Terminal
 } from 'lucide-react';
@@ -46,7 +43,7 @@ export default function ProfessionalVaultClient() {
         },
         {
             id: 'doc-3',
-            title: 'Data Sovereignty Master Agreement',
+            title: 'Data EdIntelty Master Agreement',
             category: 'Government',
             type: 'PDF',
             size: '4.8 MB',
@@ -94,13 +91,13 @@ export default function ProfessionalVaultClient() {
                 <header className="mb-12">
                     <div className="flex items-center gap-2 text-amber-500 text-xs font-black uppercase tracking-widest mb-4">
                         <Terminal size={14} />
-                        <span>Sovereign Knowledge Base</span>
+                        <span>EdIntel Knowledge Base</span>
                     </div>
                     <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter mb-4">
                         Professional <span className="text-amber-500 italic">Vault</span>
                     </h1>
                     <p className="text-xl text-zinc-400 max-w-2xl">
-                        Decrypted administrative protocols, compliance blueprints, and tactical intelligence for the Sovereign educator.
+                        Decrypted administrative protocols, compliance blueprints, and tactical intelligence for the EdIntel educator.
                     </p>
                 </header>
 
@@ -123,8 +120,8 @@ export default function ProfessionalVaultClient() {
                                 key={cat}
                                 onClick={() => setSelectedCategory(cat)}
                                 className={`px-6 py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all whitespace-nowrap border ${selectedCategory === cat
-                                        ? 'bg-amber-500 text-black border-amber-500 shadow-lg shadow-amber-500/20'
-                                        : 'bg-zinc-900 text-zinc-500 border-white/5 hover:border-white/20'
+                                    ? 'bg-amber-500 text-black border-amber-500 shadow-lg shadow-amber-500/20'
+                                    : 'bg-zinc-900 text-zinc-500 border-white/5 hover:border-white/20'
                                     }`}
                             >
                                 {cat}

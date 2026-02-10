@@ -4,9 +4,9 @@ import path from 'path';
 import https from 'https';
 
 // ------------------------------------------------------------------
-// SOVEREIGN AUDIO PROCURER
+// EdIntel AUDIO PROCURER
 // ------------------------------------------------------------------
-// Downloads high-tech interface sounds for the "Sovereign" aesthetic.
+// Downloads high-tech interface sounds for the "EdIntel" aesthetic.
 // Sources: Pixabay (Royalty Free)
 // ------------------------------------------------------------------
 

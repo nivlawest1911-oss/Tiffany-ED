@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Loader2, Wand2, Download, Eye } from 'lucide-react';
@@ -21,11 +21,31 @@ export function InVideoCreator({ className = '' }: InVideoCreatorProps) {
     const [progress, setProgress] = useState(0);
     const [error, setError] = useState<string | null>(null);
 
+    // Ref to hold the controller for the active request
+    const abortControllerRef = useRef<AbortController | null>(null);
+
+    // Cleanup on unmount
+    useEffect(() => {
+        return () => {
+            if (abortControllerRef.current) {
+                abortControllerRef.current.abort();
+            }
+        };
+    }, []);
+
     const handleCreate = async () => {
         if (!prompt.trim()) {
             setError('Please enter a video description');
             return;
         }
+
+        // Cancel previous request
+        if (abortControllerRef.current) {
+            abortControllerRef.current.abort();
+        }
+
+        const controller = new AbortController();
+        abortControllerRef.current = controller;
 
         setIsCreating(true);
         setError(null);
@@ -42,6 +62,7 @@ export function InVideoCreator({ className = '' }: InVideoCreatorProps) {
                     duration,
                     includeMusic: true,
                 }),
+                signal: controller.signal
             });
 
             if (!response.ok) {
@@ -49,43 +70,64 @@ export function InVideoCreator({ className = '' }: InVideoCreatorProps) {
             }
 
             const data = await response.json();
+            if (controller.signal.aborted) return;
             setProjectId(data.projectId);
 
-            // Poll for completion
-            const pollInterval = setInterval(async () => {
-                try {
-                    const statusResponse = await fetch(
-                        `/api/invideo/create?projectId=${data.projectId}`
-                    );
-                    const status = await statusResponse.json();
+            // Poll for completion with AbortSignal
+            let attempts = 0;
+            const maxAttempts = 120; // 10 minutes (5s interval)
 
-                    if (status.status === 'completed' && status.video_url) {
-                        setVideoUrl(status.video_url);
-                        setProgress(100);
-                        clearInterval(pollInterval);
-                        setIsCreating(false);
-                    } else if (status.status === 'failed') {
-                        throw new Error('Video creation failed');
-                    } else {
-                        setProgress(status.progress || Math.min(progress + 3, 95));
-                    }
-                } catch (err) {
-                    clearInterval(pollInterval);
-                    setError(err instanceof Error ? err.message : 'Unknown error');
-                    setIsCreating(false);
-                }
-            }, 5000);
+            while (attempts < maxAttempts) {
+                if (controller.signal.aborted) break;
 
-            setTimeout(() => {
-                clearInterval(pollInterval);
-                if (isCreating) {
-                    setError('Video creation timeout');
+                const statusResponse = await fetch(
+                    `/api/invideo/create?projectId=${data.projectId}`,
+                    { signal: controller.signal }
+                );
+                const status = await statusResponse.json();
+
+                if (controller.signal.aborted) break;
+
+                if (status.status === 'completed' && status.video_url) {
+                    setVideoUrl(status.video_url);
+                    setProgress(100);
                     setIsCreating(false);
+                    return;
+                } else if (status.status === 'failed') {
+                    throw new Error('Video creation failed');
+                } else {
+                    setProgress(status.progress || Math.min(progress + 3, 95));
                 }
-            }, 600000);
-        } catch (err) {
+
+                // Wait 5 seconds using a cancellable promise
+                await new Promise((resolve, reject) => {
+                    const timeout = setTimeout(resolve, 5000);
+                    controller.signal.addEventListener('abort', () => {
+                        clearTimeout(timeout);
+                        reject(new DOMException('Aborted', 'AbortError'));
+                    }, { once: true });
+                });
+
+                attempts++;
+            }
+
+            if (attempts >= maxAttempts && !controller.signal.aborted) {
+                throw new Error('Video creation timeout');
+            }
+
+        } catch (err: any) {
+            if (err.name === 'AbortError') {
+                console.log('Video creation aborted');
+                return;
+            }
             setError(err instanceof Error ? err.message : 'Failed to create video');
             setIsCreating(false);
+        } finally {
+            if (abortControllerRef.current === controller) {
+                abortControllerRef.current = null;
+                // Typically don't reset isCreating here if successful, but handle logic above handles it
+                if (!videoUrl && !error) setIsCreating(false);
+            }
         }
     };
 

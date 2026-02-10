@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
     Clock,
     Users,
@@ -12,14 +12,16 @@ import {
     Zap,
     ArrowRight,
     BarChart3,
-    Calendar
+    Calendar,
+    X
 } from 'lucide-react';
 import Link from 'next/link';
 import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import BurnoutHeatmap from '@/components/dashboard/BurnoutHeatmap';
 
 
 export default function InteractiveDashboard() {
-    const [showBriefing, setShowBriefing] = useState(false);
+    const [showBurnoutHeatmap, setShowBurnoutHeatmap] = useState(false);
     // Mock data for charts
     const usageData = [
         { day: 'Mon', generations: 12 },
@@ -160,10 +162,10 @@ export default function InteractiveDashboard() {
                         </p>
                     </div>
 
-                    {/* Briefing Button Removed to centralize in SovereignDelegate */}
+                    {/* Briefing Button Removed to centralize in EdIntelDelegate */}
                 </motion.div>
 
-                {/* HolographicBriefing Removed - Use SovereignDelegate for Briefings */}
+                {/* HolographicBriefing Removed - Use EdIntelDelegate for Briefings */}
 
                 {/* Stats Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -203,7 +205,12 @@ export default function InteractiveDashboard() {
                     className="grid grid-cols-1 md:grid-cols-3 gap-6"
                 >
                     {/* Burnout Eliminator */}
-                    <div className="relative p-6 rounded-2xl bg-gradient-to-br from-red-900/20 to-orange-900/20 border border-red-500/20 group hover:border-red-500/40 transition-all overflow-hidden">
+                    <motion.div
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() => setShowBurnoutHeatmap(true)}
+                        className="relative p-6 rounded-2xl bg-gradient-to-br from-red-900/20 to-orange-900/20 border border-red-500/20 group hover:border-red-500/40 transition-all overflow-hidden cursor-pointer"
+                    >
                         <div className="absolute top-0 right-0 p-4 opacity-10">
                             <Sparkles size={100} />
                         </div>
@@ -219,7 +226,7 @@ export default function InteractiveDashboard() {
                         <div className="mt-4 h-1 w-full bg-red-900/30 rounded-full overflow-hidden">
                             <div className="h-full bg-gradient-to-r from-red-500 to-orange-500 w-[84%]" />
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* Intelligence Maximizer */}
                     <div className="relative p-6 rounded-2xl bg-gradient-to-br from-indigo-900/20 to-purple-900/20 border border-indigo-500/20 group hover:border-indigo-500/40 transition-all overflow-hidden">
@@ -408,6 +415,44 @@ export default function InteractiveDashboard() {
 
 
             </div>
+
+            {/* Burnout Heatmap Modal */}
+            <AnimatePresence>
+                {showBurnoutHeatmap && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+                        onClick={() => setShowBurnoutHeatmap(false)}
+                    >
+                        <motion.div
+                            initial={{ scale: 0.95, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.95, opacity: 0 }}
+                            className="w-full max-w-5xl h-[80vh] bg-zinc-950 rounded-3xl border border-white/10 shadow-2xl overflow-hidden flex flex-col"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <div className="flex items-center justify-between p-4 border-b border-white/10 bg-black/40">
+                                <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                                    <Sparkles className="w-5 h-5 text-red-500" />
+                                    Burnout Elimination Protocol
+                                </h2>
+                                <button
+                                    onClick={() => setShowBurnoutHeatmap(false)}
+                                    className="p-2 rounded-full hover:bg-white/10 transition-colors"
+                                    aria-label="Close"
+                                >
+                                    <X className="w-5 h-5 text-zinc-400" />
+                                </button>
+                            </div>
+                            <div className="flex-1 overflow-hidden">
+                                <BurnoutHeatmap />
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }

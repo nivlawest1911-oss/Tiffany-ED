@@ -6,7 +6,7 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholde
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 /**
- * Sovereign Data Uplink: Fetches high-fidelity media manifest from Supabase.
+ * EdIntel Data Uplink: Fetches high-fidelity media manifest from Supabase.
  * Replaces static JSON definitions with real-time district data.
  */
 export async function fetchMediaManifest() {
@@ -24,7 +24,7 @@ export async function fetchMediaManifest() {
 }
 
 /**
- * Strategic Sync: Stores generated IEP documents in the Sovereign Vault.
+ * Strategic Sync: Stores generated IEP documents in the EdIntel Vault.
  */
 export async function archiveStrategicDocument(userId: string, title: string, content: any, type: string) {
     const { data, error } = await supabase
@@ -35,7 +35,7 @@ export async function archiveStrategicDocument(userId: string, title: string, co
                 title,
                 content,
                 type,
-                clearance: 'Sovereign'
+                clearance: 'EdIntel'
             }
         ])
         .select();
@@ -48,7 +48,7 @@ export async function archiveStrategicDocument(userId: string, title: string, co
     return data[0];
 }
 /**
- * 🏛️ Sovereign Audit Link: Logs neural synthesis events for institutional compliance.
+ * 🏛️ EdIntel Audit Link: Logs neural synthesis events for institutional compliance.
  */
 export async function logAiEvent(generatorId: string, prompt: string, status: string = 'SUCCESS') {
     const { error } = await supabase
@@ -90,7 +90,7 @@ export async function submitLead(email: string, schoolName: string, source: stri
 }
 
 /**
- * 🛰️ Sovereign Support Uplink: Transmits teacher feedback to the institutional memory core.
+ * 🛰️ EdIntel Support Uplink: Transmits teacher feedback to the institutional memory core.
  */
 export async function createSupportTicket(userId: string, subject: string, message: string, priority: string = 'STANDARD') {
     const { data, error } = await supabase

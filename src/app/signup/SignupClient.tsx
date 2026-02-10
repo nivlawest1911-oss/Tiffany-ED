@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Lock, Mail, User as LucideUser, ArrowRight, ShieldCheck, Hexagon } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
-import HolographicBriefing from '@/components/HolographicBriefing';
+import HolographicBriefing from '@/components/intelligence/HolographicBriefing';
 
 function SignupForm() {
     const [email, setEmail] = useState('');
@@ -98,7 +98,7 @@ function SignupForm() {
                         isOpen={showBriefing}
                         onClose={() => setShowBriefing(false)}
                         title="Induction Sentinel"
-                        description="Welcome to the Sovereign Collective. You are initiating a strategic node provisioning. This protocol will synchronize your professional identity across the EdIntel network."
+                        description="Welcome to the EdIntel Collective. You are initiating a strategic node provisioning. This protocol will synchronize your professional identity across the EdIntel network."
                         role="Induction Overseer"
                         avatarImage="/images/avatars/instructional_tech.png"
                         stats={{ time: "PROCESS", saved: "FUTURE", accuracy: "100%" }}

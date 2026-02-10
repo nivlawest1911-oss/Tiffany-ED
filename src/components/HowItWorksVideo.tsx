@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { Play, CheckCircle, Video, Radio } from 'lucide-react';
 import VideoPlayer from './VideoPlayer';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
-import HolographicBriefing from './HolographicBriefing';
+import HolographicBriefing from './intelligence/HolographicBriefing';
 
 export default function HowItWorksVideo() {
     const { playHover, playClick } = useProfessionalSounds();

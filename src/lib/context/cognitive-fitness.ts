@@ -1,5 +1,5 @@
 /**
- * EdIntel Sovereign: Cognitive Fitness Knowledge Base
+ * EdIntel EdIntel: Cognitive Fitness Knowledge Base
  * This file contains distilled intelligence from the EdIntel "Cognitive Fitness" framework.
  * It serves as a secondary knowledge layer for AI generators.
  */
@@ -27,6 +27,6 @@ export const COGNITIVE_FITNESS_CONTEXT = {
         "synaptic mastery",
         "executive function scaffolds",
         "neural fidelity",
-        "instructional sovereignty"
+        "instructional EdIntelty"
     ]
 };

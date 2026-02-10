@@ -15,7 +15,7 @@ export const generateDistrictAudit = (districtName: string, schoolData: any[]) =
 
     doc.setTextColor(100);
     doc.setFontSize(9);
-    doc.text(`SOVEREIGN INTELLIGENCE LEDGER | GENERATED: ${new Date().toLocaleDateString()}`, 14, 35);
+    doc.text(`EdIntel INTELLIGENCE LEDGER | GENERATED: ${new Date().toLocaleDateString()}`, 14, 35);
 
     // Summary Metrics
     const totalNarratives = schoolData.reduce((acc, site) => acc + (site.narrative_count || 0), 0);
@@ -46,8 +46,8 @@ export const generateDistrictAudit = (districtName: string, schoolData: any[]) =
     doc.setTextColor(100);
     doc.text([
         '• All narratives generated meet the Alabama State Department of Education standards.',
-        '• Data handled via Sovereign Node isolation (FERPA/SOPPA compliant).',
-        '• Audit logs are immutable and stored in the EdIntel Sovereign Vault.'
+        '• Data handled via EdIntel Node isolation (FERPA/SOPPA compliant).',
+        '• Audit logs are immutable and stored in the EdIntel EdIntel Vault.'
     ], 14, finalY + 10);
 
     doc.save(`${districtName}_Audit_${new Date().toISOString().split('T')[0]}.pdf`);

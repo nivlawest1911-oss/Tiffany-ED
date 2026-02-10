@@ -1,5 +1,5 @@
 /**
- * EdIntel SOVEREIGN - Gemini Workspace Database Service
+ * EdIntel EdIntel - Gemini Workspace Database Service
  * Simplified database operations for Gemini workspace content
  */
 

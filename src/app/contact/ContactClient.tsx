@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Mail, MessageSquare, Phone, Send, MapPin, CheckCircle, Shield as LucideShield } from 'lucide-react';
 import { motion } from 'framer-motion';
-import HolographicBriefing from '@/components/HolographicBriefing';
+import HolographicBriefing from '@/components/intelligence/HolographicBriefing';
 import Image from 'next/image';
 
 export default function ContactClient() {

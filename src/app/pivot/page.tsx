@@ -21,7 +21,7 @@ import {
     ResponsiveContainer
 } from 'recharts';
 import Link from 'next/link';
-import SovereignHeader from '@/components/SovereignHeader';
+import EdIntelHeader from '@/components/sovereign/EdIntelHeader';
 
 const roiData = [
     { month: 'Sep', administrative: 45, strategic: 25 },
@@ -47,7 +47,7 @@ const mentalHealthImpact = [
 export default function PivotIntelligencePage() {
     return (
         <div className="min-h-screen bg-[#050507] text-white selection:bg-noble-gold/30">
-            <SovereignHeader />
+            <EdIntelHeader />
 
             <main className="pt-32 pb-24 px-6 md:px-12 max-w-7xl mx-auto space-y-24">
                 {/* Hero section */}
@@ -73,7 +73,7 @@ export default function PivotIntelligencePage() {
 
                         <p className="max-w-2xl text-xl text-zinc-400 font-medium leading-relaxed">
                             Transforming instructional leadership from administrative friction to strategic acceleration.
-                            EdIntel Sovereign redefines the ROI of educational personnel.
+                            EdIntel EdIntel redefines the ROI of educational personnel.
                         </p>
                     </motion.div>
                 </section>
@@ -119,7 +119,7 @@ export default function PivotIntelligencePage() {
                                 reclaiming the heart of education."
                             </p>
                             <p>
-                                By deploying Sovereign Dr. West’s executive automation, districts are seeing a recursive cycle of
+                                By deploying EdIntel Dr. West’s executive automation, districts are seeing a recursive cycle of
                                 <span className="text-emerald-400 font-bold ml-1">Mental Health Reallocation</span>. High-fidelity AI
                                 handles the friction, letting your highest-paid experts focus on your highest-need students.
                             </p>
@@ -277,7 +277,7 @@ export default function PivotIntelligencePage() {
                             Ready for <span className="text-noble-gold">Full Sync</span>?
                         </h2>
                         <p className="max-w-2xl text-xl text-zinc-400 mb-12">
-                            The Pivot is only the baseline. Upgrade Dr. West or Sovereign Pro to unlock the
+                            The Pivot is only the baseline. Upgrade Dr. West or EdIntel Pro to unlock the
                             full strategic potential of the EdIntel Multi-Agent Network.
                         </p>
 
@@ -285,8 +285,8 @@ export default function PivotIntelligencePage() {
                             <Link href="/pricing" className="px-12 py-5 bg-noble-gold text-black rounded-full font-black uppercase tracking-widest text-lg hover:bg-white hover:scale-105 transition-all shadow-xl shadow-noble-gold/20">
                                 Upgrade Dr. West
                             </Link>
-                            <Link href="/sovereign" className="px-12 py-5 bg-white/5 border border-white/10 text-white rounded-full font-black uppercase tracking-widest text-lg hover:bg-white/10 hover:scale-105 transition-all">
-                                Sovereign Pro Access
+                            <Link href="/EdIntel" className="px-12 py-5 bg-white/5 border border-white/10 text-white rounded-full font-black uppercase tracking-widest text-lg hover:bg-white/10 hover:scale-105 transition-all">
+                                EdIntel Pro Access
                             </Link>
                         </div>
 
@@ -309,7 +309,7 @@ export default function PivotIntelligencePage() {
             </main>
 
             <footer className="py-20 border-t border-white/5 text-center">
-                <p className="text-zinc-600 text-xs font-mono uppercase tracking-[0.5em]">EdIntel Enterprise OS // Architecture v4.2.0-Sovereign</p>
+                <p className="text-zinc-600 text-xs font-mono uppercase tracking-[0.5em]">EdIntel Enterprise OS // Architecture v4.2.0-EdIntel</p>
             </footer>
 
             <style jsx global>{`

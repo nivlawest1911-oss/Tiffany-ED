@@ -1,5 +1,5 @@
 
-export interface SovereignProtocol {
+export interface EdIntelProtocol {
     context: string;
     message: string;
     videoBehavior: 'idle' | 'attentive' | 'focus' | 'alert';
@@ -8,9 +8,9 @@ export interface SovereignProtocol {
     abilityType?: 'strategy' | 'compliance' | 'analytics' | 'curriculum' | 'identity' | 'communication';
 }
 
-export const SOVEREIGN_PROTOCOLS: Record<string, SovereignProtocol> = {
+export const EdIntel_PROTOCOLS: Record<string, EdIntelProtocol> = {
     '/': {
-        context: 'SOVEREIGN LEGACY',
+        context: 'EdIntel LEGACY',
         message: 'Welcome back, Executive. Grounded in the resilience of Prichard 1925 and the legacy of Africatown, EdIntel stands ready. I am calibrating all systems to maintain the standard of excellence established by pioneers like Dr. H. Roger Williams.',
         videoBehavior: 'idle',
         suggestedAction: '/generators',
@@ -23,7 +23,7 @@ export const SOVEREIGN_PROTOCOLS: Record<string, SovereignProtocol> = {
         videoBehavior: 'attentive',
         abilityType: 'strategy'
     },
-    '/generators/iep-architect': {
+    '/dashboard/iep-architect': {
         context: 'COMPLIANCE SHIELD',
         message: 'IEP Architect active. This tool uses Level 4 Neural Compliance standards to draft legally defensible plans. Shall we review the latest IDEA updates?',
         videoBehavior: 'focus',
@@ -61,13 +61,13 @@ export const SOVEREIGN_PROTOCOLS: Record<string, SovereignProtocol> = {
     },
     '/pricing': {
         context: 'FISCAL STRATEGY',
-        message: 'Accessing the Investment Matrix. Here you can authorize capital allocation for Sovereign Level AI protocols to maximize district ROI.',
+        message: 'Accessing the Investment Matrix. Here you can authorize capital allocation for EdIntel Level AI protocols to maximize district ROI.',
         videoBehavior: 'attentive'
     }
 };
 
-export const DEFAULT_PROTOCOL: SovereignProtocol = {
+export const DEFAULT_PROTOCOL: EdIntelProtocol = {
     context: 'SYSTEM STANDBY',
-    message: 'Sovereign Agent active and awaiting command. How can I assist you?',
+    message: 'EdIntel Agent active and awaiting command. How can I assist you?',
     videoBehavior: 'idle'
 };

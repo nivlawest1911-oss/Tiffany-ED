@@ -19,7 +19,7 @@ const iconMap: any = {
 export default function SupportClient() {
     return (
         <main className="content-stage min-h-screen bg-black relative overflow-hidden">
-            {/* Sovereign Background elements */}
+            {/* EdIntel Background elements */}
             <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] scale-150" />
             </div>
@@ -41,7 +41,7 @@ export default function SupportClient() {
                     </div>
 
                     <h1 className="text-4xl md:text-5xl font-black tracking-tighter uppercase text-white">
-                        Sovereign <span className="text-noble-gold italic">Support</span>
+                        EdIntel <span className="text-noble-gold italic">Support</span>
                     </h1>
 
                     <div className="relative group max-w-2xl mx-auto">

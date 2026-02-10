@@ -100,7 +100,7 @@ export async function GET(request: NextRequest) {
             googleId
         );
 
-        console.log(`[SOVEREIGN SYNC] User synced: ${user.email} (${user.tier})`);
+        console.log(`[EdIntel SYNC] User synced: ${user.email} (${user.tier})`);
 
         // 4. Create Secure Session (Legacy/Custom JWT)
         await login({

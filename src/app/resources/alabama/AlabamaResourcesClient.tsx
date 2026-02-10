@@ -13,7 +13,7 @@ import {
     Scale
 } from 'lucide-react';
 import React, { useState } from 'react';
-import HolographicBriefing from '@/components/HolographicBriefing';
+import HolographicBriefing from '@/components/intelligence/HolographicBriefing';
 
 interface Resource {
     title: string;

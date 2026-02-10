@@ -4,7 +4,7 @@ import path from 'path';
 import https from 'https';
 
 // ------------------------------------------------------------------
-// SOVEREIGN VOICE PROCURER
+// EdIntel VOICE PROCURER
 // ------------------------------------------------------------------
 // Downloads a placeholder "Executive Voice" for the Principal Avatar.
 // User should replace this with their own voice recording.

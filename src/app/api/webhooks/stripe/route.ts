@@ -31,7 +31,7 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: `Webhook Error: ${err.message}` }, { status: 400 });
     }
 
-    // The "Sovereign" Event: When a checkout link is successfully finished
+    // The "EdIntel" Event: When a checkout link is successfully finished
     if (event.type === 'checkout.session.completed') {
         const session = event.data.object as Stripe.Checkout.Session;
 

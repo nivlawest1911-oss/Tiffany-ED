@@ -1,9 +1,9 @@
-import { createSovereignServerClient } from '@/lib/supabase-server';
-import { SovereignIDManager } from '@/components/SovereignIDManager';
+import { createEdIntelServerClient } from '@/lib/supabase-server';
+import { EdIntelIDManager } from '@/components/sovereign/EdIntelIDManager';
 import { Sidebar } from '@/components/dashboard/Sidebar';
 import { TacticalHeader } from '@/components/dashboard/TacticalHeader';
 import { PageTransition } from '@/components/dashboard/PageTransition';
-import { SovereignVibeProvider } from '@/context/SovereignVibeContext';
+import { EdIntelVibeProvider } from '@/context/EdIntelVibeContext';
 import { AmbientBackground } from '@/components/dashboard/AmbientBackground';
 import React from 'react';
 
@@ -12,7 +12,7 @@ export default async function DashboardLayout({
 }: {
     children: React.ReactNode;
 }) {
-    const supabase = await createSovereignServerClient();
+    const supabase = await createEdIntelServerClient();
 
     const { data: { session } } = await supabase.auth.getSession();
 
@@ -32,12 +32,12 @@ export default async function DashboardLayout({
     }
 
     return (
-        <SovereignVibeProvider>
+        <EdIntelVibeProvider>
             <div className="flex min-h-screen w-full bg-background text-foreground antialiased selection:bg-primary/30 overflow-hidden font-sans relative">
                 {/* 0. CINEMATIC AMBIENCE */}
                 <AmbientBackground />
 
-                <SovereignIDManager userSubscription={subscriptionData} />
+                <EdIntelIDManager userSubscription={subscriptionData} />
 
                 {/* 1. NANO-NAV: Slim, non-intrusive sidebar */}
                 <Sidebar />
@@ -54,6 +54,6 @@ export default async function DashboardLayout({
                     </main>
                 </div>
             </div>
-        </SovereignVibeProvider>
+        </EdIntelVibeProvider>
     );
 }

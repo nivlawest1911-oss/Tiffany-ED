@@ -2,7 +2,7 @@ import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
-const SECRET_KEY = process.env.JWT_SECRET || 'sovereign-secret-key-change-me';
+const SECRET_KEY = process.env.JWT_SECRET || 'EdIntel-secret-key-change-me';
 const key = new TextEncoder().encode(SECRET_KEY);
 
 export async function encrypt(payload: any) {

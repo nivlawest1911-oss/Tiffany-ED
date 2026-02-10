@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import { useSovereignVibe } from '@/context/SovereignVibeContext';
+import { useEdIntelVibe } from '@/context/EdIntelVibeContext';
 
 export const AmbientBackground = () => {
-    const { currentVibe } = useSovereignVibe();
+    const { currentVibe } = useEdIntelVibe();
 
     return (
         <div className="fixed inset-0 -z-10 w-full h-full overflow-hidden bg-zinc-950">

@@ -30,7 +30,7 @@ export const TransferTerminal = ({ staffId, staffName }: { staffId: string, staf
                 </div>
                 <div>
                     <h4 className="text-[10px] uppercase tracking-[0.4em] text-white font-black italic">Allocation Terminal</h4>
-                    <p className="text-[8px] text-zinc-500 uppercase font-bold mt-1 tracking-widest">Resource Sovereignty Control</p>
+                    <p className="text-[8px] text-zinc-500 uppercase font-bold mt-1 tracking-widest">Resource EdIntelty Control</p>
                 </div>
             </div>
 
@@ -107,7 +107,7 @@ export const TransferTerminal = ({ staffId, staffName }: { staffId: string, staf
                 <div className="flex items-center gap-3 p-4 bg-red-500/5 border border-red-500/10 rounded-2xl">
                     <AlertTriangle className="text-red-500/50 w-4 h-4 shrink-0" />
                     <p className="text-[8px] text-zinc-600 uppercase font-black tracking-widest leading-relaxed">
-                        Notice: Energy transfers are irreversible and recorded in the Sovereign Ledger for audit compliance.
+                        Notice: Energy transfers are irreversible and recorded in the EdIntel Ledger for audit compliance.
                     </p>
                 </div>
             </div>

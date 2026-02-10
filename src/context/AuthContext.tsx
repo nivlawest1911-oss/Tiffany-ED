@@ -38,7 +38,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [isLoading, setIsLoading] = useState(true);
     const router = useRouter();
 
-    // 🏛️ SOVEREIGN IDENTITY SYNC
+    // 🏛️ EdIntel IDENTITY SYNC
     useEffect(() => {
         const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
             if (session?.user) {
@@ -57,7 +57,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     id: session.user.id,
                     email: session.user.email!,
                     name: metadata.full_name || session.user.email?.split('@')[0] || 'Executive',
-                    tier: (profile?.subscription_tier as any) || (metadata.tier as any) || 'Sovereign Initiate',
+                    tier: (profile?.subscription_tier as any) || (metadata.tier as any) || 'EdIntel Initiate',
                     usage_count: profile?.usage_tokens || usage
                 };
 
@@ -67,14 +67,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 if (event === 'SIGNED_IN') {
                     celebrate(
                         `Welcome back, ${newUser.name}`,
-                        'Sovereign access protocols synchronized. Your executive suite is ready.',
+                        'EdIntel access protocols synchronized. Your executive suite is ready.',
                         'success'
                     );
                 }
 
                 // 🚨 MONITOR TOKEN BALANCE (Alerting for low tokens)
                 if (newUser.usage_count! > 900 && (newUser.tier === 'free' as any)) {
-                    toast.error("Alert: Sovereign Tokens Low. Refuel at the Command Center.", {
+                    toast.error("Alert: EdIntel Tokens Low. Refuel at the Command Center.", {
                         description: "Energy reserves depleting. Secure institutional funding.",
                         duration: 10000,
                     });
@@ -97,14 +97,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     options: { emailRedirectTo: `${window.location.origin}/auth/callback` }
                 });
                 if (error) throw error;
-                alert('Sovereign access link dispatched to your email.');
+                alert('EdIntel access link dispatched to your email.');
             } else {
                 const { error } = await supabase.auth.signInWithPassword({ email, password });
                 if (error) throw error;
                 router.push('/dashboard');
             }
         } catch (err: any) {
-            console.error("[SOVEREIGN_AUTH] Login error:", err);
+            console.error("[EdIntel_AUTH] Login error:", err);
             throw err;
         } finally {
             setIsLoading(false);
@@ -128,17 +128,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             if (error) throw error;
 
             if (data.user && !data.session) {
-                alert("Sovereign Protocol Initiated: Please check your inbox to authorize your institutional identity.");
+                alert("EdIntel Protocol Initiated: Please check your inbox to authorize your institutional identity.");
             } else if (data.session) {
                 celebrate(
                     'Identity Authorized',
-                    'Welcome to the Sovereign OS. Your education intelligence journey begins now.',
+                    'Welcome to the EdIntel OS. Your education intelligence journey begins now.',
                     'achievement'
                 );
                 router.push('/dashboard');
             }
         } catch (err: any) {
-            console.error("[SOVEREIGN_AUTH] Signup error:", err);
+            console.error("[EdIntel_AUTH] Signup error:", err);
             throw err;
         } finally {
             setIsLoading(false);

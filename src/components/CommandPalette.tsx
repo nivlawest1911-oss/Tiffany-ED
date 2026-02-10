@@ -58,12 +58,12 @@ export default function CommandPalette({ onCloseAction }: { onCloseAction?: () =
             category: 'navigation',
         },
         {
-            id: 'sovereign_cmd',
-            title: 'Sovereign Command',
+            id: 'EdIntel_cmd',
+            title: 'EdIntel Command',
             subtitle: 'Executive Delegate Protocol',
             icon: <CommandIcon className="w-5 h-5 text-noble-gold" />,
-            action: () => window.dispatchEvent(new CustomEvent('open-sovereign-delegate')),
-            keywords: ['sovereign', 'command', 'delegate'],
+            action: () => window.dispatchEvent(new CustomEvent('open-EdIntel-delegate')),
+            keywords: ['EdIntel', 'command', 'delegate'],
             category: 'action',
         },
         ...generators.map(gen => ({
@@ -174,7 +174,7 @@ export default function CommandPalette({ onCloseAction }: { onCloseAction?: () =
                                     <span>↑↓ Navigate</span>
                                     <span>↵ Select</span>
                                 </div>
-                                <span>Sovereign OS Command v5.1.S</span>
+                                <span>EdIntel OS Command v5.1.S</span>
                             </div>
                         </motion.div>
                     </div>

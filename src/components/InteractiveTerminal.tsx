@@ -13,7 +13,7 @@ export default function InteractiveTerminal({ onCommand }: InteractiveTerminalPr
 
     const mockLogs = [
         "Establishing neural handshake...",
-        "Sovereign Core initialized.",
+        "EdIntel Core initialized.",
         "Loading Alabama Strategic Directive...",
         "FERPA encryption layer secured.",
         "Bento ecosystem sync complete.",
@@ -62,7 +62,7 @@ export default function InteractiveTerminal({ onCommand }: InteractiveTerminalPr
             <div className="bg-white/5 px-6 py-3 border-b border-white/10 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                     <TerminalIcon size={14} className="text-intel-gold" />
-                    <span className="text-[10px] font-black uppercase text-white/50 tracking-widest">Sovereign Terminal Protocol</span>
+                    <span className="text-[10px] font-black uppercase text-white/50 tracking-widest">EdIntel Terminal Protocol</span>
                 </div>
                 <div className="flex gap-2">
                     <div className="w-2 h-2 rounded-full bg-red-500/50" />
