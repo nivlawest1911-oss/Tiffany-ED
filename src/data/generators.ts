@@ -4,7 +4,7 @@ import {
     Briefcase, BookMarked, PenTool, Video, Beaker, Calculator, HandCoins, Bus, ClipboardList,
     PieChart, Layers, Gamepad2, ShieldAlert, Mail, ScrollText, UserCheck, FileJson, Table, HeartHandshake, Smile,
     GanttChart, Trophy, Glasses, BarChart3, Globe, Star, Scale, Clock, ShoppingBag, Presentation, HardHat,
-    History, Heart, Flame, Compass
+    History, Heart, Flame, Compass, ShieldCheck
 } from "lucide-react"
 
 import { CORE_AVATARS } from './avatars';
@@ -52,9 +52,9 @@ export const generators = [
         welcomeVideo: "/videos/briefings/data_briefing.mp4", // Using compliance briefing for special ed protocol
         voiceWelcome: "/voice-profiles/compliance_voice.wav",
         prompts: [
-            "Draft 3 annual IEP goals for a 4th-grade student with autism focusing on executive function and social-emotional regulation, citing specific IDEA LRE requirements.",
-            "Analyze a student's triennial re-evaluation data and draft a procedural safeguard briefing for a high-stakes transition meeting.",
-            "Create a list of 5 high-impact accommodations for a high-schooler with dyslexia in a chemistry lab, aligned with Alabama Literacy Act standards."
+            "Draft 3 annual IEP goals for a 4th-grade student with autism focusing on executive function and social-emotional regulation, citing specific standards from 'Mastering the Maze'.",
+            "Analyze a student's triennial re-evaluation data and draft a procedural safeguard briefing for a high-stakes transition meeting in alignment with ALSDE SES compliance.",
+            "Create a list of 5 high-impact accommodations for a high-schooler with dyslexia in a science lab, aligned with Alabama Literacy Act standards and SOR (Science of Reading) protocols."
         ]
     },
     {
@@ -135,9 +135,9 @@ export const generators = [
         welcomeVideo: "/videos/briefings/data_briefing.mp4",
         voiceWelcome: "/voice-profiles/data_voice.wav",
         prompts: [
-            "Audit a Title I spending ledger for allowable costs under the latest ESSA guidelines.",
-            "Generate a grant reporting checklist for a state-funded STEM initiative, ensuring 100% documentation accuracy.",
-            "Draft a fiscal impact analysis for a district-wide technology refresh, including ROI projections for student achievement."
+            "Audit a Title I spending ledger for allowable costs under the latest ESSA and eGAP reimbursement guidelines.",
+            "Generate a grant reporting checklist for a state-funded STEM initiative, ensuring 100% accuracy for an ALSDE fiscal audit.",
+            "Draft a fiscal impact analysis for a district-wide technology refresh, including ROI projections for student achievement and ALJP vendor utilization."
         ]
     },
     {
@@ -236,7 +236,38 @@ export const generators = [
     { id: "budget-allocator", name: "Budget Allocator", description: "Finance modeling", icon: PieChart, color: "#06b6d4", avatar: AVATARS.DATA, heroVideo: "/videos/features/data-analysis-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/data_voice.wav", prompts: ["Budget analysis"] },
     { id: "project-pbl-architect", name: "PBL Specialist", description: "Project design", icon: Layers, color: "#ec4899", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["PBL unit plan"] },
     { id: "quiz-gamifier", name: "Quiz Gamifier", description: "Gamification", icon: Gamepad2, color: "#8b5cf6", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Gamify quiz review"] },
-    { id: "safety-drill-master", name: "Safety Drill Master", description: "Crisis planning", icon: ShieldAlert, color: "#ef4444", avatar: AVATARS.COMPLIANCE, heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/compliance_voice.wav", prompts: ["Fire drill procedure"] },
+    {
+        id: "safety-drill-master",
+        name: "Safety Drill Master",
+        description: "Crisis planning and drill compliance management.",
+        icon: ShieldAlert,
+        color: "#ef4444",
+        avatar: AVATARS.COMPLIANCE,
+        heroVideo: "/videos/features/iep-architect-demo.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
+        voiceWelcome: "/voice-profiles/compliance_voice.wav",
+        prompts: [
+            "Generate a fire drill procedure and log for a multi-story elementary school, ensuring all data points align with nSide School Safety Platform requirements.",
+            "Draft a table-top exercise for a localized power outage/HVAC failure, including communications protocols via the Parent Communicator node.",
+            "Create a drill frequency calendar for the school year focusing on statutory Alabama safety mandates (Fire, Weather, Intruder)."
+        ]
+    },
+    {
+        id: "military-liaison-expert",
+        name: "Military Liaison",
+        description: "Expert guidance on MIC3 (Military Interstate Children's Compact) and Coast Guard transfers.",
+        icon: ShieldCheck,
+        color: "#1e3a8a",
+        avatar: AVATARS.CURRICULUM,
+        heroVideo: "/videos/features/lesson-planner-demo.mp4",
+        welcomeVideo: "", // REPLACED: Stock footage removed
+        voiceWelcome: "/voice-profiles/counselor_voice.wav",
+        prompts: [
+            "Verify MIC3 compact eligibility for a 12th-grade transfer student from a Coast Guard hub.",
+            "Draft a waiver request for local graduation requirements based on interstate compact mandates.",
+            "Outline a support plan for a military family transitioning to Mobile County, focusing on residency and placement rights."
+        ]
+    },
     { id: "newsletter-wizard", name: "Newsletter Wizard", description: "Community updates", icon: Mail, color: "#3b82f6", avatar: AVATARS.PRINCIPAL, heroImage: "/images/features/strategic_communications_director.png", heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/principal_briefing.mp4", voiceWelcome: "/voice-profiles/principal_voice.wav", prompts: ["Weekly newsletter"] },
 
     // --- ADMINISTRATIVE SUPPORT ---
@@ -334,7 +365,11 @@ export const generators = [
         heroVideo: "", // REPLACED: Stock footage removed
         welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/data_voice.wav",
-        prompts: ["Math teacher interview questions", "Performance improvement plan", "Rejection letter template"]
+        prompts: [
+            "Generate Math teacher interview questions and a scoring rubric optimized for candidates tracked via the HireTrue/AIM portal.",
+            "Draft a 90-day performance growth plan for a new educator, aligning with Alabama Quality Teaching Standards (AQTS).",
+            "Create a recruitment narrative for a high-needs rural school, highlighting SARIC professional development perks and MAEF grant opportunities."
+        ]
     },
     {
         id: "restorative-justice-guide",
@@ -370,7 +405,11 @@ export const generators = [
         heroVideo: "/videos/features/iep-architect-demo.mp4",
         welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/compliance_voice.wav",
-        prompts: ["Severe weather checklist", "Parent reunification logic", "Media holding statement"]
+        prompts: [
+            "Generate a severe weather drill checklist and parent notification template consistent with nSide School Safety Platform requirements.",
+            "Draft a student reunification protocol for a campus-wide evacuation, including SRO coordination steps via TAASRO guidelines.",
+            "Create a media holding statement for a non-active security perimeter breach, focusing on institutional transparency and safety assurance."
+        ]
     },
     {
         id: "plc-facilitator",
@@ -406,7 +445,11 @@ export const generators = [
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
         welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
-        prompts: ["Post-observation feedback script", "Co-teaching station rotation plan", "Growth mindset coaching questions"]
+        prompts: [
+            "Draft a post-observation feedback script for a 4th-grade math teacher using the AMSTI instructional walkthrough tool.",
+            "Generate a co-teaching station rotation plan for an inclusive ELA classroom aligned with ARI Science of Reading protocols.",
+            "Create a set of instructional coaching questions focused on DOK 3 & 4 engagement for a high-needs academic turnaround."
+        ]
     },
     {
         id: "family-community-nexus",
@@ -682,7 +725,11 @@ export const generators = [
         heroVideo: "/videos/features/iep-architect-demo.mp4",
         welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/compliance_voice.wav",
-        prompts: ["Title I schoolwide plan", "Equitable services consultation", "Supplement vs Supplant guide"]
+        prompts: [
+            "Draft a Title I Schoolwide Plan (CIP) narrative for the eGAP portal, focusing on closing the achievement gap in 3rd-grade literacy.",
+            "Generate an equitable services consultation log for private school partners, ensuring compliance with federal and ALSDE mandates.",
+            "Create a budget justification for Title III funds focusing on EL achievement and parent outreach in Mobile County."
+        ]
     },
     {
         id: "magnet-coordinator",
@@ -807,14 +854,18 @@ export const generators = [
     {
         id: "safety-security-chief",
         name: "Safety & Security Chief",
-        description: "Conduct physical perimeter checks and visitor management protocols.",
+        description: "Conduct physical perimeter checks and visitor management protocols via TAASRO guidelines.",
         icon: ShieldAlert,
         color: "#111827", // Gray-900
         avatar: AVATARS.COMPLIANCE,
         heroVideo: "/videos/features/iep-architect-demo.mp4",
         welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/compliance_voice.wav",
-        prompts: ["Perimeter security checklist", "Visitor entry protocol", "Door prop audit log"]
+        prompts: [
+            "Generate a perimeter security audit checklist for a campus with separate portable classrooms, highlighting high-liability zones.",
+            "Draft a 'Visitor Entry Protocol' for front office staff, including verification steps for SRO coordination via TAASRO best practices.",
+            "Create a door-prop audit log and staff notification template to ensure 100% compliance with school-wide safety standards."
+        ]
     },
     {
         id: "title-ix-coordinator",
@@ -879,14 +930,18 @@ export const generators = [
     {
         id: "capital-projects-manager",
         name: "Capital Projects Manager",
-        description: "Oversee renovations, construction timelines, and FF&E.",
+        description: "Oversee renovations, construction timelines, and FF&E. Managing Labor Dept Boiler/Elevator certifications.",
         icon: HardHat,
         color: "#b45309", // Amber-700
         avatar: AVATARS.PRINCIPAL,
         heroVideo: "/videos/features/iep-architect-demo.mp4",
         welcomeVideo: "", // REPLACED: Stock footage removed
         voiceWelcome: "/voice-profiles/principal_voice.wav",
-        prompts: ["Renovation timeline visualizer", "FF&E inventory log", "Construction safety memo"]
+        prompts: [
+            "Generate an expiration audit for state boiler and elevator permits, flagging certificates due within 60 days.",
+            "Draft a construction safety memo and FF&E inventory log for a multi-school renovation phase.",
+            "Create a preventative maintenance schedule for HVAC systems based on ADECA surplus procurement cycles."
+        ]
     },
 
     // --- THE PROFESSIONAL FORGE: CREATION & POWER ---
@@ -1007,13 +1062,13 @@ export const generators = [
     {
         id: "district-budget-optimizer",
         name: "District Budget Optimizer",
-        description: "Capital recovery and financial intelligence for district leadership.",
+        description: "Capital recovery, financial intelligence, and E-Rate optimization for district leadership.",
         icon: HandCoins,
         color: "#1d4ed8",
         prompts: [
             "Analyze capital recovery opportunities for ESSER III closeout while ensuring GASB 96 compliance for recent software lease agreements.",
-            "Draft a financial intelligence brief for the Superintendent regarding the weighted average cost of capital for the upcoming bond referendum.",
-            "Audit district spending ROI for the 'Noise-Free Teaching' initiative and project long-term fiscal stability based on current student enrollment trends."
+            "Maximize E-Rate (USAC/EPC) Category 2 budget status and project the 80% discount impact on the upcoming network infrastructure upgrade.",
+            "Draft a financial intelligence brief for the Superintendent regarding the weighted average cost of capital and ALJP procurement bypass ROI."
         ]
     },
     {
@@ -1034,21 +1089,25 @@ export const generators = [
         color: "#b45309",
         heroVideo: "/videos/features/iep-architect-demo.mp4",
         welcomeVideo: "/videos/briefings/data_briefing.mp4",
-        prompts: ["Audit IEP for IDEA compliance", "Draft legal defensibility brief", "Verify parental rights validation"]
+        prompts: [
+            "Audit a draft IEP for procedural fidelity against the Alabama 'Mastering the Maze' standards.",
+            "Generate a legal defensibility brief for a manifestation determination review (MDR) involving complex behavior data.",
+            "Verify parental rights and due process validation for a high-stakes eligibility determination meeting."
+        ]
     },
     {
         id: 'risk-analyzer',
         name: 'Litigation Risk Audit',
-        description: 'Instant legal exposure analysis. Calculate potential liability scores and get mitigation steps before you get sued.',
+        description: 'Instant legal exposure analysis. Calculate potential liability scores using ATBE and ARMS frameworks.',
         icon: Scale,
         color: 'from-red-500 to-orange-600',
         avatar: AVATARS.COMPLIANCE,
         heroVideo: "/videos/EdIntel_ Noise-Free Teaching.mp4",
         welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
         prompts: [
-            "Perform a litigation risk audit for a district-wide discipline policy change.",
-            "Calculate potential liability score for a student transport incident.",
-            "Draft a mitigation plan for a pending SPED legal challenge."
+            "Perform a litigation risk audit for a district-wide discipline policy change, identifying potential exposures under Title 16 and federal IDEA safe harbors.",
+            "Calculate a potential liability score for a student transport incident, factoring in AAPT safety guidelines and ATBE coverage parameters.",
+            "Draft a mitigation plan for a pending SPED legal challenge, referencing 'Mastering the Maze' procedural fidelity and ARI literacy mandates."
         ]
     },
     {
@@ -1059,9 +1118,9 @@ export const generators = [
         color: 'from-amber-500 to-orange-600',
         avatar: AVATARS.PRINCIPAL,
         prompts: [
-            "Generate a board-level briefing for a district turnaround strategy.",
-            "Analyze operational efficiency for the central office staff.",
-            "Draft a 5-year strategic roadmap for academic excellence."
+            "Generate a board-level turnaround strategy for a failing school, focusing on 'The Road to 75' benchmarks and SARIC support integration.",
+            "Analyze central office operational efficiency and draft a MAEF grant proposal for district-wide STEM innovation.",
+            "Draft a 5-year strategic roadmap for academic excellence in Mobile County, anchoring goals in ACAP mastery and CTE career pathways."
         ],
         heroVideo: "/videos/District Command Update.mp4",
         welcomeVideo: "/videos/briefings/principal_briefing.mp4",

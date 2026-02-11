@@ -9,6 +9,8 @@ import {
     Zap, Star, Globe, BookOpen,
     GraduationCap, Users
 } from 'lucide-react';
+import { HumanoidHolograph } from '@/components/ui/HumanoidHolograph';
+import { HolographicBackground } from '@/components/ui/HolographicBackground';
 
 // Import all AI components
 import { HeyGenStreamingAvatar } from '@/components/heygen/StreamingAvatar';
@@ -27,37 +29,8 @@ export default function AIHubClient() {
     });
 
     return (
-        <main className="content-stage">
-            {/* Animated Background */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <motion.div
-                    className="absolute top-0 left-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
-                    animate={{
-                        x: [0, 100, 0],
-                        y: [0, 50, 0],
-                        scale: [1, 1.2, 1],
-                    }}
-                    transition={{ duration: 20, repeat: Infinity }}
-                />
-                <motion.div
-                    className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
-                    animate={{
-                        x: [0, -100, 0],
-                        y: [0, -50, 0],
-                        scale: [1, 1.3, 1],
-                    }}
-                    transition={{ duration: 25, repeat: Infinity }}
-                />
-                <motion.div
-                    className="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl"
-                    animate={{
-                        x: [-50, 50, -50],
-                        y: [-50, 50, -50],
-                        scale: [1, 1.1, 1],
-                    }}
-                    transition={{ duration: 30, repeat: Infinity }}
-                />
-            </div>
+        <main className="content-stage min-h-screen relative overflow-hidden">
+            <HolographicBackground />
 
             <div className="relative z-10 max-w-7xl mx-auto p-6 space-y-8">
                 {/* Hero Header */}
@@ -159,6 +132,49 @@ export default function AIHubClient() {
                                     animate={{ opacity: 1 }}
                                     className="space-y-8"
                                 >
+                                    {/* Neural Fulfillment Showcase */}
+                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-12">
+                                        <div className="space-y-6">
+                                            <motion.div
+                                                initial={{ opacity: 0, x: -20 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-noble-gold/10 border border-noble-gold/20"
+                                            >
+                                                <Zap className="w-4 h-4 text-noble-gold" />
+                                                <span className="text-[10px] font-bold text-noble-gold uppercase tracking-[0.2em]">Neural Fulfillment Engine</span>
+                                            </motion.div>
+
+                                            <h2 className="text-4xl font-black text-white uppercase tracking-tighter leading-none">
+                                                WITNESS THE <span className="text-noble-gold">PROTOCOL</span> IN ACTION
+                                            </h2>
+
+                                            <p className="text-zinc-400 leading-relaxed max-w-lg text-sm">
+                                                Experience the raw power of the EdIntel OS. Our neural synthesis engine transforms complex educational directives into high-fidelity, professional-grade media assets instantly.
+                                            </p>
+                                        </div>
+
+                                        <div className="relative group">
+                                            <div className="absolute -inset-4 bg-noble-gold/20 blur-3xl rounded-[3rem] opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+                                            <div className="relative rounded-[1.5rem] overflow-hidden border border-white/10 bg-black/50 backdrop-blur-xl">
+                                                <video
+                                                    src="/videos/Video_Generation_Request_Fulfilled.mp4"
+                                                    autoPlay
+                                                    loop
+                                                    muted
+                                                    playsInline
+                                                    className="w-full aspect-video object-cover"
+                                                />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                                                <div className="absolute bottom-4 left-4 flex items-center gap-3">
+                                                    <div className="w-6 h-6 rounded-full bg-noble-gold/20 backdrop-blur-md flex items-center justify-center border border-noble-gold/30">
+                                                        <div className="w-2 h-2 rounded-full bg-noble-gold animate-pulse" />
+                                                    </div>
+                                                    <div className="text-[8px] text-white font-black uppercase tracking-[0.3em]">Institutional Asset Verified</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     {/* Platform Cards */}
                                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                         {[
@@ -222,9 +238,11 @@ export default function AIHubClient() {
                                                 <div className={`absolute inset-0 bg-gradient-to-br from-${platform.color}-500/20 to-${platform.color}-600/10 rounded-xl blur-xl group-hover:blur-2xl transition-all`} />
                                                 <Card className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border-white/10 p-6 h-full hover:bg-white/15 transition-all">
                                                     <div className="flex items-start justify-between mb-4">
-                                                        <div className={`p-3 bg-${platform.color}-500/20 rounded-lg`}>
-                                                            <platform.icon className={`w-6 h-6 text-${platform.color}-400`} />
-                                                        </div>
+                                                        <HumanoidHolograph
+                                                            icon={platform.icon}
+                                                            size={24}
+                                                            className="mb-0 p-0"
+                                                        />
                                                         <span className={`px-3 py-1 bg-${platform.color}-500/20 text-${platform.color}-300 text-xs font-semibold rounded-full`}>
                                                             {platform.status}
                                                         </span>
