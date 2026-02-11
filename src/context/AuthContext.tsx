@@ -3,7 +3,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
-const supabase = createClient();
 import { toast } from 'sonner';
 import { useCelebrate } from './CelebrationContext';
 
@@ -37,6 +36,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const router = useRouter();
+
+    // Create supabase client lazily inside the component (not at module scope)
+    const [supabase] = useState(() => createClient());
 
     // 🏛️ EdIntel IDENTITY SYNC
     useEffect(() => {
