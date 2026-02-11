@@ -26,7 +26,7 @@ const LogEntry = ({ entry }: { entry: LogEntryData }) => (
 
 export default function AuditLog() {
     const [logs] = useState<LogEntryData[]>([
-        { timestamp: new Date().toLocaleTimeString([], { hour12: false }), tag: '[DB-PULSE]', type: 'success', message: 'Project tucspkptgrjgcccdacnw Handshake Verified.' },
+        { timestamp: new Date().toLocaleTimeString([], { hour12: false }), tag: '[DB-PULSE]', type: 'success', message: 'Project mpitiluamiidbjqmvbir Handshake Verified.' },
         { timestamp: new Date().toLocaleTimeString([], { hour12: false }), tag: '[CORE-AI]', type: 'success', message: 'Gemini 1.5 Node Active in edintel-EdIntel-2027.' },
         { timestamp: new Date().toLocaleTimeString([], { hour12: false }), tag: '[SHIELD]', type: 'info', message: 'Antigravity Protocol: All systems nominal.' }
     ]);

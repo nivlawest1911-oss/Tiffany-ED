@@ -4,14 +4,14 @@ import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
 import { Shield, Lock, Zap, Brain, Network, Database, Eye, Cpu } from 'lucide-react';
 
-const EdIntelDirector = dynamic(() => import('@/components/sovereign/EdIntelDirector'), { ssr: false });
+const EdIntelDirector = dynamic(() => import('@/components/edintel-core/EdIntelDirector'), { ssr: false });
 
 export default function EdIntelClient() {
     const features = [
         {
             icon: Shield,
             title: 'EdIntel Security',
-            description: 'Military-grade encryption and data EdIntelty for your educational institution'
+            description: 'Military-grade encryption and Data Identity for your educational institution'
         },
         {
             icon: Brain,

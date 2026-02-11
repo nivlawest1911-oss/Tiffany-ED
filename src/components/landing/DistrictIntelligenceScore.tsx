@@ -6,18 +6,18 @@ import { FileText, Users, Receipt, ShieldCheck, MessageSquare } from 'lucide-rea
 const DOMAINS = [
     { name: "Document Generation", score: 98, icon: FileText, color: "bg-blue-500" },
     { name: "Student Analytics", score: 92, icon: Users, color: "bg-indigo-500" },
-    { name: "Media Production", score: 88, icon: MessageSquare, color: "bg-purple-500" }, // standard icon for media
+    { name: "Media Production", score: 88, icon: MessageSquare, color: "bg-[#D4AF37]" },
     { name: "Grant Writing", score: 95, icon: Receipt, color: "bg-emerald-500" },
-    { name: "Compliance", score: 100, icon: ShieldCheck, color: "bg-amber-500" },
-    { name: "Communication", score: 90, icon: MessageSquare, color: "bg-pink-500" }
+    { name: "Compliance", score: 100, icon: ShieldCheck, color: "bg-[#D4AF37]" },
+    { name: "Communication", score: 90, icon: MessageSquare, color: "bg-[#D8B4FE]" }
 ];
 
 export default function DistrictIntelligenceScore() {
     return (
-        <div className="glass-panel p-6 rounded-2xl border border-white/10">
-            <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                <span className="w-2 h-6 bg-blue-500 rounded-full" />
-                District Intelligence Score
+        <div className="glass-panel p-6 rounded-2xl border border-white/10 bg-black/20">
+            <h3 className="text-xl font-black text-white mb-6 flex items-center gap-3 uppercase tracking-tighter italic">
+                <span className="w-2 h-6 bg-noble-gold rounded-full shadow-[0_0_10px_rgba(212,175,55,0.5)]" />
+                Intelligence Matrix
             </h3>
 
             <div className="space-y-6">

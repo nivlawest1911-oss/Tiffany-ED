@@ -93,7 +93,7 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
     },
     'About': {
         title: 'Mission & Strategic Vision',
-        description: 'EdIntel EdIntel was founded on the principle of "Instructional EdIntelty." Our mission is to return agency to educational leaders by removing the friction of administrative compliance through advanced technology.',
+        description: 'EdIntel EdIntel was founded on the principle of "Instructional Agency." Our mission is to return agency to educational leaders by removing the friction of administrative compliance through advanced technology.',
         stats: { time: 'Perpetual', saved: 'Infinite', accuracy: 'High Fidelity' },
         role: 'Founder & CEO',
         avatar: '/images/avatars/dr_alvin_west_premium.png'

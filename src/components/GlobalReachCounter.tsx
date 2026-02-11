@@ -26,8 +26,8 @@ export default function GlobalReachCounter() {
                 {/* Left: Branding */}
                 <div className="flex items-center gap-4 shrink-0">
                     <div className="relative">
-                        <div className="absolute inset-0 bg-indigo-500/30 rounded-full blur-xl group-hover:bg-indigo-500/50 transition-colors" />
-                        <div className="relative p-2 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400">
+                        <div className="absolute inset-0 bg-noble-gold/30 rounded-full blur-xl group-hover:bg-noble-gold/50 transition-colors" />
+                        <div className="relative p-2 rounded-full bg-noble-gold/10 border border-noble-gold/30 text-noble-gold">
                             <Globe className="w-6 h-6 animate-spin-slow" />
                         </div>
                     </div>
@@ -51,10 +51,10 @@ export default function GlobalReachCounter() {
 
                 {/* center: The Massive Counter */}
                 <div className="flex items-center gap-8 bg-black/40 px-8 py-3 rounded-2xl border border-white/5 shadow-2xl relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 via-transparent to-purple-500/5 pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-noble-gold/5 via-transparent to-noble-gold/5 pointer-events-none" />
 
                     <div className="flex flex-col items-center">
-                        <span className="text-[9px] font-bold text-indigo-400 uppercase tracking-widest mb-1 flex items-center gap-1">
+                        <span className="text-[9px] font-bold text-noble-gold uppercase tracking-widest mb-1 flex items-center gap-1">
                             <TrendingUp size={10} /> Reach Velocity: 850k/sec
                         </span>
                         <div className="flex items-baseline gap-1">
@@ -95,9 +95,9 @@ export default function GlobalReachCounter() {
                             navigator.clipboard.writeText(window.location.href);
                             alert("Viral Protocol Initiated. Secure link copied.");
                         }}
-                        className="px-6 py-3 bg-white text-black rounded-xl font-black text-xs uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl shadow-indigo-500/20 flex items-center gap-2 group/btn"
+                        className="px-6 py-3 bg-white text-black rounded-xl font-black text-xs uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl shadow-noble-gold/20 flex items-center gap-2 group/btn"
                     >
-                        <Zap size={14} className="fill-indigo-500 text-indigo-500 group-hover:animate-pulse" />
+                        <Zap size={14} className="fill-noble-gold text-noble-gold group-hover:animate-pulse" />
                         BROADCAST NOW
                     </button>
                 </div>

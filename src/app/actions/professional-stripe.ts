@@ -123,7 +123,7 @@ export async function createEdIntelCheckout(priceId: string, planName: string, u
             },
             metadata: {
                 userId: userId || 'anonymous',
-                planName: planName,
+                plan_name: planName,
                 protocol: 'EdIntel_DIRECT_INITIATION'
             }
         });

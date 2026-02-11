@@ -7,7 +7,7 @@ const STEPS = [
     {
         id: "01",
         title: "Create Account",
-        desc: "Secure your district's sovereign EdIntel node.",
+        desc: "Secure your district's dedicated EdIntel node.",
         icon: UserPlus,
         color: "blue"
     },
@@ -36,7 +36,7 @@ export default function HowItWorks() {
             <div className="container mx-auto px-6 relative z-10">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl md:text-5xl font-black text-white mb-4">
-                        How <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">EdIntel</span> Works
+                        How <span className="bg-gradient-to-r from-[#D4AF37] via-[#F4D03F] to-[#B8860B] bg-clip-text text-transparent">EdIntel</span> Works
                     </h2>
                     <p className="text-slate-400 max-w-xl mx-auto">
                         Three steps to total institutional autonomy and operational superiority.
@@ -55,14 +55,14 @@ export default function HowItWorks() {
                             transition={{ delay: i * 0.2 }}
                             className="relative z-10 group"
                         >
-                            <div className="bg-slate-900/80 backdrop-blur-xl border border-white/10 p-8 rounded-3xl hover:border-blue-500/50 transition-all duration-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] flex flex-col items-center text-center">
+                            <div className="bg-slate-900/80 backdrop-blur-xl border border-white/10 p-8 rounded-3xl hover:border-noble-gold/50 transition-all duration-500 hover:shadow-[0_0_30px_rgba(212,175,55,0.15)] flex flex-col items-center text-center">
                                 {/* Number Badge */}
                                 <div className="absolute -top-4 bg-slate-950 border border-white/10 px-4 py-1 rounded-full text-xs font-bold text-slate-500 shadow-xl">
                                     STEP {step.id}
                                 </div>
 
                                 {/* Icon */}
-                                <div className={`w-16 h-16 rounded-2xl mb-6 flex items-center justify-center bg-${step.color}-500/10 text-${step.color}-400 group-hover:scale-110 transition-transform duration-300`}>
+                                <div className={`w-16 h-16 rounded-2xl mb-6 flex items-center justify-center bg-noble-gold/10 text-noble-gold group-hover:scale-110 transition-transform duration-300`}>
                                     <step.icon size={32} />
                                 </div>
 

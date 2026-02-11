@@ -10,6 +10,7 @@ export type Vibe = {
 };
 
 export const VIBES: Vibe[] = [
+    { id: 'edintel', label: 'EdIntel Protocol', video: '/videos/District_Command_Update.mp4', color: 'noble-gold' },
     { id: 'focus', label: 'Deep Work', video: '/videos/briefings/data_briefing.mp4', color: 'zinc' },
     { id: 'rally', label: 'District Rally', video: '/videos/briefings/principal_briefing.mp4', color: 'amber' },
     { id: 'emergency', label: 'Protocol Alert', video: '/videos/briefings/counselor_briefing.mp4', color: 'red' }

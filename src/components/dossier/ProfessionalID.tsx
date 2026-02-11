@@ -44,10 +44,10 @@ export default function ProfessionalID() {
             <div className="relative aspect-[1.586/1] rounded-[2rem] overflow-hidden bg-[#0a0a0c] border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] group">
                 {/* LAYER 0: Mesh Gradient & Particles */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    <div className="absolute top-[-20%] left-[-20%] w-[140%] h-[140%] bg-[radial-gradient(circle_at_50%_50%,rgba(99,102,241,0.15),transparent_50%)] animate-pulse" />
+                    <div className="absolute top-[-20%] left-[-20%] w-[140%] h-[140%] bg-[radial-gradient(circle_at_50%_50%,rgba(212,175,55,0.1),transparent_50%)] animate-pulse" />
                     <div className="absolute bottom-[-20%] right-[-20%] w-[140%] h-[140%] bg-[radial-gradient(circle_at_50%_50%,rgba(212,175,55,0.05),transparent_50%)]" />
                     <div className="absolute inset-0 opacity-20" style={{
-                        backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.1) 1px, transparent 0)',
+                        backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(212,175,55,0.1) 1px, transparent 0)',
                         backgroundSize: '24px 24px'
                     }} />
                 </div>
@@ -81,7 +81,7 @@ export default function ProfessionalID() {
                         <div className="flex-1 space-y-4">
                             <div>
                                 <div className="text-[8px] font-black text-zinc-600 uppercase tracking-widest mb-1.5 flex items-center gap-2">
-                                    <div className="w-1 h-3 bg-indigo-500 rounded-full" />
+                                    <div className="w-1 h-3 bg-noble-gold rounded-full" />
                                     Primary Directive
                                 </div>
                                 <div className="text-[11px] font-bold text-zinc-200 leading-tight line-clamp-2 max-w-[180px]">
@@ -113,7 +113,7 @@ export default function ProfessionalID() {
 
                     <div className="flex items-center justify-between pt-5 border-t border-white/5">
                         <div className="flex items-center gap-2.5">
-                            <Cpu className="w-3.5 h-3.5 text-indigo-400/70" />
+                            <Cpu className="w-3.5 h-3.5 text-noble-gold/70" />
                             <span className="text-[9px] font-black text-zinc-500 tracking-[0.1em]">ENCRYPTED NEURAL HANDSHAKE</span>
                         </div>
                         <div className="flex items-center gap-2">

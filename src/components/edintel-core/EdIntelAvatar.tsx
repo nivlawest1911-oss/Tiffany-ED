@@ -4,7 +4,7 @@ import { useChat } from '@ai-sdk/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageSquare, Sparkles, Send, Brain } from 'lucide-react';
 import { useState } from 'react';
-import EdIntelPulse from '@/components/sovereign/EdIntelPulse';
+import EdIntelPulse from '@/components/edintel-core/EdIntelPulse';
 
 export default function EdIntelAvatar() {
     const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({

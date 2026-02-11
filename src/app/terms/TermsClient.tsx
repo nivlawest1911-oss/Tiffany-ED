@@ -44,7 +44,7 @@ export default function TermsClient() {
                         Initialize Governance Briefing
                     </button>
                     <h1 className="text-5xl md:text-7xl font-black italic uppercase tracking-tighter leading-none mb-8">
-                        Terms of <span className="text-emerald-500">EdIntelty</span>
+                        Terms of <span className="text-emerald-500">Identity</span>
                     </h1>
                     <p className="text-zinc-500 text-[10px] tracking-[0.4em] uppercase font-bold italic">
                         Effective Date: January 2026 // Mobile County District Node

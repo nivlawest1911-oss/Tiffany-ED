@@ -1,5 +1,5 @@
-import EdIntelTerminal from '@/components/sovereign/EdIntelTerminal';
-import EdIntelIntelligenceNode from '@/components/sovereign/EdIntelIntelligenceNode';
+import EdIntelTerminal from '@/components/edintel-core/EdIntelTerminal';
+import EdIntelIntelligenceNode from '@/components/edintel-core/EdIntelIntelligenceNode';
 import '../globals.css';
 
 export const dynamic = 'force-dynamic';

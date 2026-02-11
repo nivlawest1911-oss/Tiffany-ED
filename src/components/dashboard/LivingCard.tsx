@@ -1,6 +1,6 @@
 'use client';
 
-import EdIntelNode from '../sovereign/layout/EdIntelNode';
+import EdIntelNode from '../edintel-core/layout/EdIntelNode';
 
 interface LivingCardProps {
     videoUrl: string;

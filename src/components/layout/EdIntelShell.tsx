@@ -289,7 +289,7 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
                                 <div className="col-span-1 md:col-span-3 space-y-6">
                                     <h5 className="text-[10px] font-black text-white/30 uppercase tracking-[0.4em]">System Nodes</h5>
                                     <ul className="space-y-3">
-                                        <li><Link href="/legal/EdIntelty" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Data EdIntelty</Link></li>
+                                        <li><Link href="/legal/Identity" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Data Identity</Link></li>
                                         <li><Link href="/legal/compliance" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Federal Compliance</Link></li>
                                         <li><Link href="/status" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Grid Status</Link></li>
                                         <li><Link href="/admin/access" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Admin Portal</Link></li>

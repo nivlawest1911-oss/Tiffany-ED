@@ -25,11 +25,11 @@ export default function PricingSection() {
                 transition={{ duration: 0.8 }}
                 className="text-center mb-16"
             >
-                <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-4">
-                    EdIntel Pricing
+                <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4 uppercase">
+                    Institutional <span className="bg-gradient-to-r from-[#D4AF37] via-[#F4D03F] to-[#B8860B] bg-clip-text text-transparent">Tiers</span>
                 </h2>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                    Choose the tier that matches your institution's needs.
+                <p className="text-sm font-bold text-zinc-500 uppercase tracking-[0.3em] max-w-2xl mx-auto">
+                    Strategic Investment for Global Educational Intelligence
                 </p>
             </motion.div>
 
@@ -47,9 +47,9 @@ export default function PricingSection() {
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1, duration: 0.5 }}
                             whileHover={{ y: -8, scale: 1.02 }}
-                            className={`glass-panel rounded-xl p-6 flex flex-col relative overflow-hidden transition-all duration-300 ${isSiteCommand
-                                ? 'border-primary shadow-[0_0_30px_rgba(112,0,255,0.4)] ring-2 ring-primary'
-                                : ''
+                            className={`glass-panel rounded-3xl p-8 flex flex-col relative overflow-hidden transition-all duration-300 border border-white/10 ${tier.popular
+                                ? 'border-[#D4AF37]/50 shadow-[0_0_50px_rgba(212,175,55,0.2)] ring-1 ring-[#D4AF37]/30'
+                                : 'hover:border-white/20'
                                 }`}
                         >
                             {/* Glow effect for Site Command */}
@@ -74,7 +74,7 @@ export default function PricingSection() {
                                 </div>
 
                                 {/* Tier Name */}
-                                <h3 className={`text-2xl font-black uppercase mb-2 ${isSiteCommand ? 'text-primary' : 'text-foreground'
+                                <h3 className={`text-2xl font-black uppercase mb-2 ${isSiteCommand ? 'text-noble-gold' : 'text-white'
                                     }`}>
                                     {tier.name}
                                 </h3>
@@ -106,7 +106,7 @@ export default function PricingSection() {
                                     <li key={idx} className="flex items-start gap-2 text-sm text-foreground/80">
                                         <Check
                                             size={16}
-                                            className={`mt-0.5 shrink-0 ${isSiteCommand ? 'text-primary' : 'text-accent'
+                                            className={`mt-0.5 shrink-0 ${isSiteCommand ? 'text-noble-gold' : 'text-noble-gold/60'
                                                 }`}
                                         />
                                         <span>{feature}</span>
@@ -117,12 +117,12 @@ export default function PricingSection() {
                             {/* CTA Button */}
                             <Link href="/signup" className="block relative z-10 w-full">
                                 <button
-                                    className={`w-full py-4 rounded-xl font-black text-xs uppercase tracking-wider transition-all ${isSiteCommand
-                                        ? 'bg-primary text-primary-foreground hover:shadow-[0_0_20px_rgba(112,0,255,0.6)]'
-                                        : 'bg-muted/50 text-foreground hover:bg-muted'
+                                    className={`w-full py-4 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all ${tier.popular
+                                        ? 'bg-[#D4AF37] text-black hover:shadow-[0_0_30px_rgba(212,175,55,0.5)]'
+                                        : 'bg-white/5 text-white hover:bg-white/10 border border-white/10'
                                         }`}
                                 >
-                                    {tier.price === 0 ? 'Start Free' : 'Ascend to Command'}
+                                    {tier.price === 0 ? 'Initialize Trial' : 'Ascend to Command'}
                                 </button>
                             </Link>
                         </motion.div>

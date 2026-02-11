@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import EdIntelNode from '../sovereign/layout/EdIntelNode';
+import EdIntelNode from '../edintel-core/layout/EdIntelNode';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Activity } from 'lucide-react';
 

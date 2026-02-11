@@ -39,7 +39,7 @@ export default function LoginClient() {
                 isOpen={showBriefing}
                 onClose={() => setShowBriefing(false)}
                 agentId="tactical"
-                title="Guardian Protocol"
+                title="EdIntel Protocol"
                 description="Identity verification is required for access to the EdIntel Data Grid. Please provide your institutional credentials."
                 briefingSteps={[
                     "Initialize secure administrative downlink.",

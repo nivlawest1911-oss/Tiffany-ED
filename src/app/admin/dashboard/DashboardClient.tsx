@@ -208,7 +208,7 @@ export default function AdminCommandCenter() {
                 </div>
                 <div className="flex gap-8">
                     <button className="text-[9px] uppercase font-black tracking-widest text-zinc-700 hover:text-intel-gold transition-colors">Privacy Shield</button>
-                    <button className="text-[9px] uppercase font-black tracking-widest text-zinc-700 hover:text-intel-gold transition-colors">Terms of EdIntelty</button>
+                    <button className="text-[9px] uppercase font-black tracking-widest text-zinc-700 hover:text-intel-gold transition-colors">Terms of Identity</button>
                     <button className="text-[9px] uppercase font-black tracking-widest text-zinc-700 hover:text-intel-gold transition-colors">Support Neural-Link</button>
                 </div>
             </footer>

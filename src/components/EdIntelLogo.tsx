@@ -7,11 +7,11 @@ export default function EdIntelLogo({ className = "", animated = true }: { class
         <div className={`flex items-center gap-3 group ${className}`}>
             <div className="relative w-10 h-10 flex items-center justify-center">
                 {/* Outer Ring / Shield */}
-                <svg viewBox="0 0 100 100" className="w-full h-full text-indigo-500 overflow-visible">
+                <svg viewBox="0 0 100 100" className="w-full h-full text-[#D4AF37] overflow-visible">
                     <defs>
                         <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="#818cf8" />
-                            <stop offset="100%" stopColor="#4f46e5" />
+                            <stop offset="0%" stopColor="#D4AF37" />
+                            <stop offset="100%" stopColor="#8A6B0E" />
                         </linearGradient>
                         <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
                             <feGaussianBlur stdDeviation="4" result="coloredBlur" />
@@ -63,22 +63,22 @@ export default function EdIntelLogo({ className = "", animated = true }: { class
                     {/* Professional Dot */}
                     <motion.circle
                         cx="50" cy="20" r="3"
-                        fill="#a5b4fc"
+                        fill="#FFD700"
                         animate={{ opacity: [0.5, 1, 0.5] }}
                         transition={{ duration: 2, repeat: Infinity }}
                     />
                 </svg>
 
                 {/* Glow Backdrop */}
-                <div className="absolute inset-0 bg-indigo-500/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                <div className="absolute inset-0 bg-amber-500/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
             </div>
 
             <div className="flex flex-col leading-none select-none">
-                <span className="text-xl font-black text-white tracking-tight group-hover:text-indigo-100 transition-colors">
+                <span className="text-xl font-black text-white tracking-tight group-hover:text-amber-100 transition-colors">
                     EdIntel
                 </span>
-                <span className="text-[0.6rem] font-bold text-indigo-400 uppercase tracking-[0.2em]">
-                    Professional
+                <span className="text-[0.6rem] font-bold text-noble-gold uppercase tracking-[0.2em]">
+                    EdIntel OS
                 </span>
             </div>
         </div>

@@ -41,7 +41,8 @@ const navSections: NavSection[] = [
     {
         title: "Core",
         items: [
-            { icon: LayoutDashboard, label: "Command Center", id: "command", href: "/admin/dashboard" },
+            { icon: LayoutDashboard, label: "Command Center", id: "command", href: "/dashboard" },
+            { icon: Shield, label: "Bio Dossier", id: "dossier", href: "/dashboard/dossier" },
             { icon: Zap, label: "AI Hub", id: "ai-hub", badge: "Live", href: "/ai-hub" },
             { icon: Bot, label: "Agent Swarm", id: "agents", href: "/dashboard/agents" },
         ],
@@ -86,9 +87,11 @@ const navSections: NavSection[] = [
 ]
 
 export function Sidebar() {
-    const [collapsed, setCollapsed] = useState(false)
+    const [collapsed, setCollapsed] = useState(true) // Start collapsed to minimize shift on mobile
+    const [isMounted, setIsMounted] = useState(false)
 
     useEffect(() => {
+        setIsMounted(true)
         const checkMobile = () => {
             const mobile = window.innerWidth < 768
             if (mobile) setCollapsed(true)
@@ -105,10 +108,13 @@ export function Sidebar() {
 
     return (
         <motion.aside
-            initial={{ width: 240 }}
+            initial={false} // Disable initial animation
             animate={{ width: collapsed ? 72 : 240 }}
             transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-            className="relative z-20 flex h-screen flex-col border-r border-white/10 bg-black/40 backdrop-blur-xl"
+            className={cn(
+                "relative z-20 flex h-screen flex-col border-r border-white/10 bg-black/40 backdrop-blur-xl transition-all duration-300",
+                !isMounted && "opacity-0" // Hide until hydration to avoid flash
+            )}
         >
             {/* Logo Section */}
             <div className="flex h-16 items-center gap-3 px-4 border-b border-white/5 shrink-0">
@@ -158,7 +164,7 @@ export function Sidebar() {
                                         {isActive && (
                                             <motion.div
                                                 layoutId="sidebar-pill"
-                                                className="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-1 rounded-full bg-gradient-to-b from-[#7c3aed] to-[#06b6d4] shadow-[0_0_12px_rgba(124, 58, 237, 0.6)]"
+                                                className="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-1 rounded-full bg-gradient-to-b from-[#D4AF37] via-[#F1D37E] to-[#B8860B] shadow-[0_0_15px_rgba(212,175,55,0.8)]"
                                                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
                                             />
                                         )}
@@ -232,7 +238,7 @@ export function Sidebar() {
                             <Link href="/about">
                                 <div className="p-4 mt-auto border-t border-white/5 bg-slate-950/30 backdrop-blur-md rounded-xl mb-2 overflow-hidden hover:bg-white/5 transition-colors cursor-pointer group">
                                     <div className="flex items-center space-x-3 p-2 rounded-xl">
-                                        <div className="h-10 w-10 rounded-full border border-blue-500/30 flex items-center justify-center overflow-hidden relative shrink-0">
+                                        <div className="h-10 w-10 rounded-full border border-amber-500/30 flex items-center justify-center overflow-hidden relative shrink-0">
                                             <Image
                                                 src={avatarError ? 'https://ui-avatars.com/api/?name=Alvin+West&background=0D8ABC&color=fff' : "/images/avatars/Dr._alvin_west.png"}
                                                 alt="Dr. Alvin West"
@@ -242,7 +248,7 @@ export function Sidebar() {
                                             />
                                         </div>
                                         <div className="flex-1 overflow-hidden">
-                                            <p className="text-xs font-bold text-white group-hover:text-blue-400 transition-colors truncate">
+                                            <p className="text-xs font-bold text-white group-hover:text-amber-400 transition-colors truncate">
                                                 Dr. Alvin West
                                             </p>
                                             <p className="text-[10px] text-slate-500 font-medium uppercase tracking-wider truncate">

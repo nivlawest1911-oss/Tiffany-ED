@@ -70,7 +70,7 @@ export const generators = [
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: [
             "Design a 5th Grade math lesson on fractions that incorporates Kente pattern geometry and culturally-responsive narratives.",
-            "Design a high school American History unit on the Reconstruction Era focusing on economic EdIntelty and legislative policy.",
+            "Design a high school American History unit on the Reconstruction Era focusing on economic Identity and legislative policy.",
             "Create a middle school science lab protocol for renewable energy, tiered for ELL and GT learners."
         ]
     },

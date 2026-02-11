@@ -1,14 +1,14 @@
 'use client';
 
 import React, { useState } from 'react';
-import { EdIntelGate } from '@/components/sovereign/EdIntelGate';
+import { EdIntelGate } from '@/components/edintel-core/EdIntelGate';
 
 interface StudioVideoSectionProps {
     userTier: string;
     isCommandLevel: boolean;
 }
 
-export const StudioVideoSection = ({ userTier, isCommandLevel }: StudioVideoSectionProps) => {
+export const StudioVideoSection = ({ userTier: _userTier, isCommandLevel }: StudioVideoSectionProps) => {
     const [gateOpen, setGateOpen] = useState(false);
     const [selectedTool, setSelectedTool] = useState('');
 

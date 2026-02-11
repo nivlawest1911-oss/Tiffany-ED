@@ -144,7 +144,7 @@ export class EdIntelAgentService {
      * PROACTIVE MONITOR: Runs on a cron/webhook to find issues before the user asks.
      */
     async runProactiveScan() {
-        const result = await sql`SELECT school_id, token_balance FROM school_EdIntelty WHERE token_balance < 100`;
+        const result = await sql`SELECT school_id, token_balance FROM school_identity WHERE token_balance < 100`;
 
         if (result.rows.length > 0) {
             return {

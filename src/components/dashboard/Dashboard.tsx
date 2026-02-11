@@ -25,7 +25,7 @@ import {
 
 import { ExecutiveBrief } from './zone1-executive-brief'
 import ProfessionalID from '@/components/dossier/ProfessionalID'
-import { EdIntelDelegate } from '@/components/sovereign/EdIntelDelegate'
+import { EdIntelDelegate } from '@/components/edintel-core/EdIntelDelegate'
 import { GrantArchitect } from './zone3-grant-architect'
 import { BoardRoom } from './zone3-board-room'
 import BurnoutHeatmap from '@/components/dashboard/BurnoutHeatmap'

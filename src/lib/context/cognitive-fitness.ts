@@ -27,6 +27,6 @@ export const COGNITIVE_FITNESS_CONTEXT = {
         "synaptic mastery",
         "executive function scaffolds",
         "neural fidelity",
-        "instructional EdIntelty"
+        "Instructional Agency"
     ]
 };

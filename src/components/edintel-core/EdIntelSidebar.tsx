@@ -137,7 +137,7 @@ export function EdIntelSidebar({
                             <EdIntelInteractionAgent
                                 key={i}
                                 title={`${engine.name} Status`}
-                                description={`Autonomous monitoring of ${engine.name.toLowerCase()} protocols for district-wide EdIntelty.`}
+                                description={`Autonomous monitoring of ${engine.name.toLowerCase()} protocols for district-wide Identity.`}
                                 agentId={engine.agent}
                                 position="left"
                                 className="w-full"

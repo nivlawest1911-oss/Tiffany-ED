@@ -57,7 +57,7 @@ export default function FERPAComplianceClient() {
                         onClose={() => setShowBriefing(false)}
                         agentId="strategic"
                         title="Compliance Protocol"
-                        description="Initializing security handshake. We have verified all institutional data EdIntelty layers. The EdIntel system matches the FERPA Ironclad standard."
+                        description="Initializing security handshake. We have verified all institutional data identity layers. The EdIntel system matches the FERPA Ironclad standard."
                         briefingSteps={[
                             "Sync AES-256 encryption handshake.",
                             "Verify Zero-Training data isolation.",

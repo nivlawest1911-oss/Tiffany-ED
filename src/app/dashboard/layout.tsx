@@ -1,5 +1,5 @@
 import { createEdIntelServerClient } from '@/lib/supabase-server';
-import { EdIntelIDManager } from '@/components/sovereign/EdIntelIDManager';
+import { EdIntelIDManager } from '@/components/edintel-core/EdIntelIDManager';
 import { Sidebar } from '@/components/dashboard/Sidebar';
 import { TacticalHeader } from '@/components/dashboard/TacticalHeader';
 import { PageTransition } from '@/components/dashboard/PageTransition';

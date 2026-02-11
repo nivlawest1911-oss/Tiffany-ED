@@ -61,7 +61,7 @@ export const initializeEdIntelState = (): EdIntelSystemState => ({
             }
         },
         EdIntelRules: [
-            "Data EdIntelty is non-negotiable.",
+            "Data Identity is non-negotiable.",
             "Proactivity > Reactivity.",
             "Every interaction must reinforce professional authority."
         ]

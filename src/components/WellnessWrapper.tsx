@@ -25,7 +25,7 @@ export default function WellnessWrapper({ isWellnessMode, children }: WellnessWr
                         playsInline
                         className="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-30"
                     >
-                        <source src="https://tucspkptgrjgcccdacnw.supabase.co/storage/v1/object/public/edintel-media/gemini-flow.mp4" type="video/mp4" />
+                        <source src="https://mpitiluamiidbjqmvbir.supabase.co/storage/v1/object/public/edintel-media/gemini-flow.mp4" type="video/mp4" />
                     </video>
                 )}
             </div>

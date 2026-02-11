@@ -15,7 +15,7 @@ import {
     Video
 } from 'lucide-react';
 import Link from 'next/link';
-import { StatutoryDisclaimer } from '../sovereign/EdIntelRegulatory';
+import { StatutoryDisclaimer } from '../edintel-core/EdIntelRegulatory';
 import HolographicBriefing from '../intelligence/HolographicBriefing';
 
 export function EdIntelCommandCenter() {

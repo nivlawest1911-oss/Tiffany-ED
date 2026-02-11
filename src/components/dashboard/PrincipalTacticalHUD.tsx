@@ -1,6 +1,6 @@
 'use client';
 
-import EdIntelNode from '../sovereign/layout/EdIntelNode';
+import EdIntelNode from '../edintel-core/layout/EdIntelNode';
 
 interface PrincipalTacticalHUDProps {
     _siteMetrics?: any;

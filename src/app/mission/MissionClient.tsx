@@ -47,7 +47,7 @@ export default function MissionClient() {
                         briefingSteps={[
                             "Defeating administrative friction with neural automation.",
                             "Empowering educators to reclaim their strategic vision.",
-                            "Scaling institutional impact through EdIntelty.",
+                            "Scaling institutional impact through Identity.",
                             "Establishing the standard for AI-integrated leadership."
                         ]}
                     />

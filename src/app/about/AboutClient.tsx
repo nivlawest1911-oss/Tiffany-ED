@@ -33,7 +33,7 @@ export default function AboutClient() {
                     <div className="glass-panel p-10 rounded-3xl">
                         <h3 className="text-2xl font-bold mb-4 text-white">Strategic Vision</h3>
                         <p className="text-muted-foreground leading-relaxed">
-                            To empower decentralized autonomy through robust, scalable, and secure operational frameworks. We do not just build software; we architect EdIntelty.
+                            To empower decentralized autonomy through robust, scalable, and secure operational frameworks. We do not just build software; we architect Identity.
                         </p>
                     </div>
                     <div className="glass-panel p-10 rounded-3xl">

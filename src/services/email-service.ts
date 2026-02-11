@@ -46,7 +46,7 @@ export async function sendWelcomeEmail(email: string, name: string) {
             
             <p style="margin-top: 40px; border-top: 1px solid #eee; pt-20px; font-size: 12px; color: #666;">
                 Welcome aboard,<br/>
-                <strong>The EdIntel EdIntelty Team</strong><br/>
+                <strong>The EdIntel Identity Team</strong><br/>
                 <em>Strategic Leadership Node: Alabama/Mobile County</em>
             </p>
         </div>
@@ -74,7 +74,7 @@ export async function sendWelcomeEmail(email: string, name: string) {
         } else {
             console.log(`[EMAIL_SERVICE] Using Resend Relay`);
             await resend.emails.send({
-                from: 'EdIntel EdIntelty <welcome@edintel.app>',
+                from: 'EdIntel Identity <welcome@edintel.app>',
                 to: [email],
                 subject,
                 html: htmlContent,

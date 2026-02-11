@@ -30,7 +30,7 @@ export const TransferTerminal = ({ staffId, staffName }: { staffId: string, staf
                 </div>
                 <div>
                     <h4 className="text-[10px] uppercase tracking-[0.4em] text-white font-black italic">Allocation Terminal</h4>
-                    <p className="text-[8px] text-zinc-500 uppercase font-bold mt-1 tracking-widest">Resource EdIntelty Control</p>
+                    <p className="text-[8px] text-zinc-500 uppercase font-bold mt-1 tracking-widest">Resource Identity Control</p>
                 </div>
             </div>
 

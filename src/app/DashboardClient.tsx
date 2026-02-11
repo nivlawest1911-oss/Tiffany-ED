@@ -27,7 +27,7 @@ export default function DashboardClient() {
                     muted
                     playsInline
                     className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-screen scale-110 blur-sm"
-                    src="/videos/EdIntel_Sovereign_OS_Layout_Enhancements.mp4"
+                    src="/videos/EdIntel_OS_Layout_Enhancements.mp4"
                 />
                 <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-blue-600/10 blur-[120px] rounded-full animate-pulse" />
                 <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-indigo-600/10 blur-[100px] rounded-full" />

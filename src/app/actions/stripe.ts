@@ -29,17 +29,25 @@ const PRICE_MAPPING: Record<string, string> = {
   STRIPE_PRICE_TOKEN_1K: 'price_1SleijJZzJ2JsTizToken1K',
   STRIPE_PRICE_TOKEN_5K: 'price_1SleikJZzJ2JsTizToken5K',
   STRIPE_PRICE_TOKEN_10K: 'price_1SleilJZzJ2JsTizToken10K',
-  STRIPE_PRICE_CAPITAL_INJECTION_20: 'price_1Sqxs7JZzJ2JsTizq1WdYXAb',
 };
 
 function getPriceId(tierId: string, isAnnual: boolean): string | undefined {
-  if (tierId.includes('Token')) {
-    if (tierId.includes('10K')) return process.env.STRIPE_PRICE_TOKEN_10K;
-    if (tierId.includes('5K')) return process.env.STRIPE_PRICE_TOKEN_5K;
-    return process.env.STRIPE_PRICE_TOKEN_1K;
+  const normTier = tierId.toUpperCase().replace(/\s+/g, '_');
+
+  if (normTier.includes('TOKEN')) {
+    if (normTier.includes('10K')) return process.env.STRIPE_TOKEN_ELITE_ID;
+    if (normTier.includes('5K')) return process.env.STRIPE_TOKEN_GROWTH_ID;
+    return process.env.STRIPE_TOKEN_PRICE_ID || process.env.STRIPE_TOKEN_STARTER_ID;
   }
-  const key = `STRIPE_PRICE_${tierId.toUpperCase().replace(' ', '_')}_${isAnnual ? 'ANNUAL' : 'MONTHLY'}`;
-  return process.env[key] || PRICE_MAPPING[key];
+
+  // Key construction to match .env exactly
+  // .env uses: STRIPE_PRACTITIONER_PRICE_ID, STRIPE_PRACTITIONER_ANNUAL_ID
+  const envKey = `STRIPE_${normTier}_${isAnnual ? 'ANNUAL_ID' : 'PRICE_ID'}`;
+
+  // Legacy key for fallback mapping
+  const legacyKey = `STRIPE_PRICE_${normTier}_${isAnnual ? 'ANNUAL' : 'MONTHLY'}`;
+
+  return process.env[envKey] || process.env[legacyKey] || PRICE_MAPPING[legacyKey];
 }
 
 export async function createCheckoutSession(priceIdOrTierId: string, isAnnual: boolean, mode: 'subscription' | 'payment' = 'subscription') {

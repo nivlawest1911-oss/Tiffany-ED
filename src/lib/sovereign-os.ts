@@ -293,7 +293,7 @@ export class EdIntelOS {
             const emailData = await CommunicationShield.sanitize_email("MOCK_RAW_EMAIL");
 
             if (binaryMode) {
-                return `Guardian Protocol Active. I have intercepted a high-stress email.
+                return `EdIntel Protocol Active. I have intercepted a high-stress email.
                 Option A: Send the sanitized, compliant response I've drafted.
                 Option B: Archive for 24 hours (Cool-down protocol).
                 
@@ -312,4 +312,4 @@ export class EdIntelOS {
 }
 
 // Singleton Instance for Client-Side Demo
-export const EdIntelOS = new EdIntelOS('DrWest_001', { District: 'Mobile County', Role: 'Superintendent' });
+export const edIntelOS = new EdIntelOS('DrWest_001', { District: 'Mobile County', Role: 'Superintendent' });

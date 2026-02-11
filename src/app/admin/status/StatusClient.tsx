@@ -22,7 +22,7 @@ export default function StatusClient() {
                             <span className="text-[11px] uppercase font-black tracking-[0.6em] text-intel-gold italic">Security & Operational Layer</span>
                         </div>
                         <h1 className="text-5xl md:text-8xl font-black italic uppercase tracking-lighter leading-none">
-                            Infrastructure <span className="text-gold-gradient">EdIntelty</span>
+                            Infrastructure <span className="text-gold-gradient">Identity</span>
                         </h1>
                         <p className="text-zinc-600 text-sm md:text-xl font-medium mt-10 italic max-w-2xl tracking-tight leading-relaxed">
                             "Real-time neural telemetry and institutional health monitoring for the Mobile County district deployment."

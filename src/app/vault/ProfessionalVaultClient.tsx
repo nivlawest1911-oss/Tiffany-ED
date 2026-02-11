@@ -43,7 +43,7 @@ export default function ProfessionalVaultClient() {
         },
         {
             id: 'doc-3',
-            title: 'Data EdIntelty Master Agreement',
+            title: 'Data Identity Master Agreement',
             category: 'Government',
             type: 'PDF',
             size: '4.8 MB',

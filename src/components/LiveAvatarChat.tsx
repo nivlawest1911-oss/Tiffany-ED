@@ -11,7 +11,7 @@ import HumanAvatar from './ui/HumanAvatar';
 import { useHumanBehavior } from '@/hooks/useHumanBehavior';
 import { heyGenService } from '@/services/heygen-streaming';
 import { useMultimodalAvatar } from '@/hooks/useMultimodalAvatar';
-import { EdIntelSidebar } from '@/components/sovereign/EdIntelSidebar';
+import { EdIntelSidebar } from '@/components/edintel-core/EdIntelSidebar';
 
 interface LiveAvatarChatProps {
     avatarName: string;

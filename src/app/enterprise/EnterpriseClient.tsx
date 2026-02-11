@@ -12,7 +12,7 @@ export default function EnterpriseClient() {
         {
             icon: LucideShield,
             title: "District Intelligence Shield",
-            desc: "Custom AI deployment with strict regional compliance and data EdIntelty."
+            desc: "Custom AI deployment with strict regional compliance and Data Identity."
         },
         {
             icon: BarChart3,
@@ -60,7 +60,7 @@ export default function EnterpriseClient() {
                             onClose={() => setShowBriefing(false)}
                             agentId="strategic"
                             title="District Command Briefing"
-                            description="Initializing enterprise-grade handshake. We are scaling the EdIntel ecosystem to meet your regional requirements. Protocol: Maximum EdIntelty."
+                            description="Initializing enterprise-grade handshake. We are scaling the EdIntel ecosystem to meet your regional requirements. Protocol: Maximum Identity."
                             briefingSteps={[
                                 "Map district neural architecture requirements.",
                                 "Initialize regional data residency shielding.",
@@ -77,7 +77,7 @@ export default function EnterpriseClient() {
                         </button>
 
                         <h1 className="text-6xl md:text-8xl font-black text-white tracking-tighter">
-                            District-Wide <span className="text-blue-500 italic">EdIntelty</span>
+                            District-Wide <span className="text-blue-500 italic">Identity</span>
                         </h1>
 
                         <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">

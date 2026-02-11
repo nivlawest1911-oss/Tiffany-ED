@@ -10,7 +10,7 @@ import dynamic from 'next/dynamic';
 import { CORE_AVATARS } from '@/data/avatars';
 import HumanAvatar from './ui/HumanAvatar';
 import { useEdIntelVibe } from '@/context/EdIntelVibeContext';
-import { EdIntelHero } from './sovereign/EdIntelHero';
+import { EdIntelHero } from './edintel-core/EdIntelHero';
 
 // Core Components (Safe)
 
@@ -22,7 +22,7 @@ const BentoShowcase = dynamic(() => import('./BentoShowcase'), { ssr: false });
 const OnboardingFlow = dynamic(() => import('./OnboardingFlow'), { ssr: false });
 const VoiceIdentity = dynamic(() => import('./VoiceIdentity'), { ssr: false });
 const HuggingFaceAvatar = dynamic(() => import('./HuggingFaceAvatar'), { ssr: false });
-const EdIntelCore = dynamic(() => import('./sovereign/EdIntelCore'), { ssr: false });
+const EdIntelCore = dynamic(() => import('./edintel-core/EdIntelCore'), { ssr: false });
 
 // --- ANIMATION VARIANTS ---
 const fadeInUp: Variants = {

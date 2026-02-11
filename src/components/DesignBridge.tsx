@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { EdIntelGate } from '@/components/sovereign/EdIntelGate';
+import { EdIntelGate } from '@/components/edintel-core/EdIntelGate';
 
 interface DesignBridgeProps {
     type: string;

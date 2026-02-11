@@ -4,11 +4,13 @@ import React from 'react';
 import { BLOG_POSTS } from './posts';
 import BlogPostCard from '@/components/bento/BlogPostCard';
 import { Search } from 'lucide-react';
+import { ParticleBackground } from "@/components/ui/Cinematic";
 
 export default function BlogClient() {
     return (
         <main className="min-h-screen bg-black text-white font-sans selection:bg-noble-gold/30 relative overflow-hidden">
             {/* EdIntel Background elements */}
+            <ParticleBackground count={30} />
             <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] scale-150" />
             </div>

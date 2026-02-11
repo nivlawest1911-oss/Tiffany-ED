@@ -27,8 +27,8 @@ export default function PrivacyClient() {
                         isOpen={showBriefing}
                         onClose={() => setShowBriefing(false)}
                         agentId="strategic"
-                        title="EdIntelty Briefing"
-                        description="Data EdIntelty is the pillar of the EdIntel system. I am here to detail our transparency and ownership protocols."
+                        title="Identity Briefing"
+                        description="Data Identity is the pillar of the EdIntel system. I am here to detail our transparency and ownership protocols."
                         briefingSteps={[
                             "LEAs retain full institutional ownership.",
                             "NEVER train generalized models on student data.",
@@ -41,10 +41,10 @@ export default function PrivacyClient() {
                         onClick={() => setShowBriefing(true)}
                         className="inline-flex items-center gap-2 mb-8 px-6 py-2 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-emerald-400 text-[9px] font-black uppercase tracking-[0.3em] hover:bg-emerald-500/10 transition-all"
                     >
-                        Initialize EdIntelty Briefing
+                        Initialize Identity Briefing
                     </button>
                     <h1 className="text-5xl md:text-7xl font-black italic uppercase tracking-tighter leading-none mb-8">
-                        Data <span className="text-emerald-500">EdIntelty</span> Protocol
+                        Data <span className="text-emerald-500">Identity</span> Protocol
                     </h1>
                     <p className="text-zinc-500 text-[10px] tracking-[0.4em] uppercase font-bold italic">
                         Effective Date: January 2026 // Mobile County District Node

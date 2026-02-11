@@ -21,7 +21,7 @@ import {
     ResponsiveContainer
 } from 'recharts';
 import Link from 'next/link';
-import EdIntelHeader from '@/components/sovereign/EdIntelHeader';
+import EdIntelHeader from '@/components/edintel-core/EdIntelHeader';
 
 const roiData = [
     { month: 'Sep', administrative: 45, strategic: 25 },

@@ -21,7 +21,7 @@ export const Pricing = () => {
             Scalable Infrastructure
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto italic">
-            "Direct neural integration for district-wide EdIntelty."
+            "Direct neural integration for district-wide Identity."
           </p>
         </motion.div>
 

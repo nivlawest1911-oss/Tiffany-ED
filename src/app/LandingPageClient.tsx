@@ -23,12 +23,14 @@ export default function LandingPageClient() {
                 <div className="scanline opacity-20" /> {/* CRT Scanline Effect */}
             </div>
 
-            <main className="relative z-10">
-                {/* Hero Section */}
-                <Hero />
+            <main className="relative z-10 w-full overflow-x-hidden">
+                {/* Hero Section - Reserved Space for LCP */}
+                <div className="min-h-[80vh] md:min-h-screen flex flex-col items-center justify-center">
+                    <Hero />
+                </div>
 
-                {/* Dashboard Preview Section (V0 Design Integration) */}
-                <section className="py-20 px-4 md:px-8 max-w-7xl mx-auto">
+                {/* Dashboard Preview Section - Reserved Space */}
+                <section className="py-20 px-4 md:px-8 max-w-7xl mx-auto min-h-[600px]">
                     <div className="text-center mb-12">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">
                             <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
@@ -39,17 +41,19 @@ export default function LandingPageClient() {
                         </h2>
                     </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch min-h-[400px]">
                         <DistrictIntelligenceScore />
                         <PlatformActivity />
                     </div>
                 </section>
 
-                {/* How It Works */}
-                <HowItWorks />
+                {/* How It Works - Reserved Space */}
+                <div className="min-h-[500px]">
+                    <HowItWorks />
+                </div>
 
-                {/* Founder Dossier (High Visibility) */}
-                <section className="py-20 px-4 md:px-8 max-w-7xl mx-auto">
+                {/* Founder Dossier - Reserved Space */}
+                <section className="py-20 px-4 md:px-8 max-w-7xl mx-auto min-h-[700px]">
                     <div className="text-center mb-12">
                         <h2 className="text-3xl md:text-5xl font-black text-white mb-6">
                             Architect of <span className="text-noble-gold">EdIntel Protocol</span>
@@ -58,11 +62,15 @@ export default function LandingPageClient() {
                     <FounderDossier />
                 </section>
 
-                {/* Community Stats */}
-                <CommunityStats />
+                {/* Community Stats - Reserved Space */}
+                <div className="min-h-[200px]">
+                    <CommunityStats />
+                </div>
 
-                {/* Pricing */}
-                <PricingSection />
+                {/* Pricing - Reserved Space */}
+                <div className="min-h-[800px]">
+                    <PricingSection />
+                </div>
             </main>
 
             {/* Footer */}

@@ -41,14 +41,14 @@ export async function GET(request: Request) {
         const result = await resend.emails.send({
             from: 'EdIntel Intelligence <reports@edintel.app>',
             to: ['superintendent@mcpss.com', 'alvin.west@edintel.app'], // Sending to user as well if available
-            subject: `Daily EdIntelty Report | ${data.district} | ${new Date().toLocaleDateString()}`,
+            subject: `Daily Identity Report | ${data.district} | ${new Date().toLocaleDateString()}`,
             attachments: [
                 {
                     filename: `EdIntel_Report_${data.district.replace(/\s+/g, '_')}.pdf`,
                     content: pdfBuffer,
                 },
             ],
-            text: `Your daily leadership and neuro-resilience metrics for ${data.district} are now available. View the attached EdIntelty Report.`,
+            text: `Your daily leadership and neuro-resilience metrics for ${data.district} are now available. View the attached Identity Report.`,
         });
 
         return Response.json({ success: true, id: result.data?.id });
@@ -61,17 +61,17 @@ export async function GET(request: Request) {
             await resend.emails.send({
                 from: 'Operations Center <alerts@edintel.app>',
                 to: 'alvin.west@edintel.app',
-                subject: 'ALERT: Daily EdIntelty Report Transmission Failure',
+                subject: 'ALERT: Daily Identity Report Transmission Failure',
                 text: `
                     Attention EdIntel Command Center,
 
-                    The Daily EdIntelty Report for Mobile County failed to transmit.
+                    The Daily Identity Report for Mobile County failed to transmit.
 
                     Error Details: ${error.message}
 
                     Potential Infrastructure Blocks Identified:
                     1. Google Cloud Project 'edintel-EdIntel-2026' may be suspended.
-                    2. Supabase Project 'tucspkptgrjgcccdacnw' may be paused.
+                    2. Supabase Project 'mpitiluamiidbjqmvbir' may be discouraged or paused.
                     3. Resend API Key invalid or expired.
 
                     Immediate Action Required:
@@ -84,6 +84,6 @@ export async function GET(request: Request) {
             console.error('[CRITICAL_FAILURE] Alert system also failed:', alertError);
         }
 
-        return Response.json({ error: 'EdIntelty Report failed to synthesize.', details: error.message }, { status: 500 });
+        return Response.json({ error: 'Identity Report failed to synthesize.', details: error.message }, { status: 500 });
     }
 }

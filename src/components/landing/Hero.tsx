@@ -10,7 +10,7 @@ export default function Hero() {
         <section className="relative min-h-[80vh] flex items-center justify-center px-4 py-20 overflow-hidden">
             {/* Spotlight Effect */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="w-[800px] h-[800px] bg-blue-500/20 rounded-full blur-[120px] animate-pulse" />
+                <div className="w-[800px] h-[800px] bg-amber-500/10 rounded-full blur-[120px] animate-pulse" />
             </div>
 
             {/* Content */}
@@ -20,30 +20,33 @@ export default function Hero() {
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
-                    className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm"
+                    className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-amber-500/20 bg-amber-500/5 backdrop-blur-sm"
                 >
-                    <Sparkles size={14} className="text-blue-400" />
-                    <span className="text-sm font-medium text-foreground/80">New Feature</span>
+                    <Sparkles size={14} className="text-[#D4AF37]" />
+                    <span className="text-sm font-black text-amber-500 uppercase tracking-widest">EdIntel v4.0</span>
                 </motion.div>
 
                 {/* Logo & Headline */}
-                <div className="flex flex-col items-center justify-center mb-6">
+                <div className="flex flex-col items-center justify-center min-h-[350px] md:min-h-[450px]">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.8 }}
-                        className="mb-6 scale-150"
+                        className="mb-12 origin-center"
                     >
-                        <EdIntelLogo />
+                        <div className="transform scale-[2] md:scale-[3]">
+                            <EdIntelLogo />
+                        </div>
                     </motion.div>
 
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2, duration: 0.8 }}
-                        className="text-5xl md:text-7xl font-black tracking-tight mb-6 text-gradient-main"
+                        transition={{ delay: 0.3, duration: 0.8 }}
+                        className="text-5xl md:text-8xl font-black tracking-tighter mb-8 text-white leading-[1.1] uppercase"
                     >
-                        Data-Driven Decisions for Modern Schools.
+                        The Operating Layer <br className="hidden md:block" />
+                        <span className="text-[#D4AF37]">for Education.</span>
                     </motion.h1>
                 </div>
 
@@ -65,8 +68,8 @@ export default function Hero() {
                     className="flex flex-col sm:flex-row gap-4 justify-center mt-10"
                 >
                     <Link href="/login">
-                        <button className="px-8 py-4 bg-primary text-primary-foreground rounded-xl font-bold hover:shadow-[0_0_20px_rgba(112,0,255,0.4)] transition-all">
-                            Get Started Free
+                        <button className="px-8 py-4 bg-[#D4AF37] text-black rounded-xl font-black uppercase tracking-widest hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] transition-all hover:scale-105 active:scale-95">
+                            Initiate Access
                         </button>
                     </Link>
                     <Link href="/#how-it-works">
