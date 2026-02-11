@@ -234,7 +234,7 @@ export function Sidebar() {
                                     <div className="flex items-center space-x-3 p-2 rounded-xl">
                                         <div className="h-10 w-10 rounded-full border border-blue-500/30 flex items-center justify-center overflow-hidden relative shrink-0">
                                             <Image
-                                                src={avatarError ? 'https://ui-avatars.com/api/?name=Alvin+West&background=0D8ABC&color=fff' : "/images/avatars/dr_alvin_west_executive.jpg"}
+                                                src={avatarError ? 'https://ui-avatars.com/api/?name=Alvin+West&background=0D8ABC&color=fff' : "/images/avatars/Dr._alvin_west.png"}
                                                 alt="Dr. Alvin West"
                                                 fill
                                                 className="object-cover"

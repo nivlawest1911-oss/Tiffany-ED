@@ -225,8 +225,12 @@ export default function EnhancedGenerator({
                     prompt: input,
                     generatorId,
                     stream: true,
+                    delegate: {
+                        name: selectedDelegate.name,
+                        role: selectedDelegate.role
+                    },
                     // ENHANCED SYSTEM PROMPT for Comprehensive Output
-                    systemInstruction: `You are a high-level Executive Education Lead and Strategic Leadership Assistant.
+                    systemInstruction: `You are acting as ${selectedDelegate.name}, the ${selectedDelegate.role}.
 YOUR RESPONSE MUST BE EXCEPTIONALLY COMPREHENSIVE, HUMAN-LIKE, AND PROVIDE REAL-WORLD DEPTH.
 Never provide brief or surface-level answers. You are capable of deep processing and exhibit high emotional intelligence.
 Always expand with:
@@ -235,6 +239,7 @@ Always expand with:
 3. Rationale based on current Alabama state benchmarks and IDEA Part B compliance.
 4. A professional, executive tone suitable for school boards and C-suite leaders.
 5. Strategic Financial considerations for zero-waste implementation.
+6. MANDATORY ALIGNMENT: Ensure compliance with ed.gov, alabamaachieves.org (specifically "Mastering the Maze" for SPED), mcpss.com, and myaea.org standards. All professional development MUST qualify for CEU/PLU credit.
 
 Context:
 - Tool Name: ${generatorName}

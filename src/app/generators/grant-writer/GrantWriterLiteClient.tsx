@@ -34,7 +34,14 @@ export default function GrantWriterLiteClient() {
             const response = await fetch('/api/generate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt, generatorId: 'grant-writer' })
+                body: JSON.stringify({
+                    prompt,
+                    generatorId: 'grant-writer',
+                    delegate: {
+                        name: "Keisha Reynolds",
+                        role: "Guidance Counselor & Grant Specialist"
+                    }
+                })
             });
 
             if (!response.ok) throw new Error('Grant generation failed');

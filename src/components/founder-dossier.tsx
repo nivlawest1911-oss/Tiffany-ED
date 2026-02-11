@@ -22,8 +22,9 @@ const CREDENTIALS = [
   { degree: "DBA", field: "Analytic Finance", school: "Valar Institute" },
   { degree: "MBA", field: "Corporate Finance", school: "Quantic School of Business and Technology" },
   { degree: "M.Ed", field: "Educational Leadership", school: "High Tech High Graduate School of Education" },
-  { degree: "M.Ed", field: "Educational Leadership", school: "University of South Alabama" },
-  { degree: "BS", field: "Psychology", school: "University of Mobile" }
+  { degree: "M.Ed", field: "Special Education & Collab. Teaching", school: "University of South Alabama" },
+  { degree: "BS", field: "Psychology", school: "University of Mobile" },
+  { degree: "Cert", field: "Mathematics Instructor", school: "State Department of Education" }
 ];
 
 const EXPERIENCE = [
@@ -97,7 +98,7 @@ export default function FounderDossier() {
                 <div className="aspect-[4/5] relative rounded-2xl overflow-hidden">
                   {/* Founder Image */}
                   <Image
-                    src="/images/avatars/dr_alvin_west_executive.svg"
+                    src="/images/avatars/Dr._alvin_west.png"
                     alt="Dr. Alvin West, Jr."
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105"

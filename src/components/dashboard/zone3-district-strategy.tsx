@@ -80,7 +80,7 @@ export function DistrictStrategy() {
                         <EdIntelPlayer
                             src="/videos/OS_Enhancements_AI_and_Layout.mp4"
                             title="System Status: Operational"
-                            poster="/images/avatars/dr_alvin_west_official.png"
+                            poster="/images/avatars/Dr._alvin_west.png"
                         />
                     </motion.div>
 

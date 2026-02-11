@@ -2,16 +2,22 @@ import { notFound } from 'next/navigation';
 import { generators } from '@/data/generators';
 import EnhancedGenerator from '@/components/EnhancedGenerator';
 
-// Map Avatar Enums to Real Assets
-const AVATAR_MAP: Record<string, { name: string, role: string, image: string }> = {
-    'principal': { name: "Dr. Alvin West", role: "Executive Principal", image: "/images/avatars/dr_alvin_west_premium.png" },
-    'counselor': { name: "Andre Patterson", role: "Behavior Intervention Lead", image: "/images/avatars/behavior_specialist.png" },
-    'data': { name: "Marcus Johnson", role: "Professional Stem Lead", image: "/images/avatars/stem_coordinator.png" },
-    'compliance': { name: "Dr. Maya Washington", role: "IEP Compliance Architect", image: "/images/avatars/iep_architect.png" },
-    'curriculum': { name: "Sarah West", role: "Curriculum Strategist", image: "/images/avatars/curriculum_strategist.png" },
-    'literacy': { name: "Dr. Emily Robinson", role: "Literacy & Data Scientist", image: "/images/avatars/literacy_coach.png" },
-    'finance': { name: "Director Nova", role: "Capital Recovery Lead", image: "/images/avatars/executive_leader.png" }
-};
+// Map Real Assets to Delegate Personas
+const DELEGATE_REGISTRY = [
+    { image: "/images/avatars/Dr._alvin_west.png", name: "Dr. Alvin West", role: "Executive Principal" },
+    { image: "/images/avatars/keisha_reynolds_premium.png", name: "Keisha Reynolds", role: "Guidance Counselor" },
+    { image: "/images/avatars/emily_robinson_premium.png", name: "Dr. Emily Robinson", role: "Curriculum & Data Strategist" },
+    { image: "/images/avatars/isaiah_vance_premium.png", name: "Isaiah Vance", role: "Compliance Officer" },
+    { image: "/images/avatars/executive_leader.png", name: "Director Nova", role: "Finance Director" },
+    { image: "/images/avatars/andre_patterson_premium.png", name: "Andre Patterson", role: "Behavior Specialist" },
+    { image: "/images/avatars/maya_washington_premium.png", name: "Maya Washington", role: "SPED Coordinator" },
+    // Legacy / Fallback mappings if generator data uses older paths
+    { image: "/images/avatars/behavior_specialist.png", name: "Andre Patterson", role: "Behavior Intervention Lead" },
+    { image: "/images/avatars/stem_coordinator.png", name: "Marcus Johnson", role: "STEM Lead" },
+    { image: "/images/avatars/iep_architect.png", name: "Dr. Maya Washington", role: "IEP Compliance Architect" },
+    { image: "/images/avatars/literacy_coach.png", name: "Dr. Emily Robinson", role: "Literacy Coach" },
+    { image: "/images/avatars/curriculum_strategist.png", name: "Sarah West", role: "Curriculum Strategist" }
+];
 
 import { cookies } from 'next/headers';
 
@@ -27,8 +33,16 @@ export default async function GeneratorPage({ params }: { params: Promise<{ id: 
     }
 
     const Icon = generator.icon;
-    const avatarKey = generator.avatar || 'principal';
-    const delegate = AVATAR_MAP[avatarKey] || AVATAR_MAP['principal'];
+
+    // Find specific delegate based on the generator's assigned avatar image
+    const specificDelegate = DELEGATE_REGISTRY.find(d => d.image === generator.avatar);
+
+    // Fallback to Principal if no match found
+    const delegate = specificDelegate || {
+        name: "Dr. Alvin West",
+        role: "Executive Principal",
+        image: "/images/avatars/Dr._alvin_west.png"
+    };
 
     return (
         <EnhancedGenerator

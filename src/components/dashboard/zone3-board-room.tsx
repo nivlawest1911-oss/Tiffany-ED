@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Users, FileText, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 export function BoardRoom() {
     return (
@@ -10,9 +11,9 @@ export function BoardRoom() {
                 <h3 className="text-xl font-bold text-white flex items-center gap-2">
                     <Users className="text-purple-500" /> Executive Board Room
                 </h3>
-                <button className="text-xs text-slate-400 hover:text-white flex items-center gap-1 transition-colors">
+                <Link href="/board" className="text-xs text-slate-400 hover:text-white flex items-center gap-1 transition-colors">
                     View Agenda <ArrowRight className="w-3 h-3" />
-                </button>
+                </Link>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

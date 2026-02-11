@@ -56,7 +56,7 @@ export function MediaConsole() {
                         <EdIntelPlayer
                             src={vid.src}
                             title={vid.title}
-                            poster="/images/avatars/dr_alvin_west_official.png"
+                            poster="/images/avatars/Dr._alvin_west.png"
                         />
                     </motion.div>
                 ))}

@@ -34,7 +34,14 @@ export default function RiskAnalyzerClient() {
             const response = await fetch('/api/generate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt, generatorId: 'risk-analyzer' })
+                body: JSON.stringify({
+                    prompt,
+                    generatorId: 'risk-analyzer',
+                    delegate: {
+                        name: "Andre Patterson",
+                        role: "Risk Management & Behavioral Expert"
+                    }
+                })
             });
 
             if (!response.ok) throw new Error('Analysis failed');

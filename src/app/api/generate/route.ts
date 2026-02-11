@@ -10,7 +10,7 @@ export const runtime = 'nodejs';
 
 export async function POST(request: NextRequest) {
     try {
-        const { prompt, generatorId, systemInstruction } = await request.json();
+        const { prompt, generatorId, systemInstruction, delegate } = await request.json();
 
         if (!prompt) {
             return NextResponse.json({ error: 'Prompt is required' }, { status: 400 });
@@ -44,7 +44,15 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const activePersona = EdIntel_PERSONA;
+        // DYNAMIC PERSONA SELECTION
+        // If delegate context is passed, use it. Otherwise fall back to Dr. Alvin.
+        const activePersona = delegate ? {
+            name: delegate.name || EdIntel_PERSONA.name,
+            role: delegate.role || EdIntel_PERSONA.role,
+            tone: EdIntel_PERSONA.tone, // Maintain professional tone
+            culturalContext: EdIntel_PERSONA.culturalContext,
+            mission: EdIntel_PERSONA.mission
+        } : EdIntel_PERSONA;
 
         // Determine if we should use Llama 3.3 for high-fidelity reasoning
         const highFidelityTools = [
@@ -53,7 +61,88 @@ export async function POST(request: NextRequest) {
             'risk-analyzer',
             'district-strategy',
             'special-ed-law-compliance-auditor',
-            'district-budget-optimizer'
+            'district-budget-optimizer',
+            'iep-architect',
+            'lesson-planner',
+            'data-analyzer',
+            'behavior-coach',
+            'substitute-binder-pro',
+            'grant-compliance-auditor',
+            'rubric-maker',
+            'conflict-mediator',
+            'schedule-optimizer',
+            'sports-eligibility-tracker',
+            'dyslexia-resource-gen',
+            'email-composer',
+            'policy-advisor',
+            'cognitive-gym',
+            'idea-generator',
+            'code-commander',
+            'comms-director',
+            'design-studio',
+            'meeting-prep',
+            'differentiation-planner',
+            'parent-communicator',
+            'student-goal-setter',
+            'study-guide-maker',
+            'writing-coach',
+            'video-lesson-planner',
+            'college-essay-coach',
+            'science-fair-mentor',
+            'math-tutor-pro',
+            'debate-prep',
+            'bus-route-optimizer',
+            'budget-allocator',
+            'project-pbl-architect',
+            'safety-drill-master',
+            'newsletter-wizard',
+            'staff-retention-prophet',
+            'equity-audit-protocol',
+            'fiscal-strategist',
+            'enrollment-forecaster',
+            'classroom-decor-ai',
+            'teacher-wellness-guide',
+            'strategic-visionary',
+            'hr-talent-scout',
+            'restorative-justice-guide',
+            'grant-narrative-architect',
+            'crisis-ops-lead',
+            'plc-facilitator',
+            '504-compliance-officer',
+            'instructional-mastery-coach',
+            'family-community-nexus',
+            'digital-innovation-architect',
+            'board-governance-strategist',
+            'culture-climate-architect',
+            'cte-industry-liaison',
+            'ell-success-coordinator',
+            'gt-gifted-architect',
+            'athletic-director-pro',
+            'alumni-relations-manager',
+            'restorative-dean',
+            'testing-coordinator-pro',
+            'facilities-ops-manager',
+            'transportation-logistics',
+            'substitute-manager',
+            'mental-health-lead',
+            'social-media-manager',
+            'literacy-architect',
+            'math-interventionist',
+            'early-learning-director',
+            'transition-coordinator',
+            'library-media-specialist',
+            'dual-language-bridge',
+            'federal-programs-director',
+            'magnet-coordinator',
+            'attendance-officer',
+            'school-registrar',
+            'procurement-specialist',
+            'pd-coordinator',
+            'mckinney-vento-liaison',
+            'foster-care-poc',
+            'school-health-director',
+            'after-school-director',
+            'volunteer-coordinator'
         ];
         const isHighFidelityTool = highFidelityTools.includes(generatorId);
 
@@ -167,8 +256,9 @@ export async function POST(request: NextRequest) {
             
             SUPER-INTELLIGENCE MANDATE:
             - THOUGHT PROCESS: Before every answer, you MUST engage in a "Neural Synthesis" step. 
-              Output your reasoning inside <neural_synthesis> tags, evaluating 3 distinct strategies and selecting the optimal one.
-            - CITATION PROTOCOL: Reference specific Alabama codes or federal statutes.
+            - Output your reasoning inside <neural_synthesis> tags, evaluating 3 distinct strategies and selecting the optimal one.
+            - CITATION PROTOCOL: Reference specific Alabama codes (SB 216/171), ESSA federal statutes, and MCPSS strategic goals.
+            - CEU/PLU ALIGNMENT: Ensure all professional development recommendations are structured to qualify for state-recognized credit.
             - NO FLUFF: Be dense and high-entropy.
 
             Tool Context: ${generatorId || 'General Intelligence'}

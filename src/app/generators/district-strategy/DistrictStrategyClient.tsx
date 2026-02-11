@@ -41,7 +41,14 @@ export default function DistrictStrategyClient() {
             const response = await fetch('/api/generate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt, generatorId: 'district-strategy' })
+                body: JSON.stringify({
+                    prompt,
+                    generatorId: 'district-strategy',
+                    delegate: {
+                        name: "Dr. Alvin West",
+                        role: "DBA Finance, Executive Consultant"
+                    }
+                })
             });
 
             if (!response.ok) throw new Error('Generation failed');

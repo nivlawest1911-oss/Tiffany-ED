@@ -1,5 +1,6 @@
 import React from 'react';
 import { Zap } from 'lucide-react';
+import Link from 'next/link';
 import { EdIntelPlayer } from '@/components/ui/EdIntelPlayer';
 
 export function GrantArchitect() {
@@ -15,14 +16,16 @@ export function GrantArchitect() {
                 <EdIntelPlayer
                     src="/videos/EdTech_Solution_Video_Generation (1).mp4"
                     title="Protocol: Funding Acquisition"
-                    poster="/images/avatars/dr_alvin_west_official.png"
+                    poster="/images/avatars/Dr._alvin_west.png"
                 />
             </div>
 
             <p className="text-sm text-slate-400">AI-driven proposal generation active.</p>
-            <button className="w-full py-2 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-lg text-xs font-bold uppercase hover:bg-amber-500/20">
-                Launch Generator
-            </button>
+            <Link href="/generators/grant-narrative-architect" className="w-full">
+                <button className="w-full py-2 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-lg text-xs font-bold uppercase hover:bg-amber-500/20 transition-colors">
+                    Launch Generator
+                </button>
+            </Link>
         </div>
     );
 }
