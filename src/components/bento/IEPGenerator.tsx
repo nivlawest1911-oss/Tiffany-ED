@@ -48,19 +48,19 @@ export default function IEPGenerator() {
 
     const [genStep, setGenStep] = useState(0);
     const generationSteps = [
-        "Analyzing Student Data Profile...",
-        "Consulting IDEA Compliance Protocols...",
-        "Drafting SMART Goals...",
-        "Structuring Accommodations...",
-        "Determining LRE & Services...",
-        "Finalizing Legal Framework..."
+        "Initializing Live Neural Link...",
+        "Querying Alabama Strategic Directive (SB280)...",
+        "Synthesizing IDEA-Compliant SMART Goals...",
+        "Optimizing Science of Reading Scaffolds...",
+        "Harmonizing Multi-Tiered Support Systems...",
+        "Finalizing Executive IEP Record..."
     ];
 
     const handleGenerate = async () => {
         if (!studentName || !grade || !disability || !concernArea) {
             toast({
                 title: "Incomplete Form",
-                description: "Please fill in all student details to generate the IEP.",
+                description: "Complete student profile to initiate neural synthesis.",
                 variant: "destructive"
             });
             return;
@@ -69,49 +69,32 @@ export default function IEPGenerator() {
         setIsGenerating(true);
         setGenStep(0);
 
-        // Simulate thinking steps
+        // Dynamic step timing for a more organic feel
         const stepInterval = setInterval(() => {
             setGenStep(curr => (curr < generationSteps.length - 1 ? curr + 1 : curr));
-        }, 1500);
+        }, 1200);
 
         try {
             const response = await fetch('/api/classroom', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    message: `Generate a complete, IDEA-compliant IEP for:
-Student: ${studentName}
-Grade: ${grade}
-Disability: ${disability}
-Area of Concern: ${concernArea}
+                    message: `ACT AS: EdIntel IEP Architect.
+                    STUDENT: ${studentName} (Grade ${grade})
+                    DISABILITY: ${disability}
+                    PRIMARY CONCERN: ${concernArea}
 
-Include these sections clearly labeled:
-
-1. PLAAFP (Present Levels of Academic Achievement and Functional Performance)
-2. Annual Goal (SMART format)
-3. Short-term Objectives (3 measurable objectives)
-4. Accommodations and Modifications
-5. Special Education Services
-6. Progress Monitoring Plan
-
-Use clinical language and ensure 80% accuracy criteria over 5 consecutive trials.`,
-                    mode: 'iep'
+                    MANDATORY PROTOCOL:
+                    1. CITE Al. Admin. Code 290-8-9 & IDEA 2004 precisely.
+                    2. ENSURE all goals are SMART and aligned with Alabama Course of Study.
+                    3. INCORPORATE Science of Reading (SOR) principles for literacy concerns.
+                    4. STRUCTURE: Use clinical formatting with headers for PLAAFP, Annual Goals, Objectives, Accommodations, and Progress Monitoring.`,
+                    mode: 'iep-architect'
                 })
             });
 
-            const responseText = await response.text();
-            let data;
-            try {
-                data = JSON.parse(responseText);
-            } catch (e) {
-                console.error("IEP API Response was not JSON:", responseText);
-                throw new Error("Strategic Link Unstable: Server returned invalid format.");
-            }
-
-            if (!response.ok || data.error) {
-                throw new Error(data?.error || 'Professional Aide Offline');
-            }
-            const generatedText = data.text || '';
+            const text = (await response.json()).text || '';
+            if (!text) throw new Error("Synthesis Interrupted: Neural feed timed out.");
 
             // Parse the response into sections
             const sections: IEPSection[] = [
@@ -121,27 +104,27 @@ Use clinical language and ensure 80% accuracy criteria over 5 consecutive trials
                 },
                 {
                     title: 'Present Levels (PLAAFP)',
-                    content: extractWithRegex(generatedText, /PLAAFP|Present Levels/i, /Annual Goal/i) || 'Generated content will appear here.'
+                    content: extractWithRegex(text, /PLAAFP|Present Levels/i, /Annual Goal/i) || 'Generated content will appear here.'
                 },
                 {
                     title: 'Annual Goal',
-                    content: extractWithRegex(generatedText, /Annual Goal/i, /Short-term Objectives|Objectives/i) || 'Generated content will appear here.'
+                    content: extractWithRegex(text, /Annual Goal/i, /Short-term Objectives|Objectives/i) || 'Generated content will appear here.'
                 },
                 {
                     title: 'Short-term Objectives',
-                    content: extractWithRegex(generatedText, /Short-term Objectives|Objectives/i, /Accommodations/i) || 'Generated content will appear here.'
+                    content: extractWithRegex(text, /Short-term Objectives|Objectives/i, /Accommodations/i) || 'Generated content will appear here.'
                 },
                 {
                     title: 'Accommodations & Modifications',
-                    content: extractWithRegex(generatedText, /Accommodations/i, /Special Education Services|Services/i) || 'Generated content will appear here.'
+                    content: extractWithRegex(text, /Accommodations/i, /Special Education Services|Services/i) || 'Generated content will appear here.'
                 },
                 {
                     title: 'Special Education Services',
-                    content: extractWithRegex(generatedText, /Special Education Services|Services/i, /Progress Monitoring|Progress/i) || 'Generated content will appear here.'
+                    content: extractWithRegex(text, /Special Education Services|Services/i, /Progress Monitoring|Progress/i) || 'Generated content will appear here.'
                 },
                 {
                     title: 'Progress Monitoring',
-                    content: extractWithRegex(generatedText, /Progress Monitoring|Progress/i, null) || 'Generated content will appear here.'
+                    content: extractWithRegex(text, /Progress Monitoring|Progress/i, null) || 'Generated content will appear here.'
                 }
             ];
 
@@ -149,9 +132,9 @@ Use clinical language and ensure 80% accuracy criteria over 5 consecutive trials
             // Skip the first section (Student Information)
             const aiSections = sections.slice(1);
             if (aiSections.every(s => s.content === 'Generated content will appear here.')) {
-                if (generatedText) {
+                if (text) {
                     sections[1].title = 'Generated IEP';
-                    sections[1].content = generatedText;
+                    sections[1].content = text;
                 } else {
                     sections[1].content = 'The AI returned an empty response. Please check your API key and connection.';
                 }

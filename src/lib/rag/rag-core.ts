@@ -24,6 +24,18 @@ const VAULT_CACHE: VaultDocument[] = [
         title: "Alabama Literacy Synthesis",
         content: "The Alabama Literacy Act (SB216) mandates the Science of Reading. 3rd-grade retention is a high-stakes outcome requiring Individual Reading Plans (IRPs).",
         tags: ["compliance", "literacy", "alabama"]
+    },
+    {
+        id: "al-personnel-001",
+        title: "Personnel Conflict Resolution",
+        content: "Professional disputes between instructional staff requires immediate administrative neutrality. Protocol demands: 1. Private separation of parties. 2. Documentation of specific disruptive behaviors. 3. Alignment with Alabama Administrative Code 290-3-3 regarding professional conduct standards.",
+        tags: ["personnel", "conflict", "compliance"]
+    },
+    {
+        id: "al-fiscal-001",
+        title: "Fiscal Capital Management",
+        content: "Alabama State Foundation Program (ASFP) mandates specific teacher-units ratios. Any deviations require board-approved variance reports. Title I funds cannot be used for base salaries of local units.",
+        tags: ["fiscal", "budget", "compliance"]
     }
 ];
 

@@ -26,23 +26,27 @@ export default function UserProfilePage() {
 
     useEffect(() => {
         async function getProfile() {
-            setLoading(true);
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user) {
-                setProfileData(prev => ({
-                    ...prev,
-                    name: user.user_metadata?.full_name || user.email?.split('@')[0] || prev.name,
-                    email: user.email || prev.email,
-                }));
+            try {
+                const { data: { user } } = await supabase.auth.getUser();
+                if (user) {
+                    setProfileData(prev => ({
+                        ...prev,
+                        name: user.user_metadata?.full_name || user.email?.split('@')[0] || prev.name,
+                        email: user.email || prev.email,
+                    }));
 
-                // Fetch Subscription
-                const { data: sub } = await supabase
-                    .from('subscriptions')
-                    .select('*')
-                    .eq('user_id', user.id)
-                    .single();
+                    // Fetch Subscription
+                    const { data: sub, error } = await supabase
+                        .from('subscriptions')
+                        .select('*')
+                        .eq('user_id', user.id)
+                        .single();
 
-                if (sub) setSubscription(sub);
+                    if (!error && sub) setSubscription(sub);
+                    else if (error) console.warn('[PROFILE_PAGE] Subscription warning:', error.message);
+                }
+            } catch (err) {
+                console.error('[PROFILE_PAGE] Data recovery failed:', err);
             }
             setLoading(false);
         }

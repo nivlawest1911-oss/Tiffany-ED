@@ -21,7 +21,7 @@ const AGENTS: Record<string, Agent> = {
     visionary: {
         name: "Dr. Alvin West",
         role: "EdIntel Architect",
-        avatar: "/images/avatars/dr_alvin_west_premium.png",
+        avatar: "/images/avatars/Dr._alvin_west.png",
         videoSrc: "/videos/briefings/principal_briefing.mp4",
         musicSrc: "/music/The Future of Education - Orchestral.mp3",
         abilityType: 'strategy' as const
@@ -44,7 +44,7 @@ const AGENTS: Record<string, Agent> = {
     philosopher: {
         name: "Dr. Isaiah Vance",
         role: "Ethics & Governance",
-        avatar: "/images/avatars/isaiah_vance_premium.png",
+        avatar: "/images/avatars/dr_isaiah_vance_premium.png",
         videoSrc: "/videos/briefings/compliance_briefing.mp4",
         abilityType: 'compliance' as const
     }
@@ -60,6 +60,7 @@ interface HolographicBriefingProps {
     stats?: { time: string; saved: string; accuracy: string; };
     videoSrc?: string;
     musicSrc?: string;
+    audioSrc?: string;
     thumbnail?: string;
     avatarImage?: string;
     role?: string;
@@ -76,19 +77,26 @@ export default function HolographicBriefing({
     stats,
     videoSrc,
     musicSrc,
+    audioSrc,
     thumbnail: _thumbnail,
     avatarImage,
     role,
     abilityType
 }: HolographicBriefingProps) {
     const agent = agentId ? AGENTS[agentId] : null;
-    const finalAvatar = avatarImage || agent?.avatar || "/images/avatars/dr_alvin_west_premium.png";
+    const finalAvatar = avatarImage || agent?.avatar || "/images/avatars/Dr._alvin_west.png";
     const finalRole = role || agent?.role || "Executive Lead";
     const finalAbility = abilityType || agent?.abilityType || 'strategy';
     const finalVideo = videoSrc || agent?.videoSrc;
     const finalMusic = musicSrc || agent?.musicSrc;
 
-    const { playClick: _playClick, playHover: _playHover, playSuccess, playMusic, stopMusic } = useProfessionalSounds();
+    const { playClick: _playClick, playHover: _playHover,
+        playSuccess,
+        playMusic,
+        stopMusic,
+        playVoice,
+        stopVoice
+    } = useProfessionalSounds();
     const [isSpeaking, setIsSpeaking] = useState(false);
     const [showLiveAvatar, setShowLiveAvatar] = useState(false);
     const [progress, setProgress] = useState(0);
@@ -106,10 +114,17 @@ export default function HolographicBriefing({
     }, [isSpeaking]);
 
     const startBriefing = useCallback(() => {
+        if (finalMusic) playMusic(finalMusic);
+
+        if (audioSrc) {
+            setIsSpeaking(true);
+            playVoice(audioSrc, () => setIsSpeaking(false));
+            return;
+        }
+
         if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
         window.speechSynthesis.cancel();
         setIsSpeaking(false);
-        if (finalMusic) playMusic(finalMusic);
 
         const text = `${title}. ${description}`;
         const buildUtterance = (voices: SpeechSynthesisVoice[]) => {
@@ -137,13 +152,16 @@ export default function HolographicBriefing({
         } else {
             buildUtterance(voices);
         }
-    }, [title, description, finalRole, finalMusic, playMusic]);
+    }, [title, description, finalRole, finalMusic, playMusic, audioSrc, playVoice]);
 
     const handleStopSpeaking = useCallback(() => {
-        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+        stopVoice();
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+        }
         setIsSpeaking(false);
         stopMusic();
-    }, [stopMusic]);
+    }, [stopMusic, stopVoice]);
 
     useEffect(() => {
         if (isOpen) {

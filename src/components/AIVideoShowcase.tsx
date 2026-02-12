@@ -53,7 +53,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         id: 3,
         title: 'Strategic Presence: Live Conversation',
         description: 'Witness the future of leadership as Dr. Alvin West interacts in real-time with zero latency.',
-        thumbnail: '/images/avatars/dr_alvin_west_premium.png',
+        thumbnail: '/images/avatars/Dr._alvin_west.png',
         videoUrl: '/videos/Video_Generation_for_School_Administrators.mp4',
         duration: '2:30',
         category: 'AI Avatars',
@@ -61,7 +61,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         briefingContent: "Strategic Sync Active. This demo showcases the 2-way connection between the Professional Assistant and a district leader. The avatar is not just a recording; it's a dynamic identity core trained on thousands of hours of executive decision-making. It responds to complex fiscal inquiries, staff morale challenges, and policy shifts with the same authoritativeness and cultural nuance as Dr. West himself. This is the end of leadership bottlenecks.",
         brieferName: "Dr. Alvin West",
         brieferRole: "Executive Principal",
-        brieferAvatar: "/images/avatars/dr_alvin_west_premium.png"
+        brieferAvatar: "/images/avatars/Dr._alvin_west.png"
     },
     {
         id: 4,
@@ -269,7 +269,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         id: 2002,
         title: 'Human Fidelity Calibration',
         description: 'Observe the zero-latency synchronization between human voice and synthetic avatar.',
-        thumbnail: '/images/avatars/dr_alvin_west_premium.png',
+        thumbnail: '/images/avatars/Dr._alvin_west.png',
         videoUrl: '/videos/Video_Generation_for_School_Administrators.mp4',
         duration: '3:15',
         category: 'Technology',
@@ -600,7 +600,7 @@ export default function AIVideoShowcase() {
                                                             className="w-full h-full relative"
                                                         >
                                                             <Image
-                                                                src={selectedVideo.brieferAvatar || "/images/avatars/dr_alvin_west_premium.png"}
+                                                                src={selectedVideo.brieferAvatar || "/images/avatars/Dr._alvin_west.png"}
                                                                 alt={selectedVideo.brieferName || "Guide"}
                                                                 fill
                                                                 className="object-cover"

@@ -12,6 +12,7 @@ import {
     Cpu,
     ZapOff
 } from 'lucide-react';
+import { useIntelligence } from '@/context/IntelligenceContext';
 
 type GameMode = 'memory' | 'inhibition' | 'logic' | 'speed';
 
@@ -147,6 +148,8 @@ export default function LeadershipGym({ onXPAction }: { onXPAction?: (amount: nu
         }
     };
 
+    const { triggerBriefing } = useIntelligence();
+
     useEffect(() => {
         if (gameActive && timeLeft > 0) {
             const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
@@ -172,14 +175,23 @@ export default function LeadershipGym({ onXPAction }: { onXPAction?: (amount: nu
                             <p className="text-sm font-bold text-cyan-400 uppercase tracking-widest">Mental Performance Exercises</p>
                         </div>
                     </div>
-                    <div className="flex gap-4">
-                        <div className="px-5 py-3 rounded-2xl bg-zinc-900 border border-zinc-800 text-center min-w-[80px]">
-                            <div className="text-2xl font-black text-yellow-400 leading-none mb-1">{score}</div>
-                            <div className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Score</div>
-                        </div>
-                        <div className="px-5 py-3 rounded-2xl bg-zinc-900 border border-zinc-800 text-center min-w-[80px]">
-                            <div className="text-2xl font-black text-purple-400 leading-none mb-1">{level}</div>
-                            <div className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Stage</div>
+                    <div className="flex items-center gap-4">
+                        <button
+                            onClick={() => triggerBriefing('Legacy Profile')}
+                            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 hover:bg-amber-500/20 transition-all group"
+                        >
+                            <Target size={14} className="group-hover:rotate-45 transition-transform" />
+                            <span className="text-[10px] font-black uppercase tracking-widest">Founder Hub</span>
+                        </button>
+                        <div className="flex gap-4">
+                            <div className="px-5 py-3 rounded-2xl bg-zinc-900 border border-zinc-800 text-center min-w-[80px]">
+                                <div className="text-2xl font-black text-yellow-400 leading-none mb-1">{score}</div>
+                                <div className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Score</div>
+                            </div>
+                            <div className="px-5 py-3 rounded-2xl bg-zinc-900 border border-zinc-800 text-center min-w-[80px]">
+                                <div className="text-2xl font-black text-purple-400 leading-none mb-1">{level}</div>
+                                <div className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Stage</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -328,10 +340,34 @@ export default function LeadershipGym({ onXPAction }: { onXPAction?: (amount: nu
                 <div className="mt-12">
                     <p className="text-[10px] font-black text-zinc-600 uppercase tracking-[0.3em] mb-6 text-center">Stakeholder Cognitive Hubs</p>
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                        <TrainingCenter title="Student Focus" description="Executive function & recall" color="cyan" icon={<Brain size={14} />} />
-                        <TrainingCenter title="Teacher Guard" description="Burnout shield & focus" color="blue" icon={<ShieldCheck size={14} />} />
-                        <TrainingCenter title="Admin Vision" description="Strategic decision velocity" color="purple" icon={<Target size={14} />} />
-                        <TrainingCenter title="Parent Sync" description="Cognitive patience & calm" color="orange" icon={<Heart size={14} />} />
+                        <TrainingCenter
+                            title="Student Focus"
+                            description="Executive function & recall"
+                            color="cyan"
+                            icon={<Brain size={14} />}
+                            onClick={() => triggerBriefing('Student Focus')}
+                        />
+                        <TrainingCenter
+                            title="Teacher Guard"
+                            description="Burnout shield & focus"
+                            color="blue"
+                            icon={<ShieldCheck size={14} />}
+                            onClick={() => triggerBriefing('Teacher Guard')}
+                        />
+                        <TrainingCenter
+                            title="Admin Vision"
+                            description="Strategic decision velocity"
+                            color="purple"
+                            icon={<Target size={14} />}
+                            onClick={() => triggerBriefing('Admin Vision')}
+                        />
+                        <TrainingCenter
+                            title="Parent Sync"
+                            description="Cognitive patience & calm"
+                            color="orange"
+                            icon={<Heart size={14} />}
+                            onClick={() => triggerBriefing('Parent Sync')}
+                        />
                     </div>
                 </div>
             </div>
@@ -349,24 +385,27 @@ function StatItem({ label, value, icon, color }: { label: string, value: string,
     );
 }
 
-function TrainingCenter({ title, description, color, icon }: { title: string, description: string, color: string, icon: React.ReactNode }) {
+function TrainingCenter({ title, description, color, icon, onClick }: { title: string, description: string, color: string, icon: React.ReactNode, onClick?: () => void }) {
     const colorClasses: Record<string, string> = {
-        cyan: 'border-cyan-500/20 hover:border-cyan-500/50 bg-cyan-500/5',
-        blue: 'border-blue-500/20 hover:border-blue-500/50 bg-blue-500/5',
-        purple: 'border-purple-500/20 hover:border-purple-500/50 bg-purple-500/5',
-        orange: 'border-orange-500/20 hover:border-orange-500/50 bg-orange-500/5',
+        cyan: 'border-cyan-500/20 hover:border-cyan-500/50 bg-cyan-500/5 hover:shadow-[0_0_20px_rgba(34,211,238,0.1)]',
+        blue: 'border-blue-500/20 hover:border-blue-500/50 bg-blue-500/5 hover:shadow-[0_0_20px_rgba(59,130,246,0.1)]',
+        purple: 'border-purple-500/20 hover:border-purple-500/50 bg-purple-500/5 hover:shadow-[0_0_20px_rgba(168,85,247,0.1)]',
+        orange: 'border-orange-500/20 hover:border-orange-500/50 bg-orange-500/5 hover:shadow-[0_0_20px_rgba(249,115,22,0.1)]',
     };
 
     return (
-        <button className={`p-4 rounded-2xl border ${colorClasses[color]} transition-all text-left group overflow-hidden relative`}>
+        <button
+            onClick={onClick}
+            className={`p-5 rounded-2xl border backdrop-blur-sm ${colorClasses[color]} transition-all duration-300 text-left group overflow-hidden relative hover:scale-[1.02]`}
+        >
             <div className="relative z-10">
                 <div className="flex items-center gap-2 mb-2">
-                    <div className="opacity-60 group-hover:opacity-100 transition-opacity">{icon}</div>
-                    <span className="text-[10px] font-black uppercase tracking-widest leading-none">{title}</span>
+                    <div className="opacity-60 group-hover:opacity-100 transition-opacity duration-300">{icon}</div>
+                    <span className="text-[10px] font-black uppercase tracking-widest leading-none text-white/90">{title}</span>
                 </div>
-                <p className="text-[9px] text-zinc-500 leading-tight group-hover:text-zinc-300 transition-colors">{description}</p>
+                <p className="text-[9px] text-zinc-500 leading-tight group-hover:text-zinc-300 transition-colors duration-300">{description}</p>
             </div>
-            <div className="absolute top-0 right-0 w-8 h-8 bg-zinc-400/5 rounded-bl-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
         </button>
     );
 }

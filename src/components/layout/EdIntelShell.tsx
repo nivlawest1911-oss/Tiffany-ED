@@ -167,7 +167,10 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
 
                         <div className="flex items-center gap-2">
                             <button
-                                onClick={() => initiateBioAuth('facebook')}
+                                onClick={() => {
+                                    new Audio('/sounds/click_engage.mp3').play().catch(() => { });
+                                    initiateBioAuth('facebook');
+                                }}
                                 className="bg-[#1877F2]/10 text-[#1877F2] border border-[#1877F2]/20 p-3.5 rounded-2xl hover:bg-[#1877F2] hover:text-white transition-all duration-300 shadow-lg group/fb"
                                 title="Login with Facebook"
                             >
@@ -175,7 +178,10 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
                             </button>
 
                             <button
-                                onClick={() => initiateBioAuth('google')}
+                                onClick={() => {
+                                    new Audio('/sounds/click_engage.mp3').play().catch(() => { });
+                                    initiateBioAuth('google');
+                                }}
                                 className="bg-white text-black px-6 md:px-10 py-3 md:py-3.5 rounded-2xl text-[9px] md:text-[10px] font-black uppercase tracking-[0.4em] hover:bg-intel-gold transition-all duration-500 shadow-2xl relative overflow-hidden group/btn"
                             >
                                 <div className="absolute inset-0 bg-black/5 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500" />
@@ -265,7 +271,7 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
                                     <div className="flex items-start gap-6">
                                         <div className="relative w-16 h-16 rounded-2xl overflow-hidden border border-intel-gold/20 shrink-0">
                                             <Image
-                                                src="/images/dr_alvin_west.png"
+                                                src="/images/avatars/Dr._alvin_west.png"
                                                 alt="Dr. Alvin West"
                                                 fill
                                                 className="object-cover grayscale hover:grayscale-0 transition-all duration-500"
@@ -289,10 +295,10 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
                                 <div className="col-span-1 md:col-span-3 space-y-6">
                                     <h5 className="text-[10px] font-black text-white/30 uppercase tracking-[0.4em]">System Nodes</h5>
                                     <ul className="space-y-3">
-                                        <li><Link href="/legal/Identity" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Data Identity</Link></li>
-                                        <li><Link href="/legal/compliance" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Federal Compliance</Link></li>
-                                        <li><Link href="/status" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Grid Status</Link></li>
-                                        <li><Link href="/admin/access" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Admin Portal</Link></li>
+                                        <li><Link href="/identity" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Data Identity</Link></li>
+                                        <li><Link href="/ferpa" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Federal Compliance</Link></li>
+                                        <li><Link href="/admin/status" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Grid Status</Link></li>
+                                        <li><Link href="/admin" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Admin Portal</Link></li>
                                     </ul>
                                 </div>
                             </div>

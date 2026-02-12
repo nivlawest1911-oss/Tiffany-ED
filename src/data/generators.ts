@@ -30,7 +30,7 @@ const AVATARS = {
     COUNSELOR: AVATAR_MAP['delegate_2'] || "/images/avatars/keisha_reynolds_premium.png",
     CURRICULUM: AVATAR_MAP['delegate_5'] || "/images/avatars/emily_robinson_premium.png",
     DATA: AVATAR_MAP['delegate_5'] || "/images/avatars/emily_robinson_premium.png",
-    COMPLIANCE: AVATAR_MAP['delegate_3'] || "/images/avatars/isaiah_vance_premium.png",
+    COMPLIANCE: AVATAR_MAP['delegate_3'] || "/images/avatars/dr_isaiah_vance_premium.png",
     LITERACY: AVATAR_MAP['delegate_5'] || "/images/avatars/emily_robinson_premium.png",
     FINANCE: AVATAR_MAP['delegate_7'] || "/images/avatars/executive_leader.png",
     BEHAVIOR: AVATAR_MAP['delegate_4'] || "/images/avatars/andre_patterson_premium.png",

@@ -7,7 +7,7 @@ const DELEGATE_REGISTRY = [
     { image: "/images/avatars/Dr._alvin_west.png", name: "Dr. Alvin West", role: "Executive Principal" },
     { image: "/images/avatars/keisha_reynolds_premium.png", name: "Keisha Reynolds", role: "Guidance Counselor" },
     { image: "/images/avatars/emily_robinson_premium.png", name: "Dr. Emily Robinson", role: "Curriculum & Data Strategist" },
-    { image: "/images/avatars/isaiah_vance_premium.png", name: "Isaiah Vance", role: "Compliance Officer" },
+    { image: "/images/avatars/dr_isaiah_vance_premium.png", name: "Isaiah Vance", role: "Compliance Officer" },
     { image: "/images/avatars/executive_leader.png", name: "Director Nova", role: "Finance Director" },
     { image: "/images/avatars/andre_patterson_premium.png", name: "Andre Patterson", role: "Behavior Specialist" },
     { image: "/images/avatars/maya_washington_premium.png", name: "Maya Washington", role: "SPED Coordinator" },

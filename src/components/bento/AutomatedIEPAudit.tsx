@@ -83,11 +83,11 @@ export default function AutomatedIEPAudit() {
 
     const [scanStep, setScanStep] = useState(0);
     const scanSteps = [
-        "Digitizing Document Structure...",
-        "Identifying Compliance Markers...",
-        "Cross-Referencing IDEA Mandates...",
+        "Initiating Secure Neural Link...",
+        "Scanning for Alabama Compliance Markers...",
+        "Cross-Referencing IDEA & AAC Mandates...",
         "Validating Procedural Safeguards...",
-        "Generating Compliance Report..."
+        "Generating Professional Audit Report..."
     ];
 
     const handleAnalyze = async () => {
@@ -106,13 +106,21 @@ export default function AutomatedIEPAudit() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    message: `Audit this document: ${file.name}. \n(Note: This is a placeholder for file content extraction. In a real scenario, we would parse the uploaded file.)\n\nPlease evaluate the typical compliance markers for an IEP.`,
-                    mode: 'audit'
+                    message: `Act as the EdIntel Compliance Architect. Audit this document: ${file.name} for absolute adherence to IDEA Part B and Alabama Administrative Code Chapter 290-8-9. 
+                    
+                    Identify markers for:
+                    - FAPE/LRE
+                    - SMART Goals (Webb's DOK 3/4)
+                    - SOR Integration
+                    - Procedural Safeguards
+                    - Specialized Instruction fidelity`,
+                    mode: 'iep-audit'
                 })
             });
 
             const data = await response.json();
             const aiText = data.text || '';
+            console.log("💎 Neural Audit Synthesis complete:", aiText.substring(0, 50) + "...");
 
             // Update compliance markers based on AI response if possible, 
             // or just randomize slightly while keeping it grounded in a real call.

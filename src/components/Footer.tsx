@@ -24,7 +24,7 @@ export default function Footer() {
                         </p>
                         <div className="flex gap-4">
                             <a
-                                href="https://www.tiktok.com/@alvinwest0"
+                                href="https://www.tiktok.com/@alvinwestii"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="p-2 rounded-lg bg-white/5 hover:bg-[#ff0050]/20 text-zinc-400 hover:text-[#ff0050] transition-colors group"
@@ -42,7 +42,7 @@ export default function Footer() {
                                 <Facebook size={18} />
                             </a>
                             <a
-                                href="https://www.linkedin.com/in/alvin-west-ii-dba-11a75323"
+                                href="https://www.linkedin.com/in/alvin-west-ii-dba-11a75323/"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="p-2 rounded-lg bg-white/5 hover:bg-[#0077b5]/20 text-zinc-400 hover:text-[#0077b5] transition-colors"

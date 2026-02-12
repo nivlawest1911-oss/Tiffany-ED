@@ -49,16 +49,18 @@ export async function POST(req: Request) {
         PERSONA: ${EdIntel_PERSONA.name}, ${EdIntel_PERSONA.role}
         
         CONTEXT:
-        - Stakeholder: ${stakeholder || 'General Staff'}
-        - Urgency/Intensity: ${intensity || 'Medium'}
+        - Target Stakeholder: ${stakeholder || 'General Staff'}
+        - Required Intensity: ${intensity || 'Medium'}
+        - Selected Protocol: ${protocol}
         
-        SITUATION:
+        SITUATION TO ANALYZE:
         ${rawSituation}
         
-        MANDATE:
-        1. Eliminate non-factual or unsubstantiated generalities.
-        2. Provide specific, clinically precise next steps citing research-based peer-reviewed models (e.g. Hattie, Marzano).
-        3. If legal/compliance related (Discipline/IDEA), cite specific Alabama or Federal codes.
+        STRATEGIC MANDATE:
+        1. Eliminate non-factual generalities. Use CLINICALLY PRECISE vocabulary.
+        2. Provide specific, actionable next steps citing research-based models (e.g. Hattie's Effect Size, Marzano's High Reliability).
+        3. If legal/compliance is involved (Discipline/IDEA/FERPA), cite specific Alabama (Ala. Code) or Federal statutes.
+        4. STRUCTURE: Output as a formal "EdIntel Executive Briefing". Use markdown headers for 'Strategic Synthesis' and 'Tactical Roadmap'.
       `;
     } else if (prompt) {
       finalPrompt = `${ALABAMA_STRATEGIC_DIRECTIVE}\n\n${prompt}`;

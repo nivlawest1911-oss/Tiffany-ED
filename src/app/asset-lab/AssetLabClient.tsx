@@ -1,9 +1,11 @@
 'use client';
 
 import React from 'react';
-import { ImageIcon, Wand2, Layers } from 'lucide-react';
+import { ImageIcon, Wand2, Layers, Target } from 'lucide-react';
+import { useIntelligence } from '@/context/IntelligenceContext';
 
 export default function AssetLabClient() {
+    const { triggerBriefing } = useIntelligence();
     return (
         <div className="min-h-screen bg-black/90 p-8 pt-24 text-white">
             <header className="mb-12">
@@ -11,10 +13,23 @@ export default function AssetLabClient() {
                     <ImageIcon size={12} />
                     <span>Visual Asset Protocol</span>
                 </div>
-                <h1 className="text-4xl md:text-5xl font-black mb-4">Asset <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-400">Lab</span></h1>
-                <p className="text-slate-400 max-w-2xl">
-                    Generate high-fidelity visual assets, logos, and marketing materials for your district.
-                </p>
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+                    <div>
+                        <h1 className="text-5xl font-black uppercase italic tracking-tighter">
+                            Asset <span className="text-pink-500">Lab</span>
+                        </h1>
+                        <p className="text-zinc-500 font-medium max-w-xl">
+                            Strategic generation of high-fidelity visual assets, brand identity nodes, and neural design protocols.
+                        </p>
+                    </div>
+                    <button
+                        onClick={() => triggerBriefing('Legacy Profile')}
+                        className="flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 hover:bg-amber-500/20 transition-all group shrink-0"
+                    >
+                        <Target size={14} className="group-hover:rotate-45 transition-transform" />
+                        <span className="text-[10px] font-black uppercase tracking-widest">Founder Hub</span>
+                    </button>
+                </div>
             </header>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

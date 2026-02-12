@@ -1,13 +1,10 @@
-import { cookies } from 'next/headers';
+import SettingsClient from './SettingsClient';
 
-export const dynamic = 'force-dynamic';
+export const metadata = {
+    title: 'Settings | EdIntel Sovereign',
+    description: 'Manage your EdIntel identity, subscription, and neural node configurations.',
+};
 
-export default async function SettingsPage() {
-    await cookies(); // Force dynamic rendering context
-    // Client-side redirect if still rendered
-    return (
-        <script dangerouslySetInnerHTML={{
-            __html: `window.location.href = '/dashboard';`
-        }} />
-    );
+export default function SettingsPage() {
+    return <SettingsClient />;
 }

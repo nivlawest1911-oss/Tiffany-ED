@@ -8,8 +8,21 @@ import EdIntelLogo from '../EdIntelLogo';
 export default function Hero() {
     return (
         <section className="relative min-h-[80vh] flex items-center justify-center px-4 py-20 overflow-hidden">
+            {/* Cinematic Video Background */}
+            <div className="absolute inset-0 z-0">
+                <video
+                    src="/videos/edintel_ad_strategic_engine.mp4"
+                    className="w-full h-full object-cover opacity-20"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black" />
+            </div>
+
             {/* Spotlight Effect */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-[1]">
                 <div className="w-[800px] h-[800px] bg-amber-500/10 rounded-full blur-[120px] animate-pulse" />
             </div>
 

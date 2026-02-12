@@ -120,6 +120,7 @@ export class ProfessionalAudioEngine {
     private ambientOsc: OscillatorNode | null = null;
     private ambientGain: GainNode | null = null;
     private musicElement: HTMLAudioElement | null = null;
+    private voiceElement: HTMLAudioElement | null = null;
 
     toggleAmbient(play: boolean) {
         if (!this.context || !this.masterGain) return;
@@ -180,6 +181,31 @@ export class ProfessionalAudioEngine {
             this.musicElement.currentTime = 0;
         }
     }
+
+    playVoice(src: string, onEnded?: () => void) {
+        if (typeof window === 'undefined') return;
+
+        if (this.voiceElement) {
+            this.voiceElement.pause();
+            this.voiceElement.src = src;
+        } else {
+            this.voiceElement = new Audio(src);
+        }
+
+        if (onEnded) {
+            this.voiceElement.onended = onEnded;
+        }
+
+        this.voiceElement.volume = 1.0;
+        this.voiceElement.play().catch(e => console.warn("Voice play failed", e));
+    }
+
+    stopVoice() {
+        if (this.voiceElement) {
+            this.voiceElement.pause();
+            this.voiceElement.currentTime = 0;
+        }
+    }
 }
 
 // Lazy singleton instance - only created when first accessed
@@ -197,5 +223,7 @@ export const professionalAudio = {
     playSuccess: () => professionalAudio.instance.playSuccess(),
     toggleAmbient: (play: boolean) => professionalAudio.instance.toggleAmbient(play),
     playMusic: (src: string, loop?: boolean) => professionalAudio.instance.playMusic(src, loop),
-    stopMusic: () => professionalAudio.instance.stopMusic()
+    stopMusic: () => professionalAudio.instance.stopMusic(),
+    playVoice: (src: string, onEnded?: () => void) => professionalAudio.instance.playVoice(src, onEnded),
+    stopVoice: () => professionalAudio.instance.stopVoice()
 };

@@ -12,7 +12,7 @@ export default function IdentityClient() {
         {
             name: "Dr. Alvin West II",
             role: "Chief AI Strategist | DBA, Ph.D., MBA",
-            image: "/avatars/alvin_west.png",
+            image: "/images/avatars/Dr._alvin_west.png",
             voice: "/voice-profiles/alvin_deep.mp3",
             bio: "Chief Architect of EdIntel. Distinguished researcher in sustainable business strategies (DBA), organizational leadership, and BCI/AI twin technology. Chair of Special Programs, Mathematics, & Gifted Education.",
             color: "from-amber-500 to-orange-600"

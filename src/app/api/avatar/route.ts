@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
                         "cjwbw/sadtalker:380d302633005a96860000000000000000000000000000000000000000000000",
                         {
                             input: {
-                                source_image: avatarUrl || "/images/avatars/dr_alvin_west_premium.png",
+                                source_image: avatarUrl || "/images/avatars/Dr._alvin_west.png",
                                 driven_audio: audioUrl,
                                 still: true,
                                 preprocess: "full",

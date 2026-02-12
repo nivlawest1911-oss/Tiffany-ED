@@ -15,7 +15,7 @@ declare global {
 }
 
 export const DesignBridge = ({ type, tier }: DesignBridgeProps) => {
-    const isAuthorized = tier !== 'EdIntel Initiate';
+    const isAuthorized = tier !== 'Sovereign Initiate';
     const [showGate, setShowGate] = React.useState(false);
 
     const launchCanva = async () => {

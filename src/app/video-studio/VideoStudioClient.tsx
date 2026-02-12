@@ -5,11 +5,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Sparkles, Clapperboard, Film, Zap, Upload, Play, Wand2 } from 'lucide-react';
 import { HeyGenStreamingAvatar } from '@/components/heygen/StreamingAvatar';
+import { useIntelligence } from '@/context/IntelligenceContext';
+import { Target } from 'lucide-react';
 
 export default function VideoStudioClient() {
     const [activeTab, setActiveTab] = useState('sora');
     const [isGenerating, setIsGenerating] = useState(false);
     const [prompt, setPrompt] = useState('');
+    const { triggerBriefing } = useIntelligence();
 
     const engines = [
         { id: 'sora', name: 'Sora 2.0', icon: Sparkles, desc: 'Cinematic Physics Engine', color: 'from-sky-400 to-blue-600' },
@@ -46,6 +49,13 @@ export default function VideoStudioClient() {
                             Virtual <span className="text-sky-500">Film Studio</span>
                         </h1>
                     </div>
+                    <button
+                        onClick={() => triggerBriefing('Legacy Profile')}
+                        className="flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 hover:bg-amber-500/20 transition-all group"
+                    >
+                        <Target size={14} className="group-hover:rotate-45 transition-transform" />
+                        <span className="text-[10px] font-black uppercase tracking-widest">Founder Hub</span>
+                    </button>
                 </motion.div>
 
                 {/* Engine Selector */}

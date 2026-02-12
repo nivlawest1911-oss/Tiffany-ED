@@ -45,8 +45,10 @@ export const HumanoidHolograph = ({
                 <div className="relative">
                     {/* Shadow/Glow Base */}
                     <div
-                        className="absolute inset-0 blur-md opacity-20 scale-150 animate-pulse bg-noble-gold rounded-full"
-                        style={{ width: `${size}px`, height: `${size}px` }}
+                        className={cn(
+                            "absolute inset-0 blur-md opacity-20 scale-150 animate-pulse bg-noble-gold rounded-full",
+                            `w-[${size}px] h-[${size}px]`
+                        )}
                     />
 
                     {/* Primary Icon */}

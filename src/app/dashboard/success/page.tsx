@@ -21,7 +21,7 @@ export default function SuccessPage() {
                 {/* Hyper-Realistic EdIntel Representation - Dr. Alvin West */}
                 <div className="mx-auto w-32 h-32 rounded-full border-2 border-[#d4af37] mb-6 overflow-hidden shadow-[0_0_30px_rgba(212,175,55,0.4)] bg-zinc-900 relative">
                     <HumanAvatar
-                        src="/images/avatars/dr_alvin_west_premium.png"
+                        src="/images/avatars/Dr._alvin_west.png"
                         alt="Dr. Alvin West - EdIntel Architect"
                         className="w-full h-full object-cover"
                     />

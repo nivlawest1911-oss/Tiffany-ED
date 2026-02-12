@@ -38,13 +38,6 @@ const GENERATED_ASSETS = [
         prompt: "Professional leadership team analyzing data metrics"
     },
     {
-        id: 'g5',
-        type: 'audio',
-        url: '/audio/briefings/morning_update.mp3',
-        title: 'Morning Executive Briefing',
-        prompt: "Daily audio summary of key leadership priorities"
-    },
-    {
         id: 'g6',
         type: 'interactive',
         url: '',

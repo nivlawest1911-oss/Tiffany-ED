@@ -16,18 +16,21 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import Image from "next/image"
 
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 
 import { useEdIntelVibe } from '@/context/EdIntelVibeContext';
 import EdIntelCommandDeck from '@/components/dashboard/EdIntelCommandDeck';
 import { AuroraBackground } from '@/components/dashboard/aurora-background';
-import { VibeController } from '@/components/dashboard/VibeController';
+import { TacticalHeaderBar } from '@/components/layout/TacticalHeaderBar';
+import useProfessionalSounds from "@/hooks/useProfessionalSounds";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname()
+    const router = useRouter()
     const isMarketingRoute = ['/signup', '/login', '/about', '/pricing', '/contact', '/whats-edintel', '/enterprise'].includes(pathname);
     const isDashboardRoute = pathname?.startsWith('/dashboard');
     const { isCommandConsoleOpen, toggleCommandConsole } = useEdIntelVibe();
+    const { playHover, playClick } = useProfessionalSounds()
 
     // CRM/CMD+K Shortcut
     React.useEffect(() => {
@@ -84,27 +87,28 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                             </div>
                         </div>
 
-                        <div className="hidden xl:flex bg-white/5 rounded-full px-4 py-1.5 border border-white/5 shadow-sm items-center gap-4">
-                            <div className="flex items-center gap-2">
-                                <span className="text-[9px] font-mono text-zinc-500 uppercase">District:</span>
-                                <span className="text-[9px] font-mono text-emerald-500 font-bold uppercase tracking-tighter">Optimal</span>
-                            </div>
-                            <div className="w-px h-3 bg-zinc-800"></div>
-                            <div className="flex items-center gap-2">
-                                <span className="text-[9px] font-mono text-zinc-500 uppercase">Latency:</span>
-                                <span className="text-[9px] font-mono text-primary font-black">1.4ms</span>
-                            </div>
-                        </div>
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <VibeController />
+                        <TacticalHeaderBar />
 
                         <div className="flex items-center gap-1 bg-white/5 rounded-full p-1 border border-white/10">
-                            <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full text-white/40 hover:text-white hover:bg-white/10">
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                onMouseEnter={playHover}
+                                onClick={() => { playClick(); router.push('/activity'); }}
+                                className="h-8 w-8 rounded-full text-white/40 hover:text-white hover:bg-white/10"
+                            >
                                 <Bell className="h-4 w-4" />
                             </Button>
-                            <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full text-white/40 hover:text-white hover:bg-white/10">
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                onMouseEnter={playHover}
+                                onClick={() => { playClick(); router.push('/all-tools'); }}
+                                className="h-8 w-8 rounded-full text-white/40 hover:text-white hover:bg-white/10"
+                            >
                                 <Grid className="h-4 w-4" />
                             </Button>
                         </div>
@@ -117,7 +121,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                     <div className="relative">
                                         <div className="h-8 w-8 rounded-full border border-white/10 overflow-hidden group-hover:border-[#06b6d4]/50 transition-colors">
                                             <Image
-                                                src="/images/dr_alvin_west.png"
+                                                src="/images/avatars/Dr._alvin_west.png"
                                                 alt="User"
                                                 width={32}
                                                 height={32}

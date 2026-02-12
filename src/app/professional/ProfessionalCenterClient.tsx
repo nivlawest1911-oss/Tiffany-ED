@@ -20,7 +20,19 @@ export default function ProfessionalCenterClient() {
 
             {/* Hero Section */}
             <section className="relative py-12 px-4 overflow-hidden">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(99,102,241,0.1),transparent_70%)]" />
+                {/* Cinematic Video Background */}
+                <div className="absolute inset-0 z-0">
+                    <video
+                        src="/videos/African_American_Teacher_Conference_Video.mp4"
+                        className="w-full h-full object-cover opacity-15"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black" />
+                </div>
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(99,102,241,0.1),transparent_70%)] z-[1]" />
 
                 <div className="max-w-6xl mx-auto relative z-10">
                     <div className="text-center pt-16">

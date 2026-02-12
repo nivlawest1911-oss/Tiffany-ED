@@ -7,9 +7,17 @@ import FounderDossier from '@/components/founder-dossier';
 export default function AboutClient() {
     return (
         <main className="relative min-h-screen pt-32 pb-20 overflow-hidden bg-background">
-            {/* Aurora Background Integration */}
+            {/* Cinematic Video Background */}
             <div className="fixed inset-0 pointer-events-none">
-                <div className="absolute top-0 left-0 w-full h-full bg-slate-950" />
+                <video
+                    src="/videos/Sovereign_Architect_s_Global_Information_Delivery.mp4"
+                    className="w-full h-full object-cover opacity-10"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                />
+                <div className="absolute inset-0 bg-slate-950/80" />
                 <div className="absolute w-[500px] h-[500px] bg-blue-600/20 blur-[100px] rounded-full animate-aurora-1" />
                 <div className="absolute w-[400px] h-[400px] bg-indigo-500/20 blur-[100px] rounded-full animate-aurora-2" />
             </div>

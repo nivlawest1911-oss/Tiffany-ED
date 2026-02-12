@@ -46,19 +46,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 const metadata = session.user.user_metadata || {};
                 const usage = metadata.usage_count || 0;
 
-                // Sync with profiles table for real-time tier accurately
+                // Sync with profiles and subscriptions tables for real-time tier accurately
                 const { data: profile } = await supabase
                     .from('profiles')
-                    .select('subscription_tier, usage_tokens')
+                    .select('full_name, avatar_url')
                     .eq('id', session.user.id)
+                    .single();
+
+                const { data: subscription } = await supabase
+                    .from('subscriptions')
+                    .select('tier_name')
+                    .eq('user_id', session.user.id)
                     .single();
 
                 const newUser: User = {
                     id: session.user.id,
                     email: session.user.email!,
-                    name: metadata.full_name || session.user.email?.split('@')[0] || 'Executive',
-                    tier: (profile?.subscription_tier as any) || (metadata.tier as any) || 'EdIntel Initiate',
-                    usage_count: profile?.usage_tokens || usage
+                    name: profile?.full_name || metadata.full_name || session.user.email?.split('@')[0] || 'Executive',
+                    tier: (subscription?.tier_name as any) || (metadata.tier as any) || 'Sovereign Initiate',
+                    usage_count: usage // We might need to fetch usage from another table if usage_tokens moved
                 };
 
                 setUser(newUser);

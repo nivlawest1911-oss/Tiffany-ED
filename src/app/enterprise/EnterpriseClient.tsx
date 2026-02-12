@@ -4,7 +4,6 @@ import React from 'react';
 import { Shield as LucideShield, BarChart3, Users, Zap, CheckCircle, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import HolographicBriefing from '@/components/intelligence/HolographicBriefing';
-import Image from 'next/image';
 
 export default function EnterpriseClient() {
     const [showBriefing, setShowBriefing] = React.useState(false);
@@ -42,7 +41,19 @@ export default function EnterpriseClient() {
         <main className="content-stage">
             {/* Hero Section */}
             <section className="relative py-20 px-4 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-blue-600/10 via-transparent to-transparent pointer-events-none" />
+                {/* Cinematic Video Background */}
+                <div className="absolute inset-0 z-0">
+                    <video
+                        src="/videos/AI_Agents_Eliminate_Administrator_Fatigue%20(1).mp4"
+                        className="w-full h-full object-cover opacity-15"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/90" />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-b from-blue-600/10 via-transparent to-transparent pointer-events-none z-[1]" />
 
                 <div className="max-w-7xl mx-auto relative z-10 text-center">
                     <motion.div
@@ -136,14 +147,19 @@ export default function EnterpriseClient() {
                             ))}
                         </div>
                     </div>
-                    <div className="relative aspect-video">
-                        <div className="absolute inset-0 bg-blue-500/20 blur-[120px] rounded-full" />
-                        <Image
-                            src="/images/enterprise_dashboard_preview.png"
-                            alt="Enterprise Hub"
-                            fill
-                            className="relative z-10 rounded-2xl border border-white/10 shadow-2xl object-cover"
+                    <div className="relative aspect-video rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+                        <div className="absolute inset-0 bg-blue-500/20 blur-[120px] rounded-full -z-10" />
+                        <video
+                            src="/videos/The_Ultimate_Solution_for_Mode_Fixed.mp4"
+                            className="w-full h-full object-cover"
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
                         />
+                        <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+                            <p className="text-xs text-zinc-400 font-medium uppercase tracking-wider">Live Platform Demo</p>
+                        </div>
                     </div>
                 </div>
             </section>

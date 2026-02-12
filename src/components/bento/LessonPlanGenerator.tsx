@@ -30,11 +30,11 @@ export default function LessonPlanGenerator() {
 
     const [genStep, setGenStep] = useState(0);
     const generationSteps = [
-        "Analyzing Standards & Curriculum...",
-        "Identifying Engagement Strategies...",
-        "Drafting Differentiation Protocols...",
-        "Aligning Assessment Metrics...",
-        "Finalizing Lesson Plan..."
+        "Initiating Secure Neural Link...",
+        "Querying Alabama Course of Study (ALCOS)...",
+        "Calibrating SOR & Literacy Scaffolds...",
+        "Synthesizing High-Impact Instruction...",
+        "Finalizing Lesson Architecture..."
     ];
 
     const handleGenerate = async () => {
@@ -54,15 +54,20 @@ export default function LessonPlanGenerator() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    message: `Generate a comprehensive, high-engagement lesson plan for:
+                    message: `Act as the EdIntel Lesson Architect. Generate a COMPREHENSIVE and CLINICALLY PRECISE lesson plan based on this data:
           Topic: ${topic}
           Subject: ${subject}
           Grade Level: ${gradeLevel}
           Duration: ${duration} minutes
 
+          MANDATORY REQUIREMENTS:
+          1. ALABAMA ALIGNMENT: Must specifically cite Alabama Course of Study (ALCOS) standards.
+          2. PEDAGOGICAL FIDELITY: Incorporate Science of Reading (SOR) principles and the Alabama Literacy/Numeracy Acts where applicable.
+          3. ENGAGEMENT: All activities must be high-impact and evidence-based.
+
           Include these sections clearly labeled:
-          1. OBJECTIVES: Measurable student outcomes.
-          2. STANDARDS: Alignment with general academic standards.
+          1. OBJECTIVES: Measurable student outcomes (Webb's DOK 2-4).
+          2. STANDARDS: Specific ALCOS citations.
           3. MATERIALS: Required resources.
           4. HOOK: A 5-minute high-engagement introductory activity.
           5. DIRECT INSTRUCTION: Core teaching steps.
@@ -71,7 +76,7 @@ export default function LessonPlanGenerator() {
           8. ASSESSMENT: How to measure success.
           9. DIFFERENTIATION: Modifications for diverse learners (ELL, SpEd, Gifted).
           `,
-                    mode: 'aide'
+                    mode: 'lesson-architect'
                 })
             });
 

@@ -10,7 +10,10 @@ import dynamic from 'next/dynamic';
 import { CORE_AVATARS } from '@/data/avatars';
 import HumanAvatar from './ui/HumanAvatar';
 import { useEdIntelVibe } from '@/context/EdIntelVibeContext';
+import ActivationIntro from './landing/ActivationIntro';
+import ReadyToActivateCTA from './landing/ReadyToActivateCTA';
 import { EdIntelHero } from './edintel-core/EdIntelHero';
+import EdIntelCore from './edintel-core/EdIntelCore';
 
 // Core Components (Safe)
 
@@ -22,7 +25,6 @@ const BentoShowcase = dynamic(() => import('./BentoShowcase'), { ssr: false });
 const OnboardingFlow = dynamic(() => import('./OnboardingFlow'), { ssr: false });
 const VoiceIdentity = dynamic(() => import('./VoiceIdentity'), { ssr: false });
 const HuggingFaceAvatar = dynamic(() => import('./HuggingFaceAvatar'), { ssr: false });
-const EdIntelCore = dynamic(() => import('./edintel-core/EdIntelCore'), { ssr: false });
 
 // --- ANIMATION VARIANTS ---
 const fadeInUp: Variants = {
@@ -34,7 +36,7 @@ const fadeInUp: Variants = {
     }
 };
 
-const staggerContainer = {
+const staggerContainer: Variants = {
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
@@ -47,7 +49,6 @@ const staggerContainer = {
 // --- COMPONENTS ---
 
 // 1. CINEMATIC INTRO (Replaces BIOS Boot)
-const SystemIntroVideo = dynamic(() => import('./SystemIntroVideo'), { ssr: false });
 
 // 2. PARALLAX BACKGROUND (Follows Mouse)
 function ParallaxBackground() {
@@ -280,7 +281,7 @@ export default function ModernHomePage() {
                 isSystemThinking && "bg-[#05060f]"
             )}>
                 <AnimatePresence>
-                    {!booted && <SystemIntroVideo onComplete={() => setBooted(true)} />}
+                    {!booted && <ActivationIntro onCompleteAction={() => setBooted(true)} />}
                 </AnimatePresence>
 
                 {booted && (
@@ -556,9 +557,9 @@ export default function ModernHomePage() {
                                             initial={{ opacity: 0, x: -30 }}
                                             whileInView={{ opacity: 1, x: 0 }}
                                             viewport={{ once: true }}
-                                            className="h-[500px] relative rounded-3xl overflow-hidden border border-white/5 bg-zinc-900/50 backdrop-blur-3xl shadow-2xl shadow-amber-500/5"
+                                            className="h-[600px] relative rounded-3xl overflow-hidden border border-white/5 bg-zinc-900/50 backdrop-blur-3xl shadow-2xl shadow-amber-500/5"
                                         >
-                                            <EdIntelCore />
+                                            <EdIntelCore phase="ready" />
                                         </motion.div>
 
                                         <motion.div
@@ -600,21 +601,8 @@ export default function ModernHomePage() {
                                 </div>
                             </section>
 
-                            {/* CTA / PRICING ANCHOR */}
-                            <section id="pricing" className="relative py-40 overflow-hidden flex items-center justify-center">
-                                <div className="relative z-10 text-center max-w-4xl px-4">
-                                    <Link href="/signup">
-                                        <motion.button
-                                            whileHover={{ scale: 1.05 }}
-                                            whileTap={{ scale: 0.95 }}
-                                            className="relative px-16 py-8 bg-black border border-noble-gold/30 text-noble-gold font-black uppercase tracking-[0.4em] text-xl hover:bg-noble-gold hover:text-black transition-all shadow-[0_0_50px_rgba(197,164,126,0.15)] group overflow-hidden rounded-2xl"
-                                        >
-                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-noble-gold/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                                            <span className="relative">Initiate Protocol Omega</span>
-                                        </motion.button>
-                                    </Link>
-                                </div>
-                            </section>
+                            {/* READY TO ACTIVATE CTA */}
+                            <ReadyToActivateCTA />
                         </main>
 
                     </>

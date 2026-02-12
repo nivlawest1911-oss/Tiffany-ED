@@ -8,6 +8,8 @@ export default function useProfessionalSounds() {
         playAmbient: () => professionalAudio.toggleAmbient(true),
         stopAmbient: () => professionalAudio.toggleAmbient(false),
         playMusic: (src: string, loop?: boolean) => professionalAudio.playMusic(src, loop),
-        stopMusic: () => professionalAudio.stopMusic()
+        stopMusic: () => professionalAudio.stopMusic(),
+        playVoice: (src: string, onEnded?: () => void) => professionalAudio.playVoice(src, onEnded),
+        stopVoice: () => professionalAudio.stopVoice()
     };
 }

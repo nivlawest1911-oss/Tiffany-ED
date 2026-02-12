@@ -13,11 +13,13 @@ interface BriefingData {
     role?: string;
     avatarImage?: string;
     videoSrc?: string;
+    audioSrc?: string;
     abilityType?: 'strategy' | 'compliance' | 'analytics' | 'curriculum' | 'identity' | 'communication';
 }
 
 interface IntelligenceContextType {
     generateBriefing: (data: BriefingData) => void;
+    triggerBriefing: (id: string) => void;
     closeBriefing: () => void;
 }
 
@@ -35,6 +37,22 @@ export function IntelligenceProvider({ children }: { children: React.ReactNode }
     const closeBriefing = useCallback(() => {
         setIsOpen(false);
     }, []);
+
+    const triggerBriefing = useCallback((id: string) => {
+        const info = getIntelligenceFor(id);
+        if (info) {
+            generateBriefing({
+                title: info.title,
+                description: info.description,
+                stats: info.stats,
+                role: info.role,
+                avatarImage: info.avatar,
+                videoSrc: info.video,
+                audioSrc: info.audio,
+                abilityType: info.abilityType
+            });
+        }
+    }, [generateBriefing]);
 
     // GLOBAL INTERCEPTOR: Only trigger if explicitly requested or Shift+Click
     useEffect(() => {
@@ -72,6 +90,8 @@ export function IntelligenceProvider({ children }: { children: React.ReactNode }
                             stats: info.stats,
                             role: info.role,
                             avatarImage: info.avatar,
+                            videoSrc: info.video,
+                            audioSrc: info.audio,
                             abilityType: info.abilityType
                         });
                     } else {
@@ -94,7 +114,7 @@ export function IntelligenceProvider({ children }: { children: React.ReactNode }
     }, [generateBriefing]);
 
     return (
-        <IntelligenceContext.Provider value={{ generateBriefing, closeBriefing }}>
+        <IntelligenceContext.Provider value={{ generateBriefing, triggerBriefing, closeBriefing }}>
             {children}
             {isOpen && briefing && (
                 <HolographicBriefing
@@ -106,8 +126,8 @@ export function IntelligenceProvider({ children }: { children: React.ReactNode }
                     role={briefing.role}
                     avatarImage={briefing.avatarImage}
                     videoSrc={briefing.videoSrc}
+                    audioSrc={briefing.audioSrc}
                     abilityType={briefing.abilityType}
-                    theme="professional"
                 />
             )}
         </IntelligenceContext.Provider>

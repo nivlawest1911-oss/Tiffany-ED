@@ -11,6 +11,9 @@ import {
 } from 'lucide-react';
 import { HumanoidHolograph } from '@/components/ui/HumanoidHolograph';
 import { HolographicBackground } from '@/components/ui/HolographicBackground';
+import { useIntelligence } from '@/context/IntelligenceContext';
+import { Target } from 'lucide-react';
+import { useEffect } from 'react';
 
 // Import all AI components
 import { HeyGenStreamingAvatar } from '@/components/heygen/StreamingAvatar';
@@ -20,6 +23,7 @@ import { InVideoCreator } from '@/components/invideo/VideoCreator';
 import { MetaAIChat } from '@/components/meta-ai/Chat';
 
 export default function AIHubClient() {
+    const { triggerBriefing } = useIntelligence();
     const [activeTab, setActiveTab] = useState('overview');
     const [stats] = useState({
         aiModels: 7,
@@ -27,6 +31,10 @@ export default function AIHubClient() {
         totalFeatures: 50,
         activeUsers: 1247,
     });
+
+    useEffect(() => {
+        triggerBriefing('AI Hub');
+    }, [triggerBriefing]);
 
     return (
         <main className="content-stage min-h-screen relative overflow-hidden">
@@ -37,8 +45,17 @@ export default function AIHubClient() {
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-center space-y-6 py-12"
+                    className="text-center space-y-6 pt-12 pb-6"
                 >
+                    <div className="flex justify-center mb-4">
+                        <button
+                            onClick={() => triggerBriefing('Legacy Profile')}
+                            className="flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 hover:bg-amber-500/20 transition-all group shrink-0"
+                        >
+                            <Target size={16} className="group-hover:rotate-45 transition-transform" />
+                            <span className="text-xs font-black uppercase tracking-widest">Founder Hub Access</span>
+                        </button>
+                    </div>
                     <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}

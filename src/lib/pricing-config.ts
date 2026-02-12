@@ -2,8 +2,8 @@ import { EdIntel_STRIPE_LINKS } from '@/app/config/EdIntel-manifest';
 
 export const EdIntel_TIERS = [
     {
-        id: 'EdIntel-initiate',
-        name: "EdIntel Initiate",
+        id: 'sovereign-initiate',
+        name: "Sovereign Initiate",
         price: 0,
         monthlyPrice: 0,
         stripeLink: EdIntel_STRIPE_LINKS.INITIATE,

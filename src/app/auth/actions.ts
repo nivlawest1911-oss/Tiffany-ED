@@ -17,7 +17,11 @@ export async function initiateBioAuth(provider: 'google' | 'apple' | 'facebook')
     });
 
     if (error) {
-        console.error('EdIntel Auth Protocol Failure:', error.message);
+        console.error('🏛️ [EdIntel Auth Protocol Failure]:', {
+            message: error.message,
+            provider,
+            timestamp: new Date().toISOString()
+        });
         return;
     }
 

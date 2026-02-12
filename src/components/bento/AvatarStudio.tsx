@@ -29,7 +29,7 @@ interface AvatarConfig {
 }
 
 const AVATAR_LIBRARY = [
-    { id: 'twin-01', name: 'Director West', role: 'Executive', img: '/images/dr_alvin_west.png', heygenId: 'Abigail_expressive_2024112501', elevenLabsId: 'JBFqnCBsd6RMkjVDRZzb' },
+    { id: 'twin-01', name: 'Director West', role: 'Executive', img: '/images/avatars/Dr._alvin_west.png', heygenId: 'Abigail_expressive_2024112501', elevenLabsId: 'JBFqnCBsd6RMkjVDRZzb' },
     { id: 'twin-02', name: 'Dr. Sarah James', role: 'Instructional', img: '/images/avatars/iep_architect.png', heygenId: 'Lina_Dress_Sitting_Side_public', elevenLabsId: '21m00Tcm4TlvDq8ikWAM' },
     { id: 'twin-03', name: 'Specialist David', role: 'STEM Lead', img: '/images/avatars/executive_leader.png', heygenId: 'Abigail_standing_office_front', elevenLabsId: 'soY4btAspOtqS4y4s7TV' },
     { id: 'twin-04', name: 'Principal Elena', role: 'Compliance', img: '/images/avatars/data_analyst.png', heygenId: 'Lina_Dress_Sitting_Side_public', elevenLabsId: 'AZnzlk1XvdvUeBnXmlld' },
@@ -416,7 +416,7 @@ export default function AvatarStudio() {
                                         />
                                     ) : (
                                         <div className="w-32 h-32 rounded-full overflow-hidden flex items-center justify-center border-4 border-purple-500/20 relative z-10 shadow-3xl">
-                                            <Image src={config.avatarUrl} alt={config.name} fill className="object-cover grayscale group-hover/avatar:grayscale-0 transition-all duration-700" />
+                                            <Image src={config.avatarUrl || "/images/avatars/Dr._alvin_west.png"} alt={config.name} fill className="object-cover grayscale group-hover/avatar:grayscale-0 transition-all duration-700" />
                                             {isGeneratingVideo && (
                                                 <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center">
                                                     <Loader2 className="animate-spin text-purple-400 mb-2" size={24} />

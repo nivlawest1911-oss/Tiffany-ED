@@ -6,7 +6,9 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Bot, User, Send, Brain, FileText, CheckCircle2, RefreshCw, Sparkles, Image as ImageIcon } from 'lucide-react';
+import { Bot, User, Send, Brain, FileText, CheckCircle2, RefreshCw, Sparkles, Image as ImageIcon, Target } from 'lucide-react';
+import { useIntelligence } from '@/context/IntelligenceContext';
+import { useEffect } from 'react';
 
 const AGENTS = [
     { id: 'iep', name: 'IEP Architect', role: 'Legal-Compliant Goals', avatar: '/images/avatars/iep.png', color: 'bg-indigo-500' },
@@ -15,17 +17,32 @@ const AGENTS = [
 ];
 
 export default function AgentsClient() {
-    const [messages, setMessages] = useState<{ role: 'user' | 'agent', agentId?: string, content: string }[]>([
-        { role: 'agent', agentId: 'iep', content: 'IEP Architect Online. Ready to construct legal-compliant goals aligned with Alabama State Standards.' }
+    const { triggerBriefing } = useIntelligence();
+    const [mounted, setMounted] = useState(false);
+    const [messages, setMessages] = useState<{ role: 'user' | 'agent', agentId?: string, content: string, timestamp?: string }[]>([
+        { role: 'agent', agentId: 'iep', content: 'IEP Architect Online. Ready to construct legal-compliant goals aligned with Alabama State Standards.', timestamp: '09:00 AM' }
     ]);
     const [inputValue, setInputValue] = useState('');
     const [isThinking, setIsThinking] = useState(false);
     const [activeAgent, setActiveAgent] = useState('iep');
 
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    const handleAgentSelect = (agentId: string) => {
+        setActiveAgent(agentId);
+        const agent = AGENTS.find(a => a.id === agentId);
+        if (agent) {
+            triggerBriefing(agent.name);
+        }
+    };
+
     const handleSend = () => {
         if (!inputValue.trim()) return;
 
-        setMessages(prev => [...prev, { role: 'user', content: inputValue }]);
+        const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        setMessages(prev => [...prev, { role: 'user', content: inputValue, timestamp }]);
         setInputValue('');
         setIsThinking(true);
 
@@ -33,11 +50,13 @@ export default function AgentsClient() {
 
         // Simulation of Agentic Workflow
         setTimeout(() => {
-            setMessages(prev => [...prev, { role: 'agent', agentId: activeAgent, content: `Processing request via ${currentAgent?.name} node...` }]);
+            const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            setMessages(prev => [...prev, { role: 'agent', agentId: activeAgent, content: `Processing request via ${currentAgent?.name} node...`, timestamp }]);
         }, 800);
 
         setTimeout(() => {
-            setMessages(prev => [...prev, { role: 'agent', agentId: activeAgent, content: `Drafting content based on Mobile County parameters. Visualizing output...` }]);
+            const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            setMessages(prev => [...prev, { role: 'agent', agentId: activeAgent, content: `Drafting content based on Mobile County parameters. Visualizing output...`, timestamp }]);
             setIsThinking(false);
         }, 2500);
     };
@@ -49,9 +68,18 @@ export default function AgentsClient() {
                 {/* Left Panel: Agent Selection */}
                 <div className="lg:col-span-1 space-y-6 h-full flex flex-col">
                     <div>
-                        <div className="flex items-center gap-2 mb-2">
-                            <Sparkles className="w-4 h-4 text-cyan-500 animate-pulse" />
-                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-500">CogniFit Workspace</span>
+                        <div className="flex items-center justify-between gap-2 mb-2">
+                            <div className="flex items-center gap-2">
+                                <Sparkles className="w-4 h-4 text-cyan-500 animate-pulse" />
+                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-500">CogniFit Workspace</span>
+                            </div>
+                            <button
+                                onClick={() => triggerBriefing('Legacy Profile')}
+                                className="flex items-center gap-2 px-3 py-1 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-400 hover:bg-amber-500/20 transition-all group shrink-0"
+                            >
+                                <Target size={12} className="group-hover:rotate-45 transition-transform" />
+                                <span className="text-[9px] font-black uppercase tracking-widest">Founder Hub</span>
+                            </button>
                         </div>
                         <h1 className="text-3xl font-black uppercase tracking-tighter text-white">Agent <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Studio</span></h1>
                     </div>
@@ -63,7 +91,7 @@ export default function AgentsClient() {
                             {AGENTS.map(agent => (
                                 <button
                                     key={agent.id}
-                                    onClick={() => setActiveAgent(agent.id)}
+                                    onClick={() => handleAgentSelect(agent.id)}
                                     className={`w-full flex items-center gap-4 p-4 rounded-2xl border transition-all duration-300 group relative overflow-hidden ${activeAgent === agent.id
                                         ? 'bg-indigo-600/10 border-indigo-500/50 shadow-[0_0_20px_rgba(99,102,241,0.15)]'
                                         : 'bg-white/5 border-transparent hover:bg-white/10 hover:border-white/10'
@@ -128,7 +156,7 @@ export default function AgentsClient() {
                                                 {msg.role === 'user' ? 'Operator' : AGENTS.find(a => a.id === msg.agentId)?.name || 'System Node'}
                                             </span>
                                             <span className="text-[9px] text-slate-700 font-mono font-bold">
-                                                {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                                {mounted ? msg.timestamp : '--:--'}
                                             </span>
                                         </div>
                                         <div className={`p-6 rounded-3xl text-sm leading-relaxed shadow-lg backdrop-blur-md ${msg.role === 'user'

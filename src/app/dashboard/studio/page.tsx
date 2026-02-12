@@ -11,18 +11,25 @@ export const dynamic = 'force-dynamic';
 export default async function StudioPage() {
     const supabase = await createEdIntelServerClient();
 
-    const { data: { session } } = await supabase.auth.getSession();
-    let userTier = "EdIntel Initiate";
+    let userTier = "Sovereign Initiate";
 
-    if (session?.user) {
-        const { data } = await supabase
-            .from('subscriptions')
-            .select('tier_name')
-            .eq('user_id', session.user.id)
-            .single();
-        if (data?.tier_name) {
-            userTier = data.tier_name;
+    try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session?.user) {
+            const { data, error } = await supabase
+                .from('subscriptions')
+                .select('tier_name')
+                .eq('user_id', session.user.id)
+                .single();
+
+            if (!error && data?.tier_name) {
+                userTier = data.tier_name;
+            } else if (error) {
+                console.warn('[STUDIO_PAGE] Subscription sync warning:', error.message);
+            }
         }
+    } catch (err) {
+        console.error('[STUDIO_PAGE] Critical Auth Sync Failure:', err);
     }
 
     const isCommandLevel = ['Site Command', 'Director Pack'].includes(userTier);

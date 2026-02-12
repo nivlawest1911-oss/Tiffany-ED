@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import useSWR from 'swr';
 import { Brain, Shield, LogOut, Activity, Zap, Loader2, Mic, FileText, Briefcase, Video } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
@@ -17,7 +18,7 @@ import { motion } from 'framer-motion';
 import React, { memo } from 'react';
 
 // MEMOIZED SUB-COMPONENTS
-const NeuralResourcesCard = memo(({ balance, isSystemThinking }: { balance: any, isSystemThinking: boolean }) => (
+const NeuralResourcesCard = memo(({ balance, isSystemThinking, onAcquire, onViewLedger }: { balance: any, isSystemThinking: boolean, onAcquire: () => void, onViewLedger: () => void }) => (
     <Card className={cn(
         "col-span-1 lg:col-span-2 bg-[#0A0E1A]/80 border-white/5 backdrop-blur-md p-8 relative overflow-hidden group transition-all duration-700 shadow-2xl",
         isSystemThinking ? "border-noble-gold/40 shadow-[0_0_30px_rgba(197,164,126,0.1)]" : "hover:border-[var(--intel-gold)]/30"
@@ -66,12 +67,19 @@ const NeuralResourcesCard = memo(({ balance, isSystemThinking }: { balance: any,
 
             <div className="flex gap-4">
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Button className="bg-[var(--intel-gold)] hover:bg-[#b5952f] text-black font-black tracking-widest uppercase px-8 py-6 rounded-full shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-transform">
+                    <Button
+                        onClick={onAcquire}
+                        className="bg-[var(--intel-gold)] hover:bg-[#b5952f] text-black font-black tracking-widest uppercase px-8 py-6 rounded-full shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-transform"
+                    >
                         Acquire
                     </Button>
                 </motion.div>
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Button variant="outline" className="border-white/10 text-slate-300 hover:bg-white/5 font-mono uppercase text-xs rounded-full px-6">
+                    <Button
+                        onClick={onViewLedger}
+                        variant="outline"
+                        className="border-white/10 text-slate-300 hover:bg-white/5 font-mono uppercase text-xs rounded-full px-6"
+                    >
                         View Ledger
                     </Button>
                 </motion.div>
@@ -203,6 +211,7 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function EdIntelCommandDeck() {
     const { user, logout } = useAuth();
+    const router = useRouter();
     const { toggleCommandConsole, isSystemThinking } = useEdIntelVibe();
     const { data: balance, error: _error } = useSWR(user ? `/api/tokens/balance?userId=${user.id}` : null, fetcher);
 
@@ -284,6 +293,14 @@ export default function EdIntelCommandDeck() {
                                 <Button onClick={() => setIsDialogOpen(false)} variant="outline" className="border-white/10 hover:bg-white/5 text-zinc-400 uppercase text-[10px] tracking-widest font-bold">Close Terminal</Button>
                             </motion.div>
                             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                                <Button
+                                    onClick={() => router.push(SWARM_AGGREGATORS.find(n => n.name === activeProtocol)?.path || '/')}
+                                    className="bg-emerald-500 text-white hover:bg-emerald-600 font-black uppercase tracking-widest text-[10px] px-6"
+                                >
+                                    Enter Module
+                                </Button>
+                            </motion.div>
+                            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                                 <Button className="bg-noble-gold text-black hover:bg-noble-gold/90 font-black uppercase tracking-widest text-[10px] px-6">
                                     Execute Protocol
                                 </Button>
@@ -336,7 +353,12 @@ export default function EdIntelCommandDeck() {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-                <NeuralResourcesCard balance={balance} isSystemThinking={isSystemThinking} />
+                <NeuralResourcesCard
+                    balance={balance}
+                    isSystemThinking={isSystemThinking}
+                    onAcquire={() => router.push('/pricing')}
+                    onViewLedger={() => router.push('/admin/status')}
+                />
                 <ExecutiveBriefCard daysRemaining={daysRemaining} />
             </div>
 

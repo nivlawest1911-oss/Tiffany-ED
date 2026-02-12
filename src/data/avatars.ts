@@ -60,7 +60,7 @@ export const CORE_AVATARS: AvatarDefinition[] = [
         name: 'Dr. Isaiah Vance',
         role: 'Associate Superintendent',
         status: 'busy',
-        avatar: '/images/avatars/isaiah_vance_premium.png',
+        avatar: '/images/avatars/dr_isaiah_vance_premium.png',
         specialty: 'Policy & Governance',
         heygenId: '135ea5597b4f4c8c83e02c637a7b9868',
         voiceId: 'ErXw9S197X3R3mTSST9C', // Antoni

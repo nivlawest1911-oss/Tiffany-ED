@@ -32,7 +32,7 @@ const specializedTools = [
         color: 'from-red-500 to-orange-600',
         link: '/generators/risk-analyzer',
         category: 'admin',
-        avatar: '/images/avatars/dr_alvin_west_premium.png'
+        avatar: '/images/avatars/Dr._alvin_west.png'
     },
     {
         id: 'district-strategy',
@@ -42,7 +42,7 @@ const specializedTools = [
         color: 'from-amber-500 to-orange-600',
         link: '/generators/district-strategy',
         category: 'admin',
-        avatar: '/images/avatars/dr_alvin_west_premium.png'
+        avatar: '/images/avatars/Dr._alvin_west.png'
     }
 ];
 

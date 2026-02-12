@@ -8,12 +8,27 @@ import { EdIntelIdentity } from '@/components/dashboard/EdIntelIdentity';
 import { ParticleBackground, GlassCard } from '@/components/ui/Cinematic';
 import DistrictIntelligenceScore from '@/components/landing/DistrictIntelligenceScore';
 import PlatformActivity from '@/components/landing/PlatformActivity';
+import { useIntelligence } from '@/context/IntelligenceContext';
+import { useEffect } from 'react';
 
 interface DashboardClientProps {
     tierName?: string;
 }
 
-export default function DashboardClient({ tierName = 'EdIntel Initiate' }: DashboardClientProps) {
+export default function DashboardClient({ tierName = 'Sovereign Initiate' }: DashboardClientProps) {
+    const { triggerBriefing } = useIntelligence();
+
+    // AUTO-WELCOME TRIGGER: SURFACING FOUNDER HUB BRIEFING
+    useEffect(() => {
+        const welcomePlayed = sessionStorage.getItem('edintel_welcome_played');
+        if (!welcomePlayed) {
+            const timer = setTimeout(() => {
+                triggerBriefing('Legacy Profile');
+                sessionStorage.setItem('edintel_welcome_played', 'true');
+            }, 1000);
+            return () => clearTimeout(timer);
+        }
+    }, [triggerBriefing]);
 
     // Note: Auth checks and Layout (Dock, Global Status) are handled in /dashboard/layout.tsx
 

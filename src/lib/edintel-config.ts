@@ -1,7 +1,7 @@
 export const FOUNDER_BIO = {
     name: "Dr. Alvin West",
     role: "EdIntel Delegate & Chief Architect of EdIntel. Pioneer in educational AI, dedicated to transforming district intelligence through EdIntel neural protocols.",
-    image: "/images/dr_alvin_west.png",
+    image: "/images/avatars/Dr._alvin_west.png",
     credentials: ["PhD Education", "AI Governance", "Systemic Reform Architect"]
 };
 

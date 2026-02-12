@@ -32,15 +32,19 @@ export default function VideoPlayer({
     const audioRef = useRef<HTMLAudioElement>(null);
     const [isPlaying, setIsPlaying] = useState(autoPlay);
     const [isMuted, setIsMuted] = useState(muted);
+    const [hasError, setHasError] = useState(false);
 
     const togglePlay = () => {
+        if (hasError) return;
         if (videoRef.current) {
             if (isPlaying) {
                 videoRef.current.pause();
                 audioRef.current?.pause();
             } else {
-                videoRef.current.play();
-                audioRef.current?.play();
+                videoRef.current.play().catch(() => setHasError(true));
+                audioRef.current?.play().catch(() => {
+                    console.warn("Sync audio failed to play, continuing with video only");
+                });
             }
             setIsPlaying(!isPlaying);
         }
@@ -87,21 +91,30 @@ export default function VideoPlayer({
             )}
 
             {/* Video Element */}
-            <video
-                ref={videoRef}
-                src={src}
-                poster={poster}
-                autoPlay={autoPlay}
-                loop={loop}
-                muted={muted}
-                playsInline
-                className="w-full h-auto rounded-2xl"
-                onPlay={handlePlay}
-                onPause={handlePause}
-                onEnded={handleEnded}
-            >
-                Your browser does not support the video tag.
-            </video>
+            {!hasError ? (
+                <video
+                    ref={videoRef}
+                    src={src}
+                    poster={poster}
+                    autoPlay={autoPlay}
+                    loop={loop}
+                    muted={muted}
+                    playsInline
+                    className="w-full h-auto rounded-2xl"
+                    onPlay={handlePlay}
+                    onPause={handlePause}
+                    onEnded={handleEnded}
+                    onError={() => setHasError(true)}
+                >
+                    Your browser does not support the video tag.
+                </video>
+            ) : (
+                <div className="w-full aspect-video flex flex-col items-center justify-center bg-zinc-900 rounded-2xl border border-white/5 text-zinc-500">
+                    <VolumeX size={48} className="mb-4 opacity-20" />
+                    <p className="text-xs font-mono uppercase tracking-widest">Media Resource Offline</p>
+                    <p className="text-[10px] text-zinc-600 mt-2 px-8 text-center">{src}</p>
+                </div>
+            )}
 
             {/* Custom Controls Overlay */}
             {controls && (

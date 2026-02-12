@@ -19,7 +19,7 @@ export const EdIntelIdentity = () => {
                 <div className="flex flex-col md:flex-row gap-8 p-8 items-center md:items-start text-center md:text-left">
                     <div className="relative w-48 h-48 rounded-full border-2 border-noble-gold p-1 shadow-[0_0_30px_rgba(212,175,55,0.3)] shrink-0 overflow-hidden">
                         <Image
-                            src="/images/dr_alvin_west.png"
+                            src="/images/avatars/Dr._alvin_west.png"
                             alt="Dr. Alvin West"
                             width={192}
                             height={192}

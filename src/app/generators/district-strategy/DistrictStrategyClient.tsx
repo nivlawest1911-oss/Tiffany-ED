@@ -222,7 +222,7 @@ export default function DistrictStrategyClient() {
                                         <div className="mt-12 pt-8 border-t border-zinc-100 flex items-center justify-between">
                                             <div className="flex items-center gap-4">
                                                 <Image
-                                                    src="/images/avatars/dr_alvin_west_premium.png"
+                                                    src="/images/avatars/Dr._alvin_west.png"
                                                     alt="Dr. West"
                                                     className="w-16 h-16 rounded-full border-2 border-zinc-100"
                                                     width={64}

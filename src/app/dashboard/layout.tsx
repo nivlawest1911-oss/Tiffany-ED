@@ -14,21 +14,27 @@ export default async function DashboardLayout({
 }) {
     const supabase = await createEdIntelServerClient();
 
-    const { data: { session } } = await supabase.auth.getSession();
-
     let subscriptionData = null;
 
-    if (session?.user) {
-        const { data } = await supabase
-            .from('subscriptions')
-            .select('*')
-            .eq('user_id', session.user.id)
-            .single();
-        subscriptionData = data;
+    try {
+        const { data: { session } } = await supabase.auth.getSession();
 
-        if (!subscriptionData) {
-            subscriptionData = { user_id: session.user.id };
+        if (session?.user) {
+            const { data, error } = await supabase
+                .from('subscriptions')
+                .select('*')
+                .eq('user_id', session.user.id)
+                .single();
+
+            if (!error) {
+                subscriptionData = data;
+            } else {
+                console.warn('[DASHBOARD_LAYOUT] Subscription fetch warning:', error.message);
+                subscriptionData = { user_id: session.user.id };
+            }
         }
+    } catch (err) {
+        console.error('[DASHBOARD_LAYOUT] Critical Auth Fail:', err);
     }
 
     return (

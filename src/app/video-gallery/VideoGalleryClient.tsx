@@ -5,7 +5,6 @@ import VideoShowcase from '@/components/VideoShowcase';
 import { Sparkles, Video, Zap, Brain } from 'lucide-react';
 
 export default function VideoGalleryClient() {
-    // Replace these URLs with your actual video URLs
     const videos = [
         {
             id: 1,
@@ -16,13 +15,111 @@ export default function VideoGalleryClient() {
         },
         {
             id: 2,
+            url: '/videos/Architecting_and_Deploying_Holographic_AI.mp4',
+            title: 'Architecting Holographic AI',
+            description: 'Deep dive into the architecture and deployment of EdIntel\'s holographic AI intelligence briefing system.',
+            thumbnail: '/images/features/strategic_iep_architect.png'
+        },
+        {
+            id: 3,
+            url: '/videos/Sovereign_Architect_s_Global_Information_Delivery.mp4',
+            title: 'Sovereign Architect\'s Global Delivery',
+            description: 'Dr. West presents the global information delivery infrastructure powering EdIntel\'s neural command layer.',
+            thumbnail: '/images/features/strategic_educator_planner.png'
+        },
+        {
+            id: 4,
+            url: '/videos/AI_Agents_Eliminate_Administrator_Fatigue%20(1).mp4',
+            title: 'AI Agents Eliminate Admin Fatigue',
+            description: 'See how EdIntel\'s autonomous agents reduce administrator workload by up to 40% through intelligent task orchestration.',
+            thumbnail: '/images/features/collaborative_intelligence_team.png'
+        },
+        {
+            id: 5,
+            url: '/videos/Edintel_App_Burnout_Suspensions_Fatigue_Solution%20(1).mp4',
+            title: 'Burnout & Fatigue Solution',
+            description: 'EdIntel\'s comprehensive approach to combating educator burnout, reducing suspensions, and eliminating operational fatigue.',
+            thumbnail: '/images/features/strategic_educator_planner.png'
+        },
+        {
+            id: 6,
+            url: '/videos/The_Ultimate_Solution_for_Mode_Fixed.mp4',
+            title: 'The Ultimate Institutional Solution',
+            description: 'A cinematic overview of EdIntel\'s complete operational platform for educational institutions.',
+            thumbnail: '/images/features/strategic_iep_architect.png'
+        },
+        {
+            id: 7,
+            url: '/videos/Video_Generation_About_Teachers.mp4',
+            title: 'AI Video: Teachers',
+            description: 'AI-generated content showcasing the teacher empowerment protocols within the EdIntel ecosystem.',
+            thumbnail: '/images/features/collaborative_intelligence_team.png'
+        },
+        {
+            id: 8,
+            url: '/videos/Video_Generation_for_School_Administrators.mp4',
+            title: 'AI Video: Administrators',
+            description: 'AI-generated strategic briefing for school administrators leveraging EdIntel\'s command intelligence.',
+            thumbnail: '/images/features/strategic_educator_planner.png'
+        },
+        {
+            id: 9,
+            url: '/videos/Video_Generation_with_EdIntel.mp4',
+            title: 'Video Generation with EdIntel',
+            description: 'Demonstrating EdIntel\'s integrated AI video generation capabilities for educational content creation.',
+            thumbnail: '/images/features/strategic_iep_architect.png'
+        },
+        {
+            id: 10,
+            url: '/videos/Video_Generation_Request_Fulfilled.mp4',
+            title: 'AI Generation: Request Fulfilled',
+            description: 'Complete lifecycle of an AI video generation request from prompt to polished output.',
+            thumbnail: '/images/features/collaborative_intelligence_team.png'
+        },
+        {
+            id: 11,
+            url: '/videos/Video_Ready_For_Viewing.mp4',
+            title: 'Content Ready for Viewing',
+            description: 'The final stage of EdIntel\'s content pipeline — professional-grade AI-generated media ready for deployment.',
+            thumbnail: '/images/features/strategic_educator_planner.png'
+        },
+        {
+            id: 12,
+            url: '/videos/briefings/counselor_briefing.mp4',
+            title: 'Counselor Intelligence Briefing',
+            description: 'Strategic guidance briefing for school counselors: mental health analytics, student risk scoring, and intervention protocols.',
+            thumbnail: '/images/features/strategic_iep_architect.png'
+        },
+        {
+            id: 13,
+            url: '/videos/briefings/data_briefing.mp4',
+            title: 'Data Analytics Briefing',
+            description: 'Comprehensive data intelligence briefing covering district-wide performance metrics and predictive analytics.',
+            thumbnail: '/images/features/collaborative_intelligence_team.png'
+        },
+        {
+            id: 14,
+            url: '/videos/briefings/principal_briefing.mp4',
+            title: 'Principal Command Briefing',
+            description: 'Executive briefing for principals: operational intelligence, staffing analytics, and strategic decision vectors.',
+            thumbnail: '/images/features/strategic_educator_planner.png'
+        },
+        {
+            id: 15,
+            url: '/videos/features/data-analysis-demo.mp4',
+            title: 'Data Analysis Demo',
+            description: 'Live demonstration of EdIntel\'s real-time data analysis engine processing district performance vectors.',
+            thumbnail: '/images/features/strategic_iep_architect.png'
+        },
+        {
+            id: 16,
             url: '/videos/EdIntel_Noise-Free_Teaching.mp4',
             title: 'Noise-Free Teaching Protocol',
             description: 'Eliminate classroom disruptions with autonomous AI behavioral intervention strategies.',
             thumbnail: '/images/features/strategic_educator_planner.png'
         },
         {
-            id: 3,
+            id: 17,
             url: '/videos/edintel_ad_strategic_engine.mp4',
             title: 'EdIntel Strategic Engine',
             description: 'A comprehensive overview of the institutional autonomy architecture.',

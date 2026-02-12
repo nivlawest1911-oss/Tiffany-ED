@@ -169,7 +169,7 @@ export default function AITwinGenerator() {
                             transition={{ duration: 0.8 }}
                         >
                             <Image
-                                src="/images/avatars/dr_alvin_west_premium.png"
+                                src="/images/avatars/Dr._alvin_west.png"
                                 alt="AI Twin Preview"
                                 fill
                                 className="object-cover opacity-80"

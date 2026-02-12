@@ -18,7 +18,7 @@ const AGENTS = {
     visionary: {
         name: "Dr. Alvin West",
         role: "EdIntel Architect",
-        avatar: "/images/avatars/dr_alvin_west_premium.png",
+        avatar: "/images/avatars/Dr._alvin_west.png",
         color: "text-noble-gold",
         borderColor: "border-noble-gold/30",
         bgColor: "bg-noble-gold/5"
@@ -34,7 +34,7 @@ const AGENTS = {
     tactical: {
         name: "André Patterson",
         role: "Tactical Specialist",
-        avatar: "/images/avatars/andre_patterson_premium_v2.png",
+        avatar: "/images/avatars/andre_patterson_premium.png",
         color: "text-blue-400",
         borderColor: "border-blue-500/30",
         bgColor: "bg-blue-500/5"

@@ -80,11 +80,11 @@ export default function LeadershipGenerator() {
 
     const [genStep, setGenStep] = useState(0);
     const generationSteps = [
-        "Analyzing Situational Context...",
-        "Scanning Professional Frameworks...",
-        "Aligning with Board Policy...",
-        "Calibrating Tone & Intensity...",
-        "Finalizing Strategic Protocol..."
+        "Initiating Secure Neural Link...",
+        "Querying EdIntel Leadership Vault...",
+        "Applying Alabama Strategic Directive (SB280)...",
+        "Calibrating EQ & Tactical Intensity...",
+        "Finalizing Executive Protocol..."
     ];
 
     const handleGenerate = async () => {
@@ -284,7 +284,7 @@ export default function LeadershipGenerator() {
                             {isGenerating ? (
                                 <div className="relative w-10 h-10">
                                     <HumanAvatar
-                                        src="/images/dr_alvin_west.png"
+                                        src="/images/avatars/Dr._alvin_west.png"
                                         alt="Neural Delegate"
                                         className="w-full h-full rounded-full border border-white/20 object-cover"
                                         isActive={true}

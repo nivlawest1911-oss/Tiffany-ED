@@ -34,10 +34,10 @@ const EXPERIENCE = [
 ];
 
 const SOCIAL_LINKS = [
-  { icon: Linkedin, href: "https://linkedin.com/in/alvinwest", label: "LinkedIn" },
-  { icon: Twitter, href: "https://twitter.com/alvinwest", label: "Twitter" },
-  { icon: Globe, href: "https://edintel.io", label: "Website" },
-  { icon: Mail, href: "mailto:alvin@edintel.io", label: "Contact" }
+  { icon: Linkedin, href: "https://www.linkedin.com/in/alvin-west-ii-dba-11a75323/", label: "LinkedIn" },
+  { icon: Twitter, href: "https://x.com/AlvinWe53959439", label: "Twitter" },
+  { icon: Globe, href: "https://nivlawest1911.wixsite.com/website", label: "Website" },
+  { icon: Mail, href: "mailto:dralvinwest@transcendholisticwellness.com", label: "Contact" }
 ];
 
 export default function FounderDossier() {

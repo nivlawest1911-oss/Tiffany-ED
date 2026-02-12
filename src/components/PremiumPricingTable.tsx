@@ -156,7 +156,7 @@ export default function PremiumPricingTable() {
                                             description: tier.description + " This plan includes our proprietary high-fidelity neural processing and culturally-responsive interface standards.",
                                             stats: { time: 'Instant', saved: tier.price > 50 ? '100h/mo' : '40h/mo', accuracy: '99.9%' },
                                             role: tier.badge || 'Protocol Initiate',
-                                            avatarImage: tier.price > 60 ? '/images/avatars/executive_leader.png' : '/images/avatars/dr_alvin_west_premium.png'
+                                            avatarImage: tier.price > 60 ? '/images/avatars/executive_leader.png' : '/images/avatars/Dr._alvin_west.png'
                                         })}
                                         className="mt-6 text-[9px] text-zinc-600 hover:text-noble-gold font-black uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2 group/info"
                                     >

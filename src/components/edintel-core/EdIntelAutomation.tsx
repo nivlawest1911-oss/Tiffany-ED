@@ -68,10 +68,10 @@ export const EdIntelAutomation = ({ tier }: EdIntelAutomationProps) => {
                 <div className="flex gap-3">
                     <button
                         onClick={startProtocol}
-                        disabled={tier === 'EdIntel Initiate' || isNavigating}
+                        disabled={tier === 'Sovereign Initiate' || isNavigating}
                         className="flex-1 py-3 bg-zinc-100 text-black font-bold rounded-lg hover:bg-amber-500 transition-all disabled:opacity-50 disabled:grayscale disabled:cursor-not-allowed"
                     >
-                        {tier === 'EdIntel Initiate' ? 'UPGRADE TO UNLOCK' : 'EXECUTE PROTOCOL'}
+                        {tier === 'Sovereign Initiate' ? 'UPGRADE TO UNLOCK' : 'EXECUTE PROTOCOL'}
                     </button>
                     {isNavigating && (
                         <button

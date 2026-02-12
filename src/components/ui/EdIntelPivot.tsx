@@ -72,7 +72,7 @@ export function EdIntelPivotDashboard() {
                 id: 'EdIntel_1',
                 name: 'Dr. Alvin West II',
                 role: 'Chief AI Strategist | DBA, Ph.D., MBA',
-                avatar: '/images/avatars/dr_alvin_west_premium.png',
+                avatar: '/images/avatars/Dr._alvin_west.png',
                 specialty: 'Strategic Leadership & Universal I.E.P. Advisor',
                 heygenId: 'josh_lite3_20230714',
                 voiceId: 'JBFqnCBv79x13pTo1U5r',

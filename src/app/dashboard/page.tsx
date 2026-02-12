@@ -6,19 +6,23 @@ export const dynamic = 'force-dynamic';
 export default async function DashboardPage() {
     // Fetch user and subscription data
     const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
+    try {
+        const { data: { user } } = await supabase.auth.getUser();
 
-    if (user) {
-        // Fetch subscription
-        await supabase
-            .from('user_subscriptions')
-            .select('*')
-            .eq('user_id', user.id)
-            .single();
+        if (user) {
+            // Standardize on 'subscriptions' table
+            await supabase
+                .from('subscriptions')
+                .select('*')
+                .eq('user_id', user.id)
+                .single();
+        }
+    } catch (err) {
+        console.error('[DASHBOARD_PAGE] Server Data Fetch Error:', err);
     }
 
     // Tier information can be used for future conditional rendering in Dashboard component
-    // const tier = subscription?.tier_name || 'EdIntel Initiate';
+    // const tier = subscription?.tier_name || 'Sovereign Initiate';
 
     return (
         <div className="min-h-screen bg-transparent">

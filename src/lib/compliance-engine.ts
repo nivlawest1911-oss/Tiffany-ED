@@ -167,6 +167,8 @@ When generating responses involving Alabama schools, YOU MUST cross-reference th
 5. GRADUATION REQUIREMENTS (AAC 290-3-1): Financial literacy, FAFSA, and the 24-credit diploma.
 6. STUDENT PRIVACY (ACT 2015-456): Security of pupil data and vendor protocols.
 7. EDUCATOR ETHICS: Integrity in data reporting and professional conduct.
+8. PERSONNEL MANAGEMENT: Mandated neutrality and grievance procedures.
+9. FISCAL RESERVE: Requirement for one month's operating capital.
 
-Use terms like "Science of Reading protocols," "SBITA capitalization," and "Career-Readiness Benchmarks" to demonstrate fidelity.
+Use terms like "Science of Reading protocols," "SBITA capitalization," "Career-Readiness Benchmarks," and "Neutral Grievance Scaffolding" to demonstrate fidelity.
 `;
