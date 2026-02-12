@@ -163,17 +163,57 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     const loginWithGoogle = async () => {
-        await supabase.auth.signInWithOAuth({
-            provider: 'google',
-            options: { redirectTo: `${window.location.origin}/auth/callback` }
-        });
+        setIsLoading(true);
+        try {
+            const { data, error } = await supabase.auth.signInWithOAuth({
+                provider: 'google',
+                options: {
+                    redirectTo: `${window.location.origin}/auth/callback`,
+                    queryParams: {
+                        access_type: 'offline',
+                        prompt: 'consent',
+                    },
+                },
+            });
+            if (error) throw error;
+            // If no redirect URL returned, something went wrong
+            if (!data?.url) {
+                throw new Error('No authorization URL received from Google.');
+            }
+        } catch (err: any) {
+            console.error('[EdIntel_AUTH] Google login error:', err);
+            toast.error('Google Authentication Failed', {
+                description: err.message || 'Unable to connect to Google. Please try again.',
+                duration: 6000,
+            });
+            setIsLoading(false);
+        }
     };
 
     const loginWithFacebook = async () => {
-        await supabase.auth.signInWithOAuth({
-            provider: 'facebook',
-            options: { redirectTo: `${window.location.origin}/auth/callback` }
-        });
+        setIsLoading(true);
+        try {
+            const { data, error } = await supabase.auth.signInWithOAuth({
+                provider: 'facebook',
+                options: {
+                    redirectTo: `${window.location.origin}/auth/callback`,
+                    queryParams: {
+                        display: 'popup',
+                    },
+                },
+            });
+            if (error) throw error;
+            if (!data?.url) {
+                throw new Error('No authorization URL received from Facebook.');
+            }
+        } catch (err: any) {
+            console.error('[EdIntel_AUTH] Facebook login error:', err);
+            toast.error('Facebook Authentication Failed', {
+                description: err.message || 'Unable to connect to Facebook. Please try again.',
+                duration: 6000,
+            });
+            setIsLoading(false);
+        }
     };
 
     const logout = async () => {

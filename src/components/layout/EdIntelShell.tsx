@@ -67,8 +67,8 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
             id: 'pricing',
             label: 'Professional Pricing',
             icon: CircleDollarSign,
-            href: '/admin/status',
-            desc: 'Managing the $79/site model and usage token allocations.'
+            href: '/pricing',
+            desc: 'Professional pricing tiers and enterprise upgrade paths.'
         }
     ];
 
@@ -252,7 +252,7 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
                                             Ei
                                         </div>
                                         <div>
-                                            <h4 className="text-xl font-black italic text-white uppercase tracking-tighter leading-none">EdIntel EdIntel</h4>
+                                            <h4 className="text-xl font-black italic text-white uppercase tracking-tighter leading-none">EdIntel</h4>
                                             <span className="text-[10px] text-zinc-500 uppercase tracking-[0.3em] font-bold">Operating System v4.0</span>
                                         </div>
                                     </div>
@@ -285,7 +285,7 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
                                             <div className="flex items-center gap-4 pt-1">
                                                 <a href="mailto:contact@edintel.io" className="text-[10px] font-black text-intel-gold hover:text-white uppercase tracking-wider transition-colors">Neural Uplink</a>
                                                 <span className="text-white/10">|</span>
-                                                <a href="#" className="text-[10px] font-black text-intel-gold hover:text-white uppercase tracking-wider transition-colors">Legacy Profile</a>
+                                                <Link href="/about" className="text-[10px] font-black text-intel-gold hover:text-white uppercase tracking-wider transition-colors">Legacy Profile</Link>
                                             </div>
                                         </div>
                                     </div>
@@ -299,13 +299,16 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
                                         <li><Link href="/ferpa" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Federal Compliance</Link></li>
                                         <li><Link href="/admin/status" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Grid Status</Link></li>
                                         <li><Link href="/admin" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Admin Portal</Link></li>
+                                        <li><Link href="/privacy" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Privacy Policy</Link></li>
+                                        <li><Link href="/terms" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Terms of Service</Link></li>
+                                        <li><Link href="/support" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Support Center</Link></li>
                                     </ul>
                                 </div>
                             </div>
 
                             <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6">
                                 <p className="text-[9px] text-zinc-700 uppercase tracking-[0.2em] font-black italic">
-                                    © 2026 EdIntel EdIntel OS. All Rights Reserved.
+                                    © 2026 EdIntel OS. All Rights Reserved.
                                 </p>
                                 <div className="flex items-center gap-2 px-3 py-1 bg-white/[0.02] rounded-full border border-white/5">
                                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />

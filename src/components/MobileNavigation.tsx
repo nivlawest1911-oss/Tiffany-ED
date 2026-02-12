@@ -39,9 +39,9 @@ export default function MobileNavigation() {
     ];
 
     const menuItems = [
-        { label: 'Professional Center', icon: GraduationCap, link: '/professional' },
+        { label: 'Professional Center', icon: GraduationCap, link: '/edintel-professional' },
         { label: 'Enterprise & Pricing', icon: CreditCard, link: '/pricing' },
-        { label: 'EdIntel Protocol', icon: Shield, link: '/EdIntel' },
+        { label: 'EdIntel Protocol', icon: Shield, link: '/edintel-professional' },
         { label: 'Settings', icon: Settings, link: '/settings' },
     ];
 

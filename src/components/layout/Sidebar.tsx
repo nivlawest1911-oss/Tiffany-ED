@@ -28,6 +28,10 @@ import {
     BookOpen,
     Globe,
     Zap,
+    GraduationCap,
+    CreditCard,
+    DollarSign,
+    CirclePlay,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import EdIntelLogo from "@/components/EdIntelLogo"
@@ -81,9 +85,19 @@ const navSections: NavSection[] = [
         items: [
             { icon: Phone, label: "Comms Center", id: "comms", href: "/admin/comms" },
             { icon: BarChart3, label: "Analytics", id: "analytics", href: "/analytics" },
-            { icon: Database, label: "Vault", id: "vault", href: "/vault" },
-            { icon: BookOpen, label: "Resources", id: "resources", href: "/resources" },
+            { icon: Database, label: "Vault", id: "vault", href: "/admin/vault" },
+            { icon: BookOpen, label: "Resources", id: "resources", href: "/resources/alabama" },
             { icon: Settings, label: "Admin", id: "admin", href: "/admin/management" },
+        ],
+    },
+    {
+        title: "Hub",
+        items: [
+            { icon: GraduationCap, label: "Professional", id: "professional", href: "/edintel-professional" },
+            { icon: Globe, label: "Enterprise", id: "enterprise", href: "/enterprise" },
+            { icon: DollarSign, label: "Pricing", id: "pricing", href: "/pricing" },
+            { icon: CirclePlay, label: "Video Gallery", id: "video-gallery", href: "/video-gallery" },
+            { icon: CreditCard, label: "Billing", id: "billing", href: "/payment" },
         ],
     },
 ]
