@@ -14,7 +14,7 @@ export function GrantArchitect() {
             {/* Embedded Strategy Briefing */}
             <div className="relative rounded-lg overflow-hidden border border-white/10 shadow-lg">
                 <EdIntelPlayer
-                    src="/videos/EdTech_Solution_Video_Generation (1).mp4"
+                    src="/videos/EdTech_Solution_Video_Generation_v1.mp4"
                     title="Protocol: Funding Acquisition"
                     poster="/images/avatars/Dr._alvin_west.png"
                 />

@@ -35,7 +35,7 @@ export default function Hero() {
                         className="mb-12 origin-center"
                     >
                         <div className="transform scale-[2] md:scale-[3]">
-                            <EdIntelLogo />
+                            <EdIntelLogo variant="fidelity" className="scale-150 mb-4" />
                         </div>
                     </motion.div>
 

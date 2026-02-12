@@ -1,8 +1,21 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import EdIntelSovereignLogo from './EdIntelSovereignLogo';
 
-export default function EdIntelLogo({ className = "", animated = true }: { className?: string, animated?: boolean }) {
+export default function EdIntelLogo({
+    className = "",
+    animated = true,
+    variant = "classic"
+}: {
+    className?: string,
+    animated?: boolean,
+    variant?: "classic" | "fidelity"
+}) {
+    if (variant === "fidelity") {
+        return <EdIntelSovereignLogo className={className} size={40} showText={false} />;
+    }
+
     return (
         <div className={`flex items-center gap-3 group ${className}`}>
             <div className="relative w-10 h-10 flex items-center justify-center">

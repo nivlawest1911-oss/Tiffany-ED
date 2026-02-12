@@ -52,8 +52,8 @@ export default function LiquidDock() {
                 `}
             >
                 {/* Logo / Brand */}
-                <div className="mb-12 scale-75">
-                    <EdIntelLogo />
+                <div className="mb-12 scale-100">
+                    <EdIntelLogo variant="fidelity" />
                 </div>
 
                 {/* Navigation Items */}

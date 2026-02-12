@@ -21,7 +21,7 @@ export const TacticalHeader = () => {
             <div className="flex items-center gap-6">
                 <VibeController />
                 <div className="flex items-center gap-4">
-                    <EdIntelLogo className="scale-75 origin-left" />
+                    <EdIntelLogo variant="fidelity" className="scale-100 origin-left" />
                     <div className="hidden lg:flex flex-col">
                         <div className="flex items-center gap-2">
                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />

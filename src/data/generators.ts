@@ -98,7 +98,7 @@ export const generators = [
         color: "#ec4899",
         avatar: AVATARS.BEHAVIOR,
         heroImage: "/images/features/behavior_intervention_specialist.png",
-        heroVideo: "/videos/EdIntel_ Noise-Free Teaching.mp4",
+        heroVideo: "/videos/EdIntel_Noise-Free_Teaching.mp4",
         welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: [
@@ -338,8 +338,8 @@ export const generators = [
         icon: HeartHandshake,
         color: "#059669", // Emerald-600
         avatar: AVATARS.COUNSELOR,
-        heroVideo: "/videos/Burnout Fix Awaits.mp4",
-        welcomeVideo: "/videos/Health for Alabama's Educators.mp4",
+        heroVideo: "/videos/Burnout_Fix_Awaits.mp4",
+        welcomeVideo: "/videos/Health_for_Alabamas_Educators.mp4",
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
         prompts: ["5-minute stress relief", "Boundary setting scripts", "End-of-day decompression"]
     },
@@ -1102,7 +1102,7 @@ export const generators = [
         icon: Scale,
         color: 'from-red-500 to-orange-600',
         avatar: AVATARS.COMPLIANCE,
-        heroVideo: "/videos/EdIntel_ Noise-Free Teaching.mp4",
+        heroVideo: "/videos/EdIntel_Noise-Free_Teaching.mp4",
         welcomeVideo: "/videos/briefings/counselor_briefing.mp4",
         prompts: [
             "Perform a litigation risk audit for a district-wide discipline policy change, identifying potential exposures under Title 16 and federal IDEA safe harbors.",
@@ -1122,7 +1122,7 @@ export const generators = [
             "Analyze central office operational efficiency and draft a MAEF grant proposal for district-wide STEM innovation.",
             "Draft a 5-year strategic roadmap for academic excellence in Mobile County, anchoring goals in ACAP mastery and CTE career pathways."
         ],
-        heroVideo: "/videos/District Command Update.mp4",
+        heroVideo: "/videos/District_Command_Update.mp4",
         welcomeVideo: "/videos/briefings/principal_briefing.mp4",
         voiceWelcome: "/voice-profiles/principal_voice.wav"
     }

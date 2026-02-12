@@ -5,6 +5,7 @@ import { Search, ArrowRight, Wallet, Zap, ShieldCheck, Lock, BarChart3, Users } 
 import Link from 'next/link';
 import SupportCategoryCard from '@/components/bento/SupportCategoryCard';
 import { CATEGORIES, POPULAR_ARTICLES } from '@/app/support/data';
+import VideoShowcase from '@/components/VideoShowcase';
 
 // Helper to map icon names to components 
 const iconMap: any = {
@@ -52,6 +53,21 @@ export default function SupportClient() {
                         />
                         <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-noble-gold transition-colors" size={24} />
                     </div>
+                </div>
+            </section>
+
+            {/* Community Spotlight Section */}
+            <section className="max-w-7xl mx-auto px-6 py-12">
+                <div className="mb-8 text-center">
+                    <h2 className="text-xs font-black text-noble-gold uppercase tracking-[0.3em] mb-2 text-center inline-block border-b border-noble-gold/30 pb-2">Community Spotlight</h2>
+                    <p className="text-zinc-400 text-sm mt-3">Witness the EdIntel protocol in action during our latest National Professional Development Summit.</p>
+                </div>
+                <div className="max-w-4xl mx-auto">
+                    <VideoShowcase
+                        videoUrl="/videos/African_American_Teacher_Conference_Video.mp4"
+                        title="Institutional Impact Briefing"
+                        description="Educational leaders and architects discuss the strategic deployment of EdIntel across diverse district ecosystems."
+                    />
                 </div>
             </section>
 

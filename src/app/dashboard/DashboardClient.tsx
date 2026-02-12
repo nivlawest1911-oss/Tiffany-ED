@@ -1,7 +1,6 @@
 'use client';
 
-import React from 'react';
-
+import Link from 'next/link';
 import { Zap, Activity, Shield, Brain, Swords, FileText, ChevronRight } from 'lucide-react';
 
 import { EdIntelAutomation } from '@/components/edintel-core/EdIntelAutomation';
@@ -80,10 +79,14 @@ export default function DashboardClient({ tierName = 'EdIntel Initiate' }: Dashb
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    {['Magic Grader', 'Quiz Engine', 'IEP Generator'].map(tool => (
-                                        <button key={tool} className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-[9px] font-bold text-zinc-400 hover:text-white hover:bg-white/10 transition-all uppercase">
-                                            {tool}
-                                        </button>
+                                    {[{ name: 'Magic Grader', id: 'rubric-maker' }, { name: 'Quiz Engine', id: 'quiz-gamifier' }, { name: 'IEP Generator', id: 'iep-architect' }].map(tool => (
+                                        <Link
+                                            key={tool.id}
+                                            href={tool.id === 'iep-architect' ? '/dashboard/iep-architect' : `/generators/${tool.id}`}
+                                            className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-[9px] font-bold text-zinc-400 hover:text-white hover:bg-white/10 transition-all uppercase"
+                                        >
+                                            {tool.name}
+                                        </Link>
                                     ))}
                                 </div>
                             </div>
@@ -94,9 +97,12 @@ export default function DashboardClient({ tierName = 'EdIntel Initiate' }: Dashb
                                 <p>&gt; Protocols standing by.</p>
                             </div>
 
-                            <button className="w-full py-4 bg-indigo-500 hover:bg-indigo-400 text-white rounded-xl font-black text-xs uppercase tracking-[0.3em] transition-all flex items-center justify-center gap-2 shadow-[0_10px_30px_rgba(79,70,229,0.3)]">
+                            <Link
+                                href="/generators"
+                                className="w-full py-4 bg-indigo-500 hover:bg-indigo-400 text-white rounded-xl font-black text-xs uppercase tracking-[0.3em] transition-all flex items-center justify-center gap-2 shadow-[0_10px_30px_rgba(79,70,229,0.3)]"
+                            >
                                 Initialize AI Synthesis <ChevronRight className="w-4 h-4" />
-                            </button>
+                            </Link>
                         </GlassCard>
                     </div>
 
@@ -134,9 +140,12 @@ export default function DashboardClient({ tierName = 'EdIntel Initiate' }: Dashb
                                 </p>
                             </div>
 
-                            <button className="w-full py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl font-bold text-[10px] text-white uppercase tracking-widest transition-all">
+                            <Link
+                                href="/dashboard/command"
+                                className="w-full py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl font-bold text-[10px] text-white uppercase tracking-widest transition-all inline-flex items-center justify-center font-bold"
+                            >
                                 Open Operations Deck
-                            </button>
+                            </Link>
                         </GlassCard>
                     </div>
 

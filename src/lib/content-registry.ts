@@ -9,7 +9,7 @@ export const CONTENT_REGISTRY = {
                 id: "vid_001",
                 title: "District Command Update",
                 type: "video",
-                url: "/videos/District Command Update.mp4",
+                url: "/videos/District_Command_Update.mp4",
                 thumbnail: "/images/avatars/Dr._alvin_west.png",
                 tier_required: 1
             },
@@ -17,7 +17,7 @@ export const CONTENT_REGISTRY = {
                 id: "vid_002",
                 title: "Burnout Fix Protocol",
                 type: "video",
-                url: "/videos/Burnout Fix Awaits.mp4",
+                url: "/videos/Burnout_Fix_Awaits.mp4",
                 thumbnail: "/images/avatars/Dr._alvin_west.png",
                 tier_required: 1
             },
@@ -25,7 +25,7 @@ export const CONTENT_REGISTRY = {
                 id: "vid_003",
                 title: "Health for Educators",
                 type: "video",
-                url: "/videos/Health for Alabama's Educators.mp4",
+                url: "/videos/Health_for_Alabamas_Educators.mp4",
                 thumbnail: "/images/avatars/Dr._alvin_west.png",
                 tier_required: 1
             },
@@ -33,7 +33,7 @@ export const CONTENT_REGISTRY = {
                 id: "vid_004",
                 title: "EdTech Solution Analysis",
                 type: "video",
-                url: "/videos/EdTech_Solution_Video_Generation (1).mp4",
+                url: "/videos/EdTech_Solution_Video_Generation_v1.mp4",
                 thumbnail: "/images/avatars/Dr._alvin_west.png",
                 tier_required: 1
             },

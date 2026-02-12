@@ -31,6 +31,8 @@ import {
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import EdIntelLogo from "@/components/EdIntelLogo"
+import { HumanoidHolograph } from "@/components/ui/HumanoidHolograph"
+import { HolographicBackground } from "@/components/ui/HolographicBackground"
 
 interface NavSection {
     title: string
@@ -42,7 +44,7 @@ const navSections: NavSection[] = [
         title: "Core",
         items: [
             { icon: LayoutDashboard, label: "Command Center", id: "command", href: "/dashboard" },
-            { icon: Shield, label: "Bio Dossier", id: "dossier", href: "/dashboard/dossier" },
+            { icon: Shield, label: "Bio Dossier", id: "dossier", href: "/about" },
             { icon: Zap, label: "AI Hub", id: "ai-hub", badge: "Live", href: "/ai-hub" },
             { icon: Bot, label: "Agent Swarm", id: "agents", href: "/dashboard/agents" },
         ],
@@ -112,14 +114,15 @@ export function Sidebar() {
             animate={{ width: collapsed ? 72 : 240 }}
             transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
             className={cn(
-                "relative z-20 flex h-screen flex-col border-r border-white/10 bg-black/40 backdrop-blur-xl transition-all duration-300",
+                "relative z-20 flex h-screen flex-col border-r border-white/10 bg-black/40 backdrop-blur-xl transition-all duration-300 overflow-hidden",
                 !isMounted && "opacity-0" // Hide until hydration to avoid flash
             )}
         >
+            <HolographicBackground />
             {/* Logo Section */}
             <div className="flex h-16 items-center gap-3 px-4 border-b border-white/5 shrink-0">
                 <Link href="/" className="flex items-center gap-3">
-                    <EdIntelLogo className="scale-75 origin-left" />
+                    <EdIntelLogo variant="fidelity" className="scale-100 origin-left" />
                 </Link>
             </div>
 
@@ -168,7 +171,12 @@ export function Sidebar() {
                                                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
                                             />
                                         )}
-                                        <item.icon className="relative z-10 h-4 w-4 shrink-0" />
+                                        <HumanoidHolograph
+                                            icon={item.icon}
+                                            isActive={isActive}
+                                            className="relative z-10 shrink-0"
+                                            size={18}
+                                        />
                                         <AnimatePresence>
                                             {!collapsed && (
                                                 <motion.span

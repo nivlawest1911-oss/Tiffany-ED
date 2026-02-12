@@ -9,24 +9,24 @@ export default function VideoGalleryClient() {
     const videos = [
         {
             id: 1,
-            url: '/videos/demo1.mp4', // Replace with your video URL
-            title: 'AI-Powered Education Platform',
-            description: 'Discover how EdIntel transforms educational leadership with cutting-edge AI technology',
-            thumbnail: '/images/video-thumb-1.jpg'
+            url: '/videos/African_American_Teacher_Conference_Video.mp4',
+            title: 'African American Teacher Conference',
+            description: 'Highlights from the EdIntel Professional Development Summit, empowering educators through strategic innovation.',
+            thumbnail: '/images/features/collaborative_intelligence_team.png'
         },
         {
             id: 2,
-            url: '/videos/demo2.mp4', // Replace with your video URL
-            title: 'Professional Development Suite',
-            description: 'Comprehensive tools for district-wide professional growth and development',
-            thumbnail: '/images/video-thumb-2.jpg'
+            url: '/videos/EdIntel_Noise-Free_Teaching.mp4',
+            title: 'Noise-Free Teaching Protocol',
+            description: 'Eliminate classroom disruptions with autonomous AI behavioral intervention strategies.',
+            thumbnail: '/images/features/strategic_educator_planner.png'
         },
         {
             id: 3,
-            url: '/videos/demo3.mp4', // Replace with your video URL
-            title: 'Data-Driven Decision Making',
-            description: 'Transform raw data into actionable insights with our advanced analytics platform',
-            thumbnail: '/images/video-thumb-3.jpg'
+            url: '/videos/edintel_ad_strategic_engine.mp4',
+            title: 'EdIntel Strategic Engine',
+            description: 'A comprehensive overview of the institutional autonomy architecture.',
+            thumbnail: '/images/features/strategic_iep_architect.png'
         },
     ];
 

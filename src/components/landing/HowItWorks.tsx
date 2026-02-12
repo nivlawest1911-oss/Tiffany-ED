@@ -71,37 +71,22 @@ export default function HowItWorks() {
                                     {step.desc}
                                 </p>
 
-                                {/* Visual Mini-Representation */}
-                                <div className="w-full h-24 bg-black/40 rounded-xl border border-white/5 overflow-hidden relative">
-                                    {/* Abstract UI representation based on step */}
-                                    <div className="absolute inset-0 bg-grid-white/[0.05]" />
-                                    {i === 0 && (
-                                        <div className="absolute inset-0 flex items-center justify-center">
-                                            <div className="w-16 h-10 bg-white/10 rounded-lg flex items-center gap-2 px-2">
-                                                <div className="w-4 h-4 rounded-full bg-blue-500" />
-                                                <div className="h-1.5 w-8 bg-white/20 rounded-full" />
-                                            </div>
-                                        </div>
-                                    )}
-                                    {i === 1 && (
-                                        <div className="absolute inset-x-4 top-4 space-y-2">
-                                            <div className="h-1.5 w-3/4 bg-purple-500/40 rounded-full animate-pulse" />
-                                            <div className="h-1.5 w-1/2 bg-purple-500/20 rounded-full" />
-                                        </div>
-                                    )}
-                                    {i === 2 && (
-                                        <div className="absolute bottom-0 inset-x-4 flex items-end justify-between h-12 gap-1">
-                                            {[20, 60, 40, 80, 50].map((h, idx) => (
-                                                <motion.div
-                                                    key={idx}
-                                                    initial={{ height: 0 }}
-                                                    whileInView={{ height: `${h}%` }}
-                                                    transition={{ duration: 0.5, delay: idx * 0.1 }}
-                                                    className="w-full bg-emerald-500/30 rounded-t-sm"
-                                                />
-                                            ))}
-                                        </div>
-                                    )}
+                                {/* Visual Mini-Representation / Cinematic Video */}
+                                <div className="w-full h-32 bg-black/40 rounded-xl border border-white/5 overflow-hidden relative group-hover:border-noble-gold/30 transition-colors">
+                                    <video
+                                        src={i === 0 ? "/videos/how_edintel_works1.mp4" : i === 1 ? "/videos/how_edintel_works2.mp4" : "/videos/how_edintel_works3.mp4"}
+                                        className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-700"
+                                        autoPlay
+                                        muted
+                                        loop
+                                        playsInline
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+
+                                    {/* Scanline Effect Overlay */}
+                                    <div className="absolute inset-0 pointer-events-none opacity-20">
+                                        <div className="w-full h-[1px] bg-white/50 animate-scanline shadow-[0_0_10px_rgba(255,255,255,0.5)]" />
+                                    </div>
                                 </div>
                             </div>
                         </motion.div>
