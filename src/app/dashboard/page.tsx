@@ -6,19 +6,22 @@ export const dynamic = 'force-dynamic';
 export default async function DashboardPage() {
     // Fetch user and subscription data
     const supabase = await createClient();
-    try {
-        const { data: { user } } = await supabase.auth.getUser();
 
-        if (user) {
-            // Standardize on 'subscriptions' table
-            await supabase
-                .from('subscriptions')
-                .select('*')
-                .eq('user_id', user.id)
-                .single();
+    if (supabase) {
+        try {
+            const { data: { user } } = await supabase.auth.getUser();
+
+            if (user) {
+                // Standardize on 'subscriptions' table
+                await supabase
+                    .from('subscriptions')
+                    .select('*')
+                    .eq('user_id', user.id)
+                    .single();
+            }
+        } catch (err) {
+            console.error('[DASHBOARD_PAGE] Server Data Fetch Error:', err);
         }
-    } catch (err) {
-        console.error('[DASHBOARD_PAGE] Server Data Fetch Error:', err);
     }
 
     // Tier information can be used for future conditional rendering in Dashboard component

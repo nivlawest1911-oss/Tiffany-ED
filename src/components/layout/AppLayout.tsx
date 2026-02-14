@@ -2,6 +2,7 @@
 
 import React from "react"
 import { Sidebar } from "@/components/layout/Sidebar"
+import MobileNavigation from "@/components/MobileNavigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { Search, Bell, Grid, User, Settings as SettingsIcon, LogOut, ChevronDown } from "lucide-react"
 import {
@@ -23,14 +24,22 @@ import EdIntelCommandDeck from '@/components/dashboard/EdIntelCommandDeck';
 import { AuroraBackground } from '@/components/dashboard/aurora-background';
 import { TacticalHeaderBar } from '@/components/layout/TacticalHeaderBar';
 import useProfessionalSounds from "@/hooks/useProfessionalSounds";
+import { TrialBanner } from '@/components/layout/TrialBanner';
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname()
     const router = useRouter()
-    const isMarketingRoute = ['/signup', '/login', '/about', '/pricing', '/contact', '/whats-edintel', '/enterprise'].includes(pathname);
-    const isDashboardRoute = pathname?.startsWith('/dashboard');
+    // Simplified: No longer checking routes internally. 
+    // This component is now exclusively used by the (dashboard) layout.
     const { isCommandConsoleOpen, toggleCommandConsole } = useEdIntelVibe();
     const { playHover, playClick } = useProfessionalSounds()
+
+    // Mocked Tier Data (In production, this comes from useUser/AuthContext)
+    const currentTier = {
+        id: 'sovereign',
+        name: 'Sovereign Pack',
+        daysRemaining: 12
+    };
 
     // CRM/CMD+K Shortcut
     React.useEffect(() => {
@@ -44,9 +53,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [toggleCommandConsole]);
 
-    if (isMarketingRoute || isDashboardRoute) {
-        return <>{children}</>
-    }
 
     return (
         <div className="flex h-screen bg-[#020617] text-slate-200 overflow-hidden font-sans relative">
@@ -66,10 +72,19 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 )}
             </AnimatePresence>
 
-            <AnimatePresence mode="wait">
-                <Sidebar />
-            </AnimatePresence>
-            <div className="flex-1 flex flex-col relative overflow-hidden">
+            {/* Sidebar remains stable regardless of module */}
+            <Sidebar />
+
+            <div className="flex flex-col flex-1 relative overflow-hidden">
+                {/* 1. Global Trial Banner (Conversion Hook) */}
+                <TrialBanner
+                    tierId={currentTier.id}
+                    tierName={currentTier.name}
+                    daysRemaining={currentTier.daysRemaining}
+                />
+
+                <TacticalHeaderBar />
+
                 {/* Top Header */}
                 <header className="h-16 border-b border-white/5 bg-black/20 backdrop-blur-md flex items-center justify-between px-8 z-10 shrink-0">
                     <div className="flex items-center gap-8 flex-1">
@@ -86,12 +101,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                 </kbd>
                             </div>
                         </div>
-
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <TacticalHeaderBar />
-
                         <div className="flex items-center gap-1 bg-white/5 rounded-full p-1 border border-white/10">
                             <Button
                                 variant="ghost"
@@ -170,9 +182,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                             </div>
                         </motion.div>
                     </AnimatePresence>
-
                 </main>
+
+                {/* Mobile Navigation */}
+                <div className="md:hidden">
+                    <MobileNavigation />
+                </div>
             </div>
         </div>
-    )
+    );
 }

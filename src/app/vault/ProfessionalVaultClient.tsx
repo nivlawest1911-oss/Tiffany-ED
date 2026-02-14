@@ -133,7 +133,7 @@ export default function ProfessionalVaultClient() {
                 {/* Document Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <AnimatePresence mode="popLayout">
-                        {filteredDocuments.map((doc, idx) => (
+                        {filteredDocuments.map((doc, _idx) => (
                             <motion.div
                                 key={doc.id}
                                 layout

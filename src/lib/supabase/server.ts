@@ -1,16 +1,15 @@
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 
-export async function createClient() {
+export async function createEdIntelServerClient() {
     const cookieStore = await cookies();
 
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
     if (!supabaseUrl || !supabaseKey) {
-        console.error('[SUPABASE_CONFIG_ERR] Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY');
-        // Return a dummy client or throw a more descriptive error handled by the page
-        throw new Error('SYSTEM UPLINK OFFLINE: Configuration Missing');
+        console.warn('[EDINTEL_SAFE_UPLINK] Missing Supabase configuration. Returning null client.');
+        return null;
     }
 
     return createServerClient(
@@ -36,3 +35,6 @@ export async function createClient() {
         }
     );
 }
+
+// For compatibility with any legacy imports
+export const createClient = createEdIntelServerClient;

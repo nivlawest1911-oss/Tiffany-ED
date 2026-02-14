@@ -1,6 +1,7 @@
 "use client"
 
 import { Facebook, Youtube, Linkedin, Instagram, Twitter, Mail, MapPin } from "lucide-react"
+import Link from "next/link"
 
 function TikTokIcon({ className }: { className?: string }) {
   return (
@@ -25,12 +26,12 @@ const socialLinks = [
 ]
 
 const quickLinks = [
-  { name: "Command", href: "#" },
-  { name: "Avatar Lab", href: "#avatar-lab" },
-  { name: "Strategic Sync", href: "#neural-sync" },
-  { name: "Professional Labs", href: "#innovation-labs" },
-  { name: "Professional Pricing", href: "#pricing" },
-  { name: "Support Protocol", href: "#support" },
+  { name: "Command", href: "/dashboard" },
+  { name: "Avatar Lab", href: "/ai-hub" },
+  { name: "Strategic Sync", href: "/connectors" },
+  { name: "Professional Labs", href: "/edintel-professional" },
+  { name: "Professional Pricing", href: "/pricing" },
+  { name: "Support Protocol", href: "/support" },
 ]
 
 export function GlobalPresence() {
@@ -78,9 +79,9 @@ export function GlobalPresence() {
             <ul className="space-y-2">
               {quickLinks.map((link) => (
                 <li key={link.name}>
-                  <a href={link.href} className="text-gray-400 hover:text-[#00d2ff] transition-colors text-sm">
+                  <Link href={link.href} className="text-gray-400 hover:text-[#00d2ff] transition-colors text-sm">
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -91,29 +92,29 @@ export function GlobalPresence() {
             <h4 className="font-bold text-white mb-4">Resources</h4>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-gray-400 hover:text-[#00d2ff] transition-colors text-sm">
+                <a href="https://www.alabamaachieves.org" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#00d2ff] transition-colors text-sm">
                   Alabama Achieves
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-[#00d2ff] transition-colors text-sm">
+                <a href="https://www.mcpss.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#00d2ff] transition-colors text-sm">
                   MCPSS Portal
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-[#00d2ff] transition-colors text-sm">
+                <Link href="/admin/vault" className="text-gray-400 hover:text-[#00d2ff] transition-colors text-sm">
                   Legal Vault
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-[#00d2ff] transition-colors text-sm">
+                <Link href="/resources/alabama" className="text-gray-400 hover:text-[#00d2ff] transition-colors text-sm">
                   Research Hub
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-[#00d2ff] transition-colors text-sm">
+                <Link href="/support/getting-started" className="text-gray-400 hover:text-[#00d2ff] transition-colors text-sm">
                   API Documentation
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -123,9 +124,9 @@ export function GlobalPresence() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 py-8 border-t border-gray-800">
           <div className="text-center md:text-left">
             <h4 className="font-black tracking-tighter text-xl text-white mb-2">Global Presence</h4>
-            <a href="#pricing" className="text-sm text-[#00d2ff] hover:underline">
+            <Link href="/pricing" className="text-sm text-[#00d2ff] hover:underline">
               Sales Protocol →
-            </a>
+            </Link>
           </div>
 
           <div className="flex items-center gap-3">
@@ -159,25 +160,25 @@ export function GlobalPresence() {
           </div>
 
           <div className="flex flex-wrap justify-center gap-4 text-xs text-gray-500 mb-4">
-            <a href="#" className="hover:text-white transition-colors">
+            <Link href="/privacy" className="hover:text-white transition-colors">
               Privacy Policy
-            </a>
+            </Link>
             <span>•</span>
-            <a href="#" className="hover:text-white transition-colors">
+            <Link href="/terms" className="hover:text-white transition-colors">
               Terms of Service
-            </a>
+            </Link>
             <span>•</span>
-            <a href="#" className="hover:text-white transition-colors">
+            <Link href="/ferpa" className="hover:text-white transition-colors">
               Accessibility
-            </a>
+            </Link>
             <span>•</span>
-            <a href="#" className="hover:text-white transition-colors">
+            <Link href="/ferpa" className="hover:text-white transition-colors">
               FERPA Compliance
-            </a>
+            </Link>
           </div>
 
           <p className="text-xs text-gray-600 tracking-widest">
-            © 2025 EdIntel Professional. All rights reserved. Made with ♥ in Mobile, Alabama.
+            © 2026 EdIntel Professional. All rights reserved. Made with ♥ in Mobile, Alabama.
           </p>
         </div>
       </div>

@@ -13,23 +13,25 @@ export default async function StudioPage() {
 
     let userTier = "Sovereign Initiate";
 
-    try {
-        const { data: { session } } = await supabase.auth.getSession();
-        if (session?.user) {
-            const { data, error } = await supabase
-                .from('subscriptions')
-                .select('tier_name')
-                .eq('user_id', session.user.id)
-                .single();
+    if (supabase) {
+        try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user) {
+                const { data, error } = await supabase
+                    .from('subscriptions')
+                    .select('tier_name')
+                    .eq('user_id', session.user.id)
+                    .single();
 
-            if (!error && data?.tier_name) {
-                userTier = data.tier_name;
-            } else if (error) {
-                console.warn('[STUDIO_PAGE] Subscription sync warning:', error.message);
+                if (!error && data?.tier_name) {
+                    userTier = data.tier_name;
+                } else if (error) {
+                    console.warn('[STUDIO_PAGE] Subscription sync warning:', error.message);
+                }
             }
+        } catch (err) {
+            console.error('[STUDIO_PAGE] Critical Auth Sync Failure:', err);
         }
-    } catch (err) {
-        console.error('[STUDIO_PAGE] Critical Auth Sync Failure:', err);
     }
 
     const isCommandLevel = ['Site Command', 'Director Pack'].includes(userTier);

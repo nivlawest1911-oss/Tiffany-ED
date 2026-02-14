@@ -6,10 +6,12 @@ import { depositToMemoryBank } from './memory-bank';
 export const runtime = 'edge';
 
 // Initialize Supabase Client
-const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+const supabase = supabaseUrl && supabaseKey
+    ? createClient(supabaseUrl, supabaseKey)
+    : null;
 
 const generateId = () => Math.random().toString(36).substring(2, 9);
 
@@ -26,16 +28,25 @@ export const DECISION_ORACLE = {
 // Now connected to Supabase where applicable
 
 export class LiteracyArchitect {
-    static async get_student_gap(_intent: string) {
-        // Fallback or simulated delay if not hitting DB directly yet
-        // In full prod, this would be: await supabase.from('literacy_gaps').select('*')...
-        await new Promise(resolve => setTimeout(resolve, 50));
-        return {
-            gap_type: 'Phonemic Awareness',
-            severity: 'High',
-            recommended_intervention: 'Heggerty Week 12',
-            standards_aligned: ['RF.4.3', 'RF.4.4']
-        };
+    static async get_student_gap(intent: string, studentId: string = 'student_001') {
+        try {
+            const response = await fetch('/api/agents/literacy', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ studentId, intent })
+            });
+            if (!response.ok) throw new Error('Edge Agent Offline');
+            const data = await response.json();
+            return data.analysis;
+        } catch (error) {
+            console.error('[LiteracyArchitect] Edge Fetch Failed, using fallback:', error);
+            return {
+                gap_type: 'Phonemic Awareness',
+                severity: 'High',
+                recommended_intervention: 'Heggerty Week 12 (Fallback)',
+                standards_aligned: ['RF.4.3']
+            };
+        }
     }
 }
 
@@ -89,6 +100,10 @@ export class EdIntelVault {
     }
 
     async logInteraction(input: string, output: string, meta: any) {
+        if (!supabase) {
+            console.warn(`[EdIntel VAULT] UPLINK_OFFLINE: Skipping persistence for ${this.userId}`);
+            return;
+        }
         console.log(`[EdIntel VAULT] Logging interaction for ${this.userId}`);
 
         const { error } = await supabase
@@ -233,7 +248,8 @@ export class EdIntelOS {
     }
 
     async deduct_tokens(count: number) {
-        const { data: _data, error } = await supabase
+        if (!supabase) return;
+        const { error } = await supabase
             .rpc('deduct_user_tokens', {
                 token_amount: count,
                 target_user: this.userId
@@ -253,16 +269,20 @@ export class EdIntelOS {
 
         // PARALLELIZED & COMPETITIVE PRE-FETCHING
         // We execute all relevant queries concurrently to minimize total latency
-        const results = await Promise.allSettled([
-            // Primary Data: Literacy
-            supabase.from('literacy_stats').select('*').eq('student_id', studentId).single(),
-            // Supplemental Data: Behavior
-            supabase.from('behavior_logs').select('count').eq('type', 'frustration').gte('created_at', new Date().toISOString().split('T')[0]),
-            // Environmental/System Data: Wellness
-            this.wellnessShield.getLiveBurnoutStats(),
-            // Context Data: Continuity Bridge
-            Promise.resolve({ lastObjective: this.context.lastObjective || 'N/A' })
-        ]);
+        const queries: Promise<any>[] = [];
+
+        if (supabase) {
+            queries.push(Promise.resolve(supabase.from('literacy_stats').select('*').eq('student_id', studentId).single()));
+            queries.push(Promise.resolve(supabase.from('behavior_logs').select('count').eq('type', 'frustration').gte('created_at', new Date().toISOString().split('T')[0])));
+        } else {
+            queries.push(Promise.resolve({ status: 'rejected', reason: 'Uplink Offline' }));
+            queries.push(Promise.resolve({ status: 'rejected', reason: 'Uplink Offline' }));
+        }
+
+        queries.push(this.wellnessShield.getLiveBurnoutStats());
+        queries.push(Promise.resolve({ lastObjective: this.context.lastObjective || 'N/A' }));
+
+        const results = await Promise.allSettled(queries);
 
         return {
             literacy: results[0].status === 'fulfilled' ? (results[0].value as any).data || await LiteracyArchitect.get_student_gap(_intent) : null,

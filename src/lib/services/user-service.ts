@@ -114,7 +114,7 @@ export class UserService {
                     id, email, name, role, subscription_tier, stripe_customer_id, google_id, avatar_url, trial_ends_at, created_at, updated_at
                 ) VALUES (
                     ${id}, ${email}, ${name}, 'educator', ${tier}, ${stripeCustomerId}, ${googleId}, ${picture},
-                    ${(new Date(Date.now() + 14 * 24 * 60 * 60 * 1000)).toISOString()}, -- 14 day trial default
+                    ${(new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)).toISOString()}, -- 30 day trial default
                     NOW(), NOW()
                 )
                 ON CONFLICT (id) DO UPDATE SET

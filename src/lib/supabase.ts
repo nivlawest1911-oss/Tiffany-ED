@@ -1,15 +1,22 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co';
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-key';
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// 🏛️ EdIntel SAFE_UPLINK: Returns null if configuration is missing to prevent crashes
+export const supabase = (supabaseUrl && supabaseAnonKey)
+    ? createClient(supabaseUrl, supabaseAnonKey)
+    : null;
 
 /**
  * EdIntel Data Uplink: Fetches high-fidelity media manifest from Supabase.
  * Replaces static JSON definitions with real-time district data.
  */
 export async function fetchMediaManifest() {
+    if (!supabase) {
+        console.warn('[EDINTEL_SAFE_UPLINK] Supabase offline. Media manifest unavailable.');
+        return [];
+    }
     const { data, error } = await supabase
         .from('media_manifest')
         .select('*')
@@ -27,6 +34,10 @@ export async function fetchMediaManifest() {
  * Strategic Sync: Stores generated IEP documents in the EdIntel Vault.
  */
 export async function archiveStrategicDocument(userId: string, title: string, content: any, type: string) {
+    if (!supabase) {
+        console.warn('[EDINTEL_SAFE_UPLINK] Supabase offline. Document archive unavailable.');
+        return null;
+    }
     const { data, error } = await supabase
         .from('strategic_vault')
         .insert([
@@ -47,10 +58,12 @@ export async function archiveStrategicDocument(userId: string, title: string, co
 
     return data[0];
 }
+
 /**
  * 🏛️ EdIntel Audit Link: Logs neural synthesis events for institutional compliance.
  */
 export async function logAiEvent(generatorId: string, prompt: string, status: string = 'SUCCESS') {
+    if (!supabase) return;
     const { error } = await supabase
         .from('audit_logs')
         .insert([{
@@ -71,6 +84,7 @@ export async function logAiEvent(generatorId: string, prompt: string, status: st
  * 🎯 Institutional Outreach: Captures school site provisioning requests.
  */
 export async function submitLead(email: string, schoolName: string, source: string = 'Digital Portal') {
+    if (!supabase) return null;
     const { data, error } = await supabase
         .from('leads')
         .insert([{
@@ -93,6 +107,7 @@ export async function submitLead(email: string, schoolName: string, source: stri
  * 🛰️ EdIntel Support Uplink: Transmits teacher feedback to the institutional memory core.
  */
 export async function createSupportTicket(userId: string, subject: string, message: string, priority: string = 'STANDARD') {
+    if (!supabase) return null;
     const { data, error } = await supabase
         .from('support_tickets')
         .insert([{

@@ -30,7 +30,7 @@ export default function LandingPageClient() {
                 </div>
 
                 {/* Dashboard Preview Section - Reserved Space */}
-                <section className="py-20 px-4 md:px-8 max-w-7xl mx-auto min-h-[600px]">
+                <section className="py-10 md:py-20 px-4 md:px-8 max-w-7xl mx-auto min-h-[600px]">
                     <div className="text-center mb-12">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">
                             <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
@@ -53,7 +53,7 @@ export default function LandingPageClient() {
                 </div>
 
                 {/* Founder Dossier - Reserved Space */}
-                <section className="py-20 px-4 md:px-8 max-w-7xl mx-auto min-h-[700px]">
+                <section className="py-10 md:py-20 px-4 md:px-8 max-w-7xl mx-auto min-h-[700px]">
                     <div className="text-center mb-12">
                         <h2 className="text-3xl md:text-5xl font-black text-white mb-6">
                             Architect of <span className="text-noble-gold">EdIntel Protocol</span>

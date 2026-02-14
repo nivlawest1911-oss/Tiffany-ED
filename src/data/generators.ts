@@ -42,7 +42,7 @@ export const generators = [
     {
         id: "iep-architect",
         name: "IEP Narrative Architect",
-        link: "/dashboard/iep-architect",
+        link: "/generators/iep-architect",
         description: "Generate professional IEP drafts with SMART goals and data-driven accommodations. Designed for clarity, compliance, and student success.",
         icon: FileText,
         color: "#00d2ff",
@@ -215,7 +215,7 @@ export const generators = [
     // Re-adding essential existing ones for the demo to work fully
     { id: "email-composer", name: "Email Composer", description: "Professional communications", icon: MessageSquare, color: "#10b981", avatar: AVATARS.PRINCIPAL, heroImage: "/images/features/strategic_communications_director.png", heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/principal_briefing.mp4", voiceWelcome: "/voice-profiles/principal_voice.wav", prompts: ["Parent conference follow-up", "Staff announcement"] },
     { id: "policy-advisor", name: "Policy Advisor", description: "Navigate regulations", icon: Scale, color: "#8b5cf6", avatar: AVATARS.COMPLIANCE, heroImage: "/images/features/iep_interface.png", heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/compliance_briefing.mp4", voiceWelcome: "/voice-profiles/compliance_voice.wav", prompts: ["IDEA compliance check", "504 plan requirements"] },
-    { id: "cognitive-gym", name: "The Cognitive Gym", description: "Executive function training strategies", icon: Brain, color: "#ec4899", avatar: AVATARS.COUNSELOR, link: "/dashboard/cognitive-gym", heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Working memory activities"] },
+    { id: "cognitive-gym", name: "The Cognitive Gym", description: "Executive function training strategies", icon: Brain, color: "#ec4899", avatar: AVATARS.COUNSELOR, link: "/generators/cognitive-gym", heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Working memory activities"] },
     { id: "idea-generator", name: "Idea Generator", description: "Creative solutions", icon: Lightbulb, color: "#f59e0b", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Engagement strategies"] },
     { id: "code-commander", name: "Code Commander", description: "Learn coding", icon: Code, color: "#06b6d4", avatar: AVATARS.DATA, heroVideo: "/videos/features/data-analysis-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/data_voice.wav", prompts: ["Debug my Python code"] },
     { id: "comms-director", name: "Comms Director", description: "PR content", icon: Megaphone, color: "#f97316", avatar: AVATARS.PRINCIPAL, heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/principal_voice.wav", prompts: ["Draft school newsletter"] },

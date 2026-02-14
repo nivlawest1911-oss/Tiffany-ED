@@ -220,14 +220,37 @@ export default function HolographicBriefing({
 
                             {/* HUD Overlays */}
                             <div className="absolute top-10 left-10 z-20 flex flex-col gap-4">
-                                <div className="flex items-center gap-3 px-4 py-2 liquid-glass border-noble-gold/30">
+                                <motion.div
+                                    initial={{ x: -20, opacity: 0 }}
+                                    animate={{ x: 0, opacity: 1 }}
+                                    transition={{ delay: 0.5 }}
+                                    className="flex items-center gap-3 px-4 py-2 liquid-glass border-noble-gold/30"
+                                >
                                     <Wifi size={14} className="text-noble-gold animate-pulse" />
                                     <span className="text-[10px] font-black text-white uppercase tracking-[0.3em]">Neural Uplink: Stable</span>
-                                </div>
-                                <div className="flex items-center gap-3 px-4 py-2 liquid-glass border-emerald-500/30">
+                                </motion.div>
+                                <motion.div
+                                    initial={{ x: -20, opacity: 0 }}
+                                    animate={{ x: 0, opacity: 1 }}
+                                    transition={{ delay: 0.7 }}
+                                    className="flex items-center gap-3 px-4 py-2 liquid-glass border-emerald-500/30"
+                                >
                                     <Lock size={14} className="text-emerald-500" />
                                     <span className="text-[10px] font-black text-white uppercase tracking-[0.3em]">EdIntel Encryption</span>
-                                </div>
+                                </motion.div>
+                            </div>
+
+                            {/* Neural Data Stream */}
+                            <div className="absolute top-10 right-10 z-20 hidden md:flex flex-col items-end gap-1 opacity-20 pointer-events-none font-mono text-[8px] text-noble-gold">
+                                {['SYNCHRONIZING...', 'ENCRYPTING...', 'DECODING PACKETS...', 'STABILIZING NODES...'].map((text, i) => (
+                                    <motion.div
+                                        key={i}
+                                        animate={{ opacity: [0.2, 1, 0.2] }}
+                                        transition={{ duration: 2, repeat: Infinity, delay: i * 0.5 }}
+                                    >
+                                        {text}
+                                    </motion.div>
+                                ))}
                             </div>
 
                             <div className="absolute bottom-10 left-10 right-10 flex justify-between items-end z-20">
@@ -313,7 +336,11 @@ export default function HolographicBriefing({
                                                 src={finalAvatar}
                                                 alt={finalRole}
                                                 className="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 transition-all duration-700"
-                                                animate={isSpeaking ? { scale: [1, 1.05, 1], filter: 'brightness(1.2)' } : {}}
+                                                animate={isSpeaking ? {
+                                                    scale: [1, 1.05, 1],
+                                                    filter: ['brightness(1)', 'brightness(1.5)', 'brightness(1)'],
+                                                    rotate: [0, 1, -1, 0]
+                                                } : {}}
                                             />
 
                                             {isSpeaking && (

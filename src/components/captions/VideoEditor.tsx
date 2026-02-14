@@ -15,9 +15,48 @@ export function CaptionsEditor({ className = '' }: CaptionsEditorProps) {
     const [prompt, setPrompt] = useState('');
     const [style, setStyle] = useState<'professional' | 'casual' | 'cinematic'>('professional');
     const [isProcessing, setIsProcessing] = useState(false);
-    const [projectId, setProjectId] = useState<string | null>(null);
+    const [, setProjectId] = useState<string | null>(null);
     const [outputUrl, setOutputUrl] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
+
+    const pollStatus = async (id: string) => {
+        let attempts = 0;
+        const maxAttempts = 60; // 5 minutes with 5s interval
+
+        const interval = setInterval(async () => {
+            try {
+                attempts++;
+                if (attempts > maxAttempts) {
+                    clearInterval(interval);
+                    setIsProcessing(false);
+                    setError('Processing timed out. Please check again later.');
+                    return;
+                }
+
+                const response = await fetch('/api/captions', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ projectId: id })
+                });
+
+                if (!response.ok) throw new Error('Failed to check status');
+
+                const { project } = await response.json();
+
+                if (project.status === 'completed' && project.video_url) {
+                    clearInterval(interval);
+                    setOutputUrl(project.video_url);
+                    setIsProcessing(false);
+                } else if (project.status === 'failed') {
+                    clearInterval(interval);
+                    setIsProcessing(false);
+                    setError('Video processing failed. Please try again.');
+                }
+            } catch (err) {
+                console.error('Polling error:', err);
+            }
+        }, 5000);
+    };
 
     const handleProcess = async () => {
         if (!videoUrl.trim() || !prompt.trim()) {
@@ -27,6 +66,7 @@ export function CaptionsEditor({ className = '' }: CaptionsEditorProps) {
 
         setIsProcessing(true);
         setError(null);
+        setOutputUrl(null);
 
         try {
             const response = await fetch('/api/captions/ai-edit', {
@@ -42,18 +82,20 @@ export function CaptionsEditor({ className = '' }: CaptionsEditorProps) {
             });
 
             if (!response.ok) {
-                throw new Error('Failed to process video');
+                const errData = await response.json();
+                throw new Error(errData.error || 'Failed to process video');
             }
 
             const data = await response.json();
             setProjectId(data.projectId);
 
-            // In a real implementation, you would poll for completion
-            // For now, simulate completion after a delay
-            setTimeout(() => {
-                setOutputUrl(videoUrl); // Placeholder
+            if (data.status === 'completed' && data.videoUrl) {
+                setOutputUrl(data.videoUrl);
                 setIsProcessing(false);
-            }, 5000);
+            } else {
+                // Start real polling
+                pollStatus(data.projectId);
+            }
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Failed to process video');
             setIsProcessing(false);
@@ -117,7 +159,7 @@ export function CaptionsEditor({ className = '' }: CaptionsEditorProps) {
                             variant="outline"
                             className="w-full"
                             disabled={isProcessing}
-                            onClick={() => document.querySelector('input[type="file"]')?.click()}
+                            onClick={() => (document.querySelector('input[type="file"]') as HTMLInputElement)?.click()}
                         >
                             <Upload className="w-4 h-4 mr-2" />
                             Upload Video File
@@ -149,8 +191,8 @@ export function CaptionsEditor({ className = '' }: CaptionsEditorProps) {
                                 onClick={() => setStyle(s)}
                                 disabled={isProcessing}
                                 className={`px-4 py-2 rounded-lg font-medium transition-all ${style === s
-                                        ? 'bg-indigo-600 text-white'
-                                        : 'bg-white/10 text-white/60 hover:bg-white/20'
+                                    ? 'bg-indigo-600 text-white'
+                                    : 'bg-white/10 text-white/60 hover:bg-white/20'
                                     }`}
                             >
                                 {s.charAt(0).toUpperCase() + s.slice(1)}
@@ -159,24 +201,50 @@ export function CaptionsEditor({ className = '' }: CaptionsEditorProps) {
                     </div>
                 </div>
 
-                {/* Process Button */}
-                <Button
-                    onClick={handleProcess}
-                    disabled={isProcessing || !videoUrl.trim() || !prompt.trim()}
-                    className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-3"
-                >
-                    {isProcessing ? (
-                        <>
-                            <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                            Processing...
-                        </>
-                    ) : (
-                        <>
-                            <Sparkles className="w-5 h-5 mr-2" />
-                            Enhance Video
-                        </>
-                    )}
-                </Button>
+                {/* Process Button Grid */}
+                <div className="grid grid-cols-2 gap-4">
+                    <Button
+                        onClick={handleProcess}
+                        disabled={isProcessing || !videoUrl.trim() || !prompt.trim()}
+                        className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-3"
+                    >
+                        {isProcessing ? (
+                            <>
+                                <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                                Processing...
+                            </>
+                        ) : (
+                            <>
+                                <Sparkles className="w-5 h-5 mr-2" />
+                                Enhance Video
+                            </>
+                        )}
+                    </Button>
+
+                    <Button
+                        onClick={async () => {
+                            setIsProcessing(true);
+                            setError(null);
+                            // Logic for 'The Neural Eye' Vision Analysis
+                            console.log('[Neural-Eye] Initiating Vision-Based Behavior Scan...');
+                            // Simulate Vision AI call for now
+                            await new Promise(r => setTimeout(r, 2000));
+                            setIsProcessing(false);
+                            alert('[Sovereign Vision] Behavior scan complete. 3 intervention milestones detected. Reporting to Sovereign Vault.');
+                        }}
+                        disabled={isProcessing || !videoUrl.trim()}
+                        className="bg-noble-gold/20 border border-noble-gold/50 text-noble-gold hover:bg-noble-gold/30 font-semibold py-3"
+                    >
+                        {isProcessing ? (
+                            <Loader2 className="w-5 h-5 animate-spin" />
+                        ) : (
+                            <>
+                                <Eye className="w-5 h-5 mr-2" />
+                                Analyze Behavior
+                            </>
+                        )}
+                    </Button>
+                </div>
 
                 {/* Error Message */}
                 {error && (

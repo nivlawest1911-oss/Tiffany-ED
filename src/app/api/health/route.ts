@@ -1,18 +1,21 @@
-export const dynamic = 'force-dynamic';
+import { NextResponse } from 'next/server';
+
 export async function GET() {
-    try {
-        // Check if the API Key exists
-        const hasKey = !!process.env.GOOGLE_GENAI_API_KEY;
+    const diagnostics = {
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV,
+        variables: {
+            NEXT_PUBLIC_SUPABASE_URL: !!process.env.NEXT_PUBLIC_SUPABASE_URL ? 'PRESENT' : 'MISSING',
+            NEXT_PUBLIC_SUPABASE_ANON_KEY: !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? 'PRESENT' : 'MISSING',
+            DATABASE_URL: !!process.env.DATABASE_URL ? 'PRESENT' : 'MISSING',
+            POSTGRES_URL: !!process.env.POSTGRES_URL ? 'PRESENT' : 'MISSING',
+            GOOGLE_API_KEY: (!!process.env.GOOGLE_API_KEY || !!process.env.GOOGLE_GENERATIVE_AI_API_KEY) ? 'PRESENT' : 'MISSING',
+            TOGETHER_API_KEY: !!process.env.TOGETHER_API_KEY ? 'PRESENT' : 'MISSING',
+            JWT_SECRET: !!process.env.JWT_SECRET ? 'PRESENT' : 'MISSING',
+        },
+        status: 'SYSTEM_DIAGNOSTIC_ACTIVE',
+        uplink: (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) ? 'ONLINE' : 'OFFLINE',
+    };
 
-        // Optional: Perform a 'ping' to OpenAI or your DB here
-
-        return Response.json({
-            status: 'operational',
-            latency: '24ms',
-            aiReady: true, // Always ready via Professional Engine
-            mode: hasKey ? 'cloud' : 'professional'
-        });
-    } catch (e) {
-        return Response.json({ status: 'degraded' }, { status: 500 });
-    }
+    return NextResponse.json(diagnostics);
 }

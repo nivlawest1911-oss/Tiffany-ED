@@ -11,7 +11,7 @@ interface User {
     name: string;
     email: string;
     id: string;
-    tier: 'free' | 'professional' | 'enterprise' | 'SCHOOL_SITE' | 'DISTRICT_MATRIX' | 'EXECUTIVE_COMMAND';
+    tier: 'free' | 'professional' | 'enterprise' | 'SCHOOL_SITE' | 'DISTRICT_MATRIX' | 'EXECUTIVE_COMMAND' | 'Sovereign Initiate' | 'Director Pack' | 'Practitioner' | 'Sovereign Pack' | 'Standard Pack' | 'Site Command';
     usage_count?: number;
     tokensRemaining?: number;
     trialEndsAt?: Date | null;
@@ -40,50 +40,47 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     // 🏛️ EdIntel IDENTITY SYNC
     useEffect(() => {
+        if (!supabase) {
+            setIsLoading(false);
+            return;
+        }
+
         const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
             if (session?.user) {
-                // Ensure we capture metadata consistently
-                const metadata = session.user.user_metadata || {};
-                const usage = metadata.usage_count || 0;
+                try {
+                    const { data: profile } = await supabase
+                        .from('profiles')
+                        .select('full_name, avatar_url')
+                        .eq('id', session.user.id)
+                        .single();
 
-                // Sync with profiles and subscriptions tables for real-time tier accurately
-                const { data: profile } = await supabase
-                    .from('profiles')
-                    .select('full_name, avatar_url')
-                    .eq('id', session.user.id)
-                    .single();
+                    // Fetch DIRECTLY from users table which is the source of truth for trial_ends_at
+                    const { data: userData } = await supabase
+                        .from('users')
+                        .select('subscription_tier, trial_ends_at, usage_count')
+                        .eq('id', session.user.id)
+                        .single();
 
-                const { data: subscription } = await supabase
-                    .from('subscriptions')
-                    .select('tier_name')
-                    .eq('user_id', session.user.id)
-                    .single();
+                    const newUser: User = {
+                        id: session.user.id,
+                        email: session.user.email!,
+                        name: profile?.full_name || (session.user.user_metadata?.full_name) || session.user.email?.split('@')[0] || 'Executive',
+                        tier: (userData?.subscription_tier as any) || (session.user.user_metadata?.tier as any) || 'Sovereign Initiate',
+                        usage_count: userData?.usage_count || session.user.user_metadata?.usage_count || 0,
+                        trialEndsAt: userData?.trial_ends_at ? new Date(userData.trial_ends_at) : null
+                    };
 
-                const newUser: User = {
-                    id: session.user.id,
-                    email: session.user.email!,
-                    name: profile?.full_name || metadata.full_name || session.user.email?.split('@')[0] || 'Executive',
-                    tier: (subscription?.tier_name as any) || (metadata.tier as any) || 'Sovereign Initiate',
-                    usage_count: usage // We might need to fetch usage from another table if usage_tokens moved
-                };
+                    setUser(newUser);
 
-                setUser(newUser);
-
-                // Celebrate login
-                if (event === 'SIGNED_IN') {
-                    celebrate(
-                        `Welcome back, ${newUser.name}`,
-                        'EdIntel access protocols synchronized. Your executive suite is ready.',
-                        'success'
-                    );
-                }
-
-                // 🚨 MONITOR TOKEN BALANCE (Alerting for low tokens)
-                if (newUser.usage_count! > 900 && (newUser.tier === 'free' as any)) {
-                    toast.error("Alert: EdIntel Tokens Low. Refuel at the Command Center.", {
-                        description: "Energy reserves depleting. Secure institutional funding.",
-                        duration: 10000,
-                    });
+                    if (event === 'SIGNED_IN') {
+                        celebrate(
+                            `Welcome back, ${newUser.name}`,
+                            'EdIntel access protocols synchronized. Your executive suite is ready.',
+                            'success'
+                        );
+                    }
+                } catch (err) {
+                    console.error("[AUTH_CONTEXT] Data sync failure:", err);
                 }
             } else {
                 setUser(null);
@@ -95,6 +92,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }, [celebrate]);
 
     const login = async (email: string, password?: string) => {
+        if (!supabase) {
+            toast.error("Uplink Offline", { description: "Supabase configuration is missing. Authentication is unavailable." });
+            return;
+        }
         setIsLoading(true);
         try {
             if (!password) {
@@ -118,6 +119,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     const signup = async (email: string, password?: string, name?: string) => {
+        if (!supabase) {
+            toast.error("Uplink Offline", { description: "Supabase configuration is missing. Signup is unavailable." });
+            return;
+        }
         setIsLoading(true);
         try {
             const { data, error } = await supabase.auth.signUp({
@@ -152,6 +157,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     const updateUser = async (data: Partial<User>) => {
+        if (!supabase) return;
         const { error } = await supabase.auth.updateUser({
             data: {
                 full_name: data.name,
@@ -163,6 +169,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     const loginWithGoogle = async () => {
+        if (!supabase) {
+            toast.error("Uplink Offline", { description: "Supabase configuration is missing." });
+            return;
+        }
         setIsLoading(true);
         try {
             const { data, error } = await supabase.auth.signInWithOAuth({
@@ -177,7 +187,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             });
             if (error) throw error;
             // If no redirect URL returned, something went wrong
-            if (!data?.url) {
+            if (data?.url) {
+                window.location.href = data.url;
+            } else {
                 throw new Error('No authorization URL received from Google.');
             }
         } catch (err: any) {
@@ -191,6 +203,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     const loginWithFacebook = async () => {
+        if (!supabase) {
+            toast.error("Uplink Offline", { description: "Supabase configuration is missing." });
+            return;
+        }
         setIsLoading(true);
         try {
             const { data, error } = await supabase.auth.signInWithOAuth({
@@ -203,7 +219,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 },
             });
             if (error) throw error;
-            if (!data?.url) {
+            if (data?.url) {
+                window.location.href = data.url;
+            } else {
                 throw new Error('No authorization URL received from Facebook.');
             }
         } catch (err: any) {
@@ -217,7 +235,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     const logout = async () => {
-        await supabase.auth.signOut();
+        if (supabase) {
+            await supabase.auth.signOut();
+        }
         setUser(null);
         router.push('/login');
     };

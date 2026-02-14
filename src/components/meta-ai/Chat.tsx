@@ -1,86 +1,92 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { useActions, useUIState } from '@ai-sdk/rsc';
+import type { AI } from '@/app/ai-hub/ai';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Loader2, Brain, Send, Shield, Zap, Activity } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import AbilityAnimation from '@/components/shared/AbilityAnimation';
+
+import { edgeAI } from '@/lib/ai/edge-ai';
 
 export interface MetaAIChatProps {
     className?: string;
 }
 
 export function MetaAIChat({ className = '' }: MetaAIChatProps) {
-    const [messages, setMessages] = useState<Array<{ role: string; content: string }>>([]);
+    const [conversation, setConversation] = useUIState<typeof AI>();
+    const { submitUserMessage } = useActions<typeof AI>();
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [provider, setProvider] = useState<'together' | 'replicate'>('together');
+    const [edgeStatus, setEdgeStatus] = useState<any>(null);
+    const scrollRef = useRef<HTMLDivElement>(null);
 
-    // Ref to hold the controller for the active request
-    const abortControllerRef = useRef<AbortController | null>(null);
-
-    // Cleanup on unmount
+    // Initialize Edge AI on mount
     useEffect(() => {
-        return () => {
-            if (abortControllerRef.current) {
-                abortControllerRef.current.abort();
-            }
-        };
+        edgeAI.init().catch(err => console.error('[Meta-AI] Edge Init Failed:', err));
     }, []);
+
+    // Auto-scroll to bottom
+    useEffect(() => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+        }
+    }, [conversation]);
 
     const handleSend = async () => {
         if (!input.trim() || isLoading) return;
 
-        // Cancel previous request if any (though UI prevents it via isLoading)
-        if (abortControllerRef.current) {
-            abortControllerRef.current.abort();
-        }
-
-        const controller = new AbortController();
-        abortControllerRef.current = controller;
-
-        const userMessage = { role: 'user', content: input };
-        setMessages(prev => [...prev, userMessage]);
+        const userQuery = input;
         setInput('');
         setIsLoading(true);
 
+        // 1. Perform Edge Verification (Transformers.js)
+        const localCheck = await edgeAI.verifyEquity(userQuery);
+        setEdgeStatus(localCheck);
+
+        // Optimistically add user message with Edge Analytics
+        setConversation((current: any) => [
+            ...current,
+            {
+                id: Date.now().toString(),
+                display: (
+                    <div className="flex flex-col items-end w-full gap-2">
+                        <div className="max-w-[85%] rounded-[2rem] px-6 py-4 bg-blue-600 text-white rounded-br-none border border-blue-400/30 shadow-xl">
+                            <div className="flex items-center gap-2 mb-2 opacity-50">
+                                <span className="text-[8px] font-black uppercase tracking-[0.2em]">Executive Intent</span>
+                                <div className="w-1 h-1 rounded-full bg-white" />
+                            </div>
+                            <p className="text-sm font-bold">{userQuery}</p>
+                        </div>
+                        {localCheck && (
+                            <div className="flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full">
+                                <Activity size={8} className={localCheck.equityVerified ? 'text-emerald-500' : 'text-amber-500'} />
+                                <span className="text-[7px] font-black uppercase tracking-widest text-zinc-500">
+                                    Edge Verified: {localCheck.sentiment} ({Math.round(localCheck.confidence * 100)}%)
+                                </span>
+                            </div>
+                        )}
+                    </div>
+                )
+            }
+        ]);
+
         try {
-            const response = await fetch('/api/meta-ai/chat', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    messages: [...messages, userMessage],
-                    provider,
-                }),
-                signal: controller.signal
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to get response');
-            }
-
-            const data = await response.json();
-            // Check if aborted before updating state
-            if (controller.signal.aborted) return;
-
-            const assistantMessage = data.choices[0]?.message;
-
-            if (assistantMessage) {
-                setMessages(prev => [...prev, assistantMessage]);
-            }
-        } catch (error: any) {
-            if (error.name === 'AbortError') return;
-            console.error('Error:', error);
-            setMessages(prev => [...prev, {
-                role: 'assistant',
-                content: 'Sorry, I encountered an error. Please try again.',
-            }]);
+            const response = await submitUserMessage(userQuery);
+            setConversation((current: any) => [...current, response]);
+        } catch (error) {
+            console.error('[Meta-AI] Transmission Error:', error);
+            setConversation((current: any) => [
+                ...current,
+                {
+                    id: Date.now().toString(),
+                    display: <div className="text-red-500 text-xs italic p-4 bg-red-500/10 border border-red-500/20 rounded-xl">Neural Uplink Interrupted. Re-transmit directive.</div>
+                }
+            ]);
         } finally {
-            if (abortControllerRef.current === controller) {
-                setIsLoading(false);
-                abortControllerRef.current = null;
-            }
+            setIsLoading(false);
         }
     };
 
@@ -111,23 +117,18 @@ export function MetaAIChat({ className = '' }: MetaAIChatProps) {
                     </div>
 
                     <div className="flex flex-col items-end gap-2">
-                        <span className="text-[8px] text-zinc-600 font-bold uppercase tracking-[0.2em]">Compute Provider</span>
-                        <select
-                            value={provider}
-                            onChange={(e) => setProvider(e.target.value as any)}
-                            className="px-4 py-2 bg-black border border-white/10 rounded-xl text-white text-[10px] font-bold uppercase tracking-widest focus:outline-none focus:ring-1 focus:ring-blue-500/50 hover:bg-zinc-900 transition-all cursor-pointer"
-                            title="Select AI Provider"
-                        >
-                            <option value="together">Together AI (Fast)</option>
-                            <option value="replicate">Replicate (Deep)</option>
-                        </select>
+                        <span className="text-[8px] text-zinc-600 font-bold uppercase tracking-[0.2em]">Compute Status</span>
+                        <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-xl">
+                            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                            <span className="text-[10px] text-emerald-400 font-black uppercase tracking-widest">Holographic Active</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-8 space-y-6 relative z-10 scrollbar-hide">
-                {messages.length === 0 && (
+            <div className="flex-1 overflow-y-auto p-8 space-y-6 relative z-10 scrollbar-hide" ref={scrollRef}>
+                {conversation.length === 0 && (
                     <div className="h-full flex flex-col items-center justify-center text-center space-y-6 py-12">
                         <motion.div
                             animate={{
@@ -146,29 +147,13 @@ export function MetaAIChat({ className = '' }: MetaAIChatProps) {
                     </div>
                 )}
 
-                <AnimatePresence mode="popLayout">
-                    {messages.map((message, index) => (
-                        <motion.div
-                            key={`${index}-${message.role}`}
-                            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                        >
-                            <div
-                                className={`max-w-[85%] rounded-[2rem] px-6 py-4 shadow-xl ${message.role === 'user'
-                                    ? 'bg-blue-600 text-white rounded-br-none border border-blue-400/30'
-                                    : 'bg-zinc-900/80 text-zinc-100 rounded-bl-none border border-white/5 backdrop-blur-xl'
-                                    }`}
-                            >
-                                <div className="flex items-center gap-2 mb-2 opacity-50">
-                                    <span className="text-[8px] font-black uppercase tracking-[0.2em]">{message.role === 'user' ? 'Executive' : 'Meta System'}</span>
-                                    <div className={`w-1 h-1 rounded-full ${message.role === 'user' ? 'bg-white' : 'bg-blue-500'}`} />
-                                </div>
-                                <p className="text-sm leading-relaxed whitespace-pre-wrap font-medium">{message.content}</p>
-                            </div>
-                        </motion.div>
+                <div className="space-y-8">
+                    {conversation.map((message: any) => (
+                        <div key={message.id}>
+                            {message.display}
+                        </div>
                     ))}
-                </AnimatePresence>
+                </div>
 
                 {isLoading && (
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start">

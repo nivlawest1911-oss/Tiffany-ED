@@ -72,8 +72,8 @@ export function useEdIntelEar(): UseEdIntelEarReturn {
             });
 
             connection.on(LiveTranscriptionEvents.Error, (err) => {
-                console.error('EdIntel Ear Error:', err);
-                setError('Signal Interrupted');
+                console.error('EDINTEL EAR: SIGNAL INTERRUPTED -', err);
+                setError('Neural Link Fractured: Re-uplink Required');
                 setIsListening(false);
             });
 

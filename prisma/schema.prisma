@@ -187,6 +187,7 @@ model EvidenceFolder {
   
   @@index([userId, studentId])
   @@index([category, riskLevel])
+  @@index([embedding], map: "evidence_embedding_hnsw_idx")
   @@map("evidence_folders")
 }
 
@@ -234,6 +235,7 @@ model Observation {
   @@index([userId, observationDate])
   @@index([evidenceFolderId])
   @@index([observationType])
+  @@index([embedding], map: "observation_embedding_hnsw_idx")
   @@map("observations")
 }
 
@@ -269,6 +271,7 @@ model Document {
   
   @@index([evidenceFolderId])
   @@index([fileType])
+  @@index([embedding], map: "document_embedding_hnsw_idx")
   @@map("documents")
 }
 
@@ -325,4 +328,69 @@ model AnalyticsEvent {
   @@index([eventType, timestamp])
   @@index([userId, timestamp])
   @@map("analytics_events")
+}
+
+// ============================================
+// SEMANTIC CACHE (Infinite Rhythm)
+// ============================================
+
+model SemanticCache {
+  id          String   @id @default(cuid())
+  query       String   @db.Text
+  response    String   @db.Text
+  
+  // Vector for Similarity Search
+  embedding   Unsupported("vector(1536)")?
+  
+  // Metatdata for TTL and Usage
+  hitCount    Int      @default(0) @map("hit_count")
+  lastHitAt   DateTime @default(now()) @map("last_hit_at")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@index([embedding], map: "cache_embedding_hnsw_idx")
+  @@map("semantic_caches")
+}
+
+// ============================================
+// GRAPHRAG: THE SOVEREIGN WEB
+// ============================================
+
+model GraphNode {
+  id          String   @id @default(cuid())
+  label       String   // Student, Staff, Incident, Protocol
+  name        String
+  properties  Json?    // Specific attributes (grade, role, etc.)
+  
+  // Vector for Hybrid Search (Graph + Semantic)
+  embedding   Unsupported("vector(1536)")?
+  
+  // Relations
+  outbound    GraphEdge[] @relation("OutboundEdges")
+  inbound     GraphEdge[] @relation("InboundEdges")
+
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@index([label])
+  @@index([embedding], map: "graph_node_embedding_hnsw_idx")
+  @@map("graph_nodes")
+}
+
+model GraphEdge {
+  id          String   @id @default(cuid())
+  type        String   // TEACHES, INVOLVED_IN, MENTORS, COMPLIANT_WITH
+  properties  Json?
+  
+  sourceId    String
+  source      GraphNode @relation("OutboundEdges", fields: [sourceId], references: [id], onDelete: Cascade)
+  
+  targetId    String
+  target      GraphNode @relation("InboundEdges", fields: [targetId], references: [id], onDelete: Cascade)
+
+  weight      Float    @default(1.0)
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@index([sourceId])
+  @@index([targetId])
+  @@index([type])
+  @@map("graph_edges")
 }

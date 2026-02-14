@@ -1,18 +1,23 @@
 'use client';
 
-import React from "react"
-import { motion } from "framer-motion"
+import React, { useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import {
     Users,
     Brain,
     Zap,
     Activity,
     MoreHorizontal,
-    Sparkles as SparkleIcon
+    Sparkles as SparkleIcon,
+    Shield,
+    Swords,
+    ChevronRight,
+    X
 } from "lucide-react"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import Link from 'next/link';
+
+import { CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 import {
     AreaChart,
     Area,
@@ -23,14 +28,19 @@ import {
     ResponsiveContainer
 } from "recharts"
 
+/* --- CORE COMPONENTS --- */
 import { ExecutiveBrief } from './zone1-executive-brief'
 import ProfessionalID from '@/components/dossier/ProfessionalID'
 import { EdIntelDelegate } from '@/components/edintel-core/EdIntelDelegate'
 import { GrantArchitect } from './zone3-grant-architect'
 import { BoardRoom } from './zone3-board-room'
 import BurnoutHeatmap from '@/components/dashboard/BurnoutHeatmap'
-import { AnimatePresence } from 'framer-motion'
-import { X } from 'lucide-react'
+import { EdIntelIdentity } from '@/components/dashboard/EdIntelIdentity'
+import { ParticleBackground, GlassCard } from '@/components/ui/Cinematic'
+import DistrictIntelligenceScore from '@/components/landing/DistrictIntelligenceScore'
+import PlatformActivity from '@/components/landing/PlatformActivity'
+import { EdIntelAutomation } from '@/components/edintel-core/EdIntelAutomation'
+import { useIntelligence } from '@/context/IntelligenceContext'
 
 const stats = [
     { label: "Active Nodes", value: "48", trend: "+12%", icon: Users, color: "#3b82f6" },
@@ -50,186 +60,224 @@ const chartData = [
 ]
 
 export default function Dashboard() {
+    const { triggerBriefing } = useIntelligence();
     const [showBurnoutHeatmap, setShowBurnoutHeatmap] = React.useState(false);
+
+    // AUTO-WELCOME TRIGGER: SURFACING FOUNDER HUB BRIEFING
+    useEffect(() => {
+        const welcomePlayed = sessionStorage.getItem('edintel_welcome_played');
+        if (!welcomePlayed) {
+            const timer = setTimeout(() => {
+                triggerBriefing('Legacy Profile');
+                sessionStorage.setItem('edintel_welcome_played', 'true');
+            }, 1000);
+            return () => clearTimeout(timer);
+        }
+    }, [triggerBriefing]);
+
     return (
-        <div className="space-y-12 pb-20">
-            {/* 1. Welcome Header */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div>
-                    <motion.h1
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        className="text-3xl font-bold tracking-tight text-white flex items-center gap-3"
-                    >
-                        Welcome back, Dr. West <SparkleIcon className="h-6 w-6 text-cyan-400" />
-                    </motion.h1>
-                    <p className="text-slate-400 text-sm mt-1">EdIntel OS // Tactical Overview for Mobile County Schools</p>
-                </div>
-                <div className="flex items-center gap-3">
-                    <Button variant="outline" className="bg-white/5 border-white/10 text-white hover:bg-white/10 border-0">
-                        Export Report
-                    </Button>
-                    <Button className="bg-cyan-500 text-black hover:bg-cyan-400 font-black px-6 rounded-full shadow-[0_0_20px_rgba(6,182,212,0.4)] transition-all hover:scale-105 active:scale-95">
-                        Live Command
-                    </Button>
-                </div>
+        <div className="relative min-h-screen pb-20 overflow-x-hidden">
+            {/* 1. CINEMATIC BACKGROUND MESH (Video-Based) */}
+            <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+                <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-screen scale-110 blur-sm"
+                    src="/videos/EdIntel_OS_Layout_Enhancements.mp4"
+                />
+                <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-blue-600/10 blur-[120px] rounded-full animate-pulse" />
+                <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-indigo-600/10 blur-[100px] rounded-full" />
+                <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_50%,rgba(0,0,0,0.2)_50%)] bg-[length:100%_4px] opacity-10" />
+                <ParticleBackground count={40} />
             </div>
 
-            {/* 2. Executive Brief (Zone 1) */}
-            <section className="relative z-10">
-                <ExecutiveBrief />
-            </section>
+            <div className="relative z-10 max-w-[1600px] mx-auto p-4 md:p-8 space-y-8 md:space-y-12">
+                {/* 2. Welcome Protocol Header */}
+                <header className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/5">
+                    <div className="space-y-4">
+                        <motion.div
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="flex items-center gap-3"
+                        >
+                            <div className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_10px_#22d3ee]" />
+                            <span className="text-[10px] font-black tracking-[0.4em] text-cyan-400 uppercase">System Nominal • EdIntel v2.0 Active</span>
+                        </motion.div>
+                        <h1 className="text-3xl md:text-7xl font-black uppercase tracking-tighter text-white italic">
+                            Command <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-white">Center</span>
+                        </h1>
+                        <p className="text-zinc-500 text-sm font-medium italic max-w-lg">
+                            "Directing administrative intelligence through high-fidelity neural protocols."
+                        </p>
+                    </div>
 
-            {/* 3. Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {stats.map((stat, i) => (
-                    <motion.div
-                        key={stat.label}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: i * 0.1 }}
-                    >
-                        <Card className="bg-white/5 border-white/10 backdrop-blur-sm hover:border-white/20 transition-all group overflow-hidden">
-                            <CardContent className="p-6 relative">
-                                <div className="flex items-center justify-between mb-4">
-                                    <div className="p-2 rounded-xl bg-white/5 group-hover:scale-110 transition-transform duration-500">
-                                        <stat.icon className="h-5 w-5" style={{ color: stat.color }} />
-                                    </div>
-                                    <Badge variant="outline" className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-[10px]">
-                                        {stat.trend}
-                                    </Badge>
-                                </div>
-                                <div>
-                                    <p className="text-xs font-medium text-slate-400 uppercase tracking-widest">{stat.label}</p>
-                                    <h3 className="text-2xl font-bold text-white mt-1">{stat.value}</h3>
-                                </div>
-                                <div
-                                    className="absolute -bottom-4 -right-4 w-12 h-12 blur-2xl opacity-20 transition-opacity group-hover:opacity-40"
-                                    style={{ backgroundColor: stat.color }}
-                                />
-                            </CardContent>
-                        </Card>
-                    </motion.div>
-                ))}
-            </div>
+                    <div className="flex items-center gap-4">
+                        <Button variant="outline" className="bg-white/5 border-white/10 text-white hover:bg-white/10 border-0 rounded-full px-6">
+                            Export Intelligence
+                        </Button>
+                        <Link href="/dashboard/command">
+                            <Button className="bg-cyan-500 text-black hover:bg-cyan-400 font-black px-8 rounded-full shadow-[0_0_30px_rgba(6,182,212,0.4)] transition-all hover:scale-105 active:scale-95">
+                                Live Command
+                            </Button>
+                        </Link>
+                    </div>
+                </header>
 
-            {/* 4. EdIntel Delegate (Hero Interaction) */}
-            <section className="-mx-8">
-                <div className="bg-slate-900/40 border-y border-white/5 py-4">
-                    <EdIntelDelegate />
-                </div>
-            </section>
+                {/* 3. Identity Hub */}
+                <EdIntelIdentity />
 
-            {/* 5. Tactical Grid (Grant Architect & Board Room) */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div className="lg:col-span-2">
-                    <Card className="h-full bg-white/5 border-white/10 backdrop-blur-sm">
-                        <CardHeader className="flex flex-row items-center justify-between">
-                            <div>
-                                <CardTitle className="text-lg text-white">Learning Trajectory</CardTitle>
-                                <CardDescription className="text-slate-400">District-wide performance indices</CardDescription>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <Button variant="ghost" size="sm" className="text-xs text-white/40 hover:text-white">D</Button>
-                                <Button variant="ghost" size="sm" className="text-xs text-white/40 hover:text-white">W</Button>
-                                <Button variant="ghost" size="sm" className="bg-white/10 text-xs text-white">M</Button>
-                            </div>
-                        </CardHeader>
-                        <CardContent className="h-[350px] w-full p-0 py-4">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <AreaChart data={chartData}>
-                                    <defs>
-                                        <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#06b6d4" stopOpacity={0.3} />
-                                            <stop offset="95%" stopColor="#06b6d4" stopOpacity={0} />
-                                        </linearGradient>
-                                    </defs>
-                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#ffffff05" />
-                                    <XAxis
-                                        dataKey="name"
-                                        stroke="#ffffff20"
-                                        fontSize={10}
-                                        tickLine={false}
-                                        axisLine={false}
-                                    />
-                                    <YAxis
-                                        stroke="#ffffff20"
-                                        fontSize={10}
-                                        tickLine={false}
-                                        axisLine={false}
-                                    />
-                                    <Tooltip
-                                        contentStyle={{ backgroundColor: "#0f172a", border: "1px solid #ffffff10", borderRadius: "12px", fontSize: "12px" }}
-                                        itemStyle={{ color: "#fff" }}
-                                    />
-                                    <Area
-                                        type="monotone"
-                                        dataKey="value"
-                                        stroke="#06b6d4"
-                                        strokeWidth={3}
-                                        fillOpacity={1}
-                                        fill="url(#colorValue)"
-                                    />
-                                </AreaChart>
-                            </ResponsiveContainer>
-                        </CardContent>
-                    </Card>
-                </div>
+                {/* 4. Strategic Briefing Zone */}
+                <section className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+                    <ExecutiveBrief />
+                </section>
 
-                <div className="space-y-6">
-                    <ProfessionalID />
-                    <GrantArchitect />
-                    <BoardRoom />
-                </div>
-            </div>
+                {/* 5. Integrated Intelligence Matrix */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
 
-            {/* 6. Lower Dashboard (Intel & Directives) */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
-                    <CardHeader className="flex flex-row items-center justify-between">
-                        <CardTitle className="text-lg text-white">Recent Intel</CardTitle>
-                        <Button variant="ghost" size="icon" className="text-white/40"><MoreHorizontal className="h-4 w-4" /></Button>
-                    </CardHeader>
-                    <CardContent>
-                        <div className="space-y-4">
-                            {[1, 2, 3].map((item) => (
-                                <div key={item} className="flex items-start gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors cursor-pointer group">
-                                    <div className="h-10 w-10 shrink-0 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-cyan-400 group-hover:border-cyan-400/50 transition-colors">
-                                        <Activity className="h-5 w-5" />
-                                    </div>
-                                    <div className="flex-1">
-                                        <p className="text-xs font-bold text-white group-hover:text-cyan-400 transition-colors">New Compliance Synthesis Generated</p>
-                                        <p className="text-[10px] text-slate-500 mt-1">EdIntel Agent #042 processed Section 504 artifacts.</p>
-                                    </div>
-                                    <span className="text-[10px] text-slate-700 font-mono">2m ago</span>
-                                </div>
-                            ))}
+                    {/* LEFT: DISTRICT PULSE */}
+                    <div className="lg:col-span-3 space-y-6">
+                        <div className="flex items-center gap-2 mb-2 font-black text-[10px] tracking-[0.2em] text-zinc-500 uppercase">
+                            <Shield className="w-3 h-3 text-cyan-400" />
+                            District Pulse
                         </div>
-                    </CardContent>
-                </Card>
+                        <GlassCard className="p-0 overflow-hidden h-full flex flex-col border-cyan-500/10">
+                            <DistrictIntelligenceScore />
+                        </GlassCard>
+                    </div>
 
-                <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => setShowBurnoutHeatmap(true)}
-                    className="relative p-6 rounded-2xl bg-gradient-to-br from-red-900/20 to-orange-900/20 border border-red-500/20 group hover:border-red-500/40 transition-all overflow-hidden cursor-pointer"
-                >
-                    <div className="absolute top-0 right-0 p-4 opacity-10">
-                        <SparkleIcon size={100} />
+                    {/* MIDDLE: THE EDUCATOR'S BRAIN (Core Stats & Chart) */}
+                    <div className="lg:col-span-6 space-y-6">
+                        <div className="flex items-center gap-2 mb-2 font-black text-[10px] tracking-[0.2em] text-zinc-500 uppercase">
+                            <Brain className="w-3 h-3 text-indigo-400" />
+                            The Educator's Brain
+                        </div>
+                        <GlassCard className="p-6 h-full bg-gradient-to-br from-indigo-500/5 to-purple-600/5 border-indigo-500/20">
+                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                                {stats.map((stat, _i) => (
+                                    <div key={stat.label} className="space-y-1">
+                                        <p className="text-[8px] font-black text-zinc-500 uppercase tracking-widest">{stat.label}</p>
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-xl font-bold text-white">{stat.value}</span>
+                                            <span className="text-[8px] text-emerald-400">{stat.trend}</span>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <CardContent className="h-[250px] w-full p-0">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <AreaChart data={chartData}>
+                                        <defs>
+                                            <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
+                                                <stop offset="5%" stopColor="#06b6d4" stopOpacity={0.3} />
+                                                <stop offset="95%" stopColor="#06b6d4" stopOpacity={0} />
+                                            </linearGradient>
+                                        </defs>
+                                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#ffffff05" />
+                                        <XAxis dataKey="name" stroke="#ffffff20" fontSize={10} tickLine={false} axisLine={false} />
+                                        <YAxis stroke="#ffffff20" fontSize={10} tickLine={false} axisLine={false} />
+                                        <Tooltip contentStyle={{ backgroundColor: "#0f172a", border: "1px solid #ffffff10", borderRadius: "12px", fontSize: "12px" }} itemStyle={{ color: "#fff" }} />
+                                        <Area type="monotone" dataKey="value" stroke="#06b6d4" strokeWidth={3} fillOpacity={1} fill="url(#colorValue)" />
+                                    </AreaChart>
+                                </ResponsiveContainer>
+                            </CardContent>
+                        </GlassCard>
                     </div>
-                    <h3 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                        Burnout Elimination
-                    </h3>
-                    <p className="text-sm text-zinc-400 mb-4">Reduce administrative load to zero.</p>
-                    <div className="flex items-end gap-2">
-                        <span className="text-4xl font-black text-white">84%</span>
-                        <span className="text-sm text-green-400 mb-2">reduction this week</span>
+
+                    {/* RIGHT: TACTICAL ASSETS */}
+                    <div className="lg:col-span-3 space-y-6">
+                        <div className="flex items-center gap-2 mb-2 font-black text-[10px] tracking-[0.2em] text-zinc-500 uppercase">
+                            <Swords className="w-3 h-3 text-rose-400" />
+                            Tactical Assets
+                        </div>
+                        <div className="space-y-4">
+                            <ProfessionalID />
+                            <motion.div
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                                onClick={() => setShowBurnoutHeatmap(true)}
+                                className="p-6 rounded-2xl bg-gradient-to-br from-red-900/10 to-orange-900/10 border border-red-500/20 group hover:border-red-500/40 transition-all cursor-pointer relative overflow-hidden"
+                            >
+                                <div className="absolute top-0 right-0 p-4 opacity-5">
+                                    <SparkleIcon size={60} />
+                                </div>
+                                <h3 className="text-sm font-bold text-white mb-2 flex items-center gap-2 uppercase tracking-wider">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                                    Burnout Shield
+                                </h3>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-2xl font-black text-white">84%</span>
+                                    <span className="text-[10px] text-green-400 uppercase font-bold">Reduction</span>
+                                </div>
+                            </motion.div>
+                        </div>
                     </div>
-                    <div className="mt-4 h-1 w-full bg-red-900/30 rounded-full overflow-hidden">
-                        <div className="h-full bg-gradient-to-r from-red-500 to-orange-500 w-[84%]" />
+                </div>
+
+                {/* 6. EdIntel Delegate (Neural Protocol Interface) */}
+                <section className="-mx-4 md:-mx-8">
+                    <div className="bg-slate-900/20 border-y border-white/5 py-8 backdrop-blur-sm">
+                        <div className="max-w-[1600px] mx-auto px-4 md:px-8">
+                            <EdIntelDelegate />
+                        </div>
                     </div>
-                </motion.div>
+                </section>
+
+                {/* 7. Operations Deck (Grant Architect & Board Room) */}
+                <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                    <div className="xl:col-span-2">
+                        <PlatformActivity />
+                    </div>
+                    <div className="space-y-6">
+                        <GrantArchitect />
+                        <BoardRoom />
+                    </div>
+                </div>
+
+                {/* 8. Recent Intel Protocol */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div className="lg:col-span-8">
+                        <GlassCard className="h-full">
+                            <CardHeader className="flex flex-row items-center justify-between">
+                                <div>
+                                    <CardTitle className="text-lg text-white font-black uppercase tracking-widest">Recent Intel Matrix</CardTitle>
+                                    <CardDescription className="text-zinc-500 font-medium italic">Analyzing localized administrative signals...</CardDescription>
+                                </div>
+                                <Button variant="ghost" size="icon" className="text-white/40"><MoreHorizontal className="h-4 w-4" /></Button>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="space-y-4">
+                                    {[1, 2, 3].map((item) => (
+                                        <div key={item} className="flex items-start gap-4 p-4 rounded-xl border border-white/5 hover:bg-white/5 transition-all cursor-pointer group">
+                                            <div className="h-10 w-10 shrink-0 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center text-cyan-400 group-hover:border-cyan-400/50 transition-colors">
+                                                <Activity className="h-5 w-5" />
+                                            </div>
+                                            <div className="flex-1">
+                                                <div className="flex items-center justify-between">
+                                                    <p className="text-xs font-black text-white group-hover:text-cyan-400 transition-colors uppercase tracking-wider">Protocol Alpha-{item * 12} Executed</p>
+                                                    <span className="text-[9px] text-zinc-600 font-mono italic">{item * 2}m ago</span>
+                                                </div>
+                                                <p className="text-[11px] text-zinc-500 mt-1 italic font-medium">Strategic synthesis of Section 504 artifacts prioritized for Board review.</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className="mt-8">
+                                    <Link href="/dashboard/command">
+                                        <Button variant="outline" className="w-full border-white/5 bg-white/[0.02] hover:bg-white/5 text-[10px] font-black uppercase tracking-[0.3em] py-6 rounded-xl transition-all">
+                                            Open Full Operations Timeline <ChevronRight className="w-3 h-3 ml-2" />
+                                        </Button>
+                                    </Link>
+                                </div>
+                            </CardContent>
+                        </GlassCard>
+                    </div>
+                    <div className="lg:col-span-4">
+                        <EdIntelAutomation tier="Sovereign Initiate" />
+                    </div>
+                </div>
             </div>
 
             {/* Burnout Heatmap Modal */}
@@ -249,8 +297,8 @@ export default function Dashboard() {
                             className="w-full max-w-5xl h-[80vh] bg-zinc-950 rounded-3xl border border-white/10 shadow-2xl overflow-hidden flex flex-col"
                             onClick={(e) => e.stopPropagation()}
                         >
-                            <div className="flex items-center justify-between p-4 border-b border-white/10 bg-black/40">
-                                <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                            <div className="flex items-center justify-between p-6 border-b border-white/10 bg-black/40">
+                                <h2 className="text-xl font-bold text-white flex items-center gap-2 font-black uppercase tracking-widest">
                                     <SparkleIcon className="w-5 h-5 text-red-500" />
                                     Burnout Elimination Protocol
                                 </h2>
@@ -259,7 +307,7 @@ export default function Dashboard() {
                                     className="p-2 rounded-full hover:bg-white/10 transition-colors"
                                     aria-label="Close"
                                 >
-                                    <X className="w-5 h-5 text-zinc-400" />
+                                    <X className="w-6 h-6 text-zinc-400" />
                                 </button>
                             </div>
                             <div className="flex-1 overflow-hidden">
@@ -272,3 +320,4 @@ export default function Dashboard() {
         </div>
     )
 }
+

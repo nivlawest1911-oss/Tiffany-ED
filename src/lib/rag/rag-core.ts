@@ -1,7 +1,7 @@
-/**
- * EdIntel RAG-LITE CORE
- * Simplified retrieval for document-fed strategic context.
- */
+import { generateText } from 'ai';
+import { google } from '@ai-sdk/google';
+import { generateEmbedding } from '../ai/embedding';
+import { prisma } from '../prisma';
 
 export interface VaultDocument {
     id: string;
@@ -11,48 +11,50 @@ export interface VaultDocument {
     relevance_score?: number;
 }
 
-// In-memory cache for document context
-const VAULT_CACHE: VaultDocument[] = [
-    {
-        id: "cog-fit-001",
-        title: "Cognitive Fitness Protocols",
-        content: "Neuroplasticity in executive leadership requires high-intensity cognitive recovery. Executive endurance is built on instructional resilience and the synthesis of divergent data streams.",
-        tags: ["leadership", "neuroscience", "resilience"]
-    },
-    {
-        id: "al-lit-001",
-        title: "Alabama Literacy Synthesis",
-        content: "The Alabama Literacy Act (SB216) mandates the Science of Reading. 3rd-grade retention is a high-stakes outcome requiring Individual Reading Plans (IRPs).",
-        tags: ["compliance", "literacy", "alabama"]
-    },
-    {
-        id: "al-personnel-001",
-        title: "Personnel Conflict Resolution",
-        content: "Professional disputes between instructional staff requires immediate administrative neutrality. Protocol demands: 1. Private separation of parties. 2. Documentation of specific disruptive behaviors. 3. Alignment with Alabama Administrative Code 290-3-3 regarding professional conduct standards.",
-        tags: ["personnel", "conflict", "compliance"]
-    },
-    {
-        id: "al-fiscal-001",
-        title: "Fiscal Capital Management",
-        content: "Alabama State Foundation Program (ASFP) mandates specific teacher-units ratios. Any deviations require board-approved variance reports. Title I funds cannot be used for base salaries of local units.",
-        tags: ["fiscal", "budget", "compliance"]
-    }
-];
-
 /**
- * Retrieves relevant context from the virtual vault based on keywords.
+ * Retrieves relevant context from the Sovereign Vault using HyDE.
  */
 export async function queryEdIntelVault(query: string): Promise<string> {
-    const keywords = query.toLowerCase().split(' ');
+    try {
+        console.log(`[RAG-Core] Starting HyDE flow for: "${query}"`);
 
-    const relevantDocs = VAULT_CACHE.filter(doc =>
-        keywords.some(kw =>
-            doc.title.toLowerCase().includes(kw) ||
-            doc.tags.some(t => t.toLowerCase() === kw)
-        )
-    );
+        // 1. Generate Hypothetical Document (The "Ideal" Answer)
+        const { text: hypotheticalDoc } = await generateText({
+            model: google('gemini-1.5-flash'),
+            prompt: `
+                Explain the Alabama educational protocol or legal standard related to the following query. 
+                Write this as if it were a section of a school district's official compliance manual.
+                
+                Query: ${query}
+                
+                Compliance Protocol:
+            `,
+        });
 
-    if (relevantDocs.length === 0) return "";
+        console.log(`[RAG-Core] Hypothetical Document Generated: "${hypotheticalDoc.substring(0, 50)}..."`);
 
-    return `VIRTUAL VAULT CONTEXT:\n${relevantDocs.map(d => `[Source: ${d.title}] ${d.content}`).join('\n')}`;
+        // 2. Generate Embedding for the Hypothetical Answer
+        const hypotheticalEmbedding = await generateEmbedding(hypotheticalDoc);
+        const vectorStr = `[${hypotheticalEmbedding.join(',')}]`;
+
+        // 3. Search Sovereign Vault (Prisma Documents) using vector similarity
+        const matches: any[] = await prisma.$queryRaw`
+            SELECT title, content, 1 - (embedding <=> ${vectorStr}::vector) as similarity
+            FROM documents
+            WHERE 1 - (embedding <=> ${vectorStr}::vector) > 0.6
+            ORDER BY similarity DESC
+            LIMIT 3
+        `;
+
+        if (matches && matches.length > 0) {
+            console.log(`[RAG-Core] Found ${matches.length} relevant documents in vault.`);
+            return `SOVEREIGN VAULT CONTEXT (Grounded Evidence):\n${matches.map(d => `[Source: ${d.title}] ${d.content}`).join('\n')}`;
+        }
+
+        console.log(`[RAG-Core] No relevant matches found in vault.`);
+        return "";
+    } catch (error) {
+        console.error('[RAG-Core] Error in HyDE flow:', error);
+        return "";
+    }
 }

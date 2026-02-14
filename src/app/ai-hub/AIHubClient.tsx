@@ -21,15 +21,17 @@ import { HeyGenVideoGenerator } from '@/components/heygen/VideoGenerator';
 import { CaptionsEditor } from '@/components/captions/VideoEditor';
 import { InVideoCreator } from '@/components/invideo/VideoCreator';
 import { MetaAIChat } from '@/components/meta-ai/Chat';
+import { XAIChat } from '@/components/x-ai/Chat';
+import { CollaborativeWarRoom } from '@/components/collab/CollaborativeWarRoom';
 
 export default function AIHubClient() {
     const { triggerBriefing } = useIntelligence();
     const [activeTab, setActiveTab] = useState('overview');
     const [stats] = useState({
-        aiModels: 7,
+        aiModels: 8,
         videoTools: 3,
-        totalFeatures: 50,
-        activeUsers: 1247,
+        totalFeatures: 64,
+        neuralConnectivity: '99.9%',
     });
 
     useEffect(() => {
@@ -90,7 +92,7 @@ export default function AIHubClient() {
                             { icon: Brain, label: 'AI Models', value: stats.aiModels, color: 'purple' },
                             { icon: Video, label: 'Video Tools', value: stats.videoTools, color: 'pink' },
                             { icon: Sparkles, label: 'Features', value: stats.totalFeatures, color: 'blue' },
-                            { icon: Users, label: 'Educators', value: stats.activeUsers, color: 'indigo' },
+                            { icon: Activity, label: 'Neural Load', value: stats.neuralConnectivity, color: 'indigo' },
                         ].map((stat, index) => (
                             <motion.div
                                 key={stat.label}
@@ -138,6 +140,14 @@ export default function AIHubClient() {
                             <TabsTrigger value="ai-creator" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-600 data-[state=active]:to-purple-600">
                                 <Wand2 className="w-4 h-4 mr-2" />
                                 AI Creator
+                            </TabsTrigger>
+                            <TabsTrigger value="grok-ai" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-yellow-600 data-[state=active]:to-orange-600">
+                                <Zap className="w-4 h-4 mr-2" />
+                                Grok AI
+                            </TabsTrigger>
+                            <TabsTrigger value="war-room" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-600 data-[state=active]:to-teal-600">
+                                <Users className="w-4 h-4 mr-2" />
+                                War Room
                             </TabsTrigger>
                         </TabsList>
 
@@ -231,17 +241,19 @@ export default function AIHubClient() {
                                                 title: 'X.AI (Grok)',
                                                 icon: Zap,
                                                 color: 'yellow',
-                                                description: 'Advanced reasoning and real-time information',
-                                                features: ['Real-time Data', 'Advanced Reasoning', 'Code Analysis', 'Research'],
+                                                description: 'Advanced reasoning and real-time information with Grok-1',
+                                                features: ['Real-time Data', 'Advanced Reasoning', 'Sovereign Chat', 'Research'],
                                                 status: 'Active',
+                                                action: () => setActiveTab('grok-ai')
                                             },
                                             {
                                                 title: 'Google Gemini',
                                                 icon: Globe,
                                                 color: 'green',
-                                                description: 'Multimodal AI for text, images, and code',
-                                                features: ['Multimodal', 'Long Context', 'Code Generation', 'Vision'],
+                                                description: 'Multimodal AI for text, images, and code in Sovereign Workspace',
+                                                features: ['Sovereign Hub', 'Multimodal', 'Long Context', 'Vision'],
                                                 status: 'Active',
+                                                href: '/gemini-workspace'
                                             },
                                         ].map((platform, index) => (
                                             <motion.div
@@ -253,7 +265,16 @@ export default function AIHubClient() {
                                                 className="relative group"
                                             >
                                                 <div className={`absolute inset-0 bg-gradient-to-br from-${platform.color}-500/20 to-${platform.color}-600/10 rounded-xl blur-xl group-hover:blur-2xl transition-all`} />
-                                                <Card className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border-white/10 p-6 h-full hover:bg-white/15 transition-all">
+                                                <Card
+                                                    className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border-white/10 p-6 h-full hover:bg-white/15 transition-all cursor-pointer"
+                                                    onClick={() => {
+                                                        if ('href' in platform) {
+                                                            window.location.href = platform.href as string;
+                                                        } else if ('action' in platform) {
+                                                            (platform.action as () => void)();
+                                                        }
+                                                    }}
+                                                >
                                                     <div className="flex items-start justify-between mb-4">
                                                         <HumanoidHolograph
                                                             icon={platform.icon}
@@ -407,6 +428,46 @@ export default function AIHubClient() {
                                         </p>
                                     </div>
                                     <InVideoCreator />
+                                </motion.div>
+                            </TabsContent>
+
+                            {/* Grok AI Tab */}
+                            <TabsContent value="grok-ai" className="mt-0">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className="space-y-4"
+                                >
+                                    <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4">
+                                        <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                                            <Zap className="w-5 h-5 text-yellow-400" />
+                                            X.AI Grok-1
+                                        </h3>
+                                        <p className="text-white/70 text-sm">
+                                            Access advanced reasoning and real-time information via the Grok-1 Sovereign Interface.
+                                        </p>
+                                    </div>
+                                    <XAIChat />
+                                </motion.div>
+                            </TabsContent>
+
+                            {/* War Room Tab */}
+                            <TabsContent value="war-room" className="mt-0">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className="space-y-4"
+                                >
+                                    <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-4">
+                                        <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                                            <Users className="w-5 h-5 text-emerald-400" />
+                                            Collaborative War Room
+                                        </h3>
+                                        <p className="text-white/70 text-sm">
+                                            Real-time strategic co-authoring powered by Yjs and Supabase Liquid Data channels. Experience eventual consistency across the institutional mesh.
+                                        </p>
+                                    </div>
+                                    <CollaborativeWarRoom />
                                 </motion.div>
                             </TabsContent>
                         </div>

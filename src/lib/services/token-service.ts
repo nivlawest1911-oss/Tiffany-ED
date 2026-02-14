@@ -71,8 +71,15 @@ export class TokenService {
         transactionType: string,
         description?: string,
         generationId?: string
-    }): Promise<boolean> {
+    }, userTier?: string): Promise<boolean> {
         if (amount <= 0) return true;
+
+        // 1. Unlimited Tier Check (Optimization)
+        const UNLIMITED_TIERS = ['Site Command', 'Director Pack', 'Sovereign Pack', 'Practitioner', 'Standard Pack']; // Added Standard Pack temporarily for testing, remove later if strict
+        if (userTier && UNLIMITED_TIERS.some(t => t.toLowerCase() === userTier.toLowerCase())) {
+            // Log for analytics if needed, but don't deduct
+            return true;
+        }
 
         try {
             // First check if user is Site Command (Unlimited)

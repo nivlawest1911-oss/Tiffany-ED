@@ -15,8 +15,8 @@ export const Sidebar = () => {
 
     const navItems = [
         { icon: LayoutGrid, label: 'Dashboard', href: '/dashboard' },
-        { icon: FileText, label: 'IEP Architect', href: '/dashboard/iep-architect' },
-        { icon: Brain, label: 'Cognitive Gym', href: '/dashboard/cognitive-gym' },
+        { icon: FileText, label: 'IEP Architect', href: '/generators/iep-architect' },
+        { icon: Brain, label: 'Cognitive Gym', href: '/generators/cognitive-gym' },
         { icon: Database, label: 'District Intelligence', href: '/analytics' },
         { icon: Video, label: 'EdIntel Studio', href: '/dashboard/studio' },
         { icon: Zap, label: 'The Room', href: '/the-room' },

@@ -17,12 +17,15 @@ export async function POST(request: NextRequest) {
         }
 
         // 1. AUTHENTICATE & DEDUCT TOKENS
+        // CRITICAL FIX: Ensure session is fully resolved before stream starts.
         const session = await getSession();
-        const user = session?.user;
 
-        if (!user) {
+        if (!session?.user) {
+            console.warn("[API Security] Unauthorized access attempt blocked.");
             return NextResponse.json({ error: 'Unauthorized: EdIntel Access Required' }, { status: 401 });
         }
+
+        const user = session.user;
 
         // Determine cost (Standard: 50, Advanced: 100)
         // We could make this dynamic based on generatorId
@@ -32,7 +35,7 @@ export async function POST(request: NextRequest) {
         const hasFunds = await TokenService.deductTokens(user.id, tokenCost, {
             transactionType: 'GENERATION',
             description: `AI Usage: ${generatorId}`
-        });
+        }, user.tier);
 
         if (!hasFunds) {
             return NextResponse.json(

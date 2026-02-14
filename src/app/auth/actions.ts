@@ -10,6 +10,11 @@ import { createClient } from '@/utils/supabase/client';
 export async function initiateBioAuth(provider: 'google' | 'apple' | 'facebook') {
     const supabase = createClient();
 
+    if (!supabase) {
+        console.warn('🏛️ [EdIntel Auth Protocol Failure]: UPLINK_OFFLINE. Handshake unavailable.');
+        return { error: 'Authentication Uplink is currently offline.' };
+    }
+
     const { data, error } = await supabase.auth.signInWithOAuth({
         provider: provider,
         options: {

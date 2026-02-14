@@ -2,11 +2,12 @@ import type { Metadata } from 'next';
 import { Inter, Playfair_Display, Outfit } from 'next/font/google';
 import './globals.css';
 import { AuthProvider } from '@/context/AuthContext';
-import { CelebrationProvider } from '@/context/CelebrationContext';
 import { IntelligenceProvider } from '@/context/IntelligenceContext';
 import { EdIntelVibeProvider } from "@/context/EdIntelVibeContext";
+import { CelebrationProvider } from '@/context/CelebrationContext';
 import { Toaster } from 'sonner';
-import AppLayout from '@/components/layout/AppLayout';
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' });
@@ -33,14 +34,16 @@ export default function RootLayout({
           <IntelligenceProvider>
             <AuthProvider>
               <EdIntelVibeProvider>
-                <AppLayout>
+                <CelebrationProvider>
                   {children}
-                </AppLayout>
+                  <Toaster position="top-right" theme="dark" />
+                  <Analytics />
+                  <SpeedInsights />
+                </CelebrationProvider>
               </EdIntelVibeProvider>
             </AuthProvider>
           </IntelligenceProvider>
         </CelebrationProvider>
-        <Toaster position="bottom-right" richColors theme="dark" />
       </body>
     </html>
   );

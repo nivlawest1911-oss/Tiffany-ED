@@ -1,24 +1,24 @@
-
 import { NextResponse } from 'next/server';
-import { getCaptionsProject, listCaptionsProjects } from '@/lib/captions';
+import { getCaptionsClient } from '@/lib/captions/client';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
 export async function POST(req: Request) {
     try {
-        const { stableId, action } = await req.json();
+        const { projectId, action } = await req.json();
+        const client = getCaptionsClient();
 
         if (action === 'list') {
-            const projects = await listCaptionsProjects();
-            return NextResponse.json({ projects });
+            const projects = await client.listProjects();
+            return NextResponse.json({ projects: projects.projects });
         }
 
-        if (!stableId) {
-            return NextResponse.json({ error: 'Missing stableId' }, { status: 400 });
+        if (!projectId) {
+            return NextResponse.json({ error: 'Missing projectId' }, { status: 400 });
         }
 
-        const project = await getCaptionsProject(stableId);
+        const project = await client.getProject(projectId);
         return NextResponse.json({ project });
     } catch (error: any) {
         console.error('Captions API Error:', error);

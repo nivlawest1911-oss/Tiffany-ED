@@ -8,8 +8,8 @@ import { Input } from '@/components/ui/input';
 import {
     User, Shield, Bell, Zap, CreditCard,
     Settings as SettingsIcon, Brain, Sparkles,
-    CheckCircle2, AlertCircle, Target, ArrowRight,
-    Cpu, Network, Lock
+    Target, ArrowRight,
+    Cpu, Network, Lock, RefreshCw
 } from 'lucide-react';
 import { useIntelligence } from '@/context/IntelligenceContext';
 import { HolographicBackground } from '@/components/ui/HolographicBackground';
@@ -80,8 +80,8 @@ export default function SettingsClient() {
                                 key={section.id}
                                 onClick={() => setActiveSection(section.id)}
                                 className={`w-full flex items-center gap-4 p-4 rounded-2xl border transition-all duration-300 group relative overflow-hidden ${activeSection === section.id
-                                        ? `bg-${section.color}-500/10 border-${section.color}-500/50 shadow-[0_0_20px_rgba(99,102,241,0.15)]`
-                                        : 'bg-white/5 border-transparent hover:bg-white/10'
+                                    ? `bg-${section.color}-500/10 border-${section.color}-500/50 shadow-[0_0_20px_rgba(99,102,241,0.15)]`
+                                    : 'bg-white/5 border-transparent hover:bg-white/10'
                                     }`}
                             >
                                 <section.icon className={`w-5 h-5 ${activeSection === section.id ? `text-${section.color}-400` : 'text-slate-500 group-hover:text-slate-300'}`} />
@@ -167,7 +167,12 @@ function IdentitySection() {
             </div>
 
             <div className="pt-6">
-                <Button className="bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl px-10 h-14 font-bold text-sm uppercase tracking-widest gap-3">
+                <Button
+                    onClick={() => {
+                        triggerBriefing('Neural Profile Sync initiated. Calibrating Sovereign Identity.');
+                    }}
+                    className="bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl px-10 h-14 font-bold text-sm uppercase tracking-widest gap-3"
+                >
                     <Sparkles className="w-4 h-4" /> Sync Neural Profile
                 </Button>
             </div>
@@ -195,7 +200,11 @@ function NodesSection() {
                         <p className="text-slate-500 text-xs font-bold uppercase tracking-widest">Active Processing Units</p>
                     </div>
                 </div>
-                <Button variant="outline" className="border-white/10 bg-white/5 hover:bg-white/10 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-300">
+                <Button
+                    variant="outline"
+                    onClick={() => triggerBriefing('Scanning global node array for architecture drift...')}
+                    className="border-white/10 bg-white/5 hover:bg-white/10 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-300"
+                >
                     <RefreshCw className="w-3 h-3 mr-2" /> Re-scan Array
                 </Button>
             </div>
@@ -239,13 +248,17 @@ function SubscriptionSection() {
                         </div>
                         <div className="space-y-2">
                             <div className="flex items-center gap-3">
-                                <h2 className="text-3xl font-black uppercase tracking-tight text-white">School Site Pro</h2>
+                                <h2 className="text-3xl font-black uppercase tracking-tight text-white">Sovereign Pack</h2>
                                 <span className="px-3 py-1 bg-amber-500 text-black text-[10px] font-black uppercase tracking-widest rounded-full">Active</span>
                             </div>
                             <p className="text-slate-400 text-sm">Next billing cycle: March 14, 2026</p>
                         </div>
                     </div>
-                    <Button variant="outline" className="border-amber-500/30 bg-amber-500/5 hover:bg-amber-500/10 rounded-2xl h-14 px-8 text-amber-400 font-bold uppercase tracking-widest text-[10px]">
+                    <Button
+                        variant="outline"
+                        onClick={() => window.location.href = 'https://billing.stripe.com/p/login/test_6oE14Uf0z3vE'}
+                        className="border-amber-500/30 bg-amber-500/5 hover:bg-amber-500/10 rounded-2xl h-14 px-8 text-amber-400 font-bold uppercase tracking-widest text-[10px]"
+                    >
                         Manage Billing
                     </Button>
                 </div>
@@ -272,8 +285,11 @@ function SubscriptionSection() {
                     <h3 className="text-2xl font-black uppercase tracking-tighter text-white">Upgrade to District Command</h3>
                     <p className="text-indigo-200/60 text-sm max-w-md">Unlock cross-building analytics, unlimited voice cloning, and custom government policy advisors.</p>
                 </div>
-                <Button className="bg-white text-indigo-950 hover:bg-white/90 rounded-2xl h-16 px-10 font-black uppercase tracking-widest text-xs gap-3 shrink-0 group-hover:scale-105 transition-transform shadow-xl shadow-white/5">
-                    Explore Enterprise <ArrowRight size={16} />
+                <Button
+                    onClick={() => window.location.href = 'https://buy.stripe.com/Site_Command_Link'}
+                    className="bg-white text-indigo-950 hover:bg-white/90 rounded-2xl h-16 px-10 font-black uppercase tracking-widest text-xs gap-3 shrink-0 group-hover:scale-105 transition-transform shadow-xl shadow-white/5"
+                >
+                    Activate Site Command <ArrowRight size={16} />
                 </Button>
             </Card>
         </div>

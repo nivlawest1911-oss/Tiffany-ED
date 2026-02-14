@@ -19,7 +19,7 @@ export async function decrypt(input: string): Promise<any> {
             algorithms: ['HS256'],
         });
         return payload;
-    } catch (error) {
+    } catch {
         return null;
     }
 }
@@ -54,18 +54,20 @@ export async function getSession() {
     // 1. Try Supabase Session first (Modern)
     try {
         const supabase = await createClient();
-        const { data: { session } } = await supabase.auth.getSession();
+        if (supabase) {
+            const { data: { session } } = await supabase.auth.getSession();
 
-        if (session?.user) {
-            const metadata = session.user.user_metadata || {};
-            return {
-                user: {
-                    id: session.user.id,
-                    email: session.user.email!,
-                    name: metadata.full_name || session.user.email?.split('@')[0] || 'Executive',
-                    tier: metadata.tier || 'free'
-                }
-            };
+            if (session?.user) {
+                const metadata = session.user.user_metadata || {};
+                return {
+                    user: {
+                        id: session.user.id,
+                        email: session.user.email!,
+                        name: metadata.full_name || session.user.email?.split('@')[0] || 'Executive',
+                        tier: metadata.tier || 'free'
+                    }
+                };
+            }
         }
     } catch (e) {
         console.error("[AUTH] Supabase session check failed", e);

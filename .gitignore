@@ -46,3 +46,7 @@ next-env.d.ts
 .firebase/
 firebase-debug.log
 .env*.local
+
+# Audit files
+audit_links.py
+lint_results_new.json

@@ -57,7 +57,11 @@ const labels = [
 // Apply wrapping
 const wrappedLabels = labels.map(l => Array.isArray(l) ? l : wrapLabel(l, 16));
 
-export default function AnalyticsChart() {
+interface AnalyticsChartProps {
+    data?: any;
+}
+
+export default function AnalyticsChart({ data: dynamicData }: AnalyticsChartProps) {
     const options: ChartOptions<'line'> = {
         responsive: true,
         plugins: {
@@ -130,7 +134,7 @@ export default function AnalyticsChart() {
         }
     };
 
-    const data = {
+    const data = dynamicData || {
         labels: wrappedLabels,
         datasets: [
             {
