@@ -24,6 +24,11 @@ export function middleware(req: NextRequest) {
     const isDirectorPortal = pathname.startsWith('/the-room'); // Director Pack
     const isSiteCommand = pathname.startsWith('/admin'); // Site Command
 
+    // 0. Redirect base dashboard to education view
+    if (pathname === '/dashboard') {
+        return NextResponse.redirect(new URL('/education', req.url));
+    }
+
     // 2. Mock User Tier (In production, pull this from Supabase/Auth cookie)
     // For demonstration: User is an 'Initiate'
     const userTier = req.cookies.get('user_tier')?.value || 'Sovereign Initiate';

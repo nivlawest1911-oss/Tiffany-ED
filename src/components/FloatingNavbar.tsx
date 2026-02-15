@@ -176,7 +176,7 @@ export default function FloatingNavbar() {
 
                             {user ? (
                                 <div className="flex items-center gap-4 pl-4 border-l border-white/10">
-                                    <Link href="/dashboard" className="group flex items-center gap-3">
+                                    <Link href="/account" className="group flex items-center gap-3">
                                         <div className="text-right hidden lg:block">
                                             <p className="text-[10px] font-black text-white uppercase tracking-tighter">{user.name}</p>
                                             <div className="flex items-center justify-end gap-1 text-[8px] font-bold text-emerald-400 uppercase tracking-wider">

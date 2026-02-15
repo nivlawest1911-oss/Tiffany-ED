@@ -15,6 +15,13 @@ export const LeadIntake = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!supabase) {
+            console.error("Supabase client not initialized - missing environment variables");
+            alert("System Uplink Failed: Configuration Missing. Please contact support.");
+            return;
+        }
+
         setStatus('submitting');
 
         try {

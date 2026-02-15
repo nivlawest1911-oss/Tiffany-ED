@@ -4,55 +4,13 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import {
-    Sparkles,
-    Activity,
-    Users,
-    Heart,
-    ChevronRight,
-    Lock,
     Gem
 } from 'lucide-react';
-import { ParticleBackground, GlassCard } from '@/components/ui/Cinematic';
+import { ParticleBackground } from '@/components/ui/Cinematic';
 import EdIntelSovereignLogo from '@/components/EdIntelSovereignLogo';
+import WellnessClient from '@/components/wellness/WellnessClient';
 
-const WELLNESS_MODULES = [
-    {
-        title: "Transcend Guide",
-        description: "AI-powered wellness strategies and daily affirmations.",
-        href: "/ai-hub",
-        icon: Sparkles,
-        color: "text-purple-400",
-        bg: "bg-purple-500/10",
-        tier: "Free / Initiate"
-    },
-    {
-        title: "Holistic Insights",
-        description: "Deep analytics on professional wellbeing and cognitive load.",
-        href: "/professional",
-        icon: Activity,
-        color: "text-emerald-400",
-        bg: "bg-emerald-500/10",
-        tier: "Practitioner+"
-    },
-    {
-        title: "Director Portal",
-        description: "Executive oversight for organizational health and staff wellness.",
-        href: "/the-room",
-        icon: Users,
-        color: "text-amber-400",
-        bg: "bg-amber-500/10",
-        tier: "Director Pack"
-    },
-    {
-        title: "Vitality Vault",
-        description: "Curated resources for mental, physical, and emotional growth.",
-        href: "/resources",
-        icon: Heart,
-        color: "text-rose-400",
-        bg: "bg-rose-500/10",
-        tier: "Sovereign Pack+"
-    }
-];
+
 
 export default function WellnessHubPage() {
     return (
@@ -106,43 +64,8 @@ export default function WellnessHubPage() {
                     </motion.div>
                 </header>
 
-                {/* Modules Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {WELLNESS_MODULES.map((module, index) => (
-                        <Link href={module.href} key={module.title}>
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.1 * index }}
-                                className="group relative"
-                            >
-                                <GlassCard className="h-full p-8 transition-all duration-500 hover:bg-white/5 border-purple-500/10 hover:border-purple-500/40 group-hover:shadow-[0_0_30px_rgba(168,85,247,0.1)]">
-                                    <div className="flex items-start justify-between mb-6">
-                                        <div className={`p-4 rounded-full ${module.bg} border border-white/5 group-hover:rotate-12 transition-transform duration-500`}>
-                                            <module.icon className={`w-8 h-8 ${module.color}`} />
-                                        </div>
-                                        <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/5">
-                                            <Lock size={10} className="text-zinc-500" />
-                                            <span className="text-[10px] uppercase tracking-widest font-bold text-zinc-500">
-                                                {module.tier}
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    <h3 className="text-2xl font-black text-white mb-3 group-hover:text-purple-300 transition-colors uppercase tracking-wide font-serif">
-                                        {module.title}
-                                    </h3>
-                                    <p className="text-purple-100/40 text-sm leading-relaxed mb-6 font-medium">
-                                        {module.description}
-                                    </p>
-
-                                    <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-purple-500/50 group-hover:text-purple-400 transition-colors">
-                                        Enter Portal <ChevronRight size={14} />
-                                    </div>
-                                </GlassCard>
-                            </motion.div>
-                        </Link>
-                    ))}
+                <div className="flex-1 w-full min-h-[600px] mt-8">
+                    <WellnessClient />
                 </div>
 
                 {/* Footer */}

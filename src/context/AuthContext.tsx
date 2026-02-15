@@ -17,6 +17,7 @@ interface User {
     trialEndsAt?: Date | null;
     isTrialConverted?: boolean;
     organizationId?: string | null;
+    avatar_url?: string;
 }
 
 interface AuthContextType {
@@ -67,7 +68,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                         name: profile?.full_name || (session.user.user_metadata?.full_name) || session.user.email?.split('@')[0] || 'Executive',
                         tier: (userData?.subscription_tier as any) || (session.user.user_metadata?.tier as any) || 'Sovereign Initiate',
                         usage_count: userData?.usage_count || session.user.user_metadata?.usage_count || 0,
-                        trialEndsAt: userData?.trial_ends_at ? new Date(userData.trial_ends_at) : null
+                        trialEndsAt: userData?.trial_ends_at ? new Date(userData.trial_ends_at) : null,
+                        avatar_url: profile?.avatar_url || session.user.user_metadata?.avatar_url
                     };
 
                     setUser(newUser);
@@ -88,7 +90,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             setIsLoading(false);
         });
 
-        return () => subscription.unsubscribe();
+        // 🛡️ SAFETY VALVE: Force loading to stop after 4 seconds if Supabase hangs
+        const safetyTimeout = setTimeout(() => {
+            setIsLoading((prev) => {
+                if (prev) {
+                    console.warn('[AUTH_CONTEXT] Safety valve triggered: Forcing isLoading to false.');
+                    return false;
+                }
+                return prev;
+            });
+        }, 4000);
+
+        return () => {
+            subscription.unsubscribe();
+            clearTimeout(safetyTimeout);
+        };
     }, [celebrate]);
 
     const login = async (email: string, password?: string) => {

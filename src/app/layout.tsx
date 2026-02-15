@@ -30,20 +30,18 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable} ${outfit.variable}`}>
       <body className="bg-background text-foreground antialiased overflow-x-hidden selection:bg-blue-500/30 font-sans">
-        <CelebrationProvider>
-          <IntelligenceProvider>
-            <AuthProvider>
+        <AuthProvider>
+          <CelebrationProvider>
+            <IntelligenceProvider>
               <EdIntelVibeProvider>
-                <CelebrationProvider>
-                  {children}
-                  <Toaster position="top-right" theme="dark" />
-                  <Analytics />
-                  <SpeedInsights />
-                </CelebrationProvider>
+                {children}
+                <Toaster position="top-right" theme="dark" />
+                <Analytics />
+                <SpeedInsights />
               </EdIntelVibeProvider>
-            </AuthProvider>
-          </IntelligenceProvider>
-        </CelebrationProvider>
+            </IntelligenceProvider>
+          </CelebrationProvider>
+        </AuthProvider>
       </body>
     </html>
   );

@@ -15,6 +15,8 @@ import { Shield } from 'lucide-react';
 import { FederatedLearningEngine } from '@/lib/ai/federated';
 import { ZKPShield } from '@/lib/ai/zkp-shield';
 import { CausalOracle } from '@/lib/ai/causal-oracle';
+import { ActionableConfidenceGauge } from '@/components/shared/ActionableConfidenceGauge';
+
 import { AI } from './ai';
 
 export interface Message {
@@ -280,12 +282,36 @@ export async function submitUserMessage(
                         </div>
                     );
                 }
+            },
+            dispatch_swarm: {
+                description: 'Delegate complex, multi-faceted queries to a Swarm of specialized agents (Literacy, Wellness, Policy). Use this when the query requires analysis from multiple domains.',
+                inputSchema: z.object({
+                    query: z.string().describe('The complex user query to analyze.'),
+                    context: z.string().optional().describe('Additional context for the swarm.')
+                }),
+                generate: async ({ query, context: _context }: { query: string; context?: string }) => {
+                    // Dynamic import to avoid circular dependencies if any
+                    const { SwarmRouter } = await import('@/lib/ai/swarm-router');
+                    const { SwarmIntelligenceDisplay } = await import('@/components/shared/SwarmIntelligenceDisplay'); // Dynamic import for UI component if needed, or import at top
+
+                    const result = await SwarmRouter.routeRequest(query);
+
+                    return (
+                        <SwarmIntelligenceDisplay
+                            synthesis={result.synthesis}
+                            agentResponses={result.agent_responses}
+                        />
+                    );
+                }
             }
         },
         text: async ({ content, done }: { content: string; done: boolean }) => {
             if (done) {
                 // 4. Iron Shield Audit (Adversarial Testing)
-                const safeContent = await IronShield.getSafeContent(content);
+                const auditResult = await IronShield.audit(content);
+                const safeContent = auditResult.isBiased && auditResult.correction
+                    ? auditResult.correction
+                    : content;
 
                 // Save to cache
                 if (safeContent.length > 100) {
@@ -298,7 +324,18 @@ export async function submitUserMessage(
                         await FederatedLearningEngine.captureKnowledgeDelta('EDINTEL_CORE', distilled);
                     });
                 }
+
                 aiState.done([...aiState.get(), { id: nanoid(), role: 'assistant', content: safeContent }]);
+
+                return (
+                    <div className="space-y-4">
+                        <div className="text-zinc-100 text-sm leading-relaxed">{safeContent}</div>
+                        <ActionableConfidenceGauge
+                            score={auditResult.confidenceScore}
+                            suggestion={auditResult.actionableSuggestion}
+                        />
+                    </div>
+                );
             }
             return <div className="text-zinc-100 text-sm leading-relaxed">{content}</div>;
         },

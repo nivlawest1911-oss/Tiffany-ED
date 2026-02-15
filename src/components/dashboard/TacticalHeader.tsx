@@ -36,12 +36,32 @@ export const TacticalHeader = () => {
             {/* Right: Actions & Bio Dossier */}
             <div className="flex items-center gap-3">
                 {user && (
-                    <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/50 border border-slate-800/50 backdrop-blur-sm">
-                        <Clock className="w-3 h-3 text-amber-500" />
-                        <span className="text-[10px] font-mono text-slate-400">
-                            TRIAL: <span className="text-amber-500">{daysRemaining} DAYS</span>
-                        </span>
-                    </div>
+                    <>
+                        <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/50 border border-slate-800/50 backdrop-blur-sm">
+                            <Clock className="w-3 h-3 text-amber-500" />
+                            <span className="text-[10px] font-mono text-slate-400">
+                                TRIAL: <span className="text-amber-500">{daysRemaining} DAYS</span>
+                            </span>
+                        </div>
+
+                        <a href="/account" className="group flex items-center gap-2 pl-3 border-l border-white/10">
+                            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 p-[1px] group-hover:scale-105 transition-transform">
+                                <div className="w-full h-full rounded-full bg-black overflow-hidden relative">
+                                    {user.avatar_url ? (
+                                        <img
+                                            src={user.avatar_url}
+                                            alt="Profile"
+                                            className="w-full h-full object-cover"
+                                        />
+                                    ) : (
+                                        <div className="w-full h-full flex items-center justify-center bg-zinc-800 text-[10px] font-black text-white">
+                                            {user.email?.[0]?.toUpperCase()}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </a>
+                    </>
                 )}
 
                 <Dialog>

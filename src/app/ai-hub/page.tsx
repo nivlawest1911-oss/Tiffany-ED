@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers';
 import AIHubClient from './AIHubClient';
-import { AI } from './actions';
+import { AI } from './ai';
 
 export const dynamic = 'force-dynamic';
 

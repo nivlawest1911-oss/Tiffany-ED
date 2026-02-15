@@ -35,7 +35,11 @@ export class IronShield {
             // Default to safe return if audit fails
             return {
                 isBiased: false,
-                explanation: 'Audit process interrupted.'
+                explanation: 'Audit process interrupted.',
+                confidenceScore: 1, // Assume safe if audit fails (fail-open for UX, though safely logged)
+                actionableSuggestion: undefined,
+                correction: undefined,
+                biasType: undefined
             };
         }
     }

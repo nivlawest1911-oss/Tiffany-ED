@@ -44,12 +44,14 @@ export default function Error({
                 </Link>
             </div>
 
-            {process.env.NODE_ENV === 'development' && (
-                <div className="mt-12 p-4 bg-black rounded-lg border border-white/10 max-w-2xl text-left overflow-auto max-h-64 scrollbar-thin">
-                    <p className="text-red-400 font-mono text-xs">{error.message}</p>
-                    {error.stack && <pre className="text-zinc-500 font-mono text-[10px] mt-2">{error.stack}</pre>}
-                </div>
-            )}
+            {/* DEBUG: Always show error details temporarily for diagnosing the crash */}
+            <div className="mt-12 p-4 bg-black rounded-lg border border-white/10 max-w-2xl text-left overflow-auto max-h-64 scrollbar-thin">
+                <p className="text-red-400 font-mono text-xs">{error.message}</p>
+                {error.digest && <p className="text-zinc-500 font-mono text-[10px] mt-1">Digest: {error.digest}</p>}
+                {process.env.NODE_ENV === 'development' && error.stack && (
+                    <pre className="text-zinc-500 font-mono text-[10px] mt-2">{error.stack}</pre>
+                )}
+            </div>
         </div>
     );
 }

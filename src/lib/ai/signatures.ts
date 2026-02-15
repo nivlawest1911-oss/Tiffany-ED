@@ -56,6 +56,8 @@ export const EquityVerificationSignature: ISignature<
         biasType: z.ZodOptional<z.ZodString>;
         correction: z.ZodOptional<z.ZodString>;
         explanation: z.ZodString;
+        confidenceScore: z.ZodNumber;
+        actionableSuggestion: z.ZodOptional<z.ZodString>;
     }>
 > = {
     name: 'Equity_Sentry_Verify',
@@ -67,7 +69,9 @@ export const EquityVerificationSignature: ISignature<
         isBiased: z.boolean(),
         biasType: z.string().optional().describe('Type of bias found (e.g., racial, socioeconomic, linguistic).'),
         correction: z.string().optional().describe('Proposed equitable phrasing.'),
-        explanation: z.string().describe('Detailed reasoning for the finding.')
+        explanation: z.string().describe('Detailed reasoning for the finding.'),
+        confidenceScore: z.number().min(0).max(1).describe('Confidence score (0-1) reflecting the safety and equity of the content.'),
+        actionableSuggestion: z.string().optional().describe('Actionable suggestion for the user if the confidence score is moderate or low.')
     }),
     instruction: `
         You are the Equity Sentry. Your task is to perform an adversarial audit of the provided text.
