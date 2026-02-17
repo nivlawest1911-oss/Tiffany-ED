@@ -25,7 +25,11 @@ export const SmartNavLink: React.FC<SmartNavLinkProps> = ({ item, active, classN
     const IconComponent = (LucideIcons as any)[item.icon] || LucideIcons.HelpCircle;
 
     // Color Logic: EdIntel Blue vs Transcend Gold/Purple
-    const isEducation = item.href.startsWith('/vault') || item.href.startsWith('/generators') || item.href.startsWith('/cognitive') || item.href.startsWith('/admin');
+    const isEducation = item.href.startsWith('/vault') ||
+        item.href.startsWith('/generators') ||
+        item.href.startsWith('/cognitive') ||
+        item.href.startsWith('/admin') ||
+        item.href.startsWith('/gemini-workspace');
     const moduleColor = isEducation ? 'text-blue-400' : 'text-purple-400';
     const activeBg = isEducation ? 'bg-blue-500/10 border-blue-500/20' : 'bg-purple-500/10 border-purple-500/20';
 

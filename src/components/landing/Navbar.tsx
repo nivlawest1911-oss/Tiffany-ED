@@ -3,6 +3,8 @@
 import { motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
+import Link from 'next/link';
+import EdIntelLogo from '../EdIntelLogo';
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
@@ -17,12 +19,9 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto px-4 py-4">
                 <div className="flex items-center justify-between">
                     {/* Logo */}
-                    <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                            <span className="text-white font-black text-sm">E</span>
-                        </div>
-                        <span className="text-xl font-black tracking-tight">EDINTEL</span>
-                    </div>
+                    <Link href="/" className="flex items-center gap-2">
+                        <EdIntelLogo variant="sovereign-fidelity" className="transform scale-90 origin-left" />
+                    </Link>
 
                     {/* Desktop Nav */}
                     <div className="hidden md:flex items-center gap-8">

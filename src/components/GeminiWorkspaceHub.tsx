@@ -34,10 +34,36 @@ interface ImportedContent {
 export default function GeminiWorkspaceHub() {
     const [activeTab, setActiveTab] = useState<'import' | 'library' | 'workflows'>('import');
     const [importedContent, setImportedContent] = useState<ImportedContent[]>([]);
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    // Initialize from localStorage
+    useEffect(() => {
+        const saved = localStorage.getItem('edintel_gemini_content');
+        if (saved) {
+            try {
+                const parsed = JSON.parse(saved);
+                setImportedContent(parsed.map((item: any) => ({
+                    ...item,
+                    timestamp: new Date(item.timestamp)
+                })));
+            } catch (e) {
+                console.error("Failed to parse saved content", e);
+            }
+        }
+        setIsLoaded(true);
+    }, []);
+
+    // Save to localStorage
+    useEffect(() => {
+        if (isLoaded) {
+            localStorage.setItem('edintel_gemini_content', JSON.stringify(importedContent));
+        }
+    }, [importedContent, isLoaded]);
+
     const [searchQuery, setSearchQuery] = useState('');
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+        <div className="bg-transparent">
             {/* Header */}
             <div className="relative overflow-hidden bg-gradient-to-r from-purple-600/20 to-pink-600/20 border-b border-purple-500/30">
                 <div
@@ -91,7 +117,7 @@ export default function GeminiWorkspaceHub() {
                     {activeTab === 'import' && (
                         <ImportTab
                             key="import"
-                            onImport={(content) => setImportedContent([...importedContent, content])}
+                            onImport={(content) => setImportedContent(prev => [...prev, content])}
                         />
                     )}
                     {activeTab === 'library' && (
@@ -332,7 +358,7 @@ function ImportTab({ onImport }: { onImport: (content: ImportedContent) => void 
                     <button
                         onClick={handleTextImport}
                         disabled={loading || !textContent.trim()}
-                        className="w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-full h-12 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
                     >
                         {loading ? (
                             <span className="flex items-center justify-center gap-2">

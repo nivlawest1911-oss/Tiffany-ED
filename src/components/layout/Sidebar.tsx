@@ -51,9 +51,9 @@ export function Sidebar() {
             <HolographicBackground />
 
             {/* Logo Section */}
-            <div className="flex h-16 items-center gap-3 px-4 border-b border-white/5 shrink-0">
+            <div className="flex h-16 items-center gap-3 px-4 border-b border-white/5 shrink-0 overflow-hidden">
                 <Link href="/" className="flex items-center gap-3">
-                    <EdIntelLogo variant="fidelity" className="scale-100 origin-left" />
+                    <EdIntelLogo variant="sovereign-fidelity" className={cn("transition-all duration-300", collapsed ? "scale-[0.6] -translate-x-4" : "scale-[0.8] origin-left")} />
                 </Link>
             </div>
 
@@ -92,7 +92,7 @@ export function Sidebar() {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
-                                className="px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.2em] text-emerald-400/50"
+                                className="px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.2em] bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-teal-300"
                             >
                                 Transcend Wellness
                             </motion.p>

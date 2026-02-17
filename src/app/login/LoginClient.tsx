@@ -88,7 +88,7 @@ export default function LoginClient() {
                                     className="absolute inset-0 rounded-full border border-dashed border-white/10 scale-150"
                                 />
                                 <div className="flex flex-col items-center gap-6">
-                                    <EdIntelLogo variant="fidelity" className="scale-125" />
+                                    <EdIntelLogo variant="sovereign-fidelity" className="scale-125" />
                                     <div className="h-16 w-[1px] bg-gradient-to-b from-cyan-400/50 to-purple-400/50" />
                                     <EdIntelSovereignLogo showText={false} size={80} />
                                 </div>
@@ -105,7 +105,7 @@ export default function LoginClient() {
 
                             <div className="flex gap-4 justify-center">
                                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20">
-                                    <EdIntelLogo variant="fidelity" className="scale-125" />
+                                    <EdIntelLogo variant="fidelity" className="scale-90" />
                                     <span className="text-[9px] font-bold text-cyan-200 uppercase tracking-widest">EdIntel Core</span>
                                 </div>
                                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20">
@@ -120,7 +120,7 @@ export default function LoginClient() {
                     <div className="p-8 lg:p-12 flex flex-col justify-center relative">
                         {/* Mobile Header (Only visible on mobile) */}
                         <div className="lg:hidden flex justify-center mb-8 gap-4">
-                            <EdIntelLogo variant="fidelity" className="scale-75" />
+                            <EdIntelLogo variant="sovereign-fidelity" className="scale-75" />
                             <EdIntelSovereignLogo showText={false} size={40} className="scale-75" />
                         </div>
 

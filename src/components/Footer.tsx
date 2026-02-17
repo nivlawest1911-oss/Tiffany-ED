@@ -17,7 +17,7 @@ export default function Footer() {
                     {/* Brand Column */}
                     <div className="col-span-1 md:col-span-2">
                         <Link href="/" className="inline-block mb-6">
-                            <EdIntelLogo variant="fidelity" />
+                            <EdIntelLogo variant="sovereign-fidelity" className="transform scale-90 origin-left" />
                         </Link>
                         <p className="text-zinc-400 text-sm leading-relaxed mb-6">
                             Strategic architectures for the modern educator. Empowering leadership through superior intelligence and executive automation.

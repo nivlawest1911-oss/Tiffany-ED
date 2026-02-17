@@ -19,30 +19,86 @@ export default function EdIntelLogo({
 
     if (variant === "sovereign-fidelity") {
         return (
-            <div className={`flex items-center gap-4 group ${className}`}>
-                <div className="relative w-12 h-12 flex items-center justify-center">
+            <motion.div
+                className={`flex items-center gap-4 group cursor-pointer ${className}`}
+                whileHover="hover"
+                initial="initial"
+            >
+                <motion.div
+                    className="relative w-12 h-12 flex items-center justify-center"
+                    variants={{
+                        hover: {
+                            rotateY: 15,
+                            rotateX: -5,
+                            scale: 1.05,
+                            transition: { type: "spring", stiffness: 400, damping: 10 }
+                        }
+                    }}
+                >
+                    {/* Golden Glow Core */}
                     <motion.div
-                        className="absolute inset-0 bg-noble-gold/20 blur-xl rounded-full"
-                        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
-                        transition={{ duration: 4, repeat: Infinity }}
+                        className="absolute inset-0 bg-noble-gold/20 blur-2xl rounded-full"
+                        animate={{
+                            scale: [1, 1.4, 1],
+                            opacity: [0.3, 0.7, 0.3],
+                            rotate: [0, 90, 180, 270, 360]
+                        }}
+                        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
                     />
+
+                    {/* SVG Frame / Shield Effect */}
+                    <svg className="absolute inset-0 w-full h-full text-noble-gold/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" viewBox="0 0 100 100">
+                        <motion.circle
+                            cx="50" cy="50" r="48"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1"
+                            strokeDasharray="10 10"
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                        />
+                    </svg>
+
                     <Image
                         src="/images/branding/edintel_logo_sovereign.png"
                         alt="EdIntel Sovereign"
                         width={48}
                         height={48}
-                        className="w-full h-full object-contain relative z-10"
+                        className="w-full h-full object-contain relative z-10 drop-shadow-[0_0_15px_rgba(212,175,55,0.4)]"
+                        priority
                     />
-                </div>
+
+                    {/* Premium Shimmer Overlay */}
+                    <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-12 -translate-x-[200%] z-20"
+                        variants={{
+                            hover: {
+                                translateX: ["150%", "-150%"],
+                                transition: { duration: 1.5, repeat: Infinity, repeatDelay: 0.5, ease: "easeInOut" }
+                            }
+                        }}
+                    />
+                </motion.div>
+
                 <div className="flex flex-col leading-none">
-                    <span className="text-2xl font-black text-white tracking-tighter">
+                    <motion.span
+                        className="text-2xl font-black text-white tracking-tighter"
+                        variants={{
+                            hover: { x: 2, transition: { duration: 0.2 } }
+                        }}
+                    >
                         EdIntel
-                    </span>
-                    <span className="text-[0.6rem] font-bold text-noble-gold uppercase tracking-[0.4em]">
+                    </motion.span>
+                    <motion.span
+                        className="text-[0.6rem] font-bold text-noble-gold uppercase tracking-[0.4em]"
+                        variants={{
+                            hover: { letterSpacing: "0.5em", transition: { duration: 0.3 } }
+                        }}
+                    >
                         Sovereign OS
-                    </span>
+                    </motion.span>
                 </div>
-            </div>
+            </motion.div>
         );
     }
 

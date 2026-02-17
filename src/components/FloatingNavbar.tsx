@@ -86,7 +86,7 @@ export default function FloatingNavbar() {
                     <div className="flex items-center justify-between px-2">
                         {/* Logo */}
                         <Link href="/" className="relative z-50 flex items-center gap-4" onMouseEnter={() => playHover()}>
-                            <EdIntelLogo variant="fidelity" />
+                            <EdIntelLogo variant="sovereign-fidelity" className="transform scale-90" />
                             <div className={cn(
                                 "hidden md:flex items-center gap-1.5 px-3 py-1 rounded-full border text-[9px] font-black tracking-widest uppercase transition-all duration-500",
                                 isSystemThinking

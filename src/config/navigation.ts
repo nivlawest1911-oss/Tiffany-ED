@@ -25,6 +25,7 @@ export const NAV_LINKS = {
         { label: "Sovereign Vault", href: "/vault", icon: "Shield", minTier: 2, description: "Sovereign Pack+ ($39.99/mo). Secure institutional data." },
         { label: "IEP Architect", href: "/generators", icon: "FileText", minTier: 1, description: "Standard Pack+ ($9.99/mo). Clinical-grade narratives." },
         { label: "Cognitive Gym", href: "/cognitive", icon: "Brain", minTier: 0, description: "Initiate Tier ($0). Interactive learning." },
+        { label: "Gemini Workspace", href: "/gemini-workspace", icon: "Share2", minTier: 0, description: "Initiate Tier ($0). Sync your Gemini content." },
         { label: "Site Command", href: "/admin", icon: "Building", minTier: 5, description: "Site Command ($79.99/mo). District-wide analytics." },
     ],
     wellness: [
