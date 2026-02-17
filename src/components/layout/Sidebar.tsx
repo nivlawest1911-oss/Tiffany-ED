@@ -6,101 +6,15 @@ import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
-    LayoutDashboard,
-    Users,
-    FileEdit,
-    Bot,
-    Settings,
     ChevronLeft,
     ChevronRight,
-    Video,
-    Mic,
-    ImageIcon,
-    Brain,
-    Link2,
-    Heart,
-    Building,
-    Gavel,
-    Shield,
-    Phone,
-    BarChart3,
-    Database,
-    BookOpen,
-    Globe,
-    Zap,
-    GraduationCap,
-    CreditCard,
-    DollarSign,
-    CirclePlay,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import EdIntelLogo from "@/components/EdIntelLogo"
-import { HumanoidHolograph } from "@/components/ui/HumanoidHolograph"
 import { HolographicBackground } from "@/components/ui/HolographicBackground"
 
-interface NavSection {
-    title: string
-    items: { icon: React.ComponentType<{ className?: string }>; label: string; id: string; badge?: string; href?: string }[]
-}
 
-const navSections: NavSection[] = [
-    {
-        title: "Core",
-        items: [
-            { icon: LayoutDashboard, label: "Command Center", id: "command", href: "/dashboard" },
-            { icon: Shield, label: "Bio Dossier", id: "dossier", href: "/about" },
-            { icon: Zap, label: "AI Hub", id: "ai-hub", badge: "Live", href: "/ai-hub" },
-            { icon: Bot, label: "Agent Swarm", id: "agents", href: "/dashboard/agents" },
-        ],
-    },
-    {
-        title: "Media Studio",
-        items: [
-            { icon: Video, label: "Video Studio", id: "video", href: "/video-studio" },
-            { icon: Mic, label: "Voice Lab", id: "voice", href: "/voice-lab" },
-            { icon: ImageIcon, label: "Asset Lab", id: "images", href: "/asset-lab" },
-            { icon: Globe, label: "Gemini Workspace", id: "gemini", href: "/gemini-workspace" },
-        ],
-    },
-    {
-        title: "Classroom",
-        items: [
-            { icon: Brain, label: "Super-Tools", id: "tools", href: "/all-tools" },
-            { icon: Link2, label: "Connectors", id: "connectors", href: "/connectors" },
-            { icon: Heart, label: "Cognitive / EQ", id: "cognitive", href: "/cognitive" },
-            { icon: Users, label: "Student Intel", id: "students", href: "/students" },
-        ],
-    },
-    {
-        title: "Executive",
-        items: [
-            { icon: FileEdit, label: "Grant Architect", id: "grants", href: "/admin/grants" },
-            { icon: Building, label: "Board Room", id: "board", href: "/board" },
-            { icon: Gavel, label: "The Room", id: "the-room", href: "/the-room" },
-            { icon: Shield, label: "EdIntel AI", id: "EdIntel", href: "/edintel-professional" },
-        ],
-    },
-    {
-        title: "Operations",
-        items: [
-            { icon: Phone, label: "Comms Center", id: "comms", href: "/admin/comms" },
-            { icon: BarChart3, label: "Analytics", id: "analytics", href: "/analytics" },
-            { icon: Database, label: "Vault", id: "vault", href: "/admin/vault" },
-            { icon: BookOpen, label: "Resources", id: "resources", href: "/resources/alabama" },
-            { icon: Settings, label: "Admin", id: "admin", href: "/admin/management" },
-        ],
-    },
-    {
-        title: "Hub",
-        items: [
-            { icon: GraduationCap, label: "Professional", id: "professional", href: "/edintel-professional" },
-            { icon: Globe, label: "Enterprise", id: "enterprise", href: "/enterprise" },
-            { icon: DollarSign, label: "Pricing", id: "pricing", href: "/pricing" },
-            { icon: CirclePlay, label: "Video Gallery", id: "video-gallery", href: "/video-gallery" },
-            { icon: CreditCard, label: "Billing", id: "billing", href: "/payment" },
-        ],
-    },
-]
+
 
 import { NAV_LINKS } from "@/config/navigation"
 import { SmartNavLink } from "@/components/ui/SmartNavLink"

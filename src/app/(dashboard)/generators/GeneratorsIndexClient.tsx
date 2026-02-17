@@ -60,7 +60,7 @@ export default function GeneratorsIndexClient() {
                     >
                         <div>
                             <div className="flex items-center gap-2 text-noble-gold mb-2">
-                                <EdIntelLogo className="scale-75 origin-left" />
+                                <EdIntelLogo variant="fidelity" className="scale-75 origin-left" />
                                 <span className="text-[10px] font-black tracking-[0.2em] uppercase ml-2 border-l border-noble-gold/30 pl-2">EdIntel Protocol Deck</span>
                             </div>
                             <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-2">

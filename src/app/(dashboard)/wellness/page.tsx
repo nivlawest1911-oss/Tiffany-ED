@@ -7,7 +7,7 @@ import {
     Gem
 } from 'lucide-react';
 import { ParticleBackground } from '@/components/ui/Cinematic';
-import EdIntelSovereignLogo from '@/components/EdIntelSovereignLogo';
+import TranscendLogo from '@/components/TranscendLogo';
 import WellnessClient from '@/components/wellness/WellnessClient';
 
 
@@ -36,14 +36,13 @@ export default function WellnessHubPage() {
                             <div className="h-1 w-1 rounded-full bg-purple-400" />
                             <Gem size={12} className="text-purple-400" />
                         </motion.div>
-                        <motion.h1
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.1 }}
-                            className="text-5xl md:text-7xl font-black text-white tracking-tight uppercase"
                         >
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-amber-200 to-purple-400">Transcend</span>
-                        </motion.h1>
+                            <TranscendLogo size={80} />
+                        </motion.div>
                         <motion.p
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
@@ -60,7 +59,7 @@ export default function WellnessHubPage() {
                         transition={{ delay: 0.3 }}
                         className="hidden md:block"
                     >
-                        <EdIntelSovereignLogo size={100} showText={false} />
+                        <TranscendLogo variant="minimal" size={60} className="opacity-20" />
                     </motion.div>
                 </header>
 

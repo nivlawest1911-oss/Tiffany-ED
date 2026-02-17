@@ -19,8 +19,8 @@ const FEATURE_ACCESS: Record<string, string[]> = {
 export function checkAccess(userTier: string | undefined, feature: EdIntelFeature): boolean {
     if (!userTier) return false;
 
-    // Normalize tier string (handle potential case differences or legacy data)
-    const normalizedTier = userTier.toLowerCase().replace(/\s+/g, '-');
+    // Normalize tier string (disabled until needed)
+    // const normalizedTier = userTier.toLowerCase().replace(/\s+/g, '-');
 
     // Direct ID match from config
     const allowedTiers = FEATURE_ACCESS[feature];

@@ -25,7 +25,7 @@ async function downloadFile(url, filename) {
     const dest = path.join(TARGET_DIR, filename);
     console.log(`⬇️  Downloading Voice Placeholder: ${filename}...`);
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, _reject) => {
         const file = fs.createWriteStream(dest);
         https.get(url, (response) => {
             if (response.statusCode !== 200) {

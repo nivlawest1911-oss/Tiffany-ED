@@ -86,7 +86,7 @@ export default function Hero() {
                         </button>
                     </Link>
                     <Link href="/#how-it-works">
-                        <button className="px-8 py-4 glass-panel rounded-xl font-bold hover:bg-white/10 transition-all">
+                        <button className="px-8 py-4 glass-panel-premium rounded-xl font-bold hover:bg-white/10 transition-all">
                             View Demo
                         </button>
                     </Link>

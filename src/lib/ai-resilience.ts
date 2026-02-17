@@ -1,3 +1,6 @@
+import OpenAI from 'openai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+
 /**
  * EdIntel Professional Shield: AI Resilience Utility
  * Centralized retry logic and failure management for all AI services.
@@ -154,3 +157,96 @@ TONE & VOICE:
 - Speak with the authority of a 30-year Superintendent with a PhD in Strategic Finance.
 - Style: Professional, precise, visionary, and mathematically sound.
 `;
+
+// Initialize clients for Failover Engine
+const openai = process.env.OPENAI_API_KEY ? new OpenAI({ apiKey: process.env.OPENAI_API_KEY }) : null;
+const genAI = process.env.GOOGLE_GENERATIVE_AI_API_KEY ? new GoogleGenerativeAI(process.env.GOOGLE_GENERATIVE_AI_API_KEY) : null;
+
+export class IntelligenceEngine {
+
+    /**
+     * Executes an AI completion with automatic failover.
+     * Tries Primary (e.g. GPT-4) -> Secondary (e.g. Gemini) -> Fallback (e.g. Local/Flash)
+     */
+    async generateWithFailover(systemPrompt: string, userPrompt: string, modelTier: 'standard' | 'premium' = 'standard') {
+        const errors: any[] = [];
+        const TIMEOUT_MS = 15000; // 15s Hard Timeout for AI calls
+
+        const withTimeout = (promise: Promise<any>, ms: number, provider: string) => {
+            return Promise.race([
+                promise,
+                new Promise((_, reject) => setTimeout(() => reject(new Error(`[${provider}] Connection Timed Out after ${ms}ms`)), ms))
+            ]);
+        };
+
+        // 1. Primary Vector: OpenAI (GPT-4o / GPT-3.5)
+        try {
+            if (!openai) throw new Error("OpenAI Key Missing");
+
+            const model = modelTier === 'premium' ? 'gpt-4o' : 'gpt-4o-mini'; // Upgraded from 3.5
+
+            const completion = await withTimeout(
+                openai.chat.completions.create({
+                    messages: [
+                        { role: "system", content: systemPrompt },
+                        { role: "user", content: userPrompt }
+                    ],
+                    model: model,
+                    temperature: 0.7,
+                }),
+                TIMEOUT_MS,
+                'OpenAI'
+            );
+
+            return {
+                content: completion.choices[0].message.content,
+                provider: 'openai',
+                model: model
+            };
+
+        } catch (err: any) {
+            console.warn(`[AI Failover] Primary (${modelTier}) failed. Switching to Secondary. Reason: ${err.message}`);
+            errors.push({ provider: 'openai', error: err.message });
+        }
+
+        // 2. Secondary Vector: Google Gemini (Flash / Pro)
+        try {
+            if (!genAI) throw new Error("Google AI Key Missing");
+
+            const modelName = modelTier === 'premium' ? 'gemini-1.5-pro' : 'gemini-1.5-flash';
+            const model = genAI.getGenerativeModel({
+                model: modelName,
+                systemInstruction: systemPrompt
+            });
+
+            const result = await withTimeout(
+                model.generateContent(userPrompt),
+                TIMEOUT_MS,
+                'Gemini'
+            );
+
+            const response = result.response;
+
+            return {
+                content: response.text(),
+                provider: 'google',
+                model: modelName
+            };
+
+        } catch (err: any) {
+            console.warn(`[AI Failover] Secondary failed. Switching to Emergency Fallback. Reason: ${err.message}`);
+            errors.push({ provider: 'google', error: err.message });
+        }
+
+        // 3. Emergency Fallback: Safe Mode
+        console.error("[AI CRITICAL FAILURE] All vectors exhausted.", errors);
+        return {
+            content: "Neural Uplink Unstable. System is operating in safe mode. Please check your connection and try again.",
+            provider: 'fallback',
+            model: 'system-safe-mode',
+            error: errors
+        };
+    }
+}
+
+export const aiResilience = new IntelligenceEngine();

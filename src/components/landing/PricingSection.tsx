@@ -47,7 +47,7 @@ export default function PricingSection() {
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1, duration: 0.5 }}
                             whileHover={{ y: -8, scale: 1.02 }}
-                            className={`glass-panel rounded-3xl p-8 flex flex-col relative overflow-hidden transition-all duration-300 border border-white/10 ${tier.popular
+                            className={`glass-panel-premium rounded-3xl p-8 flex flex-col relative overflow-hidden transition-all duration-300 border border-white/10 ${tier.popular
                                 ? 'border-[#D4AF37]/50 shadow-[0_0_50px_rgba(212,175,55,0.2)] ring-1 ring-[#D4AF37]/30'
                                 : 'hover:border-white/20'
                                 }`}

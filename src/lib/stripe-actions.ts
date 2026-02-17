@@ -1,4 +1,5 @@
 import { loadStripe } from '@stripe/stripe-js';
+import { toast } from 'sonner';
 
 export async function createTokenCheckout(orgId: string, tokenAmount: number, priceInCents: number, signal?: AbortSignal) {
     try {
@@ -15,15 +16,20 @@ export async function createTokenCheckout(orgId: string, tokenAmount: number, pr
         });
 
         if (!response.ok) {
-            throw new Error(`Stripe checkout failed: ${response.statusText}`);
+            const text = await response.text();
+            throw new Error(`Stripe checkout failed (${response.status}): ${text.substring(0, 100)}`);
         }
 
-        const session = await response.json();
+        const session = await response.json() as { id: string };
+
+        if (!session?.id) {
+            throw new Error("Invalid checkout session created (No Session ID)");
+        }
 
         // Redirect to Stripe Checkout
         const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
         if (stripe) {
-            const { error } = await stripe.redirectToCheckout({ sessionId: session.id });
+            const { error } = await (stripe as any).redirectToCheckout({ sessionId: session.id });
             if (error) {
                 console.error("Stripe Redirect Error:", error);
             }
@@ -34,5 +40,6 @@ export async function createTokenCheckout(orgId: string, tokenAmount: number, pr
             return;
         }
         console.error("Stripe Checkout Session Error:", error);
+        toast.error("Checkout initialization failed. Please try again or support@edintel.io");
     }
 }

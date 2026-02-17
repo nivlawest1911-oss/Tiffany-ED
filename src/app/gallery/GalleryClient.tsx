@@ -9,7 +9,7 @@ export default function GalleryClient({ query }: { query: string }) {
     return (
         <main className="content-stage">
             {/* Header */}
-            <header className="border-b border-white/10 bg-black/20 backdrop-blur-md">
+            <header className="border-b border-white/10 glass-panel-premium sticky top-0 z-50">
                 <div className="max-w-7xl mx-auto px-6 py-8">
                     <div className="flex items-center gap-3 mb-2">
                         <Sparkles className="w-8 h-8 text-purple-400" />

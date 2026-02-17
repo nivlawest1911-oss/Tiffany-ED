@@ -63,7 +63,7 @@ export default function PrivacyPolicy() {
     ];
 
     return (
-        <div className="p-10 rounded-[2.5rem] bg-zinc-950 text-white border border-zinc-900 shadow-3xl relative overflow-hidden group">
+        <div className="p-10 rounded-[2.5rem] glass-panel-premium text-white shadow-3xl relative overflow-hidden group">
             {/* Background Grain/Grid */}
             <div
                 className="absolute inset-0 opacity-5"
@@ -82,7 +82,7 @@ export default function PrivacyPolicy() {
                         </div>
                     </div>
 
-                    <div className="flex gap-2 p-1 bg-zinc-900 rounded-2xl border border-zinc-800">
+                    <div className="flex gap-2 p-1 bg-zinc-900/50 backdrop-blur-sm rounded-2xl border border-zinc-800">
                         {['ownership', 'collection', 'usage', 'sharing'].map((section) => (
                             <button
                                 key={section}
@@ -100,9 +100,9 @@ export default function PrivacyPolicy() {
                     <div className="lg:col-span-7 space-y-8 animate-in fade-in slide-in-from-left-8 duration-500">
                         {manifesto.map((section) => section.id === activeSection && (
                             <div key={section.id} className="space-y-6">
-                                <div className="p-6 rounded-3xl bg-zinc-900/50 border border-zinc-800">
+                                <div className="p-6 rounded-3xl glass-panel border border-white/5">
                                     <div className="flex items-center gap-4 mb-4">
-                                        <div className="w-10 h-10 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center">
+                                        <div className="w-10 h-10 rounded-xl bg-zinc-800/50 border border-zinc-700/50 flex items-center justify-center">
                                             {section.icon}
                                         </div>
                                         <h3 className="text-xl font-black uppercase tracking-tight">{section.title}</h3>
@@ -127,7 +127,7 @@ export default function PrivacyPolicy() {
 
                     {/* Right: The Ethical Core */}
                     <div className="lg:col-span-5">
-                        <div className="p-8 rounded-[2.5rem] bg-zinc-900/30 border border-zinc-800 flex flex-col justify-between h-full relative group/ethics">
+                        <div className="p-8 rounded-[2.5rem] glass-panel-premium flex flex-col justify-between h-full relative group/ethics">
                             <div className="absolute inset-0 bg-emerald-600/5 opacity-0 group-hover/ethics:opacity-100 transition-opacity duration-1000" />
 
                             <div className="relative z-10">

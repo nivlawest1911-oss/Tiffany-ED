@@ -7,6 +7,8 @@ export default function BoardReport() {
 
   useEffect(() => {
     const fetchStats = async () => {
+      if (!supabase) return;
+
       const { data: audits, error } = await supabase
         .from('strategic_audits')
         .select('*');

@@ -9,6 +9,13 @@ export async function POST(req: Request) {
     try {
         const { orgId, tokenAmount, priceInCents, tierName } = await req.json();
 
+        if (!priceInCents || priceInCents < 50) {
+            throw new Error("Invalid Price: Payment amount is too low.");
+        }
+        if (!tokenAmount || tokenAmount <= 0) {
+            throw new Error("Invalid Token Amount.");
+        }
+
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: [

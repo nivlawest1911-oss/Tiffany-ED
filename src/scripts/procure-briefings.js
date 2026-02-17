@@ -44,7 +44,7 @@ async function downloadFile(url, filename) {
 
     console.log(`⬇️  Downloading Briefing Protocol: ${filename}...`);
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, _reject) => {
         const file = fs.createWriteStream(dest);
         https.get(url, (response) => {
             if (response.statusCode !== 200) {

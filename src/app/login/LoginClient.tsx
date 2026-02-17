@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Lock, Mail, ArrowRight, ShieldCheck as LucideShield, Hexagon, Loader2, Gem, Sparkles } from 'lucide-react';
+import { Lock, Mail, ArrowRight, ShieldCheck as LucideShield, Loader2, Gem } from 'lucide-react';
 import HolographicBriefing from '@/components/intelligence/HolographicBriefing';
 import { useAuth } from '@/context/AuthContext';
 import EdIntelLogo from '@/components/EdIntelLogo';
@@ -105,7 +105,7 @@ export default function LoginClient() {
 
                             <div className="flex gap-4 justify-center">
                                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20">
-                                    <ShieldCheck size={12} className="text-cyan-400" />
+                                    <EdIntelLogo variant="fidelity" className="scale-125" />
                                     <span className="text-[9px] font-bold text-cyan-200 uppercase tracking-widest">EdIntel Core</span>
                                 </div>
                                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20">

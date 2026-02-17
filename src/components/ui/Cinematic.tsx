@@ -52,8 +52,8 @@ export const GlassCard = ({
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
-        whileHover={hover ? { y: -5, borderColor: 'rgba(212, 175, 55, 0.3)', backgroundColor: 'rgba(24, 24, 27, 0.45)' } : {}}
-        className={`bg-zinc-950/40 backdrop-blur-3xl border border-white/5 rounded-3xl overflow-hidden shadow-2xl transition-colors duration-500 ${className}`}
+        whileHover={hover ? { y: -5 } : {}}
+        className={`glass-panel-premium rounded-3xl overflow-hidden transition-all duration-500 ${className}`}
     >
         {children}
     </motion.div>

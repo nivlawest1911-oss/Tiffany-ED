@@ -5,13 +5,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
     Activity,
     Brain,
-    Sun,
     Send,
     Bot,
     ChevronRight,
     Shield
 } from 'lucide-react';
 import { GlassCard } from '@/components/ui/Cinematic';
+import TranscendLogo from '@/components/TranscendLogo';
 
 interface Exercise {
     title: string;
@@ -61,7 +61,7 @@ export default function WellnessClient() {
 
     // Mock AI Agent interactions
     const [messages, setMessages] = useState([
-        { role: 'assistant', content: "Greetings, Sovereign. I am your specialized Wellness Agent. How is your resilience today?" }
+        { role: 'assistant', content: "Greetings, Sovereign. I am Transcend, your specialized Wellness Agent. How is your resilience today?" }
     ]);
     const [input, setInput] = useState('');
 
@@ -129,7 +129,7 @@ export default function WellnessClient() {
                             }`}
                     >
                         <div className={`p-2 rounded-lg ${activeTab === 'check-in' ? 'bg-purple-500' : 'bg-zinc-800'}`}>
-                            <Sun size={20} className="text-white" />
+                            <TranscendLogo variant="minimal" size={20} className="text-white" />
                         </div>
                         <div className="text-left">
                             <h3 className="font-bold text-sm">Daily Align</h3>

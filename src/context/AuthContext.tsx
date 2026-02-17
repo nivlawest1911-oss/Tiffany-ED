@@ -90,16 +90,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             setIsLoading(false);
         });
 
-        // 🛡️ SAFETY VALVE: Force loading to stop after 4 seconds if Supabase hangs
+        // 🛡️ SAFETY VALVE: Extended to 15s for slow connections
         const safetyTimeout = setTimeout(() => {
             setIsLoading((prev) => {
                 if (prev) {
-                    console.warn('[AUTH_CONTEXT] Safety valve triggered: Forcing isLoading to false.');
+                    console.warn('[AUTH_CONTEXT] Safety valve triggered: Forcing isLoading to false after 15s.');
                     return false;
                 }
                 return prev;
             });
-        }, 4000);
+        }, 15000);
 
         return () => {
             subscription.unsubscribe();
@@ -124,7 +124,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             } else {
                 const { error } = await supabase.auth.signInWithPassword({ email, password });
                 if (error) throw error;
-                router.push('/dashboard');
+                router.push('/education');
             }
         } catch (err: any) {
             console.error("[EdIntel_AUTH] Login error:", err);
@@ -162,7 +162,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     'Welcome to the EdIntel OS. Your education intelligence journey begins now.',
                     'achievement'
                 );
-                router.push('/dashboard');
+                router.push('/education');
             }
         } catch (err: any) {
             console.error("[EdIntel_AUTH] Signup error:", err);

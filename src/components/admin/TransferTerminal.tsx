@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Send, ShieldCheck, User, Zap, AlertTriangle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export const TransferTerminal = ({ staffId, staffName }: { staffId: string, staffName: string }) => {
+export const TransferTerminal = ({ staffId: _staffId, staffName }: { staffId: string, staffName: string }) => {
     const [amount, setAmount] = useState(100);
     const [status, setStatus] = useState<'idle' | 'executing' | 'confirmed'>('idle');
 

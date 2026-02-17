@@ -17,7 +17,7 @@ interface GlassModuleProps {
  */
 const GlassModule = ({ title, children, actionText, onAction }: GlassModuleProps) => {
     return (
-        <div className="glass-module-card">
+        <div className="glass-panel-premium rounded-3xl overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-500 relative">
             {/* Header */}
             {title && <div className="module-header">{title}</div>}
 

@@ -79,6 +79,8 @@ export default function EdIntelSovereignLogo({
                         height={size}
                         className="drop-shadow-[0_0_15px_rgba(212,175,55,0.3)] filter contrast-125"
                         priority
+                        quality={85}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
 
                     {/* Holographic Shimmer Effect */}

@@ -93,7 +93,7 @@ export default function TheRoomClient() {
                             exit={{ opacity: 0, scale: 0.9 }}
                             className="w-full max-w-lg"
                         >
-                            <GlassCard className="p-8 border-white/20 relative">
+                            <GlassCard className="p-8 relative">
                                 <button
                                     title="Close Modal"
                                     onClick={() => setQuickActionModal(null)}
@@ -183,7 +183,7 @@ export default function TheRoomClient() {
                             onMouseLeave={() => setActiveNode(null)}
                         >
                             {/* Card Container */}
-                            <div className={`relative h-full p-10 rounded-[3rem] bg-zinc-900/40 border transition-all duration-500 overflow-hidden ${activeNode === node.id ? 'border-indigo-500/50 shadow-[0_0_50px_rgba(99,102,241,0.1)]' : 'border-white/5 hover:border-white/20'
+                            <div className={`glass-panel-premium relative h-full p-10 rounded-[3rem] transition-all duration-500 overflow-hidden ${activeNode === node.id ? 'border-indigo-500/50 shadow-[0_0_50px_rgba(99,102,241,0.1)]' : 'hover:border-white/20'
                                 }`}>
                                 <div className={`absolute inset-0 bg-gradient-to-br ${node.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
 

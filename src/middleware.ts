@@ -60,6 +60,7 @@ export function middleware(req: NextRequest) {
 // Ensure middleware only runs on relevant app routes
 export const config = {
     matcher: [
+        '/dashboard/:path*',
         '/vault/:path*',
         '/generators/:path*',
         '/professional/:path*',

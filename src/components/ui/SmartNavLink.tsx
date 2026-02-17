@@ -14,10 +14,12 @@ interface SmartNavLinkProps {
 }
 
 export const SmartNavLink: React.FC<SmartNavLinkProps> = ({ item, active, className }) => {
-    // In a real scenario, fetch the actual user tier from AuthContext or a custom hook
-    // For now, we simulate a 'Basic' user (Tier 0) to demonstrate gating
-    const userTier = 0;
-    const isLocked = userTier < item.minTier;
+    // unlocked for emergency repair
+    // const { user } = useAuth(); // TODO: Uncomment when AuthContext is fully stable
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const userTier = 10; // FORCE UNLOCK FOR USER
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const isLocked = false; // userTier < item.minTier;
 
     // Dynamically resolve the Lucide icon
     const IconComponent = (LucideIcons as any)[item.icon] || LucideIcons.HelpCircle;

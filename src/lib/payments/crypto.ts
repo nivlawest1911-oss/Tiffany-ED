@@ -314,7 +314,7 @@ export class CryptoPaymentService {
     /**
      * Fetch blockchain balance (placeholder - implement with actual blockchain APIs)
      */
-    private async fetchBlockchainBalance(currency: CryptoCurrency): Promise<number> {
+    private async fetchBlockchainBalance(_currency: CryptoCurrency): Promise<number> {
         // This would integrate with blockchain explorers or node APIs
         // For now, return 0 as placeholder
         return 0;

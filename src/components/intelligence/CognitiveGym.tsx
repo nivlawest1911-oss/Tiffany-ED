@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Brain, Zap, Activity, Timer, Play, Pause, RefreshCw, Trophy, ChevronRight } from 'lucide-react';
+import { Brain, Zap, Activity, Timer, RefreshCw, ChevronRight } from 'lucide-react';
 
 /* -------------------------------------------------------------------------- */
 /*                                Types & Stats                               */
@@ -125,6 +125,7 @@ export default function CognitiveGym() {
                                 score={stats.score}
                                 onScore={(points) => setStats(prev => ({ ...prev, score: prev.score + points, streak: prev.streak + 1 }))}
                                 onMiss={() => setStats(prev => ({ ...prev, streak: 0 }))}
+                                onSwitchDrill={setActiveDrill}
                             />
                         )}
                     </AnimatePresence>
@@ -183,28 +184,39 @@ function DrillCard({ type, title, desc, onClick }: any) {
 /* -------------------------------------------------------------------------- */
 
 // --- STROOP MOCK ---
-function ActiveDrillArena({ type, onExit, isPlaying, setIsPlaying, score, onScore, onMiss }: any) {
+interface ActiveDrillArenaProps {
+    type: DrillType;
+    onExit: () => void;
+    isPlaying: boolean;
+    setIsPlaying: (playing: boolean) => void;
+    score: number;
+    onScore: (points: number) => void;
+    onMiss: () => void;
+    onSwitchDrill: (drill: DrillType) => void;
+}
+
+const COLORS = [
+    { name: 'RED', hex: '#ef4444' },
+    { name: 'BLUE', hex: '#3b82f6' },
+    { name: 'GREEN', hex: '#22c55e' },
+    { name: 'YELLOW', hex: '#eab308' },
+];
+
+function ActiveDrillArena({ type, onExit, isPlaying, setIsPlaying, score, onScore, onMiss, onSwitchDrill }: ActiveDrillArenaProps) {
     const [currentStimulus, setCurrentStimulus] = useState<{ word: string, color: string } | null>(null);
     const [feedback, setFeedback] = useState<'correct' | 'miss' | null>(null);
 
-    const COLORS = [
-        { name: 'RED', hex: '#ef4444' },
-        { name: 'BLUE', hex: '#3b82f6' },
-        { name: 'GREEN', hex: '#22c55e' },
-        { name: 'YELLOW', hex: '#eab308' },
-    ];
-
-    const generateStimulus = () => {
+    const generateStimulus = React.useCallback(() => {
         const word = COLORS[Math.floor(Math.random() * COLORS.length)];
         const color = COLORS[Math.floor(Math.random() * COLORS.length)]; // Can be congruent or incongruent
         setCurrentStimulus({ word: word.name, color: color.hex });
-    };
+    }, []);
 
     useEffect(() => {
         if (isPlaying && !currentStimulus) {
             generateStimulus();
         }
-    }, [isPlaying, currentStimulus]);
+    }, [isPlaying, currentStimulus, generateStimulus]);
 
     const handleResponse = (selectedColor: string) => {
         if (!currentStimulus) return;
@@ -298,7 +310,7 @@ function ActiveDrillArena({ type, onExit, isPlaying, setIsPlaying, score, onScor
             {(type === 'working-memory' || type === 'flexibility') && (
                 <div className="py-20">
                     <p className="text-zinc-500 mb-8">Simulation Mode: Only 'Stroop Effect' is fully interactive in this demo.</p>
-                    <button onClick={() => setActiveDrill('inhibition')} className="text-indigo-400 hover:text-indigo-300 underline">Switch to Stroop</button>
+                    <button onClick={() => onSwitchDrill('inhibition')} className="text-indigo-400 hover:text-indigo-300 underline">Switch to Stroop</button>
                 </div>
             )}
 

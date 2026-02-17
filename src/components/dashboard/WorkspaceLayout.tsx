@@ -3,7 +3,7 @@
 import React from "react"
 
 import { AuroraBackground } from "@/components/dashboard/aurora-background"
-import { Sidebar } from "@/components/dashboard/Sidebar"
+import { Sidebar } from "@/components/layout/Sidebar"
 import { TacticalHeader } from "@/components/dashboard/TacticalHeader"
 import { EdIntelVibeProvider } from "@/context/EdIntelVibeContext"
 

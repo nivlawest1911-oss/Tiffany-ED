@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import EdIntelSovereignLogo from './EdIntelSovereignLogo';
 
 export default function EdIntelLogo({
@@ -10,10 +11,39 @@ export default function EdIntelLogo({
 }: {
     className?: string,
     animated?: boolean,
-    variant?: "classic" | "fidelity"
+    variant?: "classic" | "fidelity" | "sovereign-fidelity"
 }) {
     if (variant === "fidelity") {
         return <EdIntelSovereignLogo className={className} size={40} showText={false} />;
+    }
+
+    if (variant === "sovereign-fidelity") {
+        return (
+            <div className={`flex items-center gap-4 group ${className}`}>
+                <div className="relative w-12 h-12 flex items-center justify-center">
+                    <motion.div
+                        className="absolute inset-0 bg-noble-gold/20 blur-xl rounded-full"
+                        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+                        transition={{ duration: 4, repeat: Infinity }}
+                    />
+                    <Image
+                        src="/images/branding/edintel_logo_sovereign.png"
+                        alt="EdIntel Sovereign"
+                        width={48}
+                        height={48}
+                        className="w-full h-full object-contain relative z-10"
+                    />
+                </div>
+                <div className="flex flex-col leading-none">
+                    <span className="text-2xl font-black text-white tracking-tighter">
+                        EdIntel
+                    </span>
+                    <span className="text-[0.6rem] font-bold text-noble-gold uppercase tracking-[0.4em]">
+                        Sovereign OS
+                    </span>
+                </div>
+            </div>
+        );
     }
 
     return (
