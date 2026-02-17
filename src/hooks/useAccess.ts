@@ -4,16 +4,21 @@ import { useEffect, useState } from 'react';
 import { EDINTEL_TIERS } from '@/config/tiers';
 // Assuming you have a user context or hook from Supabase/Auth
 // If not, we'll need to mock or fetch it. For now, I'll assume usage with createBrowserClient of Supabase
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@/utils/supabase/client';
 
 export function useAccess() {
     const [loading, setLoading] = useState(true);
     const [hasAccess, setHasAccess] = useState(false);
     const [userTier, setUserTier] = useState<string | null>(null);
-    const supabase = createClientComponentClient();
+    const supabase = createClient();
 
     useEffect(() => {
         async function checkAccess() {
+            if (!supabase) {
+                console.warn('[EDINTEL_SAFE_UPLINK] Supabase client unavailable.');
+                setLoading(false);
+                return;
+            }
             try {
                 const { data: { session } } = await supabase.auth.getSession();
 
