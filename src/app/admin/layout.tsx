@@ -1,10 +1,9 @@
 'use client';
 
-import React, { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { Loader2 } from 'lucide-react';
 import { useAccess } from '@/hooks/useAccess';
-import WorkspaceLayout from '@/components/dashboard/WorkspaceLayout';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { Loader2 } from 'lucide-react';
 
 export default function AdminLayout({
     children,
@@ -16,7 +15,6 @@ export default function AdminLayout({
 
     useEffect(() => {
         if (!loading) {
-            // Sovereign Gatekeeper: Ensure only Admins can access this layout
             if (!checkPermission('admin:all') && !checkPermission('admin:read')) {
                 router.push('/dashboard'); // Redirect unauthorized users
             }
@@ -32,8 +30,8 @@ export default function AdminLayout({
     }
 
     return (
-        <WorkspaceLayout>
+        <div className="min-h-screen bg-zinc-50">
             {children}
-        </WorkspaceLayout>
+        </div>
     );
 }

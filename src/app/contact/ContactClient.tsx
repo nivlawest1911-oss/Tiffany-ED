@@ -149,8 +149,8 @@ export default function ContactClient() {
                                 </div>
                                 <h3 className="text-white font-bold mb-1">Secure Message</h3>
                                 <p className="text-xs text-zinc-500 mb-2">WhatsApp / Signal</p>
-                                <a href="https://wa.me/12514229420" className="text-sm font-mono text-emerald-400 hover:text-emerald-300 transition-colors">
-                                    +1 (251) 422-9420
+                                <a href="https://wa.me/12512296351" className="text-sm font-mono text-emerald-400 hover:text-emerald-300 transition-colors">
+                                    +1 (251) 229-6351
                                 </a>
                             </div>
 
@@ -161,8 +161,8 @@ export default function ContactClient() {
                                 </div>
                                 <h3 className="text-white font-bold mb-1">Voice Connection</h3>
                                 <p className="text-xs text-zinc-500 mb-2">Direct Line</p>
-                                <a href="tel:+12514229420" className="text-sm font-mono text-purple-400 hover:text-purple-300 transition-colors">
-                                    +1 (251) 422-9420
+                                <a href="tel:+14086577099" className="text-sm font-mono text-purple-400 hover:text-purple-300 transition-colors">
+                                    +1 (408) 657-7099
                                 </a>
                             </div>
 

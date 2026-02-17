@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, MoreVertical, Mail, Award } from 'lucide-react';
+import Link from 'next/link';
 
 const STUDENTS = [
     {
@@ -163,10 +164,13 @@ export default function StudentRosterClient() {
                             </div>
 
                             <div className="pt-8 border-t border-white/5 flex justify-between relative z-10">
-                                <button className="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-intel-gold transition-all">
+                                <Link
+                                    href={`/tiffany-ed/portfolio/${student.id}`}
+                                    className="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-intel-gold transition-all"
+                                >
                                     <Award className="w-4 h-4" />
                                     <span>Records</span>
-                                </button>
+                                </Link>
                                 <button className="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-intel-gold transition-all">
                                     <Mail className="w-4 h-4" />
                                     <span>Contact</span>

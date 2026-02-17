@@ -5,6 +5,7 @@ import { AuthProvider } from '@/context/AuthContext';
 import { IntelligenceProvider } from '@/context/IntelligenceContext';
 import { EdIntelVibeProvider } from "@/context/EdIntelVibeContext";
 import { CelebrationProvider } from '@/context/CelebrationContext';
+import { SovereignProvider } from '@/context/SovereignState';
 import { Toaster } from 'sonner';
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -33,12 +34,14 @@ export default function RootLayout({
         <AuthProvider>
           <CelebrationProvider>
             <IntelligenceProvider>
-              <EdIntelVibeProvider>
-                {children}
-                <Toaster position="top-right" theme="dark" />
-                <Analytics />
-                <SpeedInsights />
-              </EdIntelVibeProvider>
+              <SovereignProvider>
+                <EdIntelVibeProvider>
+                  {children}
+                  <Toaster position="top-right" theme="dark" />
+                  <Analytics />
+                  <SpeedInsights />
+                </EdIntelVibeProvider>
+              </SovereignProvider>
             </IntelligenceProvider>
           </CelebrationProvider>
         </AuthProvider>

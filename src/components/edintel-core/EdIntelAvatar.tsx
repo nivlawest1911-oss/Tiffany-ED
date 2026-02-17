@@ -1,14 +1,17 @@
 'use client';
 
 import { useChat } from '@ai-sdk/react';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageSquare, Sparkles, Send, Brain } from 'lucide-react';
 import { useState } from 'react';
 import EdIntelPulse from '@/components/edintel-core/EdIntelPulse';
 
 export default function EdIntelAvatar() {
+    const pathname = usePathname();
     const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
         api: '/api/chat/gemini',
+        body: { pathname }
     } as any) as any;
 
     const [isOpen, setIsOpen] = useState(false);

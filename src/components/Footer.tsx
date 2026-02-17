@@ -92,14 +92,14 @@ export default function Footer() {
                             </li>
                             <li className="flex items-start gap-3">
                                 <span className="p-1 rounded bg-indigo-500/10 text-indigo-400 mt-0.5"><MessageSquare size={14} /></span>
-                                <a href="https://wa.me/12514229420" className="text-zinc-400 hover:text-white transition-colors text-sm">
-                                    WhatsApp: +1 (251) 422-9420
+                                <a href="https://wa.me/12512296351" className="text-zinc-400 hover:text-white transition-colors text-sm">
+                                    WhatsApp: +1 (251) 229-6351
                                 </a>
                             </li>
                             <li className="flex items-start gap-3">
                                 <span className="p-1 rounded bg-indigo-500/10 text-indigo-400 mt-0.5"><Phone size={14} /></span>
-                                <a href="tel:+12514229420" className="text-zinc-400 hover:text-white transition-colors text-sm">
-                                    +1 (251) 422-9420
+                                <a href="tel:+14086577099" className="text-zinc-400 hover:text-white transition-colors text-sm">
+                                    +1 (408) 657-7099
                                 </a>
                             </li>
                             <li className="flex items-start gap-3">

@@ -34,6 +34,19 @@ export function middleware(req: NextRequest) {
     const userTier = req.cookies.get('user_tier')?.value || 'Sovereign Initiate';
 
     // 3. THE REDIRECT LOGIC: Redirect if user hits a link above their tier
+    // 3. THE REDIRECT LOGIC: Redirect if user hits a link above their tier
+    // Also enforce Role-Based Lanes (Sovereign Hardening)
+    // In production, userRole would come from Supabase metadata
+    const userRole = req.cookies.get('user_role')?.value || 'teacher'; // Default to teacher for safety
+
+    // Admin Lane: Only Admins can access /admin
+    if (isSiteCommand && userRole !== 'admin') {
+        return NextResponse.redirect(new URL('/tiffany-ed', req.url));
+    }
+
+    // Teacher Lane: Teachers should primarily be in /tiffany-ed, but can access other areas if tiered allowed
+    // If a teacher tries to hit /admin, they are redirected above.
+
     if (isSiteCommand && userTier !== 'Site Command') {
         return NextResponse.redirect(new URL(TIER_LINKS['Site Command'], req.url));
     }

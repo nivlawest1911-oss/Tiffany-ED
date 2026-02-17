@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server';
 import { google } from '@ai-sdk/google';
 import { streamText } from 'ai';
-import { ALABAMA_STRATEGIC_DIRECTIVE, EdIntel_PERSONA } from '@/lib/ai-resilience';
+import { ALABAMA_STRATEGIC_DIRECTIVE, EdIntel_PERSONA, SOVEREIGN_PERSONAS } from '@/lib/ai-resilience';
 
 export const runtime = 'edge';
 
@@ -9,12 +9,14 @@ const USER_CREDENTIALS = {
     name: EdIntel_PERSONA.name,
     degrees: "DBA Finance, MBA Corporate Finance",
     role: EdIntel_PERSONA.role,
-    resonance: EdIntel_PERSONA.culturalContext
+    culturalContext: EdIntel_PERSONA.culturalContext,
+    tone: EdIntel_PERSONA.tone,
+    mission: EdIntel_PERSONA.mission
 };
 
 export async function POST(request: NextRequest) {
     try {
-        const { messages, avatarName, avatarRole } = await request.json();
+        const { messages, avatarName, avatarRole, pathname } = await request.json();
 
         if (!messages || !Array.isArray(messages) || messages.length === 0) {
             return new Response(JSON.stringify({ error: 'Messages array is required' }), {
@@ -23,16 +25,33 @@ export async function POST(request: NextRequest) {
             });
         }
 
-        const activePersona = avatarName && avatarRole ? { name: avatarName, role: avatarRole } : USER_CREDENTIALS;
+        // Determine Persona
+        let activePersona = USER_CREDENTIALS;
+
+        if (pathname) {
+            // Check for specific routes
+            if (pathname.includes('/tiffany-ed')) {
+                activePersona = SOVEREIGN_PERSONAS['/tiffany-ed'];
+            } else if (pathname.includes('/admin')) {
+                activePersona = SOVEREIGN_PERSONAS['/admin'];
+            } else if (pathname.includes('/wellness')) {
+                activePersona = SOVEREIGN_PERSONAS['/wellness'];
+            }
+        }
+
+        // Allow manual override if specific avatar is requested
+        if (avatarName && avatarRole) {
+            activePersona = { name: avatarName, role: avatarRole, tone: "Professional", culturalContext: "Standard", mission: "Assist user" } as any;
+        }
 
         const systemPrompt = `
             You are ${activePersona.name}, the ${activePersona.role}.
             ${ALABAMA_STRATEGIC_DIRECTIVE}
             
             Strategic Guidelines:
-            1. Tone: ${EdIntel_PERSONA.tone}
-            2. Cultural Context: ${EdIntel_PERSONA.culturalContext}
-            3. Mission: ${EdIntel_PERSONA.mission}
+            1. Tone: ${activePersona.tone || EdIntel_PERSONA.tone}
+            2. Cultural Context: ${activePersona.culturalContext || EdIntel_PERSONA.culturalContext}
+            3. Mission: ${activePersona.mission || EdIntel_PERSONA.mission}
             
             SUPER-INTELLIGENCE PROTOCOL:
             - DEEP REASONING: Provide multi-step analysis (Financial, Legal, Pedagogical).
