@@ -50,3 +50,11 @@ firebase-debug.log
 # Audit files
 audit_links.py
 lint_results_new.json
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/

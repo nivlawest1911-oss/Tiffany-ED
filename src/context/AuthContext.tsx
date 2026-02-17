@@ -13,7 +13,7 @@ interface User {
     id: string;
     tier: 'free' | 'professional' | 'enterprise' | 'SCHOOL_SITE' | 'DISTRICT_MATRIX' | 'EXECUTIVE_COMMAND' | 'Sovereign Initiate' | 'Director Pack' | 'Practitioner' | 'Sovereign Pack' | 'Standard Pack' | 'Site Command';
     usage_count?: number;
-    tokensRemaining?: number;
+    usageTokens?: number;
     trialEndsAt?: Date | null;
     isTrialConverted?: boolean;
     organizationId?: string | null;
@@ -58,7 +58,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     // Fetch DIRECTLY from users table which is the source of truth for trial_ends_at
                     const { data: userData } = await supabase
                         .from('users')
-                        .select('subscription_tier, trial_ends_at, usage_count')
+                        .select('subscription_tier, trial_ends_at, usage_count, usage_tokens')
                         .eq('id', session.user.id)
                         .single();
 
@@ -67,7 +67,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                         email: session.user.email!,
                         name: profile?.full_name || (session.user.user_metadata?.full_name) || session.user.email?.split('@')[0] || 'Executive',
                         tier: (userData?.subscription_tier as any) || (session.user.user_metadata?.tier as any) || 'Sovereign Initiate',
-                        usage_count: userData?.usage_count || session.user.user_metadata?.usage_count || 0,
+                        usage_count: userData?.usage_count || 0,
+                        usageTokens: userData?.usage_tokens || 0,
                         trialEndsAt: userData?.trial_ends_at ? new Date(userData.trial_ends_at) : null,
                         avatar_url: profile?.avatar_url || session.user.user_metadata?.avatar_url
                     };

@@ -24,7 +24,7 @@ interface LiveAvatarChatProps {
         rate: number;
         lang?: string;
     };
-    tokensRemaining?: number;
+    usageTokens?: number;
     onDeductTokens?: (amount: number) => void;
     onRecharge?: () => void;
     onAddXP?: (amount: number) => void;
@@ -49,7 +49,8 @@ export default function LiveAvatarChat({
     onClose,
     heygenId,
     greetingText,
-    protocolContext
+    protocolContext,
+    usageTokens
 }: LiveAvatarChatProps) {
     // INTEGRATED MULTIMODAL HOOK
     const {
@@ -504,7 +505,7 @@ export default function LiveAvatarChat({
                             {/* REACTIVE PARTICLE FIELD */}
                             <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
                                 <AnimatePresence>
-                                    {(isSpeaking || isProcessing) && [...Array(20)].map((_, i) => (
+                                    {usageTokens !== undefined && usageTokens <= 0 && [...Array(20)].map((_, i) => (
                                         <motion.div
                                             key={i}
                                             className="absolute w-1 h-1 bg-noble-gold rounded-full opacity-50"

@@ -8,11 +8,13 @@ import {
 import LiveAvatarChat from './LiveAvatarChat';
 import { CORE_AVATARS } from '@/data/avatars';
 import HumanAvatar from './ui/HumanAvatar';
+import { useUserSession } from '@/hooks/useUserSession';
 
 // Comprehensive AI Avatar Team
 const AI_AVATARS = CORE_AVATARS;
 
 export default function AIAvatarGallery() {
+    const { session: user } = useUserSession();
     const [selectedAvatar, setSelectedAvatar] = useState<typeof AI_AVATARS[0] | null>(null);
     const [showLiveChat, setShowLiveChat] = useState(false);
     const [activeAvatar, setActiveAvatar] = useState<typeof AI_AVATARS[0] | null>(null);
@@ -309,8 +311,7 @@ export default function AIAvatarGallery() {
                     avatarVoice={activeAvatar.voiceId || ''}
                     avatarImage={activeAvatar.avatar}
                     heygenId={activeAvatar.heygenId}
-                    tokensRemaining={10}
-                    onDeductTokens={() => { }}
+                    usageTokens={user?.usageTokens}
                     onRecharge={() => { }}
                     onAddXP={() => { }}
                     onClose={() => setShowLiveChat(false)}

@@ -1,56 +1,70 @@
+
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import { createClient } from '@supabase/supabase-js';
+import { prisma } from '@/lib/prisma';
+
+// Initialize the Stripe client strictly
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+    apiVersion: '2023-10-16', // Always lock your Stripe API version to prevent unrequested changes
+    typescript: true,
+});
 
 export async function POST(req: Request) {
-    if (!process.env.STRIPE_SECRET_KEY || !process.env.STRIPE_WEBHOOK_SECRET) {
-        return NextResponse.json({ error: 'Stripe credentials missing' }, { status: 500 });
-    }
-
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2025-10-28' as any });
-
-    const supabaseAdmin = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.SUPABASE_SERVICE_ROLE_KEY!
-    );
-
-    const signature = req.headers.get('Stripe-Signature')!;
-
-    if (!signature) {
-        return NextResponse.json({ error: 'No signature' }, { status: 400 });
-    }
-
-    const bodyBuffer = await req.arrayBuffer();
-    const body = Buffer.from(bodyBuffer);
+    const body = await req.text();
+    const signature = req.headers.get('stripe-signature') as string;
 
     let event: Stripe.Event;
 
     try {
-        event = stripe.webhooks.constructEvent(body, signature, process.env.STRIPE_WEBHOOK_SECRET);
-    } catch (err: any) {
-        return NextResponse.json({ error: `Webhook Error: ${err.message}` }, { status: 400 });
+        // 1. Verify the message is actually from Stripe and not a malicious bot
+        event = stripe.webhooks.constructEvent(
+            body,
+            signature,
+            process.env.STRIPE_WEBHOOK_SECRET!
+        );
+    } catch (error: any) {
+        return new NextResponse(`Webhook Error: ${error.message}`, { status: 400 });
     }
 
-    // The "EdIntel" Event: When a checkout link is successfully finished
+    // 2. Handle the specific event when a user completes the checkout
     if (event.type === 'checkout.session.completed') {
         const session = event.data.object as Stripe.Checkout.Session;
 
-        // We update the user profile in Supabase based on their email or client_reference_id
-        const { error } = await supabaseAdmin
-            .from('profiles')
-            .update({
-                subscription_tier: session.metadata?.plan_name || 'Standard Pack',
-                stripe_customer_id: session.customer as string,
-                trial_active: true,
-                trial_end_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
-            })
-            .eq('email', session.customer_details?.email);
+        // Retrieve the customer email and the specific tier they chose
+        const customerEmail = session.customer_details?.email;
 
-        if (error) {
-            console.error('Supabase Update Error:', error);
-            return NextResponse.json({ error: 'Supabase Update Failed' }, { status: 500 });
+        // In Stripe, you can pass "metadata" in your payment links to identify the tier
+        const tierName = session.metadata?.tierName || 'Standard Pack';
+
+        if (customerEmail) {
+            // 3. Look up the Tier ID in your database
+            const tier = await prisma.tier.findUnique({
+                where: { name: tierName }
+            });
+
+            if (tier) {
+                // 4. Safely create or update the user in Prisma
+                await prisma.user.upsert({
+                    where: { email: customerEmail },
+                    update: {
+                        tierId: tier.id,
+                        isActive: true, // Reactivate if they were inactive
+                        // You can optionally reset or add tokens upon subscription start
+                    },
+                    create: {
+                        email: customerEmail,
+                        name: session.customer_details?.name || 'Authorized Personnel',
+                        tierId: tier.id,
+                        usageTokens: 50, // Initialize their token economy securely
+                        isActive: true,
+                    }
+                });
+            } else {
+                console.error(`Webhook Warning: Tier '${tierName}' not found for user ${customerEmail}`);
+            }
         }
     }
 
-    return NextResponse.json({ received: true });
+    // 5. Tell Stripe the message was received successfully
+    return new NextResponse('Webhook processed', { status: 200 });
 }

@@ -1,4 +1,4 @@
-import { EdIntel_STRIPE_LINKS } from '@/app/config/EdIntel-manifest';
+import { EDINTEL_TIERS } from '@/config/tiers';
 
 export const EdIntel_TIERS = [
     {
@@ -6,7 +6,7 @@ export const EdIntel_TIERS = [
         name: "Sovereign Initiate",
         price: 0,
         monthlyPrice: 0,
-        stripeLink: EdIntel_STRIPE_LINKS.INITIATE,
+        stripeLink: EDINTEL_TIERS["Sovereign Initiate"].stripeLink,
         icon: "Sparkles",
         color: "zinc",
         idealFor: "Observers & New Users",
@@ -23,7 +23,7 @@ export const EdIntel_TIERS = [
         name: "Standard Pack",
         price: 9.99,
         monthlyPrice: 9.99,
-        stripeLink: EdIntel_STRIPE_LINKS.STANDARD_PACK,
+        stripeLink: EDINTEL_TIERS["Standard Pack"].stripeLink,
         icon: "Star",
         color: "violet",
         idealFor: "Individual Teachers",
@@ -39,7 +39,7 @@ export const EdIntel_TIERS = [
         name: "EdIntel Pack",
         price: 39.99,
         monthlyPrice: 39.99,
-        stripeLink: EdIntel_STRIPE_LINKS.EdIntel_PACK,
+        stripeLink: EDINTEL_TIERS["Sovereign Pack"].stripeLink,
         icon: "Crown",
         color: "amber",
         idealFor: "Detailed Educators",
@@ -55,7 +55,7 @@ export const EdIntel_TIERS = [
         name: "Practitioner",
         price: 49.99,
         monthlyPrice: 49.99,
-        stripeLink: EdIntel_STRIPE_LINKS.PRACTITIONER,
+        stripeLink: EDINTEL_TIERS["Practitioner"].stripeLink,
         icon: "GraduationCap",
         color: "emerald",
         idealFor: "Classroom Specialists",
@@ -71,7 +71,7 @@ export const EdIntel_TIERS = [
         name: "Director Pack",
         price: 69.99,
         monthlyPrice: 69.99,
-        stripeLink: EdIntel_STRIPE_LINKS.DIRECTOR_PACK,
+        stripeLink: EDINTEL_TIERS["Director Pack"].stripeLink,
         icon: "Briefcase",
         color: "blue",
         idealFor: "Department Heads",
@@ -88,7 +88,7 @@ export const EdIntel_TIERS = [
         name: "Site Command",
         price: 79.99,
         monthlyPrice: 79.99,
-        stripeLink: EdIntel_STRIPE_LINKS.SITE_COMMAND,
+        stripeLink: EDINTEL_TIERS["Site Command"].stripeLink,
         icon: "Building",
         color: "rose",
         idealFor: "Principals & Admin",

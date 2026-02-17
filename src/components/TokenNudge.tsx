@@ -7,18 +7,18 @@ import Link from 'next/link';
 
 interface TokenNudgeProps {
     daysRemaining: number;
-    tokensRemaining: number;
+    usageTokens: number;
     isTrial: boolean;
 }
 
 export const TokenNudge: React.FC<TokenNudgeProps> = ({
     daysRemaining,
-    tokensRemaining,
+    usageTokens,
     isTrial
 }) => {
-    if (tokensRemaining > 10 && daysRemaining > 3) return null;
+    if (usageTokens > 10 && daysRemaining > 3) return null;
 
-    const isCritical = tokensRemaining <= 5 || daysRemaining <= 1;
+    const isCritical = usageTokens <= 5 || daysRemaining <= 1;
 
     return (
         <motion.div
@@ -38,19 +38,19 @@ export const TokenNudge: React.FC<TokenNudgeProps> = ({
                     </div>
                     <div>
                         <h4 className="text-white font-black uppercase text-sm tracking-widest italic">
-                            {isCritical ? 'Neural Sync Critical' : 'Pilot Status Update'}
+                            {isTrial ? 'Trial usage remaining' : 'Current tokens'}
                         </h4>
-                        <p className="text-zinc-500 text-[10px] uppercase font-bold tracking-widest mt-1">
-                            System Authorization Check
-                        </p>
+                        <span className="text-white font-mono font-bold leading-none">
+                            {usageTokens} TKN
+                        </span>
                     </div>
                 </div>
 
                 <div className="space-y-3 mb-6">
                     <div className="flex justify-between items-center p-3 rounded-xl bg-white/5 border border-white/5">
                         <span className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">Remaining Tokens</span>
-                        <span className={`text-sm font-black ${tokensRemaining <= 5 ? 'text-amber-500' : 'text-white'}`}>
-                            {tokensRemaining} / 50
+                        <span className={`text-sm font-black ${usageTokens <= 5 ? 'text-amber-500' : 'text-white'}`}>
+                            {usageTokens} / 50
                         </span>
                     </div>
 
@@ -75,8 +75,8 @@ export const TokenNudge: React.FC<TokenNudgeProps> = ({
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         className={`w-full py-4 rounded-xl flex items-center justify-center gap-2 font-black uppercase text-[10px] tracking-widest transition-all ${isCritical
-                                ? 'bg-amber-600 text-black shadow-lg shadow-amber-900/20'
-                                : 'bg-white text-black hover:bg-zinc-200'
+                            ? 'bg-amber-600 text-black shadow-lg shadow-amber-900/20'
+                            : 'bg-white text-black hover:bg-zinc-200'
                             }`}
                     >
                         {isTrial ? 'Upgrade License' : 'Purchase Tokens'}

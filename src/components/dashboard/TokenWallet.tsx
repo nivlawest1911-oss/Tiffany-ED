@@ -57,7 +57,7 @@ export default function TokenWallet() {
                             <span className="text-[10px] font-black uppercase tracking-widest">Token Wallet</span>
                         </div>
                         <div className="text-3xl font-black text-white tracking-tight">
-                            {user?.tokensRemaining?.toLocaleString() || 0}
+                            {user?.usageTokens?.toLocaleString() || 0}
                             <span className="text-sm font-medium text-slate-500 ml-1">TKN</span>
                         </div>
                     </div>

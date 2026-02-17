@@ -3,6 +3,8 @@
  * Single Source of Truth for Education & Wellness Modules
  */
 
+import { EDINTEL_TIERS as TIERS_CONFIG } from '@/config/tiers';
+
 export interface NavItem {
     label: string;
     href: string;
@@ -12,12 +14,12 @@ export interface NavItem {
 }
 
 export const EDINTEL_TIERS = [
-    { id: 'initiate', name: "Sovereign Initiate", price: 0.00, module: "General" },
-    { id: 'standard', name: "Standard Pack", price: 9.99, module: "EdIntel" },
-    { id: 'sovereign', name: "Sovereign Pack", price: 39.99, module: "EdIntel" },
-    { id: 'practitioner', name: "Practitioner", price: 49.99, module: "Transcend" },
-    { id: 'director', name: "Director Pack", price: 69.99, module: "Transcend" },
-    { id: 'command', name: "Site Command", price: 79.99, module: "Admin/District" }
+    { id: 'initiate', name: TIERS_CONFIG["Sovereign Initiate"].name, price: TIERS_CONFIG["Sovereign Initiate"].price, module: "General" },
+    { id: 'standard', name: TIERS_CONFIG["Standard Pack"].name, price: TIERS_CONFIG["Standard Pack"].price, module: "EdIntel" },
+    { id: 'sovereign', name: TIERS_CONFIG["Sovereign Pack"].name, price: TIERS_CONFIG["Sovereign Pack"].price, module: "EdIntel" },
+    { id: 'practitioner', name: TIERS_CONFIG["Practitioner"].name, price: TIERS_CONFIG["Practitioner"].price, module: "Transcend" },
+    { id: 'director', name: TIERS_CONFIG["Director Pack"].name, price: TIERS_CONFIG["Director Pack"].price, module: "Transcend" },
+    { id: 'command', name: TIERS_CONFIG["Site Command"].name, price: TIERS_CONFIG["Site Command"].price, module: "Admin/District" }
 ];
 
 export const NAV_LINKS = {

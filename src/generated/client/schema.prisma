@@ -1,0 +1,412 @@
+// EdIntel Sovereign Schema - Optimized for Google Cloud SQL (Postgres)
+// Designed for AI Avatar Memory & Evidence Folder Architecture
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/client"
+  // previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+  // extensions = [pgvector(map: "vector")]
+}
+
+// ============================================
+// EXTERNAL MEDIA SYNC (Vercel Blob / Cloudinary)
+// ============================================
+
+model EdintelMedia {
+  id         String   @id @default(cuid())
+  fileName   String   @map("file_name")
+  url        String   @unique
+  mediaType  String   @map("media_type")
+  size       Int      @default(0)
+  uploadedAt DateTime @default(now()) @map("uploaded_at")
+
+  @@map("edintel_media")
+}
+
+// ============================================
+// PRICING TIERS (Sovereign Architecture)
+// ============================================
+
+model Tier {
+  id          String  @id @default(cuid())
+  name        String  @unique // Basic, Premium, District
+  signupPrice Float   @default(79.00) @map("signup_price")
+  description String?
+
+  // Relations
+  users User[]
+
+  @@map("tiers")
+}
+
+// ============================================
+// CORE USER & AUTHENTICATION
+// ============================================
+
+model User {
+  id         String  @id @default(cuid())
+  email      String  @unique
+  name       String?
+  role       String  @default("educator") @map("role")
+  district   String? // Mobile County Schools, etc.
+  school     String?
+  schoolSite String? @map("school_site")
+  position   String? // Principal, Teacher, Counselor
+
+  // Organization Link
+  organizationId String?       @map("organization_id")
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+
+  // Subscription & Billing
+  stripeCustomerId   String? @unique @map("stripe_customer_id")
+  subscriptionTier   String  @default("free") @map("subscription_tier")
+  subscriptionStatus String  @default("inactive") @map("subscription_status")
+  usageTokens        Int     @default(10) @map("usage_tokens")
+  xpPoints           Int     @default(0) @map("xp_points")
+
+  // Trial Logic
+  trialStartedAt   DateTime  @default(now()) @map("trial_started_at")
+  trialEndsAt      DateTime? @map("trial_ends_at")
+  isTrialConverted Boolean   @default(false) @map("is_trial_converted")
+
+  // Tiers
+  tierId String? @map("tier_id")
+  tier   Tier?   @relation(fields: [tierId], references: [id])
+
+  // Auth & Identity
+  googleId  String? @unique @map("google_id")
+  avatarUrl String? @map("avatar_url")
+
+  // Security
+  passwordHash String?   @map("password_hash")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+  lastLogin    DateTime? @map("last_login")
+
+  // Billing Sync
+  subscriptionId String?   @map("subscription_id")
+  lastPaymentAt  DateTime? @map("last_payment_at")
+
+  // Relations
+  generations     Generation[]
+  observations    Observation[]
+  evidenceFolders EvidenceFolder[]
+  avatarSessions  AvatarSession[]
+
+  @@index([email])
+  @@index([district, school])
+  @@index([organizationId])
+  @@map("users")
+}
+
+// ============================================
+// ORGANIZATIONS & DISTRICTS
+// ============================================
+
+model Organization {
+  id   String @id @default(cuid())
+  name String
+  tier String @default("SCHOOL_SITE") // SCHOOL_SITE, DISTRICT_MATRIX, EXECUTIVE_COMMAND
+
+  // Trial management
+  trialStartedAt   DateTime @default(now()) @map("trial_started_at")
+  trialStartsAt    DateTime @default(now()) @map("trial_starts_at")
+  trialEndsAt      DateTime @map("trial_ends_at")
+  isTrialConverted Boolean  @default(false) @map("is_trial_converted")
+
+  // Token Economy
+  usageTokens Int @default(0) @map("usage_tokens")
+
+  // Structure
+  address      String?
+  contactEmail String? @map("contact_email")
+
+  // Relations
+  users User[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("organizations")
+}
+
+// ============================================
+// AI AVATAR SESSIONS (Multimodal Live)
+// ============================================
+
+model AvatarSession {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Session Metadata
+  avatarName String // Dr. Alvin, Sarah, Marcus
+  avatarRole String // Superintendent Delegate, Instructional Aide
+  engine     String @default("duix") // duix, tavus, heygen, liveportrait
+
+  // Performance Metrics
+  startedAt  DateTime  @default(now())
+  endedAt    DateTime?
+  duration   Int? // seconds
+  latencyAvg Float? // milliseconds
+
+  // Conversation Data
+  conversationLog Json // Array of {role, text, timestamp}
+  userSentiment   String? // neutral, positive, urgent, distressed
+
+  // GCP Integration
+  gcpSessionId     String? @unique
+  vertexAiModel    String  @default("gemini-1.5-pro")
+  cloudRunEndpoint String?
+
+  // Sovereign Agentic Memory
+  thoughtSignatures Json? // Stores Gemini 3 Pro thought traces for multi-turn reasoning
+
+  // Relations
+  observations Observation[]
+
+  @@index([userId, startedAt])
+  @@index([gcpSessionId])
+  @@map("avatar_sessions")
+}
+
+// ============================================
+// EVIDENCE FOLDER (Legal Defense System)
+// ============================================
+
+model EvidenceFolder {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Student Information (Anonymized for Privacy)
+  studentId       String // Hashed identifier
+  gradeLevel      String?
+  specialEdStatus String? // IEP, 504, None
+
+  // Folder Metadata
+  title     String
+  category  String // IEP, Behavior, Academic, Attendance
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // AI-Generated Insights
+  aiSummary       String? @db.Text
+  riskLevel       String? // low, medium, high, critical
+  complianceScore Float? // 0-100
+
+  // embedding         Unsupported("vector(1536)")?
+
+  // Relations
+  observations Observation[]
+  documents    Document[]
+
+  @@index([userId, studentId])
+  @@index([category, riskLevel])
+  // @@index([embedding], map: "evidence_embedding_hnsw_idx")
+  @@map("evidence_folders")
+}
+
+// ============================================
+// OBSERVATION LOGS (Teacher Documentation)
+// ============================================
+
+model Observation {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  evidenceFolderId String?
+  evidenceFolder   EvidenceFolder? @relation(fields: [evidenceFolderId], references: [id], onDelete: SetNull)
+
+  avatarSessionId String?
+  avatarSession   AvatarSession? @relation(fields: [avatarSessionId], references: [id], onDelete: SetNull)
+
+  // Observation Data
+  observationType String // behavior, academic, social-emotional
+  observationDate DateTime @default(now())
+  duration        Int? // minutes
+
+  // Content
+  description   String  @db.Text
+  context       String? @db.Text
+  interventions String? @db.Text
+
+  // AI Analysis
+  aiAnalysis       String? @db.Text
+  suggestedActions Json? // Array of action items
+  legalCompliance  Boolean @default(false)
+
+  // Attachments
+  hasAudio  Boolean @default(false)
+  hasVideo  Boolean @default(false)
+  hasImages Boolean @default(false)
+
+  // embedding         Unsupported("vector(1536)")?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, observationDate])
+  @@index([evidenceFolderId])
+  @@index([observationType])
+  // @@index([embedding], map: "observation_embedding_hnsw_idx")
+  @@map("observations")
+}
+
+// ============================================
+// DOCUMENTS (Secure File Storage)
+// ============================================
+
+model Document {
+  id               String         @id @default(cuid())
+  evidenceFolderId String
+  evidenceFolder   EvidenceFolder @relation(fields: [evidenceFolderId], references: [id], onDelete: Cascade)
+
+  // File Metadata
+  fileName String
+  fileType String // pdf, docx, image, audio, video
+  fileSize Int // bytes
+
+  // GCP Storage
+  gcpBucketPath String // gs://edintel-evidence/...
+  gcpSignedUrl  String?   @db.Text
+  urlExpiresAt  DateTime?
+
+  // Security
+  encrypted   Boolean @default(true)
+  accessLevel String  @default("private") // private, district, public
+
+  // embedding         Unsupported("vector(1536)")?
+
+  uploadedAt DateTime @default(now())
+
+  @@index([evidenceFolderId])
+  @@index([fileType])
+  // @@index([embedding], map: "document_embedding_hnsw_idx")
+  @@map("documents")
+}
+
+// ============================================
+// AI GENERATIONS (Existing System)
+// ============================================
+
+model Generation {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  generatorId String
+  prompt      String @db.Text
+  content     String @db.Text
+
+  // Avatar Integration
+  professorVideoUrl String?
+  avatarEngine      String?
+
+  createdAt DateTime @default(now())
+
+  @@index([userId, createdAt])
+  @@index([generatorId])
+  @@map("generations")
+}
+
+// ============================================
+// ANALYTICS & PERFORMANCE
+// ============================================
+
+model AnalyticsEvent {
+  id     String  @id @default(cuid())
+  userId String?
+
+  // Event Data
+  eventType     String // avatar_session, generation, observation
+  eventCategory String
+  eventAction   String
+  eventLabel    String?
+
+  // Performance Metrics
+  latency    Float? // milliseconds
+  tokensUsed Int?
+  gcpCost    Float? // dollars
+
+  // Context
+  metadata  Json?
+  userAgent String?
+  ipAddress String?
+
+  timestamp DateTime @default(now())
+
+  @@index([eventType, timestamp])
+  @@index([userId, timestamp])
+  @@map("analytics_events")
+}
+
+// ============================================
+// SEMANTIC CACHE (Infinite Rhythm)
+// ============================================
+
+model SemanticCache {
+  id       String @id @default(cuid())
+  query    String @db.Text
+  response String @db.Text
+
+  // embedding   Unsupported("vector(1536)")?
+
+  // Metatdata for TTL and Usage
+  hitCount  Int      @default(0) @map("hit_count")
+  lastHitAt DateTime @default(now()) @map("last_hit_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // @@index([embedding], map: "cache_embedding_hnsw_idx")
+  @@map("semantic_caches")
+}
+
+// ============================================
+// GRAPHRAG: THE SOVEREIGN WEB
+// ============================================
+
+model GraphNode {
+  id         String @id @default(cuid())
+  label      String // Student, Staff, Incident, Protocol
+  name       String
+  properties Json? // Specific attributes (grade, role, etc.)
+
+  // embedding   Unsupported("vector(1536)")?
+
+  // Relations
+  outbound GraphEdge[] @relation("OutboundEdges")
+  inbound  GraphEdge[] @relation("InboundEdges")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([label])
+  // @@index([embedding], map: "graph_node_embedding_hnsw_idx")
+  @@map("graph_nodes")
+}
+
+model GraphEdge {
+  id         String @id @default(cuid())
+  type       String // TEACHES, INVOLVED_IN, MENTORS, COMPLIANT_WITH
+  properties Json?
+
+  sourceId String
+  source   GraphNode @relation("OutboundEdges", fields: [sourceId], references: [id], onDelete: Cascade)
+
+  targetId String
+  target   GraphNode @relation("InboundEdges", fields: [targetId], references: [id], onDelete: Cascade)
+
+  weight    Float    @default(1.0)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([sourceId])
+  @@index([targetId])
+  @@index([type])
+  @@map("graph_edges")
+}

@@ -1,17 +1,16 @@
-
 // EdIntel Sovereign Schema - Optimized for Google Cloud SQL (Postgres)
 // Designed for AI Avatar Memory & Evidence Folder Architecture
 
 generator client {
-  provider = "prisma-client-js"
-  previewFeatures = ["postgresqlExtensions"]
-  binaryTargets   = ["native", "rhel-openssl-1.0.x", "rhel-openssl-3.0.x"]
+  provider        = "prisma-client-js"
+  // previewFeatures = ["postgresqlExtensions"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  extensions = [pgvector(map: "vector")]
+  directUrl = env("DIRECT_URL")
+// extensions = [pgvector(map: "vector")]
 }
 
 // ============================================
@@ -30,6 +29,21 @@ model EdintelMedia {
 }
 
 // ============================================
+// PRICING TIERS (Sovereign Architecture)
+// ============================================
+
+model Tier {
+  id             String    @id @default(cuid())
+  name           String    @unique // e.g., "Site Command"
+  stripeUrl      String    // Stores the exact Stripe payment link
+  
+  // Relations
+  users          User[]
+
+  @@map("tiers")
+}
+
+// ============================================
 // CORE USER & AUTHENTICATION
 // ============================================
 
@@ -40,6 +54,7 @@ model User {
   role              String   @default("educator") @map("role")
   district          String?  // Mobile County Schools, etc.
   school            String?
+  schoolSite        String?  @map("school_site")
   position          String?  // Principal, Teacher, Counselor
   
   // Organization Link
@@ -50,12 +65,18 @@ model User {
   stripeCustomerId  String?  @unique @map("stripe_customer_id")
   subscriptionTier  String   @default("free") @map("subscription_tier")
   subscriptionStatus String  @default("inactive") @map("subscription_status")
-  tokensRemaining   Int      @default(10) @map("tokens_remaining")
+  usageTokens       Int      @default(10) @map("usage_tokens")
   xpPoints          Int      @default(0) @map("xp_points")
   
   // Trial Logic
+  trialStartedAt    DateTime @default(now()) @map("trial_started_at")
   trialEndsAt       DateTime? @map("trial_ends_at")
   isTrialConverted  Boolean   @default(false) @map("is_trial_converted")
+  isActive          Boolean   @default(true) @map("is_active")
+  
+  // Tiers
+  tierId            String?   @map("tier_id")
+  tier              Tier?     @relation(fields: [tierId], references: [id])
   
   // Auth & Identity
   googleId          String?  @unique @map("google_id")
@@ -93,6 +114,7 @@ model Organization {
   tier              String   @default("SCHOOL_SITE") // SCHOOL_SITE, DISTRICT_MATRIX, EXECUTIVE_COMMAND
   
   // Trial management
+  trialStartedAt    DateTime @default(now()) @map("trial_started_at")
   trialStartsAt     DateTime @default(now()) @map("trial_starts_at")
   trialEndsAt       DateTime @map("trial_ends_at")
   isTrialConverted  Boolean  @default(false) @map("is_trial_converted")
@@ -178,8 +200,7 @@ model EvidenceFolder {
   riskLevel         String?  // low, medium, high, critical
   complianceScore   Float?   // 0-100
   
-  // Vector Embeddings for AI Memory (pgvector)
-  embedding         Unsupported("vector(1536)")?
+  // embedding         Unsupported("vector(1536)")?
   
   // Relations
   observations      Observation[]
@@ -187,7 +208,7 @@ model EvidenceFolder {
   
   @@index([userId, studentId])
   @@index([category, riskLevel])
-  @@index([embedding], map: "evidence_embedding_hnsw_idx")
+  // @@index([embedding], map: "evidence_embedding_hnsw_idx")
   @@map("evidence_folders")
 }
 
@@ -226,8 +247,7 @@ model Observation {
   hasVideo          Boolean  @default(false)
   hasImages         Boolean  @default(false)
   
-  // Vector Embeddings
-  embedding         Unsupported("vector(1536)")?
+  // embedding         Unsupported("vector(1536)")?
   
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
@@ -235,7 +255,7 @@ model Observation {
   @@index([userId, observationDate])
   @@index([evidenceFolderId])
   @@index([observationType])
-  @@index([embedding], map: "observation_embedding_hnsw_idx")
+  // @@index([embedding], map: "observation_embedding_hnsw_idx")
   @@map("observations")
 }
 
@@ -262,16 +282,13 @@ model Document {
   encrypted         Boolean  @default(true)
   accessLevel       String   @default("private") // private, district, public
   
-  // AI Processing
-  extractedText     String?  @db.Text
-  aiSummary         String?  @db.Text
-  embedding         Unsupported("vector(1536)")?
+  // embedding         Unsupported("vector(1536)")?
   
   uploadedAt        DateTime @default(now())
   
   @@index([evidenceFolderId])
   @@index([fileType])
-  @@index([embedding], map: "document_embedding_hnsw_idx")
+  // @@index([embedding], map: "document_embedding_hnsw_idx")
   @@map("documents")
 }
 
@@ -339,15 +356,14 @@ model SemanticCache {
   query       String   @db.Text
   response    String   @db.Text
   
-  // Vector for Similarity Search
-  embedding   Unsupported("vector(1536)")?
+  // embedding   Unsupported("vector(1536)")?
   
   // Metatdata for TTL and Usage
   hitCount    Int      @default(0) @map("hit_count")
   lastHitAt   DateTime @default(now()) @map("last_hit_at")
   createdAt   DateTime @default(now()) @map("created_at")
 
-  @@index([embedding], map: "cache_embedding_hnsw_idx")
+  // @@index([embedding], map: "cache_embedding_hnsw_idx")
   @@map("semantic_caches")
 }
 
@@ -361,8 +377,7 @@ model GraphNode {
   name        String
   properties  Json?    // Specific attributes (grade, role, etc.)
   
-  // Vector for Hybrid Search (Graph + Semantic)
-  embedding   Unsupported("vector(1536)")?
+  // embedding   Unsupported("vector(1536)")?
   
   // Relations
   outbound    GraphEdge[] @relation("OutboundEdges")
@@ -371,7 +386,7 @@ model GraphNode {
   createdAt   DateTime @default(now()) @map("created_at")
 
   @@index([label])
-  @@index([embedding], map: "graph_node_embedding_hnsw_idx")
+  // @@index([embedding], map: "graph_node_embedding_hnsw_idx")
   @@map("graph_nodes")
 }
 

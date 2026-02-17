@@ -3,10 +3,9 @@ import type { Config } from "tailwindcss"
 const config = {
   darkMode: "class",
   content: [
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    // Do not add node_modules here unless absolutely necessary
   ],
   prefix: "",
   theme: {
@@ -28,6 +27,11 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        brand: {
+          light: '#eff6ff', // your blue-50
+          DEFAULT: '#2563eb', // your blue-600
+          dark: '#1e40af', // your blue-800
+        },
         "intel-gold": "#C5A47E",
         "sovereign-black": "#050505",
         "noble-navy": "#0A0E1A",
