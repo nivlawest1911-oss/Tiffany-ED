@@ -175,7 +175,7 @@ export default function LoginClient() {
                             <button
                                 type="submit"
                                 disabled={isLoggingIn}
-                                className="group relative w-full overflow-hidden rounded-xl bg-white p-4 font-black text-[10px] uppercase tracking-[0.3em] text-black transition-all hover:scale-[1.01] active:scale-[0.98] disabled:opacity-50 shadow-[0_0_40px_rgba(255,255,255,0.1)] hover:shadow-[0_0_60px_rgba(255,255,255,0.2)]"
+                                className="group relative w-full overflow-hidden rounded-xl bg-rose-600 p-4 font-black text-[10px] uppercase tracking-[0.3em] text-white transition-all hover:scale-[1.01] active:scale-[0.98] disabled:opacity-50 shadow-[0_0_40px_rgba(255,100,100,0.1)] hover:shadow-[0_0_60px_rgba(255,100,100,0.2)]"
                             >
                                 <div className="relative z-10 flex items-center justify-center gap-3">
                                     {isLoggingIn ? 'Verifying...' : 'Establish Connection'}
