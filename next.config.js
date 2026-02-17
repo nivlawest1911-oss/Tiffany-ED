@@ -23,7 +23,7 @@ const nextConfig = {
         // Enable optimized package imports for faster builds
         optimizePackageImports: ['lucide-react', 'framer-motion', 'recharts'],
     },
-    serverExternalPackages: ['@google-cloud/bigquery'],
+    serverExternalPackages: ['@google-cloud/bigquery', '@xenova/transformers', 'onnxruntime-node'],
     // Optimal Webpack configuration for large-scale AI applications
     webpack: (config, { dev, isServer }) => {
         if (!dev && !isServer) {
