@@ -1,9 +1,7 @@
-import { cookies } from 'next/headers';
-import GeneratorsIndexClient from './GeneratorsIndexClient';
-
-export const dynamic = 'force-dynamic';
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default async function GeneratorsIndexPage() {
     await cookies(); // Force dynamic rendering
-    return <GeneratorsIndexClient />;
+    redirect("/ai-hub");
 }

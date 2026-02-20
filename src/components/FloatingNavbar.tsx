@@ -27,7 +27,7 @@ export default function FloatingNavbar() {
     }, []);
 
     const navLinks = [
-        { name: 'Professional Center', href: '/edintel-professional', badge: 'NEW' },
+        { name: 'Professional Center', href: '/pricing', badge: 'NEW' },
         { name: 'The Room', href: '/the-room' },
         { name: 'Features', href: '/#features', scroll: true },
         {
@@ -41,7 +41,7 @@ export default function FloatingNavbar() {
                 { name: 'EdIntel Core', href: '/edintel-professional', badge: 'FX' },
             ]
         },
-        { name: 'Pricing', href: '/#pricing', scroll: true },
+        { name: 'Pricing', href: '/pricing' },
         { name: 'About', href: '/about' },
         { name: 'Contact', href: '/contact' },
     ];
@@ -167,7 +167,7 @@ export default function FloatingNavbar() {
                         {/* CTA / User Profile */}
                         <div className="hidden md:flex items-center gap-4">
                             {/* Enterprise Link */}
-                            <Link href="/enterprise">
+                            <Link href="/pricing">
                                 <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-noble-gold/5 border border-noble-gold/20 text-[10px] font-black text-noble-gold hover:bg-noble-gold/10 transition-all uppercase tracking-wider" onMouseEnter={() => playHover()}>
                                     <Globe size={12} />
                                     <span>Enterprise</span>

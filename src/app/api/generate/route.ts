@@ -1,16 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { google } from '@ai-sdk/google';
-import { streamText } from 'ai';
 import { getMetaAIClient } from '@/lib/meta-ai/client';
 import { ALABAMA_STRATEGIC_DIRECTIVE, EdIntel_PERSONA } from '@/lib/ai-resilience';
 import { getSession } from '@/lib/auth'; // Custom auth helper
 import { TokenService } from '@/lib/services/token-service';
+import { streamProfessionalResponse } from '@/lib/leadership-ai';
 
 export const runtime = 'nodejs';
 
 export async function POST(request: NextRequest) {
     try {
-        const { prompt, generatorId, systemInstruction, delegate } = await request.json();
+        const { prompt, generatorId, delegate } = await request.json();
 
         if (!prompt) {
             return NextResponse.json({ error: 'Prompt is required' }, { status: 400 });
@@ -247,36 +246,15 @@ export async function POST(request: NextRequest) {
         }
 
         // SYSTEM PROMPT: FORCING HIGH-FIDELITY EdIntel PERSONA
-        const systemPrompt = `
-            You are ${activePersona.name}, the ${activePersona.role}.
-            ${ALABAMA_STRATEGIC_DIRECTIVE}
-            
-            Strategic Guidelines:
-            1. Tone: ${activePersona.tone}
-            2. Cultural Context: ${activePersona.culturalContext}
-            3. Mission: ${activePersona.mission}
-            4. Goal: 79 school site signups in Mobile County, Alabama.
-            
-            SUPER-INTELLIGENCE MANDATE:
-            - THOUGHT PROCESS: Before every answer, you MUST engage in a "Neural Synthesis" step. 
-            - Output your reasoning inside <neural_synthesis> tags, evaluating 3 distinct strategies and selecting the optimal one.
-            - CITATION PROTOCOL: Reference specific Alabama codes (SB 216/171), ESSA federal statutes, and MCPSS strategic goals.
-            - CEU/PLU ALIGNMENT: Ensure all professional development recommendations are structured to qualify for state-recognized credit.
-            - NO FLUFF: Be dense and high-entropy.
+        // Use standardized streaming response with resilience
+        const streamResult = await streamProfessionalResponse(
+            prompt,
+            generatorId,
+            activePersona,
+            isHighFidelityTool ? 'premium' : 'standard'
+        );
 
-            Tool Context: ${generatorId || 'General Intelligence'}
-            ${systemInstruction ? `Specific Task Note: ${systemInstruction}` : ''}
-        `;
-
-        // Use standard model ID for Vercel AI SDK Google provider
-        const result = await streamText({
-            model: google('gemini-1.5-pro'),
-            system: systemPrompt,
-            prompt: prompt,
-            temperature: 0.7,
-        });
-
-        return result.toTextStreamResponse();
+        return streamResult.toTextStreamResponse();
 
     } catch (error: any) {
         console.error('Generation Error:', error);

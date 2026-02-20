@@ -3,13 +3,14 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 import { Lock, Mail, ArrowRight, ShieldCheck as LucideShield, Loader2, Gem } from 'lucide-react';
 import HolographicBriefing from '@/components/intelligence/HolographicBriefing';
-import { useAuth } from '@/context/AuthContext';
+import { createBrowserClient } from '@supabase/ssr';
 import EdIntelLogo from '@/components/EdIntelLogo';
 import EdIntelSovereignLogo from '@/components/EdIntelSovereignLogo';
 import { ParticleBackground } from '@/components/ui/Cinematic';
+import { toast } from 'sonner';
+import { ROUTES } from '@/lib/routes';
 
 export default function LoginClient() {
     const [email, setEmail] = useState('');
@@ -18,29 +19,116 @@ export default function LoginClient() {
     const [isLoggingIn, setIsLoggingIn] = useState(false);
     const [isSocialLoading, setIsSocialLoading] = useState<'google' | 'facebook' | null>(null);
     const [showBriefing, setShowBriefing] = useState(false);
-    const _router = useRouter();
+    const [mode, setMode] = useState<'login' | 'signup'>('login');
+    const router = useRouter();
     const searchParams = useSearchParams();
-    const { login, loginWithGoogle, loginWithFacebook } = useAuth();
 
-    // Capture OAuth errors from callback redirect
+    // 🏛️ EdIntel Enrollment Fields
+    const [signupData, setSignupData] = useState({
+        name: '',
+        schoolSite: '',
+        tierName: 'Sovereign Initiate'
+    });
+
+    // Initialize Sovereign Supabase Client
+    const supabase = createBrowserClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
+
+    // Capture OAuth errors and Mode from URL
     useEffect(() => {
         const oauthError = searchParams.get('error');
         if (oauthError) {
-            setError(decodeURIComponent(oauthError).replace(/_/g, ' '));
+            const decodedError = decodeURIComponent(oauthError).replace(/_/g, ' ');
+            setError(decodedError);
+            toast.error("Authentication Sentinel", {
+                description: `Access Denied: ${decodedError}`,
+            });
         }
+
+        const urlMode = searchParams.get('mode');
+        if (urlMode === 'signup') setMode('signup');
     }, [searchParams]);
 
-    const handleLogin = async (e: React.FormEvent) => {
+    const handleAuth = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoggingIn(true);
         setError('');
 
         try {
-            await login(email, password);
+            if (mode === 'login') {
+                const { error: signInError } = await supabase.auth.signInWithPassword({
+                    email,
+                    password,
+                });
+
+                if (signInError) throw signInError;
+
+                toast.success("Identity Verified", {
+                    description: "Establishing secure session tunnel...",
+                });
+            } else {
+                // 🏛️ Sovereign Enrollment Protocol (Signup)
+                const { error: signUpError } = await supabase.auth.signUp({
+                    email,
+                    password,
+                    options: {
+                        data: {
+                            full_name: signupData.name,
+                            tier: signupData.tierName,
+                            school_site: signupData.schoolSite
+                        },
+                        emailRedirectTo: `${window.location.origin}${ROUTES.AUTH_CALLBACK}`
+                    }
+                });
+
+                if (signUpError) throw signUpError;
+
+                toast.success("Identity Provisioned", {
+                    description: "Check your executive endpoint for verification.",
+                });
+            }
+
+            // Force immediate redirect to prevent being stuck on login
+            router.push(ROUTES.TEACHER_LAB);
+            router.refresh();
         } catch (err: any) {
             console.error(err);
             setError(err.message || 'Authentication Protocol Failed');
+            toast.error("Authentication Failed", {
+                description: err.message || "Uplink rejected by Sovereign Sentinel.",
+            });
             setIsLoggingIn(false);
+        }
+    };
+
+    const handleSocialLogin = async (provider: 'google' | 'facebook') => {
+        setIsSocialLoading(provider);
+        setError('');
+
+        try {
+            const { error: oauthError } = await supabase.auth.signInWithOAuth({
+                provider,
+                options: {
+                    redirectTo: `${window.location.origin}${ROUTES.AUTH_CALLBACK}`,
+                    queryParams: {
+                        access_type: 'offline',
+                        prompt: 'consent',
+                    },
+                },
+            });
+
+            if (oauthError) throw oauthError;
+
+            // Redirect happens automatically
+        } catch (err: any) {
+            console.error('OAuth Error:', err);
+            setError(err.message || `${provider} Protocol Failed`);
+            toast.error(`Sovereign Auth Error`, {
+                description: `Could not initiate ${provider} protocol: ${err.message}`,
+            });
+            setIsSocialLoading(null);
         }
     };
 
@@ -50,13 +138,20 @@ export default function LoginClient() {
                 isOpen={showBriefing}
                 onClose={() => setShowBriefing(false)}
                 agentId="tactical"
-                title="Sovereign Access Protocol"
-                description="Identity verification is required for access to the Unified Sovereign Ecosystem. Please provide your institutional credentials."
-                briefingSteps={[
+                title={mode === 'login' ? "Sovereign Access Protocol" : "Identity Induction"}
+                description={mode === 'login'
+                    ? "Identity verification is required for access to the Unified Sovereign Ecosystem."
+                    : "Welcome to the EdIntel Collective. You are initiating a strategic node provisioning."}
+                briefingSteps={mode === 'login' ? [
                     "Initialize secure administrative downlink.",
-                    "Verify institutional credentials for EdIntel / Transcend.",
+                    "Verify institutional credentials.",
                     "Bypass sentinel encryption layers.",
                     "Establish encrypted session tunnel."
+                ] : [
+                    "Provision institutional identity.",
+                    "Configure intelligence tier assignment.",
+                    "Synchronize professional credentials.",
+                    "Initialize 30-day Sovereign Pilot."
                 ]}
             />
 
@@ -126,11 +221,13 @@ export default function LoginClient() {
 
                         <header className="mb-10 text-center lg:text-left">
                             <h3 className="text-xl font-black text-white uppercase tracking-widest mb-2">
-                                Executive Access
+                                {mode === 'login' ? 'Executive Access' : 'Sovereign Induction'}
                             </h3>
                             <div className="flex items-center gap-2 justify-center lg:justify-start">
-                                <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                                <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.2em]">Secure Uplink Active</p>
+                                <div className="h-1.5 w-1.5 rounded-full bg-indigo-500 animate-pulse shadow-[0_0_10px_rgba(99,102,241,0.5)]" />
+                                <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.2em]">
+                                    {mode === 'login' ? 'Secure Uplink Active' : 'Induction Protocol Initialized'}
+                                </p>
                             </div>
                         </header>
 
@@ -145,15 +242,35 @@ export default function LoginClient() {
                             </motion.div>
                         )}
 
-                        <form onSubmit={handleLogin} className="space-y-6">
+                        <form onSubmit={handleAuth} className="space-y-6">
                             <div className="space-y-4">
+                                {mode === 'signup' && (
+                                    <motion.div
+                                        initial={{ opacity: 0, x: -20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        className="space-y-4"
+                                    >
+                                        <div className="relative group">
+                                            <Mail className="absolute left-5 top-1/2 -translate-y-1/2 text-zinc-600 group-focus-within:text-white transition-colors" size={16} />
+                                            <input
+                                                type="text"
+                                                value={signupData.name}
+                                                onChange={(e) => setSignupData({ ...signupData, name: e.target.value })}
+                                                placeholder="EXECUTIVE NAME"
+                                                className="w-full pl-12 pr-6 py-4 bg-white/[0.03] border border-white/10 rounded-xl outline-none focus:border-white/20 focus:bg-white/[0.05] transition-all font-bold text-[10px] tracking-[0.2em] placeholder:text-zinc-700 text-white"
+                                                required={mode === 'signup'}
+                                            />
+                                        </div>
+                                    </motion.div>
+                                )}
+
                                 <div className="relative group">
                                     <Mail className="absolute left-5 top-1/2 -translate-y-1/2 text-zinc-600 group-focus-within:text-white transition-colors" size={16} />
                                     <input
                                         type="email"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        placeholder="INSTITUTIONAL ID"
+                                        placeholder="INSTITUTIONAL ENDPOINT"
                                         className="w-full pl-12 pr-6 py-4 bg-white/[0.03] border border-white/10 rounded-xl outline-none focus:border-white/20 focus:bg-white/[0.05] transition-all font-bold text-[10px] tracking-[0.2em] placeholder:text-zinc-700 text-white"
                                         required
                                     />
@@ -170,6 +287,42 @@ export default function LoginClient() {
                                         required
                                     />
                                 </div>
+
+                                {mode === 'signup' && (
+                                    <motion.div
+                                        initial={{ opacity: 0, x: -20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        className="space-y-4"
+                                    >
+                                        <div className="relative group">
+                                            <Mail className="absolute left-5 top-1/2 -translate-y-1/2 text-zinc-600 group-focus-within:text-white transition-colors" size={16} />
+                                            <input
+                                                type="text"
+                                                value={signupData.schoolSite}
+                                                onChange={(e) => setSignupData({ ...signupData, schoolSite: e.target.value })}
+                                                placeholder="INSTITUTIONAL NODE (SCHOOL)"
+                                                className="w-full pl-12 pr-6 py-4 bg-white/[0.03] border border-white/10 rounded-xl outline-none focus:border-white/20 focus:bg-white/[0.05] transition-all font-bold text-[10px] tracking-[0.2em] placeholder:text-zinc-700 text-white"
+                                                required={mode === 'signup'}
+                                            />
+                                        </div>
+
+                                        <div className="relative group">
+                                            <select
+                                                value={signupData.tierName}
+                                                onChange={(e) => setSignupData({ ...signupData, tierName: e.target.value })}
+                                                className="w-full pl-6 pr-12 py-4 bg-white/[0.03] border border-white/10 rounded-xl outline-none focus:border-white/20 focus:bg-white/[0.05] transition-all font-bold text-[10px] tracking-[0.2em] text-white appearance-none cursor-pointer"
+                                                title="Select Intelligence Tier"
+                                            >
+                                                <option value="Sovereign Initiate" className="bg-zinc-900">Initiate Tier ($0.00)</option>
+                                                <option value="Standard Pack" className="bg-zinc-900">Standard Tier ($9.99)</option>
+                                                <option value="Sovereign Pack" className="bg-zinc-900">Sovereign Tier ($39.99)</option>
+                                                <option value="Practitioner" className="bg-zinc-900">Practitioner ($49.99)</option>
+                                                <option value="Director Pack" className="bg-zinc-900">Director Pack ($69.99)</option>
+                                                <option value="Site Command" className="bg-zinc-900">Site Command ($79.99)</option>
+                                            </select>
+                                        </div>
+                                    </motion.div>
+                                )}
                             </div>
 
                             <button
@@ -178,8 +331,17 @@ export default function LoginClient() {
                                 className="group relative w-full overflow-hidden rounded-xl bg-white p-4 font-black text-[10px] uppercase tracking-[0.3em] text-black transition-all hover:scale-[1.01] active:scale-[0.98] disabled:opacity-50 shadow-[0_0_40px_rgba(255,255,255,0.1)] hover:shadow-[0_0_60px_rgba(255,255,255,0.2)]"
                             >
                                 <div className="relative z-10 flex items-center justify-center gap-3">
-                                    {isLoggingIn ? 'Verifying...' : 'Establish Connection'}
-                                    <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                                    {isLoggingIn ? (
+                                        <>
+                                            <Loader2 size={14} className="animate-spin" />
+                                            <span>{mode === 'login' ? 'Verifying...' : 'Provisioning...'}</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <span>{mode === 'login' ? 'Establish Connection' : 'Initialize Induction'}</span>
+                                            <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                                        </>
+                                    )}
                                 </div>
                             </button>
                         </form>
@@ -195,11 +357,7 @@ export default function LoginClient() {
 
                         <div className="grid grid-cols-2 gap-3">
                             <button
-                                onClick={async () => {
-                                    setIsSocialLoading('google');
-                                    setError('');
-                                    await loginWithGoogle();
-                                }}
+                                onClick={() => handleSocialLogin('google')}
                                 disabled={isSocialLoading !== null}
                                 className="flex items-center justify-center gap-2 py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all group disabled:opacity-50"
                             >
@@ -217,11 +375,7 @@ export default function LoginClient() {
                             </button>
 
                             <button
-                                onClick={async () => {
-                                    setIsSocialLoading('facebook');
-                                    setError('');
-                                    await loginWithFacebook();
-                                }}
+                                onClick={() => handleSocialLogin('facebook')}
                                 disabled={isSocialLoading !== null}
                                 className="flex items-center justify-center gap-2 py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all group disabled:opacity-50"
                             >
@@ -244,7 +398,15 @@ export default function LoginClient() {
                                 Initiate Security Briefing
                             </button>
                             <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-600">
-                                New Executive? <Link href="/signup" className="text-white hover:text-cyan-400 transition-colors ml-1">Initialize Sync</Link>
+                                {mode === 'login' ? (
+                                    <>
+                                        New Executive? <button onClick={() => setMode('signup')} className="text-white hover:text-indigo-400 transition-colors ml-1 uppercase">Initialize Induction</button>
+                                    </>
+                                ) : (
+                                    <>
+                                        Already established? <button onClick={() => setMode('login')} className="text-white hover:text-indigo-400 transition-colors ml-1 uppercase">Establish Connection</button>
+                                    </>
+                                )}
                             </p>
                         </div>
                     </div>

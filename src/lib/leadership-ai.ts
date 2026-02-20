@@ -2,7 +2,7 @@
 
 // import { createGoogleGenerativeAI } from '@ai-sdk/google'; // Removed unused
 // import { generateText } from 'ai'; // Removed unused
-import { withResilience, ALABAMA_STRATEGIC_DIRECTIVE, EdIntel_PERSONA, aiResilience } from './ai-resilience';
+import { withResilience, ALABAMA_STRATEGIC_DIRECTIVE, EdIntel_PERSONA, aiResilience, type Persona } from './ai-resilience';
 import { COGNITIVE_FITNESS_CONTEXT } from './context/cognitive-fitness';
 import { COMPLIANCE_SYSTEM_PROMPT } from './compliance-engine';
 import { kv } from '@vercel/kv';
@@ -16,7 +16,7 @@ import { queryEdIntelVault } from './rag/rag-core';
 export async function generateProfessionalResponse(
   prompt: string,
   generatorId: string,
-  persona?: { name: string; role: string },
+  persona?: Partial<Persona>,
   isChat: boolean = false,
   signal?: AbortSignal
 ): Promise<string> {
@@ -31,9 +31,9 @@ export async function generateProfessionalResponse(
         ${ALABAMA_STRATEGIC_DIRECTIVE}
         
         Strategic Guidelines:
-        1. Tone: ${EdIntel_PERSONA.tone}
-        2. Cultural Context: ${EdIntel_PERSONA.culturalContext}
-        3. Mission: ${EdIntel_PERSONA.mission}
+        1. Tone: ${activePersona.tone || EdIntel_PERSONA.tone}
+        2. Cultural Context: ${activePersona.culturalContext || EdIntel_PERSONA.culturalContext}
+        3. Mission: ${activePersona.mission || EdIntel_PERSONA.mission}
         
         Tool Context: ${generatorId}
         
@@ -61,9 +61,17 @@ export async function generateProfessionalResponse(
   try {
     return await withResilience(async () => {
       // 🧠 NEURAL CACHE (Vercel KV)
-      // Use SHA-256 to prevent collisions on similar prompts (fixed 32-char prefix bug)
-      const { createHash } = await import('node:crypto');
-      const hash = createHash('sha256').update(prompt).digest('hex');
+      // Use a simple hash to prevent collisions on similar prompts without requiring Node.js crypto
+      const simpleHash = (str: string) => {
+        let hash = 0;
+        for (let i = 0; i < str.length; i++) {
+          const char = str.charCodeAt(i);
+          hash = (hash << 5) - hash + char;
+          hash |= 0; // Convert to 32bit integer
+        }
+        return Math.abs(hash).toString(36);
+      };
+      const hash = simpleHash(prompt);
       const cacheKey = `intel:${hash}`;
       let cached: string | null = null;
 
@@ -112,19 +120,22 @@ export async function generateProfessionalResponse(
         }
       }
 
-      // 🛡️ IMMUTABLE LOG (BigQuery) - Dynamic Import to prevent build-time bundling issues
+      // 🛡️ IMMUTABLE LOG (BigQuery) - Called via API to prevent SDK leakage into client packages
       if (typeof window === 'undefined') {
-        const { logToBigQuery } = await import('./bigquery-logger');
-        logToBigQuery({
-          role: 'assistant',
-          content: text,
-          model: 'gemini-2.0-flash',
-          timestamp: new Date(),
-          metadata: {
-            generatorId,
-            persona: activePersona.name
-          }
-        }).catch(err => console.warn("BigQuery Log Error:", err));
+        fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/logging/bigquery`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            role: 'assistant',
+            content: text,
+            model: 'gemini-2.0-flash',
+            timestamp: new Date().toISOString(),
+            metadata: {
+              generatorId,
+              persona: activePersona.name
+            }
+          })
+        }).catch(err => console.warn("[BigQuery Proxy Log Error]:", err));
       }
 
 
@@ -218,4 +229,51 @@ ${vaultContext || 'High-probability leadership patterns applied from EdIntel per
 
 *"Operational excellence is not a request; it is the standard."*
     `;
+}
+
+/**
+ * Streaming version of Professional Response with Failover.
+ */
+export async function streamProfessionalResponse(
+  prompt: string,
+  generatorId: string,
+  persona?: Partial<Persona>,
+  tier: 'standard' | 'premium' = 'standard'
+) {
+  const activePersona = persona || EdIntel_PERSONA;
+
+  // 📚 VIRTUAL VAULT QUERY (RAG-lite)
+  const vaultContext = await queryEdIntelVault(prompt);
+
+  const systemPrompt = `
+        You are ${activePersona.name}, the ${activePersona.role}.
+        ${ALABAMA_STRATEGIC_DIRECTIVE}
+        
+        Strategic Guidelines:
+        1. Tone: ${activePersona.tone || EdIntel_PERSONA.tone}
+        2. Cultural Context: ${activePersona.culturalContext || EdIntel_PERSONA.culturalContext}
+        3. Mission: ${activePersona.mission || EdIntel_PERSONA.mission}
+        4. Goal: 79 school site signups in Mobile County, Alabama.
+        
+        SUPER-INTELLIGENCE MANDATE:
+        - THOUGHT PROCESS: Before every answer, you MUST engage in a "Neural Synthesis" step. 
+        - Output your reasoning inside <neural_synthesis> tags, evaluating 3 distinct strategies and selecting the optimal one.
+        - CITATION PROTOCOL: Reference specific Alabama codes (SB 216/171), ESSA federal statutes, and MCPSS strategic goals.
+        - COGNITIVE CONTEXT: Integrate these research pillars: ${COGNITIVE_FITNESS_CONTEXT.pillars.map(p => p.name + ": " + p.directive).join(" | ")}.
+        - NO FLUFF: Be dense, high-entropy, and high-value.
+        - CEU/PLU ALIGNMENT: Ensure all professional development recommendations qualify for state-recognized credit.
+
+        ${vaultContext}
+        ${COMPLIANCE_SYSTEM_PROMPT}
+
+        SPECIALIZED DIRECTIVES:
+        ${generatorId === 'lesson-architect' ? 'Act as the EdIntel Lesson Architect. Mandate ALCOS alignment, SOR (Science of Reading) specific scaffolds, and explicit multi-sensory strategies.' : ''}
+        ${generatorId === 'iep-audit' ? 'Act as the EdIntel Compliance Architect. Perform high-fidelity audits citing Al. Admin. Code 290-8-9 and "Mastering the Maze" benchmarks.' : ''}
+        ${generatorId === 'fiscal-command' ? 'Act as the EdIntel Financial Strategist. Focus on Title I Part A allocation, eGAP compliance, and the Alabama Red Book standards.' : ''}
+    `;
+
+  // Use the new streaming failover engine
+  const result = await aiResilience.streamWithFailover(systemPrompt, prompt, tier);
+
+  return result;
 }

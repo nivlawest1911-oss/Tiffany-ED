@@ -3,6 +3,7 @@
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { EDINTEL_TIERS } from '@/config/tiers';
+import { ROUTES } from '@/lib/routes';
 
 export async function createEdIntelUser(formData: FormData) {
     const name = formData.get('name') as string;
@@ -45,7 +46,7 @@ export async function createEdIntelUser(formData: FormData) {
             }
         });
 
-        revalidatePath('/education'); // Refresh the dashboard state
+        revalidatePath(ROUTES.TEACHER_LAB); // Refresh the dashboard state
 
         return {
             success: true,

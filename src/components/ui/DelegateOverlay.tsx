@@ -46,22 +46,21 @@ export default function DelegateOverlay() {
 
     const [activeId, setActiveId] = useState<string | null>(null);
 
-    const messages = [
-        "Professional protocols engaged.",
-        "Analyzing stakeholder sentiment...",
-        "Decision velocity is up 12%.",
-        "How can I assist your leadership today?",
-        "Manifestation determination pending for Sector 7.",
-        "Strategic Sync Gym is ready for calibration.",
-        "IEP Architect node is operational.",
-        "Cross-referencing IDEA Part B requirements.",
-        "Financial solvency trajectory: Optimistic.",
-        "Board of Education brief: 95% complete.",
-        "Community feedback loop: Active."
-    ];
 
     useEffect(() => {
-        // Delegate chatter
+        const messages = [
+            "Professional protocols engaged.",
+            "Analyzing stakeholder sentiment...",
+            "Decision velocity is up 12%.",
+            "How can I assist your leadership today?",
+            "Manifestation determination pending for Sector 7.",
+            "Strategic Sync Gym is ready for calibration.",
+            "IEP Architect node is operational.",
+            "Cross-referencing IDEA Part B requirements.",
+            "Financial solvency trajectory: Optimistic.",
+            "Board of Education brief: 95% complete.",
+            "Community feedback loop: Active."
+        ];
         const interval = setInterval(() => {
             setDelegates(prev => prev.map(d => {
                 if (Math.random() > 0.7) {

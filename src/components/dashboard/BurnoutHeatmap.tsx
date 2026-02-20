@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import NextImage from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Flame, Activity, Clock, Info } from 'lucide-react';
 import { Card } from '@/components/ui/card';
@@ -167,7 +168,7 @@ export default function BurnoutHeatmap() {
                                                 "w-12 h-12 rounded-full border-2 p-0.5",
                                                 getScoreColor(staff.burnoutScore).replace('text-', 'border-')
                                             )}>
-                                                <img src={staff.avatar} alt={staff.name} className="w-full h-full rounded-full object-cover grayscale group-hover:grayscale-0 transition-all" />
+                                                <NextImage src={staff.avatar} alt={staff.name} fill unoptimized className="rounded-full object-cover grayscale group-hover:grayscale-0 transition-all" />
                                             </div>
                                             <div className={cn(
                                                 "absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-zinc-900 flex items-center justify-center border border-white/10",

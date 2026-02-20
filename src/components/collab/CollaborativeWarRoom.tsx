@@ -6,11 +6,11 @@ import { supabase } from '@/lib/supabase';
 import { SupabaseYjsProvider } from '@/lib/collab/supabase-provider';
 import { Card } from '@/components/ui/card';
 import { Users, Zap, Shield, Activity } from 'lucide-react';
-import { motion } from 'framer-motion';
+
 
 export function CollaborativeWarRoom() {
     const [text, setText] = useState('');
-    const [users, setUsers] = useState<number>(1);
+    const [users, _setUsers] = useState<number>(1);
     const ydocRef = useRef<Y.Doc>(new Y.Doc());
     const providerRef = useRef<SupabaseYjsProvider | null>(null);
 

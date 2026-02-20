@@ -21,7 +21,7 @@ const MOCK_INCIDENT_HISTORY: Record<string, { date: string; type: string; severi
     '3': [], // Student C - Clean record
 };
 
-export async function checkRecidivism(studentId: string, incidentType: string): Promise<RecidivismAlert> {
+export async function checkRecidivism(studentId: string, _incidentType: string): Promise<RecidivismAlert> {
     // Simulate DB lookup delay
     await new Promise(resolve => setTimeout(resolve, 300));
 

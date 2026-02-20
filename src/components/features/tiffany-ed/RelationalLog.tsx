@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { ToneAnalysis } from '@/lib/ai/tone-check';
-import Button from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
+// Card imports removed as we are using custom glass-panel now
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Loader2, AlertTriangle, HeartHandshake } from 'lucide-react';
@@ -64,14 +64,14 @@ export function RelationalLog() {
     };
 
     return (
-        <Card className="w-full max-w-md border-zinc-200 bg-white/90 shadow-sm backdrop-blur-md dark:border-zinc-800 dark:bg-zinc-950/90">
-            <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-lg font-medium text-emerald-900 dark:text-emerald-100">
-                    <HeartHandshake className="h-5 w-5 text-emerald-600" />
+        <div className="w-full glass-panel rounded-[2rem] overflow-hidden border border-white/5">
+            <div className="p-6 border-b border-white/5 bg-white/5 backdrop-blur-md">
+                <h3 className="flex items-center gap-3 text-lg font-black tracking-widest text-white uppercase">
+                    <HeartHandshake className="h-5 w-5 text-emerald-500" />
                     Interaction Ledger
-                </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
+                </h3>
+            </div>
+            <div className="p-8 space-y-6">
 
                 <div className="flex gap-2">
                     <Select value={studentId} onValueChange={setStudentId}>
@@ -145,21 +145,20 @@ export function RelationalLog() {
                         </motion.div>
                     )}
                 </AnimatePresence>
-
-            </CardContent>
-            <CardFooter>
+            </div>
+            <div className="p-8 pt-0">
                 <Button
                     onClick={handleAnalyze}
                     disabled={isAnalyzing || !note || !studentId}
-                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
+                    className="w-full h-14 bg-white hover:bg-emerald-500 text-black hover:text-white rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-xl shadow-emerald-500/10"
                 >
                     {isAnalyzing ? (
                         <>
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Analyzing Tone...
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Synthesizing...
                         </>
                     ) : (
                         <>
-                            Log & Analyze
+                            Process interaction
                         </>
                     )}
                 </Button>
@@ -194,7 +193,7 @@ export function RelationalLog() {
                         </motion.div>
                     )}
                 </AnimatePresence>
-            </CardFooter>
-        </Card>
+            </div>
+        </div>
     );
 }

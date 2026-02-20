@@ -27,11 +27,8 @@ export default function TalkingDelegateOverlay({
     const [audioSrc, setAudioSrc] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
-    const [error, setError] = useState<string | null>(null);
+    const [_error, setError] = useState<string | null>(null);
     const audioRef = useRef<HTMLAudioElement | null>(null);
-
-    // Jaw Animation State
-    const [jawOpen, setJawOpen] = useState(false);
 
     // Fetch Audio when opened with new script (only if no video is provided)
     useEffect(() => {
@@ -82,17 +79,15 @@ export default function TalkingDelegateOverlay({
             controller.abort();
             if (audioSrc) URL.revokeObjectURL(audioSrc);
         };
-    }, [isOpen, script]); // Removed videoSrc from dependency to match logic (it's in the if check)
+    }, [isOpen, script, audioSrc, videoSrc]);
 
     // Lip-Sync Simulation (Randomized Jaw Movement when playing)
     useEffect(() => {
         let interval: NodeJS.Timeout;
         if (isPlaying) {
             interval = setInterval(() => {
-                setJawOpen(prev => !prev);
-            }, 150); // Fast toggle roughly matches speech cadence
-        } else {
-            setJawOpen(false);
+                // jaw animation omitted — state removed
+            }, 150);
         }
         return () => clearInterval(interval);
     }, [isPlaying]);

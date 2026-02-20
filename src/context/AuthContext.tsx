@@ -6,6 +6,7 @@ import { createClient } from '@/utils/supabase/client';
 const supabase = createClient();
 import { toast } from 'sonner';
 import { useCelebrate } from './CelebrationContext';
+import { ROUTES } from '@/lib/routes';
 
 interface User {
     name: string;
@@ -118,84 +119,55 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             if (!password) {
                 const { error } = await supabase.auth.signInWithOtp({
                     email,
-                    options: { emailRedirectTo: `${window.location.origin}/auth/callback` }
+                    options: { emailRedirectTo: `${window.location.origin}${ROUTES.AUTH_CALLBACK}` }
                 });
                 if (error) throw error;
-                alert('EdIntel access link dispatched to your email.');
+                toast.success('Magic Link Dispatched', { description: 'Check your secure inbox for access protocols.' });
             } else {
-                const { error } = await supabase.auth.signInWithPassword({ email, password });
+                const { error } = await supabase.auth.signInWithPassword({
+                    email,
+                    password
+                });
                 if (error) throw error;
-                router.push('/education');
+                router.push(ROUTES.TEACHER_LAB);
             }
-        } catch (err: any) {
-            console.error("[EdIntel_AUTH] Login error:", err);
-            throw err;
+        } catch (error: any) {
+            console.error('Login error:', error);
+            toast.error('Authentication Failed', { description: error.message || 'Credentials rejected by Sovereign Sentinel.' });
         } finally {
             setIsLoading(false);
         }
     };
 
     const signup = async (email: string, password?: string, name?: string) => {
-        if (!supabase) {
-            toast.error("Uplink Offline", { description: "Supabase configuration is missing. Signup is unavailable." });
-            return;
-        }
+        if (!supabase) return;
         setIsLoading(true);
         try {
-            const { data, error } = await supabase.auth.signUp({
+            const { error } = await supabase.auth.signUp({
                 email,
-                password: password || 'temporary-vault-key-2026',
+                password: password || undefined,
                 options: {
-                    emailRedirectTo: `${window.location.origin}/auth/callback`,
-                    data: {
-                        full_name: name || email.split('@')[0],
-                        tier: 'free'
-                    }
+                    data: { full_name: name, tier: 'free' },
+                    emailRedirectTo: `${window.location.origin}${ROUTES.AUTH_CALLBACK}`
                 }
             });
             if (error) throw error;
-
-            if (data.user && !data.session) {
-                alert("EdIntel Protocol Initiated: Please check your inbox to authorize your institutional identity.");
-            } else if (data.session) {
-                celebrate(
-                    'Identity Authorized',
-                    'Welcome to the EdIntel OS. Your education intelligence journey begins now.',
-                    'achievement'
-                );
-                router.push('/education');
-            }
-        } catch (err: any) {
-            console.error("[EdIntel_AUTH] Signup error:", err);
-            throw err;
+            toast.success('Identity Created', { description: 'Please verify your email to activate Sovereign access.' });
+        } catch (error: any) {
+            console.error('Signup error:', error);
+            toast.error('Registration Failed', { description: error.message });
         } finally {
             setIsLoading(false);
         }
     };
 
-    const updateUser = async (data: Partial<User>) => {
-        if (!supabase) return;
-        const { error } = await supabase.auth.updateUser({
-            data: {
-                full_name: data.name,
-                tier: data.tier,
-                usage_count: data.usage_count
-            }
-        });
-        if (error) throw error;
-    };
-
     const loginWithGoogle = async () => {
-        if (!supabase) {
-            toast.error("Uplink Offline", { description: "Supabase configuration is missing." });
-            return;
-        }
-        setIsLoading(true);
+        if (!supabase) return;
         try {
-            const { data, error } = await supabase.auth.signInWithOAuth({
+            const { error } = await supabase.auth.signInWithOAuth({
                 provider: 'google',
                 options: {
-                    redirectTo: `${window.location.origin}/auth/callback`,
+                    redirectTo: `${window.location.origin}${ROUTES.AUTH_CALLBACK}`,
                     queryParams: {
                         access_type: 'offline',
                         prompt: 'consent',
@@ -203,60 +175,67 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 },
             });
             if (error) throw error;
-            // If no redirect URL returned, something went wrong
-            if (data?.url) {
-                window.location.href = data.url;
-            } else {
-                throw new Error('No authorization URL received from Google.');
-            }
-        } catch (err: any) {
-            console.error('[EdIntel_AUTH] Google login error:', err);
-            toast.error('Google Authentication Failed', {
-                description: err.message || 'Unable to connect to Google. Please try again.',
-                duration: 6000,
-            });
-            setIsLoading(false);
+        } catch (error: any) {
+            console.error('Google Login Error:', error);
+            toast.error('Google Login Failed', { description: error.message });
         }
     };
 
     const loginWithFacebook = async () => {
-        if (!supabase) {
-            toast.error("Uplink Offline", { description: "Supabase configuration is missing." });
-            return;
-        }
-        setIsLoading(true);
+        if (!supabase) return;
         try {
-            const { data, error } = await supabase.auth.signInWithOAuth({
+            const { error } = await supabase.auth.signInWithOAuth({
                 provider: 'facebook',
                 options: {
-                    redirectTo: `${window.location.origin}/auth/callback`,
-                    queryParams: {
-                        display: 'popup',
-                    },
+                    redirectTo: `${window.location.origin}${ROUTES.AUTH_CALLBACK}`,
                 },
             });
             if (error) throw error;
-            if (data?.url) {
-                window.location.href = data.url;
-            } else {
-                throw new Error('No authorization URL received from Facebook.');
-            }
-        } catch (err: any) {
-            console.error('[EdIntel_AUTH] Facebook login error:', err);
-            toast.error('Facebook Authentication Failed', {
-                description: err.message || 'Unable to connect to Facebook. Please try again.',
-                duration: 6000,
-            });
-            setIsLoading(false);
+        } catch (error: any) {
+            console.error('Facebook Login Error:', error);
+            toast.error('Facebook Login Failed', { description: error.message });
         }
     };
 
     const logout = async () => {
-        if (supabase) {
-            await supabase.auth.signOut();
+        if (!supabase) return;
+        setIsLoading(true);
+        try {
+            const { error } = await supabase.auth.signOut();
+            if (error) throw error;
+            setUser(null);
+            router.push(ROUTES.LOGIN);
+            toast.success('Session Terminated', { description: 'Secure channel closed.' });
+        } catch (error: any) {
+            console.error('Logout error:', error);
+            toast.error('Logout Failed', { description: error.message });
+        } finally {
+            setIsLoading(false);
         }
-        setUser(null);
-        router.push('/login');
+    };
+
+    const updateUser = async (data: Partial<User>) => {
+        if (!supabase || !user) return;
+        try {
+            // Update profile in Supabase
+            const { error } = await supabase
+                .from('profiles')
+                .update({
+                    full_name: data.name,
+                    avatar_url: data.avatar_url,
+                    // Add other fields as necessary
+                })
+                .eq('id', user.id);
+
+            if (error) throw error;
+
+            // Update local state
+            setUser((prev) => prev ? { ...prev, ...data } : null);
+            toast.success('Profile Updated');
+        } catch (error: any) {
+            console.error('Update User Error:', error);
+            toast.error('Update Failed', { description: error.message });
+        }
     };
 
     return (

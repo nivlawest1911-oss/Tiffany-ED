@@ -58,7 +58,6 @@ const CINEMATIC_ASSETS = [
 
 export default function LeadershipCinematics() {
     const [selectedAsset, setSelectedAsset] = useState<typeof CINEMATIC_ASSETS[0] | null>(null);
-    const [isBriefing, setIsBriefing] = useState(false);
     return (
         <section className="py-32 bg-[#050505] relative overflow-hidden">
             {/* Ambient Background */}

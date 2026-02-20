@@ -1,11 +1,11 @@
-import { AIDispatcher, TaskComplexity } from '../ai/dispatcher';
+import { TaskComplexity } from '../ai/dispatcher';
 import { queryEdIntelVault } from '../rag/rag-core';
 
 export class EdIntelGraph {
     // Strategic Orchestration Layer
     // Defines the Nodes and Edges of conversation flow and grounds agents in Vault context.
 
-    static async route(intent: string, context: any) {
+    static async route(intent: string, _context: unknown) {
         console.log(`[EdIntelGraph] Routing Intent: ${intent}`);
 
         // 1. Semantic Retrieval (Grounding)

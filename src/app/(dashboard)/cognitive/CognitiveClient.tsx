@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import LeadershipGym from '@/components/bento/LeadershipGym';
 import { useLeadershipRank } from '@/hooks/useLeadershipRank';
+import { SmartHover } from '@/components/ui/SmartHover';
 
 export default function CognitiveClient() {
     // const [user, setUser] = useState<any>({ uid: 'SIMULATED-LEADERSHIP-CENTER', displayName: 'Executive Director' });
@@ -46,9 +47,11 @@ export default function CognitiveClient() {
                             <Terminal size={12} className="text-cyan-400" />
                             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400">Center Sync Active // v4.2.0</span>
                         </div>
-                        <h1 className="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none">
-                            Strategic <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600">Command Center</span>
-                        </h1>
+                        <SmartHover message="Cognitive Command: Calibrate your baseline, expand working memory, and protect against burnout in the Strategic Command Center.">
+                            <h1 className="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none">
+                                Strategic <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600">Command Center</span>
+                            </h1>
+                        </SmartHover>
                         <p className="text-zinc-500 max-w-xl text-lg font-medium leading-relaxed italic">
                             "Cognitive fitness is the fuel of authority. Calibrate your baseline, expand your working memory, and protect against professional burnout."
                         </p>
@@ -108,7 +111,7 @@ export default function CognitiveClient() {
                                             <p className="text-[10px] font-black uppercase text-zinc-500 mb-4">Memory Index Progression</p>
                                             <div className="h-40 flex items-end gap-2 group cursor-pointer">
                                                 {[30, 45, 38, 52, 65, 58, 72].map((v, i) => (
-                                                    <div key={i} className="flex-1 bg-cyan-500/20 rounded-t-lg transition-all hover:bg-cyan-500" style={{ height: `${v}%` }} />
+                                                    <div key={i} className="bar-fill flex-1 bg-cyan-500/20 rounded-t-lg transition-all hover:bg-cyan-500" style={{ "--bar-h": `${v}%` } as React.CSSProperties} />
                                                 ))}
                                             </div>
                                             <p className="mt-4 text-[10px] font-mono text-zinc-600 text-center">Last 7 Calibration Cycles</p>
@@ -117,7 +120,7 @@ export default function CognitiveClient() {
                                             <p className="text-[10px] font-black uppercase text-zinc-500 mb-4">Reaction Latency (ms)</p>
                                             <div className="h-40 flex items-end gap-2 group cursor-pointer">
                                                 {[70, 62, 75, 55, 48, 50, 42].map((v, i) => (
-                                                    <div key={i} className="flex-1 bg-purple-500/20 rounded-t-lg transition-all hover:bg-purple-500" style={{ height: `${v}%` }} />
+                                                    <div key={i} className="bar-fill flex-1 bg-purple-500/20 rounded-t-lg transition-all hover:bg-purple-500" style={{ "--bar-h": `${v}%` } as React.CSSProperties} />
                                                 ))}
                                             </div>
                                             <p className="mt-4 text-[10px] font-mono text-zinc-600 text-center">Inhibition Center Response</p>
@@ -206,13 +209,15 @@ export default function CognitiveClient() {
                                     { title: "Pulse Control", desc: "Override automatic responses to focus on core data.", impact: "Medium" },
                                     { title: "Math Flux", desc: "Execute rapid calculations under temporal pressure.", impact: "High" }
                                 ].map((item, i) => (
-                                    <div key={i} className="group cursor-default">
-                                        <div className="flex justify-between items-start mb-1">
-                                            <h5 className="text-xs font-black text-zinc-200 group-hover:text-cyan-400 transition-colors uppercase tracking-tight">{item.title}</h5>
-                                            <span className="text-[8px] font-black bg-zinc-800 px-2 py-0.5 rounded-full text-zinc-400">{item.impact} IMPACT</span>
+                                    <SmartHover key={i} message={`Strategic Calibration: ${item.desc} Impact: ${item.impact}`}>
+                                        <div className="group cursor-default">
+                                            <div className="flex justify-between items-start mb-1">
+                                                <h5 className="text-xs font-black text-zinc-200 group-hover:text-cyan-400 transition-colors uppercase tracking-tight">{item.title}</h5>
+                                                <span className="text-[8px] font-black bg-zinc-800 px-2 py-0.5 rounded-full text-zinc-400">{item.impact} IMPACT</span>
+                                            </div>
+                                            <p className="text-[11px] text-zinc-500 leading-relaxed font-medium">{item.desc}</p>
                                         </div>
-                                        <p className="text-[11px] text-zinc-500 leading-relaxed font-medium">{item.desc}</p>
-                                    </div>
+                                    </SmartHover>
                                 ))}
                             </div>
                             <div className="mt-8 p-4 rounded-2xl bg-cyan-500/5 border border-cyan-500/10 flex items-center gap-4">

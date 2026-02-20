@@ -340,4 +340,19 @@
         width: var(--progress-width, 0%);
         transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
     }
+
+    /* Dynamic-size helpers: set --logo-size / --logo-geo-size / --bar-h via style prop */
+    .logo-sizer {
+        width: var(--logo-size, 40px);
+        height: var(--logo-size, 40px);
+    }
+
+    .logo-geo-sizer {
+        width: var(--logo-geo-size, 60px);
+        height: var(--logo-geo-size, 60px);
+    }
+
+    .bar-fill {
+        height: var(--bar-h, 0%);
+    }
 }

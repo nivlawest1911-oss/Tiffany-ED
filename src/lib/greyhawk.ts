@@ -7,7 +7,7 @@ import { depositToMemoryBank } from './memory-bank';
  * and Vercel Blob (Permanent Archiving).
  */
 
-const replicate = new Replicate({
+const _replicate = new Replicate({
     auth: process.env.REPLICATE_API_TOKEN,
 });
 
@@ -46,7 +46,7 @@ export async function summonProfessor(script: string, professorType: string) {
     }
 }
 
-export async function protocolGreyhawk(userPrompt: string, generatorId: string) {
+export async function protocolGreyhawk(_userPrompt: string, _generatorId: string) {
     // 1. Scripting (Gemini - handled in generate route, but integrated here for full protocol)
     // 2. Media Generation
     // 3. Vaulting

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { EDINTEL_TIERS } from '@/config/tiers';
 // Assuming you have a user context or hook from Supabase/Auth
 // If not, we'll need to mock or fetch it. For now, I'll assume usage with createBrowserClient of Supabase
@@ -28,16 +28,10 @@ export function useAccess() {
                     return;
                 }
 
-                // Fetch user profile to get tier
-                // This assumes your public.users table has a 'tier' column or similar relation
-                // We'll need to verify the table schema. 
-                // Based on previous context, we might be storing tier in user metadata or a profile table.
-                // For now, let's try to query the 'users' table or 'profiles' table if it exists.
-                // If the schema isn't fully clear, we'll default to a safe lookup.
-
+                // Query the correct column 'subscription_tier' based on Prisma mapping
                 const { data: user, error } = await supabase
                     .from('users')
-                    .select('tier')
+                    .select('subscription_tier')
                     .eq('id', session.user.id)
                     .single();
 
@@ -45,8 +39,8 @@ export function useAccess() {
                     console.error('Error fetching user tier:', error);
                     setHasAccess(false);
                 } else {
-                    setUserTier(user.tier);
-                    setHasAccess(true); // User is logged in and has a profile
+                    setUserTier(user.subscription_tier);
+                    setHasAccess(true);
                 }
 
             } catch (error) {
@@ -59,13 +53,12 @@ export function useAccess() {
         checkAccess();
     }, [supabase]);
 
-    const checkPermission = (requiredPermission: string): boolean => {
+    const checkPermission = useCallback((requiredPermission: string): boolean => {
         if (!userTier) return false;
         const tierConfig = EDINTEL_TIERS[userTier];
+        // Fallback for custom tiers not in config or legacy values
         if (!tierConfig) return false;
 
-        // Allow wildcard matching (e.g., 'admin:all' access 'admin:read')
-        // Simple strategy: exact match or wildcard parent
         return tierConfig.permissions.some(p => {
             if (p === requiredPermission) return true;
             if (p.endsWith(':all')) {
@@ -75,7 +68,7 @@ export function useAccess() {
             }
             return false;
         });
-    };
+    }, [userTier]);
 
     return { loading, hasAccess, userTier, checkPermission };
 }

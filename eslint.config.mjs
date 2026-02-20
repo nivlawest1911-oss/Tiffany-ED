@@ -17,10 +17,10 @@ const compat = new FlatCompat({
 
 export default [
     {
-        ignores: [".next/**", "node_modules/**", "dist/**", "src/App.jsx", "src/main.jsx", "vite.config.js", "cloud/**", "scripts/**"],
+        ignores: [".next/**", "node_modules/**", "dist/**", "src/generated/**", "src/App.jsx", "src/main.jsx", "vite.config.js", "cloud/**", "scripts/**"],
     },
     ...compat.extends("next/core-web-vitals"),
-    // ...compat.extends("plugin:@typescript-eslint/recommended"), // Optional if tseslint.configs is used instead
+    // ...compat.extends("plugin:@typescript-eslint/recommended"),
     ...tseslint.configs.recommended,
     {
         languageOptions: {
@@ -51,6 +51,8 @@ export default [
             "react-hooks/exhaustive-deps": "warn",
             "react/no-unescaped-entities": "off",
             "react/display-name": "off",
+            "react/forbid-dom-props": "off",
+            "react/forbid-component-props": "off",
             "@typescript-eslint/no-require-imports": "off",
             "@typescript-eslint/no-explicit-any": "off"
         }

@@ -57,7 +57,7 @@ export function useLeadershipRank() {
         if (newRank.level !== currentRank.level) {
             setCurrentRank(newRank);
         }
-    }, [xp, user]);
+    }, [xp, user, currentRank.level]);
 
     const addXP = useCallback((amount: number) => {
         setXp(prev => prev + amount);

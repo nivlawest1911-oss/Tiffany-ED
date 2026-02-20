@@ -27,7 +27,7 @@ export default function ProfessionalPromotion({ rank, isOpen, onCloseAction }: P
             const timer = setTimeout(() => setShowConfetti(false), 5000);
             return () => clearTimeout(timer);
         }
-    }, [isOpen]);
+    }, [isOpen, playSuccess]);
 
     return (
         <AnimatePresence>

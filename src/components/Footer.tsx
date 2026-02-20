@@ -57,7 +57,7 @@ export default function Footer() {
                     <div>
                         <h3 className="text-white font-bold mb-6">Platform</h3>
                         <ul className="space-y-4">
-                            <li><Link href="/pricing" className="text-zinc-400 hover:text-indigo-400 transition-colors text-sm">Professional Pricing</Link></li>
+                            <li><Link href="/pricing" className="text-noble-gold hover:text-white transition-colors text-sm font-bold uppercase tracking-wider">Strategic Pricing</Link></li>
                             <li><Link href="/login" className="text-zinc-400 hover:text-indigo-400 transition-colors text-sm">Protocol Login</Link></li>
                             <li><Link href="/signup" className="text-zinc-400 hover:text-indigo-400 transition-colors text-sm">Initialize Center</Link></li>
                             <li><Link href="/all-tools" className="text-zinc-400 hover:text-indigo-400 transition-colors text-sm">Intelligence Tools</Link></li>

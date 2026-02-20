@@ -1,9 +1,5 @@
-import { cookies } from 'next/headers';
-import EnterpriseClient from './EnterpriseClient';
+import { redirect } from 'next/navigation';
 
-export const dynamic = 'force-dynamic';
-
-export default async function EnterprisePage() {
-    await cookies(); // Force dynamic rendering
-    return <EnterpriseClient />;
+export default function EnterprisePage() {
+    redirect('/pricing');
 }

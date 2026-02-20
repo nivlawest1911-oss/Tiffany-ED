@@ -2,16 +2,42 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Home, ArrowLeft, MessageSquare } from 'lucide-react';
+import { Home, MessageSquare, Loader2, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import LiveAvatarChat from '@/components/LiveAvatarChat';
 import Image from 'next/image';
+import { createBrowserClient } from '@supabase/ssr';
+import { ROUTES } from '@/lib/routes';
 
 export default function NotFound() {
     const router = useRouter();
     const [showAvatarChat, setShowAvatarChat] = useState(false);
     const [hasSpoken, setHasSpoken] = useState(false);
+    const [isLoadingUser, setIsLoadingUser] = useState(true);
+    const [userRole, setUserRole] = useState<'admin' | 'teacher' | null>(null);
+
+    // Initialize Sovereign Client
+    const supabase = createBrowserClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
+
+    useEffect(() => {
+        const checkUser = async () => {
+            try {
+                const { data: { user } } = await supabase.auth.getUser();
+                if (user) {
+                    setUserRole(user.user_metadata?.role || 'teacher');
+                }
+            } catch (error) {
+                console.error("Sovereign Identity Check Failed:", error);
+            } finally {
+                setIsLoadingUser(false);
+            }
+        };
+        checkUser();
+    }, [supabase]);
 
     // Auto-speak greeting when page loads
     useEffect(() => {
@@ -27,6 +53,16 @@ export default function NotFound() {
             }, 1000);
         }
     }, [hasSpoken]);
+
+    const handleHomeClick = () => {
+        if (userRole === 'admin') {
+            router.push(ROUTES.ADMIN_DASHBOARD);
+        } else if (userRole === 'teacher') {
+            router.push(ROUTES.TEACHER_LAB);
+        } else {
+            router.push(ROUTES.LOGIN);
+        }
+    };
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 flex items-center justify-center p-4 relative overflow-hidden">
@@ -144,16 +180,30 @@ export default function NotFound() {
                         transition={{ delay: 1 }}
                         className="flex flex-wrap gap-4 justify-center"
                     >
-                        <Link href="/">
-                            <motion.button
-                                whileHover={{ scale: 1.05, y: -2 }}
-                                whileTap={{ scale: 0.95 }}
-                                className="px-8 py-4 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow-lg shadow-purple-500/50 hover:shadow-purple-500/70 transition-all flex items-center gap-2"
-                            >
-                                <Home className="w-5 h-5" />
-                                Go Home
-                            </motion.button>
-                        </Link>
+                        <motion.button
+                            whileHover={{ scale: 1.05, y: -2 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={handleHomeClick}
+                            disabled={isLoadingUser}
+                            className="px-8 py-4 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow-lg shadow-purple-500/50 hover:shadow-purple-500/70 transition-all flex items-center gap-2"
+                        >
+                            {isLoadingUser ? (
+                                <>
+                                    <Loader2 className="w-5 h-5 animate-spin" />
+                                    <span>Locating Signal...</span>
+                                </>
+                            ) : userRole ? (
+                                <>
+                                    <ShieldCheck className="w-5 h-5" />
+                                    <span>Return to Command Center</span>
+                                </>
+                            ) : (
+                                <>
+                                    <Home className="w-5 h-5" />
+                                    <span>Return to Login</span>
+                                </>
+                            )}
+                        </motion.button>
 
                         <motion.button
                             whileHover={{ scale: 1.05, y: -2 }}
@@ -165,15 +215,6 @@ export default function NotFound() {
                             Talk with Dr. Alvin
                         </motion.button>
 
-                        <motion.button
-                            whileHover={{ scale: 1.05, y: -2 }}
-                            whileTap={{ scale: 0.95 }}
-                            onClick={() => router.back()}
-                            className="px-8 py-4 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold transition-all flex items-center gap-2"
-                        >
-                            <ArrowLeft className="w-5 h-5" />
-                            Go Back
-                        </motion.button>
                     </motion.div>
 
                     {/* Quick Links */}

@@ -1,89 +1,55 @@
-import { NextResponse } from 'next/server';
-import { createClient } from '@/utils/supabase/server';
-import { UserService } from '@/lib/services/user-service';
+import { createServerClient, type CookieOptions } from '@supabase/ssr';
+import { NextResponse, type NextRequest } from 'next/server';
+import { ROUTES } from '@/lib/routes';
 
-export async function GET(request: Request) {
-    const requestUrl = new URL(request.url);
-    const code = requestUrl.searchParams.get('code');
-    const error = requestUrl.searchParams.get('error');
-    const errorDescription = requestUrl.searchParams.get('error_description');
-    const next = requestUrl.searchParams.get('next') || '/dashboard';
-    const origin = requestUrl.origin;
+export async function GET(request: NextRequest) {
+    const { searchParams, origin } = new URL(request.url);
+    const code = searchParams.get('code');
+    const next = searchParams.get('next') ?? ROUTES.TEACHER_LAB; // Default fallback
 
-    // Handle OAuth provider errors (user cancelled, denied, etc.)
-    if (error) {
-        console.error(`[AUTH CALLBACK] OAuth error: ${error} — ${errorDescription}`);
-        return NextResponse.redirect(
-            `${origin}/login?error=${encodeURIComponent(errorDescription || error)}`
-        );
-    }
-
-    if (!code) {
-        console.error('[AUTH CALLBACK] No authorization code received');
-        return NextResponse.redirect(`${origin}/login?error=missing_code`);
-    }
-
-    try {
-        const supabase = await createClient();
-
-        if (!supabase) {
-            console.error('[AUTH CALLBACK] UPLINK_OFFLINE: Cannot exchange code.');
-            return NextResponse.redirect(`${origin}/login?error=uplink_offline`);
-        }
-
-        const { data: { session }, error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
-
-        if (exchangeError) {
-            console.error('[AUTH CALLBACK] Code exchange failed:', exchangeError.message);
-            return NextResponse.redirect(
-                `${origin}/login?error=${encodeURIComponent(exchangeError.message)}`
-            );
-        }
-
-        if (session?.user) {
-            // UNIFIED SYNC: Ensure public.users record exists and tokens are initialized
-            try {
-                const { id, email, user_metadata } = session.user;
-                const name = user_metadata?.full_name || email?.split('@')[0] || 'Educator';
-                const avatar = user_metadata?.avatar_url || user_metadata?.picture;
-
-                const processedUser = await UserService.syncUser(
-                    id,
-                    email!,
-                    name,
-                    avatar
-                );
-
-                console.log(`[AUTH CALLBACK] Synced user ${email} to EdIntel records. Tier: ${processedUser.tier}`);
-
-                // OPTIMIZATION: Route them based on their specific module context
-                // Director Pack and Practitioner tiers are routed to Wellness/Transcend dashboard
-                const effectiveTier = processedUser.tier;
-
-                if (effectiveTier === 'Director Pack' || effectiveTier === 'Practitioner') {
-                    // Force Transcend Dashboard
-                    return NextResponse.redirect(`${origin}/wellness`);
-                }
-
-                // For IEP/Education tiers or Free, route to Education dashboard
-                if (effectiveTier === 'Sovereign Pack' || effectiveTier === 'Standard Pack' || effectiveTier === 'Site Command') {
-                    return NextResponse.redirect(`${origin}/education`);
-                }
-
-                // Default fallback
-                return NextResponse.redirect(`${origin}${next === '/dashboard' ? '/education' : next}`);
-
-            } catch (err) {
-                console.error("[AUTH CALLBACK] User sync failed:", err);
-                // Continue anyway to dashboard if sync fails, don't block login
+    if (code) {
+        console.log('🏛️ [EdIntel_Auth] Initiating Code Exchange Protocol...');
+        const cookieStore = request.cookies;
+        const supabase = createServerClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL!,
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+            {
+                cookies: {
+                    get(name: string) {
+                        return cookieStore.get(name)?.value;
+                    },
+                    set(name: string, value: string, options: CookieOptions) {
+                        cookieStore.set({ name, value, ...options });
+                    },
+                    remove(name: string, options: CookieOptions) {
+                        cookieStore.set({ name, value: '', ...options });
+                    },
+                },
             }
-        }
-
-        return NextResponse.redirect(`${origin}${next}`);
-    } catch (err: any) {
-        console.error('[AUTH CALLBACK] Unexpected error:', err);
-        return NextResponse.redirect(
-            `${origin}/login?error=${encodeURIComponent('Authentication failed. Please try again.')}`
         );
+
+        const { error } = await supabase.auth.exchangeCodeForSession(code);
+
+        if (!error) {
+            console.log('🏛️ [EdIntel_Auth] Session Established. Verifying Sovereign Role...');
+            const { data: { user } } = await supabase.auth.getUser();
+            const role = user?.user_metadata?.role;
+
+            console.log(`🏛️ [EdIntel_Auth] Identity Verified: ${user?.email} | Role: ${role || 'standard'}`);
+
+            if (role === 'admin') {
+                return NextResponse.redirect(`${origin}${ROUTES.ADMIN_DASHBOARD}`);
+            } else if (role === 'teacher') {
+                return NextResponse.redirect(`${origin}${ROUTES.TEACHER_LAB}`);
+            } else {
+                return NextResponse.redirect(`${origin}${next}`);
+            }
+        } else {
+            console.error('🏛️ [EdIntel_Auth] Code Exchange Failure:', error.message);
+        }
     }
+
+    // Role verification failed or code exchange error
+    console.warn('🏛️ [EdIntel_Auth] Authentication Protocol Aborted. Rerouting to Sentinel Login.');
+    return NextResponse.redirect(`${origin}${ROUTES.LOGIN}?error=auth_callback_failed`);
 }

@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Shield as LucideShield, Fingerprint, Key, CheckCircle, Lock, Unlock } from "lucide-react"
 
 export function ProfessionalIdentity() {
-  const [securityLevel, setSecurityLevel] = useState(3)
+  const [securityLevel, _setSecurityLevel] = useState(3)
   const [twoFactorEnabled, setTwoFactorEnabled] = useState(true)
 
   const securityFeatures = [
@@ -107,6 +107,8 @@ export function ProfessionalIdentity() {
               </div>
               <button
                 onClick={() => setTwoFactorEnabled(!twoFactorEnabled)}
+                aria-label="Toggle Two-Factor Authentication"
+                title={twoFactorEnabled ? "Disable 2FA" : "Enable 2FA"}
                 className={`w-12 h-6 rounded-full transition-all ${twoFactorEnabled ? "bg-[#10b981]" : "bg-gray-700"}`}
               >
                 <div

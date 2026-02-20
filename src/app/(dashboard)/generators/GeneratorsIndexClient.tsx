@@ -1,22 +1,34 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Grid, Shield as LucideShield, BookOpen, Users, Activity, Briefcase } from 'lucide-react';
-import { generators as GENERATORS } from '@/data/generators';
+import { Search, Grid, Shield as LucideShield, BookOpen, Users, Activity, Briefcase, Globe } from 'lucide-react';
+import { PROTOCOL_REGISTRY as ALL_PROTOCOLS } from '@/data/unifiedRegistry';
+import { getCategoryForGenerator } from '@/utils/protocol-utils';
 import ProfessionalBackground from '@/components/dossier/ProfessionalBackground';
 import EdIntelLogo from '@/components/EdIntelLogo';
 import React from 'react';
 
-export default function GeneratorsIndexClient() {
+function GeneratorsIndex() {
+    const searchParams = useSearchParams();
     const [searchQuery, setSearchQuery] = useState("");
     const [viewMode] = useState<'grid' | 'list'>('grid');
     const [activeCategory, setActiveCategory] = useState<string>("All");
 
+    useEffect(() => {
+        const cat = searchParams.get('category');
+        if (cat) {
+            // Capitalize or match the ID in categories
+            setActiveCategory(cat.charAt(0).toUpperCase() + cat.slice(1).toLowerCase());
+        }
+    }, [searchParams]);
+
     // Smart Categorization Logic
     const categories = [
         { id: "All", label: "All Protocols", icon: Grid },
+        { id: "Global", label: "Global Modules", icon: Globe },
         { id: "Instructional", label: "Instructional Core", icon: BookOpen },
         { id: "Operational", label: "Ops & Logistics", icon: LucideShield },
         { id: "Strategic", label: "Strategic Leadership", icon: Briefcase },
@@ -24,20 +36,7 @@ export default function GeneratorsIndexClient() {
         { id: "Wellness", label: "Wellness & Support", icon: Activity },
     ];
 
-    const getCategoryForGenerator = (gen: any) => {
-        const id = gen.id.toLowerCase();
-
-
-        if (id.includes('communication') || id.includes('newsletter') || id.includes('social') || id.includes('family') || id.includes('volunteer')) return "Community";
-        if (id.includes('wellness') || id.includes('health') || id.includes('counselor') || id.includes('restorative') || id.includes('behavior') || id.includes('mental')) return "Wellness";
-        if (id.includes('lesson') || id.includes('iep') || id.includes('curriculum') || id.includes('literacy') || id.includes('math') || id.includes('early') || id.includes('media') || id.includes('stem') || id.includes('arts')) return "Instructional";
-        if (id.includes('facility') || id.includes('transport') || id.includes('substitute') || id.includes('procurement') || id.includes('safety') || id.includes('registrar') || id.includes('compliance') || id.includes('attendance')) return "Operational";
-        if (id.includes('vision') || id.includes('data') || id.includes('grant') || id.includes('budget') || id.includes('board') || id.includes('labor') || id.includes('capital') || id.includes('hiring') || id.includes('human')) return "Strategic";
-
-        return "Strategic"; // Default fallback
-    };
-
-    const filteredGenerators = GENERATORS.filter(gen => {
+    const filteredGenerators = ALL_PROTOCOLS.filter(gen => {
         const matchesSearch = gen.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
             gen.description.toLowerCase().includes(searchQuery.toLowerCase());
         const category = getCategoryForGenerator(gen);
@@ -119,7 +118,7 @@ export default function GeneratorsIndexClient() {
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.2, delay: idx * 0.05 }}
                             >
-                                <Link href={gen.link || `/generators/${gen.id}`} className="block h-full">
+                                <Link href={(gen as any).link || (gen as any).href || `/generators/${gen.id}`} className="block h-full">
                                     <div className="group h-full bg-zinc-900/40 hover:bg-zinc-900/60 backdrop-blur-md border border-white/5 hover:border-noble-gold/30 rounded-3xl p-6 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-noble-gold/5 flex flex-col relative overflow-hidden">
 
                                         {/* Hover Glow */}
@@ -170,5 +169,15 @@ export default function GeneratorsIndexClient() {
                 )}
             </div>
         </main>
+    );
+}
+
+export default function GeneratorsIndexClient() {
+    return (
+        <Suspense fallback={<div className="min-h-screen bg-[#050505] flex items-center justify-center">
+            <EdIntelLogo variant="transcend" size={60} animated={true} />
+        </div>}>
+            <GeneratorsIndex />
+        </Suspense>
     );
 }

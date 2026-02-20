@@ -1,5 +1,8 @@
 import OpenAI from 'openai';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { openai as aiOpenAI } from '@ai-sdk/openai';
+import { google as aiGoogle } from '@ai-sdk/google';
+import { streamText } from 'ai';
 
 /**
  * EdIntel Professional Shield: AI Resilience Utility
@@ -11,6 +14,15 @@ export interface ResilienceOptions {
     delay?: number;
     onRetry?: (error: any, attempt: number) => void;
     signal?: AbortSignal;
+}
+
+export interface Persona {
+    name: string;
+    role: string;
+    tone: string;
+    mission: string;
+    culturalContext: string;
+    degrees?: string;
 }
 
 /**
@@ -88,7 +100,7 @@ export const EdIntel_TOKENS = {
 /**
  * Universal EdIntel Persona
  */
-export const EdIntel_PERSONA = {
+export const EdIntel_PERSONA: Persona = {
     name: "Dr. Alvin West",
     role: "Executive Principal & Strategic Financial Architect",
     tone: "Hyper-intelligent, visionary, commanding, and mathematically precise. Vocabulary should be at an executive/doctoral level.",
@@ -96,7 +108,7 @@ export const EdIntel_PERSONA = {
     culturalContext: "The Village. Deeply rooted in equitable excellence, blending street intelligence with high-level academic theory.",
 };
 
-export const SOVEREIGN_PERSONAS = {
+export const SOVEREIGN_PERSONAS: Record<string, Persona> = {
     '/tiffany-ed': {
         name: "Tiffany-ED",
         degrees: "M.Ed. Curriculum & Instruction",
@@ -143,7 +155,7 @@ All outputs must explicitly align with the following regulatory frameworks:
 2. STATE (ALABAMA STATE DEPT OF EDUCATION - alabamaachieves.org):
    - Alabama Literacy Act (SB 216): Science of Reading (SOR) alignment, RIPP analysis, and decodable text mandates.
    - Alabama Numeracy Act (SB 171): K-5 systematic instruction and AMSTI alignment.
-   - **Mastering the Maze**: All Special Education/IEP guidance MUST strictly follow the "Mastering the Maze" process manual for referral, eligibility, and IEP development.
+   - **Mastering the Maze (V2025 Refinements)**: All Special Ed guidance MUST follow the latest "Mastering the Maze" manual. V2025 mandates include specific "Secondary Transition" protocols starting at age 15 and refined "FBA/BIP" data-tracking requirements.
    - Alabama Course of Study Standards (ACOS): Explicitly cite specific standards (e.g., "[ACOS Math 4.12]").
    - Educator Certification: Align all professional development suggestions with Alabama PLU (Professional Learning Unit) and CEU requirements.
 
@@ -183,6 +195,11 @@ TONE & VOICE:
 - You are NOT a generic AI. You are a EdIntel Architect.
 - Speak with the authority of a 30-year Superintendent with a PhD in Strategic Finance.
 - Style: Professional, precise, visionary, and mathematically sound.
+
+TOKEN EFFICIENCY & OUTPUT CONTROL:
+- CONCISENESS PROTOCOL: If a user asks a simple question (e.g., "Who are you?", "What time is it?"), provide a direct, 1-2 sentence answer. Do NOT generate a multi-paragraph strategic analysis unless specifically requested or required by the complexity of the query.
+- RESOURCE MINIMIZATION: Do not repeat the user's question. Do not provide preamble or postscript fluff (e.g., "I hope this helps"). Go straight to the answer.
+- STRUCTURED DATA: When providing lists or data, use compact markdown tables or bullet points to save tokens.
 `;
 
 // Initialize clients for Failover Engine
@@ -273,6 +290,36 @@ export class IntelligenceEngine {
             model: 'system-safe-mode',
             error: errors
         };
+    }
+
+    /**
+     * Executes a streaming AI completion with automatic failover using Vercel AI SDK.
+     */
+    async streamWithFailover(systemPrompt: string, userPrompt: string, modelTier: 'standard' | 'premium' = 'standard') {
+        const messages: any[] = [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: userPrompt }
+        ];
+
+        const model = modelTier === 'premium' ? 'gpt-4o' : 'gpt-4o-mini';
+        const fallbackModel = modelTier === 'premium' ? 'gemini-1.5-pro' : 'gemini-1.5-flash';
+
+        try {
+            // Attempt Primary (OpenAI)
+            return await streamText({
+                model: aiOpenAI(model),
+                messages,
+                temperature: 0.7,
+            });
+        } catch (err: any) {
+            console.warn(`[Shield] Primary stream failed, pivoting to Google. Reason: ${err.message}`);
+            // Attempt Secondary (Google)
+            return await streamText({
+                model: aiGoogle(fallbackModel),
+                messages,
+                temperature: 0.7,
+            });
+        }
     }
 }
 

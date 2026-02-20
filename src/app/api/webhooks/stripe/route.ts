@@ -48,6 +48,7 @@ export async function POST(req: Request) {
                     where: { email: customerEmail },
                     update: {
                         tierId: tier.id,
+                        subscriptionTier: tier.name, // Sync the tier name for useAccess
                         isActive: true, // Reactivate if they were inactive
                         // You can optionally reset or add tokens upon subscription start
                     },
@@ -55,6 +56,7 @@ export async function POST(req: Request) {
                         email: customerEmail,
                         name: session.customer_details?.name || 'Authorized Personnel',
                         tierId: tier.id,
+                        subscriptionTier: tier.name, // Sync the tier name
                         usageTokens: 50, // Initialize their token economy securely
                         isActive: true,
                     }

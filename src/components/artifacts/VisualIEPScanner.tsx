@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
+import NextImage from 'next/image';
 import { motion } from 'framer-motion';
 import { Camera, Upload, ShieldCheck, Loader2, CheckCircle2, ChevronRight } from 'lucide-react';
 
@@ -74,7 +75,7 @@ export default function VisualIEPScanner() {
                 ) : (
                     <div className="space-y-6">
                         <div className="relative aspect-video rounded-3xl overflow-hidden border border-white/10">
-                            <img src={previewUrl} className="w-full h-full object-cover blur-[1px] opacity-50" />
+                            <NextImage src={previewUrl} alt="Scanned document preview" fill className="object-cover blur-[1px] opacity-50" />
                             <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
                                 {isScanning ? (
                                     <div className="flex flex-col items-center gap-4">

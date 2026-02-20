@@ -18,12 +18,12 @@ export function useHumanBehavior(isActive: boolean = true, options: BehaviorOpti
     const [headTilt, setHeadTilt] = useState(0);
     const [headRotate, setHeadRotate] = useState(0);
     const [breathingScale, setBreathingScale] = useState(1);
-    const [eyeX, setEyeX] = useState(0);
-    const [eyeY, setEyeY] = useState(0);
+    const [eyeX, _setEyeX] = useState(0);
+    const [eyeY, _setEyeY] = useState(0);
     const [blink, setBlink] = useState(false);
     const [shoulderShift, setShoulderShift] = useState(0);
-    const [leanIn, setLeanIn] = useState(1);
-    const [browLift, setBrowLift] = useState(0);
+    const [leanIn, _setLeanIn] = useState(1);
+    const [browLift, _setBrowLift] = useState(0);
     const [vibrancy, setVibrancy] = useState(0); // For "thinking" jitter
 
     // 1. Biological Gaze Tracking (Head follows attention)
@@ -61,7 +61,7 @@ export function useHumanBehavior(isActive: boolean = true, options: BehaviorOpti
         }, breathRate);
 
         // Thinking Jitter (Micro-movements during computation)
-        let jitterInterval: any;
+        let jitterInterval: ReturnType<typeof setInterval> | undefined;
         if (state === 'thinking') {
             jitterInterval = setInterval(() => {
                 setVibrancy((Math.random() * 0.4) - 0.2);
@@ -131,4 +131,3 @@ export function useHumanBehavior(isActive: boolean = true, options: BehaviorOpti
         headTilt
     };
 }
-

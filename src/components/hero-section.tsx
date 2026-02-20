@@ -84,7 +84,7 @@ export function HeroSection() {
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
           <a
-            href="#pricing"
+            href="/pricing"
             className="px-8 py-4 bg-gradient-to-r from-[#00d2ff] to-[#10b981] text-black font-bold rounded-xl hover:opacity-90 transition-all flex items-center gap-2 text-lg touch-target shadow-[0_0_30px_rgba(0,210,255,0.3)]"
           >
             <Sparkles className="w-5 h-5" />

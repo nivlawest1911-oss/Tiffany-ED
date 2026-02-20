@@ -35,7 +35,7 @@ export function HeyGenStreamingAvatar({
     const [isLoadingRepeat, setIsLoadingRepeat] = useState(false);
     const [stream, setStream] = useState<MediaStream | null>(null);
     const [debug, setDebug] = useState<string>('');
-    const [data, setData] = useState<any>(null);
+    const [_data, _setData] = useState<any>(null);
     const [text, setText] = useState<string>('');
     const [isSessionActive, setIsSessionActive] = useState(false);
     const [isMuted, setIsMuted] = useState(false);
@@ -68,7 +68,7 @@ export function HeyGenStreamingAvatar({
         }
     }
 
-    async function startSession() {
+    const startSession = useCallback(async () => {
         if (isLoadingSession) return;
 
         // Cancel any existing session init
@@ -145,7 +145,7 @@ export function HeyGenStreamingAvatar({
                 return;
             }
 
-            setData(res);
+            _setData(res);
             setDebug('Session created');
         } catch (error: any) {
             if (error.name === 'AbortError') {
@@ -163,7 +163,7 @@ export function HeyGenStreamingAvatar({
                 abortControllerRef.current = null;
             }
         }
-    }
+    }, [isLoadingSession, quality, avatarId, voiceId, onReady, onError]);
 
     async function endSession() {
         if (!avatar.current) {
@@ -318,7 +318,7 @@ export function HeyGenStreamingAvatar({
                     <div className="absolute bottom-4 left-4 right-4 flex gap-2">
                         <Button
                             size="sm"
-                            variant={isMuted ? 'destructive' : 'secondary'}
+                            variant={isMuted ? 'danger' : 'secondary'}
                             onClick={toggleMute}
                             className="flex-1"
                         >
@@ -327,7 +327,7 @@ export function HeyGenStreamingAvatar({
                         </Button>
                         <Button
                             size="sm"
-                            variant={isVideoEnabled ? 'secondary' : 'destructive'}
+                            variant={isVideoEnabled ? 'secondary' : 'danger'}
                             onClick={toggleVideo}
                             className="flex-1"
                         >
@@ -363,7 +363,7 @@ export function HeyGenStreamingAvatar({
                     ) : (
                         <Button
                             onClick={endSession}
-                            variant="destructive"
+                            variant="danger"
                             className="flex-1"
                         >
                             <VideoOff className="w-4 h-4 mr-2" />
@@ -400,7 +400,7 @@ export function HeyGenStreamingAvatar({
 
                         <Button
                             onClick={handleInterrupt}
-                            variant="outline"
+                            variant="ghost"
                             size="sm"
                             className="w-full"
                         >

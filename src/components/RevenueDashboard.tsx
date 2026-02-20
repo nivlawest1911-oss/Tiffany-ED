@@ -4,7 +4,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 
 
 export default function RevenueDashboard() {
   const [mounted, setMounted] = useState(false);
-  const [data, setData] = useState([
+  const [data] = useState([
     { name: 'CLC', value: 490, color: '#0070f3' },
     { name: 'Vigor High', value: 245, color: '#7000ff' },
     { name: 'Whistler Elem', value: 147, color: '#00d1ff' },

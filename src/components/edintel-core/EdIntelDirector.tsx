@@ -17,7 +17,7 @@ interface EdIntelDirectorProps {
 export default function EdIntelDirector({
     cinematicVideoSrc = "/videos/heritage/alvin_west_doctoral_intro.mp4",
     avatarName = "Dr. Alvin West",
-    avatarRole = "Chief Executive Officer"
+    avatarRole: _avatarRole = "Chief Executive Officer"
 }: EdIntelDirectorProps) {
     const [mode, setMode] = useState<'cinematic' | 'live'>('cinematic');
     const [isShimmering, setIsShimmering] = useState(false);

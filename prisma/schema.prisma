@@ -97,6 +97,7 @@ model User {
   observations      Observation[]
   evidenceFolders   EvidenceFolder[]
   avatarSessions    AvatarSession[]
+  vaultDocuments    VaultDocument[]
   
   @@index([email])
   @@index([district, school])
@@ -408,4 +409,63 @@ model GraphEdge {
   @@index([targetId])
   @@index([type])
   @@map("graph_edges")
+}
+
+// ============================================
+// SOVEREIGN VAULT (Secure Storage & Audit)
+// ============================================
+
+model VaultDocument {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  fileName    String
+  fileSize    Int
+  fileType    String
+  storagePath String   // Supabase Storage Path
+
+  // Security & Compliance
+  isEncrypted Boolean  @default(true)
+  securityLevel String @default("confidential") // top_secret, confidential, unclassified
+
+  // Metadata
+  tags        String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  audits      VaultAudit[]
+  ocrContent  VaultOCR?
+
+  @@index([userId])
+  @@map("vault_documents")
+}
+
+model VaultAudit {
+  id          String   @id @default(cuid())
+  documentId  String
+  document    VaultDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  userId      String   // Who accessed it
+  action      String   // UPLOAD, VIEW, DOWNLOAD, DELETE
+  ipAddress   String?
+  userAgent   String?
+
+  timestamp   DateTime @default(now())
+
+  @@index([documentId])
+  @@map("vault_audits")
+}
+
+model VaultOCR {
+  id          String   @id @default(cuid())
+  documentId  String   @unique
+  document    VaultDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  extractedText String @db.Text
+  confidence    Float?
+  processedAt   DateTime @default(now())
+
+  @@map("vault_ocr")
 }

@@ -1,9 +1,5 @@
-import { cookies } from 'next/headers';
-import ProfessionalCenterClient from './ProfessionalCenterClient';
+import { redirect } from 'next/navigation';
 
-export const dynamic = 'force-dynamic';
-
-export default async function ProfessionalCenterPage() {
-    await cookies(); // Force dynamic rendering
-    return <ProfessionalCenterClient />;
+export default function ProfessionalCenterPage() {
+    redirect('/pricing');
 }

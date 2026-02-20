@@ -1,0 +1,180 @@
+﻿.next/types/app/api/tiffany/portfolio/[studentId]/route.ts(49,7): error TS2344: Type '{ __tag__: "GET"; __param_position__: "second"; __param_type__: { params: { studentId: string; }; }; }' does not satisfy the constraint 'ParamCheck<RouteContext>'.
+  The types of '__param_type__.params' are incompatible between these types.
+    Type '{ studentId: string; }' is missing the following properties from type 'Promise<any>': then, catch, finally, [Symbol.toStringTag]
+.next/types/validator.ts(1413,31): error TS2344: Type 'typeof import("C:/Users/nivla/edintel-app/src/app/api/tiffany/portfolio/[studentId]/route")' does not satisfy the constraint 'RouteHandlerConfig<"/api/tiffany/portfolio/[studentId]">'.
+  Types of property 'GET' are incompatible.
+    Type '(req: Request, { params }: { params: { studentId: string; }; }) => Promise<NextResponse<{ data: StudentPortfolioData; narrative: GrowthNarrative; }> | NextResponse<...>>' is not assignable to type '(request: NextRequest, context: { params: Promise<{ studentId: string; }>; }) => void | Response | Promise<void | Response>'.
+      Types of parameters '__1' and 'context' are incompatible.
+        Type '{ params: Promise<{ studentId: string; }>; }' is not assignable to type '{ params: { studentId: string; }; }'.
+          Types of property 'params' are incompatible.
+            Property 'studentId' is missing in type 'Promise<{ studentId: string; }>' but required in type '{ studentId: string; }'.
+original_delegate.tsx(12,28): error TS2307: Cannot find module './LiveAvatarChat' or its corresponding type declarations.
+original_delegate.tsx(16,10): error TS2305: Module '"@/data/sovereign-protocols"' has no exported member 'SOVEREIGN_PROTOCOLS'.
+original_delegate.tsx(17,25): error TS2307: Cannot find module './ui/HumanAvatar' or its corresponding type declarations.
+original_delegate.tsx(19,39): error TS2307: Cannot find module './SovereignInteractionAgent' or its corresponding type declarations.
+original_delegate.tsx(23,32): error TS2307: Cannot find module './SovereignBrief' or its corresponding type declarations.
+original_delegate.tsx(24,36): error TS2307: Cannot find module './NarrativeArchitect' or its corresponding type declarations.
+original_delegate.tsx(25,34): error TS2307: Cannot find module './RecidivismEngine' or its corresponding type declarations.
+original_delegate.tsx(27,50): error TS2307: Cannot find module './SovereignMediaVault' or its corresponding type declarations.
+original_delegate.tsx(28,55): error TS2307: Cannot find module './SovereignAvatarInterface' or its corresponding type declarations.
+original_delegate.tsx(31,43): error TS2307: Cannot find module './admin/SystemStatus' or its corresponding type declarations.
+original_delegate.tsx(32,46): error TS2307: Cannot find module './admin/DistrictControl' or its corresponding type declarations.
+original_delegate.tsx(325,69): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: {}, context?: any): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | Component<...> | null | undefined', gave the following error.
+    Type '{ avatarId: string | undefined; }' is not assignable to type 'IntrinsicAttributes'.
+      Property 'avatarId' does not exist on type 'IntrinsicAttributes'.
+  Overload 2 of 2, '(props: {}): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | Component<...> | null | undefined', gave the following error.
+    Type '{ avatarId: string | undefined; }' is not assignable to type 'IntrinsicAttributes'.
+      Property 'avatarId' does not exist on type 'IntrinsicAttributes'.
+original_delegate.tsx(341,78): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: {}, context?: any): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | Component<...> | null | undefined', gave the following error.
+    Type '{ selectedDelegate: Delegate; }' is not assignable to type 'IntrinsicAttributes'.
+      Property 'selectedDelegate' does not exist on type 'IntrinsicAttributes'.
+  Overload 2 of 2, '(props: {}): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | Component<...> | null | undefined', gave the following error.
+    Type '{ selectedDelegate: Delegate; }' is not assignable to type 'IntrinsicAttributes'.
+      Property 'selectedDelegate' does not exist on type 'IntrinsicAttributes'.
+original_delegate.tsx(348,65): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: {}, context?: any): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | Component<...> | null | undefined', gave the following error.
+    Type '{ districtName: string; schools: { id: string; name: string; vault_balance: number; }[]; }' is not assignable to type 'IntrinsicAttributes'.
+      Property 'districtName' does not exist on type 'IntrinsicAttributes'.
+  Overload 2 of 2, '(props: {}): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | Component<...> | null | undefined', gave the following error.
+    Type '{ districtName: string; schools: { id: string; name: string; vault_balance: number; }[]; }' is not assignable to type 'IntrinsicAttributes'.
+      Property 'districtName' does not exist on type 'IntrinsicAttributes'.
+src/actions/signup.ts(45,17): error TS2353: Object literal may only specify known properties, and 'isActive' does not exist in type 'Without<UserCreateInput, UserUncheckedCreateInput> & UserUncheckedCreateInput'.
+src/app/actions/vertex.ts(30,22): error TS18048: 'response.candidates' is possibly 'undefined'.
+src/app/api/admin/pulse/route.ts(17,42): error TS18047: 'supabase' is possibly 'null'.
+src/app/api/chat/route.ts(34,17): error TS2322: Type 'Persona' is not assignable to type '{ name: string; degrees: string; role: string; culturalContext: string; tone: string; mission: string; }'.
+  Types of property 'degrees' are incompatible.
+    Type 'string | undefined' is not assignable to type 'string'.
+      Type 'undefined' is not assignable to type 'string'.
+src/app/api/chat/route.ts(36,17): error TS2322: Type 'Persona' is not assignable to type '{ name: string; degrees: string; role: string; culturalContext: string; tone: string; mission: string; }'.
+  Types of property 'degrees' are incompatible.
+    Type 'string | undefined' is not assignable to type 'string'.
+      Type 'undefined' is not assignable to type 'string'.
+src/app/api/chat/route.ts(38,17): error TS2322: Type 'Persona' is not assignable to type '{ name: string; degrees: string; role: string; culturalContext: string; tone: string; mission: string; }'.
+  Types of property 'degrees' are incompatible.
+    Type 'string | undefined' is not assignable to type 'string'.
+      Type 'undefined' is not assignable to type 'string'.
+src/app/api/huggingface/image-generation/route.ts(29,40): error TS2339: Property 'arrayBuffer' does not exist on type 'string'.
+src/app/api/media/manifest/route.ts(13,46): error TS18047: 'supabase' is possibly 'null'.
+src/app/api/vault/upload/route.ts(19,39): error TS2339: Property 'vaultDocument' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/api/vault/upload/route.ts(33,22): error TS2339: Property 'vaultAudit' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+src/app/api/webhooks/crypto-payment/route.ts(104,17): error TS2353: Object literal may only specify known properties, and 'tokensRemaining' does not exist in type '(Without<UserUpdateInput, UserUncheckedUpdateInput> & UserUncheckedUpdateInput) | (Without<...> & UserUpdateInput)'.
+src/app/api/webhooks/stripe/route.ts(8,5): error TS2322: Type '"2023-10-16"' is not assignable to type '"2026-01-28.clover"'.
+src/app/api/webhooks/stripe/route.ts(52,25): error TS2353: Object literal may only specify known properties, and 'isActive' does not exist in type 'Without<UserUpdateInput, UserUncheckedUpdateInput> & UserUncheckedUpdateInput'.
+src/app/api/webhooks/stripe/route.ts(61,25): error TS2353: Object literal may only specify known properties, and 'isActive' does not exist in type 'Without<UserCreateInput, UserUncheckedCreateInput> & UserUncheckedCreateInput'.
+src/app/api/whatsapp/webhook/route.ts(21,37): error TS18047: 'supabase' is possibly 'null'.
+src/app/api/x-ai/chat/route.ts(26,13): error TS2353: Object literal may only specify known properties, and 'maxTokens' does not exist in type 'DispatchOptions'.
+src/app/api/x-ai/chat/route.ts(29,23): error TS2551: Property 'toDataStreamResponse' does not exist on type 'StreamTextResult<ToolSet, Output<string, string, never>>'. Did you mean 'toTextStreamResponse'?
+src/components/AuditChart.tsx(13,47): error TS18047: 'supabase' is possibly 'null'.
+src/components/bento-section.tsx(8,22): error TS7031: Binding element 'title' implicitly has an 'any' type.
+src/components/bento-section.tsx(8,29): error TS7031: Binding element 'description' implicitly has an 'any' type.
+src/components/bento-section.tsx(8,42): error TS7031: Binding element 'Component' implicitly has an 'any' type.
+src/components/bento/one-click-integrations-illustration.tsx(29,22): error TS7053: Element implicitly has an 'any' type because expression of type '"--oci-border-color"' can't be used to index type 'CSSProperties'.
+  Property '--oci-border-color' does not exist on type 'CSSProperties'.
+src/components/bento/one-click-integrations-illustration.tsx(48,56): error TS7053: Element implicitly has an 'any' type because expression of type '"--oci-gradient-light-gray-start"' can't be used to index type 'CSSProperties'.
+  Property '--oci-gradient-light-gray-start' does not exist on type 'CSSProperties'.
+src/components/bento/one-click-integrations-illustration.tsx(48,108): error TS7053: Element implicitly has an 'any' type because expression of type '"--oci-gradient-light-gray-end"' can't be used to index type 'CSSProperties'.
+  Property '--oci-gradient-light-gray-end' does not exist on type 'CSSProperties'.
+src/components/bento/one-click-integrations-illustration.tsx(49,43): error TS7053: Element implicitly has an 'any' type because expression of type '"--oci-shadow-color"' can't be used to index type 'CSSProperties'.
+  Property '--oci-shadow-color' does not exist on type 'CSSProperties'.
+src/components/bento/one-click-integrations-illustration.tsx(217,15): error TS7053: Element implicitly has an 'any' type because expression of type '"--oci-foreground-color"' can't be used to index type 'CSSProperties'.
+  Property '--oci-foreground-color' does not exist on type 'CSSProperties'.
+src/components/bento/one-click-integrations-illustration.tsx(218,15): error TS7053: Element implicitly has an 'any' type because expression of type '"--oci-foreground-color"' can't be used to index type 'CSSProperties'.
+  Property '--oci-foreground-color' does not exist on type 'CSSProperties'.
+src/components/bento/one-click-integrations-illustration.tsx(219,15): error TS7053: Element implicitly has an 'any' type because expression of type '"--oci-foreground-color"' can't be used to index type 'CSSProperties'.
+  Property '--oci-foreground-color' does not exist on type 'CSSProperties'.
+src/components/bento/one-click-integrations-illustration.tsx(220,15): error TS7053: Element implicitly has an 'any' type because expression of type '"--oci-foreground-color"' can't be used to index type 'CSSProperties'.
+  Property '--oci-foreground-color' does not exist on type 'CSSProperties'.
+src/components/bento/one-click-integrations-illustration.tsx(221,15): error TS7053: Element implicitly has an 'any' type because expression of type '"--oci-foreground-color"' can't be used to index type 'CSSProperties'.
+  Property '--oci-foreground-color' does not exist on type 'CSSProperties'.
+src/components/captions/VideoEditor.tsx(159,29): error TS2322: Type '"outline"' is not assignable to type '"primary" | "secondary" | "danger" | "ghost" | undefined'.
+src/components/challenges/sequential-recall.tsx(35,11): error TS2322: Type '"default" | "outline"' is not assignable to type '"primary" | "secondary" | "danger" | "ghost" | undefined'.
+  Type '"default"' is not assignable to type '"primary" | "secondary" | "danger" | "ghost" | undefined'.
+src/components/dashboard/Dashboard.tsx(117,33): error TS2322: Type '"outline"' is not assignable to type '"primary" | "secondary" | "danger" | "ghost" | undefined'.
+src/components/dashboard/Dashboard.tsx(269,49): error TS2322: Type '"outline"' is not assignable to type '"primary" | "secondary" | "danger" | "ghost" | undefined'.
+src/components/dashboard/EdIntelCommandDeck.tsx(80,25): error TS2322: Type '"outline"' is not assignable to type '"primary" | "secondary" | "danger" | "ghost" | undefined'.
+src/components/dashboard/EdIntelCommandDeck.tsx(293,80): error TS2322: Type '"outline"' is not assignable to type '"primary" | "secondary" | "danger" | "ghost" | undefined'.
+src/components/edintel-core/EdIntelAvatarInterface.tsx(174,29): error TS2322: Type '"outline"' is not assignable to type '"primary" | "secondary" | "danger" | "ghost" | undefined'.
+src/components/educational-bento-section.tsx(7,22): error TS7031: Binding element 'title' implicitly has an 'any' type.
+src/components/educational-bento-section.tsx(7,29): error TS7031: Binding element 'description' implicitly has an 'any' type.
+src/components/educational-bento-section.tsx(7,42): error TS7031: Binding element 'Component' implicitly has an 'any' type.
+src/components/heygen/StreamingAvatar.tsx(321,29): error TS2322: Type '"secondary" | "destructive"' is not assignable to type '"primary" | "secondary" | "danger" | "ghost" | undefined'.
+  Type '"destructive"' is not assignable to type '"primary" | "secondary" | "danger" | "ghost" | undefined'.
+src/components/heygen/StreamingAvatar.tsx(330,29): error TS2322: Type '"secondary" | "destructive"' is not assignable to type '"primary" | "secondary" | "danger" | "ghost" | undefined'.
+  Type '"destructive"' is not assignable to type '"primary" | "secondary" | "danger" | "ghost" | undefined'.
+src/components/heygen/StreamingAvatar.tsx(366,29): error TS2322: Type '"destructive"' is not assignable to type '"primary" | "secondary" | "danger" | "ghost" | undefined'.
+src/components/heygen/StreamingAvatar.tsx(403,29): error TS2322: Type '"outline"' is not assignable to type '"primary" | "secondary" | "danger" | "ghost" | undefined'.
+src/components/legal/FerpaBadge.tsx(6,37): error TS2307: Cannot find module '../EdIntelInteractionAgent' or its corresponding type declarations.
+src/components/meta-ai/Chat.tsx(5,25): error TS2307: Cannot find module '@/app/ai-hub/ai' or its corresponding type declarations.
+src/components/ResourceMap.tsx(10,45): error TS18047: 'supabase' is possibly 'null'.
+src/components/roster/StudentRosterCard.tsx(33,103): error TS2322: Type '{ children: "pending" | "compliant" | "non-compliant"; variant: "destructive" | "default"; transform: string; }' is not assignable to type 'IntrinsicAttributes & BadgeProps'.
+  Property 'transform' does not exist on type 'IntrinsicAttributes & BadgeProps'.
+src/components/SequentialRecallGame.tsx(35,11): error TS2322: Type '"default" | "outline"' is not assignable to type '"primary" | "secondary" | "danger" | "ghost" | undefined'.
+  Type '"default"' is not assignable to type '"primary" | "secondary" | "danger" | "ghost" | undefined'.
+src/components/shared/ActionableConfidenceGauge.tsx(100,41): error TS2322: Type '"outline"' is not assignable to type '"primary" | "secondary" | "danger" | "ghost" | undefined'.
+src/components/testimonial-grid-section.tsx(62,28): error TS7031: Binding element 'quote' implicitly has an 'any' type.
+src/components/testimonial-grid-section.tsx(62,35): error TS7031: Binding element 'name' implicitly has an 'any' type.
+src/components/testimonial-grid-section.tsx(62,41): error TS7031: Binding element 'company' implicitly has an 'any' type.
+src/components/testimonial-grid-section.tsx(62,50): error TS7031: Binding element 'avatar' implicitly has an 'any' type.
+src/components/testimonial-grid-section.tsx(62,58): error TS7031: Binding element 'type' implicitly has an 'any' type.
+src/components/ui/alert-dialog.tsx(5,10): error TS2305: Module '"@/components/ui/button"' has no exported member 'buttonVariants'.
+src/components/ui/calendar.tsx(6,10): error TS2305: Module '"@/components/ui/button"' has no exported member 'buttonVariants'.
+src/components/ui/carousel.tsx(175,9): error TS2322: Type 'string' is not assignable to type '"primary" | "secondary" | "danger" | "ghost" | undefined'.
+src/components/ui/carousel.tsx(203,9): error TS2322: Type 'string' is not assignable to type '"primary" | "secondary" | "danger" | "ghost" | undefined'.
+src/components/ui/pagination.tsx(5,10): error TS2459: Module '"@/components/ui/button"' declares 'ButtonProps' locally, but it is not exported.
+src/components/ui/pagination.tsx(5,23): error TS2305: Module '"@/components/ui/button"' has no exported member 'buttonVariants'.
+src/components/ui/pagination.tsx(50,52): error TS2783: 'size' is specified more than once, so this usage will be overwritten.
+src/components/ui/pagination.tsx(58,48): error TS2783: 'size' is specified more than once, so this usage will be overwritten.
+src/components/ui/sidebar.tsx(225,9): error TS2322: Type '{ children: Element[]; variant: "primary" | "secondary" | "danger" | "ghost"; size: "lg" | "md" | "sm" | "icon"; disabled?: boolean | undefined; form?: string | undefined; formAction?: string | ... 1 more ... | undefined; ... 286 more ...; onClick: (event: MouseEvent<...>) => void; }' is not assignable to type 'IntrinsicAttributes & ButtonProps'.
+  Property 'ref' does not exist on type 'IntrinsicAttributes & ButtonProps'.
+src/components/UserProfilePage.tsx(30,50): error TS18047: 'supabase' is possibly 'null'.
+src/components/UserProfilePage.tsx(39,56): error TS18047: 'supabase' is possibly 'null'.
+src/components/x-ai/Chat.tsx(16,23): error TS2339: Property 'input' does not exist on type 'UseChatHelpers<UIMessage<unknown, UIDataTypes, UITools>>'.
+src/components/x-ai/Chat.tsx(16,30): error TS2339: Property 'handleInputChange' does not exist on type 'UseChatHelpers<UIMessage<unknown, UIDataTypes, UITools>>'.
+src/components/x-ai/Chat.tsx(16,49): error TS2339: Property 'handleSubmit' does not exist on type 'UseChatHelpers<UIMessage<unknown, UIDataTypes, UITools>>'.
+src/components/x-ai/Chat.tsx(16,63): error TS2339: Property 'isLoading' does not exist on type 'UseChatHelpers<UIMessage<unknown, UIDataTypes, UITools>>'.
+src/components/x-ai/Chat.tsx(17,9): error TS2353: Object literal may only specify known properties, and 'api' does not exist in type 'UseChatOptions<UIMessage<unknown, UIDataTypes, UITools>>'.
+src/components/x-ai/Chat.tsx(33,35): error TS2820: Type '"analysis"' is not assignable to type '"compliance" | "strategy" | "analytics" | "curriculum" | "identity" | "communication"'. Did you mean '"analytics"'?
+src/components/x-ai/Chat.tsx(104,113): error TS2339: Property 'content' does not exist on type 'UIMessage<unknown, UIDataTypes, UITools>'.
+src/context/AuthContext.tsx(148,17): error TS2322: Type 'string | undefined' is not assignable to type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/data/unifiedRegistry.ts(35,25): error TS2339: Property 'category' does not exist on type '{ id: string; name: string; link: string; description: string; icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>; ... 6 more ...; prompts: string[]; } | ... 7 more ... | { ...; }'.
+  Property 'category' does not exist on type '{ id: string; name: string; link: string; description: string; icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>; ... 6 more ...; prompts: string[]; }'.
+src/lib/db/pglite-sync.ts(81,32): error TS2339: Property 'value' does not exist on type '{}'.
+src/lib/huggingface/services.ts(250,73): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/scripts/director-agent.ts(61,27): error TS18048: 'model.latest_version' is possibly 'undefined'.
+src/services/email-service.ts(2,24): error TS7016: Could not find a declaration file for module 'nodemailer'. 'C:/Users/nivla/edintel-app/node_modules/nodemailer/lib/nodemailer.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/nodemailer` if it exists or add a new declaration (.d.ts) file containing `declare module 'nodemailer';`
+src/test/example.test.ts(1,38): error TS2307: Cannot find module 'vitest' or its corresponding type declarations.
+supabase/functions/notify_admin/index.ts(3,23): error TS2307: Cannot find module 'https://deno.land/std@0.168.0/http/server.ts' or its corresponding type declarations.
+supabase/functions/notify_admin/index.ts(7,14): error TS7006: Parameter 'req' implicitly has an 'any' type.
+supabase/functions/notify_admin/index.ts(15,32): error TS2304: Cannot find name 'Deno'.
+supabase/functions/notify_admin/index.ts(16,29): error TS2304: Cannot find name 'Deno'.
+supabase/functions/notify_admin/index.ts(23,13): error TS7034: Variable 'params' implicitly has type 'any[]' in some locations where its type cannot be determined.
+supabase/functions/notify_admin/index.ts(55,37): error TS7005: Variable 'params' implicitly has an 'any[]' type.
+supabase/functions/notify_admin/index.ts(67,53): error TS18046: 'error' is of type 'unknown'.
+supabase/functions/sovereign-synthesis/index.ts(1,23): error TS2307: Cannot find module 'https://deno.land/std@0.168.0/http/server.ts' or its corresponding type declarations.
+supabase/functions/sovereign-synthesis/index.ts(2,24): error TS2307: Cannot find module 'https://esm.sh/openai@4.0.0' or its corresponding type declarations.
+supabase/functions/sovereign-synthesis/index.ts(4,14): error TS7006: Parameter 'req' implicitly has an 'any' type.
+supabase/functions/sovereign-synthesis/index.ts(13,45): error TS2304: Cannot find name 'Deno'.
+supabase/functions/sovereign-synthesis/index.ts(38,53): error TS18046: 'error' is of type 'unknown'.
+supabase/functions/stripe-webhook/index.ts(2,23): error TS2307: Cannot find module 'https://deno.land/std@0.168.0/http/server.ts' or its corresponding type declarations.
+supabase/functions/stripe-webhook/index.ts(3,20): error TS2307: Cannot find module 'https://esm.sh/stripe@12.0.0?target=deno' or its corresponding type declarations.
+supabase/functions/stripe-webhook/index.ts(4,30): error TS2307: Cannot find module 'https://esm.sh/@supabase/supabase-js@2.0.0' or its corresponding type declarations.
+supabase/functions/stripe-webhook/index.ts(6,27): error TS2304: Cannot find name 'Deno'.
+supabase/functions/stripe-webhook/index.ts(11,21): error TS2304: Cannot find name 'Deno'.
+supabase/functions/stripe-webhook/index.ts(12,28): error TS2304: Cannot find name 'Deno'.
+supabase/functions/stripe-webhook/index.ts(15,14): error TS7006: Parameter 'req' implicitly has an 'any' type.
+supabase/functions/stripe-webhook/index.ts(25,24): error TS2304: Cannot find name 'Deno'.
+supabase/functions/stripe-webhook/index.ts(122,49): error TS18046: 'err' is of type 'unknown'.
+supabase/functions/stripe-webhook/index.ts(123,39): error TS18046: 'err' is of type 'unknown'.
+supabase/functions/trial-expiration-alert/index.ts(1,23): error TS2307: Cannot find module 'https://deno.land/std@0.168.0/http/server.ts' or its corresponding type declarations.
+supabase/functions/trial-expiration-alert/index.ts(2,30): error TS2307: Cannot find module 'https://esm.sh/@supabase/supabase-js@2' or its corresponding type declarations.
+supabase/functions/trial-expiration-alert/index.ts(4,14): error TS7006: Parameter 'req' implicitly has an 'any' type.
+supabase/functions/trial-expiration-alert/index.ts(6,9): error TS2304: Cannot find name 'Deno'.
+supabase/functions/trial-expiration-alert/index.ts(7,9): error TS2304: Cannot find name 'Deno'.
+supabase/functions/trial-expiration-alert/index.ts(34,48): error TS2304: Cannot find name 'Deno'.
+tests/simple.spec.ts(1,30): error TS2307: Cannot find module '@playwright/test' or its corresponding type declarations.
+tests/simple.spec.ts(3,45): error TS7031: Binding element 'page' implicitly has an 'any' type.

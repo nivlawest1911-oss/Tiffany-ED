@@ -1,489 +1,251 @@
-'use client';
+"use client"
 
-import { useState } from 'react';
-import { Card } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { motion } from 'framer-motion';
+import { useState, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
-    Brain, Video, Sparkles, Wand2, MessageSquare,
-    Zap, Star, Globe, BookOpen,
-    GraduationCap, Users
+    Search, Grid, Shield, BookOpen, Activity,
+    Briefcase, Cpu, Sparkles, Brain, Dumbbell,
+    GraduationCap, Video, X, ChevronRight, Zap
 } from 'lucide-react';
-import { HumanoidHolograph } from '@/components/ui/HumanoidHolograph';
-import { HolographicBackground } from '@/components/ui/HolographicBackground';
-import { useIntelligence } from '@/context/IntelligenceContext';
-import { Target } from 'lucide-react';
-import { useEffect } from 'react';
-
-// Import all AI components
-import { HeyGenStreamingAvatar } from '@/components/heygen/StreamingAvatar';
-import { HeyGenVideoGenerator } from '@/components/heygen/VideoGenerator';
-import { CaptionsEditor } from '@/components/captions/VideoEditor';
-import { InVideoCreator } from '@/components/invideo/VideoCreator';
-import { MetaAIChat } from '@/components/meta-ai/Chat';
-import { XAIChat } from '@/components/x-ai/Chat';
-import { CollaborativeWarRoom } from '@/components/collab/CollaborativeWarRoom';
+import { PROTOCOL_REGISTRY as ALL_PROTOCOLS, UnifiedProtocol } from '@/data/unifiedRegistry';
+import { NeuralLinkChat } from '@/components/ai/NeuralLinkChat';
+import ProfessionalBackground from '@/components/dossier/ProfessionalBackground';
+import { cn } from '@/lib/utils';
+import Link from 'next/link';
+import React from 'react';
 
 export default function AIHubClient() {
-    const { triggerBriefing } = useIntelligence();
-    const [activeTab, setActiveTab] = useState('overview');
-    const [stats] = useState({
-        aiModels: 8,
-        videoTools: 3,
-        totalFeatures: 64,
-        neuralConnectivity: '99.9%',
-    });
+    const [searchQuery, setSearchQuery] = useState("");
+    const [activeCategory, setActiveCategory] = useState<string>("All");
+    const [selectedProtocol, setSelectedProtocol] = useState<UnifiedProtocol | null>(null);
 
-    useEffect(() => {
-        triggerBriefing('AI Hub');
-    }, [triggerBriefing]);
+    // Categories for the hub
+    const categories = [
+        { id: "All", label: "All Nodes", icon: Grid },
+        { id: "Strategic", label: "Strategic Leadership", icon: Briefcase },
+        { id: "Instructional", label: "Instructional Core", icon: BookOpen },
+        { id: "Operational", label: "Ops & Logistics", icon: Shield },
+        { id: "Wellness", label: "Wellness & Support", icon: Activity },
+        { id: "Cognitive", label: "Cognitive Training", icon: Brain },
+    ];
+
+    // Cognitive and Media nodes that aren't text-based protocols
+    const specializedNodes = useMemo(() => [
+        {
+            id: 'cognitive-gym',
+            name: 'Cognitive Gym',
+            description: 'Interactive mental fitness and executive function training.',
+            category: 'Cognitive',
+            icon: Dumbbell,
+            link: '/gym',
+            color: 'text-pink-400',
+            border: 'border-pink-500/20'
+        },
+        {
+            id: 'principal-academy',
+            name: 'Cognitive Academy',
+            description: 'Guided pathways to mastery in educational leadership.',
+            category: 'Cognitive',
+            icon: GraduationCap,
+            link: '/academy',
+            color: 'text-indigo-400',
+            border: 'border-indigo-500/20'
+        },
+        {
+            id: 'video-studio',
+            name: 'Media Studio',
+            description: 'Synthesize briefs into high-fidelity avatar presentations.',
+            category: 'Operational',
+            icon: Video,
+            link: '/studio',
+            color: 'text-purple-400',
+            border: 'border-purple-500/20'
+        }
+    ], []);
+
+    const filteredProtocols = useMemo(() => {
+        const protocols = ALL_PROTOCOLS.filter(gen => {
+            const matchesSearch = gen.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                gen.description.toLowerCase().includes(searchQuery.toLowerCase());
+            const matchesCategory = activeCategory === "All" || gen.category === activeCategory;
+            return matchesSearch && matchesCategory;
+        });
+
+        // Add specialized nodes if they match
+        const extraNodes = specializedNodes.filter(node => {
+            const matchesSearch = node.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                node.description.toLowerCase().includes(searchQuery.toLowerCase());
+            const matchesCategory = activeCategory === "All" || node.category === activeCategory;
+            return matchesSearch && matchesCategory;
+        });
+
+        return [...protocols, ...extraNodes];
+    }, [searchQuery, activeCategory, specializedNodes]);
 
     return (
-        <main className="content-stage min-h-screen relative overflow-hidden">
-            <HolographicBackground />
+        <main className="content-stage min-h-screen bg-[#020617] text-slate-200 overflow-hidden relative">
+            <ProfessionalBackground />
 
-            <div className="relative z-10 max-w-7xl mx-auto p-6 space-y-8">
-                {/* Hero Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-center space-y-6 pt-12 pb-6"
-                >
-                    <div className="flex justify-center mb-4">
-                        <button
-                            onClick={() => triggerBriefing('Legacy Profile')}
-                            className="flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 hover:bg-amber-500/20 transition-all group shrink-0"
-                        >
-                            <Target size={16} className="group-hover:rotate-45 transition-transform" />
-                            <span className="text-xs font-black uppercase tracking-widest">Founder Hub Access</span>
-                        </button>
-                    </div>
-                    <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ type: 'spring', duration: 0.8 }}
-                        className="inline-block"
-                    >
-                        <div className="relative">
-                            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 blur-2xl opacity-50 animate-pulse" />
-                            <h1 className="relative text-7xl font-black bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
-                                EdIntel AI Hub
-                            </h1>
+            {/* GRID OVERLAY */}
+            <div className="absolute inset-0 bg-[url('/images/grid.svg')] opacity-[0.03] pointer-events-none" />
+
+            <div className="relative z-10 max-w-7xl mx-auto px-6 py-8 h-full flex flex-col">
+                {/* Header */}
+                <header className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-white/5 pb-8">
+                    <div className="space-y-2">
+                        <div className="flex items-center gap-3 px-3 py-1 rounded-full bg-noble-gold/10 border border-noble-gold/20 text-noble-gold text-[10px] font-black uppercase tracking-[0.2em] w-fit">
+                            <Cpu className="w-3.5 h-3.5" />
+                            System Node: Neural Grid
                         </div>
-                    </motion.div>
+                        <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-white uppercase italic">
+                            The <span className="gold-gradient-text">Neural</span> Hub
+                        </h1>
+                        <p className="text-zinc-500 max-w-xl text-sm font-medium uppercase tracking-[0.1em]">
+                            Unified tactical interface for strategic protocols & cognitive synthesis.
+                        </p>
+                    </div>
 
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.3 }}
-                        className="text-2xl text-white/80 max-w-3xl mx-auto"
-                    >
-                        The Ultimate AI-Powered Educational Platform
-                    </motion.p>
+                    <div className="w-full md:w-96 relative group">
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 group-focus-within:text-noble-gold transition-colors" />
+                        <input
+                            type="text"
+                            placeholder="Search Agents & Tools..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-4 py-3 text-sm focus:outline-none focus:border-noble-gold/50 focus:ring-1 focus:ring-noble-gold/20 transition-all font-medium"
+                        />
+                    </div>
+                </header>
 
-                    {/* Stats Bar */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.5 }}
-                        className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mt-8"
-                    >
-                        {[
-                            { icon: Brain, label: 'AI Models', value: stats.aiModels, color: 'purple' },
-                            { icon: Video, label: 'Video Tools', value: stats.videoTools, color: 'pink' },
-                            { icon: Sparkles, label: 'Features', value: stats.totalFeatures, color: 'blue' },
-                            { icon: Activity, label: 'Neural Load', value: stats.neuralConnectivity, color: 'indigo' },
-                        ].map((stat, index) => (
+                {/* Categories */}
+                <nav className="flex items-center gap-2 mb-8 overflow-x-auto no-scrollbar pb-2">
+                    {categories.map((cat) => (
+                        <button
+                            key={cat.id}
+                            onClick={() => setActiveCategory(cat.id)}
+                            className={cn(
+                                "flex items-center gap-2 px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap border",
+                                activeCategory === cat.id
+                                    ? "bg-noble-gold text-black border-noble-gold shadow-lg shadow-noble-gold/20"
+                                    : "bg-white/5 text-zinc-500 border-white/5 hover:bg-white/10 hover:text-white"
+                            )}
+                        >
+                            <cat.icon className="w-3.5 h-3.5" />
+                            {cat.label}
+                        </button>
+                    ))}
+                </nav>
+
+                {/* Main Grid Content */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pb-20 overflow-y-auto custom-scrollbar flex-1 max-h-[calc(100vh-350px)]">
+                    <AnimatePresence mode="popLayout">
+                        {filteredProtocols.map((node, i) => (
                             <motion.div
-                                key={stat.label}
-                                initial={{ opacity: 0, scale: 0.8 }}
+                                key={node.id}
+                                layout
+                                initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 0.6 + index * 0.1 }}
-                                whileHover={{ scale: 1.05 }}
-                                className="relative group"
+                                exit={{ opacity: 0, scale: 0.9 }}
+                                transition={{ duration: 0.2, delay: i * 0.02 }}
+                                onClick={() => {
+                                    if ((node as any).link) return; // Specialized nodes link away
+                                    setSelectedProtocol(node as UnifiedProtocol);
+                                }}
+                                className={cn(
+                                    "p-6 rounded-3xl bg-white/[0.03] border border-white/5 hover:border-noble-gold/30 hover:bg-white/[0.05] transition-all cursor-pointer group relative overflow-hidden",
+                                    selectedProtocol?.id === node.id && "border-noble-gold/50 bg-noble-gold/5 ring-1 ring-noble-gold/20"
+                                )}
                             >
-                                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 rounded-xl blur-xl group-hover:blur-2xl transition-all" />
-                                <Card className="relative bg-white/5 backdrop-blur-xl border-white/10 p-6 text-center hover:bg-white/10 transition-all">
-                                    <stat.icon className={`w-8 h-8 mx-auto mb-2 text-${stat.color}-400`} />
-                                    <div className="text-3xl font-bold text-white mb-1">{stat.value}+</div>
-                                    <div className="text-sm text-white/60">{stat.label}</div>
-                                </Card>
+                                <div className="absolute top-0 right-0 p-4 opacity-[0.03] group-hover:opacity-10 transition-opacity">
+                                    {node.icon ? <node.icon size={80} /> : <Cpu size={80} />}
+                                </div>
+
+                                <div className="space-y-4 relative z-10">
+                                    <div className={cn(
+                                        "w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-500",
+                                        selectedProtocol?.id === node.id ? "bg-noble-gold text-black" : "bg-white/5 text-zinc-400 group-hover:text-noble-gold group-hover:bg-noble-gold/10"
+                                    )}>
+                                        {node.icon ? <node.icon size={24} strokeWidth={1.5} /> : <Cpu size={24} strokeWidth={1.5} />}
+                                    </div>
+
+                                    <div>
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <h3 className="font-black text-sm uppercase tracking-wider text-white group-hover:text-noble-gold transition-colors">
+                                                {node.name}
+                                            </h3>
+                                            {(node as any).link && <Sparkles className="w-3 h-3 text-noble-gold animate-pulse" />}
+                                        </div>
+                                        <p className="text-[10px] text-zinc-500 line-clamp-2 leading-relaxed tracking-wide">
+                                            {node.description}
+                                        </p>
+                                    </div>
+
+                                    <div className="flex items-center justify-between pt-2">
+                                        <span className="text-[9px] font-black uppercase tracking-widest text-zinc-600">
+                                            {node.category || 'Protocol'}
+                                        </span>
+                                        {(node as any).link ? (
+                                            <Link href={(node as any).link} className="flex items-center gap-1 text-[9px] font-black uppercase text-noble-gold hover:underline">
+                                                Launch <ChevronRight size={10} />
+                                            </Link>
+                                        ) : (
+                                            <div className="flex items-center gap-1 text-[9px] font-black uppercase text-zinc-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                Initialize <Zap size={10} fill="currentColor" />
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
                             </motion.div>
                         ))}
-                    </motion.div>
-                </motion.div>
+                    </AnimatePresence>
+                </div>
+            </div>
 
-                {/* Main Content */}
-                <Card className="bg-white/5 backdrop-blur-xl border-white/10">
-                    <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                        <TabsList className="grid w-full grid-cols-3 lg:grid-cols-6 bg-white/5 p-2 gap-2">
-                            <TabsTrigger value="overview" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-pink-600">
-                                <Star className="w-4 h-4 mr-2" />
-                                Overview
-                            </TabsTrigger>
-                            <TabsTrigger value="meta-ai" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-indigo-600">
-                                <Brain className="w-4 h-4 mr-2" />
-                                Meta AI
-                            </TabsTrigger>
-                            <TabsTrigger value="streaming" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-purple-700">
-                                <MessageSquare className="w-4 h-4 mr-2" />
-                                Live Avatar
-                            </TabsTrigger>
-                            <TabsTrigger value="avatar-video" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-pink-600">
-                                <Video className="w-4 h-4 mr-2" />
-                                Avatar Video
-                            </TabsTrigger>
-                            <TabsTrigger value="video-editor" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-indigo-600 data-[state=active]:to-purple-600">
-                                <Sparkles className="w-4 h-4 mr-2" />
-                                Video Editor
-                            </TabsTrigger>
-                            <TabsTrigger value="ai-creator" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-600 data-[state=active]:to-purple-600">
-                                <Wand2 className="w-4 h-4 mr-2" />
-                                AI Creator
-                            </TabsTrigger>
-                            <TabsTrigger value="grok-ai" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-yellow-600 data-[state=active]:to-orange-600">
-                                <Zap className="w-4 h-4 mr-2" />
-                                Grok AI
-                            </TabsTrigger>
-                            <TabsTrigger value="war-room" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-600 data-[state=active]:to-teal-600">
-                                <Users className="w-4 h-4 mr-2" />
-                                War Room
-                            </TabsTrigger>
-                        </TabsList>
+            {/* Chat Interface Drawer/Overlay */}
+            <AnimatePresence>
+                {selectedProtocol && (
+                    <motion.div
+                        initial={{ x: '100%' }}
+                        animate={{ x: 0 }}
+                        exit={{ x: '100%' }}
+                        transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                        className="fixed inset-y-0 right-0 w-full lg:w-[600px] xl:w-[800px] z-[100] bg-black/95 border-l border-white/10 shadow-2xl backdrop-blur-3xl"
+                    >
+                        <div className="h-full flex flex-col p-6 pt-20 relative">
+                            <button
+                                onClick={() => setSelectedProtocol(null)}
+                                title="Close AI Hub"
+                                className="absolute top-6 left-6 p-3 rounded-full bg-white/5 border border-white/10 text-white/40 hover:text-white hover:bg-white/10 transition-all"
+                            >
+                                <X size={20} />
+                            </button>
 
-                        <div className="p-6">
-                            {/* Overview Tab */}
-                            <TabsContent value="overview" className="mt-0">
-                                <motion.div
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    className="space-y-8"
-                                >
-                                    {/* Neural Fulfillment Showcase */}
-                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-12">
-                                        <div className="space-y-6">
-                                            <motion.div
-                                                initial={{ opacity: 0, x: -20 }}
-                                                animate={{ opacity: 1, x: 0 }}
-                                                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-noble-gold/10 border border-noble-gold/20"
-                                            >
-                                                <Zap className="w-4 h-4 text-noble-gold" />
-                                                <span className="text-[10px] font-bold text-noble-gold uppercase tracking-[0.2em]">Neural Fulfillment Engine</span>
-                                            </motion.div>
+                            <div className="absolute top-8 right-12 flex items-center gap-2 opacity-50">
+                                <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                                <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500">Neutral Sync Active</span>
+                            </div>
 
-                                            <h2 className="text-4xl font-black text-white uppercase tracking-tighter leading-none">
-                                                WITNESS THE <span className="text-noble-gold">PROTOCOL</span> IN ACTION
-                                            </h2>
-
-                                            <p className="text-zinc-400 leading-relaxed max-w-lg text-sm">
-                                                Experience the raw power of the EdIntel OS. Our neural synthesis engine transforms complex educational directives into high-fidelity, professional-grade media assets instantly.
-                                            </p>
-                                        </div>
-
-                                        <div className="relative group">
-                                            <div className="absolute -inset-4 bg-noble-gold/20 blur-3xl rounded-[3rem] opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-                                            <div className="relative rounded-[1.5rem] overflow-hidden border border-white/10 bg-black/50 backdrop-blur-xl">
-                                                <video
-                                                    src="/videos/Video_Generation_Request_Fulfilled.mp4"
-                                                    autoPlay
-                                                    loop
-                                                    muted
-                                                    playsInline
-                                                    className="w-full aspect-video object-cover"
-                                                />
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                                                <div className="absolute bottom-4 left-4 flex items-center gap-3">
-                                                    <div className="w-6 h-6 rounded-full bg-noble-gold/20 backdrop-blur-md flex items-center justify-center border border-noble-gold/30">
-                                                        <div className="w-2 h-2 rounded-full bg-noble-gold animate-pulse" />
-                                                    </div>
-                                                    <div className="text-[8px] text-white font-black uppercase tracking-[0.3em]">Institutional Asset Verified</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Platform Cards */}
-                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                        {[
-                                            {
-                                                title: 'Meta AI (Llama)',
-                                                icon: Brain,
-                                                color: 'blue',
-                                                description: 'Chat with Llama 3.3 70B for educational content, quizzes, and analysis',
-                                                features: ['Educational Content', 'Quiz Generation', 'Student Analysis', 'Code Generation'],
-                                                status: 'Active',
-                                            },
-                                            {
-                                                title: 'HeyGen Avatars',
-                                                icon: Video,
-                                                color: 'purple',
-                                                description: 'Create realistic AI avatar videos with 100+ avatars and 300+ voices',
-                                                features: ['Streaming Avatars', 'Video Generation', 'Translation', 'Photo Avatars'],
-                                                status: 'Ready',
-                                            },
-                                            {
-                                                title: 'Captions.ai',
-                                                icon: Sparkles,
-                                                color: 'indigo',
-                                                description: 'AI-powered video editing with auto-captions and smart enhancements',
-                                                features: ['Auto Captions', 'Smart Trimming', 'AI Editing', 'Effects'],
-                                                status: 'Ready',
-                                            },
-                                            {
-                                                title: 'InVideo AI',
-                                                icon: Wand2,
-                                                color: 'pink',
-                                                description: 'Generate complete videos from text prompts with AI',
-                                                features: ['Text-to-Video', 'AI Scripts', 'Voiceover', 'Stock Footage'],
-                                                status: 'Ready',
-                                            },
-                                            {
-                                                title: 'X.AI (Grok)',
-                                                icon: Zap,
-                                                color: 'yellow',
-                                                description: 'Advanced reasoning and real-time information with Grok-1',
-                                                features: ['Real-time Data', 'Advanced Reasoning', 'Sovereign Chat', 'Research'],
-                                                status: 'Active',
-                                                action: () => setActiveTab('grok-ai')
-                                            },
-                                            {
-                                                title: 'Google Gemini',
-                                                icon: Globe,
-                                                color: 'green',
-                                                description: 'Multimodal AI for text, images, and code in Sovereign Workspace',
-                                                features: ['Sovereign Hub', 'Multimodal', 'Long Context', 'Vision'],
-                                                status: 'Active',
-                                                href: '/gemini-workspace'
-                                            },
-                                        ].map((platform, index) => (
-                                            <motion.div
-                                                key={platform.title}
-                                                initial={{ opacity: 0, y: 20 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                transition={{ delay: index * 0.1 }}
-                                                whileHover={{ scale: 1.02, y: -5 }}
-                                                className="relative group"
-                                            >
-                                                <div className={`absolute inset-0 bg-gradient-to-br from-${platform.color}-500/20 to-${platform.color}-600/10 rounded-xl blur-xl group-hover:blur-2xl transition-all`} />
-                                                <Card
-                                                    className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border-white/10 p-6 h-full hover:bg-white/15 transition-all cursor-pointer"
-                                                    onClick={() => {
-                                                        if ('href' in platform) {
-                                                            window.location.href = platform.href as string;
-                                                        } else if ('action' in platform) {
-                                                            (platform.action as () => void)();
-                                                        }
-                                                    }}
-                                                >
-                                                    <div className="flex items-start justify-between mb-4">
-                                                        <HumanoidHolograph
-                                                            icon={platform.icon}
-                                                            size={24}
-                                                            className="mb-0 p-0"
-                                                        />
-                                                        <span className={`px-3 py-1 bg-${platform.color}-500/20 text-${platform.color}-300 text-xs font-semibold rounded-full`}>
-                                                            {platform.status}
-                                                        </span>
-                                                    </div>
-
-                                                    <h3 className="text-xl font-bold text-white mb-2">{platform.title}</h3>
-                                                    <p className="text-sm text-white/70 mb-4">{platform.description}</p>
-
-                                                    <div className="space-y-2">
-                                                        {platform.features.map((feature, i) => (
-                                                            <div key={i} className="flex items-center gap-2 text-xs text-white/60">
-                                                                <div className={`w-1.5 h-1.5 rounded-full bg-${platform.color}-400`} />
-                                                                {feature}
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                </Card>
-                                            </motion.div>
-                                        ))}
-                                    </div>
-
-                                    {/* Quick Actions */}
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                        {[
-                                            { icon: BookOpen, title: 'Create Lesson', desc: 'AI-powered lesson planning', action: 'meta-ai' },
-                                            { icon: Video, title: 'Generate Video', desc: 'Create avatar videos instantly', action: 'avatar-video' },
-                                            { icon: GraduationCap, title: 'Analyze Work', desc: 'AI student work analysis', action: 'meta-ai' },
-                                        ].map((action, index) => (
-                                            <motion.button
-                                                key={action.title}
-                                                initial={{ opacity: 0, x: -20 }}
-                                                animate={{ opacity: 1, x: 0 }}
-                                                transition={{ delay: 0.6 + index * 0.1 }}
-                                                whileHover={{ scale: 1.05 }}
-                                                whileTap={{ scale: 0.95 }}
-                                                onClick={() => setActiveTab(action.action)}
-                                                className="relative group"
-                                            >
-                                                <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-xl blur-xl group-hover:blur-2xl transition-all" />
-                                                <Card className="relative bg-gradient-to-r from-purple-600/10 to-pink-600/10 backdrop-blur-xl border-white/10 p-6 text-left hover:from-purple-600/20 hover:to-pink-600/20 transition-all">
-                                                    <action.icon className="w-8 h-8 text-purple-400 mb-3" />
-                                                    <h4 className="text-lg font-bold text-white mb-1">{action.title}</h4>
-                                                    <p className="text-sm text-white/60">{action.desc}</p>
-                                                </Card>
-                                            </motion.button>
-                                        ))}
-                                    </div>
-                                </motion.div>
-                            </TabsContent>
-
-                            {/* Meta AI Tab */}
-                            <TabsContent value="meta-ai" className="mt-0">
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    className="space-y-4"
-                                >
-                                    <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4">
-                                        <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
-                                            <Brain className="w-5 h-5 text-blue-400" />
-                                            Meta AI (Llama 3.3 70B)
-                                        </h3>
-                                        <p className="text-white/70 text-sm">
-                                            Chat with Meta's most powerful open-source AI model. Generate educational content, quizzes, analyze student work, and more.
-                                        </p>
-                                    </div>
-                                    <MetaAIChat />
-                                </motion.div>
-                            </TabsContent>
-
-                            {/* Streaming Avatar Tab */}
-                            <TabsContent value="streaming" className="mt-0">
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    className="space-y-4"
-                                >
-                                    <div className="bg-purple-500/10 border border-purple-500/30 rounded-lg p-4">
-                                        <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
-                                            <MessageSquare className="w-5 h-5 text-purple-400" />
-                                            Interactive Streaming Avatar
-                                        </h3>
-                                        <p className="text-white/70 text-sm">
-                                            Real-time avatar communication with WebRTC streaming. Chat with AI avatars instantly.
-                                        </p>
-                                    </div>
-                                    <HeyGenStreamingAvatar />
-                                </motion.div>
-                            </TabsContent>
-
-                            {/* Avatar Video Tab */}
-                            <TabsContent value="avatar-video" className="mt-0">
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    className="space-y-4"
-                                >
-                                    <div className="bg-purple-500/10 border border-purple-500/30 rounded-lg p-4">
-                                        <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
-                                            <Video className="w-5 h-5 text-purple-400" />
-                                            Avatar Video Generator
-                                        </h3>
-                                        <p className="text-white/70 text-sm">
-                                            Create professional avatar videos from scripts. Perfect for educational content and presentations.
-                                        </p>
-                                    </div>
-                                    <HeyGenVideoGenerator />
-                                </motion.div>
-                            </TabsContent>
-
-                            {/* Video Editor Tab */}
-                            <TabsContent value="video-editor" className="mt-0">
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    className="space-y-4"
-                                >
-                                    <div className="bg-indigo-500/10 border border-indigo-500/30 rounded-lg p-4">
-                                        <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
-                                            <Sparkles className="w-5 h-5 text-indigo-400" />
-                                            AI Video Editor
-                                        </h3>
-                                        <p className="text-white/70 text-sm">
-                                            Enhance videos with AI-powered editing, automatic captions, and professional effects.
-                                        </p>
-                                    </div>
-                                    <CaptionsEditor />
-                                </motion.div>
-                            </TabsContent>
-
-                            {/* AI Creator Tab */}
-                            <TabsContent value="ai-creator" className="mt-0">
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    className="space-y-4"
-                                >
-                                    <div className="bg-pink-500/10 border border-pink-500/30 rounded-lg p-4">
-                                        <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
-                                            <Wand2 className="w-5 h-5 text-pink-400" />
-                                            AI Video Creator
-                                        </h3>
-                                        <p className="text-white/70 text-sm">
-                                            Generate complete videos from text prompts. AI handles script, visuals, voiceover, and music.
-                                        </p>
-                                    </div>
-                                    <InVideoCreator />
-                                </motion.div>
-                            </TabsContent>
-
-                            {/* Grok AI Tab */}
-                            <TabsContent value="grok-ai" className="mt-0">
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    className="space-y-4"
-                                >
-                                    <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4">
-                                        <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
-                                            <Zap className="w-5 h-5 text-yellow-400" />
-                                            X.AI Grok-1
-                                        </h3>
-                                        <p className="text-white/70 text-sm">
-                                            Access advanced reasoning and real-time information via the Grok-1 Sovereign Interface.
-                                        </p>
-                                    </div>
-                                    <XAIChat />
-                                </motion.div>
-                            </TabsContent>
-
-                            {/* War Room Tab */}
-                            <TabsContent value="war-room" className="mt-0">
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    className="space-y-4"
-                                >
-                                    <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-4">
-                                        <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
-                                            <Users className="w-5 h-5 text-emerald-400" />
-                                            Collaborative War Room
-                                        </h3>
-                                        <p className="text-white/70 text-sm">
-                                            Real-time strategic co-authoring powered by Yjs and Supabase Liquid Data channels. Experience eventual consistency across the institutional mesh.
-                                        </p>
-                                    </div>
-                                    <CollaborativeWarRoom />
-                                </motion.div>
-                            </TabsContent>
+                            <div className="flex-1 overflow-hidden rounded-[2.5rem] border border-white/5 shadow-2xl">
+                                <NeuralLinkChat
+                                    protocol={selectedProtocol}
+                                    className="h-full border-0 bg-transparent"
+                                />
+                            </div>
                         </div>
-                    </Tabs>
-                </Card>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
-                {/* Footer Stats */}
+            {/* Backdrop for open drawer */}
+            {selectedProtocol && (
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ delay: 1 }}
-                    className="text-center text-white/40 text-sm"
-                >
-                    <p>Powered by 7 AI platforms • 50+ features • Enterprise-grade infrastructure</p>
-                </motion.div>
-            </div>
+                    exit={{ opacity: 0 }}
+                    onClick={() => setSelectedProtocol(null)}
+                    className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[90]"
+                />
+            )}
         </main>
     );
 }

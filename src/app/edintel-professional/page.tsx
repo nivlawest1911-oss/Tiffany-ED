@@ -1,9 +1,5 @@
-import { cookies } from 'next/headers';
-import EdIntelClient from './EdIntelClient';
+import { redirect } from 'next/navigation';
 
-export const dynamic = 'force-dynamic';
-
-export default async function EdIntelPage() {
-    await cookies(); // Force dynamic rendering
-    return <EdIntelClient />;
+export default function EdIntelPage() {
+    redirect('/pricing');
 }

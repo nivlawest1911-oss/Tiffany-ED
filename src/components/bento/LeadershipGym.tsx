@@ -14,6 +14,13 @@ import {
 } from 'lucide-react';
 import { useIntelligence } from '@/context/IntelligenceContext';
 
+const COLORS = [
+    { id: 0, name: 'Red', bg: 'bg-red-500', text: 'text-red-500' },
+    { id: 1, name: 'Blue', bg: 'bg-blue-500', text: 'text-blue-500' },
+    { id: 2, name: 'Green', bg: 'bg-green-500', text: 'text-green-500' },
+    { id: 3, name: 'Yellow', bg: 'bg-yellow-500', text: 'text-yellow-500' }
+];
+
 type GameMode = 'memory' | 'inhibition' | 'logic' | 'speed';
 
 export default function LeadershipGym({ onXPAction }: { onXPAction?: (amount: number) => void }) {
@@ -42,13 +49,6 @@ export default function LeadershipGym({ onXPAction }: { onXPAction?: (amount: nu
     const [patternMissing, setPatternMissing] = useState(0);
     const [patternOptions, setPatternOptions] = useState<number[]>([]);
 
-    const colors = [
-        { id: 0, name: 'Red', bg: 'bg-red-500', text: 'text-red-500' },
-        { id: 1, name: 'Blue', bg: 'bg-blue-500', text: 'text-blue-500' },
-        { id: 2, name: 'Green', bg: 'bg-green-500', text: 'text-green-500' },
-        { id: 3, name: 'Yellow', bg: 'bg-yellow-500', text: 'text-yellow-500' }
-    ];
-
     const startNewRound = useCallback(() => {
         if (mode === 'memory') {
             const newLength = 2 + level;
@@ -59,8 +59,8 @@ export default function LeadershipGym({ onXPAction }: { onXPAction?: (amount: nu
         } else if (mode === 'inhibition') {
             const wordIdx = Math.floor(Math.random() * 4);
             const colorIdx = Math.floor(Math.random() * 4);
-            setStroopWord(colors[wordIdx].name);
-            setStroopColor(colors[colorIdx].bg);
+            setStroopWord(COLORS[wordIdx].name);
+            setStroopColor(COLORS[colorIdx].bg);
         } else if (mode === 'speed') {
             const a = Math.floor(Math.random() * (level * 5)) + 1;
             const b = Math.floor(Math.random() * (level * 5)) + 1;
@@ -119,7 +119,7 @@ export default function LeadershipGym({ onXPAction }: { onXPAction?: (amount: nu
         } else if (mode === 'inhibition') {
             const selectedColorName = val as string;
             // The goal is to click the word, or the color? Let's say click the COLOR of the text.
-            const colorName = colors.find(c => c.bg === stroopColor)?.name;
+            const colorName = COLORS.find(c => c.bg === stroopColor)?.name;
             if (selectedColorName === colorName) {
                 setScore(score + 5);
                 startNewRound();
@@ -254,10 +254,12 @@ export default function LeadershipGym({ onXPAction }: { onXPAction?: (amount: nu
 
                             {mode === 'memory' && (
                                 <div className="grid grid-cols-2 gap-6 w-full max-w-xs">
-                                    {colors.map((c) => (
+                                    {COLORS.map((c) => (
                                         <button
                                             key={c.id}
                                             onClick={() => handleInput(c.id)}
+                                            aria-label={`Select color ${c.id}`}
+                                            title={`Select ${c.id}`}
                                             className={`h-24 rounded-3xl transition-all transform active:scale-95 border-4 ${activeColor === c.id ? `bg-white border-white scale-110` : `${c.bg} border-transparent opacity-60`
                                                 }`}
                                         />
@@ -271,7 +273,7 @@ export default function LeadershipGym({ onXPAction }: { onXPAction?: (amount: nu
                                         <span className={stroopColor.replace('bg-', 'text-')}>{stroopWord}</span>
                                     </div>
                                     <div className="grid grid-cols-2 gap-4">
-                                        {colors.map((c) => (
+                                        {COLORS.map((c) => (
                                             <button
                                                 key={c.id}
                                                 onClick={() => handleInput(c.name)}

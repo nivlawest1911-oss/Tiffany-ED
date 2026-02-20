@@ -16,6 +16,8 @@ interface TavusContextType {
 
 const TavusContext = createContext<TavusContextType | undefined>(undefined);
 
+const REPLICA_ID = process.env.NEXT_PUBLIC_TAVUS_REPLICA_ID || 'r79e1c033f';
+
 export function TavusProvider({ children }: { children: React.ReactNode }) {
     const { user } = useAuth();
     // const { toast } = useToast();
@@ -24,10 +26,6 @@ export function TavusProvider({ children }: { children: React.ReactNode }) {
     const [isConnecting, setIsConnecting] = useState(false);
     const [conversationUrl, setConversationUrl] = useState<string | null>(null);
     const [conversationId, setConversationId] = useState<string | null>(null);
-
-    // Hardcoded Replica ID for Dr. Alvin West (Phoenix-3 Model)
-    // In production, fetch this from EdIntel Vault
-    const REPLICA_ID = process.env.NEXT_PUBLIC_TAVUS_REPLICA_ID || 'r79e1c033f';
 
     // Ref for AbortController
     const abortControllerRef = useRef<AbortController | null>(null);

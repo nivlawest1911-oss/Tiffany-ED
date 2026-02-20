@@ -12,6 +12,7 @@ import { useAuth } from '@/context/AuthContext';
 import { generators as GENERATORS } from '@/data/generators';
 import TalkingDelegateOverlay from '@/components/TalkingDelegateOverlay';
 import { NeuralSynthesisHUD } from './NeuralSynthesisHUD';
+import { SmartHover } from '@/components/ui/SmartHover';
 // import { checkAccess, EdIntelFeature } from '@/lib/EdIntel-access'; // Kept for future activation
 
 interface EnhancedGeneratorProps {
@@ -64,6 +65,7 @@ export default function EnhancedGenerator({
     const [showDelegateOverlay, setShowDelegateOverlay] = useState(false);
     const [showLiveAvatar, setShowLiveAvatar] = useState(false);
     const [synthesisPhase, setSynthesisPhase] = useState<'ingestion' | 'alignment' | 'selection' | 'ready'>('ready');
+    const [telemetryTags, setTelemetryTags] = useState<string[]>([]);
 
     // Handshake Optimization: AbortController Ref
     const abortControllerRef = useRef<AbortController | null>(null);
@@ -209,11 +211,43 @@ export default function EnhancedGenerator({
         setIsLoading(true);
         setSynthesisPhase('ingestion');
         setCompletion('');
+        setTelemetryTags([]);
 
-        // Simulate Neural Synthesis Cycle
-        setTimeout(() => !controller.signal.aborted && setSynthesisPhase('alignment'), 1500);
-        setTimeout(() => !controller.signal.aborted && setSynthesisPhase('selection'), 3500);
-        setTimeout(() => !controller.signal.aborted && setSynthesisPhase('ready'), 5500);
+        // Simulate Neural Synthesis Cycle with dynamic telemetry
+        const telemetryOptions = [
+            "Syncing with ALCOS Standard",
+            "Retrieving Virtual Vault Context",
+            "Verifying SB 216 Compliance",
+            "Analyzing MCPSS Growth Vector",
+            "Grounded in Science of Reading",
+            "Applying Executive Persona",
+            "Zero-waste logic optimized"
+        ];
+
+        const addTelemetry = (msg: string) => setTelemetryTags(prev => [...prev.slice(-2), msg]);
+
+        setTimeout(() => {
+            if (!controller.signal.aborted) {
+                setSynthesisPhase('alignment');
+                addTelemetry(telemetryOptions[0]);
+                addTelemetry(telemetryOptions[1]);
+            }
+        }, 1200);
+
+        setTimeout(() => {
+            if (!controller.signal.aborted) {
+                setSynthesisPhase('selection');
+                addTelemetry(telemetryOptions[2]);
+                addTelemetry(telemetryOptions[3]);
+            }
+        }, 2800);
+
+        setTimeout(() => {
+            if (!controller.signal.aborted) {
+                addTelemetry(telemetryOptions[4]);
+                addTelemetry(telemetryOptions[5]);
+            }
+        }, 4500);
 
         let fullResponse = '';
 
@@ -268,8 +302,11 @@ Context:
                     }
 
                     const text = decoder.decode(value);
-                    setCompletion(prev => prev + text);
-                    fullResponse += text; // Accumulate the full response
+                    if (text) {
+                        if (synthesisPhase !== 'ready') setSynthesisPhase('ready');
+                        setCompletion(prev => prev + text);
+                        fullResponse += text; // Accumulate the full response
+                    }
                 }
             }
 
@@ -508,9 +545,11 @@ Context:
                             </div>
                             <div className="space-y-4">
                                 <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
-                                    <h1 className="text-5xl md:text-6xl font-black tracking-tight text-white drop-shadow-2xl">
-                                        {generatorName}
-                                    </h1>
+                                    <SmartHover message={`Strategic Command: Use ${generatorName} to generate highly compliant, data-driven executive content aligned with Alabama state standards.`}>
+                                        <h1 className="text-5xl md:text-6xl font-black tracking-tight text-white drop-shadow-2xl">
+                                            {generatorName}
+                                        </h1>
+                                    </SmartHover>
                                 </div>
 
                                 <p className="text-zinc-400 text-lg font-medium max-w-2xl leading-relaxed">
@@ -695,8 +734,26 @@ Context:
                             <motion.div
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="relative"
+                                className="relative group"
                             >
+                                {/* Neural Telemetry Tags Overlay */}
+                                <div className="absolute -top-4 right-8 flex gap-2 z-20">
+                                    <AnimatePresence mode="popLayout">
+                                        {telemetryTags.map((tag, _i) => (
+                                            <motion.div
+                                                key={tag}
+                                                initial={{ opacity: 0, y: 10, scale: 0.8 }}
+                                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                exit={{ opacity: 0, scale: 0.8 }}
+                                                className="flex items-center gap-1.5 px-3 py-1.5 bg-black/80 backdrop-blur-xl border border-blue-500/30 rounded-full shadow-2xl"
+                                            >
+                                                <div className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+                                                <span className="text-[9px] font-black text-blue-100 uppercase tracking-widest">{tag}</span>
+                                            </motion.div>
+                                        ))}
+                                    </AnimatePresence>
+                                </div>
+
                                 <div className="absolute -inset-1 bg-gradient-to-b from-noble-gold/10 to-transparent rounded-[2.5rem] blur-2xl opacity-30" />
                                 <div className="relative glass-card-premium rounded-[2.5rem] border border-noble-gold/5 overflow-hidden">
                                     <div className="flex items-center justify-between px-10 py-6 border-b border-white/5 bg-white/[0.02]">

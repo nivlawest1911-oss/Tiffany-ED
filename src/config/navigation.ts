@@ -24,16 +24,19 @@ export const EDINTEL_TIERS = [
 
 export const NAV_LINKS = {
     education: [
-        { label: "Sovereign Vault", href: "/vault", icon: "Shield", minTier: 2, description: "Sovereign Pack+ ($39.99/mo). Secure institutional data." },
-        { label: "IEP Architect", href: "/generators", icon: "FileText", minTier: 1, description: "Standard Pack+ ($9.99/mo). Clinical-grade narratives." },
-        { label: "Cognitive Gym", href: "/cognitive", icon: "Brain", minTier: 0, description: "Initiate Tier ($0). Interactive learning." },
-        { label: "Gemini Workspace", href: "/gemini-workspace", icon: "Share2", minTier: 0, description: "Initiate Tier ($0). Sync your Gemini content." },
-        { label: "Site Command", href: "/admin", icon: "Building", minTier: 5, description: "Site Command ($79.99/mo). District-wide analytics." },
+        { label: "Sovereign Room", href: "/the-room", icon: "Crown", minTier: 1, description: "Sovereign educator command center." },
+        { label: "Sovereign Vault", href: "/vault", icon: "Shield", minTier: 2, description: "Secure institutional data vault." },
+        { label: "Neural Grid Hub", href: "/ai-hub", icon: "Bot", minTier: 1, description: "Unified AI command center & protocols." },
+        { label: "Cognitive Academy", href: "/academy", icon: "GraduationCap", minTier: 0, description: "Regal pathways to mastery." },
+        { label: "Cognitive Gym", href: "/gym", icon: "Dumbbell", minTier: 0, description: "Interactive mental fitness training." },
+        { label: "Gemini Sync", href: "/gemini-workspace", icon: "Share2", minTier: 0, description: "Sync with your Gemini workspace." },
+        { label: "Site Command", href: "/admin", icon: "LayoutDashboard", minTier: 5, description: "District-wide executive oversight." },
     ],
     wellness: [
-        { label: "Transcend Guide", href: "/ai-hub", icon: "Sparkles", minTier: 0, description: "Initiate Tier ($0). Wellness strategies." },
-        { label: "Holistic Insights", href: "/professional", icon: "Activity", minTier: 3, description: "Practitioner+ ($49.99/mo). Mental clarity analytics." },
-        { label: "Director Portal", href: "/the-room", icon: "Users", minTier: 4, description: "Director Pack ($69.99/mo). Executive wellness oversight." },
+        { label: "Wellness Hub", href: "/wellness", icon: "Heart", minTier: 0, description: "Central emotional intelligence center." },
+        { label: "Sovereign Pulse", href: "/generators?category=Wellness", icon: "Sparkles", minTier: 0, description: "AI-powered wellness strategies." },
+        { label: "Professional Insights", href: "/ledger", icon: "Activity", minTier: 3, description: "Mental health & burnout analytics." },
+        { label: "Sovereign Room", href: "/the-room", icon: "Users", minTier: 4, description: "Executive leadership command center." },
     ],
     account: [
         { label: "Command Center", href: "/settings", icon: "Settings", minTier: 0 },

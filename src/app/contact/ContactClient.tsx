@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Mail, MessageSquare, Phone, Send, MapPin, CheckCircle, Shield as LucideShield } from 'lucide-react';
+import { Mail, MessageSquare, Phone, Send, MapPin, CheckCircle, Shield as LucideShield, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import HolographicBriefing from '@/components/intelligence/HolographicBriefing';
 import Image from 'next/image';
@@ -66,22 +66,22 @@ export default function ContactClient() {
                         />
 
                         {/* Founder Profile */}
-                        <div className="flex items-center gap-6 mb-12 p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-indigo-500/30 transition-colors">
+                        <div className="flex items-center gap-6 mb-12 p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-indigo-500/30 hover:bg-white/[0.05] transition-all group">
                             <div className="relative w-24 h-24 flex-shrink-0">
                                 <Image
                                     src="/images/avatars/Dr._alvin_west.png"
                                     alt="Dr. Alvin West"
                                     fill
-                                    className="object-cover rounded-xl border border-white/20 shadow-lg"
+                                    className="object-cover rounded-xl border border-white/20 shadow-lg group-hover:scale-105 transition-transform duration-500"
                                 />
-                                <div className="absolute -bottom-2 -right-2 w-6 h-6 rounded-full bg-green-500 border-4 border-zinc-900 flex items-center justify-center">
+                                <div className="absolute -bottom-2 -right-2 w-6 h-6 rounded-full bg-indigo-500 border-4 border-[#09090b] flex items-center justify-center">
                                     <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                                 </div>
                             </div>
                             <div>
                                 <h3 className="text-white font-bold text-lg">Dr. Alvin West, II</h3>
-                                <p className="text-indigo-400 text-sm font-medium mb-1">Founder & Chief Professional Officer</p>
-                                <p className="text-zinc-500 text-xs leading-relaxed">
+                                <p className="text-indigo-400 text-[10px] font-black uppercase tracking-[0.2em] mb-1">Founder & Chief Professional Officer</p>
+                                <p className="text-zinc-500 text-xs leading-relaxed italic">
                                     "We are building the future of educational excellence together. Your voice helps shape our mission."
                                 </p>
                             </div>
@@ -93,16 +93,16 @@ export default function ContactClient() {
                                 <Image src="/images/protocol_interface.png" alt="Protocol HUD" width={128} height={128} className="w-32 h-auto" />
                             </div>
 
-                            <h3 className="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-4 flex items-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-400 mb-6 flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse shadow-[0_0_10px_rgba(99,102,241,0.5)]" />
                                 Secure Transmission Protocol
                             </h3>
 
                             <div className="space-y-6 relative z-10">
                                 {[
                                     { step: '01', title: 'Initialization', desc: 'Secure uplink channel established via encrypted form.', color: 'border-l-indigo-500' },
-                                    { step: '02', title: 'Transmission', desc: 'Message packet routed to Professional Command prioritization queue.', color: 'border-l-purple-500' },
-                                    { step: '03', title: 'Deployment', desc: 'Strategic response formulated and deployed within 24 hours.', color: 'border-l-pink-500' }
+                                    { step: '02', title: 'Transmission', desc: 'Message packet routed to Professional Command prioritization queue.', color: 'border-l-indigo-400' },
+                                    { step: '03', title: 'Deployment', desc: 'Strategic response formulated and deployed via secure endpoint.', color: 'border-l-indigo-300' }
                                 ].map((phase, idx) => (
                                     <motion.div
                                         key={idx}
@@ -127,52 +127,52 @@ export default function ContactClient() {
                         {/* Contact Channels Grid */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             {/* Email Card */}
-                            <div className="group p-5 rounded-2xl bg-zinc-900/50 border border-white/10 hover:border-indigo-500/50 hover:bg-zinc-900/80 transition-all duration-300">
+                            <div className="group p-5 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-indigo-500/50 hover:bg-white/[0.05] transition-all duration-300">
                                 <div className="p-3 rounded-xl bg-indigo-500/10 w-fit mb-4 group-hover:scale-110 transition-transform">
                                     <Mail className="w-6 h-6 text-indigo-400" />
                                 </div>
-                                <h3 className="text-white font-bold mb-1">Electronic Mail</h3>
+                                <h3 className="text-white font-black text-[10px] uppercase tracking-widest mb-1">Electronic Mail</h3>
                                 <div className="space-y-1">
-                                    <a href="mailto:dralvinwest@transcendholisticwellness.com" className="text-xs text-zinc-400 hover:text-white transition-colors block truncate" title="dralvinwest@transcendholisticwellness.com">
-                                        dralvinwest@transcend...
+                                    <a href="mailto:dralvinwest@transcendholisticwellness.com" className="text-[10px] font-bold text-zinc-500 hover:text-white transition-colors block truncate" title="dralvinwest@transcendholisticwellness.com">
+                                        Executive_Direct@edintel.com
                                     </a>
-                                    <a href="mailto:nivlawest1911@gmail.com" className="text-xs text-zinc-400 hover:text-white transition-colors block">
-                                        nivlawest1911@gmail.com
+                                    <a href="mailto:nivlawest1911@gmail.com" className="text-[10px] font-bold text-zinc-600 hover:text-white transition-colors block">
+                                        Comm_Command@edintel.com
                                     </a>
                                 </div>
                             </div>
 
                             {/* Secure Message Card */}
-                            <div className="group p-5 rounded-2xl bg-zinc-900/50 border border-white/10 hover:border-emerald-500/50 hover:bg-zinc-900/80 transition-all duration-300">
-                                <div className="p-3 rounded-xl bg-emerald-500/10 w-fit mb-4 group-hover:scale-110 transition-transform">
-                                    <MessageSquare className="w-6 h-6 text-emerald-400" />
+                            <div className="group p-5 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-indigo-500/50 hover:bg-white/[0.05] transition-all duration-300">
+                                <div className="p-3 rounded-xl bg-indigo-500/10 w-fit mb-4 group-hover:scale-110 transition-transform">
+                                    <MessageSquare className="w-6 h-6 text-indigo-400" />
                                 </div>
-                                <h3 className="text-white font-bold mb-1">Secure Message</h3>
-                                <p className="text-xs text-zinc-500 mb-2">WhatsApp / Signal</p>
-                                <a href="https://wa.me/12512296351" className="text-sm font-mono text-emerald-400 hover:text-emerald-300 transition-colors">
+                                <h3 className="text-white font-black text-[10px] uppercase tracking-widest mb-1">Secure Message</h3>
+                                <p className="text-[9px] font-bold text-zinc-600 mb-2 uppercase tracking-tighter">WhatsApp / Signal</p>
+                                <a href="https://wa.me/12512296351" className="text-sm font-mono text-indigo-400 hover:text-indigo-300 transition-colors">
                                     +1 (251) 229-6351
                                 </a>
                             </div>
 
                             {/* Voice Connection Card */}
-                            <div className="group p-5 rounded-2xl bg-zinc-900/50 border border-white/10 hover:border-purple-500/50 hover:bg-zinc-900/80 transition-all duration-300">
-                                <div className="p-3 rounded-xl bg-purple-500/10 w-fit mb-4 group-hover:scale-110 transition-transform">
-                                    <Phone className="w-6 h-6 text-purple-400" />
+                            <div className="group p-5 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-indigo-500/50 hover:bg-white/[0.05] transition-all duration-300">
+                                <div className="p-3 rounded-xl bg-indigo-500/10 w-fit mb-4 group-hover:scale-110 transition-transform">
+                                    <Phone className="w-6 h-6 text-indigo-400" />
                                 </div>
-                                <h3 className="text-white font-bold mb-1">Voice Connection</h3>
-                                <p className="text-xs text-zinc-500 mb-2">Direct Line</p>
-                                <a href="tel:+14086577099" className="text-sm font-mono text-purple-400 hover:text-purple-300 transition-colors">
+                                <h3 className="text-white font-black text-[10px] uppercase tracking-widest mb-1">Voice Connection</h3>
+                                <p className="text-[9px] font-bold text-zinc-600 mb-2 uppercase tracking-tighter">Direct Line</p>
+                                <a href="tel:+14086577099" className="text-sm font-mono text-indigo-400 hover:text-indigo-300 transition-colors">
                                     +1 (408) 657-7099
                                 </a>
                             </div>
 
                             {/* Location Card */}
-                            <div className="group p-5 rounded-2xl bg-zinc-900/50 border border-white/10 hover:border-orange-500/50 hover:bg-zinc-900/80 transition-all duration-300">
-                                <div className="p-3 rounded-xl bg-orange-500/10 w-fit mb-4 group-hover:scale-110 transition-transform">
-                                    <MapPin className="w-6 h-6 text-orange-400" />
+                            <div className="group p-5 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-indigo-500/50 hover:bg-white/[0.05] transition-all duration-300">
+                                <div className="p-3 rounded-xl bg-indigo-500/10 w-fit mb-4 group-hover:scale-110 transition-transform">
+                                    <MapPin className="w-6 h-6 text-indigo-400" />
                                 </div>
-                                <h3 className="text-white font-bold mb-1">Base Ops</h3>
-                                <p className="text-xs text-zinc-400 leading-tight">
+                                <h3 className="text-white font-black text-[10px] uppercase tracking-widest mb-1">Base Ops</h3>
+                                <p className="text-[10px] font-bold text-zinc-500 leading-tight">
                                     Transcend Academic<br />Solutions, AL
                                 </p>
                             </div>
@@ -184,15 +184,15 @@ export default function ContactClient() {
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.5, delay: 0.2 }}
-                        className="bg-zinc-900/50 backdrop-blur-sm border border-white/10 rounded-3xl p-8 lg:p-10 relative overflow-hidden"
+                        className="bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-3xl p-8 lg:p-10 relative overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)]"
                     >
                         {submitted ? (
                             <div className="h-full flex flex-col items-center justify-center text-center py-20 relative z-10">
-                                <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mb-6 border border-green-500/20">
-                                    <CheckCircle className="w-10 h-10 text-green-500" />
+                                <div className="w-20 h-20 bg-indigo-500/10 rounded-full flex items-center justify-center mb-6 border border-indigo-500/20 shadow-[0_0_30px_rgba(99,102,241,0.1)]">
+                                    <CheckCircle className="w-10 h-10 text-indigo-400" />
                                 </div>
-                                <h3 className="text-2xl font-bold text-white mb-2">Transmission Received</h3>
-                                <p className="text-zinc-400">Our team will establish a secure connection shortly.</p>
+                                <h3 className="text-2xl font-black text-white mb-2 uppercase tracking-widest">Transmission Received</h3>
+                                <p className="text-zinc-500 text-[11px] font-bold uppercase tracking-widest">Our team will establish a secure connection shortly.</p>
                                 <button
                                     onClick={() => setSubmitted(false)}
                                     className="mt-8 text-sm text-indigo-400 hover:text-white transition-colors"
@@ -238,10 +238,21 @@ export default function ContactClient() {
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-black uppercase tracking-[0.4em] text-[10px] py-6 rounded-2xl flex items-center justify-center gap-3 hover:shadow-[0_0_30px_rgba(79,70,229,0.3)] transition-all disabled:opacity-50 border border-white/10 group"
+                                    className="w-full bg-white text-black font-black uppercase tracking-[0.4em] text-[10px] py-6 rounded-2xl flex items-center justify-center gap-3 hover:shadow-[0_0_40px_rgba(255,255,255,0.15)] hover:scale-[1.01] active:scale-[0.98] transition-all disabled:opacity-50 border border-white/10 group"
                                 >
-                                    {isSubmitting ? 'Transmitting...' : 'Initialize Secure Connection'}
-                                    <Send size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                                    <div className="relative z-10 flex items-center justify-center gap-3">
+                                        {isSubmitting ? (
+                                            <>
+                                                <Loader2 size={14} className="animate-spin" />
+                                                <span>Transmitting...</span>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <span>Initialize Secure Connection</span>
+                                                <Send size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                                            </>
+                                        )}
+                                    </div>
                                 </button>
                             </form>
                         )}

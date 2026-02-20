@@ -26,6 +26,10 @@ const OnboardingFlow = dynamic(() => import('./OnboardingFlow'), { ssr: false })
 const VoiceIdentity = dynamic(() => import('./VoiceIdentity'), { ssr: false });
 const HuggingFaceAvatar = dynamic(() => import('./HuggingFaceAvatar'), { ssr: false });
 
+const DistrictIntelligenceScore = dynamic(() => import('./landing/DistrictIntelligenceScore'), { ssr: false });
+const PlatformActivity = dynamic(() => import('./landing/PlatformActivity'), { ssr: false });
+const FounderDossier = dynamic(() => import('./founder-dossier'), { ssr: false });
+
 // --- ANIMATION VARIANTS ---
 const fadeInUp: Variants = {
     hidden: { opacity: 0, y: 40 },
@@ -266,9 +270,9 @@ export default function ModernHomePage() {
         // Simulate processing before routing
         setTimeout(() => {
             setSystemThinking(false);
-            if (cmd.toLowerCase().includes('budget')) router.push('/generators/fiscal-strategist');
+            if (cmd.toLowerCase().includes('budget')) router.push('/ai-hub/fiscal-strategist');
             else if (cmd.toLowerCase().includes('iep')) router.push('/dashboard/iep-architect');
-            else router.push('/generators');
+            else router.push('/ai-hub');
         }, 1500);
     };
 
@@ -519,6 +523,31 @@ export default function ModernHomePage() {
                             {/* BENTO SHOWCASE */}
                             <section id="features">
                                 <BentoShowcase />
+                            </section>
+
+                            {/* SYSTEM PERFORMANCE - NEW Integration */}
+                            <section className="py-24 px-6 max-w-7xl mx-auto">
+                                <div className="text-center mb-16">
+                                    <h2 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter">
+                                        System <span className="text-noble-gold">Performance</span> Matrix
+                                    </h2>
+                                </div>
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                                    <DistrictIntelligenceScore />
+                                    <PlatformActivity />
+                                </div>
+                            </section>
+
+                            {/* FOUNDER DOSSIER - NEW Integration */}
+                            <section className="py-24 bg-zinc-950/50 border-y border-white/5 relative overflow-hidden">
+                                <div className="max-w-7xl mx-auto px-6 relative z-10">
+                                    <div className="text-center mb-16">
+                                        <h2 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter leading-none">
+                                            Architect of <span className="text-noble-gold">EdIntel Protocol</span>
+                                        </h2>
+                                    </div>
+                                    <FounderDossier />
+                                </div>
                             </section>
 
                             {/* ONBOARDING MODAL */}

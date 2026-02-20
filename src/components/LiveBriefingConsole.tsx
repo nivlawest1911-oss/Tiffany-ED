@@ -101,7 +101,7 @@ export default function LiveBriefingConsole({ name, description, role, color, pr
             clearInterval(typeInterval);
             clearTimeout(speechTimeout);
         };
-    }, [currentScript]);
+    }, [currentScript, onComplete]);
 
     const handlePromptClick = async (prompt: string) => {
         setIsSpeaking(true);

@@ -7,6 +7,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import NextImage from 'next/image';
 import {
     Sparkles,
     Image as ImageIcon,
@@ -379,11 +380,15 @@ function ImageGenerationPanel({ loading, setLoading, result, setResult }: any) {
 
                 {result?.image ? (
                     <div className="space-y-4">
-                        <img
-                            src={result.image}
-                            alt="Generated"
-                            className="w-full rounded-2xl border border-slate-700"
-                        />
+                        <div className="relative w-full rounded-2xl border border-slate-700 overflow-hidden" style={{ minHeight: '200px' }}>
+                            <NextImage
+                                src={result.image}
+                                alt="Generated"
+                                fill
+                                unoptimized
+                                className="object-contain rounded-2xl"
+                            />
+                        </div>
                         <p className="text-sm text-slate-400">Prompt: {result.prompt}</p>
                     </div>
                 ) : (
@@ -490,7 +495,14 @@ function ImageAnalysisPanel({ loading, setLoading, result, setResult }: any) {
                             className="block w-full p-8 border-2 border-dashed border-slate-700 rounded-2xl text-center cursor-pointer hover:border-purple-500 transition-colors"
                         >
                             {preview ? (
-                                <img src={preview} alt="Preview" className="max-h-64 mx-auto rounded-xl" />
+                                <NextImage
+                                    src={preview}
+                                    alt="Preview"
+                                    width={600}
+                                    height={256}
+                                    unoptimized
+                                    className="max-h-64 mx-auto rounded-xl object-contain"
+                                />
                             ) : (
                                 <div className="text-slate-500">
                                     <Camera className="w-12 h-12 mx-auto mb-2" />
@@ -566,7 +578,7 @@ function ImageAnalysisPanel({ loading, setLoading, result, setResult }: any) {
 /**
  * Speech Panel
  */
-function SpeechPanel({ loading, setLoading, result, setResult }: any) {
+function SpeechPanel({ loading: _loading, setLoading: _setLoading, result: _result, setResult: _setResult }: any) {
     return (
         <div className="bg-slate-800/50 backdrop-blur-xl rounded-3xl p-8 border border-slate-700 text-center">
             <Mic className="w-16 h-16 mx-auto mb-4 text-purple-400" />
@@ -579,7 +591,7 @@ function SpeechPanel({ loading, setLoading, result, setResult }: any) {
 /**
  * Semantic Search Panel
  */
-function SemanticSearchPanel({ loading, setLoading, result, setResult }: any) {
+function SemanticSearchPanel({ loading: _loading, setLoading: _setLoading, result: _result, setResult: _setResult }: any) {
     return (
         <div className="bg-slate-800/50 backdrop-blur-xl rounded-3xl p-8 border border-slate-700 text-center">
             <Search className="w-16 h-16 mx-auto mb-4 text-purple-400" />

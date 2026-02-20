@@ -1,83 +1,100 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { createServerClient, type CookieOptions } from '@supabase/ssr';
+import { NextResponse, type NextRequest } from 'next/server';
+import { ROUTES } from '@/lib/routes';
 
-/**
- * Global Tier Middleware
- * Intercepts hits to premium modules and redirects based on user tier.
- */
-const TIER_LINKS = {
-    'Sovereign Initiate': '/pricing',
-    'Standard Pack': 'https://buy.stripe.com/Standard_Link',
-    'Sovereign Pack': 'https://buy.stripe.com/Sovereign_Link',
-    'Practitioner': 'https://buy.stripe.com/Practitioner_Link',
-    'Director Pack': 'https://buy.stripe.com/Director_Link',
-    'Site Command': 'https://buy.stripe.com/Site_Command_Link'
-};
+export async function middleware(request: NextRequest) {
+    let response = NextResponse.next({
+        request: {
+            headers: request.headers,
+        },
+    });
 
-export function middleware(req: NextRequest) {
-    const { pathname } = req.nextUrl;
+    const supabase = createServerClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        {
+            cookies: {
+                get(name: string) {
+                    return request.cookies.get(name)?.value;
+                },
+                set(name: string, value: string, options: CookieOptions) {
+                    request.cookies.set({ name, value, ...options });
+                    response = NextResponse.next({
+                        request: {
+                            headers: request.headers,
+                        },
+                    });
+                    response.cookies.set({ name, value, ...options });
+                },
+                remove(name: string, options: CookieOptions) {
+                    request.cookies.set({ name, value: '', ...options });
+                    response = NextResponse.next({
+                        request: {
+                            headers: request.headers,
+                        },
+                    });
+                    response.cookies.set({ name, value: '', ...options });
+                },
+            },
+        }
+    );
 
-    // 1. Define Premium Route Patterns
-    const isEducationVault = pathname.startsWith('/vault'); // Sovereign Pack+
-    const isIEPArchitect = pathname.startsWith('/generators'); // Standard Pack+
-    const isWellnessInsights = pathname.startsWith('/professional'); // Practitioner+
-    const isDirectorPortal = pathname.startsWith('/the-room'); // Director Pack
-    const isSiteCommand = pathname.startsWith('/admin'); // Site Command
+    const { data: { user } } = await supabase.auth.getUser();
 
-    // 0. Redirect base dashboard to education view
-    if (pathname === '/dashboard') {
-        return NextResponse.redirect(new URL('/education', req.url));
+    // 1. Protect Admin Routes
+    if (request.nextUrl.pathname.startsWith('/admin')) {
+        if (!user || user.user_metadata?.role !== 'admin') {
+            return NextResponse.redirect(new URL(ROUTES.LOGIN, request.url));
+        }
     }
 
-    // 2. Mock User Tier (In production, pull this from Supabase/Auth cookie)
-    // For demonstration: User is an 'Initiate'
-    const userTier = req.cookies.get('user_tier')?.value || 'Sovereign Initiate';
-
-    // 3. THE REDIRECT LOGIC: Redirect if user hits a link above their tier
-    // 3. THE REDIRECT LOGIC: Redirect if user hits a link above their tier
-    // Also enforce Role-Based Lanes (Sovereign Hardening)
-    // In production, userRole would come from Supabase metadata
-    const userRole = req.cookies.get('user_role')?.value || 'teacher'; // Default to teacher for safety
-
-    // Admin Lane: Only Admins can access /admin
-    if (isSiteCommand && userRole !== 'admin') {
-        return NextResponse.redirect(new URL('/tiffany-ed', req.url));
+    // 2. Protect Tiffany-ED Routes
+    if (request.nextUrl.pathname.startsWith('/tiffany-ed')) {
+        if (!user) {
+            return NextResponse.redirect(new URL(ROUTES.LOGIN, request.url));
+        }
     }
 
-    // Teacher Lane: Teachers should primarily be in /tiffany-ed, but can access other areas if tiered allowed
-    // If a teacher tries to hit /admin, they are redirected above.
-
-    if (isSiteCommand && userTier !== 'Site Command') {
-        return NextResponse.redirect(new URL(TIER_LINKS['Site Command'], req.url));
+    // 3. Protect Vault
+    if (request.nextUrl.pathname.startsWith('/vault')) {
+        if (!user) {
+            return NextResponse.redirect(new URL(ROUTES.LOGIN, request.url));
+        }
     }
 
-    if (isDirectorPortal && !['Director Pack', 'Site Command'].includes(userTier)) {
-        return NextResponse.redirect(new URL(TIER_LINKS['Director Pack'], req.url));
+    // 4. Protect additional Sovereign Nodes
+    const sovereignNodes = ['/analytics', '/integrations', '/dashboard', '/the-room'];
+    if (sovereignNodes.some(path => request.nextUrl.pathname.startsWith(path))) {
+        if (!user) {
+            return NextResponse.redirect(new URL(ROUTES.LOGIN, request.url));
+        }
     }
 
-    if (isWellnessInsights && ['Sovereign Initiate', 'Standard Pack', 'Sovereign Pack'].includes(userTier)) {
-        return NextResponse.redirect(new URL(TIER_LINKS['Practitioner'], req.url));
+    // 5. Redirect Logged In Users from Login Page
+    if (request.nextUrl.pathname === ROUTES.LOGIN) {
+        if (user) {
+            if (user.user_metadata?.role === 'admin') {
+                return NextResponse.redirect(new URL(ROUTES.ADMIN_DASHBOARD, request.url));
+            }
+            // Default redirect for all other logged-in users to the unified Room
+            return NextResponse.redirect(new URL(ROUTES.THE_ROOM, request.url));
+        }
     }
 
-    if (isEducationVault && ['Sovereign Initiate', 'Standard Pack'].includes(userTier)) {
-        return NextResponse.redirect(new URL(TIER_LINKS['Sovereign Pack'], req.url));
-    }
-
-    if (isIEPArchitect && userTier === 'Sovereign Initiate') {
-        return NextResponse.redirect(new URL(TIER_LINKS['Standard Pack'], req.url));
-    }
-
-    return NextResponse.next();
+    return response;
 }
 
-// Ensure middleware only runs on relevant app routes
 export const config = {
     matcher: [
-        '/dashboard/:path*',
-        '/vault/:path*',
-        '/generators/:path*',
-        '/professional/:path*',
-        '/the-room/:path*',
-        '/admin/:path*',
+        /*
+         * Match all request paths except for the ones starting with:
+         * - api (API routes)
+         * - _next/static (static files)
+         * - _next/image (image optimization files)
+         * - favicon.ico (favicon file)
+         * - public folder
+         * - auth/callback (important to exclude from middleware to avoid loops)
+         */
+        '/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$|auth/callback).*)',
     ],
 };

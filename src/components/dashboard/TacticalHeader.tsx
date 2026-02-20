@@ -7,6 +7,7 @@ import ProfessionalID from '@/components/dossier/ProfessionalID';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Shield, Clock } from 'lucide-react';
 import EdIntelLogo from '@/components/EdIntelLogo';
+import NextImage from 'next/image';
 
 export const TacticalHeader = () => {
     const { toggleCommandConsole, isCommandConsoleOpen } = useEdIntelVibe();
@@ -48,10 +49,12 @@ export const TacticalHeader = () => {
                             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 p-[1px] group-hover:scale-105 transition-transform">
                                 <div className="w-full h-full rounded-full bg-black overflow-hidden relative">
                                     {user.avatar_url ? (
-                                        <img
+                                        <NextImage
                                             src={user.avatar_url}
                                             alt="Profile"
-                                            className="w-full h-full object-cover"
+                                            fill
+                                            unoptimized
+                                            className="object-cover"
                                         />
                                     ) : (
                                         <div className="w-full h-full flex items-center justify-center bg-zinc-800 text-[10px] font-black text-white">

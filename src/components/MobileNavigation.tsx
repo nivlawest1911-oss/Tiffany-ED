@@ -32,16 +32,16 @@ export default function MobileNavigation() {
     // 📱 REFINED TABS FOR EdIntel USERS
     const bottomTabs = [
         { id: 'home', label: 'Home', icon: Home, link: '/' },
-        { id: 'ai-hub', label: 'AI Hub', icon: Sparkles, link: '/ai-hub' },
-        { id: 'dashboard', label: 'Command', icon: LayoutDashboard, link: '/dashboard' },
+        { id: 'the-room', label: 'Room', icon: Sparkles, link: '/the-room' },
+        { id: 'command', label: 'Command', icon: LayoutDashboard, link: '/the-room' },
         { id: 'identity', label: 'Identity', icon: User, link: '/identity' },
         { id: 'more', label: 'More', icon: Menu, action: () => setMenuOpen(true) },
     ];
 
     const menuItems = [
-        { label: 'Professional Center', icon: GraduationCap, link: '/edintel-professional' },
+        { label: 'Sovereign Room', icon: GraduationCap, link: '/the-room' },
         { label: 'Enterprise & Pricing', icon: CreditCard, link: '/pricing' },
-        { label: 'EdIntel Protocol', icon: Shield, link: '/edintel-professional' },
+        { label: 'Sovereign Protocol', icon: Shield, link: '/generators' },
         { label: 'Settings', icon: Settings, link: '/settings' },
     ];
 

@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { useIntelligence } from '@/context/IntelligenceContext';
 import { HolographicBackground } from '@/components/ui/HolographicBackground';
+import { SmartHover } from '@/components/ui/SmartHover';
 
 export default function SettingsClient() {
     const { triggerBriefing } = useIntelligence();
@@ -40,37 +41,39 @@ export default function SettingsClient() {
 
             <div className="relative z-10 max-w-7xl mx-auto p-6 lg:p-12">
                 {/* Header Area */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-                    <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        className="space-y-4"
-                    >
-                        <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 w-fit">
-                            <SettingsIcon className="w-4 h-4 text-indigo-400 animate-spin-slow" />
-                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-400">System Parameters</span>
-                        </div>
-                        <h1 className="text-5xl font-black uppercase tracking-tighter text-white">
-                            Command <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-cyan-400 to-indigo-400">Center</span>
-                        </h1>
-                        <p className="text-slate-400 max-w-lg text-sm leading-relaxed">
-                            Configure your EdIntel Sovereignty. Calibrate neural nodes, manage institutional capital, and secure your leadership profile.
-                        </p>
-                    </motion.div>
+                <SmartHover message="System Parameters: Master control for neural nodes, institutional capital, and sovereign identity configuration.">
+                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            className="space-y-4"
+                        >
+                            <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 w-fit">
+                                <SettingsIcon className="w-4 h-4 text-indigo-400 animate-spin-slow" />
+                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-400">System Parameters</span>
+                            </div>
+                            <h1 className="text-5xl font-black uppercase tracking-tighter text-white">
+                                Command <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-cyan-400 to-indigo-400">Center</span>
+                            </h1>
+                            <p className="text-slate-400 max-w-lg text-sm leading-relaxed">
+                                Configure your EdIntel Sovereignty. Calibrate neural nodes, manage institutional capital, and secure your leadership profile.
+                            </p>
+                        </motion.div>
 
-                    <motion.button
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        onClick={() => triggerBriefing('Legacy Profile')}
-                        className="flex items-center gap-3 px-6 py-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 hover:bg-amber-500/20 transition-all group shrink-0 shadow-lg shadow-amber-900/10"
-                    >
-                        <Target size={18} className="group-hover:rotate-45 transition-transform" />
-                        <div className="text-left">
-                            <div className="text-[10px] font-black uppercase tracking-widest leading-none mb-1">Founder Hub</div>
-                            <div className="text-xs font-medium opacity-60">Dr. West Analysis</div>
-                        </div>
-                    </motion.button>
-                </div>
+                        <motion.button
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            onClick={() => triggerBriefing('Legacy Profile')}
+                            className="flex items-center gap-3 px-6 py-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 hover:bg-amber-500/20 transition-all group shrink-0 shadow-lg shadow-amber-900/10"
+                        >
+                            <Target size={18} className="group-hover:rotate-45 transition-transform" />
+                            <div className="text-left">
+                                <div className="text-[10px] font-black uppercase tracking-widest leading-none mb-1">Founder Hub</div>
+                                <div className="text-xs font-medium opacity-60">Dr. West Analysis</div>
+                            </div>
+                        </motion.button>
+                    </div>
+                </SmartHover>
 
                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                     {/* Navigation Sidebar */}
@@ -122,8 +125,8 @@ export default function SettingsClient() {
                                 exit={{ opacity: 0, y: -10 }}
                                 transition={{ duration: 0.2 }}
                             >
-                                {activeSection === 'identity' && <IdentitySection />}
-                                {activeSection === 'nodes' && <NodesSection />}
+                                {activeSection === 'identity' && <IdentitySection triggerBriefing={triggerBriefing} />}
+                                {activeSection === 'nodes' && <NodesSection triggerBriefing={triggerBriefing} />}
                                 {activeSection === 'subscription' && <SubscriptionSection />}
                                 {activeSection === 'security' && <SecuritySection />}
                             </motion.div>
@@ -135,7 +138,7 @@ export default function SettingsClient() {
     );
 }
 
-function IdentitySection() {
+function IdentitySection({ triggerBriefing }: { triggerBriefing: (msg: string) => void }) {
     return (
         <Card className="bg-slate-950/40 border border-white/5 backdrop-blur-3xl rounded-[2.5rem] p-8 lg:p-12 space-y-10">
             <div className="flex items-center gap-4 mb-8">
@@ -160,6 +163,7 @@ function IdentitySection() {
                 <div className="space-y-2 md:col-span-2">
                     <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 ml-1">Institutional Bio (Neural Feed)</label>
                     <textarea
+                        aria-label="Institutional Bio"
                         className="w-full bg-white/5 border border-white/10 rounded-2xl p-6 text-white text-sm focus:border-indigo-500/50 h-32 outline-none transition-all placeholder:text-slate-600"
                         defaultValue="Doctorate-level clinical and fiscal strategist specializing in neural educational frameworks and district-wide turnaround architecture."
                     />
@@ -180,7 +184,7 @@ function IdentitySection() {
     );
 }
 
-function NodesSection() {
+function NodesSection({ triggerBriefing }: { triggerBriefing: (msg: string) => void }) {
     const nodes = [
         { id: 'iep', name: 'IEP Architect', status: 'Online', latentcy: '12ms', color: 'indigo' },
         { id: 'curriculum', name: 'Curriculum Foundry', status: 'Syncing', latentcy: '145ms', color: 'cyan' },
@@ -201,7 +205,7 @@ function NodesSection() {
                     </div>
                 </div>
                 <Button
-                    variant="outline"
+                    variant="secondary"
                     onClick={() => triggerBriefing('Scanning global node array for architecture drift...')}
                     className="border-white/10 bg-white/5 hover:bg-white/10 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-300"
                 >
@@ -255,7 +259,7 @@ function SubscriptionSection() {
                         </div>
                     </div>
                     <Button
-                        variant="outline"
+                        variant="ghost"
                         onClick={() => window.location.href = 'https://billing.stripe.com/p/login/test_6oE14Uf0z3vE'}
                         className="border-amber-500/30 bg-amber-500/5 hover:bg-amber-500/10 rounded-2xl h-14 px-8 text-amber-400 font-bold uppercase tracking-widest text-[10px]"
                     >
@@ -286,7 +290,7 @@ function SubscriptionSection() {
                     <p className="text-indigo-200/60 text-sm max-w-md">Unlock cross-building analytics, unlimited voice cloning, and custom government policy advisors.</p>
                 </div>
                 <Button
-                    onClick={() => window.location.href = 'https://buy.stripe.com/Site_Command_Link'}
+                    onClick={() => window.location.href = '/pricing'}
                     className="bg-white text-indigo-950 hover:bg-white/90 rounded-2xl h-16 px-10 font-black uppercase tracking-widest text-xs gap-3 shrink-0 group-hover:scale-105 transition-transform shadow-xl shadow-white/5"
                 >
                     Activate Site Command <ArrowRight size={16} />

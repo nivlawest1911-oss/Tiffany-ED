@@ -69,6 +69,11 @@ export async function POST(request: NextRequest) {
             system: systemPrompt,
             messages: messages as any[],
             temperature: 0.7,
+            onFinish: (completion) => {
+                // Log token usage for monitoring
+                const { usage } = completion;
+                console.log(`[AI Hub] Request completed. Usage: ${JSON.stringify(usage)}`);
+            },
         });
 
         return result.toTextStreamResponse();

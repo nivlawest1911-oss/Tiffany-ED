@@ -10,7 +10,7 @@ interface ConversationProps {
     style?: React.CSSProperties;
 }
 
-export const Conversation = ({ conversationUrl, onLeave, style }: ConversationProps) => {
+export const Conversation = ({ conversationUrl: _conversationUrl, onLeave, style }: ConversationProps) => {
     const [status, setStatus] = useState<'initializing' | 'connected' | 'disconnected'>('initializing');
     const [isMicEnabled, setIsMicEnabled] = useState(true);
     const [isVideoEnabled, setIsVideoEnabled] = useState(true);

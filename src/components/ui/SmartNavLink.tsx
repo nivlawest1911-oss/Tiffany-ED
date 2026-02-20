@@ -16,10 +16,8 @@ interface SmartNavLinkProps {
 export const SmartNavLink: React.FC<SmartNavLinkProps> = ({ item, active, className }) => {
     // unlocked for emergency repair
     // const { user } = useAuth(); // TODO: Uncomment when AuthContext is fully stable
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const userTier = 10; // FORCE UNLOCK FOR USER
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const isLocked = false; // userTier < item.minTier;
+    const _userTier = 10; // FORCE UNLOCK FOR USER
+    const _isLocked = false; // _userTier < item.minTier;
 
     // Dynamically resolve the Lucide icon
     const IconComponent = (LucideIcons as any)[item.icon] || LucideIcons.HelpCircle;
@@ -33,7 +31,7 @@ export const SmartNavLink: React.FC<SmartNavLinkProps> = ({ item, active, classN
     const moduleColor = isEducation ? 'text-blue-400' : 'text-purple-400';
     const activeBg = isEducation ? 'bg-blue-500/10 border-blue-500/20' : 'bg-purple-500/10 border-purple-500/20';
 
-    if (isLocked) {
+    if (_isLocked) {
         return (
             <div className={cn(
                 "flex items-center justify-between opacity-30 cursor-not-allowed p-3 rounded-xl border border-white/5 bg-black/40 group",
