@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Trophy, Star, Zap, ShieldCheck } from 'lucide-react';
 import dynamic from 'next/dynamic';
@@ -118,4 +118,3 @@ export const useCelebrate = () => {
     return context;
 };
 
-import { useEffect } from 'react';

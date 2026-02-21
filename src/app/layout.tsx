@@ -35,8 +35,8 @@ export default function RootLayout({
     <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY!}>
       <html lang="en" className={`${inter.variable} ${playfair.variable} ${outfit.variable}`}>
         <body className="bg-background text-foreground antialiased overflow-x-hidden selection:bg-blue-500/30 font-sans">
-          <AuthProvider>
-            <CelebrationProvider>
+          <CelebrationProvider>
+            <AuthProvider>
               <IntelligenceProvider>
                 <SovereignProvider>
                   <EdIntelVibeProvider>
@@ -47,8 +47,8 @@ export default function RootLayout({
                   </EdIntelVibeProvider>
                 </SovereignProvider>
               </IntelligenceProvider>
-            </CelebrationProvider>
-          </AuthProvider>
+            </AuthProvider>
+          </CelebrationProvider>
         </body>
       </html>
     </ClerkProvider>
