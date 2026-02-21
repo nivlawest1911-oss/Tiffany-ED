@@ -1,0 +1,63 @@
+File: C:\Users\nivla\edintel-app\src\app\(dashboard)\ai-hub\AIHubClient.tsx
+Errors: 0, Warnings: 2
+  - [WARN] @next/next/no-img-element: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element (Line 279, Col 57)
+  - [WARN] @next/next/no-img-element: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element (Line 288, Col 65)
+---
+File: C:\Users\nivla\edintel-app\src\app\(dashboard)\defense\page.tsx
+Errors: 4, Warnings: 0
+  - [ERROR] unused-imports/no-unused-imports: 'Map' is defined but never used. (Line 3, Col 23)
+  - [ERROR] unused-imports/no-unused-imports: 'Activity' is defined but never used. (Line 3, Col 56)
+  - [ERROR] unused-imports/no-unused-imports: 'Search' is defined but never used. (Line 3, Col 66)
+  - [ERROR] unused-imports/no-unused-imports: 'Filter' is defined but never used. (Line 3, Col 74)
+---
+File: C:\Users\nivla\edintel-app\src\app\(dashboard)\excursions\page.tsx
+Errors: 2, Warnings: 0
+  - [ERROR] unused-imports/no-unused-imports: 'Search' is defined but never used. (Line 3, Col 56)
+  - [ERROR] unused-imports/no-unused-imports: 'Filter' is defined but never used. (Line 3, Col 64)
+---
+File: C:\Users\nivla\edintel-app\src\app\(dashboard)\gym\page.tsx
+Errors: 2, Warnings: 0
+  - [ERROR] unused-imports/no-unused-imports: 'ChevronRight' is defined but never used. (Line 4, Col 44)
+  - [ERROR] unused-imports/no-unused-imports: 'Play' is defined but never used. (Line 4, Col 71)
+---
+File: C:\Users\nivla\edintel-app\src\app\(dashboard)\publishing\page.tsx
+Errors: 2, Warnings: 0
+  - [ERROR] unused-imports/no-unused-imports: 'Search' is defined but never used. (Line 3, Col 66)
+  - [ERROR] unused-imports/no-unused-imports: 'Filter' is defined but never used. (Line 3, Col 74)
+---
+File: C:\Users\nivla\edintel-app\src\app\(dashboard)\studio\StudioClient.tsx
+Errors: 4, Warnings: 0
+  - [ERROR] unused-imports/no-unused-imports: 'Plus' is defined but never used. (Line 5, Col 22)
+  - [ERROR] unused-imports/no-unused-imports: 'Search' is defined but never used. (Line 5, Col 28)
+  - [ERROR] unused-imports/no-unused-imports: 'Music' is defined but never used. (Line 5, Col 56)
+  - [ERROR] unused-imports/no-unused-imports: 'SmartHover' is defined but never used. (Line 6, Col 10)
+---
+File: C:\Users\nivla\edintel-app\src\components\edintel-core\EdIntelGate.tsx
+Errors: 1, Warnings: 0
+  - [ERROR] @next/next/no-html-link-for-pages: Do not use an `<a>` element to navigate to `/pricing/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages (Line 27, Col 21)
+---
+File: C:\Users\nivla\edintel-app\src\components\hero-section.tsx
+Errors: 1, Warnings: 0
+  - [ERROR] @next/next/no-html-link-for-pages: Do not use an `<a>` element to navigate to `/pricing/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages (Line 86, Col 11)
+---
+File: C:\Users\nivla\edintel-app\src\components\layout\TrialBanner.tsx
+Errors: 1, Warnings: 0
+  - [ERROR] @next/next/no-html-link-for-pages: Do not use an `<a>` element to navigate to `/pricing/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages (Line 55, Col 17)
+---
+File: C:\Users\nivla\edintel-app\src\components\modules\AlabamaLiteracyModule.tsx
+Errors: 1, Warnings: 0
+  - [ERROR] unused-imports/no-unused-imports: 'AlertCircle' is defined but never used. (Line 5, Col 42)
+---
+File: C:\Users\nivla\edintel-app\src\components\ui\SocialLinks.tsx
+Errors: 1, Warnings: 0
+  - [ERROR] @next/next/no-html-link-for-pages: Do not use an `<a>` element to navigate to `/pricing/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages (Line 28, Col 17)
+---
+File: C:\Users\nivla\edintel-app\src\components\vault\VaultDashboard.tsx
+Errors: 2, Warnings: 0
+  - [ERROR] unused-imports/no-unused-imports: 'MoreVertical' is defined but never used. (Line 5, Col 54)
+  - [ERROR] unused-imports/no-unused-imports: 'AlertTriangle' is defined but never used. (Line 5, Col 73)
+---
+File: C:\Users\nivla\edintel-app\supabase\functions\trial-expiration-alert\index.ts
+Errors: 0, Warnings: 1
+  - [WARN] unused-imports/no-unused-vars: 'req' is defined but never used. Allowed unused args must match /^_/u. (Line 4, Col 14)
+---

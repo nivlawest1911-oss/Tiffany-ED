@@ -90,50 +90,55 @@ export default function DelegateOverlay() {
                 </div>
             </div>
 
-            {delegates.map((d) => (
-                <div
-                    key={d.id}
-                    className="absolute transition-all duration-1000 ease-in-out pointer-events-auto group"
-                    style={{ left: `${d.position.x}%`, top: `${d.position.y}%` }}
-                    onMouseEnter={() => setActiveId(d.id)}
-                    onMouseLeave={() => setActiveId(null)}
-                >
-                    {/* Delegate Avatar Center */}
-                    <div className="relative">
-                        <div className={`w-16 h-16 rounded-full border-2 border-${d.color}-500/50 flex items-center justify-center shadow-2xl transition-transform duration-500 group-hover:scale-110 cursor-pointer overflow-hidden bg-black`}>
-                            {/* Breathing/Pulse Effect */}
-                            <div className={`absolute inset-0 bg-${d.color}-500/0 group-hover:bg-${d.color}-500/10 transition-colors duration-500`} />
+            {/* OG route: This div creates a bottom gradient overlay for visual depth. */}
+            <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
+            {delegates.map((d) => {
+                const delegateStyle = { left: `${d.position.x}%`, top: `${d.position.y}%` } as React.CSSProperties;
+                return (
+                    <div
+                        key={d.id}
+                        className="absolute transition-all duration-1000 ease-in-out pointer-events-auto group"
+                        style={delegateStyle}
+                        onMouseEnter={() => setActiveId(d.id)}
+                        onMouseLeave={() => setActiveId(null)}
+                    >
+                        {/* Delegate Avatar Center */}
+                        <div className="relative">
+                            <div className={`w-16 h-16 rounded-full border-2 border-${d.color}-500/50 flex items-center justify-center shadow-2xl transition-transform duration-500 group-hover:scale-110 cursor-pointer overflow-hidden bg-black`}>
+                                {/* Breathing/Pulse Effect */}
+                                <div className={`absolute inset-0 bg-${d.color}-500/0 group-hover:bg-${d.color}-500/10 transition-colors duration-500`} />
 
-                            {/* Avatar Image */}
-                            <div className="w-full h-full opacity-90 group-hover:opacity-100 transition-opacity">
-                                {d.icon}
-                            </div>
-
-                            {/* Status Indicator */}
-                            <div className="absolute bottom-1 right-1 w-2.5 h-2.5 bg-green-500 border-2 border-black rounded-full animate-pulse z-20" />
-                        </div>
-
-                        {/* Talk Bubble */}
-                        <div className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-48 transition-all duration-500 ${activeId === d.id ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-90 pointer-events-none'
-                            }`}>
-                            <div className="bg-zinc-950 border border-zinc-800 p-4 rounded-2xl shadow-3xl relative">
-                                <div className="flex items-center gap-2 mb-2">
-                                    <span className={`text-[8px] font-black text-${d.color}-400 uppercase tracking-widest`}>{d.name}</span>
-                                    <div className={`w-1 h-1 rounded-full bg-green-500 animate-pulse`} />
+                                {/* Avatar Image */}
+                                <div className="w-full h-full opacity-90 group-hover:opacity-100 transition-opacity">
+                                    {d.icon}
                                 </div>
-                                <p className="text-[10px] text-zinc-300 leading-tight">"{d.message}"</p>
-                                {/* Arrow */}
-                                <div className="absolute top-full left-1/2 -translate-x-1/2 w-2 h-2 bg-zinc-950 border-r border-b border-zinc-800 rotate-45 -mt-1" />
-                            </div>
-                        </div>
 
-                        {/* Ambient Label (Always visible but faint) */}
-                        <div className="mt-2 text-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <p className="text-[8px] font-bold text-zinc-500 uppercase tracking-tighter">{d.role}</p>
+                                {/* Status Indicator */}
+                                <div className="absolute bottom-1 right-1 w-2.5 h-2.5 bg-green-500 border-2 border-black rounded-full animate-pulse z-20" />
+                            </div>
+
+                            {/* Talk Bubble */}
+                            <div className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-48 transition-all duration-500 ${activeId === d.id ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-90 pointer-events-none'
+                                }`}>
+                                <div className="bg-zinc-950 border border-zinc-800 p-4 rounded-2xl shadow-3xl relative">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <span className={`text-[8px] font-black text-${d.color}-400 uppercase tracking-widest`}>{d.name}</span>
+                                        <div className={`w-1 h-1 rounded-full bg-green-500 animate-pulse`} />
+                                    </div>
+                                    <p className="text-[10px] text-zinc-300 leading-tight">"{d.message}"</p>
+                                    {/* Arrow */}
+                                    <div className="absolute top-full left-1/2 -translate-x-1/2 w-2 h-2 bg-zinc-950 border-r border-b border-zinc-800 rotate-45 -mt-1" />
+                                </div>
+                            </div>
+
+                            {/* Ambient Label (Always visible but faint) */}
+                            <div className="mt-2 text-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                <p className="text-[8px] font-bold text-zinc-500 uppercase tracking-tighter">{d.role}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            ))}
+                );
+            })}
         </div>
     );
 }

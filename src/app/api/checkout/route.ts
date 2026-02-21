@@ -37,6 +37,9 @@ export async function POST(req: Request) {
             success_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/pricing`,
             customer_email: email,
+            subscription_data: mode === 'subscription' ? {
+                trial_period_days: 30,
+            } : undefined,
             metadata: {
                 name: name,
                 plan: plan,

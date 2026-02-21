@@ -2,30 +2,14 @@
 // Designed for AI Avatar Memory & Evidence Folder Architecture
 
 generator client {
-  provider        = "prisma-client-js"
-  // previewFeatures = ["postgresqlExtensions"]
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
-// extensions = [pgvector(map: "vector")]
-}
-
-// ============================================
-// EXTERNAL MEDIA SYNC (Vercel Blob / Cloudinary)
-// ============================================
-
-model EdintelMedia {
-  id          String   @id @default(cuid())
-  fileName    String   @map("file_name")
-  url         String   @unique
-  mediaType   String   @map("media_type")
-  size        Int      @default(0)
-  uploadedAt  DateTime @default(now()) @map("uploaded_at")
-
-  @@map("edintel_media")
 }
 
 // ============================================
@@ -43,19 +27,16 @@ model Tier {
   @@map("tiers")
 }
 
-// ============================================
-// CORE USER & AUTHENTICATION
-// ============================================
-
 model User {
   id                String   @id @default(cuid())
+  clerkId           String   @unique @map("clerk_id")
   email             String   @unique
   name              String?
   role              String   @default("educator") @map("role")
-  district          String?  // Mobile County Schools, etc.
+  district          String?  
   school            String?
   schoolSite        String?  @map("school_site")
-  position          String?  // Principal, Teacher, Counselor
+  position          String?  
   
   // Organization Link
   organizationId    String?  @map("organization_id")
@@ -63,6 +44,7 @@ model User {
   
   // Subscription & Billing
   stripeCustomerId  String?  @unique @map("stripe_customer_id")
+  stripeSubscriptionId String? @unique @map("stripe_subscription_id")
   subscriptionTier  String   @default("free") @map("subscription_tier")
   subscriptionStatus String  @default("inactive") @map("subscription_status")
   usageTokens       Int      @default(10) @map("usage_tokens")
@@ -78,19 +60,10 @@ model User {
   tierId            String?   @map("tier_id")
   tier              Tier?     @relation(fields: [tierId], references: [id])
   
-  // Auth & Identity
-  googleId          String?  @unique @map("google_id")
   avatarUrl         String?  @map("avatar_url")
-  
-  // Security
-  passwordHash      String?  @map("password_hash")
   createdAt         DateTime @default(now()) @map("created_at")
   updatedAt         DateTime @updatedAt @map("updated_at")
   lastLogin         DateTime? @map("last_login")
-  
-  // Billing Sync
-  subscriptionId    String?  @map("subscription_id")
-  lastPaymentAt     DateTime? @map("last_payment_at")
   
   // Relations
   generations       Generation[]
@@ -100,6 +73,7 @@ model User {
   vaultDocuments    VaultDocument[]
   
   @@index([email])
+  @@index([clerkId])
   @@index([district, school])
   @@index([organizationId])
   @@map("users")

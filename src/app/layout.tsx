@@ -15,6 +15,7 @@ const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfa
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://edintel.ai'),
   title: 'EdIntel Professional | EdIntel Delegate',
   description: 'The definitive AI operating layer for autonomous professionals and institutional intelligence.',
   icons: {
@@ -23,29 +24,33 @@ export const metadata: Metadata = {
   },
 };
 
+import { ClerkProvider } from '@clerk/nextjs';
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable} ${outfit.variable}`}>
-      <body className="bg-background text-foreground antialiased overflow-x-hidden selection:bg-blue-500/30 font-sans">
-        <AuthProvider>
-          <CelebrationProvider>
-            <IntelligenceProvider>
-              <SovereignProvider>
-                <EdIntelVibeProvider>
-                  {children}
-                  <Toaster position="top-right" theme="dark" />
-                  <Analytics />
-                  <SpeedInsights />
-                </EdIntelVibeProvider>
-              </SovereignProvider>
-            </IntelligenceProvider>
-          </CelebrationProvider>
-        </AuthProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" className={`${inter.variable} ${playfair.variable} ${outfit.variable}`}>
+        <body className="bg-background text-foreground antialiased overflow-x-hidden selection:bg-blue-500/30 font-sans">
+          <AuthProvider>
+            <CelebrationProvider>
+              <IntelligenceProvider>
+                <SovereignProvider>
+                  <EdIntelVibeProvider>
+                    {children}
+                    <Toaster position="top-right" theme="dark" />
+                    <Analytics />
+                    <SpeedInsights />
+                  </EdIntelVibeProvider>
+                </SovereignProvider>
+              </IntelligenceProvider>
+            </CelebrationProvider>
+          </AuthProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

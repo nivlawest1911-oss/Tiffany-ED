@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 
 interface EdIntelGateProps {
     isOpen: boolean;
@@ -24,12 +25,12 @@ export const EdIntelGate = ({ isOpen, onClose, toolName }: EdIntelGateProps) => 
                 </p>
 
                 <div className="space-y-3">
-                    <a
+                    <Link
                         href="/pricing"
                         className="block w-full py-4 bg-amber-500 text-black font-black rounded-lg hover:bg-amber-400 transition-all uppercase text-sm shadow-lg"
                     >
                         Ascend to Site Command
-                    </a>
+                    </Link>
                     <button
                         onClick={onClose}
                         className="block w-full py-2 text-zinc-500 text-[10px] font-mono hover:text-zinc-300 transition-all uppercase tracking-widest"

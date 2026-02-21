@@ -54,11 +54,11 @@
     }
 
     body {
-        background-color: var(--color-background);
-        color: var(--color-foreground);
+        background-color: #F5F5F5;
+        color: #1A202C;
         font-family: var(--font-sans);
         font-feature-settings: "rlig" 1, "calt" 1, "cv01" 1, "ss01" 1;
-        background-image: url('/assets/images/carbon-fibre-pattern.png');
+        background-image: none;
         background-repeat: repeat;
         background-attachment: fixed;
         line-height: 1.6;
@@ -124,6 +124,16 @@
     box-shadow:
         0 0 20px rgba(0, 0, 0, 0.5),
         0 0 0 1px rgba(197, 164, 126, 0.1) inset;
+}
+
+.glass-panel-light {
+    background: rgba(255, 255, 255, 0.4);
+    -webkit-backdrop-filter: blur(40px) saturate(150%);
+    backdrop-filter: blur(40px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow:
+        0 8px 32px 0 rgba(31, 38, 135, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.2) inset;
 }
 
 .holographic-border {
@@ -354,5 +364,28 @@
 
     .bar-fill {
         height: var(--bar-h, 0%);
+    }
+
+    .btn-sovereign {
+        @apply relative px-8 py-4 rounded-xl font-bold transition-all duration-500 backdrop-blur-sm;
+        background-color: white;
+        color: #00B0FF;
+        /* electric-cyan */
+        border: 2px solid #FFB300;
+        /* sovereign-gold */
+        animation: sovereign-pulse 3s ease-in-out infinite;
+    }
+
+    .btn-sovereign:hover {
+        background-color: #FFB300;
+        color: white;
+    }
+
+    .glass-bento {
+        @apply backdrop-blur-md bg-white/30 border border-white/20 shadow-xl rounded-2xl p-6 transition-all duration-300;
+    }
+
+    .glass-bento:hover {
+        @apply bg-white/40 shadow-2xl scale-[1.02];
     }
 }

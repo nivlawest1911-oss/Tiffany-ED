@@ -80,7 +80,10 @@ const config = {
           green: "#228B22",
           black: "#000000",
           orange: "#FF8C00",
-        }
+        },
+        "electric-cyan": "#00F5FF",
+        "sovereign-gold": "#D4AF37",
+        "white-smoke": "#F5F5F5",
       },
       backgroundImage: {
         'grid': "radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.05) 1px, transparent 0)",
@@ -121,7 +124,17 @@ const config = {
         "glow-pulse": {
           "0%, 100%": { opacity: "0.4", filter: "blur(6px)", transform: "scale(1)" },
           "50%": { opacity: "0.6", filter: "blur(8px)", transform: "scale(1.05)" },
-        }
+        },
+        "sovereign-pulse": {
+          "0%, 100%": {
+            boxShadow: '0 0 15px 2px rgba(255, 179, 0, 0.4)',
+            transform: 'scale(1)'
+          },
+          "50%": {
+            boxShadow: '0 0 25px 8px rgba(255, 179, 0, 0.7)',
+            transform: 'scale(1.02)'
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -131,6 +144,7 @@ const config = {
         "pulse-gold": "pulse-gold 4s ease-in-out infinite",
         shimmer: "shimmer 5s linear infinite",
         "glow-pulse": "glow-pulse 3s ease-in-out infinite",
+        "gold-glow": "sovereign-pulse 3s ease-in-out infinite",
       },
     },
   },

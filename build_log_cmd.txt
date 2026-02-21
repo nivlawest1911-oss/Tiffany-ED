@@ -1,0 +1,21 @@
+   ▲ Next.js 15.5.10
+   - Environments: .env.local, .env.production, .env
+   - Experiments (use with caution):
+     · serverActions
+     · optimizePackageImports
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 12.5s
+   Skipping validation of types
+   Skipping linting
+   Collecting page data ...
+ ⚠ Using edge runtime on a page currently disables static generation for that page
+   Generating static pages (0/104) ...
+Error occurred prerendering page "/edintel-professional". Read more: https://nextjs.org/docs/messages/prerender-error
+Error: @clerk/clerk-react: Missing publishableKey. You can get your key at https://dashboard.clerk.com/last-active?path=api-keys.
+    at Object.throwMissingPublishableKeyError (C:\Users\nivla\edintel-app\.next\server\chunks\4239.js:12:1483)
+    at <unknown> (C:\Users\nivla\edintel-app\.next\server\chunks\4239.js:137:54546) {
+  digest: '497004940'
+}
+Export encountered an error on /edintel-professional/page: /edintel-professional, exiting the build.
+ ⨯ Next.js build worker exited with code: 1 and signal: null

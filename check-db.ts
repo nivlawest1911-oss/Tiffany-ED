@@ -13,7 +13,7 @@ async function main() {
 
         // 2. Check Schema Sync
         // This attempts to count users or a core table to verify permissions
-        const count = await prisma.$queryRaw`SELECT 1 as result`
+        await prisma.$queryRaw`SELECT 1 as result`
         console.log('✅ Query Test: Database responded to raw query.')
 
         // 3. Verify Environment

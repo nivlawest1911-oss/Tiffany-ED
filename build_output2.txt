@@ -1,0 +1,247 @@
+
+> edintel-app@1.0.0 prebuild
+> echo clean
+
+clean
+
+> edintel-app@1.0.0 build
+> next build
+
+   ▲ Next.js 15.5.10
+   - Environments: .env.local, .env.production, .env
+   - Experiments (use with caution):
+     · serverActions
+     · optimizePackageImports
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 12.8s
+   Skipping validation of types
+   Skipping linting
+   Collecting page data ...
+ ⚠ Using edge runtime on a page currently disables static generation for that page
+   Generating static pages (0/103) ...
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+   Generating static pages (25/103) 
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+   Generating static pages (51/103) 
+   Generating static pages (77/103) 
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+useCelebrate was used without a CelebrationProvider. This calls will be no-ops.
+ ✓ Generating static pages (103/103)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ƒ /                                    47.6 kB         354 kB
+├ ○ /_not-found                            364 B         103 kB
+├ ƒ /about                               4.62 kB         157 kB
+├ ○ /academy                             5.85 kB         149 kB
+├ ƒ /account                              5.6 kB         196 kB
+├ ○ /admin                                5.2 kB         152 kB
+├ ○ /admin/academic                      2.37 kB         105 kB
+├ ○ /admin/analytics                     13.3 kB         479 kB
+├ ○ /admin/command                       4.21 kB         375 kB
+├ ○ /admin/comms                         2.29 kB         105 kB
+├ ○ /admin/dashboard                     19.1 kB         322 kB
+├ ○ /admin/grants                        2.86 kB         366 kB
+├ ○ /admin/health                        2.19 kB         365 kB
+├ ○ /admin/management                    4.27 kB         112 kB
+├ ○ /admin/roi                           2.89 kB         113 kB
+├ ○ /admin/roster                        2.23 kB         365 kB
+├ ƒ /admin/status                        4.35 kB         151 kB
+├ ○ /admin/studio                        2.41 kB         146 kB
+├ ○ /admin/tools                           16 kB         379 kB
+├ ○ /admin/vault                         2.44 kB         365 kB
+├ ƒ /analytics                           10.4 kB         252 kB
+├ ƒ /api/admin                             364 B         103 kB
+├ ƒ /api/admin/pulse                       364 B         103 kB
+├ ƒ /api/agents/literacy                   364 B         103 kB
+├ ƒ /api/agents/policy                     364 B         103 kB
+├ ƒ /api/agents/swarm                      364 B         103 kB
+├ ƒ /api/agents/wellness                   364 B         103 kB
+├ ƒ /api/ai/chat                           364 B         103 kB
+├ ƒ /api/ai/greet                          364 B         103 kB
+├ ƒ /api/auth/login                        364 B         103 kB
+├ ƒ /api/auth/logout                       364 B         103 kB
+├ ƒ /api/auth/me                           364 B         103 kB
+├ ƒ /api/auth/signup                       364 B         103 kB
+├ ƒ /api/avatar                            364 B         103 kB
+├ ƒ /api/captions                          364 B         103 kB
+├ ƒ /api/captions/ai-edit                  364 B         103 kB
+├ ƒ /api/captions/generate                 364 B         103 kB
+├ ƒ /api/chat                              364 B         103 kB
+├ ƒ /api/chat/gemini                       364 B         103 kB
+├ ƒ /api/checkout                          364 B         103 kB
+├ ƒ /api/checkout_sessions                 364 B         103 kB
+├ ƒ /api/classroom                         364 B         103 kB
+├ ƒ /api/create-topup-session              364 B         103 kB
+├ ƒ /api/cron/expire-trials                364 B         103 kB
+├ ƒ /api/deepgram/token                    364 B         103 kB
+├ ƒ /api/EdIntel-swarm                     364 B         103 kB
+├ ƒ /api/elevenlabs                        364 B         103 kB
+├ ƒ /api/email/shield                      364 B         103 kB
+├ ƒ /api/eq                                364 B         103 kB
+├ ƒ /api/gemini/import                     364 B         103 kB
+├ ƒ /api/gemini/upload                     364 B         103 kB
+├ ƒ /api/gemini/workflow                   364 B         103 kB
+├ ƒ /api/generate                          364 B         103 kB
+├ ƒ /api/generations                       364 B         103 kB
+├ ƒ /api/google/bigquery                   364 B         103 kB
+├ ƒ /api/google/nlp                        364 B         103 kB
+├ ƒ /api/google/stt                        364 B         103 kB
+├ ƒ /api/google/translate                  364 B         103 kB
+├ ƒ /api/google/tts                        364 B         103 kB
+├ ƒ /api/google/vision                     364 B         103 kB
+├ ƒ /api/health                            364 B         103 kB
+├ ƒ /api/heygen                            364 B         103 kB
+├ ƒ /api/heygen-token                      364 B         103 kB
+├ ƒ /api/heygen/generate-video             364 B         103 kB
+├ ƒ /api/heygen/streaming-token            364 B         103 kB
+├ ƒ /api/heygen/token                      364 B         103 kB
+├ ƒ /api/huggingface/image-analysis        364 B         103 kB
+├ ƒ /api/huggingface/image-generation      364 B         103 kB
+├ ƒ /api/huggingface/text-analysis         364 B         103 kB
+├ ƒ /api/huggingface/tts                   364 B         103 kB
+├ ƒ /api/iep                               364 B         103 kB
+├ ƒ /api/iep-stream                        364 B         103 kB
+├ ƒ /api/integrate/canvas                  364 B         103 kB
+├ ƒ /api/integrate/clever                  364 B         103 kB
+├ ƒ /api/integrate/google-docs             364 B         103 kB
+├ ƒ /api/integrate/powerschool             364 B         103 kB
+├ ƒ /api/invideo/create                    364 B         103 kB
+├ ƒ /api/literacy/process                  364 B         103 kB
+├ ƒ /api/logging/bigquery                  364 B         103 kB
+├ ƒ /api/media/manifest                    364 B         103 kB
+├ ƒ /api/meta-ai/chat                      364 B         103 kB
+├ ƒ /api/og                                364 B         103 kB
+├ ƒ /api/payments/create                   364 B         103 kB
+├ ƒ /api/payments/methods                  364 B         103 kB
+├ ƒ /api/payments/status                   364 B         103 kB
+├ ƒ /api/phone/incoming                    364 B         103 kB
+├ ƒ /api/phone/outbound                    364 B         103 kB
+├ ƒ /api/phone/process                     364 B         103 kB
+├ ƒ /api/reports/daily-edintel-loyalty     364 B         103 kB
+├ ƒ /api/setup                             364 B         103 kB
+├ ƒ /api/status                            364 B         103 kB
+├ ƒ /api/stripe/checkout                   364 B         103 kB
+├ ƒ /api/stripe/portal                     364 B         103 kB
+├ ƒ /api/stripe/webhook                    364 B         103 kB
+├ ƒ /api/system/health                     364 B         103 kB
+├ ƒ /api/tiffany/analyze-lesson            364 B         103 kB
+├ ƒ /api/tiffany/analyze-tone              364 B         103 kB
+├ ƒ /api/tiffany/audit                     364 B         103 kB
+├ ƒ /api/tiffany/burnout-shield            364 B         103 kB
+├ ƒ /api/tiffany/parent-update             364 B         103 kB
+├ ƒ /api/tiffany/portfolio/[studentId]     364 B         103 kB
+├ ƒ /api/tiffany/recidivism-check          364 B         103 kB
+├ ƒ /api/tiffany/restorative-reset         364 B         103 kB
+├ ƒ /api/tokens/balance                    364 B         103 kB
+├ ƒ /api/tokens/purchase                   364 B         103 kB
+├ ƒ /api/tokens/webhook                    364 B         103 kB
+├ ƒ /api/vault/upload                      364 B         103 kB
+├ ƒ /api/webhook                           364 B         103 kB
+├ ƒ /api/webhook/facebook                  364 B         103 kB
+├ ƒ /api/webhooks/crypto-payment           364 B         103 kB
+├ ƒ /api/webhooks/stripe                   364 B         103 kB
+├ ƒ /api/whatsapp/webhook                  364 B         103 kB
+├ ƒ /api/x-ai/chat                         364 B         103 kB
+├ ƒ /auth/callback                         364 B         103 kB
+├ ƒ /blog                                3.49 kB         156 kB
+├ ƒ /blog/[id]                           4.87 kB         116 kB
+├ ƒ /board                               8.95 kB         306 kB
+├ ƒ /board/memo                           131 kB         317 kB
+├ ƒ /cognitive                           11.2 kB         205 kB
+├ ƒ /components                          5.79 kB         153 kB
+├ ƒ /connectors                          2.96 kB         109 kB
+├ ƒ /connectors/canvas                     170 B         106 kB
+├ ƒ /connectors/powerschool                170 B         106 kB
+├ ƒ /consent                             5.39 kB         149 kB
+├ ƒ /contact                             7.93 kB         296 kB
+├ ○ /defense                             5.54 kB         149 kB
+├ ƒ /edintel-professional                  364 B         103 kB
+├ ○ /education                           8.59 kB         161 kB
+├ ○ /enterprise                            364 B         103 kB
+├ ○ /excursions                          6.09 kB         150 kB
+├ ƒ /features                             3.2 kB         150 kB
+├ ƒ /ferpa                               5.68 kB         289 kB
+├ ƒ /gallery                             4.39 kB         112 kB
+├ ƒ /gemini-workspace                    22.9 kB         168 kB
+├ ƒ /generators                            364 B         103 kB
+├ ƒ /generators/[id]                     16.2 kB         364 kB
+├ ○ /gym                                 6.76 kB         150 kB
+├ ○ /ledger                              5.36 kB         149 kB
+├ ƒ /login                               10.7 kB         365 kB
+├ ƒ /mission                             4.88 kB         291 kB
+├ ƒ /onboarding                          5.94 kB         152 kB
+├ ƒ /payment                             1.11 kB         198 kB
+├ ƒ /payment/cancel                      1.97 kB         149 kB
+├ ƒ /payment/success                       174 B         157 kB
+├ ƒ /phone                                  4 kB         148 kB
+├ ○ /pivot                               7.83 kB         302 kB
+├ ƒ /pricing                               157 B         350 kB
+├ ƒ /pricing/[tier]                        157 B         350 kB
+├ ƒ /privacy                             4.86 kB         291 kB
+├ ƒ /privacy/leadership-shield             364 B         103 kB
+├ ○ /professional                          364 B         103 kB
+├ ƒ /profile                             7.94 kB         203 kB
+├ ○ /publishing                             6 kB         150 kB
+├ ƒ /resources/alabama                   5.53 kB         289 kB
+├ ○ /roster                              7.53 kB         159 kB
+├ ○ /settings                            7.39 kB         170 kB
+├ ƒ /signup                                364 B         103 kB
+├ ○ /signup/success                        265 B         158 kB
+├ ○ /students                            2.14 kB         105 kB
+├ ○ /studio                              2.06 kB         146 kB
+├ ƒ /support                             5.04 kB         152 kB
+├ ƒ /support/article/[id]                3.64 kB         106 kB
+├ ƒ /support/educator                     4.8 kB         116 kB
+├ ƒ /support/getting-started             3.75 kB         110 kB
+├ ƒ /support/topic                       3.05 kB         105 kB
+├ ƒ /terms                               4.81 kB         291 kB
+├ ƒ /the-room                            12.8 kB         195 kB
+├ ○ /tiffany-ed                          95.2 kB         278 kB
+├ ○ /vault                               7.09 kB         202 kB
+└ ○ /wellness                            8.45 kB         169 kB
++ First Load JS shared by all             102 kB
+  ├ chunks/1255-1ff0f0eaaef27c27.js      45.5 kB
+  ├ chunks/4bd1b696-182b6b13bdad92e3.js  54.2 kB
+  └ other shared chunks (total)           2.6 kB
+
+
+ƒ Middleware                             86.8 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

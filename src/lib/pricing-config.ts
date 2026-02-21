@@ -7,10 +7,10 @@ export const EdIntel_TIERS = [
         icon: "Sparkles",
         color: "zinc",
         idealFor: "Observers & New Users",
-        features: ["Onboarding Protocol", "Basic Neural Access", "District Identity Sync", "14-Day Lead Capture"],
+        features: ["Onboarding Protocol", "Basic Neural Access", "District Identity Sync", "Limited Trial Access"],
         popular: false,
         badge: 'FREE',
-        trialDuration: '14 Days',
+        trialDuration: '0 Days',
         robust: false,
         tokenAllocation: 500
     },
@@ -27,7 +27,7 @@ export const EdIntel_TIERS = [
         robust: false
     },
     {
-        id: 'EdIntel-pack',
+        id: 'sovereign-pack',
         ...EDINTEL_TIERS["Sovereign Pack"],
         icon: "Crown",
         color: "amber",
@@ -79,7 +79,7 @@ export const EdIntel_TIERS = [
 ];
 
 export const PRICING_CONSTANTS = {
-    TRIAL_DAYS_INITIATE: 14,
+    TRIAL_DAYS_INITIATE: 0,
     TRIAL_DAYS_STANDARD: 30,
     CURRENCY: "USD",
     PROTOCOL_VERSION: "v5.4",

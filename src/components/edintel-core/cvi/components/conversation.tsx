@@ -24,11 +24,8 @@ export const Conversation = ({ conversationUrl: _conversationUrl, onLeave, style
 
     return (
         <div
-            className="relative w-full h-full bg-black overflow-hidden flex flex-col items-center justify-center border border-white/10"
-            style={{
-                ...style,
-                boxShadow: '0 0 50px rgba(0,0,0,0.5), inset 0 0 100px rgba(0,0,0,0.8)'
-            }}
+            className="relative w-full h-full bg-black overflow-hidden flex flex-col items-center justify-center border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5),_inset_0_0_100px_rgba(0,0,0,0.8)]"
+            style={style}
         >
             <AnimatePresence>
                 {status === 'initializing' && (

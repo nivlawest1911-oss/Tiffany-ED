@@ -17,6 +17,14 @@ export interface UnifiedProtocol {
     suggestedAction?: string;
     actionLabel?: string;
     abilityType?: 'strategy' | 'compliance' | 'analytics' | 'curriculum' | 'identity' | 'communication';
+    avatar?: string;
+    prompts?: string[];
+    heroVideo?: string;
+    heroImage?: string;
+    welcomeVideo?: string;
+    provider?: string;
+    link?: string;
+    href?: string;
 }
 
 // Map the separate arrays into a single unified registry
@@ -33,7 +41,8 @@ export const PROTOCOL_REGISTRY: UnifiedProtocol[] = [
         return {
             ...p,
             category: p.category || "Strategic",
-            link: `/generators/${p.id}`,
+            link: (p as any).link || `/generators/${p.id}`,
+            prompts: (p as any).prompts || [],
             ...sovereignData
         } as UnifiedProtocol;
     })
