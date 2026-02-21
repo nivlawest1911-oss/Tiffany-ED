@@ -1,0 +1,33 @@
+# Automatic code review assignment
+
+# Core authentication & security
+app/(auth)/ @team/auth-leads
+lib/auth.ts @team/auth-leads
+lib/stripe.ts @team/payments-lead
+
+# AI & Voice services
+lib/ai-service.ts @team/ai-leads
+lib/voice-service.ts @team/ai-leads
+app/api/ai/ @team/ai-leads
+
+# Database & infrastructure
+lib/supabase.ts @team/backend-leads
+app/api/ @team/backend-leads
+
+# UI & Frontend
+components/ @team/frontend-leads
+app/(dashboard)/ @team/frontend-leads
+
+# Admin & analytics
+app/(dashboard)/admin/ @team/admin-leads
+lib/media-service.ts @team/content-leads
+
+# Documentation
+*.md @team/tech-writers
+docs/ @team/tech-writers
+
+# Configuration
+.github/ @team/devops-leads
+vercel.json @team/devops-leads
+next.config.js @team/devops-leads
+package.json @team/devops-leads

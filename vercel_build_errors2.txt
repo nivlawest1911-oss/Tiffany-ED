@@ -1,0 +1,4 @@
+WARN! Build not running on Vercel. System environment variables will not be available.
+├ ○ /_not-found                            364 B         103 kB
+  "C:/Users/nivla/edintel-app/.next/server/app/_not-found/page.js",
+DONE 

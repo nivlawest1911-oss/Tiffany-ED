@@ -1,0 +1,28 @@
+﻿
+C:\Users\nivla\edintel-app\src\app\(dashboard)\conversation\enhanced\page.tsx
+  10:10  error  'mediaLibrary' is defined but never used  unused-imports/no-unused-imports
+
+C:\Users\nivla\edintel-app\src\app\global-error.tsx
+  35:25  error  Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+
+C:\Users\nivla\edintel-app\src\components\OnboardingFlow.tsx
+    6:18  error    'Brain' is defined but never used                                                                          unused-imports/no-unused-imports
+    6:38  error    'Check' is defined but never used                                                                          unused-imports/no-unused-imports
+   18:7   warning  'STYLES' is assigned a value but never used. Allowed unused vars must match /^_/u                          unused-imports/no-unused-vars
+   89:18  warning  'error' is defined but never used. Allowed unused caught errors must match /^(e|err|_.*)$/u                unused-imports/no-unused-vars
+  185:8   warning  React Hook useMemo has a missing dependency: 'nextStep'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Users\nivla\edintel-app\src\components\layout\GenerativeBackground.tsx
+  3:17  error  'useEffect' is defined but never used  unused-imports/no-unused-imports
+
+C:\Users\nivla\edintel-app\src\context\AuthContext.tsx
+   5:40  error    'useClerkAuth' is defined but never used                                              unused-imports/no-unused-imports
+  30:13  warning  'celebrate' is assigned a value but never used. Allowed unused vars must match /^_/u  unused-imports/no-unused-vars
+  63:31  warning  'data' is defined but never used. Allowed unused args must match /^_/u                unused-imports/no-unused-vars
+
+C:\Users\nivla\edintel-app\src\lib\animation-service.ts
+  1:10  error  'geminiService' is defined but never used  unused-imports/no-unused-imports
+
+Γ£û 12 problems (7 errors, 5 warnings)
+  6 errors and 0 warnings potentially fixable with the `--fix` option.
+

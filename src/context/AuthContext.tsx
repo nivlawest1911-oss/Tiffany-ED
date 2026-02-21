@@ -2,9 +2,8 @@
 
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useUser, useClerk, useAuth as useClerkAuth } from '@clerk/nextjs';
+import { useUser, useClerk } from '@clerk/nextjs';
 import { toast } from 'sonner';
-import { useCelebrate } from './CelebrationContext';
 import { ROUTES } from '@/lib/routes';
 
 interface User {
@@ -27,7 +26,6 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-    const { celebrate } = useCelebrate();
     const { user: clerkUser, isLoaded, isSignedIn } = useUser();
     const { signOut } = useClerk();
     const [user, setUser] = useState<User | null>(null);
@@ -60,7 +58,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
     };
 
-    const updateUser = async (data: Partial<User>) => {
+    const updateUser = async (_data: Partial<User>) => {
         // In Clerk, updates are usually done via clerkUser.update() or backend sync
         toast.info('Profile updates synced via Sovereign Auth');
     };

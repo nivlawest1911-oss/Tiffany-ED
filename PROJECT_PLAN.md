@@ -29,6 +29,10 @@ We are building a "Digital Prefrontal Cortex" for Special Education Directors, A
   * **Base UI**: `src/components/ui/` (Immutable, pure presentation).
   * **Features**: `src/components/features/` (Business logic, stateful assembly).
 * **Security**: "Sovereign Gatekeeper" via `useAccess` hook and Tier-based permissions.
+* **Performance Moat**:
+  * **Global Distribution**: Edge Runtime for mission-critical transformations.
+  * **Intelligent Revalidation**: Tag-based revalidation for high-fidelity data sync.
+  * **Streaming Architecture**: Partial Prerendering (PPR) for instant app-shell delivery.
 
 ## IV. Current Priority
 

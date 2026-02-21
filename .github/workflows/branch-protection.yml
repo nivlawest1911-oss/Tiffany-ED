@@ -1,0 +1,93 @@
+name: Configure Branch Protection
+
+on:
+  workflow_dispatch:
+
+jobs:
+  protect-branches:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Protect main branch
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.repos.updateBranchProtection({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              branch: 'main',
+              required_status_checks: {
+                strict: true,
+                contexts: [
+                  'test',
+                  'lint',
+                  'build',
+                  'security-scan',
+                  'type-check',
+                  'Vercel'
+                ]
+              },
+              enforce_admins: true,
+              required_pull_request_reviews: {
+                required_approving_review_count: 2,
+                require_code_owner_reviews: true,
+                dismiss_stale_reviews: true,
+                restrict_dismissals: false
+              },
+              restrictions: null,
+              required_linear_history: true,
+              allow_force_pushes: false,
+              allow_deletions: false
+            })
+
+      - name: Protect staging branch
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.repos.updateBranchProtection({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              branch: 'staging',
+              required_status_checks: {
+                strict: true,
+                contexts: [
+                  'test',
+                  'lint',
+                  'build',
+                  'Vercel'
+                ]
+              },
+              enforce_admins: true,
+              required_pull_request_reviews: {
+                required_approving_review_count: 1,
+                require_code_owner_reviews: true,
+                dismiss_stale_reviews: true
+              },
+              restrictions: null,
+              required_linear_history: false,
+              allow_force_pushes: false,
+              allow_deletions: false
+            })
+
+      - name: Protect develop branch
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.repos.updateBranchProtection({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              branch: 'develop',
+              required_status_checks: {
+                strict: true,
+                contexts: ['test', 'lint', 'build']
+              },
+              enforce_admins: false,
+              required_pull_request_reviews: {
+                required_approving_review_count: 1,
+                require_code_owner_reviews: false,
+                dismiss_stale_reviews: true
+              },
+              restrictions: null,
+              required_linear_history: false,
+              allow_force_pushes: false,
+              allow_deletions: false
+            })

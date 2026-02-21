@@ -18,7 +18,7 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ["var(--font-space-grotesk)", "sans-serif"],
+        sans: ["Inter", "var(--font-space-grotesk)", "sans-serif"],
         mono: ["var(--font-geist-mono)", "monospace"],
       },
       colors: {
@@ -27,25 +27,67 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        brand: {
-          light: '#eff6ff', // your blue-50
-          DEFAULT: '#2563eb', // your blue-600
-          dark: '#1e40af', // your blue-800
-        },
-        "intel-gold": "#C5A47E",
-        "sovereign-black": "#050505",
-        "noble-navy": "#0A0E1A",
-        "glass-border": "rgba(255, 255, 255, 0.1)",
         primary: {
+          50: '#eef2ff',
+          100: '#e0e7ff',
+          200: '#c7d2fe',
+          300: '#a5b4fc',
+          400: '#818cf8',
+          500: '#6366f1', // Main Blue
+          600: '#4f46e5',
+          700: '#4338ca',
+          800: '#3730a3',
+          900: '#312e81',
+          950: '#1e1b4b',
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
           dark: "hsl(var(--primary-dark))",
           light: "hsl(var(--primary-light))",
         },
         secondary: {
+          50: '#f5f3ff',
+          100: '#ede9fe',
+          200: '#ddd6fe',
+          300: '#c4b5fd',
+          400: '#a78bfa',
+          500: '#8b5cf6', // Main Purple
+          600: '#7c3aed',
+          700: '#6d28d9',
+          800: '#5b21b6',
+          900: '#4c1d95',
+          950: '#2d1869',
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
         },
+        accent: {
+          green: '#10b981', // For success/positive
+          red: '#ef4444', // For errors/warnings
+          yellow: '#f59e0b', // For highlights
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        gray: {
+          50: '#f9fafb',
+          100: '#f3f4f6',
+          200: '#e5e7eb',
+          300: '#d1d5db',
+          400: '#9ca3af',
+          500: '#6b7280',
+          600: '#4b5563',
+          700: '#374151',
+          800: '#1f2937',
+          900: '#111827',
+          950: '#030712',
+        },
+        brand: {
+          light: '#eff6ff',
+          DEFAULT: '#2563eb',
+          dark: '#1e40af',
+        },
+        "intel-gold": "#C5A47E",
+        "sovereign-black": "#050505",
+        "noble-navy": "#0A0E1A",
+        "glass-border": "rgba(255, 255, 255, 0.1)",
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
@@ -53,10 +95,6 @@ const config = {
         muted: {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
@@ -81,9 +119,14 @@ const config = {
           black: "#000000",
           orange: "#FF8C00",
         },
-        "electric-cyan": "#00F5FF",
-        "sovereign-gold": "#D4AF37",
+        "electric-cyan": "#00B0FF",
+        "sovereign-gold": "#FFB300",
         "white-smoke": "#F5F5F5",
+      },
+      boxShadow: {
+        soft: '0 4px 12px rgba(0, 0, 0, 0.08)',
+        medium: '0 8px 24px rgba(0, 0, 0, 0.12)',
+        hard: '0 12px 36px rgba(0, 0, 0, 0.16)',
       },
       backgroundImage: {
         'grid': "radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.05) 1px, transparent 0)",
@@ -135,6 +178,10 @@ const config = {
             transform: 'scale(1.02)'
           },
         },
+        "gradient-shift": {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -145,6 +192,7 @@ const config = {
         shimmer: "shimmer 5s linear infinite",
         "glow-pulse": "glow-pulse 3s ease-in-out infinite",
         "gold-glow": "sovereign-pulse 3s ease-in-out infinite",
+        "gradient-shift": "gradient-shift 8s ease infinite",
       },
     },
   },

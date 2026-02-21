@@ -54,13 +54,7 @@
     }
 
     body {
-        background-color: #F5F5F5;
-        color: #1A202C;
-        font-family: var(--font-sans);
-        font-feature-settings: "rlig" 1, "calt" 1, "cv01" 1, "ss01" 1;
-        background-image: none;
-        background-repeat: repeat;
-        background-attachment: fixed;
+        @apply font-sans antialiased text-gray-700 bg-gray-50;
         line-height: 1.6;
     }
 
@@ -70,21 +64,69 @@
     h4,
     h5,
     h6 {
-        font-family: var(--font-heading);
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
+        @apply font-bold text-gray-900;
         line-height: 1.1;
     }
 
-    button {
-        font-family: var(--font-heading);
-        font-weight: 700;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
+    h1 {
+        @apply text-4xl lg:text-5xl;
+    }
+
+    h2 {
+        @apply text-3xl lg:text-4xl;
+    }
+
+    h3 {
+        @apply text-2xl lg:text-3xl;
     }
 
     p {
-        margin-bottom: 1rem;
+        @apply leading-relaxed mb-4;
+    }
+
+    a {
+        @apply text-[#4f46e5] hover:text-[#4338ca] transition-colors duration-200;
+    }
+
+    button {
+        @apply focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500;
+    }
+}
+
+@layer components {
+    .btn-primary {
+        @apply bg-[#00B0FF] text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-[#0090D0] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden ring-1 ring-[#00B0FF]/50;
+    }
+
+    .btn-primary::after {
+        content: '';
+        @apply absolute top-0 -left-full w-[200%] h-full bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none;
+        transform: skewX(-15deg);
+        animation: shimmer 3s infinite;
+    }
+
+    .btn-secondary {
+        @apply bg-transparent border-2 border-indigo-300 text-indigo-700 font-semibold py-3 px-6 rounded-lg hover:bg-indigo-50 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+
+    .btn-accent {
+        @apply bg-emerald-500 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-green-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+
+    .btn-danger {
+        @apply bg-red-500 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-red-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+
+    .card {
+        @apply bg-white rounded-xl shadow-md p-6 transition-shadow duration-200 hover:shadow-lg;
+    }
+
+    .input-field {
+        @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-white;
+    }
+
+    .glassmorphism {
+        @apply bg-white/10 backdrop-blur-lg border border-white/20;
     }
 }
 

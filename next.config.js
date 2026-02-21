@@ -17,6 +17,9 @@ const nextConfig = {
         ],
     },
     experimental: {
+        // PPR requires Next.js canary for the experimental flag. 
+        // Architecture is ready (Suspense boundaries implemented).
+        ppr: false,
         serverActions: {
             bodySizeLimit: '10mb',
         },

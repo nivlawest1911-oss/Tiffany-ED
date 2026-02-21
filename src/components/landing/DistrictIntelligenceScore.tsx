@@ -14,9 +14,9 @@ const DOMAINS = [
 
 export default function DistrictIntelligenceScore() {
     return (
-        <div className="glass-panel p-6 rounded-2xl border border-white/10 bg-black/20">
+        <div className="flex flex-col h-full bg-transparent w-full">
             <h3 className="text-xl font-black text-white mb-6 flex items-center gap-3 uppercase tracking-tighter italic">
-                <span className="w-2 h-6 bg-noble-gold rounded-full shadow-[0_0_10px_rgba(212,175,55,0.5)]" />
+                <span className="w-2 h-6 bg-primary-500 rounded-full shadow-[0_0_10px_rgba(99,102,241,0.5)]" />
                 Intelligence Matrix
             </h3>
 
@@ -29,28 +29,28 @@ export default function DistrictIntelligenceScore() {
                         transition={{ delay: i * 0.1 }}
                     >
                         <div className="flex justify-between items-end mb-2">
-                            <div className="flex items-center gap-2 text-sm text-slate-300">
-                                <domain.icon size={16} className="text-slate-500" />
+                            <div className="flex items-center gap-2 text-sm text-white/50 font-medium tracking-tight">
+                                <domain.icon size={16} className="text-white/40" />
                                 {domain.name}
                             </div>
                             <span className="text-sm font-bold text-white">{domain.score}%</span>
                         </div>
-                        <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
+                        <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden">
                             <motion.div
                                 initial={{ width: 0 }}
                                 whileInView={{ width: `${domain.score}%` }}
                                 transition={{ duration: 1, delay: 0.5 + (i * 0.1) }}
-                                className={`h-full ${domain.color} shadow-[0_0_10px_rgba(255,255,255,0.3)]`}
+                                className={`h-full ${domain.color} shadow-[0_0_15px_rgba(255,255,255,0.2)] rounded-full`}
                             />
                         </div>
                     </motion.div>
                 ))}
             </div>
 
-            <div className="mt-8 pt-6 border-t border-white/10">
-                <div className="flex justify-between items-center text-xs text-slate-500">
+            <div className="mt-8 pt-6 border-t border-white/5">
+                <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-white/40">
                     <span>Overall Efficiency</span>
-                    <span className="text-emerald-400 font-bold">+14.2% This Week</span>
+                    <span className="text-emerald-400 font-bold bg-emerald-500/10 px-2 py-1 rounded shadow-sm shadow-emerald-500/10">+14.2% This Week</span>
                 </div>
             </div>
         </div>

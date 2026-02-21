@@ -14,17 +14,17 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import Image from "next/image"
 
 import { useRouter } from "next/navigation"
 
 import { useEdIntelVibe } from '@/context/EdIntelVibeContext';
 import EdIntelCommandDeck from '@/components/dashboard/EdIntelCommandDeck';
-import { AuroraBackground } from '@/components/dashboard/aurora-background';
 import { TacticalHeaderBar } from '@/components/layout/TacticalHeaderBar';
 import useProfessionalSounds from "@/hooks/useProfessionalSounds";
 import { TrialBanner } from '@/components/layout/TrialBanner';
+import GlassPanel from "@/components/ui/GlassPanel";
+import SovereignButton from "@/components/ui/SovereignButton";
 
 import { AideProvider } from '@/context/AideMessagingContext';
 
@@ -57,8 +57,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
     return (
         <AideProvider>
-            <div className="flex h-screen bg-[#020617] text-slate-200 overflow-hidden font-sans relative">
-                <AuroraBackground />
+            <div className="flex h-screen text-slate-200 overflow-hidden font-sans relative">
+                {/* GenerativeBackground is already in root layout */}
 
                 {/* COMMAND CONSOLE OVERLAY */}
                 <AnimatePresence>
@@ -88,43 +88,43 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     <TacticalHeaderBar />
 
                     {/* Top Header */}
-                    <header className="h-16 border-b border-white/5 bg-black/20 backdrop-blur-md flex items-center justify-between px-8 z-10 shrink-0">
-                        <div className="flex items-center gap-8 flex-1">
+                    <header className="h-16 flex items-center justify-between px-8 z-20 shrink-0">
+                        <GlassPanel className="absolute inset-x-0 top-0 h-16 rounded-none border-t-0 border-x-0 bg-white/[0.02]" />
+
+                        <div className="flex items-center gap-8 flex-1 relative z-10">
                             <div className="relative max-w-md w-full group cursor-pointer" onClick={toggleCommandConsole}>
-                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/20 group-focus-within:text-[#06b6d4] transition-colors" />
-                                <Input
-                                    readOnly
-                                    placeholder="Search tools, agents, or assets... (⌘K)"
-                                    className="w-full bg-white/5 border-white/10 pl-10 h-9 text-xs focus:ring-[#06b6d4]/20 focus:border-[#06b6d4]/50 transition-all placeholder:text-white/10 cursor-pointer pointer-events-none"
-                                />
-                                <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
-                                    <kbd className="hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border border-white/10 bg-white/5 px-1.5 font-mono text-[10px] font-medium text-white/20 opacity-100">
-                                        <span className="text-xs">⌘</span>K
-                                    </kbd>
+                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/20 group-hover:text-primary-400 transition-colors" />
+                                <div className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-12 h-9 flex items-center text-xs text-white/30 group-hover:bg-white/10 group-hover:border-white/20 transition-all">
+                                    Search tools, agents, or assets...
+                                    <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
+                                        <kbd className="hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border border-white/10 bg-white/5 px-1.5 font-mono text-[10px] font-medium text-white/20 opacity-100">
+                                            <span className="text-xs">⌘</span>K
+                                        </kbd>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-4">
-                            <div className="flex items-center gap-1 bg-white/5 rounded-full p-1 border border-white/10">
-                                <Button
-                                    variant="ghost"
-                                    size="icon"
+                        <div className="flex items-center gap-4 relative z-10">
+                            <div className="flex items-center gap-2">
+                                <SovereignButton
+                                    variant="glass"
+                                    size="sm"
                                     onMouseEnter={playHover}
                                     onClick={() => { playClick(); router.push('/activity'); }}
-                                    className="h-8 w-8 rounded-full text-white/40 hover:text-white hover:bg-white/10"
+                                    className="h-9 w-9 p-0 rounded-xl"
                                 >
                                     <Bell className="h-4 w-4" />
-                                </Button>
-                                <Button
-                                    variant="ghost"
-                                    size="icon"
+                                </SovereignButton>
+                                <SovereignButton
+                                    variant="glass"
+                                    size="sm"
                                     onMouseEnter={playHover}
                                     onClick={() => { playClick(); router.push('/all-tools'); }}
-                                    className="h-8 w-8 rounded-full text-white/40 hover:text-white hover:bg-white/10"
+                                    className="h-9 w-9 p-0 rounded-xl"
                                 >
                                     <Grid className="h-4 w-4" />
-                                </Button>
+                                </SovereignButton>
                             </div>
 
                             <div className="h-8 w-px bg-white/10 mx-2" />
@@ -180,7 +180,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                 className="p-8 pb-20"
                             >
                                 <div className="max-w-[1600px] mx-auto">
-                                    {children}
+                                    <React.Suspense fallback={
+                                        <div className="flex items-center justify-center h-[50vh]">
+                                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-500"></div>
+                                        </div>
+                                    }>
+                                        {children}
+                                    </React.Suspense>
                                 </div>
                             </motion.div>
                         </AnimatePresence>

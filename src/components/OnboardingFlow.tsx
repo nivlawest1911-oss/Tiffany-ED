@@ -1,31 +1,39 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { Shield, Brain, Target, Zap, Check, Cpu } from 'lucide-react';
+import { Shield, Target, Zap, Cpu, GraduationCap, Building2, HeartPulse, UserCircle } from 'lucide-react';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 import { useCelebrate } from '@/context/CelebrationContext';
+import { toast } from 'sonner';
 
-const STYLES = [
-    { name: 'Visionary', desc: 'Focus on future-proof growth and cultural transformation.' },
-    { name: 'Strategic', desc: 'Prioritize data-driven efficiency and resource optimization.' },
-    { name: 'Decisive', desc: 'High-speed execution and administrative authority.' },
-    { name: 'Collaborative', desc: 'Building consensus and human-centric ecosystems.' },
-    { name: 'Stoic', desc: 'Resilient leadership through policy and disciplined compliance.' }
+const ROLES = [
+    { id: 'TEACHER', label: 'Educator', icon: GraduationCap, bio: 'Teaching & Instruction' },
+    { id: 'ADMIN', label: 'Administrator', icon: Building2, bio: 'Leadership & Policy' },
+    { id: 'COUNSELOR', label: 'Counselor', icon: HeartPulse, bio: 'Student Support & Wellness' },
+    { id: 'STUDENT', label: 'Student', icon: UserCircle, bio: 'Academic Growth' }
 ];
 
-const LEADERSHIP_GOALS = [
-    { id: 'time', label: 'Reclaiming Administrative Time', sub: 'Automating heavy workflows' },
-    { id: 'gaps', label: 'Closing Achievement Gaps', sub: 'Data-driven student success modeling' },
-    { id: 'policy', label: 'Policy Protection & Compliance', sub: 'Legislative support' },
-    { id: 'tech', label: 'Strategic AI Integration', sub: 'Full spectrum system evolution' }
+const LEADER_GOALS = [
+    { id: 'time', label: 'Time Optimization', sub: 'Automating heavy workflows' },
+    { id: 'gaps', label: 'Closing Achievement Gaps', sub: 'Data-driven success modeling' },
+    { id: 'policy', label: 'Compliance & Safety', sub: 'Institutional protection' },
+    { id: 'tech', label: 'AI Integration', sub: 'Strategic platform evolution' }
+];
+
+const TEACHER_GOALS = [
+    { id: 'lesson', label: 'Lesson Preparation', sub: 'Generating high-fidelity materials' },
+    { id: 'grading', label: 'Efficiency in Grading', sub: 'Personalized student feedback' },
+    { id: 'wellness', label: 'Classroom Wellness', sub: 'Behavioral support & empathy' },
+    { id: 'differentiation', label: 'IEP/Differentiation', sub: 'Tailoring instruction' }
 ];
 
 export default function OnboardingFlow({ onCompleteAction }: { onCompleteAction?: () => void }) {
     const { celebrate } = useCelebrate();
     const [step, setStep] = useState(0);
     const [formData, setFormData] = useState({
+        role: '',
         districtName: '',
         objective: '',
         leadershipStyle: 'Visionary'
@@ -34,73 +42,105 @@ export default function OnboardingFlow({ onCompleteAction }: { onCompleteAction?
     const router = useRouter();
     const { playClick } = useProfessionalSounds();
 
-    const nextStep = (e?: React.MouseEvent) => {
+    const nextStep = useCallback((e?: React.MouseEvent) => {
         if (e) e.preventDefault();
         try { playClick(); } catch (err) { }
         setStep(prev => Math.min(prev + 1, 3));
-    };
+    }, [playClick]);
 
-    const finishOnboarding = (e?: React.MouseEvent) => {
+    const finishOnboarding = async (e?: React.MouseEvent) => {
         if (e) e.preventDefault();
         setIsFinishing(true);
         try { playClick(); } catch (err) { }
 
-        celebrate(
-            'Executive Authorization Complete',
-            'Your EdIntel ID has been minted. Full system access granted.',
-            'achievement'
-        );
+        try {
+            const response = await fetch('/api/auth/set-role', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    role: formData.role,
+                    districtName: formData.districtName,
+                    position: formData.role === 'TEACHER' ? 'Educator' : formData.role
+                })
+            });
 
-        const identity = {
-            ...formData,
-            rank: 'REGIONAL LEADER',
-            status: 'PROFESSIONAL',
-            xp: 2500,
-            joinedDate: new Date().toLocaleDateString()
-        };
-        localStorage.setItem('professional_identity', JSON.stringify(identity));
-        localStorage.setItem('onboarding_complete', 'true');
+            if (!response.ok) throw new Error('Persistence failed');
 
-        setTimeout(() => {
-            if (onCompleteAction) onCompleteAction();
-            router.push('/dashboard');
-        }, 3000);
+            celebrate(
+                'Identity Authorization Complete',
+                'Your EdIntel ID has been minted. Full system access granted.',
+                'achievement'
+            );
+
+            localStorage.setItem('onboarding_complete', 'true');
+
+            setTimeout(() => {
+                if (onCompleteAction) onCompleteAction();
+                router.push('/dashboard');
+            }, 3000);
+        } catch (err) {
+            setIsFinishing(false);
+            toast.error('Onboarding Interrupted', { description: 'The EdIntel handshake failed. Please retry.' });
+        }
     };
 
     const steps = useMemo(() => [
         {
-            title: "WELCOME",
-            subtitle: "Executive Identity Sync",
-            icon: Shield,
+            title: "IDENTITY",
+            subtitle: "Professional Role Selection",
+            icon: UserCircle,
             content: (
-                <div className="space-y-6">
-                    <p className="text-zinc-400 text-sm leading-relaxed border-l-2 border-intel-gold pl-4 py-1 italic">
-                        "Welcome to the EdIntel OS. Define your institutional presence to begin."
-                    </p>
-                    <div className="relative group/input">
-                        <div className="absolute -inset-1 bg-gradient-to-r from-intel-gold/20 to-amber-500/20 rounded-xl blur opacity-0 group-hover/input:opacity-100 transition-opacity" />
-                        <input
-                            type="text"
-                            placeholder="INPUT DISTRICT NAME OR LEAD ID..."
-                            value={formData.districtName}
-                            onChange={(e) => setFormData(prev => ({ ...prev, districtName: e.target.value }))}
-                            className="relative w-full bg-black border border-white/10 rounded-xl p-5 text-white text-sm font-black uppercase tracking-[0.2em] focus:border-intel-gold outline-none transition-all placeholder:text-zinc-700 z-10"
-                        />
-                    </div>
+                <div className="grid grid-cols-2 gap-3">
+                    {ROLES.map((role) => (
+                        <button
+                            key={role.id}
+                            onClick={() => {
+                                setFormData(prev => ({ ...prev, role: role.id }));
+                                nextStep();
+                            }}
+                            className={`p-4 rounded-3xl border flex flex-col items-center gap-2 transition-all ${formData.role === role.id ? 'bg-intel-gold border-intel-gold text-black' : 'bg-white/5 border-white/5 hover:border-white/10'}`}
+                        >
+                            <role.icon size={24} />
+                            <div className="text-[10px] font-black uppercase tracking-widest">{role.label}</div>
+                            <div className="text-[8px] opacity-60 font-mono uppercase">{role.bio}</div>
+                        </button>
+                    ))}
                 </div>
             )
         },
         {
-            title: "PRIORITY GOALS",
-            subtitle: "Strategic Focus Calibration",
+            title: "CONTEXT",
+            subtitle: "Institutional Alignment",
+            icon: Shield,
+            content: (
+                <div className="space-y-6">
+                    <p className="text-zinc-400 text-[10px] uppercase tracking-widest border-l-2 border-intel-gold pl-4 py-1 italic">
+                        {formData.role === 'STUDENT' ? "Input your school or site name." : "Provide your district name for strategic mapping."}
+                    </p>
+                    <input
+                        type="text"
+                        placeholder="INPUT NAME..."
+                        value={formData.districtName}
+                        onChange={(e) => setFormData(prev => ({ ...prev, districtName: e.target.value }))}
+                        className="w-full bg-black border border-white/10 rounded-2xl p-5 text-white text-sm font-black uppercase tracking-[0.2em] focus:border-intel-gold outline-none transition-all placeholder:text-zinc-700"
+                    />
+                </div>
+            )
+        },
+        {
+            title: "OBJECTIVE",
+            subtitle: "Performance Calibration",
             icon: Target,
             content: (
                 <div className="space-y-4">
                     <div className="grid grid-cols-1 gap-3">
-                        {LEADERSHIP_GOALS.map((obj) => (
+                        {(formData.role === 'TEACHER' ? TEACHER_GOALS : LEADER_GOALS).map((obj) => (
                             <button
                                 key={obj.id}
-                                onClick={() => setFormData(prev => ({ ...prev, objective: obj.label }))}
+                                onClick={() => {
+                                    setFormData(prev => ({ ...prev, objective: obj.label }));
+                                    nextStep();
+                                }}
                                 className={`p-4 rounded-2xl border text-left transition-all ${formData.objective === obj.label ? 'bg-intel-gold/20 border-intel-gold' : 'bg-white/5 border-white/5 hover:border-white/10'}`}
                             >
                                 <div className="text-[10px] font-black uppercase tracking-widest mb-1">{obj.label}</div>
@@ -112,46 +152,29 @@ export default function OnboardingFlow({ onCompleteAction }: { onCompleteAction?
             )
         },
         {
-            title: "ARCHETYPE",
-            subtitle: "Synthesis Filter Selection",
-            icon: Brain,
-            content: (
-                <div className="grid grid-cols-1 gap-3">
-                    {STYLES.map((style) => (
-                        <button
-                            key={style.name}
-                            onClick={() => setFormData(prev => ({ ...prev, leadershipStyle: style.name }))}
-                            className={`p-4 rounded-xl border transition-all text-left ${formData.leadershipStyle === style.name ? 'bg-intel-gold text-black border-intel-gold' : 'bg-transparent border-white/10 text-zinc-500'}`}
-                        >
-                            <span className="text-[10px] font-black uppercase tracking-widest">{style.name}</span>
-                            <p className="text-[9px] leading-relaxed mt-1 opacity-70">{style.desc}</p>
-                        </button>
-                    ))}
-                </div>
-            )
-        },
-        {
-            title: "DEPLOYMENT",
-            subtitle: "EdIntel Link Stable",
+            title: "DEPLOY",
+            subtitle: "System Handshake Stable",
             icon: Zap,
             content: (
                 <div className="space-y-8 text-center pt-4">
-                    <div className="relative w-24 h-24 mx-auto animate-pulse">
-                        <div className="absolute inset-0 rounded-full border-2 border-intel-gold/30" />
-                        <div className="absolute inset-2 rounded-full bg-intel-gold/10 flex items-center justify-center text-intel-gold">
-                            <Check size={40} />
-                        </div>
-                    </div>
-                    <div className="p-6 rounded-3xl bg-black border border-white/10 text-left">
+                    <div className="p-6 rounded-3xl bg-black border border-white/10 text-left space-y-3">
                         <div className="flex justify-between items-end border-b border-white/5 pb-2">
-                            <span className="text-[8px] font-mono text-zinc-500 uppercase">Entity</span>
+                            <span className="text-[8px] font-mono text-zinc-500 uppercase">PROFESSION</span>
+                            <span className="text-[10px] font-black uppercase text-white">{formData.role}</span>
+                        </div>
+                        <div className="flex justify-between items-end border-b border-white/5 pb-2">
+                            <span className="text-[8px] font-mono text-zinc-500 uppercase">SITE/DISTRICT</span>
                             <span className="text-[10px] font-black uppercase text-white">{formData.districtName}</span>
+                        </div>
+                        <div className="flex justify-between items-end border-b border-white/5 pb-2">
+                            <span className="text-[8px] font-mono text-zinc-500 uppercase">MISSION</span>
+                            <span className="text-[10px] font-black uppercase text-intel-gold">{formData.objective}</span>
                         </div>
                     </div>
                 </div>
             )
         }
-    ], [formData]);
+    ], [formData, nextStep]);
 
     return (
         <div className="fixed inset-0 z-[1000] bg-[#050505] text-white flex flex-col items-center justify-center p-6">
@@ -183,7 +206,7 @@ export default function OnboardingFlow({ onCompleteAction }: { onCompleteAction?
                                     ))}
                                 </div>
                                 {step < 3 ? (
-                                    <button onClick={nextStep} disabled={step === 0 && !formData.districtName} className="px-10 py-5 rounded-[2rem] bg-intel-gold text-black font-black text-[10px] uppercase tracking-[0.2em] hover:scale-105 transition-all disabled:opacity-20">NEXT STEP</button>
+                                    <button onClick={nextStep} disabled={(step === 1 && !formData.districtName)} className="px-10 py-5 rounded-[2rem] bg-white/10 text-white font-black text-[10px] uppercase tracking-[0.2em] hover:bg-intel-gold hover:text-black transition-all disabled:opacity-20">BACKDOOR SKIP</button>
                                 ) : (
                                     <button onClick={finishOnboarding} className="px-10 py-5 rounded-[2rem] bg-white text-black font-black text-[10px] uppercase tracking-[0.2em] hover:bg-intel-gold transition-all">LAUNCH SYSTEM</button>
                                 )}

@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { unstable_cache } from 'next/cache';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -12,23 +13,27 @@ export const supabase = (supabaseUrl && supabaseAnonKey)
  * EdIntel Data Uplink: Fetches high-fidelity media manifest from Supabase.
  * Replaces static JSON definitions with real-time district data.
  */
-export async function fetchMediaManifest() {
-    if (!supabase) {
-        console.warn('[EDINTEL_SAFE_UPLINK] Supabase offline. Media manifest unavailable.');
-        return [];
-    }
-    const { data, error } = await supabase
-        .from('media_manifest')
-        .select('*')
-        .order('created_at', { ascending: false });
+export const fetchMediaManifest = unstable_cache(
+    async () => {
+        if (!supabase) {
+            console.warn('[EDINTEL_SAFE_UPLINK] Supabase offline. Media manifest unavailable.');
+            return [];
+        }
+        const { data, error } = await supabase
+            .from('media_manifest')
+            .select('*')
+            .order('created_at', { ascending: false });
 
-    if (error) {
-        console.error('[SUPABASE_ERROR] Failed to harvest media manifest:', error);
-        return [];
-    }
+        if (error) {
+            console.error('[SUPABASE_ERROR] Failed to harvest media manifest:', error);
+            return [];
+        }
 
-    return data;
-}
+        return data;
+    },
+    ['media_manifest'],
+    { tags: ['media'] }
+);
 
 /**
  * Strategic Sync: Stores generated IEP documents in the EdIntel Vault.

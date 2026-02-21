@@ -1,0 +1,41 @@
+name: Deployment Notifications
+
+on:
+  workflow_run:
+    workflows: ["Hardened CI/CD Pipeline", "Staging Deployment"]
+    types: [completed]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Determine status
+        id: status
+        run: |
+          if [ "${{ github.event.workflow_run.conclusion }}" == "success" ]; then
+            echo "status=✅ SUCCESS"
+            echo "color=good"
+          else
+            echo "status=❌ FAILED"
+            echo "color=danger"
+          fi
+
+      - name: Notify Slack
+        uses: slackapi/slack-github-action@v1
+        with:
+          payload: |
+            {
+              "text": "${{ steps.status.outputs.status }}",
+              "attachments": [
+                {
+                  "color": "${{ steps.status.outputs.color }}",
+                  "title": "Deployment: ${{ github.event.workflow_run.name }}",
+                  "title_link": "${{ github.event.workflow_run.html_url }}",
+                  "text": "Branch: ${{ github.event.workflow_run.head_branch }}\nResult: ${{ steps.status.outputs.status }}",
+                  "footer": "GitHub Actions"
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

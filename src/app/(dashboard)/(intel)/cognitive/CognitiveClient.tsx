@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useTransition } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     Zap,
@@ -11,21 +11,61 @@ import {
     Lock,
     Cpu,
     Sparkles,
-    Terminal
+    Terminal,
+    RefreshCw
 } from 'lucide-react';
 import LeadershipGym from '@/components/bento/LeadershipGym';
 import { useLeadershipRank } from '@/hooks/useLeadershipRank';
 import { SmartHover } from '@/components/ui/SmartHover';
+import { syncCalibrationAction } from './actions';
+import { toast } from 'sonner';
 
-export default function CognitiveClient() {
-    // const [user, setUser] = useState<any>({ uid: 'SIMULATED-LEADERSHIP-CENTER', displayName: 'Executive Director' });
+interface CognitiveClientProps {
+    initialStats: {
+        velocity: number[];
+        latency: number[];
+        baseline: number;
+    }
+}
+
+export default function CognitiveClient({ initialStats }: CognitiveClientProps) {
     const [activeTab, setActiveTab] = useState<'simulator' | 'analytics' | 'certification'>('simulator');
-
+    const [isPending, startTransition] = useTransition();
     const { addXP, xp, currentRank, progressToNext } = useLeadershipRank();
 
-    useEffect(() => {
-        // Simulated Auth Check
-    }, []);
+    // Edge Telemetry Orchestration
+    const syncToEdge = async (type: string, value: number) => {
+        try {
+            const response = await fetch('/api/intel/sync', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    type,
+                    value,
+                    timestamp: new Date().toISOString()
+                })
+            });
+            const data = await response.json();
+            console.log('[EdgeSync] Success:', data);
+        } catch (error) {
+            console.error('[EdgeSync] Failed:', error);
+        }
+    };
+
+    const handleXPAction = (amount: number) => {
+        addXP(amount);
+
+        // Orchestrate high-performance sync
+        startTransition(async () => {
+            // 1. Mission-critical Server Action (Data Integrity)
+            await syncCalibrationAction({ xp: amount, type: 'calibration' });
+
+            // 2. Global Edge Sync (Low Latency Telemetry)
+            await syncToEdge('xp_gain', amount);
+
+            toast.success(`Calibration Synced: +${amount} XP`);
+        });
+    };
 
     return (
         <main className="content-stage">
@@ -44,8 +84,14 @@ export default function CognitiveClient() {
                 <div className="flex flex-col md:flex-row items-end justify-between gap-8 mb-16">
                     <div className="space-y-4">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">
-                            <Terminal size={12} className="text-cyan-400" />
-                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400">Center Sync Active // v4.2.0</span>
+                            {isPending ? (
+                                <RefreshCw size={12} className="text-cyan-400 animate-spin" />
+                            ) : (
+                                <Terminal size={12} className="text-cyan-400" />
+                            )}
+                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400">
+                                {isPending ? 'Syncing Neural Pathways...' : 'Center Sync Active // v4.2.0'}
+                            </span>
                         </div>
                         <SmartHover message="Cognitive Command: Calibrate your baseline, expand working memory, and protect against burnout in the Strategic Command Center.">
                             <h1 className="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none">
@@ -88,7 +134,7 @@ export default function CognitiveClient() {
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -20 }}
                                 >
-                                    <LeadershipGym onXPAction={addXP} />
+                                    <LeadershipGym onXPAction={handleXPAction} />
                                 </motion.div>
                             )}
 
@@ -110,7 +156,7 @@ export default function CognitiveClient() {
                                         <div className="p-6 rounded-3xl bg-black/40 border border-zinc-800">
                                             <p className="text-[10px] font-black uppercase text-zinc-500 mb-4">Memory Index Progression</p>
                                             <div className="h-40 flex items-end gap-2 group cursor-pointer">
-                                                {([30, 45, 38, 52, 65, 58, 72] as number[]).map((v, i) => {
+                                                {initialStats.velocity.map((v, i) => {
                                                     const barStyle = { "--bar-h": `${v}%` } as React.CSSProperties;
                                                     return (
                                                         <div key={i} className="bar-fill flex-1 bg-cyan-500/20 rounded-t-lg transition-all hover:bg-cyan-500" style={barStyle} />
@@ -122,7 +168,7 @@ export default function CognitiveClient() {
                                         <div className="p-6 rounded-3xl bg-black/40 border border-zinc-800">
                                             <p className="text-[10px] font-black uppercase text-zinc-500 mb-4">Reaction Latency (ms)</p>
                                             <div className="h-40 flex items-end gap-2 group cursor-pointer">
-                                                {([70, 62, 75, 55, 48, 50, 42] as number[]).map((v, i) => {
+                                                {initialStats.latency.map((v, i) => {
                                                     const barStyle = { "--bar-h": `${v}%` } as React.CSSProperties;
                                                     return (
                                                         <div key={i} className="bar-fill flex-1 bg-purple-500/20 rounded-t-lg transition-all hover:bg-purple-500" style={barStyle} />
@@ -135,7 +181,7 @@ export default function CognitiveClient() {
                                     <div className="mt-8 p-6 rounded-3xl bg-cyan-600/5 border border-cyan-500/10 flex items-center justify-between">
                                         <div className="flex items-center gap-4">
                                             <Activity className="text-cyan-500" size={20} />
-                                            <p className="text-sm font-medium text-zinc-400">Your cognitive baseline is <span className="text-white font-bold">18% above</span> the district average.</p>
+                                            <p className="text-sm font-medium text-zinc-400">Your cognitive baseline is <span className="text-white font-bold">{initialStats.baseline}% above</span> the district average.</p>
                                         </div>
                                         <button className="text-xs font-black uppercase text-cyan-500 hover:text-cyan-400">View Full Nexus Audit</button>
                                     </div>

@@ -1,9 +1,10 @@
 'use client';
 
 import React from 'react';
-import { Shield, Cpu, Zap, Activity } from 'lucide-react';
+import { Cpu, Zap } from 'lucide-react';
 import { BentoGridItem } from './BentoGridItem';
 import { motion } from 'framer-motion';
+import SovereignButton from '@/components/ui/SovereignButton';
 
 export const AIHubCard = () => {
     const nodes = [
@@ -28,21 +29,21 @@ export const AIHubCard = () => {
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: i * 0.1 }}
-                            className="p-3 rounded-xl bg-white/5 border border-white/5 flex flex-col gap-2 hover:bg-white/10 transition-colors cursor-pointer"
+                            className="p-3 rounded-xl bg-white/5 border border-white/5 flex flex-col gap-2 hover:bg-white/10 hover:border-primary-500/30 transition-all duration-300 cursor-pointer shadow-sm shadow-black/20"
                         >
                             <div className="flex items-center justify-between">
                                 <span className="text-[10px] font-black uppercase tracking-tighter text-white">{node.name}</span>
-                                <div className={`h-1.5 w-1.5 rounded-full ${node.status === 'Active' ? 'bg-cyan-400 animate-pulse' : 'bg-zinc-600'}`} />
+                                <div className={`h-1.5 w-1.5 rounded-full ${node.status === 'Active' ? 'bg-primary-400 animate-pulse shadow-[0_0_8px_rgba(99,102,241,0.5)]' : 'bg-white/20'}`} />
                             </div>
-                            <span className={`text-[9px] font-bold uppercase tracking-widest ${node.color}`}>{node.status}</span>
+                            <span className={`text-[9px] font-bold uppercase tracking-widest ${node.status === 'Active' ? 'text-primary-400' : 'text-white/40'}`}>{node.status}</span>
                         </motion.div>
                     ))}
                 </div>
 
                 <div className="pt-2 border-t border-white/5">
-                    <button className="w-full py-2 rounded-lg bg-cyan-500 text-black text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-cyan-400 transition-all shadow-[0_0_20px_rgba(6,182,212,0.2)]">
-                        <Zap size={12} /> Deploy New Node
-                    </button>
+                    <SovereignButton variant="primary" glow size="sm" className="w-full">
+                        <Zap size={14} className="mr-2" /> DEPLOY NEW NODE
+                    </SovereignButton>
                 </div>
             </div>
         </BentoGridItem>

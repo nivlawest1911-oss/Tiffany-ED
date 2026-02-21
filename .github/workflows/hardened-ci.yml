@@ -1,0 +1,159 @@
+name: Hardened CI/CD Pipeline
+
+on:
+  pull_request:
+    branches: [main, staging, develop]
+  push:
+    branches: [main, staging, develop]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: '18'
+  CACHE_KEY: ${{ github.ref }}-${{ github.sha }}
+
+jobs:
+  pre-checks:
+    runs-on: ubuntu-latest
+    name: Pre-checks
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check commit messages
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "Checking commit messages..."
+            git log origin/${{ github.base_ref }}..${{ github.head_ref }} --pretty=format:%B | grep -E "^(feat|fix|docs|style|refactor|perf|test|chore)(\(.+\))?:" || {
+              echo "❌ Commits must follow Conventional Commits format"
+              exit 1
+            }
+          fi
+
+      - name: Check for secrets
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: ${{ github.event.repository.default_branch }}
+          head: HEAD
+          extra_args: --debug
+        continue-on-error: true
+
+  dependencies:
+    runs-on: ubuntu-latest
+    needs: pre-checks
+    name: Check Dependencies
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Audit dependencies
+        run: npm audit --audit-level=moderate
+        continue-on-error: true
+
+  lint:
+    runs-on: ubuntu-latest
+    needs: dependencies
+    name: Lint & Type Check
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Type check
+        run: npm run type-check
+
+  security:
+    runs-on: ubuntu-latest
+    needs: dependencies
+    name: Security Scanning
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Snyk
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+        continue-on-error: true
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: 'javascript'
+
+      - name: Perform CodeQL analysis
+        uses: github/codeql-action/analyze@v2
+
+  build:
+    runs-on: ubuntu-latest
+    needs: [dependencies, lint]
+    name: Build
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Build application
+        run: npm run build
+
+  test:
+    runs-on: ubuntu-latest
+    needs: [dependencies, build]
+    name: Unit & Integration Tests
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Run tests
+        run: npm run test
+
+  deploy:
+    if: |
+      (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/staging') &&
+      github.event_name == 'push'
+    runs-on: ubuntu-latest
+    needs: [lint, security, test, build]
+    name: Deploy to Vercel
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to Vercel
+        uses: vercel/action@v4
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          production: ${{ github.ref == 'refs/heads/main' }}
