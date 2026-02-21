@@ -4,9 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 // For local dev, we use simple fallback shapes if lottie JSONs aren't downloaded yet.
 // The user will replace these with actual Lottie JSONs downloaded from LottieFiles.
-const FALLBACK_IDLE = {}; // Placeholders for actual Lottie JSON data
-const FALLBACK_THINKING = {};
-const FALLBACK_SPEAKING = {};
 
 export type AvatarState = 'IDLE' | 'THINKING' | 'SPEAKING';
 
