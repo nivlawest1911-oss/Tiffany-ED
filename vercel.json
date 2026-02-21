@@ -4,7 +4,8 @@
     "build": {
         "env": {
             "NEXT_PRIVATE_SKIP_TURBOPACK": "1",
-            "TZ": "America/Chicago"
+            "TZ": "America/Chicago",
+            "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_test_c2VjdXJlLW1lZXJrYXQtOTAuY2xlcmsuYWNjb3VudHMuZGV2JA"
         }
     },
     "crons": [
