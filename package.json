@@ -19,7 +19,7 @@
         "db:studio": "prisma studio",
         "deploy:vercel": "vercel deploy --prod --force",
         "deploy:gcp": "cd cloud/avatar-engine && gcloud run deploy edintel-avatar-engine --source .",
-        "postinstall": "prisma generate"
+        "postinstall": "prisma generate || true"
     },
     "dependencies": {
         "@ai-sdk/anthropic": "^3.0.9",
