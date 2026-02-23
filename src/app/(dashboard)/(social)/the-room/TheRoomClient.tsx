@@ -67,6 +67,25 @@ export default function TheRoomClient() {
             {/* BACKGROUND EFFECTS */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,_rgba(0,176,255,0.05)_0%,_transparent_50%)]" />
 
+            <AnimatePresence>
+                {isOptimizing && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex flex-col items-center justify-center p-4"
+                    >
+                        <div className="max-w-md w-full p-8 border border-electric-cyan/30 rounded-[2rem] bg-[#020617] shadow-[0_0_100px_rgba(0,176,255,0.2)] text-center relative overflow-hidden">
+                            <div className="absolute top-0 left-0 h-1 bg-electric-cyan transition-all duration-300" style={{ width: `${currentStep}%` }} />
+                            <Cpu className="w-16 h-16 text-electric-cyan mx-auto mb-6 animate-pulse" />
+                            <h3 className="text-xl font-black text-white uppercase tracking-widest mb-2">Optimizing Sovereign Nodes</h3>
+                            <p className="text-zinc-400 font-mono text-xs uppercase tracking-widest leading-relaxed">Re-aligning AI cores and minimizing latency paths...</p>
+                            <div className="mt-8 text-4xl font-black text-electric-cyan">{currentStep}%</div>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
             <NexusCommandManager />
 
             <div className="max-w-[1600px] mx-auto px-6 pt-12 relative z-10">
@@ -87,13 +106,16 @@ export default function TheRoomClient() {
 
                     <div className="flex flex-col gap-4 items-end">
                         <div className="flex items-center gap-6 text-[10px] font-mono text-zinc-500 uppercase tracking-widest">
-                            <div className="flex items-center gap-2">
+                            <button
+                                onClick={runOptimization}
+                                className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer"
+                            >
                                 <span className="relative flex h-2 w-2">
                                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                                     <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                                 </span>
                                 System: Optimal
-                            </div>
+                            </button>
                             <div>Latency: 9ms</div>
                             <div className="text-electric-cyan">Token Vol: 1.2M/hr</div>
                         </div>
@@ -120,37 +142,42 @@ export default function TheRoomClient() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: i * 0.05 }}
                         >
-                            <GlassCard className={cn("h-full p-6 relative overflow-hidden group border transition-all duration-500 hover:scale-105 hover:shadow-[0_0_40px_rgba(0,176,255,0.15)]", ai.border)}>
-                                <div className={cn("absolute inset-0 bg-gradient-to-br opacity-10 group-hover:opacity-20 transition-opacity", ai.color)} />
-                                <div className="flex items-start justify-between mb-6 relative z-10">
-                                    <div className={cn("p-3 rounded-xl bg-black/40", ai.accent)}>
-                                        <ai.icon size={24} />
-                                    </div>
-                                    <div className="text-right">
-                                        <div className="text-[9px] font-black uppercase tracking-widest text-zinc-500 mb-1">Latency</div>
-                                        <div className="text-xs font-mono text-white">{ai.latency}</div>
-                                    </div>
-                                </div>
-                                <div className="relative z-10">
-                                    <h3 className="text-lg font-black text-white uppercase tracking-tight group-hover:text-white transition-colors">{ai.name}</h3>
-                                    <p className={cn("text-[10px] font-bold uppercase tracking-widest mt-1", ai.accent)}>{ai.provider}</p>
-                                </div>
-
-                                {/* Data Output Matrix */}
-                                <div className="mt-6 pt-4 border-t border-white/5 grid grid-cols-3 gap-2 relative z-10">
-                                    {Object.entries(ai.specs).map(([key, val]) => (
-                                        <div key={key}>
-                                            <div className="text-[8px] text-zinc-600 uppercase font-black tracking-widest mb-1">{key}</div>
-                                            <div className="text-[10px] font-mono text-zinc-300">{val}</div>
+                            <button
+                                onClick={() => { setActiveNode(ai.id); playClick(); setTimeout(() => setActiveNode(null), 1000); }}
+                                className="w-full text-left h-full focus:outline-none"
+                            >
+                                <GlassCard className={cn("h-full p-6 relative overflow-hidden group border transition-all duration-500 hover:scale-105 hover:shadow-[0_0_40px_rgba(0,176,255,0.15)]", ai.border, activeNode === ai.id && "scale-95 border-emerald-500 bg-emerald-500/10 shadow-[0_0_50px_rgba(16,185,129,0.3)]")}>
+                                    <div className={cn("absolute inset-0 bg-gradient-to-br opacity-10 group-hover:opacity-20 transition-opacity", ai.color)} />
+                                    <div className="flex items-start justify-between mb-6 relative z-10">
+                                        <div className={cn("p-3 rounded-xl bg-black/40", ai.accent)}>
+                                            <ai.icon size={24} />
                                         </div>
-                                    ))}
-                                </div>
+                                        <div className="text-right">
+                                            <div className="text-[9px] font-black uppercase tracking-widest text-zinc-500 mb-1">Latency</div>
+                                            <div className="text-xs font-mono text-white">{ai.latency}</div>
+                                        </div>
+                                    </div>
+                                    <div className="relative z-10">
+                                        <h3 className="text-lg font-black text-white uppercase tracking-tight group-hover:text-white transition-colors">{ai.name}</h3>
+                                        <p className={cn("text-[10px] font-bold uppercase tracking-widest mt-1", ai.accent)}>{ai.provider}</p>
+                                    </div>
 
-                                <div className="mt-4 flex items-center gap-2 relative z-10">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
-                                    <span className="text-[8px] font-mono text-emerald-500 uppercase tracking-widest">{ai.status}</span>
-                                </div>
-                            </GlassCard>
+                                    {/* Data Output Matrix */}
+                                    <div className="mt-6 pt-4 border-t border-white/5 grid grid-cols-3 gap-2 relative z-10">
+                                        {Object.entries(ai.specs).map(([key, val]) => (
+                                            <div key={key}>
+                                                <div className="text-[8px] text-zinc-600 uppercase font-black tracking-widest mb-1">{key}</div>
+                                                <div className="text-[10px] font-mono text-zinc-300">{val}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    <div className="mt-4 flex items-center gap-2 relative z-10">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                                        <span className="text-[8px] font-mono text-emerald-500 uppercase tracking-widest">{ai.status}</span>
+                                    </div>
+                                </GlassCard>
+                            </button>
                         </motion.div>
                     ))}
                 </div>
