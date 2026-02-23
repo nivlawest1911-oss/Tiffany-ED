@@ -46,10 +46,10 @@ export const TacticalHeaderBar = () => {
                 <div className="w-px h-6 bg-white/10" />
 
                 <div className="flex items-center gap-2">
-                    <Cpu className="w-3 h-3 text-cyan-500" />
+                    <Cpu className="w-3 h-3 text-electric-cyan" />
                     <div className="flex flex-col">
                         <span className="text-[8px] font-black text-white/30 uppercase tracking-widest leading-none">Latency</span>
-                        <span className="text-[10px] font-mono text-cyan-500 font-black tracking-tighter">{latency}</span>
+                        <span className="text-[10px] font-mono text-electric-cyan font-black tracking-tighter">{latency}</span>
                     </div>
                 </div>
             </div>
@@ -66,7 +66,7 @@ export const TacticalHeaderBar = () => {
                             className={cn(
                                 "group relative px-4 py-2 rounded-xl transition-all duration-500 overflow-hidden border",
                                 isActive
-                                    ? "bg-noble-gold/10 border-noble-gold/40 shadow-[0_0_20px_rgba(212,175,55,0.15)]"
+                                    ? "bg-sovereign-gold/10 border-sovereign-gold/40 shadow-[0_0_20px_rgba(255,179,0,0.15)]"
                                     : "bg-transparent border-transparent text-white/40 hover:text-white/80 hover:bg-white/5"
                             )}
                         >
@@ -74,14 +74,14 @@ export const TacticalHeaderBar = () => {
                             {isActive && (
                                 <motion.div
                                     layoutId="vibe-active-bg"
-                                    className="absolute inset-0 bg-gradient-to-r from-noble-gold/20 to-transparent"
+                                    className="absolute inset-0 bg-gradient-to-r from-sovereign-gold/20 to-transparent"
                                 />
                             )}
 
                             <div className="relative z-10 flex items-center gap-2">
                                 <div className={cn(
                                     "w-1.5 h-1.5 rounded-full transition-all duration-500",
-                                    isActive ? "bg-noble-gold shadow-[0_0_10px_#D4AF37] scale-125" : "bg-white/10 group-hover:bg-white/30"
+                                    isActive ? "bg-sovereign-gold shadow-[0_0_10px_#FFB300] scale-125" : "bg-white/10 group-hover:bg-white/30"
                                 )} />
                                 <span className={cn(
                                     "text-[10px] font-black uppercase tracking-[0.15em] transition-colors",
@@ -99,8 +99,8 @@ export const TacticalHeaderBar = () => {
             </div>
 
             {/* System Status Icon */}
-            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-noble-gold/5 border border-noble-gold/20 ml-2">
-                <Shield className="w-5 h-5 text-noble-gold opacity-50" />
+            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-sovereign-gold/5 border border-sovereign-gold/20 ml-2">
+                <Shield className="w-5 h-5 text-sovereign-gold opacity-50" />
             </div>
         </div>
     );

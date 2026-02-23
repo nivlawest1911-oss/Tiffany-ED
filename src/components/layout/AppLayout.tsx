@@ -25,6 +25,7 @@ import useProfessionalSounds from "@/hooks/useProfessionalSounds";
 import { TrialBanner } from '@/components/layout/TrialBanner';
 import GlassPanel from "@/components/ui/GlassPanel";
 import SovereignButton from "@/components/ui/SovereignButton";
+import { useAuth } from '@/context/AuthContext';
 
 import { AideProvider } from '@/context/AideMessagingContext';
 
@@ -34,6 +35,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     // This component is now exclusively used by the (dashboard) layout.
     const { isCommandConsoleOpen, toggleCommandConsole } = useEdIntelVibe();
     const { playHover, playClick } = useProfessionalSounds()
+    const { user, logout } = useAuth();
 
     // Mocked Tier Data (In production, this comes from useUser/AuthContext)
     const currentTier = {
@@ -93,7 +95,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
                         <div className="flex items-center gap-8 flex-1 relative z-10">
                             <div className="relative max-w-md w-full group cursor-pointer" onClick={toggleCommandConsole}>
-                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/20 group-hover:text-primary-400 transition-colors" />
+                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/20 group-hover:text-electric-cyan transition-colors" />
                                 <div className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-12 h-9 flex items-center text-xs text-white/30 group-hover:bg-white/10 group-hover:border-white/20 transition-all">
                                     Search tools, agents, or assets...
                                     <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
@@ -133,9 +135,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                 <DropdownMenuTrigger asChild>
                                     <Button variant="ghost" className="flex items-center gap-3 px-2 hover:bg-white/5 rounded-xl transition-all group">
                                         <div className="relative">
-                                            <div className="h-8 w-8 rounded-full border border-white/10 overflow-hidden group-hover:border-[#06b6d4]/50 transition-colors">
+                                            <div className="h-8 w-8 rounded-full border border-white/10 overflow-hidden group-hover:border-electric-cyan/50 transition-colors">
                                                 <Image
-                                                    src="/images/avatars/Dr._alvin_west.png"
+                                                    src={user?.avatar_url || "/images/avatars/Dr._alvin_west.png"}
                                                     alt="User"
                                                     width={32}
                                                     height={32}
@@ -145,8 +147,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                             <div className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-emerald-500 border-2 border-[#020617]" />
                                         </div>
                                         <div className="hidden md:block text-left">
-                                            <p className="text-xs font-bold leading-none text-white">Dr. Alvin West</p>
-                                            <p className="text-[10px] text-white/30 font-medium">Administrator</p>
+                                            <p className="text-xs font-bold leading-none text-white">{user?.name || "Executive"}</p>
+                                            <p className="text-[10px] text-white/30 font-medium">{user?.tier || "Administrator"}</p>
                                         </div>
                                         <ChevronDown className="h-3 w-3 text-white/20 group-hover:text-white/50 transition-colors" />
                                     </Button>
@@ -161,7 +163,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                         <SettingsIcon size={14} /> Settings
                                     </DropdownMenuItem>
                                     <DropdownMenuSeparator className="bg-white/5" />
-                                    <DropdownMenuItem className="focus:bg-red-500/10 focus:text-red-400 text-red-400 cursor-pointer gap-2">
+                                    <DropdownMenuItem
+                                        onClick={() => logout()}
+                                        className="focus:bg-red-500/10 focus:text-red-400 text-red-400 cursor-pointer gap-2"
+                                    >
                                         <LogOut size={14} /> Log out
                                     </DropdownMenuItem>
                                 </DropdownMenuContent>
@@ -182,7 +187,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                 <div className="max-w-[1600px] mx-auto">
                                     <React.Suspense fallback={
                                         <div className="flex items-center justify-center h-[50vh]">
-                                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-500"></div>
+                                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-electric-cyan"></div>
                                         </div>
                                     }>
                                         {children}

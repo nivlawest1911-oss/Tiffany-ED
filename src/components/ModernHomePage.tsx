@@ -8,12 +8,14 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { CORE_AVATARS } from '@/data/avatars';
-import HumanAvatar from './ui/HumanAvatar';
-import { useEdIntelVibe } from '@/context/EdIntelVibeContext';
+import { ROUTES } from '@/lib/routes';
+import { useAuth } from '@/context/AuthContext';
 import ActivationIntro from './landing/ActivationIntro';
 import ReadyToActivateCTA from './landing/ReadyToActivateCTA';
 import { EdIntelHero } from './edintel-core/EdIntelHero';
 import EdIntelCore from './edintel-core/EdIntelCore';
+import { useEdIntelVibe } from '@/context/EdIntelVibeContext';
+import HumanAvatar from './ui/HumanAvatar';
 
 // Core Components (Safe)
 
@@ -78,8 +80,8 @@ function ParallaxBackground() {
                 className="absolute inset-[-10%] w-[120%] h-[120%] bg-gradient-to-tr from-zinc-950 via-zinc-900 to-black"
             >
                 <div className="absolute inset-0 opacity-20 mix-blend-overlay">
-                    <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-noble-gold/10 rounded-full blur-[120px] animate-pulse" />
-                    <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-amber-600/10 rounded-full blur-[120px] animate-pulse delay-1s" />
+                    <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-electric-cyan/10 rounded-full blur-[120px] animate-pulse" />
+                    <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-sovereign-gold/10 rounded-full blur-[120px] animate-pulse delay-1s" />
                 </div>
             </motion.div>
             <div
@@ -110,7 +112,7 @@ function ParticleField() {
                     key={p.id}
                     className={cn(
                         "absolute rounded-full transition-colors duration-1000",
-                        isSystemThinking ? "bg-intel-gold/40" : "bg-white/20"
+                        isSystemThinking ? "bg-sovereign-gold/40" : "bg-white/20"
                     )}
                     initial={{ left: `${p.x}%`, top: `${p.y}%`, opacity: 0 }}
                     animate={{
@@ -153,15 +155,15 @@ function InteractiveTerminal({ onCommand }: { onCommand: (cmd: string) => void }
             className="w-full max-w-xl mt-8 relative z-30 group"
         >
             {/* Scanline & Glow Overlay */}
-            <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-noble-gold/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-sovereign-gold/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
             <form onSubmit={handleSubmit} className="relative group/form">
                 {/* Dynamic Border */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-noble-gold/20 via-amber-600/20 to-orange-600/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition duration-1000" />
+                <div className="absolute -inset-1 bg-gradient-to-r from-sovereign-gold/20 via-amber-600/20 to-orange-600/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition duration-1000" />
 
                 <div className={cn(
-                    "relative bg-zinc-900/80 backdrop-blur-2xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl transition-all duration-500",
-                    isSystemThinking && "border-intel-gold/30 shadow-intel-gold/5"
+                    "relative bg-black/60 backdrop-blur-3xl border border-white/5 rounded-2xl overflow-hidden shadow-2xl transition-all duration-500",
+                    isSystemThinking && "border-sovereign-gold/30 shadow-sovereign-gold/5"
                 )}>
                     {/* Interior Scanline */}
                     <div className={cn(
@@ -171,7 +173,7 @@ function InteractiveTerminal({ onCommand }: { onCommand: (cmd: string) => void }
 
                     <div className="flex items-center p-2">
                         <div className="flex items-center gap-3 pl-4">
-                            <Terminal size={18} className="text-noble-gold animate-pulse" />
+                            <Terminal size={18} className="text-electric-cyan animate-pulse" />
                             <div className="h-4 w-px bg-white/10" />
                         </div>
 
@@ -200,7 +202,7 @@ function InteractiveTerminal({ onCommand }: { onCommand: (cmd: string) => void }
                                 type="submit"
                                 title="Execute Protocol"
                                 aria-label="Execute EdIntel protocol"
-                                className="p-3 bg-gradient-to-br from-intel-gold to-amber-700 hover:from-white hover:to-zinc-300 text-black rounded-xl transition-all duration-300 font-black shadow-lg shadow-intel-gold/10 group-hover/form:scale-105 active:scale-95"
+                                className="p-3 bg-gradient-to-br from-sovereign-gold to-amber-600 hover:from-white hover:to-electric-cyan text-black rounded-xl transition-all duration-300 font-black shadow-lg shadow-sovereign-gold/10 group-hover/form:scale-105 active:scale-95"
                             >
                                 <ArrowRight size={20} />
                             </button>
@@ -221,12 +223,12 @@ function InteractiveTerminal({ onCommand }: { onCommand: (cmd: string) => void }
                         onClick={() => onCommand(action.label)}
                         className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.03] border border-white/5 text-[10px] text-zinc-500 font-bold uppercase tracking-widest hover:bg-white/10 hover:text-white hover:border-white/20 transition-all whitespace-nowrap group/btn active:scale-95"
                     >
-                        <action.icon size={12} className="text-intel-gold group-hover/btn:scale-110 transition-transform" />
+                        <action.icon size={12} className="text-electric-cyan group-hover/btn:scale-110 transition-transform" />
                         {action.label}
                     </button>
                 ))}
             </div>
-        </motion.div>
+        </motion.div >
     );
 }
 
@@ -241,6 +243,8 @@ export default function ModernHomePage() {
     const [showOnboarding, setShowOnboarding] = useState(false);
     const { isSystemThinking, setSystemThinking } = useEdIntelVibe();
     const router = useRouter();
+    const { user } = useAuth();
+    const isSignedIn = !!user;
 
     useEffect(() => {
         // Check for first-time visitor
@@ -281,7 +285,7 @@ export default function ModernHomePage() {
     return (
         <>
             <div className={cn(
-                "min-h-screen bg-[#030303] text-zinc-100 font-sans overflow-auto selection:bg-intel-gold/30 transition-colors duration-1000",
+                "min-h-screen bg-[#020617] text-zinc-100 font-sans overflow-auto selection:bg-electric-cyan/30 transition-colors duration-1000",
                 isSystemThinking && "bg-[#05060f]"
             )}>
                 <AnimatePresence>
@@ -296,10 +300,10 @@ export default function ModernHomePage() {
                         </motion.div>
                         <ParticleField />
                         <motion.div
-                            className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-intel-gold via-amber-500 to-orange-600 z-[100] origin-left"
+                            className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-electric-cyan via-blue-500 to-sovereign-gold z-[100] origin-left"
                             style={{
                                 scaleX,
-                                boxShadow: isSystemThinking ? '0 0 20px rgba(197, 164, 126, 0.5)' : 'none'
+                                boxShadow: isSystemThinking ? '0 0 20px rgba(0, 176, 255, 0.5)' : 'none'
                             }}
                         />
 
@@ -315,8 +319,8 @@ export default function ModernHomePage() {
                                     >
                                         <motion.div variants={fadeInUp} className="flex items-center gap-3 mb-8">
                                             <div className={cn(
-                                                "px-3 py-1 bg-zinc-900/50 backdrop-blur-md border border-white/10 rounded text-zinc-400 text-xs font-mono flex items-center gap-2 transition-all duration-500",
-                                                isSystemThinking && "border-intel-gold/40 text-intel-gold bg-intel-gold/5"
+                                                "px-3 py-1 bg-black/40 backdrop-blur-md border border-white/5 rounded text-zinc-400 text-[10px] font-black uppercase tracking-widest flex items-center gap-2 transition-all duration-500",
+                                                isSystemThinking && "border-electric-cyan/40 text-electric-cyan bg-electric-cyan/5"
                                             )}>
                                                 <Globe size={12} className={cn("transition-transform duration-500", isSystemThinking ? "animate-spin" : "animate-spin-slow")} />
                                                 {isSystemThinking ? "EXECUTING PROTOCOLS..." : "CONNECTED TO MAINNET"}
@@ -327,7 +331,7 @@ export default function ModernHomePage() {
                                             variants={fadeInUp}
                                             className={cn(
                                                 "text-7xl md:text-9xl font-black text-white mb-8 uppercase tracking-tighter leading-[0.8] italic transition-all duration-1000",
-                                                isSystemThinking ? "opacity-40 scale-95 blur-[2px]" : "gold-gradient-text"
+                                                isSystemThinking ? "opacity-40 scale-95 blur-[2px]" : "cyan-gradient-text"
                                             )}
                                         >
                                             EdIntel Professional
@@ -335,7 +339,7 @@ export default function ModernHomePage() {
 
                                         <motion.div variants={fadeInUp} className="relative mb-10">
                                             <motion.div
-                                                className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-intel-gold to-transparent"
+                                                className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-electric-cyan to-transparent"
                                                 animate={isSystemThinking ? { height: ["0%", "100%", "0%"] } : { height: "100%" }}
                                                 transition={{ duration: 2, repeat: Infinity }}
                                             />
@@ -344,8 +348,8 @@ export default function ModernHomePage() {
                                             </p>
                                         </motion.div>
 
-                                        <motion.p variants={fadeInUp} className="text-zinc-500 mb-10 max-w-md leading-relaxed pl-8 text-sm uppercase tracking-widest font-bold">
-                                            Reclaiming instructional time through <span className="text-intel-gold">spatial logistics</span> & high-fidelity AI components.
+                                        <motion.p variants={fadeInUp} className="text-zinc-500 mb-10 max-w-md leading-relaxed pl-8 text-xs uppercase tracking-[0.2em] font-black">
+                                            Reclaiming instructional time through <span className="text-electric-cyan">spatial logistics</span> & high-fidelity AI components.
                                         </motion.p>
 
                                         {/* Thinking Feedback for Hero Content */}
@@ -353,7 +357,7 @@ export default function ModernHomePage() {
                                             <motion.div
                                                 initial={{ opacity: 0 }}
                                                 animate={{ opacity: 1 }}
-                                                className="absolute -left-4 top-1/2 -translate-y-1/2 w-1 h-32 bg-intel-gold shadow-[0_0_20px_rgba(197,164,126,0.8)]"
+                                                className="absolute -left-4 top-1/2 -translate-y-1/2 w-1 h-32 bg-electric-cyan shadow-[0_0_20px_rgba(0,176,255,0.8)]"
                                             />
                                         )}
 
@@ -370,9 +374,9 @@ export default function ModernHomePage() {
                                                 <motion.div
                                                     key={i}
                                                     variants={fadeInUp}
-                                                    className="p-4 bg-zinc-900/50 border border-white/5 rounded-2xl backdrop-blur-md group hover:border-noble-gold/20 transition-all shadow-xl"
+                                                    className="p-4 bg-black/40 border border-white/5 rounded-2xl backdrop-blur-3xl group hover:border-electric-cyan/20 transition-all shadow-xl"
                                                 >
-                                                    <stat.icon size={16} className="text-noble-gold mb-2 animate-pulse" />
+                                                    <stat.icon size={16} className="text-electric-cyan mb-2 animate-pulse" />
                                                     <div className="text-xl font-black text-white italic">{stat.value}</div>
                                                     <div className="text-[8px] text-zinc-500 uppercase font-black tracking-widest">{stat.label}</div>
                                                 </motion.div>
@@ -390,8 +394,8 @@ export default function ModernHomePage() {
 
                             {/* GLOBAL NEURAL FEED - NEW High-Engagement Marquee */}
                             <section className={cn(
-                                "bg-black/80 border-y border-intel-gold/10 py-4 relative z-30 overflow-hidden transition-all duration-700",
-                                isSystemThinking && "border-intel-gold/40 shadow-[0_0_30px_rgba(197,164,126,0.15)]"
+                                "bg-black/80 border-y border-electric-cyan/10 py-4 relative z-30 overflow-hidden transition-all duration-700",
+                                isSystemThinking && "border-electric-cyan/40 shadow-[0_0_30px_rgba(0,176,255,0.15)]"
                             )}>
                                 <div className={cn(
                                     "flex gap-12 animate-marquee whitespace-nowrap",
@@ -407,10 +411,10 @@ export default function ModernHomePage() {
                                     ].map((protocol, i) => (
                                         <div key={i} className={cn(
                                             "flex items-center gap-4 text-[9px] font-black uppercase tracking-[0.4em] transition-colors duration-500",
-                                            isSystemThinking ? "text-intel-gold" : "text-intel-gold/40"
+                                            isSystemThinking ? "text-electric-cyan" : "text-electric-cyan/40"
                                         )}>
                                             <div className={cn(
-                                                "w-1.5 h-1.5 rounded-full bg-intel-gold",
+                                                "w-1.5 h-1.5 rounded-full bg-electric-cyan",
                                                 isSystemThinking ? "animate-pulse" : "animate-ping"
                                             )} />
                                             {protocol}
@@ -442,7 +446,7 @@ export default function ModernHomePage() {
                                                             {agent.status || 'Live'}
                                                         </span>
                                                     </div>
-                                                    <p className="text-white font-black text-2xl uppercase tracking-tighter italic gold-gradient-text">{agent.name}</p>
+                                                    <p className="text-white font-black text-2xl uppercase tracking-tighter italic cyan-gradient-text">{agent.name}</p>
                                                     <p className="text-zinc-400 text-[10px] font-mono uppercase tracking-[0.3em] font-black">{agent.role}</p>
                                                 </div>
                                             </div>
@@ -529,7 +533,7 @@ export default function ModernHomePage() {
                             <section className="py-24 px-6 max-w-7xl mx-auto">
                                 <div className="text-center mb-16">
                                     <h2 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter">
-                                        System <span className="text-noble-gold">Performance</span> Matrix
+                                        System <span className="text-electric-cyan">Performance</span> Matrix
                                     </h2>
                                 </div>
                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -543,7 +547,7 @@ export default function ModernHomePage() {
                                 <div className="max-w-7xl mx-auto px-6 relative z-10">
                                     <div className="text-center mb-16">
                                         <h2 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter leading-none">
-                                            Architect of <span className="text-noble-gold">EdIntel Protocol</span>
+                                            Architect of <span className="text-sovereign-gold">EdIntel Protocol</span>
                                         </h2>
                                     </div>
                                     <FounderDossier />
@@ -570,11 +574,11 @@ export default function ModernHomePage() {
                                         className="mb-16"
                                     >
                                         <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-amber-500/10 border border-amber-500/20 rounded-full mb-8">
-                                            <Zap size={14} className="text-amber-400 fill-amber-400" />
-                                            <span className="text-[10px] font-bold text-amber-400 uppercase tracking-widest">Powered by EdIntel AI</span>
+                                            <Zap size={14} className="text-electric-cyan fill-electric-cyan" />
+                                            <span className="text-[10px] font-bold text-electric-cyan uppercase tracking-widest">Powered by EdIntel AI</span>
                                         </div>
                                         <h2 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter mb-6">
-                                            The <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-600">EdIntel Professional</span> Core
+                                            The <span className="text-transparent bg-clip-text bg-gradient-to-r from-electric-cyan to-blue-600">EdIntel Professional</span> Core
                                         </h2>
                                         <p className="text-zinc-400 text-lg max-w-2xl mx-auto mb-12">
                                             The absolute nexus of educational intelligence. Transforming raw institutional data into a crystalline matrix of actionable protocols.
@@ -603,27 +607,40 @@ export default function ModernHomePage() {
                                                 { title: "Autonomous Protocols", desc: "Auto-generating compliance reports and budget projections in real-time.", icon: Cpu },
                                             ].map((feature, i) => (
                                                 <div key={i} className="flex gap-6 group">
-                                                    <div className="w-14 h-14 rounded-2xl bg-zinc-900 border border-white/10 flex items-center justify-center text-amber-500 group-hover:bg-amber-500 group-hover:text-black transition-all duration-500 group-hover:rotate-6">
+                                                    <div className="w-14 h-14 rounded-2xl bg-zinc-900 border border-white/10 flex items-center justify-center text-electric-cyan group-hover:bg-electric-cyan group-hover:text-black transition-all duration-500 group-hover:rotate-6">
                                                         <feature.icon size={28} />
                                                     </div>
                                                     <div>
-                                                        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-amber-400 transition-colors">{feature.title}</h3>
+                                                        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-electric-cyan transition-colors">{feature.title}</h3>
                                                         <p className="text-zinc-400 leading-relaxed">{feature.desc}</p>
                                                     </div>
                                                 </div>
                                             ))}
 
                                             <div className="pt-8">
-                                                <Link href="/EdIntel">
-                                                    <motion.button
-                                                        whileHover={{ scale: 1.05, x: 5 }}
-                                                        whileTap={{ scale: 0.95 }}
-                                                        className="px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-xl font-black uppercase tracking-wider flex items-center gap-3 shadow-lg shadow-amber-500/20"
-                                                    >
-                                                        Enter the Matrix
-                                                        <ArrowRight size={20} />
-                                                    </motion.button>
-                                                </Link>
+                                                {isSignedIn ? (
+                                                    <Link href="/the-room">
+                                                        <motion.button
+                                                            whileHover={{ scale: 1.05, x: 5 }}
+                                                            whileTap={{ scale: 0.95 }}
+                                                            className="px-8 py-4 bg-gradient-to-r from-electric-cyan to-blue-600 text-white rounded-xl font-black uppercase tracking-wider flex items-center gap-3 shadow-lg shadow-electric-cyan/20"
+                                                        >
+                                                            Return to Control
+                                                            <ArrowRight size={20} />
+                                                        </motion.button>
+                                                    </Link>
+                                                ) : (
+                                                    <Link href={`${ROUTES.LOGIN}?mode=signup`}>
+                                                        <motion.button
+                                                            whileHover={{ scale: 1.05, x: 5 }}
+                                                            whileTap={{ scale: 0.95 }}
+                                                            className="px-8 py-4 bg-gradient-to-r from-electric-cyan to-blue-600 text-white rounded-xl font-black uppercase tracking-wider flex items-center gap-3 shadow-lg shadow-electric-cyan/20"
+                                                        >
+                                                            Activate Core
+                                                            <ArrowRight size={20} />
+                                                        </motion.button>
+                                                    </Link>
+                                                )}
                                             </div>
                                         </motion.div>
                                     </div>
@@ -633,45 +650,9 @@ export default function ModernHomePage() {
                             {/* READY TO ACTIVATE CTA */}
                             <ReadyToActivateCTA />
                         </main>
-
                     </>
                 )}
             </div>
-            <style jsx global>{`
-            @keyframes marquee {
-                from { transform: translateX(0); }
-                to { transform: translateX(-50%); }
-            }
-            .animate-marquee {
-                animation: marquee 30s linear infinite;
-            }
-            .italic {
-                font-style: italic;
-            }
-            .gold-gradient-text {
-                background: linear-gradient(to bottom, #E5C158 0%, #D4AF37 50%, #B8860B 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-                text-fill-color: transparent;
-                filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-            }
-            @keyframes tilt {
-                0%, 50%, 100% { transform: rotate(0deg); }
-                25% { transform: rotate(0.5deg); }
-                75% { transform: rotate(-0.5deg); }
-            }
-            .animate-tilt {
-                animation: tilt 10s infinite linear;
-            }
-            @keyframes scanline {
-                0% { top: 0; }
-                100% { top: 100%; }
-            }
-            .animate-scanline {
-                animation: scanline 4s linear infinite;
-            }
-        `}</style>
         </>
     );
 }

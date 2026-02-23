@@ -29,7 +29,6 @@
         "@ai-sdk/react": "^3.0.29",
         "@ai-sdk/rsc": "^2.0.42",
         "@ai-sdk/xai": "^3.0.13",
-        "@clerk/nextjs": "^6.38.1",
         "@deepgram/sdk": "^4.11.3",
         "@electric-sql/pglite": "^0.3.15",
         "@google-cloud/bigquery": "^8.1.1",

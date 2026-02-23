@@ -65,19 +65,71 @@ export default function WellnessClient() {
     ]);
     const [input, setInput] = useState('');
 
-    const handleSendMessage = () => {
+    const handleSendMessage = async () => {
         if (!input.trim()) return;
         const newMsg = { role: 'user', content: input };
-        setMessages([...messages, newMsg]);
+        setMessages(prev => [...prev, newMsg]);
         setInput('');
 
-        // Mock response for now
-        setTimeout(() => {
+        // Prepare context for the specific AI Agent
+        const personaContext = {
+            name: "Transcend",
+            role: "Specialized Wellness Agent",
+            tone: "Calm, non-judgmental, and restorative",
+            mission: "Healing the healer",
+            culturalContext: "The Sanctuary. A place of rest and restoration."
+        };
+
+        try {
+            const response = await fetch('/api/generate', {
+                method: 'POST',
+                credentials: 'include', // Ensure cookies are sent
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    prompt: input,
+                    generatorId: 'wellness-chat',
+                    delegate: personaContext,
+                    // We format previous messages to be included in the prompt or context if the backend supports it, but simple prompt for now
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to generate response');
+            }
+
+            // Using stream handling or simple text response depending on backend setup
+            // This assumes the backend handles streaming correctly as seen in other clients
+            const reader = response.body?.getReader();
+            const decoder = new TextDecoder();
+
+            if (reader) {
+                let assistantMessage = '';
+                setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    const chunk = decoder.decode(value, { stream: true });
+                    assistantMessage += chunk;
+
+                    setMessages(prev => {
+                        const newMessages = [...prev];
+                        newMessages[newMessages.length - 1].content = assistantMessage;
+                        return newMessages;
+                    });
+                }
+            }
+
+        } catch (error) {
+            console.error("Wellness Chat Error:", error);
             setMessages(prev => [...prev, {
                 role: 'assistant',
-                content: "I acknowledge your input. Based on your recent biometrics and sentiment, I recommend a 5-minute coherence breathing session to optimize your HRV."
+                content: "I apologize, Sovereign. My neural link is currently unstable. Please try connecting again shortly."
             }]);
-        }, 1000);
+        }
     };
 
     return (

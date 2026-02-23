@@ -6,13 +6,13 @@ import EdIntelCore from '../edintel-core/EdIntelCore';
 import ActivationNarrative from './ActivationNarrative';
 
 const BIOS_LINES = [
-    "EDINTEL(R) BIOS V4.0.22",
-    "COPYRIGHT (C) 2026 EDINTEL INTELLIGENCE SOLUTIONS",
-    "CHECKING NEURAL NETWORKS... OK",
-    "INITIALIZING OMNI-CHANNEL UPLINK... OK",
-    "ESTABLISHING SECURE PROTOCOLS... OK",
-    "WARNING: DATA UNSTRUCTURED. CHAOS DETECTED.",
-    "COMMENCING THE ACTIVATION SEQUENCE...",
+    "EDINTEL(R) SOVEREIGN BIOS V5.0.0",
+    "COPYRIGHT (C) 2026 EDINTEL ADAPTIVE SYSTEMS",
+    "CHECKING NEURAL NETWORKS... [OK]",
+    "INITIALIZING QUANTUM UPLINK... [OK]",
+    "ESTABLISHING SOVEREIGN GATEKEEPER... [OK]",
+    "WARNING: FRAGMENTED DATA DETECTED.",
+    "COMMENCING RECONSTRUCTION PROTOCOL...",
 ];
 
 export default function ActivationIntro({ onCompleteAction }: { onCompleteAction: () => void }) {
@@ -30,14 +30,14 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
                     clearInterval(interval);
                     setTimeout(() => setStep('scene1'), 1500);
                 }
-            }, 400);
+            }, 300);
             return () => clearInterval(interval);
         }
     }, [step]);
 
     return (
         <motion.div
-            className="fixed inset-0 z-[200] bg-black overflow-hidden select-none"
+            className="fixed inset-0 z-[200] bg-[#020617] overflow-hidden select-none"
             exit={{ opacity: 0 }}
             transition={{ duration: 1.5 }}
         >
@@ -48,18 +48,18 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
                         key="boot"
                         initial={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="p-8 font-mono text-noble-gold text-xs md:text-sm leading-relaxed"
+                        className="p-12 font-mono text-electric-cyan text-xs md:text-sm leading-relaxed"
                     >
                         {bootLines.map((line, i) => (
-                            <div key={i} className="mb-1">
-                                <span className="mr-2">&gt;</span>
+                            <div key={i} className="mb-2 tracking-widest uppercase">
+                                <span className="mr-3 opacity-50">::</span>
                                 {line}
                             </div>
                         ))}
                         <motion.span
                             animate={{ opacity: [1, 0] }}
                             transition={{ duration: 0.5, repeat: Infinity }}
-                            className="inline-block w-2 h-4 bg-noble-gold ml-1 translate-y-1"
+                            className="inline-block w-2.5 h-5 bg-sovereign-gold ml-2 translate-y-1 shadow-[0_0_10px_#FFB300]"
                         />
                     </motion.div>
                 )}
@@ -92,13 +92,13 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 3 }}
-                            className="absolute bottom-12 left-1/2 -translate-x-1/2"
+                            className="absolute bottom-16 left-1/2 -translate-x-1/2"
                         >
                             <button
                                 onClick={onCompleteAction}
-                                className="px-8 py-3 bg-noble-gold text-black font-black uppercase tracking-widest rounded-full hover:scale-110 transition-transform shadow-[0_0_30px_rgba(212,175,55,0.5)]"
+                                className="px-12 py-4 bg-gradient-to-r from-electric-cyan to-blue-600 text-black font-black uppercase tracking-widest rounded-xl hover:scale-110 transition-transform shadow-[0_0_40px_rgba(0,176,255,0.4)]"
                             >
-                                Enter EdIntel
+                                Enter System
                             </button>
                         </motion.div>
                     </motion.div>

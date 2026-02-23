@@ -1,15 +1,20 @@
-import { auth, currentUser } from '@clerk/nextjs/server';
+import { createClient } from '@/utils/supabase/server';
 import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
-import { clerkClient } from '@clerk/nextjs/server';
+import { prisma } from '@/lib/prisma';
 
 export async function POST(req: Request) {
     try {
-        const { userId } = await auth();
-        if (!userId) {
+        const supabase = await createClient();
+        if (!supabase) {
             return new NextResponse('Unauthorized', { status: 401 });
         }
 
+        const { data: { user: authUser } } = await supabase.auth.getUser();
+        if (!authUser) {
+            return new NextResponse('Unauthorized', { status: 401 });
+        }
+
+        const userId = authUser.id;
         const { role, districtName, position } = await req.json();
 
         if (!role) {
@@ -26,17 +31,16 @@ export async function POST(req: Request) {
             },
             create: {
                 clerkId: userId,
-                email: (await currentUser())?.primaryEmailAddress?.emailAddress || '',
+                email: authUser.email || '',
                 role: role.toUpperCase(),
                 district: districtName,
                 position: position
             }
         });
 
-        // 2. Sync to Clerk Metadata
-        const client = await clerkClient();
-        await client.users.updateUserMetadata(userId, {
-            publicMetadata: {
+        // 2. Sync to Supabase Metadata
+        await supabase.auth.updateUser({
+            data: {
                 role: role.toUpperCase(),
                 onboardingComplete: true
             }

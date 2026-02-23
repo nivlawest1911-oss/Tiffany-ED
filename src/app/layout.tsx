@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   },
 };
 
-import { ClerkProvider } from '@clerk/nextjs';
+
 import GenerativeBackground from '@/components/layout/GenerativeBackground';
 
 export default function RootLayout({
@@ -41,50 +41,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider
-      publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY!}
-      appearance={{
-        layout: {
-          socialButtonsVariant: 'iconButton',
-        },
-        variables: {
-          colorPrimary: '#00B0FF',
-          colorText: '#ffffff',
-          colorBackground: '#020617',
-          borderRadius: '0.75rem',
-          colorTextSecondary: '#9ca3af',
-        },
-        elements: {
-          card: 'shadow-lg border border-white/10 backdrop-blur-xl bg-slate-900/90',
-          navbar: 'hidden',
-          headerTitle: 'text-[#00B0FF]',
-          headerSubtitle: 'text-gray-400',
-          socialButtonsBlockButton: 'border-white/10 hover:bg-white/5 text-white',
-          formButtonPrimary: 'bg-[#00B0FF] hover:bg-[#0090D0] text-white font-bold',
-          formFieldLabel: 'text-gray-300',
-          formFieldInput: 'bg-slate-800/50 border-white/10 text-white focus:border-[#00B0FF] focus:ring-[#00B0FF]',
-          footerActionLink: 'text-[#00B0FF] hover:text-[#0090D0]',
-        }
-      }}
-    >
-      <html lang="en" className={`${inter.variable} ${playfair.variable} ${outfit.variable} dark`}>
-        <body className="bg-[#050505] text-gray-100 antialiased overflow-x-hidden selection:bg-[#00B0FF]/30 font-sans">
-          <CelebrationProvider>
-            <AuthProvider>
-              <IntelligenceProvider>
-                <SovereignProvider>
-                  <EdIntelVibeProvider>
-                    <PWAInstall />
-                    <GenerativeBackground />
-                    <main className="relative z-10">
-                      {children}
-                    </main>
-                    <Toaster position="top-right" theme="dark" />
-                    <Analytics />
-                    <SpeedInsights />
-                    <script
-                      dangerouslySetInnerHTML={{
-                        __html: `
+    <html lang="en" className={`${inter.variable} ${playfair.variable} ${outfit.variable} dark`}>
+      <body className="bg-[#050505] text-gray-100 antialiased overflow-x-hidden selection:bg-[#00B0FF]/30 font-sans">
+        <CelebrationProvider>
+          <AuthProvider>
+            <IntelligenceProvider>
+              <SovereignProvider>
+                <EdIntelVibeProvider>
+                  <PWAInstall />
+                  <GenerativeBackground />
+                  <main className="relative z-10">
+                    {children}
+                  </main>
+                  <Toaster position="top-right" theme="dark" />
+                  <Analytics />
+                  <SpeedInsights />
+                  <script
+                    dangerouslySetInnerHTML={{
+                      __html: `
                           if ('serviceWorker' in navigator) {
                             window.addEventListener('load', function() {
                               navigator.serviceWorker.register('/sw.js').then(
@@ -98,15 +72,14 @@ export default function RootLayout({
                             });
                           }
                         `,
-                      }}
-                    />
-                  </EdIntelVibeProvider>
-                </SovereignProvider>
-              </IntelligenceProvider>
-            </AuthProvider>
-          </CelebrationProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+                    }}
+                  />
+                </EdIntelVibeProvider>
+              </SovereignProvider>
+            </IntelligenceProvider>
+          </AuthProvider>
+        </CelebrationProvider>
+      </body>
+    </html>
   );
 }

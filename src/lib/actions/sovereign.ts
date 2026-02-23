@@ -1,12 +1,15 @@
 'use server';
 
 import { prisma } from '@/lib/prisma';
-import { auth } from '@clerk/nextjs/server';
+import { createClient } from '@/utils/supabase/server';
 import { revalidatePath } from 'next/cache';
 
 export async function getSovereignUser() {
-    const { userId } = await auth();
-    if (!userId) return null;
+    const supabase = await createClient();
+    if (!supabase) return null;
+    const { data: { user: authUser } } = await supabase.auth.getUser();
+    if (!authUser) return null;
+    const userId = authUser.id;
 
     try {
         let user = await prisma.user.findFirst({
@@ -14,23 +17,17 @@ export async function getSovereignUser() {
             include: { tier: true }
         });
 
-        // Auto-provision user if they signed up via Clerk but aren't in Prisma yet
         if (!user) {
-            const { currentUser } = await import('@clerk/nextjs/server');
-            const clerkUser = await currentUser();
-
-            if (clerkUser) {
-                user = await prisma.user.create({
-                    data: {
-                        clerkId: clerkUser.id,
-                        email: clerkUser.primaryEmailAddress?.emailAddress || '',
-                        name: clerkUser.fullName || 'Executive',
-                        subscriptionTier: 'free',
-                        usageTokens: 10,
-                    },
-                    include: { tier: true }
-                });
-            }
+            user = await prisma.user.create({
+                data: {
+                    clerkId: authUser.id,
+                    email: authUser.email || '',
+                    name: authUser.user_metadata?.full_name || 'Executive',
+                    subscriptionTier: 'free',
+                    usageTokens: 10,
+                },
+                include: { tier: true }
+            });
         }
 
         return user;
@@ -41,8 +38,11 @@ export async function getSovereignUser() {
 }
 
 export async function updateUsageTokens(amount: number) {
-    const { userId } = await auth();
-    if (!userId) throw new Error("Unauthorized");
+    const supabase = await createClient();
+    if (!supabase) throw new Error("Unauthorized");
+    const { data: { user: authUser } } = await supabase.auth.getUser();
+    if (!authUser) throw new Error("Unauthorized");
+    const userId = authUser.id;
 
     try {
         const user = await prisma.user.update({
@@ -62,8 +62,11 @@ export async function updateUsageTokens(amount: number) {
 }
 
 export async function getStrategicLogs() {
-    const { userId } = await auth();
-    if (!userId) return [];
+    const supabase = await createClient();
+    if (!supabase) return [];
+    const { data: { user: authUser } } = await supabase.auth.getUser();
+    if (!authUser) return [];
+    const userId = authUser.id;
 
     try {
         const generations = await prisma.generation.findMany({

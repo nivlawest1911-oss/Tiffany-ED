@@ -254,6 +254,7 @@ export default function EnhancedGenerator({
         try {
             const response = await fetch('/api/generate', {
                 method: 'POST',
+                credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     prompt: input,

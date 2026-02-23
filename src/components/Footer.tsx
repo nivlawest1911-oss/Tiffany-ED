@@ -57,12 +57,12 @@ export default function Footer() {
                     <div>
                         <h3 className="text-white font-bold mb-6">Platform</h3>
                         <ul className="space-y-4">
-                            <li><Link href="/pricing" className="text-noble-gold hover:text-white transition-colors text-sm font-bold uppercase tracking-wider">Strategic Pricing</Link></li>
-                            <li><Link href="/login" className="text-zinc-400 hover:text-indigo-400 transition-colors text-sm">Protocol Login</Link></li>
-                            <li><Link href="/signup" className="text-zinc-400 hover:text-indigo-400 transition-colors text-sm">Initialize Center</Link></li>
-                            <li><Link href="/all-tools" className="text-zinc-400 hover:text-indigo-400 transition-colors text-sm">Intelligence Tools</Link></li>
-                            <li><Link href="/privacy/leadership-shield" className="text-zinc-400 hover:text-indigo-400 transition-colors text-sm">Professional Shield</Link></li>
-                            <li><Link href="/connectors" className="text-zinc-400 hover:text-indigo-400 transition-colors text-sm">Connector Hub</Link></li>
+                            <li><Link href="/pricing" className="text-sovereign-gold hover:text-white transition-colors text-sm font-black uppercase tracking-widest">Strategic Pricing</Link></li>
+                            <li><Link href="/login" className="text-zinc-400 hover:text-electric-cyan transition-colors text-sm font-bold uppercase tracking-widest">Protocol Login</Link></li>
+                            <li><Link href="/signup" className="text-zinc-400 hover:text-electric-cyan transition-colors text-sm font-bold uppercase tracking-widest">Initialize Center</Link></li>
+                            <li><Link href="/all-tools" className="text-zinc-400 hover:text-electric-cyan transition-colors text-sm font-bold uppercase tracking-widest">Intelligence Tools</Link></li>
+                            <li><Link href="/privacy/leadership-shield" className="text-zinc-400 hover:text-electric-cyan transition-colors text-sm font-bold uppercase tracking-widest">Professional Shield</Link></li>
+                            <li><Link href="/connectors" className="text-zinc-400 hover:text-electric-cyan transition-colors text-sm font-bold uppercase tracking-widest">Connector Hub</Link></li>
                         </ul>
                     </div>
 
@@ -73,14 +73,14 @@ export default function Footer() {
                         <h3 className="text-white font-bold mb-6">Contact Command</h3>
                         <ul className="space-y-4">
                             <li className="flex items-start gap-3">
-                                <span className="p-1 rounded bg-indigo-500/10 text-indigo-400 mt-0.5"><Crown size={14} /></span>
+                                <span className="p-1 rounded bg-electric-cyan/10 text-electric-cyan mt-0.5"><Crown size={14} /></span>
                                 <div>
                                     <p className="text-white text-sm font-medium">Dr. Alvin West</p>
                                     <p className="text-zinc-500 text-xs">Founder & Architect</p>
                                 </div>
                             </li>
                             <li className="flex items-start gap-3">
-                                <span className="p-1 rounded bg-indigo-500/10 text-indigo-400 mt-0.5"><Mail size={14} /></span>
+                                <span className="p-1 rounded bg-electric-cyan/10 text-electric-cyan mt-0.5"><Mail size={14} /></span>
                                 <div className="space-y-1">
                                     <a href="mailto:dralvinwest@transcendholisticwellness.com" className="text-zinc-400 hover:text-white transition-colors text-sm block">
                                         dralvinwest@transcendholisticwellness.com
@@ -91,19 +91,19 @@ export default function Footer() {
                                 </div>
                             </li>
                             <li className="flex items-start gap-3">
-                                <span className="p-1 rounded bg-indigo-500/10 text-indigo-400 mt-0.5"><MessageSquare size={14} /></span>
+                                <span className="p-1 rounded bg-electric-cyan/10 text-electric-cyan mt-0.5"><MessageSquare size={14} /></span>
                                 <a href="https://wa.me/12512296351" className="text-zinc-400 hover:text-white transition-colors text-sm">
                                     WhatsApp: +1 (251) 229-6351
                                 </a>
                             </li>
                             <li className="flex items-start gap-3">
-                                <span className="p-1 rounded bg-indigo-500/10 text-indigo-400 mt-0.5"><Phone size={14} /></span>
+                                <span className="p-1 rounded bg-electric-cyan/10 text-electric-cyan mt-0.5"><Phone size={14} /></span>
                                 <a href="tel:+14086577099" className="text-zinc-400 hover:text-white transition-colors text-sm">
                                     +1 (408) 657-7099
                                 </a>
                             </li>
                             <li className="flex items-start gap-3">
-                                <span className="p-1 rounded bg-indigo-500/10 text-indigo-400 mt-0.5"><MapPin size={14} /></span>
+                                <span className="p-1 rounded bg-electric-cyan/10 text-electric-cyan mt-0.5"><MapPin size={14} /></span>
                                 <span className="text-zinc-400 text-sm">
                                     Transcend Academic, Business &<br />Cognitive Solutions
                                 </span>

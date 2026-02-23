@@ -17,6 +17,7 @@ export function ExecutiveBrief() {
             try {
                 const response = await fetch('/api/generate', {
                     method: 'POST',
+                    credentials: 'include',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         prompt: "Generate a 4-line executive briefing for a School District Superintendent. Format: LINE1: [District/Status], LINE2: [Operational Metric], LINE3: [Alert/Insight], LINE4: [Action Directive]. Keep it professional, urgent, and strategic.",

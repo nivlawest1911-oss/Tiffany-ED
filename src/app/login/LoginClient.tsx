@@ -58,6 +58,25 @@ export default function LoginClient() {
 
         try {
             if (mode === 'login') {
+                // 🏛️ Master Authentication Protocol (Custom API Bypass)
+                const apiRes = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password }),
+                });
+
+                const apiData = await apiRes.json();
+
+                if (apiRes.ok && apiData.success) {
+                    toast.success("Identity Verified", {
+                        description: "Master access granted. Establishing secure tunnel...",
+                    });
+                    router.push(ROUTES.TEACHER_LAB);
+                    router.refresh();
+                    return;
+                }
+
+                // Standard Supabase Uplink
                 const { error: signInError } = await supabase.auth.signInWithPassword({
                     email,
                     password,

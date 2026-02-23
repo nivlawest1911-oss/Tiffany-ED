@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useAuth } from '@clerk/nextjs'
+import { useAuth } from '@/context/AuthContext'
 import { supabase } from '@/lib/supabase'
 import {
     LineChart,
@@ -27,7 +27,8 @@ interface SchoolMetrics {
 }
 
 export default function AdminDashboard() {
-    const { userId } = useAuth()
+    const { user: authUser } = useAuth()
+    const userId = authUser?.id
     const [metrics, setMetrics] = useState<SchoolMetrics | null>(null)
     const [chartData, setChartData] = useState<any[]>([])
     const [loading, setLoading] = useState(true)
