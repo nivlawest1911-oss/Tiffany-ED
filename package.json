@@ -146,7 +146,7 @@
         "y-websocket": "^3.0.0",
         "yjs": "^13.6.29",
         "zod": "3.25.76"
-    },
+  },
     "devDependencies": {
         "@eslint/eslintrc": "^3.3.3",
         "@eslint/js": "^9.39.2",
