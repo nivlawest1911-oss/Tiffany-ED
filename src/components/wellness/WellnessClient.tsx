@@ -56,6 +56,7 @@ interface MoodEntry {
 export default function WellnessClient() {
     const [activeTab, setActiveTab] = useState<'check-in' | 'gym' | 'chat'>('check-in');
     const [mood, setMood] = useState<MoodEntry['mood'] | null>(null);
+    const [reflection, setReflection] = useState('');
     const [wellnessScore] = useState(85); // Mock score
     const [activeExercise, setActiveExercise] = useState<Exercise | null>(null);
 
@@ -65,11 +66,13 @@ export default function WellnessClient() {
     ]);
     const [input, setInput] = useState('');
 
-    const handleSendMessage = async () => {
-        if (!input.trim()) return;
-        const newMsg = { role: 'user', content: input };
+    const handleSendMessage = async (textOverride?: string) => {
+        const messageContent = textOverride || input;
+        if (!messageContent.trim()) return;
+
+        const newMsg = { role: 'user', content: messageContent };
         setMessages(prev => [...prev, newMsg]);
-        setInput('');
+        if (!textOverride) setInput('');
 
         // Prepare context for the specific AI Agent
         const personaContext = {
@@ -88,7 +91,7 @@ export default function WellnessClient() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    prompt: input,
+                    prompt: messageContent,
                     generatorId: 'wellness-chat',
                     delegate: personaContext,
                     // We format previous messages to be included in the prompt or context if the backend supports it, but simple prompt for now
@@ -271,10 +274,18 @@ export default function WellnessClient() {
                                             className="w-full max-w-md space-y-4"
                                         >
                                             <textarea
+                                                value={reflection}
+                                                onChange={(e) => setReflection(e.target.value)}
                                                 placeholder="Any thoughts or context for today? (Optional)"
                                                 className="w-full h-32 bg-black/50 border border-white/10 rounded-xl p-4 text-sm text-white focus:outline-none focus:border-purple-500/50 resize-none"
                                             />
-                                            <button className="w-full py-4 bg-white text-black font-bold uppercase tracking-widest rounded-xl hover:bg-purple-50 transition-colors">
+                                            <button
+                                                onClick={() => {
+                                                    const msg = `I am feeling ${mood} today. ${reflection ? reflection : ''}`;
+                                                    setActiveTab('chat');
+                                                    handleSendMessage(msg);
+                                                }}
+                                                className="w-full py-4 bg-white text-black font-bold uppercase tracking-widest rounded-xl hover:bg-purple-50 transition-colors">
                                                 Log Reflection
                                             </button>
                                         </motion.div>
@@ -366,7 +377,7 @@ export default function WellnessClient() {
                                         />
                                         <button
                                             title="Send Message"
-                                            onClick={handleSendMessage}
+                                            onClick={() => handleSendMessage()}
                                             className="absolute right-2 top-2 p-1.5 bg-amber-500/20 rounded-lg text-amber-400 hover:bg-amber-500 hover:text-white transition-all"
                                         >
                                             <Send size={16} />
