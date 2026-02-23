@@ -46,6 +46,7 @@ model User {
   school            String?
   schoolSite        String?  @map("school_site")
   position          String?  
+  bio               String?  @db.Text
   
   // Organization/School Link
   organizationId    String?  @map("organization_id")

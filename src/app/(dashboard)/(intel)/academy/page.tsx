@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { GlassCard } from '@/components/ui/Cinematic';
 import { SmartHover } from '@/components/ui/SmartHover';
+import { HolographicBackground } from '@/components/ui/HolographicBackground';
 
 export default function AcademyPage() {
     const modules = [
@@ -15,7 +16,8 @@ export default function AcademyPage() {
     ];
 
     return (
-        <div className="relative min-h-screen p-8 lg:p-12 overflow-hidden flex flex-col">
+        <div className="relative min-h-screen p-8 lg:p-12 overflow-hidden flex flex-col font-inter text-slate-200">
+            <HolographicBackground />
             {/* Background Narrative */}
             <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
                 <span className="text-[12rem] font-black uppercase tracking-tighter leading-none select-none">

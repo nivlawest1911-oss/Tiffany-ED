@@ -14,6 +14,8 @@ interface User {
     usageTokens: number;
     avatar_url?: string;
     clerkId?: string;
+    position?: string;
+    bio?: string;
 }
 
 interface AuthContextType {

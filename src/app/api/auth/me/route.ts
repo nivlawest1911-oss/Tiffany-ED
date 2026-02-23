@@ -2,24 +2,61 @@ import { NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { sql } from '@/lib/db';
 import { sendWelcomeEmail } from '@/services/email-service';
+import { createServerClient } from '@supabase/ssr';
+import { cookies } from 'next/headers';
 
 export async function GET() {
+    let authUser: any = null;
+
+    // 1. Try legacy session first
     const session = await getSession();
-    if (!session || !session.user) {
+    if (session && session.user) {
+        authUser = session.user;
+    }
+
+    // 2. Try Supabase session if no legacy session exists
+    if (!authUser) {
+        const cookieStore = await cookies();
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+        const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+        if (supabaseUrl && supabaseKey) {
+            const supabase = createServerClient(supabaseUrl, supabaseKey, {
+                cookies: {
+                    getAll() {
+                        return cookieStore.getAll();
+                    },
+                },
+            });
+            const { data: { user: sbUser } } = await supabase.auth.getUser();
+            if (sbUser) {
+                authUser = {
+                    id: sbUser.id,
+                    email: sbUser.email,
+                    name: sbUser.user_metadata?.full_name || sbUser.email?.split('@')[0] || 'Sovereign Agent',
+                    tier: sbUser.user_metadata?.tier || 'free'
+                };
+            }
+        }
+    }
+
+    if (!authUser) {
         return NextResponse.json({ user: null });
     }
 
     try {
         const result = await sql`
-            SELECT subscription_tier FROM users WHERE email = ${session.user.email} LIMIT 1
+            SELECT subscription_tier, position, bio FROM users WHERE email = ${authUser.email} LIMIT 1
         `;
 
         if (result.rows.length > 0) {
             const freshData = result.rows[0];
             return NextResponse.json({
                 user: {
-                    ...session.user,
-                    tier: freshData.subscription_tier
+                    ...authUser,
+                    tier: freshData.subscription_tier || authUser.tier,
+                    position: freshData.position,
+                    bio: freshData.bio
                 }
             });
         }
@@ -27,7 +64,7 @@ export async function GET() {
         console.error('Error syncing user data', e);
     }
 
-    return NextResponse.json({ user: session.user });
+    return NextResponse.json({ user: authUser });
 }
 
 export async function POST(req: Request) {

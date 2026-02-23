@@ -137,4 +137,25 @@ export class TokenService {
             throw error;
         }
     }
+
+    /**
+     * Get transaction history for a user
+     */
+    static async getHistory(userId: string, limit: number = 10) {
+        try {
+            // Check if token_ledger table exists and fetch history
+            const { rows } = await sql`
+                SELECT id, amount, transaction_type, transaction_subtype, description, generation_id, session_id, created_at, metadata
+                FROM token_ledger
+                WHERE user_id = ${userId}
+                ORDER BY created_at DESC
+                LIMIT ${limit}
+            `;
+            return rows;
+        } catch (error: any) {
+            console.error('[TokenService] Get history failed:', error);
+            // If the table doesn't exist or query fails, return empty array instead of crashing
+            return [];
+        }
+    }
 }

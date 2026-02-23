@@ -12,11 +12,14 @@ import {
     Cpu, Network, Lock, RefreshCw
 } from 'lucide-react';
 import { useIntelligence } from '@/context/IntelligenceContext';
+import { useAuth } from '@/context/AuthContext';
 import { HolographicBackground } from '@/components/ui/HolographicBackground';
 import { SmartHover } from '@/components/ui/SmartHover';
+import { toast } from 'sonner';
 
 export default function SettingsClient() {
     const { triggerBriefing } = useIntelligence();
+    const { user, updateUser } = useAuth();
     const [mounted, setMounted] = useState(false);
     const [activeSection, setActiveSection] = useState('identity');
 
@@ -125,7 +128,7 @@ export default function SettingsClient() {
                                 exit={{ opacity: 0, y: -10 }}
                                 transition={{ duration: 0.2 }}
                             >
-                                {activeSection === 'identity' && <IdentitySection triggerBriefing={triggerBriefing} />}
+                                {activeSection === 'identity' && <IdentitySection triggerBriefing={triggerBriefing} user={user} updateUser={updateUser} />}
                                 {activeSection === 'nodes' && <NodesSection triggerBriefing={triggerBriefing} />}
                                 {activeSection === 'subscription' && <SubscriptionSection />}
                                 {activeSection === 'security' && <SecuritySection />}
@@ -138,7 +141,46 @@ export default function SettingsClient() {
     );
 }
 
-function IdentitySection({ triggerBriefing }: { triggerBriefing: (msg: string) => void }) {
+function IdentitySection({ triggerBriefing, user, updateUser }: { triggerBriefing: (msg: string) => void; user: any; updateUser: any; }) {
+    const [name, setName] = useState(user?.name || '');
+    const [position, setPosition] = useState(user?.position || '');
+    const [bio, setBio] = useState(user?.bio || '');
+    const [isSaving, setIsSaving] = useState(false);
+
+    const handleSave = async () => {
+        setIsSaving(true);
+        triggerBriefing('Neural Profile Sync initiated. Calibrating Sovereign Identity.');
+
+        try {
+            const res = await fetch('/api/users/profile', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, position, bio })
+            });
+
+            if (!res.ok) throw new Error('Failed to update profile');
+
+            const data = await res.json();
+
+            if (data.success) {
+                updateUser({
+                    ...user,
+                    name: data.user.name,
+                    position: data.user.position,
+                    bio: data.user.bio
+                });
+                toast.success('Neural Profile Synchronized.');
+            } else {
+                toast.error(data.error || 'Failed to sync profile.');
+            }
+        } catch (error) {
+            console.error('Error saving profile:', error);
+            toast.error('Garrison Error: Unable to synchronize neural profile.');
+        } finally {
+            setIsSaving(false);
+        }
+    };
+
     return (
         <Card className="bg-slate-950/40 border border-white/5 backdrop-blur-3xl rounded-[2.5rem] p-8 lg:p-12 space-y-10">
             <div className="flex items-center gap-4 mb-8">
@@ -154,30 +196,42 @@ function IdentitySection({ triggerBriefing }: { triggerBriefing: (msg: string) =
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 ml-1">Legal Name</label>
-                    <Input className="bg-white/5 border-white/10 h-14 rounded-2xl text-white focus:border-indigo-500/50" defaultValue="Dr. Alvin West, II" />
+                    <Input
+                        className="bg-white/5 border-white/10 h-14 rounded-2xl text-white focus:border-indigo-500/50"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="e.g. Dr. Alvin West, II"
+                    />
                 </div>
                 <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 ml-1">Professional Role</label>
-                    <Input className="bg-white/5 border-white/10 h-14 rounded-2xl text-white focus:border-indigo-500/50" defaultValue="Chief Strategy Architect" />
+                    <Input
+                        className="bg-white/5 border-white/10 h-14 rounded-2xl text-white focus:border-indigo-500/50"
+                        value={position}
+                        onChange={(e) => setPosition(e.target.value)}
+                        placeholder="e.g. Chief Strategy Architect"
+                    />
                 </div>
                 <div className="space-y-2 md:col-span-2">
                     <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 ml-1">Institutional Bio (Neural Feed)</label>
                     <textarea
                         aria-label="Institutional Bio"
                         className="w-full bg-white/5 border border-white/10 rounded-2xl p-6 text-white text-sm focus:border-indigo-500/50 h-32 outline-none transition-all placeholder:text-slate-600"
-                        defaultValue="Doctorate-level clinical and fiscal strategist specializing in neural educational frameworks and district-wide turnaround architecture."
+                        value={bio}
+                        onChange={(e) => setBio(e.target.value)}
+                        placeholder="Enter your institutional bio..."
                     />
                 </div>
             </div>
 
             <div className="pt-6">
                 <Button
-                    onClick={() => {
-                        triggerBriefing('Neural Profile Sync initiated. Calibrating Sovereign Identity.');
-                    }}
+                    onClick={handleSave}
+                    disabled={isSaving}
                     className="bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl px-10 h-14 font-bold text-sm uppercase tracking-widest gap-3"
                 >
-                    <Sparkles className="w-4 h-4" /> Sync Neural Profile
+                    <Sparkles className={`w-4 h-4 ${isSaving ? 'animate-spin' : ''}`} />
+                    {isSaving ? 'Syncing...' : 'Sync Neural Profile'}
                 </Button>
             </div>
         </Card>

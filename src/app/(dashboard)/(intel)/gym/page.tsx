@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { GlassCard } from '@/components/ui/Cinematic';
 import { SmartHover } from '@/components/ui/SmartHover';
+import { HolographicBackground } from '@/components/ui/HolographicBackground';
 
 const ZONES = [
     { id: 1, title: "Focus Crucible", description: "High-intensity attention training modules.", icon: <Target className="h-6 w-6 text-orange-400" /> },
@@ -18,7 +19,8 @@ export default function GymPage() {
     const [isSprintActive, setIsSprintActive] = useState(false);
 
     return (
-        <div className="relative min-h-screen p-8 lg:p-12 overflow-hidden flex flex-col">
+        <div className="relative min-h-screen p-8 lg:p-12 overflow-hidden flex flex-col font-inter text-slate-200">
+            <HolographicBackground />
             {/* Background Narrative */}
             <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
                 <span className="text-[12rem] font-black uppercase tracking-tighter leading-none select-none">
