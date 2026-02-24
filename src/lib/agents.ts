@@ -14,6 +14,7 @@ export const AGENT_REGISTRY: Record<string, Agent> = {
     IEC_ARCHITECT: { id: 'iep_arch', name: 'IEP Architect', cluster: 'Special Education', role: 'Case Manager', specialty: 'IDEA Compliance' },
     CURRICULUM_CARTOGRAPHER: { id: 'curr_cart', name: 'Curriculum Cartographer', cluster: 'Academic', role: 'Learning Designer', specialty: 'Scope and Sequence' },
     DATA_SCIENTIST: { id: 'data_sci', name: 'Data Insight Analyst', cluster: 'Intelligence', role: 'Analyst', specialty: 'Predictive Modeling' },
+    FISCAL_STRATEGIST: { id: 'fiscal-strategist', name: 'Fiscal Strategist', cluster: 'Administrative', role: 'CFO', specialty: 'Title I & Alabama Red Book' },
     // Expandable to 70+ agents
 };
 
@@ -22,7 +23,7 @@ export class AgentSwarmController {
         const lowerIntent = intent.toLowerCase();
 
         // Neural matching logic
-        if (lowerIntent.includes('money') || lowerIntent.includes('budget') || lowerIntent.includes('funds')) return AGENT_REGISTRY.BUDGET_ORACLE;
+        if (lowerIntent.includes('money') || lowerIntent.includes('budget') || lowerIntent.includes('funds') || lowerIntent.includes('ledger')) return AGENT_REGISTRY.FISCAL_STRATEGIST;
         if (lowerIntent.includes('reading') || lowerIntent.includes('phonics') || lowerIntent.includes('literacy')) return AGENT_REGISTRY.LITERACY_PROVOST;
         if (lowerIntent.includes('iep') || lowerIntent.includes('special ed') || lowerIntent.includes('504')) return AGENT_REGISTRY.IEC_ARCHITECT;
         if (lowerIntent.includes('burnout') || lowerIntent.includes('stress') || lowerIntent.includes('tired')) return AGENT_REGISTRY.WELLNESS_GUARDIAN;

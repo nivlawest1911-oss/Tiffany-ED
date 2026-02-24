@@ -4,6 +4,7 @@ import { ALABAMA_STRATEGIC_DIRECTIVE, EdIntel_PERSONA } from '@/lib/ai-resilienc
 import { getSession } from '@/lib/auth'; // Custom auth helper
 import { TokenService } from '@/lib/services/token-service';
 import { streamProfessionalResponse } from '@/lib/leadership-ai';
+import { createFiscalStrategistAgent } from '@/lib/agents/fiscal-strategist-agent';
 
 export const runtime = 'nodejs';
 
@@ -256,8 +257,20 @@ export async function POST(request: NextRequest) {
             });
         }
 
-        // SYSTEM PROMPT: FORCING HIGH-FIDELITY EdIntel PERSONA
-        // Use standardized streaming response with resilience
+        // 2. USE AGENTIC PATTERN FOR FISCAL STRATEGIST
+        if (generatorId === 'fiscal-strategist') {
+            const strategistAgent = createFiscalStrategistAgent();
+            const result = await (strategistAgent as any).stream({
+                prompt: prompt,
+                options: {
+                    userId: user.id,
+                    userTier: user.tier || 'standard'
+                }
+            });
+            return result.toTextStreamResponse();
+        }
+
+        // 3. FALLBACK TO STANDARD STREAMING
         const streamResult = await streamProfessionalResponse(
             prompt,
             generatorId,

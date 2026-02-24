@@ -28,9 +28,14 @@ export default function LedgerPage() {
         const fetchHistory = async () => {
             try {
                 const res = await fetch('/api/tokens/history');
-                const data = await res.json();
-                if (data.history) {
-                    setHistory(data.history);
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.history) {
+                        setHistory(data.history);
+                    } else {
+                        // If the API returns the array directly without a 'history' property
+                        setHistory(data);
+                    }
                 }
             } catch (error) {
                 console.error("Failed to fetch token history:", error);
@@ -56,23 +61,41 @@ export default function LedgerPage() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    toolId: 'fiscal-strategist',
-                    context: userMsg
+                    generatorId: 'fiscal-strategist',
+                    prompt: userMsg
                 })
             });
-            const data = await res.json();
 
-            if (res.ok && data.text) {
-                setChatHistory(prev => [...prev, { role: 'assistant', content: data.text }]);
+            if (res.ok && res.body) {
+                const reader = res.body.getReader();
+                const decoder = new TextDecoder();
+                let assistantMsg = "";
+
+                setChatHistory(prev => [...prev, { role: 'assistant', content: "" }]);
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    const chunk = decoder.decode(value, { stream: true });
+                    assistantMsg += chunk;
+
+                    setChatHistory(prev => {
+                        const newHistory = [...prev];
+                        newHistory[newHistory.length - 1].content = assistantMsg;
+                        return newHistory;
+                    });
+                }
             } else {
                 setChatHistory(prev => [...prev, { role: 'assistant', content: "Error: Could not consult the strategist." }]);
             }
-        } catch (error) {
+        } catch (_error) {
             setChatHistory(prev => [...prev, { role: 'assistant', content: "Error: Connection failed." }]);
         } finally {
             setIsConsulting(false);
         }
     };
+
     const metrics = [
         { label: "Institutional ROI", value: "+12.5%", trending: "up", description: "Operational efficiency gains." },
         { label: "Sovereign Spend", value: "$4.2k", trending: "down", description: "Monthly AI utilization costs." },
@@ -197,6 +220,7 @@ export default function LedgerPage() {
                         )}
                     </div>
                 </GlassCard>
+
                 <div className="space-y-6">
                     <GlassCard className="p-8 bg-emerald-500/5 group">
                         <h4 className="text-[10px] font-black uppercase tracking-widest text-emerald-500/70 mb-4">Fiscal Health Index</h4>
@@ -263,6 +287,7 @@ export default function LedgerPage() {
                                 type="submit"
                                 disabled={isConsulting || !query.trim()}
                                 className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-electric-cyan/20 text-electric-cyan rounded-lg hover:bg-electric-cyan/30 disabled:opacity-50 transition-colors"
+                                aria-label="Send query"
                             >
                                 <Send className="w-4 h-4" />
                             </button>
