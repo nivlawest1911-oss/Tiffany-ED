@@ -1,92 +1,137 @@
 import { createClient } from '@/utils/supabase/server';
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { UserRole } from '@prisma/client';
 
 export async function POST(req: Request) {
     try {
         const supabase = await createClient();
         if (!supabase) {
+            console.warn('[SET_ROLE] Unauthorized attempt: Supabase client initialization failed.');
             return new NextResponse('Unauthorized', { status: 401 });
         }
 
         const { data: { user: authUser } } = await supabase.auth.getUser();
         if (!authUser) {
+            console.warn('[SET_ROLE] Unauthorized attempt: No authenticated user found.');
             return new NextResponse('Unauthorized', { status: 401 });
         }
 
         const userId = authUser.id;
-        const { role, districtName, position } = await req.json();
+        const body = await req.json();
+        const { role, districtName, position } = body;
+        const email = authUser.email;
 
-        if (!role) {
-            return new NextResponse('Role is required', { status: 400 });
+        // 1. Input Validation
+        if (!role || typeof role !== 'string') {
+            console.error(`[SET_ROLE] Invalid role provided for userId ${userId}: ${role}`);
+            return NextResponse.json({ error: 'Role is required' }, { status: 400 });
         }
 
-        // 1. Update Prisma User record with robust lookup
-        console.log(`[SET_ROLE] Attempting persistence for user: ${userId} (${authUser.email})`);
+        const validRoles = Object.values(UserRole);
+        const normalizedRole = role.toUpperCase() as UserRole;
+        if (!validRoles.includes(normalizedRole)) {
+            console.error(`[SET_ROLE] Unsupported role provided for userId ${userId}: ${role}`);
+            return NextResponse.json({ error: 'Unsupported role provided' }, { status: 400 });
+        }
 
-        let user;
+        if (!email || !email.includes('@')) {
+            console.error(`[SET_ROLE] Invalid email associated with userId ${userId}: ${email}`);
+            return NextResponse.json({ error: 'Valid email is required for persistence' }, { status: 400 });
+        }
+
+        console.log(`[SET_ROLE] Initiating persistence for user: ${userId} (${email}) | Role: ${normalizedRole}`);
+
+        // 2. Robust Database Persistence (Prisma)
+        let userRecord;
         try {
-            // Try to find by clerkId first
-            user = await prisma.user.findUnique({
+            // Attempt 1: Lookup by clerkId (primary)
+            userRecord = await prisma.user.findUnique({
                 where: { clerkId: userId }
             });
 
-            if (!user && authUser.email) {
-                console.log(`[SET_ROLE] User not found by clerkId, checking email: ${authUser.email}`);
-                user = await prisma.user.findUnique({
-                    where: { email: authUser.email }
+            // Attempt 2: Fallback to email (link existing record if found)
+            if (!userRecord) {
+                console.info(`[SET_ROLE] User ${userId} not found by ID, searching by email: ${email}`);
+                userRecord = await prisma.user.findUnique({
+                    where: { email: email }
                 });
+
+                if (userRecord && !userRecord.clerkId) {
+                    console.info(`[SET_ROLE] Linking existing user record ${userRecord.id} with new ID: ${userId}`);
+                }
             }
 
-            if (user) {
-                console.log(`[SET_ROLE] Updating existing user: ${user.id}`);
-                user = await prisma.user.update({
-                    where: { id: user.id },
+            // Upsert Logic: Create or Update
+            if (userRecord) {
+                console.log(`[SET_ROLE] Updating user record: ${userRecord.id}`);
+                userRecord = await prisma.user.update({
+                    where: { id: userRecord.id },
                     data: {
-                        clerkId: userId, // Link Supabase ID if it was found by email
-                        role: role.toUpperCase(),
-                        district: districtName,
-                        position: position
+                        clerkId: userId, // Ensure ID is linked
+                        role: normalizedRole,
+                        district: districtName || userRecord.district,
+                        position: position || userRecord.position,
+                        lastLogin: new Date()
                     }
                 });
             } else {
-                console.log(`[SET_ROLE] Creating new user record`);
-                user = await prisma.user.create({
+                console.log(`[SET_ROLE] Creating new user record for ${email}`);
+                userRecord = await prisma.user.create({
                     data: {
                         clerkId: userId,
-                        email: authUser.email || '',
-                        role: role.toUpperCase(),
+                        email: email,
+                        role: normalizedRole,
                         district: districtName,
                         position: position
                     }
                 });
             }
         } catch (dbError: any) {
-            console.error('[SET_ROLE_DB_ERROR]', {
+            console.error('[SET_ROLE_PRISMA_ERROR]', {
+                userId,
+                email,
                 message: dbError.message,
                 code: dbError.code,
                 meta: dbError.meta
             });
-            throw dbError;
+            return NextResponse.json(
+                { error: 'Database persistence failed. Please check connection settings.' },
+                { status: 500 }
+            );
         }
 
-        // 2. Sync to Supabase Metadata
-        console.log(`[SET_ROLE] Syncing to Supabase Metadata for: ${userId}`);
+        // 3. Metadata Synchronization (Supabase)
+        console.log(`[SET_ROLE] Syncing metadata to Supabase Auth for ${userId}`);
         const { error: supabaseError } = await supabase.auth.updateUser({
             data: {
-                role: role.toUpperCase(),
-                onboardingComplete: true
+                role: normalizedRole,
+                onboardingComplete: true,
+                district: districtName,
+                position: position
             }
         });
 
         if (supabaseError) {
-            console.error('[SET_ROLE_SUPABASE_ERROR]', supabaseError);
-            throw supabaseError;
+            console.error('[SET_ROLE_SUPABASE_SYNC_ERROR]', supabaseError);
+            // We don't fail the whole request if metadata sync fails but DB succeeded,
+            // but we should warn the client.
         }
 
-        return NextResponse.json({ success: true, user });
-    } catch (error) {
-        console.error('[SET_ROLE_ERROR]', error);
-        return new NextResponse('Internal Error', { status: 500 });
+        return NextResponse.json({
+            success: true,
+            message: `EdIntel Handshake successful for ${email}`,
+            user: {
+                id: userRecord.id,
+                role: userRecord.role,
+                onboardingComplete: true
+            }
+        });
+    } catch (error: any) {
+        console.error('[SET_ROLE_CRITICAL_FAILURE]', error);
+        return NextResponse.json(
+            { error: 'A critical error occurred during onboarding.' },
+            { status: 500 }
+        );
     }
 }
