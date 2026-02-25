@@ -21,6 +21,12 @@ interface IntelligenceContextType {
     generateBriefing: (data: BriefingData) => void;
     triggerBriefing: (id: string) => void;
     closeBriefing: () => void;
+    addAction: (action: string) => void;
+    recentActions: string[];
+    suggestion: { text: string; action: string } | null;
+    setSuggestion: (suggestion: { text: string; action: string } | null) => void;
+    isHudExpanded: boolean;
+    setIsHudExpanded: (expanded: boolean) => void;
 }
 
 const IntelligenceContext = createContext<IntelligenceContextType | undefined>(undefined);
@@ -28,6 +34,9 @@ const IntelligenceContext = createContext<IntelligenceContextType | undefined>(u
 export function IntelligenceProvider({ children }: { children: React.ReactNode }) {
     const [briefing, setBriefing] = useState<BriefingData | null>(null);
     const [isOpen, setIsOpen] = useState(false);
+    const [recentActions, setRecentActions] = useState<string[]>([]);
+    const [suggestion, setSuggestion] = useState<{ text: string; action: string } | null>(null);
+    const [isHudExpanded, setIsHudExpanded] = useState(false);
 
     const generateBriefing = useCallback((data: BriefingData) => {
         setBriefing(data);
@@ -36,6 +45,10 @@ export function IntelligenceProvider({ children }: { children: React.ReactNode }
 
     const closeBriefing = useCallback(() => {
         setIsOpen(false);
+    }, []);
+
+    const addAction = useCallback((action: string) => {
+        setRecentActions(prev => [action, ...prev].slice(0, 5));
     }, []);
 
     const triggerBriefing = useCallback((id: string) => {
@@ -113,8 +126,60 @@ export function IntelligenceProvider({ children }: { children: React.ReactNode }
         return () => window.removeEventListener('click', handleGlobalClick, true);
     }, [generateBriefing]);
 
+    // Neural Suggestion Engine: Derives next actions from recent activity
+    useEffect(() => {
+        if (recentActions.length === 0) {
+            setSuggestion(null);
+            return;
+        }
+
+        const lastAction = recentActions[0];
+
+        if (lastAction.includes('Code Protocol Synthesized')) {
+            setSuggestion({
+                text: "Compliance check required for synthesized code alignment with District Policy 5.1.",
+                action: "Initiate Audit"
+            });
+        } else if (lastAction.includes('Strategic Lesson Plan')) {
+            setSuggestion({
+                text: "Lesson protocol synthesized. Shall I generate a matching holographic visual or adaptive quiz bank?",
+                action: "Generate Visual"
+            });
+        } else if (lastAction.includes('Holographic Visual Synthesized')) {
+            setSuggestion({
+                text: "Visual asset rendered. Would you like to export this for the classroom display or embed in the lesson?",
+                action: "Export Asset"
+            });
+        } else if (lastAction.includes('Strategic Briefing')) {
+            setSuggestion({
+                text: "Drafting the executive summary for the Board? I can synthesize a 1-page ROI brief based on this data.",
+                action: "Synthesize ROI"
+            });
+        } else if (lastAction.includes('Protocol Synthesized')) {
+            setSuggestion({
+                text: "Establishing a deep neural connection to the secondary modules. Would you like to vault this generation?",
+                action: "Vault Protocol"
+            });
+        } else {
+            setSuggestion({
+                text: "Strategic momentum detected. Should I prepare a leadership briefing based on your current session?",
+                action: "Generate Briefing"
+            });
+        }
+    }, [recentActions]);
+
     return (
-        <IntelligenceContext.Provider value={{ generateBriefing, triggerBriefing, closeBriefing }}>
+        <IntelligenceContext.Provider value={{
+            generateBriefing,
+            triggerBriefing,
+            closeBriefing,
+            addAction,
+            recentActions,
+            suggestion,
+            setSuggestion,
+            isHudExpanded,
+            setIsHudExpanded
+        }}>
             {children}
             {isOpen && briefing && (
                 <HolographicBriefing
