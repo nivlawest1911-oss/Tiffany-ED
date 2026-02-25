@@ -7,7 +7,7 @@
 - [x] Phase 2: UI De-fragmentation
 - [x] Unify Logos into `EdIntelLogo.tsx`
 - [x] Consolidate Pricing/Subscription into `SovereignSubscription.tsx`
-- [x] Merge Landing Pages into `ModernHomePage.tsx`
+- [x] Merge Landing Pages into `modern-home-page.tsx`
 - [x] Phase 3: Sovereign Dashboard Unification
 - [x] Merge `MissionControl` into `TheRoomClient`
 - [x] Merge `CloudCommandCenter` into `TheRoomClient`
@@ -23,7 +23,7 @@
 - [/] Document final state in `walkthrough.md`.
 */
 import { createClient } from '@/lib/supabase/server';
-import ModernHomePage from '@/components/ModernHomePage';
+import ModernHomePage from '@/components/modern-home-page';
 import { redirect } from 'next/navigation';
 
 export default async function Index() {
