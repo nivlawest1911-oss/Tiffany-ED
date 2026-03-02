@@ -24,20 +24,6 @@ const nextConfig = {
         optimizePackageImports: ['lucide-react', 'framer-motion', 'recharts'],
     },
     serverExternalPackages: ['@google-cloud/bigquery'],
-    // Optimal Webpack configuration for large-scale AI applications
-    webpack: (config, { isServer }) => {
-        // Critical: Provide fallbacks for node modules in client-side
-        if (!isServer) {
-            config.resolve.fallback = {
-                ...config.resolve.fallback,
-                fs: false,
-                net: false,
-                tls: false,
-            };
-        }
-
-        return config;
-    },
 };
 
 module.exports = nextConfig;
