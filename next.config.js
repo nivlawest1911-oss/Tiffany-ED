@@ -25,24 +25,7 @@ const nextConfig = {
     },
     serverExternalPackages: ['@google-cloud/bigquery'],
     // Optimal Webpack configuration for large-scale AI applications
-    webpack: (config, { dev, isServer }) => {
-        if (!dev && !isServer) {
-            // Memory optimization for client-side bundling
-            config.cache = {
-                type: 'filesystem',
-                buildDependencies: {
-                    config: [__filename],
-                },
-            };
-
-            // Handle large strings/assets more efficiently
-            config.performance = {
-                hints: false,
-                maxEntrypointSize: 512000,
-                maxAssetSize: 512000,
-            };
-        }
-
+    webpack: (config, { isServer }) => {
         // Critical: Provide fallbacks for node modules in client-side
         if (!isServer) {
             config.resolve.fallback = {
