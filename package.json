@@ -6,7 +6,7 @@
         "node": ">=20"
     },
     "scripts": {
-        "dev": "next dev",
+        "dev": "next dev --turbopack",
         "prebuild": "echo clean",
         "build": "next build",
         "start": "next start",
