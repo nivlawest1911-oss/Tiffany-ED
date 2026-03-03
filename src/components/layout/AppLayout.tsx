@@ -156,10 +156,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                 <DropdownMenuContent align="end" className="w-56 bg-[#0f172a] border-white/10 text-slate-200">
                                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                                     <DropdownMenuSeparator className="bg-white/5" />
-                                    <DropdownMenuItem className="focus:bg-white/5 focus:text-white cursor-pointer gap-2">
+                                    <DropdownMenuItem onClick={() => router.push('/profile')} className="focus:bg-white/5 focus:text-white cursor-pointer gap-2">
                                         <User size={14} /> Profile
                                     </DropdownMenuItem>
-                                    <DropdownMenuItem className="focus:bg-white/5 focus:text-white cursor-pointer gap-2">
+                                    <DropdownMenuItem onClick={() => router.push('/settings')} className="focus:bg-white/5 focus:text-white cursor-pointer gap-2">
                                         <SettingsIcon size={14} /> Settings
                                     </DropdownMenuItem>
                                     <DropdownMenuSeparator className="bg-white/5" />

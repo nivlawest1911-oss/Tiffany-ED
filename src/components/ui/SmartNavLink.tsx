@@ -27,7 +27,13 @@ export const SmartNavLink: React.FC<SmartNavLinkProps> = ({ item, active, classN
         item.href.startsWith('/generators') ||
         item.href.startsWith('/cognitive') ||
         item.href.startsWith('/admin') ||
-        item.href.startsWith('/gemini-workspace');
+        item.href.startsWith('/gemini-workspace') ||
+        item.href.startsWith('/roster') ||
+        item.href.startsWith('/pivot') ||
+        item.href.startsWith('/ledger') ||
+        item.href.startsWith('/education') ||
+        item.href.startsWith('/conversation') ||
+        item.href.startsWith('/settings');
 
     const activeColor = isEducation ? 'text-electric-cyan' : 'text-sovereign-gold';
     const activeBg = isEducation ? 'bg-electric-cyan/10 border-electric-cyan/20' : 'bg-sovereign-gold/10 border-sovereign-gold/20';
