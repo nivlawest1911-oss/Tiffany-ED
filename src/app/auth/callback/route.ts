@@ -5,7 +5,7 @@ import { ROUTES } from '@/lib/routes';
 export async function GET(request: NextRequest) {
     const { searchParams, origin } = new URL(request.url);
     const code = searchParams.get('code');
-    const next = searchParams.get('next') ?? ROUTES.TEACHER_LAB;
+    const next = searchParams.get('next') ?? ROUTES.THE_ROOM;
 
     if (code) {
         console.log('🏛️ [EdIntel_Auth] Initiating Code Exchange Protocol...');
@@ -47,7 +47,7 @@ export async function GET(request: NextRequest) {
             if (role === 'admin') {
                 redirectUrl = `${origin}${ROUTES.ADMIN_DASHBOARD}`;
             } else if (role === 'teacher') {
-                redirectUrl = `${origin}${ROUTES.TEACHER_LAB}`;
+                redirectUrl = `${origin}${ROUTES.THE_ROOM}`;
             }
 
             // Create the redirect response

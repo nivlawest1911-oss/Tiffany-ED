@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Lock, Mail, ArrowRight, ShieldCheck as LucideShield, Loader2 } from 'lucide-react';
-import HolographicBriefing from '@/components/intelligence/HolographicBriefing';
+import dynamic from 'next/dynamic';
 import { createBrowserClient } from '@supabase/ssr';
 import EdIntelLogo from '@/components/EdIntelLogo';
 import EdIntelSovereignLogo from '@/components/EdIntelSovereignLogo';
@@ -12,6 +12,9 @@ import { ParticleBackground } from '@/components/ui/Cinematic';
 import { toast } from 'sonner';
 import { ROUTES } from '@/lib/routes';
 import Image from 'next/image';
+
+// Lazy-load: only shown when user clicks "Security Clearance Briefing"
+const HolographicBriefing = dynamic(() => import('@/components/intelligence/HolographicBriefing'), { ssr: false });
 
 export default function LoginClient() {
     const [email, setEmail] = useState('');
@@ -72,7 +75,7 @@ export default function LoginClient() {
                     toast.success("Identity Verified", {
                         description: "Master access granted. Establishing secure tunnel...",
                     });
-                    router.push(ROUTES.TEACHER_LAB);
+                    router.push(ROUTES.THE_ROOM);
                     router.refresh();
                     return;
                 }
@@ -129,7 +132,7 @@ export default function LoginClient() {
             }
 
             // Force immediate redirect to prevent being stuck on login
-            router.push(ROUTES.TEACHER_LAB);
+            router.push(ROUTES.THE_ROOM);
             router.refresh();
         } catch (err: any) {
             console.error(err);
@@ -197,7 +200,7 @@ export default function LoginClient() {
                 {/* Cinematic Bright Background */}
                 <div className="absolute inset-0 z-0">
                     <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/50 via-white to-cyan-50/30" />
-                    <ParticleBackground count={30} color="bg-indigo-300/30" />
+                    <ParticleBackground count={12} color="bg-indigo-300/30" />
                     {/* Soft Glow Orbs - Optimized with Radial Gradients instead of Blur */}
                     <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(199,210,254,0.15)_0%,transparent_70%)] rounded-full opacity-60 animate-pulse pointer-events-none" />
                     <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(165,243,252,0.15)_0%,transparent_70%)] rounded-full opacity-60 animate-pulse delay-1000 pointer-events-none" />
@@ -207,7 +210,7 @@ export default function LoginClient() {
                     initial={{ opacity: 0, scale: 0.95, y: 20 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="w-full max-w-[1100px] grid grid-cols-1 lg:grid-cols-2 bg-white/40 backdrop-blur-3xl rounded-[3rem] border border-white/60 shadow-[0_20px_80px_rgba(0,0,0,0.05)] relative z-10 overflow-hidden"
+                    className="w-full max-w-[1100px] grid grid-cols-1 lg:grid-cols-2 bg-white/70 backdrop-blur-sm rounded-[3rem] border border-white/60 shadow-[0_20px_80px_rgba(0,0,0,0.05)] relative z-10 overflow-hidden"
                 >
                     {/* LEFT PANEL: VISUAL IDENTITY */}
                     <div className="hidden lg:flex flex-col items-center justify-center p-12 relative bg-gradient-to-br from-white/20 to-indigo-50/30 border-r border-white/40 overflow-hidden">

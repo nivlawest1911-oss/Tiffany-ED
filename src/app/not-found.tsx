@@ -58,7 +58,7 @@ export default function NotFound() {
         if (userRole === 'admin') {
             router.push(ROUTES.ADMIN_DASHBOARD);
         } else if (userRole === 'teacher') {
-            router.push(ROUTES.TEACHER_LAB);
+            router.push(ROUTES.THE_ROOM);
         } else {
             router.push(ROUTES.LOGIN);
         }

@@ -518,3 +518,32 @@
         filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
     }
 }
+
+/* CWV: CSS-only background animations (replaces framer-motion in GenerativeBackground) */
+@keyframes drift1 {
+    0% {
+        transform: scale(1) translate(0, 0);
+    }
+
+    50% {
+        transform: scale(1.1) translate(30px, 50px);
+    }
+
+    100% {
+        transform: scale(1) translate(0, 0);
+    }
+}
+
+@keyframes drift2 {
+    0% {
+        transform: scale(1.1) translate(0, 0);
+    }
+
+    50% {
+        transform: scale(1) translate(-50px, -30px);
+    }
+
+    100% {
+        transform: scale(1.1) translate(0, 0);
+    }
+}

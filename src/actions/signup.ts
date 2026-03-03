@@ -46,7 +46,7 @@ export async function createEdIntelUser(formData: FormData) {
             }
         });
 
-        revalidatePath(ROUTES.TEACHER_LAB); // Refresh the dashboard state
+        revalidatePath(ROUTES.THE_ROOM); // Refresh the dashboard state
 
         return {
             success: true,

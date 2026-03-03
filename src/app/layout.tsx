@@ -9,7 +9,7 @@ import { SovereignProvider } from '@/context/SovereignState';
 import { Toaster } from 'sonner';
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import PWAInstall from '@/components/PWAInstall';
+import ClientShell from '@/components/layout/ClientShell';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' });
@@ -63,7 +63,6 @@ export const viewport = {
 };
 
 
-import GenerativeBackground from '@/components/layout/GenerativeBackground';
 
 export default function RootLayout({
   children,
@@ -73,6 +72,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable} ${outfit.variable} dark`}>
       <head>
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+        <link rel="dns-prefetch" href="https://fonts.cdnfonts.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -84,8 +86,7 @@ export default function RootLayout({
             <IntelligenceProvider>
               <SovereignProvider>
                 <EdIntelVibeProvider>
-                  <PWAInstall />
-                  <GenerativeBackground />
+                  <ClientShell />
                   <main className="relative z-10">
                     {children}
                   </main>
