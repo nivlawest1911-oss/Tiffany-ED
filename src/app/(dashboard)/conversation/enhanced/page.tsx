@@ -4,12 +4,15 @@ import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Mic, MicOff, Camera, Watch, Video, Send, Loader2, Brain, Activity, Zap, TrendingUp } from "lucide-react"
 import { useChat } from "@ai-sdk/react"
-import { AvatarDisplay, AvatarState } from "@/components/ui/AvatarDisplay"
+import { AvatarDisplay3D } from "@/components/avatars/AvatarDisplay3D"
 import { animationService, AnimationState } from "@/lib/animation-service"
 import { wearableService } from "@/lib/wearable-service"
 
 export default function EnhancedMultimodalHub() {
     const [avatarState, setAvatarState] = useState<AnimationState>('idle')
+    const [visemeData, setVisemeData] = useState<any[]>([])
+    const [audioContent, setAudioContent] = useState<string | null>(null)
+    const [isPlayingAudio, setIsPlayingAudio] = useState(false)
     const [isRecording, setIsRecording] = useState(false)
     const [isCapturing, setIsCapturing] = useState(false)
     const [isWearableConnected, setIsWearableConnected] = useState(false)
@@ -19,7 +22,26 @@ export default function EnhancedMultimodalHub() {
     const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
         api: '/api/voice/stream-response',
         onResponse: () => animationService.setState('speaking'),
-        onFinish: () => animationService.setState('idle'),
+        onFinish: async (message: any) => {
+            animationService.setState('idle')
+            try {
+                // Trigger voice synthesis for the response
+                const response = await fetch('/api/google/tts', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: message.content }),
+                })
+                const data = await response.json()
+                if (data.audioContent) {
+                    setVisemeData(data.visemeData)
+                    setAudioContent(data.audioContent)
+                    setIsPlayingAudio(true)
+                    animationService.setState('speaking')
+                }
+            } catch (err) {
+                console.error("Voice synthesis failed:", err)
+            }
+        },
     } as any) as any
 
     useEffect(() => {
@@ -75,10 +97,14 @@ export default function EnhancedMultimodalHub() {
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10" />
 
                         {/* Avatar Display */}
-                        <div className="absolute inset-0 flex items-center justify-center p-8">
-                            <AvatarDisplay
-                                state={avatarState === 'idle' || avatarState === 'speaking' || avatarState === 'thinking' ? avatarState.toUpperCase() as AvatarState : 'IDLE'}
-                                size={280}
+                        <div className="absolute inset-0 flex items-center justify-center">
+                            <AvatarDisplay3D
+                                selectedAvatar={{ modelPath: '/models/avatar_base.glb' }}
+                                isLoading={isLoading}
+                                mood={avatarState}
+                                isPlayingAudio={isPlayingAudio}
+                                visemeData={visemeData}
+                                audioContent={audioContent}
                             />
                         </div>
 
@@ -113,6 +139,7 @@ export default function EnhancedMultimodalHub() {
                                 onClick={toggleRecording}
                                 className={`w-16 h-16 rounded-full flex items-center justify-center transition-all ${isRecording ? 'bg-red-500 shadow-[0_0_30px_rgba(239,68,68,0.5)]' : 'bg-white/10 hover:bg-white/20'
                                     }`}
+                                title={isRecording ? "Stop Recording" : "Start Recording"}
                             >
                                 {isRecording ? <MicOff className="w-8 h-8" /> : <Mic className="w-8 h-8" />}
                             </button>
@@ -121,6 +148,7 @@ export default function EnhancedMultimodalHub() {
                                 onClick={toggleCapture}
                                 className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${isCapturing ? 'bg-blue-500' : 'bg-white/10 hover:bg-white/20'
                                     }`}
+                                title={isCapturing ? "Stop Camera" : "Start Camera"}
                             >
                                 <Camera className="w-6 h-6" />
                             </button>
@@ -159,7 +187,11 @@ export default function EnhancedMultimodalHub() {
                             placeholder="Strategic direction required..."
                             className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 pr-16 focus:outline-none focus:border-white/20 transition-all"
                         />
-                        <button type="submit" className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/10 hover:bg-white/20 rounded-xl transition-all">
+                        <button
+                            type="submit"
+                            className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/10 hover:bg-white/20 rounded-xl transition-all"
+                            title="Send Message"
+                        >
                             <Send className="w-5 h-5" />
                         </button>
                     </form>

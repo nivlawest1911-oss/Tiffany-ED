@@ -171,8 +171,8 @@ export default function LeadershipGym({ onXPAction }: { onXPAction?: (amount: nu
                             <Brain className="text-cyan-400" size={32} />
                         </div>
                         <div>
-                            <h2 className="text-3xl font-black tracking-tighter">Leadership Workout</h2>
-                            <p className="text-sm font-bold text-cyan-400 uppercase tracking-widest">Mental Performance Exercises</p>
+                            <h2 className="text-2xl md:text-3xl font-black tracking-tighter text-white">Leadership Workout</h2>
+                            <p className="text-xs font-bold text-cyan-400 uppercase tracking-widest mt-1 text-white">Mental Performance Exercises</p>
                         </div>
                     </div>
                     <div className="flex items-center gap-4">

@@ -1,17 +1,10 @@
 @import "tailwindcss";
 
+/* Ethnocentric → Orbitron fallback (loaded via <link> in layout.tsx) */
 @font-face {
     font-family: 'Ethnocentric';
-    src: url('/fonts/ethnocentric_rg.otf') format('opentype');
+    src: local('Orbitron');
     font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Satoshi';
-    src: url('/fonts/Satoshi-Variable.ttf') format('truetype');
-    font-weight: 300 900;
     font-style: normal;
     font-display: swap;
 }

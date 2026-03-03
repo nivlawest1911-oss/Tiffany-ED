@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Trophy, Star, Zap, ShieldCheck } from 'lucide-react';
 import dynamic from 'next/dynamic';
@@ -25,12 +25,24 @@ const CelebrationContext = createContext<CelebrationContextType | undefined>(und
 export function CelebrationProvider({ children }: { children: React.ReactNode }) {
     const [activeCelebration, setActiveCelebration] = useState<Celebration | null>(null);
     const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+    const resizeTimeout = useRef<NodeJS.Timeout | null>(null);
 
     useEffect(() => {
+        // Initial size
         setWindowSize({ width: window.innerWidth, height: window.innerHeight });
-        const handleResize = () => setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+
+        const handleResize = () => {
+            if (resizeTimeout.current) clearTimeout(resizeTimeout.current);
+            resizeTimeout.current = setTimeout(() => {
+                setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+            }, 250); // Throttle resize updates
+        };
+
         window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+            if (resizeTimeout.current) clearTimeout(resizeTimeout.current);
+        };
     }, []);
 
     const celebrate = useCallback((title: string, message: string, type: CelebrationType = 'success') => {
@@ -50,11 +62,11 @@ export function CelebrationProvider({ children }: { children: React.ReactNode })
             <AnimatePresence>
                 {activeCelebration && (
                     <div className="fixed inset-0 z-[1000] pointer-events-none flex items-center justify-center">
-                        {/* Confetti Effect */}
+                        {/* Confetti Effect - Optimized particle count */}
                         <Confetti
                             width={windowSize.width}
                             height={windowSize.height}
-                            numberOfPieces={200}
+                            numberOfPieces={100}
                             recycle={false}
                             colors={['#D4AF37', '#FFF', '#C5A47E', '#8A6D3B']}
                         />

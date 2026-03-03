@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { Shield, MapPin, Scale, Award, Info } from 'lucide-react';
 import Image from 'next/image';
-import HolographicCard from '@/components/ui/HolographicCard';
+import { HolographicCard } from '@/components/ui/HolographicCard';
 import ProfessionalID from '@/components/dossier/ProfessionalID';
 
 export const EdIntelIdentity = () => {

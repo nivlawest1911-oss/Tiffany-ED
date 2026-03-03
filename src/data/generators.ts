@@ -4,7 +4,7 @@ import {
     Briefcase, BookMarked, PenTool, Video, Beaker, Calculator, HandCoins, Bus, ClipboardList,
     PieChart, Layers, Gamepad2, ShieldAlert, Mail, ScrollText, UserCheck, FileJson, Table, HeartHandshake, Smile,
     GanttChart, Trophy, Glasses, BarChart3, Globe, Star, Scale, Clock, ShoppingBag, Presentation, HardHat,
-    History, Heart, Flame, Compass, ShieldCheck
+    History, Heart, Flame, Compass, ShieldCheck, Image as ImageIcon
 } from "lucide-react"
 
 import { CORE_AVATARS } from './avatars';
@@ -60,6 +60,7 @@ export const generators = [
     {
         id: "lesson-planner",
         name: "Lesson Planner Pro",
+        link: "/generator/lesson",
         description: "Transform state standards into engaging, multi-tiered lesson plans. Optimized for student growth and classroom efficiency.",
         icon: BookOpen,
         color: "#d946ef",
@@ -72,6 +73,22 @@ export const generators = [
             "Design a 5th Grade math lesson on fractions that incorporates Kente pattern geometry and culturally-responsive narratives.",
             "Design a high school American History unit on the Reconstruction Era focusing on economic Identity and legislative policy.",
             "Create a middle school science lab protocol for renewable energy, tiered for ELL and GT learners."
+        ]
+    },
+    {
+        id: "image-generator",
+        name: "Holographic Visualizer",
+        link: "/generator/image",
+        description: "Generate high-fidelity, instructional graphics and diagrams tailored to your curriculum.",
+        icon: ImageIcon,
+        color: "#22d3ee",
+        avatar: AVATARS.CURRICULUM,
+        heroImage: "/images/features/strategic_iep_architect.png",
+        welcomeVideo: "/videos/briefings/data_briefing.mp4",
+        prompts: [
+            "Cross-section of a futuristic solar cell",
+            "Diagram of the three branches of government in a holographic style",
+            "3D anatomical heart with electric blue highlights"
         ]
     },
     {
@@ -217,7 +234,7 @@ export const generators = [
     { id: "policy-advisor", name: "Policy Advisor", description: "Navigate regulations", icon: Scale, color: "#8b5cf6", avatar: AVATARS.COMPLIANCE, heroImage: "/images/features/iep_interface.png", heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/compliance_briefing.mp4", voiceWelcome: "/voice-profiles/compliance_voice.wav", prompts: ["IDEA compliance check", "504 plan requirements"] },
     { id: "cognitive-gym", name: "The Cognitive Gym", description: "Executive function training strategies", icon: Brain, color: "#ec4899", avatar: AVATARS.COUNSELOR, link: "/generators/cognitive-gym", heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Working memory activities"] },
     { id: "idea-generator", name: "Idea Generator", description: "Creative solutions", icon: Lightbulb, color: "#f59e0b", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Engagement strategies"] },
-    { id: "code-commander", name: "Code Commander", description: "Learn coding", icon: Code, color: "#06b6d4", avatar: AVATARS.DATA, heroVideo: "/videos/features/data-analysis-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/data_voice.wav", prompts: ["Debug my Python code"] },
+    { id: "code-commander", name: "Code Commander", description: "Learn coding with a professional, holographic AI assistant designed for educators.", icon: Code, color: "#06b6d4", avatar: AVATARS.DATA, link: "/generator/code-snippet", heroVideo: "/videos/features/data-analysis-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/data_voice.wav", prompts: ["Debug my Python code", "Explain a JavaScript for-loop", "Create an HTML boilerplate for students"] },
     { id: "comms-director", name: "Comms Director", description: "PR content", icon: Megaphone, color: "#f97316", avatar: AVATARS.PRINCIPAL, heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/principal_voice.wav", prompts: ["Draft school newsletter"] },
     { id: "design-studio", name: "Design Studio", description: "Creative layout", icon: Palette, color: "#e11d48", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Yearbook layout ideas"] },
     { id: "meeting-prep", name: "Meeting Prep", description: "Agendas & talking points", icon: Briefcase, color: "#0ea5e9", avatar: AVATARS.PRINCIPAL, heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/principal_voice.wav", prompts: ["Board meeting agenda"] },
@@ -334,14 +351,18 @@ export const generators = [
     {
         id: "teacher-wellness-guide",
         name: "Wellness Guardian",
-        description: "Strategies for avoiding burnout and maintaining balance.",
-        icon: HeartHandshake,
-        color: "#059669", // Emerald-600
-        avatar: AVATARS.COUNSELOR,
-        heroVideo: "/videos/Burnout_Fix_Awaits.mp4",
-        welcomeVideo: "/videos/Health_for_Alabamas_Educators.mp4",
+        description: "AI-guided protocols for preventing educator burnout, managing secondary trauma, and fostering a resilient school culture.",
+        icon: Heart,
+        color: "from-pink-500 to-rose-600",
+        avatar: '/images/avatars/keisha_reynolds_premium.png',
+        heroVideo: "", // REPLACED: Stock footage removed
+        welcomeVideo: "", // REPLACED: Stock footage removed
+        heroImage: '/images/strategic_vision_classroom.png',
         voiceWelcome: "/voice-profiles/counselor_voice.wav",
-        prompts: ["5-minute stress relief", "Boundary setting scripts", "End-of-day decompression"]
+        prompts: [
+            "Draft a 5-minute daily restorative protocol for SPED teachers.",
+            "Create a faculty meeting module on recognizing secondary trauma."
+        ]
     },
     {
         id: "strategic-visionary",

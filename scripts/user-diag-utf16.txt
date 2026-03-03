@@ -1,0 +1,6 @@
+[dotenv@17.2.3] injecting env (58) from .env -- tip: 🔐 encrypt with Dotenvx: https://dotenvx.com
+--- Supabase User Diagnostic ---
+Found 3 users.
+- edintel_test_1740459892@gmail.com (ID: 5672a377-3a33-4995-8d06-1b4bb1c3e665) | Confirmed: false | Last Login: undefined
+- nivlawest1911@hotmail.com (ID: f4f280aa-2ff0-4ed4-994f-3cc100d29b3a) | Confirmed: true | Last Login: 2026-02-21T10:30:08.257859Z
+- nivlawest1911@gmail.com (ID: ca4968af-1af4-4c73-911c-f00d7b705f90) | Confirmed: true | Last Login: 2026-02-23T05:29:28.253865Z

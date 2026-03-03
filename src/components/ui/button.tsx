@@ -4,7 +4,7 @@ import React from 'react';
 
 // 1. Define the exact variations this button is allowed to have
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'danger' | 'ghost';
+  variant?: 'primary' | 'secondary' | 'danger' | 'ghost' | 'holographic';
   size?: 'sm' | 'md' | 'lg' | 'icon';
 }
 
@@ -17,7 +17,7 @@ export function Button({
 }: ButtonProps) {
 
   // 2. Lock the base styling that all buttons share
-  const baseStyles = "inline-flex items-center justify-center font-bold rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none";
+  const baseStyles = "inline-flex items-center justify-center font-bold rounded-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none";
 
   // 3. Lock the specific variants
   const variants = {
@@ -25,6 +25,7 @@ export function Button({
     secondary: "bg-gray-100 text-gray-900 hover:bg-gray-200 focus:ring-gray-500",
     danger: "bg-red-600 text-white hover:bg-red-700 focus:ring-red-500",
     ghost: "bg-transparent hover:bg-white/10 text-current",
+    holographic: "holographic-button shadow-holographic",
   };
 
   // 4. Lock the sizing

@@ -170,13 +170,13 @@ export default function EdIntelLogo({
                         animate={{ opacity: isHovered ? 0.6 : 0.3, scale: isHovered ? 1.2 : 1 }}
                         className="absolute inset-0 bg-noble-gold/20 blur-2xl rounded-full"
                     />
-                    <div className="relative z-10 bg-black/40 p-4 rounded-3xl border border-white/10 backdrop-blur-xl">
+                    <div className="relative z-10 bg-white p-4 rounded-3xl shadow-[0_0_30px_rgba(255,255,255,0.15)] ring-1 ring-white/20">
                         <Image
                             src={isSovereign ? "/images/branding/edintel_logo_sovereign.png" : "/assets/images/Edintellogo.png"}
                             alt="EdIntel Logo"
                             width={size || 120}
                             height={size || 120}
-                            className="drop-shadow-[0_0_15px_rgba(212,175,55,0.3)] filter contrast-125"
+                            className="drop-shadow-[0_0_15px_rgba(212,175,55,0.3)] filter contrast-125 mix-blend-multiply"
                             priority
                         />
                         <motion.div
@@ -193,10 +193,10 @@ export default function EdIntelLogo({
                     </div>
                 </motion.div>
                 {showText && (
-                    <div className="flex flex-col items-center leading-none">
-                        <span className="text-2xl font-black text-white tracking-[0.3em] uppercase mb-1">EdIntel</span>
-                        <div className="h-[1px] w-32 bg-gradient-to-r from-transparent via-noble-gold to-transparent mb-1 opacity-50" />
-                        <span className="text-[10px] font-bold text-noble-gold uppercase tracking-[0.5em]">
+                    <div className="flex flex-col items-center leading-none mt-2">
+                        <span className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400 tracking-[0.35em] uppercase mb-2">EdIntel</span>
+                        <div className="h-[2px] w-48 bg-gradient-to-r from-transparent via-noble-gold to-transparent mb-2 opacity-80" />
+                        <span className="text-xs font-black text-noble-gold uppercase tracking-[0.6em]">
                             {isSovereign ? "Sovereign OS" : "Intelligence Systems"}
                         </span>
                     </div>

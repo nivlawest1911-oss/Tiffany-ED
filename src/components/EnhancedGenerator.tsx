@@ -13,6 +13,7 @@ import { generators as GENERATORS } from '@/data/generators';
 import TalkingDelegateOverlay from '@/components/TalkingDelegateOverlay';
 import { NeuralSynthesisHUD } from './NeuralSynthesisHUD';
 import { SmartHover } from '@/components/ui/SmartHover';
+import { useIntelligence } from '@/context/IntelligenceContext';
 // import { checkAccess, EdIntelFeature } from '@/lib/EdIntel-access'; // Kept for future activation
 
 interface EnhancedGeneratorProps {
@@ -44,6 +45,7 @@ export default function EnhancedGenerator({
     delegateRole,
     delegateImage
 }: EnhancedGeneratorProps) {
+    const { addAction } = useIntelligence();
     // ... (rest of hook logic is unchanged)
     const { user } = useAuth(); // Removed isAuthLoading
     const [input, setInput] = useState('');
@@ -185,10 +187,8 @@ export default function EnhancedGenerator({
         playClick(); // Sound Cue
         setErrorMsg('');
 
-        if (!user) {
-            setErrorMsg('Authentication required. Please Sign In to access this Strategic System.');
-            return;
-        }
+        // Auth check removed: allow generation for all visitors.
+        // The API route handles auth gracefully with a guest fallback.
 
         // EdIntel Access Check
         // We consider all specific specialized generators as "Advanced" for now, except maybe a basic one if we flagged it.
@@ -278,7 +278,7 @@ Always expand with:
 
 Context:
 - Tool Name: ${generatorName}
-- User Role: ${user.tier} Executive`
+- User Role: ${user?.tier || 'Guest'} Executive`
                 }),
                 signal: controller.signal
             });
@@ -314,6 +314,7 @@ Context:
             if (controller.signal.aborted) return;
 
             playSuccess(); // Completion Sound Cue
+            addAction(`${generatorName} Protocol Synthesized: ${input.substring(0, 30)}${input.length > 30 ? '...' : ''}`);
             saveToHistory(input, fullResponse); // Save to local history using actual input
 
             // --- LEADERSHIP SYNC PROTOCOL: PROFESSOR SYNTHESIS ---
@@ -479,7 +480,7 @@ Context:
                         alt="Background"
                         fill
                         priority
-                        className="object-cover scale-105 opacity-30 blur-[1px]"
+                        className="object-cover scale-105 opacity-30"
                     />
                 ) : (
                     <div className="w-full h-full bg-gradient-to-br from-noble-black via-zinc-950 to-indigo-950/20" />
@@ -772,7 +773,7 @@ Context:
                                             <button onClick={handleCopy} className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
                                                 {copied ? <Check size={18} className="text-emerald-400" /> : <Copy size={18} />}
                                             </button>
-                                            <button onClick={handleDownload} className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
+                                            <button onClick={handleDownload} title="Download Protocol" className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
                                                 <Download size={18} />
                                             </button>
                                         </div>

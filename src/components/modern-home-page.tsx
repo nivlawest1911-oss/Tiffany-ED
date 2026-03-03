@@ -66,6 +66,45 @@ function InteractiveTerminal({ onCommand }: { onCommand: (cmd: string) => void }
     const [isListening, setIsListening] = useState(false);
     const { isSystemThinking } = useEdIntelVibe();
 
+    useEffect(() => {
+        if (!isListening) return;
+
+        const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+            console.warn("Speech recognition not supported in this browser.");
+            setIsListening(false);
+            return;
+        }
+
+        const recognition = new SpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+
+        recognition.onstart = () => setIsListening(true);
+
+        recognition.onresult = (event: any) => {
+            const transcript = event.results[0][0].transcript;
+            setInput(prev => prev ? prev + ' ' + transcript : transcript);
+            setIsListening(false);
+        };
+
+        recognition.onerror = (event: any) => {
+            console.error("Speech recognition error:", event.error);
+            setIsListening(false);
+        };
+
+        recognition.onend = () => setIsListening(false);
+
+        try {
+            recognition.start();
+        } catch (e) {
+            console.error("Speech recognition start failed:", e);
+            setIsListening(false);
+        }
+
+        return () => recognition.stop();
+    }, [isListening]);
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (!input.trim()) return;
@@ -83,10 +122,10 @@ function InteractiveTerminal({ onCommand }: { onCommand: (cmd: string) => void }
 
             <form onSubmit={handleSubmit} className="relative group/form">
                 {/* Dynamic Border */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-sovereign-gold/20 via-amber-600/20 to-orange-600/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition duration-1000" />
+                <div className="absolute -inset-1 bg-gradient-to-r from-sovereign-gold/20 via-amber-600/20 to-orange-600/20 rounded-2xl blur-md opacity-0 group-hover:opacity-100 transition duration-1000" />
 
                 <div className={cn(
-                    "relative bg-black/60 backdrop-blur-3xl border border-white/5 rounded-2xl overflow-hidden shadow-2xl transition-all duration-500",
+                    "relative bg-black/60 backdrop-blur-md border border-white/5 rounded-2xl overflow-hidden shadow-2xl transition-all duration-500",
                     isSystemThinking && "border-sovereign-gold/30 shadow-sovereign-gold/5"
                 )}>
                     {/* Interior Scanline */}
@@ -106,6 +145,7 @@ function InteractiveTerminal({ onCommand }: { onCommand: (cmd: string) => void }
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             placeholder="INITIATE EdIntel PROTOCOL..."
+                            aria-label="EdIntel command input"
                             className="w-full bg-transparent border-none text-white px-4 py-5 focus:outline-none placeholder:text-zinc-600 font-mono text-sm tracking-[0.1em] uppercase transition-all"
                         />
 
@@ -191,17 +231,82 @@ export default function ModernHomePage() {
         return () => clearInterval(timer);
     }, [agentMessage, isSystemThinking]);
 
-    const handleCommand = (cmd: string) => {
+    const handleCommand = async (cmd: string) => {
         setSystemThinking(true);
         setAgentMessage(`Accessing ${cmd} protocol...`);
 
-        // Simulate processing before routing
-        setTimeout(() => {
+        // Check for quick routing commands
+        if (cmd.toLowerCase().includes('budget') || cmd.toLowerCase().includes('fiscal') || cmd.toLowerCase().includes('optimization')) {
+            setTimeout(() => {
+                setSystemThinking(false);
+                router.push('/ai-hub/fiscal-strategist');
+            }, 1000);
+            return;
+        }
+
+        if (cmd.toLowerCase().includes('iep')) {
+            setTimeout(() => {
+                setSystemThinking(false);
+                router.push('/dashboard/iep-architect');
+            }, 1000);
+            return;
+        }
+
+        if (cmd.toLowerCase().includes('audit') || cmd.toLowerCase().includes('compliance')) {
+            setTimeout(() => {
+                setSystemThinking(false);
+                router.push('/ai-hub/legal-defense');
+            }, 1000);
+            return;
+        }
+
+        if (cmd.toLowerCase().includes('matrix')) {
+            setTimeout(() => {
+                setSystemThinking(false);
+                router.push('/dashboard');
+            }, 1000);
+            return;
+        }
+
+        // Generic AI Chat via existing /api/chat route
+        try {
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    messages: [{ role: 'user', content: cmd }],
+                    avatarName: CORE_AVATARS[activeAgentIndex].name,
+                    avatarRole: CORE_AVATARS[activeAgentIndex].role,
+                })
+            });
+
+            if (!response.ok) throw new Error('Network response was not ok');
+            if (!response.body) throw new Error('No body in response');
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            let accumulatedMessage = '';
+
+            setAgentMessage(''); // Clear loading text to start streaming
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                const chunk = decoder.decode(value, { stream: true });
+                accumulatedMessage += chunk;
+                setAgentMessage(accumulatedMessage);
+            }
+        } catch (error) {
+            console.error('[Terminal AI Error]:', error);
+            setAgentMessage("I encountered an error connecting to the neural network. Please try again.");
+        } finally {
             setSystemThinking(false);
-            if (cmd.toLowerCase().includes('budget')) router.push('/ai-hub/fiscal-strategist');
-            else if (cmd.toLowerCase().includes('iep')) router.push('/dashboard/iep-architect');
-            else router.push('/ai-hub');
-        }, 1500);
+            // Keep the message visible for a short time before auto-clearing
+            setTimeout(() => {
+                setAgentMessage(null);
+            }, 8000);
+        }
     };
 
     if (!mounted) return null;
@@ -253,7 +358,7 @@ export default function ModernHomePage() {
                                         <motion.h1
                                             variants={fadeInUp}
                                             className={cn(
-                                                "text-7xl md:text-9xl font-black text-white mb-8 uppercase tracking-tighter leading-[0.8] italic transition-all duration-1000",
+                                                "text-5xl md:text-7xl lg:text-8xl 2xl:text-9xl font-black text-white mb-8 uppercase tracking-tighter leading-[0.8] italic transition-all duration-1000 break-words w-full",
                                                 isSystemThinking ? "opacity-40 scale-95 blur-[2px]" : "cyan-gradient-text"
                                             )}
                                         >
@@ -297,7 +402,7 @@ export default function ModernHomePage() {
                                                 <motion.div
                                                     key={i}
                                                     variants={fadeInUp}
-                                                    className="p-4 bg-black/40 border border-white/5 rounded-2xl backdrop-blur-3xl group hover:border-electric-cyan/20 transition-all shadow-xl"
+                                                    className="p-4 bg-black/40 border border-white/5 rounded-2xl backdrop-blur-md group hover:border-electric-cyan/20 transition-all shadow-xl"
                                                 >
                                                     <stat.icon size={16} className="text-electric-cyan mb-2 animate-pulse" />
                                                     <div className="text-xl font-black text-white italic">{stat.value}</div>
@@ -513,7 +618,7 @@ export default function ModernHomePage() {
                                             initial={{ opacity: 0, x: -30 }}
                                             whileInView={{ opacity: 1, x: 0 }}
                                             viewport={{ once: true }}
-                                            className="h-[600px] relative rounded-3xl overflow-hidden border border-white/5 bg-zinc-900/50 backdrop-blur-3xl shadow-2xl shadow-amber-500/5"
+                                            className="h-[600px] relative rounded-3xl overflow-hidden border border-white/5 bg-zinc-900/50 backdrop-blur-md shadow-2xl shadow-amber-500/5"
                                         >
                                             <EdIntelCore phase="ready" />
                                         </motion.div>

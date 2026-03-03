@@ -21,7 +21,7 @@ import { useIntelligence } from '@/context/IntelligenceContext'
 import { AIHubCard } from './AIHubCard'
 import { TokenMeter } from './TokenMeter'
 import { StrategicLogs } from './StrategicLogs'
-import HolographicCard from "@/components/ui/HolographicCard"
+import { HolographicCard } from "@/components/ui/HolographicCard"
 import SovereignButton from "@/components/ui/SovereignButton"
 
 export default function Dashboard() {

@@ -1,78 +1,45 @@
-"use client";
+'use client'
+import React from 'react'
+import { cn } from '@/lib/utils'
 
-import React from 'react';
-import { cn } from '@/lib/utils';
-import GlassPanel from './GlassPanel';
-
-interface HolographicCardProps {
-    title?: string;
-    subtitle?: string;
-    icon?: React.ReactNode;
-    children?: React.ReactNode;
-    className?: string;
-    gradientFrom?: string;
-    gradientTo?: string;
-    onClick?: () => void;
+interface HolographicCardProps extends React.HTMLAttributes<HTMLDivElement> {
+    children: React.ReactNode
+    className?: string
+    title?: string
+    subtitle?: string
+    icon?: React.ReactNode
 }
 
-const HolographicCard: React.FC<HolographicCardProps> = ({
+export function HolographicCard({
+    children,
+    className,
     title,
     subtitle,
     icon,
-    children,
-    className,
-    gradientFrom = "rgba(99, 102, 241, 0.2)", // primary-500
-    gradientTo = "rgba(139, 92, 246, 0.2)",   // secondary-500
-    onClick,
-}) => {
+    ...props
+}: HolographicCardProps) {
     return (
-        <GlassPanel
-            className={cn("group cursor-pointer", className)}
-            hoverIntensity="high"
-            onClick={onClick}
+        <div
+            className={cn(
+                "holographic-card p-6",
+                className
+            )}
+            {...props}
         >
-            {/* Background Accent Gradient */}
-            <div
-                className="absolute -top-24 -right-24 w-48 h-48 rounded-full blur-3xl opacity-20 group-hover:opacity-40 transition-opacity duration-500"
-                style={{ background: gradientFrom }}
-            />
-            <div
-                className="absolute -bottom-24 -left-24 w-48 h-48 rounded-full blur-3xl opacity-20 group-hover:opacity-40 transition-opacity duration-500"
-                style={{ background: gradientTo }}
-            />
-
-            <div className="p-6">
-                <div className="flex items-start justify-between mb-4">
-                    <div className="flex-1">
-                        {title && (
-                            <h3 className="text-xl font-bold text-gray-900 group-hover:text-indigo-600 transition-colors duration-300">
-                                {title}
-                            </h3>
-                        )}
-                        {subtitle && (
-                            <p className="text-sm text-gray-500 font-medium">
-                                {subtitle}
-                            </p>
-                        )}
-                    </div>
-                    {icon && (
-                        <div className="p-3 bg-white/50 rounded-xl shadow-inner border border-white/20 group-hover:scale-110 group-hover:bg-white transition-all duration-300">
-                            {icon}
+            <div className="relative z-10">
+                {(title || subtitle || icon) && (
+                    <div className="flex items-center justify-between mb-4 border-b border-primary-500/10 pb-4">
+                        <div className="flex items-center gap-3">
+                            {icon && <div className="p-2 rounded-lg bg-primary-500/10 border border-primary-500/20">{icon}</div>}
+                            <div>
+                                {title && <h3 className="text-xs font-black text-white uppercase tracking-[0.2em]">{title}</h3>}
+                                {subtitle && <p className="text-[9px] text-primary-400/60 font-bold uppercase tracking-widest mt-0.5">{subtitle}</p>}
+                            </div>
                         </div>
-                    )}
-                </div>
-
-                {children && (
-                    <div className="mt-4 text-gray-600 leading-relaxed">
-                        {children}
                     </div>
                 )}
+                {children}
             </div>
-
-            {/* Decorative Border Glow */}
-            <div className="absolute inset-0 border border-white/20 rounded-2xl pointer-events-none group-hover:border-primary-400/50 transition-colors duration-300" />
-        </GlassPanel>
-    );
-};
-
-export default HolographicCard;
+        </div>
+    )
+}

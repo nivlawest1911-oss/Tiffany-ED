@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { sql } from '@/lib/db';
+import { prisma } from '@/lib/prisma';
 import { sendWelcomeEmail } from '@/services/email-service';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
@@ -8,13 +9,13 @@ import { cookies } from 'next/headers';
 export async function GET() {
     let authUser: any = null;
 
-    // 1. Try legacy session first
+    // 1. Identification Phase: Try legacy session first, then Supabase
     const session = await getSession();
     if (session && session.user) {
+        console.log(`[AUTH_SYNC] GET /api/auth/me: Legacy session found for ${session.user.email}`);
         authUser = session.user;
     }
 
-    // 2. Try Supabase session if no legacy session exists
     if (!authUser) {
         const cookieStore = await cookies();
         const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -30,9 +31,10 @@ export async function GET() {
             });
             const { data: { user: sbUser } } = await supabase.auth.getUser();
             if (sbUser) {
+                console.log(`[AUTH_SYNC] GET /api/auth/me: Supabase session found for ${sbUser.email}`);
                 authUser = {
                     id: sbUser.id,
-                    email: sbUser.email,
+                    email: sbUser.email!,
                     name: sbUser.user_metadata?.full_name || sbUser.email?.split('@')[0] || 'Sovereign Agent',
                     tier: sbUser.user_metadata?.tier || 'free'
                 };
@@ -44,53 +46,98 @@ export async function GET() {
         return NextResponse.json({ user: null });
     }
 
+    // 2. Synchronization Phase: Ensure presence in all databases
     try {
-        const result = await sql`
-            SELECT subscription_tier, position, bio FROM users WHERE email = ${authUser.email} LIMIT 1
+        console.log(`[AUTH_SYNC] Initiating Parity Check for ${authUser.email}`);
+
+        // A. Neon Check/Provision (@vercel/postgres)
+        const neonResult = await sql`
+            SELECT subscription_tier, position, bio FROM users WHERE email = ${authUser.email.toLowerCase()} LIMIT 1
         `;
 
-        if (result.rows.length > 0) {
-            const freshData = result.rows[0];
-            return NextResponse.json({
-                user: {
-                    ...authUser,
-                    tier: freshData.subscription_tier || authUser.tier,
-                    position: freshData.position,
-                    bio: freshData.bio
+        if (neonResult.rows.length === 0) {
+            console.log(`[AUTH_SYNC] Provisioning ${authUser.email} in Neon...`);
+            await sql`
+                INSERT INTO users (id, name, email, created_at, subscription_tier)
+                VALUES (${authUser.id}, ${authUser.name}, ${authUser.email.toLowerCase()}, NOW(), ${authUser.tier})
+                ON CONFLICT (email) DO NOTHING
+            `;
+        } else {
+            // Update authUser with fresh metadata from Neon
+            const freshNeon = neonResult.rows[0];
+            authUser.tier = freshNeon.subscription_tier || authUser.tier;
+            authUser.position = freshNeon.position;
+            authUser.bio = freshNeon.bio;
+        }
+
+        // B. Prisma Check/Provision (Supabase Postgres)
+        const prismaUser = await prisma.user.findUnique({
+            where: { email: authUser.email.toLowerCase() }
+        });
+
+        if (!prismaUser) {
+            console.log(`[AUTH_SYNC] Provisioning ${authUser.email} in Prisma...`);
+            await prisma.user.create({
+                data: {
+                    id: authUser.id,
+                    clerkId: authUser.id, // Using Supabase ID for clerkId field as compatibility bridge
+                    email: authUser.email.toLowerCase(),
+                    name: authUser.name,
+                    subscriptionTier: authUser.tier as any,
+                    role: 'TEACHER' // Default role
                 }
             });
         }
-    } catch (e) {
-        console.error('Error syncing user data', e);
-    }
 
-    return NextResponse.json({ user: authUser });
+        return NextResponse.json({ user: authUser });
+    } catch (e) {
+        console.error('[AUTH_SYNC] Synchronization Protocol Failed:', e);
+        // Fallback to returning identified user even if sync failed
+        return NextResponse.json({ user: authUser, syncError: true });
+    }
 }
 
 export async function POST(req: Request) {
     try {
-        const { email, name, id } = await req.json();
+        const { email, name, id, tier } = await req.json();
 
         if (!email) return NextResponse.json({ error: 'Email required' }, { status: 400 });
+        const normalizedEmail = email.toLowerCase();
+        const userId = id || normalizedEmail;
 
-        // Upsert into legacy users table
-        const result = await sql`
+        console.log(`[AUTH_SYNC] POST /api/auth/me: Explicit sync for ${normalizedEmail}`);
+
+        // 1. Upsert into Neon
+        await sql`
             INSERT INTO users (id, name, email, created_at, subscription_tier)
-            VALUES (${id || email}, ${name}, ${email}, NOW(), 'free')
+            VALUES (${userId}, ${name}, ${normalizedEmail}, NOW(), ${tier || 'free'})
             ON CONFLICT (email) DO UPDATE 
             SET name = EXCLUDED.name, id = EXCLUDED.id
-            RETURNING *
         `;
 
-        // If it's a new user (or we want to re-greet), send the welcome email
-        // We can check if it was an insert vs update if needed, but for now we'll trigger it
-        if (result.rows.length > 0) {
-            await sendWelcomeEmail(email, name);
+        // 2. Upsert into Prisma
+        await prisma.user.upsert({
+            where: { email: normalizedEmail },
+            update: { name: name, id: userId, clerkId: userId },
+            create: {
+                id: userId,
+                clerkId: userId,
+                email: normalizedEmail,
+                name: name,
+                subscriptionTier: tier || 'free',
+                role: 'TEACHER'
+            }
+        });
+
+        try {
+            await sendWelcomeEmail(normalizedEmail, name);
+        } catch (emailErr) {
+            console.error("[AUTH_SYNC] Welcome email failed:", emailErr);
         }
 
         return NextResponse.json({ success: true });
     } catch (error: any) {
-        console.error("[Neural Bridge Sync Error]", error);
+        console.error("[AUTH_SYNC] Neural Bridge Sync Error:", error);
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import HolographicCard from '@/components/ui/HolographicCard';
+import { HolographicCard } from '@/components/ui/HolographicCard';
 import SovereignButton from '@/components/ui/SovereignButton';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Activity } from 'lucide-react';

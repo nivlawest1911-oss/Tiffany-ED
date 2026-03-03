@@ -63,12 +63,13 @@ export default function EdIntelHeader() {
                         whileTap={{ scale: 0.95 }}
                         className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-500 ${user ? 'bg-intel-gold text-black' : 'bg-white/5 border border-white/10 text-white/40 hover:border-intel-gold/50 hover:text-white'}`}
                         title={user ? "Manage High-Fidelity Session" : "Initiate Bio-Auth Protocol"}
+                        aria-label={user ? "Manage High-Fidelity Session" : "Initiate Bio-Auth Protocol"}
                     >
                         <Fingerprint size={24} strokeWidth={1.5} />
                     </motion.button>
                 </div>
 
-                <button className="relative w-10 h-10 rounded-full flex items-center justify-center text-white/20 hover:text-white hover:bg-white/5 transition-all" title="System Notifications">
+                <button className="relative w-10 h-10 rounded-full flex items-center justify-center text-white/20 hover:text-white hover:bg-white/5 transition-all" title="System Notifications" aria-label="System Notifications">
                     <Bell size={18} />
                     <span className="absolute top-2.5 right-2.5 w-1.5 h-1.5 bg-red-500 rounded-full border border-black shadow-[0_0_8px_#ef4444]" />
                 </button>

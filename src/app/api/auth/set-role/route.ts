@@ -1,26 +1,34 @@
-import { createClient } from '@/utils/supabase/server';
+import { getSession } from '@/lib/auth';
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 import { prisma } from '@/lib/prisma';
 import { UserRole } from '@prisma/client';
 
 export async function POST(req: Request) {
     try {
-        const supabase = await createClient();
-        if (!supabase) {
-            console.warn('[SET_ROLE] Unauthorized attempt: Supabase client initialization failed.');
-            return new NextResponse('Unauthorized', { status: 401 });
+        const session = await getSession();
+        if (!session || !session.user) {
+            const cookieStore = await cookies();
+            const cookieNames = cookieStore.getAll().map(c => c.name);
+            console.warn('[SET_ROLE] Unauthorized attempt: No valid session found.', {
+                hasCookies: !!req.headers.get('cookie'),
+                cookieNames,
+                sessionDetected: !!session
+            });
+            return NextResponse.json({
+                error: 'Unauthorized',
+                reason: !session ? 'No session found' : 'No user in session',
+                diag: {
+                    cookiesPresent: !!req.headers.get('cookie'),
+                    cookieNames
+                }
+            }, { status: 401 });
         }
 
-        const { data: { user: authUser } } = await supabase.auth.getUser();
-        if (!authUser) {
-            console.warn('[SET_ROLE] Unauthorized attempt: No authenticated user found.');
-            return new NextResponse('Unauthorized', { status: 401 });
-        }
-
-        const userId = authUser.id;
+        const userId = session.user.id;
+        const email = session.user.email;
         const body = await req.json();
         const { role, districtName, position } = body;
-        const email = authUser.email;
 
         // 1. Input Validation
         if (!role || typeof role !== 'string') {
@@ -99,23 +107,6 @@ export async function POST(req: Request) {
                 { error: 'Database persistence failed. Please check connection settings.' },
                 { status: 500 }
             );
-        }
-
-        // 3. Metadata Synchronization (Supabase)
-        console.log(`[SET_ROLE] Syncing metadata to Supabase Auth for ${userId}`);
-        const { error: supabaseError } = await supabase.auth.updateUser({
-            data: {
-                role: normalizedRole,
-                onboardingComplete: true,
-                district: districtName,
-                position: position
-            }
-        });
-
-        if (supabaseError) {
-            console.error('[SET_ROLE_SUPABASE_SYNC_ERROR]', supabaseError);
-            // We don't fail the whole request if metadata sync fails but DB succeeded,
-            // but we should warn the client.
         }
 
         return NextResponse.json({

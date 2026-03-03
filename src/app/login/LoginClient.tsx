@@ -11,6 +11,7 @@ import EdIntelSovereignLogo from '@/components/EdIntelSovereignLogo';
 import { ParticleBackground } from '@/components/ui/Cinematic';
 import { toast } from 'sonner';
 import { ROUTES } from '@/lib/routes';
+import Image from 'next/image';
 
 export default function LoginClient() {
     const [email, setEmail] = useState('');
@@ -84,12 +85,16 @@ export default function LoginClient() {
 
                 if (signInError) throw signInError;
 
+                // 🏛️ Global User Synchronization Protocol
+                // Triggering /api/auth/me (GET) will force a parity check and sync between Supabase and Neon
+                await fetch('/api/auth/me').catch(e => console.error("[AUTH_SYNC] Background parity check failed", e));
+
                 toast.success("Identity Verified", {
                     description: "Establishing secure session tunnel...",
                 });
             } else {
                 // 🏛️ Sovereign Enrollment Protocol (Signup)
-                const { error: signUpError } = await supabase.auth.signUp({
+                const { data: { user: signedUpUser }, error: signUpError } = await supabase.auth.signUp({
                     email,
                     password,
                     options: {
@@ -103,6 +108,20 @@ export default function LoginClient() {
                 });
 
                 if (signUpError) throw signUpError;
+
+                // 🏛️ Pre-Provision Identity in Primary Databases
+                if (signedUpUser) {
+                    await fetch('/api/auth/me', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            email: signedUpUser.email,
+                            name: signupData.name,
+                            id: signedUpUser.id,
+                            tier: signupData.tierName
+                        }),
+                    }).catch(e => console.error("[AUTH_SYNC] Pre-provisioning failed", e));
+                }
 
                 toast.success("Identity Provisioned", {
                     description: "Check your executive endpoint for verification.",
@@ -179,9 +198,9 @@ export default function LoginClient() {
                 <div className="absolute inset-0 z-0">
                     <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/50 via-white to-cyan-50/30" />
                     <ParticleBackground count={30} color="bg-indigo-300/30" />
-                    {/* Soft Glow Orbs */}
-                    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-indigo-200/20 blur-[150px] rounded-full opacity-60 animate-pulse pointer-events-none" />
-                    <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-cyan-200/20 blur-[150px] rounded-full opacity-60 animate-pulse delay-1000 pointer-events-none" />
+                    {/* Soft Glow Orbs - Optimized with Radial Gradients instead of Blur */}
+                    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(199,210,254,0.15)_0%,transparent_70%)] rounded-full opacity-60 animate-pulse pointer-events-none" />
+                    <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(165,243,252,0.15)_0%,transparent_70%)] rounded-full opacity-60 animate-pulse delay-1000 pointer-events-none" />
                 </div>
 
                 <motion.div
@@ -191,8 +210,10 @@ export default function LoginClient() {
                     className="w-full max-w-[1100px] grid grid-cols-1 lg:grid-cols-2 bg-white/40 backdrop-blur-3xl rounded-[3rem] border border-white/60 shadow-[0_20px_80px_rgba(0,0,0,0.05)] relative z-10 overflow-hidden"
                 >
                     {/* LEFT PANEL: VISUAL IDENTITY */}
-                    <div className="hidden lg:flex flex-col items-center justify-center p-12 relative bg-gradient-to-br from-white/20 to-indigo-50/30 border-r border-white/40">
-                        <div className="absolute inset-0 bg-[url('/assets/images/bright_education_hub.png')] bg-cover bg-center opacity-80 mix-blend-soft-light" />
+                    <div className="hidden lg:flex flex-col items-center justify-center p-12 relative bg-gradient-to-br from-white/20 to-indigo-50/30 border-r border-white/40 overflow-hidden">
+                        <div className="absolute inset-0 mix-blend-soft-light">
+                            <Image src="/assets/images/bright_education_hub.png" alt="Education Hub" fill priority sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover opacity-80" />
+                        </div>
                         <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-white/20 to-transparent" />
 
                         <div className="relative z-10 text-center space-y-12">

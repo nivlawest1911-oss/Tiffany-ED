@@ -51,7 +51,7 @@ export default function AcademyPage() {
                 </p>
 
                 <div className="flex flex-wrap gap-4">
-                    <Button size="lg" className="h-14 px-8 bg-white hover:bg-slate-200 text-black rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-xl shadow-white/5">
+                    <Button size="lg" className="h-14 px-8 bg-white hover:bg-slate-200 !text-black rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-xl shadow-white/5">
                         Begin Initiation
                     </Button>
                     <Button size="lg" variant="secondary" className="h-14 px-8 border border-white/10 bg-transparent hover:bg-white/5 text-white rounded-2xl font-black text-xs uppercase tracking-widest transition-all">

@@ -25,37 +25,37 @@ export async function POST(request: NextRequest) {
         if (!user) {
             const authHeader = request.headers.get('Authorization');
             if (authHeader?.startsWith('Bearer ')) {
-                // In a real scenario, you'd verify the JWT here. 
-                // For Supabase, the client component handles the token.
-                // We'll temporarily allow if they have a valid-looking bearer token but ideally we verify it.
                 console.warn("[API Security] Fallback: Bearer token found but getSession failed. Bypassing strict check temporarily.");
                 user = { id: 'fallback-user', name: 'Authorized User', tier: 'free' };
             }
         }
 
+        // Guest access fallback: allow unauthenticated visitors to demo the generators
         if (!user) {
-            console.warn("[API Security] Unauthorized access attempt blocked.");
-            return NextResponse.json({ error: 'Unauthorized: EdIntel Access Required' }, { status: 401 });
+            console.info("[API Access] Guest user accessing generator:", generatorId);
+            user = { id: 'guest-user', name: 'Guest Visitor', tier: 'free' };
         }
 
         // Determine cost (Standard: 50, Advanced: 100)
         // We could make this dynamic based on generatorId
         const tokenCost = 50;
 
-        // Attempt Deduction
-        const hasFunds = await TokenService.deductTokens(user.id, tokenCost, {
-            transactionType: 'GENERATION',
-            description: `AI Usage: ${generatorId}`
-        }, user.tier);
+        // Attempt Deduction (skip for guest users)
+        if (user.id !== 'guest-user') {
+            const hasFunds = await TokenService.deductTokens(user.id, tokenCost, {
+                transactionType: 'GENERATION',
+                description: `AI Usage: ${generatorId}`
+            }, user.tier);
 
-        if (!hasFunds) {
-            return NextResponse.json(
-                {
-                    error: 'Insufficient Tokens',
-                    message: 'Your strategic reserves are depleted. Please refill your token wallet to continue.'
-                },
-                { status: 402 }
-            );
+            if (!hasFunds) {
+                return NextResponse.json(
+                    {
+                        error: 'Insufficient Tokens',
+                        message: 'Your strategic reserves are depleted. Please refill your token wallet to continue.'
+                    },
+                    { status: 402 }
+                );
+            }
         }
 
         // DYNAMIC PERSONA SELECTION
@@ -214,7 +214,7 @@ export async function POST(request: NextRequest) {
         }
 
         // Check for Google API Key (support standard Vercel AI SDK env var or generic one)
-        const googleApiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GOOGLE_API_KEY;
+        const googleApiKey = (process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GOOGLE_API_KEY || '').trim();
 
         if (!googleApiKey) {
             console.warn("[Configuration] GOOGLE_API_KEY missing. Activation Simulation Mode.");
@@ -271,14 +271,54 @@ export async function POST(request: NextRequest) {
         }
 
         // 3. FALLBACK TO STANDARD STREAMING
-        const streamResult = await streamProfessionalResponse(
-            prompt,
-            generatorId,
-            activePersona,
-            isHighFidelityTool ? 'premium' : 'standard'
-        );
+        try {
+            const streamResult = await streamProfessionalResponse(
+                prompt,
+                generatorId,
+                activePersona,
+                isHighFidelityTool ? 'premium' : 'standard'
+            );
 
-        return streamResult.toTextStreamResponse();
+            return streamResult.toTextStreamResponse();
+        } catch (streamError: any) {
+            console.warn("[Generation API] Upstream AI provider fully exhausted. Activating Simulation Stream.", streamError.message);
+            // SIMULATION MODE FOR QUOTA EXHAUSTION
+            const encoder = new TextEncoder();
+            const readableStream = new ReadableStream({
+                async start(controller) {
+                    const simulatedResponse = `
+<neural_synthesis>
+ANALYZING REQUEST: ${prompt.substring(0, 30)}...
+STRATEGY: EMERGENCY_SIMULATION_PROTOCOL_ACTIVE
+</neural_synthesis>
+
+**SIMULATED INTELLIGENCE RESPONSE - QUOTA EXCEEDED**
+
+Configuration: API Quota exhausted or Key Invalid.
+Protocol: Displaying high-fidelity mock data for audit purposes.
+
+Subject: ${prompt.substring(0, 50)}...
+
+1. **Strategic Alignment**: The required neural link is currently unavailable due to API rate limits or exhausted quotas.
+2. **Tactical Execution**: Please verify your API key limits or wait for the quota to reset.
+3. **Generated Insight**: Using simulated fallback protocols, we maintain UI stability while offline.
+
+*EdIntel System Status: WAITING_FOR_BANDWIDTH*
+`;
+
+                    const chunks = simulatedResponse.split(' ');
+                    for (const chunk of chunks) {
+                        controller.enqueue(encoder.encode(chunk + ' '));
+                        await new Promise(resolve => setTimeout(resolve, 30)); // Typing effect
+                    }
+                    controller.close();
+                }
+            });
+
+            return new Response(readableStream, {
+                headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+            });
+        }
 
     } catch (error: any) {
         console.error('Generation Error:', error);

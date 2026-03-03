@@ -6,6 +6,7 @@ export const ROUTES = {
     HOME: '/',
     PRICING: '/pricing',
     AUTH_CALLBACK: '/auth/callback',
+    AUTH_ME: '/api/auth/me',
     DASHBOARD: '/the-room',
     TIFFANY_ED: '/the-room',
     THE_ROOM: '/the-room',

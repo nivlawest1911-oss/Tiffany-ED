@@ -4,12 +4,14 @@ import { cn } from "@/lib/utils"
 
 const Card = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
+  React.HTMLAttributes<HTMLDivElement> & { holographic?: boolean }
+>(({ className, holographic, ...props }, ref) => (
   <div
     ref={ref}
     className={cn(
-      "rounded-xl border border-white/5 bg-white/5 text-card-foreground shadow-2xl backdrop-blur-sm",
+      holographic
+        ? "holographic-card shadow-holographic"
+        : "rounded-xl border border-white/5 bg-white/5 text-card-foreground shadow-2xl backdrop-blur-sm",
       className
     )}
     {...props}

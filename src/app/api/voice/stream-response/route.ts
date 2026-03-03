@@ -4,7 +4,7 @@ import { NextRequest } from 'next/server';
 import { ANTIGRAVITY_PROMPT } from '@/lib/google-antigravity';
 
 const google = createGoogleGenerativeAI({
-    apiKey: process.env.GOOGLE_GEMINI_API_KEY || '',
+    apiKey: process.env.GOOGLE_GEMINI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GOOGLE_GENAI_API_KEY || '',
 });
 
 export const runtime = 'edge';

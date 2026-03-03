@@ -42,7 +42,7 @@ export default function BentoShowcase() {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-[300px] gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-[minmax(320px,auto)] gap-6">
                     {/* 1. Executive Dashboard (Large) */}
                     <div className="col-span-1 md:col-span-2 row-span-2 rounded-3xl overflow-hidden border border-white/10 bg-zinc-950">
                         <ExecutiveDashboard />
