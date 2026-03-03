@@ -112,7 +112,10 @@ export function CelebrationProvider({ children }: { children: React.ReactNode })
 export const useCelebrate = () => {
     const context = useContext(CelebrationContext);
     if (!context) {
-        console.warn('useCelebrate was used without a CelebrationProvider. This calls will be no-ops.');
+        // During SSR, context is unavailable — this is expected and safe to suppress.
+        if (typeof window !== 'undefined') {
+            console.warn('useCelebrate was used without a CelebrationProvider. These calls will be no-ops.');
+        }
         return { celebrate: () => { } };
     }
     return context;

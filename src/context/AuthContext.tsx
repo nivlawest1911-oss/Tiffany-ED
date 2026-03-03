@@ -1,9 +1,8 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
-const supabase = createClient();
 import { toast } from 'sonner';
 import { useCelebrate } from './CelebrationContext';
 
@@ -38,6 +37,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const router = useRouter();
+    const supabaseRef = useRef(typeof window !== 'undefined' ? createClient() : null);
+    const supabase = supabaseRef.current;
 
     // 🏛️ EdIntel IDENTITY SYNC
     useEffect(() => {
