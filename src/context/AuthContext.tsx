@@ -1,8 +1,7 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { createClient } from '@/utils/supabase/client';
 import { toast } from 'sonner';
 import { ROUTES } from '@/lib/routes';
 
@@ -27,11 +26,27 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+function getSafeSupabaseClient() {
+    try {
+        const { createClient } = require('@/utils/supabase/client');
+        return createClient();
+    } catch {
+        return null;
+    }
+}
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const router = useRouter();
-    const supabase = createClient();
+    const supabaseRef = useRef<any>(null);
+    const initialized = useRef(false);
+
+    // Initialize supabase client once, safely
+    if (!initialized.current) {
+        initialized.current = true;
+        supabaseRef.current = getSafeSupabaseClient();
+    }
 
     const fetchUser = async () => {
         try {
@@ -52,21 +67,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         fetchUser();
 
-        if (supabase) {
-            const { data: { subscription } } = supabase.auth.onAuthStateChange((event, _session) => {
+        const supabase = supabaseRef.current;
+        if (supabase?.auth?.onAuthStateChange) {
+            const { data: { subscription } } = supabase.auth.onAuthStateChange((event: string, _session: any) => {
                 console.log(`[AuthContext] Supabase Auth Event: ${event}`);
-                fetchUser(); // Re-fetch from our truth source
+                fetchUser();
             });
-            return () => subscription.unsubscribe();
+            return () => subscription?.unsubscribe();
         }
-    }, [supabase]);
+    }, []);
 
     const logout = async () => {
         try {
-            if (supabase) {
+            const supabase = supabaseRef.current;
+            if (supabase?.auth?.signOut) {
                 await supabase.auth.signOut();
             }
-            // Clear legacy session via API or directly
             await fetch('/api/auth/logout', { method: 'POST' }).catch(() => {
                 document.cookie = "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             });
@@ -80,9 +96,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     const updateUser = async (data: Partial<User>) => {
-        // This should probably call an API to update Postgres/Supabase
         toast.info('Synchronizing tactical profile...');
-        // For now, optimistic update
         setUser(prev => prev ? { ...prev, ...data } : null);
     };
 
