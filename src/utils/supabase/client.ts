@@ -5,7 +5,7 @@ export function createClient() {
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
     if (!supabaseUrl || !supabaseKey) {
-        console.warn('[EDINTEL_SAFE_UPLINK] Missing browser Supabase configuration. Returning null client.')
+        // Expected when Supabase integration is not yet connected
         return null
     }
 
