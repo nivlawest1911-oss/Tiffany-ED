@@ -19,7 +19,7 @@ export default function ParallaxBackground() {
             {/* Deep Space Layer */}
             <motion.div
                 style={{ y: y1 }}
-                className="absolute inset-0 bg-[url('/images/bg/stars-deep.png')] bg-repeat opacity-20"
+                className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22200%22%20height%3D%22200%22%3E%3Crect%20width%3D%22200%22%20height%3D%22200%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2230%22%20r%3D%221%22%20fill%3D%22%23fff%22%20opacity%3D%22.4%22%2F%3E%3Ccircle%20cx%3D%2280%22%20cy%3D%2215%22%20r%3D%22.7%22%20fill%3D%22%23fff%22%20opacity%3D%22.3%22%2F%3E%3Ccircle%20cx%3D%22140%22%20cy%3D%2260%22%20r%3D%221.2%22%20fill%3D%22%23fff%22%20opacity%3D%22.5%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%22120%22%20r%3D%22.8%22%20fill%3D%22%23fff%22%20opacity%3D%22.3%22%2F%3E%3Ccircle%20cx%3D%22170%22%20cy%3D%22140%22%20r%3D%221%22%20fill%3D%22%23fff%22%20opacity%3D%22.4%22%2F%3E%3Ccircle%20cx%3D%22100%22%20cy%3D%22180%22%20r%3D%22.6%22%20fill%3D%22%23fff%22%20opacity%3D%22.2%22%2F%3E%3C%2Fsvg%3E')] bg-repeat opacity-20"
             />
 
             {/* Nebula Layer */}

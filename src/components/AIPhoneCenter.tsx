@@ -48,7 +48,7 @@ export default function AIPhoneCenter() {
             <div className="relative overflow-hidden bg-gradient-to-r from-indigo-600/20 to-purple-600/20 border-b border-indigo-500/30">
                 <div
                     className="absolute inset-0 opacity-10"
-                    style={{ backgroundImage: "url('/grid.svg')" }}
+                    style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpath d='M0 0h40v40H0z' fill='none' stroke='%23ffffff' stroke-opacity='0.05'/%3E%3C/svg%3E\")" }}
                 />
                 <div className="relative max-w-7xl mx-auto px-6 py-12">
                     <motion.div

@@ -513,7 +513,7 @@ export default function ModernHomePage() {
                             {/* HUGGING FACE AVATAR SHOWCASE */}
                             <section className="py-24 bg-zinc-950 border-y border-white/5 relative overflow-hidden">
                                 <div
-                                    className="absolute inset-0 opacity-10 bg-[url('/grid.svg')]"
+                                    className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2240%22%20height%3D%2240%22%3E%3Cpath%20d%3D%22M0%200h40v40H0z%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-opacity%3D%22.05%22%2F%3E%3C%2Fsvg%3E')]"
                                 />
                                 <div className="max-w-7xl mx-auto px-6 relative z-10">
                                     <motion.div
