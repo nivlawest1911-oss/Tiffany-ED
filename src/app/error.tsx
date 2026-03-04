@@ -1,6 +1,6 @@
 'use client'; // Error components must be Client Components
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { RefreshCcw, AlertTriangle } from 'lucide-react';
 import Link from 'next/link';
 
@@ -11,10 +11,44 @@ export default function Error({
     error: Error & { digest?: string };
     reset: () => void;
 }) {
+    const [isRetrying, setIsRetrying] = useState(false);
+
     useEffect(() => {
-        // Log the error to an error reporting service
         console.error('Application Error:', error);
+
+        // Auto-recover from chunk loading failures (stale deploy cache)
+        const isChunkError =
+            error.message?.includes('Loading chunk') ||
+            error.message?.includes('ChunkLoadError') ||
+            error.message?.includes('Failed to fetch dynamically imported module') ||
+            error.message?.includes('Importing a module script failed');
+
+        if (isChunkError) {
+            // Check if we've already tried auto-reloading to avoid infinite loops
+            const reloadKey = 'chunk-reload-' + (error.digest || 'unknown');
+            const lastReload = sessionStorage.getItem(reloadKey);
+            const now = Date.now();
+
+            if (!lastReload || now - parseInt(lastReload) > 30000) {
+                // Auto-reload once, with a 30-second cooldown
+                sessionStorage.setItem(reloadKey, now.toString());
+                window.location.reload();
+            }
+        }
     }, [error]);
+
+    const handleReboot = () => {
+        setIsRetrying(true);
+        // Clear all chunk reload markers
+        for (let i = 0; i < sessionStorage.length; i++) {
+            const key = sessionStorage.key(i);
+            if (key?.startsWith('chunk-reload-')) {
+                sessionStorage.removeItem(key);
+            }
+        }
+        // Force full page reload to bust stale caches
+        window.location.reload();
+    };
 
     return (
         <div className="min-h-screen bg-[#050507] text-white flex flex-col items-center justify-center p-6 text-center">
@@ -30,11 +64,12 @@ export default function Error({
 
             <div className="flex gap-4">
                 <button
-                    onClick={() => reset()}
-                    className="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm uppercase tracking-widest transition-all flex items-center gap-2"
+                    onClick={handleReboot}
+                    disabled={isRetrying}
+                    className="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm uppercase tracking-widest transition-all flex items-center gap-2 disabled:opacity-50"
                 >
-                    <RefreshCcw className="w-4 h-4" />
-                    Reboot System
+                    <RefreshCcw className={`w-4 h-4 ${isRetrying ? 'animate-spin' : ''}`} />
+                    {isRetrying ? 'Rebooting...' : 'Reboot System'}
                 </button>
                 <Link
                     href="/"
@@ -44,7 +79,7 @@ export default function Error({
                 </Link>
             </div>
 
-            {/* DEBUG: Always show error details temporarily for diagnosing the crash */}
+            {/* Error details */}
             <div className="mt-12 p-4 bg-black rounded-lg border border-white/10 max-w-2xl text-left overflow-auto max-h-64 scrollbar-thin">
                 <p className="text-red-400 font-mono text-xs">{error.message}</p>
                 {error.digest && <p className="text-zinc-500 font-mono text-[10px] mt-1">Digest: {error.digest}</p>}
