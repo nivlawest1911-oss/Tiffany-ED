@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, Playfair_Display, Outfit } from 'next/font/google';
+import { Inter, Playfair_Display, Outfit, Orbitron } from 'next/font/google';
 import '../style.css';
 import { AuthProvider } from '@/context/AuthContext';
 import { IntelligenceProvider } from '@/context/IntelligenceContext';
@@ -14,6 +14,7 @@ import ClientShell from '@/components/layout/ClientShell';
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' });
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
+const orbitron = Orbitron({ subsets: ['latin'], variable: '--font-orbitron' });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://edintel-app.vercel.app'),
@@ -70,15 +71,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable} ${outfit.variable} dark`}>
+    <html lang="en" className={`${inter.variable} ${playfair.variable} ${outfit.variable} ${orbitron.variable} dark`}>
       <head>
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-        <link rel="dns-prefetch" href="https://fonts.cdnfonts.com" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-        <link href="https://fonts.cdnfonts.com/css/satoshi" rel="stylesheet" />
+
       </head>
       <body className="bg-[#050505] text-gray-100 antialiased overflow-x-hidden selection:bg-[#00B0FF]/30 font-sans">
         <CelebrationProvider>

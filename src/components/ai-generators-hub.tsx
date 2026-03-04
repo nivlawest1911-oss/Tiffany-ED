@@ -17,6 +17,8 @@ import {
   Sparkles
 } from "lucide-react"
 import { useCelebrate } from '@/context/CelebrationContext';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const generators = [
   {
@@ -317,8 +319,10 @@ export function AIGeneratorsHub() {
                 </div>
                 <div className="flex-1 bg-black/40 border border-white/10 rounded-2xl p-8 overflow-y-auto custom-scrollbar shadow-inner relative">
                   <div className="prose prose-invert prose-sm max-w-none">
-                    <div className="text-zinc-300 font-medium leading-relaxed whitespace-pre-wrap font-sans">
-                      {response}
+                    <div className="text-zinc-300 font-medium leading-relaxed font-sans edintel-markdown">
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                        {response}
+                      </ReactMarkdown>
                     </div>
                   </div>
                   {/* Watermark */}

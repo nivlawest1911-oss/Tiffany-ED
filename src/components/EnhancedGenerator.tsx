@@ -14,6 +14,8 @@ import TalkingDelegateOverlay from '@/components/TalkingDelegateOverlay';
 import { NeuralSynthesisHUD } from './NeuralSynthesisHUD';
 import { SmartHover } from '@/components/ui/SmartHover';
 import { useIntelligence } from '@/context/IntelligenceContext';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 // import { checkAccess, EdIntelFeature } from '@/lib/EdIntel-access'; // Kept for future activation
 
 interface EnhancedGeneratorProps {
@@ -787,8 +789,10 @@ Context:
                                             </div>
                                         ) : (
                                             <div className="prose prose-invert prose-xl max-w-none">
-                                                <div className="whitespace-pre-wrap font-sans text-zinc-200 leading-[1.8] text-lg drop-shadow-sm">
-                                                    {completion}
+                                                <div className="font-sans text-zinc-200 leading-[1.8] text-lg drop-shadow-sm edintel-markdown">
+                                                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                                        {completion}
+                                                    </ReactMarkdown>
                                                 </div>
                                                 <div ref={messagesEndRef} />
                                             </div>

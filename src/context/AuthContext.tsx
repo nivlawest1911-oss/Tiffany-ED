@@ -22,6 +22,7 @@ interface AuthContextType {
     isLoading: boolean;
     logout: () => Promise<void>;
     updateUser: (data: Partial<User>) => Promise<void>;
+    fetchUser: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -71,6 +72,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         if (supabase?.auth?.onAuthStateChange) {
             const { data: { subscription } } = supabase.auth.onAuthStateChange((event: string, _session: any) => {
                 console.log(`[AuthContext] Supabase Auth Event: ${event}`);
+                if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+                    setIsLoading(true);
+                }
                 fetchUser();
             });
             return () => subscription?.unsubscribe();
@@ -101,7 +105,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     return (
-        <AuthContext.Provider value={{ user, isLoading, logout, updateUser }}>
+        <AuthContext.Provider value={{ user, isLoading, logout, updateUser, fetchUser }}>
             {children}
         </AuthContext.Provider>
     );

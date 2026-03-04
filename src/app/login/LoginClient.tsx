@@ -12,6 +12,7 @@ import { ParticleBackground } from '@/components/ui/Cinematic';
 import { toast } from 'sonner';
 import { ROUTES } from '@/lib/routes';
 import Image from 'next/image';
+import { useAuth } from '@/context/AuthContext';
 
 // Lazy-load: only shown when user clicks "Security Clearance Briefing"
 const HolographicBriefing = dynamic(() => import('@/components/intelligence/HolographicBriefing'), { ssr: false });
@@ -26,6 +27,7 @@ export default function LoginClient() {
     const [mode, setMode] = useState<'login' | 'signup'>('login');
     const router = useRouter();
     const searchParams = useSearchParams();
+    const { fetchUser } = useAuth();
 
     // 🏛️ EdIntel Enrollment Fields
     const [signupData, setSignupData] = useState({
@@ -75,6 +77,7 @@ export default function LoginClient() {
                     toast.success("Identity Verified", {
                         description: "Master access granted. Establishing secure tunnel...",
                     });
+                    await fetchUser();
                     router.push(ROUTES.THE_ROOM);
                     router.refresh();
                     return;
@@ -132,6 +135,7 @@ export default function LoginClient() {
             }
 
             // Force immediate redirect to prevent being stuck on login
+            await fetchUser();
             router.push(ROUTES.THE_ROOM);
             router.refresh();
         } catch (err: any) {
