@@ -9,17 +9,19 @@ import {
 // We use dynamic imports or direct imports if they are lightweight enough
 // But based on the file list, these are likely default exports
 
-import ExecutiveDashboard from './bento/ExecutiveDashboard';
-import NeuralTrainingCommand from './bento/LeadershipTraining';
-import LeadershipGenerator from './bento/LeadershipGenerator';
-import AvatarMasterclass from './bento/AvatarMasterclass';
-import IEPGenerator from './bento/IEPGenerator';
-import LessonPlanGenerator from './bento/LessonPlanGenerator';
-import NeuralSyncGym from './bento/LeadershipGym';
-import EdIntelSocialUplink from '@/components/dossier/ProfessionalSocialConnection';
-import AutomatedIEPAudit from './bento/AutomatedIEPAudit';
-import PricingMatrix from './bento/PricingMatrix';
-import EdIntelBroadcastNode from '@/components/dossier/ProfessionalBroadcastCenter';
+import dynamic from 'next/dynamic';
+
+const ExecutiveDashboard = dynamic(() => import('./bento/ExecutiveDashboard'));
+const NeuralTrainingCommand = dynamic(() => import('./bento/LeadershipTraining'));
+const LeadershipGenerator = dynamic(() => import('./bento/LeadershipGenerator'));
+const AvatarMasterclass = dynamic(() => import('./bento/AvatarMasterclass'));
+const IEPGenerator = dynamic(() => import('./bento/IEPGenerator'));
+const LessonPlanGenerator = dynamic(() => import('./bento/LessonPlanGenerator'));
+const NeuralSyncGym = dynamic(() => import('./bento/LeadershipGym'));
+const EdIntelSocialUplink = dynamic(() => import('@/components/dossier/ProfessionalSocialConnection'));
+const AutomatedIEPAudit = dynamic(() => import('./bento/AutomatedIEPAudit'));
+const PricingMatrix = dynamic(() => import('./bento/PricingMatrix'));
+const EdIntelBroadcastNode = dynamic(() => import('@/components/dossier/ProfessionalBroadcastCenter'));
 
 export default function BentoShowcase() {
     return (

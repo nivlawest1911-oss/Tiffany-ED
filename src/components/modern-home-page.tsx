@@ -12,9 +12,9 @@ import { ROUTES } from '@/lib/routes';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import ActivationIntro from './landing/ActivationIntro';
-import ReadyToActivateCTA from './landing/ReadyToActivateCTA';
+const ReadyToActivateCTA = dynamic(() => import('./landing/ReadyToActivateCTA'), { ssr: false });
 import { EdIntelHero } from './edintel-core/EdIntelHero';
-import EdIntelCore from './edintel-core/EdIntelCore';
+const EdIntelCore = dynamic(() => import('./edintel-core/EdIntelCore'), { ssr: false });
 import { useEdIntelVibe } from '@/context/EdIntelVibeContext';
 import HumanAvatar from './ui/HumanAvatar';
 
