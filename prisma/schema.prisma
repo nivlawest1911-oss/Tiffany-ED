@@ -2,8 +2,9 @@
 // Designed for AI Avatar Memory & Evidence Folder Architecture
 
 generator client {
-  provider      = "prisma-client-js"
-  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+  provider        = "prisma-client-js"
+  binaryTargets   = ["native", "rhel-openssl-3.0.x"]
+  previewFeatures = ["postgresqlExtensions"]
 }
 
 datasource db {
