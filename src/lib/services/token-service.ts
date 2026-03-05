@@ -10,7 +10,7 @@ export class TokenService {
             t.name.toLowerCase() === tierName.toLowerCase() ||
             t.id === tierName.toLowerCase()
         );
-        return tier?.tokenAllocation || 500; // Default to 500 (Initiate)
+        return (tier as any)?.tokenAllocation || 500; // Default to 500 (Initiate)
     }
 
     /**
@@ -74,10 +74,9 @@ export class TokenService {
     }, userTier?: string): Promise<boolean> {
         if (amount <= 0) return true;
 
-        // 1. Unlimited Tier Check (Optimization)
-        const UNLIMITED_TIERS = ['Site Command', 'Director Pack', 'Sovereign Pack', 'Practitioner', 'Standard Pack']; // Added Standard Pack temporarily for testing, remove later if strict
+        // 1. Unlimited Tier Check: These users get unlimited AI access with no deductions
+        const UNLIMITED_TIERS = ['Site Command', 'Director Pack', 'Sovereign Pack', 'Practitioner'];
         if (userTier && UNLIMITED_TIERS.some(t => t.toLowerCase() === userTier.toLowerCase())) {
-            // Log for analytics if needed, but don't deduct
             return true;
         }
 
