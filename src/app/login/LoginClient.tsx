@@ -11,7 +11,7 @@ import EdIntelSovereignLogo from '@/components/EdIntelSovereignLogo';
 import { ParticleBackground } from '@/components/ui/Cinematic';
 import { toast } from 'sonner';
 import { ROUTES } from '@/lib/routes';
-import Image from 'next/image';
+
 import { useAuth } from '@/context/AuthContext';
 
 // Lazy-load: only shown when user clicks "Security Clearance Briefing"
@@ -200,54 +200,51 @@ export default function LoginClient() {
                 ]}
             />
 
-            <main className="min-h-screen content-stage flex items-center justify-center p-4 relative overflow-hidden bg-[#F8FAFC]">
-                {/* Cinematic Bright Background */}
+            <main className="min-h-screen content-stage flex items-center justify-center p-4 relative overflow-hidden bg-[#020617]">
+                {/* Cinematic Dark Background */}
                 <div className="absolute inset-0 z-0">
-                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/50 via-white to-cyan-50/30" />
-                    <ParticleBackground count={12} color="bg-indigo-300/30" />
-                    {/* Soft Glow Orbs - Optimized with Radial Gradients instead of Blur */}
-                    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(199,210,254,0.15)_0%,transparent_70%)] rounded-full opacity-60 animate-pulse pointer-events-none" />
-                    <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(165,243,252,0.15)_0%,transparent_70%)] rounded-full opacity-60 animate-pulse delay-1000 pointer-events-none" />
+                    <div className="absolute inset-0 bg-[#020617] bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.1),rgba(255,255,255,0))]" />
+                    <ParticleBackground count={12} color="bg-[#FFB300]/20" />
+                    {/* Soft Glow Orbs */}
+                    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(255,179,0,0.08)_0%,transparent_70%)] rounded-full opacity-60 animate-pulse pointer-events-none" />
+                    <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(0,176,255,0.08)_0%,transparent_70%)] rounded-full opacity-60 animate-pulse delay-1000 pointer-events-none" />
                 </div>
 
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95, y: 20 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="w-full max-w-[1100px] grid grid-cols-1 lg:grid-cols-2 bg-white/70 backdrop-blur-sm rounded-[3rem] border border-white/60 shadow-[0_20px_80px_rgba(0,0,0,0.05)] relative z-10 overflow-hidden"
+                    className="w-full max-w-[1100px] grid grid-cols-1 lg:grid-cols-2 bg-black/40 backdrop-blur-xl rounded-[3rem] border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative z-10 overflow-hidden"
                 >
                     {/* LEFT PANEL: VISUAL IDENTITY */}
-                    <div className="hidden lg:flex flex-col items-center justify-center p-12 relative bg-gradient-to-br from-white/20 to-indigo-50/30 border-r border-white/40 overflow-hidden">
-                        <div className="absolute inset-0 mix-blend-soft-light">
-                            <Image src="/assets/images/bright_education_hub.png" alt="Education Hub" fill priority sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover opacity-80" />
-                        </div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-white/20 to-transparent" />
+                    <div className="hidden lg:flex flex-col items-center justify-center p-12 relative bg-gradient-to-br from-white/5 to-white/0 border-r border-white/10 overflow-hidden">
+                        <div className="absolute inset-0 bg-[#020617]/50 mix-blend-overlay" />
 
                         <div className="relative z-10 text-center space-y-12">
                             <div className="relative">
                                 <motion.div
                                     animate={{ rotate: 360 }}
                                     transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
-                                    className="absolute inset-0 rounded-full border border-dashed border-indigo-200/50 scale-150"
+                                    className="absolute inset-0 rounded-full border border-dashed border-[#FFB300]/30 scale-150"
                                 />
                                 <div className="flex flex-col items-center gap-6">
-                                    <EdIntelLogo variant="fidelity" className="scale-125" />
-                                    <div className="h-16 w-[2px] bg-gradient-to-b from-indigo-400/50 to-transparent" />
-                                    <EdIntelSovereignLogo showText={false} size={80} className="filter grayscale opacity-20" />
+                                    <EdIntelLogo variant="fidelity" className="scale-125 invert" />
+                                    <div className="h-16 w-[2px] bg-gradient-to-b from-[#FFB300]/50 to-transparent" />
+                                    <EdIntelSovereignLogo showText={false} size={80} className="opacity-30" />
                                 </div>
                             </div>
 
                             <div className="space-y-4">
-                                <h2 className="text-4xl font-black text-zinc-900 uppercase tracking-tighter">
-                                    Sovereign <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">Dawn</span>
+                                <h2 className="text-4xl font-black text-white uppercase tracking-tighter">
+                                    Sovereign <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFB300] to-[#FF8F00]">Dawn</span>
                                 </h2>
-                                <p className="text-sm font-medium text-zinc-500 max-w-xs mx-auto leading-relaxed">
+                                <p className="text-sm font-medium text-zinc-400 max-w-xs mx-auto leading-relaxed">
                                     Experience the future of education in a clear, focused, and high-performance ecosystem.
                                 </p>
                             </div>
 
                             <div className="flex gap-4 justify-center">
-                                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500 text-white shadow-lg shadow-indigo-200">
+                                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#FFB300]/10 border border-[#FFB300]/20 text-[#FFB300] shadow-[0_0_20px_rgba(255,179,0,0.1)]">
                                     <span className="text-[10px] font-black uppercase tracking-widest">Version 4.0 Alpha</span>
                                 </div>
                             </div>
@@ -255,19 +252,19 @@ export default function LoginClient() {
                     </div>
 
                     {/* RIGHT PANEL: LOGIN FORM */}
-                    <div className="p-8 lg:p-14 flex flex-col justify-center relative bg-white/20">
+                    <div className="p-8 lg:p-14 flex flex-col justify-center relative bg-white/5">
                         {/* Mobile Header */}
                         <div className="lg:hidden flex justify-center mb-10">
-                            <EdIntelLogo variant="fidelity" className="scale-100" />
+                            <EdIntelLogo variant="fidelity" className="scale-100 invert" />
                         </div>
 
                         <header className="mb-12 text-center lg:text-left">
-                            <h3 className="text-2xl font-black text-zinc-900 uppercase tracking-tighter mb-1">
+                            <h3 className="text-2xl font-black text-white uppercase tracking-tighter mb-1">
                                 {mode === 'login' ? 'Welcome Back' : 'Join the Elite'}
                             </h3>
                             <div className="flex items-center gap-2 justify-center lg:justify-start">
-                                <div className="h-2 w-2 rounded-full bg-indigo-500 animate-pulse shadow-[0_0_10px_rgba(99,102,241,0.3)]" />
-                                <p className="text-[10px] font-black text-indigo-500 uppercase tracking-[0.3em]">
+                                <div className="h-2 w-2 rounded-full bg-[#00B0FF] animate-pulse shadow-[0_0_10px_rgba(0,176,255,0.5)]" />
+                                <p className="text-[10px] font-black text-[#00B0FF] uppercase tracking-[0.3em]">
                                     {mode === 'login' ? 'Institutional Uplink Active' : 'Induction Suite Ready'}
                                 </p>
                             </div>
@@ -298,7 +295,7 @@ export default function LoginClient() {
                                                 value={signupData.name}
                                                 onChange={(e) => setSignupData({ ...signupData, name: e.target.value })}
                                                 placeholder="YOUR FULL NAME"
-                                                className="w-full px-6 py-4 bg-white/40 border border-zinc-200 rounded-2xl outline-none focus:border-indigo-500 focus:bg-white/60 transition-all font-bold text-[10px] tracking-[0.2em] placeholder:text-zinc-400 text-zinc-900 shadow-sm"
+                                                className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-[#FFB300] focus:bg-white/10 transition-all font-bold text-[10px] tracking-[0.2em] placeholder:text-zinc-500 text-white shadow-sm"
                                                 required={mode === 'signup'}
                                             />
                                         </div>
@@ -306,25 +303,25 @@ export default function LoginClient() {
                                 )}
 
                                 <div className="relative group">
-                                    <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-zinc-400 group-focus-within:text-indigo-500 transition-colors" size={16} />
+                                    <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-[#FFB300] transition-colors" size={16} />
                                     <input
                                         type="email"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
                                         placeholder="EMAIL ADDRESS"
-                                        className="w-full pl-14 pr-6 py-4 bg-white/40 border border-zinc-200 rounded-2xl outline-none focus:border-indigo-500 focus:bg-white/60 transition-all font-bold text-[10px] tracking-[0.2em] placeholder:text-zinc-400 text-zinc-900 shadow-sm"
+                                        className="w-full pl-14 pr-6 py-4 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-[#FFB300] focus:bg-white/10 transition-all font-bold text-[10px] tracking-[0.2em] placeholder:text-zinc-500 text-white shadow-sm"
                                         required
                                     />
                                 </div>
 
                                 <div className="relative group">
-                                    <Lock className="absolute left-6 top-1/2 -translate-y-1/2 text-zinc-400 group-focus-within:text-indigo-500 transition-colors" size={16} />
+                                    <Lock className="absolute left-6 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-[#FFB300] transition-colors" size={16} />
                                     <input
                                         type="password"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                         placeholder="SECURITY PASSWORD"
-                                        className="w-full pl-14 pr-6 py-4 bg-white/40 border border-zinc-200 rounded-2xl outline-none focus:border-indigo-500 focus:bg-white/60 transition-all font-bold text-[10px] tracking-[0.2em] placeholder:text-zinc-400 text-zinc-900 shadow-sm"
+                                        className="w-full pl-14 pr-6 py-4 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-[#FFB300] focus:bg-white/10 transition-all font-bold text-[10px] tracking-[0.2em] placeholder:text-zinc-500 text-white shadow-sm"
                                         required
                                     />
                                 </div>
@@ -341,7 +338,7 @@ export default function LoginClient() {
                                                 value={signupData.schoolSite}
                                                 onChange={(e) => setSignupData({ ...signupData, schoolSite: e.target.value })}
                                                 placeholder="INSTITUTION / SCHOOL"
-                                                className="w-full px-6 py-4 bg-white/40 border border-zinc-200 rounded-2xl outline-none focus:border-indigo-500 focus:bg-white/60 transition-all font-bold text-[10px] tracking-[0.2em] placeholder:text-zinc-400 text-zinc-900 shadow-sm"
+                                                className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-[#FFB300] focus:bg-white/10 transition-all font-bold text-[10px] tracking-[0.2em] placeholder:text-zinc-500 text-white shadow-sm"
                                                 required={mode === 'signup'}
                                             />
                                         </div>
@@ -350,15 +347,15 @@ export default function LoginClient() {
                                             <select
                                                 value={signupData.tierName}
                                                 onChange={(e) => setSignupData({ ...signupData, tierName: e.target.value })}
-                                                className="w-full px-6 py-4 bg-white/40 border border-zinc-200 rounded-2xl outline-none focus:border-indigo-500 focus:bg-white/60 transition-all font-bold text-[10px] tracking-[0.2em] text-zinc-900 appearance-none cursor-pointer shadow-sm"
+                                                className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-[#FFB300] focus:bg-white/10 transition-all font-bold text-[10px] tracking-[0.2em] text-white appearance-none cursor-pointer shadow-sm [&>option]:bg-[#020617]"
                                                 title="Select Intelligence Tier"
                                             >
-                                                <option value="Sovereign Initiate">Initiate Tier (Free Trial)</option>
-                                                <option value="Standard Pack">Standard Tier ($9.99/mo)</option>
-                                                <option value="Sovereign Pack">Sovereign Tier ($39.99/mo)</option>
-                                                <option value="Practitioner">Practitioner ($49.99/mo)</option>
-                                                <option value="Director Pack">Director Pack ($69.99/mo)</option>
-                                                <option value="Site Command">Site Command ($79.99/mo)</option>
+                                                <option value="Sovereign Initiate" className="bg-[#020617]">Initiate Tier (Free Trial)</option>
+                                                <option value="Standard Pack" className="bg-[#020617]">Standard Tier ($9.99/mo)</option>
+                                                <option value="Sovereign Pack" className="bg-[#020617]">Sovereign Tier ($39.99/mo)</option>
+                                                <option value="Practitioner" className="bg-[#020617]">Practitioner ($49.99/mo)</option>
+                                                <option value="Director Pack" className="bg-[#020617]">Director Pack ($69.99/mo)</option>
+                                                <option value="Site Command" className="bg-[#020617]">Site Command ($79.99/mo)</option>
                                             </select>
                                         </div>
                                     </motion.div>
@@ -368,8 +365,9 @@ export default function LoginClient() {
                             <button
                                 type="submit"
                                 disabled={isLoggingIn}
-                                className="group relative w-full overflow-hidden rounded-2xl bg-indigo-600 p-5 font-black text-[11px] uppercase tracking-[0.3em] text-white transition-all hover:bg-indigo-700 hover:scale-[1.01] active:scale-[0.98] disabled:opacity-50 shadow-xl shadow-indigo-100"
+                                className="group relative w-full overflow-hidden rounded-2xl bg-gradient-to-r from-[#FFB300] to-[#FF8F00] p-5 font-black text-[11px] uppercase tracking-[0.3em] text-black transition-all hover:scale-[1.01] active:scale-[0.98] disabled:opacity-50 shadow-[0_0_30px_rgba(255,179,0,0.3)] hover:shadow-[0_0_40px_rgba(255,179,0,0.5)]"
                             >
+                                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
                                 <div className="relative z-10 flex items-center justify-center gap-3">
                                     {isLoggingIn ? (
                                         <>
@@ -388,10 +386,10 @@ export default function LoginClient() {
 
                         <div className="relative my-10">
                             <div className="absolute inset-0 flex items-center">
-                                <div className="w-full border-t border-zinc-200" />
+                                <div className="w-full border-t border-white/10" />
                             </div>
                             <div className="relative flex justify-center">
-                                <span className="bg-white/10 px-4 text-[9px] font-black text-zinc-400 uppercase tracking-widest backdrop-blur-sm">Secure Social Access</span>
+                                <span className="bg-transparent px-4 text-[9px] font-black text-zinc-500 uppercase tracking-widest backdrop-blur-sm">Secure Social Access</span>
                             </div>
                         </div>
 
@@ -399,10 +397,10 @@ export default function LoginClient() {
                             <button
                                 onClick={() => handleSocialLogin('google')}
                                 disabled={isSocialLoading !== null}
-                                className="flex items-center justify-center gap-2 py-4 rounded-2xl bg-white/60 border border-zinc-200 hover:bg-white hover:border-indigo-300 transition-all group disabled:opacity-50 shadow-sm"
+                                className="flex items-center justify-center gap-2 py-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#FFB300]/50 transition-all group disabled:opacity-50 shadow-sm"
                             >
                                 {isSocialLoading === 'google' ? (
-                                    <Loader2 className="w-4 h-4 animate-spin text-indigo-500" />
+                                    <Loader2 className="w-4 h-4 animate-spin text-[#FFB300]" />
                                 ) : (
                                     <svg className="w-5 h-5" viewBox="0 0 24 24">
                                         <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -411,40 +409,40 @@ export default function LoginClient() {
                                         <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
                                     </svg>
                                 )}
-                                <span className="text-[10px] font-black uppercase tracking-widest text-zinc-600 group-hover:text-zinc-900">Google</span>
+                                <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400 group-hover:text-white">Google</span>
                             </button>
 
                             <button
                                 onClick={() => handleSocialLogin('facebook')}
                                 disabled={isSocialLoading !== null}
-                                className="flex items-center justify-center gap-2 py-4 rounded-2xl bg-white/60 border border-zinc-200 hover:bg-white hover:border-indigo-300 transition-all group disabled:opacity-50 shadow-sm"
+                                className="flex items-center justify-center gap-2 py-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#FFB300]/50 transition-all group disabled:opacity-50 shadow-sm"
                             >
                                 {isSocialLoading === 'facebook' ? (
-                                    <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
+                                    <Loader2 className="w-4 h-4 animate-spin text-[#1877F2]" />
                                 ) : (
                                     <svg className="w-5 h-5 text-[#1877F2]" fill="currentColor" viewBox="0 0 24 24">
                                         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                                     </svg>
                                 )}
-                                <span className="text-[10px] font-black uppercase tracking-widest text-zinc-600 group-hover:text-zinc-900">Facebook</span>
+                                <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400 group-hover:text-white">Facebook</span>
                             </button>
                         </div>
 
                         <div className="mt-10 text-center space-y-5">
                             <button
                                 onClick={() => setShowBriefing(true)}
-                                className="text-[10px] font-black uppercase tracking-widest text-indigo-600 hover:text-indigo-800 transition-colors border-b-2 border-indigo-100 hover:border-indigo-300 pb-1"
+                                className="text-[10px] font-black uppercase tracking-widest text-[#FFB300]/80 hover:text-[#FFB300] transition-colors border-b-2 border-[#FFB300]/20 hover:border-[#FFB300]/50 pb-1"
                             >
                                 Security Clearance Briefing
                             </button>
                             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500">
                                 {mode === 'login' ? (
                                     <>
-                                        New Account? <button onClick={() => setMode('signup')} className="text-zinc-900 font-black hover:text-indigo-600 transition-colors ml-1 uppercase">Request Credentials</button>
+                                        New Account? <button onClick={() => setMode('signup')} className="text-white font-black hover:text-[#FFB300] transition-colors ml-1 uppercase">Request Credentials</button>
                                     </>
                                 ) : (
                                     <>
-                                        Member Access? <button onClick={() => setMode('login')} className="text-zinc-900 font-black hover:text-indigo-600 transition-colors ml-1 uppercase">Return to Node</button>
+                                        Member Access? <button onClick={() => setMode('login')} className="text-white font-black hover:text-[#FFB300] transition-colors ml-1 uppercase">Return to Node</button>
                                     </>
                                 )}
                             </p>

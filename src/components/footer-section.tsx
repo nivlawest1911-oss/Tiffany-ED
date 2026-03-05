@@ -38,7 +38,7 @@ export function FooterSection() {
             <Link href="/connectors" className="text-foreground text-sm font-normal leading-5 hover:underline">
               Integrations
             </Link>
-            <Link href="/all-tools" className="text-foreground text-sm font-normal leading-5 hover:underline">
+            <Link href="/the-room" className="text-foreground text-sm font-normal leading-5 hover:underline">
               AI Super-Tools
             </Link>
             <Link href="/edintel-professional" className="text-foreground text-sm font-normal leading-5 hover:underline">

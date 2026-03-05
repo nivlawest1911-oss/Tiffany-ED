@@ -17,6 +17,7 @@ import { EdIntelHero } from './edintel-core/EdIntelHero';
 const EdIntelCore = dynamic(() => import('./edintel-core/EdIntelCore'), { ssr: false });
 import { useEdIntelVibe } from '@/context/EdIntelVibeContext';
 import HumanAvatar from './ui/HumanAvatar';
+import Footer from './Footer';
 
 // Core Components (Safe)
 
@@ -678,6 +679,7 @@ export default function ModernHomePage() {
                             {/* READY TO ACTIVATE CTA */}
                             <ReadyToActivateCTA />
                         </main>
+                        <Footer />
                     </>
                 )}
             </div>

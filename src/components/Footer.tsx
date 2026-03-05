@@ -60,9 +60,10 @@ export default function Footer() {
                             <li><Link href="/pricing" className="text-sovereign-gold hover:text-white transition-colors text-sm font-black uppercase tracking-widest">Strategic Pricing</Link></li>
                             <li><Link href="/login" className="text-zinc-400 hover:text-electric-cyan transition-colors text-sm font-bold uppercase tracking-widest">Protocol Login</Link></li>
                             <li><Link href="/signup" className="text-zinc-400 hover:text-electric-cyan transition-colors text-sm font-bold uppercase tracking-widest">Initialize Center</Link></li>
-                            <li><Link href="/all-tools" className="text-zinc-400 hover:text-electric-cyan transition-colors text-sm font-bold uppercase tracking-widest">Intelligence Tools</Link></li>
+                            <li><Link href="/the-room" className="text-zinc-400 hover:text-electric-cyan transition-colors text-sm font-bold uppercase tracking-widest">Intelligence Tools</Link></li>
                             <li><Link href="/privacy/leadership-shield" className="text-zinc-400 hover:text-electric-cyan transition-colors text-sm font-bold uppercase tracking-widest">Professional Shield</Link></li>
                             <li><Link href="/connectors" className="text-zinc-400 hover:text-electric-cyan transition-colors text-sm font-bold uppercase tracking-widest">Connector Hub</Link></li>
+                            <li><Link href="/contact" className="text-zinc-400 hover:text-electric-cyan transition-colors text-sm font-bold uppercase tracking-widest">Contact Command</Link></li>
                         </ul>
                     </div>
 
