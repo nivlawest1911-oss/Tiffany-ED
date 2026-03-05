@@ -36,6 +36,24 @@ PROFESSIONAL_ID: [Generate a unique ID like "AX-7740-OMEGA"]
         });
     } catch (error: any) {
         console.error('[Avatar Profile Error]:', error);
+
+        if (error.message?.includes('503') || error.message?.includes('overloaded') || error.message?.includes('exhausted')) {
+            return NextResponse.json({
+                success: true,
+                output: `MISSION: [SIMULATION] Provide strategic academic support and intelligent automation for district operations.
+COGNITIVE_PROFILE: Analytical, calm under pressure, data-first reasoning with empathy.
+CORE_POWER: Cross-domain pattern recognition and prioritized action sequencing.
+AUTOMATED_TASKS:
+1. Reviewing incoming parent communications and drafting responses
+2. Flagging at-risk student indicators in attendance and grade data
+3. Scheduling leadership team meetings with agenda pre-loaded
+4. Monitoring compliance deadlines and surfacing alerts 14 days in advance
+5. Generating weekly ROI and efficiency briefings
+PROFESSIONAL_ID: AX-SIM-0000-OMEGA
+[Note: This is a simulation response. AI capacity is temporarily exhausted. Please retry.]`
+            });
+        }
+
         return NextResponse.json({ error: 'Failed to generate assistant profile' }, { status: 500 });
     }
 }

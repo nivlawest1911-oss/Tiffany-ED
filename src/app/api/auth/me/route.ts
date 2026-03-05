@@ -89,11 +89,19 @@ export async function GET() {
             });
         }
 
-        return NextResponse.json({ user: authUser });
+        return NextResponse.json({ user: authUser }, {
+            headers: {
+                // Allow each client to cache user data for 60s to reduce DB sync pressure.
+                // Must-revalidate ensures stale cache is always checked against server before using.
+                'Cache-Control': 'private, max-age=60, must-revalidate',
+            }
+        });
     } catch (e) {
         console.error('[AUTH_SYNC] Synchronization Protocol Failed:', e);
-        // Fallback to returning identified user even if sync failed
-        return NextResponse.json({ user: authUser, syncError: true });
+        // Fallback: return identified user even if DB sync failed
+        return NextResponse.json({ user: authUser, syncError: true }, {
+            headers: { 'Cache-Control': 'private, max-age=10' }
+        });
     }
 }
 
