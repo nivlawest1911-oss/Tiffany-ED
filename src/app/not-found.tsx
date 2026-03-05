@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import LiveAvatarChat from '@/components/LiveAvatarChat';
 import Image from 'next/image';
-import { createBrowserClient } from '@supabase/ssr';
+import { createClient } from '@/utils/supabase/client';
 import { ROUTES } from '@/lib/routes';
 
 export default function NotFound() {
@@ -17,15 +17,15 @@ export default function NotFound() {
     const [isLoadingUser, setIsLoadingUser] = useState(true);
     const [userRole, setUserRole] = useState<'admin' | 'teacher' | null>(null);
 
-    // Initialize Sovereign Client
-    const supabase = createBrowserClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    );
-
+    // Initialize Sovereign Client — MUST be inside useEffect (browser-only)
     useEffect(() => {
         const checkUser = async () => {
             try {
+                const supabase = createClient();
+                if (!supabase) {
+                    // No env vars (e.g. build time or missing config) — skip silently
+                    return;
+                }
                 const { data: { user } } = await supabase.auth.getUser();
                 if (user) {
                     setUserRole(user.user_metadata?.role || 'teacher');
@@ -37,7 +37,7 @@ export default function NotFound() {
             }
         };
         checkUser();
-    }, [supabase]);
+    }, []);
 
     // Auto-speak greeting when page loads
     useEffect(() => {
