@@ -37,12 +37,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     const { playHover, playClick } = useProfessionalSounds()
     const { user, logout } = useAuth();
 
-    // Mocked Tier Data (In production, this comes from useUser/AuthContext)
-    const currentTier = {
-        id: 'sovereign',
-        name: 'Sovereign Pack',
-        daysRemaining: 12
-    };
+    // Derive real tier from live AuthContext user
+    const tierName = user?.tier || 'Sovereign Initiate';
+    const tierId = tierName.toLowerCase().replace(/\s+/g, '-');
+    const isInitiate = tierId === 'sovereign-initiate';
+    // daysRemaining: Assume 30-day trial for all paid tiers
+    // TODO: Replace with a real field from DB/user object once subscriptionCreatedAt is available
+    const daysRemaining = isInitiate ? 0 : 30;
+    const currentTier = { id: tierId, name: tierName, daysRemaining };
 
     // CRM/CMD+K Shortcut
     React.useEffect(() => {
@@ -80,12 +82,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 <Sidebar />
 
                 <div className="flex flex-col flex-1 relative overflow-hidden">
-                    {/* 1. Global Trial Banner (Conversion Hook) */}
-                    <TrialBanner
-                        tierId={currentTier.id}
-                        tierName={currentTier.name}
-                        daysRemaining={currentTier.daysRemaining}
-                    />
+                    {/* 1. Global Trial Banner (Conversion Hook) — hidden for free Initiate tier */}
+                    {!isInitiate && (
+                        <TrialBanner
+                            tierId={currentTier.id}
+                            tierName={currentTier.name}
+                            daysRemaining={currentTier.daysRemaining}
+                        />
+                    )}
 
                     <TacticalHeaderBar />
 
