@@ -43,6 +43,33 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ content: result });
     } catch (error: any) {
         console.error('[Lesson Plan API] Error:', error);
+
+        if (error.message?.includes('503') || error.message?.includes('overloaded') || error.message?.includes('exhausted')) {
+            return NextResponse.json({
+                content: `# [SIMULATION PROTOCOL ACTIVE]
+**Note:** AI capacity is temporarily exhausted. The following is a high-fidelity mock lesson plan.
+
+## Operational Objective
+Students will engage in collaborative inquiry to master the requested topic.
+
+## Strategic Materials
+- Chromebooks / Tablets
+- Student notebooks
+
+## Direct Instruction
+1. **Activate Prior Knowledge** (10 min): Pose an essential question to spark discussion.
+2. **Input / Modeling** (20 min): Present core concept with visual aids.
+
+## Guided Practice
+Small group activities aligned with tiered scaffolds.
+
+## Independent Practice
+Student-led project or formative assessment.
+
+*EdIntel System Status: AWAITING_BANDWIDTH — Please retry in a moment.*`
+            });
+        }
+
         return NextResponse.json({ error: 'Generation failed' }, { status: 500 });
     }
 }

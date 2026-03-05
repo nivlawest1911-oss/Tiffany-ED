@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import React, { useState } from "react"
 import { motion } from "framer-motion"
 import {
   FileText,
@@ -19,6 +19,15 @@ import {
 import { useCelebrate } from '@/context/CelebrationContext';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+
+const MemoizedMarkdown = React.memo(
+  ({ content }: { content: string }) => (
+    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+      {content}
+    </ReactMarkdown>
+  ),
+  (prevProps, nextProps) => prevProps.content === nextProps.content
+);
 
 const generators = [
   {
@@ -320,9 +329,7 @@ export function AIGeneratorsHub() {
                 <div className="flex-1 bg-black/40 border border-white/10 rounded-2xl p-8 overflow-y-auto custom-scrollbar shadow-inner relative">
                   <div className="prose prose-invert prose-sm max-w-none">
                     <div className="text-zinc-300 font-medium leading-relaxed font-sans edintel-markdown">
-                      <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                        {response}
-                      </ReactMarkdown>
+                      <MemoizedMarkdown content={response} />
                     </div>
                   </div>
                   {/* Watermark */}

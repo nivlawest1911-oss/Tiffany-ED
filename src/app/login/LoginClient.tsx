@@ -36,11 +36,11 @@ export default function LoginClient() {
         tierName: 'Sovereign Initiate'
     });
 
-    // Initialize Sovereign Supabase Client
-    const supabase = createBrowserClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    );
+    // Initialize Sovereign Supabase Client safely
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+
+    const supabase = createBrowserClient(supabaseUrl, supabaseKey);
 
     // Capture OAuth errors and Mode from URL
     useEffect(() => {
