@@ -25,6 +25,7 @@ export const EDINTEL_TIERS = [
 export const NAV_LINKS = {
     education: [
         { label: "Sovereign Room", href: "/the-room", icon: "Crown", minTier: 1, description: "Sovereign educator command center." },
+        { label: "Sovereign Broadcast", href: "/podcast", icon: "Radio", minTier: 0, description: "Strategic audio insights and briefings." },
         { label: "Neural Grid Hub", href: "/ai-hub", icon: "Bot", minTier: 1, description: "Unified AI command center & protocols." },
         { label: "Conversation AI", href: "/conversation/enhanced", icon: "MessageSquare", minTier: 0, description: "Enhanced AI conversation interface." },
         { label: "Cognitive Academy", href: "/academy", icon: "GraduationCap", minTier: 0, description: "Regal pathways to mastery." },
