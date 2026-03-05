@@ -484,7 +484,7 @@ function ContentCard({ content }: { content: ImportedContent }) {
                     {content.title}
                 </h3>
 
-                {content.tags.length > 0 && (
+                {content.tags && content.tags.length > 0 && (
                     <div className="flex flex-wrap gap-2 mb-4">
                         {content.tags.slice(0, 3).map((tag, i) => (
                             <span key={i} className="text-xs px-2 py-1 bg-purple-500/20 text-purple-300 rounded-full">

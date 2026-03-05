@@ -122,7 +122,11 @@ export function AIGeneratorsHub() {
         })
       });
 
-      if (!res.ok) throw new Error('Neural Link Interrupted');
+      if (!res.ok) {
+        let errData;
+        try { errData = await res.json(); } catch (e) { }
+        throw new Error(errData?.error || errData?.message || 'Neural Link Interrupted');
+      }
 
       const reader = res.body?.getReader();
       const decoder = new TextDecoder();
