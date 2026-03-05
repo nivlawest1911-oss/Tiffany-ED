@@ -1,9 +1,27 @@
 import { NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { Ratelimit } from '@upstash/ratelimit';
+import { Redis } from '@upstash/redis';
 
 // Initialize Gemini
 const apiKey = process.env.GEMINI_API_KEY!;
 const genAI = new GoogleGenerativeAI(apiKey);
+
+// Lazy-loaded Upstash Redis Rate Limiter to prevent build-time crashes
+let ratelimitInstance: Ratelimit | null = null;
+function getRateLimiter() {
+    if (!ratelimitInstance) {
+        if (!process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN) {
+            return null;
+        }
+        ratelimitInstance = new Ratelimit({
+            redis: Redis.fromEnv(),
+            limiter: Ratelimit.slidingWindow(5, '10 s'), // 5 requests per 10 seconds
+            analytics: true,
+        });
+    }
+    return ratelimitInstance;
+}
 
 // Advanced Context Window System Prompt for the AI Host
 const SYSTEM_PROMPT = `
@@ -33,6 +51,18 @@ export async function POST(req: Request) {
             return NextResponse.json(
                 { response: "System Notice: Uplink keys missing. Fallback routing engaged. Please contact your EdIntel administrator." },
                 { status: 500 }
+            );
+        }
+
+        // --- Rate Limiting Strategy ---
+        // Get IP address for identifier. 
+        const ip = req.headers.get('x-forwarded-for') ?? 'anonymous';
+        const { success } = await ratelimit.limit(`podcast_interact_${ip}`);
+
+        if (!success) {
+            return NextResponse.json(
+                { response: "System Notice: The broadcast lines are currently at capacity. Please hold and try your question again in a few moments." },
+                { status: 429 }
             );
         }
 

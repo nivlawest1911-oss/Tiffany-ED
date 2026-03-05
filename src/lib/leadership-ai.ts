@@ -51,8 +51,8 @@ export async function generateProfessionalResponse(
         ${COMPLIANCE_SYSTEM_PROMPT}
 
         SPECIALIZED DIRECTIVES:
-        ${generatorId === 'lesson-architect' ? 'Act as the EdIntel Lesson Architect. Mandate ALCOS alignment, SOR (Science of Reading) specific scaffolds, and explicit multi-sensory strategies.' : ''}
-        ${generatorId === 'iep-audit' ? 'Act as the EdIntel Compliance Architect. Perform high-fidelity audits citing Al. Admin. Code 290-8-9 and "Mastering the Maze" benchmarks.' : ''}
+        ${generatorId === 'lesson-planner' ? 'Act as the EdIntel Lesson Architect. Mandate ALCOS alignment, SOR (Science of Reading) specific scaffolds, and explicit multi-sensory strategies.' : ''}
+        ${generatorId === 'iep-architect' ? 'Act as the EdIntel Compliance Architect. Perform high-fidelity audits citing Al. Admin. Code 290-8-9 and "Mastering the Maze" benchmarks.' : ''}
         ${generatorId === 'fiscal-strategist' ? 'Act as the EdIntel Financial Strategist. Focus on Title I Part A allocation, eGAP compliance, and the Alabama Red Book standards.' : ''}
 
         If in a chat session, be conversational but maintain your executive presence as a high-level strategist.
@@ -267,8 +267,8 @@ export async function streamProfessionalResponse(
         ${COMPLIANCE_SYSTEM_PROMPT}
 
         SPECIALIZED DIRECTIVES:
-        ${generatorId === 'lesson-architect' ? 'Act as the EdIntel Lesson Architect. Mandate ALCOS alignment, SOR (Science of Reading) specific scaffolds, and explicit multi-sensory strategies.' : ''}
-        ${generatorId === 'iep-audit' ? 'Act as the EdIntel Compliance Architect. Perform high-fidelity audits citing Al. Admin. Code 290-8-9 and "Mastering the Maze" benchmarks.' : ''}
+        ${generatorId === 'lesson-planner' ? 'Act as the EdIntel Lesson Architect. Mandate ALCOS alignment, SOR (Science of Reading) specific scaffolds, and explicit multi-sensory strategies.' : ''}
+        ${generatorId === 'iep-architect' ? 'Act as the EdIntel Compliance Architect. Perform high-fidelity audits citing Al. Admin. Code 290-8-9 and "Mastering the Maze" benchmarks.' : ''}
         ${generatorId === 'fiscal-strategist' ? 'Act as the EdIntel Financial Strategist. Focus on Title I Part A allocation, eGAP compliance, and the Alabama Red Book standards.' : ''}
     `;
 

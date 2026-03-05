@@ -202,12 +202,14 @@ export default function InteractivePodcastPlayer({ episode }: InteractivePodcast
 
                 {/* Minimal Media Controls */}
                 <div className="w-full max-w-[200px] flex items-center justify-between mt-auto">
-                    <button onClick={toggleMute} className="text-white/40 hover:text-white transition-colors">
+                    <button onClick={toggleMute} aria-label={isMuted ? "Unmute" : "Mute"} title={isMuted ? "Unmute" : "Mute"} className="text-white/40 hover:text-white transition-colors">
                         {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
                     </button>
                     <div className="text-xs font-mono text-zinc-500">{formatTime(currentTime)}</div>
                     <button
                         onClick={togglePlayPause}
+                        aria-label={isPlaying ? "Pause" : "Play"}
+                        title={isPlaying ? "Pause" : "Play"}
                         className="w-12 h-12 rounded-full bg-noble-gold/20 flex items-center justify-center text-noble-gold border border-noble-gold/40 hover:bg-noble-gold hover:text-black transition-all"
                     >
                         {isPlaying ? <Pause size={20} className="fill-current" /> : <Play size={20} className="fill-current ml-1" />}
@@ -236,18 +238,18 @@ export default function InteractivePodcastPlayer({ episode }: InteractivePodcast
                             >
                                 {msg.role !== 'system' && (
                                     <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 border ${msg.role === 'assistant'
-                                            ? 'bg-noble-gold/20 border-noble-gold/40 text-noble-gold'
-                                            : 'bg-white/10 border-white/20 text-white/50'
+                                        ? 'bg-noble-gold/20 border-noble-gold/40 text-noble-gold'
+                                        : 'bg-white/10 border-white/20 text-white/50'
                                         }`}>
                                         {msg.role === 'assistant' ? <Bot size={16} /> : <User size={16} />}
                                     </div>
                                 )}
 
                                 <div className={`p-4 rounded-2xl text-sm ${msg.role === 'user'
-                                        ? 'bg-white/10 text-white rounded-tr-sm border border-white/10'
-                                        : msg.role === 'assistant'
-                                            ? 'bg-white/[0.03] text-zinc-300 rounded-tl-sm border border-noble-gold/20 font-serif leading-relaxed'
-                                            : 'bg-cyan-900/20 text-cyan-400 border border-cyan-500/30 text-[10px] w-full text-center uppercase tracking-widest mx-auto'
+                                    ? 'bg-white/10 text-white rounded-tr-sm border border-white/10'
+                                    : msg.role === 'assistant'
+                                        ? 'bg-white/[0.03] text-zinc-300 rounded-tl-sm border border-noble-gold/20 font-serif leading-relaxed'
+                                        : 'bg-cyan-900/20 text-cyan-400 border border-cyan-500/30 text-[10px] w-full text-center uppercase tracking-widest mx-auto'
                                     }`}>
                                     {msg.content}
                                 </div>
@@ -281,6 +283,8 @@ export default function InteractivePodcastPlayer({ episode }: InteractivePodcast
                         />
                         <button
                             type="submit"
+                            aria-label="Send message"
+                            title="Send message"
                             disabled={!input.trim() || isGenerating}
                             className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-lg bg-noble-gold/20 text-noble-gold flex items-center justify-center hover:bg-noble-gold hover:text-black transition-all disabled:opacity-50 disabled:hover:bg-noble-gold/20 disabled:hover:text-noble-gold"
                         >

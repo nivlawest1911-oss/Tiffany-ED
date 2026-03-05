@@ -31,7 +31,7 @@ const MemoizedMarkdown = React.memo(
 
 const generators = [
   {
-    id: "iep-specialist",
+    id: "iep-architect",
     name: "IEP ARCHITECT",
     role: "Compliance & Inclusion Specialist",
     description: "Generate clinically precise, legally defensible IEP drafts aligned with Alabama Code.",
@@ -51,7 +51,7 @@ const generators = [
     prompts: ["Plan a 5th Grade Science lesson on Ecosystems", "Create a Tier 2 scaffold for quadratic equations", "Design a project-based learning unit on Civics"],
   },
   {
-    id: "data-analyst",
+    id: "data-analyzer",
     name: "DATA QUANT",
     role: "Strategic Analyst",
     description: "Process complex assessment vectors to identify achievement gaps and growth trends.",
@@ -71,7 +71,7 @@ const generators = [
     prompts: ["Explain Manifestation Determination Review steps", "Check 504 Plan eligibility criteria", "Clarify FERPA regarding parent emails"],
   },
   {
-    id: "cognitive-coach",
+    id: "behavior-coach",
     name: "NEURAL COACH",
     role: "Executive Function Specialist",
     description: "Evidence-based interventions for EF deficits, ADHD, and neurodivergent learning profiles.",
