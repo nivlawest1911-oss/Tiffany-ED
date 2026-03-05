@@ -1,4 +1,6 @@
 {
+    "installCommand": "npm install",
+    "buildCommand": "npm run build",
     "build": {
         "env": {
             "NEXT_PRIVATE_SKIP_TURBOPACK": "1",
