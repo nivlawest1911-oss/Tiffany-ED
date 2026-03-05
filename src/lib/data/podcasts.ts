@@ -5,12 +5,25 @@ export interface PodcastEpisode {
     host: string;
     duration: string; // e.g., "45:00"
     publishDate: string;
-    category: "Leadership" | "Pedagogy" | "Technology" | "Wellness";
+    category: "Leadership" | "Pedagogy" | "Technology" | "Wellness" | "Live Q&A";
     audioUrl: string; // Placeholder or actual URL
     imageUrl: string; // Cover art
+    isInteractive?: boolean; // Flag to enable live AI chat alongside playback
 }
 
 export const mockPodcasts: PodcastEpisode[] = [
+    {
+        id: "ep-live-001",
+        title: "LIVE: Mastery & Compliance Q&A",
+        description: "Join Sovereign Host Tiffany-ED for a live interactive broadcast. Ask questions in real-time regarding Alabama teaching standards, federal compliance (ESSA/IEP), and strategies from 'Mastering the Maze'.",
+        host: "Tiffany-ED (Live AI)",
+        duration: "LIVE",
+        publishDate: new Date().toISOString().split('T')[0],
+        category: "Live Q&A",
+        audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3", // Atmospheric loop
+        imageUrl: "/images/branding/edintel_logo_sovereign.png",
+        isInteractive: true,
+    },
     {
         id: "ep-101",
         title: "The Future of AI in IEP Generation",

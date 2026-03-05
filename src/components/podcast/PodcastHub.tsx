@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Radio, Headphones, Sparkles } from 'lucide-react';
 import PodcastPlayer from './PodcastPlayer';
+import InteractivePodcastPlayer from './InteractivePodcastPlayer';
 import PodcastList from './PodcastList';
 import { mockPodcasts, PodcastEpisode } from '@/lib/data/podcasts';
 
@@ -53,12 +54,17 @@ export default function PodcastHub() {
 
                         {/* Player Container */}
                         <motion.div
+                            key={currentEpisode.id} // Re-animate on change
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: 0.2, duration: 0.6 }}
                             className="bg-white/[0.02] border border-white/5 p-2 rounded-[2.5rem]"
                         >
-                            <PodcastPlayer episode={currentEpisode} />
+                            {currentEpisode.isInteractive ? (
+                                <InteractivePodcastPlayer episode={currentEpisode} />
+                            ) : (
+                                <PodcastPlayer episode={currentEpisode} />
+                            )}
                         </motion.div>
 
                         {/* Additional Info / Transcript Placeholder */}
