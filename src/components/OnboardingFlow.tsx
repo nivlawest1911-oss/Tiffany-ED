@@ -39,7 +39,7 @@ const StepIdentity = memo(({ selectedRole, onSelect }: { selectedRole: string, o
                     key={role.id}
                     onClick={() => onSelect(role.id)}
                     aria-label={`Select Role: ${role.label}, ${role.bio}`}
-                    className={`p-4 rounded-3xl border flex flex-col items-center gap-2 transition-all ${selectedRole === role.id ? 'bg-intel-gold border-intel-gold text-black' : 'bg-white/5 border-white/5 hover:border-white/10'}`}
+                    className={`p-4 rounded-3xl border flex flex-col items-center gap-2 transition-all ${selectedRole === role.id ? 'bg-noble-gold border-noble-gold text-black' : 'bg-white/5 border-white/5 hover:border-white/10'}`}
                 >
                     <role.icon size={24} />
                     <div className="text-[10px] font-black uppercase tracking-widest">{role.label}</div>
@@ -61,7 +61,7 @@ const StepContext = memo(({ role, initialValue, onUpdate }: { role: string, init
 
     return (
         <div className="space-y-6">
-            <p className="text-zinc-400 text-[10px] uppercase tracking-widest border-l-2 border-intel-gold pl-4 py-1 italic">
+            <p className="text-zinc-400 text-[10px] uppercase tracking-widest border-l-2 border-noble-gold pl-4 py-1 italic">
                 {role === 'STUDENT' ? "Input your school or site name." : "Provide your district name for strategic mapping."}
             </p>
             <input
@@ -70,7 +70,7 @@ const StepContext = memo(({ role, initialValue, onUpdate }: { role: string, init
                 value={localName}
                 onChange={(e) => setLocalName(e.target.value)}
                 onBlur={() => onUpdate(localName)}
-                className="w-full bg-black border border-white/10 rounded-2xl p-5 text-white text-sm font-black uppercase tracking-[0.2em] focus:border-intel-gold outline-none transition-all placeholder:text-zinc-700"
+                className="w-full bg-black border border-white/10 rounded-2xl p-5 text-white text-sm font-black uppercase tracking-[0.2em] focus:border-noble-gold outline-none transition-all placeholder:text-zinc-700"
             />
         </div>
     );
@@ -87,7 +87,7 @@ const StepObjective = memo(({ role, selectedObjective, onSelect }: { role: strin
                         key={obj.id}
                         onClick={() => onSelect(obj.label)}
                         aria-label={`Select Objective: ${obj.label}, ${obj.sub}`}
-                        className={`p-4 rounded-2xl border text-left transition-all ${selectedObjective === obj.label ? 'bg-intel-gold/20 border-intel-gold' : 'bg-white/5 border-white/5 hover:border-white/10'}`}
+                        className={`p-4 rounded-2xl border text-left transition-all ${selectedObjective === obj.label ? 'bg-noble-gold/20 border-noble-gold' : 'bg-white/5 border-white/5 hover:border-white/10'}`}
                     >
                         <div className="text-[10px] font-black uppercase tracking-widest mb-1">{obj.label}</div>
                         <div className="text-[9px] text-zinc-500 font-medium">{obj.sub}</div>
@@ -113,7 +113,7 @@ const StepDeploy = memo(({ formData }: { formData: any }) => {
                 </div>
                 <div className="flex justify-between items-end border-b border-white/5 pb-2">
                     <span className="text-[8px] font-mono text-zinc-500 uppercase">MISSION</span>
-                    <span className="text-[10px] font-black uppercase text-intel-gold">{formData.objective}</span>
+                    <span className="text-[10px] font-black uppercase text-noble-gold">{formData.objective}</span>
                 </div>
             </div>
         </div>
@@ -272,12 +272,12 @@ export default function OnboardingFlow({ onCompleteAction }: { onCompleteAction?
                             exit={{ opacity: 0, y: -20 }}
                         >
                             <div className="flex items-center gap-5 mb-10">
-                                <div className="w-16 h-16 rounded-3xl bg-intel-gold/10 border border-intel-gold/20 flex items-center justify-center text-intel-gold">
+                                <div className="w-16 h-16 rounded-3xl bg-noble-gold/10 border border-noble-gold/20 flex items-center justify-center text-noble-gold">
                                     {(() => { const Icon = stepsMetadata[step].icon; return <Icon size={32} />; })()}
                                 </div>
                                 <div>
                                     <h2 className="text-3xl font-black uppercase tracking-tight text-white mb-0.5">{stepsMetadata[step].title}</h2>
-                                    <p className="text-[10px] font-bold text-intel-gold uppercase tracking-[0.4em]">{stepsMetadata[step].subtitle}</p>
+                                    <p className="text-[10px] font-bold text-noble-gold uppercase tracking-[0.4em]">{stepsMetadata[step].subtitle}</p>
                                 </div>
                             </div>
 
@@ -286,19 +286,19 @@ export default function OnboardingFlow({ onCompleteAction }: { onCompleteAction?
                             <div className="mt-14 flex items-center justify-between">
                                 <div className="flex gap-1.5">
                                     {[0, 1, 2, 3].map((i) => (
-                                        <div key={i} className={`h-1 rounded-full ${i === step ? 'w-8 bg-intel-gold' : 'w-2 bg-zinc-800'}`} />
+                                        <div key={i} className={`h-1 rounded-full ${i === step ? 'w-8 bg-noble-gold' : 'w-2 bg-zinc-800'}`} />
                                     ))}
                                 </div>
                                 {step < 3 ? (
-                                    <button onClick={nextStep} disabled={(step === 1 && !formData.districtName)} className="px-10 py-5 rounded-[2rem] bg-white/10 text-white font-black text-[10px] uppercase tracking-[0.2em] hover:bg-intel-gold hover:text-black transition-all disabled:opacity-20">NEXT STEP</button>
+                                    <button onClick={nextStep} disabled={(step === 1 && !formData.districtName)} className="px-10 py-5 rounded-[2rem] bg-white/10 text-white font-black text-[10px] uppercase tracking-[0.2em] hover:bg-noble-gold hover:text-black transition-all disabled:opacity-20">NEXT STEP</button>
                                 ) : (
-                                    <button onClick={finishOnboarding} className="px-10 py-5 rounded-[2rem] bg-white text-black font-black text-[10px] uppercase tracking-[0.2em] hover:bg-intel-gold transition-all">LAUNCH SYSTEM</button>
+                                    <button onClick={finishOnboarding} className="px-10 py-5 rounded-[2rem] bg-white text-black font-black text-[10px] uppercase tracking-[0.2em] hover:bg-noble-gold transition-all">LAUNCH SYSTEM</button>
                                 )}
                             </div>
                         </motion.div>
                     ) : (
                         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-20">
-                            <Cpu className="text-intel-gold w-16 h-16 mx-auto mb-6 animate-pulse" />
+                            <Cpu className="text-noble-gold w-16 h-16 mx-auto mb-6 animate-pulse" />
                             <h2 className="text-4xl font-black uppercase tracking-tighter mb-2">Deploying OS</h2>
                             <p className="text-zinc-500 font-mono text-[8px] uppercase tracking-[0.4em]">Initializing Administrative Console...</p>
                         </motion.div>
