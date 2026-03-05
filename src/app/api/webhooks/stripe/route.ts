@@ -4,11 +4,17 @@ import Stripe from 'stripe';
 import { prisma } from '@/lib/prisma';
 import crypto from 'crypto';
 
-// Initialize the Stripe client strictly
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-    apiVersion: '2025-12-15.clover' as any, // Bypass strict type until Stripe SDK is matched
-    typescript: true,
-});
+// Lazily initialize the Stripe client to avoid build-time crashes
+// when STRIPE_SECRET_KEY is not available during static page collection.
+function getStripe() {
+    if (!process.env.STRIPE_SECRET_KEY) {
+        throw new Error('STRIPE_SECRET_KEY is not configured');
+    }
+    return new Stripe(process.env.STRIPE_SECRET_KEY, {
+        apiVersion: '2025-12-15.clover' as any,
+        typescript: true,
+    });
+}
 
 export async function POST(req: Request) {
     const body = await req.text();
@@ -18,6 +24,7 @@ export async function POST(req: Request) {
 
     try {
         // 1. Verify the message is actually from Stripe and not a malicious bot
+        const stripe = getStripe();
         event = stripe.webhooks.constructEvent(
             body,
             signature,
