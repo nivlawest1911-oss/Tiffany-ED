@@ -79,7 +79,7 @@ export default function PodcastHub() {
                                 <h3 className="text-sm font-black text-white uppercase tracking-[0.2em]">Episode Directive</h3>
                             </div>
                             <p className="text-zinc-400 text-sm leading-relaxed font-serif italic mb-6">
-                                "{currentEpisode.description}"
+                                &ldquo;{currentEpisode.description}&rdquo;
                             </p>
                             <div className="flex gap-4 border-t border-white/5 pt-4">
                                 <button className="px-5 py-2 rounded-xl bg-white/5 text-xs font-bold text-white hover:bg-white/10 transition-colors uppercase tracking-widest">

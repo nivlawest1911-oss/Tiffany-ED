@@ -33,7 +33,7 @@ export function HolographicCard({
                             {icon && <div className="p-2 rounded-lg bg-primary-500/10 border border-primary-500/20">{icon}</div>}
                             <div>
                                 {title && <h3 className="text-xs font-black text-white uppercase tracking-[0.2em]">{title}</h3>}
-                                {subtitle && <p className="text-[9px] text-primary-400/60 font-bold uppercase tracking-widest mt-0.5">{subtitle}</p>}
+                                {subtitle && <p className="text-[10px] text-primary-400/60 font-bold uppercase tracking-widest mt-0.5">{subtitle}</p>}
                             </div>
                         </div>
                     </div>

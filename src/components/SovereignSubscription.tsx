@@ -160,7 +160,7 @@ export default function SovereignSubscription({ showBriefingButton = true }: Sov
                                         <span className="text-zinc-500 text-[10px] font-black uppercase tracking-[0.2em]">/ Mo</span>
                                     </div>
                                     <p className="text-base text-zinc-400 font-light leading-relaxed italic border-l-2 border-noble-gold/20 pl-4 py-1">
-                                        "{tier.description}"
+                                        {tier.description}
                                     </p>
                                 </div>
 
@@ -251,7 +251,7 @@ export default function SovereignSubscription({ showBriefingButton = true }: Sov
                                     {openFaq === idx && (
                                         <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
                                             <div className="px-12 pb-12 text-zinc-400 text-xl italic border-t border-white/5 pt-8 leading-relaxed">
-                                                "{faq.answer}"
+                                                {faq.answer}
                                             </div>
                                         </motion.div>
                                     )}
