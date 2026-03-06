@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import React, { useState } from "react"
 import { motion } from "framer-motion"
 import {
   FileText,
@@ -17,10 +17,21 @@ import {
   Sparkles
 } from "lucide-react"
 import { useCelebrate } from '@/context/CelebrationContext';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+
+const MemoizedMarkdown = React.memo(
+  ({ content }: { content: string }) => (
+    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+      {content}
+    </ReactMarkdown>
+  ),
+  (prevProps, nextProps) => prevProps.content === nextProps.content
+);
 
 const generators = [
   {
-    id: "iep-specialist",
+    id: "iep-architect",
     name: "IEP ARCHITECT",
     role: "Compliance & Inclusion Specialist",
     description: "Generate clinically precise, legally defensible IEP drafts aligned with Alabama Code.",
@@ -40,7 +51,7 @@ const generators = [
     prompts: ["Plan a 5th Grade Science lesson on Ecosystems", "Create a Tier 2 scaffold for quadratic equations", "Design a project-based learning unit on Civics"],
   },
   {
-    id: "data-analyst",
+    id: "data-analyzer",
     name: "DATA QUANT",
     role: "Strategic Analyst",
     description: "Process complex assessment vectors to identify achievement gaps and growth trends.",
@@ -60,7 +71,7 @@ const generators = [
     prompts: ["Explain Manifestation Determination Review steps", "Check 504 Plan eligibility criteria", "Clarify FERPA regarding parent emails"],
   },
   {
-    id: "cognitive-coach",
+    id: "behavior-coach",
     name: "NEURAL COACH",
     role: "Executive Function Specialist",
     description: "Evidence-based interventions for EF deficits, ADHD, and neurodivergent learning profiles.",
@@ -111,7 +122,11 @@ export function AIGeneratorsHub() {
         })
       });
 
-      if (!res.ok) throw new Error('Neural Link Interrupted');
+      if (!res.ok) {
+        let errData;
+        try { errData = await res.json(); } catch (e) { }
+        throw new Error(errData?.error || errData?.message || 'Neural Link Interrupted');
+      }
 
       const reader = res.body?.getReader();
       const decoder = new TextDecoder();
@@ -317,8 +332,8 @@ export function AIGeneratorsHub() {
                 </div>
                 <div className="flex-1 bg-black/40 border border-white/10 rounded-2xl p-8 overflow-y-auto custom-scrollbar shadow-inner relative">
                   <div className="prose prose-invert prose-sm max-w-none">
-                    <div className="text-zinc-300 font-medium leading-relaxed whitespace-pre-wrap font-sans">
-                      {response}
+                    <div className="text-zinc-300 font-medium leading-relaxed font-sans edintel-markdown">
+                      <MemoizedMarkdown content={response} />
                     </div>
                   </div>
                   {/* Watermark */}

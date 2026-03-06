@@ -34,10 +34,10 @@ export default function AvatarMasterclass() {
     ];
 
     return (
-        <div className="p-10 rounded-[2.5rem] bg-zinc-950 text-white border border-zinc-900 shadow-3xl overflow-hidden relative group">
+        <div className="h-full flex flex-col p-6 md:p-8 rounded-[2.5rem] bg-zinc-950 text-white border border-zinc-900 shadow-3xl overflow-hidden relative group">
             <div className="absolute inset-0 bg-gradient-to-br from-purple-600/5 to-transparent pointer-events-none" />
 
-            <div className="relative z-10">
+            <div className="relative z-10 flex flex-col h-full">
                 <div className="flex items-center justify-between mb-10">
                     <div className="flex items-center gap-5">
                         <div className="w-14 h-14 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center justify-center shadow-2xl">
@@ -73,8 +73,8 @@ export default function AvatarMasterclass() {
                     ))}
                 </div>
 
-                <div className="mt-8 p-6 rounded-3xl bg-gradient-to-r from-purple-600/10 to-transparent border border-purple-500/20 flex items-center justify-between">
-                    <div className="flex items-center gap-4">
+                <div className="mt-8 md:mt-auto p-5 rounded-3xl bg-gradient-to-r from-purple-600/10 to-transparent border border-purple-500/20 flex flex-wrap items-center justify-between gap-4">
+                    <div className="flex items-center gap-3 md:gap-4">
                         <div className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center animate-pulse">
                             <Sparkles size={16} />
                         </div>

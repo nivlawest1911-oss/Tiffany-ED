@@ -1,89 +1,85 @@
-import { NextResponse } from 'next/server';
-import { createClient } from '@/utils/supabase/server';
-import { UserService } from '@/lib/services/user-service';
+import { createServerClient, type CookieOptions } from '@supabase/ssr';
+import { NextResponse, type NextRequest } from 'next/server';
+import { ROUTES } from '@/lib/routes';
 
-export async function GET(request: Request) {
-    const requestUrl = new URL(request.url);
-    const code = requestUrl.searchParams.get('code');
-    const error = requestUrl.searchParams.get('error');
-    const errorDescription = requestUrl.searchParams.get('error_description');
-    const next = requestUrl.searchParams.get('next') || '/dashboard';
-    const origin = requestUrl.origin;
+export async function GET(request: NextRequest) {
+    const { searchParams, origin } = new URL(request.url);
+    const code = searchParams.get('code');
+    const next = searchParams.get('next') ?? ROUTES.THE_ROOM;
 
-    // Handle OAuth provider errors (user cancelled, denied, etc.)
-    if (error) {
-        console.error(`[AUTH CALLBACK] OAuth error: ${error} — ${errorDescription}`);
-        return NextResponse.redirect(
-            `${origin}/login?error=${encodeURIComponent(errorDescription || error)}`
-        );
-    }
+    if (code) {
+        console.log('🏛️ [EdIntel_Auth] Initiating Code Exchange Protocol...');
 
-    if (!code) {
-        console.error('[AUTH CALLBACK] No authorization code received');
-        return NextResponse.redirect(`${origin}/login?error=missing_code`);
-    }
+        // Track cookies that need to be forwarded to the browser response
+        const cookiesToForward: { name: string; value: string; options: CookieOptions }[] = [];
 
-    try {
-        const supabase = await createClient();
-
-        if (!supabase) {
-            console.error('[AUTH CALLBACK] UPLINK_OFFLINE: Cannot exchange code.');
-            return NextResponse.redirect(`${origin}/login?error=uplink_offline`);
-        }
-
-        const { data: { session }, error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
-
-        if (exchangeError) {
-            console.error('[AUTH CALLBACK] Code exchange failed:', exchangeError.message);
-            return NextResponse.redirect(
-                `${origin}/login?error=${encodeURIComponent(exchangeError.message)}`
-            );
-        }
-
-        if (session?.user) {
-            // UNIFIED SYNC: Ensure public.users record exists and tokens are initialized
-            try {
-                const { id, email, user_metadata } = session.user;
-                const name = user_metadata?.full_name || email?.split('@')[0] || 'Educator';
-                const avatar = user_metadata?.avatar_url || user_metadata?.picture;
-
-                const processedUser = await UserService.syncUser(
-                    id,
-                    email!,
-                    name,
-                    avatar
-                );
-
-                console.log(`[AUTH CALLBACK] Synced user ${email} to EdIntel records. Tier: ${processedUser.tier}`);
-
-                // OPTIMIZATION: Route them based on their specific module context
-                // Director Pack and Practitioner tiers are routed to Wellness/Transcend dashboard
-                const effectiveTier = processedUser.tier;
-
-                if (effectiveTier === 'Director Pack' || effectiveTier === 'Practitioner') {
-                    // Force Transcend Dashboard
-                    return NextResponse.redirect(`${origin}/wellness`);
-                }
-
-                // For IEP/Education tiers or Free, route to Education dashboard
-                if (effectiveTier === 'Sovereign Pack' || effectiveTier === 'Standard Pack' || effectiveTier === 'Site Command') {
-                    return NextResponse.redirect(`${origin}/education`);
-                }
-
-                // Default fallback
-                return NextResponse.redirect(`${origin}${next === '/dashboard' ? '/education' : next}`);
-
-            } catch (err) {
-                console.error("[AUTH CALLBACK] User sync failed:", err);
-                // Continue anyway to dashboard if sync fails, don't block login
+        const supabase = createServerClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL!,
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+            {
+                cookies: {
+                    get(name: string) {
+                        return request.cookies.get(name)?.value;
+                    },
+                    set(name: string, value: string, options: CookieOptions) {
+                        // Store cookie for forwarding to the final redirect response
+                        cookiesToForward.push({ name, value, options });
+                        // Also set on request so subsequent calls in this handler see it
+                        request.cookies.set({ name, value, ...options });
+                    },
+                    remove(name: string, options: CookieOptions) {
+                        cookiesToForward.push({ name, value: '', options: { ...options, maxAge: 0 } });
+                        request.cookies.set({ name, value: '', ...options });
+                    },
+                },
             }
-        }
-
-        return NextResponse.redirect(`${origin}${next}`);
-    } catch (err: any) {
-        console.error('[AUTH CALLBACK] Unexpected error:', err);
-        return NextResponse.redirect(
-            `${origin}/login?error=${encodeURIComponent('Authentication failed. Please try again.')}`
         );
+
+        const { error } = await supabase.auth.exchangeCodeForSession(code);
+
+        if (!error) {
+            console.log('🏛️ [EdIntel_Auth] Session Established. Verifying Sovereign Role...');
+            const { data: { user } } = await supabase.auth.getUser();
+            const role = user?.user_metadata?.role;
+
+            // Determine redirect destination
+            let redirectUrl = `${origin}${next}`;
+            if (role === 'admin') {
+                redirectUrl = `${origin}${ROUTES.ADMIN_DASHBOARD}`;
+            } else if (role === 'teacher') {
+                redirectUrl = `${origin}${ROUTES.THE_ROOM}`;
+            }
+
+            // Create the redirect response
+            const response = NextResponse.redirect(redirectUrl);
+
+            // CRITICAL: Forward ALL Supabase session cookies to the browser
+            cookiesToForward.forEach(({ name, value, options }) => {
+                response.cookies.set(name, value, {
+                    ...options,
+                    // Ensure cookies work across the site
+                    path: options?.path || '/',
+                    sameSite: (options as any)?.sameSite || 'lax',
+                    secure: process.env.NODE_ENV === 'production',
+                });
+            });
+
+            console.log(`🏛️ [EdIntel_Auth] Identity Verified: ${user?.email} | Role: ${role || 'standard'} | Cookies Set: ${cookiesToForward.length}`);
+
+            // Trigger Identity Synchronization (fire-and-forget)
+            if (user) {
+                const syncUrl = new URL(ROUTES.AUTH_ME, request.url);
+                fetch(syncUrl.toString(), {
+                    headers: { cookie: cookiesToForward.map(c => `${c.name}=${c.value}`).join('; ') }
+                }).catch(e => console.error('🏛️ [EdIntel_Auth] Sync Protocol Failed:', e));
+            }
+
+            return response;
+        } else {
+            console.error('🏛️ [EdIntel_Auth] Code Exchange Failure:', error.message);
+        }
     }
+
+    console.warn('🏛️ [EdIntel_Auth] Authentication Protocol Aborted. Rerouting to Sentinel Login.');
+    return NextResponse.redirect(`${origin}${ROUTES.LOGIN}?error=auth_callback_failed`);
 }

@@ -3,13 +3,19 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
-import { Lock, Mail, ArrowRight, ShieldCheck as LucideShield, Loader2, Gem } from 'lucide-react';
-import HolographicBriefing from '@/components/intelligence/HolographicBriefing';
-import { useAuth } from '@/context/AuthContext';
+import { Lock, Mail, ArrowRight, ShieldCheck as LucideShield, Loader2 } from 'lucide-react';
+import dynamic from 'next/dynamic';
+import { createBrowserClient } from '@supabase/ssr';
 import EdIntelLogo from '@/components/EdIntelLogo';
 import EdIntelSovereignLogo from '@/components/EdIntelSovereignLogo';
 import { ParticleBackground } from '@/components/ui/Cinematic';
+import { toast } from 'sonner';
+import { ROUTES } from '@/lib/routes';
+
+import { useAuth } from '@/context/AuthContext';
+
+// Lazy-load: only shown when user clicks "Security Clearance Briefing"
+const HolographicBriefing = dynamic(() => import('@/components/intelligence/HolographicBriefing'), { ssr: false });
 
 export default function LoginClient() {
     const [email, setEmail] = useState('');
@@ -18,29 +24,156 @@ export default function LoginClient() {
     const [isLoggingIn, setIsLoggingIn] = useState(false);
     const [isSocialLoading, setIsSocialLoading] = useState<'google' | 'facebook' | null>(null);
     const [showBriefing, setShowBriefing] = useState(false);
-    const _router = useRouter();
+    const [mode, setMode] = useState<'login' | 'signup'>('login');
+    const router = useRouter();
     const searchParams = useSearchParams();
-    const { login, loginWithGoogle, loginWithFacebook } = useAuth();
+    const { fetchUser } = useAuth();
 
-    // Capture OAuth errors from callback redirect
+    // 🏛️ EdIntel Enrollment Fields
+    const [signupData, setSignupData] = useState({
+        name: '',
+        schoolSite: '',
+        tierName: 'Sovereign Initiate'
+    });
+
+    // Initialize Sovereign Supabase Client safely
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+
+    const supabase = createBrowserClient(supabaseUrl, supabaseKey);
+
+    // Capture OAuth errors and Mode from URL
     useEffect(() => {
         const oauthError = searchParams.get('error');
         if (oauthError) {
-            setError(decodeURIComponent(oauthError).replace(/_/g, ' '));
+            const decodedError = decodeURIComponent(oauthError).replace(/_/g, ' ');
+            setError(decodedError);
+            toast.error("Authentication Sentinel", {
+                description: `Access Denied: ${decodedError}`,
+            });
         }
+
+        const urlMode = searchParams.get('mode');
+        if (urlMode === 'signup') setMode('signup');
     }, [searchParams]);
 
-    const handleLogin = async (e: React.FormEvent) => {
+    const handleAuth = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoggingIn(true);
         setError('');
 
         try {
-            await login(email, password);
+            if (mode === 'login') {
+                // 🏛️ Master Authentication Protocol (Custom API Bypass)
+                const apiRes = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password }),
+                });
+
+                const apiData = await apiRes.json();
+
+                if (apiRes.ok && apiData.success) {
+                    toast.success("Identity Verified", {
+                        description: "Master access granted. Establishing secure tunnel...",
+                    });
+                    await fetchUser();
+                    router.push(ROUTES.THE_ROOM);
+                    router.refresh();
+                    return;
+                }
+
+                // Standard Supabase Uplink
+                const { error: signInError } = await supabase.auth.signInWithPassword({
+                    email,
+                    password,
+                });
+
+                if (signInError) throw signInError;
+
+                // 🏛️ Global User Synchronization Protocol
+                // Triggering /api/auth/me (GET) will force a parity check and sync between Supabase and Neon
+                await fetch('/api/auth/me').catch(e => console.error("[AUTH_SYNC] Background parity check failed", e));
+
+                toast.success("Identity Verified", {
+                    description: "Establishing secure session tunnel...",
+                });
+            } else {
+                // 🏛️ Sovereign Enrollment Protocol (Signup)
+                const { data: { user: signedUpUser }, error: signUpError } = await supabase.auth.signUp({
+                    email,
+                    password,
+                    options: {
+                        data: {
+                            full_name: signupData.name,
+                            tier: signupData.tierName,
+                            school_site: signupData.schoolSite
+                        },
+                        emailRedirectTo: `${window.location.origin}${ROUTES.AUTH_CALLBACK}`
+                    }
+                });
+
+                if (signUpError) throw signUpError;
+
+                // 🏛️ Pre-Provision Identity in Primary Databases
+                if (signedUpUser) {
+                    await fetch('/api/auth/me', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            email: signedUpUser.email,
+                            name: signupData.name,
+                            id: signedUpUser.id,
+                            tier: signupData.tierName
+                        }),
+                    }).catch(e => console.error("[AUTH_SYNC] Pre-provisioning failed", e));
+                }
+
+                toast.success("Identity Provisioned", {
+                    description: "Check your executive endpoint for verification.",
+                });
+            }
+
+            // Force immediate redirect to prevent being stuck on login
+            await fetchUser();
+            router.push(ROUTES.THE_ROOM);
+            router.refresh();
         } catch (err: any) {
             console.error(err);
             setError(err.message || 'Authentication Protocol Failed');
+            toast.error("Authentication Failed", {
+                description: err.message || "Uplink rejected by Sovereign Sentinel.",
+            });
             setIsLoggingIn(false);
+        }
+    };
+
+    const handleSocialLogin = async (provider: 'google' | 'facebook') => {
+        setIsSocialLoading(provider);
+        setError('');
+
+        try {
+            const { error: oauthError } = await supabase.auth.signInWithOAuth({
+                provider,
+                options: {
+                    redirectTo: `${window.location.origin}${ROUTES.AUTH_CALLBACK}`,
+                    queryParams: {
+                        access_type: 'offline',
+                        prompt: 'consent',
+                    },
+                },
+            });
+
+            if (oauthError) throw oauthError;
+
+            // Redirect happens automatically
+        } catch (err: any) {
+            console.error('OAuth Error:', err);
+            setError(err.message || `${provider} Protocol Failed`);
+            toast.error(`Sovereign Auth Error`, {
+                description: `Could not initiate ${provider} protocol: ${err.message}`,
+            });
+            setIsSocialLoading(null);
         }
     };
 
@@ -50,87 +183,90 @@ export default function LoginClient() {
                 isOpen={showBriefing}
                 onClose={() => setShowBriefing(false)}
                 agentId="tactical"
-                title="Sovereign Access Protocol"
-                description="Identity verification is required for access to the Unified Sovereign Ecosystem. Please provide your institutional credentials."
-                briefingSteps={[
+                title={mode === 'login' ? "Sovereign Access Protocol" : "Identity Induction"}
+                description={mode === 'login'
+                    ? "Identity verification is required for access to the Unified Sovereign Ecosystem."
+                    : "Welcome to the EdIntel Collective. You are initiating a strategic node provisioning."}
+                briefingSteps={mode === 'login' ? [
                     "Initialize secure administrative downlink.",
-                    "Verify institutional credentials for EdIntel / Transcend.",
+                    "Verify institutional credentials.",
                     "Bypass sentinel encryption layers.",
                     "Establish encrypted session tunnel."
+                ] : [
+                    "Provision institutional identity.",
+                    "Configure intelligence tier assignment.",
+                    "Synchronize professional credentials.",
+                    "Initialize 30-day Sovereign Pilot."
                 ]}
             />
 
-            <main className="min-h-screen content-stage flex items-center justify-center p-4 relative overflow-hidden bg-black">
-                {/* Cinematic Background */}
+            <main className="min-h-screen content-stage flex items-center justify-center p-4 relative overflow-hidden bg-[#020617]">
+                {/* Cinematic Dark Background */}
                 <div className="absolute inset-0 z-0">
-                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-950/40 via-purple-950/30 to-black" />
-                    <ParticleBackground count={40} />
-                    {/* Dual Glow Orbs */}
-                    <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-500/10 blur-[150px] rounded-full opacity-40 animate-pulse pointer-events-none" />
-                    <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-purple-500/10 blur-[150px] rounded-full opacity-40 animate-pulse delay-1000 pointer-events-none" />
+                    <div className="absolute inset-0 bg-[#020617] bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.1),rgba(255,255,255,0))]" />
+                    <ParticleBackground count={12} color="bg-[#FFB300]/20" />
+                    {/* Soft Glow Orbs */}
+                    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(255,179,0,0.08)_0%,transparent_70%)] rounded-full opacity-60 animate-pulse pointer-events-none" />
+                    <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(0,176,255,0.08)_0%,transparent_70%)] rounded-full opacity-60 animate-pulse delay-1000 pointer-events-none" />
                 </div>
 
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95, y: 20 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="w-full max-w-[1000px] grid grid-cols-1 lg:grid-cols-2 bg-zinc-950/60 backdrop-blur-2xl rounded-[3rem] border border-white/5 shadow-[0_0_100px_rgba(0,0,0,0.8)] relative z-10 overflow-hidden"
+                    className="w-full max-w-[1100px] grid grid-cols-1 lg:grid-cols-2 bg-black/40 backdrop-blur-xl rounded-[3rem] border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative z-10 overflow-hidden"
                 >
                     {/* LEFT PANEL: VISUAL IDENTITY */}
-                    <div className="hidden lg:flex flex-col items-center justify-center p-12 relative bg-gradient-to-br from-indigo-900/20 to-purple-900/20 border-r border-white/5">
-                        <div className="absolute inset-0 bg-[url('/assets/images/carbon-fibre-pattern.png')] opacity-5 mix-blend-overlay" />
+                    <div className="hidden lg:flex flex-col items-center justify-center p-12 relative bg-gradient-to-br from-white/5 to-white/0 border-r border-white/10 overflow-hidden">
+                        <div className="absolute inset-0 bg-[#020617]/50 mix-blend-overlay" />
 
                         <div className="relative z-10 text-center space-y-12">
                             <div className="relative">
                                 <motion.div
                                     animate={{ rotate: 360 }}
-                                    transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
-                                    className="absolute inset-0 rounded-full border border-dashed border-white/10 scale-150"
+                                    transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
+                                    className="absolute inset-0 rounded-full border border-dashed border-[#FFB300]/30 scale-150"
                                 />
                                 <div className="flex flex-col items-center gap-6">
-                                    <EdIntelLogo variant="sovereign-fidelity" className="scale-125" />
-                                    <div className="h-16 w-[1px] bg-gradient-to-b from-cyan-400/50 to-purple-400/50" />
-                                    <EdIntelSovereignLogo showText={false} size={80} />
+                                    <EdIntelLogo variant="fidelity" className="scale-125 invert" />
+                                    <div className="h-16 w-[2px] bg-gradient-to-b from-[#FFB300]/50 to-transparent" />
+                                    <EdIntelSovereignLogo showText={false} size={80} className="opacity-30" />
                                 </div>
                             </div>
 
                             <div className="space-y-4">
-                                <h2 className="text-3xl font-black text-white uppercase tracking-tight">
-                                    Unified <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400">Sovereignty</span>
+                                <h2 className="text-4xl font-black text-white uppercase tracking-tighter">
+                                    Sovereign <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFB300] to-[#FF8F00]">Dawn</span>
                                 </h2>
-                                <p className="text-xs font-medium text-zinc-400 max-w-xs mx-auto leading-relaxed">
-                                    Access the complete EdIntel Education Suite and Transcend Wellness Ecosystem through a single, secure identity.
+                                <p className="text-sm font-medium text-zinc-400 max-w-xs mx-auto leading-relaxed">
+                                    Experience the future of education in a clear, focused, and high-performance ecosystem.
                                 </p>
                             </div>
 
                             <div className="flex gap-4 justify-center">
-                                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20">
-                                    <EdIntelLogo variant="fidelity" className="scale-90" />
-                                    <span className="text-[9px] font-bold text-cyan-200 uppercase tracking-widest">EdIntel Core</span>
-                                </div>
-                                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20">
-                                    <Gem size={12} className="text-purple-400" />
-                                    <span className="text-[9px] font-bold text-purple-200 uppercase tracking-widest">Transcend</span>
+                                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#FFB300]/10 border border-[#FFB300]/20 text-[#FFB300] shadow-[0_0_20px_rgba(255,179,0,0.1)]">
+                                    <span className="text-[10px] font-black uppercase tracking-widest">Version 4.0 Alpha</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     {/* RIGHT PANEL: LOGIN FORM */}
-                    <div className="p-8 lg:p-12 flex flex-col justify-center relative">
-                        {/* Mobile Header (Only visible on mobile) */}
-                        <div className="lg:hidden flex justify-center mb-8 gap-4">
-                            <EdIntelLogo variant="sovereign-fidelity" className="scale-75" />
-                            <EdIntelSovereignLogo showText={false} size={40} className="scale-75" />
+                    <div className="p-8 lg:p-14 flex flex-col justify-center relative bg-white/5">
+                        {/* Mobile Header */}
+                        <div className="lg:hidden flex justify-center mb-10">
+                            <EdIntelLogo variant="fidelity" className="scale-100 invert" />
                         </div>
 
-                        <header className="mb-10 text-center lg:text-left">
-                            <h3 className="text-xl font-black text-white uppercase tracking-widest mb-2">
-                                Executive Access
+                        <header className="mb-12 text-center lg:text-left">
+                            <h3 className="text-2xl font-black text-white uppercase tracking-tighter mb-1">
+                                {mode === 'login' ? 'Welcome Back' : 'Join the Elite'}
                             </h3>
                             <div className="flex items-center gap-2 justify-center lg:justify-start">
-                                <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                                <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.2em]">Secure Uplink Active</p>
+                                <div className="h-2 w-2 rounded-full bg-[#00B0FF] animate-pulse shadow-[0_0_10px_rgba(0,176,255,0.5)]" />
+                                <p className="text-[10px] font-black text-[#00B0FF] uppercase tracking-[0.3em]">
+                                    {mode === 'login' ? 'Institutional Uplink Active' : 'Induction Suite Ready'}
+                                </p>
                             </div>
                         </header>
 
@@ -145,106 +281,170 @@ export default function LoginClient() {
                             </motion.div>
                         )}
 
-                        <form onSubmit={handleLogin} className="space-y-6">
+                        <form onSubmit={handleAuth} className="space-y-5">
                             <div className="space-y-4">
+                                {mode === 'signup' && (
+                                    <motion.div
+                                        initial={{ opacity: 0, x: -20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        className="space-y-4"
+                                    >
+                                        <div className="relative group">
+                                            <input
+                                                type="text"
+                                                value={signupData.name}
+                                                onChange={(e) => setSignupData({ ...signupData, name: e.target.value })}
+                                                placeholder="YOUR FULL NAME"
+                                                className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-[#FFB300] focus:bg-white/10 transition-all font-bold text-[10px] tracking-[0.2em] placeholder:text-zinc-500 text-white shadow-sm"
+                                                required={mode === 'signup'}
+                                            />
+                                        </div>
+                                    </motion.div>
+                                )}
+
                                 <div className="relative group">
-                                    <Mail className="absolute left-5 top-1/2 -translate-y-1/2 text-zinc-600 group-focus-within:text-white transition-colors" size={16} />
+                                    <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-[#FFB300] transition-colors" size={16} />
                                     <input
                                         type="email"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        placeholder="INSTITUTIONAL ID"
-                                        className="w-full pl-12 pr-6 py-4 bg-white/[0.03] border border-white/10 rounded-xl outline-none focus:border-white/20 focus:bg-white/[0.05] transition-all font-bold text-[10px] tracking-[0.2em] placeholder:text-zinc-700 text-white"
+                                        placeholder="EMAIL ADDRESS"
+                                        className="w-full pl-14 pr-6 py-4 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-[#FFB300] focus:bg-white/10 transition-all font-bold text-[10px] tracking-[0.2em] placeholder:text-zinc-500 text-white shadow-sm"
                                         required
                                     />
                                 </div>
 
                                 <div className="relative group">
-                                    <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-zinc-600 group-focus-within:text-white transition-colors" size={16} />
+                                    <Lock className="absolute left-6 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-[#FFB300] transition-colors" size={16} />
                                     <input
                                         type="password"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        placeholder="SECURITY KEY"
-                                        className="w-full pl-12 pr-6 py-4 bg-white/[0.03] border border-white/10 rounded-xl outline-none focus:border-white/20 focus:bg-white/[0.05] transition-all font-bold text-[10px] tracking-[0.2em] placeholder:text-zinc-700 text-white"
+                                        placeholder="SECURITY PASSWORD"
+                                        className="w-full pl-14 pr-6 py-4 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-[#FFB300] focus:bg-white/10 transition-all font-bold text-[10px] tracking-[0.2em] placeholder:text-zinc-500 text-white shadow-sm"
                                         required
                                     />
                                 </div>
+
+                                {mode === 'signup' && (
+                                    <motion.div
+                                        initial={{ opacity: 0, x: -20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        className="space-y-4"
+                                    >
+                                        <div className="relative group">
+                                            <input
+                                                type="text"
+                                                value={signupData.schoolSite}
+                                                onChange={(e) => setSignupData({ ...signupData, schoolSite: e.target.value })}
+                                                placeholder="INSTITUTION / SCHOOL"
+                                                className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-[#FFB300] focus:bg-white/10 transition-all font-bold text-[10px] tracking-[0.2em] placeholder:text-zinc-500 text-white shadow-sm"
+                                                required={mode === 'signup'}
+                                            />
+                                        </div>
+
+                                        <div className="relative group">
+                                            <select
+                                                value={signupData.tierName}
+                                                onChange={(e) => setSignupData({ ...signupData, tierName: e.target.value })}
+                                                className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-[#FFB300] focus:bg-white/10 transition-all font-bold text-[10px] tracking-[0.2em] text-white appearance-none cursor-pointer shadow-sm [&>option]:bg-[#020617]"
+                                                title="Select Intelligence Tier"
+                                            >
+                                                <option value="Sovereign Initiate" className="bg-[#020617]">Initiate Tier (Free Trial)</option>
+                                                <option value="Standard Pack" className="bg-[#020617]">Standard Tier ($9.99/mo)</option>
+                                                <option value="Sovereign Pack" className="bg-[#020617]">Sovereign Tier ($39.99/mo)</option>
+                                                <option value="Practitioner" className="bg-[#020617]">Practitioner ($49.99/mo)</option>
+                                                <option value="Director Pack" className="bg-[#020617]">Director Pack ($69.99/mo)</option>
+                                                <option value="Site Command" className="bg-[#020617]">Site Command ($79.99/mo)</option>
+                                            </select>
+                                        </div>
+                                    </motion.div>
+                                )}
                             </div>
 
                             <button
                                 type="submit"
                                 disabled={isLoggingIn}
-                                className="group relative w-full overflow-hidden rounded-xl bg-white p-4 font-black text-[10px] uppercase tracking-[0.3em] text-black transition-all hover:scale-[1.01] active:scale-[0.98] disabled:opacity-50 shadow-[0_0_40px_rgba(255,255,255,0.1)] hover:shadow-[0_0_60px_rgba(255,255,255,0.2)]"
+                                className="group relative w-full overflow-hidden rounded-2xl bg-gradient-to-r from-[#FFB300] to-[#FF8F00] p-5 font-black text-[11px] uppercase tracking-[0.3em] text-black transition-all hover:scale-[1.01] active:scale-[0.98] disabled:opacity-50 shadow-[0_0_30px_rgba(255,179,0,0.3)] hover:shadow-[0_0_40px_rgba(255,179,0,0.5)]"
                             >
+                                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
                                 <div className="relative z-10 flex items-center justify-center gap-3">
-                                    {isLoggingIn ? 'Verifying...' : 'Establish Connection'}
-                                    <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                                    {isLoggingIn ? (
+                                        <>
+                                            <Loader2 size={16} className="animate-spin" />
+                                            <span>Establishing...</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <span>{mode === 'login' ? 'Authenticate Access' : 'Create Identity'}</span>
+                                            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                                        </>
+                                    )}
                                 </div>
                             </button>
                         </form>
 
                         <div className="relative my-10">
                             <div className="absolute inset-0 flex items-center">
-                                <div className="w-full border-t border-white/5" />
+                                <div className="w-full border-t border-white/10" />
                             </div>
                             <div className="relative flex justify-center">
-                                <span className="bg-[#09090b] px-4 text-[9px] font-black text-zinc-700 uppercase tracking-widest">Or Authenticate Via</span>
+                                <span className="bg-transparent px-4 text-[9px] font-black text-zinc-500 uppercase tracking-widest backdrop-blur-sm">Secure Social Access</span>
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-3">
+                        <div className="grid grid-cols-2 gap-4">
                             <button
-                                onClick={async () => {
-                                    setIsSocialLoading('google');
-                                    setError('');
-                                    await loginWithGoogle();
-                                }}
+                                onClick={() => handleSocialLogin('google')}
                                 disabled={isSocialLoading !== null}
-                                className="flex items-center justify-center gap-2 py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all group disabled:opacity-50"
+                                className="flex items-center justify-center gap-2 py-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#FFB300]/50 transition-all group disabled:opacity-50 shadow-sm"
                             >
                                 {isSocialLoading === 'google' ? (
-                                    <Loader2 className="w-4 h-4 animate-spin text-white" />
+                                    <Loader2 className="w-4 h-4 animate-spin text-[#FFB300]" />
                                 ) : (
-                                    <svg className="w-4 h-4 text-zinc-400 group-hover:text-white transition-colors" viewBox="0 0 24 24">
-                                        <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-                                        <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-                                        <path fill="currentColor" d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l3.66-2.84z" />
-                                        <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+                                    <svg className="w-5 h-5" viewBox="0 0 24 24">
+                                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                                        <path fill="#FBBC05" d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l3.66-2.84z" />
+                                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
                                     </svg>
                                 )}
-                                <span className="text-[9px] font-bold uppercase tracking-widest text-zinc-400 group-hover:text-white">Google</span>
+                                <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400 group-hover:text-white">Google</span>
                             </button>
 
                             <button
-                                onClick={async () => {
-                                    setIsSocialLoading('facebook');
-                                    setError('');
-                                    await loginWithFacebook();
-                                }}
+                                onClick={() => handleSocialLogin('facebook')}
                                 disabled={isSocialLoading !== null}
-                                className="flex items-center justify-center gap-2 py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all group disabled:opacity-50"
+                                className="flex items-center justify-center gap-2 py-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#FFB300]/50 transition-all group disabled:opacity-50 shadow-sm"
                             >
                                 {isSocialLoading === 'facebook' ? (
-                                    <Loader2 className="w-4 h-4 animate-spin text-blue-500" />
+                                    <Loader2 className="w-4 h-4 animate-spin text-[#1877F2]" />
                                 ) : (
-                                    <svg className="w-4 h-4 text-zinc-400 group-hover:text-blue-400 transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                                    <svg className="w-5 h-5 text-[#1877F2]" fill="currentColor" viewBox="0 0 24 24">
                                         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                                     </svg>
                                 )}
-                                <span className="text-[9px] font-bold uppercase tracking-widest text-zinc-400 group-hover:text-white">Facebook</span>
+                                <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400 group-hover:text-white">Facebook</span>
                             </button>
                         </div>
 
-                        <div className="mt-8 text-center space-y-4">
+                        <div className="mt-10 text-center space-y-5">
                             <button
                                 onClick={() => setShowBriefing(true)}
-                                className="text-[9px] font-black uppercase tracking-widest text-zinc-600 hover:text-indigo-400 transition-colors border-b border-dashed border-zinc-800 hover:border-indigo-500/50 pb-0.5"
+                                className="text-[10px] font-black uppercase tracking-widest text-[#FFB300]/80 hover:text-[#FFB300] transition-colors border-b-2 border-[#FFB300]/20 hover:border-[#FFB300]/50 pb-1"
                             >
-                                Initiate Security Briefing
+                                Security Clearance Briefing
                             </button>
-                            <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-600">
-                                New Executive? <Link href="/signup" className="text-white hover:text-cyan-400 transition-colors ml-1">Initialize Sync</Link>
+                            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500">
+                                {mode === 'login' ? (
+                                    <>
+                                        New Account? <button onClick={() => setMode('signup')} className="text-white font-black hover:text-[#FFB300] transition-colors ml-1 uppercase">Request Credentials</button>
+                                    </>
+                                ) : (
+                                    <>
+                                        Member Access? <button onClick={() => setMode('login')} className="text-white font-black hover:text-[#FFB300] transition-colors ml-1 uppercase">Return to Node</button>
+                                    </>
+                                )}
                             </p>
                         </div>
                     </div>

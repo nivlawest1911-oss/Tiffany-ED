@@ -7,7 +7,7 @@ export default function ResourceVault() {
     const updates2025 = get2025Updates();
     const literacyResources = getLiteracyResources();
     const researchValidation = getResearchValidation();
-    const ideaCompliance = getIDEACompliance();
+    const _ideaCompliance = getIDEACompliance();
 
     const getCategoryIcon = (category: string) => {
         switch (category) {

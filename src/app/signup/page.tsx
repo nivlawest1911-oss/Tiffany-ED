@@ -1,9 +1,8 @@
-import { cookies } from 'next/headers';
-import SignupClient from './SignupClient';
+import { redirect } from 'next/navigation';
+import { ROUTES } from '@/lib/routes';
 
 export const dynamic = 'force-dynamic';
 
 export default async function SignupPage() {
-    await cookies(); // Force dynamic rendering
-    return <SignupClient />;
+    redirect(`${ROUTES.LOGIN}?mode=signup`);
 }

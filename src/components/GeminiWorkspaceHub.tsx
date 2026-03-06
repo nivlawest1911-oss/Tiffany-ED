@@ -19,6 +19,7 @@ import {
     Brain,
 } from 'lucide-react';
 import { useDropzone } from 'react-dropzone';
+import { SmartHover } from '@/components/ui/SmartHover';
 
 interface ImportedContent {
     id: string;
@@ -67,7 +68,7 @@ export default function GeminiWorkspaceHub() {
             {/* Header */}
             <div className="relative overflow-hidden bg-gradient-to-r from-purple-600/20 to-pink-600/20 border-b border-purple-500/30">
                 <div
-                    className="absolute inset-0 opacity-10 bg-[url('/grid.svg')]"
+                    className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2240%22%20height%3D%2240%22%3E%3Cpath%20d%3D%22M0%200h40v40H0z%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-opacity%3D%22.05%22%2F%3E%3C%2Fsvg%3E')]"
                 />
                 <div className="relative max-w-7xl mx-auto px-6 py-12">
                     <motion.div
@@ -75,14 +76,16 @@ export default function GeminiWorkspaceHub() {
                         animate={{ opacity: 1, y: 0 }}
                         className="text-center"
                     >
-                        <div className="inline-flex items-center gap-3 mb-4">
-                            <div className="p-3 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl">
-                                <Sparkles className="w-8 h-8 text-white" />
+                        <SmartHover message="Gemini Workspace Hub: Bridge your Google Gemini intelligence with EdIntel Professional for seamless strategic integration.">
+                            <div className="inline-flex items-center gap-3 mb-4">
+                                <div className="p-3 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl">
+                                    <Sparkles className="w-8 h-8 text-white" />
+                                </div>
+                                <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-rose-400 bg-clip-text text-transparent">
+                                    Gemini Workspace Hub
+                                </h1>
                             </div>
-                            <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-rose-400 bg-clip-text text-transparent">
-                                Gemini Workspace Hub
-                            </h1>
-                        </div>
+                        </SmartHover>
                         <p className="text-xl text-slate-300 max-w-3xl mx-auto">
                             Import and integrate your Google Gemini content into EdIntel Professional
                         </p>
@@ -462,37 +465,40 @@ function ContentCard({ content }: { content: ImportedContent }) {
     const Icon = typeIcons[content.type];
 
     return (
-        <motion.div
-            whileHover={{ scale: 1.02 }}
-            className="bg-slate-800/50 backdrop-blur-xl rounded-2xl p-6 border border-slate-700 hover:border-purple-500/50 transition-all"
-        >
-            <div className="flex items-start justify-between mb-4">
-                <div className="p-2 bg-purple-500/20 rounded-lg">
-                    <Icon className="w-5 h-5 text-purple-400" />
+        <SmartHover message={`Gemini Intelligence: ${content.title} (${content.type}) - Strategic content ready for integration.`}>
+            <motion.div
+                whileHover={{ scale: 1.02 }}
+                className="bg-slate-800/50 backdrop-blur-xl rounded-2xl p-6 border border-slate-700 hover:border-purple-500/50 transition-all"
+            >
+                {/* ... existing content card body ... */}
+                <div className="flex items-start justify-between mb-4">
+                    <div className="p-2 bg-purple-500/20 rounded-lg">
+                        <Icon className="w-5 h-5 text-purple-400" />
+                    </div>
+                    <span className="text-xs px-2 py-1 bg-slate-700 rounded-full text-slate-300">
+                        {content.category}
+                    </span>
                 </div>
-                <span className="text-xs px-2 py-1 bg-slate-700 rounded-full text-slate-300">
-                    {content.category}
-                </span>
-            </div>
 
-            <h3 className="text-lg font-semibold text-white mb-2 line-clamp-2">
-                {content.title}
-            </h3>
+                <h3 className="text-lg font-semibold text-white mb-2 line-clamp-2">
+                    {content.title}
+                </h3>
 
-            {content.tags.length > 0 && (
-                <div className="flex flex-wrap gap-2 mb-4">
-                    {content.tags.slice(0, 3).map((tag, i) => (
-                        <span key={i} className="text-xs px-2 py-1 bg-purple-500/20 text-purple-300 rounded-full">
-                            {tag}
-                        </span>
-                    ))}
+                {content.tags && content.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mb-4">
+                        {content.tags.slice(0, 3).map((tag, i) => (
+                            <span key={i} className="text-xs px-2 py-1 bg-purple-500/20 text-purple-300 rounded-full">
+                                {tag}
+                            </span>
+                        ))}
+                    </div>
+                )}
+
+                <div className="flex items-center gap-2 text-sm text-slate-400">
+                    <span>{new Date(content.timestamp).toLocaleDateString()}</span>
                 </div>
-            )}
-
-            <div className="flex items-center gap-2 text-sm text-slate-400">
-                <span>{new Date(content.timestamp).toLocaleDateString()}</span>
-            </div>
-        </motion.div>
+            </motion.div>
+        </SmartHover>
     );
 }
 

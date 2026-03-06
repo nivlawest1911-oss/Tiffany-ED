@@ -71,13 +71,13 @@ export default function EdIntelSovereignLogo({
                 />
 
                 {/* Primary Logo Image */}
-                <div className="relative z-10">
+                <div className="relative z-10 bg-white p-4 rounded-[40px] shadow-[0_0_30px_rgba(255,255,255,0.15)] ring-1 ring-white/20">
                     <Image
                         src="/assets/images/Edintellogo.png"
                         alt="EdIntel Logo"
                         width={size}
                         height={size}
-                        className="drop-shadow-[0_0_15px_rgba(212,175,55,0.3)] filter contrast-125"
+                        className="drop-shadow-[0_0_15px_rgba(212,175,55,0.3)] filter contrast-125 mix-blend-multiply"
                         priority
                         quality={85}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -122,13 +122,13 @@ export default function EdIntelSovereignLogo({
                 <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="flex flex-col items-center leading-none"
+                    className="flex flex-col items-center leading-none mt-2"
                 >
-                    <span className="text-2xl font-black text-white tracking-widest uppercase mb-1">
+                    <span className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400 tracking-[0.35em] uppercase mb-2">
                         EdIntel
                     </span>
-                    <div className="h-[1px] w-24 bg-gradient-to-r from-transparent via-noble-gold to-transparent mb-1" />
-                    <span className="text-[10px] font-bold text-noble-gold uppercase tracking-[0.4em]">
+                    <div className="h-[2px] w-48 bg-gradient-to-r from-transparent via-noble-gold to-transparent mb-2 opacity-80" />
+                    <span className="text-xs font-black text-noble-gold uppercase tracking-[0.6em]">
                         EdIntel Intelligence
                     </span>
                 </motion.div>

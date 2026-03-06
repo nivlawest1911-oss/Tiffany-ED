@@ -1,70 +1,68 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server';
+import { updateSession } from '@/utils/supabase/middleware';
 
-/**
- * Global Tier Middleware
- * Intercepts hits to premium modules and redirects based on user tier.
- */
-const TIER_LINKS = {
-    'Sovereign Initiate': '/pricing',
-    'Standard Pack': 'https://buy.stripe.com/Standard_Link',
-    'Sovereign Pack': 'https://buy.stripe.com/Sovereign_Link',
-    'Practitioner': 'https://buy.stripe.com/Practitioner_Link',
-    'Director Pack': 'https://buy.stripe.com/Director_Link',
-    'Site Command': 'https://buy.stripe.com/Site_Command_Link'
-};
+export async function middleware(request: NextRequest) {
+    // 1. Refresh Supabase session (and get updated response)
+    // This also handles setting/refreshing Supabase cookies
+    const response = await updateSession(request);
 
-export function middleware(req: NextRequest) {
-    const { pathname } = req.nextUrl;
+    // 2. Define protected routes
+    const protectedRoutes = [
+        "/dashboard",
+        "/academy",
+        "/generators",
+        "/conversation",
+        "/gym",
+        "/vault",
+        "/tiffany-ed",
+        "/wellness",
+        "/excursions",
+        "/the-room",
+        "/onboarding"
+    ];
 
-    // 1. Define Premium Route Patterns
-    const isEducationVault = pathname.startsWith('/vault'); // Sovereign Pack+
-    const isIEPArchitect = pathname.startsWith('/generators'); // Standard Pack+
-    const isWellnessInsights = pathname.startsWith('/professional'); // Practitioner+
-    const isDirectorPortal = pathname.startsWith('/the-room'); // Director Pack
-    const isSiteCommand = pathname.startsWith('/admin'); // Site Command
+    const pathname = request.nextUrl.pathname;
+    const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
 
-    // 0. Redirect base dashboard to education view
-    if (pathname === '/dashboard') {
-        return NextResponse.redirect(new URL('/education', req.url));
+    // 3. Auth checks
+    // We check for any Supabase auth cookies or our legacy session cookie
+    const allCookies = request.cookies.getAll();
+    const supabaseCookies = allCookies.filter(c =>
+        c.name.startsWith('sb-') || c.name.includes('supabase-auth-token')
+    );
+    const hasSupabaseCookie = supabaseCookies.length > 0;
+    const hasLegacySession = request.cookies.has('edintel_session');
+
+    const isAuthenticated = hasSupabaseCookie || hasLegacySession;
+
+    // 🔬 Diagnostics (Only for debugging session issues)
+    if (isProtectedRoute && !isAuthenticated) {
+        console.log(`[AUTH_DIAG] Path: ${pathname} | Auth: FAILED`);
+        console.log(`[AUTH_DIAG] Total Cookies: ${allCookies.length}`);
+        console.log(`[AUTH_DIAG] SB Cookies: ${supabaseCookies.map(c => c.name).join(', ') || 'NONE'}`);
+        console.log(`[AUTH_DIAG] Legacy Cookie: ${hasLegacySession ? 'FOUND' : 'MISSING'}`);
     }
 
-    // 2. Mock User Tier (In production, pull this from Supabase/Auth cookie)
-    // For demonstration: User is an 'Initiate'
-    const userTier = req.cookies.get('user_tier')?.value || 'Sovereign Initiate';
-
-    // 3. THE REDIRECT LOGIC: Redirect if user hits a link above their tier
-    if (isSiteCommand && userTier !== 'Site Command') {
-        return NextResponse.redirect(new URL(TIER_LINKS['Site Command'], req.url));
+    // 4. Case: Protected route but not authenticated
+    if (isProtectedRoute && !isAuthenticated) {
+        console.log(`[Middleware] Unauthorized access to ${pathname}. Redirecting to login.`);
+        const url = new URL('/login', request.url);
+        url.searchParams.set('redirect', pathname);
+        return NextResponse.redirect(url);
     }
 
-    if (isDirectorPortal && !['Director Pack', 'Site Command'].includes(userTier)) {
-        return NextResponse.redirect(new URL(TIER_LINKS['Director Pack'], req.url));
-    }
-
-    if (isWellnessInsights && ['Sovereign Initiate', 'Standard Pack', 'Sovereign Pack'].includes(userTier)) {
-        return NextResponse.redirect(new URL(TIER_LINKS['Practitioner'], req.url));
-    }
-
-    if (isEducationVault && ['Sovereign Initiate', 'Standard Pack'].includes(userTier)) {
-        return NextResponse.redirect(new URL(TIER_LINKS['Sovereign Pack'], req.url));
-    }
-
-    if (isIEPArchitect && userTier === 'Sovereign Initiate') {
-        return NextResponse.redirect(new URL(TIER_LINKS['Standard Pack'], req.url));
-    }
-
-    return NextResponse.next();
+    return response;
 }
 
-// Ensure middleware only runs on relevant app routes
 export const config = {
     matcher: [
-        '/dashboard/:path*',
-        '/vault/:path*',
-        '/generators/:path*',
-        '/professional/:path*',
-        '/the-room/:path*',
-        '/admin/:path*',
+        /*
+         * Match all request paths except for the ones starting with:
+         * - _next/static (static files)
+         * - _next/image (image optimization files)
+         * - favicon.ico (favicon file)
+         * - Public assets like .svg, .png, etc.
+         */
+        '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
     ],
 };

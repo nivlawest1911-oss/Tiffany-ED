@@ -82,7 +82,7 @@ export async function createCheckoutSession(priceIdOrTierId: string, isAnnual: b
       const session = await stripe.checkout.sessions.create({
         line_items: [{ price: priceId, quantity: 1 }],
         mode: mode,
-        success_url: `${origin}/archive?session_id={CHECKOUT_SESSION_ID}`,
+        success_url: `${origin}/the-room?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${origin}/pricing`,
         automatic_tax: { enabled: true },
       });
@@ -98,7 +98,7 @@ export async function createCheckoutSession(priceIdOrTierId: string, isAnnual: b
 
   // 2. Fallback / Free Tier Simulation
   await new Promise(resolve => setTimeout(resolve, 800));
-  redirect(`${origin}/archive?session_id=FREE_ACCESS_GRANTED_${Date.now()}`);
+  redirect(`${origin}/the-room?session_id=FREE_ACCESS_GRANTED_${Date.now()}`);
 }
 
 export async function createPortalSession() {
@@ -116,7 +116,7 @@ export async function createPortalSession() {
         if (customers.data.length > 0) {
           const session = await stripe.billingPortal.sessions.create({
             customer: customers.data[0].id,
-            return_url: `${origin}/archive`,
+            return_url: `${origin}/the-room`,
           });
           if (session.url) redirect(session.url);
           return;
@@ -129,5 +129,5 @@ export async function createPortalSession() {
 
   // Fallback
   await new Promise(resolve => setTimeout(resolve, 500));
-  redirect(`${origin}/archive?portal=simulated_free_tier`);
+  redirect(`${origin}/the-room?portal=simulated_free_tier`);
 }

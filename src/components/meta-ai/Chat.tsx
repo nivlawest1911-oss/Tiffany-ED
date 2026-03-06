@@ -20,7 +20,7 @@ export function MetaAIChat({ className = '' }: MetaAIChatProps) {
     const { submitUserMessage } = useActions<typeof AI>();
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [edgeStatus, setEdgeStatus] = useState<any>(null);
+    const [_edgeStatus, _setEdgeStatus] = useState<any>(null);
     const scrollRef = useRef<HTMLDivElement>(null);
 
     // Initialize Edge AI on mount
@@ -44,7 +44,7 @@ export function MetaAIChat({ className = '' }: MetaAIChatProps) {
 
         // 1. Perform Edge Verification (Transformers.js)
         const localCheck = await edgeAI.verifyEquity(userQuery);
-        setEdgeStatus(localCheck);
+        _setEdgeStatus(localCheck);
 
         // Optimistically add user message with Edge Analytics
         setConversation((current: any) => [

@@ -93,7 +93,7 @@ export function useMultimodalAvatar({
     const [error, setError] = useState<string | null>(null);
 
     // Multimodal State
-    const [mode, setMode] = useState<'cloud-socket' | 'edge-stream'>('edge-stream'); // Default to HTTP Stream for now
+    const [mode, setMode] = useState<'cloud-socket' | 'edge-stream'>('cloud-socket'); // Use the live Cloud Run engine by default
     const [isListening, setIsListening] = useState(false);
     const [isSpeaking, setIsSpeaking] = useState(false);
 

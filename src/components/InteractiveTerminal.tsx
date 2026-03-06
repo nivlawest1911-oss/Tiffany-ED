@@ -6,40 +6,40 @@ interface InteractiveTerminalProps {
     onCommand?: (cmd: string) => void;
 }
 
+const MOCK_LOGS = [
+    "Establishing neural handshake...",
+    "EdIntel Core initialized.",
+    "Loading Alabama Strategic Directive...",
+    "FERPA encryption layer secured.",
+    "Bento ecosystem sync complete.",
+    "Optimizing instructional nodes...",
+    "Analyzing student work metadata...",
+    "Generating IEP architectural frame...",
+    "System status: OPTIMAL",
+    "Awaiting tactical command...",
+    "Syncing with Dr. West's Neural Hub...",
+    "Decrypting legacy curriculum data...",
+    "Protocol 743-B: ACTIVE"
+];
+
 export default function InteractiveTerminal({ onCommand }: InteractiveTerminalProps) {
     const [logs, setLogs] = useState<string[]>([]);
     const scrollRef = useRef<HTMLDivElement>(null);
     const [inputValue, setInputValue] = useState('');
 
-    const mockLogs = [
-        "Establishing neural handshake...",
-        "EdIntel Core initialized.",
-        "Loading Alabama Strategic Directive...",
-        "FERPA encryption layer secured.",
-        "Bento ecosystem sync complete.",
-        "Optimizing instructional nodes...",
-        "Analyzing student work metadata...",
-        "Generating IEP architectural frame...",
-        "System status: OPTIMAL",
-        "Awaiting tactical command...",
-        "Syncing with Dr. West's Neural Hub...",
-        "Decrypting legacy curriculum data...",
-        "Protocol 743-B: ACTIVE"
-    ];
-
     useEffect(() => {
         let i = 0;
         const interval = setInterval(() => {
-            if (i < mockLogs.length) {
-                setLogs(prev => [...prev, `> ${mockLogs[i]}`].slice(-8));
+            if (i < MOCK_LOGS.length) {
+                setLogs(prev => [...prev, `> ${MOCK_LOGS[i]}`].slice(-8));
                 i++;
             } else {
-                setLogs(prev => [...prev].slice(-8)); // Just keep the last 8
+                setLogs(prev => [...prev].slice(-8));
             }
         }, 2000);
 
         return () => clearInterval(interval);
-    }, []); // Re-evaluating mockLogs if needed, but for now it's static
+    }, []);
 
     useEffect(() => {
         if (scrollRef.current) {

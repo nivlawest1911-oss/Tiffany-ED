@@ -1,10 +1,8 @@
-import { NextResponse } from 'next/server';
-import { generateProfessionalResponse } from '@/lib/leadership-ai';
+import { NextRequest } from 'next/server';
+import { streamProfessionalResponse } from '@/lib/leadership-ai';
+import { EdIntel_PERSONA } from '@/lib/ai-resilience';
 
-// Initialize directly with SDK to bypass Genkit configuration issues
-
-export const dynamic = 'force-dynamic';
-export const runtime = 'nodejs';
+export const runtime = 'edge';
 
 const PROTOCOL_PROMPTS: Record<string, string> = {
   'ef-reframing': 'You are an expert in Emotional Intelligence for school leadership. Reframe the following situation to de-escalate and build connection. Focus on validation and productive next steps.',
@@ -16,38 +14,17 @@ const PROTOCOL_PROMPTS: Record<string, string> = {
   'default': 'You are an expert school leadership consultant. Provide advice and a protocol for handling this situation.',
 };
 
-export async function POST(req: Request) {
-  const apiKey = process.env.GOOGLE_GENAI_API_KEY;
-  if (!apiKey) {
-    // If no key, fallback to direct professional response immediately to avoid crash
-    try {
-      const body = await req.json();
-      const { rawSituation, prompt, protocol } = body;
-      const finalPrompt = rawSituation || prompt || "Leadership Situation";
-      const text = await generateProfessionalResponse(finalPrompt, protocol || 'community');
-      return NextResponse.json({ output: text, source: 'Professional Fallback (No Key)' });
-    } catch (e) {
-      return NextResponse.json({ error: "Configuration Error: API Key missing" }, { status: 500 });
-    }
-  }
-
-
-
+export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const { rawSituation, stakeholder, intensity, protocol, prompt } = body;
-    const { ALABAMA_STRATEGIC_DIRECTIVE, EdIntel_PERSONA } = await import('@/lib/ai-resilience');
 
     let finalPrompt = "";
 
     if (rawSituation) {
       const systemInstruction = PROTOCOL_PROMPTS[protocol as string] || PROTOCOL_PROMPTS['default'];
       finalPrompt = `
-        ${ALABAMA_STRATEGIC_DIRECTIVE}
-        
         ACT AS: ${systemInstruction}
-        PERSONA: ${EdIntel_PERSONA.name}, ${EdIntel_PERSONA.role}
-        
         CONTEXT:
         - Target Stakeholder: ${stakeholder || 'General Staff'}
         - Required Intensity: ${intensity || 'Medium'}
@@ -63,25 +40,20 @@ export async function POST(req: Request) {
         4. STRUCTURE: Output as a formal "EdIntel Executive Briefing". Use markdown headers for 'Strategic Synthesis' and 'Tactical Roadmap'.
       `;
     } else if (prompt) {
-      finalPrompt = `${ALABAMA_STRATEGIC_DIRECTIVE}\n\n${prompt}`;
+      finalPrompt = prompt;
     } else {
-      return NextResponse.json({ error: "Missing situation or prompt data." }, { status: 400 });
+      return new Response(JSON.stringify({ error: "Missing situation or prompt data." }), { status: 400 });
     }
 
-    // ALWAYS use generateProfessionalResponse for consistent, resilient, and logged generations
-    const text = await generateProfessionalResponse(finalPrompt, protocol || 'eq-node', EdIntel_PERSONA);
-    return NextResponse.json({ output: text });
-  } catch (error) {
+    const result = await streamProfessionalResponse(
+      finalPrompt,
+      protocol || 'eq-node',
+      EdIntel_PERSONA
+    );
+
+    return result.toTextStreamResponse();
+  } catch (error: any) {
     console.error("EQ NODE ERROR:", error);
-
-    // Recovery Mode: Generate content using Professional Engine
-    try {
-      const body = await req.json().catch(() => ({}));
-      const fallbackPrompt = body.rawSituation || body.prompt || "Leadership Situation";
-      const text = await generateProfessionalResponse(fallbackPrompt, "community");
-      return NextResponse.json({ output: text, source: 'Professional Recovery' });
-    } catch (e) {
-      return NextResponse.json({ error: "EQ Brain offline" }, { status: 500 });
-    }
+    return new Response(JSON.stringify({ error: "EQ Brain offline", details: error.message }), { status: 500 });
   }
 }

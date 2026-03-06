@@ -1,266 +1,111 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { createClient } from '@/utils/supabase/client';
-const supabase = createClient();
 import { toast } from 'sonner';
-import { useCelebrate } from './CelebrationContext';
+import { ROUTES } from '@/lib/routes';
 
 interface User {
     name: string;
     email: string;
     id: string;
-    tier: 'free' | 'professional' | 'enterprise' | 'SCHOOL_SITE' | 'DISTRICT_MATRIX' | 'EXECUTIVE_COMMAND' | 'Sovereign Initiate' | 'Director Pack' | 'Practitioner' | 'Sovereign Pack' | 'Standard Pack' | 'Site Command';
-    usage_count?: number;
-    usageTokens?: number;
-    trialEndsAt?: Date | null;
-    isTrialConverted?: boolean;
-    organizationId?: string | null;
+    tier: string;
+    usageTokens: number;
     avatar_url?: string;
+    clerkId?: string;
+    position?: string;
+    bio?: string;
 }
 
 interface AuthContextType {
     user: User | null;
     isLoading: boolean;
-    login: (email: string, password?: string) => Promise<void>;
-    signup: (email: string, password?: string, name?: string) => Promise<void>;
-    loginWithGoogle: () => Promise<void>;
-    loginWithFacebook: () => Promise<void>;
     logout: () => Promise<void>;
     updateUser: (data: Partial<User>) => Promise<void>;
+    fetchUser: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+function getSafeSupabaseClient() {
+    try {
+        const { createClient } = require('@/utils/supabase/client');
+        return createClient();
+    } catch {
+        return null;
+    }
+}
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-    const { celebrate } = useCelebrate();
     const [user, setUser] = useState<User | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const router = useRouter();
+    const supabaseRef = useRef<any>(null);
+    const initialized = useRef(false);
 
-    // 🏛️ EdIntel IDENTITY SYNC
-    useEffect(() => {
-        if (!supabase) {
-            setIsLoading(false);
-            return;
-        }
+    // Initialize supabase client once, safely
+    if (!initialized.current) {
+        initialized.current = true;
+        supabaseRef.current = getSafeSupabaseClient();
+    }
 
-        const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-            if (session?.user) {
-                try {
-                    const { data: profile } = await supabase
-                        .from('profiles')
-                        .select('full_name, avatar_url')
-                        .eq('id', session.user.id)
-                        .single();
-
-                    // Fetch DIRECTLY from users table which is the source of truth for trial_ends_at
-                    const { data: userData } = await supabase
-                        .from('users')
-                        .select('subscription_tier, trial_ends_at, usage_count, usage_tokens')
-                        .eq('id', session.user.id)
-                        .single();
-
-                    const newUser: User = {
-                        id: session.user.id,
-                        email: session.user.email!,
-                        name: profile?.full_name || (session.user.user_metadata?.full_name) || session.user.email?.split('@')[0] || 'Executive',
-                        tier: (userData?.subscription_tier as any) || (session.user.user_metadata?.tier as any) || 'Sovereign Initiate',
-                        usage_count: userData?.usage_count || 0,
-                        usageTokens: userData?.usage_tokens || 0,
-                        trialEndsAt: userData?.trial_ends_at ? new Date(userData.trial_ends_at) : null,
-                        avatar_url: profile?.avatar_url || session.user.user_metadata?.avatar_url
-                    };
-
-                    setUser(newUser);
-
-                    if (event === 'SIGNED_IN') {
-                        celebrate(
-                            `Welcome back, ${newUser.name}`,
-                            'EdIntel access protocols synchronized. Your executive suite is ready.',
-                            'success'
-                        );
-                    }
-                } catch (err) {
-                    console.error("[AUTH_CONTEXT] Data sync failure:", err);
-                }
+    const fetchUser = async () => {
+        try {
+            const res = await fetch('/api/auth/me');
+            const data = await res.json();
+            if (data.user) {
+                setUser(data.user);
             } else {
                 setUser(null);
             }
-            setIsLoading(false);
-        });
-
-        // 🛡️ SAFETY VALVE: Extended to 15s for slow connections
-        const safetyTimeout = setTimeout(() => {
-            setIsLoading((prev) => {
-                if (prev) {
-                    console.warn('[AUTH_CONTEXT] Safety valve triggered: Forcing isLoading to false after 15s.');
-                    return false;
-                }
-                return prev;
-            });
-        }, 15000);
-
-        return () => {
-            subscription.unsubscribe();
-            clearTimeout(safetyTimeout);
-        };
-    }, [celebrate]);
-
-    const login = async (email: string, password?: string) => {
-        if (!supabase) {
-            toast.error("Uplink Offline", { description: "Supabase configuration is missing. Authentication is unavailable." });
-            return;
-        }
-        setIsLoading(true);
-        try {
-            if (!password) {
-                const { error } = await supabase.auth.signInWithOtp({
-                    email,
-                    options: { emailRedirectTo: `${window.location.origin}/auth/callback` }
-                });
-                if (error) throw error;
-                alert('EdIntel access link dispatched to your email.');
-            } else {
-                const { error } = await supabase.auth.signInWithPassword({ email, password });
-                if (error) throw error;
-                router.push('/education');
-            }
-        } catch (err: any) {
-            console.error("[EdIntel_AUTH] Login error:", err);
-            throw err;
+        } catch (err) {
+            console.error("[AuthContext] Failed to fetch user", err);
         } finally {
             setIsLoading(false);
         }
     };
 
-    const signup = async (email: string, password?: string, name?: string) => {
-        if (!supabase) {
-            toast.error("Uplink Offline", { description: "Supabase configuration is missing. Signup is unavailable." });
-            return;
-        }
-        setIsLoading(true);
-        try {
-            const { data, error } = await supabase.auth.signUp({
-                email,
-                password: password || 'temporary-vault-key-2026',
-                options: {
-                    emailRedirectTo: `${window.location.origin}/auth/callback`,
-                    data: {
-                        full_name: name || email.split('@')[0],
-                        tier: 'free'
-                    }
-                }
-            });
-            if (error) throw error;
+    useEffect(() => {
+        fetchUser();
 
-            if (data.user && !data.session) {
-                alert("EdIntel Protocol Initiated: Please check your inbox to authorize your institutional identity.");
-            } else if (data.session) {
-                celebrate(
-                    'Identity Authorized',
-                    'Welcome to the EdIntel OS. Your education intelligence journey begins now.',
-                    'achievement'
-                );
-                router.push('/education');
+        const supabase = supabaseRef.current;
+        if (supabase?.auth?.onAuthStateChange) {
+            const { data: { subscription } } = supabase.auth.onAuthStateChange((event: string, _session: any) => {
+                console.log(`[AuthContext] Supabase Auth Event: ${event}`);
+                if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+                    setIsLoading(true);
+                }
+                fetchUser();
+            });
+            return () => subscription?.unsubscribe();
+        }
+    }, []);
+
+    const logout = async () => {
+        try {
+            const supabase = supabaseRef.current;
+            if (supabase?.auth?.signOut) {
+                await supabase.auth.signOut();
             }
-        } catch (err: any) {
-            console.error("[EdIntel_AUTH] Signup error:", err);
-            throw err;
-        } finally {
-            setIsLoading(false);
+            await fetch('/api/auth/logout', { method: 'POST' }).catch(() => {
+                document.cookie = "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            });
+
+            setUser(null);
+            router.push(ROUTES.LOGIN);
+            toast.success('Session Terminated', { description: 'Secure channel closed.' });
+        } catch (error: any) {
+            toast.error('Logout Failed', { description: error.message });
         }
     };
 
     const updateUser = async (data: Partial<User>) => {
-        if (!supabase) return;
-        const { error } = await supabase.auth.updateUser({
-            data: {
-                full_name: data.name,
-                tier: data.tier,
-                usage_count: data.usage_count
-            }
-        });
-        if (error) throw error;
-    };
-
-    const loginWithGoogle = async () => {
-        if (!supabase) {
-            toast.error("Uplink Offline", { description: "Supabase configuration is missing." });
-            return;
-        }
-        setIsLoading(true);
-        try {
-            const { data, error } = await supabase.auth.signInWithOAuth({
-                provider: 'google',
-                options: {
-                    redirectTo: `${window.location.origin}/auth/callback`,
-                    queryParams: {
-                        access_type: 'offline',
-                        prompt: 'consent',
-                    },
-                },
-            });
-            if (error) throw error;
-            // If no redirect URL returned, something went wrong
-            if (data?.url) {
-                window.location.href = data.url;
-            } else {
-                throw new Error('No authorization URL received from Google.');
-            }
-        } catch (err: any) {
-            console.error('[EdIntel_AUTH] Google login error:', err);
-            toast.error('Google Authentication Failed', {
-                description: err.message || 'Unable to connect to Google. Please try again.',
-                duration: 6000,
-            });
-            setIsLoading(false);
-        }
-    };
-
-    const loginWithFacebook = async () => {
-        if (!supabase) {
-            toast.error("Uplink Offline", { description: "Supabase configuration is missing." });
-            return;
-        }
-        setIsLoading(true);
-        try {
-            const { data, error } = await supabase.auth.signInWithOAuth({
-                provider: 'facebook',
-                options: {
-                    redirectTo: `${window.location.origin}/auth/callback`,
-                    queryParams: {
-                        display: 'popup',
-                    },
-                },
-            });
-            if (error) throw error;
-            if (data?.url) {
-                window.location.href = data.url;
-            } else {
-                throw new Error('No authorization URL received from Facebook.');
-            }
-        } catch (err: any) {
-            console.error('[EdIntel_AUTH] Facebook login error:', err);
-            toast.error('Facebook Authentication Failed', {
-                description: err.message || 'Unable to connect to Facebook. Please try again.',
-                duration: 6000,
-            });
-            setIsLoading(false);
-        }
-    };
-
-    const logout = async () => {
-        if (supabase) {
-            await supabase.auth.signOut();
-        }
-        setUser(null);
-        router.push('/login');
+        toast.info('Synchronizing tactical profile...');
+        setUser(prev => prev ? { ...prev, ...data } : null);
     };
 
     return (
-        <AuthContext.Provider value={{ user, isLoading, login, signup, loginWithGoogle, loginWithFacebook, logout, updateUser }}>
+        <AuthContext.Provider value={{ user, isLoading, logout, updateUser, fetchUser }}>
             {children}
         </AuthContext.Provider>
     );

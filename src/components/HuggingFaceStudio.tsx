@@ -7,6 +7,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import NextImage from 'next/image';
 import {
     Sparkles,
     Image as ImageIcon,
@@ -44,8 +45,7 @@ export default function HuggingFaceStudio({ className = '' }: AIStudioProps) {
             {/* Header */}
             <div className="relative overflow-hidden bg-gradient-to-r from-purple-600/20 to-blue-600/20 border-b border-purple-500/30">
                 <div
-                    className="absolute inset-0 opacity-10"
-                    style={{ backgroundImage: "url('/grid.svg')" }}
+                    className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2240%22%20height%3D%2240%22%3E%3Cpath%20d%3D%22M0%200h40v40H0z%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-opacity%3D%22.05%22%2F%3E%3C%2Fsvg%3E')]"
                 />
                 <div className="relative max-w-7xl mx-auto px-6 py-12">
                     <motion.div
@@ -379,11 +379,15 @@ function ImageGenerationPanel({ loading, setLoading, result, setResult }: any) {
 
                 {result?.image ? (
                     <div className="space-y-4">
-                        <img
-                            src={result.image}
-                            alt="Generated"
-                            className="w-full rounded-2xl border border-slate-700"
-                        />
+                        <div className="relative w-full rounded-2xl border border-slate-700 overflow-hidden min-h-[200px]">
+                            <NextImage
+                                src={result.image}
+                                alt="Generated"
+                                fill
+                                unoptimized
+                                className="object-contain rounded-2xl"
+                            />
+                        </div>
                         <p className="text-sm text-slate-400">Prompt: {result.prompt}</p>
                     </div>
                 ) : (
@@ -490,7 +494,14 @@ function ImageAnalysisPanel({ loading, setLoading, result, setResult }: any) {
                             className="block w-full p-8 border-2 border-dashed border-slate-700 rounded-2xl text-center cursor-pointer hover:border-purple-500 transition-colors"
                         >
                             {preview ? (
-                                <img src={preview} alt="Preview" className="max-h-64 mx-auto rounded-xl" />
+                                <NextImage
+                                    src={preview}
+                                    alt="Preview"
+                                    width={600}
+                                    height={256}
+                                    unoptimized
+                                    className="max-h-64 mx-auto rounded-xl object-contain"
+                                />
                             ) : (
                                 <div className="text-slate-500">
                                     <Camera className="w-12 h-12 mx-auto mb-2" />
@@ -566,7 +577,7 @@ function ImageAnalysisPanel({ loading, setLoading, result, setResult }: any) {
 /**
  * Speech Panel
  */
-function SpeechPanel({ loading, setLoading, result, setResult }: any) {
+function SpeechPanel({ loading: _loading, setLoading: _setLoading, result: _result, setResult: _setResult }: any) {
     return (
         <div className="bg-slate-800/50 backdrop-blur-xl rounded-3xl p-8 border border-slate-700 text-center">
             <Mic className="w-16 h-16 mx-auto mb-4 text-purple-400" />
@@ -579,7 +590,7 @@ function SpeechPanel({ loading, setLoading, result, setResult }: any) {
 /**
  * Semantic Search Panel
  */
-function SemanticSearchPanel({ loading, setLoading, result, setResult }: any) {
+function SemanticSearchPanel({ loading: _loading, setLoading: _setLoading, result: _result, setResult: _setResult }: any) {
     return (
         <div className="bg-slate-800/50 backdrop-blur-xl rounded-3xl p-8 border border-slate-700 text-center">
             <Search className="w-16 h-16 mx-auto mb-4 text-purple-400" />

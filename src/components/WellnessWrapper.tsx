@@ -16,7 +16,7 @@ export default function WellnessWrapper({ isWellnessMode, children }: WellnessWr
                 <div className="blob blob-emerald" />
                 <div className="blob blob-gold" />
 
-                {/* Gemini Flow Movie Background (Placeholder URL for now) */}
+                {/* Gemini Flow Movie Background */}
                 {isWellnessMode && (
                     <video
                         autoPlay
@@ -25,7 +25,7 @@ export default function WellnessWrapper({ isWellnessMode, children }: WellnessWr
                         playsInline
                         className="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-30"
                     >
-                        <source src="https://mpitiluamiidbjqmvbir.supabase.co/storage/v1/object/public/edintel-media/gemini-flow.mp4" type="video/mp4" />
+                        <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/liquid-metal-video_yX6NvjdW-6bLYorR3Ihmlwjivg3pjA978qrSKRU.mp4" type="video/mp4" />
                     </video>
                 )}
             </div>

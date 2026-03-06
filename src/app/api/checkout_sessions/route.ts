@@ -1,9 +1,15 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_dummy', {
-    apiVersion: '2023-10-16' as any,
-});
+// Lazy initialization to avoid build-time crashes when STRIPE_SECRET_KEY is absent
+function getStripe() {
+    if (!process.env.STRIPE_SECRET_KEY) {
+        throw new Error('STRIPE_SECRET_KEY is not configured');
+    }
+    return new Stripe(process.env.STRIPE_SECRET_KEY, {
+        apiVersion: '2023-10-16' as any,
+    });
+}
 
 export async function POST(req: Request) {
     try {
@@ -16,6 +22,7 @@ export async function POST(req: Request) {
             throw new Error("Invalid Token Amount.");
         }
 
+        const stripe = getStripe();
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: [

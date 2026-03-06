@@ -2,8 +2,9 @@
 
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
-import { Loader2 } from 'lucide-react';
 import { useEffect } from 'react';
+import { motion } from 'framer-motion';
+import EdIntelLogo from '@/components/EdIntelLogo';
 
 export const ExecutiveGuard = ({ children, requiredTier }: { children: React.ReactNode, requiredTier?: string }) => {
     const { user, isLoading } = useAuth();
@@ -43,14 +44,44 @@ export const ExecutiveGuard = ({ children, requiredTier }: { children: React.Rea
     // 1. Show a high-end Glassmorphism loader while checking
     if (isLoading) {
         return (
-            <div className="h-screen w-full flex flex-col items-center justify-center bg-[#0a0a0a]">
-                <div className="relative">
-                    <div className="absolute inset-0 bg-blue-500/20 blur-xl rounded-full animate-pulse" />
-                    <Loader2 className="animate-spin text-blue-500 relative z-10" size={48} />
+            <div className="h-screen w-full flex flex-col items-center justify-center bg-[#050505] overflow-hidden relative">
+                {/* Background Atmosphere */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/5 via-transparent to-noble-gold/5 opacity-50" />
+
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="relative z-10 flex flex-col items-center"
+                >
+                    <EdIntelLogo variant="transcend" size={80} showText={false} animated={true} />
+
+                    <div className="mt-12 flex flex-col items-center gap-4">
+                        <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: 200 }}
+                            transition={{ duration: 1.5, ease: "circOut" }}
+                            className="h-[1px] bg-gradient-to-r from-transparent via-noble-gold/50 to-transparent"
+                        />
+                        <p className="text-[10px] tracking-[0.4em] text-noble-gold/80 uppercase font-black animate-pulse">
+                            Sovereign Integrity Check
+                        </p>
+                        <div className="flex gap-1">
+                            {[0, 1, 2].map((i) => (
+                                <motion.div
+                                    key={i}
+                                    animate={{ opacity: [0.2, 1, 0.2] }}
+                                    transition={{ duration: 1, repeat: Infinity, delay: i * 0.2 }}
+                                    className="w-1.5 h-1.5 rounded-full bg-noble-gold/40"
+                                />
+                            ))}
+                        </div>
+                    </div>
+                </motion.div>
+
+                {/* Technical Overlay */}
+                <div className="absolute bottom-12 left-1/2 -translate-x-1/2 font-mono text-[8px] text-zinc-700 uppercase tracking-widest pointer-events-none">
+                    Session_Key: {Math.random().toString(16).substring(2, 10)} | Access_Level: Sovereign
                 </div>
-                <p className="mt-6 text-xs tracking-[0.3em] text-cyan-500/60 uppercase font-black animate-pulse">
-                    Verifying Sovereign Credentials...
-                </p>
             </div>
         );
     }

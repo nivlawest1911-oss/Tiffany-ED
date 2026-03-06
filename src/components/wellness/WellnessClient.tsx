@@ -56,6 +56,7 @@ interface MoodEntry {
 export default function WellnessClient() {
     const [activeTab, setActiveTab] = useState<'check-in' | 'gym' | 'chat'>('check-in');
     const [mood, setMood] = useState<MoodEntry['mood'] | null>(null);
+    const [reflection, setReflection] = useState('');
     const [wellnessScore] = useState(85); // Mock score
     const [activeExercise, setActiveExercise] = useState<Exercise | null>(null);
 
@@ -65,19 +66,73 @@ export default function WellnessClient() {
     ]);
     const [input, setInput] = useState('');
 
-    const handleSendMessage = () => {
-        if (!input.trim()) return;
-        const newMsg = { role: 'user', content: input };
-        setMessages([...messages, newMsg]);
-        setInput('');
+    const handleSendMessage = async (textOverride?: string) => {
+        const messageContent = textOverride || input;
+        if (!messageContent.trim()) return;
 
-        // Mock response for now
-        setTimeout(() => {
+        const newMsg = { role: 'user', content: messageContent };
+        setMessages(prev => [...prev, newMsg]);
+        if (!textOverride) setInput('');
+
+        // Prepare context for the specific AI Agent
+        const personaContext = {
+            name: "Transcend",
+            role: "Specialized Wellness Agent",
+            tone: "Calm, non-judgmental, and restorative",
+            mission: "Healing the healer",
+            culturalContext: "The Sanctuary. A place of rest and restoration."
+        };
+
+        try {
+            const response = await fetch('/api/generate', {
+                method: 'POST',
+                credentials: 'include', // Ensure cookies are sent
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    prompt: messageContent,
+                    generatorId: 'wellness-chat',
+                    delegate: personaContext,
+                    // We format previous messages to be included in the prompt or context if the backend supports it, but simple prompt for now
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to generate response');
+            }
+
+            // Using stream handling or simple text response depending on backend setup
+            // This assumes the backend handles streaming correctly as seen in other clients
+            const reader = response.body?.getReader();
+            const decoder = new TextDecoder();
+
+            if (reader) {
+                let assistantMessage = '';
+                setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    const chunk = decoder.decode(value, { stream: true });
+                    assistantMessage += chunk;
+
+                    setMessages(prev => {
+                        const newMessages = [...prev];
+                        newMessages[newMessages.length - 1].content = assistantMessage;
+                        return newMessages;
+                    });
+                }
+            }
+
+        } catch (error) {
+            console.error("Wellness Chat Error:", error);
             setMessages(prev => [...prev, {
                 role: 'assistant',
-                content: "I acknowledge your input. Based on your recent biometrics and sentiment, I recommend a 5-minute coherence breathing session to optimize your HRV."
+                content: "I apologize, Sovereign. My neural link is currently unstable. Please try connecting again shortly."
             }]);
-        }, 1000);
+        }
     };
 
     return (
@@ -219,10 +274,18 @@ export default function WellnessClient() {
                                             className="w-full max-w-md space-y-4"
                                         >
                                             <textarea
+                                                value={reflection}
+                                                onChange={(e) => setReflection(e.target.value)}
                                                 placeholder="Any thoughts or context for today? (Optional)"
                                                 className="w-full h-32 bg-black/50 border border-white/10 rounded-xl p-4 text-sm text-white focus:outline-none focus:border-purple-500/50 resize-none"
                                             />
-                                            <button className="w-full py-4 bg-white text-black font-bold uppercase tracking-widest rounded-xl hover:bg-purple-50 transition-colors">
+                                            <button
+                                                onClick={() => {
+                                                    const msg = `I am feeling ${mood} today. ${reflection ? reflection : ''}`;
+                                                    setActiveTab('chat');
+                                                    handleSendMessage(msg);
+                                                }}
+                                                className="w-full py-4 bg-white text-black font-bold uppercase tracking-widest rounded-xl hover:bg-purple-50 transition-colors">
                                                 Log Reflection
                                             </button>
                                         </motion.div>
@@ -314,7 +377,7 @@ export default function WellnessClient() {
                                         />
                                         <button
                                             title="Send Message"
-                                            onClick={handleSendMessage}
+                                            onClick={() => handleSendMessage()}
                                             className="absolute right-2 top-2 p-1.5 bg-amber-500/20 rounded-lg text-amber-400 hover:bg-amber-500 hover:text-white transition-all"
                                         >
                                             <Send size={16} />

@@ -1,0 +1,520 @@
+@import "tailwindcss";
+
+/* Ethnocentric → Orbitron fallback (loaded via <link> in layout.tsx) */
+@font-face {
+    font-family: 'Ethnocentric';
+    src: local('Orbitron');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --font-heading: 'Ethnocentric', sans-serif;
+    --font-sans: var(--font-outfit), 'Inter', sans-serif;
+    --color-background: hsl(222.2 84% 4.9%);
+    --color-foreground: hsl(210 40% 98%);
+    --color-card: hsl(222.2 84% 4.9%);
+    --color-card-foreground: hsl(210 40% 98%);
+    --color-popover: hsl(222.2 84% 4.9%);
+    --color-popover-foreground: hsl(210 40% 98%);
+    --color-primary: hsl(217.2 91.2% 59.8%);
+    --color-primary-foreground: hsl(222.2 47.4% 11.2%);
+    --color-secondary: hsl(217.2 32.6% 17.5%);
+    --color-secondary-foreground: hsl(210 40% 98%);
+    --color-muted: hsl(217.2 32.6% 17.5%);
+    --color-muted-foreground: hsl(215 20.2% 65.1%);
+    --color-accent: hsl(217.2 32.6% 17.5%);
+    --color-accent-foreground: hsl(210 40% 98%);
+    --color-destructive: hsl(0 62.8% 30.6%);
+    --color-destructive-foreground: hsl(210 40% 98%);
+    --color-border: hsl(217.2 32.6% 17.5%);
+    --color-input: hsl(217.2 32.6% 17.5%);
+    --color-ring: hsl(212.7 26.8% 83.9%);
+    --color-noble-gold: #c5a47e;
+    --color-intel-gold: #c5a47e;
+    --color-EdIntel-black: #050505;
+    --color-shield-green: #10b981;
+    --color-obsidian: #020617;
+    --gold-glow: 0 0 20px rgba(197, 164, 126, 0.3);
+    --holographic-glow: 0 0 15px rgba(59, 130, 246, 0.2), 0 0 30px rgba(59, 130, 246, 0.1);
+    --system-thinking-pulse: 0;
+}
+
+@layer base {
+    * {
+        border-color: var(--color-border);
+    }
+
+    body {
+        @apply font-sans antialiased text-gray-700 bg-gray-50;
+        line-height: 1.6;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-bold text-gray-900;
+        line-height: 1.1;
+    }
+
+    h1 {
+        @apply text-4xl lg:text-5xl;
+    }
+
+    h2 {
+        @apply text-3xl lg:text-4xl;
+    }
+
+    h3 {
+        @apply text-2xl lg:text-3xl;
+    }
+
+    p {
+        @apply leading-relaxed mb-4;
+    }
+
+    a {
+        @apply text-[#4f46e5] hover:text-[#4338ca] transition-colors duration-200;
+    }
+
+    button {
+        @apply focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500;
+    }
+}
+
+@layer components {
+    .btn-primary {
+        @apply bg-[#00B0FF] text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-[#0090D0] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden ring-1 ring-[#00B0FF]/50;
+    }
+
+    .btn-primary::after {
+        content: '';
+        @apply absolute top-0 -left-full w-[200%] h-full bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none;
+        transform: skewX(-15deg);
+        animation: shimmer 3s infinite;
+    }
+
+    .btn-secondary {
+        @apply bg-transparent border-2 border-indigo-300 text-indigo-700 font-semibold py-3 px-6 rounded-lg hover:bg-indigo-50 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+
+    .btn-accent {
+        @apply bg-emerald-500 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-green-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+
+    .btn-danger {
+        @apply bg-red-500 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-red-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+
+    .card {
+        @apply bg-white rounded-xl shadow-md p-6 transition-shadow duration-200 hover:shadow-lg;
+    }
+
+    .input-field {
+        @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-white;
+    }
+
+    .glassmorphism {
+        @apply bg-white/10 backdrop-blur-lg border border-white/20;
+    }
+
+    .holographic-card {
+        @apply relative bg-blue-950/30 backdrop-blur-lg border border-blue-800/50 rounded-2xl overflow-hidden before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-br before:from-blue-600/10 before:to-slate-600/10 after:content-[''] after:absolute after:-inset-full after:bg-gradient-to-r after:from-transparent after:via-blue-500/30 after:to-transparent after:opacity-0;
+    }
+
+    .holographic-button {
+        @apply relative overflow-hidden bg-[#00B0FF] text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-[#0090D0] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed border border-blue-400/50 before:content-[''] before:absolute before:-inset-full before:bg-gradient-to-r before:from-blue-600/30 before:via-slate-500/60 before:to-blue-600/30;
+    }
+}
+
+/* --- EdIntel OS CINEMATIC UTILITIES --- */
+
+.shadow-regal {
+    box-shadow: 0 0 20px rgba(197, 164, 126, 0.1), 0 0 40px rgba(0, 0, 0, 0.5);
+}
+
+.glass-panel {
+    background: rgba(2, 6, 23, 0.65);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+        0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06),
+        0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel:hover {
+    background: rgba(15, 23, 42, 0.8);
+    border-color: rgba(197, 164, 126, 0.3);
+    box-shadow:
+        0 20px 25px -5px rgba(0, 0, 0, 0.2),
+        0 10px 10px -5px rgba(0, 0, 0, 0.15),
+        0 0 15px rgba(197, 164, 126, 0.15);
+    transform: translateY(-2px);
+}
+
+.glass-panel-premium {
+    background: linear-gradient(145deg, rgba(2, 6, 23, 0.8) 0%, rgba(15, 23, 42, 0.6) 100%);
+    -webkit-backdrop-filter: blur(40px) saturate(200%);
+    backdrop-filter: blur(40px) saturate(200%);
+    border: 1px solid rgba(197, 164, 126, 0.15);
+    box-shadow:
+        0 0 20px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(197, 164, 126, 0.1) inset;
+}
+
+.glass-panel-light {
+    background: rgba(255, 255, 255, 0.4);
+    -webkit-backdrop-filter: blur(40px) saturate(150%);
+    backdrop-filter: blur(40px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow:
+        0 8px 32px 0 rgba(31, 38, 135, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+}
+
+.holographic-border {
+    position: relative;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.holographic-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.3), transparent);
+    z-index: -1;
+    animation: holo-rotate 4s linear infinite;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+@keyframes holo-rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.obsidian-deep {
+    background: linear-gradient(145deg, #020617 0%, #0f172a 100%);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.gilded-pulse {
+    animation: gilded-pulse 2s infinite ease-in-out;
+}
+
+@keyframes gilded-pulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 5px rgba(197, 164, 126, 0.2);
+        border-color: rgba(197, 164, 126, 0.1);
+    }
+
+    50% {
+        box-shadow: 0 0 20px rgba(197, 164, 126, 0.5);
+        border-color: rgba(197, 164, 126, 0.4);
+    }
+}
+
+.text-gradient-gold {
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(to right, #fde68a, #facc15, #d97706);
+}
+
+.text-gradient-blue {
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(to right, #60a5fa, #818cf8, #2563eb);
+}
+
+.intel-gradient {
+    background: linear-gradient(90deg,
+            rgba(197, 164, 126, 0) 0%,
+            rgba(197, 164, 126, 0.1) 50%,
+            rgba(197, 164, 126, 0) 100%);
+    background-size: 200% 100%;
+    animation: intel-slide 3s infinite linear;
+}
+
+@keyframes intel-slide {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.animate-aurora-1 {
+    animation: aurora-1 15s infinite alternate linear;
+}
+
+.animate-aurora-2 {
+    animation: aurora-2 25s infinite alternate linear;
+}
+
+.animate-aurora-3 {
+    animation: aurora-3 30s infinite alternate linear;
+}
+
+/* --- ANIMATION KEYFRAMES --- */
+
+@keyframes aurora-1 {
+    0% {
+        top: 0;
+        left: 0;
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0.4;
+    }
+
+    100% {
+        top: 20%;
+        left: 30%;
+        transform: translate(-20%, 10%) rotate(10deg);
+        opacity: 0.7;
+    }
+}
+
+@keyframes aurora-2 {
+    0% {
+        bottom: 0;
+        right: 0;
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0.3;
+    }
+
+    100% {
+        bottom: 20%;
+        right: 20%;
+        transform: translate(10%, -10%) rotate(-10deg);
+        opacity: 0.6;
+    }
+}
+
+@keyframes aurora-3 {
+    0% {
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(0deg);
+        opacity: 0.2;
+    }
+
+    100% {
+        top: 60%;
+        left: 40%;
+        transform: translate(-30%, -30%) rotate(45deg);
+        opacity: 0.5;
+    }
+}
+
+/* --- SCANLINE & GLITCH EFFECTS --- */
+
+.scanline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom,
+            transparent 50%,
+            rgba(0, 0, 0, 0.3) 50%);
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0.15;
+}
+
+.animate-scan {
+    animation: scan 8s linear infinite;
+}
+
+@keyframes scan {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 0 100%;
+    }
+}
+
+/* --- CUSTOM SCROLLBAR (High-End Feel) --- */
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #020617;
+    /* slate-950 */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    /* slate-800 */
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #3b82f6;
+    /* blue-500 */
+}
+
+@layer utilities {
+    .logo-transform {
+        transform: translate(-50%, calc(-50% + 24px));
+    }
+
+    .hero-mask {
+        -webkit-mask: url(#heroMask);
+        mask: url(#heroMask);
+    }
+
+    .progress-bar-fill {
+        width: var(--progress-width, 0%);
+        transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Dynamic-size helpers: set --logo-size / --logo-geo-size / --bar-h via style prop */
+    .logo-sizer {
+        width: var(--logo-size, 40px);
+        height: var(--logo-size, 40px);
+    }
+
+    .logo-geo-sizer {
+        width: var(--logo-geo-size, 60px);
+        height: var(--logo-geo-size, 60px);
+    }
+
+    .bar-fill {
+        height: var(--bar-h, 0%);
+    }
+
+    .btn-sovereign {
+        @apply relative px-8 py-4 rounded-xl font-bold transition-all duration-500 backdrop-blur-sm;
+        background-color: white;
+        color: #00B0FF;
+        /* electric-cyan */
+        border: 2px solid #FFB300;
+        /* sovereign-gold */
+        animation: sovereign-pulse 3s ease-in-out infinite;
+    }
+
+    .btn-sovereign:hover {
+        background-color: #FFB300;
+        color: white;
+    }
+
+    .glass-bento {
+        @apply backdrop-blur-md bg-white/30 border border-white/20 shadow-xl rounded-2xl p-6 transition-all duration-300;
+    }
+
+    .glass-bento:hover {
+        @apply bg-white/40 shadow-2xl scale-[1.02];
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    /* ModernHomePage Animations */
+    @keyframes marquee {
+        from {
+            transform: translateX(0);
+        }
+
+        to {
+            transform: translateX(-50%);
+        }
+    }
+
+    .animate-marquee {
+        animation: marquee 30s linear infinite;
+    }
+
+    @keyframes tilt {
+
+        0%,
+        50%,
+        100% {
+            transform: rotate(0deg);
+        }
+
+        25% {
+            transform: rotate(0.5deg);
+        }
+
+        75% {
+            transform: rotate(-0.5deg);
+        }
+    }
+
+    .animate-tilt {
+        animation: tilt 10s infinite linear;
+    }
+
+    @keyframes scanline {
+        0% {
+            top: 0;
+        }
+
+        100% {
+            top: 100%;
+        }
+    }
+
+    .animate-scanline {
+        animation: scanline 4s linear infinite;
+    }
+
+    .gold-gradient-text {
+        background: linear-gradient(to bottom, #FFB300 0%, #FFA000 50%, #FF8F00 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+
+    .cyan-gradient-text {
+        background: linear-gradient(to bottom, #00B0FF 0%, #0091EA 50%, #0081D5 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+}

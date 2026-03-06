@@ -6,44 +6,45 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
     apiVersion: '2025-01-27.acacia' as any,
 });
 
+import { EDINTEL_TIERS } from '@/config/tiers';
+
 export type StripeHandshake = {
-    starter: { monthly: number; annual: number; id: string | null; annualId: string | null };
-    pro: { monthly: number; annual: number; id: string; annualId: string };
-    campus: { monthly: number; annual: number; id: string; annualId: string };
+    [key: string]: {
+        name: string;
+        price: number;
+        stripeLink: string;
+        id?: string | null;
+    } | number | string; // To accommodate things like 'credits' if needed
+} & {
     credits: { price: number; id: string };
 };
 
 /**
  * Handshakes with Stripe to get real-time pricing and ensure alignment.
- * Falls back to hardcoded values if API key is missing.
+ * Falls back to hardcoded values from tiers.ts if API key is missing.
  */
-export async function getStripeHandshake(): Promise<StripeHandshake> {
-    if (!process.env.STRIPE_SECRET_KEY) {
-        console.warn("[EdIntel] No STRIPE_SECRET_KEY found. Falling back to actual Stripe configurations.");
-        return {
-            starter: {
-                monthly: 0,
-                annual: 0,
-                id: null,
-                annualId: null
-            },
-            pro: {
-                monthly: 39.99,
-                annual: 383.88,
-                id: process.env.STRIPE_PRO_PRICE_ID || 'price_pro_tier_39',
-                annualId: process.env.STRIPE_PRO_ANNUAL_ID || 'price_pro_tier_annual_383'
-            },
-            campus: {
-                monthly: 0, // Custom
-                annual: 0,
-                id: process.env.STRIPE_CAMPUS_PRICE_ID || 'price_campus_custom',
-                annualId: process.env.STRIPE_CAMPUS_ANNUAL_ID || 'price_campus_custom_annual'
-            },
-            credits: {
-                price: 5.00,
-                id: process.env.STRIPE_CREDITS_PRICE_ID || 'price_credit_pack_5'
-            }
+export async function getStripeHandshake(): Promise<any> {
+    const baseHandshake: any = {};
+
+    // Initialize with tiers.ts values
+    Object.keys(EDINTEL_TIERS).forEach(key => {
+        const tier = EDINTEL_TIERS[key];
+        baseHandshake[key.toLowerCase().replace(/\s+/g, '_')] = {
+            name: tier.name,
+            price: tier.price,
+            stripeLink: tier.stripeLink,
+            id: null
         };
+    });
+
+    baseHandshake.credits = {
+        price: 5.00,
+        id: process.env.STRIPE_CREDITS_PRICE_ID || 'price_credit_pack_5'
+    };
+
+    if (!process.env.STRIPE_SECRET_KEY) {
+        console.warn("[EdIntel] No STRIPE_SECRET_KEY found. Falling back to local configurations.");
+        return baseHandshake;
     }
 
     try {
@@ -53,47 +54,35 @@ export async function getStripeHandshake(): Promise<StripeHandshake> {
             expand: ['data.product'],
         });
 
-        // Helper to find price by product name and interval
-        const findPrice = (name: string, interval: 'month' | 'year' | null) => {
-            return prices.data.find(p => {
+        // Attempt to sync IDs from Stripe for all tiers
+        Object.keys(EDINTEL_TIERS).forEach(key => {
+            const tier = EDINTEL_TIERS[key];
+            const normalizedKey = key.toLowerCase().replace(/\s+/g, '_');
+            const stripePrice = prices.data.find(p => {
                 const product = p.product as Stripe.Product;
-                const matchesName = product.name.toLowerCase().includes(name.toLowerCase());
-                const matchesInterval = interval ? p.recurring?.interval === interval : !p.recurring;
-                return matchesName && matchesInterval;
+                return product.name.toLowerCase().includes(tier.name.toLowerCase());
             });
-        };
 
-        const proMonthly = findPrice('Pro', 'month');
-        const proAnnual = findPrice('Pro', 'year');
-        const credits = findPrice('Credits', null);
-
-        return {
-            starter: {
-                monthly: 0,
-                annual: 0,
-                id: null,
-                annualId: null
-            },
-            pro: {
-                monthly: proMonthly?.unit_amount ? proMonthly.unit_amount / 100 : 19.00,
-                annual: proAnnual?.unit_amount ? proAnnual.unit_amount / 100 : 190.00,
-                id: proMonthly?.id || 'price_pro_m',
-                annualId: proAnnual?.id || 'price_pro_a'
-            },
-            campus: {
-                monthly: 0,
-                annual: 0,
-                id: 'price_campus_custom',
-                annualId: 'price_campus_custom'
-            },
-            credits: {
-                price: credits?.unit_amount ? credits.unit_amount / 100 : 5.00,
-                id: credits?.id || 'price_credits_5'
+            if (stripePrice) {
+                baseHandshake[normalizedKey].id = stripePrice.id;
+                baseHandshake[normalizedKey].price = stripePrice.unit_amount ? stripePrice.unit_amount / 100 : tier.price;
             }
-        };
+        });
+
+        const creditsPrice = prices.data.find(p => {
+            const product = p.product as Stripe.Product;
+            return product.name.toLowerCase().includes('credits');
+        });
+
+        if (creditsPrice) {
+            baseHandshake.credits.id = creditsPrice.id;
+            baseHandshake.credits.price = creditsPrice.unit_amount ? creditsPrice.unit_amount / 100 : 5.00;
+        }
+
+        return baseHandshake;
     } catch (error) {
         console.error("[EdIntel] Stripe handshake failed:", error);
-        throw error;
+        return baseHandshake; // Return base on error
     }
 }
 
@@ -107,6 +96,10 @@ export async function createEdIntelCheckout(priceId: string, planName: string, u
     }
 
     try {
+        const successUrl = userId
+            ? `${process.env.NEXT_PUBLIC_APP_URL || ''}/the-room?success=true&session_id={CHECKOUT_SESSION_ID}`
+            : `${process.env.NEXT_PUBLIC_APP_URL || ''}/signup?checkout_success=true&session_id={CHECKOUT_SESSION_ID}`;
+
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: [
@@ -116,7 +109,7 @@ export async function createEdIntelCheckout(priceId: string, planName: string, u
                 },
             ],
             mode: 'subscription',
-            success_url: `${process.env.NEXT_PUBLIC_APP_URL || ''}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
+            success_url: successUrl,
             cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || ''}/pricing`,
             subscription_data: {
                 trial_period_days: 30,

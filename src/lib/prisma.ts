@@ -1,13 +1,15 @@
-import { PrismaClient } from '../generated/client'
+import { PrismaClient } from '@prisma/client'
 
 const globalForPrisma = global as unknown as { prisma: PrismaClient }
+
+const dbUrl = process.env.DATABASE_URL || process.env.POSTGRES_PRISMA_URL || process.env.POSTGRES_URL || "postgresql://dummy:dummy@localhost:5432/dummy";
 
 export const prisma =
     globalForPrisma.prisma ||
     new PrismaClient({
         datasources: {
             db: {
-                url: process.env.DATABASE_URL || process.env.POSTGRES_PRISMA_URL || process.env.POSTGRES_URL
+                url: dbUrl
             }
         },
         log: ['query'],

@@ -1,9 +1,8 @@
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { streamText } from 'ai';
-import { logToBigQuery } from '@/lib/bigquery-logger';
 import { INTELLIGENCE_MAP } from '@/lib/intelligence-engine';
 
-// BigQuery requires Node.js runtime
+// BigQuery logic moved to proxy API to prevent SDK leakage
 export const runtime = 'nodejs';
 
 const google = createGoogleGenerativeAI({
@@ -24,13 +23,25 @@ export async function POST(req: Request) {
 
         const lastUserMessage = messages.findLast((m: any) => m.role === 'user')?.content || '';
 
-        // 2. Log User Input to BigQuery (Async) - Fire and forget
-        logToBigQuery({
+        // 2. Log User Input to BigQuery via Proxy API
+        const logToBigQueryProxy = async (entry: any) => {
+            try {
+                await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/logging/bigquery`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(entry)
+                });
+            } catch (err) {
+                console.error("[BigQuery Proxy Log Error]:", err);
+            }
+        };
+
+        logToBigQueryProxy({
             role: 'user',
             content: lastUserMessage,
             model: 'gemini-1.5-pro',
-            timestamp: new Date(),
-        }).catch(err => console.error("BigQuery Log Error:", err));
+            timestamp: new Date().toISOString(),
+        });
 
         // 3. Execute Stream with AI SDK (Gemini)
         const result = await streamText({
@@ -40,7 +51,7 @@ export async function POST(req: Request) {
             
             Platform Features & Specialized Intelligence Nodes:
             ${JSON.stringify(Object.keys(INTELLIGENCE_MAP).map(key => ({ id: key, role: INTELLIGENCE_MAP[key].role, description: INTELLIGENCE_MAP[key].description.slice(0, 100) })), null, 2)}
-
+|
             Directives:
             1. Speak with precision, authority, and empathy. You are a doctoral-level advisor.
             2. Prioritize "Instructional Agency"—returning time and choices to educators.
@@ -51,17 +62,17 @@ export async function POST(req: Request) {
             7. Keep responses concise (under 3 sentences unless asked for a deep dive).`,
             messages,
             onFinish: async (event) => {
-                // Log Assistant Response to BigQuery
-                await logToBigQuery({
+                // Log Assistant Response to BigQuery via Proxy API
+                await logToBigQueryProxy({
                     role: 'assistant',
                     content: event.text,
                     model: 'gemini-1.5-pro',
-                    timestamp: new Date(),
+                    timestamp: new Date().toISOString(),
                     metadata: {
                         latencyMs: Date.now() - start,
                         finishReason: event.finishReason
                     }
-                }).catch(err => console.error("BigQuery Log Error:", err));
+                });
             },
             abortSignal: req.signal,
         });

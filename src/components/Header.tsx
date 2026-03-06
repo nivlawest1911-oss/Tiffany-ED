@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const navItems = [
   { label: "NEURAL GRID", href: "#features" },
-  { label: "SITE NODES", href: "#pricing" },
+  { label: "SITE NODES", href: "/pricing" },
   { label: "GOVERNANCE", href: "#governance" },
 ];
 

@@ -3,185 +3,121 @@ import { NextRequest } from 'next/server';
 
 export const runtime = 'edge';
 
+const OG_STYLES = {
+    container: {
+        height: '100%',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column' as const,
+        alignItems: 'center' as const,
+        justifyContent: 'center' as const,
+        backgroundColor: '#F5F5F5',
+        padding: '40px',
+        fontFamily: 'Inter, system-ui, sans-serif',
+    },
+    glowTop: { position: 'absolute' as const, top: -100, left: -100, width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(0, 176, 255, 0.1) 0%, transparent 70%)' },
+    glowBottom: { position: 'absolute' as const, bottom: -100, right: -100, width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255, 179, 0, 0.08) 0%, transparent 70%)' },
+    card: {
+        display: 'flex',
+        flexDirection: 'column' as const,
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        borderRadius: '32px',
+        border: '1px solid rgba(0, 0, 0, 0.05)',
+        padding: '60px',
+        boxShadow: '0 20px 50px rgba(0,0,0,0.05)',
+        position: 'relative' as const,
+        overflow: 'hidden' as const,
+    },
+    header: { display: 'flex', justifyContent: 'space-between' as const, alignItems: 'flex-start' as const, width: '100%', marginBottom: '40px' },
+    logoSection: { display: 'flex', alignItems: 'center' as const, gap: '20px' },
+    logoIcon: { background: '#00B0FF', width: '60px', height: '60px', borderRadius: '16px', display: 'flex', alignItems: 'center' as const, justifyContent: 'center' as const, boxShadow: '0 10px 20px rgba(0, 176, 255, 0.3)' },
+    logoTextContainer: { display: 'flex', flexDirection: 'column' as const },
+    logoTitle: { fontSize: '32px', fontWeight: 900, color: '#0F172A', letterSpacing: '-0.02em', textTransform: 'uppercase' as const },
+    logoSubtitle: { fontSize: '14px', fontWeight: 700, color: '#64748B', letterSpacing: '0.2em', textTransform: 'uppercase' as const },
+    badge: { background: 'rgba(255, 179, 0, 0.1)', padding: '10px 24px', borderRadius: '100px', border: '1.5px solid #FFB300', display: 'flex' },
+    badgeText: { fontSize: '16px', fontWeight: 800, color: '#B45309', textTransform: 'uppercase' as const, letterSpacing: '0.05em' },
+    mainContent: { display: 'flex', flexDirection: 'column' as const, flex: 1, justifyContent: 'center' as const },
+    titleGroup: { display: 'flex', flexDirection: 'column' as const, gap: '12px' },
+    preTitle: { fontSize: '18px', fontWeight: 700, color: '#00B0FF', textTransform: 'uppercase' as const, letterSpacing: '0.1em' },
+    mainTitle: { fontSize: '72px', fontWeight: 900, color: '#0F172A', lineHeight: 1.1, margin: 0, letterSpacing: '-0.03em' },
+    generatorBadge: { marginTop: '32px', padding: '16px 32px', background: '#F8FAFC', borderRadius: '16px', border: '1px solid #E2E8F0', display: 'flex', alignSelf: 'flex-start' as const },
+    generatorText: { fontSize: '24px', fontWeight: 600, color: '#475569' },
+    footer: { display: 'flex', justifyContent: 'space-between' as const, alignItems: 'flex-end' as const, width: '100%', marginTop: '40px' },
+    statsContainer: { display: 'flex', gap: '32px' },
+    statGroup: { display: 'flex', flexDirection: 'column' as const, gap: '4px' },
+    statLabel: { fontSize: '12px', fontWeight: 700, color: '#94A3B8', textTransform: 'uppercase' as const, letterSpacing: '0.1em' },
+    statValue: { fontSize: '24px', fontWeight: 800, color: '#0F172A' },
+    statValueAlt: { fontSize: '24px', fontWeight: 800, color: '#00B0FF' },
+    cta: { background: '#0F172A', color: 'white', padding: '16px 36px', borderRadius: '16px', fontSize: '20px', fontWeight: 700, boxShadow: '0 10px 30px rgba(0,0,0,0.1)' }
+};
+
 export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
 
     const schoolName = searchParams.get('school') || 'Your School';
     const plan = searchParams.get('plan') || 'Professional';
-    const price = searchParams.get('price') || '$39.99';
     const generator = searchParams.get('generator') || '';
 
     return new ImageResponse(
         (
-            <div
-                style={{
-                    height: '100%',
-                    width: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    backgroundColor: '#0a0a0f',
-                    backgroundImage: 'radial-gradient(circle at 25% 25%, rgba(168, 85, 247, 0.15) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(236, 72, 153, 0.15) 0%, transparent 50%)',
-                }}
-            >
-                {/* EdIntel Logo & Title */}
-                <div
-                    style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '20px',
-                        marginBottom: '48px',
-                    }}
-                >
-                    <div
-                        style={{
-                            width: '80px',
-                            height: '80px',
-                            background: 'linear-gradient(135deg, #a855f7 0%, #ec4899 100%)',
-                            borderRadius: '16px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            boxShadow: '0 20px 40px rgba(168, 85, 247, 0.4)',
-                        }}
-                    >
-                        <span style={{ fontSize: '48px' }}>✨</span>
-                    </div>
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        <h1
-                            style={{
-                                fontSize: '56px',
-                                fontWeight: 'bold',
-                                color: 'white',
-                                margin: 0,
-                                lineHeight: 1,
-                            }}
-                        >
-                            EdIntel
-                        </h1>
-                        <span
-                            style={{
-                                fontSize: '28px',
-                                background: 'linear-gradient(90deg, #a855f7 0%, #ec4899 100%)',
-                                backgroundClip: 'text',
-                                color: 'transparent',
-                                fontWeight: '600',
-                            }}
-                        >
-                            Professional
-                        </span>
-                    </div>
-                </div>
+            <div style={OG_STYLES.container}>
+                {/* Decorative Background Elements */}
+                <div style={OG_STYLES.glowTop} />
+                <div style={OG_STYLES.glowBottom} />
 
-                {/* School Name */}
-                {schoolName !== 'Your School' && (
-                    <h2
-                        style={{
-                            fontSize: '42px',
-                            color: '#c4b5fd',
-                            margin: '0 0 32px 0',
-                            textAlign: 'center',
-                            fontWeight: '600',
-                        }}
-                    >
-                        {schoolName}
-                    </h2>
-                )}
-
-                {/* Generator Name */}
-                {generator && (
-                    <div
-                        style={{
-                            fontSize: '28px',
-                            color: '#e9d5ff',
-                            marginBottom: '32px',
-                            padding: '12px 32px',
-                            background: 'rgba(168, 85, 247, 0.15)',
-                            borderRadius: '12px',
-                            border: '2px solid rgba(168, 85, 247, 0.3)',
-                        }}
-                    >
-                        {generator}
+                <div style={OG_STYLES.card}>
+                    {/* Header */}
+                    <div style={OG_STYLES.header}>
+                        <div style={OG_STYLES.logoSection}>
+                            <div style={OG_STYLES.logoIcon}>
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                                </svg>
+                            </div>
+                            <div style={OG_STYLES.logoTextContainer}>
+                                <span style={OG_STYLES.logoTitle}>EdIntel</span>
+                                <span style={OG_STYLES.logoSubtitle}>Sovereign Delegate</span>
+                            </div>
+                        </div>
+                        <div style={OG_STYLES.badge}>
+                            <span style={OG_STYLES.badgeText}>Alpha v.2026</span>
+                        </div>
                     </div>
-                )}
 
-                {/* Plan & Price Cards */}
-                <div
-                    style={{
-                        display: 'flex',
-                        gap: '48px',
-                        marginTop: '24px',
-                    }}
-                >
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            padding: '32px 48px',
-                            background: 'rgba(168, 85, 247, 0.1)',
-                            borderRadius: '20px',
-                            border: '3px solid rgba(168, 85, 247, 0.4)',
-                            boxShadow: '0 10px 30px rgba(168, 85, 247, 0.2)',
-                        }}
-                    >
-                        <span style={{ fontSize: '22px', color: '#d8b4fe', marginBottom: '8px' }}>
-                            Plan
-                        </span>
-                        <span style={{ fontSize: '38px', fontWeight: 'bold', color: 'white' }}>
-                            {plan}
-                        </span>
+                    {/* Main Content Area */}
+                    <div style={OG_STYLES.mainContent}>
+                        <div style={OG_STYLES.titleGroup}>
+                            <span style={OG_STYLES.preTitle}>Strategic Command Center</span>
+                            <h1 style={OG_STYLES.mainTitle}>
+                                {schoolName !== 'Your School' ? schoolName : 'Next-Gen Educational Intelligence'}
+                            </h1>
+                        </div>
+
+                        {generator && (
+                            <div style={OG_STYLES.generatorBadge}>
+                                <span style={OG_STYLES.generatorText}>{generator}</span>
+                            </div>
+                        )}
                     </div>
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            padding: '32px 48px',
-                            background: 'rgba(236, 72, 153, 0.1)',
-                            borderRadius: '20px',
-                            border: '3px solid rgba(236, 72, 153, 0.4)',
-                            boxShadow: '0 10px 30px rgba(236, 72, 153, 0.2)',
-                        }}
-                    >
-                        <span style={{ fontSize: '22px', color: '#fbcfe8', marginBottom: '8px' }}>
-                            Price
-                        </span>
-                        <span style={{ fontSize: '38px', fontWeight: 'bold', color: 'white' }}>
-                            {price}
-                        </span>
+
+                    {/* Footer / Stats */}
+                    <div style={OG_STYLES.footer}>
+                        <div style={OG_STYLES.statsContainer}>
+                            <div style={OG_STYLES.statGroup}>
+                                <span style={OG_STYLES.statLabel}>Current Plan</span>
+                                <span style={OG_STYLES.statValue}>{plan} Tier</span>
+                            </div>
+                            <div style={OG_STYLES.statGroup}>
+                                <span style={OG_STYLES.statLabel}>Token Status</span>
+                                <span style={OG_STYLES.statValueAlt}>Premium Synthesis</span>
+                            </div>
+                        </div>
+                        <div style={OG_STYLES.cta}>
+                            Join the Strategy
+                        </div>
                     </div>
-                </div>
-
-                {/* Tagline */}
-                <p
-                    style={{
-                        fontSize: '26px',
-                        color: '#c4b5fd',
-                        marginTop: '48px',
-                        textAlign: 'center',
-                        maxWidth: '900px',
-                        lineHeight: 1.4,
-                    }}
-                >
-                    AI-Powered Education Platform • Mobile County Schools
-                </p>
-
-                {/* Badge */}
-                <div
-                    style={{
-                        marginTop: '32px',
-                        padding: '12px 28px',
-                        background: 'linear-gradient(90deg, #a855f7 0%, #ec4899 100%)',
-                        borderRadius: '24px',
-                        fontSize: '20px',
-                        fontWeight: '600',
-                        color: 'white',
-                        boxShadow: '0 8px 24px rgba(168, 85, 247, 0.4)',
-                    }}
-                >
-                    30-Day Free Trial
                 </div>
             </div>
         ),

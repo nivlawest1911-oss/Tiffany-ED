@@ -9,125 +9,114 @@ export interface AgentResponse {
 
 export class SwarmRouter {
     /**
-     * Analyze the user query to identify required agents.
-     * In a real implementation, this would use an LLM to classify the intent.
-     * For now, we use keyword heuristics for speed and reliability.
+     * Identify required agents based on executive intent.
+     * Uses optimized keyword matching for hyper-fast routing.
      */
     private static identifyAgents(query: string): string[] {
         const agents = new Set<string>();
         const q = query.toLowerCase();
 
-        // 1. Literacy Agent Triggers
-        if (q.includes('read') || q.includes('literacy') || q.includes('phonics') || q.includes('writing') || q.includes('book')) {
+        // 1. Literacy Agent Triggers (Instructional Focus)
+        if (q.includes('read') || q.includes('literacy') || q.includes('phonics') || q.includes('writing') || q.includes('book') || q.includes('lesson')) {
             agents.add('literacy');
         }
 
-        // 2. Wellness Agent Triggers
-        if (q.includes('anxiety') || q.includes('emotion') || q.includes('calm') || q.includes('behavior') || q.includes('wellness')) {
+        // 2. Wellness Agent Triggers (Social-Emotional Focus)
+        if (q.includes('anxiety') || q.includes('emotion') || q.includes('calm') || q.includes('behavior') || q.includes('wellness') || q.includes('health') || q.includes('mental')) {
             agents.add('wellness');
         }
 
-        // 3. Policy Agent Triggers
-        if (q.includes('policy') || q.includes('compliance') || q.includes('standard') || q.includes('district') || q.includes('iep')) {
+        // 3. Policy Agent Triggers (Compliance & Strategy)
+        if (q.includes('policy') || q.includes('compliance') || q.includes('standard') || q.includes('district') || q.includes('iep') || q.includes('legal') || q.includes('contract')) {
             agents.add('policy');
         }
 
-        // Default to just literacy if nothing significant found (or handle as general query)
+        // 4. Operational/Data Agent (New)
+        if (q.includes('data') || q.includes('stats') || q.includes('metric') || q.includes('roster') || q.includes('schedule') || q.includes('finance')) {
+            agents.add('policy'); // Policy handles data strategy for now
+        }
+
+        // Default to literacy + policy for general executive queries
         if (agents.size === 0) {
-            agents.add('literacy'); // Fallback
+            agents.add('policy');
+            agents.add('literacy');
         }
 
         return Array.from(agents);
     }
 
     /**
-     * Dispatch sub-tasks to identified agents in PARALLEL.
+     * Dispatch sub-tasks to specialized AI roles in PARALLEL.
+     * This ensures the user gets multi-perspective executive intelligence.
      */
     static async routeRequest(query: string, context: any = {}): Promise<{
         synthesis: string;
         agent_responses: AgentResponse[];
     }> {
         const agents = this.identifyAgents(query);
-        console.log(`[SwarmRouter] Dispatching to agents: ${agents.join(', ')}`);
+        console.log(`[SwarmRouter] Orchestrating Cognitive Swarm: ${agents.join(', ')}`);
 
-        // 1. Parallel Dispatch
+        // 1. Parallel Execution
         const agentPromises = agents.map(async (agentName) => {
             try {
-                // In a real app, we might call internal services directly or via HTTP if they are separate microservices.
-                // Here we simulate the call to our internal API routes/functions.
+                // Define the personality and goal for each agent
+                const rolePrompts: Record<string, string> = {
+                    literacy: "You are the EdIntel Literacy Architect. Analyze the following request for instructional gaps, phonics alignment (Heggerty/SoR), and literacy outcomes.",
+                    wellness: "You are the EdIntel Wellness Guardian. Analyze the following request for trauma-informed approaches, emotional regulation needs, and staff/student well-being.",
+                    policy: "You are the EdIntel Policy Sentinel. Analyze the following request for district compliance, IEP standards, and institutional risk."
+                };
 
-                let result;
-                // Simulating internal fetch or function call
-                // Ideally, we import the logic directly if it's in the same Next.js app to save HTTP overhead,
-                // BUT for "Agents" as Microservices, HTTP is cleaner. Let's mock the internal call for now.
-
-                // MOCK DISPATCH LOGIC (Replace with actual fetch to localhost in production if needed, or direct import)
-                if (agentName === 'literacy') {
-                    // Simulating Literacy Agent Response
-                    result = {
-                        gap_type: 'Detected Phonics Gap',
-                        strategy: 'Heggerty Implementation',
-                        agent: 'LiteracyArchitect'
-                    };
-                } else if (agentName === 'wellness') {
-                    result = {
-                        emotional_state: 'High Anxiety',
-                        strategy: '5-4-3-2-1 Grounding Technique',
-                        agent: 'WellnessGaurdian'
-                    };
-                } else if (agentName === 'policy') {
-                    result = {
-                        compliance_check: 'Standard IEP 4.2',
-                        strategy: 'Ensure 15min break accommodation',
-                        agent: 'PolicySentinel'
-                    };
-                }
+                const result = await AIDispatcher.generate({
+                    provider: 'google',
+                    complexity: TaskComplexity.ANALYSIS,
+                    system: rolePrompts[agentName] || "You are a specialized EdIntel Agent.",
+                    messages: [
+                        { role: 'user', content: `Analyze this context: ${query}. Contextual Data: ${JSON.stringify(context)}` }
+                    ]
+                });
 
                 return {
                     agent: agentName,
-                    analysis: result
+                    analysis: result.text || "Analysis incomplete."
                 };
 
             } catch (error: any) {
-                console.error(`[SwarmRouter] Agent ${agentName} failed:`, error);
+                console.error(`[Cognitive Swarm] Blockage in ${agentName}:`, error);
                 return {
                     agent: agentName,
                     analysis: null,
-                    error: error.message
+                    error: "Node connection interrupted."
                 };
             }
         });
 
         const responses = await Promise.all(agentPromises);
 
-        // 2. Synthesis (The Router leverages the "Executive" model to combine insights)
-        // We use the AIDispatcher to synthesize the results into a coherent answer.
+        // 2. Sovereign Synthesis
+        // The Router combines specialized insights into a single strategic directive.
 
-        const prompt = `
+        const synthesisPrompt = `
             You are the EdIntel Sovereign Router.
-            The user asked: "${query}"
+            Original Executive Query: "${query}"
 
-            I have consulted specialized agents and here are their reports:
-            ${JSON.stringify(responses, null, 2)}
+            The following specialized agents have provided deep-analysis:
+            ${responses.map(r => `[Agent: ${r.agent}] ${r.analysis}`).join('\n\n')}
 
-            Synthesize these findings into a single, cohesive strategic recommendation. 
-            Do not just list the reports. weave them together.
-            For example: "To address the student's reading gap while managing their anxiety..."
+            Synthesize these Findings into a unified 'Sovereign Directive'. 
+            - Use a commanding, professional, and strategic tone.
+            - Ensure the synthesis is actionable and high-fidelity.
+            - Focus on the intersection of these domains.
         `;
 
         const synthesisRef = await AIDispatcher.generate({
-            provider: 'google', // Or 'xai' / 'anthropic' based on tier
-            model: 'gemini-1.5-pro', // Good balance of reasoning
-            complexity: TaskComplexity.ANALYSIS,
-            messages: [{ role: 'user', content: prompt }]
+            provider: 'google',
+            model: 'gemini-1.5-pro',
+            complexity: TaskComplexity.EXECUTIVE,
+            messages: [{ role: 'user', content: synthesisPrompt }]
         });
 
-        // Handle the response properly (EdIntel usually returns a stream or text generation object)
-        // Assuming generateText returns { text: string ... }
-        const synthesisText = synthesisRef.text || "Synthesis failed.";
-
         return {
-            synthesis: synthesisText,
+            synthesis: synthesisRef.text || "Strategic synthesis failed.",
             agent_responses: responses
         };
     }

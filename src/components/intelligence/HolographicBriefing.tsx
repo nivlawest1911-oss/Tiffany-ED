@@ -315,21 +315,21 @@ export default function HolographicBriefing({
                         </div>
 
                         {/* RIGHT: EdIntel Delegate */}
-                        <div className="md:w-[35%] flex flex-col bg-zinc-950/80 backdrop-blur-3xl relative">
+                        <div className="md:w-[35%] flex flex-col bg-zinc-950/80 backdrop-blur-3xl relative overflow-y-auto edintel-scrollbar">
                             {/* Header */}
-                            <div className="p-10 border-b border-white/5 flex justify-between items-center">
+                            <div className="p-10 border-b border-white/5 flex justify-between items-start gap-6 shrink-0">
                                 <div>
                                     <p className="text-[10px] font-black text-noble-gold uppercase tracking-[0.4em] mb-2">Protocol Analysis</p>
                                     <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter leading-none">{title}</h3>
                                 </div>
-                                <button onClick={onClose} aria-label="Close" className="p-3 bg-white/5 hover:bg-white/10 text-white/50 hover:text-white rounded-full transition-all">
+                                <button onClick={onClose} aria-label="Close" className="shrink-0 p-3 mt-1 bg-white/5 hover:bg-white/10 text-white/50 hover:text-white rounded-full transition-all">
                                     <X size={24} />
                                 </button>
                             </div>
 
                             {/* Speaker Node */}
-                            <div className="flex-1 flex flex-col items-center justify-center p-10 relative">
-                                <div className="relative group">
+                            <div className="flex-1 flex flex-col items-center justify-center p-10 relative shrink-0">
+                                <div className="relative group shrink-0">
                                     <div className={`w-40 h-40 rounded-full p-1 bg-gradient-to-br from-noble-gold via-white/20 to-zinc-900 shadow-[0_0_50px_rgba(212,175,55,0.2)] ${isSpeaking ? 'animate-pulse' : ''}`}>
                                         <div className="w-full h-full rounded-full overflow-hidden bg-black relative">
                                             <motion.img
@@ -368,7 +368,7 @@ export default function HolographicBriefing({
                             </div>
 
                             {/* Transcript / Action Area */}
-                            <div className="p-10 bg-black/40 border-t border-white/5 space-y-6">
+                            <div className="p-10 bg-black/40 border-t border-white/5 space-y-6 shrink-0">
                                 <div className="space-y-4">
                                     <p className="text-sm text-white/60 leading-relaxed font-mono">
                                         <span className="text-noble-gold mr-3">{">>>"}</span>

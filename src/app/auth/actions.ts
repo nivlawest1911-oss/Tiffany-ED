@@ -1,6 +1,7 @@
 'use client';
 
 import { createClient } from '@/utils/supabase/client';
+import { ROUTES } from '@/lib/routes';
 
 /**
  * 🏛️ Bio-Auth Initiator: Handshakes with Google/Apple/Facebook for EdIntel Protocol Login.
@@ -18,7 +19,7 @@ export async function initiateBioAuth(provider: 'google' | 'apple' | 'facebook')
     const { data, error } = await supabase.auth.signInWithOAuth({
         provider: provider,
         options: {
-            redirectTo: `${window.location.origin}/auth/callback`,
+            redirectTo: `${window.location.origin}${ROUTES.AUTH_CALLBACK}`,
             queryParams: {
                 access_type: 'offline',
                 prompt: 'consent',

@@ -69,13 +69,11 @@ const LOG_TEMPLATES = {
 
 export default function GenerativeLogStream({ type, isActive }: GenerativeLogStreamProps) {
     const [lines, setLines] = useState<{ text: string; time: string }[]>([]);
-    const [currentIndex, setCurrentIndex] = useState(0);
     const scrollRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (!isActive) {
             setLines([]);
-            setCurrentIndex(0);
             return;
         }
 

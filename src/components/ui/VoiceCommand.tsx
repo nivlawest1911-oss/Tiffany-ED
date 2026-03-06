@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Mic, Play, Square } from 'lucide-react';
 
 export function VoiceCommand() {
-    const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
+    const [_voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
     const [selectedVoice, setSelectedVoice] = useState<SpeechSynthesisVoice | null>(null);
     const [isSpeaking, setIsSpeaking] = useState(false);
 

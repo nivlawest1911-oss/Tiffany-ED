@@ -35,13 +35,9 @@ const DEMO_FEED: FeedPost[] = [
 
 export function useLeadershipFeed() {
     // Using Professional Leadership Feed.
-    const [posts, setPosts] = useState<FeedPost[]>(DEMO_FEED);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
+    const [posts] = useState<FeedPost[]>(DEMO_FEED);
+    const [loading] = useState(false);
+    const [error] = useState<string | null>(null);
 
     return { posts, loading, error };
-}
-
-function formatTimeAgo(timestamp: any): string {
-    return 'Just now';
 }

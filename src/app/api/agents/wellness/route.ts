@@ -9,7 +9,7 @@ export const runtime = 'edge';
  */
 export async function POST(req: NextRequest) {
     try {
-        const { query, context } = await req.json();
+        const { query: _query, context: _context } = await req.json();
 
         // Mock Logic
         return NextResponse.json({
@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
             }
         });
 
-    } catch (error) {
+    } catch (_error) {
         return NextResponse.json({ error: 'Wellness Agent Failed' }, { status: 500 });
     }
 }

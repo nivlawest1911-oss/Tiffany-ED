@@ -175,7 +175,7 @@ export default function FeatureShowcaseGrid() {
 
                 {/* Tools Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                    {visibleTools.map((tool, index) => (
+                    {visibleTools.map((tool, _index) => (
                         <Link key={tool.id} href={tool.link}>
                             <SpotlightCard
                                 className="h-full p-6 rounded-3xl bg-zinc-900/40 backdrop-blur-xl border border-white/5 hover:border-noble-gold/40 transition-all cursor-pointer relative group overflow-hidden"

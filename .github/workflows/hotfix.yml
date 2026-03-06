@@ -1,0 +1,69 @@
+name: Hotfix Process
+
+on:
+  workflow_dispatch:
+    inputs:
+      issue_description:
+        description: 'Issue description'
+        required: true
+      priority:
+        description: 'Priority'
+        required: true
+        type: choice
+        options:
+          - critical
+          - high
+          - medium
+
+jobs:
+  create-hotfix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Create hotfix branch
+        run: |
+          HOTFIX_NAME="hotfix/$(date +%Y%m%d-%H%M%S)-${{ github.event.inputs.priority }}"
+          git checkout -b $HOTFIX_NAME
+          git push origin $HOTFIX_NAME
+          echo "HOTFIX_BRANCH=$HOTFIX_NAME" >> $GITHUB_ENV
+
+      - name: Create PRs for hotfix
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const branch = process.env.HOTFIX_BRANCH;
+            const desc = "${{ github.event.inputs.issue_description }}";
+            const priority = "${{ github.event.inputs.priority }}";
+
+            // Create PR to main
+            await github.rest.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🔥 HOTFIX: ${desc}`,
+              head: branch,
+              base: 'main',
+              body: `## 🔥 HOTFIX ALERT\n**Priority:** ${priority}\n**Description:** ${desc}\n\n⚠️ This hotfix requires IMMEDIATE review and deployment.`
+            });
+
+            // Create PR to staging
+            await github.rest.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🔥 HOTFIX STAGING: ${desc}`,
+              head: branch,
+              base: 'staging',
+              body: `Staging deployment for hotfix`
+            });
+
+            // Create PR to develop
+            await github.rest.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🔥 HOTFIX BACKPORT: ${desc}`,
+              head: branch,
+              base: 'develop',
+              body: `Backport hotfix to develop`
+            });

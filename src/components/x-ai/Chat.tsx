@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Loader2, Zap, Send, Shield, Activity, Sparkles } from 'lucide-react';
@@ -84,7 +84,7 @@ export function XAIChat({ className = '' }: XAIChatProps) {
                 )}
 
                 <AnimatePresence mode="popLayout">
-                    {messages.map((message, index) => (
+                    {messages.map((message, _index) => (
                         <motion.div
                             key={message.id}
                             initial={{ opacity: 0, y: 20, scale: 0.95 }}

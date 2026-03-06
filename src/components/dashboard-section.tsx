@@ -1,10 +1,10 @@
 "use client"
 
-import { useState } from "react"
+
 import { TrendingUp, BarChart3, Users, Brain, Mic, MapPin, Activity, Infinity } from "lucide-react"
 
 export function DashboardSection() {
-  const [revenueSingularityExpanded, setRevenueSingularityExpanded] = useState(false)
+
 
   return (
     <section className="px-4 md:px-8 py-12 md:py-20">

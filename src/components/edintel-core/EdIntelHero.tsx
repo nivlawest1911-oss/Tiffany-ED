@@ -48,6 +48,7 @@ function HolographicVariant({ activeAgent, agents, message }: { activeAgent: num
                     {agent.video && agent.video !== '' ? (
                         <video
                             autoPlay loop muted playsInline
+                            poster={agent.avatar}
                             key={agent.video}
                             className="w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-[10s]"
                         >
@@ -297,7 +298,7 @@ function CinematicVariant() {
                 <div
                     className="absolute inset-0 overflow-hidden hero-mask"
                 >
-                    <video autoPlay loop muted playsInline className="absolute inset-0 h-full w-full object-cover">
+                    <video autoPlay loop muted playsInline poster="/images/professional_hero_bg.png" className="absolute inset-0 h-full w-full object-cover">
                         <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/liquid-metal-video_yX6NvjdW-6bLYorR3Ihmlwjivg3pjA978qrSKRU.mp4" type="video/mp4" />
                     </video>
 

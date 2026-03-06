@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { CreditCard, Sparkles } from 'lucide-react';
+import Link from 'next/link';
 
 interface TrialBannerProps {
     tierId: string;
@@ -52,13 +53,13 @@ export const TrialBanner: React.FC<TrialBannerProps> = ({ tierId, tierName, days
             </div>
 
             <div className="flex items-center gap-4 relative z-10">
-                <a
+                <Link
                     href="/pricing"
                     className="flex items-center gap-2 px-4 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-lg transition-all text-[10px] font-black uppercase tracking-widest text-white group"
                 >
                     <CreditCard size={12} className="text-zinc-500 group-hover:text-noble-gold transition-colors" />
                     Manage Sovereign Subscription
-                </a>
+                </Link>
             </div>
         </motion.div>
     );

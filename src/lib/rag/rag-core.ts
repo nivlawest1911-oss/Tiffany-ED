@@ -2,6 +2,7 @@ import { generateText } from 'ai';
 import { google } from '@ai-sdk/google';
 import { generateEmbedding } from '../ai/embedding';
 import { prisma } from '../prisma';
+import { kv } from '@vercel/kv';
 
 export interface VaultDocument {
     id: string;
@@ -18,20 +19,45 @@ export async function queryEdIntelVault(query: string): Promise<string> {
     try {
         console.log(`[RAG-Core] Starting HyDE flow for: "${query}"`);
 
-        // 1. Generate Hypothetical Document (The "Ideal" Answer)
-        const { text: hypotheticalDoc } = await generateText({
-            model: google('gemini-1.5-flash'),
-            prompt: `
-                Explain the Alabama educational protocol or legal standard related to the following query. 
-                Write this as if it were a section of a school district's official compliance manual.
-                
-                Query: ${query}
-                
-                Compliance Protocol:
-            `,
-        });
+        // 1. Generate/Retrieve Hypothetical Document (The "Ideal" Answer)
+        const simpleHash = (str: string) => {
+            let h = 0;
+            for (let i = 0; i < str.length; i++) {
+                h = (h << 5) - h + str.charCodeAt(i);
+                h |= 0;
+            }
+            return Math.abs(h).toString(36);
+        };
+        const hash = simpleHash(query);
+        const cacheKey = `hyde:${hash}`;
+        let hypotheticalDoc: string | null = null;
 
-        console.log(`[RAG-Core] Hypothetical Document Generated: "${hypotheticalDoc.substring(0, 50)}..."`);
+        try {
+            hypotheticalDoc = await kv.get<string>(cacheKey);
+        } catch (e) {
+            console.warn("[RAG-Core] HyDE Cache offline.");
+        }
+
+        if (hypotheticalDoc) {
+            console.log(`[RAG-Core] HyDE Cache Hit [Key: ${cacheKey.substring(0, 10)}]`);
+        } else {
+            const { text } = await generateText({
+                model: google('gemini-1.5-flash'),
+                prompt: `
+                    Explain the Alabama educational protocol or legal standard related to the following query. 
+                    Write this as if it were a section of a school district's official compliance manual.
+                    
+                    Query: ${query}
+                    
+                    Compliance Protocol:
+                `,
+            });
+            hypotheticalDoc = text;
+
+            kv.set(cacheKey, hypotheticalDoc, { ex: 86400 }).catch(e => console.warn("HyDE Cache Write Failed", e));
+        }
+
+        console.log(`[RAG-Core] Hypothetical Document: "${hypotheticalDoc.substring(0, 50)}..."`);
 
         // 2. Generate Embedding for the Hypothetical Answer
         const hypotheticalEmbedding = await generateEmbedding(hypotheticalDoc);
@@ -41,7 +67,7 @@ export async function queryEdIntelVault(query: string): Promise<string> {
         const matches: any[] = await prisma.$queryRaw`
             SELECT title, content, 1 - (embedding <=> ${vectorStr}::vector) as similarity
             FROM documents
-            WHERE 1 - (embedding <=> ${vectorStr}::vector) > 0.6
+            WHERE 1 - (embedding <=> ${vectorStr}::vector) > 0.7
             ORDER BY similarity DESC
             LIMIT 3
         `;

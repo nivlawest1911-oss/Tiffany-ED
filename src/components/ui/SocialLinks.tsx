@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import {
     Linkedin,
     Facebook,
@@ -25,9 +26,9 @@ export default function SocialLinks() {
                     <Globe size={14} />
                     <span className="text-[10px] font-black uppercase tracking-[0.2em]">Global Presence</span>
                 </div>
-                <a href="/pricing" className="text-[10px] font-bold uppercase tracking-widest hover:text-emerald-500 transition-colors">
+                <Link href="/pricing" className="text-[10px] font-bold uppercase tracking-widest hover:text-emerald-500 transition-colors">
                     Sales Protocol
-                </a>
+                </Link>
             </div>
             {socials.map((social, i) => (
                 <a

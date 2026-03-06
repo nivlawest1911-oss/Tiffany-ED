@@ -245,7 +245,7 @@ export default function EdIntelCommandDeck() {
                 )}>
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-noble-gold/10 via-zinc-950 to-zinc-950" />
                 </div>
-                <div className="absolute inset-0 bg-[url('/images/grid.svg')] opacity-[0.03]" />
+                <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2240%22%20height%3D%2240%22%3E%3Cpath%20d%3D%22M0%200h40v40H0z%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-opacity%3D%22.05%22%2F%3E%3C%2Fsvg%3E')] opacity-[0.03]" />
             </div>
 
             {/* Swarm Intelligence Overlay */}

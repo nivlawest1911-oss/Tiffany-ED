@@ -95,7 +95,7 @@ export async function POST(request: NextRequest) {
                 timestamp: new Date().toISOString(),
             },
             subscription_data: planKey !== 'tokens' ? {
-                trial_period_days: 14,
+                trial_period_days: 30,
                 metadata: {
                     plan: plan,
                     tier: planKey,

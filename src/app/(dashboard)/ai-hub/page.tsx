@@ -1,14 +1,10 @@
-import { cookies } from 'next/headers';
-import AIHubClient from './AIHubClient';
-import { AI } from './ai';
+import { AIGeneratorsHub } from '@/components/ai-generators-hub';
 
-export const dynamic = 'force-dynamic';
+export const metadata = {
+    title: 'Neural Grid Hub | EdIntel Sovereign',
+    description: 'Unified AI command center and professional generators.',
+};
 
-export default async function AIHubPage() {
-    await cookies(); // Force dynamic rendering
-    return (
-        <AI>
-            <AIHubClient />
-        </AI>
-    );
+export default function AIHubPage() {
+    return <AIGeneratorsHub />;
 }

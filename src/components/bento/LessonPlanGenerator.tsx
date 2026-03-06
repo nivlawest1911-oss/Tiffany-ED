@@ -11,7 +11,8 @@ import {
     Layers,
     PenTool,
     Loader2,
-    FileText
+    FileText,
+    User
 } from 'lucide-react';
 
 interface LessonPlanSection {
@@ -172,50 +173,57 @@ export default function LessonPlanGenerator() {
             </div>
 
             <div className="relative z-10">
-                <div className="flex items-center justify-between mb-8">
+                <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
                     <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-2xl bg-emerald-600 flex items-center justify-center shadow-lg">
+                        <div className="w-12 h-12 shrink-0 rounded-2xl bg-emerald-600 flex items-center justify-center shadow-lg">
                             <PenTool className="text-white" size={24} />
                         </div>
                         <div>
-                            <h2 className="text-2xl font-bold text-zinc-900 dark:text-white">Lesson Planner</h2>
-                            <p className="text-sm text-zinc-500 dark:text-zinc-400">AI-Powered Curriculogic Center</p>
+                            <h2 className="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white">Lesson Planner</h2>
+                            <p className="text-xs md:text-sm text-zinc-500 dark:text-zinc-400">AI-Powered Curriculogic Center</p>
                         </div>
                     </div>
-                    <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
+                    <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full shrink-0">
                         <Sparkles size={14} className="text-emerald-600 dark:text-emerald-400" />
-                        <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">Professional Aide</span>
+                        <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest whitespace-nowrap">Professional Aide</span>
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                    <div className="space-y-4">
-                        <div>
-                            <label className="block text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-2">Subject</label>
+                <div className="flex-grow space-y-4 mb-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="md:col-span-2">
+                            <label className="block text-xs font-bold mb-1.5 text-zinc-700 dark:text-zinc-300 flex items-center gap-2">
+                                <BookOpen size={14} />
+                                Subject
+                            </label>
                             <input
                                 value={subject}
                                 onChange={(e) => setSubject(e.target.value)}
                                 placeholder="Math, Science, ELA..."
-                                className="w-full bg-white dark:bg-black/20 border border-zinc-200 dark:border-zinc-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                                className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 text-zinc-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all shadow-inner text-sm"
                             />
                         </div>
-                        <div>
-                            <label className="block text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-2">Topic</label>
+                        <div className="md:col-span-2">
+                            <label className="block text-xs font-bold mb-1.5 text-zinc-700 dark:text-zinc-300 flex items-center gap-2">
+                                <PenTool size={14} />
+                                Topic
+                            </label>
                             <input
                                 value={topic}
                                 onChange={(e) => setTopic(e.target.value)}
                                 placeholder="Fractions, Ancient Egypt..."
-                                className="w-full bg-white dark:bg-black/20 border border-zinc-200 dark:border-zinc-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                                className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 text-zinc-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all shadow-inner text-sm"
                             />
                         </div>
-                    </div>
-                    <div className="space-y-4">
                         <div>
-                            <label className="block text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-2">Grade Level</label>
+                            <label className="block text-xs font-bold mb-1.5 text-zinc-700 dark:text-zinc-300 flex items-center gap-2">
+                                <User size={14} />
+                                Grade Level
+                            </label>
                             <select
                                 value={gradeLevel}
                                 onChange={(e) => setGradeLevel(e.target.value)}
-                                className="w-full bg-white dark:bg-black/20 border border-zinc-200 dark:border-zinc-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/50 appearance-none"
+                                className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 text-zinc-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all shadow-inner text-sm appearance-none cursor-pointer"
                             >
                                 <option value="">Select Grade</option>
                                 <option value="K">Kindergarten</option>
@@ -223,12 +231,15 @@ export default function LessonPlanGenerator() {
                             </select>
                         </div>
                         <div>
-                            <label className="block text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-2">Duration (Min)</label>
+                            <label className="block text-xs font-bold mb-1.5 text-zinc-700 dark:text-zinc-300 flex items-center gap-2">
+                                <Clock size={14} />
+                                Duration (Min)
+                            </label>
                             <input
                                 type="number"
                                 value={duration}
                                 onChange={(e) => setDuration(e.target.value)}
-                                className="w-full bg-white dark:bg-black/20 border border-zinc-200 dark:border-zinc-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                                className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 text-zinc-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all shadow-inner text-sm"
                             />
                         </div>
                     </div>

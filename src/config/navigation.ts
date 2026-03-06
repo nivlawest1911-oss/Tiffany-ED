@@ -24,19 +24,35 @@ export const EDINTEL_TIERS = [
 
 export const NAV_LINKS = {
     education: [
-        { label: "Sovereign Vault", href: "/vault", icon: "Shield", minTier: 2, description: "Sovereign Pack+ ($39.99/mo). Secure institutional data." },
-        { label: "IEP Architect", href: "/generators", icon: "FileText", minTier: 1, description: "Standard Pack+ ($9.99/mo). Clinical-grade narratives." },
-        { label: "Cognitive Gym", href: "/cognitive", icon: "Brain", minTier: 0, description: "Initiate Tier ($0). Interactive learning." },
-        { label: "Gemini Workspace", href: "/gemini-workspace", icon: "Share2", minTier: 0, description: "Initiate Tier ($0). Sync your Gemini content." },
-        { label: "Site Command", href: "/admin", icon: "Building", minTier: 5, description: "Site Command ($79.99/mo). District-wide analytics." },
+        { label: "Sovereign Room", href: "/the-room", icon: "Crown", minTier: 1, description: "Sovereign educator command center." },
+        { label: "Sovereign Broadcast", href: "/podcast", icon: "Radio", minTier: 0, description: "Strategic audio insights and briefings." },
+        { label: "Neural Grid Hub", href: "/ai-hub", icon: "Bot", minTier: 1, description: "Unified AI command center & protocols." },
+        { label: "Conversation AI", href: "/conversation/enhanced", icon: "MessageSquare", minTier: 0, description: "Enhanced AI conversation interface." },
+        { label: "Cognitive Academy", href: "/academy", icon: "GraduationCap", minTier: 0, description: "Regal pathways to mastery." },
+        { label: "Cognitive Gym", href: "/gym", icon: "Dumbbell", minTier: 0, description: "Interactive mental fitness training." },
+        { label: "Education Hub", href: "/education", icon: "BookOpen", minTier: 0, description: "Core educational resources & modules." },
+        { label: "Gemini Sync", href: "/gemini-workspace", icon: "Share2", minTier: 0, description: "Sync with your Gemini workspace." },
+    ],
+    operations: [
+        { label: "Site Command", href: "/admin", icon: "LayoutDashboard", minTier: 5, description: "District-wide executive oversight." },
+        { label: "Roster Logistics", href: "/roster", icon: "ClipboardList", minTier: 3, description: "Staff & student roster management." },
+        { label: "Sovereign Vault", href: "/vault", icon: "Shield", minTier: 2, description: "Secure institutional data vault." },
+        { label: "Pivot Dashboard", href: "/pivot", icon: "BarChart3", minTier: 2, description: "Strategic data pivot & analytics." },
+        { label: "Professional Insights", href: "/ledger", icon: "Activity", minTier: 3, description: "Mental health & burnout analytics." },
+    ],
+    creative: [
+        { label: "Tiffany-Ed AI", href: "/tiffany-ed", icon: "Sparkles", minTier: 0, description: "Your AI digital twin companion." },
+        { label: "Creative Studio", href: "/studio", icon: "Palette", minTier: 0, description: "Design & media creation tools." },
+        { label: "Publishing", href: "/publishing", icon: "FileText", minTier: 1, description: "Content publishing & distribution." },
+        { label: "Excursions", href: "/excursions", icon: "Map", minTier: 0, description: "Field trip planning & logistics." },
     ],
     wellness: [
-        { label: "Transcend Guide", href: "/ai-hub", icon: "Sparkles", minTier: 0, description: "Initiate Tier ($0). Wellness strategies." },
-        { label: "Holistic Insights", href: "/professional", icon: "Activity", minTier: 3, description: "Practitioner+ ($49.99/mo). Mental clarity analytics." },
-        { label: "Director Portal", href: "/the-room", icon: "Users", minTier: 4, description: "Director Pack ($69.99/mo). Executive wellness oversight." },
+        { label: "Wellness Hub", href: "/wellness", icon: "Heart", minTier: 0, description: "Central emotional intelligence center." },
+        { label: "Wellness Generators", href: "/generators?category=Wellness", icon: "Sparkles", minTier: 0, description: "AI-powered wellness strategies." },
     ],
     account: [
-        { label: "Command Center", href: "/settings", icon: "Settings", minTier: 0 },
+        { label: "Profile", href: "/profile", icon: "User", minTier: 0, description: "Your sovereign identity." },
+        { label: "Settings", href: "/settings", icon: "Settings", minTier: 0 },
         { label: "Access & Tiers", href: "/pricing", icon: "CreditCard", minTier: 0 },
     ]
 };

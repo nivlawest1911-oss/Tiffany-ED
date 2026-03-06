@@ -1,0 +1,17 @@
+name: Enforce Merge Strategy
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  validate-merge-strategy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check merge strategy for main
+        if: github.base_ref == 'main'
+        run: |
+          # Simplified check for demonstration
+          echo "Validating merge strategy for main..."

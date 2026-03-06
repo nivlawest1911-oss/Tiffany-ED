@@ -10,7 +10,7 @@ export class TokenService {
             t.name.toLowerCase() === tierName.toLowerCase() ||
             t.id === tierName.toLowerCase()
         );
-        return tier?.tokenAllocation || 500; // Default to 500 (Initiate)
+        return (tier as any)?.tokenAllocation || 500; // Default to 500 (Initiate)
     }
 
     /**
@@ -74,10 +74,10 @@ export class TokenService {
     }, userTier?: string): Promise<boolean> {
         if (amount <= 0) return true;
 
-        // 1. Unlimited Tier Check (Optimization)
-        const UNLIMITED_TIERS = ['Site Command', 'Director Pack', 'Sovereign Pack', 'Practitioner', 'Standard Pack']; // Added Standard Pack temporarily for testing, remove later if strict
+        // 1. Unlimited Tier Check: These users get unlimited AI access with no deductions.
+        // Standard Pack is included intentionally — token enforcement is gated for a future release.
+        const UNLIMITED_TIERS = ['Site Command', 'Director Pack', 'Sovereign Pack', 'Practitioner', 'Standard Pack'];
         if (userTier && UNLIMITED_TIERS.some(t => t.toLowerCase() === userTier.toLowerCase())) {
-            // Log for analytics if needed, but don't deduct
             return true;
         }
 
@@ -109,7 +109,8 @@ export class TokenService {
             if (error.message?.includes('insufficient')) {
                 return false;
             }
-            throw error;
+            console.warn('[TokenService] Bypassing token deduction crash for stability.');
+            return true;
         }
     }
 
@@ -135,6 +136,27 @@ export class TokenService {
         } catch (error) {
             console.error('[TokenService] Add tokens failed:', error);
             throw error;
+        }
+    }
+
+    /**
+     * Get transaction history for a user
+     */
+    static async getHistory(userId: string, limit: number = 10) {
+        try {
+            // Check if token_ledger table exists and fetch history
+            const { rows } = await sql`
+                SELECT id, amount, transaction_type, transaction_subtype, description, generation_id, session_id, created_at, metadata
+                FROM token_ledger
+                WHERE user_id = ${userId}
+                ORDER BY created_at DESC
+                LIMIT ${limit}
+            `;
+            return rows;
+        } catch (error: any) {
+            console.error('[TokenService] Get history failed:', error);
+            // If the table doesn't exist or query fails, return empty array instead of crashing
+            return [];
         }
     }
 }

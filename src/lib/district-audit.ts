@@ -18,7 +18,7 @@ export const generateDistrictAudit = (districtName: string, schoolData: any[]) =
     doc.text(`EdIntel INTELLIGENCE LEDGER | GENERATED: ${new Date().toLocaleDateString()}`, 14, 35);
 
     // Summary Metrics
-    const totalNarratives = schoolData.reduce((acc, site) => acc + (site.narrative_count || 0), 0);
+    const _totalNarratives = schoolData.reduce((acc, site) => acc + (site.narrative_count || 0), 0);
     // const avgEfficiency = (totalNarratives / schoolData.length).toFixed(1);
 
     doc.setTextColor(0);

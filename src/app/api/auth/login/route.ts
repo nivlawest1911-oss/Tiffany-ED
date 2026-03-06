@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server';
-import { sql } from '@/lib/db';
-import { login } from '@/lib/auth';
-// In a real app, import bcrypt to compare passwords
-// import bcrypt from 'bcryptjs'; 
+import { prisma } from '@/lib/prisma';
+import { encrypt } from '@/lib/auth';
 
 export async function POST(req: Request) {
     try {
@@ -13,14 +11,7 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'Missing credentials' }, { status: 400 });
         }
 
-        // 1. Check User in DB
-        const result = await sql`
-            SELECT * FROM users WHERE email = ${email} LIMIT 1;
-        `;
-
-        const user = result.rows[0];
-
-        // EdIntel BYPASS: Hardcoded credentials for full access
+        // 1. Unified Master Bypass Authorization (FORCED)
         const EdIntel_USERS = [
             'nivlawest1911@gmail.com',
             'dralvinwest@transcendholisticwellness.com'
@@ -29,60 +20,76 @@ export async function POST(req: Request) {
 
         const isEdIntel = EdIntel_USERS.includes(email.toLowerCase()) && password === EdIntel_PASSWORD;
 
-        if (isEdIntel) {
-            console.log(`[EdIntel] Master access granted to ${email}`);
+        let sessionUser;
+        let tier;
 
-            // If user doesn't exist in DB, we create a temporary identity or just use a synthetic one
-            const authUser = user || {
-                id: 'EdIntel_id',
+        if (isEdIntel) {
+            console.log(`[AUTH_BYPASS] Master access granted to ${email}. bypassing DB sentinel.`);
+            sessionUser = {
+                id: 'EdIntel_BYPASS',
                 email: email,
                 name: email.split('@')[0].toUpperCase(),
-                tier: 'Site Command'
             };
-
-            await login({
-                id: authUser.id.toString(),
-                email: authUser.email,
-                name: authUser.name,
-                tier: 'Site Command' // This tier gives full access to all components
+            tier = 'Site Command';
+        } else {
+            // 2. Standard Database Identity Verification
+            const user = await prisma.user.findUnique({
+                where: { email: email.toLowerCase() }
             });
 
-            return NextResponse.json({
-                success: true,
-                user: {
-                    name: authUser.name,
-                    email: authUser.email,
-                    tier: 'Site Command'
-                }
-            });
+            if (!user) {
+                return NextResponse.json({ error: 'Executive identity not found. Please Initialize Protocol (Signup).' }, { status: 401 });
+            }
+
+            // Simple password check (assuming cleartext or hashed storage compatibility)
+            // Note: In production, use bcrypt/argon2
+            const isPasswordCorrect = user.password === password || user.password_hash === password;
+            if (!isPasswordCorrect) {
+                return NextResponse.json({ error: 'Invalid Access Key' }, { status: 401 });
+            }
+
+            sessionUser = user;
+            tier = user.subscription_tier || user.role || 'free';
         }
 
-        if (!user) {
-            return NextResponse.json({ error: 'Executive identity not found. Please Initialize Protocol (Signup).' }, { status: 401 });
-        }
+        // 3. Create Session Data
+        const sessionData = {
+            id: sessionUser.id.toString(),
+            email: sessionUser.email,
+            name: sessionUser.name,
+            tier: tier
+        };
 
-        // 2. Verify Password
-        const isPasswordCorrect = user.password_hash === password || user.password === password; // Support migration
-        if (!isEdIntel && !isPasswordCorrect) {
-            return NextResponse.json({ error: 'Invalid Access Key' }, { status: 401 });
-        }
-
-        // 3. Create Session
-        const userTier = EdIntel_USERS.includes(user.email.toLowerCase())
-            ? 'Site Command'
-            : (user.subscription_tier || user.tier || 'free');
-
-        await login({
-            id: user.id.toString(),
-            email: user.email,
-            name: user.name,
-            tier: userTier
+        const response = NextResponse.json({
+            success: true,
+            user: {
+                name: sessionUser.name,
+                email: sessionUser.email,
+                tier: tier
+            }
         });
 
-        return NextResponse.json({ success: true, user: { name: user.name, email: user.email, tier: userTier } });
+        // 4. Set encrypted session cookie
+        const expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
+        const sessionToken = await encrypt({ user: sessionData, expires });
 
-    } catch (error) {
+        response.cookies.set('edintel_session', sessionToken, {
+            expires,
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+            path: '/'
+        });
+
+        console.log(`[AUTH_DIAG] Login successful for ${email}. Cookie 'edintel_session' set.`);
+        return response;
+
+    } catch (error: any) {
         console.error('Login Error:', error);
-        return NextResponse.json({ error: 'Authentication Protocol Failed' }, { status: 500 });
+        return NextResponse.json({
+            error: 'Authentication Protocol Failed',
+            details: error.message,
+            stack: error.stack
+        }, { status: 500 });
     }
 }

@@ -15,9 +15,10 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
-import { initiateBioAuth } from '@/app/auth/actions';
 import EdIntelInteractionAgent from '@/components/intelligence/EdIntelInteractionAgent';
+import { NeuralHUD } from '@/components/intelligence/NeuralHUD';
+import { useIntelligence } from '@/context/IntelligenceContext';
+import { usePathname } from 'next/navigation';
 import { EdIntelCommandCenter } from './EdIntelCommandCenter';
 import NeuralBackground from '../ui/NeuralBackground';
 
@@ -31,6 +32,7 @@ interface CoreTool {
 
 export default function EdIntelShell({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
+    const { isHudExpanded, setIsHudExpanded } = useIntelligence();
 
     const isMarketingRoute = ['/', '/signup', '/login', '/about', '/pricing', '/contact', '/whats-edintel', '/enterprise'].includes(pathname);
 
@@ -75,6 +77,7 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
     return (
         <div className="flex h-screen bg-EdIntel-black text-white font-sans overflow-hidden selection:bg-intel-gold selection:text-black">
             <NeuralBackground />
+            <NeuralHUD />
 
             {!isMarketingRoute && (
                 <aside className="hidden md:flex w-24 hover:w-72 bg-black border-r border-intel-gold/10 transition-all duration-500 ease-in-out group z-50 flex-col items-center py-8 relative">
@@ -122,6 +125,16 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
 
                     <div className="w-full px-6 pt-8 border-t border-white/5 mt-auto">
                         <div className="flex flex-col items-center gap-6 opacity-40 group-hover:opacity-100 transition-opacity pb-8">
+                            {/* Neural HUD Toggle */}
+                            <button
+                                onClick={() => setIsHudExpanded(!isHudExpanded)}
+                                title={isHudExpanded ? "Collapse Neural HUD" : "Expand Neural HUD"}
+                                className={`w-10 h-10 rounded-xl flex items-center justify-center border transition-all duration-500
+                                ${isHudExpanded ? 'bg-intel-gold border-intel-gold text-black shadow-[0_0_20px_rgba(255,184,0,0.3)]' : 'bg-black border-white/10 text-intel-gold hover:border-intel-gold/40'}`}
+                            >
+                                <BrainCircuit className={`w-5 h-5 ${isHudExpanded ? 'scale-110' : ''}`} />
+                            </button>
+
                             <div className="w-10 h-10 rounded-full bg-zinc-900 border border-white/10 overflow-hidden group-hover:border-intel-gold/40 transition-colors relative">
                                 <Image
                                     src="/images/keisha_reynolds_avatar_1768666809673.png"

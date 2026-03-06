@@ -12,6 +12,10 @@ import { useAuth } from '@/context/AuthContext';
 import { generators as GENERATORS } from '@/data/generators';
 import TalkingDelegateOverlay from '@/components/TalkingDelegateOverlay';
 import { NeuralSynthesisHUD } from './NeuralSynthesisHUD';
+import { SmartHover } from '@/components/ui/SmartHover';
+import { useIntelligence } from '@/context/IntelligenceContext';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 // import { checkAccess, EdIntelFeature } from '@/lib/EdIntel-access'; // Kept for future activation
 
 interface EnhancedGeneratorProps {
@@ -43,6 +47,7 @@ export default function EnhancedGenerator({
     delegateRole,
     delegateImage
 }: EnhancedGeneratorProps) {
+    const { addAction } = useIntelligence();
     // ... (rest of hook logic is unchanged)
     const { user } = useAuth(); // Removed isAuthLoading
     const [input, setInput] = useState('');
@@ -64,6 +69,7 @@ export default function EnhancedGenerator({
     const [showDelegateOverlay, setShowDelegateOverlay] = useState(false);
     const [showLiveAvatar, setShowLiveAvatar] = useState(false);
     const [synthesisPhase, setSynthesisPhase] = useState<'ingestion' | 'alignment' | 'selection' | 'ready'>('ready');
+    const [telemetryTags, setTelemetryTags] = useState<string[]>([]);
 
     // Handshake Optimization: AbortController Ref
     const abortControllerRef = useRef<AbortController | null>(null);
@@ -183,10 +189,8 @@ export default function EnhancedGenerator({
         playClick(); // Sound Cue
         setErrorMsg('');
 
-        if (!user) {
-            setErrorMsg('Authentication required. Please Sign In to access this Strategic System.');
-            return;
-        }
+        // Auth check removed: allow generation for all visitors.
+        // The API route handles auth gracefully with a guest fallback.
 
         // EdIntel Access Check
         // We consider all specific specialized generators as "Advanced" for now, except maybe a basic one if we flagged it.
@@ -209,17 +213,50 @@ export default function EnhancedGenerator({
         setIsLoading(true);
         setSynthesisPhase('ingestion');
         setCompletion('');
+        setTelemetryTags([]);
 
-        // Simulate Neural Synthesis Cycle
-        setTimeout(() => !controller.signal.aborted && setSynthesisPhase('alignment'), 1500);
-        setTimeout(() => !controller.signal.aborted && setSynthesisPhase('selection'), 3500);
-        setTimeout(() => !controller.signal.aborted && setSynthesisPhase('ready'), 5500);
+        // Simulate Neural Synthesis Cycle with dynamic telemetry
+        const telemetryOptions = [
+            "Syncing with ALCOS Standard",
+            "Retrieving Virtual Vault Context",
+            "Verifying SB 216 Compliance",
+            "Analyzing MCPSS Growth Vector",
+            "Grounded in Science of Reading",
+            "Applying Executive Persona",
+            "Zero-waste logic optimized"
+        ];
+
+        const addTelemetry = (msg: string) => setTelemetryTags(prev => [...prev.slice(-2), msg]);
+
+        setTimeout(() => {
+            if (!controller.signal.aborted) {
+                setSynthesisPhase('alignment');
+                addTelemetry(telemetryOptions[0]);
+                addTelemetry(telemetryOptions[1]);
+            }
+        }, 1200);
+
+        setTimeout(() => {
+            if (!controller.signal.aborted) {
+                setSynthesisPhase('selection');
+                addTelemetry(telemetryOptions[2]);
+                addTelemetry(telemetryOptions[3]);
+            }
+        }, 2800);
+
+        setTimeout(() => {
+            if (!controller.signal.aborted) {
+                addTelemetry(telemetryOptions[4]);
+                addTelemetry(telemetryOptions[5]);
+            }
+        }, 4500);
 
         let fullResponse = '';
 
         try {
             const response = await fetch('/api/generate', {
                 method: 'POST',
+                credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     prompt: input,
@@ -243,7 +280,7 @@ Always expand with:
 
 Context:
 - Tool Name: ${generatorName}
-- User Role: ${user.tier} Executive`
+- User Role: ${user?.tier || 'Guest'} Executive`
                 }),
                 signal: controller.signal
             });
@@ -268,14 +305,18 @@ Context:
                     }
 
                     const text = decoder.decode(value);
-                    setCompletion(prev => prev + text);
-                    fullResponse += text; // Accumulate the full response
+                    if (text) {
+                        if (synthesisPhase !== 'ready') setSynthesisPhase('ready');
+                        setCompletion(prev => prev + text);
+                        fullResponse += text; // Accumulate the full response
+                    }
                 }
             }
 
             if (controller.signal.aborted) return;
 
             playSuccess(); // Completion Sound Cue
+            addAction(`${generatorName} Protocol Synthesized: ${input.substring(0, 30)}${input.length > 30 ? '...' : ''}`);
             saveToHistory(input, fullResponse); // Save to local history using actual input
 
             // --- LEADERSHIP SYNC PROTOCOL: PROFESSOR SYNTHESIS ---
@@ -441,7 +482,7 @@ Context:
                         alt="Background"
                         fill
                         priority
-                        className="object-cover scale-105 opacity-30 blur-[1px]"
+                        className="object-cover scale-105 opacity-30"
                     />
                 ) : (
                     <div className="w-full h-full bg-gradient-to-br from-noble-black via-zinc-950 to-indigo-950/20" />
@@ -508,9 +549,11 @@ Context:
                             </div>
                             <div className="space-y-4">
                                 <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
-                                    <h1 className="text-5xl md:text-6xl font-black tracking-tight text-white drop-shadow-2xl">
-                                        {generatorName}
-                                    </h1>
+                                    <SmartHover message={`Strategic Command: Use ${generatorName} to generate highly compliant, data-driven executive content aligned with Alabama state standards.`}>
+                                        <h1 className="text-5xl md:text-6xl font-black tracking-tight text-white drop-shadow-2xl">
+                                            {generatorName}
+                                        </h1>
+                                    </SmartHover>
                                 </div>
 
                                 <p className="text-zinc-400 text-lg font-medium max-w-2xl leading-relaxed">
@@ -695,8 +738,26 @@ Context:
                             <motion.div
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="relative"
+                                className="relative group"
                             >
+                                {/* Neural Telemetry Tags Overlay */}
+                                <div className="absolute -top-4 right-8 flex gap-2 z-20">
+                                    <AnimatePresence mode="popLayout">
+                                        {telemetryTags.map((tag, _i) => (
+                                            <motion.div
+                                                key={tag}
+                                                initial={{ opacity: 0, y: 10, scale: 0.8 }}
+                                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                exit={{ opacity: 0, scale: 0.8 }}
+                                                className="flex items-center gap-1.5 px-3 py-1.5 bg-black/80 backdrop-blur-xl border border-blue-500/30 rounded-full shadow-2xl"
+                                            >
+                                                <div className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+                                                <span className="text-[9px] font-black text-blue-100 uppercase tracking-widest">{tag}</span>
+                                            </motion.div>
+                                        ))}
+                                    </AnimatePresence>
+                                </div>
+
                                 <div className="absolute -inset-1 bg-gradient-to-b from-noble-gold/10 to-transparent rounded-[2.5rem] blur-2xl opacity-30" />
                                 <div className="relative glass-card-premium rounded-[2.5rem] border border-noble-gold/5 overflow-hidden">
                                     <div className="flex items-center justify-between px-10 py-6 border-b border-white/5 bg-white/[0.02]">
@@ -714,7 +775,7 @@ Context:
                                             <button onClick={handleCopy} className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
                                                 {copied ? <Check size={18} className="text-emerald-400" /> : <Copy size={18} />}
                                             </button>
-                                            <button onClick={handleDownload} className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
+                                            <button onClick={handleDownload} title="Download Protocol" className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
                                                 <Download size={18} />
                                             </button>
                                         </div>
@@ -728,8 +789,10 @@ Context:
                                             </div>
                                         ) : (
                                             <div className="prose prose-invert prose-xl max-w-none">
-                                                <div className="whitespace-pre-wrap font-sans text-zinc-200 leading-[1.8] text-lg drop-shadow-sm">
-                                                    {completion}
+                                                <div className="font-sans text-zinc-200 leading-[1.8] text-lg drop-shadow-sm edintel-markdown">
+                                                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                                        {completion}
+                                                    </ReactMarkdown>
                                                 </div>
                                                 <div ref={messagesEndRef} />
                                             </div>

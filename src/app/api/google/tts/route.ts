@@ -11,19 +11,41 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Text is required' }, { status: 400 });
         }
 
-        const client = new TextToSpeechClient();
+        // Initialize the Web-friendly Google Cloud TTS client with environment variables
+        const client = new TextToSpeechClient(
+            process.env.GOOGLE_CREDENTIALS_JSON
+                ? JSON.parse(process.env.GOOGLE_CREDENTIALS_JSON)
+                : (process.env.GOOGLE_CLIENT_EMAIL && process.env.GOOGLE_PRIVATE_KEY)
+                    ? {
+                        credentials: {
+                            client_email: process.env.GOOGLE_CLIENT_EMAIL,
+                            private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+                        },
+                        projectId: process.env.GOOGLE_PROJECT_ID,
+                    }
+                    : undefined // Fallback to ADC
+        );
 
         const request = {
             input: { text },
             voice: { languageCode: 'en-US', name: voiceName },
-            audioConfig: { audioEncoding: 'MP3' as any },
+            audioConfig: {
+                audioEncoding: 'MP3' as any,
+                speakingRate: 1.0,
+                pitch: 0,
+            },
+            enableTimePointing: ['VISEME' as any],
         };
 
         const [response] = await client.synthesizeSpeech(request as any) as any;
 
-        // Return audio content as base64
+        // Return audio content as base64 and viseme data
         return NextResponse.json({
             audioContent: response.audioContent.toString('base64'),
+            visemeData: response.timepoints?.map((tp: any) => ({
+                timeMs: tp.timepointsMs || 0,
+                value: tp.markName || ''
+            })) || [],
             message: 'Synthesis successful',
             source: 'Google Cloud Text-to-Speech'
         });

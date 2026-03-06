@@ -49,7 +49,7 @@ export default function EdIntelCore({ phase = 'ready', className = "" }: EdIntel
                                 <motion.path
                                     key={i}
                                     d={`M ${Math.random() * 100}% ${Math.random() * 100}% Q ${Math.random() * 100}% ${Math.random() * 100}%, ${Math.random() * 100}% ${Math.random() * 100}%`}
-                                    stroke="#3b82f6"
+                                    stroke="#00B0FF"
                                     strokeWidth="1.5"
                                     fill="none"
                                     initial={{ pathLength: 0, opacity: 0 }}
@@ -71,7 +71,7 @@ export default function EdIntelCore({ phase = 'ready', className = "" }: EdIntel
                         {[...Array(30)].map((_, i) => (
                             <motion.div
                                 key={`part-${i}`}
-                                className="absolute w-1 h-1 bg-blue-400 rounded-full blur-[2px]"
+                                className="absolute w-1 h-1 bg-electric-cyan rounded-full blur-[2px]"
                                 animate={{
                                     x: [Math.random() * 800 - 400, Math.random() * 800 - 400],
                                     y: [Math.random() * 800 - 400, Math.random() * 800 - 400],
@@ -100,7 +100,7 @@ export default function EdIntelCore({ phase = 'ready', className = "" }: EdIntel
                                 initial={{ scale: 0, opacity: 0 }}
                                 animate={{ scale: [1, 5], opacity: [0.8, 0] }}
                                 transition={{ duration: 2, ease: "easeOut" }}
-                                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-noble-gold blur-3xl -z-10"
+                                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-sovereign-gold blur-3xl -z-10"
                             />
                         )}
 
@@ -110,7 +110,7 @@ export default function EdIntelCore({ phase = 'ready', className = "" }: EdIntel
                             {[...Array(3)].map((_, i) => (
                                 <motion.div
                                     key={i}
-                                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-noble-gold/30"
+                                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-sovereign-gold/30"
                                     style={{
                                         width: `${300 + i * 100}px`,
                                         height: `${300 + i * 100}px`,
@@ -136,11 +136,11 @@ export default function EdIntelCore({ phase = 'ready', className = "" }: EdIntel
                             >
                                 <div className="relative w-48 h-48 group">
                                     {/* Metallic Shield Background */}
-                                    <div className="absolute inset-0 bg-gradient-to-br from-zinc-800 via-zinc-700 to-zinc-900 rounded-2xl transform rotate-45 shadow-2xl border-4 border-noble-gold flex items-center justify-center">
-                                        <div className="absolute inset-2 bg-gradient-to-br from-noble-gold/20 to-transparent rounded-xl" />
+                                    <div className="absolute inset-0 bg-gradient-to-br from-zinc-800 via-zinc-700 to-zinc-900 rounded-2xl transform rotate-45 shadow-2xl border-4 border-sovereign-gold flex items-center justify-center">
+                                        <div className="absolute inset-2 bg-gradient-to-br from-sovereign-gold/20 to-transparent rounded-xl" />
                                         {/* "A" Icon - EdIntel Logo */}
                                         <div className="transform -rotate-45">
-                                            <Shield className="w-24 h-24 text-noble-gold drop-shadow-[0_0_20px_rgba(212,175,55,0.8)]" />
+                                            <Shield className="w-24 h-24 text-sovereign-gold drop-shadow-[0_0_20px_rgba(255,179,0,0.8)]" />
                                         </div>
                                     </div>
                                 </div>
@@ -149,7 +149,7 @@ export default function EdIntelCore({ phase = 'ready', className = "" }: EdIntel
                                 {[...Array(12)].map((_, i) => (
                                     <motion.div
                                         key={i}
-                                        className="absolute w-2 h-2 bg-noble-gold rounded-full"
+                                        className="absolute w-2 h-2 bg-sovereign-gold rounded-full"
                                         animate={{
                                             x: [0, Math.cos(i * 30 * Math.PI / 180) * 120],
                                             y: [0, Math.sin(i * 30 * Math.PI / 180) * 120],
@@ -169,7 +169,7 @@ export default function EdIntelCore({ phase = 'ready', className = "" }: EdIntel
                             {/* Data Flow Indicators */}
                             <div className="absolute -bottom-40 left-1/2 -translate-x-1/2 flex gap-12">
                                 {[
-                                    { icon: Brain, label: 'Neural Core', color: 'text-noble-gold' },
+                                    { icon: Brain, label: 'Neural Core', color: 'text-sovereign-gold' },
                                     { icon: Lock, label: 'Quantum Security', color: 'text-amber-500' },
                                     { icon: Network, label: 'Omni-Channel', color: 'text-emerald-500' }
                                 ].map((item, i) => (
@@ -201,8 +201,8 @@ export default function EdIntelCore({ phase = 'ready', className = "" }: EdIntel
 
             {/* Ambient Lighting */}
             <div className="absolute inset-0 pointer-events-none -z-20">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-noble-gold/5 rounded-full blur-[120px]" />
-                <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[100px]" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-sovereign-gold/5 rounded-full blur-[120px]" />
+                <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-electric-cyan/5 rounded-full blur-[100px]" />
             </div>
         </div>
     );

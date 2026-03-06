@@ -50,10 +50,10 @@ export default function PricingMatrix() {
                             key={tier.id}
                             whileHover={{ y: -5 }}
                             className={`relative p-0.5 rounded-[2rem] transition-all duration-500 ${tier.name === 'Site Command'
-                                    ? 'ring-2 ring-accent shadow-[0_0_30px_rgba(112,0,255,0.3)]'
-                                    : isRobust && tier.price >= 79
-                                        ? 'ring-2 ring-amber-500 shadow-[0_0_30px_rgba(245,158,11,0.3)]'
-                                        : ''
+                                ? 'ring-2 ring-accent shadow-[0_0_30px_rgba(112,0,255,0.3)]'
+                                : isRobust && tier.price >= 79
+                                    ? 'ring-2 ring-amber-500 shadow-[0_0_30px_rgba(245,158,11,0.3)]'
+                                    : ''
                                 }`}
                         >
                             <div className={`relative h-full rounded-[1.9rem] p-6 flex flex-col glass-panel overflow-hidden group`}>
@@ -105,7 +105,8 @@ export default function PricingMatrix() {
                                     onClick={() => {
                                         if (tier.stripeLink && tier.stripeLink.startsWith('http')) {
                                             const separator = tier.stripeLink.includes('?') ? '&' : '?';
-                                            window.location.href = `${tier.stripeLink}${separator}client_reference_id=${user?.id}`;
+                                            const referenceId = user?.id ? `${separator}client_reference_id=${user.id}` : '';
+                                            window.location.href = `${tier.stripeLink}${referenceId}`;
                                             return;
                                         }
 

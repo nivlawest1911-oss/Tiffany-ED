@@ -1,7 +1,9 @@
+// @ts-expect-error deno-imports
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
+// @ts-expect-error deno-imports
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
-serve(async (req) => {
+serve(async (_req: Request) => {
     const supabase = createClient(
         Deno.env.get('SUPABASE_URL')!,
         Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!

@@ -23,10 +23,10 @@ export default function LiquidDock() {
     const [isOpen, setIsOpen] = React.useState(false);
 
     const navItems = [
-        { name: 'Command Center', href: '/dashboard', icon: LayoutDashboard },
-        { name: 'Agent Studio', href: '/dashboard/agents', icon: Bot },
+        { name: 'Sovereign Room', href: '/the-room', icon: LayoutDashboard },
+        { name: 'Protocol Registry', href: '/generators', icon: Bot },
         { name: 'Visual Lab', href: '/video-studio', icon: Palette },
-        { name: 'Admin Shield', href: '/dashboard/admin', icon: Shield },
+        { name: 'Admin Shield', href: '/admin', icon: Shield },
         { name: 'Settings', href: '/settings', icon: Settings },
     ];
 

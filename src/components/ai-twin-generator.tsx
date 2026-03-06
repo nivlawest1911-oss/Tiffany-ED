@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Upload, Mic, Video, Check, Zap, Fingerprint } from 'lucide-react';
 import Image from 'next/image';
@@ -8,15 +8,56 @@ import Image from 'next/image';
 export default function AITwinGenerator() {
     const [step, setStep] = useState(1);
     const [role, setRole] = useState('Superintendent');
-    const [isProcessing, setIsProcessing] = useState(false);
+    const [uploads, setUploads] = useState<{ photo: File | null; voice: File | null; video: File | null }>({ photo: null, voice: null, video: null });
 
-    const handleGenerate = () => {
-        setIsProcessing(true);
-        setTimeout(() => {
-            setIsProcessing(false);
-            setStep(3);
-        }, 3000);
+    // Handle file selection
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, type: 'photo' | 'voice' | 'video') => {
+        const file = e.target.files?.[0];
+        if (file) {
+            setUploads(prev => ({ ...prev, [type]: file }));
+        }
     };
+
+    // Real async processing to hit the cloning endpoint
+    useEffect(() => {
+        if (step === 2) {
+            let isMounted = true;
+
+            const generateClone = async () => {
+                try {
+                    const formData = new FormData();
+                    formData.append('role', role);
+                    if (uploads.photo) formData.append('photo', uploads.photo);
+                    if (uploads.voice) formData.append('voice', uploads.voice);
+                    if (uploads.video) formData.append('video', uploads.video);
+
+                    const res = await fetch('/api/ai/clone-twin', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (!res.ok) {
+                        const err = await res.json();
+                        throw new Error(err.error || 'Failed to generate clone');
+                    }
+
+                    if (isMounted) {
+                        setStep(3);
+                    }
+                } catch (error) {
+                    console.error('Cloning error:', error);
+                    if (isMounted) {
+                        setStep(1); // revert back to step 1 on failure
+                        alert('Cloning failed. Please check your uploads and try again.');
+                    }
+                }
+            };
+
+            generateClone();
+
+            return () => { isMounted = false; };
+        }
+    }, [step, role, uploads]);
 
     return (
         <section className="py-24 relative overflow-hidden">
@@ -71,24 +112,27 @@ export default function AITwinGenerator() {
                                 <div className="space-y-4">
                                     <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider block">2. Upload Biometrics</label>
                                     <div className="grid grid-cols-3 gap-4">
-                                        <button className="flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border border-dashed border-zinc-700 hover:border-indigo-500 hover:bg-indigo-500/5 transition-all group">
-                                            <div className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center group-hover:bg-indigo-500 group-hover:text-white transition-colors">
-                                                <Upload size={18} />
+                                        <label className={`flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border border-dashed transition-all cursor-pointer ${uploads.photo ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-700 hover:border-indigo-500 hover:bg-indigo-500/5 group'}`}>
+                                            <input type="file" className="hidden" accept="image/*" onChange={(e) => handleFileChange(e, 'photo')} />
+                                            <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${uploads.photo ? 'bg-emerald-500 text-white' : 'bg-zinc-800 group-hover:bg-indigo-500 group-hover:text-white'}`}>
+                                                {uploads.photo ? <Check size={18} /> : <Upload size={18} />}
                                             </div>
-                                            <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Photo</span>
-                                        </button>
-                                        <button className="flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border border-dashed border-zinc-700 hover:border-indigo-500 hover:bg-indigo-500/5 transition-all group">
-                                            <div className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center group-hover:bg-indigo-500 group-hover:text-white transition-colors">
-                                                <Mic size={18} />
+                                            <span className={`text-[10px] font-bold uppercase tracking-widest ${uploads.photo ? 'text-emerald-400' : 'text-zinc-500'}`}>Photo {uploads.photo && '✓'}</span>
+                                        </label>
+                                        <label className={`flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border border-dashed transition-all cursor-pointer ${uploads.voice ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-700 hover:border-indigo-500 hover:bg-indigo-500/5 group'}`}>
+                                            <input type="file" className="hidden" accept="audio/*" onChange={(e) => handleFileChange(e, 'voice')} />
+                                            <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${uploads.voice ? 'bg-emerald-500 text-white' : 'bg-zinc-800 group-hover:bg-indigo-500 group-hover:text-white'}`}>
+                                                {uploads.voice ? <Check size={18} /> : <Mic size={18} />}
                                             </div>
-                                            <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Voice</span>
-                                        </button>
-                                        <button className="flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border border-dashed border-zinc-700 hover:border-indigo-500 hover:bg-indigo-500/5 transition-all group">
-                                            <div className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center group-hover:bg-indigo-500 group-hover:text-white transition-colors">
-                                                <Video size={18} />
+                                            <span className={`text-[10px] font-bold uppercase tracking-widest ${uploads.voice ? 'text-emerald-400' : 'text-zinc-500'}`}>Voice {uploads.voice && '✓'}</span>
+                                        </label>
+                                        <label className={`flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border border-dashed transition-all cursor-pointer ${uploads.video ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-700 hover:border-indigo-500 hover:bg-indigo-500/5 group'}`}>
+                                            <input type="file" className="hidden" accept="video/*" onChange={(e) => handleFileChange(e, 'video')} />
+                                            <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${uploads.video ? 'bg-emerald-500 text-white' : 'bg-zinc-800 group-hover:bg-indigo-500 group-hover:text-white'}`}>
+                                                {uploads.video ? <Check size={18} /> : <Video size={18} />}
                                             </div>
-                                            <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Video</span>
-                                        </button>
+                                            <span className={`text-[10px] font-bold uppercase tracking-widest ${uploads.video ? 'text-emerald-400' : 'text-zinc-500'}`}>Video {uploads.video && '✓'}</span>
+                                        </label>
                                     </div>
                                 </div>
 
@@ -128,9 +172,7 @@ export default function AITwinGenerator() {
                                         <div className="bg-zinc-900 p-3 rounded text-xs font-mono text-zinc-400">Face Map: <span className="text-emerald-400">100%</span></div>
                                     </div>
                                 </div>
-                                {!isProcessing && (
-                                    <button onClick={handleGenerate} className="hidden" ref={(el) => { if (el && !isProcessing) setTimeout(handleGenerate, 100); }}></button>
-                                )}
+                                {/* Processing is now handled entirely by useEffect up top to avoid unmounting issues */}
                             </motion.div>
                         )}
 

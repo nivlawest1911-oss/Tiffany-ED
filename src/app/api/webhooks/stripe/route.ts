@@ -2,12 +2,19 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { prisma } from '@/lib/prisma';
+import crypto from 'crypto';
 
-// Initialize the Stripe client strictly
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-    apiVersion: '2023-10-16', // Always lock your Stripe API version to prevent unrequested changes
-    typescript: true,
-});
+// Lazily initialize the Stripe client to avoid build-time crashes
+// when STRIPE_SECRET_KEY is not available during static page collection.
+function getStripe() {
+    if (!process.env.STRIPE_SECRET_KEY) {
+        throw new Error('STRIPE_SECRET_KEY is not configured');
+    }
+    return new Stripe(process.env.STRIPE_SECRET_KEY, {
+        apiVersion: '2025-12-15.clover' as any,
+        typescript: true,
+    });
+}
 
 export async function POST(req: Request) {
     const body = await req.text();
@@ -17,6 +24,7 @@ export async function POST(req: Request) {
 
     try {
         // 1. Verify the message is actually from Stripe and not a malicious bot
+        const stripe = getStripe();
         event = stripe.webhooks.constructEvent(
             body,
             signature,
@@ -43,19 +51,34 @@ export async function POST(req: Request) {
             });
 
             if (tier) {
+                // Determine initial tokens based on the 6 tiers
+                let initialTokens = 50; // default for Standard Pack or Initiate
+                if (tier.name === 'Site Command') initialTokens = 10000;
+                else if (tier.name === 'Director Pack') initialTokens = 5000;
+                else if (tier.name === 'Practitioner') initialTokens = 3000;
+                else if (tier.name === 'Sovereign Pack') initialTokens = 1500;
+
+                // Create a fallback clerkId in case user doesn't exist yet via standard auth
+                const fallbackClerkId = `stripe_pending_${crypto.randomUUID()}`;
+
                 // 4. Safely create or update the user in Prisma
                 await prisma.user.upsert({
                     where: { email: customerEmail },
                     update: {
                         tierId: tier.id,
+                        subscriptionTier: tier.name, // Sync the tier name for useAccess
                         isActive: true, // Reactivate if they were inactive
-                        // You can optionally reset or add tokens upon subscription start
+                        usageTokens: {
+                            increment: initialTokens // Grant tokens upon subscription/upgrade
+                        }
                     },
                     create: {
                         email: customerEmail,
+                        clerkId: fallbackClerkId,
                         name: session.customer_details?.name || 'Authorized Personnel',
                         tierId: tier.id,
-                        usageTokens: 50, // Initialize their token economy securely
+                        subscriptionTier: tier.name, // Sync the tier name
+                        usageTokens: initialTokens,  // Initialize mapped tokens
                         isActive: true,
                     }
                 });

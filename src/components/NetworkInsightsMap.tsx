@@ -224,7 +224,7 @@ function AtlasCard({ layout, title, subtitle, type, metric, status, value, icon:
     const isGrid = layout === 'grid';
     const accentColor = color === 'indigo' ? 'text-indigo-400' : 'text-emerald-400';
     const bgColor = color === 'indigo' ? 'bg-indigo-500/10' : 'bg-emerald-500/10';
-    const borderColor = color === 'indigo' ? 'border-indigo-500/20' : 'border-emerald-500/20';
+    const _borderColor = color === 'indigo' ? 'border-indigo-500/20' : 'border-emerald-500/20';
     const hoverBorder = color === 'indigo' ? 'hover:border-indigo-500/40' : 'hover:border-emerald-500/40';
 
     if (!isGrid) {
