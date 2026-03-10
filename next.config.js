@@ -73,6 +73,15 @@ const nextConfig = {
 
         return config;
     },
+    async redirects() {
+        return [
+            {
+                source: '/dashboard',
+                destination: '/the-room',
+                permanent: true,
+            },
+        ];
+    },
 };
 
 module.exports = nextConfig;
