@@ -59,7 +59,7 @@ export default function RosterPage() {
     }
 
     return (
-        <div className="relative min-h-screen p-8 lg:p-12 overflow-hidden flex flex-col">
+        <div className="relative flex flex-col">
             {/* Background Narrative */}
             <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
                 <span className="text-[12rem] font-black uppercase tracking-tighter leading-none select-none">

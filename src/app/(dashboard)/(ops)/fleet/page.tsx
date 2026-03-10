@@ -9,7 +9,7 @@ import { RegionalIntelligenceFeed } from '@/components/fleet/RegionalIntelligenc
 
 export default function FleetPage() {
     return (
-        <div className="relative min-h-screen p-8 lg:p-12 overflow-hidden flex flex-col font-inter text-slate-200">
+        <div className="relative flex flex-col font-inter text-slate-200">
             <HolographicBackground />
 
             {/* Header / Hero */}
