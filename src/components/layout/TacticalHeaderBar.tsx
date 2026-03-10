@@ -69,7 +69,22 @@ export const TacticalHeaderBar = () => {
                     </div>
                 </div>
 
+                <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">
+                        <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
+                        <span className="text-[9px] font-black uppercase tracking-widest text-emerald-500">Cloud Sync</span>
+                    </div>
+                </div>
+
                 <div className="w-px h-6 bg-white/10" />
+
+                <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-noble-gold/10 border border-noble-gold/20">
+                        <div className="h-1.5 w-1.5 rounded-full bg-noble-gold animate-pulse shadow-[0_0_10px_rgba(212,175,55,1)]" />
+                        <span className="text-[9px] font-black uppercase tracking-widest text-noble-gold">Zenith Absolute</span>
+                    </div>
+                </div>
+
 
                 {/* HEARTBEAT / NEURAL LINK */}
                 <div className={cn(

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Zap, Shield, Share2, Activity } from 'lucide-react';
 import { GlassCard } from '@/components/ui/Cinematic';
-import { ProfileShareModal } from '@/components/modals/ProfileShareModal';
+import ProfileShareModal from '@/components/modals/ProfileShareModal';
 
 const MOCK_INTEL_ALERTS = [
     {
@@ -101,7 +101,8 @@ export function RegionalIntelligenceFeed() {
                 isOpen={shareModal.isOpen}
                 onClose={() => setShareModal({ ...shareModal, isOpen: false })}
                 context="SIGNAL"
-                id={shareModal.id}
+                userName="EdIntel Delegate"
+                userId={shareModal.id}
             />
         </div>
     );

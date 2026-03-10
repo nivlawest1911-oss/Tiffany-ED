@@ -120,7 +120,7 @@ export default function WellnessPage() {
 
     return (
         <WellnessWrapper isWellnessMode={isConnected}>
-            <div className="min-h-screen text-white p-6 md:p-12 space-y-12 pb-32">
+            <div className="text-white space-y-12">
                 {/* Header Section */}
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-12">
                     <div className="space-y-4 text-left">

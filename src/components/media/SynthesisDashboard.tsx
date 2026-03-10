@@ -12,7 +12,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { MediaSynthesisEngine, MediaArtifact, MediaType } from '@/lib/MediaSynthesisEngine';
 import { GlassCard } from '@/components/ui/Cinematic';
 
-import { ProfileShareModal } from '@/components/modals/ProfileShareModal';
+import ProfileShareModal from '@/components/modals/ProfileShareModal';
 import { Loader2, Radio, Mic, CheckCircle2, Share2, Play } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -170,7 +170,8 @@ export const SynthesisDashboard: React.FC = () => {
                 isOpen={shareModal.isOpen}
                 onClose={() => setShareModal({ ...shareModal, isOpen: false })}
                 context="MEDIA"
-                id={shareModal.id}
+                userName="EdIntel Delegate"
+                userId={shareModal.id}
             />
         </div>
     );
