@@ -17,7 +17,7 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
     {
-        ignores: [".next/**", "node_modules/**", "dist/**", "src/generated/**", "src/App.jsx", "src/main.jsx", "vite.config.js", "cloud/**", "scripts/**", "original_delegate.tsx"],
+        ignores: [".next/**", "node_modules/**", "dist/**", "src/generated/**", "src/App.jsx", "src/main.jsx", "vite.config.js", "cloud/**", "scripts/**", "original_delegate.tsx", "next-env.d.ts"],
     },
     ...compat.extends("next/core-web-vitals"),
     // ...compat.extends("plugin:@typescript-eslint/recommended"),

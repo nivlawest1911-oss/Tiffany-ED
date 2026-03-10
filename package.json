@@ -10,7 +10,7 @@
         "prebuild": "echo clean",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint",
+        "lint": "eslint .",
         "director": "npx tsx src/scripts/director-agent.ts",
         "setup": "node scripts/setup.js",
         "db:generate": "prisma generate",

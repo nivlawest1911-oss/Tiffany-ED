@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Zap, Shield, Share2, Activity, ExternalLink } from 'lucide-react';
+import { Zap, Shield, Share2, Activity } from 'lucide-react';
 import { GlassCard } from '@/components/ui/Cinematic';
 import { ProfileShareModal } from '@/components/modals/ProfileShareModal';
 

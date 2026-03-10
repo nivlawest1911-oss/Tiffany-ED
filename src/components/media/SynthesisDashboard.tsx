@@ -11,8 +11,9 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MediaSynthesisEngine, MediaArtifact, MediaType } from '@/lib/MediaSynthesisEngine';
 import { GlassCard } from '@/components/ui/Cinematic';
-import { ShareService } from '@/lib/ShareService';
+
 import { ProfileShareModal } from '@/components/modals/ProfileShareModal';
+import { Loader2, Radio, Mic, CheckCircle2, Share2, Play } from 'lucide-react';
 import { toast } from 'sonner';
 
 export const SynthesisDashboard: React.FC = () => {
