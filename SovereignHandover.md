@@ -1,3 +1,7 @@
+<p alignCenter>
+  <img src="./public/logo.png" alt="EdIntel Sovereign Zenith Logo" width="180" />
+</p>
+
 # Sovereign Handover Executive Summary
 
 ## System Architecture: Sovereign Zenith
