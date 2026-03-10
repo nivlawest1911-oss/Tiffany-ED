@@ -7,7 +7,6 @@ import { useState, MouseEvent } from 'react';
 interface EdIntelSovereignLogoProps {
     className?: string;
     size?: number;
-    showText?: boolean;
 }
 
 /**
@@ -16,8 +15,7 @@ interface EdIntelSovereignLogoProps {
  */
 export default function EdIntelSovereignLogo({
     className = "",
-    size = 120,
-    showText = true
+    size = 120
 }: EdIntelSovereignLogoProps) {
     const [isHovered, setIsHovered] = useState(false);
 
@@ -71,15 +69,15 @@ export default function EdIntelSovereignLogo({
                 />
 
                 {/* Primary Logo Image */}
-                <div className="relative z-10 bg-white p-4 rounded-[40px] shadow-[0_0_30px_rgba(255,255,255,0.15)] ring-1 ring-white/20">
+                <div className="relative z-10 rounded-[40px] overflow-hidden shadow-[0_0_30px_rgba(255,179,0,0.25)] ring-1 ring-noble-gold/30">
                     <Image
-                        src="/assets/images/Edintellogo.png"
+                        src="/logo-main.png"
                         alt="EdIntel Logo"
                         width={size}
                         height={size}
-                        className="drop-shadow-[0_0_15px_rgba(212,175,55,0.3)] filter contrast-125 mix-blend-multiply"
+                        className="object-contain"
                         priority
-                        quality={85}
+                        quality={100}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
 
@@ -118,21 +116,7 @@ export default function EdIntelSovereignLogo({
                 </div>
             </motion.div>
 
-            {showText && (
-                <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex flex-col items-center leading-none mt-2"
-                >
-                    <span className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400 tracking-[0.35em] uppercase mb-2">
-                        EdIntel
-                    </span>
-                    <div className="h-[2px] w-48 bg-gradient-to-r from-transparent via-noble-gold to-transparent mb-2 opacity-80" />
-                    <span className="text-xs font-black text-noble-gold uppercase tracking-[0.6em]">
-                        EdIntel Intelligence
-                    </span>
-                </motion.div>
-            )}
+            {/* Text disabled - Logo image now contains full branding */}
         </div>
     );
 }

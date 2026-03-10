@@ -170,13 +170,13 @@ export default function EdIntelLogo({
                         animate={{ opacity: isHovered ? 0.6 : 0.3, scale: isHovered ? 1.2 : 1 }}
                         className="absolute inset-0 bg-noble-gold/20 blur-2xl rounded-full"
                     />
-                    <div className="relative z-10 bg-white p-4 rounded-3xl shadow-[0_0_30px_rgba(255,255,255,0.15)] ring-1 ring-white/20">
+                    <div className="relative z-10 rounded-3xl overflow-hidden shadow-[0_0_30px_rgba(255,179,0,0.25)] ring-1 ring-noble-gold/30">
                         <Image
-                            src={isSovereign ? "/images/branding/edintel_logo_sovereign.png" : "/assets/images/Edintellogo.png"}
+                            src="/logo-main.png"
                             alt="EdIntel Logo"
                             width={size || 120}
                             height={size || 120}
-                            className="drop-shadow-[0_0_15px_rgba(212,175,55,0.3)] filter contrast-125 mix-blend-multiply"
+                            className="object-contain"
                             priority
                         />
                         <motion.div
