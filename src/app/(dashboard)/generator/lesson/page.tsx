@@ -13,6 +13,7 @@ import {
     ArrowRight,
     FileText
 } from "lucide-react";
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { toast } from 'sonner';
@@ -24,10 +25,12 @@ import { useIntelligence } from '@/context/IntelligenceContext';
 
 export default function LessonGeneratorPage() {
     const [topic, setTopic] = useState("");
-    const [subject, setSubject] = useState("STEM");
-    const [gradeLevel, setGradeLevel] = useState("Middle School");
+    const [subject, setSubject] = useState("Mathematics");
+    const [gradeLevel, setGradeLevel] = useState("8th Grade");
     const [standards, setStandards] = useState("");
     const [duration] = useState("60 Minutes");
+    const [includePresentation, setIncludePresentation] = useState(true);
+    const [includeProblems, setIncludeProblems] = useState(true);
     const [isGenerating, setIsGenerating] = useState(false);
     const [isGeneratingImage, setIsGeneratingImage] = useState(false);
     const [generatedPlan, setGeneratedPlan] = useState<string | null>(null);
@@ -55,6 +58,8 @@ export default function LessonGeneratorPage() {
                     gradeLevel,
                     standards,
                     duration,
+                    includePresentation,
+                    includeProblems,
                     stressLevel: lastData?.stressLevel
                 })
             });
@@ -170,11 +175,13 @@ export default function LessonGeneratorPage() {
                                             onChange={(e) => setSubject(e.target.value)}
                                             className="w-full bg-zinc-950 border border-white/5 rounded-xl p-3 text-white text-xs focus:ring-1 focus:ring-purple-500 outline-none"
                                         >
+                                            <option>Mathematics</option>
+                                            <option>Reading & Literacy</option>
                                             <option>STEM</option>
-                                            <option>Literacy</option>
                                             <option>Social Studies</option>
                                             <option>Arts</option>
                                             <option>Special Ed</option>
+                                            <option>Physical Education</option>
                                         </select>
                                     </div>
                                     <div className="space-y-2">
@@ -187,9 +194,19 @@ export default function LessonGeneratorPage() {
                                             onChange={(e) => setGradeLevel(e.target.value)}
                                             className="w-full bg-zinc-950 border border-white/5 rounded-xl p-3 text-white text-xs focus:ring-1 focus:ring-purple-500 outline-none"
                                         >
-                                            <option>Elementary</option>
-                                            <option>Middle School</option>
-                                            <option>High School</option>
+                                            <option>Kindergarten</option>
+                                            <option>1st Grade</option>
+                                            <option>2nd Grade</option>
+                                            <option>3rd Grade</option>
+                                            <option>4th Grade</option>
+                                            <option>5th Grade</option>
+                                            <option>6th Grade</option>
+                                            <option>7th Grade</option>
+                                            <option>8th Grade</option>
+                                            <option>9th Grade</option>
+                                            <option>10th Grade</option>
+                                            <option>11th Grade</option>
+                                            <option>12th Grade</option>
                                             <option>Higher Ed</option>
                                         </select>
                                     </div>
@@ -205,6 +222,48 @@ export default function LessonGeneratorPage() {
                                         onChange={(e) => setStandards(e.target.value)}
                                         className="w-full bg-zinc-950 border border-white/5 rounded-xl p-3 text-white text-xs focus:ring-1 focus:ring-purple-500 outline-none min-h-[80px]"
                                     />
+                                </div>
+
+                                <div className="space-y-3 pt-2">
+                                    <div className="flex items-center justify-between p-3 bg-white/5 rounded-xl border border-white/5">
+                                        <div className="flex items-center gap-3">
+                                            <Zap className="w-4 h-4 text-purple-400" />
+                                            <div>
+                                                <div className="text-[10px] font-black text-white uppercase tracking-widest">Presentation Script</div>
+                                                <div className="text-[8px] text-zinc-500 uppercase font-bold tracking-tighter">High Energy "Verse" Protocol</div>
+                                            </div>
+                                        </div>
+                                        <button
+                                            title="Toggle Presentation Script"
+                                            onClick={() => setIncludePresentation(!includePresentation)}
+                                            className={`w-10 h-5 rounded-full transition-all relative ${includePresentation ? 'bg-purple-600' : 'bg-zinc-800'}`}
+                                        >
+                                            <motion.div
+                                                animate={{ x: includePresentation ? 22 : 2 }}
+                                                className="absolute top-1 w-3 h-3 bg-white rounded-full"
+                                            />
+                                        </button>
+                                    </div>
+
+                                    <div className="flex items-center justify-between p-3 bg-white/5 rounded-xl border border-white/5">
+                                        <div className="flex items-center gap-3">
+                                            <Target className="w-4 h-4 text-cyan-400" />
+                                            <div>
+                                                <div className="text-[10px] font-black text-white uppercase tracking-widest">Practice Problems</div>
+                                                <div className="text-[8px] text-zinc-500 uppercase font-bold tracking-tighter">5 Problems + Solved Solutions</div>
+                                            </div>
+                                        </div>
+                                        <button
+                                            title="Toggle Practice Problems"
+                                            onClick={() => setIncludeProblems(!includeProblems)}
+                                            className={`w-10 h-5 rounded-full transition-all relative ${includeProblems ? 'bg-cyan-600' : 'bg-zinc-800'}`}
+                                        >
+                                            <motion.div
+                                                animate={{ x: includeProblems ? 22 : 2 }}
+                                                className="absolute top-1 w-3 h-3 bg-white rounded-full"
+                                            />
+                                        </button>
+                                    </div>
                                 </div>
 
                                 <div className="flex items-center gap-2 p-3 bg-cyan-500/5 rounded-xl border border-cyan-500/10">
@@ -262,10 +321,24 @@ export default function LessonGeneratorPage() {
                                     <CardTitle className="text-white text-sm uppercase tracking-widest">Strategic Output</CardTitle>
                                 </div>
                                 <div className="flex gap-2">
-                                    <Button size="icon" variant="ghost" className="text-zinc-500 hover:text-white">
+                                    <Button 
+                                        size="icon" 
+                                        variant="ghost" 
+                                        className="text-zinc-500 hover:text-white"
+                                        onClick={() => toast.info("Exporting Lesson Protocol...")}
+                                        aria-label="Download Lesson Plan"
+                                        title="Download Plan"
+                                    >
                                         <Download className="w-4 h-4" />
                                     </Button>
-                                    <Button size="icon" variant="ghost" className="text-zinc-500 hover:text-white">
+                                    <Button 
+                                        size="icon" 
+                                        variant="ghost" 
+                                        className="text-zinc-500 hover:text-white"
+                                        onClick={() => toast.info("Preparing classroom environment...")}
+                                        aria-label="Continue to Classroom"
+                                        title="Continue to Classroom"
+                                    >
                                         <ArrowRight className="w-4 h-4" />
                                     </Button>
                                 </div>
@@ -285,12 +358,13 @@ export default function LessonGeneratorPage() {
                                                     animate={{ opacity: 1, scale: 1 }}
                                                     className="relative aspect-video rounded-2xl overflow-hidden border border-white/10 mb-8"
                                                 >
-                                                    <img
+                                                    <Image
                                                         src={lessonImage}
                                                         alt="Lesson Visual"
-                                                        className="w-full h-full object-cover"
+                                                        fill
+                                                        className="object-cover"
                                                     />
-                                                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 p-4">
+                                                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 p-4 z-10">
                                                         <span className="text-[10px] font-black text-cyan-400 uppercase tracking-widest">
                                                             Visual Asset: Neural Rendering
                                                         </span>
@@ -327,10 +401,62 @@ export default function LessonGeneratorPage() {
                                             </div>
 
                                             {isGenerating && (
-                                                <div className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center">
-                                                    <div className="text-center space-y-4">
-                                                        <div className="w-12 h-12 border-4 border-purple-500/20 border-t-purple-500 rounded-full animate-spin mx-auto" />
-                                                        <p className="text-purple-400 font-bold uppercase tracking-tighter animate-pulse">Establishing Neural Link...</p>
+                                                <div className="absolute inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50">
+                                                    <div className="text-center space-y-8 max-w-md px-6">
+                                                        <div className="relative">
+                                                            <div className="w-24 h-24 border-2 border-purple-500/20 border-t-purple-500 rounded-full animate-spin mx-auto" />
+                                                            <motion.div
+                                                                animate={{
+                                                                    scale: [1, 1.2, 1],
+                                                                    opacity: [0.3, 0.7, 0.3]
+                                                                }}
+                                                                transition={{ duration: 2, repeat: Infinity }}
+                                                                className="absolute inset-0 bg-purple-500/10 blur-2xl rounded-full"
+                                                            />
+                                                        </div>
+
+                                                        <div className="space-y-4">
+                                                            <motion.p
+                                                                initial={{ opacity: 0 }}
+                                                                animate={{ opacity: 1 }}
+                                                                className="text-purple-400 font-black uppercase tracking-[0.3em] text-xs"
+                                                            >
+                                                                Neural Link Established
+                                                            </motion.p>
+
+                                                            <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+                                                                <motion.div
+                                                                    initial={{ width: "0%" }}
+                                                                    animate={{ width: "100%" }}
+                                                                    transition={{ duration: 25, ease: "linear" }}
+                                                                    className="h-full bg-gradient-to-r from-purple-600 via-cyan-500 to-purple-600"
+                                                                />
+                                                            </div>
+
+                                                            <div className="grid grid-cols-2 gap-4 pt-4">
+                                                                {[
+                                                                    { label: "Depth", val: "Quantum" },
+                                                                    { label: "Rigor", val: "Maximum" },
+                                                                    { label: "SOR", val: "Aligned" },
+                                                                    { label: "ALCOS", val: "Verified" }
+                                                                ].map((metric, idx) => (
+                                                                    <motion.div
+                                                                        key={idx}
+                                                                        initial={{ opacity: 0, y: 10 }}
+                                                                        animate={{ opacity: 1, y: 0 }}
+                                                                        transition={{ delay: idx * 0.2 }}
+                                                                        className="p-2 rounded-lg bg-white/5 border border-white/10"
+                                                                    >
+                                                                        <div className="text-[8px] text-zinc-500 uppercase font-black">{metric.label}</div>
+                                                                        <div className="text-[10px] text-white font-mono">{metric.val}</div>
+                                                                    </motion.div>
+                                                                ))}
+                                                            </div>
+
+                                                            <p className="text-[10px] text-zinc-500 font-mono animate-pulse">
+                                                                Scaling intelligence nodes for optimal instructional architecture...
+                                                            </p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             )}

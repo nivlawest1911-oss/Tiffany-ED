@@ -15,7 +15,7 @@ async function testTTS() {
         });
 
         console.log('--- TEST START ---');
-        const [response] = await client.synthesizeSpeech({
+        const [_response] = await client.synthesizeSpeech({
             input: { text: 'Test' },
             voice: { languageCode: 'en-US', ssmlGender: 'NEUTRAL' },
             audioConfig: { audioEncoding: 'MP3' },

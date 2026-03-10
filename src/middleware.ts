@@ -18,11 +18,30 @@ export async function middleware(request: NextRequest) {
         "/wellness",
         "/excursions",
         "/the-room",
-        "/onboarding"
+        "/onboarding",
+        "/api" // Protect all API routes by default
+    ];
+
+    const publicApiRoutes = [
+        "/api/auth",
+        "/api/webhooks",
+        "/api/status",
+        "/api/og",
+        "/api/public"
     ];
 
     const pathname = request.nextUrl.pathname;
-    const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
+    
+    // Determine if the current route requires authentication
+    let isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
+
+    // Refine API protection: allow public endpoints
+    if (pathname.startsWith('/api')) {
+        const isPublicApi = publicApiRoutes.some(route => pathname.startsWith(route));
+        if (isPublicApi) {
+            isProtectedRoute = false;
+        }
+    }
 
     // 3. Auth checks
     // We check for any Supabase auth cookies or our legacy session cookie
@@ -35,17 +54,8 @@ export async function middleware(request: NextRequest) {
 
     const isAuthenticated = hasSupabaseCookie || hasLegacySession;
 
-    // 🔬 Diagnostics (Only for debugging session issues)
-    if (isProtectedRoute && !isAuthenticated) {
-        console.log(`[AUTH_DIAG] Path: ${pathname} | Auth: FAILED`);
-        console.log(`[AUTH_DIAG] Total Cookies: ${allCookies.length}`);
-        console.log(`[AUTH_DIAG] SB Cookies: ${supabaseCookies.map(c => c.name).join(', ') || 'NONE'}`);
-        console.log(`[AUTH_DIAG] Legacy Cookie: ${hasLegacySession ? 'FOUND' : 'MISSING'}`);
-    }
-
     // 4. Case: Protected route but not authenticated
     if (isProtectedRoute && !isAuthenticated) {
-        console.log(`[Middleware] Unauthorized access to ${pathname}. Redirecting to login.`);
         const url = new URL('/login', request.url);
         url.searchParams.set('redirect', pathname);
         return NextResponse.redirect(url);

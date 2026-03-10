@@ -3,9 +3,13 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useMemo, useCallback, memo, useEffect, startTransition } from 'react';
 import { useRouter } from 'next/navigation';
-import { Shield, Target, Zap, Cpu, GraduationCap, Building2, HeartPulse, UserCircle } from 'lucide-react';
+import Image from 'next/image';
+import { Shield, Target, Zap, Cpu, GraduationCap, Building2, HeartPulse, UserCircle, Loader2 } from 'lucide-react';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 import { useCelebrate } from '@/context/CelebrationContext';
+import { useIntelligence } from '@/context/IntelligenceContext';
+import { useSovereignState } from '@/context/SovereignState';
+import { getIntelligenceFor } from '@/lib/intelligence-engine';
 import { toast } from 'sonner';
 
 const ROLES = [
@@ -99,10 +103,10 @@ const StepObjective = memo(({ role, selectedObjective, onSelect }: { role: strin
 });
 StepObjective.displayName = 'StepObjective';
 
-const StepDeploy = memo(({ formData }: { formData: any }) => {
+const StepDeploy = memo(({ formData, onToggleSwarm }: { formData: any, onToggleSwarm: (val: boolean) => void }) => {
     return (
-        <div className="space-y-8 text-center pt-4">
-            <div className="p-6 rounded-3xl bg-black border border-white/10 text-left space-y-3">
+        <div className="space-y-6 text-center pt-2">
+            <div className="p-5 rounded-3xl bg-black border border-white/10 text-left space-y-3">
                 <div className="flex justify-between items-end border-b border-white/5 pb-2">
                     <span className="text-[8px] font-mono text-zinc-500 uppercase">PROFESSION</span>
                     <span className="text-[10px] font-black uppercase text-white">{formData.role}</span>
@@ -116,10 +120,155 @@ const StepDeploy = memo(({ formData }: { formData: any }) => {
                     <span className="text-[10px] font-black uppercase text-noble-gold">{formData.objective}</span>
                 </div>
             </div>
+
+            {/* SWARM AUTHORIZATION TOGGLE */}
+            <button
+                onClick={() => onToggleSwarm(!formData.swarmAuthorized)}
+                className={`w-full p-4 rounded-2xl border flex items-center justify-between transition-all ${formData.swarmAuthorized ? 'bg-noble-gold/20 border-noble-gold shadow-[0_0_20px_rgba(212,175,55,0.2)]' : 'bg-white/5 border-white/10 hover:border-white/20'}`}
+            >
+                <div className="flex items-center gap-3">
+                    <div className={`p-2 rounded-lg ${formData.swarmAuthorized ? 'bg-noble-gold text-black' : 'bg-zinc-800 text-zinc-400'}`}>
+                        <Cpu size={14} />
+                    </div>
+                    <div className="text-left">
+                        <div className="text-[10px] font-black uppercase tracking-widest text-white">Authorize Swarm Ops</div>
+                        <div className="text-[8px] text-zinc-500 font-mono uppercase">Enable Autonomous Logic Chain</div>
+                    </div>
+                </div>
+                <div className={`w-10 h-5 rounded-full relative transition-colors ${formData.swarmAuthorized ? 'bg-noble-gold' : 'bg-zinc-800'}`}>
+                    <motion.div
+                        animate={{ x: formData.swarmAuthorized ? 20 : 2 }}
+                        className="absolute top-1 left-0 w-3 h-3 rounded-full bg-white shadow-sm"
+                    />
+                </div>
+            </button>
         </div>
     );
 });
+
 StepDeploy.displayName = 'StepDeploy';
+
+const StepSynthesis = memo(({ role, formData }: { role: string, formData: any }) => {
+    const [logLines, setLogLines] = useState<string[]>([]);
+    const agentInfo = useMemo(() => {
+        switch (role) {
+            case 'ADMIN':
+                return { name: "Dr. Alvin West", role: "Chief Architect", avatar: "/images/avatars/Dr._alvin_west.png", color: "text-noble-gold" };
+            case 'TEACHER':
+                return { name: "Keisha Reynolds", role: "Strategic Lead", avatar: "/images/avatars/keisha_reynolds_premium.png", color: "text-emerald-400" };
+            case 'COUNSELOR':
+                return { name: "André Patterson", role: "Tactical Specialist", avatar: "/images/avatars/andre_patterson_premium.png", color: "text-indigo-400" };
+            default:
+                return { name: "Learning Architect", role: "Cognitive Lead", avatar: "/images/avatars/student_focus.png", color: "text-sky-400" };
+        }
+    }, [role]);
+
+    useEffect(() => {
+        const potentialLines = [
+            `> INITIALIZING NEURAL LINK...`,
+            `> TARGET: ${formData.districtName.toUpperCase()}`,
+            `> SECTOR: ${formData.role}`,
+            `> MISSION: ${formData.objective.toUpperCase()}`,
+            `> SYNCHRONIZING SOVEREIGN NODES...`,
+            `> VAULT [ACTIVE]`,
+            `> ADMIN [ACTIVE]`,
+            `> WELLNESS [ACTIVE]`,
+            formData.swarmAuthorized ? `> AUTHORIZING SWARM PROTOCOLS...` : `> SWARM STANDBY...`,
+            formData.swarmAuthorized ? `> DECOMPOSING STRATEGIC GOAL...` : `> MANUAL TASKING ACTIVE...`,
+            `> INGESTING STRATEGIC CONTEXT...`,
+            `> MIRRORING DIGITAL TWIN STATE...`,
+            `> SYNCHRONIZING WITH ${agentInfo.name.toUpperCase()}...`,
+            `> NEURAL SYNOPSIS ACHIEVED.`
+        ];
+
+        let i = 0;
+        const interval = setInterval(() => {
+            if (i < potentialLines.length) {
+                setLogLines(prev => [...prev.slice(-3), potentialLines[i]]);
+                i++;
+            } else {
+                clearInterval(interval);
+            }
+        }, 600);
+        return () => clearInterval(interval);
+    }, [formData, agentInfo]);
+
+    return (
+        <div className="flex flex-col items-center justify-center py-6 space-y-6">
+            <div className="relative">
+                <motion.div
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    className="w-32 h-32 rounded-full border-2 border-noble-gold/30 p-1 bg-black overflow-hidden relative z-10"
+                >
+                    <Image
+                        src={agentInfo.avatar}
+                        alt={agentInfo.name}
+                        width={128}
+                        height={128}
+                        className="w-full h-full object-cover grayscale opacity-80"
+                    />
+                </motion.div>
+
+                {/* DIGITAL TWIN PROJECTION EFFECT */}
+                <motion.div
+                    animate={{
+                        opacity: [0, 0.5, 0],
+                        scale: [1, 1.5, 1],
+                    }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="absolute inset-0 rounded-full bg-noble-gold/10 blur-xl z-0"
+                />
+
+                <motion.div
+                    animate={{ scale: [1, 1.2, 1], rotate: 360 }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                    className="absolute -inset-4 border border-dashed border-noble-gold/20 rounded-full"
+                />
+            </div>
+
+            <div className="text-center space-y-1">
+                <motion.div
+                    initial={{ y: 10, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.3 }}
+                    className={`text-[9px] font-black uppercase tracking-[0.5em] ${agentInfo.color}`}
+                >
+                    Agent Assigned
+                </motion.div>
+                <h3 className="text-xl font-black text-white uppercase italic tracking-tighter">
+                    {agentInfo.name}
+                </h3>
+                <p className="text-zinc-500 font-mono text-[7px] uppercase tracking-[0.3em]">
+                    {agentInfo.role}
+                </p>
+            </div>
+
+            {/* NEURAL INGESTION LOG */}
+            <div className="w-full max-w-[280px] h-20 bg-black/40 border border-white/5 rounded-xl p-3 font-mono text-[8px] overflow-hidden">
+                <AnimatePresence mode="popLayout">
+                    {logLines.map((line, idx) => (
+                        <motion.div
+                            key={line + idx}
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            className="text-emerald-500/80 mb-1"
+                        >
+                            {line}
+                        </motion.div>
+                    ))}
+                </AnimatePresence>
+            </div>
+
+            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10">
+                <Loader2 size={10} className="text-noble-gold animate-spin" />
+                <span className="text-[8px] font-black text-white uppercase tracking-widest">Neural Handshake stable...</span>
+            </div>
+        </div>
+    );
+});
+
+StepSynthesis.displayName = 'StepSynthesis';
 
 // --- Main component ---
 
@@ -130,11 +279,15 @@ export default function OnboardingFlow({ onCompleteAction }: { onCompleteAction?
         role: '',
         districtName: '',
         objective: '',
-        leadershipStyle: 'Visionary'
+        leadershipStyle: 'Visionary',
+        swarmAuthorized: false
     });
     const [isFinishing, setIsFinishing] = useState(false);
+    const [isSynthesizingAgent, setIsSynthesizingAgent] = useState(false);
     const router = useRouter();
     const { playClick } = useProfessionalSounds();
+    const { generateBriefing } = useIntelligence();
+    const { updateOnboarding } = useSovereignState();
 
     const nextStep = useCallback((e?: React.MouseEvent) => {
         if (e) e.preventDefault();
@@ -155,10 +308,12 @@ export default function OnboardingFlow({ onCompleteAction }: { onCompleteAction?
             role: formData.role,
             districtName: formData.districtName,
             objective: formData.objective,
+            swarmAuthorized: formData.swarmAuthorized,
             position: formData.role === 'TEACHER' ? 'Educator' : formData.role,
             completedAt: new Date().toISOString()
         };
         localStorage.setItem('edintel_onboarding_data', JSON.stringify(onboardingData));
+        updateOnboarding(onboardingData);
 
         try {
             const response = await fetch('/api/auth/set-role', {
@@ -203,10 +358,54 @@ export default function OnboardingFlow({ onCompleteAction }: { onCompleteAction?
 
         localStorage.setItem('onboarding_complete', 'true');
 
+        // Functional Swarm Handshake (Phase 4)
+        if (formData.swarmAuthorized) {
+            console.log('[ONBOARDING] Initiating Autonomous Swarm Handshake...');
+            fetch('/api/simulate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ scenario: formData.objective })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.result) {
+                        console.log('[ONBOARDING] Swarm Synthesis Received.');
+                        localStorage.setItem('edintel_swarm_result', JSON.stringify(data.result));
+                    }
+                })
+                .catch(err => console.error('[ONBOARDING] Swarm Handshake Failed:', err));
+        }
+
+        // Neural Synthesis Phase
+        setIsSynthesizingAgent(true);
+
+        const agentMap: Record<string, string> = {
+            'ADMIN': 'Legacy Profile',
+            'TEACHER': 'Teacher Guard',
+            'COUNSELOR': 'Counselor Briefing',
+            'STUDENT': 'Student Focus'
+        };
+
+        const agentKey = agentMap[formData.role] || 'Legacy Profile';
+        const info = getIntelligenceFor(agentKey);
+
         setTimeout(() => {
+            if (info) {
+                generateBriefing({
+                    title: `System Initialization: ${info.title}`,
+                    description: `Welcome to EdIntel, ${formData.districtName} Lead. I am ${info.role === 'Executive Lead' ? 'Dr. Alvin West' : info.role}, and I have been assigned as your primary Neural Delegate. My algorithms are already mapping your objective: ${formData.objective}. We are ready to begin the strategic transformation of your district. Access the Admin command whenever you are ready to review the first tactical directives.`,
+                    stats: info.stats,
+                    role: info.role,
+                    avatarImage: info.avatar,
+                    videoSrc: info.video,
+                    audioSrc: info.audio,
+                    abilityType: info.abilityType
+                });
+            }
+
             if (onCompleteAction) onCompleteAction();
-            router.push('/dashboard');
-        }, 3000);
+            router.push('/the-room');
+        }, 4000); // 4s for synthesis animation
     };
 
     const stepsMetadata = useMemo(() => [
@@ -254,7 +453,12 @@ export default function OnboardingFlow({ onCompleteAction }: { onCompleteAction?
                     />
                 );
             case 3:
-                return <StepDeploy formData={formData} />;
+                return (
+                    <StepDeploy
+                        formData={formData}
+                        onToggleSwarm={(val) => updateFormData({ swarmAuthorized: val })}
+                    />
+                );
             default:
                 return null;
         }
@@ -295,6 +499,10 @@ export default function OnboardingFlow({ onCompleteAction }: { onCompleteAction?
                                     <button onClick={finishOnboarding} className="px-10 py-5 rounded-[2rem] bg-white text-black font-black text-[10px] uppercase tracking-[0.2em] hover:bg-noble-gold transition-all">LAUNCH SYSTEM</button>
                                 )}
                             </div>
+                        </motion.div>
+                    ) : isSynthesizingAgent ? (
+                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                            <StepSynthesis role={formData.role} formData={formData} />
                         </motion.div>
                     ) : (
                         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-20">

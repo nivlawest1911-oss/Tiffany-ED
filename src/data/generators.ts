@@ -45,7 +45,7 @@ export const generators = [
         link: "/generators/iep-architect",
         description: "Generate professional IEP drafts with SMART goals and data-driven accommodations. Designed for clarity, compliance, and student success.",
         icon: FileText,
-        color: "#00d2ff",
+        color: "#c5a47e",
         avatar: AVATARS.SPED,
         heroImage: "/images/features/strategic_iep_architect.png",
         heroVideo: "/videos/features/iep-architect-demo.mp4",
@@ -81,7 +81,7 @@ export const generators = [
         link: "/generator/image",
         description: "Generate high-fidelity, instructional graphics and diagrams tailored to your curriculum.",
         icon: ImageIcon,
-        color: "#22d3ee",
+        color: "#c5a47e",
         avatar: AVATARS.CURRICULUM,
         heroImage: "/images/features/strategic_iep_architect.png",
         welcomeVideo: "/videos/briefings/data_briefing.mp4",
@@ -162,7 +162,7 @@ export const generators = [
         name: "Rubric Builder Pro",
         description: "Create clear, effective grading rubrics that define success. Optimized for all grade levels and subjects.",
         icon: Table,
-        color: "#06b6d4",
+        color: "#c5a47e",
         avatar: AVATARS.CURRICULUM,
         heroVideo: "", // REPLACED: Stock footage removed
         welcomeVideo: "", // REPLACED: Stock footage removed
@@ -222,7 +222,7 @@ export const generators = [
         name: "Dyslexia Resource Gen",
         description: "Specialized interventions and fonts for reading support",
         icon: Glasses,
-        color: "#3b82f6",
+        color: "#c5a47e",
         avatar: AVATARS.CURRICULUM,
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
         welcomeVideo: "", // REPLACED: Stock footage removed
@@ -234,14 +234,14 @@ export const generators = [
     { id: "policy-advisor", name: "Policy Advisor", description: "Navigate regulations", icon: Scale, color: "#8b5cf6", avatar: AVATARS.COMPLIANCE, heroImage: "/images/features/iep_interface.png", heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/compliance_briefing.mp4", voiceWelcome: "/voice-profiles/compliance_voice.wav", prompts: ["IDEA compliance check", "504 plan requirements"] },
     { id: "cognitive-gym", name: "The Cognitive Gym", description: "Executive function training strategies", icon: Brain, color: "#ec4899", avatar: AVATARS.COUNSELOR, link: "/generators/cognitive-gym", heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Working memory activities"] },
     { id: "idea-generator", name: "Idea Generator", description: "Creative solutions", icon: Lightbulb, color: "#f59e0b", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Engagement strategies"] },
-    { id: "code-commander", name: "Code Commander", description: "Learn coding with a professional, holographic AI assistant designed for educators.", icon: Code, color: "#06b6d4", avatar: AVATARS.DATA, link: "/generator/code-snippet", heroVideo: "/videos/features/data-analysis-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/data_voice.wav", prompts: ["Debug my Python code", "Explain a JavaScript for-loop", "Create an HTML boilerplate for students"] },
+    { id: "code-commander", name: "Code Commander", description: "Learn coding with a professional, holographic AI assistant designed for educators.", icon: Code, color: "#c5a47e", avatar: AVATARS.DATA, link: "/generator/code-snippet", heroVideo: "/videos/features/data-analysis-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/data_voice.wav", prompts: ["Debug my Python code", "Explain a JavaScript for-loop", "Create an HTML boilerplate for students"] },
     { id: "comms-director", name: "Comms Director", description: "PR content", icon: Megaphone, color: "#f97316", avatar: AVATARS.PRINCIPAL, heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/principal_voice.wav", prompts: ["Draft school newsletter"] },
     { id: "design-studio", name: "Design Studio", description: "Creative layout", icon: Palette, color: "#e11d48", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Yearbook layout ideas"] },
     { id: "meeting-prep", name: "Meeting Prep", description: "Agendas & talking points", icon: Briefcase, color: "#0ea5e9", avatar: AVATARS.PRINCIPAL, heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/principal_voice.wav", prompts: ["Board meeting agenda"] },
     { id: "assessment-builder", name: "Assessment Builder", description: "Create assessments", icon: ClipboardCheck, color: "#8b5cf6", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Multiple choice quiz"] },
     { id: "differentiation-planner", name: "Differentiation", description: "Tiered activities", icon: Target, color: "#ec4899", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Tier 1, 2, 3 activities"] },
     { id: "parent-communicator", name: "Parent Communicator", description: "Communication logs", icon: MessageSquare, color: "#f59e0b", avatar: AVATARS.COUNSELOR, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Weekly progress update"] },
-    { id: "student-goal-setter", name: "Student Goal Setter", description: "SMART goals", icon: StudentCap, color: "#06b6d4", avatar: AVATARS.COUNSELOR, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Academic goal template"] },
+    { id: "student-goal-setter", name: "Student Goal Setter", description: "SMART goals", icon: StudentCap, color: "#c5a47e", avatar: AVATARS.COUNSELOR, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Academic goal template"] },
     { id: "study-guide-maker", name: "Study Guide Maker", description: "Review materials", icon: BookMarked, color: "#a855f7", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Chapter summary"] },
     { id: "writing-coach", name: "Writing Coach", description: "Essay feedback", icon: PenTool, color: "#f97316", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Essay outline help"] },
     { id: "video-lesson-planner", name: "Video Lesson Planner", description: "Video scripts", icon: Video, color: "#d946ef", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Flipped classroom script"] },
@@ -250,7 +250,7 @@ export const generators = [
     { id: "math-tutor-pro", name: "Math Tutor Pro", description: "Math help", icon: Calculator, color: "#f59e0b", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Explain math problem"] },
     { id: "debate-prep", name: "Debate Prep", description: "Argument builder", icon: Mic, color: "#ef4444", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Argument builder"] },
     { id: "bus-route-optimizer", name: "Transport Logistics", description: "Route efficiency", icon: Bus, color: "#f59e0b", avatar: AVATARS.DATA, heroImage: "/images/features/field_trip_logistics_commander.png", heroVideo: "/videos/features/data-analysis-demo.mp4", welcomeVideo: "/videos/briefings/data_briefing.mp4", voiceWelcome: "/voice-profiles/data_voice.wav", prompts: ["Optimize bus route"] },
-    { id: "budget-allocator", name: "Budget Allocator", description: "Finance modeling", icon: PieChart, color: "#06b6d4", avatar: AVATARS.DATA, heroVideo: "/videos/features/data-analysis-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/data_voice.wav", prompts: ["Budget analysis"] },
+    { id: "budget-allocator", name: "Budget Allocator", description: "Finance modeling", icon: PieChart, color: "#c5a47e", avatar: AVATARS.DATA, heroVideo: "/videos/features/data-analysis-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/data_voice.wav", prompts: ["Budget analysis"] },
     { id: "project-pbl-architect", name: "PBL Specialist", description: "Project design", icon: Layers, color: "#ec4899", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["PBL unit plan"] },
     { id: "quiz-gamifier", name: "Quiz Gamifier", description: "Gamification", icon: Gamepad2, color: "#8b5cf6", avatar: AVATARS.CURRICULUM, heroVideo: "/videos/features/lesson-planner-demo.mp4", welcomeVideo: "", voiceWelcome: "/voice-profiles/counselor_voice.wav", prompts: ["Gamify quiz review"] },
     {
@@ -285,7 +285,7 @@ export const generators = [
             "Outline a support plan for a military family transitioning to Mobile County, focusing on residency and placement rights."
         ]
     },
-    { id: "newsletter-wizard", name: "Newsletter Wizard", description: "Community updates", icon: Mail, color: "#3b82f6", avatar: AVATARS.PRINCIPAL, heroImage: "/images/features/strategic_communications_director.png", heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/principal_briefing.mp4", voiceWelcome: "/voice-profiles/principal_voice.wav", prompts: ["Weekly newsletter"] },
+    { id: "newsletter-wizard", name: "Newsletter Wizard", description: "Community updates", icon: Mail, color: "#c5a47e", avatar: AVATARS.PRINCIPAL, heroImage: "/images/features/strategic_communications_director.png", heroVideo: "/videos/features/iep-architect-demo.mp4", welcomeVideo: "/videos/briefings/principal_briefing.mp4", voiceWelcome: "/voice-profiles/principal_voice.wav", prompts: ["Weekly newsletter"] },
 
     // --- ADMINISTRATIVE SUPPORT ---
     {
@@ -329,7 +329,7 @@ export const generators = [
         name: "Enrollment Forecaster",
         description: "Predict next year's student counts using demographic trends.",
         icon: TrendingUp,
-        color: "#3b82f6", // Blue
+        color: "#c5a47e", // Noble Gold
         avatar: AVATARS.DATA,
         heroVideo: "", // REPLACED: Stock footage removed
         welcomeVideo: "", // REPLACED: Stock footage removed
@@ -437,7 +437,7 @@ export const generators = [
         name: "PLC Facilitator",
         description: "Agendas and data protocols for Professional Learning Communities.",
         icon: Users,
-        color: "#2563eb", // Blue-600
+        color: "#c5a47e", // Noble Gold
         avatar: AVATARS.CURRICULUM,
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
         welcomeVideo: "", // REPLACED: Stock footage removed
@@ -489,7 +489,7 @@ export const generators = [
         name: "Digital Specialist",
         description: "Draft AI policies, digital citizenship curriculums, and tech plans.",
         icon: Code,
-        color: "#0891b2", // Cyan-600
+        color: "#c5a47e", // Noble Gold
         avatar: AVATARS.DATA,
         heroVideo: "", // REPLACED: Stock footage removed
         welcomeVideo: "", // REPLACED: Stock footage removed
@@ -717,7 +717,7 @@ export const generators = [
         name: "Media Specialist",
         description: "Digital citizenship lessons and research frameworks.",
         icon: BookMarked,
-        color: "#0891b2", // Cyan-600
+        color: "#c5a47e", // Noble Gold
         avatar: AVATARS.CURRICULUM,
         heroVideo: "/videos/features/lesson-planner-demo.mp4",
         welcomeVideo: "", // REPLACED: Stock footage removed

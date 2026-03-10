@@ -1,98 +1,72 @@
-// EdIntel Sovereign Schema - Optimized for Google Cloud SQL (Postgres)
-// Designed for AI Avatar Memory & Evidence Folder Architecture
-
 generator client {
   provider        = "prisma-client-js"
-  binaryTargets   = ["native", "rhel-openssl-3.0.x"]
   previewFeatures = ["postgresqlExtensions"]
+  binaryTargets   = ["native", "rhel-openssl-3.0.x"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
-}
-
-// ============================================
-// PRICING TIERS (Sovereign Architecture)
-// ============================================
-
-enum UserRole {
-  TEACHER
-  ADMIN
-  COUNSELOR
-  STUDENT
-  SUPERINTENDENT
-  EXECUTIVE
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  directUrl  = env("DIRECT_URL")
+  extensions = [uuid_ossp(map: "uuid-ossp", schema: "extensions")]
 }
 
 model Tier {
-  id             String    @id @default(cuid())
-  name           String    @unique // e.g., "Site Command"
-  stripeUrl      String    // Stores the exact Stripe payment link
-  
-  // Relations
-  users          User[]
+  id        String @id @default(cuid())
+  name      String @unique
+  stripeUrl String
+  users     User[]
 
   @@map("tiers")
 }
 
 model User {
-  id                String   @id @default(cuid())
-  clerkId           String   @unique @map("clerk_id")
-  email             String   @unique
-  name              String?
-  role              UserRole @default(TEACHER) @map("role")
-  district          String?  
-  school            String?
-  schoolSite        String?  @map("school_site")
-  position          String?  
-  bio               String?  @db.Text
-  
-  // Organization/School Link
-  organizationId    String?  @map("organization_id")
-  organization      Organization? @relation(fields: [organizationId], references: [id])
-  schoolId          String?  @map("school_id")
-  schoolRelation    School?  @relation(fields: [schoolId], references: [id])
-  
-  // Subscription & Billing
-  stripeCustomerId  String?  @unique @map("stripe_customer_id")
-  stripeSubscriptionId String? @unique @map("stripe_subscription_id")
-  subscriptionTier  String   @default("free") @map("subscription_tier")
-  subscriptionStatus String  @default("inactive") @map("subscription_status")
-  usageTokens       Int      @default(10) @map("usage_tokens")
-  xpPoints          Int      @default(0) @map("xp_points")
-  
-  // Trial Logic
-  trialStartedAt    DateTime @default(now()) @map("trial_started_at")
-  trialEndsAt       DateTime? @map("trial_ends_at")
-  isTrialConverted  Boolean   @default(false) @map("is_trial_converted")
-  isActive          Boolean   @default(true) @map("is_active")
-  
-  // Tiers
-  tierId            String?   @map("tier_id")
-  tier              Tier?     @relation(fields: [tierId], references: [id])
-  
-  avatarUrl         String?  @map("avatar_url")
-  createdAt         DateTime @default(now()) @map("created_at")
-  updatedAt         DateTime @updatedAt @map("updated_at")
-  lastLogin         DateTime? @map("last_login")
-  
-  // Relations
-  generations       Generation[]
-  generatedContent  GeneratedContent[]
-  observations      Observation[]
-  evidenceFolders   EvidenceFolder[]
-  avatarSessions    AvatarSession[]
-  conversationHistory ConversationMessage[]
-  vaultDocuments    VaultDocument[]
-  subscriptions     Subscription[]
-  managedSchools    School[] @relation("SchoolAdmin")
-  usageHistory      UsageTracker[]
-  analyticsHistory  AnalyticsData[]
-  savedItems        SavedContent[]
-  feedbackSent      SystemFeedback[]
-  
+  id                   String                @id @default(cuid())
+  clerkId              String                @unique @map("clerk_id")
+  email                String                @unique
+  name                 String?
+  role                 UserRole              @default(TEACHER) @map("role")
+  district             String?
+  school               String?
+  schoolSite           String?               @map("school_site")
+  position             String?
+  bio                  String?
+  organizationId       String?               @map("organization_id")
+  schoolId             String?               @map("school_id")
+  stripeCustomerId     String?               @unique @map("stripe_customer_id")
+  stripeSubscriptionId String?               @unique @map("stripe_subscription_id")
+  subscriptionTier     String                @default("free") @map("subscription_tier")
+  subscriptionStatus   String                @default("inactive") @map("subscription_status")
+  usageTokens          Int                   @default(10) @map("usage_tokens")
+  xpPoints             Int                   @default(0) @map("xp_points")
+  trialStartedAt       DateTime              @default(now()) @map("trial_started_at")
+  trialEndsAt          DateTime?             @map("trial_ends_at")
+  isTrialConverted     Boolean               @default(false) @map("is_trial_converted")
+  isActive             Boolean               @default(true) @map("is_active")
+  tierId               String?               @map("tier_id")
+  avatarUrl            String?               @map("avatar_url")
+  createdAt            DateTime              @default(now()) @map("created_at")
+  updatedAt            DateTime              @updatedAt @map("updated_at")
+  lastLogin            DateTime?             @map("last_login")
+  analyticsHistory     AnalyticsData[]
+  avatarSessions       AvatarSession[]
+  conversationHistory  ConversationMessage[]
+  evidenceFolders      EvidenceFolder[]
+  generatedContent     GeneratedContent[]
+  generations          Generation[]
+  observations         Observation[]
+  savedItems           SavedContent[]
+  managedSchools       School[]              @relation("SchoolAdmin")
+  subscriptions        Subscription[]
+  feedbackSent         SystemFeedback[]
+  usageHistory         UsageTracker[]
+  organization         Organization?         @relation(fields: [organizationId], references: [id])
+  schoolRelation       School?               @relation(fields: [schoolId], references: [id])
+  tier                 Tier?                 @relation(fields: [tierId], references: [id])
+  vaultDocuments       VaultDocument[]
+  strategicVault       StrategicVault[]
+  legacyLedger         LegacyLedger[]
+
   @@index([email])
   @@index([clerkId])
   @@index([district, school])
@@ -101,223 +75,162 @@ model User {
   @@map("users")
 }
 
-// ============================================
-// SCHOOLS & DISTRICTS
-// ============================================
-
 model School {
-  id                String   @id @default(cuid())
-  name              String
-  districtName      String?  @map("district_name")
-  state             String?
-  zipCode           String?  @map("zip_code")
-  
-  // Admin Link
-  adminId           String?  @map("admin_id")
-  admin             User?    @relation("SchoolAdmin", fields: [adminId], references: [id])
-  
-  stripeCustomerId  String?  @unique @map("stripe_customer_id")
-  subscriptionTier  String   @default("free") @map("subscription_tier")
-  maxUsers          Int      @default(5) @map("max_users")
-  
-  // Relations
-  users             User[]
-  subscriptions     Subscription[]
-  analyticsHistory  AnalyticsData[]
-  
-  createdAt         DateTime @default(now()) @map("created_at")
-  updatedAt         DateTime @updatedAt @map("updated_at")
+  id               String          @id @default(cuid())
+  name             String
+  districtName     String?         @map("district_name")
+  state            String?
+  zipCode          String?         @map("zip_code")
+  adminId          String?         @map("admin_id")
+  stripeCustomerId String?         @unique @map("stripe_customer_id")
+  subscriptionTier String          @default("free") @map("subscription_tier")
+  maxUsers         Int             @default(5) @map("max_users")
+  createdAt        DateTime        @default(now()) @map("created_at")
+  updatedAt        DateTime        @updatedAt @map("updated_at")
+  analyticsHistory AnalyticsData[]
+  admin            User?           @relation("SchoolAdmin", fields: [adminId], references: [id])
+  subscriptions    Subscription[]
+  users            User[]
 
   @@index([adminId])
   @@map("schools")
 }
 
 model Organization {
-  id                String   @id @default(cuid())
-  name              String
-  tier              String   @default("SCHOOL_SITE") // SCHOOL_SITE, DISTRICT_MATRIX, EXECUTIVE_COMMAND
-  
-  // Trial management
-  trialStartedAt    DateTime @default(now()) @map("trial_started_at")
-  trialStartsAt     DateTime @default(now()) @map("trial_starts_at")
-  trialEndsAt       DateTime @map("trial_ends_at")
-  isTrialConverted  Boolean  @default(false) @map("is_trial_converted")
-  
-  // Token Economy
-  usageTokens       Int      @default(0) @map("usage_tokens")
-  
-  // Structure
-  address           String?
-  contactEmail      String?  @map("contact_email")
-  
-  // Relations
-  users             User[]
-  
-  createdAt         DateTime @default(now()) @map("created_at")
-  updatedAt         DateTime @updatedAt @map("updated_at")
+  id               String   @id @default(cuid())
+  name             String
+  tier             String   @default("SCHOOL_SITE")
+  trialStartedAt   DateTime @default(now()) @map("trial_started_at")
+  trialStartsAt    DateTime @default(now()) @map("trial_starts_at")
+  trialEndsAt      DateTime @map("trial_ends_at")
+  isTrialConverted Boolean  @default(false) @map("is_trial_converted")
+  usageTokens      Int      @default(0) @map("usage_tokens")
+  address          String?
+  contactEmail     String?  @map("contact_email")
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+  users            User[]
 
   @@map("organizations")
 }
 
-// ============================================
-// AI AVATAR ENGINE
-// ============================================
-
 model Avatar {
-  id                String   @id @default(cuid())
-  name              String
-  description       String?
-  systemPrompt      String   @db.Text @map("system_prompt")
-  voiceId           String   @map("voice_id")
-  avatarImageUrl    String?  @map("avatar_image_url")
-  category          String   // teaching, counseling, admin, tutoring
-  
-  sessions          AvatarSession[]
-  
-  createdAt         DateTime @default(now()) @map("created_at")
-  updatedAt         DateTime @updatedAt @map("updated_at")
+  id             String          @id @default(cuid())
+  name           String
+  description    String?
+  systemPrompt   String          @map("system_prompt")
+  voiceId        String          @map("voice_id")
+  avatarImageUrl String?         @map("avatar_image_url")
+  category       String
+  createdAt      DateTime        @default(now()) @map("created_at")
+  updatedAt      DateTime        @updatedAt @map("updated_at")
+  sessions       AvatarSession[]
 
   @@map("avatars")
 }
 
 model AvatarSession {
-  id                String   @id @default(cuid())
+  id                String                @id @default(cuid())
   userId            String
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  // Session Metadata
-  avatarId          String?  @map("avatar_id")
-  avatar            Avatar?  @relation(fields: [avatarId], references: [id])
-  avatarName        String   // Dr. Alvin, Sarah, Marcus (Legacy support)
-  avatarRole        String   // Superintendent Delegate, Instructional Aide
-  engine            String   @default("duix") // duix, tavus, heygen, liveportrait
-  
-  // Performance Metrics
-  startedAt         DateTime @default(now())
+  avatarId          String?               @map("avatar_id")
+  avatarName        String
+  avatarRole        String
+  engine            String                @default("duix")
+  startedAt         DateTime              @default(now())
   endedAt           DateTime?
-  duration          Int?     // seconds
-  latencyAvg        Float?   // milliseconds
-  
-  // Conversation Data (Legacy/Backup)
-  conversationLog   Json     // Array of {role, text, timestamp}
-  userSentiment     String?  // neutral, positive, urgent, distressed
-  
-  // GCP Integration
-  gcpSessionId      String?  @unique
-  vertexAiModel     String   @default("gemini-1.5-pro")
+  duration          Int?
+  latencyAvg        Float?
+  conversationLog   Json
+  userSentiment     String?
+  gcpSessionId      String?               @unique
+  vertexAiModel     String                @default("gemini-1.5-pro")
   cloudRunEndpoint  String?
-  
-  // Sovereign Agentic Memory
-  thoughtSignatures Json?    // Stores Gemini 3 Pro thought traces for multi-turn reasoning
-  
-  // Relations
-  observations      Observation[]
+  thoughtSignatures Json?
+  avatar            Avatar?               @relation(fields: [avatarId], references: [id])
+  user              User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
   messages          ConversationMessage[]
-  
+  observations      Observation[]
+
   @@index([userId, startedAt])
   @@index([gcpSessionId])
   @@map("avatar_sessions")
 }
 
 model ConversationMessage {
-  id                String   @id @default(cuid())
-  sessionId         String?  @map("session_id")
-  session           AvatarSession? @relation(fields: [sessionId], references: [id])
-  userId            String   @map("user_id")
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  role              String   // user, assistant, system
-  content           String   @db.Text
-  feedback          Int?     // 1 for upvote, -1 for downvote
-  metadata          Json?    // Stores tokens used, latency, etc.
-  
-  createdAt         DateTime @default(now()) @map("created_at")
+  id        String         @id @default(cuid())
+  sessionId String?        @map("session_id")
+  userId    String         @map("user_id")
+  role      String
+  content   String
+  feedback  Int?
+  metadata  Json?
+  createdAt DateTime       @default(now()) @map("created_at")
+  session   AvatarSession? @relation(fields: [sessionId], references: [id])
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([sessionId])
   @@index([userId])
   @@map("conversation_messages")
 }
 
-// ============================================
-// AI CONTENT HUB (Sovereign Assets)
-// ============================================
-
 model GeneratedContent {
-  id                String   @id @default(cuid())
-  userId            String   @map("user_id")
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  type              String   // LESSON_PLAN, WORKSHEET, ASSESSMENT, PRESENTATION
-  title             String
-  description       String?  @db.Text
-  prompt            String   @db.Text
-  content           Json?    // Structured content storage (Optional to match legacy string fields)
-  legacyContent     String?  @db.Text @map("legacy_content")
-  
-  subject           String?
-  gradeLevel        String?  @map("grade_level")
-  mediaUrls         String[] @map("media_urls")
-  aiModel           String?  @map("ai_model")
-  tokensUsed        Int?     @map("tokens_used")
-  
-  // Metadata
-  isPublic          Boolean  @default(false) @map("is_public")
-  tags              String[]
-  
-  createdAt         DateTime @default(now()) @map("created_at")
-  updatedAt         DateTime @updatedAt @map("updated_at")
-
-  savedBy           SavedContent[]
+  id            String         @id @default(cuid())
+  userId        String         @map("user_id")
+  type          String
+  title         String
+  description   String?
+  prompt        String
+  content       Json?
+  legacyContent String?        @map("legacy_content")
+  subject       String?
+  gradeLevel    String?        @map("grade_level")
+  mediaUrls     String[]       @map("media_urls")
+  aiModel       String?        @map("ai_model")
+  tokensUsed    Int?           @map("tokens_used")
+  isPublic      Boolean        @default(false) @map("is_public")
+  tags          String[]
+  createdAt     DateTime       @default(now()) @map("created_at")
+  updatedAt     DateTime       @updatedAt @map("updated_at")
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  savedBy       SavedContent[]
 
   @@index([userId])
   @@index([type])
   @@map("generated_content_hub")
 }
 
-// ============================================
-// BILLING & SUBSCRIPTIONS
-// ============================================
-
 model Subscription {
   id                   String   @id @default(cuid())
   userId               String?  @map("user_id")
-  user                 User?    @relation(fields: [userId], references: [id])
   schoolId             String?  @map("school_id")
-  school               School?  @relation(fields: [schoolId], references: [id])
-  
   stripeSubscriptionId String   @unique @map("stripe_subscription_id")
   stripePriceId        String   @map("stripe_price_id")
-  status               String   // active, past_due, canceled, trialing
-  
+  status               String
   currentPeriodStart   DateTime @map("current_period_start")
   currentPeriodEnd     DateTime @map("current_period_end")
   cancelAtPeriodEnd    Boolean  @default(false) @map("cancel_at_period_end")
-  
   createdAt            DateTime @default(now()) @map("created_at")
   updatedAt            DateTime @updatedAt @map("updated_at")
+  school               School?  @relation(fields: [schoolId], references: [id])
+  user                 User?    @relation(fields: [userId], references: [id])
 
   @@index([userId])
   @@index([schoolId])
   @@map("subscriptions")
 }
 
-// ============================================
-// USAGE TRACKING & ANALYTICS
-// ============================================
-
 model UsageTracker {
-  id                String   @id @default(cuid())
-  userId            String   @map("user_id")
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  month             DateTime @db.Date // Tracker per month
-  
-  conversationsCount Int     @default(0) @map("conversations_count")
-  messagesCount      Int     @default(0) @map("messages_count")
-  contentGenerated   Int     @default(0) @map("content_generated")
-  imagesGenerated    Int     @default(0) @map("images_generated")
-  videosGenerated    Int     @default(0) @map("videos_generated")
-  voiceMinutes       Int     @default(0) @map("voice_minutes")
-  tokensUsed         Int     @default(0) @map("tokens_used")
+  id                 String   @id @default(cuid())
+  userId             String   @map("user_id")
+  month              DateTime @db.Date
+  conversationsCount Int      @default(0) @map("conversations_count")
+  messagesCount      Int      @default(0) @map("messages_count")
+  contentGenerated   Int      @default(0) @map("content_generated")
+  imagesGenerated    Int      @default(0) @map("images_generated")
+  videosGenerated    Int      @default(0) @map("videos_generated")
+  voiceMinutes       Int      @default(0) @map("voice_minutes")
+  tokensUsed         Int      @default(0) @map("tokens_used")
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, month])
   @@index([userId])
@@ -325,19 +238,17 @@ model UsageTracker {
 }
 
 model AnalyticsData {
-  id                String   @id @default(cuid())
-  userId            String   @map("user_id")
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  schoolId          String?  @map("school_id")
-  school            School?  @relation(fields: [schoolId], references: [id])
-  
-  date              DateTime @db.Date
-  timeSavedHours    Decimal  @default(0) @map("time_saved_hours")
-  lessonsCreated    Int      @default(0) @map("lessons_created")
-  studentsEngaged   Int      @default(0) @map("students_engaged")
-  assessmentsCreated Int     @default(0) @map("assessments_created")
-  
-  createdAt         DateTime @default(now()) @map("created_at")
+  id                 String   @id @default(cuid())
+  userId             String   @map("user_id")
+  schoolId           String?  @map("school_id")
+  date               DateTime @db.Date
+  timeSavedHours     Decimal  @default(0) @map("time_saved_hours")
+  lessonsCreated     Int      @default(0) @map("lessons_created")
+  studentsEngaged    Int      @default(0) @map("students_engaged")
+  assessmentsCreated Int      @default(0) @map("assessments_created")
+  createdAt          DateTime @default(now()) @map("created_at")
+  school             School?  @relation(fields: [schoolId], references: [id])
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@index([schoolId])
@@ -346,14 +257,13 @@ model AnalyticsData {
 }
 
 model SavedContent {
-  id                String   @id @default(cuid())
-  userId            String   @map("user_id")
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  contentId         String   @map("content_id")
-  content           GeneratedContent @relation(fields: [contentId], references: [id], onDelete: Cascade)
-  
-  folderName        String?  @map("folder_name")
-  createdAt         DateTime @default(now()) @map("created_at")
+  id         String           @id @default(cuid())
+  userId     String           @map("user_id")
+  contentId  String           @map("content_id")
+  folderName String?          @map("folder_name")
+  createdAt  DateTime         @default(now()) @map("created_at")
+  content    GeneratedContent @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  user       User             @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, contentId])
   @@index([userId])
@@ -361,249 +271,159 @@ model SavedContent {
 }
 
 model SystemFeedback {
-  id                String   @id @default(cuid())
-  userId            String?  @map("user_id")
-  user              User?    @relation(fields: [userId], references: [id])
-  
-  type              String   // bug, feature_request, general
-  rating            Int?     // 1-5
-  message           String?  @db.Text
-  contextData       Json?    @map("context_data")
-  
-  createdAt         DateTime @default(now()) @map("created_at")
+  id          String   @id @default(cuid())
+  userId      String?  @map("user_id")
+  type        String
+  rating      Int?
+  message     String?
+  contextData Json?    @map("context_data")
+  createdAt   DateTime @default(now()) @map("created_at")
+  user        User?    @relation(fields: [userId], references: [id])
 
   @@index([createdAt])
   @@map("system_feedback")
 }
 
-// ============================================
-// EVIDENCE FOLDER (Legal Defense System)
-// ============================================
-
 model EvidenceFolder {
-  id                String   @id @default(cuid())
-  userId            String
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  // Student Information (Anonymized for Privacy)
-  studentId         String   // Hashed identifier
-  gradeLevel        String?
-  specialEdStatus   String?  // IEP, 504, None
-  
-  // Folder Metadata
-  title             String
-  category          String   // IEP, Behavior, Academic, Attendance
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  
-  // AI-Generated Insights
-  aiSummary         String?  @db.Text
-  riskLevel         String?  // low, medium, high, critical
-  complianceScore   Float?   // 0-100
-  
-  // embedding         Unsupported("vector(1536)")?
-  
-  // Relations
-  observations      Observation[]
-  documents         Document[]
-  
+  id              String        @id @default(cuid())
+  userId          String
+  studentId       String
+  gradeLevel      String?
+  specialEdStatus String?
+  title           String
+  category        String
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  aiSummary       String?
+  riskLevel       String?
+  complianceScore Float?
+  documents       Document[]
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  observations    Observation[]
+
   @@index([userId, studentId])
   @@index([category, riskLevel])
-  // @@index([embedding], map: "evidence_embedding_hnsw_idx")
   @@map("evidence_folders")
 }
 
-// ============================================
-// OBSERVATION LOGS (Teacher Documentation)
-// ============================================
-
 model Observation {
-  id                String   @id @default(cuid())
-  userId            String
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  evidenceFolderId  String?
-  evidenceFolder    EvidenceFolder? @relation(fields: [evidenceFolderId], references: [id], onDelete: SetNull)
-  
-  avatarSessionId   String?
-  avatarSession     AvatarSession? @relation(fields: [avatarSessionId], references: [id], onDelete: SetNull)
-  
-  // Observation Data
-  observationType   String   // behavior, academic, social-emotional
-  observationDate   DateTime @default(now())
-  duration          Int?     // minutes
-  
-  // Content
-  description       String   @db.Text
-  context           String?  @db.Text
-  interventions     String?  @db.Text
-  
-  // AI Analysis
-  aiAnalysis        String?  @db.Text
-  suggestedActions  Json?    // Array of action items
-  legalCompliance   Boolean  @default(false)
-  
-  // Attachments
-  hasAudio          Boolean  @default(false)
-  hasVideo          Boolean  @default(false)
-  hasImages         Boolean  @default(false)
-  
-  // embedding         Unsupported("vector(1536)")?
-  
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  
+  id               String          @id @default(cuid())
+  userId           String
+  evidenceFolderId String?
+  avatarSessionId  String?
+  observationType  String
+  observationDate  DateTime        @default(now())
+  duration         Int?
+  description      String
+  context          String?
+  interventions    String?
+  aiAnalysis       String?
+  suggestedActions Json?
+  legalCompliance  Boolean         @default(false)
+  hasAudio         Boolean         @default(false)
+  hasVideo         Boolean         @default(false)
+  hasImages        Boolean         @default(false)
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  avatarSession    AvatarSession?  @relation(fields: [avatarSessionId], references: [id])
+  evidenceFolder   EvidenceFolder? @relation(fields: [evidenceFolderId], references: [id])
+  user             User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@index([userId, observationDate])
   @@index([evidenceFolderId])
   @@index([observationType])
-  // @@index([embedding], map: "observation_embedding_hnsw_idx")
   @@map("observations")
 }
 
-// ============================================
-// DOCUMENTS (Secure File Storage)
-// ============================================
-
 model Document {
-  id                String   @id @default(cuid())
-  evidenceFolderId  String
-  evidenceFolder    EvidenceFolder @relation(fields: [evidenceFolderId], references: [id], onDelete: Cascade)
-  
-  // File Metadata
-  fileName          String
-  fileType          String   // pdf, docx, image, audio, video
-  fileSize          Int      // bytes
-  
-  // GCP Storage
-  gcpBucketPath     String   // gs://edintel-evidence/...
-  gcpSignedUrl      String?  @db.Text
-  urlExpiresAt      DateTime?
-  
-  // Security
-  encrypted         Boolean  @default(true)
-  accessLevel       String   @default("private") // private, district, public
-  
-  // embedding         Unsupported("vector(1536)")?
-  
-  uploadedAt        DateTime @default(now())
-  
+  id               String         @id @default(cuid())
+  evidenceFolderId String
+  fileName         String
+  fileType         String
+  fileSize         Int
+  gcpBucketPath    String
+  gcpSignedUrl     String?
+  urlExpiresAt     DateTime?
+  encrypted        Boolean        @default(true)
+  accessLevel      String         @default("private")
+  uploadedAt       DateTime       @default(now())
+  evidenceFolder   EvidenceFolder @relation(fields: [evidenceFolderId], references: [id], onDelete: Cascade)
+
   @@index([evidenceFolderId])
   @@index([fileType])
-  // @@index([embedding], map: "document_embedding_hnsw_idx")
   @@map("documents")
 }
-
-// ============================================
-// AI GENERATIONS (Existing System)
-// ============================================
 
 model Generation {
   id                String   @id @default(cuid())
   userId            String
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
   generatorId       String
-  prompt            String   @db.Text
-  content           String   @db.Text
-  
-  // Avatar Integration
+  prompt            String
+  content           String
   professorVideoUrl String?
   avatarEngine      String?
-  
   createdAt         DateTime @default(now())
-  
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@index([userId, createdAt])
   @@index([generatorId])
   @@map("generations")
 }
 
-// ============================================
-// ANALYTICS & PERFORMANCE
-// ============================================
-
 model AnalyticsEvent {
-  id                String   @id @default(cuid())
-  userId            String?
-  
-  // Event Data
-  eventType         String   // avatar_session, generation, observation
-  eventCategory     String
-  eventAction       String
-  eventLabel        String?
-  
-  // Performance Metrics
-  latency           Float?   // milliseconds
-  tokensUsed        Int?
-  gcpCost           Float?   // dollars
-  
-  // Context
-  metadata          Json?
-  userAgent         String?
-  ipAddress         String?
-  
-  timestamp         DateTime @default(now())
-  
+  id            String   @id @default(cuid())
+  userId        String?
+  eventType     String
+  eventCategory String
+  eventAction   String
+  eventLabel    String?
+  latency       Float?
+  tokensUsed    Int?
+  gcpCost       Float?
+  metadata      Json?
+  userAgent     String?
+  ipAddress     String?
+  timestamp     DateTime @default(now())
+
   @@index([eventType, timestamp])
   @@index([userId, timestamp])
   @@map("analytics_events")
 }
 
-// ============================================
-// SEMANTIC CACHE (Infinite Rhythm)
-// ============================================
-
 model SemanticCache {
-  id          String   @id @default(cuid())
-  query       String   @db.Text
-  response    String   @db.Text
-  
-  // embedding   Unsupported("vector(1536)")?
-  
-  // Metatdata for TTL and Usage
-  hitCount    Int      @default(0) @map("hit_count")
-  lastHitAt   DateTime @default(now()) @map("last_hit_at")
-  createdAt   DateTime @default(now()) @map("created_at")
+  id        String   @id @default(cuid())
+  query     String
+  response  String
+  hitCount  Int      @default(0) @map("hit_count")
+  lastHitAt DateTime @default(now()) @map("last_hit_at")
+  createdAt DateTime @default(now()) @map("created_at")
 
-  // @@index([embedding], map: "cache_embedding_hnsw_idx")
   @@map("semantic_caches")
 }
 
-// ============================================
-// GRAPHRAG: THE SOVEREIGN WEB
-// ============================================
-
 model GraphNode {
-  id          String   @id @default(cuid())
-  label       String   // Student, Staff, Incident, Protocol
-  name        String
-  properties  Json?    // Specific attributes (grade, role, etc.)
-  
-  // embedding   Unsupported("vector(1536)")?
-  
-  // Relations
-  outbound    GraphEdge[] @relation("OutboundEdges")
-  inbound     GraphEdge[] @relation("InboundEdges")
-
-  createdAt   DateTime @default(now()) @map("created_at")
+  id         String      @id @default(cuid())
+  label      String
+  name       String
+  properties Json?
+  createdAt  DateTime    @default(now()) @map("created_at")
+  outbound   GraphEdge[] @relation("OutboundEdges")
+  inbound    GraphEdge[] @relation("InboundEdges")
 
   @@index([label])
-  // @@index([embedding], map: "graph_node_embedding_hnsw_idx")
   @@map("graph_nodes")
 }
 
 model GraphEdge {
-  id          String   @id @default(cuid())
-  type        String   // TEACHES, INVOLVED_IN, MENTORS, COMPLIANT_WITH
-  properties  Json?
-  
-  sourceId    String
-  source      GraphNode @relation("OutboundEdges", fields: [sourceId], references: [id], onDelete: Cascade)
-  
-  targetId    String
-  target      GraphNode @relation("InboundEdges", fields: [targetId], references: [id], onDelete: Cascade)
-
-  weight      Float    @default(1.0)
-  createdAt   DateTime @default(now()) @map("created_at")
+  id         String    @id @default(cuid())
+  type       String
+  properties Json?
+  sourceId   String
+  targetId   String
+  weight     Float     @default(1.0)
+  createdAt  DateTime  @default(now()) @map("created_at")
+  source     GraphNode @relation("OutboundEdges", fields: [sourceId], references: [id], onDelete: Cascade)
+  target     GraphNode @relation("InboundEdges", fields: [targetId], references: [id], onDelete: Cascade)
 
   @@index([sourceId])
   @@index([targetId])
@@ -611,61 +431,89 @@ model GraphEdge {
   @@map("graph_edges")
 }
 
-// ============================================
-// SOVEREIGN VAULT (Secure Storage & Audit)
-// ============================================
-
 model VaultDocument {
-  id          String   @id @default(cuid())
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  fileName    String
-  fileSize    Int
-  fileType    String
-  storagePath String   // Supabase Storage Path
-
-  // Security & Compliance
-  isEncrypted Boolean  @default(true)
-  securityLevel String @default("confidential") // top_secret, confidential, unclassified
-
-  // Metadata
-  tags        String[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  // Relations
-  audits      VaultAudit[]
-  ocrContent  VaultOCR?
+  id            String       @id @default(cuid())
+  userId        String
+  fileName      String
+  fileSize      Int
+  fileType      String
+  storagePath   String
+  isEncrypted   Boolean      @default(true)
+  securityLevel String       @default("confidential")
+  tags          String[]
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  audits        VaultAudit[]
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ocrContent    VaultOCR?
 
   @@index([userId])
   @@map("vault_documents")
 }
 
 model VaultAudit {
-  id          String   @id @default(cuid())
-  documentId  String
-  document    VaultDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
-
-  userId      String   // Who accessed it
-  action      String   // UPLOAD, VIEW, DOWNLOAD, DELETE
-  ipAddress   String?
-  userAgent   String?
-
-  timestamp   DateTime @default(now())
+  id         String        @id @default(cuid())
+  documentId String
+  userId     String
+  action     String
+  ipAddress  String?
+  userAgent  String?
+  timestamp  DateTime      @default(now())
+  document   VaultDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
 
   @@index([documentId])
   @@map("vault_audits")
 }
 
 model VaultOCR {
-  id          String   @id @default(cuid())
-  documentId  String   @unique
-  document    VaultDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
-
-  extractedText String @db.Text
+  id            String        @id @default(cuid())
+  documentId    String        @unique
+  extractedText String
   confidence    Float?
-  processedAt   DateTime @default(now())
+  processedAt   DateTime      @default(now())
+  document      VaultDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
 
   @@map("vault_ocr")
+}
+
+model StrategicVault {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  fileName  String   @map("file_name")
+  content   String?
+  metadata  Json     @default("{}")
+  tags      String[] @default([])
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("strategic_vault")
+}
+
+model LegacyLedger {
+  id              String   @id @default(cuid())
+  userId          String   @map("user_id")
+  title           String
+  directive       String
+  logic           String
+  swarmContext    Json     @map("swarm_context")
+  outcome         String?
+  learnings       String?
+  isImmutable     Boolean  @default(true) @map("is_immutable")
+  tags            String[] @default([])
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("legacy_ledger")
+}
+
+enum UserRole {
+  TEACHER
+  ADMIN
+  COUNSELOR
+  STUDENT
+  SUPERINTENDENT
+  EXECUTIVE
 }

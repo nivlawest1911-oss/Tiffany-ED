@@ -5,6 +5,7 @@ type AvatarState = 'idle' | 'thinking' | 'speaking' | 'listening' | 'alert';
 interface BehaviorOptions {
     state?: AvatarState;
     mousePos?: { x: number; y: number };
+    subtle?: boolean;
 }
 
 /**
@@ -13,7 +14,7 @@ interface BehaviorOptions {
  * Surpasses standard loops with state-aware reactive kinematics.
  */
 export function useHumanBehavior(isActive: boolean = true, options: BehaviorOptions = {}) {
-    const { state = 'idle', mousePos = { x: 0, y: 0 } } = options;
+    const { state = 'idle', mousePos = { x: 0, y: 0 }, subtle = false } = options;
 
     const [headTilt, setHeadTilt] = useState(0);
     const [headRotate, setHeadRotate] = useState(0);
@@ -37,10 +38,13 @@ export function useHumanBehavior(isActive: boolean = true, options: BehaviorOpti
         const dx = (mousePos.x - centerX) / centerX;
         const dy = (mousePos.y - centerY) / centerY;
 
+        // Scale down influence in subtle mode
+        const multiplier = subtle ? 0.3 : 1;
+
         // headRotate follows X, headTilt follows Y lightly
-        setHeadRotate(dx * 8); // Max 8 degree rotation
-        setHeadTilt(dy * 3);   // Max 3 degree tilt
-    }, [mousePos, isActive, state]);
+        setHeadRotate(dx * 8 * multiplier); // Max 8 degree rotation
+        setHeadTilt(dy * 3 * multiplier);   // Max 3 degree tilt
+    }, [mousePos, isActive, state, subtle]);
 
     // 2. Behavioral State Control Loop
     useEffect(() => {
@@ -49,14 +53,15 @@ export function useHumanBehavior(isActive: boolean = true, options: BehaviorOpti
         // Tonal Drift (Idle movement)
         const driftInterval = setInterval(() => {
             if (state === 'idle') {
-                setHeadTilt(prev => prev + (Math.random() * 2 - 1));
+                const range = subtle ? 0.5 : 2;
+                setHeadTilt(prev => prev + (Math.random() * range - range / 2));
             }
-        }, 4000);
+        }, subtle ? 8000 : 4000);
 
         // Breathing (Always on, but deepens when listening)
         const breathRate = state === 'listening' ? 3000 : 4000;
         const breathInterval = setInterval(() => {
-            const depth = state === 'listening' ? 1.02 : 1.01;
+            const depth = state === 'listening' ? 1.02 : (subtle ? 1.005 : 1.01);
             setBreathingScale(prev => prev === 1 ? depth : 1);
         }, breathRate);
 
@@ -64,7 +69,8 @@ export function useHumanBehavior(isActive: boolean = true, options: BehaviorOpti
         let jitterInterval: ReturnType<typeof setInterval> | undefined;
         if (state === 'thinking') {
             jitterInterval = setInterval(() => {
-                setVibrancy((Math.random() * 0.4) - 0.2);
+                const intensity = subtle ? 0.1 : 0.4;
+                setVibrancy((Math.random() * intensity) - intensity / 2);
             }, 60);
         } else {
             setVibrancy(0);
@@ -75,7 +81,7 @@ export function useHumanBehavior(isActive: boolean = true, options: BehaviorOpti
             clearInterval(breathInterval);
             if (jitterInterval) clearInterval(jitterInterval);
         };
-    }, [isActive, state]);
+    }, [isActive, state, subtle]);
 
     // 3. Autonomous Biological Cycles
     useEffect(() => {
@@ -87,7 +93,7 @@ export function useHumanBehavior(isActive: boolean = true, options: BehaviorOpti
                 setBlink(true);
                 setTimeout(() => setBlink(false), 120);
             }
-            const nextBlink = 3000 + Math.random() * 7000;
+            const nextBlink = (subtle ? 6000 : 3000) + Math.random() * 7000;
             setTimeout(blinkLoop, nextBlink);
         };
         const blinkTimer = setTimeout(blinkLoop, 2000);
@@ -95,7 +101,8 @@ export function useHumanBehavior(isActive: boolean = true, options: BehaviorOpti
         // Shoulder Adjustments
         const shiftInterval = setInterval(() => {
             if (state !== 'speaking') {
-                setShoulderShift((Math.random() * 6) - 3);
+                const range = subtle ? 2 : 6;
+                setShoulderShift((Math.random() * range) - range / 2);
             }
         }, 5000);
 
@@ -103,7 +110,7 @@ export function useHumanBehavior(isActive: boolean = true, options: BehaviorOpti
             clearTimeout(blinkTimer);
             clearInterval(shiftInterval);
         };
-    }, [isActive, state]);
+    }, [isActive, state, subtle]);
 
     return {
         // STYLE: Liquid Smooth Cinema Grade Interpolation
@@ -116,7 +123,8 @@ export function useHumanBehavior(isActive: boolean = true, options: BehaviorOpti
                 translate(${eyeX + vibrancy}px, ${eyeY + shoulderShift + vibrancy}px) 
                 translateY(${browLift}px)
             `,
-            transition: state === 'thinking' ? 'none' : 'all 3.5s cubic-bezier(0.23, 1, 0.32, 1)',
+            transformOrigin: 'center center',
+            transition: state === 'thinking' ? 'none' : (subtle ? 'all 5s cubic-bezier(0.23, 1, 0.32, 1)' : 'all 3.5s cubic-bezier(0.23, 1, 0.32, 1)'),
         },
         behaviorStyles: {
             rotateY: headRotate,

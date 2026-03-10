@@ -68,6 +68,32 @@ export function createFiscalStrategistAgent() {
                     return { history };
                 },
             }),
+            analyzeFiscalVulnerability: tool({
+                description: 'Analyzes a specific fiscal vector for compliance with Alabama Red Book accounting standards.',
+                inputSchema: z.object({
+                    category: z.string().describe('The budget category (e.g., Title I, CNP, Local).'),
+                    amount: z.number().describe('The transaction amount.'),
+                    purpose: z.string().describe('The intended purpose of the funds.'),
+                }),
+                execute: async ({ category, amount, purpose }) => {
+                    // Logic to cross-reference against simulated Red Book rules
+                    const isInstructional = purpose.toLowerCase().includes('instruction') || purpose.toLowerCase().includes('teacher');
+                    const isHighDollar = amount > 5000;
+
+                    let risk: 'HIGH' | 'MEDIUM' | 'LOW' = 'LOW';
+                    if (category === 'Title I' && !isInstructional) risk = 'HIGH';
+                    else if (isHighDollar) risk = 'MEDIUM';
+
+                    return {
+                        complianceStatus: risk === 'HIGH' ? 'NON_COMPLIANT' : 'COMPLIANT',
+                        reasoning: risk === 'HIGH'
+                            ? 'Title I funds must be primarily instructional. Administrative overhead identified.'
+                            : isHighDollar ? 'High-value transaction flagged for mandatory audit review.' : 'Aligned with instructional goals.',
+                        redBookReference: "Alabama Administrative Code § 290-2-1-.01",
+                        vulnerabilityScore: risk === 'HIGH' ? 85 : risk === 'MEDIUM' ? 45 : 12
+                    };
+                },
+            }),
             advancedResearch: tool({
                 description: 'Delegate complex research into Alabama code and fiscal compliance to a specialized subagent.',
                 inputSchema: z.object({

@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 export default function Error({
     error,
-    reset,
+    reset: _reset,
 }: {
     error: Error & { digest?: string };
     reset: () => void;

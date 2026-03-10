@@ -29,7 +29,7 @@ export default function NeuralBackground({ mediaSrc, mediaType }: NeuralBackgrou
         resize();
 
         const particles: Particle[] = [];
-        const particleCount = 60;
+        const particleCount = 50;
 
         class Particle {
             x: number;
@@ -74,13 +74,14 @@ export default function NeuralBackground({ mediaSrc, mediaType }: NeuralBackgrou
             // Draw connections
             ctx.strokeStyle = 'rgba(197, 164, 126, 0.05)';
             ctx.lineWidth = 0.5;
+            const maxDistSq = 150 * 150;
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
                     const dy = particles[i].y - particles[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    const distSq = dx * dx + dy * dy;
 
-                    if (distance < 150) {
+                    if (distSq < maxDistSq) {
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
@@ -131,7 +132,7 @@ export default function NeuralBackground({ mediaSrc, mediaType }: NeuralBackgrou
             )}
             <canvas
                 ref={canvasRef}
-                className="fixed inset-0 pointer-events-none z-0 opacity-40 mix-blend-screen"
+                className="fixed inset-0 pointer-events-none z-0 opacity-40 mix-blend-screen will-change-transform"
             />
         </>
     );

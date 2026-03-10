@@ -29,7 +29,7 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
     return (
       <div className="min-h-screen flex items-center justify-center bg-zinc-950 text-white">
         <div className="p-10 rounded-3xl bg-zinc-900 border border-zinc-800 shadow-2xl text-center space-y-4">
-          <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto" />
+          <div className="w-12 h-12 border-4 border-[#c5a47e] border-t-transparent rounded-full animate-spin mx-auto" />
           <h2 className="text-xl font-bold tracking-widest uppercase animate-pulse">Verifying Executive Credentials...</h2>
           <p className="text-zinc-500 text-xs font-mono">Project Alpha Secure Gateway</p>
         </div>

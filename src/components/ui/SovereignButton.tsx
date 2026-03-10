@@ -31,7 +31,7 @@ const SovereignButton: React.FC<SovereignButtonProps> = ({
     };
 
     const variants = {
-        primary: "bg-indigo-600 text-white shadow-soft hover:bg-indigo-700 hover:shadow-medium border-transparent",
+        primary: "bg-[#c5a47e] text-[#050505] shadow-soft hover:bg-[#D4AF37] hover:shadow-medium border-transparent",
         secondary: "bg-white text-gray-900 border-gray-200 hover:bg-gray-50 shadow-soft border",
         glass: "bg-white/10 backdrop-blur-md text-white border-white/20 hover:bg-white/20 shadow-hard border",
         ghost: "bg-transparent text-gray-600 hover:bg-gray-100 border-transparent",
@@ -46,7 +46,7 @@ const SovereignButton: React.FC<SovereignButtonProps> = ({
                 "relative flex items-center justify-center rounded-xl font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed group overflow-hidden",
                 sizeClasses[size],
                 variants[variant],
-                glow && variant === 'primary' && "shadow-[0_0_20px_rgba(99,102,241,0.5)]",
+                glow && variant === 'primary' && "shadow-[0_0_20px_rgba(197,164,126,0.5)]",
                 className
             )}
             {...props}

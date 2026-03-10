@@ -399,6 +399,15 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
         video: '/videos/briefings/principal_briefing.mp4',
         abilityType: 'strategy',
         suggestedNext: ['Admin Vision', 'Teacher Guard', 'district-strategy']
+    },
+    'Wellness Architect': {
+        title: 'Wellness & Resilience Command',
+        description: 'André Patterson is your Dedicated Tactical Specialist for educator wellness and burnout mitigation. Leveraging biometric synthesis and physiological telemetry, he develops high-fidelity recovery protocols to ensure peak cognitive performance under institutional pressure. Transition from survival to sovereignty.',
+        stats: { time: 'Real-time', saved: 'Cognitive Units', accuracy: 'Clinical' },
+        role: 'Tactical Specialist',
+        avatar: '/images/avatars/andre_patterson_premium.png',
+        abilityType: 'strategy',
+        suggestedNext: ['Neural Sync Gym', 'Crisis Protocol', 'Teacher Guard']
     }
 };
 

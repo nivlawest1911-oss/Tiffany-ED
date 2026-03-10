@@ -27,6 +27,7 @@ interface IntelligenceContextType {
     setSuggestion: (suggestion: { text: string; action: string } | null) => void;
     isHudExpanded: boolean;
     setIsHudExpanded: (expanded: boolean) => void;
+    isSynthesizing: boolean;
 }
 
 const IntelligenceContext = createContext<IntelligenceContextType | undefined>(undefined);
@@ -37,10 +38,16 @@ export function IntelligenceProvider({ children }: { children: React.ReactNode }
     const [recentActions, setRecentActions] = useState<string[]>([]);
     const [suggestion, setSuggestion] = useState<{ text: string; action: string } | null>(null);
     const [isHudExpanded, setIsHudExpanded] = useState(false);
+    const [isSynthesizing, setIsSynthesizing] = useState(false);
 
     const generateBriefing = useCallback((data: BriefingData) => {
-        setBriefing(data);
-        setIsOpen(true);
+        setIsSynthesizing(true);
+        // Simulate a brief synthesis period for cinematic effect
+        setTimeout(() => {
+            setBriefing(data);
+            setIsOpen(true);
+            setIsSynthesizing(false);
+        }, 1200);
     }, []);
 
     const closeBriefing = useCallback(() => {
@@ -178,7 +185,8 @@ export function IntelligenceProvider({ children }: { children: React.ReactNode }
             suggestion,
             setSuggestion,
             isHudExpanded,
-            setIsHudExpanded
+            setIsHudExpanded,
+            isSynthesizing
         }}>
             {children}
             {isOpen && briefing && (

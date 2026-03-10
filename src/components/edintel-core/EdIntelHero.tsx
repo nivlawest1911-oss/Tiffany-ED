@@ -60,6 +60,7 @@ function HolographicVariant({ activeAgent, agents, message }: { activeAgent: num
                             src={agent.avatar}
                             alt={agent.name}
                             className="absolute inset-0 w-full h-full object-cover opacity-90"
+                            priority={true}
                         />
                     )}
                     {/* Digital Noise Overlay */}

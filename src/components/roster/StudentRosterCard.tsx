@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { CalendarClock, FileText, Activity } from 'lucide-react';
+import { toast } from 'sonner';
 import { getDeadlineStatus, getStatusColor } from '@/lib/roster-logic';
 
 export interface RosterStudent {
@@ -30,7 +31,7 @@ export function StudentRosterCard({ student }: StudentRosterCardProps) {
                 <CardTitle className="text-sm font-medium">
                     {student.name}
                 </CardTitle>
-                <Badge variant={student.complianceStatus === 'compliant' ? 'default' : 'destructive'} transform="uppercase">
+                <Badge variant={student.complianceStatus === 'compliant' ? 'default' : 'destructive'} className="uppercase">
                     {student.complianceStatus}
                 </Badge>
             </CardHeader>
@@ -57,7 +58,11 @@ export function StudentRosterCard({ student }: StudentRosterCardProps) {
                         )}
                     </div>
 
-                    <Button size="sm" className="w-full mt-4 bg-indigo-600 hover:bg-indigo-700 text-white shadow-md transition-all active:scale-95">
+                    <Button 
+                        size="sm" 
+                        onClick={() => toast.success(`Initiating IEP Protocol for ${student.name}...`)}
+                        className="w-full mt-4 bg-indigo-600 hover:bg-indigo-700 text-white shadow-md transition-all active:scale-95"
+                    >
                         Initiate Protocol
                     </Button>
                 </div>

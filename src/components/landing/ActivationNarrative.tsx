@@ -18,21 +18,21 @@ const SCENES: Scene[] = [
         title: "THE ACTIVATION",
         subtitle: "Scene 1: The Grid",
         description: "A storm brewing in a server room. Miles of tangled blue wires representing unorganized data stretch across a dark, vast digital landscape.",
-        duration: 5000
+        duration: 3500
     },
     {
         id: 2,
         title: "THE ACTIVATION",
         subtitle: "Scene 2: The Activation",
         description: "A pulse of gold light ripples from the center. The crystalline core appears—solid, metallic, heavy. The EdIntel engine awakens, transforming chaos into clarity.",
-        duration: 6000
+        duration: 4000
     },
     {
         id: 3,
         title: "EdIntel EdIntel",
         subtitle: "SYSTEM READY",
         description: "This is EdIntel EdIntel. This is the future of educational AI.",
-        duration: 3000
+        duration: 2000
     }
 ];
 

@@ -54,7 +54,7 @@ export async function sendWelcomeEmail(email: string, name: string) {
 
     try {
         if (isSmtpConfigured) {
-            console.log(`[EMAIL_SERVICE] Using Custom SMTP (${smtpConfig.host})`);
+
             const transporter = nodemailer.createTransport({
                 host: smtpConfig.host,
                 port: smtpConfig.port,
@@ -72,7 +72,7 @@ export async function sendWelcomeEmail(email: string, name: string) {
                 html: htmlContent,
             });
         } else {
-            console.log(`[EMAIL_SERVICE] Using Resend Relay`);
+
             await resend.emails.send({
                 from: 'EdIntel Identity <welcome@edintel.app>',
                 to: [email],
@@ -80,7 +80,7 @@ export async function sendWelcomeEmail(email: string, name: string) {
                 html: htmlContent,
             });
         }
-        console.log(`[EMAIL_SERVICE] Welcome briefing dispatched to ${email}`);
+
     } catch (error) {
         console.error('[EMAIL_SERVICE] Neural relay failure:', error);
     }

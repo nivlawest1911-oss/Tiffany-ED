@@ -257,7 +257,7 @@ export async function POST(request: NextRequest) {
             });
         }
 
-        // 2. USE AGENTIC PATTERN FOR FISCAL STRATEGIST
+        // 2. USE AGENTIC PATTERN FOR FISCAL STRATEGIST & SWARM
         if (generatorId === 'fiscal-strategist') {
             const strategistAgent = createFiscalStrategistAgent();
             const result = await (strategistAgent as any).stream({
@@ -268,6 +268,31 @@ export async function POST(request: NextRequest) {
                 }
             });
             return result.toTextStreamResponse();
+        }
+
+        if (generatorId === 'district-strategy' || generatorId === 'strategic-visionary') {
+            const { swarmOrchestrator } = await import('@/lib/swarm-orchestrator');
+            const result = await swarmOrchestrator.execute(prompt);
+
+            // Convert SwarmResult to a readable stream for the UI
+            const encoder = new TextEncoder();
+            const readableStream = new ReadableStream({
+                async start(controller) {
+                    controller.enqueue(encoder.encode(`<swarm_start goal="${result.goal}" />\n\n`));
+
+                    for (const task of result.tasks) {
+                        controller.enqueue(encoder.encode(`\n### [AGENT: ${task.agent}]\n${task.result}\n`));
+                    }
+
+                    controller.enqueue(encoder.encode(`\n---\n## FINAL STRATEGIC SYNTHESIS\n\n${result.finalSynthesis}\n`));
+                    controller.enqueue(encoder.encode(`\n<swarm_end status="${result.complianceStatus}" />`));
+                    controller.close();
+                }
+            });
+
+            return new Response(readableStream, {
+                headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+            });
         }
 
         // 3. FALLBACK TO STANDARD STREAMING

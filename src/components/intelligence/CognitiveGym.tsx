@@ -1,8 +1,13 @@
 "use client";
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from 'framer-motion';
-import { Brain, Zap, Activity, Timer, RefreshCw, ChevronRight } from 'lucide-react';
+import {
+    Brain, Zap, Activity, Timer, RefreshCw, ChevronRight, Sparkles, Loader2, Shield, Copy,
+    CheckCircle2, AlertCircle
+} from "lucide-react";
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import { toast } from 'sonner';
 
 /* -------------------------------------------------------------------------- */
 /*                                Types & Stats                               */
@@ -33,6 +38,13 @@ export default function CognitiveGym() {
         focusScore: 85,
     });
 
+    // --- AI Protocol State ---
+    const [stressContext, setStressContext] = useState("");
+    const [neuroBase, setNeuroBase] = useState("Balanced");
+    const [loadPreference, setLoadPreference] = useState("High");
+    const [isGenerating, setIsGenerating] = useState(false);
+    const [aiProtocol, setAiProtocol] = useState<string | null>(null);
+
     // --- Session State ---
     const [elapsedTime, setElapsedTime] = useState(0);
 
@@ -50,6 +62,45 @@ export default function CognitiveGym() {
         const mins = Math.floor(seconds / 60);
         const secs = seconds % 60;
         return `${mins}:${secs.toString().padStart(2, '0')}`;
+    };
+
+    const handleGenerateProtocol = async () => {
+        if (!stressContext.trim()) {
+            toast.error("Stress Context Required", {
+                description: "The Verse protocol necessitates a functional context for cognitive synthesis."
+            });
+            return;
+        }
+
+        setIsGenerating(true);
+        setAiProtocol("");
+
+        try {
+            const res = await fetch('/api/generate/cognitive', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    currentState: stressContext,
+                    neuroBase,
+                    loadPreference
+                })
+            });
+
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Neural Link Interrupted');
+
+            setAiProtocol(data.content);
+            toast.success("Intelligence Synthesized", {
+                description: "Your optimized Neural Resilience Protocol is ready."
+            });
+        } catch (error: any) {
+            console.error('Generation failure:', error);
+            toast.error("Synthesis Failed", {
+                description: error.message
+            });
+        } finally {
+            setIsGenerating(false);
+        }
     };
 
     return (
@@ -85,35 +136,178 @@ export default function CognitiveGym() {
                 </header>
 
                 {/* --- MAIN ARENA --- */}
-                <main className="flex-1 flex flex-col items-center justify-center relative">
+                <main className="flex-1 flex flex-col items-center justify-center relative overflow-y-auto custom-scrollbar pb-20">
                     <AnimatePresence mode='wait'>
                         {!activeDrill ? (
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -20 }}
-                                className="w-full max-w-5xl"
+                                className="w-full max-w-6xl"
                             >
-                                <h2 className="text-2xl font-bold mb-8 text-center text-zinc-400">Select Training Protocol</h2>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                    <DrillCard
-                                        type="working-memory"
-                                        title="N-Back Challenge"
-                                        desc="Enhance working memory capacity by tracking sequential patterns."
-                                        onClick={() => setActiveDrill('working-memory')}
-                                    />
-                                    <DrillCard
-                                        type="inhibition"
-                                        title="Stroop Effect"
-                                        desc="Train impulse control and inhibition by resolving conflict."
-                                        onClick={() => setActiveDrill('inhibition')}
-                                    />
-                                    <DrillCard
-                                        type="flexibility"
-                                        title="Task Switching"
-                                        desc="Improve cognitive flexibility by adapting to changing rules."
-                                        onClick={() => setActiveDrill('flexibility')}
-                                    />
+                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                                    {/* Left: Drill Selection */}
+                                    <div className="lg:col-span-2 space-y-8">
+                                        <h2 className="text-2xl font-black mb-8 text-white uppercase tracking-tighter flex items-center gap-2">
+                                            <Zap className="w-6 h-6 text-amber-500" />
+                                            Active Training Protocols
+                                        </h2>
+                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                            <DrillCard
+                                                type="working-memory"
+                                                title="N-Back Challenge"
+                                                desc="Enhance working memory capacity by tracking sequential patterns."
+                                                onClick={() => setActiveDrill('working-memory')}
+                                            />
+                                            <DrillCard
+                                                type="inhibition"
+                                                title="Stroop Effect"
+                                                desc="Train impulse control and inhibition by resolving conflict."
+                                                onClick={() => setActiveDrill('inhibition')}
+                                            />
+                                            <DrillCard
+                                                type="flexibility"
+                                                title="Task Switching"
+                                                desc="Improve cognitive flexibility by adapting to changing rules."
+                                                onClick={() => setActiveDrill('flexibility')}
+                                            />
+                                        </div>
+
+                                        {/* Strategic Protocol Response Area */}
+                                        {aiProtocol && (
+                                            <motion.div
+                                                initial={{ opacity: 0, scale: 0.95 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                className="mt-12 p-8 rounded-[2rem] bg-indigo-950/20 border border-indigo-500/30 backdrop-blur-xl relative overflow-hidden"
+                                            >
+                                                <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
+                                                    <Shield size={120} className="text-white" />
+                                                </div>
+                                                <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/10">
+                                                    <div className="flex items-center gap-3">
+                                                        <div className="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center">
+                                                            <Activity className="w-6 h-6 text-indigo-400" />
+                                                        </div>
+                                                        <div>
+                                                            <h3 className="text-lg font-black text-white leading-none mb-1">STRATEGIC NEURAL PROTOCOL</h3>
+                                                            <div className="flex items-center gap-2">
+                                                                <p className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest">Authorized by Verse • Chief of Neuro-Resilience</p>
+                                                                <div className="flex items-center gap-1 bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 rounded text-[8px] text-emerald-400 font-black uppercase tracking-tighter">
+                                                                    <CheckCircle2 size={8} />
+                                                                    Clinically Verified
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex items-center gap-4">
+                                                        <button
+                                                            onClick={() => {
+                                                                navigator.clipboard.writeText(aiProtocol);
+                                                                toast.success("Protocol copied to clipboard");
+                                                            }}
+                                                            className="flex items-center gap-2 text-[10px] font-black uppercase text-indigo-400 hover:text-white transition-colors"
+                                                        >
+                                                            <Copy size={12} />
+                                                            Copy
+                                                        </button>
+                                                        <button
+                                                            onClick={() => setAiProtocol(null)}
+                                                            className="text-[10px] font-black uppercase text-zinc-500 hover:text-white transition-colors"
+                                                        >
+                                                            Dismiss
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div className="prose prose-invert prose-sm max-w-none text-zinc-300 font-medium leading-relaxed font-sans">
+                                                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                                        {aiProtocol}
+                                                    </ReactMarkdown>
+                                                </div>
+                                            </motion.div>
+                                        )}
+                                    </div>
+
+                                    {/* Right: AI Synthesis Panel */}
+                                    <div className="space-y-6">
+                                        <div className="p-8 rounded-[2.5rem] bg-zinc-900/40 border border-white/5 backdrop-blur-md relative overflow-hidden h-fit">
+                                            <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 blur-[60px] rounded-full" />
+
+                                            <div className="relative z-10">
+                                                <div className="flex items-center gap-3 mb-6">
+                                                    <div className="px-3 py-1 rounded bg-indigo-500/10 border border-indigo-500/20 text-[10px] font-black text-indigo-400 uppercase tracking-widest flex items-center gap-2">
+                                                        <Sparkles className="w-3 h-3" />
+                                                        Verse Synthesis
+                                                    </div>
+                                                </div>
+
+                                                <h3 className="text-xl font-black text-white uppercase tracking-tight mb-2 italic">Neural Resilience Generator</h3>
+                                                <p className="text-xs text-zinc-500 mb-8 leading-relaxed font-semibold uppercase tracking-wide">Synthesize a custom cognitive protocol based on real-time neural load.</p>
+
+                                                <div className="space-y-6">
+                                                    <div>
+                                                        <label className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.2em] mb-2 block">Current Stress Context</label>
+                                                        <textarea
+                                                            value={stressContext}
+                                                            onChange={(e) => setStressContext(e.target.value)}
+                                                            placeholder="e.g., High-stakes board meeting, systemic resource constraints, multiple conflicting deadlines..."
+                                                            className="w-full h-32 bg-black/50 border border-white/10 rounded-2xl p-4 text-xs text-white placeholder:text-zinc-700 focus:border-indigo-500/50 focus:outline-none transition-all resize-none font-medium"
+                                                        />
+                                                    </div>
+
+                                                    <div className="grid grid-cols-2 gap-4">
+                                                        <div>
+                                                            <label className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.2em] mb-2 block text-center">Neuro Base</label>
+                                                            <select
+                                                                value={neuroBase}
+                                                                onChange={(e) => setNeuroBase(e.target.value)}
+                                                                title="Neuro-Biological Base State"
+                                                                className="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-[11px] font-bold text-white focus:border-indigo-500/50 outline-none appearance-none"
+                                                            >
+                                                                <option>Balanced</option>
+                                                                <option>Sympathetic High</option>
+                                                                <option>Parasympathetic Low</option>
+                                                                <option>Exhausted</option>
+                                                            </select>
+                                                        </div>
+                                                        <div>
+                                                            <label className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.2em] mb-2 block text-center">Target Load</label>
+                                                            <select
+                                                                value={loadPreference}
+                                                                onChange={(e) => setLoadPreference(e.target.value)}
+                                                                title="Target Cognitive Load"
+                                                                className="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-[11px] font-bold text-white focus:border-indigo-500/50 outline-none appearance-none"
+                                                            >
+                                                                <option>Low (Recovery)</option>
+                                                                <option>Moderate</option>
+                                                                <option>High (Growth)</option>
+                                                                <option>Peak Performance</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <button
+                                                        onClick={handleGenerateProtocol}
+                                                        disabled={isGenerating || !stressContext}
+                                                        className="w-full py-4 rounded-2xl bg-indigo-600 hover:bg-indigo-500 disabled:bg-zinc-800 disabled:text-zinc-600 text-white font-black uppercase text-[11px] tracking-[0.2em] transition-all shadow-[0_0_20px_rgba(79,70,229,0.3)] flex items-center justify-center gap-3 active:scale-95 group"
+                                                    >
+                                                        {isGenerating ? <Loader2 className="w-4 h-4 animate-spin" /> : <Activity className="w-4 h-4 group-hover:animate-pulse" />}
+                                                        {isGenerating ? "Synthesizing..." : "Execute Protocol"}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Stats Recap Card */}
+                                        <div className="p-6 rounded-3xl bg-emerald-500/5 border border-emerald-500/10 flex items-center gap-4">
+                                            <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
+                                                <AlertCircle className="w-6 h-6 text-emerald-500" />
+                                            </div>
+                                            <div>
+                                                <p className="text-[10px] font-black text-emerald-500/60 uppercase tracking-widest mb-0.5">Focus State</p>
+                                                <h4 className="text-sm font-black text-emerald-500 uppercase tracking-tight italic">Optimized (Zone 1)</h4>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </motion.div>
                         ) : (
@@ -202,21 +396,35 @@ const COLORS = [
     { name: 'YELLOW', hex: '#eab308' },
 ];
 
-function ActiveDrillArena({ type, onExit, isPlaying, setIsPlaying, score, onScore, onMiss, onSwitchDrill }: ActiveDrillArenaProps) {
-    const [currentStimulus, setCurrentStimulus] = useState<{ word: string, color: string } | null>(null);
+function ActiveDrillArena({ type, onExit, isPlaying, setIsPlaying, score, onScore, onMiss, onSwitchDrill: _onSwitchDrill }: ActiveDrillArenaProps) {
+    const [currentStimulus, setCurrentStimulus] = useState<any>(null);
     const [feedback, setFeedback] = useState<'correct' | 'miss' | null>(null);
+    const [nBackSequence, setNBackSequence] = useState<string[]>([]);
+    const [taskSwitchRule, setTaskSwitchRule] = useState<'even-odd' | 'lo-hi'>('even-odd');
 
     const generateStimulus = React.useCallback(() => {
-        const word = COLORS[Math.floor(Math.random() * COLORS.length)];
-        const color = COLORS[Math.floor(Math.random() * COLORS.length)]; // Can be congruent or incongruent
-        setCurrentStimulus({ word: word.name, color: color.hex });
-    }, []);
+        if (type === 'inhibition') {
+            const word = COLORS[Math.floor(Math.random() * COLORS.length)];
+            const color = COLORS[Math.floor(Math.random() * COLORS.length)]; // Can be congruent or incongruent
+            setCurrentStimulus({ word: word.name, color: color.hex });
+        } else if (type === 'working-memory') {
+            const letters = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+            const newLetter = letters[Math.floor(Math.random() * letters.length)];
+            setNBackSequence(prev => [...prev.slice(-5), newLetter]);
+            setCurrentStimulus(newLetter);
+        } else if (type === 'flexibility') {
+            const num = Math.floor(Math.random() * 9) + 1;
+            const newRule = Math.random() > 0.5 ? 'even-odd' : 'lo-hi';
+            setTaskSwitchRule(newRule);
+            setCurrentStimulus(num);
+        }
+    }, [type]);
 
     useEffect(() => {
         if (isPlaying && !currentStimulus) {
             generateStimulus();
         }
-    }, [isPlaying, currentStimulus, generateStimulus]);
+    }, [isPlaying, currentStimulus, generateStimulus, type]);
 
     const handleResponse = (selectedColor: string) => {
         if (!currentStimulus) return;
@@ -280,7 +488,7 @@ function ActiveDrillArena({ type, onExit, isPlaying, setIsPlaying, score, onScor
                 )}
             </AnimatePresence>
 
-            {type === 'inhibition' && currentStimulus && (
+            {type === 'inhibition' && currentStimulus && typeof currentStimulus === 'object' && (
                 <div className="py-20">
                     <motion.div
                         key={currentStimulus.word + currentStimulus.color}
@@ -306,11 +514,104 @@ function ActiveDrillArena({ type, onExit, isPlaying, setIsPlaying, score, onScor
                 </div>
             )}
 
-            {/* Disclaimer for other modes in this mockup */}
-            {(type === 'working-memory' || type === 'flexibility') && (
-                <div className="py-20">
-                    <p className="text-zinc-500 mb-8">Simulation Mode: Only 'Stroop Effect' is fully interactive in this demo.</p>
-                    <button onClick={() => onSwitchDrill('inhibition')} className="text-indigo-400 hover:text-indigo-300 underline">Switch to Stroop</button>
+            {type === 'working-memory' && currentStimulus && (
+                <div className="py-20 text-center">
+                    <motion.div
+                        key={nBackSequence.length}
+                        initial={{ y: 20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        className="text-9xl font-black text-white mb-12"
+                    >
+                        {currentStimulus}
+                    </motion.div>
+
+                    <div className="flex gap-4 justify-center">
+                        <button
+                            onClick={() => {
+                                const isMatch = nBackSequence.length >= 3 && nBackSequence[nBackSequence.length - 1] === nBackSequence[nBackSequence.length - 3];
+                                if (isMatch) {
+                                    setFeedback('correct');
+                                    onScore(150);
+                                } else {
+                                    setFeedback('miss');
+                                    onMiss();
+                                }
+                                setTimeout(() => { setFeedback(null); generateStimulus(); }, 500);
+                            }}
+                            className="px-12 py-6 rounded-2xl bg-indigo-500 hover:bg-indigo-400 text-white font-black text-xl uppercase tracking-tighter"
+                        >
+                            Match (2-Back)
+                        </button>
+                        <button
+                            onClick={() => {
+                                const isMatch = nBackSequence.length >= 3 && nBackSequence[nBackSequence.length - 1] === nBackSequence[nBackSequence.length - 3];
+                                if (!isMatch) {
+                                    setFeedback('correct');
+                                    onScore(50);
+                                } else {
+                                    setFeedback('miss');
+                                    onMiss();
+                                }
+                                setTimeout(() => { setFeedback(null); generateStimulus(); }, 500);
+                            }}
+                            className="px-12 py-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 text-white font-black text-xl uppercase tracking-tighter"
+                        >
+                            No Match
+                        </button>
+                    </div>
+                    <p className="mt-8 text-zinc-500 text-xs uppercase tracking-widest font-bold">Sequence depth: {nBackSequence.length}</p>
+                </div>
+            )}
+
+            {type === 'flexibility' && currentStimulus && (
+                <div className="py-16 text-center">
+                    <div className={`inline-block px-6 py-2 rounded-full mb-8 text-xs font-black uppercase tracking-widest border ${taskSwitchRule === 'even-odd' ? 'bg-amber-500/10 text-amber-500 border-amber-500/20' : 'bg-indigo-500/10 text-indigo-500 border-indigo-500/20'}`}>
+                        Rule: {taskSwitchRule === 'even-odd' ? 'Even or Odd?' : 'High or Low? (>5)'}
+                    </div>
+
+                    <motion.div
+                        key={currentStimulus + taskSwitchRule}
+                        initial={{ scale: 0.5, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        className="text-9xl font-black text-white mb-12"
+                    >
+                        {currentStimulus}
+                    </motion.div>
+
+                    <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
+                        <button
+                            onClick={() => {
+                                const isCorrect = taskSwitchRule === 'even-odd' ? (currentStimulus % 2 === 0) : (currentStimulus > 5);
+                                if (isCorrect) {
+                                    setFeedback('correct');
+                                    onScore(120);
+                                } else {
+                                    setFeedback('miss');
+                                    onMiss();
+                                }
+                                setTimeout(() => { setFeedback(null); generateStimulus(); }, 500);
+                            }}
+                            className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-noble-gold/30 hover:bg-noble-gold/5 text-white font-bold"
+                        >
+                            {taskSwitchRule === 'even-odd' ? 'EVEN' : 'HIGH (>5)'}
+                        </button>
+                        <button
+                            onClick={() => {
+                                const isCorrect = taskSwitchRule === 'even-odd' ? (currentStimulus % 2 !== 0) : (currentStimulus <= 5);
+                                if (isCorrect) {
+                                    setFeedback('correct');
+                                    onScore(120);
+                                } else {
+                                    setFeedback('miss');
+                                    onMiss();
+                                }
+                                setTimeout(() => { setFeedback(null); generateStimulus(); }, 500);
+                            }}
+                            className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-noble-gold/30 hover:bg-noble-gold/5 text-white font-bold"
+                        >
+                            {taskSwitchRule === 'even-odd' ? 'ODD' : 'LOW (≤5)'}
+                        </button>
+                    </div>
                 </div>
             )}
 

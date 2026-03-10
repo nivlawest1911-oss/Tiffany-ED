@@ -3,6 +3,9 @@ const STATIC_ASSETS = [
     '/',
     '/favicon.ico',
     '/images/logo.png',
+    '/noise.png',
+    '/tactical-noise.png',
+    '/tactical-grain.png'
 ];
 
 // Install event

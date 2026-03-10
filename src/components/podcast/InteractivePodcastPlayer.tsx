@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect, MouseEvent } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Pause, Volume2, VolumeX, Loader2, Send, Bot, User, BookOpen } from 'lucide-react';
 import { PodcastEpisode } from '@/lib/data/podcasts';
@@ -22,7 +22,6 @@ export default function InteractivePodcastPlayer({ episode }: InteractivePodcast
     // Media State
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
-    const [duration, setDuration] = useState(0);
     const [isMuted, setIsMuted] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
 
@@ -36,11 +35,12 @@ export default function InteractivePodcastPlayer({ episode }: InteractivePodcast
         {
             id: 'ass-1',
             role: 'assistant',
-            content: "Welcome to the Sovereign Broadcast. I'm your host, Tiffany-ED. We're live and ready to take your questions regarding instruction, compliance, and pedagogical strategy. What's on your mind today?"
+            content: "Welcome to the Sovereign Broadcast. I'm Verse. We're live and ready to take your questions regarding instruction, compliance, and pedagogical strategy. What's on your mind today?"
         }
     ]);
     const [input, setInput] = useState('');
     const [isGenerating, setIsGenerating] = useState(false);
+    const [isTyping, setIsTyping] = useState(false);
     const chatEndRef = useRef<HTMLDivElement>(null);
 
     // Synchronize play state
@@ -69,7 +69,6 @@ export default function InteractivePodcastPlayer({ episode }: InteractivePodcast
 
     const handleLoadedMetadata = () => {
         if (audioRef.current) {
-            setDuration(audioRef.current.duration);
             setIsLoaded(true);
         }
     };
@@ -112,40 +111,47 @@ export default function InteractivePodcastPlayer({ episode }: InteractivePodcast
             const res = await fetch('/api/podcast/interact', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: userMsg.content, history: messages.filter(m => m.role !== 'system') })
+                body: JSON.stringify({
+                    message: userMsg.content,
+                    history: messages.filter(m => m.role !== 'system'),
+                    episodeId: episode.id
+                })
             });
 
             if (!res.ok) throw new Error('Failed to generate response');
 
             const data = await res.json();
 
-            setMessages(prev => [...prev, {
-                id: (Date.now() + 1).toString(),
-                role: 'assistant',
-                content: data.response
-            }]);
+            // Simulate typing/streaming for a "live broadcast" feel
+            const fullResponse = data.response;
+            setIsGenerating(false);
+            setIsTyping(true);
+
+            let currentText = "";
+            const assistantId = (Date.now() + 1).toString();
+
+            // Initial empty assistant message
+            setMessages(prev => [...prev, { id: assistantId, role: 'assistant', content: "" }]);
+
+            const words = fullResponse.split(' ');
+            for (let i = 0; i < words.length; i++) {
+                currentText += words[i] + " ";
+                setMessages(prev => prev.map(m => m.id === assistantId ? { ...m, content: currentText } : m));
+                // Variable delay for human-like typing
+                await new Promise(resolve => setTimeout(resolve, 30 + Math.random() * 40));
+            }
+            setIsTyping(false);
 
         } catch (error) {
             console.error("Chat Error:", error);
+            setIsGenerating(false);
+            setIsTyping(false);
             setMessages(prev => [...prev, {
                 id: (Date.now() + 1).toString(),
                 role: 'system',
                 content: 'Connection instability detected. We are currently utilizing fallback heuristic protocols.'
             }]);
-
-            // Auto fallback response logic
-            setTimeout(() => {
-                setMessages(prev => [...prev, {
-                    id: (Date.now() + 2).toString(),
-                    role: 'assistant',
-                    content: "I'm currently unable to parse the federal repository database at full capacity. However, procedurally, tracking Tier 2 interventions requires methodical documentation via standard RTIm protocols. Can you clarify the specific student behavioral demographic you are monitoring?"
-                }]);
-                setIsGenerating(false);
-            }, 1500);
-            return;
         }
-
-        setIsGenerating(false);
     };
 
     return (
@@ -164,20 +170,44 @@ export default function InteractivePodcastPlayer({ episode }: InteractivePodcast
             {/* Left Panel: Media & Status */}
             <div className="w-full md:w-1/3 flex flex-col items-center justify-center p-4 border-r border-white/5 relative z-10 shrink-0">
                 {/* Live Indicator */}
-                <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1 bg-red-500/10 border border-red-500/30 rounded-full animate-pulse">
-                    <div className="w-2 h-2 rounded-full bg-red-500" />
-                    <span className="text-red-500 font-black text-[10px] uppercase tracking-widest">Live Broadcast</span>
+                <div className="absolute top-4 left-4 flex flex-col gap-2">
+                    <div className="flex items-center gap-2 px-3 py-1 bg-red-500/10 border border-red-500/30 rounded-full animate-pulse">
+                        <div className="w-2 h-2 rounded-full bg-red-500" />
+                        <span className="text-red-500 font-black text-[10px] uppercase tracking-widest">Live</span>
+                    </div>
+                    {(isGenerating || isTyping) && (
+                        <motion.div
+                            initial={{ opacity: 0, x: -10, filter: "blur(4px)" }}
+                            animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                            className="flex items-center gap-2 px-3 py-1 bg-cyan-500/10 border border-cyan-500/30 rounded-full shadow-[0_0_15px_rgba(6,182,212,0.2)] overflow-hidden relative"
+                        >
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/10 to-transparent -translate-x-full animate-shimmer" />
+                            <div className="w-2 h-2 rounded-full bg-cyan-400 relative">
+                                <div className="absolute inset-0 rounded-full bg-cyan-400 animate-ping opacity-40" />
+                            </div>
+                            <span className="text-cyan-400 font-black text-[10px] uppercase tracking-widest">Neural Link</span>
+                        </motion.div>
+                    )}
                 </div>
 
                 {/* Avatar Graphic */}
                 <div className="relative w-40 h-40 mt-6 mb-8 flex items-center justify-center">
                     <motion.div
-                        className="absolute inset-0 bg-cyan-500/20 blur-2xl rounded-full"
+                        className="absolute inset-0 bg-noble-gold/20 blur-2xl rounded-full"
                         animate={{
-                            scale: isPlaying ? [1, 1.3, 1] : 1,
-                            opacity: isPlaying ? [0.4, 0.8, 0.4] : 0.2
+                            scale: (isPlaying || isTyping) ? [1, 1.4, 1.2, 1.5, 1] : 1,
+                            opacity: (isPlaying || isTyping) ? [0.3, 0.7, 0.5, 0.8, 0.3] : 0.2
                         }}
-                        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                    />
+                    <motion.div
+                        className="absolute inset-0 bg-cyan-500/20 blur-3xl rounded-full"
+                        animate={{
+                            scale: isTyping ? [1, 2.2, 1.8, 2.5, 1] : 1,
+                            opacity: isTyping ? [0.2, 0.6, 0.4, 0.8, 0.2] : 0,
+                            rotate: isTyping ? [0, 90, 180, 270, 360] : 0
+                        }}
+                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                     />
 
                     <div className="absolute inset-0 rounded-[2.5rem] bg-black/60 border border-noble-gold/30 overflow-hidden flex items-center justify-center p-4 backdrop-blur-md">
@@ -225,6 +255,22 @@ export default function InteractivePodcastPlayer({ episode }: InteractivePodcast
                         <Bot size={12} /> {messages.length - 1} Exchanges
                     </span>
                 </div>
+
+                {/* Transcript Deep Dive (Conditional) */}
+                {episode.transcript && (
+                    <div className="bg-noble-gold/5 border-b border-noble-gold/10 p-3 overflow-x-auto whitespace-nowrap scrollbar-hide flex gap-3">
+                        {episode.transcript.map((item, i) => (
+                            <button
+                                key={i}
+                                onClick={() => setInput(prev => prev ? `${prev} Tell me more about: ${item.text}` : `What does "${item.text}" mean in this context?`)}
+                                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-[10px] font-bold text-zinc-400 hover:text-noble-gold hover:border-noble-gold/30 hover:bg-noble-gold/10 transition-all shrink-0 uppercase tracking-widest"
+                            >
+                                <span className="text-noble-gold/60 font-mono">{item.time}</span>
+                                {item.text.length > 25 ? item.text.substring(0, 25) + "..." : item.text}
+                            </button>
+                        ))}
+                    </div>
+                )}
 
                 {/* Message Log */}
                 <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">

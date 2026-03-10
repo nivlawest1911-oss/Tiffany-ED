@@ -21,7 +21,7 @@ export class HeyGenStreamingService {
      */
     async startSession(avatarId: string, apiKey: string, signal?: AbortSignal): Promise<MediaStream> {
         try {
-            console.log('Initializing HeyGen Stream with ID:', avatarId);
+
 
             if (signal?.aborted) throw new DOMException('Aborted', 'AbortError');
 
@@ -37,7 +37,8 @@ export class HeyGenStreamingService {
                     quality: 'medium',
                     avatar_name: avatarId,
                     voice: {
-                        // Optional voice settings
+                        voice_id: 'EXAVITQu4vr4xnSDxMaL', // Bella (Authoritative Female)
+                        rate: 1.0
                     }
                 }),
                 signal
@@ -48,7 +49,7 @@ export class HeyGenStreamingService {
             }
 
             const sessionData = await tokenResponse.json();
-            console.log('Session Data:', sessionData);
+
 
             if (signal?.aborted) throw new DOMException('Aborted', 'AbortError');
 
@@ -66,7 +67,7 @@ export class HeyGenStreamingService {
             // 3. Handle Intake Stream
             this.peerConnection.ontrack = (event) => {
                 if (event.streams && event.streams[0]) {
-                    console.log('Received Remote Stream');
+
                     this.mediaStream = event.streams[0];
                 }
             };
@@ -103,7 +104,7 @@ export class HeyGenStreamingService {
                 throw new Error(`HeyGen Session Start Failed: ${errorData.message || startResponse.statusText}`);
             }
 
-            console.log('HeyGen Stream Connected!');
+
 
             // Add a small delay for connection stabilization
             await new Promise((resolve, reject) => {

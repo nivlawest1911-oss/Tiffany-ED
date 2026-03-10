@@ -8,8 +8,11 @@ import {
     Download,
     Share2,
     Loader2,
-    Info
+    Info,
+    Zap
 } from 'lucide-react';
+import Image from 'next/image';
+import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { toast } from 'sonner';
@@ -23,6 +26,26 @@ export default function ImageGeneratorPage() {
     const [gradeLevel] = useState("Middle School");
     const [isGenerating, setIsGenerating] = useState(false);
     const [generatedImage, setGeneratedImage] = useState<string | null>(null);
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    const animationSequence = [
+        "Neural Link Established",
+        "Decomposing Instructional Intent",
+        "Scaling Intelligence Nodes",
+        "Finalizing Aesthetic Render"
+    ];
+
+    useEffect(() => {
+        if (isGenerating) {
+            const interval = setInterval(() => {
+                setCurrentIndex((prev) => (prev + 1) % animationSequence.length);
+            }, 2000);
+            return () => clearInterval(interval);
+        } else {
+            setCurrentIndex(0);
+        }
+    }, [isGenerating, animationSequence.length]);
+
     const { addAction } = useIntelligence();
 
     const handleGenerate = async () => {
@@ -162,11 +185,11 @@ export default function ImageGeneratorPage() {
                                         animate={{ opacity: 1, scale: 1 }}
                                         className="relative w-full h-full"
                                     >
-                                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                                        <img
+                                        <Image
                                             src={generatedImage}
                                             alt="Generated visual"
-                                            className="w-full h-full object-cover"
+                                            fill
+                                            className="object-cover"
                                         />
 
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-8 flex items-end justify-between">
@@ -175,10 +198,24 @@ export default function ImageGeneratorPage() {
                                                 <p className="text-zinc-400 text-xs">Generated for {subject} Curriculum</p>
                                             </div>
                                             <div className="flex gap-2">
-                                                <Button size="icon" variant="secondary" className="bg-white/10 hover:bg-white/20 border-white/10">
+                                                <Button 
+                                                    size="icon" 
+                                                    variant="secondary" 
+                                                    className="bg-white/10 hover:bg-white/20 border-white/10"
+                                                    onClick={() => toast.info("Downloading educational visual...")}
+                                                    aria-label="Download Visual"
+                                                    title="Download Visual"
+                                                >
                                                     <Download className="w-4 h-4" />
                                                 </Button>
-                                                <Button size="icon" variant="secondary" className="bg-white/10 hover:bg-white/20 border-white/10">
+                                                <Button 
+                                                    size="icon" 
+                                                    variant="secondary" 
+                                                    className="bg-white/10 hover:bg-white/20 border-white/10"
+                                                    onClick={() => toast.info("Preparing visual for distribution...")}
+                                                    aria-label="Share Visual"
+                                                    title="Share Visual"
+                                                >
                                                     <Share2 className="w-4 h-4" />
                                                 </Button>
                                             </div>
@@ -205,16 +242,72 @@ export default function ImageGeneratorPage() {
                                         </div>
 
                                         {isGenerating && (
-                                            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm flex flex-col items-center justify-center space-y-6">
-                                                <div className="relative w-24 h-24">
-                                                    <div className="absolute inset-0 border-2 border-cyan-500/20 rounded-full" />
-                                                    <div className="absolute inset-0 border-t-2 border-cyan-500 rounded-full animate-spin" />
-                                                </div>
-                                                <div className="text-center">
-                                                    <span className="text-cyan-400 font-black uppercase tracking-[0.3em] animate-pulse">
-                                                        Rendering Neural Asset
-                                                    </span>
-                                                    <p className="text-zinc-500 text-xs mt-2">Connecting to Sovereign Cloud...</p>
+                                            <div className="absolute inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50 transition-all duration-500">
+                                                <div className="text-center space-y-8 max-w-md px-6">
+                                                    <div className="relative">
+                                                        <div className="w-24 h-24 border-2 border-cyan-500/20 border-t-cyan-500 rounded-full animate-spin mx-auto" />
+                                                        <motion.div
+                                                            animate={{
+                                                                scale: [1, 1.2, 1],
+                                                                opacity: [0.3, 0.7, 0.3]
+                                                            }}
+                                                            transition={{ duration: 2, repeat: Infinity }}
+                                                            className="absolute inset-0 bg-cyan-500/10 blur-2xl rounded-full"
+                                                        />
+                                                    </div>
+
+                                                    <div className="space-y-5">
+                                                        <AnimatePresence mode="wait">
+                                                            <motion.p
+                                                                key={currentIndex}
+                                                                initial={{ opacity: 0, y: 10 }}
+                                                                animate={{ opacity: 1, y: 0 }}
+                                                                exit={{ opacity: 0, y: -10 }}
+                                                                className="text-cyan-400 font-black uppercase tracking-[0.3em] text-xs h-4"
+                                                            >
+                                                                {animationSequence[currentIndex]}
+                                                            </motion.p>
+                                                        </AnimatePresence>
+
+                                                        <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
+                                                            <motion.div
+                                                                initial={{ width: "0%" }}
+                                                                animate={{ width: "100%" }}
+                                                                transition={{ duration: 15, ease: "linear" }}
+                                                                className="h-full bg-gradient-to-r from-cyan-600 via-blue-500 to-cyan-600 shadow-[0_0_10px_rgba(8,145,178,0.5)]"
+                                                            />
+                                                        </div>
+
+                                                        <div className="grid grid-cols-2 gap-3 pt-2">
+                                                            {[
+                                                                { label: "Resolution", val: "8K Neural" },
+                                                                { label: "Composition", val: "Golden Ratio" },
+                                                                { label: "Aesthetic", val: "Regal-Clinical" },
+                                                                { label: "Diffusion", val: "High-Fidelity" }
+                                                            ].map((metric, idx) => (
+                                                                <motion.div
+                                                                    key={idx}
+                                                                    initial={{ opacity: 0, y: 5 }}
+                                                                    animate={{ opacity: 1, y: 0 }}
+                                                                    transition={{ delay: 0.5 + (idx * 0.1) }}
+                                                                    className="p-2.5 rounded-xl bg-white/[0.03] border border-white/10 backdrop-blur-sm"
+                                                                >
+                                                                    <div className="text-[7px] text-zinc-500 uppercase font-black tracking-widest mb-0.5">{metric.label}</div>
+                                                                    <div className="text-[10px] text-zinc-200 font-mono flex items-center gap-1.5">
+                                                                        <div className="w-1 h-1 rounded-full bg-cyan-500/50" />
+                                                                        {metric.val}
+                                                                    </div>
+                                                                </motion.div>
+                                                            ))}
+                                                        </div>
+
+                                                        <div className="pt-2">
+                                                            <p className="text-[9px] text-zinc-500 font-bold uppercase tracking-widest animate-pulse flex items-center justify-center gap-2">
+                                                                <Zap className="w-2 h-2 text-cyan-500" />
+                                                                Synthesizing sovereign grade assets...
+                                                            </p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         )}

@@ -15,6 +15,9 @@ interface User {
     clerkId?: string;
     position?: string;
     bio?: string;
+    created_at?: string;
+    trialEndsAt?: string;
+    stripeId?: string;
 }
 
 interface AuthContextType {

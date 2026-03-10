@@ -3,16 +3,23 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Cpu, Activity, Shield } from 'lucide-react';
+import { Cpu, Activity, Shield, Heart } from 'lucide-react';
 import { useEdIntelVibe, VIBES, Vibe } from '@/context/EdIntelVibeContext';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
+import { SovereignBadge } from '@/components/ui/SovereignBadge';
+import { useAuth } from '@/context/AuthContext';
+import { useIntelligence } from '@/context/IntelligenceContext';
+import { wearableService } from '@/lib/wearable-service';
 import { cn } from '@/lib/utils';
 
 export const TacticalHeaderBar = () => {
     const router = useRouter();
+    const { user } = useAuth();
     const { currentVibe, setVibe } = useEdIntelVibe();
     const { playHover, playClick } = useProfessionalSounds();
+    const { isSynthesizing } = useIntelligence();
     const [latency, setLatency] = useState('1.4ms');
+    const [isLinked, setIsLinked] = useState(false);
 
     // Simulate slight latency fluctuations for "lived-in" feel
     useEffect(() => {
@@ -21,7 +28,16 @@ export const TacticalHeaderBar = () => {
             const variance = (Math.random() * 0.2) - 0.1;
             setLatency(`${(base + variance).toFixed(1)}ms`);
         }, 3000);
-        return () => clearInterval(interval);
+
+        // Listen to wearable status
+        const unsubscribe = wearableService.onStatusChange((connected) => {
+            setIsLinked(connected);
+        });
+
+        return () => {
+            clearInterval(interval);
+            unsubscribe();
+        };
     }, []);
 
     const handleVibeChange = (vibe: Vibe) => {
@@ -51,6 +67,40 @@ export const TacticalHeaderBar = () => {
                         <span className="text-[8px] font-black text-white/30 uppercase tracking-widest leading-none">Latency</span>
                         <span className="text-[10px] font-mono text-electric-cyan font-black tracking-tighter">{latency}</span>
                     </div>
+                </div>
+
+                <div className="w-px h-6 bg-white/10" />
+
+                {/* HEARTBEAT / NEURAL LINK */}
+                <div className={cn(
+                    "flex items-center gap-2 px-2 transition-all duration-500",
+                    isSynthesizing ? "bg-sovereign-gold/10 rounded-lg px-3 py-1" :
+                        isLinked ? "bg-cyan-500/10 rounded-lg px-3 py-1" : ""
+                )}>
+                    <motion.div
+                        animate={{
+                            scale: isSynthesizing ? [1, 1.4, 1] : [1, 1.2, 1],
+                            opacity: [0.5, 1, 0.5]
+                        }}
+                        transition={{
+                            duration: isSynthesizing ? 0.6 : 2,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                        }}
+                    >
+                        <Heart className={cn(
+                            "w-3 h-3 transition-colors duration-500",
+                            isSynthesizing ? "text-sovereign-gold fill-sovereign-gold" :
+                                isLinked ? "text-cyan-400 fill-cyan-400" : "text-rose-500 fill-rose-500/20"
+                        )} />
+                    </motion.div>
+                    <span className={cn(
+                        "text-[9px] font-black uppercase tracking-[0.2em] transition-colors duration-500",
+                        isSynthesizing ? "text-sovereign-gold animate-pulse" :
+                            isLinked ? "text-cyan-400" : "text-white/30"
+                    )}>
+                        {isSynthesizing ? "Synthesizing..." : isLinked ? "Biometrics Linked" : "Neural Link"}
+                    </span>
                 </div>
             </div>
 
@@ -97,6 +147,13 @@ export const TacticalHeaderBar = () => {
                     );
                 })}
             </div>
+
+            {/* User Tier Badge (Phase 12 Integration) */}
+            {user?.tier && (
+                <div className="ml-2">
+                    <SovereignBadge tier={user.tier} />
+                </div>
+            )}
 
             {/* System Status Icon */}
             <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-sovereign-gold/5 border border-sovereign-gold/20 ml-2">

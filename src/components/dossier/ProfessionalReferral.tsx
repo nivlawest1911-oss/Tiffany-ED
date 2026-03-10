@@ -4,22 +4,29 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Share2, Gift, Copy, CheckCircle, Globe } from 'lucide-react';
 import Image from 'next/image';
+import { shareService } from '@/lib/ShareService';
+import ProfileShareModal from '@/components/modals/ProfileShareModal';
+import { toast } from 'sonner';
 
 export default function ProfessionalReferral() {
     const [copied, setCopied] = useState(false);
     const [inviteCount, setInviteCount] = useState(0);
-    const referralLink = "https://edintel.ai/join/sov-77x";
+    const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+    const referralLink = shareService.generateLink('REFERRAL', 'ALVIN57');
 
     const handleCopy = () => {
         navigator.clipboard.writeText(referralLink);
         setCopied(true);
+        toast.success('Referral Protocol Copied');
         setTimeout(() => setCopied(false), 2000);
         // Simulate a viral event for the user to feel good
         if (inviteCount === 0) setInviteCount(1);
     };
 
-    const handleSimulateInvite = () => {
-        setInviteCount(prev => prev + 1);
+    const handleShareClick = () => {
+        setIsShareModalOpen(true);
+        // Simulate a viral event for the user to feel good
+        if (inviteCount < 3) setInviteCount(prev => prev + 1);
     };
 
     return (
@@ -99,7 +106,7 @@ export default function ProfessionalReferral() {
                             </div>
 
                             <button
-                                onClick={handleSimulateInvite} // In real app, this would be a real share dialog
+                                onClick={handleShareClick}
                                 className="w-full py-4 rounded-xl bg-white text-black font-black uppercase tracking-widest hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-lg shadow-white/10"
                             >
                                 <Share2 size={16} /> Share Invitation
@@ -130,6 +137,13 @@ export default function ProfessionalReferral() {
                     </div>
                 </div>
             </motion.div>
+
+            <ProfileShareModal 
+                isOpen={isShareModalOpen}
+                onClose={() => setIsShareModalOpen(false)}
+                context="REFERRAL"
+                userName="Dr. Alvin West II"
+            />
         </section>
     );
 }

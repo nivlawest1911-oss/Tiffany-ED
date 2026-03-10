@@ -11,7 +11,8 @@ import {
     Brain,
     Activity,
     ChevronRight,
-    Download
+    Download,
+    FileText
 } from 'lucide-react';
 import {
     AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
@@ -20,6 +21,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { toast } from 'sonner';
 import { calculateSovereignSavings, formatCurrency } from '@/lib/roi-logic';
 
 // --- MOCK DATA ---
@@ -172,7 +174,7 @@ export default function MissionControlDashboard() {
     return (
         <div className="space-y-8 pb-20">
             {/* 3D Global Effects Definition */}
-            <svg style={{ height: 0, width: 0, position: 'absolute' }}>
+            <svg className="h-0 w-0 absolute pointer-events-none">
                 <defs>
                     <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
                         <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
@@ -211,10 +213,17 @@ export default function MissionControlDashboard() {
                         <p className="text-white/40 font-mono text-xs uppercase tracking-[0.2em]">Operational Uplink: Central Command Node Alpha</p>
                     </div>
                     <div className="flex gap-4">
-                        <Button variant="ghost" className="rounded-2xl border-white/10 bg-white/5 text-white/50 hover:bg-white/10 h-14 px-8 font-black uppercase text-[10px] tracking-widest">
+                        <Button 
+                            variant="ghost" 
+                            onClick={() => toast.info("Mission Parameters: Standard Protocol Alpha active")}
+                            className="rounded-2xl border-white/10 bg-white/5 text-white/50 hover:bg-white/10 h-14 px-8 font-black uppercase text-[10px] tracking-widest"
+                        >
                             Parameters
                         </Button>
-                        <Button className="rounded-2xl bg-white text-black hover:bg-intel-gold transition-all duration-500 h-14 px-8 font-black uppercase text-[10px] tracking-widest shadow-[0_20px_40px_rgba(255,255,255,0.1)]">
+                        <Button 
+                            onClick={() => toast.success("Global Export initiated", { description: "Aggregating all 14 nodes into Sovereign Ledger..." })}
+                            className="rounded-2xl bg-white text-black hover:bg-intel-gold transition-all duration-500 h-14 px-8 font-black uppercase text-[10px] tracking-widest shadow-[0_20px_40px_rgba(255,255,255,0.1)]"
+                        >
                             <Download className="w-4 h-4 mr-2" /> Global Export
                         </Button>
                     </div>
@@ -328,14 +337,18 @@ export default function MissionControlDashboard() {
                                         animate={{ width: `${school.impact}%` }}
                                         transition={{ duration: 1.5, delay: i * 0.1, ease: 'circOut' }}
                                         className="absolute top-0 left-0 h-full rounded-full"
-                                        style={{ backgroundColor: school.color }}
+                                        style={{ backgroundColor: school.color } as React.CSSProperties}
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" />
                                 </div>
                             </div>
                         ))}
                     </div>
-                    <Button variant="ghost" className="mt-8 text-[10px] font-black uppercase tracking-[0.2em] text-white/30 hover:text-intel-gold bg-transparent">
+                    <Button 
+                        variant="ghost" 
+                        onClick={() => toast("Topology synchronization verified.", { description: "Institutional link integrity: 100%" })}
+                        className="mt-8 text-[10px] font-black uppercase tracking-[0.2em] text-white/30 hover:text-intel-gold bg-transparent"
+                    >
                         Full Topology Report <ChevronRight className="w-3 h-3 ml-2" />
                     </Button>
                 </Card>

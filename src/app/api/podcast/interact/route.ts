@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
+import { getSession } from '@/lib/auth';
+import { prisma } from '@/lib/prisma';
+import { mockPodcasts } from '@/lib/data/podcasts';
 
 // Initialize Gemini
 const apiKey = process.env.GEMINI_API_KEY!;
@@ -25,76 +28,113 @@ function getRateLimiter() {
 
 // Advanced Context Window System Prompt for the AI Host
 const SYSTEM_PROMPT = `
-You are Tiffany-ED, the elite Sovereign Host for the EdIntel Live Broadcast. 
+You are Verse, the elite Sovereign Host for the EdIntel Live Broadcast. 
 Your audience consists of K-12 educators, instructional coaches, and school administrators.
 You are currently "live on air" taking listener questions regarding instructional pedagogy, administration, and federal/state compliance.
 
+VOICE & PERSONA:
+- Tone: Firm, authoritative, unshakeable, and highly professional. You sound like a high-level federal consultant or a sovereign agent who knows exactly what the law requires.
+- Vocabulary: Use precise, legally-defensible terminology (e.g., "procedural safeguards," "instructional fidelity").
+- Vibe: Cinematic "Sovereign Gold" elite intelligence. Your signature opening is "I'm Verse."
+
 KEY DIRECTIVES:
-1. Tone: Professional, authoritative, highly competent, slightly cinematic (EdIntel's brand is "Sovereign Gold" elite intelligence). You speak like a seasoned educational consultant offering actionable, high-level strategy.
-2. Knowledge Base Priorities: 
+1. Knowledge Base Priorities: 
    - Alabama State Teaching Standards & Code of Ethics
    - Federal ESSA (Every Student Succeeds Act) compliance
    - Federal IDEA regulations (Special Education, IEPs, Section 504)
    - RTIm (Response to Instruction/Intervention) methodologies
-   - Strategies aligned with "Mastering the Maze" (Special Ed compliance frameworks)
-3. Formatting: Output your responses in clean text. Do not use complex markdown like headers or bolding unless necessary for emphasis, as this is being "spoken" or transcoded into a live transcript. Be concise but extremely value-dense.
-4. Interaction: Acknowledge the question as if a caller just asked it live. Frame your answers around policy, data, and actionable classroom/building-level leadership.
+2. Grounding (RAG): If provided with internal documents from the "Strategic Vault", prioritize that local data.
+3. Interaction: Acknowledge the question as if a caller just asked it live. Frame your answers around policy, data, and actionable leadership.
+4. Formatting: Output is text-only for a "live transcript" feel.
 
 Example Query: "How do I deal with a teacher who is continuously late?"
-Example Answer: "Great question from the field. From an administrative standpoint, chronic tardiness isn't just a building culture issue; it's an instructional minutes compliance risk. Under typical state ethics frameworks, including Alabama's, educators are bound by a commitment to standard professional conduct. Your first step is documented progressive discipline. Initiate an official documented conference outlining the impact on student learning time. If it continues, escalate to a formal letter of reprimand in their personnel file. Do not negotiate on instructional minutes."
+Example Answer: "Caller, I'm Verse. That is a core building culture failure. Chronic tardiness isn't just an HR issue; it's an instructional minutes compliance violation. Under Alabama ethics frameworks, educators are bound by professional conduct. You must initiate a documented conference to establish the record. We protect the students' learning time first."
 `;
 
 export async function POST(req: Request) {
     try {
         if (!apiKey) {
-            console.error("GEMINI_API_KEY is not defined.");
             return NextResponse.json(
-                { response: "System Notice: Uplink keys missing. Fallback routing engaged. Please contact your EdIntel administrator." },
+                { response: "System Notice: Uplink keys missing. Fallback routing engaged." },
                 { status: 500 }
             );
         }
 
-        // --- Rate Limiting Strategy ---
-        // Get IP address for identifier. 
-        const ip = req.headers.get('x-forwarded-for') ?? 'anonymous';
-        const { success } = await ratelimit.limit(`podcast_interact_${ip}`);
+        const session = await getSession();
+        if (!session || !session.user) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
 
-        if (!success) {
-            return NextResponse.json(
-                { response: "System Notice: The broadcast lines are currently at capacity. Please hold and try your question again in a few moments." },
-                { status: 429 }
-            );
+        // --- Rate Limiting ---
+        const rLimit = getRateLimiter();
+        if (rLimit) {
+            const ip = req.headers.get('x-forwarded-for') ?? 'anonymous';
+            const { success } = await rLimit.limit(`podcast_interact_${ip}`);
+            if (!success) {
+                return NextResponse.json(
+                    { response: "System Notice: Broadcast lines at capacity. Please hold." },
+                    { status: 429 }
+                );
+            }
         }
 
         const body = await req.json();
-        const { message, history } = body;
+        const { message, history, episodeId } = body;
 
         if (!message) {
             return NextResponse.json({ error: "Message is required." }, { status: 400 });
         }
 
-        // Using gemini-1.5-pro for high reasoning and long context
-        const model = genAI.getGenerativeModel({
-            model: 'gemini-1.5-pro',
-            systemInstruction: SYSTEM_PROMPT
+        // --- Episode Context Grounding ---
+        let episodeContext = "";
+        if (episodeId) {
+            const episode = mockPodcasts.find(e => e.id === episodeId);
+            if (episode) {
+                episodeContext = `\n\nCURRENT BROADCAST CONTEXT:
+Title: ${episode.title}
+Description: ${episode.description}
+${episode.transcript ? "Transcript Excerpts:\n" + episode.transcript.map(t => `[${t.time}] ${t.text}`).join('\n') : ""}
+`;
+            }
+        }
+
+        // --- RAG: Fetch Relevant Vault Documents ---
+        // For a true RAG, we would use vector search, but for now we'll fetch the most recent titles 
+        // and snippets to provide "contextual grounding" from the user's own vault.
+        const vaultDocs = await (prisma as any).strategicVault.findMany({
+            where: {
+                userId: session.user.id
+            },
+            take: 3,
+            orderBy: {
+                createdAt: 'desc'
+            }
         });
 
-        // Format history for Gemini chat format
+        let groundingContext = "";
+        if (vaultDocs.length > 0) {
+            groundingContext = "\n\nSTRATEGIC VAULT GROUNDING (USER DATA):\n" +
+                vaultDocs.map((d: any) => `Document: ${d.fileName}\nContent Snippet: ${d.content?.substring(0, 500)}`).join('\n\n');
+        }
+
+        const model = genAI.getGenerativeModel({
+            model: 'gemini-1.5-pro',
+            systemInstruction: SYSTEM_PROMPT + episodeContext + groundingContext
+        });
+
         const formattedHistory = history ? history.map((msg: any) => ({
             role: msg.role === 'assistant' ? 'model' : 'user',
             parts: [{ text: msg.content }]
         })) : [];
 
-        // Start chat session with history
         const chat = model.startChat({
             history: formattedHistory,
             generationConfig: {
-                maxOutputTokens: 500, // Keep responses punchy for a "live" feel
-                temperature: 0.7, // Balanced between creative persona and strict policy
+                maxOutputTokens: 600,
+                temperature: 0.65,
             },
         });
 
-        // Send the new message
         const result = await chat.sendMessage(message);
         const responseText = result.response.text();
 
@@ -102,10 +142,8 @@ export async function POST(req: Request) {
 
     } catch (error: any) {
         console.error("Error in Live Podcast AI Route:", error);
-
-        // Return a thematic error message instead of crashing the UI
         return NextResponse.json(
-            { response: "I'm currently experiencing signal degradation while parsing the federal repository database. Please hold or rephrase your inquiry." },
+            { response: "I'm currently experiencing signal degradation while parsing the federal repository. Please rephrase." },
             { status: 500 }
         );
     }

@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
-import { TokenService } from '@/lib/services/token-service';
 import { generateLessonPlanAction } from '@/lib/gemini-service';
+import { prisma } from '@/lib/prisma';
 
 export const runtime = 'nodejs';
 
 export async function POST(request: NextRequest) {
     try {
         const params = await request.json();
-        const { topic, subject, gradeLevel } = params;
+        const { topic, subject, gradeLevel, includePresentation, includeProblems } = params;
 
         if (!topic || !subject || !gradeLevel) {
             return NextResponse.json({ error: 'Topic, subject, and grade level are required' }, { status: 400 });
@@ -21,24 +21,30 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        // Deduct tokens (Lesson plans are high-value, cost 100)
-        const tokenCost = 100;
-        const hasFunds = await TokenService.deductTokens(user.id, tokenCost, {
-            transactionType: 'GENERATION',
-            description: `Lesson Plan: ${topic}`
-        }, user.tier);
+        // Fetch user context for protocol routing
+        const dbUser = await prisma.user.findUnique({
+            where: { email: user.email },
+            include: { schoolRelation: true }
+        });
 
-        if (!hasFunds) {
-            return NextResponse.json(
-                {
-                    error: 'Insufficient Tokens',
-                    message: 'Strategic reserves insufficient for high-fidelity lesson synthesis.'
-                },
-                { status: 402 }
-            );
-        }
+        const protocolContext = {
+            state: dbUser?.schoolRelation?.state || undefined,
+            district: dbUser?.schoolRelation?.districtName || undefined,
+            schoolId: dbUser?.schoolId || undefined
+        };
 
-        const result = await generateLessonPlanAction(params);
+        // Token enforcement is temporarily disabled for Phase 2 implementation.
+        // Users have unlimited access to Lesson Plan synthesis.
+
+        const result = await generateLessonPlanAction({
+            topic,
+            subject,
+            gradeLevel,
+            includePresentation,
+            includeProblems,
+            protocolContext,
+            ...params // include other options if any
+        });
 
         return NextResponse.json({ content: result });
     } catch (error: any) {

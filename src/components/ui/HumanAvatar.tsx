@@ -14,7 +14,7 @@ interface HumanAvatarProps {
     onError?: (e: any) => void;
 }
 
-export default function HumanAvatar({ src, alt, className, onClick, onError, animate, isActive = true, ...props }: HumanAvatarProps & React.ComponentProps<typeof motion.img> & { isActive?: boolean }) {
+export default function HumanAvatar({ src, alt, className, onClick, onError, animate, isActive = true, priority = false, ...props }: HumanAvatarProps & React.ComponentProps<typeof motion.img> & { isActive?: boolean; priority?: boolean }) {
     const { behaviorStyles } = useHumanBehavior(isActive);
 
     const mergedAnimate = {
@@ -33,6 +33,7 @@ export default function HumanAvatar({ src, alt, className, onClick, onError, ani
             transition={{ duration: 3.5, ease: [0.23, 1, 0.32, 1] }}
             onClick={onClick}
             onError={onError}
+            priority={priority}
             {...props as any}
         />
     );

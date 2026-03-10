@@ -9,9 +9,49 @@ import LiveAvatarChat from './LiveAvatarChat';
 import { CORE_AVATARS } from '@/data/avatars';
 import HumanAvatar from './ui/HumanAvatar';
 import { useUserSession } from '@/hooks/useUserSession';
+import { useHumanBehavior } from '@/hooks/useHumanBehavior';
+import { useEffect } from 'react';
 
 // Comprehensive AI Avatar Team
 const AI_AVATARS = CORE_AVATARS;
+
+function AvatarCardImage({ src, alt, isActive }: { src: string; alt: string; isActive: boolean }) {
+    const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+    useEffect(() => {
+        const handleMouseMove = (e: MouseEvent) => {
+            setMousePos({ x: e.clientX, y: e.clientY });
+        };
+        window.addEventListener('mousemove', handleMouseMove);
+        return () => window.removeEventListener('mousemove', handleMouseMove);
+    }, []);
+
+    const behavior = useHumanBehavior(isActive, {
+        state: 'idle',
+        mousePos,
+        subtle: true
+    });
+
+    return (
+        <div
+            className="w-full h-full relative dynamic-behavior"
+            style={{
+                '--behavior-transform': behavior.style.transform,
+                '--behavior-transition': behavior.style.transition,
+                '--behavior-origin': behavior.style.transformOrigin,
+            } as React.CSSProperties}
+        >
+            <HumanAvatar
+                src={src}
+                alt={alt}
+                className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000"
+            />
+            {behavior.isBlinking && (
+                <div className="absolute inset-0 bg-black/40 animate-pulse pointer-events-none" />
+            )}
+        </div>
+    );
+}
 
 export default function AIAvatarGallery() {
     const { session: user } = useUserSession();
@@ -89,10 +129,10 @@ export default function AIAvatarGallery() {
                                             <div className="absolute -inset-4 rounded-full border border-dotted border-white/5 group-hover:border-noble-gold/10 group-hover:-rotate-180 transition-all duration-[8000ms]" />
 
                                             <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-transparent group-hover:border-noble-gold/20">
-                                                <HumanAvatar
+                                                <AvatarCardImage
                                                     src={avatar.avatar || '/images/placeholders/avatar.png'}
                                                     alt={avatar.name || 'AI Delegate'}
-                                                    className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000"
+                                                    isActive={true}
                                                 />
                                                 {/* Scanning Line Overlay */}
                                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -249,9 +289,19 @@ export default function AIAvatarGallery() {
                                         <Zap size={16} className="text-noble-gold" />
                                         <span className="text-[10px] font-black text-noble-gold uppercase tracking-[0.5em]">System Diagnostics</span>
                                     </div>
-                                    <div className="space-y-1">
+                                    <div className="space-y-3">
                                         <p className="text-[9px] font-mono text-white/50 lowercase italic">Neural Fidelity: 99.8%</p>
                                         <p className="text-[9px] font-mono text-white/50 lowercase italic">Latency Bias: -12ms</p>
+                                        <p className="text-[9px] font-mono text-noble-gold/70 lowercase italic">Adaptive Sync: Active</p>
+                                        <div className="pt-4 mt-4 border-t border-white/5">
+                                            <p className="text-[10px] text-zinc-600 font-mono mb-2 uppercase tracking-tighter">Current Sentiment</p>
+                                            <div className="flex items-center gap-2">
+                                                <div className="h-1 flex-1 bg-zinc-800 rounded-full overflow-hidden">
+                                                    <div className="h-full w-[85%] bg-noble-gold" />
+                                                </div>
+                                                <span className="text-[9px] text-noble-gold font-mono">85% Aligned</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, Playfair_Display, Outfit, Orbitron } from 'next/font/google';
+import { Playfair_Display, Outfit, Orbitron } from 'next/font/google';
 import '../style.css';
 import { AuthProvider } from '@/context/AuthContext';
 import { IntelligenceProvider } from '@/context/IntelligenceContext';
@@ -11,13 +11,15 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import ClientShell from '@/components/layout/ClientShell';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' });
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
 const orbitron = Orbitron({ subsets: ['latin'], variable: '--font-orbitron' });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://edintel-app.vercel.app'),
+  alternates: {
+    canonical: '/',
+  },
   title: 'EdIntel Professional | AI Operating System for Education',
   description: 'The definitive AI operating layer for autonomous professionals and institutional intelligence. Sovereign analytics, neural delegation, and strategic insight — all in one platform.',
   manifest: '/manifest.json',
@@ -58,7 +60,7 @@ export const metadata: Metadata = {
 
 
 export const viewport = {
-  themeColor: '#2563eb',
+  themeColor: '#D4AF37',
   width: 'device-width',
   initialScale: 1,
 };
@@ -71,11 +73,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable} ${outfit.variable} ${orbitron.variable} dark`}>
+    <html lang="en" className={`${playfair.variable} ${outfit.variable} ${orbitron.variable} dark`}>
       <head>
 
       </head>
-      <body className="bg-[#050505] text-gray-100 antialiased overflow-x-hidden selection:bg-[#00B0FF]/30 font-sans">
+      <body className="bg-[#050505] text-gray-100 antialiased overflow-x-hidden selection:bg-[#D4AF37]/30 font-sans">
         <CelebrationProvider>
           <AuthProvider>
             <IntelligenceProvider>

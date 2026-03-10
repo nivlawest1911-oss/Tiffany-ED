@@ -31,7 +31,7 @@ export class EdIntelAgentService {
      * MAIN ENTRY: Execute a Goal with Metacognitive Planning
      */
     async executeGoal(goal: string, userContext: any, signal?: AbortSignal) {
-        console.log(`[EdIntel Agent] Receiving Goal: "${goal}"`);
+
 
         // Phase 1: Planning (The "Thought" Step)
         const plan = await this.generatePlan(goal, userContext, signal);
@@ -52,7 +52,7 @@ export class EdIntelAgentService {
         try {
             const cached = await kv.get<string>(cacheKey);
             if (cached) {
-                console.log("[EdIntel Agent] Plan retrieved from Neural Cache.");
+
                 return cached;
             }
         } catch (e) {
@@ -123,7 +123,7 @@ export class EdIntelAgentService {
 
             const reviewedPlan = response.choices[0].message.content;
             if (reviewedPlan?.includes('[CORRECTED]')) {
-                console.log("[EdIntel Critic] Plan was corrected for safety/policy.");
+
             }
             return reviewedPlan || plan;
         }, { signal });

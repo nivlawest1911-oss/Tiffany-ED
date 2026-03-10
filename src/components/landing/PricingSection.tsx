@@ -35,7 +35,7 @@ export default function PricingSection() {
 
             {/* Pricing Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {EdIntel_TIERS.map((tier, index) => {
+                {EdIntel_TIERS.map((tier, _idx) => {
                     const Icon = IconMap[tier.icon] || Star;
                     const isSiteCommand = tier.name === 'Site Command';
 
@@ -45,7 +45,7 @@ export default function PricingSection() {
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: index * 0.1, duration: 0.5 }}
+                            transition={{ delay: _idx * 0.1, duration: 0.5 }}
                             whileHover={{ y: -8, scale: 1.02 }}
                             className={`glass-panel-premium rounded-3xl p-8 flex flex-col relative overflow-hidden transition-all duration-300 border border-white/10 ${tier.popular
                                 ? 'border-[#D4AF37]/50 shadow-[0_0_50px_rgba(212,175,55,0.2)] ring-1 ring-[#D4AF37]/30'
@@ -94,9 +94,14 @@ export default function PricingSection() {
                                         / mo
                                     </span>
                                 </div>
-                                <div className="mt-2 text-xs text-accent font-bold uppercase tracking-wider flex items-center gap-1">
-                                    <Sparkles size={12} />
-                                    {tier.trialDuration} Protocol
+                                <div className="mt-2 space-y-1">
+                                    <div className="text-xs text-accent font-bold uppercase tracking-wider flex items-center gap-1">
+                                        <Sparkles size={12} />
+                                        {tier.trialDuration} Protocol
+                                    </div>
+                                    <div className="text-[10px] text-noble-gold font-black uppercase tracking-[0.2em] flex items-center gap-1 opacity-80">
+                                        Strategic ROI Alignment
+                                    </div>
                                 </div>
                             </div>
 
@@ -117,6 +122,7 @@ export default function PricingSection() {
                             {/* CTA Button */}
                             <Link href="/signup" className="block relative z-10 w-full">
                                 <button
+                                    onClick={() => {}}
                                     className={`w-full py-4 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all ${tier.popular
                                         ? 'bg-[#D4AF37] text-black hover:shadow-[0_0_30px_rgba(212,175,55,0.5)]'
                                         : 'bg-white/5 text-white hover:bg-white/10 border border-white/10'

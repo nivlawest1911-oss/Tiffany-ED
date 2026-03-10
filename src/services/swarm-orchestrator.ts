@@ -20,7 +20,7 @@ export class SwarmOrchestrator {
      * SUPERVISOR NODE: Decomposes goals into worker tasks.
      */
     async dispatchGoal(goal: string, signal?: AbortSignal) {
-        console.log(`[Supervisor] Analyzing Goal: "${goal}"`);
+
         this.state.swarmMesh.supervisor.currentGoal = goal;
 
         // 1. Decompose
@@ -61,7 +61,7 @@ export class SwarmOrchestrator {
         const workerId = `worker_${Date.now()}`;
         this.state.swarmMesh.workers[workerId] = { role: "ANALYST", status: "THINKING", currentTool: null };
 
-        console.log(`[Worker ${workerId}] Received Task: ${task}`);
+
 
         // 1. Propose Action
         const proposedAction = `Simulated Action for: ${task}`;
@@ -71,7 +71,7 @@ export class SwarmOrchestrator {
 
         if (approved) {
             this.state.swarmMesh.workers[workerId].status = "ACTING";
-            console.log(`[Worker ${workerId}] Executing: ${proposedAction}`);
+
 
             // Log to Episodic Memory
             this.state.episodicLog.push({

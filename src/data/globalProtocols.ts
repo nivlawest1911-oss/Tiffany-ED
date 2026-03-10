@@ -12,7 +12,7 @@ export const globalProtocols = [
         category: "Global",
         description: "Chat with Llama 3.3 70B for educational content, quizzes, and analysis. High-throughput reasoning for rapid synthesis.",
         icon: Brain,
-        color: "#3b82f6",
+        color: "#D4AF37",
         avatar: AVATAR_MAP['EdIntel_1'] || "/images/avatars/Dr._alvin_west.png",
         status: "Active",
         prompts: [

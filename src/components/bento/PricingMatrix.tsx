@@ -86,8 +86,13 @@ export default function PricingMatrix() {
                                         </span>
                                         <span className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest">/ Mo</span>
                                     </div>
-                                    <div className="mt-2 text-[10px] text-emerald-400 font-bold uppercase tracking-wider flex items-center gap-1">
-                                        <Sparkles size={10} /> {(tier as any).trialDuration || '30 Days'} Protocol
+                                    <div className="mt-2 space-y-1">
+                                        <div className="text-[10px] text-emerald-400 font-bold uppercase tracking-wider flex items-center gap-1">
+                                            <Sparkles size={10} /> {(tier as any).trialDuration || '30 Days'} Protocol
+                                        </div>
+                                        <div className="text-[9px] text-noble-gold font-black uppercase tracking-[0.2em] flex items-center gap-1 opacity-80">
+                                            Strategic ROI Alignment
+                                        </div>
                                     </div>
                                 </div>
 

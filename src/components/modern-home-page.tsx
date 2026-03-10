@@ -12,21 +12,32 @@ import { ROUTES } from '@/lib/routes';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import ActivationIntro from './landing/ActivationIntro';
-const ReadyToActivateCTA = dynamic(() => import('./landing/ReadyToActivateCTA'), { ssr: false });
+const ReadyToActivateCTA = dynamic(() => import('./landing/ReadyToActivateCTA'), { 
+    ssr: false,
+    loading: () => <div className="h-96 w-full animate-pulse bg-white/5 rounded-3xl" />
+});
 import { EdIntelHero } from './edintel-core/EdIntelHero';
-const EdIntelCore = dynamic(() => import('./edintel-core/EdIntelCore'), { ssr: false });
+const EdIntelCore = dynamic(() => import('./edintel-core/EdIntelCore'), { 
+    ssr: false,
+    loading: () => <div className="h-[600px] w-full animate-pulse bg-white/5 rounded-3xl" />
+});
 import { useEdIntelVibe } from '@/context/EdIntelVibeContext';
 import HumanAvatar from './ui/HumanAvatar';
 import Footer from './Footer';
 
 // Core Components (Safe)
-
 const HolographicBackground = dynamic(() => import('./holographic/HolographicBackground').then(mod => mod.HolographicBackground), { ssr: false });
 const NeuralBackground = dynamic(() => import('./ui/NeuralBackground'), { ssr: false });
 
 // New AI Enhancements
-const AITwinGenerator = dynamic(() => import('./ai-twin-generator'), { ssr: false });
-const BentoShowcase = dynamic(() => import('./BentoShowcase'), { ssr: false });
+const AITwinGenerator = dynamic(() => import('./ai-twin-generator'), { 
+    ssr: false,
+    loading: () => <div className="h-[500px] w-full animate-pulse bg-white/5 rounded-3xl" />
+});
+const BentoShowcase = dynamic(() => import('./BentoShowcase'), { 
+    ssr: false,
+    loading: () => <div className="h-screen w-full animate-pulse bg-white/5" />
+});
 const OnboardingFlow = dynamic(() => import('./OnboardingFlow'), { ssr: false });
 const VoiceIdentity = dynamic(() => import('./VoiceIdentity'), { ssr: false });
 const HuggingFaceAvatar = dynamic(() => import('./HuggingFaceAvatar'), { ssr: false });
@@ -653,6 +664,7 @@ export default function ModernHomePage() {
                                                             variant="holographic"
                                                             size="lg"
                                                             className="px-8 py-4 uppercase tracking-wider flex items-center gap-3"
+                                                            onClick={() => {}}
                                                         >
                                                             Return to Control
                                                             <ArrowRight size={20} />
@@ -664,6 +676,7 @@ export default function ModernHomePage() {
                                                             variant="holographic"
                                                             size="lg"
                                                             className="px-8 py-4 uppercase tracking-wider flex items-center gap-3"
+                                                            onClick={() => {}}
                                                         >
                                                             Activate Core
                                                             <ArrowRight size={20} />

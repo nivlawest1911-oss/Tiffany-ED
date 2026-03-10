@@ -6,12 +6,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export const TransferTerminal = ({ staffId: _staffId, staffName }: { staffId: string, staffName: string }) => {
     const [amount, setAmount] = useState(100);
+    const [recipientId, setRecipientId] = useState('');
     const [status, setStatus] = useState<'idle' | 'executing' | 'confirmed'>('idle');
 
     const executeTransfer = async () => {
         setStatus('executing');
         // Call the Supabase RPC function (transfer_school_energy) in a real implementation
-        console.log(`💎 Strategic Transfer Initiated: Moving ${amount} units to ${staffName}`);
 
         setTimeout(() => {
             setStatus('confirmed');
@@ -50,6 +50,26 @@ export const TransferTerminal = ({ staffId: _staffId, staffName }: { staffId: st
                     </div>
                 </div>
 
+                {/* New Input for Recipient ID */}
+                <div className="space-y-2">
+                    <div className="flex justify-between items-center px-1">
+                        <label className="text-[9px] uppercase tracking-[0.3em] text-zinc-500 font-bold">Recipient Node ID</label>
+                        <span className="text-[9px] font-mono text-emerald-500/50">ID: {recipientId || 'N/A'}</span>
+                    </div>
+                    <div className="relative">
+                        {/* Assuming 'Input' is a custom component or a placeholder for a styled input */}
+                        <input // Changed from <Input> to <input> to match existing component style
+                            type="text"
+                            value={recipientId}
+                            onChange={(e) => setRecipientId(e.target.value)}
+                            className="w-full bg-black border border-white/10 p-5 rounded-2xl text-xl font-black text-white italic outline-none focus:border-emerald-500/50 transition-all" // Merged classNames
+                            title="Recipient Node ID"
+                            placeholder="NODE-0X-XXXX"
+                            aria-label="Recipient Node ID"
+                        />
+                    </div>
+                </div>
+
                 <div className="space-y-2">
                     <div className="flex justify-between items-center px-1">
                         <label className="text-[9px] uppercase tracking-[0.3em] text-zinc-500 font-bold">Charge Amount (Units)</label>
@@ -60,7 +80,10 @@ export const TransferTerminal = ({ staffId: _staffId, staffName }: { staffId: st
                             type="number"
                             value={amount}
                             onChange={(e) => setAmount(Number(e.target.value))}
-                            className="w-full bg-black border border-white/10 p-5 rounded-2xl text-xl font-black text-white italic outline-none focus:border-emerald-500/50 transition-all transition-all"
+                            className="w-full bg-black border border-white/10 p-5 rounded-2xl text-xl font-black text-white italic outline-none focus:border-emerald-500/50 transition-all"
+                            title="Charge Amount in Units"
+                            placeholder="0"
+                            aria-label="Charge Amount"
                         />
                         <div className="absolute right-5 top-1/2 -translate-y-1/2 flex gap-4">
                             {[100, 500, 1000].map(val => (

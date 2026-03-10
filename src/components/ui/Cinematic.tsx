@@ -7,29 +7,43 @@ import { motion } from 'framer-motion';
  * Cinematic Particle Background
  * Creates rising gold embers for a premium Regal aesthetic.
  */
-export const ParticleBackground = ({ count = 20, color = "bg-noble-gold/20" }: { count?: number, color?: string }) => (
+export const ParticleBackground = ({ count = 30, color = "bg-intel-gold/20" }: { count?: number, color?: string }) => (
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        {[...Array(count)].map((_, i) => (
-            <motion.div
-                key={i}
-                className={`absolute w-1 h-1 ${color} rounded-full`}
-                initial={{
-                    x: Math.random() * 100 + "%",
-                    y: Math.random() * 100 + "%",
-                    opacity: 0
-                }}
-                animate={{
-                    y: [null, "-100%"],
-                    opacity: [0, 1, 0]
-                }}
-                transition={{
-                    duration: Math.random() * 10 + 10,
-                    repeat: Infinity,
-                    ease: "linear",
-                    delay: Math.random() * 5
-                }}
-            />
-        ))}
+        {[...Array(count)].map((_, i) => {
+            const size = Math.random() * 3 + 1;
+            return (
+                <motion.div
+                    key={i}
+                    className={`absolute rounded-full ${color}`}
+                    style={{
+                        width: size,
+                        height: size,
+                        filter: `blur(${size / 2}px) brightness(1.5)`,
+                        boxShadow: `0 0 ${size * 2}px ${color.includes('gold') ? 'rgba(212,175,55,0.4)' : 'rgba(255,255,255,0.2)'}`,
+                        willChange: 'transform'
+                    }}
+                    initial={{
+                        x: Math.random() * 100 + "%",
+                        y: "110%",
+                        opacity: 0
+                    }}
+                    animate={{
+                        y: ["110%", "-10%"],
+                        x: [
+                            (Math.random() * 100) + "%",
+                            (Math.random() * 100 + (Math.random() - 0.5) * 5) + "%"
+                        ],
+                        opacity: [0, 1, 1, 0]
+                    }}
+                    transition={{
+                        duration: Math.random() * 15 + 10,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: Math.random() * 10
+                    }}
+                />
+            );
+        })}
     </div>
 );
 
@@ -41,12 +55,14 @@ export const GlassCard = ({
     children,
     className = "",
     delay = 0,
-    hover = true
+    hover = true,
+    ...props
 }: {
     children: React.ReactNode;
     className?: string;
     delay?: number;
     hover?: boolean;
+    [key: string]: any;
 }) => (
     <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -54,6 +70,7 @@ export const GlassCard = ({
         transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
         whileHover={hover ? { y: -5 } : {}}
         className={`glass-panel-premium rounded-3xl overflow-hidden transition-all duration-500 ${className}`}
+        {...props}
     >
         {children}
     </motion.div>

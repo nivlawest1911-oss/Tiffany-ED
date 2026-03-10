@@ -1,9 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { ExternalLink, BookOpen, GraduationCap, Scale, Brain, Search } from "lucide-react"
+import { ExternalLink, BookOpen, GraduationCap, Scale, Brain, Search, Shield } from "lucide-react"
 
 const categories = [
+  { id: "federal", name: "Federal", count: 6, icon: Shield },
   { id: "state", name: "State/Legal", count: 11, icon: Scale },
   { id: "literacy", name: "Literacy", count: 2, icon: BookOpen },
   { id: "research", name: "Research", count: 5, icon: Brain },
@@ -11,6 +12,49 @@ const categories = [
 ]
 
 const resources = [
+  // Federal
+  {
+    title: "FERPA Guide (U.S. Dept of Ed)",
+    description: "Official guide to the Family Educational Rights and Privacy Act.",
+    url: "https://studentprivacy.ed.gov/node/548",
+    priority: "critical",
+    category: "federal",
+  },
+  {
+    title: "COPPA Compliance (FTC)",
+    description: "Federal Trade Commission requirements for protecting children's privacy online.",
+    url: "https://www.ftc.gov/legal-guidance/advisory-guidance/childrens-online-privacy-protection-rule-coppa",
+    priority: "critical",
+    category: "federal",
+  },
+  {
+    title: "IDEA Statute and Regulations",
+    description: "Official repository for Individuals with Disabilities Education Act (IDEA) mandates.",
+    url: "https://sites.ed.gov/idea/statuteregulations/",
+    priority: "critical",
+    category: "federal",
+  },
+  {
+    title: "Section 504 (Office for Civil Rights)",
+    description: "Prohibiting discrimination based on disability in federal-funded programs.",
+    url: "https://www2.ed.gov/about/offices/list/ocr/504faq.html",
+    priority: "high",
+    category: "federal",
+  },
+  {
+    title: "CIPA Filtering Requirements",
+    description: "FCC guidance on internet safety and E-rate eligibility.",
+    url: "https://www.fcc.gov/consumers/guides/childrens-internet-protection-act",
+    priority: "medium",
+    category: "federal",
+  },
+  {
+    title: "ESSA Academic Standards",
+    description: "Every Student Succeeds Act (ESSA) accountability and transparency mandates.",
+    url: "https://www.ed.gov/essa",
+    priority: "high",
+    category: "federal",
+  },
   // State/Legal
   {
     title: "Alabama Achieves (ALSDE Official)",

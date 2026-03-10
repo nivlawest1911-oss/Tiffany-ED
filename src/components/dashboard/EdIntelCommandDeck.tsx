@@ -10,11 +10,14 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
+
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { toast } from 'sonner';
 import { useEdIntelSwarm } from '@/hooks/useEdIntelSwarm';
 import { EdIntelBentoGrid, EdIntelBentoItem } from '@/components/ui/EdIntelBento';
 import { useEdIntelVibe } from '@/context/EdIntelVibeContext';
 import { motion } from 'framer-motion';
+import { SovereignBadge } from '@/components/ui/SovereignBadge';
 import React, { memo } from 'react';
 
 // MEMOIZED SUB-COMPONENTS
@@ -77,7 +80,7 @@ const NeuralResourcesCard = memo(({ balance, isSystemThinking, onAcquire, onView
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                     <Button
                         onClick={onViewLedger}
-                        variant="outline"
+                        variant="secondary"
                         className="border-white/10 text-slate-300 hover:bg-white/5 font-mono uppercase text-xs rounded-full px-6"
                     >
                         View Ledger
@@ -290,7 +293,7 @@ export default function EdIntelCommandDeck() {
                     {!isSwarmActive && swarmResponse && (
                         <div className="flex justify-end gap-3 mt-4 pt-4 border-t border-white/5">
                             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                                <Button onClick={() => setIsDialogOpen(false)} variant="outline" className="border-white/10 hover:bg-white/5 text-zinc-400 uppercase text-[10px] tracking-widest font-bold">Close Terminal</Button>
+                                <Button onClick={() => setIsDialogOpen(false)} variant="secondary" className="border-white/10 hover:bg-white/5 text-zinc-400 uppercase text-[10px] tracking-widest font-bold">Close Terminal</Button>
                             </motion.div>
                             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                                 <Button
@@ -301,7 +304,10 @@ export default function EdIntelCommandDeck() {
                                 </Button>
                             </motion.div>
                             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                                <Button className="bg-noble-gold text-black hover:bg-noble-gold/90 font-black uppercase tracking-widest text-[10px] px-6">
+                                <Button 
+                                    onClick={() => toast.success("Protocol Implementation Successful", { description: `Institutional sync with ${activeProtocol} finalized.` })}
+                                    className="bg-noble-gold text-black hover:bg-noble-gold/90 font-black uppercase tracking-widest text-[10px] px-6"
+                                >
                                     Execute Protocol
                                 </Button>
                             </motion.div>
@@ -319,7 +325,10 @@ export default function EdIntelCommandDeck() {
                     </div>
                     <div>
                         <h1 className="text-3xl font-black tracking-tight font-sans text-white">EdIntel <span className="text-[var(--intel-gold)] gilded-flow bg-clip-text text-transparent bg-gradient-to-r from-[var(--intel-gold)] to-[#FDE68A]">EdIntel</span></h1>
-                        <p className="text-[10px] text-slate-400 font-mono tracking-[0.3em] uppercase opacity-80">Command Deck // Mobile County Node</p>
+                        <div className="flex items-center gap-3">
+                            <p className="text-[10px] text-slate-400 font-mono tracking-[0.3em] uppercase opacity-80">Command Deck // Mobile County Node</p>
+                            {user?.tier && <SovereignBadge tier={user.tier} className="py-0.5" />}
+                        </div>
                     </div>
                 </div>
 
@@ -367,18 +376,24 @@ export default function EdIntelCommandDeck() {
                 <h3 className="text-noble-gold/60 font-mono text-[10px] tracking-[0.4em] uppercase mb-8 border-b border-white/5 pb-2">Swarm Intelligence Aggregator</h3>
 
                 <EdIntelBentoGrid>
-                    {SWARM_AGGREGATORS.map((node, i) => (
+                    {SWARM_AGGREGATORS.map((aggregator, i) => (
                         <EdIntelBentoItem
-                            key={node.id}
-                            title={node.name}
-                            description={node.description}
-                            icon={<node.icon size={20} />}
+                            key={aggregator.id}
+                            title={aggregator.name}
+                            description={aggregator.description}
+                            icon={<aggregator.icon size={20} />}
                             className={i === 0 || i === 3 ? "md:col-span-2" : ""}
-                            onClick={() => handleNodeExecution(node)}
+                            onClick={() => handleNodeExecution(aggregator)}
                             header={
                                 <div className="flex -space-x-2 mb-4">
-                                    {node.agents.map((agent, agentIndex) => (
-                                        <div key={agentIndex} className="w-6 h-6 rounded-full bg-slate-800 border border-noble-gold/20 flex items-center justify-center text-[6px] text-white font-bold overflow-hidden shadow-lg z-[1]" style={{ zIndex: 10 - agentIndex }}>
+                                    {aggregator.agents.map((agent, agentIndex) => (
+                                        <div 
+                                            key={agentIndex} 
+                                            className={cn(
+                                                "w-6 h-6 rounded-full bg-slate-800 border border-noble-gold/20 flex items-center justify-center text-[6px] text-white font-bold overflow-hidden shadow-lg",
+                                                agentIndex === 0 ? "z-10" : agentIndex === 1 ? "z-[9]" : agentIndex === 2 ? "z-[8]" : "z-[1]"
+                                            )} 
+                                        >
                                             {agent[0]}
                                         </div>
                                     ))}

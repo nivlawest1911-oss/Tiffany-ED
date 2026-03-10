@@ -40,10 +40,18 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     // Derive real tier from live AuthContext user
     const tierName = user?.tier || 'Sovereign Initiate';
     const tierId = tierName.toLowerCase().replace(/\s+/g, '-');
-    const isInitiate = tierId === 'sovereign-initiate';
-    // daysRemaining: Assume 30-day trial for all paid tiers
-    // TODO: Replace with a real field from DB/user object once subscriptionCreatedAt is available
-    const daysRemaining = isInitiate ? 0 : 30;
+    const isInitiate = tierName === 'Administrator' || tierId === 'sovereign-initiate';
+
+    // daysRemaining: Improved resilient calculation
+    const getDaysRemaining = () => {
+        if (!user?.created_at) return 30;
+        const createdDate = new Date(user.created_at).getTime();
+        const now = Date.now();
+        const diffMs = (createdDate + (30 * 24 * 60 * 60 * 1000)) - now;
+        return Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
+    };
+
+    const daysRemaining = isInitiate ? 0 : getDaysRemaining();
     const currentTier = { id: tierId, name: tierName, daysRemaining };
 
     // CRM/CMD+K Shortcut
@@ -95,7 +103,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
                     {/* Top Header */}
                     <header className="h-16 flex items-center justify-between px-8 z-20 shrink-0">
-                        <GlassPanel className="absolute inset-x-0 top-0 h-16 rounded-none border-t-0 border-x-0 bg-white/[0.02]" />
+                        <GlassPanel className="absolute inset-x-0 top-0 h-16 rounded-none border-t-0 border-x-0 bg-white/[0.02]">
+                            <div />
+                        </GlassPanel>
 
                         <div className="flex items-center gap-8 flex-1 relative z-10">
                             <div className="relative max-w-md w-full group cursor-pointer" onClick={toggleCommandConsole}>
@@ -137,7 +147,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                    <Button variant="ghost" className="flex items-center gap-3 px-2 hover:bg-white/5 rounded-xl transition-all group">
+                                    <Button variant="ghost" className="flex items-center gap-3 px-2 hover:bg-white/5 rounded-xl transition-all group" onClick={() => {}}>
                                         <div className="relative">
                                             <div className="h-8 w-8 rounded-full border border-white/10 overflow-hidden group-hover:border-electric-cyan/50 transition-colors">
                                                 <Image

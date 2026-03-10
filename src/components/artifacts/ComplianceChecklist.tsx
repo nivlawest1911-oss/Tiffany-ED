@@ -26,12 +26,12 @@ export function ComplianceChecklist({ results }: ComplianceChecklistProps) {
                     </div>
                     <div>
                         <h3 className="text-xl font-bold text-white">Compliance Audit</h3>
-                        <p className="text-sm text-zinc-400">Alabama Code 290-8-9</p>
+                        <p className="text-sm text-zinc-400">Federal & State Regulatory Sync</p>
                     </div>
                 </div>
                 <div className={`px-4 py-2 rounded-full font-bold text-sm ${results.compliant
-                        ? 'bg-green-500/20 text-green-400'
-                        : 'bg-red-500/20 text-red-400'
+                    ? 'bg-green-500/20 text-green-400'
+                    : 'bg-red-500/20 text-red-400'
                     }`}>
                     {results.compliant ? 'COMPLIANT' : 'NON-COMPLIANT'}
                 </div>

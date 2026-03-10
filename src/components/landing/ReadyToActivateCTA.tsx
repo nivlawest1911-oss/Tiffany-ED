@@ -33,8 +33,8 @@ export default function ReadyToActivateCTA() {
                         viewport={{ once: true }}
                         className="text-5xl md:text-7xl font-black text-white mb-6 uppercase tracking-tighter leading-none italic"
                     >
-                        READY TO ACTIVATE <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-electric-cyan to-blue-500">THE PROTOCOL?</span>
+                        ACTIVATE INSTITUTIONAL <br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-electric-cyan to-blue-500">EXCELLENCE</span>
                     </motion.h2>
 
                     <motion.p
@@ -44,7 +44,7 @@ export default function ReadyToActivateCTA() {
                         transition={{ delay: 0.1 }}
                         className="text-zinc-500 text-lg md:text-xl mb-12 max-w-2xl mx-auto font-black uppercase tracking-widest"
                     >
-                        Join the vanguard of educational excellence. Experience the core power of <span className="text-sovereign-gold">EdIntel</span>.
+                        Scale specialized intelligence across your entire organization. Master the <span className="text-sovereign-gold">Sovereign Protocol</span> to drive measurable institutional ROI.
                     </motion.p>
 
                     <motion.div

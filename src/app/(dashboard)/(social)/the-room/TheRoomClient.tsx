@@ -17,8 +17,11 @@ import { GlassCard } from '@/components/ui/Cinematic';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 import { cn } from '@/lib/utils';
 import { SmartHover } from '@/components/ui/SmartHover';
+import { useSovereignState } from '@/context/SovereignState';
 
 const NexusPalette = dynamic(() => import('@/components/intelligence/NexusPalette'), { ssr: false });
+
+import { ExecutiveBrief } from '@/components/dashboard/zone1-executive-brief';
 
 // AI Core Integrations
 const AI_INTEGRATIONS = [
@@ -48,6 +51,23 @@ export default function TheRoomClient() {
     const [isOptimizing, setIsOptimizing] = useState(false);
     const [currentStep, setCurrentStep] = useState(0);
     const { playClick } = useProfessionalSounds();
+    const { onboardingData } = useSovereignState();
+    const [showHandshake, setShowHandshake] = useState(false);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const hasHandshaken = localStorage.getItem('edintel_handshake_complete');
+            if (onboardingData && !hasHandshaken) {
+                setShowHandshake(true);
+            }
+        }
+    }, [onboardingData]);
+
+    const completeHandshake = () => {
+        setShowHandshake(false);
+        localStorage.setItem('edintel_handshake_complete', 'true');
+        playClick();
+    };
 
     const runOptimization = () => {
         setIsOptimizing(true);
@@ -85,11 +105,53 @@ export default function TheRoomClient() {
                         </div>
                     </motion.div>
                 )}
+
+                {/* Tactical Handshake Overlay - Phase 20 */}
+                {showHandshake && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[1000] bg-black/90 backdrop-blur-xl flex flex-col items-center justify-center p-6"
+                    >
+                        <div className="max-w-md w-full p-10 border border-noble-gold/30 rounded-[3rem] bg-[#020617] shadow-[0_0_100px_rgba(212,175,55,0.15)] text-center relative overflow-hidden">
+                            <motion.div
+                                initial={{ scale: 0.8, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                transition={{ delay: 0.2 }}
+                                className="w-20 h-20 rounded-2xl bg-noble-gold/10 border border-noble-gold/20 flex items-center justify-center text-noble-gold mx-auto mb-8"
+                            >
+                                <Zap size={40} className="animate-pulse" />
+                            </motion.div>
+
+                            <h2 className="text-3xl font-black text-white uppercase tracking-tight mb-4">Tactical Handshake</h2>
+                            <p className="text-zinc-400 font-mono text-[8px] uppercase tracking-[0.2em] mb-8 leading-relaxed">
+                                Universal Core Synchronization for <span className="text-noble-gold">{onboardingData?.districtName.toUpperCase() || 'SOVEREIGN USER'}</span> confirmed. AI Delegates standing by for mission initialization.
+                            </p>
+
+                            <button
+                                onClick={completeHandshake}
+                                className="w-full py-5 rounded-2xl bg-noble-gold text-black font-black uppercase tracking-widest text-[10px] hover:scale-105 transition-all shadow-[0_0_30px_rgba(212,175,55,0.3)]"
+                            >
+                                Access Command Center
+                            </button>
+
+                            <div className="mt-8 flex justify-center gap-2 items-center">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                <span className="text-[8px] font-mono text-emerald-500 uppercase tracking-widest">Neural Status: Synchronized</span>
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
             </AnimatePresence>
 
             <NexusCommandManager />
 
             <div className="max-w-[1600px] mx-auto px-6 pt-12 relative z-10">
+                <div className="mb-12">
+                    <ExecutiveBrief />
+                </div>
+
                 {/* HEADER SECTION */}
                 <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16">
                     <div>

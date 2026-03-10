@@ -10,9 +10,10 @@ interface EdIntelBriefingProps {
     summary: string;
     loading?: boolean;
     videoSrc?: string;
+    source?: 'SWARM' | 'LLM';
 }
 
-export const EdIntelBriefing = ({ summary, loading }: EdIntelBriefingProps) => {
+export const EdIntelBriefing = ({ summary, loading, source }: EdIntelBriefingProps) => {
     const [isHovered, setIsHovered] = useState(false);
 
     // Parse bullet points from summary (Expected format: "Key: Value")
@@ -93,6 +94,11 @@ export const EdIntelBriefing = ({ summary, loading }: EdIntelBriefingProps) => {
                             <div className="px-2 py-1 bg-black/80 border border-primary-500/30 rounded text-[8px] text-primary-400 font-mono uppercase">
                                 Crypto-Verified
                             </div>
+                            {source === 'SWARM' && (
+                                <div className="px-2 py-1 bg-black/80 border border-noble-gold/30 rounded text-[8px] text-noble-gold font-mono uppercase">
+                                    Neural Swarm Link Verified
+                                </div>
+                            )}
                             <div className="px-2 py-1 bg-black/80 border border-emerald-500/30 rounded text-[8px] text-emerald-400 font-mono uppercase">
                                 Priority 1
                             </div>

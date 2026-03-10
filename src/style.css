@@ -11,33 +11,33 @@
 
 :root {
     --font-heading: 'Ethnocentric', sans-serif;
-    --font-sans: var(--font-outfit), 'Inter', sans-serif;
+    --font-sans: var(--font-outfit), sans-serif;
     --color-background: hsl(222.2 84% 4.9%);
     --color-foreground: hsl(210 40% 98%);
     --color-card: hsl(222.2 84% 4.9%);
     --color-card-foreground: hsl(210 40% 98%);
     --color-popover: hsl(222.2 84% 4.9%);
     --color-popover-foreground: hsl(210 40% 98%);
-    --color-primary: hsl(217.2 91.2% 59.8%);
-    --color-primary-foreground: hsl(222.2 47.4% 11.2%);
+    --color-primary: #c5a47e;
+    --color-primary-foreground: #050505;
     --color-secondary: hsl(217.2 32.6% 17.5%);
     --color-secondary-foreground: hsl(210 40% 98%);
     --color-muted: hsl(217.2 32.6% 17.5%);
     --color-muted-foreground: hsl(215 20.2% 65.1%);
-    --color-accent: hsl(217.2 32.6% 17.5%);
-    --color-accent-foreground: hsl(210 40% 98%);
+    --color-accent: #D4AF37;
+    --color-accent-foreground: #050505;
     --color-destructive: hsl(0 62.8% 30.6%);
     --color-destructive-foreground: hsl(210 40% 98%);
-    --color-border: hsl(217.2 32.6% 17.5%);
-    --color-input: hsl(217.2 32.6% 17.5%);
-    --color-ring: hsl(212.7 26.8% 83.9%);
+    --color-border: rgba(197, 164, 126, 0.2);
+    --color-input: rgba(197, 164, 126, 0.1);
+    --color-ring: #D4AF37;
     --color-noble-gold: #c5a47e;
     --color-intel-gold: #c5a47e;
     --color-EdIntel-black: #050505;
     --color-shield-green: #10b981;
     --color-obsidian: #020617;
     --gold-glow: 0 0 20px rgba(197, 164, 126, 0.3);
-    --holographic-glow: 0 0 15px rgba(59, 130, 246, 0.2), 0 0 30px rgba(59, 130, 246, 0.1);
+    --holographic-glow: 0 0 15px rgba(197, 164, 126, 0.2), 0 0 30px rgba(197, 164, 126, 0.1);
     --system-thinking-pulse: 0;
 }
 
@@ -47,7 +47,7 @@
     }
 
     body {
-        @apply font-sans antialiased text-gray-700 bg-gray-50;
+        @apply antialiased text-gray-700 bg-gray-50;
         line-height: 1.6;
     }
 
@@ -78,17 +78,21 @@
     }
 
     a {
-        @apply text-[#4f46e5] hover:text-[#4338ca] transition-colors duration-200;
+        @apply text-[#c5a47e] hover:text-[#D4AF37] transition-colors duration-200;
     }
 
     button {
-        @apply focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500;
+        @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
     }
+}
+
+@utility shadow-regal {
+    box-shadow: 0 0 20px rgba(197, 164, 126, 0.1), 0 0 40px rgba(0, 0, 0, 0.5);
 }
 
 @layer components {
     .btn-primary {
-        @apply bg-[#00B0FF] text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-[#0090D0] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden ring-1 ring-[#00B0FF]/50;
+        @apply bg-[#c5a47e] text-[#050505] font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-[#D4AF37] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden ring-1 ring-[#c5a47e]/50;
     }
 
     .btn-primary::after {
@@ -99,7 +103,7 @@
     }
 
     .btn-secondary {
-        @apply bg-transparent border-2 border-indigo-300 text-indigo-700 font-semibold py-3 px-6 rounded-lg hover:bg-indigo-50 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+        @apply bg-transparent border-2 border-[#c5a47e]/50 text-[#c5a47e] font-semibold py-3 px-6 rounded-lg hover:bg-[#c5a47e]/10 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
     }
 
     .btn-accent {
@@ -115,7 +119,7 @@
     }
 
     .input-field {
-        @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-white;
+        @apply w-full px-4 py-2 border border-[#c5a47e]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c5a47e] focus:border-transparent transition-all duration-200 bg-[#050505]/50 text-white;
     }
 
     .glassmorphism {
@@ -123,18 +127,12 @@
     }
 
     .holographic-card {
-        @apply relative bg-blue-950/30 backdrop-blur-lg border border-blue-800/50 rounded-2xl overflow-hidden before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-br before:from-blue-600/10 before:to-slate-600/10 after:content-[''] after:absolute after:-inset-full after:bg-gradient-to-r after:from-transparent after:via-blue-500/30 after:to-transparent after:opacity-0;
+        @apply relative bg-slate-950/40 backdrop-blur-lg border border-[#c5a47e]/30 rounded-2xl overflow-hidden before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-br before:from-[#c5a47e]/10 before:to-slate-900/10 after:content-[''] after:absolute after:-inset-full after:bg-gradient-to-r after:from-transparent after:via-[#c5a47e]/20 after:to-transparent after:opacity-0;
     }
 
     .holographic-button {
-        @apply relative overflow-hidden bg-[#00B0FF] text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-[#0090D0] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed border border-blue-400/50 before:content-[''] before:absolute before:-inset-full before:bg-gradient-to-r before:from-blue-600/30 before:via-slate-500/60 before:to-blue-600/30;
+        @apply relative overflow-hidden bg-[#c5a47e] text-[#050505] font-bold py-3 px-6 rounded-lg shadow-md hover:bg-[#D4AF37] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed border border-[#c5a47e]/50 before:content-[''] before:absolute before:-inset-full before:bg-gradient-to-r before:from-[#c5a47e]/30 before:via-amber-200/40 before:to-[#c5a47e]/30;
     }
-}
-
-/* --- EdIntel OS CINEMATIC UTILITIES --- */
-
-.shadow-regal {
-    box-shadow: 0 0 20px rgba(197, 164, 126, 0.1), 0 0 40px rgba(0, 0, 0, 0.5);
 }
 
 .glass-panel {
@@ -181,14 +179,14 @@
 
 .holographic-border {
     position: relative;
-    border: 1px solid rgba(59, 130, 246, 0.2);
+    border: 1px solid rgba(197, 164, 126, 0.2);
 }
 
 .holographic-border::before {
     content: '';
     position: absolute;
     inset: -1px;
-    background: linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.3), transparent);
+    background: linear-gradient(45deg, transparent, rgba(197, 164, 126, 0.3), transparent);
     z-index: -1;
     animation: holo-rotate 4s linear infinite;
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -237,11 +235,11 @@
     background-image: linear-gradient(to right, #fde68a, #facc15, #d97706);
 }
 
-.text-gradient-blue {
+.text-gradient-sovereign {
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    background-image: linear-gradient(to right, #60a5fa, #818cf8, #2563eb);
+    background-image: linear-gradient(to right, #fde68a, #c5a47e, #D4AF37);
 }
 
 .intel-gradient {
@@ -274,8 +272,6 @@
 .animate-aurora-3 {
     animation: aurora-3 30s infinite alternate linear;
 }
-
-/* --- ANIMATION KEYFRAMES --- */
 
 @keyframes aurora-1 {
     0% {
@@ -325,17 +321,13 @@
     }
 }
 
-/* --- SCANLINE & GLITCH EFFECTS --- */
-
 .scanline {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom,
-            transparent 50%,
-            rgba(0, 0, 0, 0.3) 50%);
+    background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.3) 50%);
     background-size: 100% 4px;
     pointer-events: none;
     z-index: 50;
@@ -356,8 +348,6 @@
     }
 }
 
-/* --- CUSTOM SCROLLBAR (High-End Feel) --- */
-
 ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -365,18 +355,15 @@
 
 ::-webkit-scrollbar-track {
     background: #020617;
-    /* slate-950 */
 }
 
 ::-webkit-scrollbar-thumb {
     background: #1e293b;
-    /* slate-800 */
     border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #3b82f6;
-    /* blue-500 */
+    background: #c5a47e;
 }
 
 @layer utilities {
@@ -394,7 +381,6 @@
         transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* Dynamic-size helpers: set --logo-size / --logo-geo-size / --bar-h via style prop */
     .logo-sizer {
         width: var(--logo-size, 40px);
         height: var(--logo-size, 40px);
@@ -410,18 +396,17 @@
     }
 
     .btn-sovereign {
-        @apply relative px-8 py-4 rounded-xl font-bold transition-all duration-500 backdrop-blur-sm;
-        background-color: white;
-        color: #00B0FF;
-        /* electric-cyan */
-        border: 2px solid #FFB300;
-        /* sovereign-gold */
+        @apply relative px-8 py-4 rounded-xl font-bold transition-all duration-500 backdrop-blur-sm shadow-regal;
+        background-color: transparent;
+        color: #c5a47e;
+        border: 2px solid #c5a47e;
         animation: sovereign-pulse 3s ease-in-out infinite;
     }
 
     .btn-sovereign:hover {
-        background-color: #FFB300;
-        color: white;
+        background-color: #c5a47e;
+        color: #050505;
+        box-shadow: 0 0 30px rgba(197, 164, 126, 0.4);
     }
 
     .glass-bento {
@@ -450,7 +435,6 @@
         scrollbar-width: none;
     }
 
-    /* ModernHomePage Animations */
     @keyframes marquee {
         from {
             transform: translateX(0);
@@ -502,15 +486,6 @@
 
     .gold-gradient-text {
         background: linear-gradient(to bottom, #FFB300 0%, #FFA000 50%, #FF8F00 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-fill-color: transparent;
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-    }
-
-    .cyan-gradient-text {
-        background: linear-gradient(to bottom, #00B0FF 0%, #0091EA 50%, #0081D5 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;

@@ -10,7 +10,8 @@ import {
     Building,
     ChevronRight,
     Lock,
-    Zap
+    Zap,
+    Users
 } from 'lucide-react';
 import { ParticleBackground, GlassCard } from '@/components/ui/Cinematic';
 import EdIntelLogo from '@/components/EdIntelLogo';
@@ -43,6 +44,15 @@ const EDUCATION_MODULES = [
         color: "text-emerald-400",
         bg: "bg-emerald-500/10",
         tier: "Free / Initiate"
+    },
+    {
+        title: "Swarm Tutoring",
+        description: "Orchestrated AI support swarm for real-time pedagogical intervention.",
+        href: "/academy", // Link to academy where the synthesis happens, or a new sub-page if needed
+        icon: Users,
+        color: "text-purple-400",
+        bg: "bg-purple-500/10",
+        tier: "Sovereign Pack+"
     },
     {
         title: "Site Command",

@@ -10,7 +10,7 @@ interface CubeProps {
 }
 
 function HolographicCube({ position, color }: CubeProps) {
-    const meshRef = useRef<any>()
+    const meshRef = useRef<any>(null)
     const [hovered, setHover] = useState(false)
     const { scale } = useSpring({ scale: hovered ? 1.5 : 1 })
 
@@ -50,8 +50,8 @@ export function HolographicBackground() {
                 <ambientLight intensity={0.5} />
                 <pointLight position={[10, 10, 10]} intensity={1} color="#00b0ff" />
                 <pointLight position={[-10, -10, -10]} intensity={0.7} color="#8b5cf6" />
-                <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade />
-                <Sparkles count={100} scale={10} size={20} speed={0.5} opacity={0.7} />
+                <Stars radius={100} depth={50} count={2000} factor={4} saturation={0} fade />
+                <Sparkles count={50} scale={10} size={20} speed={0.5} opacity={0.7} />
                 <HolographicCube position={[1.5, 0, 0]} color="#00b0ff" />
                 <HolographicCube position={[-1.5, 1, -1]} color="#8b5cf6" />
                 <HolographicCube position={[0, -2, 1]} color="#10b981" />

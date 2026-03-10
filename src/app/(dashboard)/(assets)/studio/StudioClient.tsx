@@ -2,8 +2,9 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Play, Info, ChevronRight, Film, Library } from 'lucide-react';
-
+import { useUserSession } from '@/hooks/useUserSession';
+import { StudioVideoSection } from '@/components/StudioVideoSection';
+import { Play, Info, ChevronRight, Film, Library, Command } from 'lucide-react';
 
 const CATEGORIES = [
     {
@@ -30,7 +31,10 @@ const CATEGORIES = [
 ];
 
 export default function StudioClient() {
+    const { session } = useUserSession();
     const [activeHero, setActiveHero] = useState(CATEGORIES[0].items[0]);
+
+    const isCommandLevel = session?.tier === 'unlimited' || session?.tier === 'standard' || session?.tier === 'practitioner';
 
     return (
         <main className="min-h-screen bg-black text-white pb-20">
@@ -75,7 +79,7 @@ export default function StudioClient() {
             </div>
 
             {/* Categorized Rows */}
-            <div className="px-12 -mt-20 relative z-30 space-y-12">
+            <div className="px-12 -mt-20 relative z-30 space-y-16">
                 {CATEGORIES.map((cat, idx) => (
                     <section key={idx} className="space-y-4">
                         <div className="flex items-center justify-between">
@@ -110,6 +114,29 @@ export default function StudioClient() {
                         </div>
                     </section>
                 ))}
+
+                {/* Creative Command Section */}
+                <section className="space-y-6 pt-8 border-t border-white/5">
+                    <div className="flex items-center gap-3">
+                        <div className="p-2 bg-indigo-500/20 rounded-lg">
+                            <Command className="w-5 h-5 text-indigo-400" />
+                        </div>
+                        <h2 className="text-2xl font-black uppercase tracking-tighter text-white">Creative Command Tools</h2>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <StudioVideoSection
+                            userTier={session?.tier || 'free'}
+                            isCommandLevel={isCommandLevel}
+                        />
+                        {/* Placeholder for future tools */}
+                        <div className="p-6 bg-zinc-900/40 border border-dashed border-zinc-800 rounded-xl flex flex-col items-center justify-center text-center opacity-40">
+                            <p className="text-zinc-600 font-mono text-[10px] uppercase tracking-widest">Protocol Expansion Pending</p>
+                        </div>
+                        <div className="p-6 bg-zinc-900/40 border border-dashed border-zinc-800 rounded-xl flex flex-col items-center justify-center text-center opacity-40">
+                            <p className="text-zinc-600 font-mono text-[10px] uppercase tracking-widest">Protocol Expansion Pending</p>
+                        </div>
+                    </div>
+                </section>
             </div>
         </main>
     );

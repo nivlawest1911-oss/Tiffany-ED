@@ -1,12 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { Dumbbell, Brain, Activity, Timer, Target, Zap, Trophy } from 'lucide-react';
+import { Dumbbell, Brain, Activity, Timer, Target, Zap, Trophy, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { GlassCard } from '@/components/ui/Cinematic';
 import { SmartHover } from '@/components/ui/SmartHover';
 import { HolographicBackground } from '@/components/ui/HolographicBackground';
+import { toast } from 'sonner';
 
 const ZONES = [
     { id: 1, title: "Focus Crucible", description: "High-intensity attention training modules.", icon: <Target className="h-6 w-6 text-orange-400" /> },
@@ -17,6 +18,41 @@ const ZONES = [
 
 export default function GymPage() {
     const [isSprintActive, setIsSprintActive] = useState(false);
+    const [isLoadingScenario, setIsLoadingScenario] = useState(false);
+    const [currentScenario, setCurrentScenario] = useState<any>(null);
+    const [feedback, setFeedback] = useState<string | null>(null);
+
+    const initializeSprint = async (zone: string = "General") => {
+        setIsSprintActive(true);
+        setIsLoadingScenario(true);
+        setFeedback(null);
+        setCurrentScenario(null);
+
+        try {
+            const res = await fetch(`/api/gym/scenario?zone=${encodeURIComponent(zone)}`);
+            if (!res.ok) throw new Error('Failed to load neural drill.');
+            const data = await res.json();
+            setCurrentScenario(data);
+        } catch (error) {
+            console.error(error);
+            toast.error("Failed to compile cognitive scaffold. Please reconnect.");
+            setIsSprintActive(false);
+        } finally {
+            setIsLoadingScenario(false);
+        }
+    };
+
+    const handleSelectOption = (index: number) => {
+        if (!currentScenario || feedback) return;
+
+        if (index === currentScenario.correctOptionIndex) {
+            toast.success("Sovereign Protocol Verified. Neural pathways reinforced.");
+            setFeedback(`✅ Correct. ${currentScenario.explanation}`);
+        } else {
+            toast.error("Suboptimal Pathway Detected.");
+            setFeedback(`❌ Incorrect. ${currentScenario.explanation}`);
+        }
+    };
 
     return (
         <div className="relative min-h-screen p-8 lg:p-12 overflow-hidden flex flex-col font-inter text-slate-200">
@@ -56,12 +92,17 @@ export default function GymPage() {
                 <div className="flex flex-wrap gap-4">
                     <Button
                         size="lg"
-                        onClick={() => setIsSprintActive(true)}
+                        onClick={() => initializeSprint()}
                         className="h-14 px-8 bg-white hover:bg-slate-200 text-black rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-xl shadow-white/5"
                     >
-                        Initialize Logic Sprint
+                        Initialize General Sprint
                     </Button>
-                    <Button size="lg" variant="secondary" className="h-14 px-8 border border-white/10 bg-transparent hover:bg-white/5 text-white rounded-2xl font-black text-xs uppercase tracking-widest transition-all">
+                    <Button 
+                        size="lg" 
+                        variant="secondary" 
+                        onClick={() => toast.info("Performance Matrix Synchronizing. Full analytics available in Node 13 (Roster).")}
+                        className="h-14 px-8 border border-white/10 bg-transparent hover:bg-white/5 text-white rounded-2xl font-black text-xs uppercase tracking-widest transition-all"
+                    >
                         Performance Analytics
                     </Button>
                 </div>
@@ -78,19 +119,23 @@ export default function GymPage() {
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ delay: 0.1 * idx }}
                             >
-                                <GlassCard className="p-6 h-full flex items-center gap-6 group cursor-pointer hover:border-orange-500/20 transition-all">
-                                    <div className="p-4 rounded-2xl bg-white/5 group-hover:bg-white/10 transition-colors">
-                                        {zone.icon}
-                                    </div>
-                                    <div>
-                                        <h3 className="text-lg font-bold text-white mb-1 group-hover:text-orange-400 transition-colors">
-                                            {zone.title}
-                                        </h3>
-                                        <p className="text-slate-500 text-xs font-medium leading-relaxed">
-                                            {zone.description}
-                                        </p>
-                                    </div>
-                                </GlassCard>
+                                <div onClick={() => initializeSprint(zone.title)} className="block w-full h-full cursor-pointer">
+                                    <GlassCard
+                                        className="p-6 h-full flex items-center gap-6 group hover:border-orange-500/20 transition-all"
+                                    >
+                                        <div className="p-4 rounded-2xl bg-white/5 group-hover:bg-white/10 transition-colors">
+                                            {zone.icon}
+                                        </div>
+                                        <div>
+                                            <h3 className="text-lg font-bold text-white mb-1 group-hover:text-orange-400 transition-colors">
+                                                {zone.title}
+                                            </h3>
+                                            <p className="text-slate-500 text-xs font-medium leading-relaxed">
+                                                {zone.description}
+                                            </p>
+                                        </div>
+                                    </GlassCard>
+                                </div>
                             </motion.div>
                         </SmartHover>
                     ))}
@@ -156,41 +201,93 @@ export default function GymPage() {
                         exit={{ opacity: 0 }}
                         className="fixed inset-0 z-50 flex items-center justify-center p-6 backdrop-blur-xl bg-black/80"
                     >
-                        <GlassCard className="max-w-xl w-full p-12 border-orange-500/30 text-center relative overflow-hidden">
+                        <GlassCard className="max-w-3xl w-full p-12 border-orange-500/30 text-left relative overflow-hidden flex flex-col max-h-[90vh]">
                             <div className="absolute top-0 left-0 w-full h-1 bg-slate-800">
                                 <motion.div
                                     initial={{ width: '100%' }}
                                     animate={{ width: '0%' }}
-                                    transition={{ duration: 30, ease: 'linear' }}
+                                    transition={{ duration: 60, ease: 'linear' }}
                                     className="h-full bg-orange-500"
                                 />
                             </div>
-                            <div className="mb-8">
-                                <h2 className="text-3xl font-black text-white uppercase tracking-tighter mb-2">Logic Sprint Active</h2>
-                                <p className="text-slate-400 font-medium">Solve the architecture following pattern...</p>
-                            </div>
-                            <div className="bg-slate-900/50 rounded-2xl p-8 mb-8 border border-white/5">
-                                <div className="flex justify-center gap-4 mb-4">
-                                    <div className="h-12 w-12 rounded-xl bg-orange-500/20 border border-orange-500/30" />
-                                    <div className="h-12 w-12 rounded-xl bg-slate-800" />
-                                    <div className="h-12 w-12 rounded-xl bg-orange-500/20 border border-orange-500/30" />
-                                    <div className="h-12 w-12 rounded-xl bg-slate-800" />
+
+                            <div className="flex justify-between items-start mb-6 shrink-0">
+                                <div>
+                                    <h2 className="text-2xl font-black text-white uppercase tracking-tighter mb-2 flex items-center gap-3">
+                                        <Brain className="w-6 h-6 text-orange-400" />
+                                        Neural Drill Active
+                                    </h2>
+                                    <p className="text-slate-400 font-medium text-sm">Analyze the vector and select the optimal sovereign path.</p>
                                 </div>
-                                <p className="text-[10px] font-black uppercase tracking-widest text-slate-600">Sequencing Institutional Logic</p>
-                            </div>
-                            <div className="flex gap-4">
-                                <Button
-                                    className="flex-1 h-12 bg-white text-black font-black uppercase text-[10px] tracking-widest rounded-xl hover:bg-slate-200"
-                                    onClick={() => setIsSprintActive(false)}
-                                >
-                                    Submit Solution
-                                </Button>
                                 <button
-                                    className="px-6 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-white transition-colors"
+                                    className="px-4 py-2 bg-red-500/10 border border-red-500/20 text-[10px] font-black uppercase tracking-widest text-red-500 hover:bg-red-500/20 rounded-lg transition-colors"
                                     onClick={() => setIsSprintActive(false)}
                                 >
-                                    Terminate
+                                    ABORT DRILL
                                 </button>
+                            </div>
+
+                            <div className="flex-1 overflow-y-auto custom-scrollbar pr-4 space-y-6">
+                                {isLoadingScenario ? (
+                                    <div className="h-[300px] flex flex-col items-center justify-center space-y-4">
+                                        <Loader2 className="w-12 h-12 text-orange-500 animate-spin" />
+                                        <div className="text-[10px] font-black uppercase tracking-[0.2em] text-orange-500 animate-pulse">Synthesizing Tactical Scenario...</div>
+                                    </div>
+                                ) : currentScenario ? (
+                                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
+                                        <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+                                            <h3 className="text-white font-bold text-lg mb-3 leading-snug">{currentScenario.scenario}</h3>
+                                            <p className="text-orange-400 font-black text-[10px] uppercase tracking-widest">Core Challenge: {currentScenario.challenge}</p>
+                                        </div>
+
+                                        <div className="space-y-3">
+                                            {currentScenario.options.map((option: string, i: number) => {
+                                                const isSelectedAndCorrect = feedback && i === currentScenario.correctOptionIndex;
+                                                const isSelectedAndWrong = feedback && i !== currentScenario.correctOptionIndex;
+
+                                                return (
+                                                    <button
+                                                        key={i}
+                                                        disabled={feedback !== null}
+                                                        onClick={() => handleSelectOption(i)}
+                                                        className={`w-full text-left p-4 rounded-xl border transition-all ${isSelectedAndCorrect ? 'bg-emerald-500/20 border-emerald-500 text-emerald-100' :
+                                                            isSelectedAndWrong ? 'bg-red-500/10 border-red-500/30 text-zinc-500 opacity-50' :
+                                                                feedback ? 'bg-white/5 border-white/5 text-zinc-500 opacity-50' :
+                                                                    'bg-zinc-900 border-white/10 hover:border-orange-500 text-zinc-300 hover:bg-zinc-800'
+                                                            }`}
+                                                    >
+                                                        <span className="font-bold mr-2 text-zinc-500">{String.fromCharCode(65 + i)}.</span>
+                                                        {option}
+                                                    </button>
+                                                );
+                                            })}
+                                        </div>
+
+                                        <AnimatePresence>
+                                            {feedback && (
+                                                <motion.div
+                                                    initial={{ opacity: 0, height: 0 }}
+                                                    animate={{ opacity: 1, height: 'auto' }}
+                                                    className="mt-6"
+                                                >
+                                                    <div className={`p-5 rounded-2xl border ${feedback.includes('✅') ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-red-500/10 border-red-500/30'}`}>
+                                                        <p className="text-sm font-medium leading-relaxed text-white">{feedback}</p>
+                                                    </div>
+                                                    <Button
+                                                        className="w-full mt-4 h-12 bg-white text-black font-black uppercase tracking-widest rounded-xl hover:bg-slate-200"
+                                                        onClick={() => initializeSprint("General")}
+                                                    >
+                                                        Next Scenario
+                                                    </Button>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </motion.div>
+                                ) : (
+                                    <div className="h-[300px] flex items-center justify-center text-red-400 font-mono text-xs uppercase text-center">
+                                        Neural Link Severed.<br />Failed to retrieve scenario buffer.
+                                    </div>
+                                )}
                             </div>
                         </GlassCard>
                     </motion.div>

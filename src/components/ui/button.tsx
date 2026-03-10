@@ -21,7 +21,7 @@ export function Button({
 
   // 3. Lock the specific variants
   const variants = {
-    primary: "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500", // Will map to brand.DEFAULT later
+    primary: "bg-[#c5a47e] text-[#050505] hover:bg-[#D4AF37] focus:ring-[#c5a47e]", // EdIntel Sovereign Gold
     secondary: "bg-gray-100 text-gray-900 hover:bg-gray-200 focus:ring-gray-500",
     danger: "bg-red-600 text-white hover:bg-red-700 focus:ring-red-500",
     ghost: "bg-transparent hover:bg-white/10 text-current",

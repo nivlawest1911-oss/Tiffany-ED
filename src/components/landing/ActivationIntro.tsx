@@ -28,9 +28,9 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
                     lineIdx++;
                 } else {
                     clearInterval(interval);
-                    setTimeout(() => setStep('scene1'), 1500);
+                    setTimeout(() => setStep('scene1'), 800);
                 }
-            }, 300);
+            }, 100);
             return () => clearInterval(interval);
         }
     }, [step]);
@@ -104,6 +104,16 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
                     </motion.div>
                 )}
             </AnimatePresence>
+
+            {/* Global Skip Button */}
+            {step !== 'complete' && (
+                <button
+                    onClick={onCompleteAction}
+                    className="fixed bottom-8 right-8 z-[250] px-4 py-2 border border-white/20 bg-black/40 backdrop-blur-md text-zinc-500 hover:text-white hover:border-white/40 transition-all rounded-lg text-[10px] uppercase tracking-widest font-mono"
+                >
+                    Skip System Initialization
+                </button>
+            )}
         </motion.div>
     );
 }

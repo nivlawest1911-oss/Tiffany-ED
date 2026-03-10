@@ -17,6 +17,8 @@ import {
     Volume2
 } from "lucide-react";
 import Image from 'next/image';
+import { useHumanBehavior } from '@/hooks/useHumanBehavior';
+import { useEffect } from 'react';
 
 
 interface AvatarConfig {
@@ -26,6 +28,7 @@ interface AvatarConfig {
     autonomyLevel: number;
     avatarUrl?: string;
     elevenLabsId?: string;
+    manifesto?: string;
 }
 
 const AVATAR_LIBRARY = [
@@ -51,7 +54,8 @@ export default function AvatarStudio() {
         name: '',
         specialization: '',
         autonomyLevel: 75,
-        avatarUrl: AVATAR_LIBRARY[0].img
+        avatarUrl: AVATAR_LIBRARY[0].img,
+        manifesto: ''
     });
     const [isGenerating, setIsGenerating] = useState(false);
     const [isGeneratingVideo, setIsGeneratingVideo] = useState(false);
@@ -61,6 +65,23 @@ export default function AvatarStudio() {
     const [captionsProject, setCaptionsProject] = useState<any>(null);
     const [isSyncingCaptions, setIsSyncingCaptions] = useState(false);
     const [isSpeaking, setIsSpeaking] = useState(false);
+    const [isInterviewing, setIsInterviewing] = useState(false);
+    const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+    useEffect(() => {
+        if (!output) return;
+        const handleMouseMove = (e: MouseEvent) => {
+            setMousePos({ x: e.clientX, y: e.clientY });
+        };
+        window.addEventListener('mousemove', handleMouseMove);
+        return () => window.removeEventListener('mousemove', handleMouseMove);
+    }, [output]);
+
+    const behavior = useHumanBehavior(!!output && !videoUrl, {
+        state: isSpeaking ? 'speaking' : 'idle',
+        mousePos,
+        subtle: false
+    });
 
     const roles = [
         { id: 'superintendent', label: 'Superintendent', icon: <LucideShield size={16} />, color: 'purple' },
@@ -359,6 +380,14 @@ export default function AvatarStudio() {
                                             className="w-full bg-zinc-900/50 border border-zinc-800 rounded-2xl px-6 py-4 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all placeholder:text-zinc-700"
                                         />
                                     </div>
+                                    <div className="relative">
+                                        <textarea
+                                            value={config.manifesto}
+                                            onChange={(e) => setConfig({ ...config, manifesto: e.target.value })}
+                                            placeholder="Leadership Manifesto / Core Philosophy (Optional)"
+                                            className="w-full bg-zinc-900/50 border border-zinc-800 rounded-2xl px-6 py-4 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all placeholder:text-zinc-700 min-h-[120px] resize-none"
+                                        />
+                                    </div>
                                 </div>
 
                                 <div className="p-6 rounded-3xl bg-zinc-900/30 border border-zinc-800">
@@ -415,13 +444,24 @@ export default function AvatarStudio() {
                                             autoPlay
                                         />
                                     ) : (
-                                        <div className="w-32 h-32 rounded-full overflow-hidden flex items-center justify-center border-4 border-purple-500/20 relative z-10 shadow-3xl">
+                                        <div
+                                            className="w-32 h-32 rounded-full overflow-hidden flex items-center justify-center border-4 border-purple-500/20 relative z-10 shadow-3xl transition-transform duration-700 dynamic-behavior"
+                                            style={{
+                                                '--behavior-transform': behavior.style.transform,
+                                                '--behavior-transition': behavior.style.transition,
+                                                '--behavior-origin': behavior.style.transformOrigin,
+                                            } as React.CSSProperties}
+                                        >
+                                            <div className="absolute inset-0 bg-gradient-to-t from-purple-600/20 to-transparent opacity-0 group-hover/avatar:opacity-100 transition-opacity duration-1000 z-10" />
                                             <Image src={config.avatarUrl || "/images/avatars/Dr._alvin_west.png"} alt={config.name} fill className="object-cover grayscale group-hover/avatar:grayscale-0 transition-all duration-700" />
                                             {isGeneratingVideo && (
                                                 <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center">
                                                     <Loader2 className="animate-spin text-purple-400 mb-2" size={24} />
                                                     <span className="text-[8px] font-black uppercase text-purple-400 text-center px-4">{videoStatus}</span>
                                                 </div>
+                                            )}
+                                            {behavior.isBlinking && (
+                                                <div className="absolute inset-0 bg-black/40 animate-pulse pointer-events-none" />
                                             )}
                                         </div>
                                     )}
@@ -532,6 +572,62 @@ export default function AvatarStudio() {
                                             </>
                                         )}
                                     </button>
+                                </div>
+
+                                {/* Interview Module */}
+                                <div className="p-8 rounded-[2.5rem] bg-noble-gold/5 border border-noble-gold/20 relative group/interview overflow-hidden">
+                                    <div className="absolute inset-0 bg-noble-gold/5 opacity-0 group-hover/interview:opacity-100 transition-opacity duration-1000" />
+                                    <div className="flex flex-col gap-6 relative z-10">
+                                        <div className="flex items-center justify-between gap-6">
+                                            <div className="flex items-center gap-4">
+                                                <div className="w-12 h-12 rounded-2xl bg-noble-gold/10 border border-noble-gold/20 flex items-center justify-center">
+                                                    <Sparkles className="text-noble-gold" size={20} />
+                                                </div>
+                                                <div>
+                                                    <h3 className="text-sm font-black tracking-tight uppercase">Neural Interview</h3>
+                                                    <p className="text-[9px] font-mono text-noble-gold/60 uppercase tracking-widest mt-0.5">Test Personality Alignment</p>
+                                                </div>
+                                            </div>
+                                            <button
+                                                onClick={() => setIsInterviewing(!isInterviewing)}
+                                                className={`px-6 py-3 rounded-xl font-black text-[9px] uppercase tracking-widest transition-all shadow-lg ${isInterviewing
+                                                    ? 'bg-zinc-900 text-white border border-zinc-800'
+                                                    : 'bg-noble-gold text-black shadow-noble-gold/20 hover:scale-105'
+                                                    }`}
+                                            >
+                                                {isInterviewing ? 'Close Interview' : 'Initialize Interview'}
+                                            </button>
+                                        </div>
+
+                                        {isInterviewing && (
+                                            <div className="animate-in slide-in-from-top-4 duration-500">
+                                                <div className="p-4 rounded-2xl bg-black/40 border border-noble-gold/10 space-y-4">
+                                                    <div className="flex items-start gap-4">
+                                                        <div className="w-8 h-8 rounded-full overflow-hidden border border-noble-gold/30 flex-shrink-0">
+                                                            <Image src={config.avatarUrl || ""} alt={config.name} width={32} height={32} className="object-cover" />
+                                                        </div>
+                                                        <div className="p-3 rounded-2xl bg-zinc-900 border border-zinc-800 text-[10px] text-zinc-300 leading-relaxed italic">
+                                                            "I am ready for assessment, Director. How would you like to proceed with my tuning?"
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex items-center gap-2 mt-4 pt-4 border-t border-zinc-800">
+                                                        <input
+                                                            type="text"
+                                                            placeholder="Ask a tuning question..."
+                                                            className="flex-1 bg-transparent border-none text-[10px] focus:outline-none text-zinc-400"
+                                                        />
+                                                        <button
+                                                            className="p-2 rounded-lg bg-noble-gold/10 text-noble-gold hover:bg-noble-gold/20 transition-all"
+                                                            title="Send tuning query"
+                                                            aria-label="Send tuning query"
+                                                        >
+                                                            <Zap size={14} />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </div>

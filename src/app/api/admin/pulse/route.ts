@@ -12,10 +12,10 @@ export async function GET() {
     };
 
     try {
-        // 🏛️ Check Database Connectivity
-        // We attempt a lightweight metadata fetch instead of a full table scan
-        const { error: dbError } = await supabase.from('media_manifest').select('id', { count: 'exact', head: true }).limit(1);
-        if (!dbError) status.database.online = true;
+        if (supabase) {
+            const { error: dbError } = await supabase.from('media_manifest').select('id', { count: 'exact', head: true }).limit(1);
+            if (!dbError) status.database.online = true;
+        }
 
         // 🧠 Check AI Core Connectivity
         const apiKey = process.env.GOOGLE_GENAI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GEMINI_API_KEY;

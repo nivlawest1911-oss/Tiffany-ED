@@ -407,7 +407,7 @@ export default function AIVideoShowcase() {
                     viewport={{ once: true }}
                     className="text-center mb-16"
                 >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-6 border border-emerald-500/20">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#c5a47e]/10 text-[#c5a47e] text-xs font-bold uppercase tracking-widest mb-6 border border-[#c5a47e]/20">
                         <Play size={14} />
                         <span>AI Video Showcase</span>
                     </div>
@@ -450,6 +450,7 @@ export default function AIVideoShowcase() {
                                         <motion.div
                                             whileHover={{ scale: 1.1 }}
                                             className="w-16 h-16 rounded-full bg-[#d4af37]/90 flex items-center justify-center shadow-lg shadow-[#d4af37]/50 backdrop-blur-sm"
+                                            title={`Play ${video.title}`}
                                         >
                                             <Play className="w-8 h-8 text-black ml-1" fill="currentColor" />
                                         </motion.div>
@@ -462,7 +463,7 @@ export default function AIVideoShowcase() {
 
                                     {/* AI Generated Badge */}
                                     {video.aiGenerated && (
-                                        <div className="absolute top-3 left-3 px-2 py-1 rounded-lg bg-gradient-to-r from-emerald-600 to-emerald-400 text-white text-xs font-bold flex items-center gap-1 shadow-lg shadow-emerald-900/50">
+                                        <div className="absolute top-3 left-3 px-2 py-1 rounded-lg bg-gradient-to-r from-[#c5a47e] to-[#d4af37] text-black text-xs font-bold flex items-center gap-1 shadow-lg shadow-black/50">
                                             <Sparkles size={10} />
                                             AI Generated
                                         </div>
@@ -516,12 +517,13 @@ export default function AIVideoShowcase() {
                                     setIsSpeaking(false);
                                 }}
                                 className="absolute -top-12 right-0 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all z-10"
+                                title="Close Video Player"
                             >
                                 <X className="w-6 h-6" />
                             </button>
 
                             {/* Video Player & Briefing Panel */}
-                            <div className="relative bg-zinc-900 rounded-2xl overflow-hidden border border-white/20 shadow-2xl shadow-emerald-500/10 flex flex-col lg:flex-row">
+                            <div className="relative bg-zinc-900 rounded-2xl overflow-hidden border border-white/20 shadow-2xl shadow-[#c5a47e]/10 flex flex-col lg:flex-row">
                                 <div className="lg:w-2/3 relative aspect-video bg-black">
                                     <video
                                         ref={videoPlayerRef}
@@ -540,18 +542,20 @@ export default function AIVideoShowcase() {
                                                 <button
                                                     onClick={() => setIsPlaying(!isPlaying)}
                                                     className="p-3 rounded-full bg-[#d4af37] hover:bg-[#b5952f] text-black transition-all shadow-lg shadow-[#d4af37]/30 transform hover:scale-105"
+                                                    title={isPlaying ? "Pause Video" : "Play Video"}
                                                 >
                                                     {isPlaying ? <Pause className="w-5 h-5 fill-current" /> : <Play className="w-5 h-5 ml-0.5 fill-current" />}
                                                 </button>
                                                 <button
                                                     onClick={() => setIsMuted(!isMuted)}
                                                     className="p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all"
+                                                    title={isMuted ? "Unmute Video" : "Mute Video"}
                                                 >
                                                     {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
                                                 </button>
                                                 <div>
                                                     <h3 className="text-white font-bold">{selectedVideo.title}</h3>
-                                                    <p className="text-sm text-emerald-400">{selectedVideo.category}</p>
+                                                    <p className="text-sm text-[#c5a47e]">{selectedVideo.category}</p>
                                                 </div>
                                             </div>
                                             <div className="flex items-center gap-2">
@@ -571,7 +575,7 @@ export default function AIVideoShowcase() {
                                 <div className="lg:w-1/3 bg-zinc-950 border-t lg:border-t-0 lg:border-l border-white/10 flex flex-col relative overflow-hidden">
                                     {/* Background Pattern */}
                                     <div className="absolute inset-0 opacity-5 z-0 pointer-events-none" style={{
-                                        backgroundImage: `radial-gradient(circle at center, #10b981 1px, transparent 1px)`,
+                                        backgroundImage: `radial-gradient(circle at center, #c5a47e 1px, transparent 1px)`,
                                         backgroundSize: '20px 20px'
                                     }} />
 
@@ -579,7 +583,7 @@ export default function AIVideoShowcase() {
                                     <div className="p-6 bg-gradient-to-b from-zinc-900 to-zinc-950 border-b border-white/5 relative z-10">
                                         <div className="flex items-center gap-4">
                                             <div className="relative">
-                                                <div className={`w-16 h-16 rounded-full p-0.5 bg-gradient-to-br from-emerald-500 to-emerald-700 shadow-lg ${isSpeaking ? 'shadow-emerald-500/40 scale-105' : 'grayscale-[0.3]'} transition-all duration-300`}>
+                                                <div className={`w-16 h-16 rounded-full p-0.5 bg-gradient-to-br from-[#c5a47e] to-[#d4af37] shadow-lg ${isSpeaking ? 'shadow-[#c5a47e]/40 scale-105' : 'grayscale-[0.3]'} transition-all duration-300`}>
                                                     <div className="w-full h-full rounded-full overflow-hidden bg-black border-2 border-black relative">
                                                         <motion.div
                                                             animate={isSpeaking ? {
@@ -617,15 +621,15 @@ export default function AIVideoShowcase() {
                                                     </div>
                                                 </div>
                                                 {isSpeaking && (
-                                                    <div className="absolute -bottom-1 -right-1 bg-emerald-500 rounded-full p-1 border-2 border-zinc-900">
-                                                        <Mic size={10} className="text-white animate-pulse" />
+                                                    <div className="absolute -bottom-1 -right-1 bg-[#c5a47e] rounded-full p-1 border-2 border-zinc-900">
+                                                        <Mic size={10} className="text-black animate-pulse" />
                                                     </div>
                                                 )}
                                             </div>
                                             <div>
                                                 <div className="flex items-center gap-2 mb-1">
-                                                    <span className="text-[10px] font-black text-emerald-400 uppercase tracking-widest">{selectedVideo.brieferRole}</span>
-                                                    {isSpeaking && <span className="flex h-2 w-2 relative"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span>}
+                                                    <span className="text-[10px] font-black text-[#c5a47e] uppercase tracking-widest">{selectedVideo.brieferRole}</span>
+                                                    {isSpeaking && <span className="flex h-2 w-2 relative"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#c5a47e] opacity-75"></span><span className="relative inline-flex rounded-full h-2 w-2 bg-[#c5a47e]"></span></span>}
                                                 </div>
                                                 <h3 className="text-sm font-bold text-white">{selectedVideo.brieferName}</h3>
                                             </div>
@@ -635,7 +639,7 @@ export default function AIVideoShowcase() {
                                     {/* Briefing Text Area */}
                                     <div className="flex-1 overflow-y-auto p-6 custom-scrollbar relative z-10">
                                         <div className="flex items-start gap-3 mb-4 opacity-50">
-                                            <Sparkles size={14} className="text-emerald-500 mt-1" />
+                                            <Sparkles size={14} className="text-[#c5a47e] mt-1" />
                                             <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-500">Strategic Briefing Decrypted</span>
                                         </div>
 
@@ -643,7 +647,7 @@ export default function AIVideoShowcase() {
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: 1 }}
                                             transition={{ duration: 1 }}
-                                            className="text-zinc-300 text-sm leading-relaxed font-mono whitespace-pre-wrap pl-2 border-l-2 border-emerald-500/20"
+                                            className="text-zinc-300 text-sm leading-relaxed font-mono whitespace-pre-wrap pl-2 border-l-2 border-[#c5a47e]/20"
                                         >
                                             {selectedVideo.briefingContent || selectedVideo.description}
                                         </motion.p>
@@ -651,14 +655,14 @@ export default function AIVideoShowcase() {
                                         <div className="mt-8 pt-6 border-t border-white/5">
                                             <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-tighter mb-2">
                                                 <span className="text-zinc-500">Analysis Progress</span>
-                                                <span className="text-emerald-400">{isSpeaking ? 'Transmitting...' : 'Complete'}</span>
+                                                <span className="text-[#c5a47e]">{isSpeaking ? 'Transmitting...' : 'Complete'}</span>
                                             </div>
                                             {/* Fake Viz Bar */}
                                             <div className="flex gap-0.5 h-4 items-end mb-4 opacity-30">
                                                 {[...Array(20)].map((_, i) => (
                                                     <motion.div
                                                         key={i}
-                                                        className="w-full bg-emerald-500 rounded-t-sm"
+                                                        className="w-full bg-[#c5a47e] rounded-t-sm"
                                                         animate={{ height: isSpeaking ? [4, Math.random() * 16, 4] : 4 }}
                                                         transition={{ repeat: Infinity, duration: 0.2 + Math.random() * 0.2 }}
                                                     />
@@ -676,7 +680,7 @@ export default function AIVideoShowcase() {
                                                     }
                                                 }}
                                             >
-                                                {isSpeaking ? <VolumeX size={14} className="text-red-400" /> : <Volume2 size={14} className="text-emerald-400" />}
+                                                {isSpeaking ? <VolumeX size={14} className="text-red-400" /> : <Volume2 size={14} className="text-[#c5a47e]" />}
                                                 {isSpeaking ? 'Mute Briefer' : 'Replay Briefing'}
                                             </button>
                                         </div>

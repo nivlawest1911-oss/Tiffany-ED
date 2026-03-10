@@ -2,10 +2,12 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import VoiceInterface from './ai/VoiceInterface';
 import {
     Mic, Video,
     MessageSquare, Send, X,
-    Brain, Activity, Trophy, Zap, Users, LayoutGrid
+    Brain, Activity, Trophy,
+    Zap, Users, LayoutGrid
 } from 'lucide-react';
 import HumanAvatar from './ui/HumanAvatar';
 import { useHumanBehavior } from '@/hooks/useHumanBehavior';
@@ -53,6 +55,8 @@ export default function LiveAvatarChat({
     usageTokens
 }: LiveAvatarChatProps) {
     // INTEGRATED MULTIMODAL HOOK
+    const [isVoiceUplinkOpen, setIsVoiceUplinkOpen] = useState(false);
+
     const {
         isConnected,
         isProcessing,
@@ -376,8 +380,22 @@ export default function LiveAvatarChat({
                             <Video size={14} className={isStreaming ? 'animate-pulse' : ''} />
                             {isStreaming ? 'End Stream' : 'Go Live (4K)'}
                         </button>
+                        {/* Voice Uplink Toggle */}
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => setIsVoiceUplinkOpen(true)}
+                            className="p-4 rounded-2xl bg-noble-gold/10 border border-noble-gold/30 text-noble-gold hover:bg-noble-gold hover:text-black transition-all group flex items-center gap-3"
+                        >
+                            <div className="relative">
+                                <Activity size={20} className="group-hover:animate-pulse" />
+                                <div className="absolute -top-1 -right-1 w-2 h-2 bg-noble-gold rounded-full animate-ping" />
+                            </div>
+                            <span className="text-[10px] font-black uppercase tracking-widest hidden md:block">Activate Verse Uplink</span>
+                        </motion.button>
+
                         <button
-                            onClick={handleVoiceClone}
+                            onClick={handleVoiceClone} // Changed from handleSendMessage to handleVoiceClone as per original code
                             title="Voice cloning protocols"
                             className="px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white/60 font-black text-[10px] uppercase tracking-[0.2em] hover:bg-white/10 hover:text-white transition-all flex items-center gap-3"
                         >
@@ -754,6 +772,18 @@ export default function LiveAvatarChat({
                         hoursSaved={14.2}
                         activeAgent={conversation.length > 0 && conversation[conversation.length - 1].role === 'avatar' ? 'Literacy Provost' : 'Swarm Idle'}
                         complianceScore={100}
+                    />
+                )}
+            </AnimatePresence>
+
+            {/* Verse Voice Uplink Overlay */}
+            <AnimatePresence>
+                {isVoiceUplinkOpen && (
+                    <VoiceInterface
+                        avatarName={avatarName}
+                        avatarRole={avatarRole}
+                        heygenId={heygenId}
+                        onClose={() => setIsVoiceUplinkOpen(false)}
                     />
                 )}
             </AnimatePresence>

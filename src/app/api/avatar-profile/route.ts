@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest) {
     try {
-        const { role, name, specialization, autonomyLevel } = await req.json();
+        const { role, name, specialization, autonomyLevel, manifesto } = await req.json();
 
         if (!name || !specialization) {
             return NextResponse.json({ error: 'Name and specialization are required.' }, { status: 400 });
@@ -17,10 +17,11 @@ Generate a professional profile for an AI Executive Assistant with the following
 - Role: ${role}
 - Specialization: ${specialization}
 - Autonomy Level: ${autonomyLevel}%
+${manifesto ? `- Core Philosophy/Manifesto: ${manifesto}` : ''}
 
 Format the output EXACTLY matching the headers below (do not add any markdown bolding around the headers, just the exact text):
-MISSION: [A 1-2 sentence mission statement for this assistant]
-COGNITIVE_PROFILE: [A brief description of their analytical approach and personality]
+MISSION: [A 1-2 sentence mission statement for this assistant. If a manifesto was provided, ensure the mission aligns with it.]
+COGNITIVE_PROFILE: [A brief description of their analytical approach and personality, reflecting any provided manifesto.]
 CORE_POWER: [Their primary strategic capability]
 AUTOMATED_TASKS:
 [List 3-5 specific, actionable tasks this assistant handles. Put each on a new line starting with a number, e.g., "1. Reviewing compliance docs"]

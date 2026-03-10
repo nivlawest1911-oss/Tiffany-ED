@@ -14,6 +14,8 @@ export default function IEPGenerator() {
     const [grade, setGrade] = useState('');
     const [disability, setDisability] = useState('');
     const [concernArea, setConcernArea] = useState('');
+    const [evaluationData, setEvaluationData] = useState('');
+    const [lrePreference, setLrePreference] = useState('Inclusion (General Education)');
     const [isGenerating, setIsGenerating] = useState(false);
     const [generatedIEP, setGeneratedIEP] = useState<IEPSection[]>([]);
     const [copied, setCopied] = useState(false);
@@ -75,56 +77,52 @@ export default function IEPGenerator() {
         }, 1200);
 
         try {
-            const response = await fetch('/api/classroom', {
+            const response = await fetch('/api/generate/iep', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    message: `ACT AS: EdIntel IEP Architect.
-                    STUDENT: ${studentName} (Grade ${grade})
-                    DISABILITY: ${disability}
-                    PRIMARY CONCERN: ${concernArea}
-
-                    MANDATORY PROTOCOL:
-                    1. CITE Al. Admin. Code 290-8-9 & IDEA 2004 precisely.
-                    2. ENSURE all goals are SMART and aligned with Alabama Course of Study.
-                    3. INCORPORATE Science of Reading (SOR) principles for literacy concerns.
-                    4. STRUCTURE: Use clinical formatting with headers for PLAAFP, Annual Goals, Objectives, Accommodations, and Progress Monitoring.`,
-                    mode: 'iep-architect'
+                    studentNeeds: disability,
+                    gradeLevel: grade,
+                    focusAreas: concernArea,
+                    duration: '12 Months',
+                    evaluationData,
+                    lrePreference
                 })
             });
 
-            const text = (await response.json()).text || '';
+            const data = await response.json();
+            const text = data.content || '';
             if (!text) throw new Error("Synthesis Interrupted: Neural feed timed out.");
 
-            // Parse the response into sections
+            // Parse the response into sections based on the new Verse Protocol
             const sections: IEPSection[] = [
                 {
-                    title: 'Student Information',
-                    content: `Name: ${studentName}\nGrade: ${grade}\nDisability Category: ${disability}\nArea of Concern: ${concernArea}`
+                    title: 'Student Profile',
+                    content: `Name: ${studentName}\nGrade: ${grade}\nDisability: ${disability}\nFocus: ${concernArea}\nLRE Preference: ${lrePreference}`
                 },
                 {
                     title: 'Present Levels (PLAAFP)',
-                    content: extractWithRegex(text, /PLAAFP|Present Levels/i, /Annual Goal/i) || 'Generated content will appear here.'
+                    content: extractWithRegex(text, /PLAAFP|Present Levels/i, /Annual Goals|Measurable Annual Goals/i) || 'Content pending...'
                 },
                 {
-                    title: 'Annual Goal',
-                    content: extractWithRegex(text, /Annual Goal/i, /Short-term Objectives|Objectives/i) || 'Generated content will appear here.'
+                    title: 'SMART Annual Goals',
+                    content: extractWithRegex(text, /Annual Goals|Measurable Annual Goals/i, /Special Education and Related Services/i) || 'Content pending...'
                 },
                 {
-                    title: 'Short-term Objectives',
-                    content: extractWithRegex(text, /Short-term Objectives|Objectives/i, /Accommodations/i) || 'Generated content will appear here.'
+                    title: 'Services & Support',
+                    content: extractWithRegex(text, /Special Education and Related Services/i, /Accommodations and Modifications/i) || 'Content pending...'
                 },
                 {
-                    title: 'Accommodations & Modifications',
-                    content: extractWithRegex(text, /Accommodations/i, /Special Education Services|Services/i) || 'Generated content will appear here.'
+                    title: 'Accommodations',
+                    content: extractWithRegex(text, /Accommodations and Modifications/i, /LRE Rationale|Least Restrictive Environment/i) || 'Content pending...'
                 },
                 {
-                    title: 'Special Education Services',
-                    content: extractWithRegex(text, /Special Education Services|Services/i, /Progress Monitoring|Progress/i) || 'Generated content will appear here.'
+                    title: 'LRE Rationale',
+                    content: extractWithRegex(text, /LRE Rationale|Least Restrictive Environment/i, /PROCURAL SAFEGUARDS NOTICE|SAFEGUARDS/i) || 'Content pending...'
                 },
                 {
-                    title: 'Progress Monitoring',
-                    content: extractWithRegex(text, /Progress Monitoring|Progress/i, null) || 'Generated content will appear here.'
+                    title: 'Procedural Safeguards',
+                    content: extractWithRegex(text, /PROCURAL SAFEGUARDS NOTICE|SAFEGUARDS/i, null) || 'Content pending...'
                 }
             ];
 
@@ -270,6 +268,7 @@ export default function IEPGenerator() {
                             <select
                                 value={grade}
                                 onChange={(e) => setGrade(e.target.value)}
+                                title="Select student grade level"
                                 className="w-full px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                             >
                                 <option value="">Select grade</option>
@@ -287,6 +286,7 @@ export default function IEPGenerator() {
                             <select
                                 value={concernArea}
                                 onChange={(e) => setConcernArea(e.target.value)}
+                                title="Select area of concern"
                                 className="w-full px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                             >
                                 <option value="">Select area</option>
@@ -305,6 +305,7 @@ export default function IEPGenerator() {
                         <select
                             value={disability}
                             onChange={(e) => setDisability(e.target.value)}
+                            title="Select disability category"
                             className="w-full px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                         >
                             <option value="">Select disability category</option>
@@ -312,6 +313,37 @@ export default function IEPGenerator() {
                                 <option key={cat} value={cat}>{cat}</option>
                             ))}
                         </select>
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-bold mb-2 text-zinc-700 dark:text-zinc-300 flex items-center gap-2">
+                            <Sparkles size={16} className="text-indigo-500" />
+                            LRE Preference Profile
+                        </label>
+                        <select
+                            value={lrePreference}
+                            onChange={(e) => setLrePreference(e.target.value)}
+                            title="Select LRE preference profile"
+                            className="w-full px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                        >
+                            <option value="Inclusion (General Education)">Inclusion (General Education)</option>
+                            <option value="Resource Room (Partial Segregation)">Resource Room (Partial Segregation)</option>
+                            <option value="Specialized Unit (Full Segregation)">Specialized Unit (Full Segregation)</option>
+                            <option value="Homebound/Remote">Homebound/Remote</option>
+                        </select>
+                    </div>
+
+                    <div className="md:col-span-2">
+                        <label className="block text-sm font-bold mb-2 text-zinc-700 dark:text-zinc-300 flex items-center gap-2">
+                            <BookOpen size={16} />
+                            Clinical Evaluation Data (Optional)
+                        </label>
+                        <textarea
+                            value={evaluationData}
+                            onChange={(e) => setEvaluationData(e.target.value)}
+                            placeholder="Enter recent test scores (WJ-IV, BASC, etc.) or specific student observations for a clinical PLAAFP."
+                            className="w-full px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent h-24 resize-none"
+                        />
                     </div>
                 </div>
 

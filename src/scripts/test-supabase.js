@@ -14,7 +14,7 @@ async function testSupabase() {
 
     try {
         console.log('Testing Supabase connection to:', supabaseUrl);
-        const { data, error } = await supabase.from('users').select('count', { count: 'exact', head: true });
+        const { data: _data, error } = await supabase.from('users').select('count', { count: 'exact', head: true });
 
         if (error) {
             console.error('Supabase query error:', error);

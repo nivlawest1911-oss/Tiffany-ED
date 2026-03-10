@@ -17,6 +17,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { toast } from 'sonner';
 import { useIntelligence } from '@/context/IntelligenceContext';
+import { useEffect } from 'react';
 
 interface CodeSnippetGeneratorProps {
     onGenerate: (params: {
@@ -36,6 +37,25 @@ export const CodeSnippetGenerator = ({ onGenerate, isGenerating }: CodeSnippetGe
     const [educationalContext, setEducationalContext] = useState('');
     const [generatedCode, setGeneratedCode] = useState<string | null>(null);
     const [copied, setCopied] = useState(false);
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    const animationSequence = [
+        "Neural Threading Active",
+        "Analyzing Logic Patterns",
+        "Synthesizing Pedagogical Code",
+        "Verifying Logic Integrity"
+    ];
+
+    useEffect(() => {
+        if (isGenerating) {
+            const interval = setInterval(() => {
+                setCurrentIndex((prev) => (prev + 1) % animationSequence.length);
+            }, 2000);
+            return () => clearInterval(interval);
+        } else {
+            setCurrentIndex(0);
+        }
+    }, [isGenerating, animationSequence.length]);
 
     const handleGenerate = async () => {
         if (!topic) {
@@ -193,7 +213,14 @@ export const CodeSnippetGenerator = ({ onGenerate, isGenerating }: CodeSnippetGe
                                     {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
                                 </Button>
                             )}
-                            <Button size="sm" variant="ghost" className="text-zinc-400 hover:text-white">
+                            <Button 
+                                size="sm" 
+                                variant="ghost" 
+                                className="text-zinc-400 hover:text-white"
+                                onClick={() => toast.info("Downloading code protocol...")}
+                                aria-label="Download Code"
+                                title="Download Code"
+                            >
                                 <Download className="w-4 h-4" />
                             </Button>
                         </div>
@@ -244,10 +271,66 @@ export const CodeSnippetGenerator = ({ onGenerate, isGenerating }: CodeSnippetGe
                                     </div>
 
                                     {isGenerating && (
-                                        <div className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
-                                            <div className="text-center space-y-4">
-                                                <div className="w-12 h-12 border-4 border-cyan-500/20 border-t-cyan-500 rounded-full animate-spin mx-auto" />
-                                                <p className="text-cyan-400 font-bold uppercase tracking-tighter animate-pulse">Neural Threading Active...</p>
+                                        <div className="absolute inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 rounded-2xl transition-all duration-500">
+                                            <div className="text-center space-y-8 max-w-md px-6">
+                                                <div className="relative">
+                                                    <div className="w-24 h-24 border-2 border-cyan-500/20 border-t-cyan-500 rounded-full animate-spin mx-auto" />
+                                                    <motion.div
+                                                        animate={{
+                                                            scale: [1, 1.2, 1],
+                                                            opacity: [0.3, 0.7, 0.3]
+                                                        }}
+                                                        transition={{ duration: 2, repeat: Infinity }}
+                                                        className="absolute inset-0 bg-cyan-500/10 blur-2xl rounded-full"
+                                                    />
+                                                </div>
+
+                                                <div className="space-y-4">
+                                                    <AnimatePresence mode="wait">
+                                                        <motion.p
+                                                            key={currentIndex}
+                                                            initial={{ opacity: 0, y: 10 }}
+                                                            animate={{ opacity: 1, y: 0 }}
+                                                            exit={{ opacity: 0, y: -10 }}
+                                                            className="text-cyan-400 font-black uppercase tracking-[0.3em] text-xs h-4"
+                                                        >
+                                                            {animationSequence[currentIndex]}
+                                                        </motion.p>
+                                                    </AnimatePresence>
+
+                                                    <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
+                                                        <motion.div
+                                                            initial={{ width: "0%" }}
+                                                            animate={{ width: "100%" }}
+                                                            transition={{ duration: 15, ease: "linear" }}
+                                                            className="h-full bg-gradient-to-r from-cyan-600 via-blue-500 to-cyan-600"
+                                                        />
+                                                    </div>
+
+                                                    <div className="grid grid-cols-2 gap-4 pt-4">
+                                                        {[
+                                                            { label: "Logic", val: "Synthesized" },
+                                                            { label: "Syntax", val: "Verified" },
+                                                            { label: "Pedagogy", val: "Optimized" },
+                                                            { label: "Rigor", val: complexity }
+                                                        ].map((metric, idx) => (
+                                                            <motion.div
+                                                                key={idx}
+                                                                initial={{ opacity: 0, y: 10 }}
+                                                                animate={{ opacity: 1, y: 0 }}
+                                                                transition={{ delay: idx * 0.2 }}
+                                                                className="p-2 rounded-lg bg-white/5 border border-white/10"
+                                                            >
+                                                                <div className="text-[8px] text-zinc-500 uppercase font-black">{metric.label}</div>
+                                                                <div className="text-[10px] text-white font-mono">{metric.val}</div>
+                                                            </motion.div>
+                                                        ))}
+                                                    </div>
+
+                                                    <p className="text-[10px] text-zinc-500 font-mono animate-pulse">
+                                                        Drafting sovereign code structures...
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
                                     )}

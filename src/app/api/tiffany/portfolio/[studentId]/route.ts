@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
 import { aggregateStudentData, generateGrowthNarrative } from '@/services/portfolio-service';
 
-export async function GET(req: Request, { params }: { params: { studentId: string } }) {
+export async function GET(req: Request, { params }: { params: Promise<{ studentId: string }> }) {
     try {
-        const studentId = params.studentId;
+        const { studentId } = await params;
 
         // 1. Aggregate Data
         const data = await aggregateStudentData(studentId);

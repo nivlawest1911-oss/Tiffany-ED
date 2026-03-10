@@ -28,7 +28,7 @@ export class TavusService {
         if (!TAVUS_API_KEY) throw new Error("Tavus API Key missing");
 
         return withResilience(async () => {
-            console.log("[Tavus] Initializing Phoenix-3 Stream...");
+
 
             const response = await fetch(`${TAVUS_API_URL}/conversations`, {
                 method: 'POST',
@@ -76,8 +76,8 @@ export class TavusService {
     /**
      * Injects real-time event logs into the conversation context
      */
-    public async updateContext(conversationId: string, eventData: string): Promise<void> {
-        console.log(`[Tavus] Injecting Context: ${eventData}`);
+    public async updateContext(_conversationId: string, _eventData: string): Promise<void> {
+
         // Implementation for CVI (Context Video Injection) goes here
     }
 }

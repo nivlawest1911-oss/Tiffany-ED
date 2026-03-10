@@ -4,8 +4,8 @@
     "description": "Your personal AI avatar for reducing teacher burnout and empowering education",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#2563eb",
+    "background_color": "#050505",
+    "theme_color": "#D4AF37",
     "orientation": "portrait-primary",
     "icons": [
         {
@@ -16,12 +16,46 @@
         {
             "src": "/images/logo.png",
             "sizes": "192x192",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any maskable"
         },
         {
             "src": "/images/logo.png",
             "sizes": "512x512",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "AI Hub",
+            "url": "/ai-hub",
+            "icons": [
+                {
+                    "src": "/images/logo.png",
+                    "sizes": "192x192"
+                }
+            ]
+        },
+        {
+            "name": "Leadership Vault",
+            "url": "/vault",
+            "icons": [
+                {
+                    "src": "/images/logo.png",
+                    "sizes": "192x192"
+                }
+            ]
+        },
+        {
+            "name": "Cognitive Gym",
+            "url": "/gym",
+            "icons": [
+                {
+                    "src": "/images/logo.png",
+                    "sizes": "192x192"
+                }
+            ]
         }
     ],
     "categories": [
