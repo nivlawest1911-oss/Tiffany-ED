@@ -330,7 +330,7 @@ export default function OnboardingFlow({ onCompleteAction }: { onCompleteAction?
                 const errorData = await response.json().catch(() => ({}));
                 // If it's an auth issue (401), proceed anyway — data is saved locally
                 if (response.status === 401) {
-                    console.warn('[ONBOARDING] No active session, proceeding with local-only onboarding.');
+
                 } else {
                     throw new Error(errorData.reason || errorData.error || 'Persistence failed');
                 }
@@ -339,7 +339,7 @@ export default function OnboardingFlow({ onCompleteAction }: { onCompleteAction?
             // Only block the flow for non-auth errors
             const errorMsg = err instanceof Error ? err.message : 'Unknown error';
             if (!errorMsg.includes('Persistence failed')) {
-                console.warn('[ONBOARDING] Server sync failed, continuing with local data:', errorMsg);
+
             } else {
                 setIsFinishing(false);
                 toast.error('Onboarding Interrupted', {
@@ -360,7 +360,7 @@ export default function OnboardingFlow({ onCompleteAction }: { onCompleteAction?
 
         // Functional Swarm Handshake (Phase 4)
         if (formData.swarmAuthorized) {
-            console.log('[ONBOARDING] Initiating Autonomous Swarm Handshake...');
+
             fetch('/api/simulate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -369,11 +369,11 @@ export default function OnboardingFlow({ onCompleteAction }: { onCompleteAction?
                 .then(res => res.json())
                 .then(data => {
                     if (data.result) {
-                        console.log('[ONBOARDING] Swarm Synthesis Received.');
+
                         localStorage.setItem('edintel_swarm_result', JSON.stringify(data.result));
                     }
                 })
-                .catch(err => console.error('[ONBOARDING] Swarm Handshake Failed:', err));
+
         }
 
         // Neural Synthesis Phase
