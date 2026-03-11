@@ -66,7 +66,7 @@ export default function EdIntelLogo({
                     className="absolute inset-1.5 border border-cyan-500/20 rounded-full border-dashed"
                 />
                 <div className="relative z-10 w-3 h-3 bg-noble-gold rounded-full shadow-[0_0_15px_#D4AF37]" />
-            </div>
+            </motion.div>
         );
     }
 
@@ -91,7 +91,7 @@ export default function EdIntelLogo({
                     />
                     <circle cx="50" cy="50" r="4" fill="white" />
                 </svg>
-            </div>
+            </motion.div>
         );
     }
 
@@ -140,7 +140,7 @@ export default function EdIntelLogo({
                             <path d="M50 15 L85 30 L85 60 C85 75 70 85 50 90 C30 85 15 75 15 60 L15 30 L50 15 Z" />
                         </svg>
                     </div>
-                </div>
+                </motion.div>
 
                 {showText && (
                     <motion.div
