@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, startTransition } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring, Variants } from 'framer-motion';
 import { ArrowRight, Cpu, Zap, Shield, Brain, Globe, Terminal, Mic, Clock, LayoutGrid } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -330,7 +330,7 @@ export default function ModernHomePage() {
                 isSystemThinking && "bg-[#05060f]"
             )}>
                 <AnimatePresence>
-                    {!booted && <ActivationIntro onCompleteAction={() => setBooted(true)} />}
+                    {!booted && <ActivationIntro onCompleteAction={() => startTransition(() => setBooted(true))} />}
                 </AnimatePresence>
 
                 {booted && (
