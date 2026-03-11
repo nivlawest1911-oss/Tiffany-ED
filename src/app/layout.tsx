@@ -42,6 +42,14 @@ export const metadata: Metadata = {
     description: 'The definitive AI operating layer for autonomous professionals and institutional intelligence. Sovereign analytics, neural delegation, and strategic insight.',
     url: 'https://edintel-app.vercel.app',
     locale: 'en_US',
+    images: [
+      {
+        url: '/opengraph-image.png',
+        width: 1200,
+        height: 630,
+        type: 'image/png',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
@@ -49,6 +57,13 @@ export const metadata: Metadata = {
     description: 'The definitive AI operating layer for autonomous professionals and institutional intelligence.',
     creator: '@AlvinWe53959439',
     site: '@AlvinWe53959439',
+    images: [
+      {
+        url: '/twitter-image.png',
+        width: 1200,
+        height: 630,
+      },
+    ],
   },
   other: {
     'linkedin:profile': 'https://www.linkedin.com/in/alvin-west-ii-dba-11a75323/',
