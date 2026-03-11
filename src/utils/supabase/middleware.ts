@@ -30,8 +30,5 @@ export async function updateSession(request: NextRequest) {
     }
   );
 
-  // IMPORTANT: call getUser to refresh the auth token if needed.
-  await supabase.auth.getUser();
-
   return supabaseResponse;
 }
