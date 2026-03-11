@@ -45,8 +45,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: '/opengraph-image.jpg',
-        width: 640,
-        height: 640,
+        width: 1200,
+        height: 630,
         type: 'image/jpeg',
       },
     ],
@@ -60,8 +60,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: '/twitter-image.jpg',
-        width: 640,
-        height: 640,
+        width: 1200,
+        height: 630,
       },
     ],
   },
@@ -71,8 +71,6 @@ export const metadata: Metadata = {
     'tiktok:creator': '@alvinwestii',
   },
 };
-
-
 
 export const viewport = {
   themeColor: '#D4AF37',
