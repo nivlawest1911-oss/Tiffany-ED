@@ -44,10 +44,10 @@ export const metadata: Metadata = {
     locale: 'en_US',
     images: [
       {
-        url: '/opengraph-image.png',
-        width: 1200,
-        height: 630,
-        type: 'image/png',
+        url: '/opengraph-image.jpg',
+        width: 640,
+        height: 640,
+        type: 'image/jpeg',
       },
     ],
   },
@@ -59,9 +59,9 @@ export const metadata: Metadata = {
     site: '@AlvinWe53959439',
     images: [
       {
-        url: '/twitter-image.png',
-        width: 1200,
-        height: 630,
+        url: '/twitter-image.jpg',
+        width: 640,
+        height: 640,
       },
     ],
   },
