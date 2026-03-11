@@ -4,7 +4,13 @@ import { updateSession } from '@/utils/supabase/middleware';
 export async function middleware(request: NextRequest) {
     // 1. Refresh Supabase session (and get updated response)
     // This also handles setting/refreshing Supabase cookies
-    const response = await updateSession(request);
+    let response = NextResponse.next({ request });
+    try {
+        response = await updateSession(request);
+    } catch (err) {
+        console.error("[Middleware] Exception in updateSession:", err);
+        // Do not crash the site, we just proceed without refreshing the session
+    }
 
     // 2. Define protected routes
     const protectedRoutes = [
