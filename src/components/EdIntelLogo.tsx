@@ -50,9 +50,11 @@ export default function EdIntelLogo({
     if (!isMounted) return null;
 
     if (variant === "orbital") {
-        const logoStyle = { "--logo-size": `${size}px` } as React.CSSProperties;
         return (
-            <div className={`logo-sizer relative flex items-center justify-center ${className}`} style={logoStyle}>
+            <motion.div 
+                className={`logo-sizer relative flex items-center justify-center ${className}`}
+                initial={{"--logo-size": `${size}px`} as any}
+            >
                 <motion.div
                     animate={{ rotate: 360 }}
                     transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
@@ -69,11 +71,10 @@ export default function EdIntelLogo({
     }
 
     if (variant === "geometric") {
-        const geoStyle = { "--logo-geo-size": `${size * 1.5}px` } as React.CSSProperties;
         return (
-            <div
+            <motion.div
                 className={`logo-geo-sizer relative flex items-center justify-center p-2 rounded-xl bg-gradient-to-br from-[#0c0c0c] to-black border border-white/5 shadow-2xl ${className}`}
-                style={geoStyle}
+                initial={{"--logo-geo-size": `${size * 1.5}px`} as any}
             >
                 <svg viewBox="0 0 100 100" className="w-full h-full text-noble-gold">
                     <motion.rect
@@ -101,7 +102,10 @@ export default function EdIntelLogo({
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
-                <div className="logo-sizer relative" style={{ "--logo-size": `${size}px` } as React.CSSProperties}>
+                <motion.div 
+                    className="logo-sizer relative" 
+                    initial={{"--logo-size": `${size}px`} as any}
+                >
                     {/* Atmospheric Glow */}
                     <AnimatePresence>
                         {isHovered && (

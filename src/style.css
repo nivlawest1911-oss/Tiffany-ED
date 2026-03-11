@@ -418,21 +418,32 @@
     }
 
     .no-scrollbar::-webkit-scrollbar {
-        display: none;
+        display: none; /* Safari and Chrome */
     }
 
     .no-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
     }
 
     .scrollbar-hide::-webkit-scrollbar {
-        display: none;
+        display: none; /* Safari and Chrome */
     }
 
     .scrollbar-hide {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+
+    /* Logo Sizing Utilities to move variables out of inline styles where possible */
+    .logo-sizer {
+        width: var(--logo-size, 40px);
+        height: var(--logo-size, 40px);
+    }
+
+    .logo-geo-sizer {
+        width: var(--logo-geo-size, 60px);
+        height: var(--logo-geo-size, 60px);
     }
 
     @keyframes marquee {
