@@ -7,7 +7,7 @@
     },
     "scripts": {
         "dev": "next dev",
-        "prebuild": "echo clean",
+        "prebuild": "rm -rf .next",
         "build": "next build",
         "start": "next start",
         "lint": "eslint .",
@@ -79,7 +79,7 @@
         "@react-three/drei": "^10.7.7",
         "@react-three/fiber": "^9.5.0",
         "@rive-app/react-canvas": "^4.26.1",
-        "@sentry/nextjs": "^10.36.0",
+        
         "@stripe/stripe-js": "^8.6.4",
         "@supabase/ssr": "^0.8.0",
         "@supabase/supabase-js": "^2.97.0",
@@ -119,15 +119,15 @@
         "lottie-web": "^5.13.0",
         "lucide-react": "^0.454.0",
         "nanoid": "^5.1.5",
-        "next": "^15.1.0",
+        "next": "14.2.28",
         "next-themes": "^0.4.6",
         "nodemailer": "^7.0.12",
         "openai": "^6.22.0",
-        "react": "^19.2.3",
+        "react": "18.3.1",
         "react-chartjs-2": "^5.3.1",
         "react-confetti": "^6.4.0",
         "react-day-picker": "9.8.0",
-        "react-dom": "^19.2.3",
+        "react-dom": "18.3.1",
         "react-dropzone": "^14.3.8",
         "react-hook-form": "^7.60.0",
         "react-markdown": "^10.1.0",
@@ -160,15 +160,15 @@
         "@tailwindcss/postcss": "^4.1.9",
         "@tailwindcss/typography": "^0.5.16",
         "@types/node": "^22",
-        "@types/react": "^19",
-        "@types/react-dom": "^19",
+        "@types/react": "^18",
+        "@types/react-dom": "^18",
         "@types/web-bluetooth": "^0.0.21",
         "autoprefixer": "^10.4.20",
         "eslint": "^9.39.2",
-        "eslint-config-next": "^15.1.0",
+        "eslint-config-next": "14.2.28",
         "eslint-plugin-unused-imports": "^4.3.0",
         "globals": "^17.1.0",
-        "mini-css-extract-plugin": "^2.10.0",
+        
         "postcss": "^8.5",
         "prisma": "^5.22.0",
         "tailwindcss": "^4.1.18",
@@ -179,5 +179,22 @@
     },
     "prisma": {
         "seed": "npx tsx prisma/seed.ts"
+    },
+    "pnpm": {
+        "overrides": {
+            "react": "18.3.1",
+            "react-dom": "18.3.1",
+            "next": "14.2.28"
+        }
+    },
+    "overrides": {
+        "react": "18.3.1",
+        "react-dom": "18.3.1",
+        "next": "14.2.28"
+    },
+    "resolutions": {
+        "react": "18.3.1",
+        "react-dom": "18.3.1",
+        "next": "14.2.28"
     }
 }
