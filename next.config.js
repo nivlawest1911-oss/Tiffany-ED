@@ -22,6 +22,16 @@ const nextConfig = {
         },
         serverComponentsExternalPackages: ['@google-cloud/bigquery', '@google-cloud/common'],
     },
+    webpack: (config) => {
+        // Suppress the webpack cache warning for large strings
+        // This prevents the "Serializing big strings" warning
+        config.infrastructureLogging = {
+            ...config.infrastructureLogging,
+            level: 'error',
+        };
+        
+        return config;
+    },
     async redirects() {
         return [
             {
