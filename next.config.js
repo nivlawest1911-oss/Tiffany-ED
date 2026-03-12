@@ -20,8 +20,8 @@ const nextConfig = {
         serverActions: {
             bodySizeLimit: '10mb',
         },
+        serverComponentsExternalPackages: ['@google-cloud/bigquery', '@google-cloud/common'],
     },
-    serverExternalPackages: ['@google-cloud/bigquery', '@google-cloud/common'],
     async redirects() {
         return [
             {
