@@ -36,11 +36,12 @@ export default function LoginClient() {
         tierName: 'Sovereign Initiate'
     });
 
-    // Initialize Sovereign Supabase Client safely
+    // Initialize Sovereign Supabase Client safely - only if env vars are present
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+    const isSupabaseConfigured = !!(supabaseUrl && supabaseKey);
 
-    const supabase = createBrowserClient(supabaseUrl, supabaseKey);
+    const supabase = isSupabaseConfigured ? createBrowserClient(supabaseUrl, supabaseKey) : null;
 
     // Capture OAuth errors and Mode from URL
     useEffect(() => {
@@ -83,13 +84,17 @@ export default function LoginClient() {
                     return;
                 }
 
-                // Standard Supabase Uplink
-                const { error: signInError } = await supabase.auth.signInWithPassword({
-                    email,
-                    password,
-                });
+                // Standard Supabase Uplink (only if Supabase is configured)
+                if (supabase) {
+                    const { error: signInError } = await supabase.auth.signInWithPassword({
+                        email,
+                        password,
+                    });
 
-                if (signInError) throw signInError;
+                    if (signInError) throw signInError;
+                } else {
+                    throw new Error('Authentication service not configured. Please use admin login.');
+                }
 
                 // 🏛️ Global User Synchronization Protocol
                 // Triggering /api/auth/me (GET) will force a parity check and sync between Supabase and Neon
@@ -100,6 +105,10 @@ export default function LoginClient() {
                 });
             } else {
                 // 🏛️ Sovereign Enrollment Protocol (Signup)
+                if (!supabase) {
+                    throw new Error('Authentication service not configured. Signup requires Supabase.');
+                }
+                
                 const { data: { user: signedUpUser }, error: signUpError } = await supabase.auth.signUp({
                     email,
                     password,
@@ -153,6 +162,10 @@ export default function LoginClient() {
         setError('');
 
         try {
+            if (!supabase) {
+                throw new Error('Social login requires Supabase configuration.');
+            }
+            
             const { error: oauthError } = await supabase.auth.signInWithOAuth({
                 provider,
                 options: {
