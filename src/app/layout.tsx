@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Playfair_Display, Outfit, Orbitron } from 'next/font/google';
 import '../style.css';
 import { AuthProvider } from '@/context/AuthContext';
 import { IntelligenceProvider } from '@/context/IntelligenceContext';
@@ -10,10 +9,6 @@ import { Toaster } from 'sonner';
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import ClientShell from '@/components/layout/ClientShell';
-
-const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' });
-const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
-const orbitron = Orbitron({ subsets: ['latin'], variable: '--font-orbitron' });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://edintel-app.vercel.app'),
@@ -86,9 +81,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${outfit.variable} ${orbitron.variable} dark`}>
+<html lang="en" className="dark">
       <head>
-
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link 
+          href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" 
+          rel="stylesheet" 
+        />
       </head>
       <body className="bg-[#050505] text-gray-100 antialiased overflow-x-hidden selection:bg-[#D4AF37]/30 font-sans">
         <CelebrationProvider>

@@ -1,17 +1,12 @@
 @import "tailwindcss";
 
-/* Ethnocentric → Orbitron fallback (loaded via <link> in layout.tsx) */
-@font-face {
-    font-family: 'Ethnocentric';
-    src: local('Orbitron');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
+/* Fonts loaded via Google Fonts link in layout.tsx */
 :root {
-    --font-heading: 'Ethnocentric', sans-serif;
-    --font-sans: var(--font-outfit), sans-serif;
+    --font-playfair: 'Playfair Display', serif;
+    --font-outfit: 'Outfit', sans-serif;
+    --font-orbitron: 'Orbitron', sans-serif;
+    --font-heading: 'Orbitron', sans-serif;
+    --font-sans: 'Outfit', sans-serif;
     --color-background: hsl(222.2 84% 4.9%);
     --color-foreground: hsl(210 40% 98%);
     --color-card: hsl(222.2 84% 4.9%);
