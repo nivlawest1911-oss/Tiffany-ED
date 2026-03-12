@@ -71,6 +71,7 @@ export const viewport = {
   themeColor: '#D4AF37',
   width: 'device-width',
   initialScale: 1,
+  userScalable: true,
 };
 
 
