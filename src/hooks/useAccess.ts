@@ -15,7 +15,7 @@ export function useAccess() {
     useEffect(() => {
         async function checkAccess() {
             if (!supabase) {
-                console.warn('[EDINTEL_SAFE_UPLINK] Supabase client unavailable.');
+                // Supabase not configured - app works without it using legacy auth
                 setLoading(false);
                 return;
             }
