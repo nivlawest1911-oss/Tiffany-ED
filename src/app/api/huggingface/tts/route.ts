@@ -5,17 +5,20 @@ export async function POST(req: Request) {
     try {
         const { text, model } = await req.json();
 
-        // Default to a good TTS model if none provided
-        // microsoft/speecht5_tts is a popular choice for English
-        const modelToUse = model || 'microsoft/speecht5_tts';
+        if (!process.env.HUGGINGFACE_API_KEY) {
+            console.error('TTS Error: HUGGINGFACE_API_KEY is missing');
+            return NextResponse.json(
+                { error: 'Hugging Face API key not configured' },
+                { status: 500 }
+            );
+        }
 
         const hf = new HfInference(process.env.HUGGINGFACE_API_KEY);
+        
+        // Reliability-first model strategy:
+        // facebook/mms-tts-eng is extremely resilient and doesn't require complex embeddings
+        const modelToUse = model || 'facebook/mms-tts-eng';
 
-        // Some models require specific inputs structure
-        // For speecht5_tts, it's often helpful to provide speaker embeddings if possible, 
-        // but basic usage is text-to-audio.
-        // Note: speecht5_tts on default might need a speaker embedding vector.
-        // If that fails, we can fall back to 'facebook/mms-tts-eng' which is simpler.
 
         let audioBlob;
 
@@ -24,10 +27,11 @@ export async function POST(req: Request) {
                 model: modelToUse,
                 inputs: text,
             });
-        } catch (e) {
-            console.warn(`Initial HF Model ${modelToUse} failed, trying fallback 'facebook/mms-tts-eng'`);
+        } catch (e: any) {
+            console.warn(`TTS Warning: Model ${modelToUse} failed (${e.message}), trying fallback 'microsoft/speecht5_tts'`);
+            // Secondary fallback for variety if needed
             audioBlob = await hf.textToSpeech({
-                model: 'facebook/mms-tts-eng',
+                model: 'microsoft/speecht5_tts',
                 inputs: text
             });
         }
@@ -37,6 +41,7 @@ export async function POST(req: Request) {
         return new NextResponse(buffer, {
             headers: {
                 'Content-Type': 'audio/mpeg',
+                'Content-Encoding': 'identity',
                 'Content-Length': buffer.byteLength.toString(),
             },
         });

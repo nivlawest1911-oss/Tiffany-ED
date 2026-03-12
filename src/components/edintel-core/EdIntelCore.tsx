@@ -44,13 +44,13 @@ export default function EdIntelCore({ phase = 'ready', className = "" }: EdIntel
                         className="absolute inset-0 flex items-center justify-center pointer-events-none"
                     >
                         {/* Tangled Blue Wires - Data Network */}
-                        <svg className="absolute inset-0 w-full h-full">
+                        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                             {[...Array(40)].map((_, i) => (
                                 <motion.path
                                     key={i}
-                                    d={`M ${Math.random() * 100}% ${Math.random() * 100}% Q ${Math.random() * 100}% ${Math.random() * 100}%, ${Math.random() * 100}% ${Math.random() * 100}%`}
+                                    d={`M ${Math.random() * 100} ${Math.random() * 100} Q ${Math.random() * 100} ${Math.random() * 100}, ${Math.random() * 100} ${Math.random() * 100}`}
                                     stroke="#00B0FF"
-                                    strokeWidth="1.5"
+                                    strokeWidth="0.5"
                                     fill="none"
                                     initial={{ pathLength: 0, opacity: 0 }}
                                     animate={{
@@ -66,6 +66,7 @@ export default function EdIntelCore({ phase = 'ready', className = "" }: EdIntel
                                 />
                             ))}
                         </svg>
+
 
                         {/* Chaos Glow Particles */}
                         {[...Array(30)].map((_, i) => (

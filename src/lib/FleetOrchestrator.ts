@@ -6,6 +6,8 @@ export interface FleetNode {
     intelligenceLoad: number;
     activeUsers: number;
     lastSync: string;
+    vaultCompliance: number;
+    vaultDocumentCount: number;
 }
 
 export interface RegionalMetrics {
@@ -28,70 +30,52 @@ export class FleetOrchestrator {
     }
 
     public async getFleetNodes(): Promise<FleetNode[]> {
-        // Mocking regional fleet data
-        return [
-            {
-                id: 'node-bhm-01',
-                name: 'Birmingham Central High',
-                location: 'Birmingham, AL',
-                status: 'operational',
-                intelligenceLoad: 78,
-                activeUsers: 450,
-                lastSync: new Date().toISOString()
-            },
-            {
-                id: 'node-mtg-02',
-                name: 'Montgomery Leadership Academy',
-                location: 'Montgomery, AL',
-                status: 'syncing',
-                intelligenceLoad: 42,
-                activeUsers: 310,
-                lastSync: new Date().toISOString()
-            },
-            {
-                id: 'node-hsv-03',
-                name: 'Huntsville Tech Institute',
-                location: 'Huntsville, AL',
-                status: 'alert',
-                intelligenceLoad: 91,
-                activeUsers: 820,
-                lastSync: new Date().toISOString()
-            },
-            {
-                id: 'node-mob-04',
-                name: 'Mobile Maritime Charter',
-                location: 'Mobile, AL',
-                status: 'operational',
-                intelligenceLoad: 55,
-                activeUsers: 280,
-                lastSync: new Date().toISOString()
-            },
-            {
-                id: 'node-dtn-05',
-                name: 'Dothan Innovation Hub',
-                location: 'Dothan, AL',
-                status: 'offline',
-                intelligenceLoad: 0,
-                activeUsers: 0,
-                lastSync: new Date(Date.now() - 3600000).toISOString()
-            }
-        ];
+        try {
+            const response = await fetch('/api/fleet');
+            const data = await response.json();
+            return data.nodes || [];
+        } catch (error) {
+            console.error('[FleetOrchestrator] Failed to fetch fleet nodes:', error);
+            return [];
+        }
     }
 
     public async getRegionalMetrics(): Promise<RegionalMetrics> {
-        return {
-            totalActiveNodes: 4,
-            averageIntelligenceLoad: 66,
-            regionalComplianceScore: 94,
-            activeDirectives: 12
-        };
+        try {
+            const response = await fetch('/api/fleet');
+            const data = await response.json();
+            return data.metrics || {
+                totalActiveNodes: 0,
+                averageIntelligenceLoad: 0,
+                regionalComplianceScore: 0,
+                activeDirectives: 0
+            };
+        } catch (error) {
+            console.error('[FleetOrchestrator] Failed to fetch regional metrics:', error);
+            return {
+                totalActiveNodes: 0,
+                averageIntelligenceLoad: 0,
+                regionalComplianceScore: 0,
+                activeDirectives: 0
+            };
+        }
     }
 
-    public async broadcastDirective(directive: string): Promise<{ success: boolean; hash: string }> {
-        console.log(`[FleetOrchestrator] Broadcasting regional directive: ${directive}`);
-        return {
-            success: true,
-            hash: `0x${Math.random().toString(16).substring(2, 10)}...`
-        };
+    public async broadcastDirective(nodeName: string, directive: string): Promise<{ success: boolean; hash: string }> {
+        const hash = `0x${Math.random().toString(16).substring(2, 10).toUpperCase()}`;
+        console.log(`[FleetOrchestrator] Broadcasting directive to ${nodeName}: ${directive}`);
+        
+        try {
+            await fetch('/api/fleet/directive', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nodeName, directive, hash, action: 'BROADCAST' })
+            });
+            
+            return { success: true, hash };
+        } catch (error) {
+            console.error('[FleetOrchestrator] Directive broadcast failed:', error);
+            return { success: false, hash };
+        }
     }
 }

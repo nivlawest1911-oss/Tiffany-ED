@@ -167,20 +167,20 @@ export default function LessonPlanGenerator() {
     };
 
     return (
-        <div className="p-8 rounded-3xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-xl overflow-hidden relative">
+        <div className="h-full flex flex-col p-6 md:p-8 rounded-3xl bg-[#111] border border-zinc-800 border-t-4 border-t-emerald-500 shadow-xl overflow-hidden relative">
             <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
                 <BookOpen size={120} />
             </div>
 
-            <div className="relative z-10">
+            <div className="relative z-10 flex-grow flex flex-col">
                 <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
                     <div className="flex items-center gap-3">
                         <div className="w-12 h-12 shrink-0 rounded-2xl bg-emerald-600 flex items-center justify-center shadow-lg">
                             <PenTool className="text-white" size={24} />
                         </div>
                         <div>
-                            <h2 className="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white">Lesson Planner</h2>
-                            <p className="text-xs md:text-sm text-zinc-500 dark:text-zinc-400">AI-Powered Curriculogic Center</p>
+                            <h2 className="text-xl md:text-2xl font-bold text-white">Lesson Planner</h2>
+                            <p className="text-xs md:text-sm text-gray-300">AI-Powered Curriculogic Center</p>
                         </div>
                     </div>
                     <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full shrink-0">
@@ -223,6 +223,7 @@ export default function LessonPlanGenerator() {
                             <select
                                 value={gradeLevel}
                                 onChange={(e) => setGradeLevel(e.target.value)}
+                                title="Select Grade Level"
                                 className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 text-zinc-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all shadow-inner text-sm appearance-none cursor-pointer"
                             >
                                 <option value="">Select Grade</option>
@@ -239,6 +240,8 @@ export default function LessonPlanGenerator() {
                                 type="number"
                                 value={duration}
                                 onChange={(e) => setDuration(e.target.value)}
+                                title="Lesson Duration in Minutes"
+                                placeholder="Min"
                                 className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 text-zinc-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all shadow-inner text-sm"
                             />
                         </div>
@@ -252,7 +255,7 @@ export default function LessonPlanGenerator() {
                 >
                     {isGenerating && (
                         <div className="absolute inset-0 bg-emerald-700/50 flex items-center justify-center z-0">
-                            <div className="w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" style={{ backgroundSize: '200% 100%' }} />
+                            <div className="w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer bg-[length:200%_100%]" />
                         </div>
                     )}
 
@@ -262,7 +265,10 @@ export default function LessonPlanGenerator() {
                     </div>
                     {isGenerating && (
                         <div className="h-1 w-32 bg-emerald-900/50 rounded-full mt-2 overflow-hidden relative z-10">
-                            <div className="h-full bg-white/80 transition-all duration-500" style={{ width: `${((genStep + 1) / generationSteps.length) * 100}%` }} />
+                            <div 
+                                className="h-full bg-white/80 transition-all duration-500 w-[var(--progress)]" 
+                                style={{ '--progress': `${((genStep + 1) / generationSteps.length) * 100}%` } as React.CSSProperties} 
+                            />
                         </div>
                     )}
                 </button>
@@ -283,6 +289,7 @@ export default function LessonPlanGenerator() {
                                 </button>
                                 <button
                                     onClick={handleDownload}
+                                    title="Download Lesson Plan"
                                     className="p-2 bg-zinc-100 dark:bg-zinc-800 rounded-lg hover:bg-emerald-500/10 transition-all"
                                 >
                                     <Download size={16} />
@@ -292,9 +299,9 @@ export default function LessonPlanGenerator() {
 
                         <div className="max-h-[400px] overflow-y-auto pr-2 space-y-4 custom-scrollbar">
                             {generatedPlan.map((section, idx) => (
-                                <div key={idx} className="p-5 rounded-2xl bg-white dark:bg-black/20 border border-zinc-200 dark:border-zinc-800">
-                                    <h4 className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-[0.2em] mb-2">{section.title}</h4>
-                                    <div className="text-sm text-zinc-700 dark:text-zinc-300 whitespace-pre-wrap leading-relaxed">
+                                <div key={idx} className="p-5 rounded-2xl bg-black/20 border border-zinc-800">
+                                    <h4 className="text-[10px] font-black text-emerald-400 uppercase tracking-[0.2em] mb-2">{section.title}</h4>
+                                    <div className="text-sm text-gray-300 whitespace-pre-wrap leading-relaxed">
                                         {section.content}
                                     </div>
                                 </div>
@@ -304,7 +311,7 @@ export default function LessonPlanGenerator() {
                 )}
 
                 <div className="mt-8 pt-8 border-t border-zinc-100 dark:border-zinc-800 opacity-60">
-                    <div className="flex items-center gap-6">
+                    <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 sm:gap-6">
                         <div className="flex items-center gap-2">
                             <Layers size={14} />
                             <span className="text-[9px] font-bold uppercase tracking-widest leading-none">Scaffolded Design</span>

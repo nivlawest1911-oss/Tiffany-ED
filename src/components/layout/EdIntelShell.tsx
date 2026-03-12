@@ -30,9 +30,12 @@ interface CoreTool {
     desc: string;
 }
 
+import { initiateBioAuth } from '@/app/auth/actions';
+
 export default function EdIntelShell({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const { isHudExpanded, setIsHudExpanded } = useIntelligence();
+
 
     const isMarketingRoute = ['/', '/signup', '/login', '/about', '/pricing', '/contact', '/whats-edintel', '/enterprise'].includes(pathname);
 
@@ -75,7 +78,7 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
     ];
 
     return (
-        <div className="flex h-screen bg-EdIntel-black text-white font-sans overflow-hidden selection:bg-intel-gold selection:text-black">
+        <div className="flex h-screen bg-black text-white font-sans overflow-hidden selection:bg-intel-gold selection:text-black">
             <NeuralBackground />
             <NeuralHUD />
 

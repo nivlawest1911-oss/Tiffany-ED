@@ -22,7 +22,7 @@ model Tier {
 
 model User {
   id                   String                @id @default(cuid())
-  clerkId              String                @unique @map("clerk_id")
+  clerkId              String?               @unique @map("clerk_id")
   email                String                @unique
   name                 String?
   role                 UserRole              @default(TEACHER) @map("role")
@@ -48,24 +48,26 @@ model User {
   createdAt            DateTime              @default(now()) @map("created_at")
   updatedAt            DateTime              @updatedAt @map("updated_at")
   lastLogin            DateTime?             @map("last_login")
+  password             String?
   analyticsHistory     AnalyticsData[]
   avatarSessions       AvatarSession[]
   conversationHistory  ConversationMessage[]
   evidenceFolders      EvidenceFolder[]
   generatedContent     GeneratedContent[]
   generations          Generation[]
+  legacyLedger         LegacyLedger[]
   observations         Observation[]
   savedItems           SavedContent[]
   managedSchools       School[]              @relation("SchoolAdmin")
+  strategicVault       StrategicVault[]
   subscriptions        Subscription[]
   feedbackSent         SystemFeedback[]
+  tokenWallet          TokenWallet?
   usageHistory         UsageTracker[]
   organization         Organization?         @relation(fields: [organizationId], references: [id])
   schoolRelation       School?               @relation(fields: [schoolId], references: [id])
   tier                 Tier?                 @relation(fields: [tierId], references: [id])
   vaultDocuments       VaultDocument[]
-  strategicVault       StrategicVault[]
-  legacyLedger         LegacyLedger[]
 
   @@index([email])
   @@index([clerkId])
@@ -200,19 +202,22 @@ model GeneratedContent {
 }
 
 model Subscription {
-  id                   String   @id @default(cuid())
-  userId               String?  @map("user_id")
-  schoolId             String?  @map("school_id")
-  stripeSubscriptionId String   @unique @map("stripe_subscription_id")
-  stripePriceId        String   @map("stripe_price_id")
+  id                   String    @id @default(cuid())
+  userId               String?   @map("user_id")
+  schoolId             String?   @map("school_id")
+  stripeSubscriptionId String    @unique @map("stripe_subscription_id")
+  stripePriceId        String    @map("stripe_price_id")
   status               String
-  currentPeriodStart   DateTime @map("current_period_start")
-  currentPeriodEnd     DateTime @map("current_period_end")
-  cancelAtPeriodEnd    Boolean  @default(false) @map("cancel_at_period_end")
-  createdAt            DateTime @default(now()) @map("created_at")
-  updatedAt            DateTime @updatedAt @map("updated_at")
-  school               School?  @relation(fields: [schoolId], references: [id])
-  user                 User?    @relation(fields: [userId], references: [id])
+  currentPeriodStart   DateTime  @map("current_period_start")
+  currentPeriodEnd     DateTime  @map("current_period_end")
+  cancelAtPeriodEnd    Boolean   @default(false) @map("cancel_at_period_end")
+  createdAt            DateTime  @default(now()) @map("created_at")
+  updatedAt            DateTime  @updatedAt @map("updated_at")
+  signupFeePaid        Boolean   @default(false) @map("signup_fee_paid")
+  trialEndsAt          DateTime? @map("trial_ends_at")
+  trialStartedAt       DateTime  @default(now()) @map("trial_started_at")
+  school               School?   @relation(fields: [schoolId], references: [id])
+  user                 User?     @relation(fields: [userId], references: [id])
 
   @@index([userId])
   @@index([schoolId])
@@ -235,6 +240,37 @@ model UsageTracker {
   @@unique([userId, month])
   @@index([userId])
   @@map("usage_tracking")
+}
+
+model TokenWallet {
+  id                  String        @id @default(cuid())
+  userId              String        @unique @map("user_id")
+  balance             Int           @default(0)
+  monthlyLimit        Int           @default(1000) @map("monthly_limit")
+  dailyLimit          Int           @default(100) @map("daily_limit")
+  tokensUsedThisMonth Int           @default(0) @map("tokens_used_this_month")
+  tokensUsedToday     Int           @default(0) @map("tokens_used_today")
+  lastResetDate       DateTime      @default(now()) @map("last_reset_date")
+  requiresUpsell      Boolean       @default(false) @map("requires_upsell")
+  transactions        TokenLedger[]
+  user                User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("token_wallets")
+}
+
+model TokenLedger {
+  id             String      @id @default(cuid())
+  userId         String?     @map("user_id")
+  walletId       String      @map("wallet_id")
+  amount         Int         @map("amount")
+  type           String      @default("DEBIT")
+  description    String?
+  generationType String?     @map("generation_type")
+  timestamp      DateTime    @default(now())
+  wallet         TokenWallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
+
+  @@index([walletId, timestamp])
+  @@map("token_ledger")
 }
 
 model AnalyticsData {
@@ -432,20 +468,22 @@ model GraphEdge {
 }
 
 model VaultDocument {
-  id            String       @id @default(cuid())
-  userId        String
-  fileName      String
-  fileSize      Int
-  fileType      String
-  storagePath   String
-  isEncrypted   Boolean      @default(true)
-  securityLevel String       @default("confidential")
-  tags          String[]
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-  audits        VaultAudit[]
-  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  ocrContent    VaultOCR?
+  id               String       @id @default(cuid())
+  userId           String
+  fileName         String
+  fileSize         Int
+  fileType         String
+  storagePath      String
+  isEncrypted      Boolean      @default(true)
+  securityLevel    String       @default("confidential")
+  tags             String[]
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+  encryptedContent String?      @map("encrypted_content")
+  encryptionIv     String?      @map("encryption_iv")
+  audits           VaultAudit[]
+  user             User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ocrContent       VaultOCR?
 
   @@index([userId])
   @@map("vault_documents")
@@ -491,22 +529,52 @@ model StrategicVault {
 }
 
 model LegacyLedger {
-  id              String   @id @default(cuid())
-  userId          String   @map("user_id")
-  title           String
-  directive       String
-  logic           String
-  swarmContext    Json     @map("swarm_context")
-  outcome         String?
-  learnings       String?
-  isImmutable     Boolean  @default(true) @map("is_immutable")
-  tags            String[] @default([])
-  createdAt       DateTime @default(now()) @map("created_at")
-  updatedAt       DateTime @updatedAt @map("updated_at")
-  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String   @id @default(cuid())
+  userId       String   @map("user_id")
+  title        String
+  directive    String
+  logic        String
+  swarmContext Json     @map("swarm_context")
+  outcome      String?
+  learnings    String?
+  isImmutable  Boolean  @default(true) @map("is_immutable")
+  tags         String[] @default([])
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@map("legacy_ledger")
+}
+
+model District {
+  id        String         @id @default(cuid())
+  name      String         @unique
+  health    Float          @default(98.0)
+  lastPulse DateTime       @default(now()) @map("last_pulse")
+  createdAt DateTime       @default(now()) @map("created_at")
+  updatedAt DateTime       @updatedAt @map("updated_at")
+  nodes     DistrictNode[]
+
+  @@map("districts")
+}
+
+model DistrictNode {
+  id                 String   @id @default(cuid())
+  districtId         String   @map("district_id")
+  name               String
+  status             String   @default("optimal")
+  health             Float    @default(95.0)
+  activeSwarms       Int      @default(0) @map("active_swarms")
+  lastPulse          DateTime @default(now()) @map("last_pulse")
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+  vaultCompliance    Float    @default(100.0)
+  vaultDocumentCount Int      @default(0)
+  district           District @relation(fields: [districtId], references: [id], onDelete: Cascade)
+
+  @@unique([districtId, name])
+  @@map("district_nodes")
 }
 
 enum UserRole {
@@ -516,4 +584,12 @@ enum UserRole {
   STUDENT
   SUPERINTENDENT
   EXECUTIVE
+}
+
+enum SubscriptionStatus {
+  TRIALING
+  ACTIVE
+  PAST_DUE
+  CANCELED
+  INACTIVE
 }

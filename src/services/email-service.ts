@@ -20,12 +20,12 @@ export async function sendWelcomeEmail(email: string, name: string) {
         return;
     }
 
-    const subject = 'Welcome to EdIntel EdIntel | Your Master Access Initiated 🚀';
+    const subject = 'Welcome to EdIntel | Your Master Access Initiated 🚀';
     const htmlContent = `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #1a1a1a;">
             <h1 style="color: #10b981; text-transform: uppercase; letter-spacing: 2px;">Welcome to the Command Deck</h1>
             <p>Dear ${name},</p>
-            <p>Welcome to the future of educational leadership. Your Master Access to <strong>EdIntel EdIntel (2027)</strong> has been successfully provisioned.</p>
+            <p>Welcome to the future of educational leadership. Your Master Access to <strong>EdIntel</strong> has been successfully provisioned.</p>
             
             <div style="background: #f9fafb; border: 1px solid #e5e7eb; padding: 20px; border-radius: 12px; margin: 20px 0;">
                 <h2 style="font-size: 16px; margin-top: 0;">Your EdIntel Journey Begins Now:</h2>

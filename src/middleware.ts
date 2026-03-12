@@ -62,7 +62,7 @@ export async function middleware(request: NextRequest) {
 
     // 4. Case: Protected route but not authenticated
     if (isProtectedRoute && !isAuthenticated) {
-        const url = new URL('/login', request.url);
+        const url = new URL('/register', request.url);
         url.searchParams.set('redirect', pathname);
         return NextResponse.redirect(url);
     }

@@ -382,12 +382,13 @@ export default function ModernHomePage() {
                                         <motion.h1
                                             variants={fadeInUp}
                                             className={cn(
-                                                "text-5xl md:text-7xl lg:text-8xl 2xl:text-9xl font-black text-white mb-8 uppercase tracking-tighter leading-[0.8] italic transition-all duration-1000 break-words w-full",
+                                                "text-4xl md:text-7xl lg:text-8xl 2xl:text-9xl font-black text-white mb-6 md:mb-8 uppercase tracking-tighter leading-[0.9] md:leading-[0.8] italic transition-all duration-1000 break-words w-full px-2 md:px-0",
                                                 isSystemThinking ? "opacity-40 scale-95 blur-[2px]" : "cyan-gradient-text"
                                             )}
                                         >
                                             EdIntel Professional
                                         </motion.h1>
+
 
                                         <motion.div variants={fadeInUp} className="relative mb-10">
                                             <motion.div
@@ -395,14 +396,16 @@ export default function ModernHomePage() {
                                                 animate={isSystemThinking ? { height: ["0%", "100%", "0%"] } : { height: "100%" }}
                                                 transition={{ duration: 2, repeat: Infinity }}
                                             />
-                                            <p className="text-2xl text-white/90 font-light leading-relaxed pl-8 italic max-w-xl">
+                                            <p className="text-xl md:text-2xl text-white/90 font-light leading-relaxed pl-6 md:pl-8 italic max-w-xl">
                                                 "Strategic architectures for the modern educator. Empowering leadership through superior intelligence and executive automation."
                                             </p>
+
                                         </motion.div>
 
-                                        <motion.p variants={fadeInUp} className="text-zinc-500 mb-10 max-w-md leading-relaxed pl-8 text-xs uppercase tracking-[0.2em] font-black">
+                                        <motion.p variants={fadeInUp} className="text-zinc-500 mb-10 max-w-md leading-relaxed pl-6 md:pl-8 text-[10px] md:text-xs uppercase tracking-[0.2em] font-black">
                                             Reclaiming instructional time through <span className="text-electric-cyan">spatial logistics</span> & high-fidelity AI components.
                                         </motion.p>
+
 
                                         {/* Thinking Feedback for Hero Content */}
                                         {isSystemThinking && (
@@ -457,7 +460,7 @@ export default function ModernHomePage() {
                                         "IEP AGENT-7: GENERATING COMPLIANCE ARCHITECTURE...",
                                         "FISCAL CORE: DETECTING REVENUE OPTIMIZATION OPPORTUNITIES...",
                                         "CRISIS MODULE-4: MONITORING DISTRICT SENTIMENT TRENDS...",
-                                        "EdIntel SYNC: UPDATING ALABAMA LEGISLATIVE ALERTS...",
+                                        "Edintel SYNC: UPDATING ALABAMA LEGISLATIVE ALERTS...",
                                         "NEURAL CORE: 1.5 PB OF EDUCATIONAL DATA INDEXED",
                                         "EXECUTIVE OVERRIDE: READY FOR STRATEGIC DEPLOYMENT",
                                     ].map((protocol, i) => (
@@ -553,7 +556,7 @@ export default function ModernHomePage() {
 
                                     <div className="grid md:grid-cols-3 gap-8">
                                         <HuggingFaceAvatar
-                                            textToSpeak="Welcome to EdIntel, Superintendent. All systems are operational."
+                                            textToSpeak="Welcome to Edintel, Superintendent. All systems are operational."
                                             name="Dr. Alvin West"
                                             role="Superintendent"
                                             className="aspect-[4/5]"

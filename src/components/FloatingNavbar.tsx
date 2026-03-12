@@ -35,9 +35,9 @@ export default function FloatingNavbar() {
             href: '#',
             submenu: [
                 { name: 'Gemini Workspace', href: '/gemini-workspace', badge: 'NEW' },
-                { name: 'Hugging Face Studio', href: '/huggingface', badge: 'AI' },
+                { name: 'Hugging Face Studio', href: '/ai-hub', badge: 'AI' },
                 { name: 'AI Phone Center', href: '/phone', badge: 'LIVE' },
-                { name: 'Video Studio', href: '/video-studio', badge: 'PRO' },
+                { name: 'Video Studio', href: '/media', badge: 'PRO' },
                 { name: 'EdIntel Core', href: '/edintel-professional', badge: 'FX' },
             ]
         },
@@ -219,12 +219,13 @@ export default function FloatingNavbar() {
             <AnimatePresence>
                 {mobileMenuOpen && (
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.95 }}
-                        className="md:hidden absolute top-full left-0 right-0 px-4 mt-4"
+                        initial={{ opacity: 0, y: -20, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                        className="md:hidden absolute top-full left-0 right-0 px-4 mt-2 z-[200]"
                     >
-                        <div className="bg-noble-black/95 backdrop-blur-3xl border border-white/10 rounded-[2rem] p-8 shadow-2xl relative overflow-hidden">
+                        <div className="bg-noble-black/95 backdrop-blur-3xl border border-white/10 rounded-[2rem] p-6 shadow-2xl relative overflow-hidden max-h-[80vh] overflow-y-auto custom-scrollbar">
+
                             <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-kente-yellow via-kente-green to-kente-red" />
 
                             <div className="flex flex-col gap-6">
@@ -232,9 +233,10 @@ export default function FloatingNavbar() {
                                     <div key={link.name}>
                                         {link.submenu ? (
                                             <div className="flex flex-col gap-3">
-                                                <div className="text-xl font-black text-noble-gold uppercase tracking-tighter">
+                                                <div className="flex items-center justify-between text-xl font-black text-intel-gold uppercase tracking-tighter">
                                                     {link.name}
                                                 </div>
+
                                                 <div className="flex flex-col gap-3 pl-4 border-l-2 border-white/10">
                                                     {link.submenu.map((sublink) => (
                                                         <Link

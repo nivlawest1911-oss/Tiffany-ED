@@ -6,6 +6,8 @@ interface BehaviorOptions {
     state?: AvatarState;
     mousePos?: { x: number; y: number };
     subtle?: boolean;
+    load?: number; // 0-100 intelligence/system load
+    isFocused?: boolean; // When the user is directly interacting/inspecting
 }
 
 /**
@@ -14,7 +16,7 @@ interface BehaviorOptions {
  * Surpasses standard loops with state-aware reactive kinematics.
  */
 export function useHumanBehavior(isActive: boolean = true, options: BehaviorOptions = {}) {
-    const { state = 'idle', mousePos = { x: 0, y: 0 }, subtle = false } = options;
+    const { state = 'idle', mousePos = { x: 0, y: 0 }, subtle = false, load = 50, isFocused = false } = options;
 
     const [headTilt, setHeadTilt] = useState(0);
     const [headRotate, setHeadRotate] = useState(0);
@@ -23,7 +25,7 @@ export function useHumanBehavior(isActive: boolean = true, options: BehaviorOpti
     const [eyeY, _setEyeY] = useState(0);
     const [blink, setBlink] = useState(false);
     const [shoulderShift, setShoulderShift] = useState(0);
-    const [leanIn, _setLeanIn] = useState(1);
+    const [leanIn, setLeanIn] = useState(1);
     const [browLift, _setBrowLift] = useState(0);
     const [vibrancy, setVibrancy] = useState(0); // For "thinking" jitter
 
@@ -58,8 +60,11 @@ export function useHumanBehavior(isActive: boolean = true, options: BehaviorOpti
             }
         }, subtle ? 8000 : 4000);
 
-        // Breathing (Always on, but deepens when listening)
-        const breathRate = state === 'listening' ? 3000 : 4000;
+        // Breathing (Always on, but deepens when listening or under high load)
+        // High load (>80) increases breath frequency
+        const loadFactor = load > 80 ? 0.7 : 1; 
+        const breathRate = (state === 'listening' ? 3000 : 4000) * loadFactor;
+        
         const breathInterval = setInterval(() => {
             const depth = state === 'listening' ? 1.02 : (subtle ? 1.005 : 1.01);
             setBreathingScale(prev => prev === 1 ? depth : 1);
@@ -67,11 +72,15 @@ export function useHumanBehavior(isActive: boolean = true, options: BehaviorOpti
 
         // Thinking Jitter (Micro-movements during computation)
         let jitterInterval: ReturnType<typeof setInterval> | undefined;
-        if (state === 'thinking') {
+        if (state === 'thinking' || load > 75) {
             jitterInterval = setInterval(() => {
-                const intensity = subtle ? 0.1 : 0.4;
+                // Load increases jitter intensity
+                const loadIntensity = load > 85 ? 0.6 : 0.3;
+                const baseIntensity = state === 'thinking' ? (subtle ? 0.1 : 0.4) : 0.1;
+                const intensity = Math.max(loadIntensity, baseIntensity);
+                
                 setVibrancy((Math.random() * intensity) - intensity / 2);
-            }, 60);
+            }, load > 90 ? 40 : 60);
         } else {
             setVibrancy(0);
         }
@@ -81,7 +90,14 @@ export function useHumanBehavior(isActive: boolean = true, options: BehaviorOpti
             clearInterval(breathInterval);
             if (jitterInterval) clearInterval(jitterInterval);
         };
-    }, [isActive, state, subtle]);
+    }, [isActive, state, subtle, load]);
+
+    // 2.5 Focus Dynamics (Leaning in when inspected)
+    useEffect(() => {
+        if (!isActive) return;
+        const targetLean = isFocused ? 1.08 : 1;
+        setLeanIn(targetLean);
+    }, [isFocused, isActive]);
 
     // 3. Autonomous Biological Cycles
     useEffect(() => {
@@ -112,6 +128,10 @@ export function useHumanBehavior(isActive: boolean = true, options: BehaviorOpti
         };
     }, [isActive, state, subtle]);
 
+    // Calculate transition speed based on load and focus
+    // Under heavy load or focus, transitions are tighter/faster
+    const transitionDuration = isFocused ? '1.5s' : load > 85 ? '2s' : load > 60 ? '3s' : '4s';
+
     return {
         // STYLE: Liquid Smooth Cinema Grade Interpolation
         style: {
@@ -124,7 +144,7 @@ export function useHumanBehavior(isActive: boolean = true, options: BehaviorOpti
                 translateY(${browLift}px)
             `,
             transformOrigin: 'center center',
-            transition: state === 'thinking' ? 'none' : (subtle ? 'all 5s cubic-bezier(0.23, 1, 0.32, 1)' : 'all 3.5s cubic-bezier(0.23, 1, 0.32, 1)'),
+            transition: state === 'thinking' ? 'none' : (subtle ? `all 5s cubic-bezier(0.23, 1, 0.32, 1)` : `all ${transitionDuration} cubic-bezier(0.23, 1, 0.32, 1)`),
         },
         behaviorStyles: {
             rotateY: headRotate,

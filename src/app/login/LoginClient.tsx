@@ -11,6 +11,7 @@ import EdIntelSovereignLogo from '@/components/EdIntelSovereignLogo';
 import { ParticleBackground } from '@/components/ui/Cinematic';
 import { toast } from 'sonner';
 import { ROUTES } from '@/lib/routes';
+import { initiateBioAuth } from '@/app/auth/actions';
 
 import { useAuth } from '@/context/AuthContext';
 
@@ -157,6 +158,7 @@ export default function LoginClient() {
         }
     };
 
+<<<<<<< HEAD
     const handleSocialLogin = async (provider: 'google' | 'facebook') => {
         setIsSocialLoading(provider);
         setError('');
@@ -189,6 +191,24 @@ export default function LoginClient() {
             setIsSocialLoading(null);
         }
     };
+=======
+    const handleSocialLogin = async (provider: 'google' | 'facebook') => {
+        setIsSocialLoading(provider);
+        setError('');
+
+        const result = await initiateBioAuth(provider);
+        
+        if (result?.error) {
+            setError(result.error);
+            toast.error(`Sovereign Auth Error`, {
+                description: `Could not initiate ${provider} protocol: ${result.error}`,
+            });
+            setIsSocialLoading(null);
+        }
+        // Success redirects automatically via window.location in actions.ts
+    };
+>>>>>>> 59861864 (feat: centralize social auth, restore EdIntel branding, and sync database schema)
+
 
     return (
         <>
@@ -243,7 +263,8 @@ export default function LoginClient() {
                                 <div className="flex flex-col items-center gap-6">
                                     <EdIntelLogo variant="fidelity" className="scale-125 invert" />
                                     <div className="h-16 w-[2px] bg-gradient-to-b from-[#FFB300]/50 to-transparent" />
-                                    <EdIntelSovereignLogo showText={false} size={80} className="opacity-30" />
+                                    <EdIntelSovereignLogo className="opacity-30 w-20 h-20" />
+
                                 </div>
                             </div>
 

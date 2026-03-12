@@ -28,7 +28,7 @@
     --color-ring: #D4AF37;
     --color-noble-gold: #c5a47e;
     --color-intel-gold: #c5a47e;
-    --color-EdIntel-black: #050505;
+    --color-edintel-black: #050505;
     --color-shield-green: #10b981;
     --color-obsidian: #020617;
     --gold-glow: 0 0 20px rgba(197, 164, 126, 0.3);
@@ -42,7 +42,7 @@
     }
 
     body {
-        @apply antialiased text-gray-100 bg-[#050505];
+        @apply antialiased text-gray-100 bg-black;
         line-height: 1.6;
     }
 
@@ -114,7 +114,7 @@
     }
 
     .input-field {
-        @apply w-full px-4 py-2 border border-[#c5a47e]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c5a47e] focus:border-transparent transition-all duration-200 bg-[#050505]/50 text-white;
+        @apply w-full px-4 py-2 border border-[#c5a47e]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c5a47e] focus:border-transparent transition-all duration-200 bg-black/50 text-white;
     }
 
     .glassmorphism {

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import {
     Activity,
@@ -10,39 +10,90 @@ import {
     Globe,
     RefreshCw,
     Terminal,
-    Sparkles
+    Sparkles,
+    CloudDownload,
+    Headphones
 } from 'lucide-react';
-import { unityOrchestrator, NodeStatus, GlobalHealth } from '@/lib/UnityOrchestrator';
+import { unityOrchestrator, NodeStatus, GlobalHealth, DistrictData } from '@/lib/UnityOrchestrator';
 import { resilienceEngine, ResilienceState } from '@/lib/ResilienceEngine';
 import { globalSynapse } from '@/lib/GlobalSynapse';
 import { GlassCard } from '@/components/ui/Cinematic';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import { useTavus } from '@/context/TavusContext';
 
 export const UnityNode: React.FC = () => {
     const [stats, setStats] = useState<GlobalHealth | null>(null);
     const [nodes, setNodes] = useState<NodeStatus[]>([]);
+    const [districts, setDistricts] = useState<DistrictData[]>([]);
+    const [currentDistrictId, setCurrentDistrictId] = useState('');
     const [isSyncing, setIsSyncing] = useState(false);
+    const [isIngesting, setIsIngesting] = useState(false);
     const [selectedNode, setSelectedNode] = useState<NodeStatus | null>(null);
     const [resilience, setResilience] = useState<ResilienceState>(resilienceEngine.getState());
     const [isTranscending, setIsTranscending] = useState(false);
+    
     const router = useRouter();
+    const { startAdvisorySession, isConnecting, isSessionActive } = useTavus();
+
+    const refreshTelemetry = useCallback(async () => {
+        const fetchedDistricts = await unityOrchestrator.fetchDistricts();
+        setDistricts(fetchedDistricts);
+        
+        // If we don't have a current district or it's no longer there, pick the first one
+        if (fetchedDistricts.length > 0) {
+            const current = currentDistrictId && fetchedDistricts.some(d => d.id === currentDistrictId) 
+                ? currentDistrictId 
+                : fetchedDistricts[0].id;
+            
+            if (current !== currentDistrictId) {
+                setCurrentDistrictId(current);
+            }
+
+            setNodes(unityOrchestrator.getNodeStatuses(current));
+            setStats(unityOrchestrator.getGlobalHealth(current));
+        }
+        
+        setResilience(resilienceEngine.getState());
+    }, [currentDistrictId]);
 
     useEffect(() => {
         refreshTelemetry();
         const interval = setInterval(refreshTelemetry, 5000);
         return () => clearInterval(interval);
-    }, []);
+    }, [refreshTelemetry]);
 
-    const refreshTelemetry = () => {
-        setStats(unityOrchestrator.getGlobalHealth());
-        setNodes(unityOrchestrator.getNodeStatuses());
-        setResilience(resilienceEngine.getState());
+    const handleIngest = async () => {
+        setIsIngesting(true);
+        const newName = `District ${String.fromCharCode(65 + districts.length)}`;
+        
+        toast.loading(`Ingesting ${newName} Protocol...`);
+        
+        const successId = await unityOrchestrator.ingestNewDistrict(newName);
+        
+        if (successId) {
+            setIsIngesting(false);
+            setCurrentDistrictId(successId);
+            await refreshTelemetry();
+            toast.success(`${newName} Ingested into Sovereign Network.`);
+        } else {
+            setIsIngesting(false);
+            toast.error(`Failed to ingest ${newName}. Check system logs.`);
+        }
+    };
+
+    const handleAdvisoryUplink = async () => {
+        try {
+            await startAdvisorySession();
+        } catch (err) {
+            console.error(err);
+            toast.error("Advisory Uplink Failed: Verify Phoenix-3 Credentials.");
+        }
     };
 
     const handleSync = async () => {
         setIsSyncing(true);
-        await unityOrchestrator.resolveCrossNodeTriggers();
+        await unityOrchestrator.resolveCrossNodeTriggers(currentDistrictId);
         setTimeout(() => {
             setIsSyncing(false);
             refreshTelemetry();
@@ -136,26 +187,48 @@ export const UnityNode: React.FC = () => {
                             <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">System Load: {stats.systemLoad}%</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <Globe size={14} className="text-zinc-500" />
-                            <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Active Nodes: {stats.activeNodes}/12</span>
+                             <Globe size={14} className="text-zinc-500" />
+                            <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Network Nodes: {districts.reduce((acc, d) => acc + d.nodes.length, 0)}</span>
                         </div>
                     </div>
 
-                    <button
-                        onClick={handleSync}
-                        disabled={isSyncing}
-                        className="group relative px-8 py-4 bg-white text-black font-black uppercase italic tracking-tighter text-sm rounded-xl overflow-hidden active:scale-95 transition-all shadow-2xl shadow-white/10"
-                    >
-                        <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <span className="relative flex items-center gap-2">
-                            {isSyncing ? (
-                                <RefreshCw className="animate-spin" size={16} />
-                            ) : (
-                                <Zap size={16} fill="black" />
-                            )}
-                            {isSyncing ? "Synchronizing..." : "Initialize Total Sync"}
-                        </span>
-                    </button>
+                    <div className="flex gap-4">
+                        <select 
+                            title="Institutional District Switcher"
+                            value={currentDistrictId}
+                            onChange={(e) => setCurrentDistrictId(e.target.value)}
+                            className="bg-zinc-900/50 border border-white/10 rounded-lg px-4 py-2 text-[10px] font-black text-white uppercase tracking-widest focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        >
+                            {districts.map(d => (
+                                <option key={d.id} value={d.id}>{d.name}</option>
+                            ))}
+                        </select>
+
+                        <button
+                            onClick={handleIngest}
+                            disabled={isIngesting}
+                            className="flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-lg text-[10px] font-black text-blue-400 uppercase tracking-widest hover:bg-blue-500/20 transition-all disabled:opacity-50"
+                        >
+                            <CloudDownload size={14} />
+                            {isIngesting ? "Ingesting..." : "Ingest District"}
+                        </button>
+
+                        <button
+                            onClick={handleSync}
+                            disabled={isSyncing}
+                            className="group relative px-8 py-4 bg-white text-black font-black uppercase italic tracking-tighter text-sm rounded-xl overflow-hidden active:scale-95 transition-all shadow-2xl shadow-white/10"
+                        >
+                            <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                            <span className="relative flex items-center gap-2">
+                                {isSyncing ? (
+                                    <RefreshCw className="animate-spin" size={16} />
+                                ) : (
+                                    <Zap size={16} fill="black" />
+                                )}
+                                {isSyncing ? "Synchronizing..." : "Initialize Total Sync"}
+                            </span>
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -284,10 +357,27 @@ export const UnityNode: React.FC = () => {
                             >
                                 Trigger Cold Storage
                             </button>
+
+                            <button
+                                onClick={handleAdvisoryUplink}
+                                disabled={isConnecting}
+                                className={`w-full py-3 mt-2 flex items-center justify-center gap-2 font-black uppercase tracking-widest text-[10px] rounded border transition-all ${
+                                    isSessionActive 
+                                    ? 'bg-blue-500 border-blue-400 text-white' 
+                                    : 'bg-indigo-500/20 border-indigo-500/40 text-indigo-300 hover:bg-indigo-500/30'
+                                }`}
+                            >
+                                {isConnecting ? (
+                                    <RefreshCw className="animate-spin" size={14} />
+                                ) : (
+                                    <Headphones size={14} />
+                                )}
+                                {isConnecting ? "Establishing..." : isSessionActive ? "Advisory Active" : "Phoenix-3 Advisory Uplink"}
+                            </button>
                         </div>
 
                         <p className="text-blue-100 text-[9px] leading-relaxed opacity-60">
-                            Immutable failover protocols active. System state is mirrored across 4 regional clusters.
+                            Immutable failover protocols active. System state is mirrored across {districts.length} institutional clusters.
                         </p>
 
                         <div className="mt-8 border-t border-white/10 pt-6">

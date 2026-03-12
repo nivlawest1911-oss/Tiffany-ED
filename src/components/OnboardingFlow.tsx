@@ -189,7 +189,7 @@ const StepSynthesis = memo(({ role, formData }: { role: string, formData: any })
             } else {
                 clearInterval(interval);
             }
-        }, 600);
+        }, 800);
         return () => clearInterval(interval);
     }, [formData, agentInfo]);
 
@@ -272,7 +272,7 @@ StepSynthesis.displayName = 'StepSynthesis';
 
 // --- Main component ---
 
-export default function OnboardingFlow({ onCompleteAction }: { onCompleteAction?: () => void }) {
+const OnboardingFlow = memo(({ onCompleteAction }: { onCompleteAction?: () => void }) => {
     const { celebrate } = useCelebrate();
     const [step, setStep] = useState(0);
     const [formData, setFormData] = useState({
@@ -521,4 +521,8 @@ export default function OnboardingFlow({ onCompleteAction }: { onCompleteAction?
             </div>
         </div>
     );
-}
+});
+
+OnboardingFlow.displayName = 'OnboardingFlow';
+
+export default OnboardingFlow;

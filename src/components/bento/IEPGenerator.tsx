@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { FileText, Sparkles, Download, Copy, CheckCircle, User, Target, BookOpen, Calendar, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { generateIEPWithToken } from '@/lib/actions/iep-actions';
 
 interface IEPSection {
     title: string;
@@ -61,7 +62,7 @@ export default function IEPGenerator() {
     const handleGenerate = async () => {
         if (!studentName || !grade || !disability || !concernArea) {
             toast({
-                title: "Incomplete Form",
+                title: "Incomplete Profile",
                 description: "Complete student profile to initiate neural synthesis.",
                 variant: "destructive"
             });
@@ -70,6 +71,28 @@ export default function IEPGenerator() {
 
         setIsGenerating(true);
         setGenStep(0);
+
+        // 1. Initiate Token Transaction
+        const tokenResult = await generateIEPWithToken(studentName);
+
+        if (!tokenResult.success) {
+            setIsGenerating(false);
+            if (tokenResult.error === 'LOW_TOKENS') {
+                toast({
+                    title: "Capacity Alert: Neural Tokens Depleted",
+                    description: "Your sovereign balance is zero. Transition to a premium tier to restore generation capacity.",
+                    variant: "destructive",
+                    className: "bg-[#111] border-amber-500/50 text-white shadow-[0_0_15px_rgba(245,158,11,0.2)]",
+                });
+            } else {
+                toast({
+                    title: "Transaction Failed",
+                    description: tokenResult.message,
+                    variant: "destructive"
+                });
+            }
+            return;
+        }
 
         // Dynamic step timing for a more organic feel
         const stepInterval = setInterval(() => {
@@ -127,9 +150,8 @@ export default function IEPGenerator() {
             ];
 
             // If extraction failed for all AI sections, just show the full response
-            // Skip the first section (Student Information)
             const aiSections = sections.slice(1);
-            if (aiSections.every(s => s.content === 'Generated content will appear here.')) {
+            if (aiSections.every(s => s.content === 'Content pending...')) {
                 if (text) {
                     sections[1].title = 'Generated IEP';
                     sections[1].content = text;
@@ -225,124 +247,124 @@ export default function IEPGenerator() {
     };
 
     return (
-        <div className="h-full flex flex-col p-6 md:p-8 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-2xl overflow-hidden">
+        <div className="h-full flex flex-col p-6 md:p-8 rounded-3xl bg-[#111] border border-zinc-800 border-t-4 border-t-purple-500 shadow-2xl overflow-hidden text-zinc-100">
             <div className="flex flex-wrap items-center justify-between gap-4 mb-6 shrink-0">
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 md:w-12 md:h-12 shrink-0 rounded-full bg-indigo-600 flex items-center justify-center">
+                    <div className="w-10 h-10 md:w-12 md:h-12 shrink-0 rounded-full bg-purple-600 flex items-center justify-center">
                         <FileText className="text-white" size={20} />
                     </div>
                     <div>
-                        <h2 className="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white leading-tight">IEP Generator</h2>
-                        <p className="text-xs md:text-sm text-zinc-500 dark:text-zinc-400">IDEA-Compliant IEP Creation</p>
+                        <h2 className="text-xl md:text-2xl font-bold text-white leading-tight">IEP Generator</h2>
+                        <p className="text-xs md:text-sm text-gray-400 font-medium">IDEA-Compliant Neural Synthesis</p>
                     </div>
                 </div>
-                <div className="flex items-center gap-2 bg-indigo-100 dark:bg-indigo-900/30 px-3 py-1.5 md:px-4 md:py-2 rounded-full border border-indigo-300 dark:border-indigo-800 shrink-0">
-                    <Sparkles className="text-indigo-600 dark:text-indigo-400" size={14} />
-                    <span className="text-[10px] md:text-xs font-bold text-indigo-700 dark:text-indigo-400 whitespace-nowrap">AI-Powered</span>
+                <div className="flex items-center gap-2 bg-purple-900/30 px-3 py-1.5 md:px-4 md:py-2 rounded-full border border-purple-800 shrink-0 shadow-[0_0_15px_rgba(147,51,234,0.1)]">
+                    <Sparkles className="text-purple-400" size={14} />
+                    <span className="text-[10px] md:text-xs font-black text-purple-400 tracking-wider uppercase">Transactional</span>
                 </div>
             </div>
 
             {/* Input Form */}
-            <div className="space-y-4 mb-6 grow">
+            <div className="space-y-4 mb-6 grow custom-scrollbar overflow-y-auto pr-2">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="md:col-span-2">
-                        <label className="block text-xs font-bold mb-1.5 text-zinc-700 dark:text-zinc-300 flex items-center gap-2">
-                            <User size={14} />
-                            Student Name
+                        <label className="block text-[11px] font-black uppercase tracking-widest mb-1.5 text-zinc-500 flex items-center gap-2">
+                            <User size={12} />
+                            Student Node
                         </label>
                         <input
                             type="text"
                             value={studentName}
                             onChange={(e) => setStudentName(e.target.value)}
-                            placeholder="Enter student name"
-                            className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 text-zinc-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all shadow-inner text-sm"
+                            placeholder="Identify subject node..."
+                            className="w-full px-4 py-3 rounded-xl border border-zinc-800 bg-zinc-900/50 text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all shadow-inner text-sm font-medium placeholder:text-zinc-700"
                         />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-sm font-bold mb-2 text-zinc-700 dark:text-zinc-300 flex items-center gap-2">
-                                <BookOpen size={16} />
+                            <label className="block text-[11px] font-black uppercase tracking-widest mb-2 text-zinc-500 flex items-center gap-2">
+                                <BookOpen size={12} />
                                 Grade Level
                             </label>
                             <select
                                 value={grade}
                                 onChange={(e) => setGrade(e.target.value)}
                                 title="Select student grade level"
-                                className="w-full px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                className="w-full px-4 py-3 rounded-xl border border-zinc-800 bg-zinc-900/50 text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm font-medium appearance-none"
                             >
-                                <option value="">Select grade</option>
+                                <option value="" className="bg-zinc-900">Select Grade</option>
                                 {['K', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'].map(g => (
-                                    <option key={g} value={g}>Grade {g}</option>
+                                    <option key={g} value={g} className="bg-zinc-900">Grade {g}</option>
                                 ))}
                             </select>
                         </div>
 
                         <div>
-                            <label className="block text-sm font-bold mb-2 text-zinc-700 dark:text-zinc-300 flex items-center gap-2">
-                                <Target size={16} />
-                                Area of Concern
+                            <label className="block text-[11px] font-black uppercase tracking-widest mb-2 text-zinc-500 flex items-center gap-2">
+                                <Target size={12} />
+                                Concern Area
                             </label>
                             <select
                                 value={concernArea}
                                 onChange={(e) => setConcernArea(e.target.value)}
                                 title="Select area of concern"
-                                className="w-full px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                className="w-full px-4 py-3 rounded-xl border border-zinc-800 bg-zinc-900/50 text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm font-medium appearance-none"
                             >
-                                <option value="">Select area</option>
+                                <option value="" className="bg-zinc-900">Select Focus</option>
                                 {concernAreas.map(area => (
-                                    <option key={area} value={area}>{area}</option>
+                                    <option key={area} value={area} className="bg-zinc-900">{area}</option>
                                 ))}
                             </select>
                         </div>
                     </div>
 
                     <div>
-                        <label className="block text-sm font-bold mb-2 text-zinc-700 dark:text-zinc-300 flex items-center gap-2">
-                            <Calendar size={16} />
-                            Disability Category (IDEA Part B)
+                        <label className="block text-[11px] font-black uppercase tracking-widest mb-2 text-zinc-500 flex items-center gap-2">
+                            <Calendar size={12} />
+                            Disability Category
                         </label>
                         <select
                             value={disability}
                             onChange={(e) => setDisability(e.target.value)}
                             title="Select disability category"
-                            className="w-full px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                            className="w-full px-4 py-3 rounded-xl border border-zinc-800 bg-zinc-900/50 text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm font-medium appearance-none"
                         >
-                            <option value="">Select disability category</option>
+                            <option value="" className="bg-zinc-900">Select IDEA Category</option>
                             {disabilityCategories.map(cat => (
-                                <option key={cat} value={cat}>{cat}</option>
+                                <option key={cat} value={cat} className="bg-zinc-900">{cat}</option>
                             ))}
                         </select>
                     </div>
 
                     <div>
-                        <label className="block text-sm font-bold mb-2 text-zinc-700 dark:text-zinc-300 flex items-center gap-2">
-                            <Sparkles size={16} className="text-indigo-500" />
-                            LRE Preference Profile
+                        <label className="block text-[11px] font-black uppercase tracking-widest mb-2 text-zinc-500 flex items-center gap-2">
+                            <Sparkles size={12} className="text-purple-500" />
+                            LRE Preference
                         </label>
                         <select
                             value={lrePreference}
                             onChange={(e) => setLrePreference(e.target.value)}
                             title="Select LRE preference profile"
-                            className="w-full px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                            className="w-full px-4 py-3 rounded-xl border border-zinc-800 bg-zinc-900/50 text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm font-medium appearance-none"
                         >
-                            <option value="Inclusion (General Education)">Inclusion (General Education)</option>
-                            <option value="Resource Room (Partial Segregation)">Resource Room (Partial Segregation)</option>
-                            <option value="Specialized Unit (Full Segregation)">Specialized Unit (Full Segregation)</option>
-                            <option value="Homebound/Remote">Homebound/Remote</option>
+                            <option value="Inclusion (General Education)" className="bg-zinc-900">Inclusion (Gen Ed)</option>
+                            <option value="Resource Room (Partial Segregation)" className="bg-zinc-900">Resource Room</option>
+                            <option value="Specialized Unit (Full Segregation)" className="bg-zinc-900">Specialized Unit</option>
+                            <option value="Homebound/Remote" className="bg-zinc-900">Homebound/Remote</option>
                         </select>
                     </div>
 
                     <div className="md:col-span-2">
-                        <label className="block text-sm font-bold mb-2 text-zinc-700 dark:text-zinc-300 flex items-center gap-2">
-                            <BookOpen size={16} />
+                        <label className="block text-[11px] font-black uppercase tracking-widest mb-2 text-zinc-500 flex items-center gap-2">
+                            <BookOpen size={12} />
                             Clinical Evaluation Data (Optional)
                         </label>
                         <textarea
                             value={evaluationData}
                             onChange={(e) => setEvaluationData(e.target.value)}
-                            placeholder="Enter recent test scores (WJ-IV, BASC, etc.) or specific student observations for a clinical PLAAFP."
-                            className="w-full px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent h-24 resize-none"
+                            placeholder="Inject WJ-IV scores, BASC-3 observations, or specific performance metrics..."
+                            className="w-full px-4 py-3 rounded-xl border border-zinc-800 bg-zinc-900/50 text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent h-24 resize-none text-sm font-medium placeholder:text-zinc-700"
                         />
                     </div>
                 </div>
@@ -351,22 +373,31 @@ export default function IEPGenerator() {
                 <button
                     onClick={handleGenerate}
                     disabled={isGenerating || !studentName || !grade || !disability || !concernArea}
-                    className="w-full py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-bold text-lg hover:from-indigo-500 hover:to-purple-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex flex-col items-center justify-center gap-1 mb-6 relative overflow-hidden"
+                    className="w-full py-4 bg-purple-600 text-white rounded-xl font-black text-sm uppercase tracking-widest hover:bg-purple-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex flex-col items-center justify-center gap-1 mb-6 relative overflow-hidden shadow-[0_4px_20px_rgba(147,51,234,0.3)] mt-4"
                 >
                     {isGenerating && (
-                        <div className="absolute inset-0 bg-indigo-700/50 flex items-center justify-center z-0">
-                            <div className="w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" style={{ backgroundSize: '200% 100%' }} />
+                        <div className="absolute inset-0 bg-purple-700/50 flex items-center justify-center z-0">
+                            <div className="w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer bg-[length:200%_100%]" />
                         </div>
                     )}
 
                     <div className="relative z-10 flex items-center gap-2">
-                        {isGenerating ? <Loader2 className="animate-spin" size={20} /> : <Sparkles size={20} />}
-                        <span>{isGenerating ? generationSteps[genStep] : 'Generate Complete IEP'}</span>
+                        {isGenerating ? <Loader2 className="animate-spin" size={18} /> : <Sparkles size={18} />}
+                        <span>{isGenerating ? (genStep === 0 ? "Calculating Neural Weights..." : generationSteps[genStep]) : 'Generate Complete IEP'}</span>
                     </div>
 
+                    {!isGenerating && (
+                        <div className="relative z-10 text-[9px] text-purple-300 font-bold tracking-[0.2em] -mt-0.5">
+                            COST: 1 NEURAL TOKEN
+                        </div>
+                    )}
+
                     {isGenerating && (
-                        <div className="h-1 w-32 bg-indigo-900/50 rounded-full mt-2 overflow-hidden relative z-10">
-                            <div className="h-full bg-white/80 transition-all duration-500" style={{ width: `${((genStep + 1) / generationSteps.length) * 100}%` }} />
+                        <div className="h-0.5 w-32 bg-purple-900/50 rounded-full mt-2 overflow-hidden relative z-10">
+                            <div 
+                                className="h-full bg-white/80 transition-all duration-500 w-[var(--progress)]" 
+                                style={{ '--progress': `${((genStep + 1) / generationSteps.length) * 100}%` } as React.CSSProperties} 
+                            />
                         </div>
                     )}
                 </button>
@@ -374,64 +405,90 @@ export default function IEPGenerator() {
                 {/* Generated IEP Display */}
                 {generatedIEP.length > 0 && (
                     <div className="space-y-4">
-                        <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2">
-                                <CheckCircle className="text-green-500" size={20} />
-                                IEP Generated Successfully
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4 pt-4 border-t border-zinc-800">
+                            <h3 className="text-sm font-black uppercase tracking-widest text-emerald-500 flex items-center gap-2">
+                                <CheckCircle size={16} />
+                                Synthesis Complete
                             </h3>
-                            <div className="flex gap-2">
+                            <div className="flex flex-wrap gap-2">
                                 <button
                                     onClick={handleCopyAll}
-                                    className="px-4 py-2 bg-zinc-200 dark:bg-zinc-800 text-zinc-900 dark:text-white rounded-lg hover:bg-zinc-300 dark:hover:bg-zinc-700 transition-colors flex items-center gap-2"
+                                    className="px-3 py-1.5 bg-zinc-800 text-[11px] font-bold uppercase tracking-wider text-white rounded-lg hover:bg-zinc-700 transition-colors flex items-center gap-2 border border-zinc-700"
                                 >
-                                    <Copy size={16} />
-                                    {copied ? 'Copied!' : 'Copy All'}
+                                    <Copy size={13} />
+                                    {copied ? 'Copied' : 'Copy All'}
                                 </button>
                                 <button
                                     onClick={handleDownload}
-                                    className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-500 transition-colors flex items-center gap-2"
+                                    className="px-3 py-1.5 bg-purple-600 text-[11px] font-bold uppercase tracking-wider text-white rounded-lg hover:bg-purple-500 transition-colors flex items-center gap-2 shadow-lg shadow-purple-900/20"
                                 >
-                                    <Download size={16} />
-                                    Download
+                                    <Download size={13} />
+                                    Export
                                 </button>
                             </div>
                         </div>
 
-                        <div className="space-y-3 max-h-96 overflow-y-auto pr-2">
+                        <div className="space-y-3 max-h-96 overflow-y-auto pr-2 custom-scrollbar">
                             {generatedIEP.map((section, index) => (
                                 <div
                                     key={index}
-                                    className="p-4 bg-zinc-50 dark:bg-zinc-800 rounded-xl border border-zinc-200 dark:border-zinc-700 group/section relative"
+                                    className="p-4 bg-zinc-900/50 rounded-xl border border-zinc-800 group/section relative"
                                 >
-                                    <div className="flex justify-between items-start mb-2">
-                                        <h4 className="font-bold text-sm text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">
+                                    <div className="flex justify-between items-start mb-3">
+                                        <h4 className="text-[10px] font-black uppercase tracking-widest text-purple-400">
                                             {section.title}
                                         </h4>
                                         <button
                                             onClick={() => handleCopySection(section.content, section.title)}
-                                            className="opacity-0 group-hover/section:opacity-100 p-1.5 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-md transition-all text-zinc-400 hover:text-indigo-500"
+                                            className="opacity-0 group-hover/section:opacity-100 p-1.5 hover:bg-zinc-800 rounded-md transition-all text-zinc-500 hover:text-purple-400"
                                             title={`Copy ${section.title}`}
                                         >
-                                            <Copy size={14} />
+                                            <Copy size={12} />
                                         </button>
                                     </div>
-                                    <p className="text-sm text-zinc-700 dark:text-zinc-300 whitespace-pre-wrap leading-relaxed">
+                                    <div className="text-sm text-zinc-400 font-medium whitespace-pre-wrap leading-relaxed selection:bg-purple-500/30">
                                         {section.content}
-                                    </p>
+                                    </div>
                                 </div>
                             ))}
                         </div>
                     </div>
                 )}
 
-                {/* Info Footer */}
-                {/* Info Footer */}
-                <div className="mt-6 p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl border border-indigo-200 dark:border-indigo-800">
-                    <p className="text-xs text-indigo-700 dark:text-indigo-400 leading-relaxed">
-                        <strong>IDEA Compliance:</strong> All generated IEPs follow IDEA Part B requirements with SMART goals, measurable objectives (80% accuracy over 5 consecutive trials), and FAPE/LRE considerations. Powered by Google Gemini AI.
-                    </p>
+                {/* Status Indicator */}
+                <div className="mt-8 p-4 bg-purple-900/10 rounded-2xl border border-purple-800/30">
+                    <div className="flex gap-3">
+                        <ShieldCheck className="text-purple-500 shrink-0" size={16} />
+                        <div>
+                            <p className="text-[10px] uppercase font-black tracking-widest text-purple-400 mb-1">IDEA Compliance Protocol</p>
+                            <p className="text-[11px] text-zinc-500 font-medium leading-relaxed">
+                                All generated IEPs adhere to IDEA Part B standards, incorporating SMART goals (80% accuracy over 5 trials) and FAPE/LRE considerations. Verified by Strategic Directive SB280.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     );
+}
+
+// Sub-component or simple inline helper for the badge/icon
+function ShieldCheck({ className, size }: { className?: string, size?: number }) {
+  return (
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      width={size || 24} 
+      height={size || 24} 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke="currentColor" 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+      className={className}
+    >
+      <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 .66-.94l8-3a1 1 0 0 1 .68 0l8 3A1 1 0 0 1 20 6v7z" />
+      <path d="m9 12 2 2 4-4" />
+    </svg>
+  );
 }

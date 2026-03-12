@@ -84,7 +84,8 @@ export default function FounderDossier() {
       <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-amber-900/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="container relative z-10 mx-auto px-6">
-        <div className="flex flex-col lg:flex-row gap-16 items-start">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
+
 
           {/* Left Column: Visual Profile */}
           <motion.div

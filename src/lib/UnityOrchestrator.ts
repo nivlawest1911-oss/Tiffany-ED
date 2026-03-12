@@ -1,8 +1,5 @@
 "use client";
 
-import { logUnitySync } from './legacy-ledger';
-import { v4 as uuidv4 } from 'uuid';
-
 export interface NodeStatus {
     id: string;
     name: string;
@@ -20,76 +17,96 @@ export interface GlobalHealth {
     equilibrium: 'stable' | 'fluctuating' | 'destabilizing';
 }
 
+export interface DistrictData {
+    name: string;
+    id: string;
+    nodes: NodeStatus[];
+    health: GlobalHealth;
+}
+
 class UnityOrchestrator {
-    private nodes: string[] = [
+    private districts: DistrictData[] = [];
+    private defaultNodes: string[] = [
         'Fiscal', 'Roster', 'Oracle', 'Vault', 'Gym',
         'Transit', 'Medical', 'Legal', 'Curriculum',
         'Safety', 'Crisis', 'Community'
     ];
 
-    getNodeStatuses(): NodeStatus[] {
-        // In a real app, this would query each engine
-        // For now, we synthesize from known engines and mock the rest
-        return this.nodes.map(name => {
-            let health = 90 + Math.random() * 10;
-            let swarms = Math.floor(Math.random() * 5);
-            let status: NodeStatus['status'] = 'optimal';
+    async fetchDistricts(): Promise<DistrictData[]> {
+        try {
+            const res = await fetch('/api/districts');
+            if (!res.ok) throw new Error('Failed to fetch districts');
+            this.districts = await res.json();
+            return this.districts;
+        } catch (error) {
+            console.error('[UnityOrchestrator] Error fetching districts:', error);
+            return [];
+        }
+    }
 
-            if (name === 'Fiscal') {
-                health = 84; // Simulated stress from previous phases
-                status = 'stressed';
-                swarms = 2;
-            } else if (name === 'Roster') {
-                health = 92;
-                swarms = 3;
-            } else if (name === 'Oracle') {
-                health = 98;
-                swarms = 1;
-            }
+    async ingestNewDistrict(name: string, nodes?: string[]): Promise<string | null> {
+        try {
+            const res = await fetch('/api/districts', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, nodes: nodes || this.defaultNodes })
+            });
+            if (!res.ok) throw new Error('Failed to ingest district');
+            const data = await res.json();
+            await this.fetchDistricts();
+            return data.id;
+        } catch (error) {
+            console.error('[UnityOrchestrator] Error ingesting district:', error);
+            return null;
+        }
+    }
 
+    getDistricts(): DistrictData[] {
+        return this.districts;
+    }
+
+    getNodeStatuses(districtId: string): NodeStatus[] {
+        const district = this.districts.find(d => d.id === districtId);
+        if (!district) return [];
+
+        // Simulate minor drift on client for visual feedback, 
+        // while server remains source of truth on next fetch.
+        return district.nodes.map(node => {
+            const healthDrift = (Math.random() - 0.5) * 2;
+            const newHealth = Math.min(100, Math.max(0, node.health + healthDrift));
             return {
-                id: name.toLowerCase(),
-                name,
-                status,
-                health,
-                activeSwarms: swarms,
-                lastPulse: new Date().toISOString()
+                ...node,
+                health: Math.round(newHealth),
+                status: newHealth > 90 ? 'optimal' : newHealth > 70 ? 'stressed' : 'critical'
             };
         });
     }
 
-    getGlobalHealth(): GlobalHealth {
-        const statuses = this.getNodeStatuses();
-        const avgHealth = statuses.reduce((acc, s) => acc + s.health, 0) / statuses.length;
-        const totalSwarms = statuses.reduce((acc, s) => acc + s.activeSwarms, 0);
-
-        return {
-            score: Math.round(avgHealth),
-            activeNodes: statuses.length,
-            totalSwarms,
-            systemLoad: Math.round(totalSwarms * 4.2),
-            equilibrium: avgHealth > 90 ? 'stable' : 'fluctuating'
-        };
+    getGlobalHealth(districtId: string): GlobalHealth {
+        const district = this.districts.find(d => d.id === districtId);
+        if (!district) {
+            return {
+                score: 0,
+                activeNodes: 0,
+                totalSwarms: 0,
+                systemLoad: 0,
+                equilibrium: 'stable'
+            };
+        }
+        return district.health;
     }
 
-    async resolveCrossNodeTriggers() {
-        // Logic for automated rebalancing across nodes
-        console.log("Unity Orchestrator: Analyzing cross-node triggers...");
-        const health = this.getGlobalHealth();
-        const statuses = this.getNodeStatuses();
-
-        await logUnitySync('SYSTEM', {
-            id: uuidv4(),
-            globalScore: health.score,
-            nodeStatuses: statuses,
-            totalSwarms: health.totalSwarms,
-            timestamp: new Date().toISOString(),
-            hash: 'SHA-256-UNITY-' + Math.random().toString(36).substring(7)
-        });
-
-        if (health.equilibrium === 'fluctuating') {
-            console.warn("Unity Orchestrator: Equilibrium detected as fluctuating. Reallocating cognitive resources.");
-            // Example: Move processing power from low-traffic nodes to Fiscal/Roster
+    async resolveCrossNodeTriggers(districtId: string): Promise<boolean> {
+        try {
+            const res = await fetch('/api/districts/sync', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ districtId })
+            });
+            return res.ok;
+        } catch (error) {
+            console.error('[UnityOrchestrator] Error during cross-node sync:', error);
+            return false;
         }
     }
 }

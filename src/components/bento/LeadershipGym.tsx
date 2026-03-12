@@ -160,12 +160,12 @@ export default function LeadershipGym({ onXPAction }: { onXPAction?: (amount: nu
     }, [gameActive, timeLeft]);
 
     return (
-        <div className="p-10 rounded-[2.5rem] bg-gradient-to-br from-zinc-950 via-cyan-950 to-zinc-950 text-white shadow-3xl border border-cyan-900/50 relative overflow-hidden group">
+        <div className="h-full flex flex-col p-6 md:p-8 rounded-[2.5rem] bg-[#111] text-white shadow-3xl border border-zinc-800 border-t-4 border-t-blue-500 relative overflow-hidden group">
             {/* Background Effects */}
             <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(6,182,212,0.1),transparent)] pointer-events-none" />
 
-            <div className="relative z-10">
-                <div className="flex items-center justify-between mb-10">
+            <div className="relative z-10 flex-grow flex flex-col">
+                <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-10">
                     <div className="flex items-center gap-5">
                         <div className="w-16 h-16 rounded-3xl bg-cyan-600/20 border border-cyan-500/30 flex items-center justify-center shadow-xl shadow-cyan-900/20">
                             <Brain className="text-cyan-400" size={32} />
@@ -175,7 +175,7 @@ export default function LeadershipGym({ onXPAction }: { onXPAction?: (amount: nu
                             <p className="text-xs font-bold text-cyan-400 uppercase tracking-widest mt-1 text-white">Mental Performance Exercises</p>
                         </div>
                     </div>
-                    <div className="flex items-center gap-4">
+                    <div className="flex flex-wrap items-center gap-4 mt-4 md:mt-0 w-full md:w-auto">
                         <button
                             onClick={() => triggerBriefing('Legacy Profile')}
                             className="flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 hover:bg-amber-500/20 transition-all group"
@@ -197,7 +197,7 @@ export default function LeadershipGym({ onXPAction }: { onXPAction?: (amount: nu
                 </div>
 
                 {/* Mode Selector */}
-                <div className="grid grid-cols-4 gap-3 mb-10">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10">
                     {[
                         { id: 'memory', label: 'Retention', icon: <Cpu size={16} /> },
                         { id: 'inhibition', label: 'Focus Check', icon: <ZapOff size={16} /> },
@@ -228,7 +228,7 @@ export default function LeadershipGym({ onXPAction }: { onXPAction?: (amount: nu
                                 {mode === 'speed' && "Math Sprints"}
                                 {mode === 'logic' && "Pattern Match"}
                             </h3>
-                            <p className="text-sm text-zinc-500 max-w-sm mx-auto">
+                            <p className="text-sm text-gray-300 max-w-sm mx-auto">
                                 {mode === 'memory' && "Improve your working memory by recalling increasing sequences."}
                                 {mode === 'inhibition' && "Click the NAME of the color, ignoring the text color. Improves decision making."}
                                 {mode === 'speed' && "Solve rapid math equations to increase processing speed."}
@@ -332,7 +332,7 @@ export default function LeadershipGym({ onXPAction }: { onXPAction?: (amount: nu
                 </div>
 
                 {/* Dashboard Stats */}
-                <div className="mt-10 grid grid-cols-3 gap-6">
+                <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
                     <StatItem label="Impulse Control" value="+42%" icon={<Target size={14} />} color="text-emerald-400" />
                     <StatItem label="Working Memory" value="+67%" icon={<Brain size={14} />} color="text-cyan-400" />
                     <StatItem label="Reaction Speed" value="-120ms" icon={<Zap size={14} />} color="text-orange-400" />
@@ -341,7 +341,7 @@ export default function LeadershipGym({ onXPAction }: { onXPAction?: (amount: nu
                 {/* Professional Centers Grid */}
                 <div className="mt-12">
                     <p className="text-[10px] font-black text-zinc-600 uppercase tracking-[0.3em] mb-6 text-center">Stakeholder Cognitive Hubs</p>
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         <TrainingCenter
                             title="Student Focus"
                             description="Executive function & recall"
