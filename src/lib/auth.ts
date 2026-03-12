@@ -60,7 +60,7 @@ export async function getSession() {
 
     // 1. Try Supabase Session first (Modern)
     try {
-        const supabase = await createClient();
+        const supabase = await createClient(cookies());
         if (supabase) {
             const { data: { session }, error } = await supabase.auth.getSession();
             if (error) console.error("[AUTH_DIAG] Supabase getSession error:", error);

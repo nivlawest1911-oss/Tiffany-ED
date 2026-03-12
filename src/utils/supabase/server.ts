@@ -2,13 +2,19 @@ import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY;
 
-export const createClient = async (cookieStore: ReturnType<typeof cookies>) => {
-  const store = await cookieStore;
+export const createClient = async (cookieStore?: ReturnType<typeof cookies>) => {
+  // Gracefully handle missing Supabase configuration
+  if (!supabaseUrl || !supabaseKey) {
+    console.log("[SUPABASE_SERVER] Missing Supabase configuration. Returning null client.");
+    return null;
+  }
+
+  const store = cookieStore ? await cookieStore : await cookies();
   return createServerClient(
-    supabaseUrl!,
-    supabaseKey!,
+    supabaseUrl,
+    supabaseKey,
     {
       cookies: {
         getAll() {
