@@ -24,7 +24,7 @@ export async function POST(req: Request) {
         let tier;
 
         if (isEdIntel) {
-            console.log(`[AUTH_BYPASS] Master access granted to ${email}. bypassing DB sentinel.`);
+            // Master access granted - bypassing DB sentinel
             sessionUser = {
                 id: 'EdIntel_BYPASS',
                 email: email,
@@ -81,7 +81,6 @@ export async function POST(req: Request) {
             path: '/'
         });
 
-        console.log(`[AUTH_DIAG] Login successful for ${email}. Cookie 'edintel_session' set.`);
         return response;
 
     } catch (error: any) {

@@ -8,21 +8,8 @@ export async function POST(req: Request) {
     try {
         const session = await getSession();
         if (!session || !session.user) {
-            const cookieStore = await cookies();
-            const cookieNames = cookieStore.getAll().map(c => c.name);
-            console.warn('[SET_ROLE] Unauthorized attempt: No valid session found.', {
-                hasCookies: !!req.headers.get('cookie'),
-                cookieNames,
-                sessionDetected: !!session
-            });
-            return NextResponse.json({
-                error: 'Unauthorized',
-                reason: !session ? 'No session found' : 'No user in session',
-                diag: {
-                    cookiesPresent: !!req.headers.get('cookie'),
-                    cookieNames
-                }
-            }, { status: 401 });
+            // Silently return 401 - no user logged in is expected behavior
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
         const userId = session.user.id;
