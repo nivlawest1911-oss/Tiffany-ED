@@ -16,15 +16,10 @@ const nextConfig = {
             { protocol: 'https', hostname: 'api.dicebear.com' }
         ],
     },
-    experimental: {
-        // PPR requires Next.js canary for the experimental flag. 
-        // Architecture is ready (Suspense boundaries implemented).
-        ppr: false,
+experimental: {
         serverActions: {
             bodySizeLimit: '10mb',
         },
-        // Enable optimized package imports for faster builds
-        optimizePackageImports: ['lucide-react', 'framer-motion', 'recharts'],
     },
     serverExternalPackages: ['@google-cloud/bigquery', '@google-cloud/common'],
     // Optimal Webpack configuration for large-scale AI applications
