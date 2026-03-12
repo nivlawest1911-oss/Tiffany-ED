@@ -168,7 +168,7 @@
         "eslint-config-next": "^15.1.0",
         "eslint-plugin-unused-imports": "^4.3.0",
         "globals": "^17.1.0",
-        "mini-css-extract-plugin": "^2.10.0",
+        
         "postcss": "^8.5",
         "prisma": "^5.22.0",
         "tailwindcss": "^4.1.18",
