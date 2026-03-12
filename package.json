@@ -6,8 +6,8 @@
         "node": ">=20"
     },
     "scripts": {
-        "dev": "next dev",
-        "prebuild": "echo clean",
+        "dev": "next dev --turbopack",
+        "prebuild": "rm -rf .next",
         "build": "next build",
         "start": "next start",
         "lint": "eslint .",
@@ -79,7 +79,7 @@
         "@react-three/drei": "^10.7.7",
         "@react-three/fiber": "^9.5.0",
         "@rive-app/react-canvas": "^4.26.1",
-        "@sentry/nextjs": "^10.36.0",
+        
         "@stripe/stripe-js": "^8.6.4",
         "@supabase/ssr": "^0.8.0",
         "@supabase/supabase-js": "^2.97.0",
