@@ -2,7 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY;
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
@@ -10,7 +10,7 @@ export async function updateSession(request: NextRequest) {
   });
 
   if (!supabaseUrl || !supabaseKey) {
-    console.warn("[Supabase Middleware] Missing environment variables. Skipping Supabase edge creation.");
+    // Silently skip Supabase - app works without it using legacy auth
     return supabaseResponse;
   }
 

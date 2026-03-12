@@ -1,8 +1,7 @@
 'use client'
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls, Stars, Sparkles } from '@react-three/drei'
-import { useSpring, animated } from '@react-spring/three'
 
 interface CubeProps {
     position: [number, number, number]
@@ -11,8 +10,6 @@ interface CubeProps {
 
 function HolographicCube({ position, color }: CubeProps) {
     const meshRef = useRef<any>(null)
-    const [hovered, setHover] = useState(false)
-    const { scale } = useSpring({ scale: hovered ? 1.5 : 1 })
 
     useFrame(() => {
         if (meshRef.current) {
@@ -22,24 +19,21 @@ function HolographicCube({ position, color }: CubeProps) {
     })
 
     return (
-        <animated.mesh
+        <mesh
             ref={meshRef}
             position={position}
-            scale={scale}
-            onPointerOver={() => setHover(true)}
-            onPointerOut={() => setHover(false)}
         >
             <boxGeometry args={[1, 1, 1]} />
             <meshStandardMaterial
                 color={color}
                 emissive={color}
-                emissiveIntensity={hovered ? 0.8 : 0.5}
+                emissiveIntensity={0.5}
                 transparent
-                opacity={hovered ? 0.7 : 0.4}
+                opacity={0.4}
                 roughness={0.1}
                 metalness={0.9}
             />
-        </animated.mesh>
+        </mesh>
     )
 }
 
@@ -60,3 +54,4 @@ export function HolographicBackground() {
         </div>
     )
 }
+

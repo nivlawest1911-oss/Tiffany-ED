@@ -12,6 +12,7 @@ import { ROUTES } from '@/lib/routes';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import ActivationIntro from './landing/ActivationIntro';
+import { CinematicLogoIntro } from './CinematicLogoIntro';
 const ReadyToActivateCTA = dynamic(() => import('./landing/ReadyToActivateCTA'), { 
     ssr: false,
     loading: () => <div className="h-96 w-full animate-pulse bg-white/5 rounded-3xl" />
@@ -214,6 +215,7 @@ function InteractiveTerminal({ onCommand }: { onCommand: (cmd: string) => void }
 export default function ModernHomePage() {
     const [mounted, setMounted] = useState(false);
     const [booted, setBooted] = useState(false);
+    const [showCinematicIntro, setShowCinematicIntro] = useState(true);
     const [activeAgentIndex, setActiveAgentIndex] = useState(0);
     const [agentMessage, setAgentMessage] = useState<string | null>(null);
     const [showOnboarding, setShowOnboarding] = useState(false);
@@ -329,6 +331,16 @@ export default function ModernHomePage() {
                 "min-h-screen bg-[#020617] text-zinc-100 font-sans overflow-auto selection:bg-electric-cyan/30 transition-colors duration-1000",
                 isSystemThinking && "bg-[#05060f]"
             )}>
+                <AnimatePresence>
+                    {showCinematicIntro && (
+                        <CinematicLogoIntro 
+                            onComplete={() => setShowCinematicIntro(false)}
+                            autoClose={true}
+                            autoCloseDuration={5000}
+                        />
+                    )}
+                </AnimatePresence>
+
                 <AnimatePresence>
                     {!booted && <ActivationIntro onCompleteAction={() => startTransition(() => setBooted(true))} />}
                 </AnimatePresence>
