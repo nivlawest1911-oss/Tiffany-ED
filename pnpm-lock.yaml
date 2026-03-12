@@ -9,6 +9,8 @@ overrides:
   react-dom: 19.1.0
   next: 15.3.3
 
+pnpmfileChecksum: sha256-2OipsTzrcVXJs7NntPfWMIabpxDDjj/PHVYer6/iauc=
+
 importers:
 
   .:
