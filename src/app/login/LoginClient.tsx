@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Lock, Mail, ArrowRight, ShieldCheck as LucideShield, Loader2 } from 'lucide-react';
@@ -25,6 +25,7 @@ export default function LoginClient() {
     const [isSocialLoading, setIsSocialLoading] = useState<'google' | 'facebook' | null>(null);
     const [showBriefing, setShowBriefing] = useState(false);
     const [mode, setMode] = useState<'login' | 'signup'>('login');
+    const [supabase, setSupabase] = useState<any>(null);
     const router = useRouter();
     const searchParams = useSearchParams();
     const { fetchUser } = useAuth();
@@ -36,16 +37,20 @@ export default function LoginClient() {
         tierName: 'Sovereign Initiate'
     });
 
-    // Initialize Sovereign Supabase Client safely - only on client side with env vars
-    const supabase = useMemo(() => {
-        if (typeof window === 'undefined') return null;
+    // Initialize Supabase client only on client side, after mount
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        
         const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
         const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-        if (!supabaseUrl || !supabaseKey) return null;
-        try {
-            return createBrowserClient(supabaseUrl, supabaseKey);
-        } catch {
-            return null;
+        
+        if (supabaseUrl && supabaseKey) {
+            try {
+                const client = createBrowserClient(supabaseUrl, supabaseKey);
+                setSupabase(client);
+            } catch (err) {
+                // Supabase not configured - app works without it
+            }
         }
     }, []);
 
