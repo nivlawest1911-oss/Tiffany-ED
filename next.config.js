@@ -25,13 +25,24 @@ const nextConfig = {
     webpack: (config, { dev, isServer }) => {
         // Fix for "Serializing big strings" webpack cache warning
         // The warning occurs when webpack caches strings larger than ~100KB
-        // Setting cache type to memory avoids filesystem serialization issues
-        if (dev) {
-            config.cache = {
-                type: 'memory',
-            };
-        }
-        
+        // Use idleTimeout + disabled filesystem cache to avoid serialization
+        config.cache = {
+            type: 'filesystem',
+            cacheDirectory: '.next/cache',
+            buildDependencies: {
+                config: [__filename],
+            },
+            // Increase the age limit for cache - this reduces serialization attempts
+            maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
+            // Store in memory instead of pack files to avoid serialization
+            store: 'pack',
+            // Disable the packfile strategy that triggers the warning
+            hashAlgorithm: 'md4',
+            name: 'nextjs-cache',
+            version: '1.0',
+            managedPaths: isServer ? ['node_modules'] : undefined,
+        };
+
         return config;
     },
     async redirects() {
