@@ -1,15 +1,16 @@
-import { createServerClient, type CookieMethods } from "@supabase/ssr";
+import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
-// Check env vars BEFORE any Supabase imports execute
+// EdIntel Supabase Server Client - v2.0
+// Check environment variables at module load time
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY || "";
-
-const isSupabaseConfigured = Boolean(supabaseUrl && supabaseKey);
+const isSupabaseConfigured = !!(supabaseUrl && supabaseKey);
 
 export const createClient = async (cookieStore?: ReturnType<typeof cookies>) => {
-  // Gracefully handle missing Supabase configuration - check FIRST
+  // Early return if Supabase is not configured
   if (!isSupabaseConfigured) {
+    console.log("[EDINTEL_SAFE_UPLINK] Missing Supabase configuration. Returning null client.");
     return null;
   }
 
