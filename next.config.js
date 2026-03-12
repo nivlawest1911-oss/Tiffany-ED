@@ -22,13 +22,15 @@ const nextConfig = {
         },
         serverComponentsExternalPackages: ['@google-cloud/bigquery', '@google-cloud/common'],
     },
-    webpack: (config) => {
-        // Suppress the webpack cache warning for large strings
-        // This prevents the "Serializing big strings" warning
-        config.infrastructureLogging = {
-            ...config.infrastructureLogging,
-            level: 'error',
-        };
+    webpack: (config, { dev, isServer }) => {
+        // Fix for "Serializing big strings" webpack cache warning
+        // The warning occurs when webpack caches strings larger than ~100KB
+        // Setting cache type to memory avoids filesystem serialization issues
+        if (dev) {
+            config.cache = {
+                type: 'memory',
+            };
+        }
         
         return config;
     },
