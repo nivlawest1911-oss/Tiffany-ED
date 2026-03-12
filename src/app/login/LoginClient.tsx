@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Lock, Mail, ArrowRight, ShieldCheck as LucideShield, Loader2 } from 'lucide-react';
@@ -36,12 +36,18 @@ export default function LoginClient() {
         tierName: 'Sovereign Initiate'
     });
 
-    // Initialize Sovereign Supabase Client safely - only if env vars are present
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
-    const isSupabaseConfigured = !!(supabaseUrl && supabaseKey);
-
-    const supabase = isSupabaseConfigured ? createBrowserClient(supabaseUrl, supabaseKey) : null;
+    // Initialize Sovereign Supabase Client safely - only on client side with env vars
+    const supabase = useMemo(() => {
+        if (typeof window === 'undefined') return null;
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+        const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+        if (!supabaseUrl || !supabaseKey) return null;
+        try {
+            return createBrowserClient(supabaseUrl, supabaseKey);
+        } catch {
+            return null;
+        }
+    }, []);
 
     // Capture OAuth errors and Mode from URL
     useEffect(() => {
