@@ -10,7 +10,7 @@ export async function updateSession(request: NextRequest) {
   });
 
   if (!supabaseUrl || !supabaseKey) {
-    console.warn("[Supabase Middleware] Missing environment variables. Skipping Supabase edge creation.");
+    // Silently skip Supabase - app works without it using legacy auth
     return supabaseResponse;
   }
 

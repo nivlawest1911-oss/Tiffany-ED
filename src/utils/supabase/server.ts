@@ -8,9 +8,8 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.NEX
 const isSupabaseConfigured = !!(supabaseUrl && supabaseKey);
 
 export const createClient = async (cookieStore?: ReturnType<typeof cookies>) => {
-  // Early return if Supabase is not configured
+  // Early return if Supabase is not configured - app works without it
   if (!isSupabaseConfigured) {
-    console.log("[EDINTEL_SAFE_UPLINK] Missing Supabase configuration. Returning null client.");
     return null;
   }
 
