@@ -59,9 +59,9 @@ export async function getSession() {
     console.log(`[AUTH_DIAG] getSession initiated. Available cookies: ${cookieNames.join(', ')}`);
 
     // 1. Try Supabase Session first (Modern)
-    try {
-        const supabase = await createClient(cookies());
-        if (supabase) {
+    const supabase = await createClient();
+    if (supabase) {
+        try {
             const { data: { session }, error } = await supabase.auth.getSession();
             if (error) console.error("[AUTH_DIAG] Supabase getSession error:", error);
 
@@ -77,11 +77,9 @@ export async function getSession() {
                     }
                 };
             }
-        } else {
-            console.log("[AUTH_DIAG] Supabase client could not be initialized (likely missing env vars).");
+        } catch (e) {
+            console.error("[AUTH_DIAG] Supabase session check crashed:", e);
         }
-    } catch (e) {
-        console.error("[AUTH_DIAG] Supabase session check crashed:", e);
     }
 
     // 2. Fallback: Legacy JWT Session
