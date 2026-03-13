@@ -46,6 +46,10 @@ const HuggingFaceAvatar = dynamic(() => import('./HuggingFaceAvatar'), { ssr: fa
 const DistrictIntelligenceScore = dynamic(() => import('./landing/DistrictIntelligenceScore'), { ssr: false });
 const PlatformActivity = dynamic(() => import('./landing/PlatformActivity'), { ssr: false });
 const FounderDossier = dynamic(() => import('./founder-dossier'), { ssr: false });
+const HolographicHumanoidShowcase = dynamic(() => import('./HolographicHumanoidShowcase'), { 
+    ssr: false,
+    loading: () => <div className="h-[700px] w-full animate-pulse bg-white/5 rounded-3xl" />
+});
 
 // --- ANIMATION VARIANTS ---
 const fadeInUp: Variants = {
@@ -509,6 +513,9 @@ export default function ModernHomePage() {
                                     </motion.div>
                                 </div>
                             </section>
+
+                            {/* HOLOGRAPHIC HUMANOID SHOWCASE */}
+                            <HolographicHumanoidShowcase />
 
                             {/* AI TWIN GENERATOR SECTION */}
                             <AITwinGenerator />
