@@ -158,40 +158,6 @@ export default function LoginClient() {
         }
     };
 
-<<<<<<< HEAD
-    const handleSocialLogin = async (provider: 'google' | 'facebook') => {
-        setIsSocialLoading(provider);
-        setError('');
-
-        try {
-            if (!supabase) {
-                throw new Error('Social login requires Supabase configuration.');
-            }
-            
-            const { error: oauthError } = await supabase.auth.signInWithOAuth({
-                provider,
-                options: {
-                    redirectTo: `${window.location.origin}${ROUTES.AUTH_CALLBACK}`,
-                    queryParams: {
-                        access_type: 'offline',
-                        prompt: 'consent',
-                    },
-                },
-            });
-
-            if (oauthError) throw oauthError;
-
-            // Redirect happens automatically
-        } catch (err: any) {
-            console.error('OAuth Error:', err);
-            setError(err.message || `${provider} Protocol Failed`);
-            toast.error(`Sovereign Auth Error`, {
-                description: `Could not initiate ${provider} protocol: ${err.message}`,
-            });
-            setIsSocialLoading(null);
-        }
-    };
-=======
     const handleSocialLogin = async (provider: 'google' | 'facebook') => {
         setIsSocialLoading(provider);
         setError('');
@@ -207,7 +173,6 @@ export default function LoginClient() {
         }
         // Success redirects automatically via window.location in actions.ts
     };
->>>>>>> 59861864 (feat: centralize social auth, restore EdIntel branding, and sync database schema)
 
 
     return (
