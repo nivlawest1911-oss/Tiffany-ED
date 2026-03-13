@@ -64,6 +64,14 @@ const SHOWCASE_VIDEOS = [
     category: 'Layout',
     icon: Brain,
   },
+  {
+    id: 'holographic-deployment',
+    title: 'Holographic AI Deployment Showcase',
+    description: 'Real-time holographic deployment with moving humanoid integration',
+    src: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20260313-0123-12.0224646-JyVbtYyeXfgOJRUyu8NNXEHkTYAY9S.mp4',
+    category: 'Humanoid',
+    icon: Sparkles,
+  },
 ];
 
 // Floating holographic particles
