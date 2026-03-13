@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import EdIntelCore from '../edintel-core/EdIntelCore';
 import ActivationNarrative from './ActivationNarrative';
@@ -168,9 +168,8 @@ function FluidParticles() {
 }
 
 export default function ActivationIntro({ onCompleteAction }: { onCompleteAction: () => void }) {
-    const [step, setStep] = useState<'boot' | 'video' | 'scene1' | 'scene2' | 'complete'>('boot');
+    const [step, setStep] = useState<'boot' | 'scene1' | 'scene2' | 'complete'>('boot');
     const [bootLines, setBootLines] = useState<string[]>([]);
-    const videoRef = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
         if (step === 'boot') {
@@ -181,25 +180,12 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
                     lineIdx++;
                 } else {
                     clearInterval(interval);
-                    setTimeout(() => setStep('video'), 600);
+                    setTimeout(() => setStep('scene1'), 600);
                 }
             }, 80);
             return () => clearInterval(interval);
         }
     }, [step]);
-
-    useEffect(() => {
-        if (step === 'video' && videoRef.current) {
-            videoRef.current.play().catch(() => {
-                // Auto-play blocked, skip to next scene
-                setStep('scene1');
-            });
-        }
-    }, [step]);
-
-    const handleVideoEnd = () => {
-        setStep('scene1');
-    };
 
     return (
         <motion.div
@@ -269,67 +255,6 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
                     </motion.div>
                 )}
 
-                {/* VIDEO SHOWCASE */}
-                {step === 'video' && (
-                    <motion.div
-                        key="video"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="relative w-full h-full flex items-center justify-center"
-                    >
-                        <div className="relative w-full h-full max-w-6xl mx-auto">
-                            {/* Glassmorphic video container */}
-                            <div className="absolute inset-4 md:inset-8 rounded-3xl overflow-hidden border border-white/10 backdrop-blur-sm bg-black/40">
-                                <video
-                                    ref={videoRef}
-                                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20260313-0131-04.5873964-WjkEXdAm1l8jJ13G9aYYsJBjtgkZxy.mp4"
-                                    className="w-full h-full object-cover"
-                                    muted
-                                    playsInline
-                                    onEnded={handleVideoEnd}
-                                />
-                                
-                                {/* Holographic overlay */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent opacity-60" />
-                                
-                                {/* Corner accents */}
-                                <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-sovereign-gold/50 rounded-tl-3xl" />
-                                <div className="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-electric-cyan/50 rounded-tr-3xl" />
-                                <div className="absolute bottom-0 left-0 w-16 h-16 border-b-2 border-l-2 border-electric-cyan/50 rounded-bl-3xl" />
-                                <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-sovereign-gold/50 rounded-br-3xl" />
-                            </div>
-
-                            {/* Brand watermark */}
-                            <motion.div
-                                className="absolute bottom-12 left-12 flex items-center gap-3"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 1 }}
-                            >
-                                <div className="w-8 h-8 rounded-lg overflow-hidden">
-                                    <Image
-                                        src="/images/edintel-logo.jpg"
-                                        alt="EdIntel"
-                                        width={32}
-                                        height={32}
-                                        className="object-contain"
-                                    />
-                                </div>
-                                <span className="text-sovereign-gold font-bold tracking-wider text-sm">EDINTEL SOVEREIGN OS</span>
-                            </motion.div>
-                        </div>
-
-                        {/* Skip video button */}
-                        <button
-                            onClick={() => setStep('scene1')}
-                            className="absolute bottom-8 right-8 px-4 py-2 border border-white/20 bg-black/40 backdrop-blur-md text-zinc-500 hover:text-white hover:border-sovereign-gold/50 transition-all rounded-lg text-[10px] uppercase tracking-widest font-mono"
-                        >
-                            Skip Video
-                        </button>
-                    </motion.div>
-                )}
-
                 {/* SCENE 1: THE GRID */}
                 {step === 'scene1' && (
                     <motion.div
@@ -380,7 +305,7 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
             </AnimatePresence>
 
             {/* Global Skip Button */}
-            {step !== 'complete' && step !== 'video' && (
+            {step !== 'complete' && (
                 <button
                     onClick={onCompleteAction}
                     className="fixed bottom-8 right-8 z-[250] px-4 py-2 border border-white/20 bg-black/40 backdrop-blur-md text-zinc-500 hover:text-white hover:border-sovereign-gold/40 transition-all rounded-lg text-[10px] uppercase tracking-widest font-mono"
