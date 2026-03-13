@@ -203,18 +203,21 @@ export default function AITwinGenerator() {
 
                     {/* Right: Visualization */}
                     <div className="relative">
-                        <div className="absolute inset-0 bg-indigo-500/20 blur-3xl rounded-full" />
+                        <div className="absolute inset-0 bg-[#00E5FF]/20 blur-3xl rounded-full" />
                         <motion.div
-                            className="relative z-10 aspect-[4/5] rounded-[2.5rem] overflow-hidden border-2 border-indigo-500/20 shadow-2xl bg-zinc-900"
+                            className="relative z-10 aspect-[4/5] rounded-[2.5rem] overflow-hidden border-2 border-[#00E5FF]/30 shadow-2xl bg-zinc-900"
                             initial={{ y: 20, opacity: 0 }}
                             whileInView={{ y: 0, opacity: 1 }}
                             transition={{ duration: 0.8 }}
                         >
-                            <Image
-                                src="/images/avatars/Dr._alvin_west.png"
-                                alt="AI Twin Preview"
-                                fill
-                                className="object-cover opacity-80"
+                            {/* AI Companion Hub Video Background */}
+                            <video
+                                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/AI_Companion_Hub_Video_Generation-6RGpq7Kv6aulpvZesrykXqBHR3nn1Z.mp4"
+                                autoPlay
+                                muted
+                                loop
+                                playsInline
+                                className="absolute inset-0 w-full h-full object-cover opacity-70"
                             />
 
                             {/* Overlay UI */}

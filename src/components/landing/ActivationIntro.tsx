@@ -7,8 +7,8 @@ import ActivationNarrative from './ActivationNarrative';
 import Image from 'next/image';
 import { Volume2, VolumeX } from 'lucide-react';
 
-// Grand Entrance Video URL
-const ENTRANCE_VIDEO_URL = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Educators_using_edintel_app_44bfcfe528-4bcSevHv9NVPi7nYdhR9pkPjQdel7X.mp4';
+// Grand Entrance Video URL - EdIntel Opening Cinematic
+const ENTRANCE_VIDEO_URL = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Video_Generation_For_Edintel-YclNpKS4YtfngAn4YBNdgyyDQDzvJV.mp4';
 
 const BIOS_LINES = [
     "EDINTEL(R) SOVEREIGN BIOS V5.0.0",
@@ -22,86 +22,189 @@ const BIOS_LINES = [
     "COMMENCING SYSTEM ACTIVATION...",
 ];
 
-// Holographic Humanoid Wireframe Component
+// Futuristic Humanoid Robot Component - Sleek black body with cyan accents
 function HolographicHumanoid({ phase }: { phase: string }) {
     return (
         <motion.div
             className="absolute inset-0 flex items-center justify-center pointer-events-none"
             initial={{ opacity: 0 }}
-            animate={{ opacity: phase === 'scene1' ? 0.6 : 0.3 }}
+            animate={{ opacity: phase === 'scene1' ? 0.9 : 0.6 }}
             transition={{ duration: 2 }}
         >
             <svg
                 viewBox="0 0 200 400"
                 className="w-48 h-96 md:w-64 md:h-[500px]"
-                style={{ filter: 'drop-shadow(0 0 20px rgba(0, 229, 255, 0.5))' }}
+                style={{ filter: 'drop-shadow(0 0 30px rgba(0, 229, 255, 0.6))' }}
             >
                 <defs>
-                    <linearGradient id="humanoidGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stopColor="#00E5FF" stopOpacity="0.8" />
-                        <stop offset="50%" stopColor="#FFB300" stopOpacity="0.6" />
-                        <stop offset="100%" stopColor="#00E5FF" stopOpacity="0.4" />
+                    {/* Glossy black body gradient */}
+                    <linearGradient id="robotBodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#1a1a1a" />
+                        <stop offset="30%" stopColor="#2d2d2d" />
+                        <stop offset="50%" stopColor="#1a1a1a" />
+                        <stop offset="100%" stopColor="#0a0a0a" />
                     </linearGradient>
-                    <filter id="humanoidGlow">
-                        <feGaussianBlur stdDeviation="2" result="blur" />
+                    {/* White accent panels */}
+                    <linearGradient id="robotAccentGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stopColor="#ffffff" />
+                        <stop offset="100%" stopColor="#e0e0e0" />
+                    </linearGradient>
+                    {/* Cyan glow visor */}
+                    <linearGradient id="visorGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stopColor="#00E5FF" />
+                        <stop offset="50%" stopColor="#00B8D4" />
+                        <stop offset="100%" stopColor="#0097A7" />
+                    </linearGradient>
+                    <filter id="robotGlow">
+                        <feGaussianBlur stdDeviation="3" result="blur" />
                         <feMerge>
                             <feMergeNode in="blur" />
                             <feMergeNode in="SourceGraphic" />
                         </feMerge>
                     </filter>
+                    <filter id="cyanGlow">
+                        <feGaussianBlur stdDeviation="4" result="blur" />
+                        <feFlood floodColor="#00E5FF" floodOpacity="0.8" />
+                        <feComposite in2="blur" operator="in" />
+                        <feMerge>
+                            <feMergeNode />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
                 </defs>
-                <g filter="url(#humanoidGlow)" stroke="url(#humanoidGrad)" strokeWidth="1.5" fill="none">
-                    {/* Head */}
-                    <motion.ellipse
-                        cx="100" cy="40" rx="25" ry="30"
-                        animate={{ scale: [1, 1.02, 1], opacity: [0.8, 1, 0.8] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                    />
-                    {/* Neck */}
-                    <line x1="100" y1="70" x2="100" y2="90" />
-                    {/* Torso */}
+
+                {/* ROBOT HEAD - Sleek helmet design */}
+                <g filter="url(#robotGlow)">
+                    {/* Main helmet shell */}
                     <motion.path
-                        d="M 60 90 L 100 100 L 140 90 L 135 180 L 100 190 L 65 180 Z"
-                        animate={{ pathLength: [0, 1] }}
-                        transition={{ duration: 2, delay: 0.5 }}
-                    />
-                    {/* Arms */}
-                    <motion.path
-                        d="M 60 95 L 30 150 L 25 200"
-                        animate={{ x: [0, 2, 0] }}
+                        d="M 100 10 C 140 10 160 35 160 60 C 160 85 140 100 100 100 C 60 100 40 85 40 60 C 40 35 60 10 100 10"
+                        fill="url(#robotBodyGrad)"
+                        stroke="#333"
+                        strokeWidth="1"
+                        animate={{ y: [0, -2, 0] }}
                         transition={{ duration: 3, repeat: Infinity }}
                     />
-                    <motion.path
-                        d="M 140 95 L 170 150 L 175 200"
-                        animate={{ x: [0, -2, 0] }}
-                        transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
+                    {/* White accent panel on forehead */}
+                    <path
+                        d="M 80 20 Q 100 15 120 20 L 115 35 Q 100 30 85 35 Z"
+                        fill="url(#robotAccentGrad)"
+                        opacity="0.9"
                     />
-                    {/* Legs */}
-                    <path d="M 80 190 L 70 280 L 60 370" />
-                    <path d="M 120 190 L 130 280 L 140 370" />
-                    {/* Core energy */}
-                    <motion.circle
-                        cx="100" cy="140" r="15"
-                        fill="#FFB300"
-                        fillOpacity="0.3"
-                        animate={{ r: [15, 20, 15], opacity: [0.3, 0.6, 0.3] }}
+                    {/* Visor - glowing cyan */}
+                    <motion.path
+                        d="M 55 50 Q 100 40 145 50 Q 145 70 100 75 Q 55 70 55 50"
+                        fill="url(#visorGrad)"
+                        filter="url(#cyanGlow)"
+                        animate={{ opacity: [0.8, 1, 0.8] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                    />
+                    {/* Ear panels */}
+                    <ellipse cx="45" cy="55" rx="8" ry="15" fill="url(#robotAccentGrad)" />
+                    <ellipse cx="155" cy="55" rx="8" ry="15" fill="url(#robotAccentGrad)" />
+                </g>
+
+                {/* NECK */}
+                <rect x="85" y="100" width="30" height="20" fill="url(#robotBodyGrad)" rx="5" />
+
+                {/* TORSO - Sleek robotic body */}
+                <g filter="url(#robotGlow)">
+                    <motion.path
+                        d="M 55 120 L 145 120 L 140 200 Q 100 210 60 200 Z"
+                        fill="url(#robotBodyGrad)"
+                        stroke="#333"
+                        strokeWidth="1"
+                        animate={{ scale: [1, 1.01, 1] }}
+                        transition={{ duration: 2.5, repeat: Infinity }}
+                    />
+                    {/* Chest display panel */}
+                    <rect x="75" y="135" width="50" height="40" rx="5" fill="#1a1a1a" stroke="#00E5FF" strokeWidth="1" />
+                    <motion.rect
+                        x="80" y="140" width="40" height="30" rx="3"
+                        fill="#00E5FF"
+                        opacity="0.3"
+                        animate={{ opacity: [0.2, 0.5, 0.2] }}
                         transition={{ duration: 1.5, repeat: Infinity }}
                     />
-                    {/* Data streams */}
-                    {[...Array(8)].map((_, i) => (
-                        <motion.line
-                            key={i}
-                            x1={100 + Math.cos(i * 45 * Math.PI / 180) * 20}
-                            y1={140 + Math.sin(i * 45 * Math.PI / 180) * 20}
-                            x2={100 + Math.cos(i * 45 * Math.PI / 180) * 60}
-                            y2={140 + Math.sin(i * 45 * Math.PI / 180) * 60}
-                            stroke="#00E5FF"
-                            strokeWidth="0.5"
-                            animate={{ opacity: [0, 1, 0], pathLength: [0, 1, 0] }}
-                            transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
-                        />
-                    ))}
+                    {/* White accent strips */}
+                    <rect x="55" y="125" width="15" height="60" fill="url(#robotAccentGrad)" rx="3" />
+                    <rect x="130" y="125" width="15" height="60" fill="url(#robotAccentGrad)" rx="3" />
                 </g>
+
+                {/* ARMS - Robotic segmented */}
+                <g filter="url(#robotGlow)">
+                    {/* Left arm */}
+                    <motion.path
+                        d="M 55 125 L 35 160 L 30 200 L 25 240"
+                        stroke="url(#robotBodyGrad)"
+                        strokeWidth="18"
+                        fill="none"
+                        strokeLinecap="round"
+                        animate={{ rotate: [0, 2, 0] }}
+                        transition={{ duration: 3, repeat: Infinity }}
+                    />
+                    <circle cx="35" cy="160" r="8" fill="url(#robotAccentGrad)" />
+                    <circle cx="25" cy="240" r="10" fill="url(#robotBodyGrad)" stroke="#00E5FF" strokeWidth="2" />
+
+                    {/* Right arm */}
+                    <motion.path
+                        d="M 145 125 L 165 160 L 170 200 L 175 240"
+                        stroke="url(#robotBodyGrad)"
+                        strokeWidth="18"
+                        fill="none"
+                        strokeLinecap="round"
+                        animate={{ rotate: [0, -2, 0] }}
+                        transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
+                    />
+                    <circle cx="165" cy="160" r="8" fill="url(#robotAccentGrad)" />
+                    <circle cx="175" cy="240" r="10" fill="url(#robotBodyGrad)" stroke="#00E5FF" strokeWidth="2" />
+                </g>
+
+                {/* LOWER BODY */}
+                <path
+                    d="M 60 200 Q 100 220 140 200 L 135 260 Q 100 270 65 260 Z"
+                    fill="url(#robotBodyGrad)"
+                />
+
+                {/* LEGS */}
+                <g filter="url(#robotGlow)">
+                    <path d="M 75 260 L 70 320 L 65 370" stroke="url(#robotBodyGrad)" strokeWidth="16" fill="none" strokeLinecap="round" />
+                    <path d="M 125 260 L 130 320 L 135 370" stroke="url(#robotBodyGrad)" strokeWidth="16" fill="none" strokeLinecap="round" />
+                    <circle cx="70" cy="320" r="6" fill="url(#robotAccentGrad)" />
+                    <circle cx="130" cy="320" r="6" fill="url(#robotAccentGrad)" />
+                    {/* Feet */}
+                    <ellipse cx="65" cy="375" rx="15" ry="8" fill="url(#robotBodyGrad)" />
+                    <ellipse cx="135" cy="375" rx="15" ry="8" fill="url(#robotBodyGrad)" />
+                </g>
+
+                {/* GLOWING ACCENTS */}
+                <motion.circle
+                    cx="100" cy="155" r="8"
+                    fill="#00E5FF"
+                    filter="url(#cyanGlow)"
+                    animate={{ r: [6, 10, 6], opacity: [0.6, 1, 0.6] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                />
+                {/* Shoulder lights */}
+                <motion.circle cx="55" cy="125" r="4" fill="#00E5FF" filter="url(#cyanGlow)"
+                    animate={{ opacity: [0.4, 1, 0.4] }} transition={{ duration: 2, repeat: Infinity }} />
+                <motion.circle cx="145" cy="125" r="4" fill="#00E5FF" filter="url(#cyanGlow)"
+                    animate={{ opacity: [0.4, 1, 0.4] }} transition={{ duration: 2, repeat: Infinity, delay: 0.5 }} />
+
+                {/* Data connection lines */}
+                {[0, 60, 120, 180, 240, 300].map((angle, i) => (
+                    <motion.line
+                        key={i}
+                        x1={100 + Math.cos(angle * Math.PI / 180) * 25}
+                        y1={155 + Math.sin(angle * Math.PI / 180) * 25}
+                        x2={100 + Math.cos(angle * Math.PI / 180) * 70}
+                        y2={155 + Math.sin(angle * Math.PI / 180) * 70}
+                        stroke="#00E5FF"
+                        strokeWidth="1"
+                        opacity="0.4"
+                        animate={{ opacity: [0, 0.8, 0], pathLength: [0, 1, 0] }}
+                        transition={{ duration: 3, repeat: Infinity, delay: i * 0.3 }}
+                    />
+                ))}
             </svg>
         </motion.div>
     );

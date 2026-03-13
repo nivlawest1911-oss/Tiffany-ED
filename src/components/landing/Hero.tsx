@@ -21,10 +21,10 @@ export default function Hero() {
                     }}
                 />
 
-                {/* Cinematic Video Background */}
+                {/* Cinematic Video Background - EdIntel Opening */}
                 <video
-                    src="/videos/edintel_ad_strategic_engine.mp4"
-                    className="w-full h-full object-cover opacity-15"
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Video_Generation_For_Edintel-YclNpKS4YtfngAn4YBNdgyyDQDzvJV.mp4"
+                    className="w-full h-full object-cover opacity-20"
                     autoPlay
                     muted
                     loop
@@ -156,7 +156,7 @@ export default function Hero() {
                                 <div className="relative w-full h-full flex items-center justify-center">
                                     {isVideoPlaying ? (
                                         <video
-                                            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Educators_using_edintel_app_44bfcfe528-4bcSevHv9NVPi7nYdhR9pkPjQdel7X.mp4"
+                                            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Free_Demo_Video_Generated-QMQkfGnUjzl3L2DJzmFNsEy7IgE5Xs.mp4"
                                             className="w-full h-full object-cover rounded-2xl"
                                             autoPlay
                                             controls
