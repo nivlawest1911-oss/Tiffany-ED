@@ -555,3 +555,227 @@
     transition: var(--behavior-transition, all 3.5s cubic-bezier(0.23, 1, 0.32, 1));
     transform-origin: var(--behavior-origin, center center);
 }
+
+/* === CINEMATIC INTRO HOLOGRAPHIC SYSTEM === */
+
+/* Radial gradient background */
+.bg-gradient-radial {
+    background: radial-gradient(ellipse at center, var(--tw-gradient-from, #0a1628) 0%, var(--tw-gradient-via, #030712) 50%, var(--tw-gradient-to, black) 100%);
+}
+
+/* Holographic shimmer effect */
+.holographic-shimmer {
+    position: relative;
+    overflow: hidden;
+}
+
+.holographic-shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -200%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 179, 0, 0.1),
+        rgba(0, 229, 255, 0.2),
+        rgba(255, 179, 0, 0.1),
+        transparent
+    );
+    animation: holographic-sweep 4s ease-in-out infinite;
+}
+
+@keyframes holographic-sweep {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(100%); }
+}
+
+/* Fluid glass effect */
+.fluid-glass {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(255, 255, 255, 0.05) 50%,
+        rgba(0, 229, 255, 0.05) 100%
+    );
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Neon glow utilities */
+.neon-gold {
+    box-shadow: 
+        0 0 5px #FFB300,
+        0 0 10px #FFB300,
+        0 0 20px #FFB300,
+        0 0 40px rgba(255, 179, 0, 0.5);
+}
+
+.neon-cyan {
+    box-shadow: 
+        0 0 5px #00E5FF,
+        0 0 10px #00E5FF,
+        0 0 20px #00E5FF,
+        0 0 40px rgba(0, 229, 255, 0.5);
+}
+
+.neon-text-gold {
+    text-shadow: 
+        0 0 10px #FFB300,
+        0 0 20px #FFB300,
+        0 0 40px rgba(255, 179, 0, 0.5);
+}
+
+.neon-text-cyan {
+    text-shadow: 
+        0 0 10px #00E5FF,
+        0 0 20px #00E5FF,
+        0 0 40px rgba(0, 229, 255, 0.5);
+}
+
+/* Gear rotation animations */
+@keyframes gear-rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes gear-rotate-reverse {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+}
+
+.animate-gear {
+    animation: gear-rotate 20s linear infinite;
+}
+
+.animate-gear-reverse {
+    animation: gear-rotate-reverse 25s linear infinite;
+}
+
+/* Laser beam pulse */
+@keyframes laser-pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+.animate-laser {
+    animation: laser-pulse 2s ease-in-out infinite;
+}
+
+/* Particle float */
+@keyframes particle-float {
+    0%, 100% { 
+        transform: translateY(0) scale(1);
+        opacity: 0;
+    }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { 
+        transform: translateY(-100px) scale(0.5);
+        opacity: 0;
+    }
+}
+
+.animate-particle {
+    animation: particle-float 10s ease-in-out infinite;
+}
+
+/* Orbital ring animations */
+@keyframes orbit {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes orbit-reverse {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+}
+
+.animate-orbit {
+    animation: orbit 30s linear infinite;
+}
+
+.animate-orbit-reverse {
+    animation: orbit-reverse 25s linear infinite;
+}
+
+/* Holographic border effect */
+.holographic-border-animated {
+    position: relative;
+}
+
+.holographic-border-animated::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(
+        45deg,
+        #FFB300,
+        #00E5FF,
+        #FFB300,
+        #00E5FF,
+        #FFB300
+    );
+    background-size: 400% 400%;
+    border-radius: inherit;
+    z-index: -1;
+    animation: holographic-gradient 8s ease infinite;
+    opacity: 0.6;
+}
+
+@keyframes holographic-gradient {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* Grid perspective effect */
+.perspective-grid {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+/* Fluid motion paths */
+@keyframes fluid-motion {
+    0% { 
+        transform: translate(0, 0) rotate(0deg) scale(1);
+    }
+    25% { 
+        transform: translate(30px, -20px) rotate(5deg) scale(1.05);
+    }
+    50% { 
+        transform: translate(0, -40px) rotate(0deg) scale(1.1);
+    }
+    75% { 
+        transform: translate(-30px, -20px) rotate(-5deg) scale(1.05);
+    }
+    100% { 
+        transform: translate(0, 0) rotate(0deg) scale(1);
+    }
+}
+
+.animate-fluid {
+    animation: fluid-motion 8s ease-in-out infinite;
+}
+
+/* Glassmorphic card with depth */
+.glass-depth {
+    background: linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(255, 255, 255, 0.05) 50%,
+        rgba(0, 0, 0, 0.1) 100%
+    );
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+        0 25px 50px -12px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
