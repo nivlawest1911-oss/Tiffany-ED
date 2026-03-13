@@ -442,7 +442,7 @@ export function CinematicLogoIntro({
             >
               <div className="h-px w-12 bg-gradient-to-r from-transparent to-[#00E5FF]" />
               <p className="text-sm md:text-base tracking-[0.4em] text-[#00E5FF] uppercase font-light">
-                Your AI Companion for Education
+                Educator Intelligence
               </p>
               <div className="h-px w-12 bg-gradient-to-l from-transparent to-[#00E5FF]" />
             </motion.div>
@@ -454,7 +454,7 @@ export function CinematicLogoIntro({
               animate={{ opacity: 1 }}
               transition={{ delay: 4 }}
             >
-              Preventing Burnout | Enhancing Cognitive Fitness | Empowering Educators
+              Cognitive Holograms | Humanoid Integration | Glassmorphic Architecture
             </motion.p>
 
             {/* Animated progress line */}

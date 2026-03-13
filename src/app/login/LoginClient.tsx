@@ -158,40 +158,6 @@ export default function LoginClient() {
         }
     };
 
-<<<<<<< HEAD
-    const handleSocialLogin = async (provider: 'google' | 'facebook') => {
-        setIsSocialLoading(provider);
-        setError('');
-
-        try {
-            if (!supabase) {
-                throw new Error('Social login requires Supabase configuration.');
-            }
-            
-            const { error: oauthError } = await supabase.auth.signInWithOAuth({
-                provider,
-                options: {
-                    redirectTo: `${window.location.origin}${ROUTES.AUTH_CALLBACK}`,
-                    queryParams: {
-                        access_type: 'offline',
-                        prompt: 'consent',
-                    },
-                },
-            });
-
-            if (oauthError) throw oauthError;
-
-            // Redirect happens automatically
-        } catch (err: any) {
-            console.error('OAuth Error:', err);
-            setError(err.message || `${provider} Protocol Failed`);
-            toast.error(`Sovereign Auth Error`, {
-                description: `Could not initiate ${provider} protocol: ${err.message}`,
-            });
-            setIsSocialLoading(null);
-        }
-    };
-=======
     const handleSocialLogin = async (provider: 'google' | 'facebook') => {
         setIsSocialLoading(provider);
         setError('');
@@ -207,7 +173,6 @@ export default function LoginClient() {
         }
         // Success redirects automatically via window.location in actions.ts
     };
->>>>>>> 59861864 (feat: centralize social auth, restore EdIntel branding, and sync database schema)
 
 
     return (
@@ -430,10 +395,12 @@ export default function LoginClient() {
                                 </div>
 
                                 <div className="grid grid-cols-2 gap-4">
-                                    <button
+                                    <motion.button
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
                                         onClick={() => handleSocialLogin('google')}
                                         disabled={isSocialLoading !== null}
-                                        className="flex items-center justify-center gap-2 py-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#FFB300]/50 transition-all group disabled:opacity-50 shadow-sm"
+                                        className="flex items-center justify-center gap-2 py-4 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 hover:border-[#FFB300]/60 hover:bg-white/15 hover:shadow-[0_0_30px_rgba(255,179,0,0.2)] transition-all group disabled:opacity-50 shadow-sm backdrop-blur-sm"
                                     >
                                         {isSocialLoading === 'google' ? (
                                             <Loader2 className="w-4 h-4 animate-spin text-[#FFB300]" />
@@ -445,13 +412,15 @@ export default function LoginClient() {
                                                 <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
                                             </svg>
                                         )}
-                                        <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400 group-hover:text-white">Google</span>
-                                    </button>
+                                        <span className="text-[10px] font-black uppercase tracking-widest text-zinc-300 group-hover:text-white transition-colors">Google</span>
+                                    </motion.button>
 
-                                    <button
+                                    <motion.button
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
                                         onClick={() => handleSocialLogin('facebook')}
                                         disabled={isSocialLoading !== null}
-                                        className="flex items-center justify-center gap-2 py-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#FFB300]/50 transition-all group disabled:opacity-50 shadow-sm"
+                                        className="flex items-center justify-center gap-2 py-4 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 hover:border-[#1877F2]/60 hover:bg-white/15 hover:shadow-[0_0_30px_rgba(24,119,242,0.2)] transition-all group disabled:opacity-50 shadow-sm backdrop-blur-sm"
                                     >
                                         {isSocialLoading === 'facebook' ? (
                                             <Loader2 className="w-4 h-4 animate-spin text-[#1877F2]" />
@@ -460,8 +429,8 @@ export default function LoginClient() {
                                                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                                             </svg>
                                         )}
-                                        <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400 group-hover:text-white">Facebook</span>
-                                    </button>
+                                        <span className="text-[10px] font-black uppercase tracking-widest text-zinc-300 group-hover:text-white transition-colors">Facebook</span>
+                                    </motion.button>
                                 </div>
                             </>
                         )}
