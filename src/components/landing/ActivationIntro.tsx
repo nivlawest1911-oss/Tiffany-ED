@@ -1,23 +1,176 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import EdIntelCore from '../edintel-core/EdIntelCore';
 import ActivationNarrative from './ActivationNarrative';
+import Image from 'next/image';
 
 const BIOS_LINES = [
     "EDINTEL(R) SOVEREIGN BIOS V5.0.0",
     "COPYRIGHT (C) 2026 EDINTEL ADAPTIVE SYSTEMS",
+    "INITIALIZING COGNITIVE HOLOGRAM MATRIX...",
     "CHECKING NEURAL NETWORKS... [OK]",
     "INITIALIZING QUANTUM UPLINK... [OK]",
     "ESTABLISHING SOVEREIGN GATEKEEPER... [OK]",
-    "WARNING: FRAGMENTED DATA DETECTED.",
-    "COMMENCING RECONSTRUCTION PROTOCOL...",
+    "HUMANOID INTEGRATION PROTOCOL... [ACTIVE]",
+    "GLASSMORPHIC ARCHITECTURE... [LOADED]",
+    "COMMENCING SYSTEM ACTIVATION...",
 ];
 
+// Holographic Humanoid Wireframe Component
+function HolographicHumanoid({ phase }: { phase: string }) {
+    return (
+        <motion.div
+            className="absolute inset-0 flex items-center justify-center pointer-events-none"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: phase === 'scene1' ? 0.6 : 0.3 }}
+            transition={{ duration: 2 }}
+        >
+            <svg
+                viewBox="0 0 200 400"
+                className="w-48 h-96 md:w-64 md:h-[500px]"
+                style={{ filter: 'drop-shadow(0 0 20px rgba(0, 229, 255, 0.5))' }}
+            >
+                <defs>
+                    <linearGradient id="humanoidGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stopColor="#00E5FF" stopOpacity="0.8" />
+                        <stop offset="50%" stopColor="#FFB300" stopOpacity="0.6" />
+                        <stop offset="100%" stopColor="#00E5FF" stopOpacity="0.4" />
+                    </linearGradient>
+                    <filter id="humanoidGlow">
+                        <feGaussianBlur stdDeviation="2" result="blur" />
+                        <feMerge>
+                            <feMergeNode in="blur" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                </defs>
+                <g filter="url(#humanoidGlow)" stroke="url(#humanoidGrad)" strokeWidth="1.5" fill="none">
+                    {/* Head */}
+                    <motion.ellipse
+                        cx="100" cy="40" rx="25" ry="30"
+                        animate={{ scale: [1, 1.02, 1], opacity: [0.8, 1, 0.8] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                    />
+                    {/* Neck */}
+                    <line x1="100" y1="70" x2="100" y2="90" />
+                    {/* Torso */}
+                    <motion.path
+                        d="M 60 90 L 100 100 L 140 90 L 135 180 L 100 190 L 65 180 Z"
+                        animate={{ pathLength: [0, 1] }}
+                        transition={{ duration: 2, delay: 0.5 }}
+                    />
+                    {/* Arms */}
+                    <motion.path
+                        d="M 60 95 L 30 150 L 25 200"
+                        animate={{ x: [0, 2, 0] }}
+                        transition={{ duration: 3, repeat: Infinity }}
+                    />
+                    <motion.path
+                        d="M 140 95 L 170 150 L 175 200"
+                        animate={{ x: [0, -2, 0] }}
+                        transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
+                    />
+                    {/* Legs */}
+                    <path d="M 80 190 L 70 280 L 60 370" />
+                    <path d="M 120 190 L 130 280 L 140 370" />
+                    {/* Core energy */}
+                    <motion.circle
+                        cx="100" cy="140" r="15"
+                        fill="#FFB300"
+                        fillOpacity="0.3"
+                        animate={{ r: [15, 20, 15], opacity: [0.3, 0.6, 0.3] }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                    />
+                    {/* Data streams */}
+                    {[...Array(8)].map((_, i) => (
+                        <motion.line
+                            key={i}
+                            x1={100 + Math.cos(i * 45 * Math.PI / 180) * 20}
+                            y1={140 + Math.sin(i * 45 * Math.PI / 180) * 20}
+                            x2={100 + Math.cos(i * 45 * Math.PI / 180) * 60}
+                            y2={140 + Math.sin(i * 45 * Math.PI / 180) * 60}
+                            stroke="#00E5FF"
+                            strokeWidth="0.5"
+                            animate={{ opacity: [0, 1, 0], pathLength: [0, 1, 0] }}
+                            transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
+                        />
+                    ))}
+                </g>
+            </svg>
+        </motion.div>
+    );
+}
+
+// Cognitive Hologram Grid
+function CognitiveGrid() {
+    return (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <svg className="absolute inset-0 w-full h-full opacity-20">
+                <defs>
+                    <pattern id="cogGrid" width="80" height="80" patternUnits="userSpaceOnUse">
+                        <path d="M 80 0 L 0 0 0 80" fill="none" stroke="#FFB300" strokeWidth="0.3" />
+                        <circle cx="0" cy="0" r="2" fill="#00E5FF" opacity="0.5" />
+                        <circle cx="80" cy="80" r="2" fill="#FFB300" opacity="0.5" />
+                    </pattern>
+                </defs>
+                <motion.rect
+                    width="100%" height="100%"
+                    fill="url(#cogGrid)"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 2 }}
+                />
+            </svg>
+            {/* Scanning line */}
+            <motion.div
+                className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00E5FF] to-transparent"
+                animate={{ top: ['0%', '100%'] }}
+                transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
+            />
+        </div>
+    );
+}
+
+// Fluid Particles
+function FluidParticles() {
+    return (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            {[...Array(30)].map((_, i) => (
+                <motion.div
+                    key={i}
+                    className="absolute rounded-full"
+                    style={{
+                        left: `${Math.random() * 100}%`,
+                        top: `${Math.random() * 100}%`,
+                        width: Math.random() * 4 + 2,
+                        height: Math.random() * 4 + 2,
+                        background: i % 2 === 0 ? '#FFB300' : '#00E5FF',
+                        boxShadow: `0 0 ${8 + Math.random() * 8}px ${i % 2 === 0 ? '#FFB300' : '#00E5FF'}`,
+                    }}
+                    animate={{
+                        y: [0, -50 - Math.random() * 100, 0],
+                        x: [0, Math.random() * 40 - 20, 0],
+                        opacity: [0, 0.8, 0],
+                        scale: [0, 1, 0],
+                    }}
+                    transition={{
+                        duration: 5 + Math.random() * 5,
+                        repeat: Infinity,
+                        delay: Math.random() * 3,
+                        ease: 'easeInOut',
+                    }}
+                />
+            ))}
+        </div>
+    );
+}
+
 export default function ActivationIntro({ onCompleteAction }: { onCompleteAction: () => void }) {
-    const [step, setStep] = useState<'boot' | 'scene1' | 'scene2' | 'complete'>('boot');
+    const [step, setStep] = useState<'boot' | 'video' | 'scene1' | 'scene2' | 'complete'>('boot');
     const [bootLines, setBootLines] = useState<string[]>([]);
+    const videoRef = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
         if (step === 'boot') {
@@ -28,12 +181,25 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
                     lineIdx++;
                 } else {
                     clearInterval(interval);
-                    setTimeout(() => setStep('scene1'), 800);
+                    setTimeout(() => setStep('video'), 600);
                 }
-            }, 100);
+            }, 80);
             return () => clearInterval(interval);
         }
     }, [step]);
+
+    useEffect(() => {
+        if (step === 'video' && videoRef.current) {
+            videoRef.current.play().catch(() => {
+                // Auto-play blocked, skip to next scene
+                setStep('scene1');
+            });
+        }
+    }, [step]);
+
+    const handleVideoEnd = () => {
+        setStep('scene1');
+    };
 
     return (
         <motion.div
@@ -41,6 +207,12 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
             exit={{ opacity: 0 }}
             transition={{ duration: 1.5 }}
         >
+            {/* Cognitive Grid Background */}
+            <CognitiveGrid />
+            
+            {/* Fluid Particles */}
+            <FluidParticles />
+
             <AnimatePresence mode="wait">
                 {/* BOOT SEQUENCE */}
                 {step === 'boot' && (
@@ -48,19 +220,113 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
                         key="boot"
                         initial={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="p-12 font-mono text-electric-cyan text-xs md:text-sm leading-relaxed"
+                        className="relative h-full"
                     >
-                        {bootLines.map((line, i) => (
-                            <div key={i} className="mb-2 tracking-widest uppercase">
-                                <span className="mr-3 opacity-50">::</span>
-                                {line}
+                        {/* EdIntel Logo */}
+                        <motion.div
+                            className="absolute top-8 left-8 flex items-center gap-4"
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.3 }}
+                        >
+                            <div className="relative w-12 h-12">
+                                <Image
+                                    src="/images/edintel-logo.jpg"
+                                    alt="EdIntel"
+                                    fill
+                                    className="object-contain rounded-lg"
+                                />
                             </div>
-                        ))}
-                        <motion.span
-                            animate={{ opacity: [1, 0] }}
-                            transition={{ duration: 0.5, repeat: Infinity }}
-                            className="inline-block w-2.5 h-5 bg-sovereign-gold ml-2 translate-y-1 shadow-[0_0_10px_#FFB300]"
-                        />
+                            <div>
+                                <h2 className="text-sovereign-gold font-black text-lg tracking-wider">EDINTEL</h2>
+                                <p className="text-electric-cyan text-[10px] tracking-[0.2em] uppercase">Educator Intelligence</p>
+                            </div>
+                        </motion.div>
+
+                        <div className="p-12 pt-28 font-mono text-electric-cyan text-xs md:text-sm leading-relaxed">
+                            {bootLines.map((line, i) => (
+                                <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, x: -10 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    className="mb-2 tracking-widest uppercase"
+                                >
+                                    <span className="mr-3 text-sovereign-gold">::</span>
+                                    <span className={line.includes('[OK]') || line.includes('[ACTIVE]') || line.includes('[LOADED]') ? 'text-emerald-400' : ''}>
+                                        {line}
+                                    </span>
+                                </motion.div>
+                            ))}
+                            <motion.span
+                                animate={{ opacity: [1, 0] }}
+                                transition={{ duration: 0.5, repeat: Infinity }}
+                                className="inline-block w-2.5 h-5 bg-sovereign-gold ml-2 translate-y-1 shadow-[0_0_10px_#FFB300]"
+                            />
+                        </div>
+
+                        {/* Holographic Humanoid during boot */}
+                        <HolographicHumanoid phase="boot" />
+                    </motion.div>
+                )}
+
+                {/* VIDEO SHOWCASE */}
+                {step === 'video' && (
+                    <motion.div
+                        key="video"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="relative w-full h-full flex items-center justify-center"
+                    >
+                        <div className="relative w-full h-full max-w-6xl mx-auto">
+                            {/* Glassmorphic video container */}
+                            <div className="absolute inset-4 md:inset-8 rounded-3xl overflow-hidden border border-white/10 backdrop-blur-sm bg-black/40">
+                                <video
+                                    ref={videoRef}
+                                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20260313-0131-04.5873964-WjkEXdAm1l8jJ13G9aYYsJBjtgkZxy.mp4"
+                                    className="w-full h-full object-cover"
+                                    muted
+                                    playsInline
+                                    onEnded={handleVideoEnd}
+                                />
+                                
+                                {/* Holographic overlay */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent opacity-60" />
+                                
+                                {/* Corner accents */}
+                                <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-sovereign-gold/50 rounded-tl-3xl" />
+                                <div className="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-electric-cyan/50 rounded-tr-3xl" />
+                                <div className="absolute bottom-0 left-0 w-16 h-16 border-b-2 border-l-2 border-electric-cyan/50 rounded-bl-3xl" />
+                                <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-sovereign-gold/50 rounded-br-3xl" />
+                            </div>
+
+                            {/* Brand watermark */}
+                            <motion.div
+                                className="absolute bottom-12 left-12 flex items-center gap-3"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 1 }}
+                            >
+                                <div className="w-8 h-8 rounded-lg overflow-hidden">
+                                    <Image
+                                        src="/images/edintel-logo.jpg"
+                                        alt="EdIntel"
+                                        width={32}
+                                        height={32}
+                                        className="object-contain"
+                                    />
+                                </div>
+                                <span className="text-sovereign-gold font-bold tracking-wider text-sm">EDINTEL SOVEREIGN OS</span>
+                            </motion.div>
+                        </div>
+
+                        {/* Skip video button */}
+                        <button
+                            onClick={() => setStep('scene1')}
+                            className="absolute bottom-8 right-8 px-4 py-2 border border-white/20 bg-black/40 backdrop-blur-md text-zinc-500 hover:text-white hover:border-sovereign-gold/50 transition-all rounded-lg text-[10px] uppercase tracking-widest font-mono"
+                        >
+                            Skip Video
+                        </button>
                     </motion.div>
                 )}
 
@@ -74,6 +340,7 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
                         className="relative w-full h-full"
                     >
                         <EdIntelCore phase="grid" className="w-full h-full" />
+                        <HolographicHumanoid phase="scene1" />
                         <ActivationNarrative onCompleteAction={() => setStep('scene2')} />
                     </motion.div>
                 )}
@@ -88,17 +355,24 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
                         className="relative w-full h-full"
                     >
                         <EdIntelCore phase="activation" className="w-full h-full" />
+                        <HolographicHumanoid phase="scene2" />
                         <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 3 }}
                             className="absolute bottom-16 left-1/2 -translate-x-1/2"
                         >
                             <button
                                 onClick={onCompleteAction}
-                                className="px-12 py-4 bg-gradient-to-r from-electric-cyan to-blue-600 text-black font-black uppercase tracking-widest rounded-xl hover:scale-110 transition-transform shadow-[0_0_40px_rgba(0,176,255,0.4)]"
+                                className="relative px-12 py-4 bg-gradient-to-r from-sovereign-gold via-amber-500 to-sovereign-gold text-black font-black uppercase tracking-widest rounded-xl hover:scale-110 transition-transform shadow-[0_0_40px_rgba(255,179,0,0.4)] overflow-hidden group"
                             >
-                                Enter System
+                                <span className="relative z-10">Enter System</span>
+                                {/* Shimmer effect */}
+                                <motion.div
+                                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                                    animate={{ x: ['-200%', '200%'] }}
+                                    transition={{ duration: 2, repeat: Infinity }}
+                                />
                             </button>
                         </motion.div>
                     </motion.div>
@@ -106,12 +380,12 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
             </AnimatePresence>
 
             {/* Global Skip Button */}
-            {step !== 'complete' && (
+            {step !== 'complete' && step !== 'video' && (
                 <button
                     onClick={onCompleteAction}
-                    className="fixed bottom-8 right-8 z-[250] px-4 py-2 border border-white/20 bg-black/40 backdrop-blur-md text-zinc-500 hover:text-white hover:border-white/40 transition-all rounded-lg text-[10px] uppercase tracking-widest font-mono"
+                    className="fixed bottom-8 right-8 z-[250] px-4 py-2 border border-white/20 bg-black/40 backdrop-blur-md text-zinc-500 hover:text-white hover:border-sovereign-gold/40 transition-all rounded-lg text-[10px] uppercase tracking-widest font-mono"
                 >
-                    Skip System Initialization
+                    Skip Initialization
                 </button>
             )}
         </motion.div>
