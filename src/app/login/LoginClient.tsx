@@ -243,7 +243,7 @@ export default function LoginClient() {
 
                             <div className="flex gap-4 justify-center">
                                 <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#FFB300]/10 border border-[#FFB300]/20 text-[#FFB300] shadow-[0_0_20px_rgba(255,179,0,0.1)]">
-                                    <span className="text-[10px] font-black uppercase tracking-widest">Version 4.0 Alpha</span>
+                                    <span className="text-[10px] font-black uppercase tracking-widest">Version 4.1 Omega</span>
                                 </div>
                             </div>
                         </div>
