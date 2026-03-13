@@ -362,8 +362,8 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
                                     className="mb-2 tracking-widest uppercase"
                                 >
                                     <span className="mr-3 text-sovereign-gold">::</span>
-                                    <span className={line.includes('[OK]') || line.includes('[ACTIVE]') || line.includes('[LOADED]') ? 'text-emerald-400' : ''}>
-                                        {line}
+                                    <span className={line && (line.includes('[OK]') || line.includes('[ACTIVE]') || line.includes('[LOADED]')) ? 'text-emerald-400' : ''}>
+                                        {line || ''}
                                     </span>
                                 </motion.div>
                             ))}
