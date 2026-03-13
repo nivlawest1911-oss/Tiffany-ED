@@ -15,11 +15,11 @@ export function HolographicBackground() {
                         key={i}
                         className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
                         style={{
-                            left: `${Math.random() * 100}%`,
-                            top: `${Math.random() * 100}%`,
-                            opacity: Math.random() * 0.7 + 0.3,
-                            animationDelay: `${Math.random() * 3}s`,
-                            animationDuration: `${Math.random() * 2 + 2}s`,
+                            left: `${(i * 1.3) % 100}%`,
+                            top: `${(i * 1.7) % 100}%`,
+                            opacity: 0.3 + ((i * 0.1) % 0.7),
+                            animationDelay: `${(i * 0.03) % 3}s`,
+                            animationDuration: `${2 + (i * 0.02) % 2}s`,
                         }}
                     />
                 ))}
@@ -75,10 +75,10 @@ export function HolographicBackground() {
                         key={`sparkle-${i}`}
                         className="absolute w-2 h-2 bg-white rounded-full animate-ping"
                         style={{
-                            left: `${Math.random() * 100}%`,
-                            top: `${Math.random() * 100}%`,
-                            animationDelay: `${Math.random() * 5}s`,
-                            animationDuration: `${Math.random() * 2 + 1}s`,
+                            left: `${(i * 5.7) % 100}%`,
+                            top: `${(i * 4.9) % 100}%`,
+                            animationDelay: `${(i * 0.25) % 5}s`,
+                            animationDuration: `${1 + (i * 0.1) % 2}s`,
                         }}
                     />
                 ))}

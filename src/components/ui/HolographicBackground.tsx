@@ -23,19 +23,19 @@ export const HolographicBackground = () => {
                         key={i}
                         className="absolute w-1 h-1 bg-noble-gold/20 rounded-full"
                         initial={{
-                            x: Math.random() * 100 + "%",
-                            y: Math.random() * 100 + "%",
-                            opacity: Math.random() * 0.5
+                            x: `${(i * 7) % 100}%`,
+                            y: `${(i * 13) % 100}%`,
+                            opacity: 0.1 + ((i * 3) % 4) * 0.1
                         }}
                         animate={{
                             y: [null, "-20%"],
                             opacity: [0, 1, 0]
                         }}
                         transition={{
-                            duration: 10 + Math.random() * 20,
+                            duration: 10 + ((i * 5) % 20),
                             repeat: Infinity,
                             ease: "linear",
-                            delay: Math.random() * 10
+                            delay: (i * 0.5) % 10
                         }}
                     />
                 ))}

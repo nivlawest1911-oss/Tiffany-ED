@@ -1,10 +1,19 @@
 "use client"
 
+export const dynamic = 'force-dynamic';
+
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Mic, MicOff, Camera, Watch, Video, Send, Loader2, Brain, Activity, Zap, TrendingUp } from "lucide-react"
 import { useChat } from "@ai-sdk/react"
-import { AvatarDisplay3D } from "@/components/avatars/AvatarDisplay3D"
+import nextDynamic from 'next/dynamic'
+
+const AvatarDisplay3D = nextDynamic(() => import("@/components/avatars/AvatarDisplay3D").then(mod => mod.AvatarDisplay3D), {
+    ssr: false,
+    loading: () => <div className="w-full h-full bg-primary-950/20 backdrop-blur-sm rounded-3xl flex items-center justify-center">
+        <div className="w-16 h-16 border-4 border-primary-500/30 rounded-full animate-spin" />
+    </div>
+});
 import { animationService, AnimationState } from "@/lib/animation-service"
 import { wearableService } from "@/lib/wearable-service"
 

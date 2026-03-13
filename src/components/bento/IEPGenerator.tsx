@@ -392,14 +392,12 @@ export default function IEPGenerator() {
                         </div>
                     )}
 
-                    {isGenerating && (
-                        <div className="h-0.5 w-32 bg-purple-900/50 rounded-full mt-2 overflow-hidden relative z-10">
-                            <div 
-                                className="h-full bg-white/80 transition-all duration-500 w-[var(--progress)]" 
-                                style={{ '--progress': `${((genStep + 1) / generationSteps.length) * 100}%` } as React.CSSProperties} 
-                            />
+                        <div 
+                            className="h-0.5 w-32 bg-purple-900/50 rounded-full mt-2 overflow-hidden relative z-10"
+                            style={{ '--progress-width': `${((genStep + 1) / generationSteps.length) * 100}%` } as React.CSSProperties}
+                        >
+                            <div className="h-full bg-white/80 transition-all duration-500 progress-bar-fill" />
                         </div>
-                    )}
                 </button>
 
                 {/* Generated IEP Display */}

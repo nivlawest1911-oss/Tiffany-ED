@@ -79,7 +79,12 @@ export default function RegisterPage() {
 
                 {/* Form Container */}
                 <div className="w-full max-w-lg relative z-10 px-0 sm:px-6">
-                    <RegistrationForm />
+                    <React.Suspense fallback={<div className="p-12 rounded-3xl bg-[#111] border border-zinc-800 animate-pulse flex flex-col items-center justify-center gap-4">
+                        <div className="w-12 h-12 rounded-2xl bg-zinc-900 border border-zinc-800" />
+                        <div className="h-4 w-48 bg-zinc-900 rounded-full" />
+                    </div>}>
+                        <RegistrationForm />
+                    </React.Suspense>
                 </div>
 
                 {/* Aesthetic Backgrounds for Mobile/Gaps */}

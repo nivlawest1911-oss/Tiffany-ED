@@ -1,6 +1,5 @@
 'use client';
-import { useState } from 'react';
-import { CARBON_FIBRE_BG } from '@/lib/constants';
+import { useState, useEffect } from 'react';
 import {
     User,
     Sparkles,
@@ -18,7 +17,6 @@ import {
 } from "lucide-react";
 import Image from 'next/image';
 import { useHumanBehavior } from '@/hooks/useHumanBehavior';
-import { useEffect } from 'react';
 
 
 interface AvatarConfig {
@@ -38,6 +36,7 @@ const AVATAR_LIBRARY = [
     { id: 'twin-04', name: 'Principal Elena', role: 'Compliance', img: '/images/avatars/data_analyst.png', heygenId: 'Lina_Dress_Sitting_Side_public', elevenLabsId: 'AZnzlk1XvdvUeBnXmlld' },
     { id: 'twin-05', name: 'Agent Marcus II', role: 'Operations', img: '/images/avatars/executive_leader.png', heygenId: 'Abigail_expressive_2024112501', elevenLabsId: 'TxGEqnHWrfWFTfGW9XjX' },
     { id: 'twin-06', name: 'Director Nova', role: 'Professional Lead', img: '/images/avatars/curriculum_strategist.png', heygenId: 'Lina_Dress_Sitting_Side_public', elevenLabsId: 'EXAVITQu4vr4xnSDxMaL' },
+    { id: 'twin-07', name: 'Rescue One', role: 'Crisis Protocol', img: '/images/avatars/specialist_lead.png', heygenId: 'Abigail_expressive_2024112501', elevenLabsId: 'TxGEqnHWrfWFTfGW9XjX' },
 ];
 
 interface AvatarOutput {
@@ -90,6 +89,7 @@ export default function AvatarStudio() {
         { id: 'counselor', label: 'Support/Counselor', icon: <Activity size={16} />, color: 'rose' },
         { id: 'board', label: 'Board Member', icon: <Globe size={16} />, color: 'emerald' },
         { id: 'central', label: 'Central Office', icon: <Dna size={16} />, color: 'indigo' },
+        { id: 'rescue', label: 'Rescue One', icon: <Sparkles size={16} />, color: 'red' },
     ];
 
     const handleGenerate = async () => {
@@ -280,10 +280,7 @@ export default function AvatarStudio() {
     return (
         <div className="p-10 rounded-[2.5rem] bg-zinc-950 text-white border border-zinc-900 shadow-3xl relative overflow-hidden group">
             {/* Background Grid/Glow */}
-            <div
-                className="absolute inset-0 opacity-5"
-                style={{ backgroundImage: CARBON_FIBRE_BG }}
-            />
+            <div className="absolute inset-0 opacity-5 carbon-fibre-bg" />
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-600/10 blur-[150px] -mr-64 -mt-64 pointer-events-none group-hover:bg-purple-600/20 transition-all duration-1000" />
 
             <div className="relative z-10">

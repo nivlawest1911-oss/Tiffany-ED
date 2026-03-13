@@ -408,6 +408,15 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
         avatar: '/images/avatars/andre_patterson_premium.png',
         abilityType: 'strategy',
         suggestedNext: ['Neural Sync Gym', 'Crisis Protocol', 'Teacher Guard']
+    },
+    'Rescue One': {
+        title: 'Rescue One: Tactical Recovery',
+        description: 'Protocol Rescue One is the elite administrative recovery engine. It activates under conditions of institutional instability or systemic failure, deploying advanced neural overrides to stabilize operations and restore instructional continuity. It is the ultimate fail-safe for the Sovereign leader.',
+        stats: { time: 'Sub-second Activation', saved: 'Strategic Integrity', accuracy: '100% Core' },
+        role: 'Recovery Commander',
+        avatar: '/images/avatars/Dr._alvin_west.png',
+        abilityType: 'strategy',
+        suggestedNext: ['Crisis Protocol', 'Protocol Omega', 'Universal Ledger']
     }
 };
 

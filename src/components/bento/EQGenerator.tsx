@@ -148,7 +148,7 @@ export default function EQGenerator() {
                     >
                         {isGenerating && (
                             <div className="absolute inset-0 bg-purple-700/50 flex items-center justify-center z-0">
-                                <div className="w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" style={{ backgroundSize: '200% 100%' }} />
+                                <div className="w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer bg-shimmer-size" />
                             </div>
                         )}
 
@@ -157,8 +157,11 @@ export default function EQGenerator() {
                             <span>{isGenerating ? generationSteps[genStep] : 'Synchronize Emotional Response'}</span>
                         </div>
                         {isGenerating && (
-                            <div className="h-1 w-32 bg-purple-900/50 rounded-full mt-2 overflow-hidden relative z-10">
-                                <div className="h-full bg-white/80 transition-all duration-500" style={{ width: `${((genStep + 1) / generationSteps.length) * 100}%` }} />
+                            <div 
+                                className="h-1 w-32 bg-purple-900/50 rounded-full mt-2 overflow-hidden relative z-10"
+                                style={{ '--progress-width': `${((genStep + 1) / generationSteps.length) * 100}%` } as React.CSSProperties}
+                            >
+                                <div className="h-full bg-white/80 transition-all duration-500 progress-bar-fill" />
                             </div>
                         )}
                     </button>

@@ -498,4 +498,97 @@
         color: transparent;
         filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
     }
+
+    /* Social Hub Backgrounds */
+    .bg-social-banner { background-image: url('https://images.unsplash.com/photo-1620641788421-7a1c342ea42e'); }
+    .bg-social-tiktok { background-image: url('https://images.unsplash.com/photo-1611162617474-5b21e879e113'); }
+    .bg-social-fb { background-image: url('https://images.unsplash.com/photo-1544367563-12123d896889'); }
+    .bg-shimmer-size { background-size: 200% 100%; }
+
+    /* Bento Illustration Utilities */
+    .bento-illustration-container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background: transparent;
+    }
+
+    .bento-panel-editor {
+        position: absolute;
+        top: 46px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 350px;
+        height: 221px;
+        background: linear-gradient(180deg, var(--realtime-background-editor) 0%, transparent 100%);
+        backdrop-filter: blur(7.907px);
+        border-radius: 9.488px;
+        border: 1px solid var(--realtime-border-main);
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+    .bento-panel-preview {
+        position: absolute;
+        top: 46px;
+        left: calc(50% + 87.499px);
+        transform: translateX(-50%);
+        width: 175px;
+        height: 221px;
+        background: linear-gradient(180deg, var(--realtime-background-preview) 0%, transparent 100%);
+        backdrop-filter: blur(7.907px);
+        border-radius: 9.488px;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+    .bento-editor-content {
+        padding: 9.488px 9.492px;
+        height: 100%;
+        box-sizing: border-box;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+
+    .bento-code-text {
+        font-family: 'Geist Mono', 'SF Mono', Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+        font-size: 10.279px;
+        line-height: 15.814px;
+        letter-spacing: -0.3163px;
+        color: var(--realtime-text-editor);
+        width: 545.453px;
+        max-width: 100%;
+        position: relative;
+        margin: 0;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .bento-button-preview {
+        position: absolute;
+        top: 50%;
+        left: calc(50% - 71.501px);
+        transform: translate(-50%, -50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7.907px;
+        background: var(--realtime-primary-color);
+        color: var(--realtime-text-preview);
+        border: none;
+        cursor: pointer;
+        font-weight: 500;
+        white-space: nowrap;
+        transition: all 0.2s ease;
+        padding: 6.326px 12.651px;
+        border-radius: 11.07px;
+        box-shadow: 0px 52.186px 14.233px rgba(0, 0, 0, 0), 0px 33.209px 12.651px rgba(0, 0, 0, 0.01), 0px 18.977px 11.07px rgba(0, 0, 0, 0.05), 0px 7.907px 7.907px rgba(0, 0, 0, 0.09), 0px 1.581px 4.744px rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
+    }
 }

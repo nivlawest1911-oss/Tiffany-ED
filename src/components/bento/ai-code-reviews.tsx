@@ -1,48 +1,16 @@
 import type React from "react"
 
 const AiCodeReviews: React.FC = () => {
-  const themeVars = {
-    "--ai-primary-color": "hsl(var(--primary))",
-    "--ai-background-color": "hsl(var(--background))",
-    "--ai-text-color": "hsl(var(--foreground))",
-    "--ai-text-dark": "hsl(var(--primary-foreground))",
-    "--ai-border-color": "hsl(var(--border))",
-    "--ai-border-main": "hsl(var(--foreground) / 0.1)",
-    "--ai-highlight-primary": "hsl(var(--primary) / 0.12)",
-    "--ai-highlight-header": "hsl(var(--accent) / 0.2)",
-  }
+  
 
   return (
     <div
-      style={
-        {
-          width: "100%",
-          height: "100%",
-          position: "relative",
-          background: "transparent",
-          ...themeVars,
-        } as React.CSSProperties
-      }
+      className="bento-illustration-container"
       role="img"
       aria-label="AI Code Reviews interface showing code suggestions with apply buttons"
     >
       {/* Background Message Box (Blurred) */}
-      <div
-        style={{
-          position: "absolute",
-          top: "30px",
-          left: "50%",
-          transform: "translateX(-50%) scale(0.9)",
-          width: "340px",
-          height: "205.949px",
-          background: "linear-gradient(180deg, var(--ai-background-color) 0%, transparent 100%)",
-          opacity: 0.6,
-          borderRadius: "8.826px",
-          border: "0.791px solid var(--ai-border-color)",
-          overflow: "hidden",
-          backdropFilter: "blur(16px)",
-        }}
-      >
+      <div className="bento-review-box-bg">
         <div
           className="border rounded-lg bg-card"
           style={{
@@ -95,21 +63,7 @@ const AiCodeReviews: React.FC = () => {
       </div>
 
       {/* Foreground Message Box (Main) */}
-      <div
-        style={{
-          position: "absolute",
-          top: "51.336px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: "340px",
-          height: "221.395px",
-          background: "var(--ai-background-color)",
-          backdropFilter: "blur(16px)",
-          borderRadius: "9.488px",
-          border: "1px solid var(--ai-border-main)",
-          overflow: "hidden",
-        }}
-      >
+      <div className="bento-review-box-main">
         <div
           className="bg-card border border-border"
           style={{
@@ -183,33 +137,7 @@ const AiCodeReviews: React.FC = () => {
             <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400 }}> /&gt;</p>
             <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400 }}> &lt;/svg&gt;</p>
           </div>
-          <button
-            style={{
-              position: "absolute",
-              top: "calc(50% + 29.745px)",
-              right: "20px",
-              transform: "translateY(-50%)",
-              zIndex: 3,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "3.953px",
-              background: "var(--ai-primary-color)",
-              color: "var(--ai-text-dark)",
-              border: "none",
-              cursor: "pointer",
-              fontWeight: 500,
-              whiteSpace: "nowrap",
-              transition: "all 0.2s ease",
-              padding: "3.163px 6.326px",
-              borderRadius: "5.535px",
-              fontSize: "10.279px",
-              lineHeight: "15.814px",
-              letterSpacing: "-0.3163px",
-              boxShadow:
-                "0px 26.093px 7.116px rgba(0, 0, 0, 0), 0px 16.605px 6.326px rgba(0, 0, 0, 0.01), 0px 9.488px 5.535px rgba(0, 0, 0, 0.05), 0px 3.953px 3.953px rgba(0, 0, 0, 0.09), 0px 0.791px 2.372px rgba(0, 0, 0, 0.1)",
-            }}
-          >
+          <button className="bento-apply-button">
             <span
               style={{
                 fontFamily: "'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",

@@ -17,9 +17,10 @@ const BIOS_LINES = [
     "CHECKING NEURAL NETWORKS... [OK]",
     "INITIALIZING QUANTUM UPLINK... [OK]",
     "ESTABLISHING SOVEREIGN GATEKEEPER... [OK]",
-    "HUMANOID INTEGRATION PROTOCOL... [ACTIVE]",
-    "GLASSMORPHIC ARCHITECTURE... [LOADED]",
-    "COMMENCING SYSTEM ACTIVATION...",
+    "WARNING: FRAGMENTED DATA DETECTED.",
+    "COMMENCING RECONSTRUCTION PROTOCOL...",
+    "ACTIVATING RESCUE ONE OVERRIDE... [READY]",
+    "SYSTEM STABILIZATION: INITIALIZED",
 ];
 
 // Holographic Humanoid Wireframe Component
@@ -362,7 +363,7 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
                                     className="mb-2 tracking-widest uppercase"
                                 >
                                     <span className="mr-3 text-sovereign-gold">::</span>
-                                    <span className={line && (line.includes('[OK]') || line.includes('[ACTIVE]') || line.includes('[LOADED]')) ? 'text-emerald-400' : ''}>
+                                    <span className={line && (line.includes('[OK]') || line.includes('[ACTIVE]') || line.includes('[LOADED]') || line.includes('[READY]') || line.includes('INITIALIZED')) ? 'text-emerald-400' : (line && line.includes('WARNING') ? 'text-rose-400' : '')}>
                                         {line || ''}
                                     </span>
                                 </motion.div>
