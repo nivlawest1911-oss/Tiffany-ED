@@ -153,7 +153,7 @@ export default function LeadershipCinematics() {
                     <div className="flex items-center gap-8">
                         <div className="flex flex-col">
                             <span className="text-[9px] font-black text-zinc-600 uppercase tracking-widest mb-1">Renderer</span>
-                            <span className="text-xs font-bold text-white uppercase tracking-tighter">EdIntel Engine v4.0</span>
+                            <span className="text-xs font-bold text-white uppercase tracking-tighter">EdIntel Engine v4.1 Omega</span>
                         </div>
                         <div className="h-8 w-px bg-white/10" />
                         <div className="flex flex-col">

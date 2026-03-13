@@ -66,7 +66,7 @@ export default function Hero() {
                             className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber-500/30 bg-amber-500/10 backdrop-blur-md shadow-[0_0_20px_rgba(212,175,55,0.1)]"
                         >
                             <Sparkles size={14} className="text-[#FFB300]" />
-                            <span className="text-sm font-black text-[#FFB300] uppercase tracking-[0.2em]">EdIntel v4.0 Alpha</span>
+                            <span className="text-sm font-black text-[#FFB300] uppercase tracking-[0.2em]">EdIntel v4.1 Omega</span>
                         </motion.div>
 
                         {/* Logo */}
