@@ -20,7 +20,7 @@ export function SyncSection() {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-6">
             <h2 className="font-black tracking-tighter text-3xl md:text-4xl text-gray-900 mb-2">Leadership Sync</h2>
-            <p className="text-sm text-gray-500 uppercase tracking-widest">Professional Training Center // v4.0</p>
+            <p className="text-sm text-gray-500 uppercase tracking-widest">Professional Training Center // v4.1 Omega</p>
           </div>
 
           <div className="flex items-center justify-center gap-2 md:gap-4 mb-8">
@@ -51,7 +51,7 @@ export function SyncSection() {
             <p className="text-xl md:text-2xl italic text-gray-700 font-medium max-w-3xl mx-auto">
               {activeTab === "programs" ? (
                 <>
-                  <span className="font-black not-italic text-[#00d2ff]">Strategic Sync</span> v4.0
+                  <span className="font-black not-italic text-[#00d2ff]">Strategic Sync</span> v4.1 Omega
                 </>
               ) : activeTab === "diagnostics" ? (
                 <>

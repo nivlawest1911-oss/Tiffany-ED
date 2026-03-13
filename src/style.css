@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+/* Mobile safe area support */
+:root {
+    --safe-area-inset-top: env(safe-area-inset-top, 0px);
+    --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-area-inset-left: env(safe-area-inset-left, 0px);
+    --safe-area-inset-right: env(safe-area-inset-right, 0px);
+}
+
 /* Fonts loaded via Google Fonts link in layout.tsx */
 :root {
     --font-playfair: 'Playfair Display', serif;
@@ -115,6 +123,26 @@
 
     .input-field {
         @apply w-full px-4 py-2 border border-[#c5a47e]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c5a47e] focus:border-transparent transition-all duration-200 bg-black/50 text-white;
+    }
+
+    /* Mobile safe-area bottom nav */
+    .pb-safe {
+        padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+    }
+
+    /* Touch target minimum size */
+    .touch-target {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    /* No scrollbar utility */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
     }
 
     .glassmorphism {

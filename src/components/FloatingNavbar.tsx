@@ -206,10 +206,11 @@ export default function FloatingNavbar() {
                         {/* Mobile Toggle */}
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            className="md:hidden p-2 text-white"
+                            className="md:hidden p-3 text-white rounded-xl bg-white/5 border border-white/10 active:bg-white/10 transition-colors touch-target"
                             onMouseEnter={() => playHover()}
+                            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
                         >
-                            {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+                            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                         </button>
                     </div>
                 </div>
@@ -224,7 +225,7 @@ export default function FloatingNavbar() {
                         exit={{ opacity: 0, y: -20, scale: 0.95 }}
                         className="md:hidden absolute top-full left-0 right-0 px-4 mt-2 z-[200]"
                     >
-                        <div className="bg-noble-black/95 backdrop-blur-3xl border border-white/10 rounded-[2rem] p-6 shadow-2xl relative overflow-hidden max-h-[80vh] overflow-y-auto custom-scrollbar">
+                        <div className="bg-noble-black/95 backdrop-blur-3xl border border-white/10 rounded-2xl sm:rounded-[2rem] p-4 sm:p-6 shadow-2xl relative overflow-hidden max-h-[70vh] overflow-y-auto custom-scrollbar pb-safe">
 
                             <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-kente-yellow via-kente-green to-kente-red" />
 
@@ -263,7 +264,7 @@ export default function FloatingNavbar() {
                                             <Link
                                                 href={link.href}
                                                 onClick={() => setMobileMenuOpen(false)}
-                                                className="text-xl font-black text-zinc-300 hover:text-noble-gold uppercase tracking-tighter transition-colors"
+                                                className="text-lg sm:text-xl font-black text-zinc-300 hover:text-noble-gold uppercase tracking-tighter transition-colors py-2 block"
                                                 onMouseEnter={() => playHover()}
                                             >
                                                 {link.name}

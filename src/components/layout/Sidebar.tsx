@@ -36,7 +36,7 @@ export function Sidebar() {
             animate={{ width: collapsed ? 100 : 280 }}
             transition={{ type: 'spring', stiffness: 300, damping: 35 }}
             className={cn(
-                "relative z-40 flex h-screen flex-col border-r border-white/5 bg-[#020617]/80 backdrop-blur-3xl transition-all duration-300 overflow-hidden shadow-2xl shadow-black",
+                "hidden lg:flex relative z-40 h-screen flex-col border-r border-white/5 bg-[#020617]/80 backdrop-blur-3xl transition-all duration-300 overflow-hidden shadow-2xl shadow-black",
                 !isMounted && "opacity-0"
             )}
         >

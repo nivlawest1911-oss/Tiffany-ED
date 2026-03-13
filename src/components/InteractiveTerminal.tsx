@@ -57,9 +57,9 @@ export default function InteractiveTerminal({ onCommand }: InteractiveTerminalPr
     };
 
     return (
-        <div className="w-full max-w-2xl mx-auto bg-black/80 backdrop-blur-3xl border border-intel-gold/20 rounded-[2rem] overflow-hidden shadow-2xl">
+        <div className="w-full max-w-2xl mx-auto bg-black/80 backdrop-blur-3xl border border-intel-gold/20 rounded-xl sm:rounded-2xl lg:rounded-[2rem] overflow-hidden shadow-2xl">
             {/* Header */}
-            <div className="bg-white/5 px-6 py-3 border-b border-white/10 flex items-center justify-between">
+            <div className="bg-white/5 px-4 sm:px-6 py-2 sm:py-3 border-b border-white/10 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                     <TerminalIcon size={14} className="text-intel-gold" />
                     <span className="text-[10px] font-black uppercase text-white/50 tracking-widest">EdIntel Terminal Protocol</span>
@@ -74,7 +74,7 @@ export default function InteractiveTerminal({ onCommand }: InteractiveTerminalPr
             {/* Terminal Content */}
             <div
                 ref={scrollRef}
-                className="p-6 h-48 md:h-64 overflow-y-auto font-mono text-[10px] md:text-xs space-y-1 md:space-y-2 custom-scrollbar"
+                className="p-4 sm:p-6 h-40 sm:h-48 md:h-64 overflow-y-auto font-mono text-[9px] sm:text-[10px] md:text-xs space-y-1 md:space-y-2 custom-scrollbar"
             >
                 <AnimatePresence mode="popLayout">
                     {logs.map((log, idx) => (
@@ -91,19 +91,19 @@ export default function InteractiveTerminal({ onCommand }: InteractiveTerminalPr
             </div>
 
             {/* Input Area */}
-            <form onSubmit={handleSubmit} className="px-6 py-3 bg-white/5 border-t border-white/10 flex items-center gap-3">
+            <form onSubmit={handleSubmit} className="px-4 sm:px-6 py-3 bg-white/5 border-t border-white/10 flex items-center gap-2 sm:gap-3">
                 <span className="text-intel-gold font-mono text-xs">{'>'}</span>
                 <input
                     type="text"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder="Execute protocol..."
-                    className="flex-1 bg-transparent border-none outline-none text-xs font-mono text-white placeholder:text-zinc-700 uppercase"
+                    className="flex-1 bg-transparent border-none outline-none text-xs font-mono text-white placeholder:text-zinc-700 uppercase min-h-[44px]"
                 />
             </form>
 
             {/* Footer Stats */}
-            <div className="bg-white/[0.02] px-6 py-4 grid grid-cols-3 gap-4 border-t border-white/5">
+            <div className="bg-white/[0.02] px-4 sm:px-6 py-3 sm:py-4 grid grid-cols-3 gap-2 sm:gap-4 border-t border-white/5">
                 <div className="space-y-1">
                     <div className="flex items-center gap-2 text-[8px] font-black text-white/30 uppercase tracking-widest">
                         <Cpu size={10} />

@@ -360,9 +360,9 @@ export default function ModernHomePage() {
                         />
 
 
-                        <main className="relative z-10 pt-24 pb-24">
+                        <main className="relative z-10 pt-20 md:pt-24 pb-24">
                             {/* HERO SECTION */}
-                            <section className="relative min-h-[90vh] flex flex-col items-center justify-center px-4 max-w-[1700px] mx-auto">
+                            <section className="relative min-h-[90vh] flex flex-col items-center justify-center px-4 md:px-6 max-w-[1700px] mx-auto">
                                 <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                                     {/* LEFT: CONTROL INTERFACE */}
                                     <motion.div
@@ -379,13 +379,13 @@ export default function ModernHomePage() {
                                             </div>
                                         </motion.div>
 
-                                        <motion.h1
-                                            variants={fadeInUp}
-                                            className={cn(
-                                                "text-4xl md:text-7xl lg:text-8xl 2xl:text-9xl font-black text-white mb-6 md:mb-8 uppercase tracking-tighter leading-[0.9] md:leading-[0.8] italic transition-all duration-1000 break-words w-full px-2 md:px-0",
-                                                isSystemThinking ? "opacity-40 scale-95 blur-[2px]" : "cyan-gradient-text"
-                                            )}
-                                        >
+                        <motion.h1
+                            variants={fadeInUp}
+                            className={cn(
+                                "text-4xl sm:text-5xl md:text-7xl lg:text-8xl 2xl:text-9xl font-black text-white mb-6 md:mb-8 uppercase tracking-tighter leading-[0.9] md:leading-[0.8] italic transition-all duration-1000 break-words w-full",
+                                isSystemThinking ? "opacity-40 scale-95 blur-[2px]" : "cyan-gradient-text"
+                            )}
+                        >
                                             EdIntel Professional
                                         </motion.h1>
 
@@ -486,8 +486,8 @@ export default function ModernHomePage() {
                                         animate={{ x: ["0%", "-50%"] }}
                                         transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
                                     >
-                                        {[...CORE_AVATARS, ...CORE_AVATARS].map((agent, i) => (
-                                            <div key={i} className="w-[300px] h-[400px] rounded-3xl overflow-hidden relative border border-white/10 group bg-zinc-900 shadow-2xl">
+                        {[...CORE_AVATARS, ...CORE_AVATARS].map((agent, i) => (
+                                            <div key={i} className="w-[200px] h-[280px] sm:w-[260px] sm:h-[360px] md:w-[300px] md:h-[400px] rounded-3xl overflow-hidden relative border border-white/10 group bg-zinc-900 shadow-2xl flex-shrink-0">
                                                 <HumanAvatar
                                                     src={agent.avatar}
                                                     alt={agent.name || 'AI Avatar'}

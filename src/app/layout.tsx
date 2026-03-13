@@ -71,7 +71,9 @@ export const viewport = {
   themeColor: '#D4AF37',
   width: 'device-width',
   initialScale: 1,
+  maximumScale: 5,
   userScalable: true,
+  viewportFit: 'cover',
 };
 
 
@@ -91,7 +93,7 @@ export default function RootLayout({
           rel="stylesheet" 
         />
       </head>
-      <body className="bg-[#050505] text-gray-100 antialiased overflow-x-hidden selection:bg-[#D4AF37]/30 font-sans">
+      <body className="bg-[#050505] text-gray-100 antialiased overflow-x-hidden selection:bg-[#D4AF37]/30 font-sans min-h-screen">
         <CelebrationProvider>
           <AuthProvider>
             <IntelligenceProvider>
