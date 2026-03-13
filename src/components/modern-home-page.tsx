@@ -336,7 +336,7 @@ export default function ModernHomePage() {
                         <CinematicLogoIntro 
                             onComplete={() => setShowCinematicIntro(false)}
                             autoClose={true}
-                            autoCloseDuration={5000}
+                            autoCloseDuration={8000}
                         />
                     )}
                 </AnimatePresence>
