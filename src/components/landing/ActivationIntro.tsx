@@ -1,10 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import EdIntelCore from '../edintel-core/EdIntelCore';
 import ActivationNarrative from './ActivationNarrative';
 import Image from 'next/image';
+import { Volume2, VolumeX } from 'lucide-react';
+
+// Grand Entrance Video URL
+const ENTRANCE_VIDEO_URL = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Educators_using_edintel_app_44bfcfe528-4bcSevHv9NVPi7nYdhR9pkPjQdel7X.mp4';
 
 const BIOS_LINES = [
     "EDINTEL(R) SOVEREIGN BIOS V5.0.0",
@@ -168,8 +172,32 @@ function FluidParticles() {
 }
 
 export default function ActivationIntro({ onCompleteAction }: { onCompleteAction: () => void }) {
-    const [step, setStep] = useState<'boot' | 'scene1' | 'scene2' | 'complete'>('boot');
+    const [step, setStep] = useState<'entrance' | 'boot' | 'scene1' | 'scene2' | 'complete'>('entrance');
     const [bootLines, setBootLines] = useState<string[]>([]);
+    const [isMuted, setIsMuted] = useState(true);
+    const [videoProgress, setVideoProgress] = useState(0);
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    // Handle entrance video
+    useEffect(() => {
+        if (step === 'entrance' && videoRef.current) {
+            videoRef.current.play().catch(() => {
+                // Autoplay blocked, skip to boot
+                setStep('boot');
+            });
+        }
+    }, [step]);
+
+    const handleVideoEnd = () => {
+        setStep('boot');
+    };
+
+    const handleTimeUpdate = () => {
+        if (videoRef.current) {
+            const progress = (videoRef.current.currentTime / videoRef.current.duration) * 100;
+            setVideoProgress(progress);
+        }
+    };
 
     useEffect(() => {
         if (step === 'boot') {
@@ -200,6 +228,102 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
             <FluidParticles />
 
             <AnimatePresence mode="wait">
+                {/* GRAND ENTRANCE VIDEO */}
+                {step === 'entrance' && (
+                    <motion.div
+                        key="entrance"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.8 }}
+                        className="relative w-full h-full"
+                    >
+                        {/* Full-screen cinematic video */}
+                        <video
+                            ref={videoRef}
+                            src={ENTRANCE_VIDEO_URL}
+                            className="absolute inset-0 w-full h-full object-cover"
+                            muted={isMuted}
+                            playsInline
+                            onEnded={handleVideoEnd}
+                            onTimeUpdate={handleTimeUpdate}
+                        />
+                        
+                        {/* Cinematic letterbox overlay */}
+                        <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-black to-transparent" />
+                        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black to-transparent" />
+                        
+                        {/* Holographic scan lines overlay */}
+                        <div 
+                            className="absolute inset-0 pointer-events-none opacity-10"
+                            style={{
+                                backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 229, 255, 0.1) 2px, rgba(0, 229, 255, 0.1) 4px)',
+                            }}
+                        />
+                        
+                        {/* EdIntel branding overlay */}
+                        <motion.div
+                            className="absolute top-8 left-8 flex items-center gap-4"
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 1, duration: 0.8 }}
+                        >
+                            <div className="relative w-14 h-14 rounded-xl overflow-hidden border border-sovereign-gold/30 shadow-[0_0_20px_rgba(255,179,0,0.3)]">
+                                <Image
+                                    src="/images/edintel-logo.jpg"
+                                    alt="EdIntel"
+                                    fill
+                                    className="object-contain"
+                                />
+                            </div>
+                            <div>
+                                <h1 className="text-sovereign-gold font-black text-2xl tracking-wider drop-shadow-[0_0_10px_rgba(255,179,0,0.5)]">
+                                    EDINTEL
+                                </h1>
+                                <p className="text-electric-cyan text-xs tracking-[0.3em] uppercase">
+                                    Educator Intelligence
+                                </p>
+                            </div>
+                        </motion.div>
+
+                        {/* Mute/Unmute button */}
+                        <motion.button
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 1.5 }}
+                            onClick={() => setIsMuted(!isMuted)}
+                            className="absolute top-8 right-8 p-3 rounded-full border border-white/20 bg-black/40 backdrop-blur-md text-white/70 hover:text-white hover:border-sovereign-gold/50 transition-all"
+                        >
+                            {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+                        </motion.button>
+
+                        {/* Progress bar */}
+                        <div className="absolute bottom-6 left-8 right-8">
+                            <div className="h-1 bg-white/10 rounded-full overflow-hidden backdrop-blur-sm">
+                                <motion.div
+                                    className="h-full bg-gradient-to-r from-sovereign-gold to-electric-cyan"
+                                    style={{ width: `${videoProgress}%` }}
+                                    transition={{ duration: 0.1 }}
+                                />
+                            </div>
+                            <div className="flex justify-between mt-2">
+                                <span className="text-[10px] text-white/40 font-mono uppercase tracking-widest">
+                                    Initializing EdIntel Experience
+                                </span>
+                                <span className="text-[10px] text-sovereign-gold font-mono">
+                                    {Math.round(videoProgress)}%
+                                </span>
+                            </div>
+                        </div>
+
+                        {/* Corner frame accents */}
+                        <div className="absolute top-4 left-4 w-12 h-12 border-t-2 border-l-2 border-sovereign-gold/40 rounded-tl-lg" />
+                        <div className="absolute top-4 right-4 w-12 h-12 border-t-2 border-r-2 border-electric-cyan/40 rounded-tr-lg" />
+                        <div className="absolute bottom-4 left-4 w-12 h-12 border-b-2 border-l-2 border-electric-cyan/40 rounded-bl-lg" />
+                        <div className="absolute bottom-4 right-4 w-12 h-12 border-b-2 border-r-2 border-sovereign-gold/40 rounded-br-lg" />
+                    </motion.div>
+                )}
+
                 {/* BOOT SEQUENCE */}
                 {step === 'boot' && (
                     <motion.div
@@ -307,10 +431,10 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
             {/* Global Skip Button */}
             {step !== 'complete' && (
                 <button
-                    onClick={onCompleteAction}
+                    onClick={step === 'entrance' ? () => setStep('boot') : onCompleteAction}
                     className="fixed bottom-8 right-8 z-[250] px-4 py-2 border border-white/20 bg-black/40 backdrop-blur-md text-zinc-500 hover:text-white hover:border-sovereign-gold/40 transition-all rounded-lg text-[10px] uppercase tracking-widest font-mono"
                 >
-                    Skip Initialization
+                    {step === 'entrance' ? 'Skip Intro' : 'Skip Initialization'}
                 </button>
             )}
         </motion.div>
