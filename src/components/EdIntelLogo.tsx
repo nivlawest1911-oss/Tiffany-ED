@@ -176,7 +176,7 @@ export default function EdIntelLogo({
                     />
                     <div className="relative z-10 rounded-3xl overflow-hidden shadow-[0_0_30px_rgba(255,179,0,0.25)] ring-1 ring-noble-gold/30">
                         <Image
-                            src="/logo-main.png"
+                            src="/images/edintel-logo.png"
                             alt="EdIntel Logo"
                             width={size || 120}
                             height={size || 120}

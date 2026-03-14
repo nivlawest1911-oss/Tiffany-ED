@@ -186,7 +186,7 @@ export default function WellnessPage() {
 
                         {/* Simulation/Analysis Row */}
                         <div className="p-12 rounded-[50px] bg-gradient-to-br from-zinc-900 to-black border border-white/5 relative overflow-hidden group text-left">
-                            <div className="absolute inset-0 bg-[url('/images/textures/noise.png')] opacity-20 pointer-events-none" />
+                            <div className="absolute inset-0 bg-[url('/noise.png')] opacity-20 pointer-events-none" />
                             <div className="relative z-10 flex flex-col md:flex-row items-center gap-12">
                                 <div className="w-48 h-48 relative shrink-0">
                                     <div className="absolute inset-0 bg-noble-gold/20 blur-3xl rounded-full" />
