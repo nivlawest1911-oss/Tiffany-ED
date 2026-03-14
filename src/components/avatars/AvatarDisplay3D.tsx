@@ -161,6 +161,7 @@ function AvatarModel({ modelPath, emotion, visemeData, isPlayingAudio, audioCont
 }
 
 export function AvatarDisplay3D({ selectedAvatar, isLoading, mood, isPlayingAudio, visemeData, audioContent }: any) {
+    if (typeof window === 'undefined') return null;
     if (selectedAvatar?.modelPath) {
         useGLTF.preload(selectedAvatar.modelPath)
     }

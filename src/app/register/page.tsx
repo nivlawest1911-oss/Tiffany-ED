@@ -1,7 +1,15 @@
 import React from 'react';
 export const dynamic = 'force-dynamic';
-import RegistrationForm from '@/components/auth/RegistrationForm';
+import nextDynamic from 'next/dynamic';
 import { Sparkles, ShieldCheck, Zap } from 'lucide-react';
+
+const RegistrationForm = nextDynamic(() => import('@/components/auth/RegistrationForm'), {
+    ssr: false,
+    loading: () => <div className="p-12 rounded-3xl bg-[#111] border border-zinc-800 animate-pulse flex flex-col items-center justify-center gap-4">
+        <div className="w-12 h-12 rounded-2xl bg-zinc-900 border border-zinc-800" />
+        <div className="h-4 w-48 bg-zinc-900 rounded-full" />
+    </div>
+});
 
 export default function RegisterPage() {
     return (

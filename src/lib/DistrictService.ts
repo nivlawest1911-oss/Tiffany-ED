@@ -82,6 +82,13 @@ export class DistrictService {
     }
 
     static async getAllNodesAcrossDistricts(): Promise<any[]> {
+        if (!process.env.DATABASE_URL && !process.env.POSTGRES_PRISMA_URL && !process.env.POSTGRES_URL) {
+            console.log('Build-time fallback: Returning mock fleet nodes');
+            return [
+                { id: '1', name: 'Zion Alpha', location: 'Southern Region', status: 'operational', intelligenceLoad: 88, vaultCompliance: 99, lastSync: new Date().toISOString() },
+                { id: '2', name: 'Zion Beta', location: 'Northern Region', status: 'operational', intelligenceLoad: 92, vaultCompliance: 98, lastSync: new Date().toISOString() }
+            ];
+        }
         const nodes = await prisma.districtNode.findMany({
             include: { district: true }
         });
