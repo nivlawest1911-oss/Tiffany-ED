@@ -674,28 +674,20 @@ export default function ModernHomePage() {
 
                                             <div className="pt-8">
                                                 {isSignedIn ? (
-                                                    <Link href="/the-room">
-                                                        <Button
-                                                            variant="holographic"
-                                                            size="lg"
-                                                            className="px-8 py-4 uppercase tracking-wider flex items-center gap-3"
-                                                            onClick={() => {}}
-                                                        >
-                                                            Return to Control
-                                                            <ArrowRight size={20} />
-                                                        </Button>
+                                                    <Link 
+                                                        href="/the-room"
+                                                        className="inline-flex items-center justify-center font-bold rounded-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 holographic-button shadow-holographic px-6 py-3 text-lg uppercase tracking-wider gap-3"
+                                                    >
+                                                        Return to Control
+                                                        <ArrowRight size={20} />
                                                     </Link>
                                                 ) : (
-                                                    <Link href={`${ROUTES.LOGIN}?mode=signup`}>
-                                                        <Button
-                                                            variant="holographic"
-                                                            size="lg"
-                                                            className="px-8 py-4 uppercase tracking-wider flex items-center gap-3"
-                                                            onClick={() => {}}
-                                                        >
-                                                            Activate Core
-                                                            <ArrowRight size={20} />
-                                                        </Button>
+                                                    <Link 
+                                                        href={`${ROUTES.LOGIN}?mode=signup`}
+                                                        className="inline-flex items-center justify-center font-bold rounded-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 holographic-button shadow-holographic px-6 py-3 text-lg uppercase tracking-wider gap-3"
+                                                    >
+                                                        Activate Core
+                                                        <ArrowRight size={20} />
                                                     </Link>
                                                 )}
                                             </div>

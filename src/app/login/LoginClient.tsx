@@ -252,8 +252,11 @@ export default function LoginClient() {
                     {/* RIGHT PANEL: LOGIN FORM */}
                     <div className="p-8 lg:p-14 flex flex-col justify-center relative bg-white/5">
                         {/* Mobile Header */}
-                        <div className="lg:hidden flex justify-center mb-10">
+                        <div className="lg:hidden flex flex-col items-center mb-10 space-y-4">
                             <EdIntelLogo variant="fidelity" className="scale-100 invert" />
+                            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#FFB300]/10 border border-[#FFB300]/20 text-[#FFB300]">
+                                <span className="text-[9px] font-black uppercase tracking-widest">Version 4.1 Omega</span>
+                            </div>
                         </div>
 
                         <header className="mb-12 text-center lg:text-left">

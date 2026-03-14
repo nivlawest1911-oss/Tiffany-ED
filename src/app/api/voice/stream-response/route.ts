@@ -3,11 +3,12 @@ import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { NextRequest } from 'next/server';
 import { ANTIGRAVITY_PROMPT } from '@/lib/google-antigravity';
 
+export const dynamic = 'force-dynamic';
+export const runtime = 'edge';
+
 const google = createGoogleGenerativeAI({
     apiKey: process.env.GOOGLE_GEMINI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GOOGLE_GENAI_API_KEY || '',
 });
-
-export const runtime = 'edge';
 
 export async function POST(req: NextRequest) {
     try {

@@ -215,7 +215,7 @@ export default function FleetCommander() {
                     <h3 className="text-xs font-black text-white uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
                         <Globe className="w-4 h-4 text-cyan-400" /> Regional Directive Console
                     </h3>
-                    <div className="flex gap-4">
+                    <div className="flex flex-col md:flex-row gap-4">
                         <div className="flex-1 relative">
                             <input
                                 type="text"

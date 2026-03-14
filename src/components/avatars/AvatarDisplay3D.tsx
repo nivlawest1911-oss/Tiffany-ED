@@ -16,39 +16,6 @@ interface AvatarProps {
     audioContent?: string; // Base64 audio content
 }
 
-// Custom shader for holographic effect
-const HolographicMaterial = new THREE.ShaderMaterial({
-    uniforms: {
-        time: { value: 0 },
-        color: { value: new THREE.Color('#00f2ff') },
-        scanlineIntensity: { value: 0.3 },
-    },
-    vertexShader: `
-    varying vec2 vUv;
-    varying vec3 vNormal;
-    void main() {
-      vUv = uv;
-      vNormal = normalize(normalMatrix * normal);
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-    }
-  `,
-    fragmentShader: `
-    uniform vec3 color;
-    uniform float scanlineIntensity;
-    uniform float time;
-    varying vec2 vUv;
-    varying vec3 vNormal;
-    void main() {
-      float scanline = sin(vUv.y * 100.0 + time * 10.0) * scanlineIntensity;
-      float alpha = 1.0 - dot(vNormal, vec3(0.0, 0.0, 1.0));
-      gl_FragColor = vec4(color * (1.0 + scanline), alpha * 0.7);
-    }
-  `,
-    transparent: true,
-    side: THREE.DoubleSide,
-    blending: THREE.AdditiveBlending,
-});
-
 // Viseme to BlendShape mapping (Simplified for ReadyPlayerMe style models)
 const VISEME_MAP: Record<string, string> = {
     'sil': 'mouthSmile',
@@ -72,6 +39,39 @@ function AvatarModel({ modelPath, emotion, visemeData, isPlayingAudio, audioCont
     const group = useRef<THREE.Group>(null)
     const { scene, animations } = useGLTF(modelPath)
     const { actions } = useAnimations(animations, group)
+
+    // Holographic material created per instance and safe for SSR
+    const holographicMaterial = React.useMemo(() => new THREE.ShaderMaterial({
+        uniforms: {
+            time: { value: 0 },
+            color: { value: new THREE.Color('#00f2ff') },
+            scanlineIntensity: { value: 0.3 },
+        },
+        vertexShader: `
+            varying vec2 vUv;
+            varying vec3 vNormal;
+            void main() {
+                vUv = uv;
+                vNormal = normalize(normalMatrix * normal);
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+            }
+        `,
+        fragmentShader: `
+            uniform vec3 color;
+            uniform float scanlineIntensity;
+            uniform float time;
+            varying vec2 vUv;
+            varying vec3 vNormal;
+            void main() {
+                float scanline = sin(vUv.y * 100.0 + time * 10.0) * scanlineIntensity;
+                float alpha = 1.0 - dot(vNormal, vec3(0.0, 0.0, 1.0));
+                gl_FragColor = vec4(color * (1.0 + scanline), alpha * 0.7);
+            }
+        `,
+        transparent: true,
+        side: THREE.DoubleSide,
+        blending: THREE.AdditiveBlending,
+    }), [])
     const [audio] = useState(() => typeof Audio !== 'undefined' ? new Audio() : null)
     const startTimeRef = useRef<number>(0)
     const [internalIsPlaying, setInternalIsPlaying] = useState(false)
@@ -110,7 +110,7 @@ function AvatarModel({ modelPath, emotion, visemeData, isPlayingAudio, audioCont
 
     useFrame((state) => {
         const time = state.clock.getElapsedTime()
-        HolographicMaterial.uniforms.time.value = time
+        holographicMaterial.uniforms.time.value = time
 
         if (internalIsPlaying && visemeData && visemeData.length > 0) {
             const elapsedMs = Date.now() - startTimeRef.current

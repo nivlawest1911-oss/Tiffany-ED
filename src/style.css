@@ -548,7 +548,7 @@
         transform: translateX(-50%);
         width: 350px;
         height: 221px;
-        background: linear-gradient(180deg, var(--realtime-background-editor) 0%, transparent 100%);
+        -webkit-backdrop-filter: blur(7.907px);
         backdrop-filter: blur(7.907px);
         border-radius: 9.488px;
         border: 1px solid var(--realtime-border-main);
@@ -563,7 +563,7 @@
         transform: translateX(-50%);
         width: 175px;
         height: 221px;
-        background: linear-gradient(180deg, var(--realtime-background-preview) 0%, transparent 100%);
+        -webkit-backdrop-filter: blur(7.907px);
         backdrop-filter: blur(7.907px);
         border-radius: 9.488px;
         overflow: hidden;

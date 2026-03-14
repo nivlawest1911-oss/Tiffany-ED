@@ -1,4 +1,5 @@
 import React from 'react';
+export const dynamic = 'force-dynamic';
 import RegistrationForm from '@/components/auth/RegistrationForm';
 import { Sparkles, ShieldCheck, Zap } from 'lucide-react';
 

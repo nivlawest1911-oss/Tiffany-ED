@@ -1,7 +1,9 @@
 "use client"
 
-import { useState } from "react"
-import { Settings, Activity, Cpu, Zap, Play, Rocket, Brain, Shield as LucideShield, Heart, Target } from "lucide-react"
+import { useState, useEffect } from "react"
+import { cn } from "@/lib/utils"
+import { Settings, Activity, Cpu, Zap, Play, Rocket, Brain, Shield as LucideShield, Heart, Target, Loader2 } from "lucide-react"
+
 
 const skillPillars = [
   { name: "Pedagogical Nuance", icon: Brain },
@@ -12,6 +14,22 @@ const skillPillars = [
 
 export function SyncSection() {
   const [activeTab, setActiveTab] = useState<"programs" | "diagnostics" | "simulators">("programs")
+  const [healthStatus, setHealthStatus] = useState<string>("---")
+  const [isLoadingHealth, setIsLoadingHealth] = useState(false)
+
+  useEffect(() => {
+    if (activeTab === "diagnostics") {
+      setIsLoadingHealth(true)
+      fetch('/api/system/health')
+        .then(res => res.json())
+        .then(data => {
+          const overall = data.overallStatus === 'operational' ? '100%' : 'DEGRADED';
+          setHealthStatus(overall)
+        })
+        .catch(() => setHealthStatus("ERROR"))
+        .finally(() => setIsLoadingHealth(false))
+    }
+  }, [activeTab])
 
   return (
     <section id="sync-center" className="py-16 md:py-24">
@@ -124,8 +142,18 @@ export function SyncSection() {
                 <p className="text-sm text-gray-500">Active Centers</p>
               </div>
               <div className="bg-white p-6 rounded-xl shadow-lg text-center">
-                <Settings className="w-8 h-8 text-gray-600 mx-auto mb-3" />
-                <p className="text-3xl font-black text-gray-900">100%</p>
+                {isLoadingHealth ? (
+                  <Loader2 className="w-8 h-8 text-gray-400 mx-auto mb-3 animate-spin" />
+                ) : (
+                  <Settings className="w-8 h-8 text-gray-600 mx-auto mb-3" />
+                )}
+                <p className={cn(
+                  "text-3xl font-black",
+                  healthStatus === 'DEGRADED' ? "text-amber-500" : 
+                  healthStatus === 'ERROR' ? "text-rose-500" : "text-gray-900"
+                )}>
+                  {healthStatus}
+                </p>
                 <p className="text-sm text-gray-500">System Health</p>
               </div>
             </div>
