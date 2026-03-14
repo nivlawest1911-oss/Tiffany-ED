@@ -33,6 +33,12 @@ export async function onboardOrganization(data: OnboardingData) {
   }
 
   try {
+    // 0. Pre-check configuration
+    // @ts-ignore - isConfigured is a custom property on our proxy
+    if (!prisma.isConfigured) {
+      throw new Error('Database configuration missing. Please ensure DATABASE_URL is set in environment variables.');
+    }
+
     const transactionResult = await prisma.$transaction(async (tx) => {
       // 1. Create the School (Organization)
       const school = await tx.school.create({
@@ -69,6 +75,10 @@ export async function onboardOrganization(data: OnboardingData) {
           signupFeePaid: true,
           trialStartedAt: now,
           trialEndsAt: trialEndsAt,
+          stripeSubscriptionId: `trial_${school.id}`,
+          stripePriceId: 'trial_free',
+          currentPeriodStart: now,
+          currentPeriodEnd: trialEndsAt,
         },
       });
 

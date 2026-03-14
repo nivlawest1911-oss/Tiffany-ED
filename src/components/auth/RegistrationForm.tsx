@@ -16,6 +16,20 @@ export default function RegistrationForm() {
     const redirect = searchParams.get('redirect') || '/dashboard';
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [isSystemReady, setIsSystemReady] = useState<boolean | null>(null);
+
+    React.useEffect(() => {
+        const checkSystem = async () => {
+            try {
+                const res = await fetch('/api/health');
+                const data = await res.json();
+                setIsSystemReady(data.services.database.status === 'connected');
+            } catch {
+                setIsSystemReady(false);
+            }
+        };
+        checkSystem();
+    }, []);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -44,7 +58,14 @@ export default function RegistrationForm() {
             }
         } catch (err: any) {
             console.error('Registration failed:', err);
-            const message = err.message || 'Registration failed. Please try again.';
+            // Detect the standard Next.js production error message
+            const rawMessage = err.message || '';
+            const isConfigError = rawMessage.includes('Server Components render') || rawMessage.includes('Database configuration');
+            
+            const message = isConfigError 
+                ? 'System configuration error: Database is unreachable. Please verify environment variables.' 
+                : (err.message || 'Registration failed. Please try again.');
+                
             setError(message);
             toast.error('System Breach Detected', {
                 description: message,
@@ -63,10 +84,18 @@ export default function RegistrationForm() {
                     <div className="p-3 rounded-2xl bg-zinc-900 border border-zinc-800 text-blue-500 group-hover:scale-110 transition-transform">
                         <Building2 size={24} />
                     </div>
-                    <div className="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 animate-pulse">
-                        <ShieldCheck size={12} />
-                        Sovereign Node Access
-                    </div>
+                    {isSystemReady === false && (
+                        <div className="px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-500 text-[10px] font-bold uppercase tracking-widest flex items-center gap-2">
+                            <Lock size={12} />
+                            Config Required
+                        </div>
+                    )}
+                    {isSystemReady === true && (
+                        <div className="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 animate-pulse">
+                            <ShieldCheck size={12} />
+                            Sovereign Node Access
+                        </div>
+                    )}
                 </div>
                 <div className="space-y-2">
                     <CardTitle className="text-3xl font-black tracking-tighter text-white">Initialize Node</CardTitle>
@@ -78,6 +107,13 @@ export default function RegistrationForm() {
 
             <form onSubmit={handleSubmit}>
                 <CardContent className="space-y-6 px-8 py-6">
+                    {isSystemReady === false && (
+                        <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-medium space-y-2">
+                            <p className="font-bold uppercase tracking-wider">⚠️ System Alert: Node Not Configured</p>
+                            <p>DATABASE_URL is missing or unreachable. Registration is currently disabled. Please contact your system administrator.</p>
+                        </div>
+                    )}
+
                     {error && (
                         <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-medium">
                             {error}
