@@ -125,7 +125,7 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
         description: 'The AI Hub is the central processing unit for all generative tasks. It coordinates between Replicate, Google Gemini, and our proprietary high-fidelity avatars to deliver a unified intelligence experience.',
         stats: { time: 'Aggregated', saved: '30h/week', accuracy: '99.7%' },
         role: 'AI Director',
-        avatar: '/images/avatars/dr-west.png',
+        avatar: '/images/avatars/dr_alvin_west_official.png',
         audio: '/audio/briefings/ai-hub-overview.mp3',
         abilityType: 'analytics'
     },
