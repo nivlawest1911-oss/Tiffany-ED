@@ -156,7 +156,7 @@ export default function Hero() {
                                 <div className="relative w-full h-full flex items-center justify-center">
                                     {isVideoPlaying ? (
                                         <video
-                                            src="/videos/ai-companion-hub.mp4"
+                                            src="/videos/edintel-intro.mp4"
                                             className="w-full h-full object-cover rounded-2xl"
                                             autoPlay
                                             controls

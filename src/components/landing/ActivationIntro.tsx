@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { Volume2, VolumeX } from 'lucide-react';
 
 // Grand Entrance Video URL
-const ENTRANCE_VIDEO_URL = '/videos/ai-companion-hub.mp4';
+const ENTRANCE_VIDEO_URL = '/videos/edintel-intro.mp4';
 
 const BIOS_LINES = [
     "EDINTEL(R) SOVEREIGN BIOS V5.0.0",
