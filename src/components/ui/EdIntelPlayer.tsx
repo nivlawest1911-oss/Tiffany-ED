@@ -11,7 +11,7 @@ interface EdIntelPlayerProps {
 
 export function EdIntelPlayer({
     src,
-    poster = "/images/avatars/dr_alvin_west_official.svg",
+    poster = "/images/avatars/dr_alvin_west_official.png",
     title = "Secure Transmission"
 }: EdIntelPlayerProps) {
     const videoRef = useRef<HTMLVideoElement>(null);
