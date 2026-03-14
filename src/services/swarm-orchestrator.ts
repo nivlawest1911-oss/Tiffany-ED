@@ -7,13 +7,23 @@ import { withResilience, ALABAMA_STRATEGIC_DIRECTIVE } from '@/lib/ai-resilience
  * Manages the lifecycle of the Multi-Agent Mesh.
  */
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-
-export class SwarmOrchestrator {
+class SwarmOrchestrator {
     private state: EdIntelSystemState;
+    private _openai: OpenAI | null = null;
 
     constructor() {
         this.state = initializeEdIntelState(); // In prod, hydrate from Redis/DB
+    }
+
+    private get openai() {
+        if (!this._openai) {
+            const apiKey = process.env.OPENAI_API_KEY;
+            if (!apiKey && process.env.NODE_ENV === 'production') {
+                console.warn('⚠️ [SwarmOrchestrator] OPENAI_API_KEY is missing. AI features will be disabled.');
+            }
+            this._openai = new OpenAI({ apiKey: apiKey || 'mock_key' });
+        }
+        return this._openai;
     }
 
     /**
@@ -45,7 +55,7 @@ export class SwarmOrchestrator {
         `;
 
         return withResilience(async () => {
-            const res = await openai.chat.completions.create({
+            const res = await this.openai.chat.completions.create({
                 model: "gpt-4o", // Upgraded for strategic decomposition
                 messages: [{ role: "system", content: prompt }]
             }, { signal });
@@ -104,7 +114,7 @@ export class SwarmOrchestrator {
         `;
 
         const result = await withResilience(async () => {
-            const res = await openai.chat.completions.create({
+            const res = await this.openai.chat.completions.create({
                 model: "gpt-4o-mini",
                 messages: [{ role: "system", content: prompt }]
             }, { signal });

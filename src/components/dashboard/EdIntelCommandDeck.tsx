@@ -324,7 +324,9 @@ export default function EdIntelCommandDeck() {
                         <Shield className="w-7 h-7 text-[var(--intel-gold)] relative z-10" />
                     </div>
                     <div>
-                        <h1 className="text-3xl font-black tracking-tight font-sans text-white">EdIntel <span className="text-[var(--intel-gold)] gilded-flow bg-clip-text text-transparent bg-gradient-to-r from-[var(--intel-gold)] to-[#FDE68A]">EdIntel</span></h1>
+                        <h1 className="text-3xl font-black tracking-tight font-sans text-white uppercase italic">
+                            EdIntel <span className="text-[var(--intel-gold)] gilded-flow bg-clip-text text-transparent bg-gradient-to-r from-[var(--intel-gold)] to-[#FDE68A]">Sovereign</span>
+                        </h1>
                         <div className="flex items-center gap-3">
                             <p className="text-[10px] text-slate-400 font-mono tracking-[0.3em] uppercase opacity-80">Command Deck // Mobile County Node</p>
                             {user?.tier && <SovereignBadge tier={user.tier} className="py-0.5" />}

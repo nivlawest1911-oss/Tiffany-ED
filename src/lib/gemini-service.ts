@@ -3,8 +3,7 @@ import Replicate from "replicate";
 import { put } from "@vercel/blob";
 import { UserContext, protocolRouter } from "./protocol-router";
 
-const apiKey = (process.env.GOOGLE_GEMINI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GOOGLE_GENAI_API_KEY || '').trim();
-const genAI = new GoogleGenerativeAI(apiKey);
+const getApiKey = () => (process.env.GOOGLE_GEMINI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GOOGLE_GENAI_API_KEY || '').trim();
 
 export const GEMINI_CONFIG = {
     model: "gemini-2.5-flash",
@@ -34,19 +33,38 @@ export const GEMINI_CONFIG = {
     },
 };
 
-const replicate = new Replicate({
-    auth: process.env.REPLICATE_API_TOKEN,
-});
 
 export class GeminiService {
-    private model;
+    private _model: any = null;
+    private _replicate: Replicate | null = null;
+    private _genAI: GoogleGenerativeAI | null = null;
+
+    private get genAI() {
+        if (!this._genAI) {
+            this._genAI = new GoogleGenerativeAI(getApiKey() || 'mock_key');
+        }
+        return this._genAI;
+    }
+
+    private get replicate() {
+        if (!this._replicate) {
+            this._replicate = new Replicate({
+                auth: process.env.REPLICATE_API_TOKEN || 'mock_token',
+            });
+        }
+        return this._replicate;
+    }
 
     constructor(modelName: string = GEMINI_CONFIG.model) {
-        this.model = genAI.getGenerativeModel({
+        this._model = this.genAI.getGenerativeModel({
             model: modelName,
             safetySettings: GEMINI_CONFIG.safetySettings,
             generationConfig: GEMINI_CONFIG.generationConfig,
         });
+    }
+
+    private get model() {
+        return this._model;
     }
 
     async generateText(prompt: string, history: any[] = []) {
@@ -93,7 +111,7 @@ export class GeminiService {
         Subject: ${prompt}. Esthetic: futuristic, holographic, dynamic, electric blue and purple tones, glowing, professional, clean.`;
 
         try {
-            const output = await replicate.run(
+            const output = await this.replicate.run(
                 "stability-ai/stable-diffusion-3",
                 {
                     input: {
