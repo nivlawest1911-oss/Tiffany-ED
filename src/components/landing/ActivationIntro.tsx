@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { Volume2, VolumeX } from 'lucide-react';
 
 // Grand Entrance Video URL
-const ENTRANCE_VIDEO_URL = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Educators_using_edintel_app_44bfcfe528-4bcSevHv9NVPi7nYdhR9pkPjQdel7X.mp4';
+const ENTRANCE_VIDEO_URL = '/videos/edintel-intro.mp4';
 
 const BIOS_LINES = [
     "EDINTEL(R) SOVEREIGN BIOS V5.0.0",
@@ -23,87 +23,304 @@ const BIOS_LINES = [
     "SYSTEM STABILIZATION: INITIALIZED",
 ];
 
-// Holographic Humanoid Wireframe Component
+// Enhanced Holographic Humanoid Component with Professional Executive Design
 function HolographicHumanoid({ phase }: { phase: string }) {
+    const isActive = phase === 'scene1' || phase === 'scene2';
+    
     return (
         <motion.div
             className="absolute inset-0 flex items-center justify-center pointer-events-none"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: phase === 'scene1' ? 0.6 : 0.3 }}
-            transition={{ duration: 2 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ 
+                opacity: isActive ? 0.85 : 0.4, 
+                scale: isActive ? 1 : 0.95 
+            }}
+            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
         >
+            {/* Ambient glow backdrop */}
+            <motion.div 
+                className="absolute w-72 h-[420px] md:w-96 md:h-[560px] rounded-full"
+                style={{
+                    background: 'radial-gradient(ellipse at center, rgba(255,179,0,0.15) 0%, rgba(0,229,255,0.08) 40%, transparent 70%)',
+                }}
+                animate={{ 
+                    scale: [1, 1.05, 1],
+                    opacity: [0.5, 0.8, 0.5]
+                }}
+                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+            />
+            
+            {/* Holographic platform base */}
+            <motion.div
+                className="absolute bottom-[15%] md:bottom-[10%] w-40 md:w-56 h-2"
+                style={{
+                    background: 'linear-gradient(90deg, transparent, rgba(0,229,255,0.6), transparent)',
+                    boxShadow: '0 0 30px rgba(0,229,255,0.4), 0 0 60px rgba(255,179,0,0.2)',
+                    borderRadius: '50%',
+                }}
+                animate={{ 
+                    scaleX: [0.8, 1, 0.8],
+                    opacity: [0.4, 0.8, 0.4]
+                }}
+                transition={{ duration: 3, repeat: Infinity }}
+            />
+            
             <svg
                 viewBox="0 0 200 400"
-                className="w-48 h-96 md:w-64 md:h-[500px]"
-                style={{ filter: 'drop-shadow(0 0 20px rgba(0, 229, 255, 0.5))' }}
+                className="w-56 h-[420px] md:w-72 md:h-[540px] relative z-10"
+                style={{ filter: 'drop-shadow(0 0 25px rgba(0, 229, 255, 0.6))' }}
             >
                 <defs>
-                    <linearGradient id="humanoidGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stopColor="#00E5FF" stopOpacity="0.8" />
-                        <stop offset="50%" stopColor="#FFB300" stopOpacity="0.6" />
-                        <stop offset="100%" stopColor="#00E5FF" stopOpacity="0.4" />
+                    {/* Premium gradient for the humanoid */}
+                    <linearGradient id="humanoidGradPremium" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stopColor="#00E5FF" stopOpacity="0.95" />
+                        <stop offset="30%" stopColor="#FFB300" stopOpacity="0.8" />
+                        <stop offset="60%" stopColor="#00E5FF" stopOpacity="0.7" />
+                        <stop offset="100%" stopColor="#FFB300" stopOpacity="0.5" />
                     </linearGradient>
-                    <filter id="humanoidGlow">
-                        <feGaussianBlur stdDeviation="2" result="blur" />
+                    
+                    {/* Body fill gradient */}
+                    <linearGradient id="bodyFillGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stopColor="#1a2a3a" stopOpacity="0.9" />
+                        <stop offset="50%" stopColor="#0d1b2a" stopOpacity="0.85" />
+                        <stop offset="100%" stopColor="#0a1628" stopOpacity="0.8" />
+                    </linearGradient>
+                    
+                    {/* Enhanced glow filter */}
+                    <filter id="humanoidGlowPremium" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur stdDeviation="3" result="blur1" />
+                        <feGaussianBlur stdDeviation="6" result="blur2" />
                         <feMerge>
-                            <feMergeNode in="blur" />
+                            <feMergeNode in="blur2" />
+                            <feMergeNode in="blur1" />
                             <feMergeNode in="SourceGraphic" />
                         </feMerge>
                     </filter>
+                    
+                    {/* Pulse animation filter */}
+                    <filter id="pulseGlow">
+                        <feGaussianBlur stdDeviation="4" result="blur" />
+                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
                 </defs>
-                <g filter="url(#humanoidGlow)" stroke="url(#humanoidGrad)" strokeWidth="1.5" fill="none">
-                    {/* Head */}
+                
+                {/* Outer holographic rings */}
+                {[...Array(3)].map((_, i) => (
                     <motion.ellipse
-                        cx="100" cy="40" rx="25" ry="30"
-                        animate={{ scale: [1, 1.02, 1], opacity: [0.8, 1, 0.8] }}
+                        key={`ring-${i}`}
+                        cx="100"
+                        cy="380"
+                        rx={60 + i * 20}
+                        ry={8 + i * 3}
+                        fill="none"
+                        stroke="url(#humanoidGradPremium)"
+                        strokeWidth="0.5"
+                        opacity={0.3 - i * 0.08}
+                        animate={{ 
+                            opacity: [0.1, 0.4, 0.1],
+                            ry: [8 + i * 3, 10 + i * 3, 8 + i * 3]
+                        }}
+                        transition={{ duration: 2 + i * 0.5, repeat: Infinity, delay: i * 0.3 }}
+                    />
+                ))}
+                
+                <g filter="url(#humanoidGlowPremium)">
+                    {/* Professional Executive Body - Business Suit Silhouette */}
+                    
+                    {/* Head with refined shape */}
+                    <motion.ellipse
+                        cx="100" cy="45" rx="22" ry="28"
+                        fill="#c9a87c"
+                        stroke="url(#humanoidGradPremium)"
+                        strokeWidth="1"
+                        animate={{ 
+                            scale: [1, 1.015, 1],
+                            y: [0, -2, 0]
+                        }}
+                        transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                    />
+                    
+                    {/* Neck */}
+                    <rect x="92" y="70" width="16" height="18" fill="#c9a87c" opacity="0.9" />
+                    
+                    {/* Professional Suit Jacket */}
+                    <motion.path
+                        d="M 55 88 
+                           Q 60 85 75 85 
+                           L 85 88 L 100 92 L 115 88
+                           Q 140 85 145 88
+                           L 150 95
+                           Q 155 130 150 180
+                           L 145 220 L 130 280
+                           L 100 285
+                           L 70 280 L 55 220
+                           Q 50 180 45 130
+                           L 50 95 Z"
+                        fill="url(#bodyFillGrad)"
+                        stroke="url(#humanoidGradPremium)"
+                        strokeWidth="1.5"
+                        animate={{ 
+                            scale: [1, 1.01, 1]
+                        }}
+                        transition={{ duration: 4, repeat: Infinity }}
+                    />
+                    
+                    {/* Dress Shirt */}
+                    <path
+                        d="M 88 92 L 100 100 L 112 92 L 112 180 L 88 180 Z"
+                        fill="#f5f5f5"
+                        opacity="0.85"
+                    />
+                    
+                    {/* Executive Tie */}
+                    <motion.path
+                        d="M 96 100 L 104 100 L 105 110 L 100 180 L 95 110 Z"
+                        fill="#FFB300"
+                        opacity="0.9"
+                        animate={{ opacity: [0.7, 1, 0.7] }}
                         transition={{ duration: 2, repeat: Infinity }}
                     />
-                    {/* Neck */}
-                    <line x1="100" y1="70" x2="100" y2="90" />
-                    {/* Torso */}
+                    
+                    {/* Suit Lapels */}
+                    <path d="M 85 88 L 88 140 L 75 95 Z" fill="#0d1b2a" opacity="0.8" />
+                    <path d="M 115 88 L 112 140 L 125 95 Z" fill="#0d1b2a" opacity="0.8" />
+                    
+                    {/* Left Arm */}
                     <motion.path
-                        d="M 60 90 L 100 100 L 140 90 L 135 180 L 100 190 L 65 180 Z"
-                        animate={{ pathLength: [0, 1] }}
-                        transition={{ duration: 2, delay: 0.5 }}
+                        d="M 55 95 Q 40 120 35 160 Q 32 200 38 240"
+                        stroke="url(#humanoidGradPremium)"
+                        strokeWidth="16"
+                        fill="none"
+                        strokeLinecap="round"
+                        animate={{ x: [0, 3, 0], rotate: [0, 1, 0] }}
+                        transition={{ duration: 4, repeat: Infinity }}
                     />
-                    {/* Arms */}
+                    
+                    {/* Right Arm */}
                     <motion.path
-                        d="M 60 95 L 30 150 L 25 200"
-                        animate={{ x: [0, 2, 0] }}
-                        transition={{ duration: 3, repeat: Infinity }}
+                        d="M 145 95 Q 160 120 165 160 Q 168 200 162 240"
+                        stroke="url(#humanoidGradPremium)"
+                        strokeWidth="16"
+                        fill="none"
+                        strokeLinecap="round"
+                        animate={{ x: [0, -3, 0], rotate: [0, -1, 0] }}
+                        transition={{ duration: 4, repeat: Infinity, delay: 0.5 }}
                     />
-                    <motion.path
-                        d="M 140 95 L 170 150 L 175 200"
-                        animate={{ x: [0, -2, 0] }}
-                        transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
+                    
+                    {/* Hands */}
+                    <motion.circle cx="38" cy="245" r="8" fill="#c9a87c" opacity="0.9"
+                        animate={{ y: [0, 3, 0] }}
+                        transition={{ duration: 4, repeat: Infinity }}
                     />
+                    <motion.circle cx="162" cy="245" r="8" fill="#c9a87c" opacity="0.9"
+                        animate={{ y: [0, 3, 0] }}
+                        transition={{ duration: 4, repeat: Infinity, delay: 0.5 }}
+                    />
+                    
                     {/* Legs */}
-                    <path d="M 80 190 L 70 280 L 60 370" />
-                    <path d="M 120 190 L 130 280 L 140 370" />
-                    {/* Core energy */}
+                    <path d="M 75 280 L 70 340 L 65 375" stroke="#0d1b2a" strokeWidth="22" fill="none" strokeLinecap="round" />
+                    <path d="M 125 280 L 130 340 L 135 375" stroke="#0d1b2a" strokeWidth="22" fill="none" strokeLinecap="round" />
+                    
+                    {/* Core Energy - Heart of AI */}
                     <motion.circle
-                        cx="100" cy="140" r="15"
+                        cx="100" cy="140" r="12"
                         fill="#FFB300"
-                        fillOpacity="0.3"
-                        animate={{ r: [15, 20, 15], opacity: [0.3, 0.6, 0.3] }}
+                        fillOpacity="0.6"
+                        filter="url(#pulseGlow)"
+                        animate={{ 
+                            r: [12, 18, 12], 
+                            opacity: [0.4, 0.9, 0.4],
+                            fillOpacity: [0.4, 0.8, 0.4]
+                        }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                    />
+                    <motion.circle
+                        cx="100" cy="140" r="6"
+                        fill="#00E5FF"
+                        animate={{ 
+                            r: [6, 8, 6], 
+                            opacity: [0.8, 1, 0.8]
+                        }}
                         transition={{ duration: 1.5, repeat: Infinity }}
                     />
-                    {/* Data streams */}
-                    {[...Array(8)].map((_, i) => (
+                    
+                    {/* Neural Data Streams radiating from core */}
+                    {[...Array(12)].map((_, i) => (
                         <motion.line
-                            key={i}
-                            x1={100 + Math.cos(i * 45 * Math.PI / 180) * 20}
-                            y1={140 + Math.sin(i * 45 * Math.PI / 180) * 20}
-                            x2={100 + Math.cos(i * 45 * Math.PI / 180) * 60}
-                            y2={140 + Math.sin(i * 45 * Math.PI / 180) * 60}
-                            stroke="#00E5FF"
-                            strokeWidth="0.5"
-                            animate={{ opacity: [0, 1, 0], pathLength: [0, 1, 0] }}
-                            transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
+                            key={`stream-${i}`}
+                            x1={100 + Math.cos(i * 30 * Math.PI / 180) * 20}
+                            y1={140 + Math.sin(i * 30 * Math.PI / 180) * 20}
+                            x2={100 + Math.cos(i * 30 * Math.PI / 180) * 55}
+                            y2={140 + Math.sin(i * 30 * Math.PI / 180) * 55}
+                            stroke={i % 2 === 0 ? "#00E5FF" : "#FFB300"}
+                            strokeWidth="1"
+                            strokeLinecap="round"
+                            animate={{ 
+                                opacity: [0, 0.8, 0], 
+                                pathLength: [0, 1, 0],
+                                strokeWidth: [0.5, 1.5, 0.5]
+                            }}
+                            transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.15 }}
                         />
                     ))}
+                    
+                    {/* Floating data nodes around the figure */}
+                    {[...Array(6)].map((_, i) => (
+                        <motion.circle
+                            key={`node-${i}`}
+                            cx={100 + Math.cos(i * 60 * Math.PI / 180) * 80}
+                            cy={180 + Math.sin(i * 60 * Math.PI / 180) * 60}
+                            r="4"
+                            fill={i % 2 === 0 ? "#FFB300" : "#00E5FF"}
+                            animate={{ 
+                                opacity: [0.2, 1, 0.2],
+                                scale: [0.8, 1.2, 0.8],
+                                y: [0, -10, 0]
+                            }}
+                            transition={{ duration: 3, repeat: Infinity, delay: i * 0.4 }}
+                        />
+                    ))}
+                    
+                    {/* Status indicators on shoulders */}
+                    <motion.circle cx="55" cy="95" r="4" fill="#00E5FF"
+                        animate={{ opacity: [0.5, 1, 0.5] }}
+                        transition={{ duration: 1, repeat: Infinity }}
+                    />
+                    <motion.circle cx="145" cy="95" r="4" fill="#FFB300"
+                        animate={{ opacity: [0.5, 1, 0.5] }}
+                        transition={{ duration: 1, repeat: Infinity, delay: 0.5 }}
+                    />
                 </g>
+                
+                {/* Holographic scan line effect */}
+                <motion.line
+                    x1="30" y1="0" x2="170" y2="0"
+                    stroke="url(#humanoidGradPremium)"
+                    strokeWidth="2"
+                    opacity="0.6"
+                    animate={{ y: [0, 400, 0] }}
+                    transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
+                />
             </svg>
+            
+            {/* Status text below humanoid */}
+            <motion.div
+                className="absolute bottom-[8%] md:bottom-[5%] text-center"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: isActive ? 1 : 0.5, y: 0 }}
+                transition={{ delay: 1, duration: 0.8 }}
+            >
+                <p className="text-[10px] md:text-xs font-mono text-electric-cyan/60 tracking-[0.3em] uppercase">
+                    EdIntel AI Companion
+                </p>
+                <motion.p 
+                    className="text-[8px] md:text-[10px] font-mono text-sovereign-gold/50 tracking-widest mt-1"
+                    animate={{ opacity: [0.3, 0.7, 0.3] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                >
+                    {isActive ? 'ONLINE' : 'INITIALIZING...'}
+                </motion.p>
+            </motion.div>
         </motion.div>
     );
 }
