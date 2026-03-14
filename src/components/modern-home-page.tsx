@@ -555,12 +555,13 @@ export default function ModernHomePage() {
                                     </motion.div>
 
                                     <div className="grid md:grid-cols-3 gap-8">
-                                        <HuggingFaceAvatar
-                                            textToSpeak="Welcome to Edintel, Superintendent. All systems are operational."
-                                            name="Dr. Alvin West"
-                                            role="Superintendent"
-                                            className="aspect-[4/5]"
-                                        />
+<HuggingFaceAvatar
+                                                            textToSpeak="Welcome to Edintel, Superintendent. All systems are operational."
+                                                            avatarUrl="/images/dr-alvin-west.png"
+                                                            name="Dr. Alvin West"
+                                                            role="Superintendent"
+                                                            className="aspect-[4/5]"
+                                                        />
                                         <HuggingFaceAvatar
                                             textToSpeak="Compliance protocols have been updated for the 2026 fiscal year."
                                             avatarUrl="/images/avatars/executive_leader.png"

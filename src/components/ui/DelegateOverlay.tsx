@@ -20,7 +20,7 @@ export default function DelegateOverlay() {
             name: 'Dr. Alvin West',
             role: 'Executive Twin',
             color: 'emerald',
-            icon: <HumanAvatar src="/images/avatars/executive_leader.png" alt="Dr. West" className="w-full h-full object-cover" />,
+            icon: <HumanAvatar src="/images/dr-alvin-west.png" alt="Dr. West" className="w-full h-full object-cover" />,
             message: "Strategic directives align with district goals.",
             position: { x: 85, y: 15 }
         },

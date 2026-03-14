@@ -16,6 +16,7 @@ const DEMO_FEED: FeedPost[] = [
     {
         id: 1,
         author: "Dr. Alvin West II",
+        avatar: "/images/dr-alvin-west.png",
         role: "Founder & Lead Developer",
         time: "2h • Strategic Update",
         content: "We have successfully updated the Leadership Analytics System to help reduce administrative workload by up to 40%. Our new credit system allows for flexible AI support without exceeding district budgets. #EdIntel #Leadership #AI",
