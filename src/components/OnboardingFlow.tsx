@@ -157,7 +157,7 @@ const StepSynthesis = memo(({ role, formData }: { role: string, formData: any })
     const agentInfo = useMemo(() => {
         switch (role) {
             case 'ADMIN':
-                return { name: "Dr. Alvin West", role: "Chief Architect", avatar: "/images/avatars/Dr._alvin_west.png", color: "text-noble-gold" };
+                return { name: "Dr. Alvin West", role: "Chief Architect", avatar: "/images/avatars/dr_alvin_west_official.png", color: "text-noble-gold" };
             case 'TEACHER':
                 return { name: "Keisha Reynolds", role: "Strategic Lead", avatar: "/images/avatars/keisha_reynolds_premium.png", color: "text-emerald-400" };
             case 'COUNSELOR':

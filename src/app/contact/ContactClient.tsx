@@ -105,7 +105,7 @@ export default function ContactClient() {
                             <div className="flex items-center gap-6">
                                 <div className="relative w-24 h-24 flex-shrink-0">
                                     <Image
-                                        src="/images/avatars/Dr._alvin_west.png"
+                                        src="/images/avatars/dr_alvin_west_official.png"
                                         alt="Dr. Alvin West"
                                         fill
                                         className="object-cover rounded-xl border-2 border-[#FFB300]/30 shadow-[0_0_30px_rgba(255,179,0,0.2)]"

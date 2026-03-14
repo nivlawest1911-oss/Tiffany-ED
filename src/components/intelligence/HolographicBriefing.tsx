@@ -21,7 +21,7 @@ const AGENTS: Record<string, Agent> = {
     visionary: {
         name: "Dr. Alvin West",
         role: "EdIntel Architect",
-        avatar: "/images/avatars/Dr._alvin_west.png",
+        avatar: "/images/avatars/dr_alvin_west_official.png",
         videoSrc: "/videos/briefings/principal_briefing.mp4",
         musicSrc: "/music/The Future of Education - Orchestral.mp3",
         abilityType: 'strategy' as const
@@ -84,7 +84,7 @@ export default function HolographicBriefing({
     abilityType
 }: HolographicBriefingProps) {
     const agent = agentId ? AGENTS[agentId] : null;
-    const finalAvatar = avatarImage || agent?.avatar || "/images/avatars/Dr._alvin_west.png";
+    const finalAvatar = avatarImage || agent?.avatar || "/images/avatars/dr_alvin_west_official.png";
     const finalRole = role || agent?.role || "Executive Lead";
     const finalAbility = abilityType || agent?.abilityType || 'strategy';
     const finalVideo = videoSrc || agent?.videoSrc;

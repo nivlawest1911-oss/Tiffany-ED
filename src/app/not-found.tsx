@@ -126,7 +126,7 @@ export default function NotFound() {
                         <div className="relative inline-block">
                             <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-purple-500 shadow-lg shadow-purple-500/50 mx-auto mb-4">
                                 <Image
-                                    src="/images/avatars/Dr._alvin_west.png"
+                                    src="/images/avatars/dr_alvin_west_official.png"
                                     alt="Dr. Alvin West"
                                     className="w-full h-full object-cover"
                                     width={128}
@@ -251,7 +251,7 @@ export default function NotFound() {
                 <LiveAvatarChat
                     avatarName="Dr. Alvin West"
                     avatarRole="Executive Guide"
-                    avatarImage="/images/avatars/Dr._alvin_west.png"
+                    avatarImage="/images/avatars/dr_alvin_west_official.png"
                     avatarVideo="/videos/dr_alvin_talking.mp4"
                     avatarVoice={undefined}
                     onClose={() => setShowAvatarChat(false)}

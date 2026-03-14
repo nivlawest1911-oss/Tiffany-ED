@@ -287,7 +287,7 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
                                     <div className="flex items-start gap-6">
                                         <div className="relative w-16 h-16 rounded-2xl overflow-hidden border border-intel-gold/20 shrink-0">
                                             <Image
-                                                src="/images/avatars/Dr._alvin_west.png"
+                                                src="/images/avatars/dr_alvin_west_official.png"
                                                 alt="Dr. Alvin West"
                                                 fill
                                                 className="object-cover grayscale hover:grayscale-0 transition-all duration-500"

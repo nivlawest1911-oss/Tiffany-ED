@@ -18,7 +18,7 @@ const AGENTS = {
     visionary: {
         name: "Dr. Alvin West",
         role: "EdIntel Architect",
-        avatar: "/images/avatars/Dr._alvin_west.png",
+        avatar: "/images/avatars/dr_alvin_west_official.png",
         color: "text-noble-gold",
         borderColor: "border-noble-gold/30",
         bgColor: "bg-noble-gold/5"

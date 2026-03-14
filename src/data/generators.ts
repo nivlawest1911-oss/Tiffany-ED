@@ -26,7 +26,7 @@ import {
 const AVATAR_MAP = Object.fromEntries(CORE_AVATARS.map(a => [a.id, a.avatar]));
 
 const AVATARS = {
-    PRINCIPAL: AVATAR_MAP['EdIntel_1'] || "/images/avatars/Dr._alvin_west.png",
+    PRINCIPAL: AVATAR_MAP['EdIntel_1'] || "/images/avatars/dr_alvin_west_official.png",
     COUNSELOR: AVATAR_MAP['delegate_2'] || "/images/avatars/keisha_reynolds_premium.png",
     CURRICULUM: AVATAR_MAP['delegate_5'] || "/images/avatars/emily_robinson_premium.png",
     DATA: AVATAR_MAP['delegate_5'] || "/images/avatars/emily_robinson_premium.png",

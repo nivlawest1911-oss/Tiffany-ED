@@ -99,7 +99,7 @@ export default function FounderDossier() {
                 <div className="aspect-[4/5] relative rounded-2xl overflow-hidden">
                   {/* Founder Image */}
                   <Image
-                    src="/images/avatars/Dr._alvin_west.png"
+                    src="/images/avatars/dr_alvin_west_official.png"
                     alt="Dr. Alvin West, Jr."
                     fill
                     priority={true}

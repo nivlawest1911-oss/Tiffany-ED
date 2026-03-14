@@ -25,6 +25,7 @@ interface OnboardingData {
  * 5. Automatically logs the user in.
  */
 export async function onboardOrganization(data: OnboardingData) {
+  console.log('[AuthAction] onboardOrganization started for admin email:', data.adminEmail);
   const { organizationName, adminEmail, adminName, password, districtId, initialTokenBalance = 50 } = data;
 
   let hashedPassword = null;
@@ -36,9 +37,11 @@ export async function onboardOrganization(data: OnboardingData) {
     // 0. Pre-check configuration
     // @ts-ignore - isConfigured is a custom property on our proxy
     if (!prisma.isConfigured) {
+      console.error('[AuthAction] Database not configured');
       throw new Error('Database configuration missing. Please ensure DATABASE_URL is set in environment variables.');
     }
 
+    console.log('[AuthAction] Executing database transaction...');
     const transactionResult = await prisma.$transaction(async (tx) => {
       // 1. Create the School (Organization)
       const school = await tx.school.create({
@@ -47,6 +50,7 @@ export async function onboardOrganization(data: OnboardingData) {
           ...(districtId && { districtName: districtId }),
         },
       });
+      console.log(`[AuthAction] School created with ID: ${school.id}`);
 
       // 2. Calculate Trial Expiration (Exactly 30 days from now)
       const now = new Date();
@@ -66,6 +70,7 @@ export async function onboardOrganization(data: OnboardingData) {
           isTrialConverted: false,
         },
       });
+      console.log(`[AuthAction] Admin user created with ID: ${user.id}`);
 
       // 4. Create the Subscription record
       await tx.subscription.create({
@@ -81,6 +86,7 @@ export async function onboardOrganization(data: OnboardingData) {
           currentPeriodEnd: trialEndsAt,
         },
       });
+      console.log(`[AuthAction] Subscription record created for school ID: ${school.id}`);
 
       // 5. Initialize Token Economics
       const wallet = await tx.tokenWallet.create({
@@ -91,6 +97,7 @@ export async function onboardOrganization(data: OnboardingData) {
           requiresUpsell: false,
         },
       });
+      console.log(`[AuthAction] Token wallet created for user ID: ${user.id} with balance: ${initialTokenBalance}`);
 
       await tx.tokenLedger.create({
         data: {
@@ -101,6 +108,7 @@ export async function onboardOrganization(data: OnboardingData) {
           description: 'Initial trial seeding',
         },
       });
+      console.log(`[AuthAction] Token ledger entry created for initial seeding.`);
 
       return {
         success: true,
@@ -114,18 +122,21 @@ export async function onboardOrganization(data: OnboardingData) {
 
     // 6. Automatic Login
     if (transactionResult.success) {
+        console.log(`[AuthAction] Attempting to log in user ID: ${transactionResult.userId}`);
         await login({
             id: transactionResult.userId,
             email: transactionResult.userEmail,
             name: transactionResult.userName,
             tier: 'Director Pack' // Admin gets high tier status by default
         });
+        console.log(`[AuthAction] User ID: ${transactionResult.userId} logged in successfully.`);
     }
 
+    console.log('[AuthAction] Onboarding completed successfully.');
     return transactionResult;
 
   } catch (error: any) {
-    console.error('Onboarding Transaction Failed:', error);
+    console.error('[AuthAction] Onboarding Transaction Failed:', error);
     throw new Error(`Onboarding failed: ${error.message}`);
   }
 }

@@ -64,7 +64,7 @@ export default function EnhancedGenerator({
     const [selectedDelegate, setSelectedDelegate] = useState({
         name: delegateName || "Dr. Alvin",
         role: delegateRole || "Superintendent Delegate",
-        image: delegateImage || "/images/avatars/Dr._alvin_west.png"
+        image: delegateImage || "/images/avatars/dr_alvin_west_official.png"
     });
     const [showDelegateOverlay, setShowDelegateOverlay] = useState(false);
     const [showLiveAvatar, setShowLiveAvatar] = useState(false);
@@ -85,7 +85,7 @@ export default function EnhancedGenerator({
     }, []);
 
     const delegates = [
-        { name: "Dr. Alvin", role: "Superintendent Delegate", image: "/images/avatars/Dr._alvin_west.png" },
+        { name: "Dr. Alvin", role: "Superintendent Delegate", image: "/images/avatars/dr_alvin_west_official.png" },
         { name: "Sarah", role: "Instructional Aide", image: "/images/avatars/sarah_connors_premium.png" },
         { name: "Patrice", role: "Compliance Lead", image: "/images/avatars/executive_leader.png" }
     ];

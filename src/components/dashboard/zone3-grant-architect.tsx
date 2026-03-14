@@ -18,7 +18,7 @@ export function GrantArchitect() {
                 <EdIntelPlayer
                     src="/videos/EdTech_Solution_Video_Generation_v1.mp4"
                     title="Protocol: Funding Acquisition"
-                    poster="/images/avatars/Dr._alvin_west.png"
+                    poster="/images/avatars/dr_alvin_west_official.png"
                 />
             </div>
 

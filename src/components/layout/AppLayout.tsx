@@ -162,7 +162,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                         <div className="relative">
                                             <div className="h-8 w-8 rounded-full border border-white/10 overflow-hidden group-hover:border-electric-cyan/50 transition-colors">
                                                 <Image
-                                                    src={user?.avatar_url || "/images/avatars/Dr._alvin_west.png"}
+                                                    src={user?.avatar_url || "/images/avatars/dr_alvin_west_official.png"}
                                                     alt="User"
                                                     width={32}
                                                     height={32}

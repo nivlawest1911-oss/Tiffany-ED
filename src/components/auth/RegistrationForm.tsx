@@ -42,6 +42,8 @@ export default function RegistrationForm() {
         const organizationName = formData.get('organizationName') as string;
         const password = formData.get('password') as string;
 
+        console.log('[Registration] Initializing submission for:', adminEmail);
+
         try {
             const result = await onboardOrganization({
                 adminName,
@@ -49,15 +51,22 @@ export default function RegistrationForm() {
                 organizationName,
                 password,
             });
+            console.log('[Registration] Action result received:', result);
 
             if (result.success) {
                 toast.success('Node Secured!', {
                     description: 'Organization onboarded successfully. Redirecting to dashboard...',
                 });
                 router.push(redirect);
+            } else {
+                setError(result.error || 'An unknown error occurred.');
+                console.error('[Registration] Action returned failure:', result.error);
+                toast.error('Registration Declined', {
+                    description: result.error || 'An unknown error occurred.',
+                });
             }
         } catch (err: any) {
-            console.error('Registration failed:', err);
+            console.error('[Registration] Fatal error during submission:', err);
             // Detect the standard Next.js production error message
             const rawMessage = err.message || '';
             const isConfigError = rawMessage.includes('Server Components render') || rawMessage.includes('Database configuration');

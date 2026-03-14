@@ -2,7 +2,7 @@ const CACHE_NAME = 'edintel-v1';
 const STATIC_ASSETS = [
     '/',
     '/favicon.ico',
-    '/images/logo.png',
+    '/images/edintel-logo.png',
     '/noise.png',
     '/tactical-noise.png',
     '/tactical-grain.png'
