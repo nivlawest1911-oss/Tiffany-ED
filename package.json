@@ -33,12 +33,12 @@
         "@deepgram/sdk": "^4.11.3",
         "@electric-sql/pglite": "^0.3.15",
         "@google-cloud/bigquery": "^8.1.1",
-        "@google-cloud/language": "^7.2.1",
-        "@google-cloud/speech": "^7.2.1",
-        "@google-cloud/storage": "^7.7.0",
+        "@google-cloud/language": "^7.2.2",
+        "@google-cloud/speech": "^7.2.2",
+        "@google-cloud/storage": "^7.19.0",
         "@google-cloud/text-to-speech": "^6.4.0",
         "@google-cloud/translate": "^9.3.0",
-        "@google-cloud/vertexai": "^1.4.0",
+        "@google-cloud/vertexai": "^1.10.3",
         "@google-cloud/vision": "^5.3.4",
         "@google/generative-ai": "^0.24.1",
         "@heygen/streaming-avatar": "^2.1.0",
@@ -119,15 +119,15 @@
         "lottie-web": "^5.13.0",
         "lucide-react": "^0.454.0",
         "nanoid": "^5.1.5",
-        "next": "16.1.6",
+        "next": "^16.1.7",
         "next-themes": "^0.4.6",
         "nodemailer": "^7.0.12",
         "openai": "^6.22.0",
-        "react": "18.3.1",
+        "react": "19.2.4",
         "react-chartjs-2": "^5.3.1",
         "react-confetti": "^6.4.0",
         "react-day-picker": "9.8.0",
-        "react-dom": "18.3.1",
+        "react-dom": "19.2.4",
         "react-dropzone": "^14.3.8",
         "react-hook-form": "^7.60.0",
         "react-markdown": "^10.1.0",
@@ -173,19 +173,5 @@
     },
     "prisma": {
         "seed": "npx tsx prisma/seed.ts"
-    },
-    "pnpm": {
-        "overrides": {
-            "react": "18.3.1",
-            "react-dom": "18.3.1"
-        }
-    },
-    "overrides": {
-        "react": "18.3.1",
-        "react-dom": "18.3.1"
-    },
-    "resolutions": {
-        "react": "18.3.1",
-        "react-dom": "18.3.1"
     }
 }
