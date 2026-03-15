@@ -17,7 +17,7 @@ function GlassGear({
   rotation, 
   delay, 
   position,
-  color = '#FFB300'
+  color = '#D4AF37'
 }: { 
   size: number
   teeth: number
@@ -203,8 +203,8 @@ function FloatingParticles() {
             top: `${p.y}%`,
             width: p.size,
             height: p.size,
-            background: p.id % 3 === 0 ? '#FFB300' : p.id % 3 === 1 ? '#00E5FF' : 'white',
-            boxShadow: `0 0 ${p.size * 2}px ${p.id % 3 === 0 ? '#FFB300' : '#00E5FF'}`,
+            background: p.id % 3 === 0 ? '#D4AF37' : p.id % 3 === 1 ? '#00E5FF' : 'white',
+            boxShadow: `0 0 ${p.size * 2}px ${p.id % 3 === 0 ? '#D4AF37' : '#00E5FF'}`,
           }}
           animate={{
             y: [0, -100, 0],
@@ -228,7 +228,7 @@ function GlassPanel({ children, className = '' }: { children: React.ReactNode, c
   return (
     <div className={`relative ${className}`}>
       <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl" />
-      <div className="absolute inset-0 bg-gradient-to-br from-[#FFB300]/5 to-[#00E5FF]/5 rounded-3xl" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 to-[#00E5FF]/5 rounded-3xl" />
       <div className="relative z-10">{children}</div>
     </div>
   )
@@ -240,11 +240,11 @@ function OrbitalRings() {
     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
       {/* Outer ring */}
       <motion.div
-        className="absolute w-[500px] h-[500px] border border-[#FFB300]/20 rounded-full"
+        className="absolute w-[500px] h-[500px] border border-[#D4AF37]/20 rounded-full"
         animate={{ rotate: 360 }}
         transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
       >
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-[#FFB300] rounded-full shadow-[0_0_20px_#FFB300]" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-[#D4AF37] rounded-full shadow-[0_0_20px_#D4AF37]" />
       </motion.div>
       
       {/* Middle ring */}
@@ -259,7 +259,7 @@ function OrbitalRings() {
       
       {/* Inner ring */}
       <motion.div
-        className="absolute w-[320px] h-[320px] border-2 border-[#FFB300]/30 rounded-full"
+        className="absolute w-[320px] h-[320px] border-2 border-[#D4AF37]/30 rounded-full"
         animate={{ rotate: 360, scale: [1, 1.05, 1] }}
         transition={{ rotate: { duration: 20, repeat: Infinity, ease: 'linear' }, scale: { duration: 3, repeat: Infinity } }}
       />
@@ -328,9 +328,9 @@ export function CinematicLogoIntro({
           animate={{ opacity: 0.3 }}
           transition={{ duration: 2 }}
         >
-          <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[#FFB300]/20 rounded-full blur-[150px] animate-aurora-1" />
+          <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[#D4AF37]/20 rounded-full blur-[150px] animate-aurora-1" />
           <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-[#00E5FF]/20 rounded-full blur-[120px] animate-aurora-2" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#FFB300]/10 rounded-full blur-[100px] animate-aurora-3" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#D4AF37]/10 rounded-full blur-[100px] animate-aurora-3" />
         </motion.div>
 
         {/* Glass gears - Lionsgate style mechanical opening */}
@@ -349,7 +349,7 @@ export function CinematicLogoIntro({
           transition={{ delay: 1 }}
         >
           <LaserBeam startX="0%" startY="30%" endX="100%" endY="70%" delay={1.5} />
-          <LaserBeam startX="100%" startY="20%" endX="0%" endY="80%" delay={1.8} color="#FFB300" />
+          <LaserBeam startX="100%" startY="20%" endX="0%" endY="80%" delay={1.8} color="#D4AF37" />
           <LaserBeam startX="50%" startY="0%" endX="50%" endY="100%" delay={2} />
         </motion.div>
 
@@ -391,7 +391,7 @@ export function CinematicLogoIntro({
                 transition={{ duration: 2, repeat: Infinity }}
               />
               
-              <div className="relative w-full h-full rounded-3xl overflow-hidden ring-2 ring-[#FFB300]/50 shadow-2xl">
+              <div className="relative w-full h-full rounded-3xl overflow-hidden ring-2 ring-[#D4AF37]/50 shadow-2xl">
                 <Image
                   src="/images/edintel-logo.png"
                   alt="EdIntel Logo"
@@ -421,10 +421,10 @@ export function CinematicLogoIntro({
             <motion.h1
               className="text-5xl md:text-7xl lg:text-8xl font-black tracking-[0.3em] md:tracking-[0.4em] uppercase"
               style={{
-                background: 'linear-gradient(180deg, #FFB300 0%, #FFA000 30%, #FF8F00 70%, #E65100 100%)',
+                background: 'linear-gradient(180deg, #D4AF37 0%, #C5A02E 30%, #B68F25 70%, #8A6B0E 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
-                filter: 'drop-shadow(0 0 30px rgba(255,179,0,0.5))',
+                filter: 'drop-shadow(0 0 30px rgba(212,175,55,0.5))',
               }}
               initial={{ letterSpacing: '0.6em', opacity: 0 }}
               animate={{ letterSpacing: '0.4em', opacity: 1 }}
@@ -465,7 +465,7 @@ export function CinematicLogoIntro({
               transition={{ delay: 4.5 }}
             >
               <motion.div
-                className="h-full bg-gradient-to-r from-[#FFB300] via-[#00E5FF] to-[#FFB300]"
+                className="h-full bg-gradient-to-r from-[#D4AF37] via-[#00E5FF] to-[#D4AF37]"
                 initial={{ width: '0%' }}
                 animate={{ width: '100%' }}
                 transition={{ duration: 3, delay: 4.5, ease: 'easeInOut' }}

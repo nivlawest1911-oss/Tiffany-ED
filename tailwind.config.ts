@@ -84,7 +84,7 @@ const config = {
           DEFAULT: '#2563eb',
           dark: '#1e40af',
         },
-        "intel-gold": "#C5A47E",
+        "intel-gold": "#D4AF37",
         "sovereign-black": "#050505",
         "noble-navy": "#0A0E1A",
         "glass-border": "rgba(255, 255, 255, 0.1)",
@@ -120,7 +120,7 @@ const config = {
           orange: "#FF8C00",
         },
         "electric-cyan": "#00B0FF",
-        "sovereign-gold": "#FFB300",
+        "sovereign-gold": "#D4AF37",
         "white-smoke": "#F5F5F5",
       },
       boxShadow: {

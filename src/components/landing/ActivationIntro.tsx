@@ -40,7 +40,7 @@ function HolographicHumanoid({ phase }: { phase: string }) {
                 <defs>
                     <linearGradient id="humanoidGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                         <stop offset="0%" stopColor="#00E5FF" stopOpacity="0.8" />
-                        <stop offset="50%" stopColor="#FFB300" stopOpacity="0.6" />
+                        <stop offset="50%" stopColor="#D4AF37" stopOpacity="0.6" />
                         <stop offset="100%" stopColor="#00E5FF" stopOpacity="0.4" />
                     </linearGradient>
                     <filter id="humanoidGlow">
@@ -83,7 +83,7 @@ function HolographicHumanoid({ phase }: { phase: string }) {
                     {/* Core energy */}
                     <motion.circle
                         cx="100" cy="140" r="15"
-                        fill="#FFB300"
+                        fill="#D4AF37"
                         fillOpacity="0.3"
                         animate={{ r: [15, 20, 15], opacity: [0.3, 0.6, 0.3] }}
                         transition={{ duration: 1.5, repeat: Infinity }}
@@ -115,9 +115,9 @@ function CognitiveGrid() {
             <svg className="absolute inset-0 w-full h-full opacity-20">
                 <defs>
                     <pattern id="cogGrid" width="80" height="80" patternUnits="userSpaceOnUse">
-                        <path d="M 80 0 L 0 0 0 80" fill="none" stroke="#FFB300" strokeWidth="0.3" />
+                        <path d="M 80 0 L 0 0 0 80" fill="none" stroke="#D4AF37" strokeWidth="0.3" />
                         <circle cx="0" cy="0" r="2" fill="#00E5FF" opacity="0.5" />
-                        <circle cx="80" cy="80" r="2" fill="#FFB300" opacity="0.5" />
+                        <circle cx="80" cy="80" r="2" fill="#D4AF37" opacity="0.5" />
                     </pattern>
                 </defs>
                 <motion.rect
@@ -151,8 +151,8 @@ function FluidParticles() {
                         top: `${Math.random() * 100}%`,
                         width: Math.random() * 4 + 2,
                         height: Math.random() * 4 + 2,
-                        background: i % 2 === 0 ? '#FFB300' : '#00E5FF',
-                        boxShadow: `0 0 ${8 + Math.random() * 8}px ${i % 2 === 0 ? '#FFB300' : '#00E5FF'}`,
+                        background: i % 2 === 0 ? '#D4AF37' : '#00E5FF',
+                        boxShadow: `0 0 ${8 + Math.random() * 8}px ${i % 2 === 0 ? '#D4AF37' : '#00E5FF'}`,
                     }}
                     animate={{
                         y: [0, -50 - Math.random() * 100, 0],
@@ -414,7 +414,7 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
                         >
                             <button
                                 onClick={onCompleteAction}
-                                className="relative px-12 py-4 bg-gradient-to-r from-sovereign-gold via-amber-500 to-sovereign-gold text-black font-black uppercase tracking-widest rounded-xl hover:scale-110 transition-transform shadow-[0_0_40px_rgba(255,179,0,0.4)] overflow-hidden group"
+                                className="relative px-12 py-4 bg-gradient-to-r from-[#D4AF37] via-[#C5A02E] to-[#D4AF37] text-black font-black uppercase tracking-widest rounded-xl hover:scale-110 transition-transform shadow-[0_0_40px_rgba(212,175,55,0.4)] overflow-hidden group"
                             >
                                 <span className="relative z-10">Enter System</span>
                                 {/* Shimmer effect */}

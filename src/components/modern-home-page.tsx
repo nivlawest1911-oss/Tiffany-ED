@@ -135,7 +135,7 @@ function InteractiveTerminal({ onCommand }: { onCommand: (cmd: string) => void }
 
             <form onSubmit={handleSubmit} className="relative group/form">
                 {/* Dynamic Border */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-sovereign-gold/20 via-amber-600/20 to-orange-600/20 rounded-2xl blur-md opacity-0 group-hover:opacity-100 transition duration-1000" />
+                <div className="absolute -inset-1 bg-gradient-to-r from-[#D4AF37]/20 via-[#C5A02E]/20 to-[#B68F25]/20 rounded-2xl blur-md opacity-0 group-hover:opacity-100 transition duration-1000" />
 
                 <div className={cn(
                     "relative bg-black/60 backdrop-blur-md border border-white/5 rounded-2xl overflow-hidden shadow-2xl transition-all duration-500",
@@ -179,7 +179,7 @@ function InteractiveTerminal({ onCommand }: { onCommand: (cmd: string) => void }
                                 type="submit"
                                 title="Execute Protocol"
                                 aria-label="Execute EdIntel protocol"
-                                className="p-3 bg-gradient-to-br from-sovereign-gold to-amber-600 hover:from-white hover:to-electric-cyan text-black rounded-xl transition-all duration-300 font-black shadow-lg shadow-sovereign-gold/10 group-hover/form:scale-105 active:scale-95"
+                                className="p-3 bg-gradient-to-br from-[#D4AF37] to-[#C5A02E] hover:from-white hover:to-electric-cyan text-black rounded-xl transition-all duration-300 font-black shadow-lg shadow-[#D4AF37]/10 group-hover/form:scale-105 active:scale-95"
                             >
                                 <ArrowRight size={20} />
                             </button>
