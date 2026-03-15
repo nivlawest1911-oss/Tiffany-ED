@@ -59,10 +59,11 @@ export default function RegistrationForm() {
                 });
                 router.push(redirect);
             } else {
-                setError(result.error || 'An unknown error occurred.');
-                console.error('[Registration] Action returned failure:', result.error);
+                const errorResult = result as { success: false; error: string };
+                setError(errorResult.error || 'An unknown error occurred.');
+                console.error('[Registration] Action returned failure:', errorResult.error);
                 toast.error('Registration Declined', {
-                    description: result.error || 'An unknown error occurred.',
+                    description: errorResult.error || 'An unknown error occurred.',
                 });
             }
         } catch (err: any) {
@@ -119,7 +120,8 @@ export default function RegistrationForm() {
                     {isSystemReady === false && (
                         <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-medium space-y-2">
                             <p className="font-bold uppercase tracking-wider">⚠️ System Alert: Node Not Configured</p>
-                            <p>DATABASE_URL is missing or unreachable. Registration is currently disabled. Please contact your system administrator.</p>
+                            <p>DATABASE_URL is missing or unreachable. Registration is currently disabled.</p>
+                            <p className="font-bold underline">Fix required: Add your Postgres connection string to Vercel Environment Variables.</p>
                         </div>
                     )}
 

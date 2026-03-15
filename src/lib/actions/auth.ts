@@ -137,6 +137,9 @@ export async function onboardOrganization(data: OnboardingData) {
 
   } catch (error: any) {
     console.error('[AuthAction] Onboarding Transaction Failed:', error);
-    throw new Error(`Onboarding failed: ${error.message}`);
+    return { 
+        success: false, 
+        error: error.message || 'The sovereign node could not be initialized. Please verify your connection.' 
+    };
   }
 }
