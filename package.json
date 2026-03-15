@@ -6,6 +6,7 @@
         "node": ">=20"
     },
     "scripts": {
+        "preinstall": "npm cache clean --force 2>/dev/null || true",
         "dev": "next dev",
         "prebuild": "node -e \"const fs = require('fs'); if (fs.existsSync('.next')) fs.rmSync('.next', { recursive: true, force: true });\"",
         "build": "next build",
@@ -118,7 +119,7 @@
         "lottie-web": "^5.13.0",
         "lucide-react": "^0.454.0",
         "nanoid": "^5.1.5",
-        "next": "14.2.28",
+        "next": "15.3.4",
         "next-themes": "^0.4.6",
         "nodemailer": "^7.0.12",
         "openai": "^6.22.0",
@@ -182,15 +183,18 @@
     "pnpm": {
         "overrides": {
             "react": "18.3.1",
-            "react-dom": "18.3.1"
+            "react-dom": "18.3.1",
+            "eslint-config-next": "15.3.4"
         }
     },
     "overrides": {
         "react": "18.3.1",
-        "react-dom": "18.3.1"
+        "react-dom": "18.3.1",
+        "eslint-config-next": "15.3.4"
     },
     "resolutions": {
         "react": "18.3.1",
-        "react-dom": "18.3.1"
+        "react-dom": "18.3.1",
+        "eslint-config-next": "15.3.4"
     }
 }
