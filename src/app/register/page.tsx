@@ -1,9 +1,10 @@
+'use client';
+
 import React from 'react';
-export const dynamic = 'force-dynamic';
-import nextDynamic from 'next/dynamic';
+import dynamic from 'next/dynamic';
 import { Sparkles, ShieldCheck, Zap } from 'lucide-react';
 
-const RegistrationForm = nextDynamic(() => import('@/components/auth/RegistrationForm'), {
+const RegistrationForm = dynamic(() => import('@/components/auth/RegistrationForm'), {
     ssr: false,
     loading: () => <div className="p-12 rounded-3xl bg-[#111] border border-zinc-800 animate-pulse flex flex-col items-center justify-center gap-4">
         <div className="w-12 h-12 rounded-2xl bg-zinc-900 border border-zinc-800" />

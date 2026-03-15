@@ -16,11 +16,11 @@ const nextConfig = {
             { protocol: 'https', hostname: 'api.dicebear.com' }
         ],
     },
+    serverExternalPackages: ['@google-cloud/bigquery', '@google-cloud/common'],
     experimental: {
         serverActions: {
             bodySizeLimit: '10mb',
         },
-        serverComponentsExternalPackages: ['@google-cloud/bigquery', '@google-cloud/common'],
     },
     async redirects() {
         return [
