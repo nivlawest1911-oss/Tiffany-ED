@@ -6,14 +6,21 @@ const nextConfig = {
     eslint: {
         ignoreDuringBuilds: true,
     },
-    webpack: (config, { dev }) => {
-        // Suppress the "Serializing big strings" warning in development
-        if (dev) {
-            config.infrastructureLogging = {
-                ...config.infrastructureLogging,
-                level: 'error',
+    webpack: (config, { dev, isServer }) => {
+        // Configure cache to handle large strings without warnings
+        if (dev && config.cache) {
+            config.cache = {
+                ...config.cache,
+                type: 'filesystem',
+                compression: 'gzip',
+                maxMemoryGenerations: 1,
             };
         }
+        // Suppress infrastructure logging warnings
+        config.infrastructureLogging = {
+            ...config.infrastructureLogging,
+            level: 'error',
+        };
         return config;
     },
     images: {
