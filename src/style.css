@@ -140,9 +140,13 @@
     .no-scrollbar::-webkit-scrollbar {
         display: none;
     }
+    @supports (scrollbar-width: none) {
+        .no-scrollbar {
+            scrollbar-width: none;
+        }
+    }
     .no-scrollbar {
         -ms-overflow-style: none;
-        scrollbar-width: none;
     }
 
     .glassmorphism {
@@ -446,7 +450,9 @@
 
     .no-scrollbar {
         -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
+        @supports (scrollbar-width: none) {
+            scrollbar-width: none;
+        }
     }
 
     .scrollbar-hide::-webkit-scrollbar {
@@ -455,7 +461,9 @@
 
     .scrollbar-hide {
         -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
+        @supports (scrollbar-width: none) {
+            scrollbar-width: none;
+        }
     }
 
     /* Logo Sizing Utilities to move variables out of inline styles where possible */

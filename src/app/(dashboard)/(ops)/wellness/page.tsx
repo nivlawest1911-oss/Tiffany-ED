@@ -26,6 +26,19 @@ export default function WellnessPage() {
     const [isGenerating, setIsGenerating] = useState(false);
     const [wellnessAgent, setWellnessAgent] = useState<any>(null);
     const chartDataRef = useRef<number[]>([]);
+    const barsRef = useRef<(HTMLDivElement | null)[]>([]);
+
+    // Update biometric bars imperatively to satisfy strict linting
+    useEffect(() => {
+        barsRef.current.forEach((bar, i) => {
+            if (bar) {
+                const data = chartDataRef.current.slice(-10);
+                if (data[i] !== undefined) {
+                    bar.style.setProperty('--bar-height', `${(data[i] / 180) * 100}%`);
+                }
+            }
+        });
+    }, [biometrics]);
 
     useEffect(() => {
         // Fetch Wellness Architect persona
@@ -139,8 +152,8 @@ export default function WellnessPage() {
                                     {chartDataRef.current.slice(-10).map((v, i) => (
                                         <div
                                             key={i}
-                                            className="w-1 bg-rose-500/40 rounded-full"
-                                            style={{ height: `${(v / 180) * 100}%` }}
+                                            ref={el => { barsRef.current[i] = el; }}
+                                            className="w-1 bg-rose-500/40 rounded-full biometric-bar-fill"
                                         />
                                     ))}
                                 </div>

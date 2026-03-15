@@ -15,38 +15,9 @@ const RealtimeCodingPreviews: React.FC = () => {
       <div className="bento-panel-editor" data-name="code-editor">
         <div className="bento-editor-content">
           <div className="bento-code-text">
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}>switch (type) {"{"}</p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}> case 'success':</p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}> return {"{"}</p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}>
-              {" "}
-              border: theme === 'dark' ? 'border-[rgba(34,197,94,0.4)]' : 'border-green-200',
-            </p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}> icon: (</p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}>
-              {" "}
-              &lt;svg className={"{baseIconClasses}"} fill="none" viewBox="0 0 14 14"&gt;
-            </p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}> &lt;path</p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}>
-              {" "}
-              d="M3.85156 7.875L6.47656 10.5L10.8516 3.5"
-            </p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}>
-              {" "}
-              stroke="var(--realtime-primary-color)"
-            </p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}>
-              {" "}
-              strokeLinecap="round"
-            </p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}>
-              {" "}
-              strokeLinejoin="round"
-            </p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}> strokeWidth="1.5"</p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}> /&gt;</p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}> &lt;/svg&gt;</p>
+            {['switch (type) {', " case 'success':", ' return {', " border: theme === 'dark' ? 'border-[rgba(34,197,94,0.4)]' : 'border-green-200',", ' icon: (', ' <svg className={"baseIconClasses"} fill="none" viewBox="0 0 14 14">', ' <path', ' d="M3.85156 7.875L6.47656 10.5L10.8516 3.5"', ' stroke="var(--realtime-primary-color)"', ' strokeLinecap="round"', ' strokeLinejoin="round"', ' strokeWidth="1.5"', ' />', ' </svg>'].map((line, i) => (
+              <p key={i} className="bento-code-line whitespace-pre-wrap font-normal block">{line}</p>
+            ))}
           </div>
         </div>
       </div>
@@ -56,57 +27,10 @@ const RealtimeCodingPreviews: React.FC = () => {
         className="bento-panel-editor"
         data-name="preview-panel"
       >
-        <div
-          style={{
-            padding: "9.488px 9.492px",
-            height: "100%",
-            boxSizing: "border-box",
-            position: "relative",
-            overflow: "hidden",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "flex-start",
-            justifyContent: "center",
-            background: "var(--realtime-background-preview)", // Applied solid background here
-          }}
-        >
+        <div className="bento-preview-panel">
           {/* Download Button - Exact positioning from Figma */}
-          <div
-            style={{
-              position: "absolute",
-              top: "calc(50% + 0.001px)",
-              left: "calc(50% - 71.501px)",
-              transform: "translate(-50%, -50%)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "7.907px",
-              background: "var(--realtime-primary-color)",
-              color: "var(--realtime-text-preview)",
-              border: "none",
-              cursor: "pointer",
-              fontWeight: 500,
-              whiteSpace: "nowrap",
-              transition: "all 0.2s ease",
-              padding: "6.326px 12.651px",
-              borderRadius: "11.07px",
-              boxShadow:
-                "0px 52.186px 14.233px rgba(0, 0, 0, 0), 0px 33.209px 12.651px rgba(0, 0, 0, 0.01), 0px 18.977px 11.07px rgba(0, 0, 0, 0.05), 0px 7.907px 7.907px rgba(0, 0, 0, 0.09), 0px 1.581px 4.744px rgba(0, 0, 0, 0.1)",
-              boxSizing: "border-box",
-            }}
-          >
-            <div
-              style={{
-                fontFamily: "'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-                fontSize: "20.558px",
-                lineHeight: "31.628px",
-                letterSpacing: "-0.6326px",
-                fontWeight: 500,
-                color: "var(--realtime-text-preview)", // Changed to use theme variable
-                textAlign: "left",
-                whiteSpace: "pre",
-              }}
-            >
+          <div className="bento-macos-button">
+            <div className="bento-macos-text">
               Download for macOS
             </div>
           </div>
@@ -114,42 +38,16 @@ const RealtimeCodingPreviews: React.FC = () => {
       </div>
 
       {/* Connection Line - Exact positioning from Figma */}
-      <div
-        style={{
-          position: "absolute",
-          left: "50%",
-          top: "50%",
-          transform: "translate(-50%, -50%)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <div className="bento-connection-wrap">
         {/* This div now directly contains the SVG for the vertical line */}
-        <div
-          style={{
-            position: "relative",
-            width: "2px", // Width of the line (stroke width)
-            height: "285.088px", // Length of the line
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
+        <div className="bento-connection-line">
           <svg
             width="2"
             height="285.088"
             viewBox="0 0 2 285.088"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            style={{
-              position: "absolute",
-              inset: 0,
-              display: "block",
-              maxWidth: "none",
-              width: "100%",
-              height: "100%",
-            }}
+            className="bento-connection-svg"
           >
             <defs>
               <linearGradient id="connectionGradient" x1="1" y1="0" x2="1" y2="285.088" gradientUnits="userSpaceOnUse">

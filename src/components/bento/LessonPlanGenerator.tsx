@@ -263,12 +263,9 @@ export default function LessonPlanGenerator() {
                         {isGenerating ? <Loader2 className="animate-spin" size={20} /> : <Sparkles size={20} />}
                         <span>{isGenerating ? generationSteps[genStep] : 'Generate High-Impact Lesson Plan'}</span>
                     </div>
-                        <div 
-                            className="h-1 w-32 bg-emerald-900/50 rounded-full mt-2 overflow-hidden relative z-10"
-                            style={{ '--progress-width': `${((genStep + 1) / generationSteps.length) * 100}%` } as React.CSSProperties}
-                        >
-                            <div className="h-full bg-white/80 transition-all duration-500 progress-bar-fill" />
-                        </div>
+                    <div className="h-1 w-32 bg-emerald-900/50 rounded-full mt-2 overflow-hidden relative z-10">
+                        <div className={`h-full bg-white/80 transition-all duration-500 progress-bar-fill w-prog-${Math.round(((genStep + 1) / generationSteps.length) * 100)}`} />
+                    </div>
                 </button>
 
                 {generatedPlan.length > 0 && (

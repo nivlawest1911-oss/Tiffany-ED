@@ -34,8 +34,7 @@ function HolographicHumanoid({ phase }: { phase: string }) {
         >
             <svg
                 viewBox="0 0 200 400"
-                className="w-48 h-96 md:w-64 md:h-[500px]"
-                style={{ filter: 'drop-shadow(0 0 20px rgba(0, 229, 255, 0.5))' }}
+                className="w-48 h-96 md:w-64 md:h-[500px] holographic-drop-shadow"
             >
                 <defs>
                     <linearGradient id="humanoidGrad" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -145,25 +144,17 @@ function FluidParticles() {
             {[...Array(30)].map((_, i) => (
                 <motion.div
                     key={i}
-                    className="absolute rounded-full"
-                    style={{
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
-                        width: Math.random() * 4 + 2,
-                        height: Math.random() * 4 + 2,
-                        background: i % 2 === 0 ? '#D4AF37' : '#00E5FF',
-                        boxShadow: `0 0 ${8 + Math.random() * 8}px ${i % 2 === 0 ? '#D4AF37' : '#00E5FF'}`,
-                    }}
+                    className={`absolute rounded-full star-p-${(i % 20) + 1} ${i % 2 === 0 ? 'bg-sovereign-gold' : 'bg-electric-cyan opacity-40 blur-[1px]'}`}
                     animate={{
-                        y: [0, -50 - Math.random() * 100, 0],
-                        x: [0, Math.random() * 40 - 20, 0],
+                        y: [0, -50 - (i * 2), 0],
+                        x: [0, (i % 2 === 0 ? 20 : -20), 0],
                         opacity: [0, 0.8, 0],
                         scale: [0, 1, 0],
                     }}
                     transition={{
-                        duration: 5 + Math.random() * 5,
+                        duration: 5 + (i % 5),
                         repeat: Infinity,
-                        delay: Math.random() * 3,
+                        delay: (i % 10) * 0.3,
                         ease: 'easeInOut',
                     }}
                 />
@@ -178,6 +169,7 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
     const [isMuted, setIsMuted] = useState(true);
     const [videoProgress, setVideoProgress] = useState(0);
     const videoRef = useRef<HTMLVideoElement>(null);
+    const progressRef = useRef<HTMLDivElement>(null);
 
     // Handle entrance video
     useEffect(() => {
@@ -197,6 +189,9 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
         if (videoRef.current) {
             const progress = (videoRef.current.currentTime / videoRef.current.duration) * 100;
             setVideoProgress(progress);
+            if (progressRef.current) {
+                progressRef.current.style.width = `${progress}%`;
+            }
         }
     };
 
@@ -255,12 +250,7 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
                         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black to-transparent" />
                         
                         {/* Holographic scan lines overlay */}
-                        <div 
-                            className="absolute inset-0 pointer-events-none opacity-10"
-                            style={{
-                                backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 229, 255, 0.1) 2px, rgba(0, 229, 255, 0.1) 4px)',
-                            }}
-                        />
+                        <div className="absolute inset-0 pointer-events-none opacity-10 bento-scan-lines" />
                         
                         {/* EdIntel branding overlay */}
                         <motion.div
@@ -301,10 +291,9 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
                         {/* Progress bar */}
                         <div className="absolute bottom-6 left-8 right-8">
                             <div className="h-1 bg-white/10 rounded-full overflow-hidden backdrop-blur-sm">
-                                <motion.div
-                                    className="h-full bg-gradient-to-r from-sovereign-gold to-electric-cyan"
-                                    style={{ width: `${videoProgress}%` }}
-                                    transition={{ duration: 0.1 }}
+                                <div
+                                    ref={progressRef}
+                                    className="h-full bg-gradient-to-r from-sovereign-gold to-electric-cyan progress-bar-fill"
                                 />
                             </div>
                             <div className="flex justify-between mt-2">

@@ -13,13 +13,7 @@ export default function Hero() {
         <section className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden bg-black">
             {/* Holographic Background Grid */}
             <div className="absolute inset-0 z-0">
-                <div
-                    className="absolute inset-0 opacity-10"
-                    style={{
-                        backgroundImage: 'linear-gradient(rgba(255,179,0,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,0.1) 1px, transparent 1px)',
-                        backgroundSize: '100px 100px',
-                    }}
-                />
+                <div className="absolute inset-0 opacity-10 bento-background-grid" />
 
                 {/* Cinematic Video Background */}
                 <video
@@ -145,12 +139,7 @@ export default function Hero() {
                             {/* Glass Panel */}
                             <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 rounded-3xl backdrop-blur-xl overflow-hidden border border-white/20">
                                 {/* Scan Lines */}
-                                <div
-                                    className="absolute inset-0 opacity-20 pointer-events-none"
-                                    style={{
-                                        backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 229, 255, 0.1) 2px, rgba(0, 229, 255, 0.1) 4px)',
-                                    }}
-                                />
+                                <div className="absolute inset-0 opacity-20 pointer-events-none bento-scan-lines" />
 
                                 {/* Content */}
                                 <div className="relative w-full h-full flex items-center justify-center">

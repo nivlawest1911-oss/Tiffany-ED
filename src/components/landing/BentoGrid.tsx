@@ -99,8 +99,7 @@ export default function BentoGrid() {
                                         {[40, 65, 45, 80, 55, 90, 70, 85].map((height, i) => (
                                             <div
                                                 key={i}
-                                                className="flex-1 bg-gradient-to-t from-primary/60 to-primary/20 rounded-t-lg transition-all hover:from-primary/80 hover:to-primary/40"
-                                                style={{ height: `${height}%` }}
+                                                className={`flex-1 bg-gradient-to-t from-primary/60 to-primary/20 rounded-t-lg transition-all hover:from-primary/80 hover:to-primary/40 h-prog-${height}`}
                                             />
                                         ))}
                                     </div>

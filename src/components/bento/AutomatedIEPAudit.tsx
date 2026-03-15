@@ -248,11 +248,8 @@ export default function AutomatedIEPAudit() {
                     </div>
 
                     {isAnalyzing && (
-                        <div 
-                            className="h-1 w-32 bg-blue-900/50 rounded-full mt-2 overflow-hidden relative z-10"
-                            style={{ '--progress-width': `${((scanStep + 1) / scanSteps.length) * 100}%` } as React.CSSProperties}
-                        >
-                            <div className="h-full bg-white/80 transition-all duration-500 progress-bar-fill" />
+                        <div className="h-1 w-32 bg-blue-900/50 rounded-full mt-2 overflow-hidden relative z-10">
+                            <div className={`h-full bg-white/80 progress-bar-fill w-prog-${[0, 12, 25, 37, 50, 62, 75, 87, 100][scanStep + 1]}`} />
                         </div>
                     )}
                 </button>

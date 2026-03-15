@@ -80,6 +80,8 @@ export function RegionalIntelligenceFeed() {
                                     <button 
                                         onClick={() => setShareModal({ isOpen: true, id: alert.id })}
                                         className="p-1 text-white/20 hover:text-noble-gold transition-colors"
+                                        title="Share Intelligence Alert"
+                                        aria-label="Share Intelligence Alert"
                                     >
                                         <Share2 size={10} />
                                     </button>

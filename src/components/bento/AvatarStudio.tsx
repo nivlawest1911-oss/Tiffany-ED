@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
     User,
     Sparkles,
@@ -66,6 +66,7 @@ export default function AvatarStudio() {
     const [isSpeaking, setIsSpeaking] = useState(false);
     const [isInterviewing, setIsInterviewing] = useState(false);
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+    const avatarContainerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (!output) return;
@@ -81,6 +82,15 @@ export default function AvatarStudio() {
         mousePos,
         subtle: false
     });
+
+    useEffect(() => {
+        if (avatarContainerRef.current && behavior.style) {
+            const el = avatarContainerRef.current;
+            el.style.setProperty('--behavior-origin', behavior.style.transformOrigin || 'center');
+            el.style.setProperty('--behavior-transform', behavior.style.transform || 'none');
+            el.style.setProperty('--behavior-transition', behavior.style.transition || 'none');
+        }
+    }, [behavior]);
 
     const roles = [
         { id: 'superintendent', label: 'Superintendent', icon: <LucideShield size={16} />, color: 'purple' },
@@ -398,6 +408,8 @@ export default function AvatarStudio() {
                                         max="100"
                                         value={config.autonomyLevel}
                                         onChange={(e) => setConfig({ ...config, autonomyLevel: parseInt(e.target.value) })}
+                                        title="Autonomy Level Calibration"
+                                        aria-label="Autonomy Level Calibration"
                                         className="w-full h-1.5 bg-zinc-800 rounded-full appearance-none cursor-pointer accent-purple-500"
                                     />
                                     <div className="flex justify-between mt-3 text-[9px] font-bold text-zinc-600 uppercase tracking-tighter">
@@ -442,12 +454,8 @@ export default function AvatarStudio() {
                                         />
                                     ) : (
                                         <div
+                                            ref={avatarContainerRef}
                                             className="w-32 h-32 rounded-full overflow-hidden flex items-center justify-center border-4 border-purple-500/20 relative z-10 shadow-3xl transition-transform duration-700 dynamic-behavior"
-                                            style={{
-                                                '--behavior-transform': behavior.style.transform,
-                                                '--behavior-transition': behavior.style.transition,
-                                                '--behavior-origin': behavior.style.transformOrigin,
-                                            } as React.CSSProperties}
                                         >
                                             <div className="absolute inset-0 bg-gradient-to-t from-purple-600/20 to-transparent opacity-0 group-hover/avatar:opacity-100 transition-opacity duration-1000 z-10" />
                                             <Image src={config.avatarUrl || "/images/avatars/dr_alvin_west_official.png"} alt={config.name} fill className="object-cover grayscale group-hover/avatar:grayscale-0 transition-all duration-700" />

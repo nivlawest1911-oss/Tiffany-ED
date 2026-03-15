@@ -13,7 +13,6 @@ const DeploymentEasy: React.FC<DeploymentEasyProps> = ({ width = "100%", height 
   /* ------------------------------------------------------------
    * Theme-based design tokens using global CSS variables
    * ---------------------------------------------------------- */
-   as React.CSSProperties
 
   /* ------------------------------------------------------------
    * Console log output (static for demo) – can be replaced via props
@@ -44,8 +43,6 @@ const DeploymentEasy: React.FC<DeploymentEasyProps> = ({ width = "100%", height 
   return (
     <div
       className={`bento-illustration-container flex items-center justify-center p-4 ${className}`}
-      role="img"
-      aria-label="Deployment console output with Deploy on Vercel button"
     >
       {/* -------------------------------------------------------- */}
       {/* Console / Terminal panel                                */}
@@ -57,22 +54,14 @@ const DeploymentEasy: React.FC<DeploymentEasyProps> = ({ width = "100%", height 
         {/* Log text */}
         <div className="bento-console-text">
           {logLines.map((line, index) => (
-            <p key={index} style={{ margin: 0 }}>
+            <p key={index} className="m-0">
               {line}
             </p>
           ))}
         </div>
 
         {/* Inner border overlay */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            border: "0.791px solid var(--deploy-border-color)",
-            borderRadius: "10px",
-            pointerEvents: "none",
-          }}
-        />
+        <div className="bento-overlay-border" />
       </div>
 
       {/* -------------------------------------------------------- */}
