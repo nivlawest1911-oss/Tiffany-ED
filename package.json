@@ -6,7 +6,7 @@
         "node": ">=20"
     },
     "scripts": {
-        "preinstall": "rm -rf node_modules/.cache 2>/dev/null || true",
+        "preinstall": "echo 'Starting fresh install'",
         "dev": "next dev",
         "prebuild": "node -e \"const fs = require('fs'); if (fs.existsSync('.next')) fs.rmSync('.next', { recursive: true, force: true });\"",
         "build": "next build",
