@@ -6,6 +6,16 @@ const nextConfig = {
     eslint: {
         ignoreDuringBuilds: true,
     },
+    webpack: (config, { dev }) => {
+        // Suppress the "Serializing big strings" warning in development
+        if (dev) {
+            config.infrastructureLogging = {
+                ...config.infrastructureLogging,
+                level: 'error',
+            };
+        }
+        return config;
+    },
     images: {
         remotePatterns: [
             { protocol: 'https', hostname: '**.supabase.co' },
