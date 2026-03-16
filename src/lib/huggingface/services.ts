@@ -130,7 +130,7 @@ export class ImageGenerationService {
         width?: number;
         height?: number;
         numInferenceSteps?: number;
-    }) {
+    }): Promise<Blob> {
         try {
             const result = await hf.textToImage({
                 model: MODELS.IMAGE_GEN,
@@ -153,7 +153,7 @@ export class ImageGenerationService {
     /**
      * Generate classroom visuals quickly
      */
-    static async generateClassroomVisual(description: string) {
+    static async generateClassroomVisual(description: string): Promise<Blob> {
         const educationalPrompt = `Professional educational illustration: ${description}, clean, modern, suitable for classroom use, high quality`;
         const negativePrompt = 'blurry, distorted, inappropriate, violent, scary';
 

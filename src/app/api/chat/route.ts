@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server';
 import { google } from '@ai-sdk/google';
 import { streamText } from 'ai';
-import { ALABAMA_STRATEGIC_DIRECTIVE, EdIntel_PERSONA, SOVEREIGN_PERSONAS } from '@/lib/ai-resilience';
+import { ALABAMA_STRATEGIC_DIRECTIVE, EdIntel_PERSONA, SOVEREIGN_PERSONAS, type Persona } from '@/lib/ai-resilience';
 
 export const runtime = 'edge';
 
@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
         }
 
         // Determine Persona
-        let activePersona = USER_CREDENTIALS;
+        let activePersona: Persona = USER_CREDENTIALS;
 
         if (pathname) {
             // Check for specific routes

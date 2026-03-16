@@ -6,7 +6,7 @@ import { Play, Sparkles, Loader2, TrendingUp } from 'lucide-react';
 import { GlassCard } from '@/components/ui/Cinematic';
 import { cn } from '@/lib/utils';
 
-export function DigitalTwinSimulator() {
+export function DigitalTwinSimulator({ title }: { title?: string }) {
     const [scenario, setScenario] = useState('');
     const [isSimulating, setIsSimulating] = useState(false);
     const [result, setResult] = useState<any>(null);
@@ -33,7 +33,7 @@ export function DigitalTwinSimulator() {
         <div className="space-y-6">
             <h2 className="text-xl font-bold text-foreground flex items-center gap-3">
                 <Sparkles className="w-5 h-5 text-electric-cyan" />
-                District Digital Twin: Policy Sandbox
+                {title || "District Digital Twin: Policy Sandbox"}
             </h2>
 
             <GlassCard className="p-6 border-electric-cyan/20">

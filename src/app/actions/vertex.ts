@@ -27,7 +27,7 @@ export async function generateGrantDraft(prompt: string) {
 
         const result = await generativeModel.generateContent(request);
         const response = result.response;
-        const text = response.candidates[0].content.parts[0].text;
+        const text = response.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
         return { success: true, draft: text };
     } catch (error) {
