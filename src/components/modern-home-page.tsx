@@ -225,11 +225,16 @@ export default function ModernHomePage() {
     const isSignedIn = !!user;
 
     useEffect(() => {
-        // Check for first-time visitor
-        const onboarded = localStorage.getItem('onboarding_complete');
-        if (!onboarded) {
-            // Delay onboarding until after boot sequence
-            setTimeout(() => setShowOnboarding(true), 3000);
+        // Check for first-time visitor (only on client)
+        if (typeof window === 'undefined') return;
+        try {
+            const onboarded = localStorage.getItem('onboarding_complete');
+            if (!onboarded) {
+                // Delay onboarding until after boot sequence
+                setTimeout(() => setShowOnboarding(true), 3000);
+            }
+        } catch {
+            // localStorage may not be available
         }
     }, []);
 

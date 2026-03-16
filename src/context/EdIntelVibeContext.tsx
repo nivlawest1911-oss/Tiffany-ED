@@ -33,18 +33,29 @@ export const EdIntelVibeProvider = ({ children }: { children: ReactNode }) => {
     const [isCommandConsoleOpen, setIsCommandConsoleOpen] = useState(false);
     const [isSystemThinking, setSystemThinking] = useState(false);
 
-    // Load persisted vibe
+    // Load persisted vibe (only on client)
     useEffect(() => {
-        const savedVibeId = localStorage.getItem('EdIntel_vibe');
-        if (savedVibeId) {
-            const savedVibe = VIBES.find(v => v.id === savedVibeId);
-            if (savedVibe) setVibeState(savedVibe);
+        if (typeof window === 'undefined') return;
+        try {
+            const savedVibeId = localStorage.getItem('EdIntel_vibe');
+            if (savedVibeId) {
+                const savedVibe = VIBES.find(v => v.id === savedVibeId);
+                if (savedVibe) setVibeState(savedVibe);
+            }
+        } catch {
+            // localStorage may not be available in some contexts
         }
     }, []);
 
     const setVibe = (vibe: Vibe) => {
         setVibeState(vibe);
-        localStorage.setItem('EdIntel_vibe', vibe.id);
+        if (typeof window !== 'undefined') {
+            try {
+                localStorage.setItem('EdIntel_vibe', vibe.id);
+            } catch {
+                // localStorage may not be available
+            }
+        }
     };
 
     const toggleCommandConsole = () => setIsCommandConsoleOpen(prev => !prev);
