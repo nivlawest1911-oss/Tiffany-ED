@@ -76,6 +76,8 @@ export function IntelligenceProvider({ children }: { children: React.ReactNode }
 
     // GLOBAL INTERCEPTOR: Only trigger if explicitly requested or Shift+Click
     useEffect(() => {
+        if (typeof window === 'undefined') return;
+        
         const handleGlobalClick = (e: MouseEvent) => {
             const path = window.location.pathname;
             // NEVER intercept on critical functional pages
