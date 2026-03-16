@@ -143,7 +143,7 @@ export class ImageGenerationService {
                 },
             });
 
-            return result;
+            return result as Blob;
         } catch (error) {
             console.error('Image generation error:', error);
             throw error;
@@ -220,7 +220,7 @@ export class ImageAnalysisService {
                 data: imageBlob,
             });
 
-            return result.generated_text;
+            return result.generated_text || '';
         } catch (error) {
             console.error('Image captioning error:', error);
             throw error;
