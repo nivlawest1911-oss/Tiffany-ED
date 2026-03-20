@@ -525,7 +525,7 @@ export default function ModernHomePage() {
                                                             {agent.status || 'Live'}
                                                         </span>
                                                     </div>
-                                                    <p className="text-white font-black text-2xl uppercase tracking-tighter italic cyan-gradient-text">{agent.name}</p>
+                                                    <h3 className="text-white font-black text-2xl uppercase tracking-tighter italic cyan-gradient-text">{agent.name}</h3>
                                                     <p className="text-zinc-400 text-[10px] font-mono uppercase tracking-[0.3em] font-black">{agent.role}</p>
                                                 </div>
                                             </div>

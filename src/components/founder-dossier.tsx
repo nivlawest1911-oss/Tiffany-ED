@@ -121,17 +121,21 @@ export default function FounderDossier() {
                 </div>
 
                 {/* Voice Profile Control */}
-                <div className="p-4 bg-white/5 mt-2 rounded-xl flex items-center justify-between group/audio hover:bg-white/10 transition-all cursor-pointer border border-white/5" onClick={toggleAudio}>
+                <button 
+                  className="w-full p-4 bg-white/5 mt-2 rounded-xl flex items-center justify-between group/audio hover:bg-white/10 transition-all border border-white/5" 
+                  onClick={toggleAudio}
+                  aria-label={isPlaying ? "Pause voice briefing" : "Play voice briefing"}
+                >
                   <div className="flex items-center gap-3">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${isPlaying ? 'bg-noble-gold text-black scale-110 shadow-[0_0_20px_rgba(212,175,55,0.4)]' : 'bg-white/10 text-noble-gold'}`}>
                       {isPlaying ? <Pause size={18} fill="currentColor" /> : <Play size={18} fill="currentColor" className="ml-1" />}
                     </div>
-                    <div>
+                    <div className="text-left">
                       <div className="text-[10px] font-black text-noble-gold uppercase tracking-[0.2em]">Voice Profile</div>
                       <div className="text-xs text-white font-bold uppercase tracking-widest">Authorized Briefing</div>
                     </div>
                   </div>
-                  <div className="flex gap-0.5 items-end h-6">
+                  <div className="flex gap-0.5 items-end h-6" aria-hidden="true">
                     {[1, 2, 3, 4, 5, 4, 3, 2, 1].map((h, i) => (
                       <motion.div
                         key={i}
@@ -141,7 +145,7 @@ export default function FounderDossier() {
                       />
                     ))}
                   </div>
-                </div>
+                </button>
               </div>
             </div>
 
@@ -152,6 +156,7 @@ export default function FounderDossier() {
                   key={i}
                   href={link.href}
                   target="_blank"
+                  aria-label={link.label}
                   className="w-12 h-12 rounded-full bg-slate-900 border border-white/10 flex items-center justify-center text-slate-400 hover:text-noble-gold hover:border-noble-gold/50 hover:bg-noble-gold/10 transition-all duration-300"
                 >
                   <link.icon size={20} />

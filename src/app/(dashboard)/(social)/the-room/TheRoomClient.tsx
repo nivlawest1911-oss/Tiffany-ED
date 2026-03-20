@@ -268,7 +268,7 @@ export default function TheRoomClient() {
                                         <div className={cn("p-2.5 rounded-xl bg-black/40", tool.color)}>
                                             <tool.icon size={20} />
                                         </div>
-                                        <h4 className="text-sm font-black text-white uppercase tracking-tight group-hover:text-electric-cyan transition-colors line-clamp-2">{tool.title}</h4>
+                                        <h3 className="text-sm font-black text-white uppercase tracking-tight group-hover:text-electric-cyan transition-colors line-clamp-2">{tool.title}</h3>
                                     </div>
                                     <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest leading-relaxed line-clamp-2">
                                         {tool.desc}

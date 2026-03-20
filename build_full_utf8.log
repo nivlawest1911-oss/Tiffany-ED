@@ -1,0 +1,59 @@
+﻿node.exe : npm warn Unknown project config 
+"strict-peer-dependencies". This will stop working 
+in the next major version of npm.
+At C:\Users\nivla\AppData\Roaming\npm\npm.ps1:24 
+char:5
++     & "node$exe"  
+"$basedir/node_modules/npm/bin/npm-cli.js" $args
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (npm war 
+   n Unknow...version of npm.:String) [], RemoteExc  
+  eption
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+npm warn Unknown project config 
+"auto-install-peers". This will stop working in the 
+next major version of npm.
+npm warn using --force Recommended protections 
+disabled.
+
+> edintel-app@1.0.0 prebuild
+> node -e "const fs = require('fs'); if (fs.existsSync('.next')) fs.rmSync('.next', { recursive: true, force: true });"
+
+
+> edintel-app@1.0.0 build
+> next build
+
+   Γû▓ Next.js 15.1.12
+   - Environments: .env.production.local, .env.local, .env.production, .env
+
+   Creating an optimized production build ...
+ Γ£ô Compiled successfully
+   Linting and checking validity of types ...
+
+Failed to compile.
+
+./src/app/(dashboard)/error.tsx
+53:21  Error: Do not use an `<a>` element to 
+navigate to `/`. Use `<Link />` from `next/link` 
+instead. See: https://nextjs.org/docs/messages/no-htm
+l-link-for-pages  @next/next/no-html-link-for-pages
+
+./src/app/api/health/route.ts
+2:10  Error: 'prisma' is defined but never used.  
+unused-imports/no-unused-imports
+
+./src/app/api/system/health/route.ts
+2:10  Error: 'prisma' is defined but never used.  
+unused-imports/no-unused-imports
+
+./src/app/global-error.tsx
+140:25  Error: Do not use an `<a>` element to 
+navigate to `/`. Use `<Link />` from `next/link` 
+instead. See: https://nextjs.org/docs/messages/no-htm
+l-link-for-pages  @next/next/no-html-link-for-pages
+
+info  - Need to disable some ESLint rules? Learn 
+more here: https://nextjs.org/docs/app/api-reference/
+config/eslint#disabling-rules
