@@ -10,7 +10,6 @@ import dynamic from 'next/dynamic';
 import { CORE_AVATARS } from '@/data/avatars';
 import { ROUTES } from '@/lib/routes';
 import { useAuth } from '@/context/AuthContext';
-import { Button } from '@/components/ui/button';
 import ActivationIntro from './landing/ActivationIntro';
 import { CinematicLogoIntro } from './CinematicLogoIntro';
 const ReadyToActivateCTA = dynamic(() => import('./landing/ReadyToActivateCTA'), { 

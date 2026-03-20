@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import Link from 'next/link'
 
 export default function DashboardError({
     error,
@@ -50,7 +51,7 @@ export default function DashboardError({
                         </svg>
                         Retry Protocol
                     </button>
-                    <a
+                    <Link
                         href="/"
                         className="w-full flex items-center justify-center gap-2 px-6 py-4 sm:py-3.5 border border-gray-700 bg-gray-800/50 hover:bg-gray-800 active:bg-gray-900 text-gray-100 rounded-xl font-semibold uppercase tracking-wider transition-all active:scale-[0.98] text-sm"
                         style={{ touchAction: 'manipulation' }}
@@ -59,7 +60,7 @@ export default function DashboardError({
                             <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
                         </svg>
                         Return Home
-                    </a>
+                    </Link>
                 </div>
                 
                 {/* Error digest for debugging */}
