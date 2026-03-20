@@ -31,12 +31,12 @@ export default function GlobalStatusBar() {
                         <circle
                             cx="24" cy="24" r="20" fill="none" stroke="#6366f1" strokeWidth="4"
                             strokeDasharray="125.6"
-                            strokeDashoffset={125.6 * (1 - (getTrialDaysRemaining(user.trialEndsAt) / 30))}
+                            strokeDashoffset={125.6 * (1 - (getTrialDaysRemaining(user.trialEndsAt ? new Date(user.trialEndsAt) : null) / 30))}
                             className="transition-all duration-1000 group-hover:stroke-cyan-400"
                             strokeLinecap="round"
                         />
                     </svg>
-                    <span className="text-[10px] font-black text-white">{getTrialDaysRemaining(user.trialEndsAt)}d</span>
+                    <span className="text-[10px] font-black text-white">{getTrialDaysRemaining(user.trialEndsAt ? new Date(user.trialEndsAt) : null)}d</span>
                 </div>
             )}
 

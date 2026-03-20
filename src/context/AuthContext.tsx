@@ -11,6 +11,7 @@ interface User {
     id: string;
     tier: string;
     usageTokens: number;
+    usage_count?: number;
     avatar_url?: string;
     clerkId?: string;
     position?: string;

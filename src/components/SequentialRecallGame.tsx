@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 
-export default function SequentialRecallGame({ onGameFinish }: { onGameFinish: (score: number) => void }) {
+export default function SequentialRecallGame({ onGameFinishAction }: { onGameFinishAction: (score: number) => void }) {
   const [sequence, setSequence] = useState<number[]>([]);
   const [userSequence, setUserSequence] = useState<number[]>([]);
   const [isShowing, setIsShowing] = useState(false);
@@ -19,7 +19,7 @@ export default function SequentialRecallGame({ onGameFinish }: { onGameFinish: (
     setUserSequence(newUserSeq);
 
     if (num !== sequence[userSequence.length]) {
-      onGameFinish(sequence.length - 1);
+      onGameFinishAction(sequence.length - 1);
     } else if (newUserSeq.length === sequence.length) {
       setTimeout(startNewLevel, 1000);
     }
@@ -32,7 +32,7 @@ export default function SequentialRecallGame({ onGameFinish }: { onGameFinish: (
           key={i}
           onClick={() => handleInput(i)}
           className="h-20 w-20 text-xl font-bold"
-          variant={isShowing && sequence.includes(i) ? "default" : "outline"}
+          variant={isShowing && sequence.includes(i) ? "primary" : "ghost"}
         >
           {i + 1}
         </Button>

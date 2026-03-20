@@ -171,7 +171,7 @@ export default function EdIntelAvatarInterface({ avatarId = 'ef08039a41354ed5a20
                     <div className="flex items-center gap-4">
                         <Button
                             onClick={isListening ? stopListening : startListening}
-                            variant="outline"
+                            variant="ghost"
                             disabled={!isSessionActive}
                             className={`rounded-full h-12 w-12 border-noble-gold/20 transition-all ${isListening ? 'bg-red-500/10 text-red-500 border-red-500/50' : 'bg-black/40 text-noble-gold hover:bg-noble-gold/20'}`}
                         >

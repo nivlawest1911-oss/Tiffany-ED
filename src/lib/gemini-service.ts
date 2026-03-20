@@ -6,7 +6,7 @@ import { UserContext, protocolRouter } from "./protocol-router";
 const getApiKey = () => (process.env.GOOGLE_GEMINI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GOOGLE_GENAI_API_KEY || '').trim();
 
 export const GEMINI_CONFIG = {
-    model: "gemini-2.5-flash",
+    model: "gemini-1.5-flash",
     safetySettings: [
         {
             category: HarmCategory.HARM_CATEGORY_HARASSMENT,

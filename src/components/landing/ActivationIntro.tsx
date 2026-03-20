@@ -139,9 +139,10 @@ function CognitiveGrid() {
 
 // Fluid Particles
 function FluidParticles() {
+    // OPTIMIZED PERFORMANCE: Reduced particle count for FCP (Phase 14)
     return (
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {[...Array(30)].map((_, i) => (
+            {[...Array(12)].map((_, i) => (
                 <motion.div
                     key={i}
                     className={`absolute rounded-full star-p-${(i % 20) + 1} ${i % 2 === 0 ? 'bg-sovereign-gold' : 'bg-electric-cyan opacity-40 blur-[1px]'}`}
@@ -234,13 +235,14 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
                         transition={{ duration: 0.8 }}
                         className="relative w-full h-full"
                     >
-                        {/* Full-screen cinematic video */}
+                        {/* Full-screen cinematic video - Preloaded for performance (Phase 14) */}
                         <video
                             ref={videoRef}
                             src={ENTRANCE_VIDEO_URL}
                             className="absolute inset-0 w-full h-full object-cover"
                             muted={isMuted}
                             playsInline
+                            preload="auto"
                             onEnded={handleVideoEnd}
                             onTimeUpdate={handleTimeUpdate}
                         />

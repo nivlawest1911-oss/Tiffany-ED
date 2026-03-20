@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ShieldCheck, Scale, Lock as LockIcon } from 'lucide-react';
-import EdIntelInteractionAgent from '../EdIntelInteractionAgent';
+import EdIntelInteractionAgent from '../intelligence/EdIntelInteractionAgent';
 
 export const ComplianceBadge = () => {
     return (

@@ -156,7 +156,7 @@ export function CaptionsEditor({ className = '' }: CaptionsEditorProps) {
                         />
                         <Button
                             type="button"
-                            variant="outline"
+                            variant="ghost"
                             className="w-full"
                             disabled={isProcessing}
                             onClick={() => (document.querySelector('input[type="file"]') as HTMLInputElement)?.click()}

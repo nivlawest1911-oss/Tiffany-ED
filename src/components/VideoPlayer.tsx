@@ -38,7 +38,7 @@ export default function VideoPlayer({
     const videoRef = useRef<HTMLVideoElement>(null);
     const audioRef = useRef<HTMLAudioElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
-    const controlsTimeout = useRef<NodeJS.Timeout>();
+    const controlsTimeout = useRef<NodeJS.Timeout | null>(null);
     
     const [isPlaying, setIsPlaying] = useState(autoPlay);
     const [isMuted, setIsMuted] = useState(muted);
@@ -47,6 +47,13 @@ export default function VideoPlayer({
     const [duration, setDuration] = useState(0);
     const [progress, setProgress] = useState(0);
     const [showControls, setShowControls] = useState(true);
+    const progressRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        if (progressRef.current) {
+            progressRef.current.style.setProperty('--progress', `${progress}%`);
+        }
+    }, [progress]);
 
     useEffect(() => {
         const video = videoRef.current;
@@ -222,6 +229,8 @@ export default function VideoPlayer({
                     <button
                         onClick={togglePlay}
                         className="p-6 rounded-full bg-[#FFB300]/90 backdrop-blur-sm hover:bg-[#FFB300] transition-all transform hover:scale-110 shadow-2xl"
+                        title="Play Video"
+                        aria-label="Play Video"
                     >
                         <Play className="w-12 h-12 text-white ml-1" fill="white" />
                     </button>
@@ -243,6 +252,9 @@ export default function VideoPlayer({
                             max="100"
                             value={progress}
                             onChange={handleSeek}
+                            title="Seek"
+                            aria-label="Seek"
+                            ref={progressRef}
                             className="w-full h-1 bg-white/30 rounded-full appearance-none cursor-pointer
                                 [&::-webkit-slider-thumb]:appearance-none
                                 [&::-webkit-slider-thumb]:w-3
@@ -252,10 +264,8 @@ export default function VideoPlayer({
                                 [&::-webkit-slider-thumb]:shadow-lg
                                 [&::-webkit-slider-thumb]:cursor-pointer
                                 [&::-webkit-slider-thumb]:transition-transform
-                                [&::-webkit-slider-thumb]:hover:scale-125"
-                            style={{
-                                background: `linear-gradient(to right, #FFB300 ${progress}%, rgba(255,255,255,0.3) ${progress}%)`,
-                            }}
+                                [&::-webkit-slider-thumb]:hover:scale-125
+                                [background-image:linear-gradient(to_right,#FFB300_var(--progress),rgba(255,255,255,0.3)_var(--progress))]"
                         />
                     </div>
 

@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useActions, useUIState } from '@ai-sdk/rsc';
-import type { AI } from '@/app/ai-hub/ai';
+import { AI } from '@/app/ai-hub/ai';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Loader2, Brain, Send, Shield, Zap, Activity } from 'lucide-react';
@@ -17,7 +17,9 @@ export interface MetaAIChatProps {
 
 export function MetaAIChat({ className = '' }: MetaAIChatProps) {
     const [conversation, setConversation] = useUIState<typeof AI>();
-    const { submitUserMessage } = useActions<typeof AI>();
+    const { submitUserMessage } = useActions<typeof AI>() as {
+        submitUserMessage: (content: string) => Promise<any>;
+    };
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [_edgeStatus, _setEdgeStatus] = useState<any>(null);

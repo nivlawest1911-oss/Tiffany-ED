@@ -25,7 +25,7 @@ import NeuralBackground from '../ui/NeuralBackground';
 interface CoreTool {
     id: string;
     label: string;
-    icon: React.ElementType;
+    icon: any;
     href: string;
     desc: string;
 }

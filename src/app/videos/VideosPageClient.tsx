@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, Film, Play, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -78,9 +79,11 @@ export default function VideosPageClient({ videos, categories }: VideosPageClien
             <GlassPanel variant="gold" glow className="p-1 overflow-hidden">
               <div className="relative aspect-[21/9] rounded-2xl overflow-hidden bg-gradient-to-br from-zinc-900 to-black">
                 {videos[0]?.thumbnail ? (
-                  <img
+                  <Image
                     src={videos[0].thumbnail}
                     alt={videos[0].title}
+                    width={1920}
+                    height={1080}
                     className="w-full h-full object-cover opacity-60"
                   />
                 ) : (

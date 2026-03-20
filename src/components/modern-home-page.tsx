@@ -10,7 +10,6 @@ import dynamic from 'next/dynamic';
 import { CORE_AVATARS } from '@/data/avatars';
 import { ROUTES } from '@/lib/routes';
 import { useAuth } from '@/context/AuthContext';
-import { Button } from '@/components/ui/button';
 import ActivationIntro from './landing/ActivationIntro';
 import { CinematicLogoIntro } from './CinematicLogoIntro';
 const ReadyToActivateCTA = dynamic(() => import('./landing/ReadyToActivateCTA'), { 
@@ -227,16 +226,36 @@ export default function ModernHomePage() {
     useEffect(() => {
         // Check for first-time visitor (only on client)
         if (typeof window === 'undefined') return;
+        
         try {
+            // RADICAL PERFORMANCE: Skip intros for returning visitors (Phase 14)
+            const introSeen = localStorage.getItem('edintel_intro_seen');
+            if (introSeen === 'true') {
+                setShowCinematicIntro(false);
+                setBooted(true);
+            }
+
+            // Check for first-time visitor
             const onboarded = localStorage.getItem('onboarding_complete');
             if (!onboarded) {
                 // Delay onboarding until after boot sequence
-                setTimeout(() => setShowOnboarding(true), 3000);
+                setTimeout(() => setShowOnboarding(true), 15.1 * 1000); // Wait for potential intro duration
             }
-        } catch {
+        } catch (e) {
             // localStorage may not be available
+            console.error("Storage error:", e);
         }
     }, []);
+
+    const handleIntroComplete = () => {
+        localStorage.setItem('edintel_intro_seen', 'true');
+        setShowCinematicIntro(false);
+    };
+
+    const handleBootComplete = () => {
+        localStorage.setItem('edintel_intro_seen', 'true');
+        startTransition(() => setBooted(true));
+    };
 
     const { scrollYProgress } = useScroll();
     const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
@@ -339,7 +358,7 @@ export default function ModernHomePage() {
                 <AnimatePresence>
                     {showCinematicIntro && (
                         <CinematicLogoIntro 
-                            onComplete={() => setShowCinematicIntro(false)}
+                            onComplete={handleIntroComplete}
                             autoClose={true}
                             autoCloseDuration={8000}
                         />
@@ -347,7 +366,7 @@ export default function ModernHomePage() {
                 </AnimatePresence>
 
                 <AnimatePresence>
-                    {!booted && <ActivationIntro onCompleteAction={() => startTransition(() => setBooted(true))} />}
+                    {!booted && <ActivationIntro onCompleteAction={handleBootComplete} />}
                 </AnimatePresence>
 
                 {booted && (

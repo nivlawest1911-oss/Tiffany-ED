@@ -87,7 +87,7 @@ export default function RegistrationForm() {
 
     return (
         <Card className="w-full max-w-lg bg-[#111] border-zinc-800 text-gray-200 shadow-2xl overflow-hidden relative group">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 opacity-80" />
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600/50 via-purple-600/50 to-emerald-600/50" />
             
             <CardHeader className="space-y-4 pt-8 px-8">
                 <div className="flex items-center justify-between">

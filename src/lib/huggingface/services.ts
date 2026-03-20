@@ -143,7 +143,7 @@ export class ImageGenerationService {
                 },
             });
 
-            return result as Blob;
+            return result as unknown as Blob;
         } catch (error) {
             console.error('Image generation error:', error);
             throw error;

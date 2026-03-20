@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -136,9 +137,11 @@ export default async function VideoPage({ params }: Props) {
                       {/* Thumbnail */}
                       <div className="relative w-28 h-16 rounded-lg overflow-hidden bg-zinc-800 flex-shrink-0">
                         {v.thumbnail ? (
-                          <img
+                          <Image
                             src={v.thumbnail}
                             alt={v.title}
+                            width={320}
+                            height={180}
                             className="w-full h-full object-cover"
                           />
                         ) : (

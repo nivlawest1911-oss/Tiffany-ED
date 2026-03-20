@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useState, useRef, useCallback } from 'react'
 import Image from 'next/image'
 
@@ -183,7 +183,8 @@ function HolographicGrid() {
 
 // Floating particles
 function FloatingParticles() {
-  const particles = Array.from({ length: 50 }, (_, i) => ({
+  // OPTIMIZED PERFORMANCE: Reduced particle count for LCP/FCP (Phase 14)
+  const particles = Array.from({ length: 24 }, (_, i) => ({
     id: i,
     x: Math.random() * 100,
     y: Math.random() * 100,
@@ -273,7 +274,7 @@ export function CinematicLogoIntro({
   autoCloseDuration = 8000 
 }: LogoIntroProps) {
   const [isVisible, setIsVisible] = useState(true)
-  const [phase, setPhase] = useState<'gears' | 'logo' | 'text' | 'complete'>('gears')
+  const [_phase, setPhase] = useState<'gears' | 'logo' | 'text' | 'complete'>('gears')
   const containerRef = useRef<HTMLDivElement>(null)
 
   // Phase timing

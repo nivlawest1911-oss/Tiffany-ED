@@ -32,7 +32,7 @@ Format the output EXACTLY in JSON like this (do not include markdown codeblocks,
 
         // Instead of calling generateSovereignResponse, let's use the raw stream or generate logic
         // For simplicity and considering we disabled tokens, we can use the direct generateSovereignResponse
-        const responseData = await generateSovereignResponse(prompt, 'gemini-2.5-flash');
+        const responseData = await generateSovereignResponse(prompt, 'gemini-1.5-flash');
 
         let jsonResponse;
         try {

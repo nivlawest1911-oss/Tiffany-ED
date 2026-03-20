@@ -59,7 +59,15 @@ const testimonials = [
   },
 ]
 
-const TestimonialCard = ({ quote, name, company, avatar, type }) => {
+interface TestimonialProps {
+  quote: string
+  name: string
+  company: string
+  avatar: string
+  type: string
+}
+
+const TestimonialCard = ({ quote, name, company, avatar, type }: TestimonialProps) => {
   const isLargeCard = type.startsWith("large")
   const avatarSize = isLargeCard ? 48 : 36
   const avatarBorderRadius = isLargeCard ? "rounded-[41px]" : "rounded-[30.75px]"
@@ -81,8 +89,7 @@ const TestimonialCard = ({ quote, name, company, avatar, type }) => {
     cardHeight = "h-[502px]"
     backgroundElements = (
       <div
-        className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/images/large-card-background.svg')", zIndex: 0 }}
+        className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat bg-[url('/images/large-card-background.svg')] z-0"
       />
     )
   } else if (type === "large-light") {
@@ -93,8 +100,7 @@ const TestimonialCard = ({ quote, name, company, avatar, type }) => {
     cardHeight = "h-[502px]"
     backgroundElements = (
       <div
-        className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat opacity-20"
-        style={{ backgroundImage: "url('/images/large-card-background.svg')", zIndex: 0 }}
+        className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat opacity-20 bg-[url('/images/large-card-background.svg')] z-0"
       />
     )
   } else {
@@ -115,8 +121,7 @@ const TestimonialCard = ({ quote, name, company, avatar, type }) => {
           alt={`${name} avatar`}
           width={avatarSize}
           height={avatarSize}
-          className={`w-${avatarSize / 4} h-${avatarSize / 4} ${avatarBorderRadius}`}
-          style={{ border: "1px solid rgba(255, 255, 255, 0.08)" }}
+          className={`w-${avatarSize / 4} h-${avatarSize / 4} ${avatarBorderRadius} border border-white/10`}
         />
         <div className="flex flex-col justify-start items-start gap-0.5">
           <div className={nameClasses}>{name}</div>

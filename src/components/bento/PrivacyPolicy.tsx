@@ -1,6 +1,5 @@
 'use client';
 import { Shield as LucideShield, Lock, Eye, FileText, Scale, UserCheck, Database, Globe, ArrowRight, Brain } from "lucide-react";
-import { CARBON_FIBRE_BG } from '@/lib/constants';
 import { useState, useEffect } from 'react';
 
 

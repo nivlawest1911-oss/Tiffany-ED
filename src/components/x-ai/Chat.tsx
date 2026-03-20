@@ -16,7 +16,7 @@ export function XAIChat({ className = '' }: XAIChatProps) {
     const { messages, input, handleInputChange, handleSubmit, isLoading, error } = useChat({
         api: '/api/x-ai/chat',
         initialMessages: [],
-    });
+    } as any) as any;
 
     const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -84,7 +84,7 @@ export function XAIChat({ className = '' }: XAIChatProps) {
                 )}
 
                 <AnimatePresence mode="popLayout">
-                    {messages.map((message, _index) => (
+                    {messages.map((message: any, _index: any) => (
                         <motion.div
                             key={message.id}
                             initial={{ opacity: 0, y: 20, scale: 0.95 }}

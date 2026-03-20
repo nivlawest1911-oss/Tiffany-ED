@@ -58,7 +58,7 @@ async function animateAsset(imageFilename: string, outputFilename: string) {
 
         // 4. Fetch Latest Model Version
         const model = await replicate.models.get("stability-ai", "stable-video-diffusion");
-        const versionId = model.latest_version.id;
+        const versionId = (model as any).latest_version?.id;
 
         console.log(`   💎 Using Model Version: ${versionId}`);
 

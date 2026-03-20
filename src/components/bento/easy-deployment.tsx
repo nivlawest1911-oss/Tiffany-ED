@@ -9,7 +9,7 @@ interface DeploymentEasyProps {
   className?: string
 }
 
-const DeploymentEasy: React.FC<DeploymentEasyProps> = ({ width = "100%", height = "100%", className = "" }) => {
+const DeploymentEasy: React.FC<DeploymentEasyProps> = ({ className = "" }) => {
   /* ------------------------------------------------------------
    * Theme-based design tokens using global CSS variables
    * ---------------------------------------------------------- */

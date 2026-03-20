@@ -1,6 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 export const dynamic = 'force-dynamic';
-import { getSession } from '@/lib/auth';
 import { DistrictService } from '@/lib/DistrictService';
 
 // Simple in-memory cache for fleet metrics

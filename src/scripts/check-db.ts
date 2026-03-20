@@ -17,7 +17,7 @@ async function main() {
         const userCount = await prisma.user.count();
         console.log(`Connection successful. User count: ${userCount}`);
         process.exit(0);
-    } catch (error) {
+    } catch (error: any) {
         console.error('Database connection failed!');
         console.error('Error Code:', error.code);
         console.error('Error Message:', error.message);

@@ -35,8 +35,7 @@ export async function onboardOrganization(data: OnboardingData) {
 
   try {
     // 0. Pre-check configuration
-    // @ts-ignore - isConfigured is a custom property on our proxy
-    if (!prisma.isConfigured) {
+    if ((prisma as any).isConfigured === false) {
       console.error('[AuthAction] Database not configured');
       throw new Error('Database configuration missing. Please ensure DATABASE_URL is set in environment variables.');
     }

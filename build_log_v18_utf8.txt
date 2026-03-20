@@ -1,0 +1,291 @@
+﻿node.exe : npm warn Unknown project config 
+"strict-peer-dependencies". This will stop working 
+in the next major version of npm.
+At C:\Users\nivla\AppData\Roaming\npm\npm.ps1:24 
+char:5
++     & "node$exe"  
+"$basedir/node_modules/npm/bin/npm-cli.js" $args
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (npm 
+warn     Unknow...version of npm.:String) [], 
+RemoteExcepti    on
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+npm warn Unknown project config 
+"auto-install-peers". This will stop working in the 
+next major version of npm.
+npm warn using --force Recommended protections 
+disabled.
+
+> edintel-app@1.0.0 prebuild
+> node -e "const fs = require('fs'); if (fs.existsSync('.next')) fs.rmSync('.next', { recursive: true, force: true });"
+
+
+> edintel-app@1.0.0 build
+> next build
+
+   Γû▓ Next.js 15.1.12
+   - Environments: .env.production.local, .env.local, .env.production, .env
+
+   Creating an optimized production build ...
+ Γ£ô Compiled successfully
+   Linting and checking validity of types ...
+
+./src/app/videos/VideosPageClient.tsx
+81:19  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/app/videos/[id]/page.tsx
+139:27  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/components/VideoGallery.tsx
+119:13  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
+   Collecting page data ...
+ ΓÜá Using edge runtime on a page currently disables 
+static generation for that page
+   Generating static pages (0/135) ...
+   Generating static pages (33/135) 
+   Generating static pages (67/135) 
+   Generating static pages (101/135) 
+ Γ£ô Generating static pages (135/135)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+Γöî ╞Æ /                                    57.8 kB         430 kB
+Γö£ Γùï /_not-found                          438 B           107 kB
+Γö£ ╞Æ /about                               4.62 kB         162 kB
+Γö£ Γùï /academy                             11.5 kB         223 kB
+Γö£ ╞Æ /account                             5.49 kB         226 kB
+Γö£ Γùï /admin                               15.1 kB         410 kB
+Γö£ Γùï /admin/academic                      2.37 kB         109 kB
+Γö£ Γùï /admin/analytics                     13.2 kB         493 kB
+Γö£ Γùï /admin/comms                         2.28 kB         109 kB
+Γö£ Γùï /admin/grants                        2.93 kB         382 kB
+Γö£ Γùï /admin/health                        2.39 kB         381 kB
+Γö£ Γùï /admin/management                    4.91 kB         117 kB
+Γö£ Γùï /admin/manual                        5.19 kB         157 kB
+Γö£ Γùï /admin/roi                           2.9 kB          118 kB
+Γö£ Γùï /admin/roster                        2.33 kB         381 kB
+Γö£ ╞Æ /admin/status                        4.32 kB         156 kB
+Γö£ Γùï /admin/studio                        2.41 kB         151 kB
+Γö£ Γùï /admin/tools                         21.7 kB         401 kB
+Γö£ Γùï /admin/vault                         2.52 kB         381 kB
+Γö£ Γùï /ai-hub                              8.4 kB          202 kB
+Γö£ ╞Æ /analytics                           4.12 kB         255 kB
+Γö£ ╞Æ /api/admin                           438 B           107 kB
+Γö£ ╞Æ /api/admin/pulse                     438 B           107 kB
+Γö£ ╞Æ /api/admin/sites                     438 B           107 kB
+Γö£ ╞Æ /api/admin/strategic-analysis        438 B           107 kB
+Γö£ ╞Æ /api/admin/telemetry                 438 B           107 kB
+Γö£ ╞Æ /api/agents/literacy                 438 B           107 kB
+Γö£ ╞Æ /api/agents/policy                   438 B           107 kB
+Γö£ ╞Æ /api/agents/swarm                    438 B           107 kB
+Γö£ ╞Æ /api/agents/wellness                 438 B           107 kB
+Γö£ ╞Æ /api/ai/chat                         438 B           107 kB
+Γö£ ╞Æ /api/ai/clone-twin                   438 B           107 kB
+Γö£ ╞Æ /api/ai/greet                        438 B           107 kB
+Γö£ ╞Æ /api/auth/login                      438 B           107 kB
+Γö£ ╞Æ /api/auth/logout                     438 B           107 kB
+Γö£ ╞Æ /api/auth/me                         438 B           107 kB
+Γö£ ╞Æ /api/auth/set-role                   438 B           107 kB
+Γö£ ╞Æ /api/auth/signup                     438 B           107 kB
+Γö£ ╞Æ /api/avatar                          438 B           107 kB
+Γö£ ╞Æ /api/avatar-profile                  438 B           107 kB
+Γö£ ╞Æ /api/captions                        438 B           107 kB
+Γö£ ╞Æ /api/captions/ai-edit                438 B           107 kB
+Γö£ ╞Æ /api/captions/generate               438 B           107 kB
+Γö£ ╞Æ /api/chat                            438 B           107 kB
+Γö£ ╞Æ /api/chat/gemini                     438 B           107 kB
+Γö£ ╞Æ /api/checkout                        438 B           107 kB
+Γö£ ╞Æ /api/checkout_sessions               438 B           107 kB
+Γö£ ╞Æ /api/classroom                       438 B           107 kB
+Γö£ ╞Æ /api/create-topup-session            438 B           107 kB
+Γö£ ╞Æ /api/cron/expire-trials              438 B           107 kB
+Γö£ ╞Æ /api/deepgram/token                  438 B           107 kB
+Γö£ ╞Æ /api/districts                       438 B           107 kB
+Γö£ ╞Æ /api/districts/sync                  438 B           107 kB
+Γö£ ╞Æ /api/EdIntel-swarm                   438 B           107 kB
+Γö£ ╞Æ /api/elevenlabs                      438 B           107 kB
+Γö£ ╞Æ /api/email/shield                    438 B           107 kB
+Γö£ ╞Æ /api/eq                              438 B           107 kB
+Γö£ ╞Æ /api/fleet                           438 B           107 kB
+Γö£ ╞Æ /api/fleet/directive                 438 B           107 kB
+Γö£ ╞Æ /api/gemini/import                   438 B           107 kB
+Γö£ ╞Æ /api/gemini/upload                   438 B           107 kB
+Γö£ ╞Æ /api/gemini/workflow                 438 B           107 kB
+Γö£ ╞Æ /api/generate                        438 B           107 kB
+Γö£ ╞Æ /api/generate/code-snippet           438 B           107 kB
+Γö£ ╞Æ /api/generate/cognitive              438 B           107 kB
+Γö£ ╞Æ /api/generate/decision               438 B           107 kB
+Γö£ ╞Æ /api/generate/iep                    438 B           107 kB
+Γö£ ╞Æ /api/generate/lesson-plan            438 B           107 kB
+Γö£ ╞Æ /api/generations                     438 B           107 kB
+Γö£ ╞Æ /api/google/bigquery                 438 B           107 kB
+Γö£ ╞Æ /api/google/nlp                      438 B           107 kB
+Γö£ ╞Æ /api/google/stt                      438 B           107 kB
+Γö£ ╞Æ /api/google/translate                438 B           107 kB
+Γö£ ╞Æ /api/google/tts                      438 B           107 kB
+Γö£ ╞Æ /api/google/vision                   438 B           107 kB
+Γö£ ╞Æ /api/gym/scenario                    438 B           107 kB
+Γö£ ╞Æ /api/health                          438 B           107 kB
+Γö£ ╞Æ /api/heygen                          438 B           107 kB
+Γö£ ╞Æ /api/heygen-token                    438 B           107 kB
+Γö£ ╞Æ /api/heygen/generate-video           438 B           107 kB
+Γö£ ╞Æ /api/heygen/streaming-token          438 B           107 kB
+Γö£ ╞Æ /api/heygen/token                    438 B           107 kB
+Γö£ ╞Æ /api/huggingface/image-analysis      438 B           107 kB
+Γö£ ╞Æ /api/huggingface/image-generation    438 B           107 kB
+Γö£ ╞Æ /api/huggingface/text-analysis       438 B           107 kB
+Γö£ ╞Æ /api/huggingface/tts                 438 B           107 kB
+Γö£ ╞Æ /api/iep                             438 B           107 kB
+Γö£ ╞Æ /api/iep-stream                      438 B           107 kB
+Γö£ ╞Æ /api/integrate/canvas                438 B           107 kB
+Γö£ ╞Æ /api/integrate/clever                438 B           107 kB
+Γö£ ╞Æ /api/integrate/google-docs           438 B           107 kB
+Γö£ ╞Æ /api/integrate/powerschool           438 B           107 kB
+Γö£ ╞Æ /api/intel/sync                      438 B           107 kB
+Γö£ ╞Æ /api/invideo/create                  438 B           107 kB
+Γö£ ╞Æ /api/literacy/process                438 B           107 kB
+Γö£ ╞Æ /api/logging/bigquery                438 B           107 kB
+Γö£ ╞Æ /api/logging/error                   438 B           107 kB
+Γö£ ╞Æ /api/media/manifest                  438 B           107 kB
+Γö£ ╞Æ /api/meta-ai/chat                    438 B           107 kB
+Γö£ ╞Æ /api/og                              438 B           107 kB
+Γö£ ╞Æ /api/payments/create                 438 B           107 kB
+Γö£ ╞Æ /api/payments/methods                438 B           107 kB
+Γö£ ╞Æ /api/payments/status                 438 B           107 kB
+Γö£ ╞Æ /api/phone/incoming                  438 B           107 kB
+Γö£ ╞Æ /api/phone/outbound                  438 B           107 kB
+Γö£ ╞Æ /api/phone/process                   438 B           107 kB
+Γö£ ╞Æ /api/podcast/interact                438 B           107 kB
+Γö£ ╞Æ /api/reports/daily-edintel-loyalty   438 B           107 kB
+Γö£ ╞Æ /api/roster                          438 B           107 kB
+Γö£ ╞Æ /api/setup                           438 B           107 kB
+Γö£ ╞Æ /api/simulate                        438 B           107 kB
+Γö£ ╞Æ /api/status                          438 B           107 kB
+Γö£ ╞Æ /api/stripe/checkout                 438 B           107 kB
+Γö£ ╞Æ /api/stripe/portal                   438 B           107 kB
+Γö£ ╞Æ /api/swarm/metrics                   438 B           107 kB
+Γö£ ╞Æ /api/system/health                   438 B           107 kB
+Γö£ ╞Æ /api/tiffany/analyze-lesson          438 B           107 kB
+Γö£ ╞Æ /api/tiffany/analyze-tone            438 B           107 kB
+Γö£ ╞Æ /api/tiffany/audit                   438 B           107 kB
+Γö£ ╞Æ /api/tiffany/burnout-shield          438 B           107 kB
+Γö£ ╞Æ /api/tiffany/parent-update           438 B           107 kB
+Γö£ ╞Æ /api/tiffany/portfolio/[studentId]   438 B           107 kB
+Γö£ ╞Æ /api/tiffany/recidivism-check        438 B           107 kB
+Γö£ ╞Æ /api/tiffany/restorative-reset       438 B           107 kB
+Γö£ ╞Æ /api/tokens/balance                  438 B           107 kB
+Γö£ ╞Æ /api/tokens/history                  438 B           107 kB
+Γö£ ╞Æ /api/tokens/purchase                 438 B           107 kB
+Γö£ ╞Æ /api/users/profile                   438 B           107 kB
+Γö£ ╞Æ /api/vault/chat                      438 B           107 kB
+Γö£ ╞Æ /api/vault/documents                 438 B           107 kB
+Γö£ ╞Æ /api/vault/documents/[id]            438 B           107 kB
+Γö£ ╞Æ /api/vault/legacy                    438 B           107 kB
+Γö£ ╞Æ /api/vault/legacy/[id]               438 B           107 kB
+Γö£ ╞Æ /api/vault/upload                    438 B           107 kB
+Γö£ ╞Æ /api/voice/stream-response           438 B           107 kB
+Γö£ ╞Æ /api/webhooks/crypto-payment         438 B           107 kB
+Γö£ ╞Æ /api/webhooks/stripe                 438 B           107 kB
+Γö£ ╞Æ /api/whatsapp/webhook                438 B           107 kB
+Γö£ ╞Æ /api/x-ai/chat                       438 B           107 kB
+Γö£ ╞Æ /auth/callback                       438 B           107 kB
+Γö£ ╞Æ /blog                                3.61 kB         161 kB
+Γö£ ╞Æ /blog/[id]                           4.82 kB         121 kB
+Γö£ ╞Æ /board                               9.36 kB         343 kB
+Γö£ ╞Æ /board/memo                          133 kB          306 kB
+Γö£ Γùï /briefing                            5.92 kB         194 kB
+Γö£ Γùï /cognitive                           16.1 kB         238 kB
+Γö£ ╞Æ /components                          5.81 kB         158 kB
+Γö£ ╞Æ /connectors                          2.95 kB         113 kB
+Γö£ ╞Æ /connectors/canvas                   182 B           111 kB
+Γö£ ╞Æ /connectors/powerschool              182 B           111 kB
+Γö£ ╞Æ /consent                             5.41 kB         154 kB
+Γö£ ╞Æ /contact                             10.2 kB         301 kB
+Γö£ Γùï /conversation/enhanced               9.33 kB         248 kB
+Γö£ Γùï /defense                             5.73 kB         154 kB
+Γö£ ╞Æ /edintel-professional                438 B           107 kB
+Γö£ Γùï /education                           5.88 kB         166 kB
+Γö£ Γùï /enterprise                          438 B           107 kB
+Γö£ Γùï /excursions                          6.25 kB         155 kB
+Γö£ ╞Æ /features                            3.2 kB          155 kB
+Γö£ ╞Æ /ferpa                               7.49 kB         297 kB
+Γö£ Γùï /fiscal                              4.92 kB         162 kB
+Γö£ Γùï /fleet                               14.2 kB         180 kB
+Γö£ ╞Æ /gallery                             4.35 kB         116 kB
+Γö£ ╞Æ /gemini-workspace                    24.2 kB         172 kB
+Γö£ Γùï /generator/code-snippet              11 kB           184 kB
+Γö£ Γùï /generator/cognitive                 8.96 kB         185 kB
+Γö£ Γùï /generator/decision                  11.6 kB         185 kB
+Γö£ Γùï /generator/iep                       10.4 kB         184 kB
+Γö£ Γùï /generator/image                     6.78 kB         224 kB
+Γö£ Γùï /generator/lesson                    5.78 kB         226 kB
+Γö£ ╞Æ /generators                          438 B           107 kB
+Γö£ ╞Æ /generators/[id]                     31.9 kB         449 kB
+Γö£ Γùï /governance                          9.75 kB         158 kB
+Γö£ Γùï /governance/ballot                   4.82 kB         153 kB
+Γö£ Γùï /gym                                 9.55 kB         175 kB
+Γö£ Γùï /intelligence                        5.57 kB         154 kB
+Γö£ Γùï /ledger                              9.61 kB         166 kB
+Γö£ ╞Æ /login                               10.2 kB         233 kB
+Γö£ Γùï /media                               6.46 kB         170 kB
+Γö£ ╞Æ /mission                             4.89 kB         294 kB
+Γö£ ╞Æ /onboarding                          13.5 kB         184 kB
+Γö£ Γùï /opengraph-image.jpg                 0 B                0 B
+Γö£ Γùï /oracle                              7.11 kB         165 kB
+Γö£ ╞Æ /payment                             1.13 kB         229 kB
+Γö£ ╞Æ /payment/cancel                      1.99 kB         154 kB
+Γö£ ╞Æ /payment/success                     147 B           163 kB
+Γö£ ╞Æ /phone                               4.1 kB          152 kB
+Γö£ Γùï /pivot                               7.7 kB          273 kB
+Γö£ Γùï /podcast                             10.6 kB         176 kB
+Γö£ ╞Æ /pricing                             174 B           381 kB
+Γö£ ╞Æ /pricing/[tier]                      174 B           381 kB
+Γö£ ╞Æ /privacy                             7.44 kB         297 kB
+Γö£ ╞Æ /privacy/leadership-shield           438 B           107 kB
+Γö£ Γùï /professional                        8.79 kB         169 kB
+Γö£ ╞Æ /profile                             8.31 kB         242 kB
+Γö£ Γùï /publishing                          6.16 kB         154 kB
+Γö£ Γùï /register                            3.54 kB         110 kB
+Γö£ ╞Æ /resources/alabama                   5.47 kB         291 kB
+Γö£ Γùï /roster                              11.1 kB         179 kB
+Γö£ Γùï /settings                            14.5 kB         245 kB
+Γö£ ╞Æ /signup                              438 B           107 kB
+Γö£ ╞Æ /signup/success                      147 B           163 kB
+Γö£ Γùï /simulator                           8.64 kB         157 kB
+Γö£ Γùï /students                            2.14 kB         109 kB
+Γö£ Γùï /studio                              7.84 kB         235 kB
+Γö£ ╞Æ /support                             5.04 kB         157 kB
+Γö£ ╞Æ /support/article/[id]                3.63 kB         110 kB
+Γö£ ╞Æ /support/educator                    4.76 kB         121 kB
+Γö£ ╞Æ /support/getting-started             3.75 kB         114 kB
+Γö£ ╞Æ /support/topic                       3.04 kB         110 kB
+Γö£ ╞Æ /terms                               7.46 kB         297 kB
+Γö£ ╞Æ /the-room                            14.2 kB         174 kB
+Γö£ Γùï /tiffany-ed                          17.6 kB         306 kB
+Γö£ Γùï /transcendence                       2.6 kB          159 kB
+Γö£ Γùï /twitter-image.jpg                   0 B                0 B
+Γö£ Γùï /unity                               55.2 kB         390 kB
+Γö£ Γùï /vault                               14.8 kB         231 kB
+Γö£ Γùï /videos                              7.04 kB         159 kB
+Γö£ ΓùÅ /videos/[id]                         3.25 kB         114 kB
+Γö£   Γö£ /videos/intro
+Γö£   Γö£ /videos/demo
+Γö£   Γöö /videos/analytics
+Γöö Γùï /wellness                            9.56 kB         167 kB
++ First Load JS shared by all            107 kB
+  Γö£ chunks/1517-ec4fbb92af8d09f4.js      50.8 kB
+  Γö£ chunks/4bd1b696-2013e1338bf57811.js  53 kB
+  Γöö other shared chunks (total)          2.98 kB
+
+
+╞Æ Middleware                             79.4 kB
+
+Γùï  (Static)   prerendered as static content
+ΓùÅ  (SSG)      prerendered as static HTML (uses generateStaticParams)
+╞Æ  (Dynamic)  server-rendered on demand
+

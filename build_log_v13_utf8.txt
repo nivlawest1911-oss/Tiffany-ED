@@ -1,0 +1,78 @@
+﻿node.exe : npm warn Unknown project config 
+"strict-peer-dependencies". This will stop working 
+in the next major version of npm.
+At C:\Users\nivla\AppData\Roaming\npm\npm.ps1:24 
+char:5
++     & "node$exe"  
+"$basedir/node_modules/npm/bin/npm-cli.js" $args
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (npm war 
+   n Unknow...version of npm.:String) [], RemoteExc  
+  eption
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+npm warn Unknown project config 
+"auto-install-peers". This will stop working in the 
+next major version of npm.
+npm warn using --force Recommended protections 
+disabled.
+
+> edintel-app@1.0.0 prebuild
+> node -e "const fs = require('fs'); if (fs.existsSync('.next')) fs.rmSync('.next', { recursive: true, force: true });"
+
+
+> edintel-app@1.0.0 build
+> next build
+
+   Γû▓ Next.js 15.1.12
+   - Environments: .env.production.local, .env.local, .env.production, .env
+
+   Creating an optimized production build ...
+ Γ£ô Compiled successfully
+   Linting and checking validity of types ...
+
+./src/app/videos/VideosPageClient.tsx
+81:19  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/app/videos/[id]/page.tsx
+139:27  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/components/VideoGallery.tsx
+119:13  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
+Failed to compile.
+
+./src/data/unifiedRegistry.ts:40:25
+Type error: Property 'category' does not exist on 
+type '{ id: string; name: string; link: string; 
+description: string; icon: 
+ForwardRefExoticComponent<Omit<LucideProps, "ref"> & 
+RefAttributes<SVGSVGElement>>; ... 6 more ...; 
+prompts: string[]; } | ... 8 more ... | { ...; }'.
+  Property 'category' does not exist on type '{ id: 
+string; name: string; link: string; description: 
+string; icon: 
+ForwardRefExoticComponent<Omit<LucideProps, "ref"> & 
+RefAttributes<SVGSVGElement>>; ... 6 more ...; 
+prompts: string[]; }'.
+
+[0m [90m 38 |[39m         [36mreturn[39m {[0m
+[0m [90m 39 |[39m             
+[33m...[39mp[33m,[39m[0m
+[0m[31m[1m>[22m[39m[90m 40 |[39m             
+category[33m:[39m p[33m.[39mcategory 
+[33m||[39m [32m"Strategic"[39m[33m,[39m[0m
+[0m [90m    |[39m                         
+[31m[1m^[22m[39m[0m
+[0m [90m 41 |[39m             link[33m:[39m (p 
+[36mas[39m any)[33m.[39mlink [33m||[39m 
+[32m`/generators/${p.id}`[39m[33m,[39m[0m
+[0m [90m 42 |[39m             prompts[33m:[39m 
+(p [36mas[39m any)[33m.[39mprompts [33m||[39m 
+[][33m,[39m[0m
+[0m [90m 43 |[39m             
+[33m...[39msovereignData[0m
+Next.js build worker exited with code: 1 and signal: 
+null

@@ -24,6 +24,7 @@ export interface DispatchOptions {
     system?: string;
     messages: any[];
     temperature?: number;
+    maxTokens?: number;
 }
 
 export class AIDispatcher {
@@ -58,13 +59,14 @@ export class AIDispatcher {
      * Stream AI response
      */
     static async stream(options: DispatchOptions) {
-        const { provider = 'google', model, complexity, system, messages, temperature = 0.7 } = options;
+        const { provider = 'google', model, complexity, system, messages, temperature = 0.7, maxTokens } = options;
 
         return streamText({
             model: this.getModel(provider, model, complexity),
             system,
             messages,
             temperature,
+            maxTokens,
         } as any);
     }
 
@@ -72,13 +74,14 @@ export class AIDispatcher {
      * Generate static AI response
      */
     static async generate(options: DispatchOptions) {
-        const { provider = 'google', model, complexity, system, messages, temperature = 0.7 } = options;
+        const { provider = 'google', model, complexity, system, messages, temperature = 0.7, maxTokens } = options;
 
         return generateText({
             model: this.getModel(provider, model, complexity),
             system,
             messages,
             temperature,
+            maxTokens,
         } as any);
     }
 }

@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import Link from 'next/link'
 
 export default function DashboardError({
     error,
@@ -41,8 +42,7 @@ export default function DashboardError({
                 <div className="flex flex-col gap-3">
                     <button
                         onClick={() => reset()}
-                        className="w-full flex items-center justify-center gap-2 px-6 py-4 sm:py-3.5 bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white rounded-xl font-semibold uppercase tracking-wider transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98] text-sm"
-                        style={{ touchAction: 'manipulation' }}
+                        className="w-full flex items-center justify-center gap-2 px-6 py-4 sm:py-3.5 bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white rounded-xl font-semibold uppercase tracking-wider transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98] text-sm touch-manipulation"
                     >
                         <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/>
@@ -50,16 +50,15 @@ export default function DashboardError({
                         </svg>
                         Retry Protocol
                     </button>
-                    <a
+                    <Link
                         href="/"
-                        className="w-full flex items-center justify-center gap-2 px-6 py-4 sm:py-3.5 border border-gray-700 bg-gray-800/50 hover:bg-gray-800 active:bg-gray-900 text-gray-100 rounded-xl font-semibold uppercase tracking-wider transition-all active:scale-[0.98] text-sm"
-                        style={{ touchAction: 'manipulation' }}
+                        className="w-full flex items-center justify-center gap-2 px-6 py-4 sm:py-3.5 border border-gray-700 bg-gray-800/50 hover:bg-gray-800 active:bg-gray-900 text-gray-100 rounded-xl font-semibold uppercase tracking-wider transition-all active:scale-[0.98] text-sm touch-manipulation"
                     >
                         <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
                         </svg>
                         Return Home
-                    </a>
+                    </Link>
                 </div>
                 
                 {/* Error digest for debugging */}

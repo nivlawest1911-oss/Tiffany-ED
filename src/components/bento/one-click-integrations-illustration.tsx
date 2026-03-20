@@ -5,53 +5,22 @@ interface OneClickIntegrationsIllustrationProps {
 }
 
 const OneClickIntegrationsIllustration: React.FC<OneClickIntegrationsIllustrationProps> = ({ className = "" }) => {
-  const themeVars = {
-    "--oci-primary-color": "hsl(var(--primary))",
-    "--oci-background-color": "hsl(var(--background))",
-    "--oci-foreground-color": "hsl(var(--foreground))",
-    "--oci-muted-foreground-color": "hsl(var(--muted-foreground))",
-    "--oci-border-color": "hsl(var(--border))",
-    "--oci-shadow-color": "rgba(0, 0, 0, 0.12)",
-    "--oci-gradient-light-gray-start": "hsl(var(--foreground) / 0.2)",
-    "--oci-gradient-light-gray-end": "transparent",
-  } as React.CSSProperties
-
   // Helper component for rendering each logo box
   const LogoBox: React.FC<{
     logoSvg?: React.ReactNode
     isGradientBg?: boolean
   }> = ({ logoSvg, isGradientBg }) => {
-    const boxStyle: React.CSSProperties = {
-      width: "60px",
-      height: "60px",
-      position: "relative",
-      borderRadius: "9px",
-      border: `1px ${themeVars["--oci-border-color"]} solid`,
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      overflow: "hidden",
-      flexShrink: 0,
-    }
+    const boxClassName = `oci-logo-box ${isGradientBg ? "oci-logo-box-gradient" : ""}`
 
-    const innerContentStyle: React.CSSProperties = {
-      width: "36px",
-      height: "36px",
-      position: "relative",
-      overflow: "hidden",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-    }
+    // innerContentClassName is "oci-logo-inner"
 
-    if (isGradientBg) {
-      boxStyle.background = `linear-gradient(180deg, ${themeVars["--oci-gradient-light-gray-start"]} 0%, ${themeVars["--oci-gradient-light-gray-end"]} 100%)`
-      boxStyle.boxShadow = `0px 1px 2px ${themeVars["--oci-shadow-color"]}`
-      boxStyle.backdropFilter = "blur(18px)"
-      boxStyle.padding = "6px 8px"
-    }
+    // Styles moved to CSS
 
-    return <div style={boxStyle}>{logoSvg && <div style={innerContentStyle}>{logoSvg}</div>}</div>
+    return (
+      <div className={boxClassName}>
+        {logoSvg && <div className="oci-logo-inner">{logoSvg}</div>}
+      </div>
+    )
   }
 
   // SVG content for logos, with fill/stroke updated to use CSS variables
@@ -198,52 +167,18 @@ const OneClickIntegrationsIllustration: React.FC<OneClickIntegrationsIllustratio
 
   return (
     <div
-      className={`w-full h-full relative ${className}`}
-      style={{
-        ...themeVars,
-      }}
+      className={`w-full h-full relative oci-illustration-container ${className}`}
       role="img"
       aria-label="One-click integrations illustration showing a grid of connected squares"
     >
       {/* Background radial gradient */}
-      <div
-        style={{
-          width: "377.33px",
-          height: "278.08px",
-          left: "0px",
-          top: "24px",
-          position: "absolute",
-          background: `radial-gradient(ellipse 103.87% 77.04% at 52.56% -1.80%, 
-            ${themeVars["--oci-foreground-color"]}00 0%, 
-            ${themeVars["--oci-foreground-color"]}F5 15%, 
-            ${themeVars["--oci-foreground-color"]}66 49%, 
-            ${themeVars["--oci-foreground-color"]}F5 87%, 
-            ${themeVars["--oci-foreground-color"]}00 100%)`,
-        }}
-      />
+      <div className="oci-background-gradient oci-dims oci-pos-bg" />
 
       {/* Main content container with backdrop blur */}
-      <div
-        style={{
-          width: "377px",
-          height: "265px",
-          left: "0.34px",
-          top: "43.42px",
-          position: "absolute",
-          backdropFilter: "blur(7.91px)",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          alignItems: "center",
-          gap: "16px",
-        }}
-      >
+      <div className="oci-main-container oci-dims-main oci-pos-main glass-bento-mask">
         {/* Render rows of logo boxes */}
         {Array.from({ length: 4 }).map((_, rowIndex) => (
-          <div
-            key={rowIndex}
-            style={{ display: "flex", justifyContent: "flex-start", alignItems: "center", gap: "16px" }}
-          >
+          <div key={rowIndex} className="oci-row">
             {gridItems.slice(rowIndex * 10, (rowIndex + 1) * 10).map((item, colIndex) => (
               <LogoBox key={colIndex} {...item} />
             ))}

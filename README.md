@@ -1,8 +1,8 @@
-<p align="center">
-  <img src="./public/logo.png" alt="EdIntel Sovereign Zenith Logo" width="200" />
-</p>
+# EdIntel Sovereign Delegate
 
-# EdIntel Sovereign Architecture: Zenith State
+![EdIntel Logo](./public/logo.png)
+
+## EdIntel Sovereign Architecture: Zenith State
 
 ## 👑 Institutional Transcendence Synthesis
 

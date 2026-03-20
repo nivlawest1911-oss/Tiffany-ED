@@ -10,7 +10,6 @@ interface EdIntelCoreProps {
 
 export default function EdIntelCore({ phase = 'ready', className = "" }: EdIntelCoreProps) {
     const [rotation, setRotation] = useState(0);
-    const [pulseIntensity, setPulseIntensity] = useState(0);
     const coreRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -21,7 +20,6 @@ export default function EdIntelCore({ phase = 'ready', className = "" }: EdIntel
         const pulseInterval = setInterval(() => {
             // Intensive pulsing during grid phase
             const intensity = phase === 'grid' ? (Math.sin(Date.now() / 200) * 50 + 50) : (Math.sin(Date.now() / 1000) * 50 + 50);
-            setPulseIntensity(intensity);
             
             if (coreRef.current) {
                 coreRef.current.style.setProperty('--core-contrast', `${100 + intensity}%`);

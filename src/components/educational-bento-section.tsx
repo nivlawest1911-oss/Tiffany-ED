@@ -4,7 +4,14 @@ import AutomatedIEPAudit from "./bento/AutomatedIEPAudit"
 import ExecutiveDashboard from "./bento/ExecutiveDashboard"
 import AvatarStudio from "./bento/AvatarStudio"
 
-const BentoCard = ({ title, description, Component, fullWidth = false }) => (
+interface BentoCardProps {
+    title: string;
+    description: string;
+    Component: React.ComponentType;
+    fullWidth?: boolean;
+}
+
+const BentoCard = ({ title, description, Component, fullWidth = false }: BentoCardProps) => (
     <div className={`overflow-hidden rounded-3xl border border-white/10 flex flex-col justify-start items-start relative bg-zinc-900/50 backdrop-blur-xl group hover:border-indigo-500/50 transition-all duration-500 ${fullWidth ? 'md:col-span-2' : ''}`}>
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
 

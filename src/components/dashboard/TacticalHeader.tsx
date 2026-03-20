@@ -14,7 +14,7 @@ export const TacticalHeader = () => {
     const { user } = useAuth();
 
     // Fix: Pass trialEndsAt to getTrialDaysRemaining, not the user object
-    const daysRemaining = user?.trialEndsAt ? getTrialDaysRemaining(user.trialEndsAt) : 0;
+    const daysRemaining = user?.trialEndsAt ? getTrialDaysRemaining(new Date(user.trialEndsAt)) : 0;
 
     return (
         <header className="h-20 border-b border-white/10 bg-zinc-950/50 backdrop-blur-xl px-10 flex items-center justify-between sticky top-0 z-40 transition-all duration-300">

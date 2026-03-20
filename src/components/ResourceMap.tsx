@@ -7,6 +7,10 @@ export default function ResourceMap() {
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!supabase) {
+        console.warn("Supabase client not initialized");
+        return;
+      }
       const { data: audits, error } = await supabase
         .from('strategic_audits')
         .select('target_school');

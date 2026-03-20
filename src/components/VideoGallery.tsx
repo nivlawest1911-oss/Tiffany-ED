@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState } from 'react';
 import Link from 'next/link';
 import { Play, Clock, Filter, Film, Sparkles } from 'lucide-react';
@@ -116,9 +117,11 @@ function VideoCard({ video }: { video: VideoMeta }) {
         {/* Thumbnail */}
         <div className="relative aspect-video bg-zinc-900/50 overflow-hidden">
           {video.thumbnail ? (
-            <img
+            <Image
               src={video.thumbnail}
               alt={video.title}
+              width={640}
+              height={360}
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             />
           ) : (

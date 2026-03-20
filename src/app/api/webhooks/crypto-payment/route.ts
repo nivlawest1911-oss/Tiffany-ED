@@ -101,7 +101,7 @@ async function handlePaymentSuccess(payload: any) {
                 subscriptionTier: tier,
                 subscriptionStatus: 'active',
                 // Add bonus tokens for crypto payment
-                tokensRemaining: {
+                usageTokens: {
                     increment: 50
                 },
                 // Award XP for "Early Adopter" behavior

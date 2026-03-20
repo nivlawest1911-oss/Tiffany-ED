@@ -40,7 +40,7 @@ export default function PodcastHub() {
                 title: synthesis.title,
                 description: synthesis.script.substring(0, 150) + '...',
                 host: "Verse (Sovereign Synthesizer)",
-                duration: synthesis.durationEstimate,
+                duration: `${Math.floor(synthesis.durationEstimate / 60)}:00`,
                 publishDate: new Date().toISOString().split('T')[0],
                 category: 'Technology',
                 audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
