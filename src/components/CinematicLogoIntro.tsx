@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useState, useRef, useCallback } from 'react'
 import Image from 'next/image'
 
@@ -273,7 +273,7 @@ export function CinematicLogoIntro({
   autoCloseDuration = 8000 
 }: LogoIntroProps) {
   const [isVisible, setIsVisible] = useState(true)
-  const [phase, setPhase] = useState<'gears' | 'logo' | 'text' | 'complete'>('gears')
+  const [_phase, setPhase] = useState<'gears' | 'logo' | 'text' | 'complete'>('gears')
   const containerRef = useRef<HTMLDivElement>(null)
 
   // Phase timing

@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import VideoGallery from '@/components/VideoGallery';
 import { getAllVideos, getCategories } from '@/lib/videos';
 import VideosPageClient from './VideosPageClient';
 

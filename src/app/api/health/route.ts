@@ -11,7 +11,7 @@ export async function GET() {
         if (isDatabaseConfigured) {
             try {
                 // Try a very simple query to verify connectivity
-                // @ts-ignore
+                // @ts-expect-error - Prisma raw query type is complex
                 await prisma.$queryRaw`SELECT 1`;
                 databaseStatus = 'connected';
             } catch (err: any) {
