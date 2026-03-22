@@ -97,7 +97,10 @@ export default function TheRoomClient() {
                         className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex flex-col items-center justify-center p-4"
                     >
                         <div className="max-w-md w-full p-8 border border-electric-cyan/30 rounded-[2rem] bg-[#020617] shadow-[0_0_100px_rgba(0,176,255,0.2)] text-center relative overflow-hidden">
-                            <div className="absolute top-0 left-0 h-1 bg-electric-cyan transition-all duration-300" style={{ width: `${currentStep}%` }} />
+                            <div 
+                                className="absolute top-0 left-0 h-1 bg-electric-cyan transition-all duration-300 w-[var(--progress-width)]" 
+                                style={{ '--progress-width': `${currentStep}%` } as React.CSSProperties}
+                            />
                             <Cpu className="w-16 h-16 text-electric-cyan mx-auto mb-6 animate-pulse" />
                             <h3 className="text-xl font-black text-white uppercase tracking-widest mb-2">Optimizing Sovereign Nodes</h3>
                             <p className="text-zinc-400 font-mono text-xs uppercase tracking-widest leading-relaxed">Re-aligning AI cores and minimizing latency paths...</p>
