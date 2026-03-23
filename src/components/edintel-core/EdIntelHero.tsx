@@ -134,6 +134,7 @@ function HolographicVariant({ activeAgent, agents, message }: { activeAgent: num
 
 function CinematicVariant() {
     // Default Cinematic Variant (Consolidated Hero + UnusualHero)
+    const [mounted, setMounted] = useState(false);
     const cardRef = useRef<HTMLDivElement>(null)
     const pixelGridRef = useRef<HTMLDivElement>(null)
     const tagsRef = useRef<HTMLDivElement>(null)
@@ -142,6 +143,7 @@ function CinematicVariant() {
     const [showBriefing, setShowBriefing] = useState(false);
 
     useEffect(() => {
+        setMounted(true);
         const tagsElement = tagsRef.current
         const cursorElement = customCursorRef.current
 
@@ -299,9 +301,11 @@ function CinematicVariant() {
                 <div
                     className="absolute inset-0 overflow-hidden hero-mask"
                 >
-                    <video autoPlay loop muted playsInline poster="/images/professional_hero_bg.png" className="absolute inset-0 h-full w-full object-cover">
-                        <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/liquid-metal-video_yX6NvjdW-6bLYorR3Ihmlwjivg3pjA978qrSKRU.mp4" type="video/mp4" />
-                    </video>
+                    {mounted && (
+                        <video autoPlay loop muted playsInline poster="/images/professional_hero_bg.png" className="absolute inset-0 h-full w-full object-cover">
+                            <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/liquid-metal-video_yX6NvjdW-6bLYorR3Ihmlwjivg3pjA978qrSKRU.mp4" type="video/mp4" />
+                        </video>
+                    )}
 
                     <Image
                         src="/images/professional_hero_bg.png"

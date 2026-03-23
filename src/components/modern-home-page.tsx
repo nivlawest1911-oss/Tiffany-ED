@@ -19,7 +19,7 @@ const ReadyToActivateCTA = dynamic(() => import('./landing/ReadyToActivateCTA'),
 import { EdIntelHero } from './edintel-core/EdIntelHero';
 const EdIntelCore = dynamic(() => import('./edintel-core/EdIntelCore'), { 
     ssr: false,
-    loading: () => <div className="h-[600px] w-full animate-pulse bg-white/5 rounded-3xl" />
+    loading: () => <div className="h-[600px] w-full animate-pulse bg-white/10 rounded-3xl border border-white/5" />
 });
 import { useEdIntelVibe } from '@/context/EdIntelVibeContext';
 import HumanAvatar from './ui/HumanAvatar';
@@ -477,7 +477,7 @@ export default function ModernHomePage() {
                                 isSystemThinking && "border-electric-cyan/40 shadow-[0_0_30px_rgba(0,176,255,0.15)]"
                             )}>
                                 <div className={cn(
-                                    "flex gap-12 animate-marquee whitespace-nowrap",
+                                    "flex gap-12 animate-marquee whitespace-nowrap transform-gpu",
                                     isSystemThinking && "animate-marquee-fast"
                                 )}>
                                     {[
@@ -506,7 +506,7 @@ export default function ModernHomePage() {
                             <section className="py-20 bg-black/50 border-b border-white/5 overflow-hidden backdrop-blur-sm relative z-20">
                                 <div className="w-full overflow-hidden">
                                     <motion.div
-                                        className="flex gap-6 w-max"
+                                        className="flex gap-6 w-max transform-gpu"
                                         animate={{ x: ["0%", "-50%"] }}
                                         transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
                                     >
