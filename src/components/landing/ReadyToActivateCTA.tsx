@@ -127,13 +127,13 @@ export default function ReadyToActivateCTA() {
                 </div>
             </div>
 
-            {/* Glowing Orbs - Use will-change for hardware acceleration */}
+            {/* Glowing Orbs - Use transform-gpu for hardware acceleration */}
             <div 
-                className="absolute top-1/2 left-0 w-96 h-96 bg-electric-cyan/10 rounded-full blur-[120px] -z-10 animate-pulse will-change-[opacity]" 
+                className="absolute top-1/2 left-0 w-96 h-96 bg-electric-cyan/10 rounded-full blur-[120px] -z-10 animate-pulse transform-gpu" 
                 style={{ transform: 'translate3d(0, -50%, 0)' }}
             />
             <div 
-                className="absolute bottom-0 right-0 w-96 h-96 bg-sovereign-gold/10 rounded-full blur-[120px] -z-10 animate-pulse will-change-[opacity]" 
+                className="absolute bottom-0 right-0 w-96 h-96 bg-sovereign-gold/10 rounded-full blur-[120px] -z-10 animate-pulse transform-gpu" 
             />
         </section>
     );
