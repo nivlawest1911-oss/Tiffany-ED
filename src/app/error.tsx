@@ -51,9 +51,9 @@ export default function Error({
     };
 
     return (
-        <div className="min-h-screen bg-[#050507] text-white flex flex-col items-center justify-center p-6 text-center">
-            <div className="p-4 rounded-full bg-red-500/10 border border-red-500/20 mb-6 animate-pulse">
-                <AlertTriangle className="w-12 h-12 text-red-500" />
+        <main className="min-h-screen bg-[#050507] text-white flex flex-col items-center justify-center p-6 text-center" role="main" aria-label="Error page">
+            <div className="p-4 rounded-full bg-red-500/10 border border-red-500/20 mb-6 animate-pulse" aria-hidden="true">
+                <AlertTriangle className="w-12 h-12 text-red-500" aria-hidden="true" />
             </div>
 
             <h2 className="text-3xl font-black mb-4 tracking-tight">SYSTEM UPLINK INTERRUPTED</h2>
@@ -87,6 +87,6 @@ export default function Error({
                     <pre className="text-zinc-500 font-mono text-[10px] mt-2">{error.stack}</pre>
                 )}
             </div>
-        </div>
+        </main>
     );
 }

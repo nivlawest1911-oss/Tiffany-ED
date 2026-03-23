@@ -37,7 +37,7 @@ export default function GlobalError({
                         padding: 1rem;
                         -webkit-font-smoothing: antialiased;
                     }
-                    .container {
+                    main.container {
                         text-align: center;
                         width: 100%;
                         max-width: 400px;
@@ -116,9 +116,9 @@ export default function GlobalError({
                 `}} />
             </head>
             <body>
-                <div className="container">
+                <main className="container" role="main" aria-label="Error page">
                     {/* Warning Triangle SVG */}
-                    <svg className="icon" viewBox="0 0 24 24" fill="none">
+                    <svg className="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                         <path d="M12 2L1 21h22L12 2z" fill="#FACC15" stroke="#EAB308" strokeWidth="0.5"/>
                         <circle cx="12" cy="17" r="1" fill="#1a1a1a"/>
                         <rect x="11" y="9" width="2" height="5" rx="1" fill="#1a1a1a"/>
@@ -130,16 +130,16 @@ export default function GlobalError({
                         An unexpected error has occurred in the EdIntel core. Our engineering team has been notified and the institutional state is being preserved.
                     </p>
                     
-                    <div className="buttons">
-                        <button onClick={() => reset()} className="primary">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <div className="buttons" role="group" aria-label="Error recovery options">
+                        <button onClick={() => reset()} className="primary" type="button">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                                 <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/>
                                 <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
                             </svg>
                             Reboot Terminal
                         </button>
                         <Link href="/" className="secondary">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
                             </svg>
                             Emergency Exit
@@ -149,7 +149,7 @@ export default function GlobalError({
                     {error.digest && (
                         <p className="error-id">Error ID: {error.digest}</p>
                     )}
-                </div>
+                </main>
             </body>
         </html>
     )
