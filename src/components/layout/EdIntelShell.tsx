@@ -212,7 +212,7 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
                 </header>
 
                 {/* 3. NEURAL GRID (Viewport) */}
-                <main className="flex-1 overflow-y-auto custom-scrollbar relative flex flex-col">
+                <div className="flex-1 overflow-y-auto custom-scrollbar relative flex flex-col">
                     <div className="flex-1">
                         {/* Hero Background Glow */}
                         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[500px] bg-intel-gold/[0.03] blur-[150px] -z-10 pointer-events-none" />
@@ -333,7 +333,7 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
                             </div>
                         </div>
                     </footer>
-                </main>
+                </div>
             </div>
 
             {/* Mobile Bottom Navigation */}

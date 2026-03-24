@@ -38,9 +38,9 @@ const CTAButton = memo(({ href, icon: Icon, label, variant = 'primary' }: CTABut
                 whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
                 className="group relative px-12 py-5 bg-electric-cyan text-black font-black uppercase tracking-widest rounded-xl transition-all shadow-[0_0_40px_rgba(0,176,255,0.3)] hover:shadow-[0_0_60px_rgba(0,176,255,0.5)] flex items-center gap-3 whitespace-nowrap"
             >
-                <Icon className="w-5 h-5 fill-current" />
+                <Icon aria-hidden="true" className="w-5 h-5 fill-current" />
                 {label}
-                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                <ArrowRight aria-hidden="true" className="w-5 h-5 transition-transform group-hover:translate-x-1" />
             </motion.button>
         </Link>
     );
@@ -56,7 +56,7 @@ const AnimatedHeader = memo(() => (
             viewport={{ once: true }}
             className="inline-flex items-center justify-center w-24 h-24 rounded-3xl bg-black/40 border border-electric-cyan/30 mb-8 shadow-[0_0_50px_rgba(0,176,255,0.15)] backdrop-blur-xl"
         >
-            <Shield className="w-10 h-10 text-electric-cyan" />
+            <Shield aria-hidden="true" className="w-10 h-10 text-electric-cyan" />
         </motion.div>
 
         <motion.h2

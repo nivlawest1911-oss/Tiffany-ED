@@ -37,7 +37,7 @@ export default function FERPAComplianceClient() {
     ];
 
     return (
-        <main className="content-stage relative min-h-screen">
+        <div className="content-stage relative min-h-screen">
             <AuroraBackground variant="mixed" intensity="low" />
             <ParticleField count={20} colors={['#10B981', '#00E5FF', '#FFB300']} />
 
@@ -222,6 +222,7 @@ export default function FERPAComplianceClient() {
                 </div>
             </section>
 
-        </main>
+        </div>
     );
 }
+

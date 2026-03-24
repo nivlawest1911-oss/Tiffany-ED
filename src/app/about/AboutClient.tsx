@@ -6,7 +6,7 @@ import FounderDossier from '@/components/founder-dossier';
 
 export default function AboutClient() {
     return (
-        <main className="relative min-h-screen pt-32 pb-20 overflow-hidden bg-background">
+        <div className="relative min-h-screen pt-32 pb-20 overflow-hidden bg-background">
             {/* Cinematic Video Background */}
             <div className="fixed inset-0 pointer-events-none">
                 <video
@@ -56,6 +56,7 @@ export default function AboutClient() {
                     <FounderDossier />
                 </div>
             </div>
-        </main>
+        </div>
     );
 }
+

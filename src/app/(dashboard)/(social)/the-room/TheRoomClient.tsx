@@ -84,7 +84,7 @@ export default function TheRoomClient() {
     };
 
     return (
-        <main className="content-stage relative min-h-screen pb-32 bg-[#020617] selection:bg-electric-cyan/30">
+        <div className="content-stage relative min-h-screen pb-32 bg-[#020617] selection:bg-electric-cyan/30">
             {/* BACKGROUND EFFECTS */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,_rgba(0,176,255,0.05)_0%,_transparent_50%)]" />
 
@@ -310,7 +310,7 @@ export default function TheRoomClient() {
                     </motion.button>
                 </SmartHover>
             </footer>
-        </main>
+        </div>
     );
 }
 
@@ -343,3 +343,4 @@ function NexusCommandManager() {
         </AnimatePresence>
     );
 }
+

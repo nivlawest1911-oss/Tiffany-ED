@@ -26,7 +26,7 @@ export default function BlogPostDetailClient() {
     }
 
     return (
-        <main className="min-h-screen bg-zinc-950 text-white font-sans selection:bg-amber-500/30 pb-24">
+        <div className="min-h-screen bg-zinc-950 text-white font-sans selection:bg-amber-500/30 pb-24">
             {/* Post Header */}
             <div className="relative h-[60vh] w-full overflow-hidden">
                 <Image
@@ -137,6 +137,6 @@ export default function BlogPostDetailClient() {
                     </div>
                 </div>
             </section>
-        </main>
+        </div>
     );
 }

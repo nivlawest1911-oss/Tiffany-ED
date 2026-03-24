@@ -37,7 +37,7 @@ export default function StudioClient() {
     const isCommandLevel = session?.tier === 'unlimited' || session?.tier === 'standard' || session?.tier === 'practitioner';
 
     return (
-        <main className="min-h-screen bg-black text-white pb-20">
+        <div className="min-h-screen bg-black text-white pb-20">
             {/* Hero Section */}
             <div className="relative h-[80vh] w-full overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-black/40 z-10" />
@@ -138,6 +138,7 @@ export default function StudioClient() {
                     </div>
                 </section>
             </div>
-        </main>
+        </div>
     );
 }
+

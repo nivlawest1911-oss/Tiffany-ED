@@ -200,7 +200,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     </header>
 
                     {/* Main Content Viewport */}
-                    <main className="flex-1 overflow-y-auto custom-scrollbar relative">
+                    <div className="flex-1 overflow-y-auto custom-scrollbar relative">
                         <AnimatePresence mode="wait">
                             <motion.div
                                 initial={{ opacity: 0, y: 10 }}
@@ -220,7 +220,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                 </div>
                             </motion.div>
                         </AnimatePresence>
-                    </main>
+                    </div>
 
                     {/* Mobile Navigation */}
                     <div className="md:hidden">

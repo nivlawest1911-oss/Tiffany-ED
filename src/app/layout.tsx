@@ -95,6 +95,8 @@ export const viewport = {
   viewportFit: 'cover',
 };
 
+import AccessibleLayout from '@/components/layout/AccessibleLayout';
+
 export default function RootLayout({
   children,
 }: {
@@ -102,16 +104,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-<body className={`${orbitron.variable} ${outfit.variable} ${playfair.variable} bg-[#050505] text-gray-100 antialiased overflow-x-hidden selection:bg-[#D4AF37]/30 font-sans min-h-screen`}>
+      <body className={`${orbitron.variable} ${outfit.variable} ${playfair.variable} bg-[#050505] text-gray-100 antialiased overflow-x-hidden selection:bg-[#D4AF37]/30 font-sans min-h-screen`}>
         <CelebrationProvider>
           <AuthProvider>
             <IntelligenceProvider>
               <SovereignProvider>
                 <EdIntelVibeProvider>
                   <ClientShell />
-                  <main className="relative z-10">
+                  <AccessibleLayout>
                     {children}
-                  </main>
+                  </AccessibleLayout>
                   <Toaster position="top-right" theme="dark" />
                   <Analytics />
                   <SpeedInsights />

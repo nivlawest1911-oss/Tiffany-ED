@@ -188,16 +188,24 @@ export async function POST(request: NextRequest) {
                         max_tokens: 3000
                     });
 
-                    // Convert Meta AI AsyncGenerator to a response compatible with AI SDK
+                    // We must confirm the stream works before returning the Response to allow fallback
+                    const iterator = stream[Symbol.asyncIterator]();
+                    const firstResult = await iterator.next();
+
                     const encoder = new TextEncoder();
                     const readableStream = new ReadableStream({
                         async start(controller) {
                             try {
-                                for await (const chunk of stream) {
+                                if (!firstResult.done && firstResult.value) {
+                                    controller.enqueue(encoder.encode(firstResult.value));
+                                }
+
+                                for await (const chunk of { [Symbol.asyncIterator]: () => iterator }) {
                                     controller.enqueue(encoder.encode(chunk));
                                 }
                                 controller.close();
                             } catch (err) {
+                                console.error("[Llama Stream Runtime Error]:", err);
                                 controller.error(err);
                             }
                         }
@@ -207,8 +215,8 @@ export async function POST(request: NextRequest) {
                         headers: { 'Content-Type': 'text/plain; charset=utf-8' }
                     });
                 } catch (llamaError) {
-                    console.warn("[Synthesis Failover] Llama 3.3 overloaded, falling back to Gemini.", llamaError);
-                    // Continue to Gemini fallback
+                    console.warn("[Synthesis Failover] Llama 3.3 connection failed, falling back to Gemini.", llamaError);
+                    // Fall back to Gemini by letting the code continue past this block
                 }
             }
         }

@@ -197,7 +197,7 @@ export default function LoginClient() {
                 ]}
             />
 
-            <main className="min-h-screen content-stage flex items-center justify-center p-4 relative overflow-hidden bg-[#020617]">
+            <div className="min-h-screen content-stage flex items-center justify-center p-4 relative overflow-hidden bg-[#020617]">
                 {/* Cinematic Dark Background */}
                 <div className="absolute inset-0 z-0">
                     <div className="absolute inset-0 bg-[#020617] bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.1),rgba(255,255,255,0))]" />
@@ -459,7 +459,8 @@ export default function LoginClient() {
                         </div>
                     </div>
                 </motion.div>
-            </main>
+            </div>
         </>
     );
 }
+

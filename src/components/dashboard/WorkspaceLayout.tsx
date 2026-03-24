@@ -43,7 +43,7 @@ function WorkspaceContent({ children }: { children: React.ReactNode }) {
             <Sidebar />
             <div className="flex flex-1 flex-col min-w-0">
                 <TacticalHeader />
-                <main className="flex-1 overflow-y-auto">{children}</main>
+                <div className="flex-1 overflow-y-auto">{children}</div>
             </div>
         </div>
     );

@@ -2,7 +2,9 @@
 
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { useState, MouseEvent, useEffect } from 'react';
+import { useState, MouseEvent, useEffect, memo } from 'react';
+
+const SPRING_CONFIG = { damping: 25, stiffness: 200 };
 
 interface LogoProps {
     className?: string;
@@ -12,13 +14,13 @@ interface LogoProps {
     showText?: boolean;
 }
 
-export default function EdIntelLogo({
+export const EdIntelLogo = memo(({
     className = "",
     animated = true,
     variant = "transcend",
     size = 40,
     showText = true
-}: LogoProps) {
+}: LogoProps) => {
     const [isHovered, setIsHovered] = useState(false);
     const [isMounted, setIsMounted] = useState(false);
 
@@ -29,9 +31,8 @@ export default function EdIntelLogo({
     // Mouse Parallax for High-Fidelity variants
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
-    const springConfig = { damping: 25, stiffness: 200 };
-    const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [15, -15]), springConfig);
-    const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-15, 15]), springConfig);
+    const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [15, -15]), SPRING_CONFIG);
+    const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-15, 15]), SPRING_CONFIG);
 
     const handleMouseMove = (e: MouseEvent) => {
         const rect = e.currentTarget.getBoundingClientRect();
@@ -182,6 +183,7 @@ export default function EdIntelLogo({
                             height={size || 120}
                             className="object-contain"
                             priority
+                            loading="eager"
                         />
                         <motion.div
                             className="absolute inset-0 z-20 overflow-hidden rounded-3xl pointer-events-none"
@@ -201,7 +203,7 @@ export default function EdIntelLogo({
                         <span className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400 tracking-[0.35em] uppercase mb-2">EdIntel</span>
                         <div className="h-[2px] w-48 bg-gradient-to-r from-transparent via-noble-gold to-transparent mb-2 opacity-80" />
                         <span className="text-xs font-black text-noble-gold uppercase tracking-[0.6em]">
-                            {isSovereign ? "Sovereign OS" : "Intelligence Systems"}
+                            {isSovereign ? "Intelligence in Education" : "Intelligence Systems"}
                         </span>
                     </div>
                 )}
@@ -227,9 +229,11 @@ export default function EdIntelLogo({
             {showText && (
                 <div className="flex flex-col leading-none pointer-events-none">
                     <span className="text-xl font-black text-white tracking-tight">EdIntel</span>
-                    <span className="text-[0.6rem] font-bold text-noble-gold/60 uppercase tracking-widest">Sovereign Delegate</span>
+                    <span className="text-[0.6rem] font-bold text-noble-gold/60 uppercase tracking-widest">Intelligence in Education</span>
                 </div>
             )}
         </div>
     );
-}
+});
+
+export default EdIntelLogo;

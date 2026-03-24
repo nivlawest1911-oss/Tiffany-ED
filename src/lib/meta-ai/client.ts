@@ -257,6 +257,11 @@ export class MetaAIClient {
             }),
         });
 
+        if (!response.ok) {
+            const errorText = await response.text().catch(() => 'Unknown Error');
+            throw new Error(`Meta AI Stream Error: ${response.status} - ${errorText}`);
+        }
+
         if (!response.body) {
             throw new Error('No response body');
         }

@@ -14,7 +14,7 @@ const RegistrationForm = dynamic(() => import('@/components/auth/RegistrationFor
 
 export default function RegisterPage() {
     return (
-        <main className="min-h-screen bg-[#050505] flex flex-col lg:flex-row items-stretch overflow-hidden">
+        <div className="min-h-screen bg-[#050505] flex flex-col lg:flex-row items-stretch overflow-hidden">
             {/* Left Side: Brand Narrative & Value Prop */}
             <div className="flex-1 relative hidden lg:flex flex-col justify-center px-12 xl:px-24 bg-[#080808] border-r border-zinc-900">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(59,130,246,0.05),transparent_50%)]" />
@@ -104,6 +104,7 @@ export default function RegisterPage() {
                     System Version: EdIntel-v1.2.0-Production_Node
                 </div>
             </div>
-        </main>
+        </div>
     );
 }
+

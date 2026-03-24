@@ -384,7 +384,7 @@ export default function ModernHomePage() {
                         />
 
 
-                        <main className="relative z-10 pt-20 md:pt-24 pb-24">
+                        <div className="relative z-10 pt-20 md:pt-24 pb-24">
                             {/* HERO SECTION */}
                             <section className="relative min-h-[90vh] flex flex-col items-center justify-center px-4 md:px-6 max-w-[1700px] mx-auto">
                                 <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -722,7 +722,7 @@ export default function ModernHomePage() {
 
                             {/* READY TO ACTIVATE CTA */}
                             <ReadyToActivateCTA />
-                        </main>
+                        </div>
                         <Footer />
                     </>
                 )}

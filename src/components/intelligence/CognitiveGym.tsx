@@ -136,7 +136,7 @@ export default function CognitiveGym() {
                 </header>
 
                 {/* --- MAIN ARENA --- */}
-                <main className="flex-1 flex flex-col items-center justify-center relative overflow-y-auto custom-scrollbar pb-20">
+                <div className="flex-1 flex flex-col items-center justify-center relative overflow-y-auto custom-scrollbar pb-20">
                     <AnimatePresence mode='wait'>
                         {!activeDrill ? (
                             <motion.div
@@ -323,7 +323,7 @@ export default function CognitiveGym() {
                             />
                         )}
                     </AnimatePresence>
-                </main>
+                </div>
 
             </div>
         </div>

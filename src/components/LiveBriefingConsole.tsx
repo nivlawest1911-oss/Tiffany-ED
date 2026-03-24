@@ -185,6 +185,7 @@ export default function LiveBriefingConsole({ name, description, role, color, pr
                                 onClick={() => setShowLiveAvatar(false)}
                                 className="absolute top-6 right-6 z-[60] p-3 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 font-black"
                                 title="Close Live Link"
+                                aria-label="Close Live Link"
                             >
                                 <X size={20} className="text-white" />
                             </button>
@@ -263,6 +264,7 @@ export default function LiveBriefingConsole({ name, description, role, color, pr
                     <button
                         key={i}
                         onClick={() => handlePromptClick(prompt)}
+                        aria-label={`Send directive: ${prompt}`}
                         className="px-4 py-2 bg-black/60 backdrop-blur-xl border border-white/10 hover:border-indigo-500/50 text-xs text-white rounded-lg transition-all hover:bg-white/10 text-right max-w-[200px]"
                     >
                         {prompt}
@@ -272,6 +274,7 @@ export default function LiveBriefingConsole({ name, description, role, color, pr
                 {/* Viral Broadcast Button */}
                 <button
                     onClick={() => setShowLiveAvatar(true)}
+                    aria-label="Activate neural strategic link"
                     className="mt-4 flex items-center gap-2 px-4 py-2 bg-indigo-500/20 backdrop-blur-xl border border-indigo-500/50 hover:bg-indigo-500/40 text-xs text-indigo-200 rounded-lg transition-all group/broadcast"
                 >
                     <Activity className="w-3 h-3 animate-pulse" />
@@ -285,6 +288,7 @@ export default function LiveBriefingConsole({ name, description, role, color, pr
                         setIsSpeaking(true);
                         setTimeout(() => setIsSpeaking(false), 3000);
                     }}
+                    aria-label="Copy stream link to clipboard"
                     className="mt-2 flex items-center gap-2 px-4 py-2 bg-red-500/20 backdrop-blur-xl border border-red-500/50 hover:bg-red-500/40 text-xs text-red-200 rounded-lg transition-all group/broadcast"
                 >
                     <Globe className="w-3 h-3 animate-pulse" />

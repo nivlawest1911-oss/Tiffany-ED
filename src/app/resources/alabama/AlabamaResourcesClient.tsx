@@ -64,7 +64,7 @@ export default function AlabamaResourcesClient() {
     ];
 
     return (
-        <main className="content-stage">
+        <div className="content-stage">
             {/* Geometric Background Decals */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-10">
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 blur-[150px] rounded-full" />
@@ -161,6 +161,7 @@ export default function AlabamaResourcesClient() {
                     </button>
                 </div>
             </div>
-        </main>
+        </div>
     );
 }
+

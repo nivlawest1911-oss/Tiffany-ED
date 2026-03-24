@@ -50,7 +50,7 @@ export default function TermsClient() {
     ];
 
     return (
-        <main className="content-stage relative min-h-screen">
+        <div className="content-stage relative min-h-screen">
             <AuroraBackground variant="mixed" intensity="low" />
             <ParticleField count={20} />
 
@@ -187,6 +187,7 @@ export default function TermsClient() {
                     </p>
                 </motion.footer>
             </div>
-        </main>
+        </div>
     );
 }
+

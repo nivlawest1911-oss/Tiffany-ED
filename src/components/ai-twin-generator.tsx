@@ -2,19 +2,29 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Upload, Mic, Video, Check, Zap, Fingerprint } from 'lucide-react';
+import { Upload, Mic, Video, Check, Zap, Fingerprint, X } from 'lucide-react';
 import Image from 'next/image';
+import { toast } from 'sonner';
+import Link from 'next/link';
 
 export default function AITwinGenerator() {
     const [step, setStep] = useState(1);
     const [role, setRole] = useState('Superintendent');
     const [uploads, setUploads] = useState<{ photo: File | null; voice: File | null; video: File | null }>({ photo: null, voice: null, video: null });
 
+    // Reset and cancel
+    const handleCancel = () => {
+        setStep(1);
+        setUploads({ photo: null, voice: null, video: null });
+        toast.info('Cloning process cancelled');
+    };
+
     // Handle file selection
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, type: 'photo' | 'voice' | 'video') => {
         const file = e.target.files?.[0];
         if (file) {
             setUploads(prev => ({ ...prev, [type]: file }));
+            toast.success(`${type.charAt(0).toUpperCase() + type.slice(1)} uploaded successfully`);
         }
     };
 
@@ -48,7 +58,7 @@ export default function AITwinGenerator() {
                     console.error('Cloning error:', error);
                     if (isMounted) {
                         setStep(1); // revert back to step 1 on failure
-                        alert('Cloning failed. Please check your uploads and try again.');
+                        toast.error(error instanceof Error ? error.message : 'Cloning failed. Please check your uploads.');
                     }
                 }
             };
@@ -112,22 +122,22 @@ export default function AITwinGenerator() {
                                 <div className="space-y-4">
                                     <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider block">2. Upload Biometrics</label>
                                     <div className="grid grid-cols-3 gap-4">
-                                        <label className={`flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border border-dashed transition-all cursor-pointer ${uploads.photo ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-700 hover:border-indigo-500 hover:bg-indigo-500/5 group'}`}>
-                                            <input type="file" className="hidden" accept="image/*" onChange={(e) => handleFileChange(e, 'photo')} />
+                                        <label htmlFor="photo-upload" aria-label="Upload visual photo meta-data" className={`flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border border-dashed transition-all cursor-pointer ${uploads.photo ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-700 hover:border-indigo-500 hover:bg-indigo-500/5 group'}`}>
+                                            <input id="photo-upload" type="file" className="hidden" accept="image/*" onChange={(e) => handleFileChange(e, 'photo')} />
                                             <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${uploads.photo ? 'bg-emerald-500 text-white' : 'bg-zinc-800 group-hover:bg-indigo-500 group-hover:text-white'}`}>
                                                 {uploads.photo ? <Check size={18} /> : <Upload size={18} />}
                                             </div>
                                             <span className={`text-[10px] font-bold uppercase tracking-widest ${uploads.photo ? 'text-emerald-400' : 'text-zinc-500'}`}>Photo {uploads.photo && '✓'}</span>
                                         </label>
-                                        <label className={`flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border border-dashed transition-all cursor-pointer ${uploads.voice ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-700 hover:border-indigo-500 hover:bg-indigo-500/5 group'}`}>
-                                            <input type="file" className="hidden" accept="audio/*" onChange={(e) => handleFileChange(e, 'voice')} />
+                                        <label htmlFor="voice-upload" aria-label="Upload voice biometric data" className={`flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border border-dashed transition-all cursor-pointer ${uploads.voice ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-700 hover:border-indigo-500 hover:bg-indigo-500/5 group'}`}>
+                                            <input id="voice-upload" type="file" className="hidden" accept="audio/*" onChange={(e) => handleFileChange(e, 'voice')} />
                                             <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${uploads.voice ? 'bg-emerald-500 text-white' : 'bg-zinc-800 group-hover:bg-indigo-500 group-hover:text-white'}`}>
                                                 {uploads.voice ? <Check size={18} /> : <Mic size={18} />}
                                             </div>
                                             <span className={`text-[10px] font-bold uppercase tracking-widest ${uploads.voice ? 'text-emerald-400' : 'text-zinc-500'}`}>Voice {uploads.voice && '✓'}</span>
                                         </label>
-                                        <label className={`flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border border-dashed transition-all cursor-pointer ${uploads.video ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-700 hover:border-indigo-500 hover:bg-indigo-500/5 group'}`}>
-                                            <input type="file" className="hidden" accept="video/*" onChange={(e) => handleFileChange(e, 'video')} />
+                                        <label htmlFor="video-upload" aria-label="Upload video reference sample" className={`flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border border-dashed transition-all cursor-pointer ${uploads.video ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-700 hover:border-indigo-500 hover:bg-indigo-500/5 group'}`}>
+                                            <input id="video-upload" type="file" className="hidden" accept="video/*" onChange={(e) => handleFileChange(e, 'video')} />
                                             <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${uploads.video ? 'bg-emerald-500 text-white' : 'bg-zinc-800 group-hover:bg-indigo-500 group-hover:text-white'}`}>
                                                 {uploads.video ? <Check size={18} /> : <Video size={18} />}
                                             </div>
@@ -171,6 +181,13 @@ export default function AITwinGenerator() {
                                         <div className="bg-zinc-900 p-3 rounded text-xs font-mono text-zinc-400">Voice Match: <span className="text-emerald-400">98.4%</span></div>
                                         <div className="bg-zinc-900 p-3 rounded text-xs font-mono text-zinc-400">Face Map: <span className="text-emerald-400">100%</span></div>
                                     </div>
+                                    <button
+                                        onClick={handleCancel}
+                                        className="mt-4 flex items-center gap-2 text-zinc-500 hover:text-red-400 transition-colors uppercase text-[10px] font-black tracking-widest"
+                                    >
+                                        <X size={12} />
+                                        Abort Sequence
+                                    </button>
                                 </div>
                                 {/* Processing is now handled entirely by useEffect up top to avoid unmounting issues */}
                             </motion.div>
@@ -182,7 +199,7 @@ export default function AITwinGenerator() {
                                 animate={{ opacity: 1, y: 0 }}
                                 className="space-y-6"
                             >
-                                <div className="bg-emerald-900/20 border border-emerald-500/30 p-6 rounded-2xl flex items-start gap-4">
+                                <div className="bg-emerald-900/20 border border-emerald-500/30 p-6 rounded-2xl flex items-start gap-4 shadow-[0_0_30px_rgba(16,185,129,0.1)]">
                                     <div className="p-3 bg-emerald-500/20 rounded-full text-emerald-400">
                                         <Check size={24} />
                                     </div>
@@ -191,12 +208,20 @@ export default function AITwinGenerator() {
                                         <p className="text-zinc-400 text-sm">Your digital delegate is now active and ready for assignment. Access via the Delegate Dashboard.</p>
                                     </div>
                                 </div>
-                                <button
-                                    onClick={() => setStep(1)}
-                                    className="w-full py-4 border border-white/10 text-zinc-400 hover:text-white uppercase tracking-widest text-xs font-bold rounded-xl hover:bg-white/5 transition-all"
-                                >
-                                    Generate Another Twin
-                                </button>
+                                <div className="flex flex-col gap-3">
+                                    <Link href="/dashboard" className="w-full">
+                                        <button className="w-full py-5 bg-indigo-600 text-white font-black uppercase tracking-[0.2em] rounded-xl hover:bg-indigo-500 transition-all shadow-xl shadow-indigo-500/20 flex items-center justify-center gap-3">
+                                            View Delegate Dashboard
+                                            <Zap size={18} fill="currentColor" />
+                                        </button>
+                                    </Link>
+                                    <button
+                                        onClick={() => setStep(1)}
+                                        className="w-full py-4 border border-white/10 text-zinc-400 hover:text-white uppercase tracking-widest text-xs font-bold rounded-xl hover:bg-white/5 transition-all"
+                                    >
+                                        Generate Another Twin
+                                    </button>
+                                </div>
                             </motion.div>
                         )}
                     </div>

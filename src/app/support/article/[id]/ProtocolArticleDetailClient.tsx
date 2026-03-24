@@ -6,7 +6,7 @@ import React from 'react';
 
 export default function ProtocolArticleDetailClient() {
     return (
-        <main className="content-stage">
+        <div className="content-stage">
             {/* Header / Search Hero */}
             <section className="relative py-12 px-6 bg-zinc-900 border-b border-zinc-800 flex flex-col items-center justify-center text-center overflow-hidden rounded-3xl">
                 <div
@@ -94,7 +94,11 @@ export default function ProtocolArticleDetailClient() {
                         <button className="flex-1 py-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold uppercase text-xs tracking-widest transition-colors shadow-lg shadow-amber-900/20">
                             Open Ticket
                         </button>
-                        <button className="p-3 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors">
+                        <button 
+                            className="p-3 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors"
+                            aria-label="Print Protocol"
+                            title="Print Protocol"
+                        >
                             <Printer size={20} />
                         </button>
                     </div>
@@ -131,6 +135,6 @@ export default function ProtocolArticleDetailClient() {
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
     );
 }

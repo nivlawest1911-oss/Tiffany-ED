@@ -29,7 +29,7 @@ export default function ContactClient() {
     };
 
     return (
-        <main className="content-stage relative min-h-screen">
+        <div className="content-stage relative min-h-screen">
             {/* Aurora Background */}
             <AuroraBackground variant="mixed" intensity="low" />
             <ParticleField count={25} />
@@ -521,6 +521,7 @@ export default function ContactClient() {
                     </motion.div>
                 </div>
             </section>
-        </main>
+        </div>
     );
 }
+

@@ -38,7 +38,7 @@ export default function ParentalOptInClient() {
     }
 
     return (
-        <main className="content-stage">
+        <div className="content-stage">
             <div className="max-w-4xl mx-auto px-6 py-12">
                 <AnimatePresence mode="wait">
                     {!submitted ? (
@@ -189,6 +189,7 @@ export default function ParentalOptInClient() {
                     )}
                 </AnimatePresence>
             </div>
-        </main>
+        </div>
     );
 }
+

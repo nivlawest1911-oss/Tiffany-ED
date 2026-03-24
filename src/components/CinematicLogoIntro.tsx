@@ -443,7 +443,7 @@ export function CinematicLogoIntro({
             >
               <div className="h-px w-12 bg-gradient-to-r from-transparent to-[#00E5FF]" />
               <p className="text-sm md:text-base tracking-[0.4em] text-[#00E5FF] uppercase font-light">
-                Educator Intelligence
+                Intelligence in Education
               </p>
               <div className="h-px w-12 bg-gradient-to-l from-transparent to-[#00E5FF]" />
             </motion.div>
