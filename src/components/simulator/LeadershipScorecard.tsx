@@ -33,6 +33,9 @@ export function LeadershipScorecard({ metrics, scenarioTitle }: ScorecardProps) 
                 <div className="inline-block px-4 py-1 rounded-full bg-intel-gold/10 border border-intel-gold/20 mb-4">
                     <span className="text-[10px] font-black text-intel-gold uppercase tracking-[0.2em]">Leadership Analysis</span>
                 </div>
+                <div className="flex items-center gap-2 text-[9px] font-black text-zinc-400 uppercase tracking-[0.2em]">
+                    <span>Index: 0x{Math.floor(Math.random() * 1000).toString(16).toUpperCase()}</span>
+                </div>
                 <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter">
                     {scenarioTitle} <span className="text-intel-gold">Final Audit</span>
                 </h3>
@@ -67,11 +70,11 @@ export function LeadershipScorecard({ metrics, scenarioTitle }: ScorecardProps) 
                         </svg>
                         <div className="absolute inset-0 flex flex-col items-center justify-center">
                             <span className="text-3xl font-black text-white italic">{overallScore}%</span>
-                            <span className="text-[8px] font-black text-white/40 uppercase">Efficacy</span>
+                            <span className="text-[8px] font-black text-zinc-400 uppercase">Efficacy</span>
                         </div>
                     </div>
                     <div className={`text-xl font-black uppercase italic ${grade.color}`}>{grade.label}</div>
-                    <p className="text-[10px] text-white/40 mt-2 font-mono uppercase tracking-widest">Aggregate Leadership Index</p>
+                    <p className="text-[10px] text-zinc-400 mt-2 font-mono uppercase tracking-widest">Aggregate Leadership Index</p>
                 </GlassCard>
 
                 <div className="space-y-4">
@@ -87,7 +90,7 @@ export function LeadershipScorecard({ metrics, scenarioTitle }: ScorecardProps) 
                             </div>
                             <div className="flex-1 text-left">
                                 <div className="flex justify-between items-center mb-1">
-                                    <span className="text-[10px] font-black text-white uppercase tracking-widest">{m.label}</span>
+                                    <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">{m.label}</span>
                                     <span className="text-xs font-bold text-intel-gold">{m.val}%</span>
                                 </div>
                                 <div className="h-1 bg-white/5 rounded-full overflow-hidden">

@@ -1,5 +1,5 @@
 import { SovereignGatekeeper } from "@/components/auth/SovereignGatekeeper";
-import { AI } from "@/app/ai-hub/ai";
+import { AI } from "@/lib/ai/rsc";
 
 export default function AIHubLayout({
     children,

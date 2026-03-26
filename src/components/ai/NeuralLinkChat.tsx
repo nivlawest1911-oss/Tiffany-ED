@@ -17,6 +17,8 @@ import { UnifiedProtocol } from '@/data/unifiedRegistry';
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from 'framer-motion';
 import { AlertTriangle, Sparkles } from 'lucide-react';
+import { useAccessibilityScrubber } from '@/hooks/useAccessibilityScrubber';
+import { useRef } from 'react';
 
 interface NeuralLinkChatProps {
     protocol: UnifiedProtocol;
@@ -33,6 +35,10 @@ export function NeuralLinkChat({ protocol, className }: NeuralLinkChatProps) {
     const [isListening, setIsListening] = useState(false)
     const [isPolymathEnabled, setIsPolymathEnabled] = useState(false)
     const [showCostAlert, setShowCostAlert] = useState(false)
+    const responseRef = useRef<HTMLDivElement>(null);
+
+    // Use the accessibility scrubber hook for dynamic AI content
+    useAccessibilityScrubber(responseRef);
 
     const tokenCost = isPolymathEnabled ? 10 : 2; // Increased cost for polymath mode
 
@@ -272,7 +278,10 @@ export function NeuralLinkChat({ protocol, className }: NeuralLinkChatProps) {
                                 </button>
                             </div>
                         </div>
-                        <div className="flex-1 bg-white border border-slate-100 rounded-2xl p-6 overflow-y-auto custom-scrollbar shadow-inner relative">
+                        <div 
+                            ref={responseRef}
+                            className="flex-1 bg-white border border-slate-100 rounded-2xl p-6 overflow-y-auto custom-scrollbar shadow-inner relative"
+                        >
                             <div className="prose prose-slate prose-sm max-w-none">
                                 <div className="text-slate-700 font-medium leading-relaxed whitespace-pre-wrap font-sans text-sm">
                                     {response}

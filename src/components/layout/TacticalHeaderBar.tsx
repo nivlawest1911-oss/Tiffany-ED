@@ -48,13 +48,13 @@ export const TacticalHeaderBar = () => {
     };
 
     return (
-        <div className="flex items-center gap-4 bg-black/40 backdrop-blur-xl border border-white/10 p-1.5 rounded-2xl shadow-2xl">
-            {/* System Metrics */}
-            <div className="hidden lg:flex items-center gap-4 px-4 py-1.5 bg-white/5 rounded-xl border border-white/5 mr-2">
+        <div role="region" aria-label="System Metrics" className="flex items-center justify-between w-full max-w-full bg-black/40 backdrop-blur-xl border border-white/10 p-1 md:p-1.5 rounded-2xl shadow-2xl overflow-hidden">
+            {/* System Metrics (Hidden on Mobile) */}
+            <div className="hidden lg:flex items-center gap-4 px-4 py-1.5 bg-white/5 rounded-xl border border-white/5 mr-2 shrink-0">
                 <div className="flex items-center gap-2">
                     <Activity className="w-3 h-3 text-emerald-500 animate-pulse" />
                     <div className="flex flex-col">
-                        <span className="text-[8px] font-black text-white/30 uppercase tracking-widest leading-none">District</span>
+                        <span className="text-[8px] font-black text-zinc-400 uppercase tracking-widest leading-none">District</span>
                         <span className="text-[10px] font-mono text-emerald-500 font-bold uppercase tracking-tighter">Optimal</span>
                     </div>
                 </div>
@@ -64,7 +64,7 @@ export const TacticalHeaderBar = () => {
                 <div className="flex items-center gap-2">
                     <Cpu className="w-3 h-3 text-electric-cyan" />
                     <div className="flex flex-col">
-                        <span className="text-[8px] font-black text-white/30 uppercase tracking-widest leading-none">Latency</span>
+                        <span className="text-[8px] font-black text-zinc-400 uppercase tracking-widest leading-none">Latency</span>
                         <span className="text-[10px] font-mono text-electric-cyan font-black tracking-tighter">{latency}</span>
                     </div>
                 </div>
@@ -112,7 +112,7 @@ export const TacticalHeaderBar = () => {
                     <span className={cn(
                         "text-[9px] font-black uppercase tracking-[0.2em] transition-colors duration-500",
                         isSynthesizing ? "text-sovereign-gold animate-pulse" :
-                            isLinked ? "text-cyan-400" : "text-white/30"
+                            isLinked ? "text-cyan-400" : "text-zinc-400"
                     )}>
                         {isSynthesizing ? "Synthesizing..." : isLinked ? "Biometrics Linked" : "Neural Link"}
                     </span>
@@ -120,7 +120,7 @@ export const TacticalHeaderBar = () => {
             </div>
 
             {/* Tactical Switcher */}
-            <div className="flex items-center gap-1.5">
+            <div className="flex-1 flex items-center gap-1 overflow-x-auto no-scrollbar py-0.5 px-1 md:gap-1.5 md:px-0 scroll-smooth shadow-inner lg:shadow-none">
                 {VIBES.map((v) => {
                     const isActive = currentVibe.id === v.id;
                     return (
@@ -129,10 +129,10 @@ export const TacticalHeaderBar = () => {
                             onMouseEnter={playHover}
                             onClick={() => handleVibeChange(v)}
                             className={cn(
-                                "group relative px-4 py-2 rounded-xl transition-all duration-500 overflow-hidden border",
+                                "group relative px-2.5 py-1.5 md:px-4 md:py-2 rounded-xl transition-all duration-500 shrink-0 border",
                                 isActive
                                     ? "bg-sovereign-gold/10 border-sovereign-gold/40 shadow-[0_0_20px_rgba(255,179,0,0.15)]"
-                                    : "bg-transparent border-transparent text-white/40 hover:text-white/80 hover:bg-white/5"
+                                    : "bg-transparent border-transparent text-zinc-400 hover:text-white/80 hover:bg-white/5"
                             )}
                         >
                             {/* Active Glow Effect */}

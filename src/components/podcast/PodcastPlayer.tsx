@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect, MouseEvent } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Loader2 } from 'lucide-react';
 import { PodcastEpisode } from '@/lib/data/podcasts';
@@ -12,7 +12,7 @@ interface PodcastPlayerProps {
 
 export default function PodcastPlayer({ episode }: PodcastPlayerProps) {
     const audioRef = useRef<HTMLAudioElement | null>(null);
-    const progressRef = useRef<HTMLDivElement>(null);
+
 
     // State
     const [isPlaying, setIsPlaying] = useState(false);
@@ -71,18 +71,6 @@ export default function PodcastPlayer({ episode }: PodcastPlayerProps) {
         }
     };
 
-    // Scrubber Logic
-    const handleProgressClick = (e: MouseEvent<HTMLDivElement>) => {
-        if (!progressRef.current || !audioRef.current) return;
-
-        const rect = progressRef.current.getBoundingClientRect();
-        const clickX = e.clientX - rect.left;
-        const newPercentage = Math.max(0, Math.min(1, clickX / rect.width));
-
-        const newTime = newPercentage * duration;
-        audioRef.current.currentTime = newTime;
-        setCurrentTime(newTime);
-    };
 
     // Skip controls
     const handleSkipBack = () => {
@@ -99,6 +87,7 @@ export default function PodcastPlayer({ episode }: PodcastPlayerProps) {
 
     // Derived progress percentage
     const progressPercentage = duration > 0 ? (currentTime / duration) * 100 : 0;
+    const roundedProgress = Math.round(progressPercentage);
 
     return (
         <div className="relative bg-black/60 backdrop-blur-3xl border border-white/10 rounded-[2rem] p-6 shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden isolate shadow-2xl">
@@ -167,24 +156,39 @@ export default function PodcastPlayer({ episode }: PodcastPlayerProps) {
                         <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-white to-gray-400">
                             {episode.title}
                         </h2>
-                        <p className="text-xs font-mono text-zinc-500 uppercase tracking-widest">{episode.host}</p>
+                        <p className="text-xs font-mono text-zinc-400 uppercase tracking-widest">{episode.host}</p>
                     </div>
 
                     {/* Scrubber Area */}
-                    <div className="space-y-2 mt-4">
-                        <div
-                            ref={progressRef}
-                            onClick={handleProgressClick}
-                            className="h-2 w-full bg-white/10 rounded-full cursor-pointer overflow-hidden group"
-                        >
-                            <div
-                                className="h-full bg-gradient-to-r from-noble-gold via-yellow-400 to-cyan-400 relative transition-[width] duration-150 ease-linear"
-                                style={{ width: `${progressPercentage}%` }}
+                    <div className="space-y-2 mt-4 relative">
+                        {/* Hidden native range input for accessibility and state management */}
+                        <input
+                            type="range"
+                            min="0"
+                            max="100"
+                            value={roundedProgress}
+                            onChange={(e) => {
+                                const newProgress = parseFloat(e.target.value);
+                                if (audioRef.current) {
+                                    audioRef.current.currentTime = (newProgress / 100) * duration;
+                                }
+                            }}
+                            className="absolute inset-0 w-full h-2 opacity-0 cursor-pointer z-10"
+                            aria-label="Playback progress"
+                        />
+                        
+                        {/* Visual Scrubber (Matches EdIntel Aesthetic) */}
+                        <div className="h-2 w-full bg-white/10 rounded-full overflow-hidden group">
+                            <motion.div
+                                className="h-full bg-gradient-to-r from-noble-gold via-yellow-400 to-cyan-400 relative"
+                                initial={false}
+                                animate={{ width: `${progressPercentage}%` }}
+                                transition={{ type: 'spring', bounce: 0, duration: 0.1 }}
                             >
                                 <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-white shadow-[0_0_8px_#fff] opacity-0 group-hover:opacity-100 transition-opacity" />
-                            </div>
+                            </motion.div>
                         </div>
-                        <div className="flex justify-between items-center text-[10px] font-mono text-zinc-500">
+                        <div className="flex justify-between items-center text-[10px] font-mono text-zinc-400">
                             <span>{formatTime(currentTime)}</span>
                             <span>{formatTime(duration)}</span>
                         </div>

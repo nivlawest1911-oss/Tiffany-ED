@@ -48,15 +48,15 @@ export const WorkforceOptimization: React.FC = () => {
     };
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-6 md:space-y-8">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div className="lg:col-span-2 space-y-6">
-                    <h2 className="text-xl font-black text-white uppercase tracking-[0.3em] mb-4">Personnel Capacity Telemetry</h2>
+                    <h2 className="text-lg md:text-xl font-black text-white uppercase tracking-[0.2em] md:tracking-[0.3em] mb-4">Personnel Capacity Telemetry</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {analytics.map((staff) => (
-                            <GlassCard key={staff.id} className="p-6 relative overflow-hidden group">
-                                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                                    <Users size={40} />
+                            <GlassCard key={staff.id} className="p-4 md:p-6 relative overflow-hidden group">
+                                <div className="absolute top-0 right-0 p-4 opacity-5 md:opacity-10 group-hover:opacity-20 transition-opacity">
+                                    <Users size={32} className="md:w-10 md:h-10" />
                                 </div>
                                 <div className="flex justify-between items-start mb-4">
                                     <div>
@@ -102,8 +102,8 @@ export const WorkforceOptimization: React.FC = () => {
                 </div>
 
                 <div className="space-y-6">
-                    <h2 className="text-xl font-black text-white uppercase tracking-[0.3em] mb-4">Optimization Swarm</h2>
-                    <GlassCard className="p-6 border-intel-gold/20 bg-intel-gold/5">
+                    <h2 className="text-lg md:text-xl font-black text-white uppercase tracking-[0.2em] md:tracking-[0.3em] mb-4">Optimization Swarm</h2>
+                    <GlassCard className="p-4 md:p-6 border-intel-gold/20 bg-intel-gold/5">
                         <div className="flex items-center gap-3 mb-6">
                             <div className="p-3 rounded-xl bg-intel-gold/20 text-intel-gold animate-pulse">
                                 <Zap size={20} />
@@ -144,12 +144,12 @@ export const WorkforceOptimization: React.FC = () => {
                         )}
                     </GlassCard>
 
-                    <GlassCard className="p-6">
+                    <GlassCard className="p-4 md:p-6">
                         <div className="flex items-center gap-3 mb-4 text-slate-400">
                             <Activity size={16} />
                             <span className="text-[10px] font-black uppercase tracking-widest">Institutional Efficiency</span>
                         </div>
-                        <div className="text-4xl font-black text-white tracking-tighter mb-1">94.2%</div>
+                        <div className="text-3xl md:text-4xl font-black text-white tracking-tighter mb-1">94.2%</div>
                         <div className="flex items-center gap-2 text-[10px] text-emerald-400 font-bold uppercase tracking-widest">
                             <TrendingUp size={12} />
                             <span>+2.4% vs last cycle</span>

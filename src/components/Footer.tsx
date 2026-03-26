@@ -88,7 +88,7 @@ export default function Footer() {
                                 <span className="p-1.5 rounded-lg bg-[#FFB300]/10 text-[#FFB300] mt-0.5 border border-[#FFB300]/20"><Crown size={14} /></span>
                                 <div>
                                     <p className="text-white text-sm font-medium">Dr. Alvin West, II</p>
-                                    <p className="text-zinc-500 text-xs">Founder & Chief Professional Officer</p>
+                                    <p className="text-zinc-400 text-xs">Founder & Chief Professional Officer</p>
                                 </div>
                             </li>
                             <li className="flex items-start gap-3">
@@ -97,7 +97,7 @@ export default function Footer() {
                                     <a href="mailto:dralvinwest@transcendholisticwellness.com" className="text-zinc-400 hover:text-[#FFB300] transition-colors text-sm block truncate max-w-[200px]" title="dralvinwest@transcendholisticwellness.com">
                                         dralvinwest@transcendholisticwellness.com
                                     </a>
-                                    <a href="mailto:nivlawest1911@gmail.com" className="text-zinc-500 hover:text-[#FFB300] transition-colors text-sm block">
+                                    <a href="mailto:nivlawest1911@gmail.com" className="text-zinc-400 hover:text-[#FFB300] transition-colors text-sm block">
                                         nivlawest1911@gmail.com
                                     </a>
                                 </div>
@@ -129,7 +129,8 @@ export default function Footer() {
                     <div className="flex items-center gap-2">
                         <button
                             onClick={() => setSystemStatusOpen(true)}
-                            className="text-zinc-500 text-xs flex items-center gap-2 hover:text-emerald-400 transition-colors group cursor-pointer"
+                            aria-label="System Integrity Report"
+                            className="text-zinc-400 text-xs flex items-center gap-2 hover:text-emerald-400 transition-colors group cursor-pointer"
                         >
                             <span className="relative flex h-2 w-2">
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -138,7 +139,7 @@ export default function Footer() {
                             All systems operational
                         </button>
                         <span className="text-zinc-700 mx-2">|</span>
-                        <span className="text-zinc-500 text-xs">
+                        <span className="text-zinc-400 text-xs">
                             © {new Date().getFullYear()} EdIntel Professional
                         </span>
                     </div>
@@ -155,13 +156,13 @@ export default function Footer() {
                     />
                     
                     <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
-                        <Link href="/privacy" className="text-zinc-500 hover:text-[#FFB300] transition-colors text-xs font-medium uppercase tracking-wider">
+                        <Link href="/privacy" className="text-zinc-400 hover:text-[#FFB300] transition-colors text-xs font-medium uppercase tracking-wider">
                             Privacy Policy
                         </Link>
-                        <Link href="/terms" className="text-zinc-500 hover:text-[#FFB300] transition-colors text-xs font-medium uppercase tracking-wider">
+                        <Link href="/terms" className="text-zinc-400 hover:text-[#FFB300] transition-colors text-xs font-medium uppercase tracking-wider">
                             Terms of Service
                         </Link>
-                        <Link href="/ferpa" className="text-zinc-500 hover:text-[#FFB300] transition-colors text-xs font-medium uppercase tracking-wider">
+                        <Link href="/ferpa" className="text-zinc-400 hover:text-[#FFB300] transition-colors text-xs font-medium uppercase tracking-wider">
                             FERPA Compliance
                         </Link>
                         <Link href="/contact" className="text-zinc-500 hover:text-[#00E5FF] transition-colors text-xs font-medium uppercase tracking-wider">

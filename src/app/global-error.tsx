@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect } from 'react'
-import Link from 'next/link'
 
 // Minimal error page with NO external dependencies to prevent cascade failures
 export default function GlobalError({
@@ -127,8 +126,23 @@ export default function GlobalError({
                     <h1>Critical Systems Failure</h1>
                     
                     <p>
-                        An unexpected error has occurred in the EdIntel core. Our engineering team has been notified and the institutional state is being preserved.
+                        An unexpected error has occurred in the EdIntel core. Institutional state is being preserved.
                     </p>
+
+                    <div style={{ 
+                        background: 'rgba(239, 68, 68, 0.1)', 
+                        border: '1px solid rgba(239, 68, 68, 0.2)',
+                        borderRadius: '0.5rem',
+                        padding: '1rem',
+                        marginBottom: '2rem',
+                        textAlign: 'left',
+                        fontSize: '0.875rem'
+                    }}>
+                        <div style={{ color: '#f87171', fontWeight: 'bold', marginBottom: '0.5rem' }}>ERROR_RECOGNIZED:</div>
+                        <div style={{ color: '#9ca3af', fontFamily: 'monospace', wordBreak: 'break-all' }}>
+                            {error.message || 'Unknown Runtime Exception'}
+                        </div>
+                    </div>
                     
                     <div className="buttons">
                         <button onClick={() => reset()} className="primary">
@@ -138,12 +152,13 @@ export default function GlobalError({
                             </svg>
                             Reboot Terminal
                         </button>
-                        <Link href="/" className="secondary">
+                        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                        <a href="/" className="secondary">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
                             </svg>
                             Emergency Exit
-                        </Link>
+                        </a>
                     </div>
                     
                     {error.digest && (

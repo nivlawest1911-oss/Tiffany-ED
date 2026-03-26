@@ -12,8 +12,17 @@ const GenerativeBackground: React.FC = () => {
 
     useEffect(() => {
         // Defer rendering decorative elements until after hydration
-        const id = requestIdleCallback(() => setMounted(true));
-        return () => cancelIdleCallback(id);
+        // Polyfill/Fallback for requestIdleCallback (missing in older mobile Safari)
+        const ric = typeof window !== 'undefined' && (window as any).requestIdleCallback 
+            ? (window as any).requestIdleCallback 
+            : (cb: any) => setTimeout(cb, 1);
+            
+        const cic = typeof window !== 'undefined' && (window as any).cancelIdleCallback 
+            ? (window as any).cancelIdleCallback 
+            : (id: any) => clearTimeout(id);
+
+        const id = ric(() => setMounted(true));
+        return () => cic(id);
     }, []);
 
     if (!mounted) {

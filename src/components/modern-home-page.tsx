@@ -238,8 +238,8 @@ export default function ModernHomePage() {
             // Check for first-time visitor
             const onboarded = localStorage.getItem('onboarding_complete');
             if (!onboarded) {
-                // Delay onboarding until after boot sequence
-                setTimeout(() => setShowOnboarding(true), 15.1 * 1000); // Wait for potential intro duration
+                // Delay onboarding until after boot sequence completes (Phase 14 Optimization)
+                setTimeout(() => setShowOnboarding(true), 5.0 * 1000); 
             }
         } catch (e) {
             // localStorage may not be available

@@ -45,16 +45,16 @@ export const SynthesisDashboard: React.FC = () => {
     return (
         <div className="space-y-8">
             {/* Header / Actions */}
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-4">
                 <div>
-                    <h2 className="text-3xl font-black text-white tracking-tighter uppercase">Media Synthesis Hub</h2>
-                    <p className="text-white/40 text-sm font-medium">Autonomous generation of executive media artifacts.</p>
+                    <h2 className="text-2xl md:text-3xl font-black text-white tracking-tighter uppercase mb-1 md:mb-0">Media Synthesis Hub</h2>
+                    <p className="text-white/40 text-[10px] md:text-sm font-medium">Autonomous generation of executive media artifacts.</p>
                 </div>
-                <div className="flex gap-4">
+                <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
                     <button
                         onClick={() => handleSynthesize('PODCAST')}
                         disabled={isGenerating}
-                        className="flex items-center gap-2 px-4 py-2 bg-intel-gold/10 border border-intel-gold/20 rounded-full text-intel-gold hover:bg-intel-gold/20 transition-all font-bold text-sm uppercase tracking-widest disabled:opacity-50"
+                        className="flex items-center justify-center gap-2 px-6 md:px-4 py-3 md:py-2 bg-intel-gold/10 border border-intel-gold/20 rounded-full text-intel-gold hover:bg-intel-gold/20 transition-all font-bold text-xs md:text-sm uppercase tracking-widest disabled:opacity-50 w-full sm:w-auto"
                     >
                         {isGenerating ? <Loader2 className="animate-spin" size={16} /> : <Radio size={16} />}
                         Synthesize Podcast
@@ -62,7 +62,7 @@ export const SynthesisDashboard: React.FC = () => {
                     <button
                         onClick={() => handleSynthesize('EXECUTIVE_BRIEFING')}
                         disabled={isGenerating}
-                        className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-white/60 hover:bg-white/10 transition-all font-bold text-sm uppercase tracking-widest disabled:opacity-50"
+                        className="flex items-center justify-center gap-2 px-6 md:px-4 py-3 md:py-2 bg-white/5 border border-white/10 rounded-full text-white/60 hover:bg-white/10 transition-all font-bold text-xs md:text-sm uppercase tracking-widest disabled:opacity-50 w-full sm:w-auto"
                     >
                         <Mic size={16} />
                         New Briefing
@@ -79,9 +79,10 @@ export const SynthesisDashboard: React.FC = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95 }}
+                            className="max-w-full"
                         >
-                            <GlassCard className="relative overflow-hidden group">
-                                <div className="flex items-start justify-between mb-4">
+                            <GlassCard className="relative overflow-hidden group p-4 md:p-6">
+                                <div className="flex flex-col sm:flex-row items-start justify-between gap-4 mb-4">
                                     <div className="flex items-center gap-3">
                                         <div className={`p-3 rounded-xl ${artifact.status === 'COMPLETED' ? 'bg-intel-gold/20 text-intel-gold' : 'bg-white/5 text-white/40'}`}>
                                             {artifact.type === 'PODCAST' ? <Radio size={20} /> : <Mic size={20} />}
@@ -119,13 +120,13 @@ export const SynthesisDashboard: React.FC = () => {
                                     </div>
 
                                     {/* Visual Frequency Bars (Cinematic) */}
-                                    <div className="flex items-end justify-center gap-1 h-8 opacity-20 group-hover:opacity-40 transition-opacity">
-                                        {[...Array(20)].map((_, i) => (
+                                    <div className="flex items-end justify-center gap-1 h-6 md:h-8 opacity-20 group-hover:opacity-40 transition-opacity">
+                                        {[...Array(15)].map((_, i) => (
                                             <motion.div
                                                 key={i}
                                                 className="w-1 bg-intel-gold rounded-full"
                                                 animate={{
-                                                    height: artifact.status === 'SYNTHESIZING' ? [4, Math.random() * 24 + 4, 4] : 4
+                                                    height: artifact.status === 'SYNTHESIZING' ? [4, typeof window !== 'undefined' ? (Math.random() * (window.innerWidth < 768 ? 16 : 24) + 4) : 10, 4] : 4
                                                 }}
                                                 transition={{
                                                     repeat: Infinity,
@@ -137,10 +138,10 @@ export const SynthesisDashboard: React.FC = () => {
                                     </div>
                                 </div>
 
-                                <div className="mt-6 flex items-center justify-between pt-4 border-t border-white/5">
+                                <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-white/5">
                                     <div className="text-[10px] font-medium text-white/40 flex items-center gap-2">
                                         <CheckCircle2 size={12} className={artifact.status === 'COMPLETED' ? 'text-intel-gold' : 'text-white/10'} />
-                                        PROVENANCE SECURED
+                                        <span className="truncate">PROVENANCE SECURED</span>
                                     </div>
                                     <div className="flex gap-2">
                                         <button

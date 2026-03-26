@@ -46,7 +46,7 @@ export function CollectiveIntelligenceDashboard() {
                                 <Sparkles size={24} />
                             </div>
                             <div>
-                                <div className="text-[10px] font-black uppercase text-cyan-400/60 tracking-widest mb-1">District IQ</div>
+                                    <div className="text-[10px] uppercase tracking-widest text-zinc-400 font-bold mb-1">District IQ</div>
                                 <div className="text-4xl font-black text-white italic tracking-tighter">
                                     {globalIndex.toFixed(1)}
                                 </div>
@@ -154,7 +154,7 @@ export function CollectiveIntelligenceDashboard() {
                                     </p>
                                     <div className="mt-4 flex items-center justify-between">
                                         <div className="flex items-center gap-2">
-                                            <div className="text-[9px] font-black text-white/20 uppercase">Confidence Score</div>
+                                            <div className="text-[10px] uppercase tracking-widest text-zinc-400 font-bold mb-1">Neural Convergence</div>
                                             <div className="h-1 w-24 bg-white/5 rounded-full overflow-hidden">
                                                 <motion.div
                                                     className="h-full bg-intel-gold"

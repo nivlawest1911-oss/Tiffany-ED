@@ -52,10 +52,19 @@ export const EdIntelBentoItem = ({
                 }
             } : {}}
             onClick={onClick}
+            onKeyDown={(e) => {
+                if (onClick && (e.key === 'Enter' || e.key === ' ')) {
+                    e.preventDefault();
+                    onClick();
+                }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label={typeof title === 'string' ? `${title}: ${description}` : 'Interactive Bento Item'}
             className={cn(
                 "row-span-1 rounded-3xl group/bento transition-all duration-500 border border-white/5 bg-zinc-950/50 backdrop-blur-xl flex flex-col justify-between space-y-4 p-8 cursor-pointer relative overflow-hidden",
                 isSystemThinking && "border-noble-gold/30 shadow-[0_0_20px_rgba(197,164,126,0.15)]",
-                "hover:shadow-noble-gold/10 hover:border-noble-gold/20",
+                "hover:shadow-noble-gold/10 hover:border-noble-gold/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-noble-gold/50",
                 className
             )}
         >
@@ -80,11 +89,14 @@ export const EdIntelBentoItem = ({
             </div>
 
             <div className="group-hover/bento:translate-x-2 transition duration-300 relative z-10">
-                <div className={cn(
-                    "w-10 h-10 rounded-full flex items-center justify-center mb-4 transition-all duration-500",
-                    isSystemThinking ? "bg-noble-gold/20 text-noble-gold scale-110 shadow-[0_0_15px_rgba(197,164,126,0.4)]" : "bg-noble-gold/10 text-noble-gold shadow-none",
-                    "border border-noble-gold/20"
-                )}>
+                <div 
+                    aria-hidden="true"
+                    className={cn(
+                        "w-10 h-10 rounded-full flex items-center justify-center mb-4 transition-all duration-500",
+                        isSystemThinking ? "bg-noble-gold/20 text-noble-gold scale-110 shadow-[0_0_15px_rgba(197,164,126,0.4)]" : "bg-noble-gold/10 text-noble-gold shadow-none",
+                        "border border-noble-gold/20"
+                    )}
+                >
                     {icon || <Sparkles size={16} />}
                 </div>
                 <div className="font-black text-white mb-2 mt-2 uppercase tracking-wide">

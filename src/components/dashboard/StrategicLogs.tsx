@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Clock, Terminal, ChevronRight, Zap } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import { BentoGridItem } from './BentoGridItem';
 import { motion } from 'framer-motion';
 import SovereignButton from '@/components/ui/SovereignButton';
@@ -53,9 +54,12 @@ export const StrategicLogs = () => {
                             </div>
                             <div className="flex flex-col">
                                 <span className="text-[11px] font-bold text-white/80 group-hover:text-white group-hover:translate-x-1 transition-all">{log.type}</span>
-                                <div className="flex items-center gap-2">
-                                    <span className={`text-[9px] font-black uppercase tracking-widest ${getStatusColor(log.status)}`}>{log.status}</span>
-                                    <span className="text-[9px] text-white/30 font-medium group-hover:text-white/50 transition-colors uppercase">{log.timestamp}</span>
+                                <div className="flex items-center gap-3">
+                                    <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">{log.timestamp}</span>
+                                    <span className={cn("text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded bg-white/5 border border-white/10", getStatusColor(log.status))}>
+                                        {log.status}
+                                    </span>
+                                    <h4 className="text-xs font-black text-white uppercase tracking-tight">{log.type}</h4>
                                 </div>
                             </div>
                         </div>

@@ -8,14 +8,14 @@ import dynamic from 'next/dynamic';
 import { createBrowserClient } from '@supabase/ssr';
 import EdIntelLogo from '@/components/EdIntelLogo';
 import EdIntelSovereignLogo from '@/components/EdIntelSovereignLogo';
-import { ParticleBackground } from '@/components/ui/Cinematic';
 import { toast } from 'sonner';
 import { ROUTES } from '@/lib/routes';
 import { initiateBioAuth } from '@/app/auth/actions';
 
 import { useAuth } from '@/context/AuthContext';
 
-// Lazy-load: only shown when user clicks "Security Clearance Briefing"
+// 🏛️ Performance Optimized Dynamic Assets
+const ParticleBackground = dynamic(() => import('@/components/ui/Cinematic').then(mod => mod.ParticleBackground), { ssr: false });
 const HolographicBriefing = dynamic(() => import('@/components/intelligence/HolographicBriefing'), { ssr: false });
 
 export default function LoginClient() {
