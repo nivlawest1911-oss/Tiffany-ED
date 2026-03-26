@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Shield, Lock, Brain, Network } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -10,7 +10,7 @@ interface EdIntelCoreProps {
 
 export default function EdIntelCore({ phase = 'ready', className = "" }: EdIntelCoreProps) {
     const [rotation, setRotation] = useState(0);
-    const [pulseIntensity, setPulseIntensity] = useState(0);
+    const coreRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const rotationInterval = setInterval(() => {
@@ -19,7 +19,12 @@ export default function EdIntelCore({ phase = 'ready', className = "" }: EdIntel
 
         const pulseInterval = setInterval(() => {
             // Intensive pulsing during grid phase
-            setPulseIntensity(phase === 'grid' ? (Math.sin(Date.now() / 200) * 50 + 50) : (Math.sin(Date.now() / 1000) * 50 + 50));
+            const intensity = phase === 'grid' ? (Math.sin(Date.now() / 200) * 50 + 50) : (Math.sin(Date.now() / 1000) * 50 + 50);
+            
+            if (coreRef.current) {
+                coreRef.current.style.setProperty('--core-contrast', `${100 + intensity}%`);
+                coreRef.current.style.filter = `contrast(var(--core-contrast))`;
+            }
         }, 50);
 
         return () => {
@@ -30,8 +35,8 @@ export default function EdIntelCore({ phase = 'ready', className = "" }: EdIntel
 
     return (
         <div
+            ref={coreRef}
             className={cn("relative w-full h-full min-h-[600px] bg-gradient-to-b from-black via-zinc-950 to-black overflow-hidden flex items-center justify-center", className)}
-            style={{ filter: `contrast(${100 + pulseIntensity}%)` }}
         >
             <AnimatePresence mode="wait">
                 {/* Scene 1: The Grid (Chaos) */}
@@ -44,13 +49,13 @@ export default function EdIntelCore({ phase = 'ready', className = "" }: EdIntel
                         className="absolute inset-0 flex items-center justify-center pointer-events-none"
                     >
                         {/* Tangled Blue Wires - Data Network */}
-                        <svg className="absolute inset-0 w-full h-full">
+                        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                             {[...Array(40)].map((_, i) => (
                                 <motion.path
                                     key={i}
-                                    d={`M ${Math.random() * 100}% ${Math.random() * 100}% Q ${Math.random() * 100}% ${Math.random() * 100}%, ${Math.random() * 100}% ${Math.random() * 100}%`}
+                                    d={`M ${Math.random() * 100} ${Math.random() * 100} Q ${Math.random() * 100} ${Math.random() * 100}, ${Math.random() * 100} ${Math.random() * 100}`}
                                     stroke="#00B0FF"
-                                    strokeWidth="1.5"
+                                    strokeWidth="0.5"
                                     fill="none"
                                     initial={{ pathLength: 0, opacity: 0 }}
                                     animate={{
@@ -66,6 +71,7 @@ export default function EdIntelCore({ phase = 'ready', className = "" }: EdIntel
                                 />
                             ))}
                         </svg>
+
 
                         {/* Chaos Glow Particles */}
                         {[...Array(30)].map((_, i) => (

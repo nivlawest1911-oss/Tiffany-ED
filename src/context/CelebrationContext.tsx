@@ -28,6 +28,8 @@ export function CelebrationProvider({ children }: { children: React.ReactNode })
     const resizeTimeout = useRef<NodeJS.Timeout | null>(null);
 
     useEffect(() => {
+        if (typeof window === 'undefined') return;
+        
         // Initial size
         setWindowSize({ width: window.innerWidth, height: window.innerHeight });
 

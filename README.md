@@ -1,4 +1,8 @@
-# EdIntel Sovereign Architecture: Zenith State
+# EdIntel Sovereign Delegate
+
+![EdIntel Logo](./public/logo.png)
+
+## EdIntel Sovereign Architecture: Zenith State
 
 ## 👑 Institutional Transcendence Synthesis
 

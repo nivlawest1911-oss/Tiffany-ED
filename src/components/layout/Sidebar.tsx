@@ -36,7 +36,7 @@ export function Sidebar() {
             animate={{ width: collapsed ? 100 : 280 }}
             transition={{ type: 'spring', stiffness: 300, damping: 35 }}
             className={cn(
-                "relative z-40 flex h-screen flex-col border-r border-white/5 bg-[#020617]/80 backdrop-blur-3xl transition-all duration-300 overflow-hidden shadow-2xl shadow-black",
+                "hidden lg:flex relative z-40 h-screen flex-col border-r border-white/5 bg-[#020617]/80 backdrop-blur-3xl transition-all duration-300 overflow-hidden shadow-2xl shadow-black",
                 !isMounted && "opacity-0"
             )}
         >
@@ -45,22 +45,8 @@ export function Sidebar() {
                 <Link href="/" className="flex items-center gap-4 group">
                     <div className="relative">
                         <div className="absolute inset-0 bg-electric-cyan/20 blur-xl rounded-full scale-0 group-hover:scale-150 transition-transform duration-700" />
-                        <EdIntelLogo variant="sovereign-fidelity" className={cn("relative transition-all duration-500", collapsed ? "scale-90" : "scale-100")} />
+                        <EdIntelLogo variant="sovereign-fidelity" className={cn("relative transition-all duration-500", collapsed ? "scale-90" : "scale-100")} size={60} />
                     </div>
-                    {!collapsed && (
-                        <motion.div
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            className="flex flex-col"
-                        >
-                            <span className="text-xl font-black tracking-tighter text-white uppercase italic leading-none">
-                                Ed<span className="text-electric-cyan">Intel</span>
-                            </span>
-                            <span className="text-[8px] font-black uppercase tracking-[0.4em] text-sovereign-gold mt-1">
-                                Sovereign Core
-                            </span>
-                        </motion.div>
-                    )}
                 </Link>
             </div>
 

@@ -186,7 +186,10 @@ export default function VoiceInterface({
 
                     {/* Status Info */}
                     <div className="mt-12 text-center space-y-2">
-                        <div className="text-noble-gold font-black text-xs uppercase tracking-[0.5em] h-4">
+                        <div 
+                            aria-live="polite"
+                            className="text-noble-gold font-black text-xs uppercase tracking-[0.5em] h-4"
+                        >
                             {isProcessing ? "Neural Processing..." : isSpeaking ? "Voice Synthesis Active" : isListening ? "Listening Mode" : "Ready for Command"}
                         </div>
                         <p className="text-white/40 text-[10px] font-mono uppercase tracking-widest">

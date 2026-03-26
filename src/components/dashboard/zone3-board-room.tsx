@@ -19,7 +19,18 @@ export function BoardRoom() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[1, 2].map((i) => (
-                    <div key={i} className="p-4 bg-white/5 rounded-xl border border-white/5 hover:border-amber-400/30 hover:bg-white/10 transition-all duration-300 group cursor-pointer shadow-sm shadow-black/20">
+                    <div 
+                        key={i} 
+                        role="button"
+                        tabIndex={0}
+                        aria-label={`View Agenda Item ${i}: Q1 Fiscal Projection Review`}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                // Action handler would go here
+                            }
+                        }}
+                        className="p-4 bg-white/5 rounded-xl border border-white/5 hover:border-amber-400/30 hover:bg-white/10 transition-all duration-300 group cursor-pointer shadow-sm shadow-black/20"
+                    >
                         <div className="flex items-start justify-between mb-3">
                             <div className="p-2 bg-amber-400/10 border border-amber-400/20 rounded-lg text-amber-400 group-hover:scale-110 group-hover:bg-amber-400/20 transition-all duration-300">
                                 <FileText className="w-5 h-5" />
@@ -27,7 +38,7 @@ export function BoardRoom() {
                             <span className="text-[10px] text-white/40 uppercase tracking-widest font-black">Pending</span>
                         </div>
                         <h4 className="text-sm font-semibold text-white/80 group-hover:text-white transition-colors">Q1 Fiscal Projection Review</h4>
-                        <p className="text-xs text-white/40 mt-1 font-medium">Requires Dr. West's signature.</p>
+                        <p className="text-xs text-white/60 mt-1 font-medium">Requires Dr. West's signature.</p>
                     </div>
                 ))}
             </div>

@@ -7,7 +7,7 @@ interface BentoGridItemProps {
     description?: string;
     children: React.ReactNode;
     className?: string;
-    icon?: React.ElementType;
+    icon?: any;
     span?: string; // e.g. "col-span-8", "col-span-4"
 }
 

@@ -1,47 +1,53 @@
+import { ButtonHTMLAttributes, forwardRef } from 'react';
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
-import { ButtonHTMLAttributes } from 'react';
-import React from 'react';
+const buttonVariants = cva(
+  "inline-flex items-center justify-center font-bold rounded-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none",
+  {
+    variants: {
+      variant: {
+        primary: "bg-[#c5a47e] text-[#050505] hover:bg-[#D4AF37] focus:ring-[#c5a47e]",
+        secondary: "bg-gray-100 text-gray-900 hover:bg-gray-200 focus:ring-gray-500",
+        danger: "bg-red-600 text-white hover:bg-red-700 focus:ring-red-500",
+        ghost: "bg-transparent hover:bg-white/10 text-current",
+        holographic: "holographic-button shadow-holographic",
+        outline: "border border-[#c5a47e] text-[#c5a47e] bg-transparent hover:bg-[#c5a47e]/10",
+      },
+      size: {
+        default: "px-4 py-2 text-base",
+        sm: "px-3 py-1.5 text-sm",
+        md: "px-4 py-2 text-base",
+        lg: "px-6 py-3 text-lg",
+        icon: "h-9 w-9",
+      },
+    },
+    defaultVariants: {
+      variant: "primary",
+      size: "default",
+    },
+  }
+);
 
-// 1. Define the exact variations this button is allowed to have
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'danger' | 'ghost' | 'holographic';
-  size?: 'sm' | 'md' | 'lg' | 'icon';
+export interface ButtonProps
+  extends ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
 }
 
-export function Button({
-  variant = 'primary',
-  size = 'md',
-  className = '', // Allow slight external positioning, but strictly control the core
-  children,
-  ...props
-}: ButtonProps) {
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button";
+    return (
+      <Comp
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      />
+    );
+  }
+);
+Button.displayName = "Button";
 
-  // 2. Lock the base styling that all buttons share
-  const baseStyles = "inline-flex items-center justify-center font-bold rounded-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none";
-
-  // 3. Lock the specific variants
-  const variants = {
-    primary: "bg-[#c5a47e] text-[#050505] hover:bg-[#D4AF37] focus:ring-[#c5a47e]", // EdIntel Sovereign Gold
-    secondary: "bg-gray-100 text-gray-900 hover:bg-gray-200 focus:ring-gray-500",
-    danger: "bg-red-600 text-white hover:bg-red-700 focus:ring-red-500",
-    ghost: "bg-transparent hover:bg-white/10 text-current",
-    holographic: "holographic-button shadow-holographic",
-  };
-
-  // 4. Lock the sizing
-  const sizes = {
-    sm: "px-3 py-1.5 text-sm",
-    md: "px-4 py-2 text-base",
-    lg: "px-6 py-3 text-lg",
-    icon: "h-9 w-9",
-  };
-
-  // 5. Combine them cleanly
-  const finalClasses = `${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`;
-
-  return (
-    <button className={finalClasses} {...props}>
-      {children}
-    </button>
-  );
-}
+export { Button, buttonVariants };

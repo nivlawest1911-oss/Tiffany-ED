@@ -26,6 +26,19 @@ export default function WellnessPage() {
     const [isGenerating, setIsGenerating] = useState(false);
     const [wellnessAgent, setWellnessAgent] = useState<any>(null);
     const chartDataRef = useRef<number[]>([]);
+    const barsRef = useRef<(HTMLDivElement | null)[]>([]);
+
+    // Update biometric bars imperatively to satisfy strict linting
+    useEffect(() => {
+        barsRef.current.forEach((bar, i) => {
+            if (bar) {
+                const data = chartDataRef.current.slice(-10);
+                if (data[i] !== undefined) {
+                    bar.style.setProperty('--bar-height', `${(data[i] / 180) * 100}%`);
+                }
+            }
+        });
+    }, [biometrics]);
 
     useEffect(() => {
         // Fetch Wellness Architect persona
@@ -120,7 +133,7 @@ export default function WellnessPage() {
 
     return (
         <WellnessWrapper isWellnessMode={isConnected}>
-            <div className="min-h-screen text-white p-6 md:p-12 space-y-12 pb-32">
+            <div className="text-white space-y-12">
                 {/* Header Section */}
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-12">
                     <div className="space-y-4 text-left">
@@ -139,8 +152,8 @@ export default function WellnessPage() {
                                     {chartDataRef.current.slice(-10).map((v, i) => (
                                         <div
                                             key={i}
-                                            className="w-1 bg-rose-500/40 rounded-full"
-                                            style={{ height: `${(v / 180) * 100}%` }}
+                                            ref={el => { barsRef.current[i] = el; }}
+                                            className="w-1 bg-rose-500/40 rounded-full biometric-bar-fill"
                                         />
                                     ))}
                                 </div>
@@ -186,7 +199,7 @@ export default function WellnessPage() {
 
                         {/* Simulation/Analysis Row */}
                         <div className="p-12 rounded-[50px] bg-gradient-to-br from-zinc-900 to-black border border-white/5 relative overflow-hidden group text-left">
-                            <div className="absolute inset-0 bg-[url('/images/textures/noise.png')] opacity-20 pointer-events-none" />
+                            <div className="absolute inset-0 bg-[url('/noise.png')] opacity-20 pointer-events-none" />
                             <div className="relative z-10 flex flex-col md:flex-row items-center gap-12">
                                 <div className="w-48 h-48 relative shrink-0">
                                     <div className="absolute inset-0 bg-noble-gold/20 blur-3xl rounded-full" />

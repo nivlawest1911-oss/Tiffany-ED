@@ -1,6 +1,5 @@
 import { getSession } from '@/lib/auth';
 import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
 import { prisma } from '@/lib/prisma';
 import { UserRole } from '@prisma/client';
 
@@ -8,20 +7,12 @@ export async function POST(req: Request) {
     try {
         const session = await getSession();
         if (!session || !session.user) {
-            const cookieStore = await cookies();
-            const cookieNames = cookieStore.getAll().map(c => c.name);
-            console.warn('[SET_ROLE] Unauthorized attempt: No valid session found.', {
-                hasCookies: !!req.headers.get('cookie'),
-                cookieNames,
-                sessionDetected: !!session
-            });
+            // This is expected when users complete onboarding before signing in
+            // The OnboardingFlow saves data locally as a fallback, so this is not an error
             return NextResponse.json({
                 error: 'Unauthorized',
                 reason: !session ? 'No session found' : 'No user in session',
-                diag: {
-                    cookiesPresent: !!req.headers.get('cookie'),
-                    cookieNames
-                }
+                message: 'Session not available. Data should be saved locally and synced after authentication.'
             }, { status: 401 });
         }
 

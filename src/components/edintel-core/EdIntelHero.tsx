@@ -41,7 +41,7 @@ function HolographicVariant({ activeAgent, agents, message }: { activeAgent: num
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 1.05 }}
                 transition={{ duration: 0.8 }}
-                className="relative w-full h-[600px] md:h-[700px] rounded-[3rem] overflow-hidden border-2 border-intel-gold/20 shadow-[0_0_80px_rgba(197,164,126,0.1)] group"
+                className="relative w-full h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] rounded-2xl sm:rounded-3xl lg:rounded-[3rem] overflow-hidden border-2 border-intel-gold/20 shadow-[0_0_80px_rgba(197,164,126,0.1)] group"
             >
                 {/* VIDEO FEED */}
                 <div className="absolute inset-0 bg-zinc-900">
@@ -69,7 +69,7 @@ function HolographicVariant({ activeAgent, agents, message }: { activeAgent: num
                 </div>
 
                 {/* HOLOGRAPHIC UI OVERLAY */}
-                <div className="absolute inset-0 z-20 pointer-events-none p-8 flex flex-col justify-between">
+                <div className="absolute inset-0 z-20 pointer-events-none p-4 sm:p-6 md:p-8 flex flex-col justify-between">
                     {/* Top Bar */}
                     <div className="flex justify-between items-start">
                         <div className="flex gap-4">
@@ -109,14 +109,14 @@ function HolographicVariant({ activeAgent, agents, message }: { activeAgent: num
                     </AnimatePresence>
 
                     {/* Bottom Info */}
-                    <div className="space-y-2">
+                    <div className="space-y-1 sm:space-y-2">
                         <motion.h2
                             initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
-                            className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter"
+                            className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-black text-white uppercase tracking-tighter"
                         >
                             {agent.name}
                         </motion.h2>
-                        <p className="text-intel-gold font-mono text-sm tracking-widest uppercase">{agent.role}</p>
+                        <p className="text-intel-gold font-mono text-[10px] sm:text-xs md:text-sm tracking-widest uppercase">{agent.role}</p>
                     </div>
                 </div>
 
@@ -134,6 +134,7 @@ function HolographicVariant({ activeAgent, agents, message }: { activeAgent: num
 
 function CinematicVariant() {
     // Default Cinematic Variant (Consolidated Hero + UnusualHero)
+    const [mounted, setMounted] = useState(false);
     const cardRef = useRef<HTMLDivElement>(null)
     const pixelGridRef = useRef<HTMLDivElement>(null)
     const tagsRef = useRef<HTMLDivElement>(null)
@@ -142,6 +143,7 @@ function CinematicVariant() {
     const [showBriefing, setShowBriefing] = useState(false);
 
     useEffect(() => {
+        setMounted(true);
         const tagsElement = tagsRef.current
         const cursorElement = customCursorRef.current
 
@@ -299,9 +301,11 @@ function CinematicVariant() {
                 <div
                     className="absolute inset-0 overflow-hidden hero-mask"
                 >
-                    <video autoPlay loop muted playsInline poster="/images/professional_hero_bg.png" className="absolute inset-0 h-full w-full object-cover">
-                        <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/liquid-metal-video_yX6NvjdW-6bLYorR3Ihmlwjivg3pjA978qrSKRU.mp4" type="video/mp4" />
-                    </video>
+                    {mounted && (
+                        <video autoPlay loop muted playsInline poster="/images/professional_hero_bg.png" className="absolute inset-0 h-full w-full object-cover">
+                            <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/liquid-metal-video_yX6NvjdW-6bLYorR3Ihmlwjivg3pjA978qrSKRU.mp4" type="video/mp4" />
+                        </video>
+                    )}
 
                     <Image
                         src="/images/professional_hero_bg.png"
@@ -317,12 +321,12 @@ function CinematicVariant() {
                         <div className="absolute inset-0 [background:radial-gradient(90%_60%_at_10%_70%,rgba(0,0,0,.55)_0%,transparent_70%)]" />
                     </div>
 
-                    <div className="absolute bottom-6 left-6 right-6 max-w-[min(46rem,92vw)] md:bottom-8 md:left-8 z-10">
-                        <div
-                            ref={cardRef}
-                            onMouseLeave={handleMouseLeave}
-                            className="relative overflow-hidden backdrop-blur-md bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 transition-transform duration-500 ease-in hover:scale-[1.01]"
-                        >
+                        <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 max-w-[min(46rem,92vw)] md:bottom-8 md:left-8 z-10">
+                            <div
+                                ref={cardRef}
+                                onMouseLeave={handleMouseLeave}
+                                className="relative overflow-hidden backdrop-blur-md bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 transition-transform duration-500 ease-in hover:scale-[1.01]"
+                            >
                             <div ref={pixelGridRef} className="absolute inset-0 pointer-events-none z-10" />
 
                             <div className="flex flex-wrap gap-2 mb-4">
@@ -337,10 +341,10 @@ function CinematicVariant() {
                             </div>
 
                             {/* Consolidated Typograhy from Hero.tsx */}
-                            <h1 className="text-balance text-4xl/tight sm:text-5xl/tight md:text-7xl/tight font-black tracking-tighter text-white uppercase italic mb-2">
+                            <h1 className="text-balance text-3xl/tight sm:text-4xl/tight md:text-5xl/tight lg:text-7xl/tight font-black tracking-tighter text-white uppercase italic mb-1 sm:mb-2">
                                 EdIntel
                             </h1>
-                            <h1 className="text-balance text-4xl/tight sm:text-5xl/tight md:text-7xl/tight font-black tracking-tighter text-zinc-500 uppercase not-italic">
+                            <h1 className="text-balance text-3xl/tight sm:text-4xl/tight md:text-5xl/tight lg:text-7xl/tight font-black tracking-tighter text-zinc-500 uppercase not-italic">
                                 INTELLIGENCE
                             </h1>
 
@@ -459,7 +463,7 @@ function CinematicVariant() {
                     title="Welcome Message"
                     description="Greetings, I am Dr. Alvin West. You are accessing the EdIntel Leadership Platform. This platform is designed to provide comprehensive administrative and pedagogical support, fully aligned with Alabama SDE Chapter 290-8-9 and IDEA 2004 federal mandates. Our AI assistants are ready to support your district's efficiency. Get started with your first tool to begin."
                     role="Founder & Consultant"
-                    avatarImage="/images/avatars/Dr._alvin_west.png"
+                    avatarImage="/images/avatars/dr_alvin_west_official.png"
                     videoSrc="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/liquid-metal-video_yX6NvjdW-6bLYorR3Ihmlwjivg3pjA978qrSKRU.mp4"
                     stats={{ time: "30sec", saved: "∞", accuracy: "100%" }}
                 />

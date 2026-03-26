@@ -22,9 +22,6 @@ export interface UnifiedProtocol {
     heroVideo?: string;
     heroImage?: string;
     welcomeVideo?: string;
-    provider?: string;
-    link?: string;
-    href?: string;
 }
 
 // Map the separate arrays into a single unified registry
@@ -40,7 +37,7 @@ export const PROTOCOL_REGISTRY: UnifiedProtocol[] = [
         const sovereignData = EdIntel_PROTOCOLS[`/generators/${p.id}`] || {};
         return {
             ...p,
-            category: p.category || "Strategic",
+            category: (p as any).category || "Strategic",
             link: (p as any).link || `/generators/${p.id}`,
             prompts: (p as any).prompts || [],
             ...sovereignData

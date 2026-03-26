@@ -79,8 +79,8 @@ export async function startEdIntelSession(
             return await streamUI({
                 model: google('gemini-1.5-pro') as any,
 
-                // High thinking level for legal compliance
-                experimental_thinking_level: 'high',
+                // High thinking level for legal compliance - removed non-standard property
+                // experimental_thinking_level: 'high',
 
                 system: ALABAMA_REGULATORY_CONTEXT,
 
@@ -194,7 +194,7 @@ export async function startEdIntelSession(
                 'Professional Educational Intelligence',
                 ${JSON.stringify([...conversationHistory, { role: 'assistant', thoughtSignature }])}::jsonb,
                 ${JSON.stringify({ latest: thoughtSignature, timestamp: new Date().toISOString() })}::jsonb,
-                'gemini-3-pro'
+                'gemini-1.5-pro'
               )
               ON CONFLICT (user_id) DO UPDATE
               SET thought_signatures = ${JSON.stringify({ latest: thoughtSignature })}::jsonb,
@@ -259,8 +259,8 @@ export async function startLiveChat(
         return await streamText({
             model: google('gemini-1.5-flash') as any,
 
-            // Low thinking for speed
-            experimental_thinking_level: 'low',
+            // Low thinking for speed - removed non-standard property
+            // experimental_thinking_level: 'low',
 
             system: `You are Dr. Alvin West's EdIntel assistant. Provide quick, helpful responses to teachers.
         Follow the EdIntel OS Directive: ${ALABAMA_STRATEGIC_DIRECTIVE}

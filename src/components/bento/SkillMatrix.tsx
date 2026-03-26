@@ -106,7 +106,7 @@ export default function SkillMatrix() {
                                         <span className={`text-xs font-mono font-bold ${skill.score > 700 ? "text-green-500" : skill.score < 500 ? "text-red-500" : "text-yellow-500"}`}>{skill.score}</span>
                                     </div>
                                     <div className="w-full h-1 bg-zinc-800 rounded-full overflow-hidden">
-                                        <div className={`h-full ${skill.score > 700 ? "bg-green-500" : skill.score < 500 ? "bg-red-500" : "bg-yellow-500"}`} style={{ width: `${(skill.score / 850) * 100}%` }} />
+                                        <div className={`h-full bg-green-500 progress-bar-fill w-prog-${Math.round((skill.score / 850) * 10) * 10}`} />
                                     </div>
                                 </div>
                             </div>

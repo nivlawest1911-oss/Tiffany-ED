@@ -27,11 +27,7 @@ export async function decrypt(input: string): Promise<any> {
 export async function login(userData: { id: string; email: string; name: string; tier: string }) {
     const expires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 1 day
     const session = await encrypt({ user: userData, expires });
-
-    // Use (await cookies()) as per newer Next.js patterns if needed, but cookies() is often synchronous-like enough in server actions/routes
-    // Note: cookies().set() is only available in Server Actions or Route Handlers
     const cookieStore = await cookies();
-    console.log(`[AUTH_DIAG] login initiated for ${userData.email}`);
 
     cookieStore.set('edintel_session', session, {
         expires,
@@ -40,12 +36,10 @@ export async function login(userData: { id: string; email: string; name: string;
         sameSite: 'lax',
         path: '/'
     });
-    console.log(`[AUTH_DIAG] edintel_session cookie set for ${userData.email}`);
 }
 
 export async function logout() {
     const cookieStore = await cookies();
-    console.log("[AUTH_DIAG] logout initiated. Clearing 'edintel_session' cookie.");
     cookieStore.set('edintel_session', '', { expires: new Date(0), path: '/' });
 }
 
@@ -53,20 +47,13 @@ import { createClient } from '@/utils/supabase/server';
 
 export async function getSession() {
     const cookieStore = await cookies();
-    const allCookies = cookieStore.getAll();
-    const cookieNames = allCookies.map(c => c.name);
-
-    console.log(`[AUTH_DIAG] getSession initiated. Available cookies: ${cookieNames.join(', ')}`);
 
     // 1. Try Supabase Session first (Modern)
-    try {
-        const supabase = await createClient();
-        if (supabase) {
-            const { data: { session }, error } = await supabase.auth.getSession();
-            if (error) console.error("[AUTH_DIAG] Supabase getSession error:", error);
-
+    const supabase = await createClient();
+    if (supabase) {
+        try {
+            const { data: { session } } = await supabase.auth.getSession();
             if (session?.user) {
-                console.log("[AUTH_DIAG] Supabase session detected for:", session.user.email);
                 const metadata = session.user.user_metadata || {};
                 return {
                     user: {
@@ -77,29 +64,18 @@ export async function getSession() {
                     }
                 };
             }
-        } else {
-            console.log("[AUTH_DIAG] Supabase client could not be initialized (likely missing env vars).");
+        } catch {
+            // Supabase not available - fall through to legacy auth
         }
-    } catch (e) {
-        console.error("[AUTH_DIAG] Supabase session check crashed:", e);
     }
 
     // 2. Fallback: Legacy JWT Session
     const legacySessionValue = cookieStore.get('edintel_session')?.value;
     if (!legacySessionValue) {
-        console.warn("[AUTH_DIAG] No legacy 'edintel_session' cookie found.");
         return null;
     }
 
-    console.log("[AUTH_DIAG] Legacy 'edintel_session' cookie found. Attempting decryption...");
     const decrypted = await decrypt(legacySessionValue);
-
-    if (!decrypted) {
-        console.error("[AUTH_DIAG] Legacy session decryption failed. (Possible key mismatch or expired JWT)");
-        return null;
-    }
-
-    console.log("[AUTH_DIAG] Legacy session successfully decrypted for:", decrypted.user?.email);
     return decrypted;
 }
 

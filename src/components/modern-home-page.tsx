@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, startTransition } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring, Variants } from 'framer-motion';
 import { ArrowRight, Cpu, Zap, Shield, Brain, Globe, Terminal, Mic, Clock, LayoutGrid } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -10,8 +10,8 @@ import dynamic from 'next/dynamic';
 import { CORE_AVATARS } from '@/data/avatars';
 import { ROUTES } from '@/lib/routes';
 import { useAuth } from '@/context/AuthContext';
-import { Button } from '@/components/ui/button';
 import ActivationIntro from './landing/ActivationIntro';
+import { CinematicLogoIntro } from './CinematicLogoIntro';
 const ReadyToActivateCTA = dynamic(() => import('./landing/ReadyToActivateCTA'), { 
     ssr: false,
     loading: () => <div className="h-96 w-full animate-pulse bg-white/5 rounded-3xl" />
@@ -19,7 +19,7 @@ const ReadyToActivateCTA = dynamic(() => import('./landing/ReadyToActivateCTA'),
 import { EdIntelHero } from './edintel-core/EdIntelHero';
 const EdIntelCore = dynamic(() => import('./edintel-core/EdIntelCore'), { 
     ssr: false,
-    loading: () => <div className="h-[600px] w-full animate-pulse bg-white/5 rounded-3xl" />
+    loading: () => <div className="h-[600px] w-full animate-pulse bg-white/10 rounded-3xl border border-white/5" />
 });
 import { useEdIntelVibe } from '@/context/EdIntelVibeContext';
 import HumanAvatar from './ui/HumanAvatar';
@@ -134,7 +134,7 @@ function InteractiveTerminal({ onCommand }: { onCommand: (cmd: string) => void }
 
             <form onSubmit={handleSubmit} className="relative group/form">
                 {/* Dynamic Border */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-sovereign-gold/20 via-amber-600/20 to-orange-600/20 rounded-2xl blur-md opacity-0 group-hover:opacity-100 transition duration-1000" />
+                <div className="absolute -inset-1 bg-gradient-to-r from-[#D4AF37]/20 via-[#C5A02E]/20 to-[#B68F25]/20 rounded-2xl blur-md opacity-0 group-hover:opacity-100 transition duration-1000" />
 
                 <div className={cn(
                     "relative bg-black/60 backdrop-blur-md border border-white/5 rounded-2xl overflow-hidden shadow-2xl transition-all duration-500",
@@ -178,7 +178,7 @@ function InteractiveTerminal({ onCommand }: { onCommand: (cmd: string) => void }
                                 type="submit"
                                 title="Execute Protocol"
                                 aria-label="Execute EdIntel protocol"
-                                className="p-3 bg-gradient-to-br from-sovereign-gold to-amber-600 hover:from-white hover:to-electric-cyan text-black rounded-xl transition-all duration-300 font-black shadow-lg shadow-sovereign-gold/10 group-hover/form:scale-105 active:scale-95"
+                                className="p-3 bg-gradient-to-br from-[#D4AF37] to-[#C5A02E] hover:from-white hover:to-electric-cyan text-black rounded-xl transition-all duration-300 font-black shadow-lg shadow-[#D4AF37]/10 group-hover/form:scale-105 active:scale-95"
                             >
                                 <ArrowRight size={20} />
                             </button>
@@ -214,6 +214,7 @@ function InteractiveTerminal({ onCommand }: { onCommand: (cmd: string) => void }
 export default function ModernHomePage() {
     const [mounted, setMounted] = useState(false);
     const [booted, setBooted] = useState(false);
+    const [showCinematicIntro, setShowCinematicIntro] = useState(true);
     const [activeAgentIndex, setActiveAgentIndex] = useState(0);
     const [agentMessage, setAgentMessage] = useState<string | null>(null);
     const [showOnboarding, setShowOnboarding] = useState(false);
@@ -223,13 +224,38 @@ export default function ModernHomePage() {
     const isSignedIn = !!user;
 
     useEffect(() => {
-        // Check for first-time visitor
-        const onboarded = localStorage.getItem('onboarding_complete');
-        if (!onboarded) {
-            // Delay onboarding until after boot sequence
-            setTimeout(() => setShowOnboarding(true), 3000);
+        // Check for first-time visitor (only on client)
+        if (typeof window === 'undefined') return;
+        
+        try {
+            // RADICAL PERFORMANCE: Skip intros for returning visitors (Phase 14)
+            const introSeen = localStorage.getItem('edintel_intro_seen');
+            if (introSeen === 'true') {
+                setShowCinematicIntro(false);
+                setBooted(true);
+            }
+
+            // Check for first-time visitor
+            const onboarded = localStorage.getItem('onboarding_complete');
+            if (!onboarded) {
+                // Delay onboarding until after boot sequence completes (Phase 14 Optimization)
+                setTimeout(() => setShowOnboarding(true), 5.0 * 1000); 
+            }
+        } catch (e) {
+            // localStorage may not be available
+            console.error("Storage error:", e);
         }
     }, []);
+
+    const handleIntroComplete = () => {
+        localStorage.setItem('edintel_intro_seen', 'true');
+        setShowCinematicIntro(false);
+    };
+
+    const handleBootComplete = () => {
+        localStorage.setItem('edintel_intro_seen', 'true');
+        startTransition(() => setBooted(true));
+    };
 
     const { scrollYProgress } = useScroll();
     const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
@@ -330,7 +356,17 @@ export default function ModernHomePage() {
                 isSystemThinking && "bg-[#05060f]"
             )}>
                 <AnimatePresence>
-                    {!booted && <ActivationIntro onCompleteAction={() => setBooted(true)} />}
+                    {showCinematicIntro && (
+                        <CinematicLogoIntro 
+                            onComplete={handleIntroComplete}
+                            autoClose={true}
+                            autoCloseDuration={8000}
+                        />
+                    )}
+                </AnimatePresence>
+
+                <AnimatePresence>
+                    {!booted && <ActivationIntro onCompleteAction={handleBootComplete} />}
                 </AnimatePresence>
 
                 {booted && (
@@ -348,9 +384,9 @@ export default function ModernHomePage() {
                         />
 
 
-                        <main className="relative z-10 pt-24 pb-24">
+                        <div className="relative z-10 pt-20 md:pt-24 pb-24">
                             {/* HERO SECTION */}
-                            <section className="relative min-h-[90vh] flex flex-col items-center justify-center px-4 max-w-[1700px] mx-auto">
+                            <section className="relative min-h-[90vh] flex flex-col items-center justify-center px-4 md:px-6 max-w-[1700px] mx-auto">
                                 <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                                     {/* LEFT: CONTROL INTERFACE */}
                                     <motion.div
@@ -367,15 +403,16 @@ export default function ModernHomePage() {
                                             </div>
                                         </motion.div>
 
-                                        <motion.h1
-                                            variants={fadeInUp}
-                                            className={cn(
-                                                "text-5xl md:text-7xl lg:text-8xl 2xl:text-9xl font-black text-white mb-8 uppercase tracking-tighter leading-[0.8] italic transition-all duration-1000 break-words w-full",
-                                                isSystemThinking ? "opacity-40 scale-95 blur-[2px]" : "cyan-gradient-text"
-                                            )}
-                                        >
+                        <motion.h1
+                            variants={fadeInUp}
+                            className={cn(
+                                "text-4xl sm:text-5xl md:text-7xl lg:text-8xl 2xl:text-9xl font-black text-white mb-6 md:mb-8 uppercase tracking-tighter leading-[0.9] md:leading-[0.8] italic transition-all duration-1000 break-words w-full",
+                                isSystemThinking ? "opacity-40 scale-95 blur-[2px]" : "cyan-gradient-text"
+                            )}
+                        >
                                             EdIntel Professional
                                         </motion.h1>
+
 
                                         <motion.div variants={fadeInUp} className="relative mb-10">
                                             <motion.div
@@ -383,14 +420,16 @@ export default function ModernHomePage() {
                                                 animate={isSystemThinking ? { height: ["0%", "100%", "0%"] } : { height: "100%" }}
                                                 transition={{ duration: 2, repeat: Infinity }}
                                             />
-                                            <p className="text-2xl text-white/90 font-light leading-relaxed pl-8 italic max-w-xl">
+                                            <p className="text-xl md:text-2xl text-white/90 font-light leading-relaxed pl-6 md:pl-8 italic max-w-xl">
                                                 "Strategic architectures for the modern educator. Empowering leadership through superior intelligence and executive automation."
                                             </p>
+
                                         </motion.div>
 
-                                        <motion.p variants={fadeInUp} className="text-zinc-500 mb-10 max-w-md leading-relaxed pl-8 text-xs uppercase tracking-[0.2em] font-black">
+                                        <motion.p variants={fadeInUp} className="text-zinc-500 mb-10 max-w-md leading-relaxed pl-6 md:pl-8 text-[10px] md:text-xs uppercase tracking-[0.2em] font-black">
                                             Reclaiming instructional time through <span className="text-electric-cyan">spatial logistics</span> & high-fidelity AI components.
                                         </motion.p>
+
 
                                         {/* Thinking Feedback for Hero Content */}
                                         {isSystemThinking && (
@@ -438,14 +477,14 @@ export default function ModernHomePage() {
                                 isSystemThinking && "border-electric-cyan/40 shadow-[0_0_30px_rgba(0,176,255,0.15)]"
                             )}>
                                 <div className={cn(
-                                    "flex gap-12 animate-marquee whitespace-nowrap",
+                                    "flex gap-12 animate-marquee whitespace-nowrap transform-gpu",
                                     isSystemThinking && "animate-marquee-fast"
                                 )}>
                                     {[
                                         "IEP AGENT-7: GENERATING COMPLIANCE ARCHITECTURE...",
                                         "FISCAL CORE: DETECTING REVENUE OPTIMIZATION OPPORTUNITIES...",
                                         "CRISIS MODULE-4: MONITORING DISTRICT SENTIMENT TRENDS...",
-                                        "EdIntel SYNC: UPDATING ALABAMA LEGISLATIVE ALERTS...",
+                                        "Edintel SYNC: UPDATING ALABAMA LEGISLATIVE ALERTS...",
                                         "NEURAL CORE: 1.5 PB OF EDUCATIONAL DATA INDEXED",
                                         "EXECUTIVE OVERRIDE: READY FOR STRATEGIC DEPLOYMENT",
                                     ].map((protocol, i) => (
@@ -467,12 +506,12 @@ export default function ModernHomePage() {
                             <section className="py-20 bg-black/50 border-b border-white/5 overflow-hidden backdrop-blur-sm relative z-20">
                                 <div className="w-full overflow-hidden">
                                     <motion.div
-                                        className="flex gap-6 w-max"
+                                        className="flex gap-6 w-max transform-gpu"
                                         animate={{ x: ["0%", "-50%"] }}
                                         transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
                                     >
-                                        {[...CORE_AVATARS, ...CORE_AVATARS].map((agent, i) => (
-                                            <div key={i} className="w-[300px] h-[400px] rounded-3xl overflow-hidden relative border border-white/10 group bg-zinc-900 shadow-2xl">
+                        {[...CORE_AVATARS, ...CORE_AVATARS].map((agent, i) => (
+                                            <div key={i} className="w-[200px] h-[280px] sm:w-[260px] sm:h-[360px] md:w-[300px] md:h-[400px] rounded-3xl overflow-hidden relative border border-white/10 group bg-zinc-900 shadow-2xl flex-shrink-0">
                                                 <HumanAvatar
                                                     src={agent.avatar}
                                                     alt={agent.name || 'AI Avatar'}
@@ -486,7 +525,7 @@ export default function ModernHomePage() {
                                                             {agent.status || 'Live'}
                                                         </span>
                                                     </div>
-                                                    <p className="text-white font-black text-2xl uppercase tracking-tighter italic cyan-gradient-text">{agent.name}</p>
+                                                    <h3 className="text-white font-black text-2xl uppercase tracking-tighter italic cyan-gradient-text">{agent.name}</h3>
                                                     <p className="text-zinc-400 text-[10px] font-mono uppercase tracking-[0.3em] font-black">{agent.role}</p>
                                                 </div>
                                             </div>
@@ -541,7 +580,7 @@ export default function ModernHomePage() {
 
                                     <div className="grid md:grid-cols-3 gap-8">
                                         <HuggingFaceAvatar
-                                            textToSpeak="Welcome to EdIntel, Superintendent. All systems are operational."
+                                            textToSpeak="Welcome to Edintel, Superintendent. All systems are operational."
                                             name="Dr. Alvin West"
                                             role="Superintendent"
                                             className="aspect-[4/5]"
@@ -659,28 +698,20 @@ export default function ModernHomePage() {
 
                                             <div className="pt-8">
                                                 {isSignedIn ? (
-                                                    <Link href="/the-room">
-                                                        <Button
-                                                            variant="holographic"
-                                                            size="lg"
-                                                            className="px-8 py-4 uppercase tracking-wider flex items-center gap-3"
-                                                            onClick={() => {}}
-                                                        >
-                                                            Return to Control
-                                                            <ArrowRight size={20} />
-                                                        </Button>
+                                                    <Link 
+                                                        href="/the-room"
+                                                        className="inline-flex items-center justify-center font-bold rounded-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 holographic-button shadow-holographic px-6 py-3 text-lg uppercase tracking-wider gap-3"
+                                                    >
+                                                        Return to Control
+                                                        <ArrowRight size={20} />
                                                     </Link>
                                                 ) : (
-                                                    <Link href={`${ROUTES.LOGIN}?mode=signup`}>
-                                                        <Button
-                                                            variant="holographic"
-                                                            size="lg"
-                                                            className="px-8 py-4 uppercase tracking-wider flex items-center gap-3"
-                                                            onClick={() => {}}
-                                                        >
-                                                            Activate Core
-                                                            <ArrowRight size={20} />
-                                                        </Button>
+                                                    <Link 
+                                                        href={`${ROUTES.LOGIN}?mode=signup`}
+                                                        className="inline-flex items-center justify-center font-bold rounded-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 holographic-button shadow-holographic px-6 py-3 text-lg uppercase tracking-wider gap-3"
+                                                    >
+                                                        Activate Core
+                                                        <ArrowRight size={20} />
                                                     </Link>
                                                 )}
                                             </div>
@@ -691,7 +722,7 @@ export default function ModernHomePage() {
 
                             {/* READY TO ACTIVATE CTA */}
                             <ReadyToActivateCTA />
-                        </main>
+                        </div>
                         <Footer />
                     </>
                 )}

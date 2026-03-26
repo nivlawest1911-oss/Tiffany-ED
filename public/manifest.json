@@ -14,13 +14,13 @@
             "type": "image/x-icon"
         },
         {
-            "src": "/images/logo.png",
+                    "src": "/images/edintel-logo.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "any maskable"
         },
         {
-            "src": "/images/logo.png",
+                    "src": "/images/edintel-logo.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any maskable"
@@ -32,7 +32,7 @@
             "url": "/ai-hub",
             "icons": [
                 {
-                    "src": "/images/logo.png",
+                            "src": "/images/edintel-logo.png",
                     "sizes": "192x192"
                 }
             ]
@@ -42,7 +42,7 @@
             "url": "/vault",
             "icons": [
                 {
-                    "src": "/images/logo.png",
+                            "src": "/images/edintel-logo.png",
                     "sizes": "192x192"
                 }
             ]
@@ -52,7 +52,7 @@
             "url": "/gym",
             "icons": [
                 {
-                    "src": "/images/logo.png",
+                            "src": "/images/edintel-logo.png",
                     "sizes": "192x192"
                 }
             ]

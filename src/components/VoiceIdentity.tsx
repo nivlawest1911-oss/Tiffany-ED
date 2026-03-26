@@ -37,6 +37,7 @@ export default function VoiceIdentity({ src, label = "Executive Voice Connection
 
             <button
                 onClick={togglePlay}
+                aria-label={isPlaying ? "Pause voice note" : "Play voice note"}
                 className={`relative flex items-center justify-center w-8 h-8 rounded-full transition-all ${isPlaying ? 'bg-indigo-500 text-white' : 'bg-white/10 text-zinc-400 hover:text-white hover:bg-white/20'}`}
             >
                 {/* Visual Ping Animation when playing */}
@@ -52,7 +53,10 @@ export default function VoiceIdentity({ src, label = "Executive Voice Connection
                 </span>
                 {isPlaying ? (
                     // Fake Waveform Animation
-                    <div className="flex items-end gap-[2px] h-3 mt-1">
+                    <div 
+                        className="flex items-end gap-[2px] h-3 mt-1"
+                        aria-hidden="true"
+                    >
                         {[...Array(8)].map((_, i) => (
                             <motion.div
                                 key={i}

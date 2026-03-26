@@ -41,18 +41,23 @@ export default function NotFound() {
 
     // Auto-speak greeting when page loads
     useEffect(() => {
-        if (!hasSpoken && 'speechSynthesis' in window) {
+        if (!hasSpoken && 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window) {
             setTimeout(() => {
-                const utterance = new SpeechSynthesisUtterance(
+                try {
+                    const utterance = new SpeechSynthesisUtterance(
                     "Oops! It looks like you've wandered into uncharted territory. I'm Dr. Alvin West, and I'm here to help you find your way back. Would you like to talk with me?"
                 );
                 utterance.rate = 0.9;
                 utterance.pitch = 1.0;
                 window.speechSynthesis.speak(utterance);
                 setHasSpoken(true);
-            }, 1000);
-        }
-    }, [hasSpoken]);
+            } catch (e) {
+                console.warn("Speech Synthesis failed:", e);
+                setHasSpoken(true); // Don't try again
+            }
+        }, 1000);
+    }
+}, [hasSpoken]);
 
     const handleHomeClick = () => {
         if (userRole === 'admin') {
@@ -126,7 +131,7 @@ export default function NotFound() {
                         <div className="relative inline-block">
                             <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-purple-500 shadow-lg shadow-purple-500/50 mx-auto mb-4">
                                 <Image
-                                    src="/images/avatars/Dr._alvin_west.png"
+                                    src="/images/avatars/dr_alvin_west_official.png"
                                     alt="Dr. Alvin West"
                                     className="w-full h-full object-cover"
                                     width={128}
@@ -251,7 +256,7 @@ export default function NotFound() {
                 <LiveAvatarChat
                     avatarName="Dr. Alvin West"
                     avatarRole="Executive Guide"
-                    avatarImage="/images/avatars/Dr._alvin_west.png"
+                    avatarImage="/images/avatars/dr_alvin_west_official.png"
                     avatarVideo="/videos/dr_alvin_talking.mp4"
                     avatarVoice={undefined}
                     onClose={() => setShowAvatarChat(false)}

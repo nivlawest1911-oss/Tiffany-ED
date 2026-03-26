@@ -8,13 +8,14 @@ import dynamic from 'next/dynamic';
 import { createBrowserClient } from '@supabase/ssr';
 import EdIntelLogo from '@/components/EdIntelLogo';
 import EdIntelSovereignLogo from '@/components/EdIntelSovereignLogo';
-import { ParticleBackground } from '@/components/ui/Cinematic';
 import { toast } from 'sonner';
 import { ROUTES } from '@/lib/routes';
+import { initiateBioAuth } from '@/app/auth/actions';
 
 import { useAuth } from '@/context/AuthContext';
 
-// Lazy-load: only shown when user clicks "Security Clearance Briefing"
+// 🏛️ Performance Optimized Dynamic Assets
+const ParticleBackground = dynamic(() => import('@/components/ui/Cinematic').then(mod => mod.ParticleBackground), { ssr: false });
 const HolographicBriefing = dynamic(() => import('@/components/intelligence/HolographicBriefing'), { ssr: false });
 
 export default function LoginClient() {
@@ -36,11 +37,12 @@ export default function LoginClient() {
         tierName: 'Sovereign Initiate'
     });
 
-    // Initialize Sovereign Supabase Client safely
+    // Initialize Sovereign Supabase Client safely - only if env vars are present
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+    const isSupabaseConfigured = !!(supabaseUrl && supabaseKey);
 
-    const supabase = createBrowserClient(supabaseUrl, supabaseKey);
+    const supabase = isSupabaseConfigured ? createBrowserClient(supabaseUrl, supabaseKey) : null;
 
     // Capture OAuth errors and Mode from URL
     useEffect(() => {
@@ -83,13 +85,17 @@ export default function LoginClient() {
                     return;
                 }
 
-                // Standard Supabase Uplink
-                const { error: signInError } = await supabase.auth.signInWithPassword({
-                    email,
-                    password,
-                });
+                // Standard Supabase Uplink (only if Supabase is configured)
+                if (supabase) {
+                    const { error: signInError } = await supabase.auth.signInWithPassword({
+                        email,
+                        password,
+                    });
 
-                if (signInError) throw signInError;
+                    if (signInError) throw signInError;
+                } else {
+                    throw new Error('Authentication service not configured. Please use admin login.');
+                }
 
                 // 🏛️ Global User Synchronization Protocol
                 // Triggering /api/auth/me (GET) will force a parity check and sync between Supabase and Neon
@@ -100,6 +106,10 @@ export default function LoginClient() {
                 });
             } else {
                 // 🏛️ Sovereign Enrollment Protocol (Signup)
+                if (!supabase) {
+                    throw new Error('Authentication service not configured. Signup requires Supabase.');
+                }
+                
                 const { data: { user: signedUpUser }, error: signUpError } = await supabase.auth.signUp({
                     email,
                     password,
@@ -152,29 +162,16 @@ export default function LoginClient() {
         setIsSocialLoading(provider);
         setError('');
 
-        try {
-            const { error: oauthError } = await supabase.auth.signInWithOAuth({
-                provider,
-                options: {
-                    redirectTo: `${window.location.origin}${ROUTES.AUTH_CALLBACK}`,
-                    queryParams: {
-                        access_type: 'offline',
-                        prompt: 'consent',
-                    },
-                },
-            });
-
-            if (oauthError) throw oauthError;
-
-            // Redirect happens automatically
-        } catch (err: any) {
-            console.error('OAuth Error:', err);
-            setError(err.message || `${provider} Protocol Failed`);
+        const result = await initiateBioAuth(provider);
+        
+        if (result?.error) {
+            setError(result.error);
             toast.error(`Sovereign Auth Error`, {
-                description: `Could not initiate ${provider} protocol: ${err.message}`,
+                description: `Could not initiate ${provider} protocol: ${result.error}`,
             });
             setIsSocialLoading(null);
         }
+        // Success redirects automatically via window.location in actions.ts
     };
 
     return (
@@ -200,7 +197,7 @@ export default function LoginClient() {
                 ]}
             />
 
-            <main className="min-h-screen content-stage flex items-center justify-center p-4 relative overflow-hidden bg-[#020617]">
+            <div className="min-h-screen content-stage flex items-center justify-center p-4 relative overflow-hidden bg-[#020617]">
                 {/* Cinematic Dark Background */}
                 <div className="absolute inset-0 z-0">
                     <div className="absolute inset-0 bg-[#020617] bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.1),rgba(255,255,255,0))]" />
@@ -214,7 +211,7 @@ export default function LoginClient() {
                     initial={{ opacity: 0, scale: 0.95, y: 20 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="w-full max-w-[1100px] grid grid-cols-1 lg:grid-cols-2 bg-black/40 backdrop-blur-xl rounded-[3rem] border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative z-10 overflow-hidden"
+                    className="w-full max-w-[1100px] grid grid-cols-1 lg:grid-cols-2 bg-black/40 backdrop-blur-md rounded-[3rem] border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative z-10 overflow-hidden"
                 >
                     {/* LEFT PANEL: VISUAL IDENTITY */}
                     <div className="hidden lg:flex flex-col items-center justify-center p-12 relative bg-gradient-to-br from-white/5 to-white/0 border-r border-white/10 overflow-hidden">
@@ -230,7 +227,8 @@ export default function LoginClient() {
                                 <div className="flex flex-col items-center gap-6">
                                     <EdIntelLogo variant="fidelity" className="scale-125 invert" />
                                     <div className="h-16 w-[2px] bg-gradient-to-b from-[#FFB300]/50 to-transparent" />
-                                    <EdIntelSovereignLogo showText={false} size={80} className="opacity-30" />
+                                    <EdIntelSovereignLogo className="opacity-30 w-20 h-20" />
+
                                 </div>
                             </div>
 
@@ -245,7 +243,7 @@ export default function LoginClient() {
 
                             <div className="flex gap-4 justify-center">
                                 <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#FFB300]/10 border border-[#FFB300]/20 text-[#FFB300] shadow-[0_0_20px_rgba(255,179,0,0.1)]">
-                                    <span className="text-[10px] font-black uppercase tracking-widest">Version 4.0 Alpha</span>
+                                    <span className="text-[10px] font-black uppercase tracking-widest">Version 4.1 Omega</span>
                                 </div>
                             </div>
                         </div>
@@ -254,8 +252,11 @@ export default function LoginClient() {
                     {/* RIGHT PANEL: LOGIN FORM */}
                     <div className="p-8 lg:p-14 flex flex-col justify-center relative bg-white/5">
                         {/* Mobile Header */}
-                        <div className="lg:hidden flex justify-center mb-10">
+                        <div className="lg:hidden flex flex-col items-center mb-10 space-y-4">
                             <EdIntelLogo variant="fidelity" className="scale-100 invert" />
+                            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#FFB300]/10 border border-[#FFB300]/20 text-[#FFB300]">
+                                <span className="text-[9px] font-black uppercase tracking-widest">Version 4.1 Omega</span>
+                            </div>
                         </div>
 
                         <header className="mb-12 text-center lg:text-left">
@@ -279,6 +280,58 @@ export default function LoginClient() {
                                 <LucideShield className="w-4 h-4 shrink-0" />
                                 {error}
                             </motion.div>
+                        )}
+
+                        {isSupabaseConfigured && (
+                            <>
+                                {/* SOCIAL LOGIN BLOCK (PRIORITIZED) */}
+                                <div className="grid grid-cols-2 gap-4 mb-8">
+                                    <button
+                                        onClick={() => handleSocialLogin('google')}
+                                        type="button"
+                                        disabled={isSocialLoading !== null}
+                                        className="flex items-center justify-center gap-2 py-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#FFB300]/50 transition-all group disabled:opacity-50 shadow-sm"
+                                    >
+                                        {isSocialLoading === 'google' ? (
+                                            <Loader2 className="w-4 h-4 animate-spin text-[#FFB300]" />
+                                        ) : (
+                                            <svg className="w-5 h-5" viewBox="0 0 24 24">
+                                                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                                                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                                                <path fill="#FBBC05" d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l3.66-2.84z" />
+                                                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+                                            </svg>
+                                        )}
+                                        <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400 group-hover:text-white">Google</span>
+                                    </button>
+
+                                    <button
+                                        onClick={() => handleSocialLogin('facebook')}
+                                        type="button"
+                                        disabled={isSocialLoading !== null}
+                                        className="flex items-center justify-center gap-2 py-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#FFB300]/50 transition-all group disabled:opacity-50 shadow-sm"
+                                    >
+                                        {isSocialLoading === 'facebook' ? (
+                                            <Loader2 className="w-4 h-4 animate-spin text-[#1877F2]" />
+                                        ) : (
+                                            <svg className="w-5 h-5 text-[#1877F2]" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                            </svg>
+                                        )}
+                                        <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400 group-hover:text-white">Facebook</span>
+                                    </button>
+                                </div>
+
+                                {/* VISUAL SEPARATOR */}
+                                <div className="relative mb-10">
+                                    <div className="absolute inset-0 flex items-center">
+                                        <div className="w-full border-t border-white/10" />
+                                    </div>
+                                    <div className="relative flex justify-center">
+                                        <span className="bg-[#0b1021] px-4 text-[9px] font-black text-zinc-500 uppercase tracking-widest">OR CONTINUE WITH ENCRYPTION</span>
+                                    </div>
+                                </div>
+                            </>
                         )}
 
                         <form onSubmit={handleAuth} className="space-y-5">
@@ -366,6 +419,7 @@ export default function LoginClient() {
                                 type="submit"
                                 disabled={isLoggingIn}
                                 className="group relative w-full overflow-hidden rounded-2xl bg-gradient-to-r from-[#FFB300] to-[#FF8F00] p-5 font-black text-[11px] uppercase tracking-[0.3em] text-black transition-all hover:scale-[1.01] active:scale-[0.98] disabled:opacity-50 shadow-[0_0_30px_rgba(255,179,0,0.3)] hover:shadow-[0_0_40px_rgba(255,179,0,0.5)]"
+                                title={mode === 'login' ? 'Authenticate Access' : 'Create Identity'}
                             >
                                 <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
                                 <div className="relative z-10 flex items-center justify-center gap-3">
@@ -383,50 +437,6 @@ export default function LoginClient() {
                                 </div>
                             </button>
                         </form>
-
-                        <div className="relative my-10">
-                            <div className="absolute inset-0 flex items-center">
-                                <div className="w-full border-t border-white/10" />
-                            </div>
-                            <div className="relative flex justify-center">
-                                <span className="bg-transparent px-4 text-[9px] font-black text-zinc-500 uppercase tracking-widest backdrop-blur-sm">Secure Social Access</span>
-                            </div>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-4">
-                            <button
-                                onClick={() => handleSocialLogin('google')}
-                                disabled={isSocialLoading !== null}
-                                className="flex items-center justify-center gap-2 py-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#FFB300]/50 transition-all group disabled:opacity-50 shadow-sm"
-                            >
-                                {isSocialLoading === 'google' ? (
-                                    <Loader2 className="w-4 h-4 animate-spin text-[#FFB300]" />
-                                ) : (
-                                    <svg className="w-5 h-5" viewBox="0 0 24 24">
-                                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-                                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-                                        <path fill="#FBBC05" d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l3.66-2.84z" />
-                                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
-                                    </svg>
-                                )}
-                                <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400 group-hover:text-white">Google</span>
-                            </button>
-
-                            <button
-                                onClick={() => handleSocialLogin('facebook')}
-                                disabled={isSocialLoading !== null}
-                                className="flex items-center justify-center gap-2 py-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#FFB300]/50 transition-all group disabled:opacity-50 shadow-sm"
-                            >
-                                {isSocialLoading === 'facebook' ? (
-                                    <Loader2 className="w-4 h-4 animate-spin text-[#1877F2]" />
-                                ) : (
-                                    <svg className="w-5 h-5 text-[#1877F2]" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                                    </svg>
-                                )}
-                                <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400 group-hover:text-white">Facebook</span>
-                            </button>
-                        </div>
 
                         <div className="mt-10 text-center space-y-5">
                             <button
@@ -449,7 +459,8 @@ export default function LoginClient() {
                         </div>
                     </div>
                 </motion.div>
-            </main>
+            </div>
         </>
     );
 }
+

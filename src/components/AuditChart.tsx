@@ -9,6 +9,8 @@ export default function AuditChart() {
   useEffect(() => {
     const fetchData = async () => {
       const counts: Record<string, number> = {};
+      if (!supabase) return;
+
       try {
         const { data: audits, error } = await supabase
           .from('strategic_audits')

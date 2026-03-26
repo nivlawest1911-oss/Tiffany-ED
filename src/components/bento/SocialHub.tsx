@@ -3,19 +3,18 @@
 import { Facebook, Link as LinkIcon, Users, MapPin, Briefcase, GraduationCap, Video, Shield as LucideShield, ExternalLink } from 'lucide-react';
 import React from 'react';
 import Image from 'next/image';
-import { SOCIAL_HUB_BANNER, SOCIAL_HUB_TIKTOK, SOCIAL_HUB_FACEBOOK, SOCIAL_HUB_AVATAR } from '@/lib/assets';
+import { SOCIAL_HUB_AVATAR } from '@/lib/assets';
 
 export default function SocialHub() {
     return (
-        <div className="w-full max-w-4xl mx-auto p-1 bg-gradient-to-br from-blue-900 to-zinc-900 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
+        <div className="w-full h-full flex flex-col max-w-4xl mx-auto bg-[#111] rounded-[2.5rem] border border-zinc-800 shadow-2xl relative overflow-hidden group">
             {/* Ambient Social Glow */}
             <div className="absolute inset-0 bg-blue-600/5 blur-[100px] group-hover:bg-blue-600/10 transition-colors duration-1000" />
 
-            <div className="relative bg-zinc-950 rounded-[2.4rem] overflow-hidden">
+            <div className="relative flex-grow flex flex-col rounded-[2.4rem] overflow-hidden">
                 {/* Banner - Professional Aesthetic */}
                 <div
-                    className="h-48 w-full bg-cover bg-center relative"
-                    style={{ backgroundImage: `url('${SOCIAL_HUB_BANNER}')` }}
+                    className="h-48 w-full bg-cover bg-center relative bg-social-banner"
                 >
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent to-zinc-950" />
                     <div className="absolute top-6 right-6 px-4 py-2 rounded-full bg-blue-600/90 backdrop-blur-md text-white text-xs font-bold uppercase tracking-widest flex items-center gap-2 shadow-lg">
@@ -23,7 +22,7 @@ export default function SocialHub() {
                     </div>
                 </div>
 
-                <div className="px-8 pb-8 relative z-10 -mt-20">
+                <div className="px-6 md:px-8 pb-6 md:pb-8 relative z-10 -mt-20">
                     <div className="flex flex-col md:flex-row gap-8 items-start">
                         {/* Profile Picture */}
                         <div className="relative">
@@ -47,7 +46,7 @@ export default function SocialHub() {
                                     Alvin West Jr.
                                     <span className="px-3 py-1 rounded-lg bg-zinc-800 text-zinc-400 text-[10px] font-bold uppercase tracking-widest border border-zinc-700">Educational Leader</span>
                                 </h2>
-                                <p className="text-zinc-400 font-medium mt-1 max-w-xl">
+                                <p className="text-gray-300 leading-relaxed font-medium mt-1 max-w-xl">
                                     Director of Transcend Academic, Business & Professional Solutions. Bridging the gap between leadership development and holistic community wellness.
                                 </p>
                             </div>
@@ -55,17 +54,17 @@ export default function SocialHub() {
                             {/* Information Grid */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="space-y-2">
-                                    <div className="flex items-center gap-3 text-sm text-zinc-300">
+                                    <div className="flex items-center gap-3 text-sm text-gray-300">
                                         <Briefcase size={16} className="text-amber-600" />
                                         <span>Director at <span className="text-white font-bold">Transcend Academic</span></span>
                                     </div>
-                                    <div className="flex items-center gap-3 text-sm text-zinc-300">
+                                    <div className="flex items-center gap-3 text-sm text-gray-300">
                                         <GraduationCap size={16} className="text-amber-600" />
                                         <span>Studies at <span className="text-white font-bold">Walden University</span></span>
                                     </div>
-                                    <div className="flex items-center gap-3 text-sm text-zinc-300">
+                                    <div className="flex items-center gap-3 text-sm text-gray-300">
                                         <MapPin size={16} className="text-amber-600" />
-                                        <span>Based in <span className="text-white font-bold">Mobile, Alabama</span></span>
+                                        <span>Based in <span className="text-white font-bold">Prichard, Alabama</span></span>
                                     </div>
                                 </div>
                                 <div className="space-y-2">
@@ -75,7 +74,7 @@ export default function SocialHub() {
                                     </div>
                                     <div className="flex items-center gap-3 text-sm text-zinc-300">
                                         <LinkIcon size={16} className="text-blue-500" />
-                                        <a href="https://www.facebook.com/alvin.west.18" target="_blank" className="hover:text-blue-400 transition-colors flex items-center gap-1">
+                                        <a href="https://www.facebook.com/alvin.west.18" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors flex items-center gap-1">
                                             facebook.com/alvin.west.18 <ExternalLink size={10} />
                                         </a>
                                     </div>
@@ -94,10 +93,9 @@ export default function SocialHub() {
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <a href="https://www.tiktok.com/@alvinwestii" target="_blank" className="group relative aspect-video rounded-xl bg-zinc-900 overflow-hidden border border-zinc-800 hover:border-pink-500 transition-all cursor-pointer">
+                            <a href="https://www.tiktok.com/@alvinwestii" target="_blank" rel="noopener noreferrer" className="group relative aspect-video rounded-xl bg-zinc-900 overflow-hidden border border-zinc-800 hover:border-pink-500 transition-all cursor-pointer">
                                 <div
-                                    className="absolute inset-0 bg-cover bg-center opacity-50 group-hover:opacity-70 transition-opacity"
-                                    style={{ backgroundImage: `url('${SOCIAL_HUB_TIKTOK}')` }}
+                                    className="absolute inset-0 bg-cover bg-center opacity-50 group-hover:opacity-70 transition-opacity bg-social-tiktok"
                                 />
                                 <div className="absolute flex flex-col justify-end inset-0 p-4 bg-gradient-to-t from-black/90 to-transparent">
                                     <div className="flex items-center gap-2 mb-2">
@@ -106,10 +104,9 @@ export default function SocialHub() {
                                     <p className="text-sm font-bold text-white leading-tight">@alvinwestii • Leadership & Growth Stream</p>
                                 </div>
                             </a>
-                            <a href="https://www.facebook.com/alvin.west.18" target="_blank" className="group relative aspect-video rounded-xl bg-zinc-900 overflow-hidden border border-zinc-800 hover:border-blue-600 transition-all cursor-pointer">
+                            <a href="https://www.facebook.com/alvin.west.18" target="_blank" rel="noopener noreferrer" className="group relative aspect-video rounded-xl bg-zinc-900 overflow-hidden border border-zinc-800 hover:border-blue-600 transition-all cursor-pointer">
                                 <div
-                                    className="absolute inset-0 bg-cover bg-center opacity-50 group-hover:opacity-70 transition-opacity"
-                                    style={{ backgroundImage: `url('${SOCIAL_HUB_FACEBOOK}')` }}
+                                    className="absolute inset-0 bg-cover bg-center opacity-50 group-hover:opacity-70 transition-opacity bg-social-fb"
                                 />
                                 <div className="absolute flex flex-col justify-end inset-0 p-4 bg-gradient-to-t from-black/90 to-transparent">
                                     <div className="flex items-center gap-2 mb-2">
@@ -123,7 +120,7 @@ export default function SocialHub() {
 
                     {/* Follow Action */}
                     <div className="mt-8 flex justify-end">
-                        <a href="https://www.facebook.com/alvin.west.18" target="_blank" className="flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs uppercase tracking-widest shadow-lg shadow-blue-900/20 transition-all">
+                        <a href="https://www.facebook.com/alvin.west.18" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs uppercase tracking-widest shadow-lg shadow-blue-900/20 transition-all">
                             Join our Community <Users size={14} />
                         </a>
                     </div>

@@ -385,6 +385,7 @@ export default function LiveAvatarChat({
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => setIsVoiceUplinkOpen(true)}
+                            aria-label="Activate Verse Uplink"
                             className="p-4 rounded-2xl bg-noble-gold/10 border border-noble-gold/30 text-noble-gold hover:bg-noble-gold hover:text-black transition-all group flex items-center gap-3"
                         >
                             <div className="relative">
@@ -405,6 +406,7 @@ export default function LiveAvatarChat({
                         <button
                             onClick={() => setShowSwarmSidebar(!showSwarmSidebar)}
                             title="Toggle Swarm Grid"
+                            aria-label="Toggle Swarm Grid"
                             className={`p-3 rounded-xl border transition-all flex items-center justify-center ${showSwarmSidebar ? 'bg-noble-gold text-black border-noble-gold' : 'bg-white/5 border-white/10 text-white/40 hover:bg-white/10 hover:text-white'}`}
                         >
                             <LayoutGrid size={20} />
@@ -413,6 +415,7 @@ export default function LiveAvatarChat({
                         <button
                             onClick={onClose}
                             title="Close Terminal"
+                            aria-label="Close Terminal"
                             className="w-12 h-12 rounded-xl bg-white/5 hover:bg-rose-500 hover:text-white text-white/40 transition-all flex items-center justify-center border border-white/10"
                         >
                             <X size={20} />
@@ -709,6 +712,7 @@ export default function LiveAvatarChat({
                                         type="button"
                                         onClick={() => setIsHandsFree(!isHandsFree)}
                                         title={isHandsFree ? "Disable Hands-Free" : "Enable Hands-Free Loop"}
+                                        aria-label={isHandsFree ? "Disable Hands-Free" : "Enable Hands-Free Loop"}
                                         className={`p-3 rounded-xl transition-all duration-300 ${isHandsFree ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/50' : 'text-zinc-600 hover:text-white hover:bg-white/5'}`}
                                     >
                                         <Zap size={18} className={isHandsFree ? "fill-current" : ""} />
@@ -717,6 +721,7 @@ export default function LiveAvatarChat({
                                         type="button"
                                         onClick={toggleMicrophone}
                                         title={isListening ? "Stop Microphone" : "Start Microphone"}
+                                        aria-label={isListening ? "Stop Microphone" : "Start Microphone"}
                                         className={`p-3 rounded-xl transition-all duration-300 ${isListening ? 'bg-rose-500 text-white animate-pulse shadow-[0_0_20px_rgba(225,29,72,0.6)]' : 'text-zinc-500 hover:text-white hover:bg-white/5'}`}
                                     >
                                         <Mic size={18} />
@@ -724,6 +729,7 @@ export default function LiveAvatarChat({
                                     <button
                                         type="submit"
                                         title="Send message"
+                                        aria-label="Send message"
                                         disabled={!textInput.trim() || isProcessing}
                                         className="p-3 rounded-xl bg-noble-gold text-black hover:scale-105 transition-all disabled:opacity-30 disabled:hover:scale-100 shadow-[0_0_20px_rgba(212,175,55,0.4)]"
                                     >

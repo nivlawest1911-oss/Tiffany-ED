@@ -13,7 +13,7 @@ export const globalProtocols = [
         description: "Chat with Llama 3.3 70B for educational content, quizzes, and analysis. High-throughput reasoning for rapid synthesis.",
         icon: Brain,
         color: "#D4AF37",
-        avatar: AVATAR_MAP['EdIntel_1'] || "/images/avatars/Dr._alvin_west.png",
+        avatar: AVATAR_MAP['EdIntel_1'] || "/images/avatars/dr_alvin_west_official.png",
         status: "Active",
         prompts: [
             "Draft a quiz based on recent 4th-grade math standards focusing on fractions.",

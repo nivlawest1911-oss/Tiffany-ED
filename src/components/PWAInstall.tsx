@@ -34,10 +34,10 @@ export default function PWAInstall() {
         <AnimatePresence>
             {showPrompt && (
                 <motion.div
-                    initial={{ opacity: 0, y: 50, scale: 0.95 }}
+                    initial={{ opacity: 0, y: -50, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
-                    className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-96 bg-card border border-border rounded-2xl shadow-2xl p-4 z-[100] overflow-hidden"
+                    className="fixed top-4 left-4 right-4 md:top-auto md:bottom-4 md:left-auto md:right-4 md:w-96 bg-card border border-border rounded-2xl shadow-2xl p-4 z-[200] overflow-hidden"
                 >
                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-600" />
                     <div className="flex items-start gap-4">

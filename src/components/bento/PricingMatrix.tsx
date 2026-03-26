@@ -21,7 +21,7 @@ export default function PricingMatrix() {
     const { user } = useAuth();
 
     return (
-        <div className="w-full max-w-7xl mx-auto p-4 md:p-8">
+        <div className="w-full max-w-7xl mx-auto p-6 md:p-8">
             {/* Header Section */}
             <div className="text-center mb-16 relative">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-500/10 blur-[120px] rounded-full pointer-events-none" />
@@ -87,10 +87,10 @@ export default function PricingMatrix() {
                                         <span className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest">/ Mo</span>
                                     </div>
                                     <div className="mt-2 space-y-1">
-                                        <div className="text-[10px] text-emerald-400 font-bold uppercase tracking-wider flex items-center gap-1">
-                                            <Sparkles size={10} /> {(tier as any).trialDuration || '30 Days'} Protocol
+                                        <div className="text-xs text-amber-400 font-black uppercase tracking-wider flex items-center gap-1 bg-amber-400/10 w-fit px-2 py-1 rounded border border-amber-400/20 shadow-[0_0_10px_rgba(251,191,36,0.2)]">
+                                            <Sparkles size={12} /> {(tier as any).trialDuration || '30 Days'} Protocol
                                         </div>
-                                        <div className="text-[9px] text-noble-gold font-black uppercase tracking-[0.2em] flex items-center gap-1 opacity-80">
+                                        <div className="text-[9px] text-noble-gold font-black uppercase tracking-[0.2em] flex items-center gap-1 opacity-80 mt-2">
                                             Strategic ROI Alignment
                                         </div>
                                     </div>

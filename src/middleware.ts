@@ -2,9 +2,16 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { updateSession } from '@/utils/supabase/middleware';
 
 export async function middleware(request: NextRequest) {
-    // 1. Refresh Supabase session (and get updated response)
-    // This also handles setting/refreshing Supabase cookies
-    const response = await updateSession(request);
+    const pathname = request.nextUrl.pathname;
+    
+    // 1. Skip Supabase logic for static assets and public landing page (unless cookies present)
+    // We check for any Supabase auth cookies or our legacy session cookie
+    const cookies = request.cookies.getAll();
+    const hasSupabaseCookie = cookies.some(c =>
+        c.name.startsWith('sb-') || c.name.includes('supabase-auth-token')
+    );
+    const hasLegacySession = request.cookies.has('edintel_session');
+    const isAuthenticated = hasSupabaseCookie || hasLegacySession;
 
     // 2. Define protected routes
     const protectedRoutes = [
@@ -19,7 +26,7 @@ export async function middleware(request: NextRequest) {
         "/excursions",
         "/the-room",
         "/onboarding",
-        "/api" // Protect all API routes by default
+        "/api"
     ];
 
     const publicApiRoutes = [
@@ -30,35 +37,33 @@ export async function middleware(request: NextRequest) {
         "/api/public"
     ];
 
-    const pathname = request.nextUrl.pathname;
-    
-    // Determine if the current route requires authentication
     let isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
-
-    // Refine API protection: allow public endpoints
     if (pathname.startsWith('/api')) {
         const isPublicApi = publicApiRoutes.some(route => pathname.startsWith(route));
-        if (isPublicApi) {
-            isProtectedRoute = false;
-        }
+        if (isPublicApi) isProtectedRoute = false;
     }
 
-    // 3. Auth checks
-    // We check for any Supabase auth cookies or our legacy session cookie
-    const allCookies = request.cookies.getAll();
-    const supabaseCookies = allCookies.filter(c =>
-        c.name.startsWith('sb-') || c.name.includes('supabase-auth-token')
-    );
-    const hasSupabaseCookie = supabaseCookies.length > 0;
-    const hasLegacySession = request.cookies.has('edintel_session');
-
-    const isAuthenticated = hasSupabaseCookie || hasLegacySession;
+    // 3. Handle authenticated redirect for root and login paths immediately
+    if ((pathname === '/' || pathname === '/login') && isAuthenticated) {
+        return NextResponse.redirect(new URL('/the-room', request.url));
+    }
 
     // 4. Case: Protected route but not authenticated
     if (isProtectedRoute && !isAuthenticated) {
-        const url = new URL('/login', request.url);
+        const url = new URL('/register', request.url);
         url.searchParams.set('redirect', pathname);
         return NextResponse.redirect(url);
+    }
+
+    // 5. Refresh Supabase session ONLY for protected routes or if cookies are already present
+    // This significantly reduces TTFB for guest users on the landing page
+    let response = NextResponse.next({ request });
+    if (isProtectedRoute || hasSupabaseCookie) {
+        try {
+            response = await updateSession(request);
+        } catch (err) {
+            console.error("[Middleware] Exception in updateSession:", err);
+        }
     }
 
     return response;
@@ -73,6 +78,6 @@ export const config = {
          * - favicon.ico (favicon file)
          * - Public assets like .svg, .png, etc.
          */
-        '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+        '/((?!api|_next/static|_next/image|_vercel|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|css|js|json|map)$).*)',
     ],
 };

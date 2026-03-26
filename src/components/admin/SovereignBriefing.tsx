@@ -141,9 +141,20 @@ export function SovereignBriefing() {
                                 </div>
                                 <div className="p-4 bg-white/5 rounded-2xl border border-white/10">
                                     <div className="text-[10px] text-white/40 uppercase tracking-widest mb-1 font-bold">Ledger Status</div>
-                                    <div className="text-2xl font-black text-emerald-500 italic">Immutable</div>
+                                    <div className="text-2xl font-black text-emerald-500 italic">Absolute</div>
                                 </div>
                             </div>
+
+                            {synapse.isTranscended && (
+                                <div className="mt-6 p-4 bg-noble-gold/10 border border-noble-gold/40 rounded-2xl">
+                                    <div className="text-[10px] text-noble-gold font-black uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
+                                        <Award className="w-4 h-4" /> Zenith Absolute Milestone
+                                    </div>
+                                    <p className="text-xs text-white/90 leading-relaxed font-bold">
+                                        All 14 Sovereign Nodes successfully unified. Institutional memory is now persistent, autonomous, and finalized.
+                                    </p>
+                                </div>
+                            )}
                         </CardContent>
                     </Card>
 
@@ -162,16 +173,16 @@ export function SovereignBriefing() {
                                     </div>
                                     <span className="text-[10px] font-black uppercase tracking-widest text-white/80">Autonomous Defense</span>
                                 </div>
-                                <Badge className="bg-emerald-500/20 text-emerald-500 border-none text-[8px] uppercase font-black">Active</Badge>
+                                <Badge className="bg-emerald-500/20 text-emerald-500 border-none text-[8px] uppercase font-black">Certified</Badge>
                             </div>
                             <div className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5 hover:border-intel-gold/20 transition-all">
                                 <div className="flex items-center gap-3">
-                                    <div className="p-2 bg-intel-gold/10 rounded-lg">
-                                        <Zap className="w-4 h-4 text-intel-gold" />
+                                    <div className="p-2 bg-noble-gold/10 rounded-lg">
+                                        <Award className="w-4 h-4 text-noble-gold" />
                                     </div>
-                                    <span className="text-[10px] font-black uppercase tracking-widest text-white/80">Swarm Reallocation</span>
+                                    <span className="text-[10px] font-black uppercase tracking-widest text-white/80">Zenith Synchronization</span>
                                 </div>
-                                <Badge className="bg-intel-gold/20 text-intel-gold border-none text-[8px] uppercase font-black">Active</Badge>
+                                <Badge className="bg-noble-gold text-black border-none text-[8px] uppercase font-black">Absolute</Badge>
                             </div>
                         </CardContent>
                         <div className="p-6 pt-0">

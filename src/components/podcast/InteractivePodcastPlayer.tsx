@@ -155,7 +155,10 @@ export default function InteractivePodcastPlayer({ episode }: InteractivePodcast
     };
 
     return (
-        <div className="relative bg-black/80 backdrop-blur-3xl border border-noble-gold/20 rounded-[2rem] p-6 shadow-[0_0_50px_rgba(212,175,55,0.15)] flex flex-col md:flex-row gap-6 h-[600px] overflow-hidden">
+        <div 
+            className="relative bg-black/80 backdrop-blur-3xl border border-noble-gold/20 rounded-[2rem] p-6 shadow-[0_0_50px_rgba(212,175,55,0.15)] flex flex-col md:flex-row gap-6 h-[600px] overflow-hidden"
+            aria-label="Interactive Podcast Player and AI Chat"
+        >
 
             {/* Visualizer Background Matrix */}
             <div className="absolute inset-0 bg-[linear-gradient(rgba(212,175,55,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(212,175,55,0.05)_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none -z-10" />
@@ -235,7 +238,7 @@ export default function InteractivePodcastPlayer({ episode }: InteractivePodcast
                     <button onClick={toggleMute} aria-label={isMuted ? "Unmute" : "Mute"} title={isMuted ? "Unmute" : "Mute"} className="text-white/40 hover:text-white transition-colors">
                         {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
                     </button>
-                    <div className="text-xs font-mono text-zinc-500">{formatTime(currentTime)}</div>
+                    <div className="text-xs font-mono text-zinc-400">{formatTime(currentTime)}</div>
                     <button
                         onClick={togglePlayPause}
                         aria-label={isPlaying ? "Pause" : "Play"}
@@ -321,6 +324,8 @@ export default function InteractivePodcastPlayer({ episode }: InteractivePodcast
                     <form onSubmit={handleChatSubmit} className="relative">
                         <input
                             type="text"
+                            id="podcast-chat-input"
+                            aria-label="Ask a question about this podcast"
                             placeholder="Call in: Ask a question about policy, IEPs, or instruction..."
                             value={input}
                             onChange={(e) => setInput(e.target.value)}

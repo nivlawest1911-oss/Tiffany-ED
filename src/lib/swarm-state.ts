@@ -1,5 +1,5 @@
 /**
- * EdIntel SWARM STATE SCHEMA (2026)
+ * EdIntel SWARM STATE SCHEMA
  * Graph-Based Memory Architecture for Long-Horizon Autonomy
  */
 

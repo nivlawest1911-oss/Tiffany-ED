@@ -41,7 +41,7 @@ export default function ProtocolTopicDetailClient() {
     ];
 
     return (
-        <main className="content-stage">
+        <div className="content-stage">
             {/* Header / Search Hero */}
             <section className="relative py-16 px-6 bg-zinc-900 border-b border-zinc-800 flex flex-col items-center justify-center text-center overflow-hidden rounded-3xl">
                 <div
@@ -132,6 +132,7 @@ export default function ProtocolTopicDetailClient() {
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
     );
 }
+

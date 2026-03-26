@@ -11,7 +11,7 @@ interface EdIntelPlayerProps {
 
 export function EdIntelPlayer({
     src,
-    poster = "/images/avatars/dr_alvin_west_official.svg",
+    poster = "/images/avatars/dr_alvin_west_official.png",
     title = "Secure Transmission"
 }: EdIntelPlayerProps) {
     const videoRef = useRef<HTMLVideoElement>(null);
@@ -49,7 +49,7 @@ export function EdIntelPlayer({
                 />
             ) : (
                 <div className="w-full h-full aspect-video flex flex-col items-center justify-center bg-slate-900 text-slate-500">
-                    <Activity size={48} className="mb-4 opacity-50" />
+                    <Activity aria-hidden="true" size={48} className="mb-4 opacity-50" />
                     <p className="text-xs font-bold uppercase tracking-widest">Signal Lost / Media Offline</p>
                 </div>
             )}
@@ -71,7 +71,7 @@ export function EdIntelPlayer({
             <div className="absolute bottom-0 left-0 right-0 p-6 z-20 flex justify-between items-end">
                 <div>
                     <div className="flex items-center gap-2 mb-1">
-                        <Activity size={12} className="text-emerald-500 animate-pulse" />
+                        <Activity aria-hidden="true" size={12} className="text-emerald-500 animate-pulse" />
                         <p className="text-[10px] text-blue-400 font-bold uppercase tracking-[0.2em]">
                             Encrypted Feed
                         </p>

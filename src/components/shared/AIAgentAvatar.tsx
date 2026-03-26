@@ -131,6 +131,7 @@ export default function AIAgentAvatar({ textToSpeak = "", className = "" }: AIAg
                         </p>
                         <button
                             onClick={() => { setAvatar(null); setError(null); }}
+                            aria-label="Retry neural protocol connection"
                             className="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded font-black text-[9px] text-white uppercase tracking-widest transition-all"
                         >
                             Retry Protocol

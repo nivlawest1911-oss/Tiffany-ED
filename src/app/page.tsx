@@ -22,19 +22,8 @@
 - [x] Final verification and "Shit Removal" pass.
 - [/] Document final state in `walkthrough.md`.
 */
-import { createClient } from '@/lib/supabase/server';
 import ModernHomePage from '@/components/modern-home-page';
-import { redirect } from 'next/navigation';
 
-export default async function Index() {
-  const supabase = await createClient();
-
-  if (supabase) {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (user) {
-      return redirect('/the-room');
-    }
-  }
-
+export default function Index() {
   return <ModernHomePage />;
 }

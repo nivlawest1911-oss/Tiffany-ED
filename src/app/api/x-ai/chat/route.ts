@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
             maxTokens,
         });
 
-        return result.toDataStreamResponse();
+        return result.toTextStreamResponse();
     } catch (error: any) {
         console.error('X.AI Chat Error:', error);
         return NextResponse.json(

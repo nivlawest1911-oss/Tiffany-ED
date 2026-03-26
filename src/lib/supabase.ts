@@ -4,13 +4,13 @@ import { unstable_cache } from 'next/cache';
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-// 🏛️ EdIntel SAFE_UPLINK: Returns null if configuration is missing to prevent crashes
+// 🏛️ Edintel SAFE_UPLINK: Returns null if configuration is missing to prevent crashes
 export const supabase = (supabaseUrl && supabaseAnonKey)
     ? createClient(supabaseUrl, supabaseAnonKey)
     : null;
 
 /**
- * EdIntel Data Uplink: Fetches high-fidelity media manifest from Supabase.
+ * Edintel Data Uplink: Fetches high-fidelity media manifest from Supabase.
  * Replaces static JSON definitions with real-time district data.
  */
 export const fetchMediaManifest = unstable_cache(
@@ -36,7 +36,7 @@ export const fetchMediaManifest = unstable_cache(
 );
 
 /**
- * Strategic Sync: Stores generated IEP documents in the EdIntel Vault.
+ * Strategic Sync: Stores generated IEP documents in the Edintel Vault.
  */
 export async function archiveStrategicDocument(userId: string, title: string, content: any, type: string) {
     if (!supabase) {
@@ -51,7 +51,7 @@ export async function archiveStrategicDocument(userId: string, title: string, co
                 title,
                 content,
                 type,
-                clearance: 'EdIntel'
+                clearance: 'Edintel'
             }
         ])
         .select();
@@ -65,7 +65,7 @@ export async function archiveStrategicDocument(userId: string, title: string, co
 }
 
 /**
- * 🏛️ EdIntel Audit Link: Logs neural synthesis events for institutional compliance.
+ * 🏛️ Edintel Audit Link: Logs neural synthesis events for institutional compliance.
  */
 export async function logAiEvent(generatorId: string, prompt: string, status: string = 'SUCCESS') {
     if (!supabase) return;
@@ -109,7 +109,7 @@ export async function submitLead(email: string, schoolName: string, source: stri
 }
 
 /**
- * 🛰️ EdIntel Support Uplink: Transmits teacher feedback to the institutional memory core.
+ * 🛰️ Edintel Support Uplink: Transmits teacher feedback to the institutional memory core.
  */
 export async function createSupportTicket(userId: string, subject: string, message: string, priority: string = 'STANDARD') {
     if (!supabase) return null;

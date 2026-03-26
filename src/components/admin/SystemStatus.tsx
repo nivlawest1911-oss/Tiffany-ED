@@ -11,7 +11,7 @@ interface SystemNode {
     status: 'ONLINE' | 'STANDBY' | 'DEGRADED';
     latency: string;
     uptime: string;
-    icon: React.ElementType;
+    icon: any;
 }
 
 export const SystemStatus = () => {
@@ -52,17 +52,13 @@ export const SystemStatus = () => {
     return (
         <div className="p-12 bg-white/[0.02] border border-white/5 rounded-[4rem] shadow-2xl relative overflow-hidden group backdrop-blur-3xl">
             {/* Background Matrix Lines */}
-            <div className="absolute inset-0 opacity-[0.02] pointer-events-none"
-                style={{
-                    backgroundImage: 'radial-gradient(circle at 1px 1px, #C5A47E 1px, transparent 0)',
-                    backgroundSize: '40px 40px'
-                }}
-            />
+            <div className="absolute inset-0 opacity-[0.02] pointer-events-none matrix-telemetry" />
 
             {/* Scanning Line Effect */}
-            <div
-                className="absolute inset-x-0 h-px bg-intel-gold/40 shadow-[0_0_20px_rgba(197,164,126,0.5)] pointer-events-none z-20"
-                style={{ top: `${scanProgress}%` }}
+            <motion.div
+                className="absolute inset-x-0 h-px bg-intel-gold/40 shadow-[0_0_20px_rgba(197,164,126,0.5)] pointer-events-none z-20 scanline-telemetry"
+                animate={{ top: `${scanProgress}%` }}
+                transition={{ duration: 0.1, ease: "linear" }}
             />
 
             <div className="flex flex-col md:flex-row justify-between items-center mb-16 relative z-10 gap-10 text-center md:text-left">

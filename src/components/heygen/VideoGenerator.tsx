@@ -156,26 +156,27 @@ export function HeyGenVideoGenerator({ className = '' }: VideoGeneratorProps) {
                         </div>
                         <div>
                             <h3 className="text-2xl font-black text-white uppercase tracking-tighter">Avatar Forge</h3>
-                            <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-[0.2em] mt-1">Generative Neural Broadcasts</p>
+                            <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-[0.2em] mt-1">Generative Neural Broadcasts</p>
                         </div>
                     </div>
-                    <div className="flex flex-col items-end opacity-40">
+                    <div className="flex flex-col items-end opacity-60">
                         <div className="text-[8px] font-mono text-white/50 uppercase tracking-[0.3em]">HFD: ENABLED</div>
-                        <div className="text-[8px] font-mono text-purple-400/50 uppercase tracking-[0.3em]">HeyGen_Core_v2</div>
+                        <div className="text-[8px] font-mono text-purple-400/70 uppercase tracking-[0.3em]">HeyGen_Core_v2</div>
                     </div>
                 </div>
 
                 {/* Script Input */}
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                        <label className="text-xs font-black uppercase tracking-[0.2em] text-purple-400">Strategic Script</label>
-                        <span className="text-[10px] text-zinc-600 font-mono italic">{script.length}/2000 chars</span>
+                        <label htmlFor="strategic-script" className="text-xs font-black uppercase tracking-[0.2em] text-purple-400">Strategic Script</label>
+                        <span className="text-[10px] text-zinc-400 font-mono italic">{script.length}/2000 chars</span>
                     </div>
                     <textarea
+                        id="strategic-script"
                         value={script}
                         onChange={(e) => setScript(e.target.value)}
                         placeholder="INPUT DIRECTIVE FOR NEURAL SYNTHESIS..."
-                        className="w-full h-40 px-6 py-4 bg-black/50 border border-white/10 rounded-[1.5rem] text-white placeholder-zinc-700 focus:outline-none focus:border-purple-500/50 transition-all font-medium text-sm leading-relaxed scrollbar-hide resize-none shadow-inner"
+                        className="w-full h-40 px-6 py-4 bg-black/50 border border-white/10 rounded-[1.5rem] text-white placeholder-zinc-500 focus:outline-none focus:border-purple-500/50 transition-all font-medium text-sm leading-relaxed scrollbar-hide resize-none shadow-inner"
                         disabled={isGenerating}
                     />
                 </div>
@@ -183,8 +184,9 @@ export function HeyGenVideoGenerator({ className = '' }: VideoGeneratorProps) {
                 {/* Selection Matrix */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 pl-2">Executive Delegate</label>
+                        <label htmlFor="executive-delegate" className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 pl-2">Executive Delegate</label>
                         <select
+                            id="executive-delegate"
                             value={avatarId}
                             onChange={(e) => setAvatarId(e.target.value)}
                             className="w-full px-5 py-4 bg-black border border-white/10 rounded-2xl text-white text-xs font-bold uppercase tracking-widest focus:outline-none focus:ring-1 focus:ring-purple-500/50 cursor-pointer hover:bg-zinc-900 transition-all"
@@ -198,8 +200,9 @@ export function HeyGenVideoGenerator({ className = '' }: VideoGeneratorProps) {
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 pl-2">Vocal Signature</label>
+                        <label htmlFor="vocal-signature" className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 pl-2">Vocal Signature</label>
                         <select
+                            id="vocal-signature"
                             value={voiceId}
                             onChange={(e) => setVoiceId(e.target.value)}
                             className="w-full px-5 py-4 bg-black border border-white/10 rounded-2xl text-white text-xs font-bold uppercase tracking-widest focus:outline-none focus:ring-1 focus:ring-purple-500/50 cursor-pointer hover:bg-zinc-900 transition-all"

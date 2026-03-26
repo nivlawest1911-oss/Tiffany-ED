@@ -8,7 +8,7 @@ import { ParticleBackground } from "@/components/ui/Cinematic";
 
 export default function BlogClient() {
     return (
-        <main className="min-h-screen bg-black text-white font-sans selection:bg-noble-gold/30 relative overflow-hidden">
+        <div className="min-h-screen bg-black text-white font-sans selection:bg-noble-gold/30 relative overflow-hidden">
             {/* EdIntel Background elements */}
             <ParticleBackground count={30} />
             <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
@@ -64,6 +64,7 @@ export default function BlogClient() {
                     </div>
                 </div>
             </section>
-        </main>
+        </div>
     );
 }
+

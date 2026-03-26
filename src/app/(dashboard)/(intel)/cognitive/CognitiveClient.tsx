@@ -68,7 +68,7 @@ export default function CognitiveClient({ initialStats }: CognitiveClientProps) 
     };
 
     return (
-        <main className="content-stage">
+        <div className="content-stage">
 
             {/* Ambient Background */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none">
@@ -293,6 +293,7 @@ export default function CognitiveClient({ initialStats }: CognitiveClientProps) 
                     </div>
                 </div>
             </footer>
-        </main>
+        </div>
     );
 }
+

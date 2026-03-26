@@ -39,16 +39,18 @@ const StepIdentity = memo(({ selectedRole, onSelect }: { selectedRole: string, o
     return (
         <div className="grid grid-cols-2 gap-3">
             {ROLES.map((role) => (
-                <button
+                <motion.button
                     key={role.id}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => onSelect(role.id)}
                     aria-label={`Select Role: ${role.label}, ${role.bio}`}
-                    className={`p-4 rounded-3xl border flex flex-col items-center gap-2 transition-all ${selectedRole === role.id ? 'bg-noble-gold border-noble-gold text-black' : 'bg-white/5 border-white/5 hover:border-white/10'}`}
+                    className={`p-4 rounded-2xl border backdrop-blur-sm transition-all flex flex-col items-center gap-2 ${selectedRole === role.id ? 'bg-gradient-to-br from-[#FFB300]/30 to-amber-600/20 border-[#FFB300] shadow-[0_0_20px_rgba(255,179,0,0.3)]' : 'bg-white/5 border-white/10 hover:border-white/30 hover:bg-white/10'}`}
                 >
-                    <role.icon size={24} />
+                    <role.icon size={24} className={selectedRole === role.id ? 'text-[#FFB300]' : 'text-zinc-400'} />
                     <div className="text-[10px] font-black uppercase tracking-widest">{role.label}</div>
                     <div className="text-[8px] opacity-60 font-mono uppercase">{role.bio}</div>
-                </button>
+                </motion.button>
             ))}
         </div>
     );
@@ -87,15 +89,17 @@ const StepObjective = memo(({ role, selectedObjective, onSelect }: { role: strin
         <div className="space-y-4">
             <div className="grid grid-cols-1 gap-3">
                 {goals.map((obj) => (
-                    <button
+                    <motion.button
                         key={obj.id}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
                         onClick={() => onSelect(obj.label)}
                         aria-label={`Select Objective: ${obj.label}, ${obj.sub}`}
-                        className={`p-4 rounded-2xl border text-left transition-all ${selectedObjective === obj.label ? 'bg-noble-gold/20 border-noble-gold' : 'bg-white/5 border-white/5 hover:border-white/10'}`}
+                        className={`p-4 rounded-2xl border text-left backdrop-blur-sm transition-all ${selectedObjective === obj.label ? 'bg-gradient-to-r from-[#FFB300]/30 to-amber-600/20 border-[#FFB300] shadow-[0_0_20px_rgba(255,179,0,0.2)]' : 'bg-white/5 border-white/10 hover:border-white/20 hover:bg-white/10'}`}
                     >
                         <div className="text-[10px] font-black uppercase tracking-widest mb-1">{obj.label}</div>
                         <div className="text-[9px] text-zinc-500 font-medium">{obj.sub}</div>
-                    </button>
+                    </motion.button>
                 ))}
             </div>
         </div>
@@ -153,7 +157,7 @@ const StepSynthesis = memo(({ role, formData }: { role: string, formData: any })
     const agentInfo = useMemo(() => {
         switch (role) {
             case 'ADMIN':
-                return { name: "Dr. Alvin West", role: "Chief Architect", avatar: "/images/avatars/Dr._alvin_west.png", color: "text-noble-gold" };
+                return { name: "Dr. Alvin West", role: "Chief Architect", avatar: "/images/avatars/dr_alvin_west_official.png", color: "text-noble-gold" };
             case 'TEACHER':
                 return { name: "Keisha Reynolds", role: "Strategic Lead", avatar: "/images/avatars/keisha_reynolds_premium.png", color: "text-emerald-400" };
             case 'COUNSELOR':
@@ -189,7 +193,7 @@ const StepSynthesis = memo(({ role, formData }: { role: string, formData: any })
             } else {
                 clearInterval(interval);
             }
-        }, 600);
+        }, 800);
         return () => clearInterval(interval);
     }, [formData, agentInfo]);
 
@@ -272,7 +276,7 @@ StepSynthesis.displayName = 'StepSynthesis';
 
 // --- Main component ---
 
-export default function OnboardingFlow({ onCompleteAction }: { onCompleteAction?: () => void }) {
+const OnboardingFlow = memo(({ onCompleteAction }: { onCompleteAction?: () => void }) => {
     const { celebrate } = useCelebrate();
     const [step, setStep] = useState(0);
     const [formData, setFormData] = useState({
@@ -521,4 +525,8 @@ export default function OnboardingFlow({ onCompleteAction }: { onCompleteAction?
             </div>
         </div>
     );
-}
+});
+
+OnboardingFlow.displayName = 'OnboardingFlow';
+
+export default OnboardingFlow;

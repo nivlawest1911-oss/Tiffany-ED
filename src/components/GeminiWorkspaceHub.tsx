@@ -303,12 +303,12 @@ function ImportTab({ onImport }: { onImport: (content: ImportedContent) => void 
                         : 'border-slate-600 hover:border-purple-500/50'
                         }`}
                 >
-                    <input {...getInputProps()} />
-                    <Upload className="w-16 h-16 mx-auto mb-4 text-slate-500" />
+                    <input {...getInputProps()} aria-label="Upload files" />
+                    <Upload className="w-16 h-16 mx-auto mb-4 text-slate-400" />
                     <p className="text-slate-300 mb-2">
                         {isDragActive ? 'Drop files here...' : 'Drag & drop files here'}
                     </p>
-                    <p className="text-sm text-slate-500">
+                    <p className="text-sm text-slate-400">
                         or click to browse (images, PDFs, text files)
                     </p>
                 </div>
@@ -354,6 +354,7 @@ function ImportTab({ onImport }: { onImport: (content: ImportedContent) => void 
                             value={textContent}
                             onChange={(e) => setTextContent(e.target.value)}
                             placeholder="Paste your Gemini content here..."
+                            aria-label="Content to import"
                             className="w-full h-64 bg-slate-900/50 border border-slate-700 rounded-xl p-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
                         />
                     </div>
@@ -406,7 +407,7 @@ function LibraryTab({ content, searchQuery, onSearch }: any) {
             <div className="bg-slate-800/50 backdrop-blur-xl rounded-2xl p-6 border border-slate-700">
                 <div className="flex flex-col md:flex-row gap-4">
                     <div className="flex-1 relative">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                         <input
                             type="text"
                             value={searchQuery}
@@ -443,7 +444,7 @@ function LibraryTab({ content, searchQuery, onSearch }: any) {
                 <div className="bg-slate-800/50 backdrop-blur-xl rounded-2xl p-12 border border-slate-700 text-center">
                     <FolderOpen className="w-16 h-16 mx-auto mb-4 text-slate-600" />
                     <p className="text-slate-400">No content found</p>
-                    <p className="text-sm text-slate-500 mt-2">Import content from the Import tab</p>
+                    <p className="text-sm text-slate-400 mt-2">Import content from the Import tab</p>
                 </div>
             )}
         </motion.div>

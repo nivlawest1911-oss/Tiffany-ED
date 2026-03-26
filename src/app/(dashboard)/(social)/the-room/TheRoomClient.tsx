@@ -84,7 +84,7 @@ export default function TheRoomClient() {
     };
 
     return (
-        <main className="content-stage relative min-h-screen pb-32 bg-[#020617] selection:bg-electric-cyan/30">
+        <div className="content-stage relative min-h-screen pb-32 bg-[#020617] selection:bg-electric-cyan/30">
             {/* BACKGROUND EFFECTS */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,_rgba(0,176,255,0.05)_0%,_transparent_50%)]" />
 
@@ -97,7 +97,10 @@ export default function TheRoomClient() {
                         className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex flex-col items-center justify-center p-4"
                     >
                         <div className="max-w-md w-full p-8 border border-electric-cyan/30 rounded-[2rem] bg-[#020617] shadow-[0_0_100px_rgba(0,176,255,0.2)] text-center relative overflow-hidden">
-                            <div className="absolute top-0 left-0 h-1 bg-electric-cyan transition-all duration-300" style={{ width: `${currentStep}%` }} />
+                            <div 
+                                className="absolute top-0 left-0 h-1 bg-electric-cyan transition-all duration-300 w-[var(--progress-width)]" 
+                                style={{ '--progress-width': `${currentStep}%` } as React.CSSProperties}
+                            />
                             <Cpu className="w-16 h-16 text-electric-cyan mx-auto mb-6 animate-pulse" />
                             <h3 className="text-xl font-black text-white uppercase tracking-widest mb-2">Optimizing Sovereign Nodes</h3>
                             <p className="text-zinc-400 font-mono text-xs uppercase tracking-widest leading-relaxed">Re-aligning AI cores and minimizing latency paths...</p>
@@ -268,7 +271,7 @@ export default function TheRoomClient() {
                                         <div className={cn("p-2.5 rounded-xl bg-black/40", tool.color)}>
                                             <tool.icon size={20} />
                                         </div>
-                                        <h4 className="text-sm font-black text-white uppercase tracking-tight group-hover:text-electric-cyan transition-colors line-clamp-2">{tool.title}</h4>
+                                        <h3 className="text-sm font-black text-white uppercase tracking-tight group-hover:text-electric-cyan transition-colors line-clamp-2">{tool.title}</h3>
                                     </div>
                                     <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest leading-relaxed line-clamp-2">
                                         {tool.desc}
@@ -307,7 +310,7 @@ export default function TheRoomClient() {
                     </motion.button>
                 </SmartHover>
             </footer>
-        </main>
+        </div>
     );
 }
 
@@ -340,3 +343,4 @@ function NexusCommandManager() {
         </AnimatePresence>
     );
 }
+

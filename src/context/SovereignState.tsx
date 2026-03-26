@@ -24,13 +24,20 @@ const SovereignContext = createContext<SovereignState | undefined>(undefined);
 export function SovereignProvider({ children }: { children: ReactNode }) {
     const [metacognitionPoints, setPoints] = useState(100);
     const [userCredits, setCredits] = useState(50);
-    const [onboardingData, setOnboardingData] = useState<OnboardingData | null>(() => {
-        if (typeof window !== 'undefined') {
+    const [onboardingData, setOnboardingData] = useState<OnboardingData | null>(null);
+    
+    // Load persisted data on client only
+    React.useEffect(() => {
+        if (typeof window === 'undefined') return;
+        try {
             const saved = localStorage.getItem('edintel_onboarding_data');
-            return saved ? JSON.parse(saved) : null;
+            if (saved) {
+                setOnboardingData(JSON.parse(saved));
+            }
+        } catch {
+            // localStorage may not be available
         }
-        return null;
-    });
+    }, []);
 
     const addPoints = (amount: number) => {
         setPoints(prev => prev + amount);
@@ -46,9 +53,15 @@ export function SovereignProvider({ children }: { children: ReactNode }) {
 
     const updateOnboarding = (data: OnboardingData) => {
         setOnboardingData(data);
-        localStorage.setItem('edintel_onboarding_data', JSON.stringify(data));
-        // Broadcast for other nodes/tabs
-        window.dispatchEvent(new CustomEvent('sovereign-node-sync', { detail: data }));
+        if (typeof window !== 'undefined') {
+            try {
+                localStorage.setItem('edintel_onboarding_data', JSON.stringify(data));
+                // Broadcast for other nodes/tabs
+                window.dispatchEvent(new CustomEvent('sovereign-node-sync', { detail: data }));
+            } catch {
+                // localStorage may not be available
+            }
+        }
     };
 
     return (

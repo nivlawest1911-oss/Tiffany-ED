@@ -6,7 +6,7 @@ import { Play, Sparkles, Loader2, TrendingUp } from 'lucide-react';
 import { GlassCard } from '@/components/ui/Cinematic';
 import { cn } from '@/lib/utils';
 
-export function DigitalTwinSimulator() {
+export function DigitalTwinSimulator({ title }: { title?: string }) {
     const [scenario, setScenario] = useState('');
     const [isSimulating, setIsSimulating] = useState(false);
     const [result, setResult] = useState<any>(null);
@@ -33,21 +33,24 @@ export function DigitalTwinSimulator() {
         <div className="space-y-6">
             <h2 className="text-xl font-bold text-foreground flex items-center gap-3">
                 <Sparkles className="w-5 h-5 text-electric-cyan" />
-                District Digital Twin: Policy Sandbox
+                {title || "District Digital Twin: Policy Sandbox"}
             </h2>
 
             <GlassCard className="p-6 border-electric-cyan/20">
                 <div className="space-y-4">
-                    <p className="text-xs text-muted-foreground font-medium uppercase tracking-widest">Simulation Input</p>
+                    <label htmlFor="simulation-input" className="text-xs text-muted-foreground font-medium uppercase tracking-widest block">Simulation Input</label>
                     <textarea
+                        id="simulation-input"
                         value={scenario}
                         onChange={(e) => setScenario(e.target.value)}
                         placeholder="e.g., Simulate the impact of a 5% teacher salary increase coupled with a 10% reduction in district-level administrative travel over 24 months."
+                        aria-label="Enter simulation scenario description"
                         className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-sm text-white focus:outline-none focus:border-electric-cyan/50 min-h-[100px] resize-none"
                     />
                     <button
                         onClick={handleSimulate}
                         disabled={isSimulating || !scenario}
+                        aria-label={isSimulating ? "Simulation in progress" : "Initialize policy simulation"}
                         className={cn(
                             "w-full py-4 rounded-xl font-black text-xs uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2 shadow-lg",
                             isSimulating ? "bg-zinc-800 text-zinc-500 cursor-not-allowed" : "bg-electric-cyan text-black hover:scale-[1.02] shadow-electric-cyan/20"

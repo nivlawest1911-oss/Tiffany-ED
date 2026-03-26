@@ -22,6 +22,15 @@ export default function PodcastList({ episodes, onSelectEpisode, currentEpisodeI
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.1, duration: 0.5 }}
+                        role="button"
+                        tabIndex={0}
+                        aria-label={`Play episode: ${ep.title}`}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                onSelectEpisode(ep);
+                            }
+                        }}
                         className={`group relative p-4 rounded-3xl border transition-all cursor-pointer overflow-hidden
                             ${isActive
                                 ? 'bg-noble-gold/10 border-noble-gold/40 shadow-[0_0_30px_rgba(212,175,55,0.1)]'
@@ -53,7 +62,7 @@ export default function PodcastList({ episodes, onSelectEpisode, currentEpisodeI
                             <div className="flex-1 flex flex-col justify-center">
                                 <div className="flex items-center justify-between mb-1">
                                     <span className="text-[9px] font-black text-noble-gold uppercase tracking-[0.2em]">{ep.category}</span>
-                                    <span className="text-[9px] font-mono text-zinc-500 flex items-center gap-1">
+                                    <span className="text-[9px] font-mono text-zinc-400 flex items-center gap-1">
                                         <Clock size={10} /> {ep.duration}
                                     </span>
                                 </div>

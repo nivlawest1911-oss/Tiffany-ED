@@ -9,7 +9,7 @@ import React, { useState } from 'react';
 export default function MissionClient() {
     const [showBriefing, setShowBriefing] = useState(false);
     return (
-        <main className="content-stage">
+        <div className="content-stage">
 
             {/* Hero Section with Parallax Video */}
             <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
@@ -128,6 +128,7 @@ export default function MissionClient() {
                 </div>
             </section>
 
-        </main>
+        </div>
     );
 }
+

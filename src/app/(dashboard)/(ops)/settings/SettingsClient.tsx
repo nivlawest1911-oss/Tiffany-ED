@@ -39,7 +39,7 @@ export default function SettingsClient() {
     if (!mounted) return null;
 
     return (
-        <main className="min-h-screen relative overflow-hidden font-inter text-slate-200">
+        <div className="min-h-screen relative overflow-hidden font-inter text-slate-200">
             <HolographicBackground />
 
             <div className="relative z-10 max-w-7xl mx-auto p-6 lg:p-12">
@@ -137,7 +137,7 @@ export default function SettingsClient() {
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
     );
 }
 
@@ -387,3 +387,4 @@ function SecuritySection() {
         </Card>
     );
 }
+

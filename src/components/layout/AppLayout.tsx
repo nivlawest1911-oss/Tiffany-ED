@@ -102,12 +102,12 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     <TacticalHeaderBar />
 
                     {/* Top Header */}
-                    <header className="h-16 flex items-center justify-between px-8 z-20 shrink-0">
+                    <header className="h-16 flex items-center justify-between px-4 md:px-8 z-20 shrink-0">
                         <GlassPanel className="absolute inset-x-0 top-0 h-16 rounded-none border-t-0 border-x-0 bg-white/[0.02]">
                             <div />
                         </GlassPanel>
 
-                        <div className="flex items-center gap-8 flex-1 relative z-10">
+                        <div className="hidden md:flex items-center gap-8 flex-1 relative z-10">
                             <div className="relative max-w-md w-full group cursor-pointer" onClick={toggleCommandConsole}>
                                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/20 group-hover:text-electric-cyan transition-colors" />
                                 <div className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-12 h-9 flex items-center text-xs text-white/30 group-hover:bg-white/10 group-hover:border-white/20 transition-all">
@@ -119,6 +119,17 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                        {/* Mobile: title + search icon */}
+                        <div className="flex md:hidden items-center gap-3 flex-1 relative z-10">
+                            <button
+                                onClick={toggleCommandConsole}
+                                className="p-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all"
+                                aria-label="Search"
+                            >
+                                <Search className="h-4 w-4 text-white/40" />
+                            </button>
                         </div>
 
                         <div className="flex items-center gap-4 relative z-10">
@@ -151,7 +162,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                         <div className="relative">
                                             <div className="h-8 w-8 rounded-full border border-white/10 overflow-hidden group-hover:border-electric-cyan/50 transition-colors">
                                                 <Image
-                                                    src={user?.avatar_url || "/images/avatars/Dr._alvin_west.png"}
+                                                    src={user?.avatar_url || "/images/avatars/dr_alvin_west_official.png"}
                                                     alt="User"
                                                     width={32}
                                                     height={32}
@@ -189,14 +200,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     </header>
 
                     {/* Main Content Viewport */}
-                    <main className="flex-1 overflow-y-auto custom-scrollbar relative">
+                    <div className="flex-1 overflow-y-auto custom-scrollbar relative">
                         <AnimatePresence mode="wait">
                             <motion.div
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -10 }}
                                 transition={{ duration: 0.3 }}
-                                className="p-8 pb-20"
+                                className="p-4 md:p-8 pb-24 md:pb-20"
                             >
                                 <div className="max-w-[1600px] mx-auto">
                                     <React.Suspense fallback={
@@ -209,7 +220,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                 </div>
                             </motion.div>
                         </AnimatePresence>
-                    </main>
+                    </div>
 
                     {/* Mobile Navigation */}
                     <div className="md:hidden">

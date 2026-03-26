@@ -1,27 +1,79 @@
 'use client';
 
-import React from 'react';
-import { Shield, Lock, EyeOff, Trash2, ArrowLeft } from 'lucide-react';
+import React, { useState } from 'react';
+import { Shield, Lock, EyeOff, Trash2, ArrowLeft, Database, UserCheck, Globe } from 'lucide-react';
 import Link from 'next/link';
 import HolographicBriefing from '@/components/intelligence/HolographicBriefing';
-import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { GlassPanel, HolographicText, NeonBadge, AuroraBackground, ParticleField, LaserLine } from '@/components/ui/HolographicUI';
 
 export default function PrivacyClient() {
     const [showBriefing, setShowBriefing] = useState(false);
-    return (
-        <main className="content-stage">
-            <div className="max-w-4xl mx-auto py-12">
-                <Link href="/" className="inline-flex items-center gap-2 text-[10px] uppercase font-black tracking-widest text-zinc-600 hover:text-emerald-400 transition-colors mb-16 group">
-                    <ArrowLeft className="w-3 h-3 group-hover:-translate-x-1 transition-transform" /> Return to Command Deck
-                </Link>
 
-                <header className="mb-20">
-                    <div className="flex items-center gap-3 mb-6">
-                        <div className="w-10 h-10 rounded-2xl bg-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-900/40 text-black">
-                            <Shield className="w-6 h-6" />
-                        </div>
-                        <span className="text-[10px] uppercase font-black tracking-[0.5em] text-emerald-500">Security & Operational Layer</span>
-                    </div>
+    const sections = [
+        {
+            icon: Lock,
+            title: 'Institutional Ownership',
+            content: 'EdIntel acts strictly as a "School Official" under FERPA guidelines. All student data ingested into the system remains the sole property of the Local Educational Agency (LEA). EdIntel does not own, sell, or monetize student information in any form.',
+            color: 'gold',
+        },
+        {
+            icon: EyeOff,
+            title: 'Zero-Training Directive',
+            content: 'We maintain a rigorous isolation protocol with our neural layers. Student data provided for IEP drafting or sentiment analysis is never used to train generalized AI models. Every request is processed in an isolated context and purged post-synthesis.',
+            color: 'cyan',
+        },
+        {
+            icon: Trash2,
+            title: 'Executive Deletion Authority',
+            content: 'District Administrators maintain absolute authority over their Site Node. Every building principal has the unilateral right to purge their site\'s data at any time via the Admin Command Center, ensuring compliance with local data retention laws.',
+            color: 'gold',
+        },
+        {
+            icon: Database,
+            title: 'Data Collection Scope',
+            content: 'We collect only essential professional data: educator credentials, building identifiers, and student IEP components necessary for narrative synthesis. No biometric data, social media profiles, or personal communications are ever collected.',
+            color: 'cyan',
+        },
+        {
+            icon: UserCheck,
+            title: 'Third-Party Sharing',
+            content: 'Student data is NEVER shared with third parties for marketing, advertising, or commercial purposes. Data may only be disclosed to authorized district personnel or as required by law enforcement with proper legal documentation.',
+            color: 'gold',
+        },
+        {
+            icon: Globe,
+            title: 'Data Residency',
+            content: 'All data is processed and stored within SOC 2 Type II certified infrastructure in the United States. We do not transfer student data across international borders under any circumstances.',
+            color: 'cyan',
+        },
+    ];
+
+    return (
+        <div className="content-stage relative min-h-screen">
+            <AuroraBackground variant="mixed" intensity="low" />
+            <ParticleField count={20} />
+
+            <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                >
+                    <Link href="/" className="inline-flex items-center gap-2 text-[10px] uppercase font-black tracking-widest text-zinc-500 hover:text-[#FFB300] transition-colors mb-12 group">
+                        <ArrowLeft className="w-3 h-3 group-hover:-translate-x-1 transition-transform" /> Return to Command Deck
+                    </Link>
+                </motion.div>
+
+                <header className="text-center mb-16">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                    >
+                        <NeonBadge variant="gold" pulse className="mb-6">
+                            <Shield size={12} />
+                            Data Identity Protocol
+                        </NeonBadge>
+                    </motion.div>
 
                     <HolographicBriefing
                         isOpen={showBriefing}
@@ -37,65 +89,105 @@ export default function PrivacyClient() {
                         ]}
                     />
 
-                    <button
+                    <motion.button
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.1 }}
                         onClick={() => setShowBriefing(true)}
-                        className="inline-flex items-center gap-2 mb-8 px-6 py-2 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-emerald-400 text-[9px] font-black uppercase tracking-[0.3em] hover:bg-emerald-500/10 transition-all"
+                        className="inline-flex items-center gap-2 mb-8 px-6 py-2 rounded-full border border-[#FFB300]/30 bg-[#FFB300]/10 text-[#FFB300] text-[9px] font-black uppercase tracking-[0.3em] hover:bg-[#FFB300]/20 hover:shadow-[0_0_30px_rgba(255,179,0,0.2)] transition-all"
                     >
+                        <Shield size={12} />
                         Initialize Identity Briefing
-                    </button>
-                    <h1 className="text-5xl md:text-7xl font-black italic uppercase tracking-tighter leading-none mb-8">
-                        Data <span className="text-emerald-500">Identity</span> Protocol
-                    </h1>
-                    <p className="text-zinc-500 text-[10px] tracking-[0.4em] uppercase font-bold italic">
-                        Effective Date: January 2026 // Mobile County District Node
-                    </p>
+                    </motion.button>
+
+                    <motion.h1
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none mb-6"
+                    >
+                        <HolographicText variant="gradient" as="span">Privacy Policy</HolographicText>
+                    </motion.h1>
+
+                    <motion.p
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.3 }}
+                        className="text-zinc-500 text-[10px] tracking-[0.4em] uppercase font-bold"
+                    >
+                        Effective Date: January 2026 // Transcend Academic Solutions
+                    </motion.p>
+
+                    <LaserLine color="#FFB300" className="max-w-xs mx-auto mt-8" />
                 </header>
 
-                <div className="space-y-16">
-                    <section className="p-10 bg-white/[0.02] border border-white/5 rounded-[3rem]">
-                        <div className="flex items-center gap-4 mb-8">
-                            <Lock className="text-emerald-500 w-6 h-6" />
-                            <h2 className="text-2xl font-black uppercase italic tracking-tight">Institutional Ownership</h2>
-                        </div>
-                        <p className="text-zinc-400 leading-relaxed font-medium">
-                            EdIntel EdIntel acts strictly as a "School Official" under FERPA guidelines. All student data ingested into the system remains the sole property of the Local Educational Agency (LEA). EdIntel does not own, sell, or monetize student information in any form.
-                        </p>
-                    </section>
-
-                    <section className="p-10 bg-white/[0.02] border border-white/5 rounded-[3rem]">
-                        <div className="flex items-center gap-4 mb-8">
-                            <EyeOff className="text-emerald-500 w-6 h-6" />
-                            <h2 className="text-2xl font-black uppercase italic tracking-tight">Zero-Training Directive</h2>
-                        </div>
-                        <p className="text-zinc-400 leading-relaxed font-medium">
-                            We maintain a rigorous isolation protocol with our neural layers. Student data provided for IEP drafting or sentiment analysis is never used to train generalized AI models (including Google Gemini 1.5). Every request is processed in an isolated context and purged post-synthesis.
-                        </p>
-                    </section>
-
-                    <section className="p-10 bg-white/[0.02] border border-white/5 rounded-[3rem]">
-                        <div className="flex items-center gap-4 mb-8">
-                            <Trash2 className="text-emerald-500 w-6 h-6" />
-                            <h2 className="text-2xl font-black uppercase italic tracking-tight">Executive Deletion Authority</h2>
-                        </div>
-                        <p className="text-zinc-400 leading-relaxed font-medium">
-                            District Administrators maintain absolute authority over their Site Node. Every building principal has the unilateral right to purge their site’s 'EdIntel Node' data at any time via the Admin Command Center, ensuring compliance with local data retention laws.
-                        </p>
-                    </section>
-
-                    <footer className="pt-20 border-t border-white/5">
-                        <div className="bg-emerald-600/[0.03] border border-emerald-500/20 p-10 rounded-[2.5rem] mb-12">
-                            <h3 className="text-sm font-black uppercase text-emerald-400 tracking-[0.2em] mb-4 text-center italic">Institutional Contact</h3>
-                            <p className="text-center text-[10px] text-zinc-500 uppercase tracking-widest font-bold leading-loose">
-                                Dr. Alvin West, Jr. // Owner, Transcend Holistic Wellness, LLC <br />
-                                Mobile, AL 36601 // District Liaison
-                            </p>
-                        </div>
-                        <p className="text-[10px] text-center text-zinc-700 uppercase tracking-[0.5em] font-black italic">
-                            EdIntel Privacy Framework v4.2.1 Stable
-                        </p>
-                    </footer>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+                    {sections.map((section, idx) => (
+                        <motion.div
+                            key={idx}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.4 + idx * 0.1 }}
+                        >
+                            <GlassPanel
+                                variant={section.color as 'gold' | 'cyan'}
+                                glow
+                                className="p-8 h-full"
+                            >
+                                <div className={`w-12 h-12 rounded-xl ${section.color === 'gold' ? 'bg-[#FFB300]/20' : 'bg-[#00E5FF]/20'} flex items-center justify-center mb-6`}>
+                                    <section.icon className={`w-6 h-6 ${section.color === 'gold' ? 'text-[#FFB300]' : 'text-[#00E5FF]'}`} />
+                                </div>
+                                <HolographicText
+                                    variant={section.color as 'gold' | 'cyan'}
+                                    as="h2"
+                                    className="text-xl font-black uppercase tracking-tight mb-4"
+                                >
+                                    {section.title}
+                                </HolographicText>
+                                <p className="text-zinc-400 leading-relaxed text-sm">
+                                    {section.content}
+                                </p>
+                            </GlassPanel>
+                        </motion.div>
+                    ))}
                 </div>
+
+                <motion.footer
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1 }}
+                    className="pt-12 border-t border-white/5"
+                >
+                    <GlassPanel variant="gold" className="p-8 text-center">
+                        <HolographicText variant="gold" as="h3" className="text-sm font-black uppercase tracking-[0.2em] mb-4">
+                            Data Protection Officer
+                        </HolographicText>
+                        <p className="text-zinc-400 text-sm mb-2">
+                            Dr. Alvin West, II // Owner, Transcend Academic Solutions, LLC
+                        </p>
+                        <p className="text-zinc-500 text-xs uppercase tracking-widest">
+                            Mobile, AL 36601 // District Liaison
+                        </p>
+                        <div className="flex justify-center gap-4 mt-6">
+                            <Link href="/terms" className="text-[#00E5FF] text-[10px] font-bold uppercase tracking-widest hover:underline">
+                                Terms of Service
+                            </Link>
+                            <span className="text-zinc-700">|</span>
+                            <Link href="/ferpa" className="text-[#00E5FF] text-[10px] font-bold uppercase tracking-widest hover:underline">
+                                FERPA Compliance
+                            </Link>
+                            <span className="text-zinc-700">|</span>
+                            <Link href="/contact" className="text-[#00E5FF] text-[10px] font-bold uppercase tracking-widest hover:underline">
+                                Contact
+                            </Link>
+                        </div>
+                    </GlassPanel>
+                    <p className="text-[10px] text-center text-zinc-700 uppercase tracking-[0.5em] font-black mt-8">
+                        EdIntel Privacy Framework v4.2.1 Stable
+                    </p>
+                </motion.footer>
             </div>
-        </main>
+        </div>
     );
 }
+

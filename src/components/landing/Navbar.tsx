@@ -14,9 +14,9 @@ export default function Navbar() {
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-white/10"
+            className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-black/40 border-b border-white/10 shadow-[0_0_30px_rgba(255,179,0,0.1)]"
         >
-            <div className="max-w-7xl mx-auto px-4 py-4">
+            <div className="max-w-7xl mx-auto px-6 py-4">
                 <div className="flex items-center justify-between">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2">
@@ -25,26 +25,32 @@ export default function Navbar() {
 
                     {/* Desktop Nav */}
                     <div className="hidden md:flex items-center gap-8">
-                        <a href="#features" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                        <a href="#features" className="text-sm font-bold text-zinc-400 hover:text-[#FFB300] transition-colors tracking-wide uppercase">
                             Features
                         </a>
-                        <Link href="/pricing" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                        <Link href="/pricing" className="text-sm font-bold text-zinc-400 hover:text-[#FFB300] transition-colors tracking-wide uppercase">
                             Pricing
                         </Link>
-                        <a href="#about" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                        <a href="#about" className="text-sm font-bold text-zinc-400 hover:text-[#FFB300] transition-colors tracking-wide uppercase">
                             About
                         </a>
-                        <button className="px-6 py-2 bg-primary text-primary-foreground rounded-lg font-bold text-sm hover:shadow-[0_0_20px_rgba(112,0,255,0.4)] transition-all">
-                            Sign In
-                        </button>
+                        <Link href="/login">
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="px-6 py-2 bg-gradient-to-r from-[#FFB300] to-amber-500 text-black rounded-xl font-black text-sm hover:shadow-[0_0_30px_rgba(255,179,0,0.4)] transition-all uppercase tracking-widest"
+                            >
+                                Sign In
+                            </motion.button>
+                        </Link>
                     </div>
 
                     {/* Mobile Menu Button */}
                     <button
                         onClick={() => setIsOpen(!isOpen)}
-                        className="md:hidden p-2 rounded-lg hover:bg-white/5 transition-colors"
+                        className="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors"
                     >
-                        {isOpen ? <X size={24} /> : <Menu size={24} />}
+                        {isOpen ? <X size={24} className="text-[#FFB300]" /> : <Menu size={24} className="text-white" />}
                     </button>
                 </div>
 
@@ -57,18 +63,23 @@ export default function Navbar() {
                         className="md:hidden mt-4 pt-4 border-t border-white/10"
                     >
                         <div className="flex flex-col gap-4">
-                            <a href="#features" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                            <a href="#features" className="text-sm font-bold text-zinc-400 hover:text-[#FFB300] transition-colors uppercase tracking-wide">
                                 Features
                             </a>
-                            <Link href="/pricing" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                            <Link href="/pricing" className="text-sm font-bold text-zinc-400 hover:text-[#FFB300] transition-colors uppercase tracking-wide">
                                 Pricing
                             </Link>
-                            <a href="#about" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                            <a href="#about" className="text-sm font-bold text-zinc-400 hover:text-[#FFB300] transition-colors uppercase tracking-wide">
                                 About
                             </a>
-                            <button className="px-6 py-2 bg-primary text-primary-foreground rounded-lg font-bold text-sm">
-                                Sign In
-                            </button>
+                            <Link href="/login">
+                                <motion.button
+                                    whileHover={{ scale: 1.02 }}
+                                    className="w-full px-6 py-2 bg-gradient-to-r from-[#FFB300] to-amber-500 text-black rounded-xl font-black text-sm uppercase tracking-widest"
+                                >
+                                    Sign In
+                                </motion.button>
+                            </Link>
                         </div>
                     </motion.div>
                 )}

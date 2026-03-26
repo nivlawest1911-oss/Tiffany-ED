@@ -16,6 +16,7 @@ import { SmartHover } from '@/components/ui/SmartHover';
 import { useIntelligence } from '@/context/IntelligenceContext';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { useAccessibilityScrubber } from '@/hooks/useAccessibilityScrubber';
 // import { checkAccess, EdIntelFeature } from '@/lib/EdIntel-access'; // Kept for future activation
 
 interface EnhancedGeneratorProps {
@@ -64,12 +65,16 @@ export default function EnhancedGenerator({
     const [selectedDelegate, setSelectedDelegate] = useState({
         name: delegateName || "Dr. Alvin",
         role: delegateRole || "Superintendent Delegate",
-        image: delegateImage || "/images/avatars/Dr._alvin_west.png"
+        image: delegateImage || "/images/avatars/dr_alvin_west_official.png"
     });
     const [showDelegateOverlay, setShowDelegateOverlay] = useState(false);
     const [showLiveAvatar, setShowLiveAvatar] = useState(false);
     const [synthesisPhase, setSynthesisPhase] = useState<'ingestion' | 'alignment' | 'selection' | 'ready'>('ready');
     const [telemetryTags, setTelemetryTags] = useState<string[]>([]);
+    const outputRef = useRef<HTMLDivElement>(null);
+
+    // Use the accessibility scrubber hook for dynamic AI content
+    useAccessibilityScrubber(outputRef);
 
     // Handshake Optimization: AbortController Ref
     const abortControllerRef = useRef<AbortController | null>(null);
@@ -85,7 +90,7 @@ export default function EnhancedGenerator({
     }, []);
 
     const delegates = [
-        { name: "Dr. Alvin", role: "Superintendent Delegate", image: "/images/avatars/Dr._alvin_west.png" },
+        { name: "Dr. Alvin", role: "Superintendent Delegate", image: "/images/avatars/dr_alvin_west_official.png" },
         { name: "Sarah", role: "Instructional Aide", image: "/images/avatars/sarah_connors_premium.png" },
         { name: "Patrice", role: "Compliance Lead", image: "/images/avatars/executive_leader.png" }
     ];
@@ -508,7 +513,7 @@ Context:
                             <Zap size={14} className="animate-pulse" />
                             Strategic System
                         </h2>
-                        <nav className="flex items-center gap-2 text-xs text-zinc-500 font-medium">
+                        <nav className="flex items-center gap-2 text-xs text-zinc-400 font-medium">
                             <Link href="/" className="hover:text-white transition-colors">Infrastructure</Link>
                             <span>/</span>
                             <Link href="/generators" className="hover:text-white transition-colors">Strategic Options</Link>
@@ -563,7 +568,7 @@ Context:
                                 <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
                                     {/* Professor Selector - Immersive Edition */}
                                     <div className="flex items-center gap-3 bg-white/5 hover:bg-white/10 transition-colors rounded-2xl px-4 py-2 border border-white/5 backdrop-blur-md">
-                                        <span className="text-[10px] uppercase font-black text-zinc-500 tracking-widest">Handled By:</span>
+                                        <span className="text-[10px] uppercase font-black text-zinc-400 tracking-widest">Handled By:</span>
                                         <div className="flex -space-x-3">
                                             {delegates.map((d, i) => (
                                                 <button
@@ -767,7 +772,7 @@ Context:
                                             </div>
                                             <div>
                                                 <h3 className="text-sm font-black text-white uppercase tracking-widest">Strategic Output</h3>
-                                                <p className="text-[9px] text-zinc-500 uppercase">Status: Professional Reference</p>
+                                                <p className="text-[9px] text-zinc-400 uppercase">Status: Professional Reference</p>
                                             </div>
                                         </div>
 
@@ -788,7 +793,10 @@ Context:
                                                 <p className="text-noble-gold font-mono text-xs uppercase tracking-[0.3em] animate-pulse">Architecting Excellence...</p>
                                             </div>
                                         ) : (
-                                            <div className="prose prose-invert prose-xl max-w-none">
+                                            <div 
+                                                ref={outputRef}
+                                                className="prose prose-invert prose-xl max-w-none"
+                                            >
                                                 <div className="font-sans text-zinc-200 leading-[1.8] text-lg drop-shadow-sm edintel-markdown">
                                                     <ReactMarkdown remarkPlugins={[remarkGfm]}>
                                                         {completion}
@@ -867,7 +875,7 @@ Context:
                     <div className="space-y-6">
                         {/* Tactical Shortcuts */}
                         <section>
-                            <h3 className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.3em] mb-4 flex items-center gap-2">
+                            <h3 className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.3em] mb-4 flex items-center gap-2">
                                 <Zap size={12} className="text-noble-gold" />
                                 Rapid Initialization
                             </h3>
@@ -889,7 +897,7 @@ Context:
                         {/* Memory Bank (Local History) */}
                         <section>
                             <div className="flex items-center justify-between mb-4">
-                                <h3 className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.3em] flex items-center gap-2">
+                                <h3 className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.3em] flex items-center gap-2">
                                     <History size={12} className="text-indigo-400" />
                                     Memory Bank
                                 </h3>
@@ -920,11 +928,11 @@ Context:
                             <h4 className="text-[10px] font-black text-noble-gold uppercase tracking-widest mb-4">Professional Metrics</h4>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <p className="text-[9px] text-zinc-500 uppercase mb-1">Leadership Rank</p>
+                                    <p className="text-[9px] text-zinc-400 uppercase mb-1">Leadership Rank</p>
                                     <p className="text-xs font-black text-white uppercase">{user?.tier || 'Educator'}</p>
                                 </div>
                                 <div>
-                                    <p className="text-[9px] text-zinc-500 uppercase mb-1">Intelligence Cap</p>
+                                    <p className="text-[9px] text-zinc-400 uppercase mb-1">Intelligence Cap</p>
                                     <p className="text-xs font-black text-white uppercase italic">Professional</p>
                                 </div>
                             </div>

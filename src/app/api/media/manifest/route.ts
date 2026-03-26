@@ -10,6 +10,13 @@ export const dynamic = 'force-dynamic';
  */
 export async function GET() {
     try {
+        if (!supabase) {
+            return NextResponse.json({
+                success: false,
+                error: 'Media synchronization offline (Supabase not configured)'
+            }, { status: 503 });
+        }
+
         const { data: media, error } = await supabase
             .from('media_manifest')
             .select('*')

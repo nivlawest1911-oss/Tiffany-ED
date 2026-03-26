@@ -9,7 +9,7 @@ import { RegionalIntelligenceFeed } from '@/components/fleet/RegionalIntelligenc
 
 export default function FleetPage() {
     return (
-        <div className="relative min-h-screen p-8 lg:p-12 overflow-hidden flex flex-col font-inter text-slate-200">
+        <div className="relative flex flex-col font-inter text-slate-200">
             <HolographicBackground />
 
             {/* Header / Hero */}
@@ -28,7 +28,7 @@ export default function FleetPage() {
                     </div>
                 </div>
 
-                <h1 className="text-6xl lg:text-8xl font-black text-white leading-tight tracking-tighter mb-8 max-w-5xl">
+                <h1 className="text-4xl md:text-6xl lg:text-8xl font-black text-white leading-tight tracking-tighter mb-8 max-w-5xl">
                     Command the <span className="text-transparent bg-clip-text bg-gradient-to-r from-noble-gold via-yellow-400 to-white">Intelligence</span> Fleet.
                 </h1>
 
@@ -72,7 +72,7 @@ export default function FleetPage() {
                             Relay-12-Stable
                         </span>
                     </div>
-                    <div className="flex flex-col border-l border-white/10 pl-8">
+                    <div className="flex flex-col md:border-l border-white/10 md:pl-8">
                         <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Coordination Latency</span>
                         <span className="text-xs font-bold text-white">4ms Neural Hop</span>
                     </div>

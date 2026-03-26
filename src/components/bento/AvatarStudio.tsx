@@ -1,6 +1,5 @@
 'use client';
-import { useState } from 'react';
-import { CARBON_FIBRE_BG } from '@/lib/constants';
+import { useState, useEffect, useRef } from 'react';
 import {
     User,
     Sparkles,
@@ -18,7 +17,6 @@ import {
 } from "lucide-react";
 import Image from 'next/image';
 import { useHumanBehavior } from '@/hooks/useHumanBehavior';
-import { useEffect } from 'react';
 
 
 interface AvatarConfig {
@@ -32,12 +30,13 @@ interface AvatarConfig {
 }
 
 const AVATAR_LIBRARY = [
-    { id: 'twin-01', name: 'Director West', role: 'Executive', img: '/images/avatars/Dr._alvin_west.png', heygenId: 'Abigail_expressive_2024112501', elevenLabsId: 'JBFqnCBsd6RMkjVDRZzb' },
+    { id: 'twin-01', name: 'Director West', role: 'Executive', img: '/images/avatars/dr_alvin_west_official.png', heygenId: 'Abigail_expressive_2024112501', elevenLabsId: 'JBFqnCBsd6RMkjVDRZzb' },
     { id: 'twin-02', name: 'Dr. Sarah James', role: 'Instructional', img: '/images/avatars/iep_architect.png', heygenId: 'Lina_Dress_Sitting_Side_public', elevenLabsId: '21m00Tcm4TlvDq8ikWAM' },
     { id: 'twin-03', name: 'Specialist David', role: 'STEM Lead', img: '/images/avatars/executive_leader.png', heygenId: 'Abigail_standing_office_front', elevenLabsId: 'soY4btAspOtqS4y4s7TV' },
     { id: 'twin-04', name: 'Principal Elena', role: 'Compliance', img: '/images/avatars/data_analyst.png', heygenId: 'Lina_Dress_Sitting_Side_public', elevenLabsId: 'AZnzlk1XvdvUeBnXmlld' },
     { id: 'twin-05', name: 'Agent Marcus II', role: 'Operations', img: '/images/avatars/executive_leader.png', heygenId: 'Abigail_expressive_2024112501', elevenLabsId: 'TxGEqnHWrfWFTfGW9XjX' },
     { id: 'twin-06', name: 'Director Nova', role: 'Professional Lead', img: '/images/avatars/curriculum_strategist.png', heygenId: 'Lina_Dress_Sitting_Side_public', elevenLabsId: 'EXAVITQu4vr4xnSDxMaL' },
+    { id: 'twin-07', name: 'Rescue One', role: 'Crisis Protocol', img: '/images/avatars/specialist_lead.png', heygenId: 'Abigail_expressive_2024112501', elevenLabsId: 'TxGEqnHWrfWFTfGW9XjX' },
 ];
 
 interface AvatarOutput {
@@ -67,6 +66,7 @@ export default function AvatarStudio() {
     const [isSpeaking, setIsSpeaking] = useState(false);
     const [isInterviewing, setIsInterviewing] = useState(false);
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+    const avatarContainerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (!output) return;
@@ -83,6 +83,15 @@ export default function AvatarStudio() {
         subtle: false
     });
 
+    useEffect(() => {
+        if (avatarContainerRef.current && behavior.style) {
+            const el = avatarContainerRef.current;
+            el.style.setProperty('--behavior-origin', behavior.style.transformOrigin || 'center');
+            el.style.setProperty('--behavior-transform', behavior.style.transform || 'none');
+            el.style.setProperty('--behavior-transition', behavior.style.transition || 'none');
+        }
+    }, [behavior]);
+
     const roles = [
         { id: 'superintendent', label: 'Superintendent', icon: <LucideShield size={16} />, color: 'purple' },
         { id: 'admin', label: 'Principal/Admin', icon: <Zap size={16} />, color: 'orange' },
@@ -90,6 +99,7 @@ export default function AvatarStudio() {
         { id: 'counselor', label: 'Support/Counselor', icon: <Activity size={16} />, color: 'rose' },
         { id: 'board', label: 'Board Member', icon: <Globe size={16} />, color: 'emerald' },
         { id: 'central', label: 'Central Office', icon: <Dna size={16} />, color: 'indigo' },
+        { id: 'rescue', label: 'Rescue One', icon: <Sparkles size={16} />, color: 'red' },
     ];
 
     const handleGenerate = async () => {
@@ -280,10 +290,7 @@ export default function AvatarStudio() {
     return (
         <div className="p-10 rounded-[2.5rem] bg-zinc-950 text-white border border-zinc-900 shadow-3xl relative overflow-hidden group">
             {/* Background Grid/Glow */}
-            <div
-                className="absolute inset-0 opacity-5"
-                style={{ backgroundImage: CARBON_FIBRE_BG }}
-            />
+            <div className="absolute inset-0 opacity-5 carbon-fibre-bg" />
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-600/10 blur-[150px] -mr-64 -mt-64 pointer-events-none group-hover:bg-purple-600/20 transition-all duration-1000" />
 
             <div className="relative z-10">
@@ -401,6 +408,8 @@ export default function AvatarStudio() {
                                         max="100"
                                         value={config.autonomyLevel}
                                         onChange={(e) => setConfig({ ...config, autonomyLevel: parseInt(e.target.value) })}
+                                        title="Autonomy Level Calibration"
+                                        aria-label="Autonomy Level Calibration"
                                         className="w-full h-1.5 bg-zinc-800 rounded-full appearance-none cursor-pointer accent-purple-500"
                                     />
                                     <div className="flex justify-between mt-3 text-[9px] font-bold text-zinc-600 uppercase tracking-tighter">
@@ -445,15 +454,11 @@ export default function AvatarStudio() {
                                         />
                                     ) : (
                                         <div
+                                            ref={avatarContainerRef}
                                             className="w-32 h-32 rounded-full overflow-hidden flex items-center justify-center border-4 border-purple-500/20 relative z-10 shadow-3xl transition-transform duration-700 dynamic-behavior"
-                                            style={{
-                                                '--behavior-transform': behavior.style.transform,
-                                                '--behavior-transition': behavior.style.transition,
-                                                '--behavior-origin': behavior.style.transformOrigin,
-                                            } as React.CSSProperties}
                                         >
                                             <div className="absolute inset-0 bg-gradient-to-t from-purple-600/20 to-transparent opacity-0 group-hover/avatar:opacity-100 transition-opacity duration-1000 z-10" />
-                                            <Image src={config.avatarUrl || "/images/avatars/Dr._alvin_west.png"} alt={config.name} fill className="object-cover grayscale group-hover/avatar:grayscale-0 transition-all duration-700" />
+                                            <Image src={config.avatarUrl || "/images/avatars/dr_alvin_west_official.png"} alt={config.name} fill className="object-cover grayscale group-hover/avatar:grayscale-0 transition-all duration-700" />
                                             {isGeneratingVideo && (
                                                 <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center">
                                                     <Loader2 className="animate-spin text-purple-400 mb-2" size={24} />

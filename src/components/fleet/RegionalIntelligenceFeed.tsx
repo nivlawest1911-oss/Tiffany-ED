@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Zap, Shield, Share2, Activity } from 'lucide-react';
 import { GlassCard } from '@/components/ui/Cinematic';
-import { ProfileShareModal } from '@/components/modals/ProfileShareModal';
+import ProfileShareModal from '@/components/modals/ProfileShareModal';
 
 const MOCK_INTEL_ALERTS = [
     {
@@ -80,6 +80,8 @@ export function RegionalIntelligenceFeed() {
                                     <button 
                                         onClick={() => setShareModal({ isOpen: true, id: alert.id })}
                                         className="p-1 text-white/20 hover:text-noble-gold transition-colors"
+                                        title="Share Intelligence Alert"
+                                        aria-label="Share Intelligence Alert"
                                     >
                                         <Share2 size={10} />
                                     </button>
@@ -101,7 +103,8 @@ export function RegionalIntelligenceFeed() {
                 isOpen={shareModal.isOpen}
                 onClose={() => setShareModal({ ...shareModal, isOpen: false })}
                 context="SIGNAL"
-                id={shareModal.id}
+                userName="EdIntel Delegate"
+                userId={shareModal.id}
             />
         </div>
     );

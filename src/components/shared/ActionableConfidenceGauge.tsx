@@ -97,7 +97,7 @@ export function ActionableConfidenceGauge({ score, suggestion, onAction }: Actio
                                 {onAction && (
                                     <Button
                                         size="sm"
-                                        variant="outline"
+                                        variant="ghost"
                                         onClick={onAction}
                                         className="h-7 text-xs border-white/10 hover:bg-white/5 hover:text-white"
                                     >

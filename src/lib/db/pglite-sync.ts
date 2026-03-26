@@ -78,7 +78,7 @@ export class SovereignEdgeDB {
     public async getLocalContext(key: string) {
         if (!this.db) return null;
         const result = await this.db.query('SELECT value FROM local_context WHERE key = $1', [key]);
-        return result.rows[0]?.value || null;
+        return (result.rows[0] as any)?.value || null;
     }
 
     /**

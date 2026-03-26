@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+export const dynamic = 'force-dynamic';
 import { prisma } from '@/lib/prisma';
 import { encrypt } from '@/lib/auth';
 
@@ -43,13 +44,13 @@ export async function POST(req: Request) {
 
             // Simple password check (assuming cleartext or hashed storage compatibility)
             // Note: In production, use bcrypt/argon2
-            const isPasswordCorrect = user.password === password || user.password_hash === password;
+            const isPasswordCorrect = user.password === password;
             if (!isPasswordCorrect) {
                 return NextResponse.json({ error: 'Invalid Access Key' }, { status: 401 });
             }
 
             sessionUser = user;
-            tier = user.subscription_tier || user.role || 'free';
+            tier = (user as any).subscriptionTier || user.role || 'free';
         }
 
         // 3. Create Session Data

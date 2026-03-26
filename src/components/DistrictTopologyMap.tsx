@@ -42,11 +42,11 @@ export default function DistrictTopologyMap({
                         <Globe size={16} className="text-indigo-500 animate-pulse" />
                         Strategic Topology Map
                     </h3>
-                    <p className="text-[9px] text-zinc-500 font-mono uppercase tracking-widest mt-1">v8.4 Territorial Oversight</p>
+                    <p className="text-[9px] text-zinc-400 font-mono uppercase tracking-widest mt-1">v8.4 Territorial Oversight</p>
                 </div>
                 <div className="flex bg-black/40 backdrop-blur-md rounded-lg border border-white/5 p-1 gap-1">
-                    <button className="p-1 text-zinc-500 hover:text-white transition-colors"><Search size={12} /></button>
-                    <button className="p-1 text-zinc-500 hover:text-white transition-colors"><Maximize2 size={12} /></button>
+                    <button aria-label="Search topology" className="p-1 text-zinc-400 hover:text-white transition-colors"><Search size={12} /></button>
+                    <button aria-label="Fullscreen view" className="p-1 text-zinc-400 hover:text-white transition-colors"><Maximize2 size={12} /></button>
                 </div>
             </div>
 
@@ -126,15 +126,15 @@ export default function DistrictTopologyMap({
                 <div className="absolute bottom-4 left-0 flex gap-4 bg-black/20 backdrop-blur-sm p-2 rounded-xl border border-white/5">
                     <div className="flex items-center gap-1.5">
                         <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                        <span className="text-[7px] font-bold text-zinc-500 uppercase">Optimal</span>
+                        <span className="text-[7px] font-bold text-zinc-400 uppercase">Optimal</span>
                     </div>
                     <div className="flex items-center gap-1.5">
                         <div className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-                        <span className="text-[7px] font-bold text-zinc-500 uppercase">Alert</span>
+                        <span className="text-[7px] font-bold text-zinc-400 uppercase">Alert</span>
                     </div>
                     <div className="flex items-center gap-1.5">
                         <div className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
-                        <span className="text-[7px] font-bold text-zinc-500 uppercase">Siege</span>
+                        <span className="text-[7px] font-bold text-zinc-400 uppercase">Siege</span>
                     </div>
                 </div>
             </div>
@@ -150,11 +150,11 @@ export default function DistrictTopologyMap({
                     >
                         <div className="flex justify-between items-start mb-4">
                             <h4 className="text-[10px] font-black text-white uppercase tracking-widest">{selectedCenter.name}</h4>
-                            <button onClick={() => setSelectedCenter(null)} className="text-zinc-500 hover:text-white tracking-widest text-[8px] uppercase">Close</button>
+                            <button onClick={() => setSelectedCenter(null)} className="text-zinc-400 hover:text-white tracking-widest text-[8px] uppercase">Close</button>
                         </div>
 
                         <div className="space-y-4">
-                            <div className="flex justify-between items-center text-[8px] font-mono text-zinc-500 uppercase">
+                            <div className="flex justify-between items-center text-[8px] font-mono text-zinc-400 uppercase">
                                 <span>Strategic Health</span>
                                 <span className={selectedCenter.health > 90 ? 'text-emerald-400' : 'text-rose-400'}>{selectedCenter.health}%</span>
                             </div>

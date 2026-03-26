@@ -17,6 +17,11 @@ export async function POST(req: Request) {
         const text = messageObj.text?.body?.trim()?.toUpperCase();
 
         if (text === 'STOP' || text === 'UNSUBSCRIBE' || text === 'EXIT') {
+            if (!supabase) {
+                console.error('[STOP_PROTOCOL_ERROR] Supabase client offline');
+                return NextResponse.json({ error: 'Identity cluster unreachable' }, { status: 503 });
+            }
+
             // 🛰️ Execute Blacklist Synchronization
             const { error } = await supabase
                 .from('communication_blacklist')

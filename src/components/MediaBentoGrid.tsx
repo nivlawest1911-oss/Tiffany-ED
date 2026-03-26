@@ -55,7 +55,7 @@ export default async function MediaBentoGrid({ query }: { query?: string }) {
                                 {item.media_type}
                             </span>
                             {item.size && (
-                                <span className="text-[10px] text-zinc-500">
+                                <span className="text-[10px] text-zinc-400">
                                     • {(item.size / 1024 / 1024).toFixed(2)} MB
                                 </span>
                             )}

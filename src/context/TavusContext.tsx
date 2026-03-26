@@ -12,6 +12,7 @@ interface TavusContextType {
     endAdvisorySession: () => void;
     conversationUrl: string | null;
     pushContextUpdate: (event: string, data: any) => void;
+    triggerSystemAlert: (alert: string) => void;
 }
 
 const TavusContext = createContext<TavusContextType | undefined>(undefined);
@@ -152,6 +153,11 @@ Example: "I can draft that email for you now, shall I?" or "Would you like to se
         setIsSessionActive(false);
     }, [conversationId]);
 
+    const triggerSystemAlert = useCallback((alert: string) => {
+        if (!isSessionActive) return;
+        pushContextUpdate('SYSTEM_ALERT', { alert, timestamp: new Date().toISOString() });
+    }, [isSessionActive, pushContextUpdate]);
+
     return (
         <TavusContext.Provider value={{
             isSessionActive,
@@ -159,7 +165,8 @@ Example: "I can draft that email for you now, shall I?" or "Would you like to se
             startAdvisorySession,
             endAdvisorySession,
             conversationUrl,
-            pushContextUpdate
+            pushContextUpdate,
+            triggerSystemAlert
         }}>
             {children}
         </TavusContext.Provider>

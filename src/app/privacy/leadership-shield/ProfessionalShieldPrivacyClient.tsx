@@ -3,7 +3,7 @@ import { Shield, Lock, FileText, Server, Eye } from 'lucide-react';
 
 export default function ProfessionalShieldPrivacyClient() {
     return (
-        <main className="content-stage">
+        <div className="content-stage">
             <div className="max-w-4xl mx-auto py-12">
 
                 <header className="mb-20 border-b border-zinc-800 pb-12">
@@ -79,6 +79,7 @@ export default function ProfessionalShieldPrivacyClient() {
                 </footer>
 
             </div>
-        </main>
+        </div>
     );
 }
+

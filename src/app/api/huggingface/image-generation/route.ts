@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        let imageBlob;
+        let imageBlob: Blob;
 
         if (type === 'classroom-visual') {
             imageBlob = await ImageGenerationService.generateClassroomVisual(prompt);

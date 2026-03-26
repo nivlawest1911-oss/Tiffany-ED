@@ -19,7 +19,7 @@ const iconMap: any = {
 
 export default function SupportClient() {
     return (
-        <main className="content-stage min-h-screen bg-black relative overflow-hidden">
+        <div className="content-stage min-h-screen bg-black relative overflow-hidden">
             {/* EdIntel Background elements */}
             <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] scale-150" />
@@ -124,6 +124,7 @@ export default function SupportClient() {
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
     );
 }
+

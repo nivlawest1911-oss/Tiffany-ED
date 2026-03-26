@@ -76,9 +76,29 @@ export class TavusService {
     /**
      * Injects real-time event logs into the conversation context
      */
-    public async updateContext(_conversationId: string, _eventData: string): Promise<void> {
+    public async updateContext(conversationId: string, eventData: string): Promise<void> {
+        if (!TAVUS_API_KEY) return;
+        
+        await withResilience(async () => {
+            const response = await fetch(`${TAVUS_API_URL}/conversations/${conversationId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': TAVUS_API_KEY
+                },
+                body: JSON.stringify({
+                    context: {
+                        event_stream: eventData,
+                        timestamp: new Date().toISOString()
+                    }
+                })
+            });
 
-        // Implementation for CVI (Context Video Injection) goes here
+            if (!response.ok) {
+                const err = await response.json().catch(() => ({}));
+                console.error(`[Tavus Service] Context Update Failed: ${err.message || response.statusText}`);
+            }
+        });
     }
 }
 

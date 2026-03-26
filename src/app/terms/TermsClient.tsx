@@ -1,27 +1,79 @@
 'use client';
 
-import React from 'react';
-import { FileText, Zap, Scale, Clock, ArrowLeft } from 'lucide-react';
+import React, { useState } from 'react';
+import { FileText, Zap, Scale, Clock, ArrowLeft, Shield, Users, CreditCard, AlertTriangle } from 'lucide-react';
 import Link from 'next/link';
 import HolographicBriefing from '@/components/intelligence/HolographicBriefing';
-import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { GlassPanel, HolographicText, NeonBadge, AuroraBackground, ParticleField, LaserLine } from '@/components/ui/HolographicUI';
 
 export default function TermsClient() {
     const [showBriefing, setShowBriefing] = useState(false);
-    return (
-        <main className="content-stage">
-            <div className="max-w-4xl mx-auto py-12">
-                <Link href="/" className="inline-flex items-center gap-2 text-[10px] uppercase font-black tracking-widest text-zinc-600 hover:text-emerald-400 transition-colors mb-16 group">
-                    <ArrowLeft className="w-3 h-3 group-hover:-translate-x-1 transition-transform" /> Return to Command Deck
-                </Link>
 
-                <header className="mb-20">
-                    <div className="flex items-center gap-3 mb-6">
-                        <div className="w-10 h-10 rounded-2xl bg-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-900/40 text-black">
-                            <FileText className="w-6 h-6" />
-                        </div>
-                        <span className="text-[10px] uppercase font-black tracking-[0.5em] text-emerald-500">Service Governance Layer</span>
-                    </div>
+    const sections = [
+        {
+            icon: Clock,
+            title: 'The 14-Day Pilot Protocol',
+            content: 'Access is granted for a 14-day zero-cost evaluation period to authorized building administrators. Failure to cancel the pilot prior to the 15th day will initiate the $79.00/month Site License via the registered institutional payment method.',
+            color: 'gold',
+        },
+        {
+            icon: Zap,
+            title: 'Liquid Energy Economy',
+            content: 'Neural processing tokens ("Liquid Energy") are non-refundable and represent strategic processing power allocated from the School Vault. Misuse of the IEP Narrative Architect for non-educational or non-compliant purposes may result in building-wide node suspension.',
+            color: 'cyan',
+        },
+        {
+            icon: Scale,
+            title: 'Professional Liability',
+            content: 'EdIntel is a decision-support architecture. All AI-generated narratives, smart-drafts, and compliance logs must be reviewed, edited, and authenticated by a certified educator or building administrator before final submission or signature.',
+            color: 'gold',
+        },
+        {
+            icon: Users,
+            title: 'User Responsibilities',
+            content: 'Users must maintain accurate institutional credentials and comply with all applicable educational regulations. Account sharing is prohibited. Each building administrator receives a unique authentication key tied to their district identity.',
+            color: 'cyan',
+        },
+        {
+            icon: CreditCard,
+            title: 'Billing & Cancellation',
+            content: 'Subscriptions are billed monthly. Cancellation requests must be submitted 5 business days before the next billing cycle. Prorated refunds are not available for mid-cycle cancellations. Enterprise contracts follow custom terms.',
+            color: 'gold',
+        },
+        {
+            icon: AlertTriangle,
+            title: 'Limitation of Liability',
+            content: 'EdIntel Professional is provided "as-is" without warranty. We are not liable for decisions made using AI-generated content. Maximum liability is limited to fees paid in the preceding 12-month period.',
+            color: 'cyan',
+        },
+    ];
+
+    return (
+        <div className="content-stage relative min-h-screen">
+            <AuroraBackground variant="mixed" intensity="low" />
+            <ParticleField count={20} />
+
+            <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                >
+                    <Link href="/" className="inline-flex items-center gap-2 text-[10px] uppercase font-black tracking-widest text-zinc-500 hover:text-[#FFB300] transition-colors mb-12 group">
+                        <ArrowLeft className="w-3 h-3 group-hover:-translate-x-1 transition-transform" /> Return to Command Deck
+                    </Link>
+                </motion.div>
+
+                <header className="text-center mb-16">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                    >
+                        <NeonBadge variant="gold" pulse className="mb-6">
+                            <FileText size={12} />
+                            Service Governance Layer
+                        </NeonBadge>
+                    </motion.div>
 
                     <HolographicBriefing
                         isOpen={showBriefing}
@@ -37,65 +89,105 @@ export default function TermsClient() {
                         ]}
                     />
 
-                    <button
+                    <motion.button
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.1 }}
                         onClick={() => setShowBriefing(true)}
-                        className="inline-flex items-center gap-2 mb-8 px-6 py-2 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-emerald-400 text-[9px] font-black uppercase tracking-[0.3em] hover:bg-emerald-500/10 transition-all"
+                        className="inline-flex items-center gap-2 mb-8 px-6 py-2 rounded-full border border-[#FFB300]/30 bg-[#FFB300]/10 text-[#FFB300] text-[9px] font-black uppercase tracking-[0.3em] hover:bg-[#FFB300]/20 hover:shadow-[0_0_30px_rgba(255,179,0,0.2)] transition-all"
                     >
+                        <Shield size={12} />
                         Initialize Governance Briefing
-                    </button>
-                    <h1 className="text-5xl md:text-7xl font-black italic uppercase tracking-tighter leading-none mb-8">
-                        Terms of <span className="text-emerald-500">Identity</span>
-                    </h1>
-                    <p className="text-zinc-500 text-[10px] tracking-[0.4em] uppercase font-bold italic">
-                        Effective Date: January 2026 // Mobile County District Node
-                    </p>
+                    </motion.button>
+
+                    <motion.h1
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none mb-6"
+                    >
+                        <HolographicText variant="gradient" as="span">Terms of Service</HolographicText>
+                    </motion.h1>
+
+                    <motion.p
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.3 }}
+                        className="text-zinc-500 text-[10px] tracking-[0.4em] uppercase font-bold"
+                    >
+                        Effective Date: January 2026 // Transcend Academic Solutions
+                    </motion.p>
+
+                    <LaserLine color="#FFB300" className="max-w-xs mx-auto mt-8" />
                 </header>
 
-                <div className="space-y-16">
-                    <section className="p-10 bg-white/[0.02] border border-white/5 rounded-[3rem]">
-                        <div className="flex items-center gap-4 mb-8">
-                            <Clock className="text-emerald-500 w-6 h-6" />
-                            <h2 className="text-2xl font-black uppercase italic tracking-tight">The 14-Day Pilot Protocol</h2>
-                        </div>
-                        <p className="text-zinc-400 leading-relaxed font-medium">
-                            Access is granted for a 14-day zero-cost evaluation period to authorized building administrators. Failure to cancel the pilot prior to the 15th day will initiate the $79.00/month Site License via the registered institutional payment method.
-                        </p>
-                    </section>
-
-                    <section className="p-10 bg-white/[0.02] border border-white/5 rounded-[3rem]">
-                        <div className="flex items-center gap-4 mb-8">
-                            <Zap className="text-emerald-500 w-6 h-6" />
-                            <h2 className="text-2xl font-black uppercase italic tracking-tight">Liquid Energy Economy</h2>
-                        </div>
-                        <p className="text-zinc-400 leading-relaxed font-medium">
-                            Neural processing tokens ("Liquid Energy") are non-refundable and represent strategic processing power allocated from the School Vault. Misuse of the IEP Narrative Architect for non-educational or non-compliant purposes may result in building-wide node suspension.
-                        </p>
-                    </section>
-
-                    <section className="p-10 bg-white/[0.02] border border-white/5 rounded-[3rem]">
-                        <div className="flex items-center gap-4 mb-8">
-                            <Scale className="text-emerald-500 w-6 h-6" />
-                            <h2 className="text-2xl font-black uppercase italic tracking-tight">Professional Liability</h2>
-                        </div>
-                        <p className="text-zinc-400 leading-relaxed font-medium">
-                            EdIntel EdIntel is a decision-support architecture. All AI-generated narratives, smart-drafts, and compliance logs must be reviewed, edited, and authenticated by a certified educator or building administrator before final submission or signature.
-                        </p>
-                    </section>
-
-                    <footer className="pt-20 border-t border-white/5">
-                        <div className="bg-emerald-600/[0.03] border border-emerald-500/20 p-10 rounded-[2.5rem] mb-12">
-                            <h3 className="text-sm font-black uppercase text-emerald-400 tracking-[0.2em] mb-4 text-center italic">Service Administrator</h3>
-                            <p className="text-center text-[10px] text-zinc-500 uppercase tracking-widest font-bold leading-loose">
-                                Transcend Holistic Wellness, LLC <br />
-                                Mobile, AL // United States District Code: 36601
-                            </p>
-                        </div>
-                        <p className="text-[10px] text-center text-zinc-700 uppercase tracking-[0.5em] font-black italic">
-                            EdIntel Terms Framework v4.2.1 Stable
-                        </p>
-                    </footer>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+                    {sections.map((section, idx) => (
+                        <motion.div
+                            key={idx}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.4 + idx * 0.1 }}
+                        >
+                            <GlassPanel
+                                variant={section.color as 'gold' | 'cyan'}
+                                glow
+                                className="p-8 h-full"
+                            >
+                                <div className={`w-12 h-12 rounded-xl ${section.color === 'gold' ? 'bg-[#FFB300]/20' : 'bg-[#00E5FF]/20'} flex items-center justify-center mb-6`}>
+                                    <section.icon className={`w-6 h-6 ${section.color === 'gold' ? 'text-[#FFB300]' : 'text-[#00E5FF]'}`} />
+                                </div>
+                                <HolographicText
+                                    variant={section.color as 'gold' | 'cyan'}
+                                    as="h2"
+                                    className="text-xl font-black uppercase tracking-tight mb-4"
+                                >
+                                    {section.title}
+                                </HolographicText>
+                                <p className="text-zinc-400 leading-relaxed text-sm">
+                                    {section.content}
+                                </p>
+                            </GlassPanel>
+                        </motion.div>
+                    ))}
                 </div>
+
+                <motion.footer
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1 }}
+                    className="pt-12 border-t border-white/5"
+                >
+                    <GlassPanel variant="gold" className="p-8 text-center">
+                        <HolographicText variant="gold" as="h3" className="text-sm font-black uppercase tracking-[0.2em] mb-4">
+                            Service Administrator
+                        </HolographicText>
+                        <p className="text-zinc-400 text-sm mb-2">
+                            Transcend Academic, Business & Cognitive Solutions, LLC
+                        </p>
+                        <p className="text-zinc-500 text-xs uppercase tracking-widest">
+                            Mobile, AL 36601 // United States
+                        </p>
+                        <div className="flex justify-center gap-4 mt-6">
+                            <Link href="/privacy" className="text-[#00E5FF] text-[10px] font-bold uppercase tracking-widest hover:underline">
+                                Privacy Policy
+                            </Link>
+                            <span className="text-zinc-700">|</span>
+                            <Link href="/ferpa" className="text-[#00E5FF] text-[10px] font-bold uppercase tracking-widest hover:underline">
+                                FERPA Compliance
+                            </Link>
+                            <span className="text-zinc-700">|</span>
+                            <Link href="/contact" className="text-[#00E5FF] text-[10px] font-bold uppercase tracking-widest hover:underline">
+                                Contact
+                            </Link>
+                        </div>
+                    </GlassPanel>
+                    <p className="text-[10px] text-center text-zinc-700 uppercase tracking-[0.5em] font-black mt-8">
+                        EdIntel Terms Framework v4.2.1 Stable
+                    </p>
+                </motion.footer>
             </div>
-        </main>
+        </div>
     );
 }
+

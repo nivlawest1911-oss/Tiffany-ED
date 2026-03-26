@@ -238,7 +238,7 @@ export default function AutomatedIEPAudit() {
                 >
                     {isAnalyzing && (
                         <div className="absolute inset-0 bg-blue-700/50 flex items-center justify-center z-0">
-                            <div className="w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" style={{ backgroundSize: '200% 100%' }} />
+                            <div className="w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer bg-shimmer-size" />
                         </div>
                     )}
 
@@ -249,7 +249,7 @@ export default function AutomatedIEPAudit() {
 
                     {isAnalyzing && (
                         <div className="h-1 w-32 bg-blue-900/50 rounded-full mt-2 overflow-hidden relative z-10">
-                            <div className="h-full bg-white/80 transition-all duration-500" style={{ width: `${((scanStep + 1) / scanSteps.length) * 100}%` }} />
+                            <div className={`h-full bg-white/80 progress-bar-fill w-prog-${[0, 12, 25, 37, 50, 62, 75, 87, 100][scanStep + 1]}`} />
                         </div>
                     )}
                 </button>

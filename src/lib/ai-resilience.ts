@@ -257,7 +257,7 @@ export class IntelligenceEngine {
         try {
             if (!genAI) throw new Error("Google AI Key Missing");
 
-            const modelName = 'gemini-2.5-flash'; // Updated to 2.5 flash to match key authorization
+            const modelName = 'gemini-1.5-flash'; // Updated to 1.5 flash for stability
             const model = genAI.getGenerativeModel({
                 model: modelName,
                 systemInstruction: systemPrompt
@@ -302,7 +302,7 @@ export class IntelligenceEngine {
         ];
 
         const model = modelTier === 'premium' ? 'gpt-4o' : 'gpt-4o-mini';
-        const fallbackModel = 'gemini-2.5-flash'; // Updated from 1.5 to 2.5 to match authorized models
+        const fallbackModel = 'gemini-1.5-flash'; // Updated from 2.5 to 1.5 for stability
 
         try {
             // Attempt Primary (OpenAI)

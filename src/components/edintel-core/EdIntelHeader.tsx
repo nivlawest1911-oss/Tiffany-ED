@@ -9,7 +9,7 @@ export default function EdIntelHeader() {
     const { user } = useAuth();
 
     return (
-        <header className="fixed top-0 left-20 right-0 h-20 z-40 px-10 flex items-center justify-between border-b border-intel-gold/10 bg-EdIntel-black/80 backdrop-blur-3xl">
+        <header className="fixed top-0 left-20 right-0 h-20 z-40 px-10 flex items-center justify-between border-b border-intel-gold/10 bg-black/80 backdrop-blur-3xl">
             {/* System Title Area */}
             <div className="flex items-center gap-10">
                 <div className="flex flex-col">

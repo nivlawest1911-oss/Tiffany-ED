@@ -1,6 +1,5 @@
 'use client';
 import { Shield as LucideShield, Lock, Eye, FileText, Scale, UserCheck, Database, Globe, ArrowRight, Brain } from "lucide-react";
-import { CARBON_FIBRE_BG } from '@/lib/constants';
 import { useState, useEffect } from 'react';
 
 
@@ -65,10 +64,7 @@ export default function PrivacyPolicy() {
     return (
         <div className="p-10 rounded-[2.5rem] glass-panel-premium text-white shadow-3xl relative overflow-hidden group">
             {/* Background Grain/Grid */}
-            <div
-                className="absolute inset-0 opacity-5"
-                style={{ backgroundImage: CARBON_FIBRE_BG }}
-            />
+            <div className="absolute inset-0 opacity-5 carbon-fibre-bg" />
 
             <div className="relative z-10">
                 <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-8">

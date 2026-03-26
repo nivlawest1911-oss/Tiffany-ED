@@ -46,7 +46,7 @@ function GeneratorsIndex() {
     });
 
     return (
-        <main className="content-stage">
+        <div className="content-stage">
             <ProfessionalBackground />
 
             <div className="relative max-w-7xl mx-auto px-6 py-12">
@@ -168,7 +168,7 @@ function GeneratorsIndex() {
                     </div>
                 )}
             </div>
-        </main>
+        </div>
     );
 }
 
@@ -181,3 +181,4 @@ export default function GeneratorsIndexClient() {
         </Suspense>
     );
 }
+

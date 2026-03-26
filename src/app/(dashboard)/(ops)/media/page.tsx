@@ -16,7 +16,7 @@ import { GlassCard } from '@/components/ui/Cinematic';
 
 export default function MediaHubPage() {
     return (
-        <main className="relative min-h-screen bg-black overflow-hidden py-24 px-6 md:px-12">
+        <div className="relative min-h-screen bg-black overflow-hidden py-24 px-6 md:px-12">
             <HolographicBackground />
 
             {/* Content Wrapper */}
@@ -100,6 +100,7 @@ export default function MediaHubPage() {
                 <SynthesisDashboard />
 
             </div>
-        </main>
+        </div>
     );
 }
+

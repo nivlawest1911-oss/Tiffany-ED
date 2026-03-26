@@ -16,7 +16,7 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
         description: 'Dr. Alvin West, II is the Founder and Chief Architect of EdIntel. A Doctorate-level clinical and fiscal strategist, he bridges the gap between neural technological innovation and meticulous operational excellence. With a legacy rooted in the heritage of Africatown and a career spanning AI development at Outlier and transformative leadership in Mobile County, Dr. West champions the fusion of machine learning with culturally-responsive leadership frameworks. His work shapes the high-fidelity narratives that propel institutional success in the Sovereign era.',
         stats: { time: 'Calculated', saved: 'Institutional Legacy', accuracy: '100%' },
         role: 'Founder & Chief Architect',
-        avatar: '/images/avatars/Dr._alvin_west.png',
+        avatar: '/images/avatars/dr_alvin_west_official.png',
         audio: '/videos/mirage-studio-audio-02-12-2026 (1).wav',
         abilityType: 'strategy',
         suggestedNext: ['Professional Center', 'The Room', 'EdIntel Core']
@@ -125,7 +125,7 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
         description: 'The AI Hub is the central processing unit for all generative tasks. It coordinates between Replicate, Google Gemini, and our proprietary high-fidelity avatars to deliver a unified intelligence experience.',
         stats: { time: 'Aggregated', saved: '30h/week', accuracy: '99.7%' },
         role: 'AI Director',
-        avatar: '/images/avatars/dr-west.png',
+        avatar: '/images/avatars/dr_alvin_west_official.png',
         audio: '/audio/briefings/ai-hub-overview.mp3',
         abilityType: 'analytics'
     },
@@ -134,7 +134,7 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
         description: 'EdIntel EdIntel was founded on the principle of "Instructional Agency." Our mission is to return agency to educational leaders by removing the friction of administrative compliance through advanced technology.',
         stats: { time: 'Perpetual', saved: 'Infinite', accuracy: 'High Fidelity' },
         role: 'Founder & CEO',
-        avatar: '/images/avatars/Dr._alvin_west.png'
+        avatar: '/images/avatars/dr_alvin_west_official.png'
     },
     'Enterprise': {
         title: 'Enterprise District Protocol',
@@ -161,7 +161,7 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
         description: 'Simulated high-stakes administrative scenarios designed to calibrate executive decision-making. These modules use generative behavioral models to provide authentic feedback on leadership directives.',
         stats: { time: 'On-demand', saved: 'Professional Growth', accuracy: '99.5%' },
         role: 'Executive Coach',
-        avatar: '/images/avatars/Dr._alvin_west.png',
+        avatar: '/images/avatars/dr_alvin_west_official.png',
         video: '/videos/Edintel_App_Burnout_Suspensions_Fatigue_Solution%20(1).mp4',
         abilityType: 'strategy',
         suggestedNext: ['Neural Sync Gym', 'Avatar Masterclass', 'Principal Briefing']
@@ -256,7 +256,7 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
         description: 'Protocol Omega is the total activation of all EdIntel systems. It represents the final stage of institutional digital transformation, where every administrative friction point is neutralized by AI strategy.',
         stats: { time: 'Permanent', saved: 'Enterprise Wide', accuracy: 'Total' },
         role: 'Executive EdIntel',
-        avatar: '/images/avatars/Dr._alvin_west.png'
+        avatar: '/images/avatars/dr_alvin_west_official.png'
     },
     'Voice Synthesis': {
         title: 'Neural Vocal Calibration',
@@ -277,7 +277,7 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
         description: 'The Matrix is the multi-dimensional grid where EdIntel processes all district vectors. It allows you to visualize the ripple effects of every administrative decision before you commit.',
         stats: { time: 'Visualized', saved: 'Planning', accuracy: 'Strategic' },
         role: 'Command Architect',
-        avatar: '/images/avatars/Dr._alvin_west.png'
+        avatar: '/images/avatars/dr_alvin_west_official.png'
     },
     'EdIntel Account': {
         title: 'EdIntel Credentials',
@@ -347,7 +347,7 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
         description: 'The ultimate turnaround architect. We synthesize complex district performance vectors into crystalline strategic roadmaps for Superintendents and Boards. Transform data into absolute institutional clarity.',
         stats: { time: 'Real-time', saved: 'Strategic Clarity', accuracy: '100%' },
         role: 'Strategy Director',
-        avatar: '/images/avatars/Dr._alvin_west.png',
+        avatar: '/images/avatars/dr_alvin_west_official.png',
         video: '/videos/District Command Update.mp4'
     },
     'Admin Vision': {
@@ -395,7 +395,7 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
         description: 'Executive intelligence briefing for principals: operational status, staffing analytics, discipline trends, and strategic decision vectors. Real-time situational awareness for school-level command.',
         stats: { time: 'Morning Brief', saved: '7 hrs/wk', accuracy: '98.2%' },
         role: 'Operations Commander',
-        avatar: '/images/avatars/Dr._alvin_west.png',
+        avatar: '/images/avatars/dr_alvin_west_official.png',
         video: '/videos/briefings/principal_briefing.mp4',
         abilityType: 'strategy',
         suggestedNext: ['Admin Vision', 'Teacher Guard', 'district-strategy']
@@ -408,6 +408,15 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
         avatar: '/images/avatars/andre_patterson_premium.png',
         abilityType: 'strategy',
         suggestedNext: ['Neural Sync Gym', 'Crisis Protocol', 'Teacher Guard']
+    },
+    'Rescue One': {
+        title: 'Rescue One: Tactical Recovery',
+        description: 'Protocol Rescue One is the elite administrative recovery engine. It activates under conditions of institutional instability or systemic failure, deploying advanced neural overrides to stabilize operations and restore instructional continuity. It is the ultimate fail-safe for the Sovereign leader.',
+        stats: { time: 'Sub-second Activation', saved: 'Strategic Integrity', accuracy: '100% Core' },
+        role: 'Recovery Commander',
+        avatar: '/images/avatars/dr_alvin_west_official.png',
+        abilityType: 'strategy',
+        suggestedNext: ['Crisis Protocol', 'Protocol Omega', 'Universal Ledger']
     }
 };
 

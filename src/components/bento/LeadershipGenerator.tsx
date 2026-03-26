@@ -284,7 +284,7 @@ export default function LeadershipGenerator() {
                             {isGenerating ? (
                                 <div className="relative w-10 h-10">
                                     <HumanAvatar
-                                        src="/images/avatars/Dr._alvin_west.png"
+                                        src="/images/avatars/dr_alvin_west_official.png"
                                         alt="Neural Delegate"
                                         className="w-full h-full rounded-full border border-white/20 object-cover"
                                         isActive={true}

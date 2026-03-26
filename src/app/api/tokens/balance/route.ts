@@ -9,6 +9,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
 
+export const dynamic = 'force-dynamic';
+
 /**
  * GET - Check user's token balance
  */

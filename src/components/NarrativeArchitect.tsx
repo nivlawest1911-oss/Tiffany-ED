@@ -23,7 +23,7 @@ export function NarrativeArchitect() {
                     <h2 className="text-xl font-black text-purple-400 italic uppercase tracking-tighter flex items-center gap-3">
                         <Wand2 size={24} /> Narrative Architect
                     </h2>
-                    <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.3em]">IEP & Lesson Plan Synthesis</p>
+                    <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-[0.3em]">IEP & Lesson Plan Synthesis</p>
                 </div>
             </div>
 
@@ -33,14 +33,14 @@ export function NarrativeArchitect() {
                     <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-6">
                         <label className="text-[10px] font-black text-noble-gold uppercase tracking-widest block mb-4">Input Parameters</label>
                         <div className="space-y-4">
-                            <input type="text" placeholder="Student Name / ID" className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-purple-500 outline-none" />
+                            <input type="text" placeholder="Student Name / ID" aria-label="Student Name or Identification Number" className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-purple-500 outline-none" />
                             <select aria-label="Select Goal Type" className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-sm text-zinc-400 outline-none">
                                 <option>Select Goal Type...</option>
                                 <option>Reading Comprehension (Science of Reading)</option>
                                 <option>Behavioral Regulation</option>
                                 <option>Math Fluency</option>
                             </select>
-                            <textarea placeholder="Paste baseline data or observation notes..." className="w-full h-32 bg-black border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-purple-500 outline-none resize-none" />
+                            <textarea placeholder="Paste baseline data or observation notes..." aria-label="Baseline data or observation notes" className="w-full h-32 bg-black border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-purple-500 outline-none resize-none" />
                         </div>
                     </div>
 
@@ -59,7 +59,7 @@ export function NarrativeArchitect() {
                 {/* Output Preview */}
                 <div className="bg-black/40 border border-white/5 rounded-2xl p-6 relative overflow-hidden flex flex-col">
                     <div className="flex items-center justify-between mb-4 pb-4 border-b border-white/5">
-                        <span className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.3em]">Live Draft Preview</span>
+                        <span className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.3em]">Live Draft Preview</span>
                         {generatedPlan && <Download size={16} className="text-emerald-500 cursor-pointer hover:text-emerald-400" />}
                     </div>
 

@@ -15,7 +15,7 @@ interface HuggingFaceAvatarProps {
 
 export default function HuggingFaceAvatar({
     textToSpeak = "",
-    avatarUrl = "/images/avatars/Dr._alvin_west.png",
+    avatarUrl = "/images/avatars/dr_alvin_west_official.png",
     name = "Dr. Alvin West",
     role = "AI Superintendent",
     className = ""

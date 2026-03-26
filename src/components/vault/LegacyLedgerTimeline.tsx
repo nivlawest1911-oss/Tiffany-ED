@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { History, Shield, Search, Calendar, ChevronRight, Gavel, Share2 } from 'lucide-react';
-import { ProfileShareModal } from '@/components/modals/ProfileShareModal';
+import ProfileShareModal from '@/components/modals/ProfileShareModal';
 import { format } from 'date-fns';
 
 interface LegacyEntry {
@@ -149,7 +149,8 @@ export default function LegacyLedgerTimeline({ onSelectAction }: LegacyLedgerTim
                 isOpen={shareModal.isOpen}
                 onClose={() => setShareModal({ ...shareModal, isOpen: false })}
                 context="LEDGER"
-                id={shareModal.id}
+                userName="EdIntel Delegate"
+                userId={shareModal.id}
             />
         </div>
     );

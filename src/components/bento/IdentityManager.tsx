@@ -134,7 +134,7 @@ export default function IdentityManager() {
                                     Encoding...
                                 </span>
                                 <div className="absolute inset-0 bg-amber-700/50">
-                                    <div className="h-full w-full bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" style={{ backgroundSize: '200% 100%' }} />
+                                    <div className="h-full w-full bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer bg-shimmer-size" />
                                 </div>
                             </>
                         ) : (

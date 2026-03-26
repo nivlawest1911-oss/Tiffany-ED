@@ -2,7 +2,9 @@
 
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { useState, MouseEvent, useEffect } from 'react';
+import { useState, MouseEvent, useEffect, memo } from 'react';
+
+const SPRING_CONFIG = { damping: 25, stiffness: 200 };
 
 interface LogoProps {
     className?: string;
@@ -12,13 +14,13 @@ interface LogoProps {
     showText?: boolean;
 }
 
-export default function EdIntelLogo({
+export const EdIntelLogo = memo(({
     className = "",
     animated = true,
     variant = "transcend",
     size = 40,
     showText = true
-}: LogoProps) {
+}: LogoProps) => {
     const [isHovered, setIsHovered] = useState(false);
     const [isMounted, setIsMounted] = useState(false);
 
@@ -29,9 +31,8 @@ export default function EdIntelLogo({
     // Mouse Parallax for High-Fidelity variants
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
-    const springConfig = { damping: 25, stiffness: 200 };
-    const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [15, -15]), springConfig);
-    const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-15, 15]), springConfig);
+    const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [15, -15]), SPRING_CONFIG);
+    const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-15, 15]), SPRING_CONFIG);
 
     const handleMouseMove = (e: MouseEvent) => {
         const rect = e.currentTarget.getBoundingClientRect();
@@ -50,9 +51,11 @@ export default function EdIntelLogo({
     if (!isMounted) return null;
 
     if (variant === "orbital") {
-        const logoStyle = { "--logo-size": `${size}px` } as React.CSSProperties;
         return (
-            <div className={`logo-sizer relative flex items-center justify-center ${className}`} style={logoStyle}>
+            <motion.div 
+                className={`logo-sizer relative flex items-center justify-center ${className}`}
+                initial={{"--logo-size": `${size}px`} as any}
+            >
                 <motion.div
                     animate={{ rotate: 360 }}
                     transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
@@ -64,16 +67,15 @@ export default function EdIntelLogo({
                     className="absolute inset-1.5 border border-cyan-500/20 rounded-full border-dashed"
                 />
                 <div className="relative z-10 w-3 h-3 bg-noble-gold rounded-full shadow-[0_0_15px_#D4AF37]" />
-            </div>
+            </motion.div>
         );
     }
 
     if (variant === "geometric") {
-        const geoStyle = { "--logo-geo-size": `${size * 1.5}px` } as React.CSSProperties;
         return (
-            <div
+            <motion.div
                 className={`logo-geo-sizer relative flex items-center justify-center p-2 rounded-xl bg-gradient-to-br from-[#0c0c0c] to-black border border-white/5 shadow-2xl ${className}`}
-                style={geoStyle}
+                initial={{"--logo-geo-size": `${size * 1.5}px`} as any}
             >
                 <svg viewBox="0 0 100 100" className="w-full h-full text-noble-gold">
                     <motion.rect
@@ -90,7 +92,7 @@ export default function EdIntelLogo({
                     />
                     <circle cx="50" cy="50" r="4" fill="white" />
                 </svg>
-            </div>
+            </motion.div>
         );
     }
 
@@ -101,7 +103,10 @@ export default function EdIntelLogo({
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
-                <div className="logo-sizer relative" style={{ "--logo-size": `${size}px` } as React.CSSProperties}>
+                <motion.div 
+                    className="logo-sizer relative" 
+                    initial={{"--logo-size": `${size}px`} as any}
+                >
                     {/* Atmospheric Glow */}
                     <AnimatePresence>
                         {isHovered && (
@@ -136,7 +141,7 @@ export default function EdIntelLogo({
                             <path d="M50 15 L85 30 L85 60 C85 75 70 85 50 90 C30 85 15 75 15 60 L15 30 L50 15 Z" />
                         </svg>
                     </div>
-                </div>
+                </motion.div>
 
                 {showText && (
                     <motion.div
@@ -170,14 +175,15 @@ export default function EdIntelLogo({
                         animate={{ opacity: isHovered ? 0.6 : 0.3, scale: isHovered ? 1.2 : 1 }}
                         className="absolute inset-0 bg-noble-gold/20 blur-2xl rounded-full"
                     />
-                    <div className="relative z-10 bg-white p-4 rounded-3xl shadow-[0_0_30px_rgba(255,255,255,0.15)] ring-1 ring-white/20">
+                    <div className="relative z-10 rounded-3xl overflow-hidden shadow-[0_0_30px_rgba(255,179,0,0.25)] ring-1 ring-noble-gold/30">
                         <Image
-                            src={isSovereign ? "/images/branding/edintel_logo_sovereign.png" : "/assets/images/Edintellogo.png"}
+                            src="/images/edintel-logo.png"
                             alt="EdIntel Logo"
                             width={size || 120}
                             height={size || 120}
-                            className="drop-shadow-[0_0_15px_rgba(212,175,55,0.3)] filter contrast-125 mix-blend-multiply"
+                            className="object-contain"
                             priority
+                            loading="eager"
                         />
                         <motion.div
                             className="absolute inset-0 z-20 overflow-hidden rounded-3xl pointer-events-none"
@@ -197,7 +203,7 @@ export default function EdIntelLogo({
                         <span className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400 tracking-[0.35em] uppercase mb-2">EdIntel</span>
                         <div className="h-[2px] w-48 bg-gradient-to-r from-transparent via-noble-gold to-transparent mb-2 opacity-80" />
                         <span className="text-xs font-black text-noble-gold uppercase tracking-[0.6em]">
-                            {isSovereign ? "Sovereign OS" : "Intelligence Systems"}
+                            {isSovereign ? "Intelligence in Education" : "Intelligence Systems"}
                         </span>
                     </div>
                 )}
@@ -223,9 +229,11 @@ export default function EdIntelLogo({
             {showText && (
                 <div className="flex flex-col leading-none pointer-events-none">
                     <span className="text-xl font-black text-white tracking-tight">EdIntel</span>
-                    <span className="text-[0.6rem] font-bold text-noble-gold/60 uppercase tracking-widest">Sovereign Delegate</span>
+                    <span className="text-[0.6rem] font-bold text-noble-gold/60 uppercase tracking-widest">Intelligence in Education</span>
                 </div>
             )}
         </div>
     );
-}
+});
+
+export default EdIntelLogo;

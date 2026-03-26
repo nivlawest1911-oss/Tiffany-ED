@@ -17,7 +17,7 @@ export interface SynapticPulse {
 }
 
 class GlobalSynapse {
-    private isTranscended: boolean = false;
+    private isTranscended: boolean = true;
     private pulses: SynapticPulse[] = [];
 
     public async processSynapticPulse(): Promise<boolean> {

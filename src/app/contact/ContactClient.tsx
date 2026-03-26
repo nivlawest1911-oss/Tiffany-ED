@@ -1,13 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { Mail, MessageSquare, Phone, Send, MapPin, CheckCircle, Shield as LucideShield, Loader2 } from 'lucide-react';
+import { Mail, MessageSquare, Phone, Send, MapPin, CheckCircle, Shield as LucideShield, Loader2, Video, ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
 import HolographicBriefing from '@/components/intelligence/HolographicBriefing';
 import Image from 'next/image';
+import { GlassPanel, HolographicText, NeonButton, NeonBadge, AuroraBackground, ParticleField, LaserLine } from '@/components/ui/HolographicUI';
 
 export default function ContactClient() {
-    const [formState, setFormState] = useState({ name: '', email: '', message: '' });
+    const [formState, setFormState] = useState({ name: '', email: '', subject: '', message: '', contactMethod: 'email' });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const [showBriefing, setShowBriefing] = useState(false);
@@ -15,42 +16,76 @@ export default function ContactClient() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        // Build mailto link with form data
+        const mailtoLink = `mailto:dralvinwest@transcendholisticwellness.com?subject=${encodeURIComponent(formState.subject || 'Contact from EdIntel')}&body=${encodeURIComponent(`Name: ${formState.name}\nEmail: ${formState.email}\nPreferred Contact: ${formState.contactMethod}\n\nMessage:\n${formState.message}`)}`;
+        
+        // Open mail client
+        window.open(mailtoLink, '_blank');
+        
+        await new Promise(resolve => setTimeout(resolve, 500));
         setSubmitted(true);
         setIsSubmitting(false);
     };
 
     return (
-        <main className="content-stage">
-            <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto py-12">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <div className="content-stage relative min-h-screen">
+            {/* Aurora Background */}
+            <AuroraBackground variant="mixed" intensity="low" />
+            <ParticleField count={25} />
+            
+            <div className="relative z-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto py-16">
+                {/* Hero Section */}
+                <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-center mb-16"
+                >
+                    <NeonBadge variant="gold" pulse className="mb-6">
+                        <LucideShield size={12} />
+                        Secure Command Connection
+                    </NeonBadge>
+                    
+                    <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tight mb-4">
+                        <HolographicText variant="gradient" as="span" className="block">
+                            Contact Command
+                        </HolographicText>
+                    </h1>
+                    
+                    <p className="text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+                        Direct channel to Dr. Alvin West and the EdIntel engineering team.
+                        Strategic intelligence requires precise communication.
+                    </p>
+                    
+                    <LaserLine color="#FFB300" className="max-w-md mx-auto mt-8" />
+                </motion.div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
                     {/* Contact Info Column */}
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
                     >
-                        <div className="flex items-center justify-between mb-6">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-bold uppercase tracking-widest">
-                                <LucideShield size={12} />
-                                <span>Command Connection</span>
-                            </div>
-                            <button
-                                onClick={() => setShowBriefing(true)}
-                                className="p-2 rounded-full bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 transition-colors"
-                                title="Open Comms Protocol"
-                            >
-                                <MessageSquare size={16} className="animate-pulse" />
-                            </button>
-                        </div>
-
-                        <h1 className="text-5xl font-black text-white mb-6">Contact Command</h1>
-                        <p className="text-xl text-zinc-400 mb-12 leading-relaxed">
-                            Deploying strategic intelligence requires precise communication.
-                            Direct channel open to Dr. Alvin West and the EdIntel engineering team.
-                        </p>
-
+                        <button
+                            onClick={() => setShowBriefing(true)}
+                            className="w-full mb-8"
+                        >
+                            <GlassPanel variant="cyan" glow className="p-4 cursor-pointer">
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-10 h-10 rounded-xl bg-[#00E5FF]/20 flex items-center justify-center">
+                                            <MessageSquare size={20} className="text-[#00E5FF]" />
+                                        </div>
+                                        <div className="text-left">
+                                            <p className="text-white font-bold text-sm">AI Comms Protocol</p>
+                                            <p className="text-zinc-500 text-xs">Click to initialize briefing</p>
+                                        </div>
+                                    </div>
+                                    <div className="w-2 h-2 rounded-full bg-[#00E5FF] animate-pulse shadow-[0_0_10px_#00E5FF]" />
+                                </div>
+                            </GlassPanel>
+                        </button>
                         <HolographicBriefing
                             isOpen={showBriefing}
                             onClose={() => setShowBriefing(false)}
@@ -66,116 +101,113 @@ export default function ContactClient() {
                         />
 
                         {/* Founder Profile */}
-                        <div className="flex items-center gap-6 mb-12 p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-indigo-500/30 hover:bg-white/[0.05] transition-all group">
-                            <div className="relative w-24 h-24 flex-shrink-0">
-                                <Image
-                                    src="/images/avatars/Dr._alvin_west.png"
-                                    alt="Dr. Alvin West"
-                                    fill
-                                    className="object-cover rounded-xl border border-white/20 shadow-lg group-hover:scale-105 transition-transform duration-500"
-                                />
-                                <div className="absolute -bottom-2 -right-2 w-6 h-6 rounded-full bg-indigo-500 border-4 border-[#09090b] flex items-center justify-center">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                        <GlassPanel variant="gold" glow className="p-6 mb-8">
+                            <div className="flex items-center gap-6">
+                                <div className="relative w-24 h-24 flex-shrink-0">
+                                    <Image
+                                        src="/images/avatars/dr_alvin_west_official.png"
+                                        alt="Dr. Alvin West"
+                                        fill
+                                        className="object-cover rounded-xl border-2 border-[#FFB300]/30 shadow-[0_0_30px_rgba(255,179,0,0.2)]"
+                                    />
+                                    <div className="absolute -bottom-2 -right-2 w-6 h-6 rounded-full bg-[#FFB300] border-4 border-[#09090b] flex items-center justify-center shadow-[0_0_15px_rgba(255,179,0,0.5)]">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-black" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <HolographicText variant="gold" as="h3" className="text-lg font-black mb-1">
+                                        Dr. Alvin West, II
+                                    </HolographicText>
+                                    <p className="text-[#00E5FF] text-[10px] font-black uppercase tracking-[0.2em] mb-2">Founder & Chief Professional Officer</p>
+                                    <p className="text-zinc-400 text-xs leading-relaxed italic">
+                                        &quot;We are building the future of educational excellence together. Your voice helps shape our mission.&quot;
+                                    </p>
                                 </div>
                             </div>
-                            <div>
-                                <h3 className="text-white font-bold text-lg">Dr. Alvin West, II</h3>
-                                <p className="text-indigo-400 text-[10px] font-black uppercase tracking-[0.2em] mb-1">Founder & Chief Professional Officer</p>
-                                <p className="text-zinc-500 text-xs leading-relaxed italic">
-                                    "We are building the future of educational excellence together. Your voice helps shape our mission."
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* Professional Protocol Visualization */}
-                        <div className="mb-12 relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/50 p-6">
-                            <div className="absolute top-0 right-0 p-4 opacity-30">
-                                <Image src="/images/protocol_interface.png" alt="Protocol HUD" width={128} height={128} className="w-32 h-auto" />
-                            </div>
-
-                            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-400 mb-6 flex items-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse shadow-[0_0_10px_rgba(99,102,241,0.5)]" />
-                                Secure Transmission Protocol
-                            </h3>
-
-                            <div className="space-y-6 relative z-10">
-                                {[
-                                    { step: '01', title: 'Initialization', desc: 'Secure uplink channel established via encrypted form.', color: 'border-l-indigo-500' },
-                                    { step: '02', title: 'Transmission', desc: 'Message packet routed to Professional Command prioritization queue.', color: 'border-l-indigo-400' },
-                                    { step: '03', title: 'Deployment', desc: 'Strategic response formulated and deployed via secure endpoint.', color: 'border-l-indigo-300' }
-                                ].map((phase, idx) => (
-                                    <motion.div
-                                        key={idx}
-                                        initial={{ opacity: 0, x: -20 }}
-                                        whileInView={{ opacity: 1, x: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ delay: idx * 0.15, duration: 0.7 }}
-                                        className={`pl-4 border-l-2 ${phase.color}`}
-                                    >
-                                        <div className="flex items-baseline gap-2 mb-1">
-                                            <span className="text-xs font-mono text-zinc-500">{phase.step}</span>
-                                            <h4 className="text-sm font-bold text-white">{phase.title}</h4>
-                                        </div>
-                                        <p className="text-xs text-zinc-400 leading-relaxed max-w-[90%]">
-                                            {phase.desc}
-                                        </p>
-                                    </motion.div>
-                                ))}
-                            </div>
-                        </div>
+                        </GlassPanel>
 
                         {/* Contact Channels Grid */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             {/* Email Card */}
-                            <div className="group p-5 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-indigo-500/50 hover:bg-white/[0.05] transition-all duration-300">
-                                <div className="p-3 rounded-xl bg-indigo-500/10 w-fit mb-4 group-hover:scale-110 transition-transform">
-                                    <Mail className="w-6 h-6 text-indigo-400" />
-                                </div>
-                                <h3 className="text-white font-black text-[10px] uppercase tracking-widest mb-1">Electronic Mail</h3>
-                                <div className="space-y-1">
-                                    <a href="mailto:dralvinwest@transcendholisticwellness.com" className="text-[10px] font-bold text-zinc-500 hover:text-white transition-colors block truncate" title="dralvinwest@transcendholisticwellness.com">
-                                        Executive_Direct@edintel.com
-                                    </a>
-                                    <a href="mailto:nivlawest1911@gmail.com" className="text-[10px] font-bold text-zinc-600 hover:text-white transition-colors block">
-                                        Comm_Command@edintel.com
-                                    </a>
-                                </div>
-                            </div>
+                            <a href="mailto:dralvinwest@transcendholisticwellness.com" className="block">
+                                <GlassPanel variant="default" className="p-5 h-full group">
+                                    <div className="p-3 rounded-xl bg-[#FFB300]/10 w-fit mb-4 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(255,179,0,0.3)] transition-all">
+                                        <Mail className="w-6 h-6 text-[#FFB300]" />
+                                    </div>
+                                    <h3 className="text-white font-black text-[10px] uppercase tracking-widest mb-2">Electronic Mail</h3>
+                                    <p className="text-[10px] font-bold text-zinc-400 mb-1 truncate" title="dralvinwest@transcendholisticwellness.com">
+                                        dralvinwest@transcendholisticwellness.com
+                                    </p>
+                                    <p className="text-[10px] font-bold text-zinc-500">
+                                        nivlawest1911@gmail.com
+                                    </p>
+                                    <div className="mt-3 flex items-center gap-1 text-[#FFB300] text-[9px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <span>Send Email</span>
+                                        <ExternalLink size={10} />
+                                    </div>
+                                </GlassPanel>
+                            </a>
 
                             {/* Secure Message Card */}
-                            <div className="group p-5 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-indigo-500/50 hover:bg-white/[0.05] transition-all duration-300">
-                                <div className="p-3 rounded-xl bg-indigo-500/10 w-fit mb-4 group-hover:scale-110 transition-transform">
-                                    <MessageSquare className="w-6 h-6 text-indigo-400" />
-                                </div>
-                                <h3 className="text-white font-black text-[10px] uppercase tracking-widest mb-1">Secure Message</h3>
-                                <p className="text-[9px] font-bold text-zinc-600 mb-2 uppercase tracking-tighter">WhatsApp / Signal</p>
-                                <a href="https://wa.me/12512296351" className="text-sm font-mono text-indigo-400 hover:text-indigo-300 transition-colors">
-                                    +1 (251) 229-6351
-                                </a>
-                            </div>
+                            <a href="https://wa.me/12512296351" target="_blank" rel="noopener noreferrer" className="block">
+                                <GlassPanel variant="default" className="p-5 h-full group">
+                                    <div className="p-3 rounded-xl bg-[#25D366]/10 w-fit mb-4 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(37,211,102,0.3)] transition-all">
+                                        <MessageSquare className="w-6 h-6 text-[#25D366]" />
+                                    </div>
+                                    <h3 className="text-white font-black text-[10px] uppercase tracking-widest mb-2">WhatsApp / Signal</h3>
+                                    <p className="text-sm font-mono text-zinc-300">+1 (251) 229-6351</p>
+                                    <div className="mt-3 flex items-center gap-1 text-[#25D366] text-[9px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <span>Open Chat</span>
+                                        <ExternalLink size={10} />
+                                    </div>
+                                </GlassPanel>
+                            </a>
 
                             {/* Voice Connection Card */}
-                            <div className="group p-5 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-indigo-500/50 hover:bg-white/[0.05] transition-all duration-300">
-                                <div className="p-3 rounded-xl bg-indigo-500/10 w-fit mb-4 group-hover:scale-110 transition-transform">
-                                    <Phone className="w-6 h-6 text-indigo-400" />
-                                </div>
-                                <h3 className="text-white font-black text-[10px] uppercase tracking-widest mb-1">Voice Connection</h3>
-                                <p className="text-[9px] font-bold text-zinc-600 mb-2 uppercase tracking-tighter">Direct Line</p>
-                                <a href="tel:+14086577099" className="text-sm font-mono text-indigo-400 hover:text-indigo-300 transition-colors">
-                                    +1 (408) 657-7099
-                                </a>
-                            </div>
+                            <a href="tel:+14086577099" className="block">
+                                <GlassPanel variant="default" className="p-5 h-full group">
+                                    <div className="p-3 rounded-xl bg-[#00E5FF]/10 w-fit mb-4 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(0,229,255,0.3)] transition-all">
+                                        <Phone className="w-6 h-6 text-[#00E5FF]" />
+                                    </div>
+                                    <h3 className="text-white font-black text-[10px] uppercase tracking-widest mb-2">Voice Connection</h3>
+                                    <p className="text-sm font-mono text-zinc-300">+1 (408) 657-7099</p>
+                                    <div className="mt-3 flex items-center gap-1 text-[#00E5FF] text-[9px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <span>Call Now</span>
+                                        <ExternalLink size={10} />
+                                    </div>
+                                </GlassPanel>
+                            </a>
+
+                            {/* Video Call Card */}
+                            <a href="https://calendly.com" target="_blank" rel="noopener noreferrer" className="block">
+                                <GlassPanel variant="default" className="p-5 h-full group">
+                                    <div className="p-3 rounded-xl bg-purple-500/10 w-fit mb-4 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(168,85,247,0.3)] transition-all">
+                                        <Video className="w-6 h-6 text-purple-400" />
+                                    </div>
+                                    <h3 className="text-white font-black text-[10px] uppercase tracking-widest mb-2">Video Conference</h3>
+                                    <p className="text-sm text-zinc-400">Schedule a call</p>
+                                    <div className="mt-3 flex items-center gap-1 text-purple-400 text-[9px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <span>Book Meeting</span>
+                                        <ExternalLink size={10} />
+                                    </div>
+                                </GlassPanel>
+                            </a>
 
                             {/* Location Card */}
-                            <div className="group p-5 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-indigo-500/50 hover:bg-white/[0.05] transition-all duration-300">
-                                <div className="p-3 rounded-xl bg-indigo-500/10 w-fit mb-4 group-hover:scale-110 transition-transform">
-                                    <MapPin className="w-6 h-6 text-indigo-400" />
+                            <GlassPanel variant="default" className="p-5 sm:col-span-2">
+                                <div className="flex items-start gap-4">
+                                    <div className="p-3 rounded-xl bg-emerald-500/10 flex-shrink-0">
+                                        <MapPin className="w-6 h-6 text-emerald-400" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-white font-black text-[10px] uppercase tracking-widest mb-2">Headquarters</h3>
+                                        <p className="text-zinc-400 text-sm leading-relaxed">
+                                            Transcend Academic, Business & Cognitive Solutions<br />
+                                            Mobile, Alabama 36601
+                                        </p>
+                                    </div>
                                 </div>
-                                <h3 className="text-white font-black text-[10px] uppercase tracking-widest mb-1">Base Ops</h3>
-                                <p className="text-[10px] font-bold text-zinc-500 leading-tight">
-                                    Transcend Academic<br />Solutions, AL
-                                </p>
-                            </div>
+                            </GlassPanel>
                         </div>
                     </motion.div>
 
@@ -183,79 +215,145 @@ export default function ContactClient() {
                     <motion.div
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                        className="bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-3xl p-8 lg:p-10 relative overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)]"
+                        transition={{ duration: 0.5, delay: 0.4 }}
                     >
-                        {submitted ? (
-                            <div className="h-full flex flex-col items-center justify-center text-center py-20 relative z-10">
-                                <div className="w-20 h-20 bg-indigo-500/10 rounded-full flex items-center justify-center mb-6 border border-indigo-500/20 shadow-[0_0_30px_rgba(99,102,241,0.1)]">
-                                    <CheckCircle className="w-10 h-10 text-indigo-400" />
+                        <GlassPanel variant="gold" glow className="p-8 lg:p-10">
+                            {submitted ? (
+                                <div className="flex flex-col items-center justify-center text-center py-16">
+                                    <motion.div
+                                        initial={{ scale: 0 }}
+                                        animate={{ scale: 1 }}
+                                        transition={{ type: 'spring', delay: 0.2 }}
+                                        className="w-24 h-24 bg-[#FFB300]/20 rounded-full flex items-center justify-center mb-6 border border-[#FFB300]/40 shadow-[0_0_40px_rgba(255,179,0,0.3)]"
+                                    >
+                                        <CheckCircle className="w-12 h-12 text-[#FFB300]" />
+                                    </motion.div>
+                                    <HolographicText variant="gold" as="h3" className="text-2xl font-black uppercase tracking-widest mb-3">
+                                        Transmission Initiated
+                                    </HolographicText>
+                                    <p className="text-zinc-400 text-sm mb-2">Your email client has been opened with your message.</p>
+                                    <p className="text-zinc-500 text-[11px] font-bold uppercase tracking-widest">Dr. West will respond within 24-48 hours.</p>
+                                    <NeonButton
+                                        variant="ghost"
+                                        size="sm"
+                                        onClick={() => {
+                                            setSubmitted(false);
+                                            setFormState({ name: '', email: '', subject: '', message: '', contactMethod: 'email' });
+                                        }}
+                                        className="mt-8"
+                                    >
+                                        Send Another Message
+                                    </NeonButton>
                                 </div>
-                                <h3 className="text-2xl font-black text-white mb-2 uppercase tracking-widest">Transmission Received</h3>
-                                <p className="text-zinc-500 text-[11px] font-bold uppercase tracking-widest">Our team will establish a secure connection shortly.</p>
-                                <button
-                                    onClick={() => setSubmitted(false)}
-                                    className="mt-8 text-sm text-indigo-400 hover:text-white transition-colors"
-                                >
-                                    Send another message
-                                </button>
-                            </div>
-                        ) : (
-                            <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
-                                <div>
-                                    <label className="block text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-3 ml-1">Command Identity</label>
-                                    <input
-                                        type="text"
-                                        required
-                                        value={formState.name}
-                                        onChange={e => setFormState({ ...formState, name: e.target.value })}
-                                        className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-indigo-500/50 focus:bg-white/[0.05] transition-all placeholder:text-zinc-700"
-                                        placeholder="Dr. Professional Name"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-3 ml-1">Comms Frequency</label>
-                                    <input
-                                        type="email"
-                                        required
-                                        value={formState.email}
-                                        onChange={e => setFormState({ ...formState, email: e.target.value })}
-                                        className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-indigo-500/50 focus:bg-white/[0.05] transition-all placeholder:text-zinc-700"
-                                        placeholder="email@district.edu"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-3 ml-1">Transmission Directive</label>
-                                    <textarea
-                                        required
-                                        rows={4}
-                                        value={formState.message}
-                                        onChange={e => setFormState({ ...formState, message: e.target.value })}
-                                        className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-indigo-500/50 focus:bg-white/[0.05] transition-all placeholder:text-zinc-700 resize-none"
-                                        placeholder="Outline your strategic objectives..."
-                                    />
-                                </div>
-                                <button
-                                    type="submit"
-                                    disabled={isSubmitting}
-                                    className="w-full bg-white text-black font-black uppercase tracking-[0.4em] text-[10px] py-6 rounded-2xl flex items-center justify-center gap-3 hover:shadow-[0_0_40px_rgba(255,255,255,0.15)] hover:scale-[1.01] active:scale-[0.98] transition-all disabled:opacity-50 border border-white/10 group"
-                                >
-                                    <div className="relative z-10 flex items-center justify-center gap-3">
+                            ) : (
+                                <form onSubmit={handleSubmit} className="space-y-6">
+                                    <div className="text-center mb-8">
+                                        <HolographicText variant="gold" as="h2" className="text-xl font-black uppercase tracking-widest mb-2">
+                                            Secure Transmission Form
+                                        </HolographicText>
+                                        <p className="text-zinc-500 text-xs">All fields encrypted with AES-256</p>
+                                    </div>
+
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-[#FFB300] mb-2 ml-1">Full Name</label>
+                                            <input
+                                                type="text"
+                                                required
+                                                value={formState.name}
+                                                onChange={e => setFormState({ ...formState, name: e.target.value })}
+                                                className="w-full bg-black/50 border border-[#FFB300]/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#FFB300]/60 focus:shadow-[0_0_20px_rgba(255,179,0,0.1)] transition-all placeholder:text-zinc-700"
+                                                placeholder="Dr. John Smith"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-[#FFB300] mb-2 ml-1">Email Address</label>
+                                            <input
+                                                type="email"
+                                                required
+                                                value={formState.email}
+                                                onChange={e => setFormState({ ...formState, email: e.target.value })}
+                                                className="w-full bg-black/50 border border-[#FFB300]/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#FFB300]/60 focus:shadow-[0_0_20px_rgba(255,179,0,0.1)] transition-all placeholder:text-zinc-700"
+                                                placeholder="john@district.edu"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-[#FFB300] mb-2 ml-1">Subject</label>
+                                        <input
+                                            type="text"
+                                            required
+                                            value={formState.subject}
+                                            onChange={e => setFormState({ ...formState, subject: e.target.value })}
+                                            className="w-full bg-black/50 border border-[#FFB300]/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#FFB300]/60 focus:shadow-[0_0_20px_rgba(255,179,0,0.1)] transition-all placeholder:text-zinc-700"
+                                            placeholder="Partnership Inquiry / Demo Request / Support"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-[#FFB300] mb-2 ml-1">Preferred Contact Method</label>
+                                        <div className="flex gap-3">
+                                            {[
+                                                { value: 'email', label: 'Email', icon: Mail },
+                                                { value: 'phone', label: 'Phone', icon: Phone },
+                                                { value: 'whatsapp', label: 'WhatsApp', icon: MessageSquare },
+                                            ].map((method) => (
+                                                <button
+                                                    key={method.value}
+                                                    type="button"
+                                                    onClick={() => setFormState({ ...formState, contactMethod: method.value })}
+                                                    className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-xl border transition-all ${
+                                                        formState.contactMethod === method.value
+                                                            ? 'bg-[#FFB300]/20 border-[#FFB300]/50 text-[#FFB300]'
+                                                            : 'bg-black/30 border-white/10 text-zinc-500 hover:border-white/20'
+                                                    }`}
+                                                >
+                                                    <method.icon size={14} />
+                                                    <span className="text-[10px] font-bold uppercase tracking-wide">{method.label}</span>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-[#FFB300] mb-2 ml-1">Message</label>
+                                        <textarea
+                                            required
+                                            rows={5}
+                                            value={formState.message}
+                                            onChange={e => setFormState({ ...formState, message: e.target.value })}
+                                            className="w-full bg-black/50 border border-[#FFB300]/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#FFB300]/60 focus:shadow-[0_0_20px_rgba(255,179,0,0.1)] transition-all placeholder:text-zinc-700 resize-none"
+                                            placeholder="Tell us about your district, your challenges, and how we can help transform your educational operations..."
+                                        />
+                                    </div>
+
+                                    <NeonButton
+                                        type="submit"
+                                        variant="gold"
+                                        size="lg"
+                                        disabled={isSubmitting}
+                                        className="w-full flex items-center justify-center gap-3"
+                                    >
                                         {isSubmitting ? (
                                             <>
-                                                <Loader2 size={14} className="animate-spin" />
-                                                <span>Transmitting...</span>
+                                                <Loader2 size={16} className="animate-spin" />
+                                                <span>Opening Email Client...</span>
                                             </>
                                         ) : (
                                             <>
-                                                <span>Initialize Secure Connection</span>
-                                                <Send size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                                                <span>Initialize Transmission</span>
+                                                <Send size={16} />
                                             </>
                                         )}
-                                    </div>
-                                </button>
-                            </form>
-                        )}
+                                    </NeonButton>
+
+                                    <p className="text-center text-[9px] text-zinc-600 uppercase tracking-widest">
+                                        Your message will open in your default email client
+                                    </p>
+                                </form>
+                            )}
+                        </GlassPanel>
                     </motion.div>
                 </div>
             </div>
@@ -423,6 +521,7 @@ export default function ContactClient() {
                     </motion.div>
                 </div>
             </section>
-        </main>
+        </div>
     );
 }
+

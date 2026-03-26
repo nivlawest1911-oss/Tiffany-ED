@@ -167,19 +167,19 @@ export default function UniversalPaymentHub({
                     <Shield className="w-4 h-4" />
                     Secure EdIntel Protocol
                 </div>
-                <h1 className="text-4xl font-black mb-2 uppercase tracking-tighter text-white">
+                <h1 className="text-2xl md:text-4xl font-black mb-2 uppercase tracking-tighter text-white">
                     Select <span className="text-noble-gold italic">Payment</span> Method
                 </h1>
-                <p className="text-white/60 text-lg font-medium">
+                <p className="text-white/60 text-sm md:text-lg font-medium">
                     We accept every form of currency - Traditional, Crypto, and Digital Wallets
                 </p>
 
                 {/* Amount Display */}
-                <div className="mt-6 inline-flex items-center gap-3 px-6 py-3 bg-zinc-900 border border-noble-gold/20 rounded-2xl shadow-2xl">
-                    <DollarSign className="w-6 h-6 text-noble-gold" />
-                    <div className="text-left">
-                        <p className="text-[10px] font-black uppercase tracking-widest text-white/30">Total Value</p>
-                        <p className="text-2xl font-black text-white italic">${amount.toFixed(2)}</p>
+                <div className="mt-4 md:mt-6 inline-flex items-center gap-3 px-4 py-2.5 md:px-6 md:py-3 bg-zinc-900 border border-noble-gold/20 rounded-2xl shadow-2xl">
+                    <DollarSign className="w-5 h-5 md:w-6 md:h-6 text-noble-gold" />
+                    <div className="flex flex-col">
+                        <span className="text-[8px] md:text-[10px] font-black text-zinc-400 uppercase tracking-widest leading-none">Total Value</span>
+                        <span className="text-xl md:text-2xl font-black text-white tracking-tighter">${amount.toFixed(2)}</span>
                     </div>
                 </div>
             </motion.div>

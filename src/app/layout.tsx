@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Playfair_Display, Outfit, Orbitron } from 'next/font/google';
 import '../style.css';
 import { AuthProvider } from '@/context/AuthContext';
 import { IntelligenceProvider } from '@/context/IntelligenceContext';
@@ -10,10 +9,25 @@ import { Toaster } from 'sonner';
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import ClientShell from '@/components/layout/ClientShell';
+import { Orbitron, Outfit, Playfair_Display } from 'next/font/google';
 
-const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' });
-const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
-const orbitron = Orbitron({ subsets: ['latin'], variable: '--font-orbitron' });
+const orbitron = Orbitron({
+  subsets: ['latin'],
+  variable: '--font-orbitron',
+  display: 'swap',
+});
+
+const outfit = Outfit({
+  subsets: ['latin'],
+  variable: '--font-outfit',
+  display: 'swap',
+});
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  variable: '--font-playfair',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://edintel-app.vercel.app'),
@@ -42,6 +56,14 @@ export const metadata: Metadata = {
     description: 'The definitive AI operating layer for autonomous professionals and institutional intelligence. Sovereign analytics, neural delegation, and strategic insight.',
     url: 'https://edintel-app.vercel.app',
     locale: 'en_US',
+    images: [
+      {
+        url: '/opengraph-image.jpg',
+        width: 1200,
+        height: 630,
+        type: 'image/jpeg',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
@@ -49,6 +71,13 @@ export const metadata: Metadata = {
     description: 'The definitive AI operating layer for autonomous professionals and institutional intelligence.',
     creator: '@AlvinWe53959439',
     site: '@AlvinWe53959439',
+    images: [
+      {
+        url: '/twitter-image.jpg',
+        width: 1200,
+        height: 630,
+      },
+    ],
   },
   other: {
     'linkedin:profile': 'https://www.linkedin.com/in/alvin-west-ii-dba-11a75323/',
@@ -57,15 +86,16 @@ export const metadata: Metadata = {
   },
 };
 
-
-
 export const viewport = {
   themeColor: '#D4AF37',
   width: 'device-width',
   initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  viewportFit: 'cover',
 };
 
-
+import AccessibleLayout from '@/components/layout/AccessibleLayout';
 
 export default function RootLayout({
   children,
@@ -73,20 +103,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${outfit.variable} ${orbitron.variable} dark`}>
-      <head>
-
-      </head>
-      <body className="bg-[#050505] text-gray-100 antialiased overflow-x-hidden selection:bg-[#D4AF37]/30 font-sans">
+    <html lang="en" className="dark" suppressHydrationWarning>
+      <body className={`${orbitron.variable} ${outfit.variable} ${playfair.variable} bg-[#050505] text-gray-100 antialiased overflow-x-hidden selection:bg-[#D4AF37]/30 font-sans min-h-screen`}>
         <CelebrationProvider>
           <AuthProvider>
             <IntelligenceProvider>
               <SovereignProvider>
                 <EdIntelVibeProvider>
                   <ClientShell />
-                  <main className="relative z-10">
+                  <AccessibleLayout>
                     {children}
-                  </main>
+                  </AccessibleLayout>
                   <Toaster position="top-right" theme="dark" />
                   <Analytics />
                   <SpeedInsights />

@@ -1,0 +1,12 @@
+# This directory contains video files for the EdIntel Video Library
+# Place your .mp4 or .webm files here
+# 
+# Naming convention:
+# - intro.mp4
+# - demo.mp4
+# - analytics.mp4
+#
+# Also create a thumbnails subfolder with:
+# - thumbnails/intro.jpg
+# - thumbnails/demo.jpg
+# - thumbnails/analytics.jpg

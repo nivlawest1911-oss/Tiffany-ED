@@ -5,17 +5,16 @@ import MCPConnectivityIllustration from "./bento/mcp-connectivity-illustration" 
 import EasyDeployment from "./bento/easy-deployment"
 import ParallelCodingAgents from "./bento/parallel-agents" // Updated import
 
-const BentoCard = ({ title, description, Component }) => (
+interface BentoCardProps {
+  title: string;
+  description: string;
+  Component: React.ComponentType;
+}
+
+const BentoCard = ({ title, description, Component }: BentoCardProps) => (
   <div className="overflow-hidden rounded-2xl border border-white/20 flex flex-col justify-start items-start relative">
     {/* Background with blur effect */}
-    <div
-      className="absolute inset-0 rounded-2xl"
-      style={{
-        background: "rgba(231, 236, 235, 0.08)",
-        backdropFilter: "blur(4px)",
-        WebkitBackdropFilter: "blur(4px)",
-      }}
-    />
+    <div className="absolute inset-0 rounded-2xl glass-bento-mask" />
     {/* Additional subtle gradient overlay */}
     <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-2xl" />
 

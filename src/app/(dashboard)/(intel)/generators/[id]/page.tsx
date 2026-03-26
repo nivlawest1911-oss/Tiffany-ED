@@ -4,7 +4,7 @@ import EnhancedGenerator from '@/components/EnhancedGenerator';
 
 // Map Real Assets to Delegate Personas
 const DELEGATE_REGISTRY = [
-    { image: "/images/avatars/Dr._alvin_west.png", name: "Dr. Alvin West", role: "Executive Principal" },
+    { image: "/images/avatars/dr_alvin_west_official.png", name: "Dr. Alvin West", role: "Executive Principal" },
     { image: "/images/avatars/keisha_reynolds_premium.png", name: "Keisha Reynolds", role: "Guidance Counselor" },
     { image: "/images/avatars/emily_robinson_premium.png", name: "Dr. Emily Robinson", role: "Curriculum & Data Strategist" },
     { image: "/images/avatars/dr_isaiah_vance_premium.png", name: "Isaiah Vance", role: "Compliance Officer" },
@@ -41,7 +41,7 @@ export default async function GeneratorPage({ params }: { params: Promise<{ id: 
     const delegate = specificDelegate || {
         name: "Dr. Alvin West",
         role: "Executive Principal",
-        image: "/images/avatars/Dr._alvin_west.png"
+        image: "/images/avatars/dr_alvin_west_official.png"
     };
 
     return (
