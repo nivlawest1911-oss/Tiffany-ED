@@ -182,9 +182,9 @@ function HolographicGrid() {
 }
 
 // Floating particles
-function FloatingParticles() {
+function FloatingParticles({ isMobile }: { isMobile: boolean }) {
   // OPTIMIZED PERFORMANCE: Reduced particle count for LCP/FCP (Phase 14)
-  const particles = Array.from({ length: 24 }, (_, i) => ({
+  const particles = Array.from({ length: isMobile ? 8 : 24 }, (_, i) => ({
     id: i,
     x: Math.random() * 100,
     y: Math.random() * 100,
@@ -271,18 +271,24 @@ function OrbitalRings() {
 export function CinematicLogoIntro({ 
   onComplete, 
   autoClose = true, 
-  autoCloseDuration = 8000 
+  autoCloseDuration = 4000 // REDUCED FROM 8000 FOR LCP (Phase 14)
 }: LogoIntroProps) {
   const [isVisible, setIsVisible] = useState(true)
+  const [isMobile, setIsMobile] = useState(false)
   const [_phase, setPhase] = useState<'gears' | 'logo' | 'text' | 'complete'>('gears')
   const containerRef = useRef<HTMLDivElement>(null)
 
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768)
+  }, [])
+
   // Phase timing
   useEffect(() => {
+    const isMob = window.innerWidth < 768;
     const timers = [
-      setTimeout(() => setPhase('logo'), 1500),
-      setTimeout(() => setPhase('text'), 3500),
-      setTimeout(() => setPhase('complete'), 5500),
+      setTimeout(() => setPhase('logo'), isMob ? 400 : 800),  // Faster on mobile
+      setTimeout(() => setPhase('text'), isMob ? 1000 : 1800), 
+      setTimeout(() => setPhase('complete'), isMob ? 2000 : 3000),
     ]
     return () => timers.forEach(clearTimeout)
   }, [])
@@ -320,7 +326,7 @@ export function CinematicLogoIntro({
         <HolographicGrid />
         
         {/* Floating particles */}
-        <FloatingParticles />
+        <FloatingParticles isMobile={isMobile} />
         
         {/* Animated aurora background */}
         <motion.div
@@ -334,28 +340,38 @@ export function CinematicLogoIntro({
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#D4AF37]/10 rounded-full blur-[100px] animate-aurora-3" />
         </motion.div>
 
-        {/* Glass gears - Lionsgate style mechanical opening */}
-        <GlassGear size={180} teeth={16} rotation={360} delay={0} position={{ x: '10%', y: '20%' }} />
-        <GlassGear size={140} teeth={12} rotation={-360} delay={0.2} position={{ x: '85%', y: '25%' }} />
-        <GlassGear size={100} teeth={10} rotation={360} delay={0.3} position={{ x: '15%', y: '75%' }} />
-        <GlassGear size={120} teeth={14} rotation={-360} delay={0.4} position={{ x: '88%', y: '70%' }} color="#00E5FF" />
-        <GlassGear size={80} teeth={8} rotation={360} delay={0.5} position={{ x: '5%', y: '50%' }} color="#00E5FF" />
-        <GlassGear size={90} teeth={9} rotation={-360} delay={0.6} position={{ x: '95%', y: '50%' }} />
+        {/* Glass gears - Lionsgate style mechanical opening - DISABLED ON MOBILE (Phase 14) */}
+        {!isMobile && (
+          <div className="hidden sm:block absolute inset-0">
+            <GlassGear size={180} teeth={16} rotation={360} delay={0} position={{ x: '10%', y: '20%' }} />
+            <GlassGear size={140} teeth={12} rotation={-360} delay={0.2} position={{ x: '85%', y: '25%' }} />
+            <GlassGear size={100} teeth={10} rotation={360} delay={0.3} position={{ x: '15%', y: '75%' }} />
+            <GlassGear size={120} teeth={14} rotation={-360} delay={0.4} position={{ x: '88%', y: '70%' }} color="#00E5FF" />
+            <GlassGear size={80} teeth={8} rotation={360} delay={0.5} position={{ x: '5%', y: '50%' }} color="#00E5FF" />
+            <GlassGear size={90} teeth={9} rotation={-360} delay={0.6} position={{ x: '95%', y: '50%' }} />
+          </div>
+        )}
 
-        {/* Laser beams */}
-        <motion.div
-          className="absolute inset-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-        >
-          <LaserBeam startX="0%" startY="30%" endX="100%" endY="70%" delay={1.5} />
-          <LaserBeam startX="100%" startY="20%" endX="0%" endY="80%" delay={1.8} color="#D4AF37" />
-          <LaserBeam startX="50%" startY="0%" endX="50%" endY="100%" delay={2} />
-        </motion.div>
+        {/* Laser beams - DISABLED ON MOBILE (Phase 14) */}
+        {!isMobile && (
+          <motion.div
+            className="hidden sm:block absolute inset-0"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
+          >
+            <LaserBeam startX="0%" startY="30%" endX="100%" endY="70%" delay={1.5} />
+            <LaserBeam startX="100%" startY="20%" endX="0%" endY="80%" delay={1.8} color="#D4AF37" />
+            <LaserBeam startX="50%" startY="0%" endX="50%" endY="100%" delay={2} />
+          </motion.div>
+        )}
 
-        {/* Orbital rings */}
-        <OrbitalRings />
+        {/* Orbital rings - DISABLED ON MOBILE (Phase 14) */}
+        {!isMobile && (
+          <div className="hidden sm:block absolute inset-0">
+            <OrbitalRings />
+          </div>
+        )}
 
         {/* Center content with glass panel */}
         <motion.div

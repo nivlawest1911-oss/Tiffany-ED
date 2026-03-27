@@ -301,19 +301,24 @@ function CinematicVariant() {
                 <div
                     className="absolute inset-0 overflow-hidden hero-mask"
                 >
-                    {mounted && (
-                        <video autoPlay loop muted playsInline poster="/images/professional_hero_bg.png" className="absolute inset-0 h-full w-full object-cover">
-                            <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/liquid-metal-video_yX6NvjdW-6bLYorR3Ihmlwjivg3pjA978qrSKRU.mp4" type="video/mp4" />
-                        </video>
-                    )}
-
+                    {/* Background Image - ENABLED FOR SSR TO IMPROVE LCP (Phase 14) */}
                     <Image
                         src="/images/professional_hero_bg.png"
                         alt="Strategic Backdrop"
                         fill
                         className="object-cover opacity-60 mix-blend-screen grayscale-[0.5] hover:grayscale-0 transition-all duration-1000"
                         priority
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px" // Optimized for mobile (Phase 14)
                     />
+
+                    {/* VIDEO DISABLED ON MOBILE TO SAVE LCP (Phase 14) */}
+                    {mounted && (
+                        <div className="hidden sm:block absolute inset-0">
+                            <video autoPlay loop muted playsInline poster="/images/professional_hero_bg.png" className="absolute inset-0 h-full w-full object-cover">
+                                <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/liquid-metal-video_yX6NvjdW-6bLYorR3Ihmlwjivg3pjA978qrSKRU.mp4" type="video/mp4" />
+                            </video>
+                        </div>
+                    )}
 
                     <div className="pointer-events-none absolute inset-0">
                         <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/80 via-transparent to-zinc-950" />
