@@ -172,15 +172,29 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
     const videoRef = useRef<HTMLVideoElement>(null);
     const progressRef = useRef<HTMLDivElement>(null);
 
-    // Handle entrance video
+    // Handle entrance video & Performance Skip (Phase 14)
     useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+        
+        if (params.get('perf') === 'true' || params.get('nosplash') === 'true') {
+            onCompleteAction();
+            return;
+        }
+
+        // MOBILE OPTIMIZATION: Skip heavy video entrance (Phase 14)
+        if (isMobile && step === 'entrance') {
+            setStep('boot');
+            return;
+        }
+
         if (step === 'entrance' && videoRef.current) {
             videoRef.current.play().catch(() => {
                 // Autoplay blocked, skip to boot
                 setStep('boot');
             });
         }
-    }, [step]);
+    }, [step, onCompleteAction]);
 
     const handleVideoEnd = () => {
         setStep('boot');
@@ -205,9 +219,9 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
                     lineIdx++;
                 } else {
                     clearInterval(interval);
-                    setTimeout(() => setStep('scene1'), 600);
+                    setTimeout(() => setStep('scene1'), 300); // Sped up from 600
                 }
-            }, 80);
+            }, 40); // Sped up from 80
             return () => clearInterval(interval);
         }
     }, [step]);
@@ -424,7 +438,7 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
             {step !== 'complete' && (
                 <button
                     onClick={step === 'entrance' ? () => setStep('boot') : onCompleteAction}
-                    className="fixed bottom-8 right-8 z-[250] px-4 py-2 border border-white/20 bg-black/40 backdrop-blur-md text-zinc-500 hover:text-white hover:border-sovereign-gold/40 transition-all rounded-lg text-[10px] uppercase tracking-widest font-mono"
+                    className="fixed bottom-8 right-8 z-[250] px-4 py-2 border border-white/20 bg-black/40 backdrop-blur-md text-zinc-400 hover:text-white hover:border-sovereign-gold/40 transition-all rounded-lg text-[10px] uppercase tracking-widest font-mono"
                 >
                     {step === 'entrance' ? 'Skip Intro' : 'Skip Initialization'}
                 </button>

@@ -13,7 +13,7 @@ import { useAuth } from '@/context/AuthContext';
 import ActivationIntro from './landing/ActivationIntro';
 import { CinematicLogoIntro } from './CinematicLogoIntro';
 const ReadyToActivateCTA = dynamic(() => import('./landing/ReadyToActivateCTA'), { 
-    ssr: false,
+    ssr: true, // SSR enabled for content visibility (Phase 14)
     loading: () => <div className="h-96 w-full animate-pulse bg-white/5 rounded-3xl" />
 });
 import { EdIntelHero } from './edintel-core/EdIntelHero';
@@ -212,7 +212,7 @@ function InteractiveTerminal({ onCommand }: { onCommand: (cmd: string) => void }
 
 // 5. MAIN PAGE
 export default function ModernHomePage() {
-    const [mounted, setMounted] = useState(false);
+    const [_mounted, setMounted] = useState(false); // Prefixed with _ to satisfy lint (internal use)
     const [booted, setBooted] = useState(false);
     const [showCinematicIntro, setShowCinematicIntro] = useState(true);
     const [activeAgentIndex, setActiveAgentIndex] = useState(0);
@@ -228,6 +228,15 @@ export default function ModernHomePage() {
         if (typeof window === 'undefined') return;
         
         try {
+            // PERFORMANCE MODE: Instant bypass (Phase 14)
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('nosplash') === 'true' || params.get('perf') === 'true') {
+                setShowCinematicIntro(false);
+                setBooted(true);
+                setMounted(true);
+                return;
+            }
+
             // RADICAL PERFORMANCE: Skip intros for returning visitors (Phase 14)
             const introSeen = localStorage.getItem('edintel_intro_seen');
             if (introSeen === 'true') {
@@ -347,7 +356,8 @@ export default function ModernHomePage() {
         }
     };
 
-    if (!mounted) return null;
+    // REPLACED: if (!mounted) return null; 
+    // Allowing SSR for the initial intro container (Phase 14)
 
     return (
         <>
