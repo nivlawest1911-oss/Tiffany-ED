@@ -114,6 +114,7 @@ export default function FloatingNavbar() {
                                             >
                                                 {link.name}
                                                 <motion.span
+                                                    aria-hidden="true"
                                                     animate={{ rotate: [0, 180] }}
                                                     transition={{ duration: 0.3 }}
                                                     className="group-hover:rotate-180 transition-transform text-[8px]"

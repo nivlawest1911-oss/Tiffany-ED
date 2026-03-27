@@ -173,14 +173,14 @@ export default function EdIntelInteractionAgent({
                             <div className="space-y-3">
                                 <div className="flex items-center gap-2">
                                     <div className={`w-1 h-1 rounded-full ${agent.color} animate-pulse`} />
-                                    <span className="text-[9px] font-black text-white/40 uppercase tracking-[0.2em]">{title}</span>
+                                    <span className="text-[9px] font-black text-zinc-400 uppercase tracking-[0.2em]">{title}</span>
                                 </div>
                                 <p className="text-[11px] text-white/70 font-bold leading-relaxed italic border-l-2 border-white/10 pl-3">
                                     "{description}"
                                 </p>
                             </div>
 
-                            <div className="mt-4 flex items-center justify-between text-[7px] font-black text-white/20 uppercase tracking-[0.4em]">
+                            <div className="mt-4 flex items-center justify-between text-[7px] font-black text-zinc-400 uppercase tracking-[0.4em]">
                                 <div className="flex items-center gap-2">
                                     <Volume2 size={10} className={isSpeaking ? 'text-noble-gold' : ''} />
                                     <span>{isSpeaking ? 'Transmitting Audio' : 'Audio Ready'}</span>

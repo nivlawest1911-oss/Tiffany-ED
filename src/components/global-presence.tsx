@@ -159,7 +159,7 @@ export function GlobalPresence() {
             </div>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-4 text-xs text-gray-500 mb-4">
+          <div className="flex flex-wrap justify-center gap-4 text-xs text-gray-400 mb-4">
             <Link href="/privacy" className="hover:text-white transition-colors">
               Privacy Policy
             </Link>
@@ -177,7 +177,7 @@ export function GlobalPresence() {
             </Link>
           </div>
 
-          <p className="text-xs text-gray-600 tracking-widest">
+          <p className="text-xs text-gray-400 tracking-widest">
             © 2026 EdIntel Professional. All rights reserved. Made with ♥ in Mobile, Alabama.
           </p>
         </div>

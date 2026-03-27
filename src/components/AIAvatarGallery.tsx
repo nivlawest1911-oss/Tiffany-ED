@@ -163,7 +163,8 @@ export default function AIAvatarGallery() {
                                         <button
                                             onClick={() => setSelectedAvatar(avatar)}
                                             title={`View ${avatar.name} Profile`}
-                                            className="h-12 rounded-xl bg-white/[0.03] border border-white/10 hover:bg-white/[0.08] hover:border-white/20 text-white/40 hover:text-white text-[10px] font-black uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2"
+                                            aria-label={`View ${avatar.name} Profile and Protocol`}
+                                            className="h-12 rounded-xl bg-white/[0.03] border border-white/10 hover:bg-white/[0.08] hover:border-white/20 text-white/40 hover:text-white text-[10px] font-black uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-noble-gold/50 outline-none"
                                         >
                                             <Eye size={14} />
                                             Protocol
@@ -171,7 +172,8 @@ export default function AIAvatarGallery() {
                                         <button
                                             onClick={() => startConversation(avatar)}
                                             title={`Start chat with ${avatar.name}`}
-                                            className="h-12 rounded-xl bg-noble-gold text-black text-[10px] font-black uppercase tracking-[0.2em] transition-all hover:scale-[1.05] shadow-[0_0_20px_rgba(212,175,55,0.2)] flex items-center justify-center gap-2"
+                                            aria-label={`Initialize Strategic Uplink with ${avatar.name}`}
+                                            className="h-12 rounded-xl bg-noble-gold text-black text-[10px] font-black uppercase tracking-[0.2em] transition-all hover:scale-[1.05] shadow-[0_0_20px_rgba(212,175,55,0.2)] flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-black/20 outline-none"
                                         >
                                             <Zap size={14} fill="currentColor" />
                                             Initialize

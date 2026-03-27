@@ -26,7 +26,7 @@ export default function NeuralNetworkMonitor() {
     return (
         <div className="p-6 rounded-3xl bg-zinc-900/40 border border-white/5 backdrop-blur-xl space-y-6">
             <div className="flex items-center justify-between">
-                <h3 className="text-sm font-bold text-zinc-500 uppercase tracking-[0.2em] flex items-center gap-2">
+                <h3 className="text-sm font-bold text-zinc-400 uppercase tracking-[0.2em] flex items-center gap-2">
                     <Activity className="w-4 h-4 text-emerald-400" /> Neural Health
                 </h3>
                 <div className="flex items-center gap-2">
@@ -45,7 +45,7 @@ export default function NeuralNetworkMonitor() {
                     <div key={i} className="p-4 rounded-2xl bg-white/5 border border-white/5">
                         <div className="flex items-center gap-2 mb-2">
                             <m.icon className={`w-3 h-3 ${m.color}`} />
-                            <span className="text-[9px] font-bold text-zinc-500 uppercase">{m.label}</span>
+                            <span className="text-[9px] font-bold text-zinc-400 uppercase">{m.label}</span>
                         </div>
                         <div className="text-lg font-black text-white">{m.val}</div>
                     </div>
@@ -60,7 +60,7 @@ export default function NeuralNetworkMonitor() {
                         <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-blue-500/50 transition-colors">
                             <Globe className="w-5 h-5 text-blue-400" />
                         </div>
-                        <span className="text-[8px] font-bold text-zinc-500 uppercase group-hover:text-white transition-colors">Google Cloud</span>
+                        <span className="text-[8px] font-bold text-zinc-400 uppercase group-hover:text-white transition-colors">Google Cloud</span>
                     </div>
 
                     <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mx-2" />
@@ -69,14 +69,14 @@ export default function NeuralNetworkMonitor() {
                         <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-indigo-500/50 transition-colors">
                             <Zap className="w-5 h-5 text-indigo-400" />
                         </div>
-                        <span className="text-[8px] font-bold text-zinc-500 uppercase group-hover:text-white transition-colors">Vercel</span>
+                        <span className="text-[8px] font-bold text-zinc-400 uppercase group-hover:text-white transition-colors">Vercel</span>
                     </div>
 
                     <div className="flex flex-col items-center gap-2 group cursor-help" title="Supabase Memory Core: Relational Postgres, Real-time Data, Document Vault">
                         <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-emerald-500/50 transition-colors">
                             <Database className="w-5 h-5 text-emerald-400" />
                         </div>
-                        <span className="text-[8px] font-bold text-zinc-500 uppercase group-hover:text-white transition-colors">Supabase</span>
+                        <span className="text-[8px] font-bold text-zinc-400 uppercase group-hover:text-white transition-colors">Supabase</span>
                     </div>
 
                     <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mx-2" />
@@ -85,7 +85,7 @@ export default function NeuralNetworkMonitor() {
                         <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-amber-500/50 transition-colors">
                             <Github className="w-5 h-5 text-amber-400" />
                         </div>
-                        <span className="text-[8px] font-bold text-zinc-500 uppercase group-hover:text-white transition-colors">GitHub</span>
+                        <span className="text-[8px] font-bold text-zinc-400 uppercase group-hover:text-white transition-colors">GitHub</span>
                     </div>
                 </div>
             </div>

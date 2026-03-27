@@ -29,7 +29,8 @@ export default function VideosPageClient({ videos, categories }: VideosPageClien
         >
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-zinc-500 hover:text-[#FFB300] transition-colors group"
+            aria-label="Return to Command Deck"
+            className="inline-flex items-center gap-2 text-zinc-400 hover:text-[#FFB300] transition-colors group"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             <span className="text-[10px] font-bold uppercase tracking-widest">Return to Command Deck</span>
@@ -106,7 +107,7 @@ export default function VideosPageClient({ videos, categories }: VideosPageClien
                   </div>
                   
                   {videos[0] && (
-                    <Link href={`/videos/${videos[0].id}`}>
+                    <Link href={`/videos/${videos[0].id}`} aria-label={`Watch featured video: ${videos[0].title}`}>
                       <motion.div
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}

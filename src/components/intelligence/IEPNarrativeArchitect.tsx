@@ -159,7 +159,7 @@ export default function IEPNarrativeArchitect() {
 
                         <div className="grid grid-cols-2 gap-4">
                             <div className="col-span-2">
-                                <label className="text-xs text-slate-500 uppercase tracking-wider mb-2 block">Full Legal Name</label>
+                                <label className="text-xs text-slate-400 uppercase tracking-wider mb-2 block">Full Legal Name</label>
                                 <input
                                     id="studentName"
                                     aria-label="Full Legal Name"
@@ -171,7 +171,7 @@ export default function IEPNarrativeArchitect() {
                                 />
                             </div>
                             <div>
-                                <label className="text-xs text-slate-500 uppercase tracking-wider mb-2 block">State ID (10-Digit)</label>
+                                <label className="text-xs text-slate-400 uppercase tracking-wider mb-2 block">State ID (10-Digit)</label>
                                 <input
                                     id="stateId"
                                     aria-label="State ID (10-Digit)"
@@ -183,7 +183,7 @@ export default function IEPNarrativeArchitect() {
                                 />
                             </div>
                             <div>
-                                <label className="text-xs text-slate-500 uppercase tracking-wider mb-2 block">Primary Exceptionality</label>
+                                <label className="text-xs text-slate-400 uppercase tracking-wider mb-2 block">Primary Exceptionality</label>
                                 <select
                                     id="exceptionality"
                                     aria-label="Primary Exceptionality"
@@ -206,7 +206,7 @@ export default function IEPNarrativeArchitect() {
 
                         {/* Strengths */}
                         <div className="md:col-span-2 bg-slate-900/30 border border-white/5 rounded-3xl p-6 hover:border-white/10 transition-colors">
-                            <label className="text-xs text-slate-500 uppercase tracking-wider mb-4 block flex items-center justify-between">
+                            <label className="text-xs text-slate-400 uppercase tracking-wider mb-4 block flex items-center justify-between">
                                 Strengths & Preferences
                                 <Sparkles size={14} className="text-[#D4AF37]" />
                             </label>
@@ -220,7 +220,7 @@ export default function IEPNarrativeArchitect() {
 
                         {/* Parental Concerns */}
                         <div className="bg-slate-900/30 border border-white/5 rounded-3xl p-6 hover:border-white/10 transition-colors">
-                            <label className="text-xs text-slate-500 uppercase tracking-wider mb-4 block">Parental Concerns</label>
+                            <label className="text-xs text-slate-400 uppercase tracking-wider mb-4 block">Parental Concerns</label>
                             <textarea
                                 value={formData.concerns}
                                 onChange={(e) => setFormData({ ...formData, concerns: e.target.value })}
@@ -231,7 +231,7 @@ export default function IEPNarrativeArchitect() {
 
                         {/* Evaluation Data */}
                         <div className="bg-slate-900/30 border border-white/5 rounded-3xl p-6 hover:border-white/10 transition-colors space-y-4">
-                            <label className="text-xs text-slate-500 uppercase tracking-wider block">Evaluation Data</label>
+                            <label className="text-xs text-slate-400 uppercase tracking-wider block">Evaluation Data</label>
                             <div className="grid grid-cols-2 gap-3">
                                 <input
                                     id="iqScore"
@@ -263,7 +263,7 @@ export default function IEPNarrativeArchitect() {
 
                         {/* Impact Statement */}
                         <div className="md:col-span-2 bg-slate-900/30 border border-white/5 rounded-3xl p-6 hover:border-white/10 transition-colors">
-                            <label className="text-xs text-slate-500 uppercase tracking-wider mb-4 block flex items-center gap-2">
+                            <label className="text-xs text-slate-400 uppercase tracking-wider mb-4 block flex items-center gap-2">
                                 <AlertTriangle size={14} className="text-amber-500" /> Adverse Impact Statement
                             </label>
                             <textarea
@@ -323,7 +323,7 @@ export default function IEPNarrativeArchitect() {
                                         <div className="w-3 h-3 bg-amber-500 rounded-full" />
                                         <div className="w-3 h-3 bg-green-500 rounded-full" />
                                     </div>
-                                    <span className="text-[10px] uppercase text-slate-500 font-mono">Mobile_County_PLAAFP_v2.pdf</span>
+                                    <span className="text-[10px] uppercase text-slate-400 font-mono">Mobile_County_PLAAFP_v2.pdf</span>
                                 </div>
 
                                 <div className="flex-1 bg-white text-black p-8 font-mono text-sm leading-relaxed overflow-y-auto shadow-2xl relative">

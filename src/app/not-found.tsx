@@ -41,18 +41,23 @@ export default function NotFound() {
 
     // Auto-speak greeting when page loads
     useEffect(() => {
-        if (!hasSpoken && 'speechSynthesis' in window) {
+        if (!hasSpoken && 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window) {
             setTimeout(() => {
-                const utterance = new SpeechSynthesisUtterance(
+                try {
+                    const utterance = new SpeechSynthesisUtterance(
                     "Oops! It looks like you've wandered into uncharted territory. I'm Dr. Alvin West, and I'm here to help you find your way back. Would you like to talk with me?"
                 );
                 utterance.rate = 0.9;
                 utterance.pitch = 1.0;
                 window.speechSynthesis.speak(utterance);
                 setHasSpoken(true);
-            }, 1000);
-        }
-    }, [hasSpoken]);
+            } catch (e) {
+                console.warn("Speech Synthesis failed:", e);
+                setHasSpoken(true); // Don't try again
+            }
+        }, 1000);
+    }
+}, [hasSpoken]);
 
     const handleHomeClick = () => {
         if (userRole === 'admin') {

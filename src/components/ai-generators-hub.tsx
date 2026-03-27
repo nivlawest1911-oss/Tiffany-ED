@@ -16,18 +16,20 @@ import {
   Zap,
   Sparkles
 } from "lucide-react"
+import dynamic from 'next/dynamic';
 import { useCelebrate } from '@/context/CelebrationContext';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 
-const MemoizedMarkdown = React.memo(
-  ({ content }: { content: string }) => (
-    <ReactMarkdown remarkPlugins={[remarkGfm]}>
-      {content}
-    </ReactMarkdown>
-  ),
-  (prevProps, nextProps) => prevProps.content === nextProps.content
-);
+const EdIntelMarkdown = dynamic(() => import('@/components/ui/EdIntelMarkdown'), {
+  ssr: false,
+  loading: () => (
+    <div className="space-y-4 animate-pulse">
+      <div className="h-4 w-3/4 bg-white/10 rounded" />
+      <div className="h-4 w-full bg-white/10 rounded" />
+      <div className="h-4 w-5/6 bg-white/10 rounded" />
+      <p className="text-noble-gold font-black uppercase tracking-widest text-[9px]">Neural Synthesis in Progress...</p>
+    </div>
+  )
+});
 
 const generators = [
   {
@@ -333,7 +335,7 @@ export function AIGeneratorsHub() {
                 <div className="flex-1 bg-black/40 border border-white/10 rounded-2xl p-8 overflow-y-auto custom-scrollbar shadow-inner relative">
                   <div className="prose prose-invert prose-sm max-w-none">
                     <div className="text-zinc-300 font-medium leading-relaxed font-sans edintel-markdown">
-                      <MemoizedMarkdown content={response} />
+                      <EdIntelMarkdown content={response} />
                     </div>
                   </div>
                   {/* Watermark */}

@@ -108,7 +108,7 @@ export default function VideoGallery({ videos, categories = [] }: VideoGalleryPr
 
 function VideoCard({ video }: { video: VideoMeta }) {
   return (
-    <Link href={`/videos/${video.id}`} className="block group">
+    <Link href={`/videos/${video.id}`} aria-label={`Watch video: ${video.title}`} className="block group">
       <GlassPanel 
         variant="default" 
         hover 
@@ -169,7 +169,7 @@ function VideoCard({ video }: { video: VideoMeta }) {
             {video.title}
           </h3>
           {video.description && (
-            <p className="text-zinc-500 text-sm line-clamp-2 leading-relaxed">{video.description}</p>
+            <p className="text-zinc-400 text-sm line-clamp-2 leading-relaxed">{video.description}</p>
           )}
           
           {/* Watch Now Indicator */}

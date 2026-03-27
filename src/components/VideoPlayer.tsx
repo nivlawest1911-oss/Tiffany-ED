@@ -204,7 +204,7 @@ export default function VideoPlayer({
                     Your browser does not support the video tag.
                 </video>
             ) : (
-                <div className="w-full aspect-video flex flex-col items-center justify-center bg-zinc-900 rounded-2xl border border-white/5 text-zinc-500">
+                <div className="w-full aspect-video flex flex-col items-center justify-center bg-zinc-900 rounded-2xl border border-white/5 text-zinc-400">
                     <VolumeX size={48} className="mb-4 opacity-20" />
                     <p className="text-xs font-mono uppercase tracking-widest">Media Resource Offline</p>
                     <p className="text-[10px] text-zinc-600 mt-2 px-8 text-center">{src}</p>

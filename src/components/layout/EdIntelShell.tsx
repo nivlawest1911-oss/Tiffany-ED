@@ -86,7 +86,7 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
                 <aside className="hidden md:flex w-24 hover:w-72 bg-black border-r border-intel-gold/10 transition-all duration-500 ease-in-out group z-50 flex-col items-center py-8 relative">
                     <div className="absolute inset-0 bg-gradient-to-b from-intel-gold/[0.02] to-transparent pointer-events-none" />
 
-                    <Link href="/" className="mb-16 relative group/logo px-4">
+                    <Link href="/" aria-label="EdIntel Home" className="mb-16 relative group/logo px-4">
                         <div className="flex flex-col items-center gap-2">
                             <div className="w-14 h-14 border-2 border-intel-gold/40 rounded-3xl flex items-center justify-center text-intel-gold font-black bg-white/[0.02] shadow-[0_0_40px_rgba(197,164,126,0.2)] group-hover/logo:scale-110 group-hover/logo:border-intel-gold transition-all duration-700 italic relative overflow-hidden">
                                 <div className="absolute inset-0 bg-gold-gradient opacity-10" />
@@ -132,6 +132,7 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
                             <button
                                 onClick={() => setIsHudExpanded(!isHudExpanded)}
                                 title={isHudExpanded ? "Collapse Neural HUD" : "Expand Neural HUD"}
+                                aria-label={isHudExpanded ? "Collapse Neural HUD" : "Expand Neural HUD"}
                                 className={`w-10 h-10 rounded-xl flex items-center justify-center border transition-all duration-500
                                 ${isHudExpanded ? 'bg-intel-gold border-intel-gold text-black shadow-[0_0_20px_rgba(255,184,0,0.3)]' : 'bg-black border-white/10 text-intel-gold hover:border-intel-gold/40'}`}
                             >
@@ -157,7 +158,7 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
                 {/* 2. THE EdIntel BAR (Header) */}
                 <header className="h-20 md:h-24 border-b border-white/[0.04] flex items-center justify-between px-6 md:px-12 bg-black/40 backdrop-blur-3xl relative z-40">
                     <div className="flex items-center gap-12">
-                        <Link href="/" className={`${isMarketingRoute ? '' : 'md:hidden'}`}>
+                        <Link href="/" aria-label="EdIntel Home" className={`${isMarketingRoute ? '' : 'md:hidden'}`}>
                             <div className="w-10 h-10 border border-intel-gold/40 rounded-xl flex items-center justify-center text-intel-gold font-black bg-white/[0.02] shadow-[0_0_20px_rgba(197,164,126,0.1)] group-hover:scale-110 transition-transform italic text-lg">
                                 Ei
                             </div>
@@ -166,7 +167,7 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
                         {!isMarketingRoute && (
                             <div className="hidden sm:flex items-center gap-4 group cursor-default">
                                 <div className="w-2.5 h-2.5 rounded-full bg-shield-green animate-pulse shadow-[0_0_15px_rgba(16,185,129,0.5)]" />
-                                <span className="text-[10px] font-black font-mono text-zinc-500 uppercase tracking-[0.5em] italic">Due Process Shield: Active</span>
+                                <span className="text-[10px] font-black font-mono text-zinc-400 uppercase tracking-[0.5em] italic">Due Process Shield: Active</span>
                             </div>
                         )}
 
@@ -189,6 +190,7 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
                                 }}
                                 className="bg-[#1877F2]/10 text-[#1877F2] border border-[#1877F2]/20 p-3.5 rounded-2xl hover:bg-[#1877F2] hover:text-white transition-all duration-300 shadow-lg group/fb"
                                 title="Login with Facebook"
+                                aria-label="Login with Facebook"
                             >
                                 <Facebook className="w-4 h-4 group-hover/fb:scale-110 transition-transform" />
                             </button>
@@ -228,7 +230,7 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
                                         <h1 className="text-5xl md:text-8xl font-black italic tracking-tighter text-gold-gradient uppercase leading-[0.9]">
                                             District Intelligence
                                         </h1>
-                                        <p className="mt-6 md:mt-10 text-lg md:text-xl text-zinc-500 max-w-3xl mx-auto font-black italic leading-relaxed uppercase tracking-tight opacity-80">
+                                        <p className="mt-6 md:mt-10 text-lg md:text-xl text-zinc-400 max-w-3xl mx-auto font-black italic leading-relaxed uppercase tracking-tight opacity-80">
                                             Strategic architectures for the modern educator. Empowering leadership through superior intelligence and executive automation.
                                         </p>
                                     </motion.div>
@@ -251,6 +253,7 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
                     <button
                         className="fixed bottom-32 sm:bottom-12 right-6 sm:right-12 w-14 h-14 sm:w-16 sm:h-16 bg-intel-gold text-black rounded-2xl flex items-center justify-center shadow-3xl hover:scale-110 hover:rotate-6 transition-all duration-500 group/fab z-50"
                         title="Quick Search Terminal"
+                        aria-label="Quick Search Terminal"
                     >
                         <Search className="w-6 h-6 sm:w-7 sm:h-7 group-hover:scale-110 transition-transform" />
                     </button>
@@ -269,10 +272,10 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
                                         </div>
                                         <div>
                                             <h4 className="text-xl font-black italic text-white uppercase tracking-tighter leading-none">EdIntel</h4>
-                                            <span className="text-[10px] text-zinc-500 uppercase tracking-[0.3em] font-bold">Operating System v4.0</span>
+                                            <span className="text-[10px] text-zinc-400 uppercase tracking-[0.3em] font-bold">Operating System v4.0</span>
                                         </div>
                                     </div>
-                                    <p className="text-xs text-zinc-500 leading-relaxed max-w-sm uppercase tracking-wide font-medium">
+                                    <p className="text-xs text-zinc-400 leading-relaxed max-w-sm uppercase tracking-wide font-medium">
                                         The world's highest fidelity educational intelligence grid. Autonomous agents, biometric security, and executive automation.
                                     </p>
                                 </div>
@@ -311,10 +314,10 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
                                 <div className="col-span-1 md:col-span-3 space-y-6">
                                     <h5 className="text-[10px] font-black text-white/30 uppercase tracking-[0.4em]">System Nodes</h5>
                                     <ul className="space-y-3">
-                                        <li><Link href="/identity" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Data Identity</Link></li>
-                                        <li><Link href="/ferpa" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Federal Compliance</Link></li>
-                                        <li><Link href="/admin/status" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Grid Status</Link></li>
-                                        <li><Link href="/admin" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Admin Portal</Link></li>
+                                        <li><Link href="/identity" className="text-xs text-zinc-400 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Data Identity</Link></li>
+                                        <li><Link href="/ferpa" className="text-xs text-zinc-400 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Federal Compliance</Link></li>
+                                        <li><Link href="/admin/status" className="text-xs text-zinc-400 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Grid Status</Link></li>
+                                        <li><Link href="/admin" className="text-xs text-zinc-400 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Admin Portal</Link></li>
                                         <li><Link href="/privacy" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Privacy Policy</Link></li>
                                         <li><Link href="/terms" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Terms of Service</Link></li>
                                         <li><Link href="/support" className="text-xs text-zinc-500 hover:text-intel-gold uppercase tracking-widest transition-colors font-bold">Support Center</Link></li>

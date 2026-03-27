@@ -9,7 +9,7 @@ export function GrantArchitect() {
     return (
         <GlassPanel className="p-6 h-full space-y-4 group">
             <div className="flex items-center gap-3">
-                <Zap className="text-emerald-400 group-hover:scale-110 transition-transform duration-300" size={20} />
+                <Zap aria-hidden="true" className="text-emerald-400 group-hover:scale-110 transition-transform duration-300" size={20} />
                 <h3 className="text-lg font-bold text-white tracking-tight">Grant Architect</h3>
             </div>
 

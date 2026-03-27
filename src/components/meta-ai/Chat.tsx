@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useActions, useUIState } from '@ai-sdk/rsc';
-import { AI } from '@/app/ai-hub/ai';
+import { AI } from '@/lib/ai/rsc';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Loader2, Brain, Send, Shield, Zap, Activity } from 'lucide-react';
@@ -10,6 +10,7 @@ import { motion } from 'framer-motion';
 import AbilityAnimation from '@/components/shared/AbilityAnimation';
 
 import { edgeAI } from '@/lib/ai/edge-ai';
+import { useAccessibilityScrubber } from '@/hooks/useAccessibilityScrubber';
 
 export interface MetaAIChatProps {
     className?: string;
@@ -36,6 +37,9 @@ export function MetaAIChat({ className = '' }: MetaAIChatProps) {
             scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
         }
     }, [conversation]);
+
+    // Accessibility Scrubber: Clean up invalid ARIA attributes injected by AI SDK/RSC
+    useAccessibilityScrubber(scrollRef);
 
     const handleSend = async () => {
         if (!input.trim() || isLoading) return;
@@ -65,7 +69,7 @@ export function MetaAIChat({ className = '' }: MetaAIChatProps) {
                         {localCheck && (
                             <div className="flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full">
                                 <Activity size={8} className={localCheck.equityVerified ? 'text-emerald-500' : 'text-amber-500'} />
-                                <span className="text-[7px] font-black uppercase tracking-widest text-zinc-500">
+                                <span className="text-[7px] font-black uppercase tracking-widest text-zinc-400">
                                     Edge Verified: {localCheck.sentiment} ({Math.round(localCheck.confidence * 100)}%)
                                 </span>
                             </div>
@@ -114,7 +118,7 @@ export function MetaAIChat({ className = '' }: MetaAIChatProps) {
                                 <h3 className="text-2xl font-black text-white uppercase tracking-tighter">Meta AI</h3>
                                 <div className="px-2 py-0.5 bg-blue-500/10 border border-blue-500/30 rounded text-[10px] text-blue-400 font-black uppercase tracking-widest">Llama 3.3</div>
                             </div>
-                            <p className="text-xs text-zinc-500 font-medium uppercase tracking-widest mt-1 italic">EdIntel Neural Interface</p>
+                            <p className="text-xs text-zinc-400 font-medium uppercase tracking-widest mt-1 italic">EdIntel Neural Interface</p>
                         </div>
                     </div>
 
@@ -161,7 +165,7 @@ export function MetaAIChat({ className = '' }: MetaAIChatProps) {
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start">
                         <div className="bg-zinc-900/50 border border-white/5 rounded-[2rem] rounded-bl-none px-6 py-4 flex items-center gap-3">
                             <Loader2 className="w-4 h-4 animate-spin text-blue-500" />
-                            <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest animate-pulse">Analyzing Pattern...</span>
+                            <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest animate-pulse">Analyzing Pattern...</span>
                         </div>
                     </motion.div>
                 )}
@@ -178,6 +182,7 @@ export function MetaAIChat({ className = '' }: MetaAIChatProps) {
                             onChange={(e) => setInput(e.target.value)}
                             onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleSend()}
                             placeholder="TRANSMIT STRATEGIC QUERY..."
+                            aria-label="Type your message"
                             className="relative w-full px-6 py-5 bg-black border border-white/10 rounded-2xl text-white text-sm font-bold placeholder:text-zinc-700 outline-none focus:border-blue-500/50 transition-all uppercase tracking-wider"
                             disabled={isLoading}
                         />

@@ -18,7 +18,7 @@ export default function MediaAnalytics() {
             <div className="flex items-center justify-between mb-8">
                 <div>
                     <h3 className="text-xl font-black text-white italic uppercase tracking-tighter">Media Consumption <span className="text-noble-gold">Pulse</span></h3>
-                    <p className="text-white/40 text-[10px] uppercase tracking-widest mt-1">Real-time engagement heuristics</p>
+                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400 mb-6 block">Engagement heuristics</span>
                 </div>
                 <div className="p-3 bg-white/5 rounded-2xl border border-white/5">
                     <BarChart3 className="w-5 h-5 text-noble-gold" />
@@ -35,8 +35,10 @@ export default function MediaAnalytics() {
                         className="p-6 rounded-2xl bg-black/40 border border-white/5 hover:border-noble-gold/20 transition-all group"
                     >
                         <metric.icon className={`w-4 h-4 mb-3 ${metric.color} opacity-60 group-hover:opacity-100 transition-opacity`} />
-                        <div className="text-2xl font-black text-white mb-1">{metric.value}</div>
-                        <div className="text-[9px] font-bold text-white/30 uppercase tracking-widest">{metric.label}</div>
+                        <div className="flex flex-col">
+                            <span className="text-[9px] font-black text-zinc-400 uppercase tracking-widest leading-none">{metric.label}</span>
+                            <span className="text-sm font-black text-white tracking-tighter">{metric.value}</span>
+                        </div>
                     </motion.div>
                 ))}
             </div>
