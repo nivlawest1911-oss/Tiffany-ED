@@ -102,24 +102,25 @@ export const CommandPalette: React.FC = () => {
                     >
                         <div className="flex items-center px-4 py-4 border-b border-white/5">
                             <Search className="w-5 h-5 text-zinc-400 mr-3" />
-                            <input
-                                ref={inputRef}
-                                type="text"
-                                value={query}
-                                onChange={(e) => setQuery(e.target.value)}
-                                onKeyDown={handleKeyDown}
-                                placeholder="Universal institutional search... (Ctrl+K)"
-                                className="flex-1 bg-transparent border-none text-white focus:outline-none placeholder:text-zinc-600 font-medium"
-                            />
+                             <input
+                                 ref={inputRef}
+                                 type="text"
+                                 value={query}
+                                 onChange={(e) => setQuery(e.target.value)}
+                                 onKeyDown={handleKeyDown}
+                                 placeholder="Universal institutional search... (Ctrl+K)"
+                                 aria-label="Universal institutional search"
+                                 className="flex-1 bg-transparent border-none text-white focus:outline-none placeholder:text-zinc-400 font-medium"
+                             />
                             <div className="flex items-center gap-2 px-2 py-1 bg-white/5 rounded-md border border-white/5">
-                                <Command size={12} className="text-zinc-500" />
-                                <span className="text-[10px] font-bold text-zinc-500 uppercase">K</span>
+                                <Command size={12} className="text-zinc-400" />
+                                <span className="text-[10px] font-bold text-zinc-400 uppercase">K</span>
                             </div>
                         </div>
 
                         <div className="max-h-[60vh] overflow-y-auto custom-scrollbar">
                             {isSearching ? (
-                                <div className="p-12 flex flex-col items-center justify-center text-zinc-500 gap-4">
+                                <div className="p-12 flex flex-col items-center justify-center text-zinc-400 gap-4">
                                     <div className="w-8 h-8 rounded-full border-2 border-cyan-500/20 border-t-cyan-500 animate-spin" />
                                     <span className="text-xs font-black uppercase tracking-widest italic opacity-50">Synthesizing Results...</span>
                                 </div>
@@ -147,7 +148,7 @@ export const CommandPalette: React.FC = () => {
                                                 <div className="text-sm font-bold text-white group-hover:text-cyan-400 transition-colors uppercase tracking-wide">
                                                     {result.title}
                                                 </div>
-                                                <div className="text-xs text-zinc-500 line-clamp-1 font-medium">
+                                                <div className="text-xs text-zinc-400 line-clamp-1 font-medium">
                                                     {result.description}
                                                 </div>
                                             </div>
@@ -158,14 +159,14 @@ export const CommandPalette: React.FC = () => {
                                     ))}
                                 </div>
                             ) : query.length > 0 ? (
-                                <div className="p-12 text-center text-zinc-500">
+                                <div className="p-12 text-center text-zinc-400">
                                     <X size={24} className="mx-auto mb-4 opacity-20" />
                                     <p className="text-xs uppercase tracking-[0.2em] font-black italic">No records found within the current intelligence layer.</p>
                                 </div>
                             ) : (
                                 <div className="p-8 space-y-6">
                                     <div>
-                                        <h4 className="text-[10px] uppercase tracking-[0.3em] text-zinc-600 font-black mb-4 px-2">Recent Navigations</h4>
+                                        <h4 className="text-[10px] uppercase tracking-[0.3em] text-zinc-400 font-black mb-4 px-2">Recent Navigations</h4>
                                         <div className="grid grid-cols-2 gap-2">
                                             {['The Room', 'Academy', 'Vault', 'Education Hub'].map((item) => (
                                                 <div key={item} className="flex items-center p-3 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors cursor-pointer group">
@@ -198,7 +199,7 @@ export const CommandPalette: React.FC = () => {
                             )}
                         </div>
 
-                        <div className="px-4 py-3 bg-white/5 border-t border-white/5 flex items-center justify-between text-[10px] text-zinc-600 font-bold uppercase tracking-widest">
+                        <div className="px-4 py-3 bg-white/5 border-t border-white/5 flex items-center justify-between text-[10px] text-zinc-400 font-bold uppercase tracking-widest">
                             <div className="flex items-center gap-4">
                                 <span className="flex items-center gap-1"><Command size={12} /> + Enter to Select</span>
                                 <span className="flex items-center gap-1">↑↓ to Navigate</span>

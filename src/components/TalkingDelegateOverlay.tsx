@@ -65,8 +65,8 @@ export default function TalkingDelegateOverlay({
                     }
                 }, 500);
 
-            } catch (err: any) {
-                if (err.name === 'AbortError') return;
+            } catch (err: unknown) {
+                if (err instanceof Error && err.name === 'AbortError') return;
                 console.error("TTS Error:", err);
                 setError("Voice synthesis unavailable. Using backup protocol.");
                 setIsLoading(false);
@@ -109,8 +109,8 @@ export default function TalkingDelegateOverlay({
                     >
                         {/* HEADER */}
                         <div className="absolute top-0 left-0 right-0 z-20 p-4 flex justify-between items-start bg-gradient-to-b from-black/80 to-transparent">
-                            <div className="flex items-center gap-2 px-3 py-1 bg-black/60 backdrop-blur rounded-full border border-white/10">
-                                <div className={`w-2 h-2 rounded-full ${isPlaying ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'}`} />
+                            <div className="flex items-center gap-2 px-3 py-1 bg-black/60 backdrop-blur rounded-full border border-white/10" aria-live="polite">
+                                <div className={`w-2 h-2 rounded-full ${isPlaying ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'}`} aria-hidden="true" />
                                 <span className="text-[10px] font-bold text-white uppercase tracking-wider">
                                     {isPlaying ? 'Live Audio Feed' : isLoading ? 'Synthesizing...' : 'Standby'}
                                 </span>
@@ -118,8 +118,9 @@ export default function TalkingDelegateOverlay({
                             <button
                                 onClick={onClose}
                                 className="p-2 rounded-full bg-black/40 hover:bg-white/10 text-white transition-colors border border-white/5"
+                                aria-label="Close overlay"
                             >
-                                <X size={16} />
+                                <X size={16} aria-hidden="true" />
                             </button>
                         </div>
 
@@ -138,6 +139,7 @@ export default function TalkingDelegateOverlay({
                                         onPause={() => setIsPlaying(false)}
                                         onEnded={() => setIsPlaying(false)}
                                         className="w-full h-full object-cover"
+                                        aria-label={`Video of ${name}`}
                                     />
                                 ) : (
                                     <Image
@@ -206,7 +208,7 @@ export default function TalkingDelegateOverlay({
                                     disabled={isLoading || (!audioSrc && !videoSrc)}
                                     className="flex-1 py-3 bg-white text-black font-bold uppercase text-xs tracking-widest rounded-xl hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
                                 >
-                                    {isPlaying ? <Pause size={14} /> : <Play size={14} />}
+                                    {isPlaying ? <Pause size={14} aria-hidden="true" /> : <Play size={14} aria-hidden="true" />}
                                     {isPlaying ? 'Pause Protocol' : 'Resume Protocol'}
                                 </button>
                             </div>

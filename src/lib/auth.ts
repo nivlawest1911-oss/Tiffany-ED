@@ -48,7 +48,15 @@ import { createClient } from '@/utils/supabase/server';
 export async function getSession() {
     const cookieStore = await cookies();
 
-    // 1. Try Supabase Session first (Modern)
+    // PERFORMANCE OPTIMIZATION: Check for legacy session first as it's purely local/JWT
+    // and doesn't involve any external calls.
+    const legacySessionValue = cookieStore.get('edintel_session')?.value;
+    if (legacySessionValue) {
+        const decrypted = await decrypt(legacySessionValue);
+        if (decrypted?.user) return decrypted;
+    }
+
+    // 1. Try Supabase Session (Modern) if legacy fails
     const supabase = await createClient();
     if (supabase) {
         try {
@@ -65,18 +73,11 @@ export async function getSession() {
                 };
             }
         } catch {
-            // Supabase not available - fall through to legacy auth
+            // Supabase not available - fail silently
         }
     }
 
-    // 2. Fallback: Legacy JWT Session
-    const legacySessionValue = cookieStore.get('edintel_session')?.value;
-    if (!legacySessionValue) {
-        return null;
-    }
-
-    const decrypted = await decrypt(legacySessionValue);
-    return decrypted;
+    return null;
 }
 
 export async function updateSession(request: NextRequest) {

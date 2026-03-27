@@ -111,6 +111,7 @@ function TalkingAvatarTestimonial({ testimonial, theme = 'professional' }: { tes
                     {!isSpeaking ? (
                         <button
                             onClick={speak}
+                            aria-label="Play testimonial"
                             className="w-16 h-16 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/20 hover:scale-110 transition-all shadow-2xl group-hover:border-amber-500/50"
                         >
                             <Play size={24} className="ml-1 fill-white" />
@@ -118,6 +119,7 @@ function TalkingAvatarTestimonial({ testimonial, theme = 'professional' }: { tes
                     ) : (
                         <button
                             onClick={stop}
+                            aria-label="Stop testimonial"
                             className={`w-16 h-16 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center ${accentColor} hover:bg-white/20 hover:scale-110 transition-all shadow-2xl animate-pulse`}
                         >
                             <Pause size={24} className="fill-current" />

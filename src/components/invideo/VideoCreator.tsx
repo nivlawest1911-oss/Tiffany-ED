@@ -141,7 +141,7 @@ export function InVideoCreator({ className = '' }: InVideoCreatorProps) {
                     </div>
                     <div>
                         <h3 className="text-xl font-bold text-white">InVideo AI Creator</h3>
-                        <p className="text-sm text-white/60">Generate complete videos from text prompts</p>
+                        <p className="text-sm text-zinc-400">Generate complete videos from text prompts</p>
                     </div>
                 </div>
 
@@ -160,8 +160,9 @@ export function InVideoCreator({ className = '' }: InVideoCreatorProps) {
                 {/* Settings */}
                 <div className="grid grid-cols-3 gap-4">
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-white/80">Style</label>
+                        <label htmlFor="video-style" className="text-sm font-medium text-white/80">Style</label>
                         <select
+                            id="video-style"
                             value={style}
                             onChange={(e) => setStyle(e.target.value as any)}
                             className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-pink-500"
@@ -174,8 +175,9 @@ export function InVideoCreator({ className = '' }: InVideoCreatorProps) {
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-white/80">Aspect Ratio</label>
+                        <label htmlFor="aspect-ratio" className="text-sm font-medium text-white/80">Aspect Ratio</label>
                         <select
+                            id="aspect-ratio"
                             value={aspectRatio}
                             onChange={(e) => setAspectRatio(e.target.value as any)}
                             className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-pink-500"
@@ -188,8 +190,9 @@ export function InVideoCreator({ className = '' }: InVideoCreatorProps) {
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-white/80">Duration (seconds)</label>
+                        <label htmlFor="video-duration" className="text-sm font-medium text-white/80">Duration (seconds)</label>
                         <input
+                            id="video-duration"
                             type="number"
                             value={duration}
                             onChange={(e) => setDuration(Number(e.target.value))}
@@ -237,7 +240,7 @@ export function InVideoCreator({ className = '' }: InVideoCreatorProps) {
                                     transition={{ duration: 0.5 }}
                                 />
                             </div>
-                            <p className="text-xs text-white/60 text-center">
+                            <p className="text-xs text-zinc-400 text-center">
                                 AI is generating your video with visuals, voiceover, and music...
                             </p>
                         </motion.div>
@@ -304,7 +307,7 @@ export function InVideoCreator({ className = '' }: InVideoCreatorProps) {
                 {/* Tips */}
                 <div className="bg-white/5 rounded-lg p-4 space-y-2">
                     <p className="text-xs font-semibold text-white/80">💡 Tips for better results:</p>
-                    <ul className="text-xs text-white/60 space-y-1 list-disc list-inside">
+                    <ul className="text-xs text-zinc-400 space-y-1 list-disc list-inside">
                         <li>Be specific about the topic and target audience</li>
                         <li>Mention desired visual style (animations, live footage, etc.)</li>
                         <li>Specify tone (formal, casual, energetic, calm)</li>

@@ -9,7 +9,7 @@ import SovereignButton from '@/components/ui/SovereignButton';
 export const AIHubCard = () => {
     const nodes = [
         { name: 'Leadership', status: 'Active', color: 'text-cyan-400' },
-        { name: 'Curriculum', status: 'Idle', color: 'text-zinc-500' },
+        { name: 'Curriculum', status: 'Idle', color: 'text-zinc-400' },
         { name: 'Cognitive Gym', status: 'Active', color: 'text-indigo-400' },
         { name: 'The Room', status: 'Standby', color: 'text-amber-500' },
     ];

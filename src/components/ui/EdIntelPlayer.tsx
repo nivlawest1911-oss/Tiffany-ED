@@ -46,6 +46,7 @@ export function EdIntelPlayer({
                     onEnded={() => setIsPlaying(false)}
                     onError={() => setHasError(true)}
                     playsInline
+                    aria-label={title || "Video player"}
                 />
             ) : (
                 <div className="w-full h-full aspect-video flex flex-col items-center justify-center bg-slate-900 text-slate-500">
@@ -62,7 +63,7 @@ export function EdIntelPlayer({
                         aria-label="Play Video"
                         className="w-20 h-20 rounded-full bg-white/5 backdrop-blur-xl border border-white/20 flex items-center justify-center text-white group-hover:bg-blue-600 group-hover:border-blue-500 group-hover:scale-110 transition-all duration-300 shadow-[0_0_30px_rgba(59,130,246,0.4)]"
                     >
-                        <Play className="fill-current ml-2" size={32} />
+                        <Play className="fill-current ml-2" size={32} aria-hidden="true" />
                     </button>
                 </div>
             )}
@@ -86,13 +87,14 @@ export function EdIntelPlayer({
                         aria-label={isPlaying ? "Pause" : "Play"}
                         className="p-2 hover:bg-white/10 rounded-lg text-white transition-colors"
                     >
-                        {isPlaying ? <Pause size={20} /> : <Play size={20} />}
+                        {isPlaying ? <Pause size={20} aria-hidden="true" /> : <Play size={20} aria-hidden="true" />}
                     </button>
                     <button
+                        title="Maximize"
                         aria-label="Maximize"
                         className="p-2 hover:bg-white/10 rounded-lg text-slate-400 hover:text-white transition-colors"
                     >
-                        <Maximize size={20} />
+                        <Maximize size={20} aria-hidden="true" />
                     </button>
                 </div>
             </div>

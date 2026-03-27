@@ -41,7 +41,7 @@ export const SovereignBadge = ({ tier, className }: SovereignBadgeProps) => {
             gradient: 'from-zinc-400 via-zinc-500 to-zinc-600',
             bg: 'bg-zinc-500/10',
             border: 'border-zinc-500/30',
-            icon: <ShieldCheck className="w-3 h-3 text-zinc-500" />,
+            icon: <ShieldCheck className="w-3 h-3 text-zinc-400" />,
             glow: ''
         }
     };

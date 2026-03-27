@@ -33,6 +33,7 @@ export default function LeadershipIntelligence() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Describe a stressful situation..."
+            aria-label="Stressful situation description"
             className="w-full bg-transparent border-none outline-none text-sm resize-none h-20"
           />
           <button onClick={reframeSituation} disabled={loading} className="w-full mt-2 py-3 bg-pink-600 rounded-xl text-xs font-bold flex justify-center items-center gap-2">

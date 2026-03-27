@@ -183,12 +183,12 @@ export const UnityNode: React.FC = () => {
                 <div className="absolute bottom-8 left-8 right-8 flex justify-between items-end">
                     <div className="space-y-4">
                         <div className="flex items-center gap-2">
-                            <Cpu size={14} className="text-zinc-500" />
-                            <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">System Load: {stats.systemLoad}%</span>
+                            <Cpu size={14} className="text-zinc-400" />
+                            <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">System Load: {stats.systemLoad}%</span>
                         </div>
                         <div className="flex items-center gap-2">
-                             <Globe size={14} className="text-zinc-500" />
-                            <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Network Nodes: {districts.reduce((acc, d) => acc + d.nodes.length, 0)}</span>
+                             <Globe size={14} className="text-zinc-400" />
+                            <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">Network Nodes: {districts.reduce((acc, d) => acc + d.nodes.length, 0)}</span>
                         </div>
                     </div>
 
@@ -248,7 +248,7 @@ export const UnityNode: React.FC = () => {
                             </div>
                             <div className="text-right">
                                 <div className="text-xl font-black text-white italic">{node.health}%</div>
-                                <div className="text-[8px] font-black text-zinc-500 uppercase tracking-widest">Node Health</div>
+                                <div className="text-[8px] font-black text-zinc-400 uppercase tracking-widest">Node Health</div>
                             </div>
                         </div>
 
@@ -258,13 +258,13 @@ export const UnityNode: React.FC = () => {
 
                         <div className="mt-4 space-y-2">
                             <div className="flex justify-between items-center">
-                                <span className="text-[10px] font-bold text-zinc-500 uppercase">Status</span>
+                                <span className="text-[10px] font-bold text-zinc-400 uppercase">Status</span>
                                 <span className={`text-[10px] font-black uppercase ${node.status === 'optimal' ? 'text-green-400' :
                                     node.status === 'stressed' ? 'text-yellow-400' : 'text-red-400'
                                     }`}>{node.status}</span>
                             </div>
                             <div className="flex justify-between items-center">
-                                <span className="text-[10px] font-bold text-zinc-500 uppercase">Active Swarms</span>
+                                <span className="text-[10px] font-bold text-zinc-400 uppercase">Active Swarms</span>
                                 <span className="text-[10px] font-black text-white">{node.activeSwarms}</span>
                             </div>
                         </div>
@@ -304,7 +304,7 @@ export const UnityNode: React.FC = () => {
                     <div className="space-y-4 font-mono text-[11px] h-[300px] overflow-y-auto pr-4 custom-scrollbar">
                         {[1, 2, 3, 4, 5, 6].map((i) => (
                             <div key={i} className="group border-l border-white/10 pl-4 py-1 hover:border-blue-500/50 transition-colors">
-                                <div className="flex justify-between text-zinc-600 mb-1">
+                                <div className="flex justify-between text-zinc-400 mb-1">
                                     <span>[SYNC_NODE_{i * 1024}]</span>
                                     <span>{new Date().toLocaleTimeString()}</span>
                                 </div>

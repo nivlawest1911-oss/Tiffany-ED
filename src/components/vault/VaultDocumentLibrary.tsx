@@ -72,6 +72,7 @@ export default function VaultDocumentLibrary({ onSelectAction }: { onSelectActio
                         placeholder="Search library..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
+                        aria-label="Search institutional library"
                         className="bg-slate-900/50 border border-slate-800 rounded-md pl-7 pr-2 py-1 text-[10px] text-slate-300 focus:outline-none focus:border-indigo-500 transition-all"
                     />
                 </div>
@@ -129,6 +130,7 @@ export default function VaultDocumentLibrary({ onSelectAction }: { onSelectActio
                                         <button
                                             onClick={(e) => handleDelete(doc.id, e)}
                                             title="Purge Intelligence"
+                                            aria-label={`Purge intelligence: ${doc.fileName}`}
                                             className="p-2 text-slate-600 hover:text-rose-400 hover:bg-rose-400/10 rounded-lg transition-all opacity-0 group-hover:opacity-100"
                                         >
                                             <Trash2 className="w-4 h-4" />

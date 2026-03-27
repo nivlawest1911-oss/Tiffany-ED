@@ -23,7 +23,7 @@ export default function AITwinGenerator() {
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, type: 'photo' | 'voice' | 'video') => {
         const file = e.target.files?.[0];
         if (file) {
-            setUploads(prev => ({ ...prev, [type]: file }));
+            setUploads((prev: { photo: File | null; voice: File | null; video: File | null }) => ({ ...prev, [type]: file }));
             toast.success(`${type.charAt(0).toUpperCase() + type.slice(1)} uploaded successfully`);
         }
     };
@@ -54,7 +54,7 @@ export default function AITwinGenerator() {
                     if (isMounted) {
                         setStep(3);
                     }
-                } catch (error) {
+                } catch (error: unknown) {
                     console.error('Cloning error:', error);
                     if (isMounted) {
                         setStep(1); // revert back to step 1 on failure
@@ -82,7 +82,7 @@ export default function AITwinGenerator() {
                         <div>
                             <div className="flex items-center gap-3 mb-4">
                                 <div className="p-2 bg-indigo-500/10 rounded-lg border border-indigo-500/20">
-                                    <Fingerprint className="text-indigo-400" size={20} />
+                                    <Fingerprint className="text-indigo-400" size={20} aria-hidden="true" />
                                 </div>
                                 <h3 className="text-indigo-400 font-mono text-xs uppercase tracking-[0.2em]">Identity Cloning Protocol</h3>
                             </div>
@@ -101,47 +101,54 @@ export default function AITwinGenerator() {
                                 className="space-y-6"
                             >
                                 <div className="space-y-4">
-                                    <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider block">1. Select Delegate Role</label>
+                                    <label className="text-xs font-bold text-zinc-400 uppercase tracking-wider block">1. Select Delegate Role</label>
                                     <div className="grid grid-cols-2 gap-4">
-                                        {['Superintendent', 'Principal', 'Counselor', 'Communications'].map((r) => (
-                                            <button
-                                                key={r}
-                                                onClick={() => setRole(r)}
-                                                className={`p-4 rounded-xl border text-left transition-all ${role === r
-                                                    ? 'bg-indigo-600 border-indigo-500 text-white shadow-lg shadow-indigo-500/20'
-                                                    : 'bg-zinc-900/50 border-white/10 text-zinc-400 hover:bg-zinc-800'
-                                                    }`}
-                                            >
-                                                <div className="text-xs font-black uppercase tracking-widest mb-1">{r}</div>
-                                                <div className="text-[10px] opacity-60">Auth Level: {r === 'Superintendent' ? 'Omega' : 'Alpha'}</div>
-                                            </button>
-                                        ))}
+                                         {['Superintendent', 'Principal', 'Counselor', 'Communications'].map((r) => {
+                                             const isPressed = role === r;
+                                             return (
+                                                 <button
+                                                     key={r}
+                                                     onClick={() => setRole(r)}
+                                                     className={`p-4 rounded-xl border text-left transition-all ${role === r
+                                                         ? 'bg-indigo-600 border-indigo-500 text-white shadow-lg shadow-indigo-500/20'
+                                                         : 'bg-zinc-900/50 border-white/10 text-zinc-400 hover:bg-zinc-800'
+                                                         }`}
+                                                     {...({ "aria-pressed": isPressed ? "true" : "false" })}
+                                                 >
+                                                     <div className="text-xs font-black uppercase tracking-widest mb-1">{r}</div>
+                                                     <div className="text-[10px] opacity-60">Auth Level: {r === 'Superintendent' ? 'Omega' : 'Alpha'}</div>
+                                                 </button>
+                                             );
+                                         })}
                                     </div>
                                 </div>
 
                                 <div className="space-y-4">
-                                    <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider block">2. Upload Biometrics</label>
+                                    <label className="text-xs font-bold text-zinc-400 uppercase tracking-wider block">2. Upload Biometrics</label>
                                     <div className="grid grid-cols-3 gap-4">
-                                        <label htmlFor="photo-upload" aria-label="Upload visual photo meta-data" className={`flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border border-dashed transition-all cursor-pointer ${uploads.photo ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-700 hover:border-indigo-500 hover:bg-indigo-500/5 group'}`}>
+                                        <label htmlFor="photo-upload" className={`flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border border-dashed transition-all cursor-pointer ${uploads.photo ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-700 hover:border-indigo-500 hover:bg-indigo-500/5 group'}`}>
+                                            <span className="sr-only">Upload visual photo meta-data</span>
                                             <input id="photo-upload" type="file" className="hidden" accept="image/*" onChange={(e) => handleFileChange(e, 'photo')} />
                                             <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${uploads.photo ? 'bg-emerald-500 text-white' : 'bg-zinc-800 group-hover:bg-indigo-500 group-hover:text-white'}`}>
-                                                {uploads.photo ? <Check size={18} /> : <Upload size={18} />}
+                                                {uploads.photo ? <Check size={18} aria-hidden="true" /> : <Upload size={18} aria-hidden="true" />}
                                             </div>
-                                            <span className={`text-[10px] font-bold uppercase tracking-widest ${uploads.photo ? 'text-emerald-400' : 'text-zinc-500'}`}>Photo {uploads.photo && '✓'}</span>
+                                            <span className={`text-[10px] font-bold uppercase tracking-widest ${uploads.photo ? 'text-emerald-400' : 'text-zinc-400'}`}>Photo {uploads.photo && '✓'}</span>
                                         </label>
-                                        <label htmlFor="voice-upload" aria-label="Upload voice biometric data" className={`flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border border-dashed transition-all cursor-pointer ${uploads.voice ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-700 hover:border-indigo-500 hover:bg-indigo-500/5 group'}`}>
+                                        <label htmlFor="voice-upload" className={`flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border border-dashed transition-all cursor-pointer ${uploads.voice ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-700 hover:border-indigo-500 hover:bg-indigo-500/5 group'}`}>
+                                            <span className="sr-only">Upload voice biometric data</span>
                                             <input id="voice-upload" type="file" className="hidden" accept="audio/*" onChange={(e) => handleFileChange(e, 'voice')} />
                                             <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${uploads.voice ? 'bg-emerald-500 text-white' : 'bg-zinc-800 group-hover:bg-indigo-500 group-hover:text-white'}`}>
-                                                {uploads.voice ? <Check size={18} /> : <Mic size={18} />}
+                                                {uploads.voice ? <Check size={18} aria-hidden="true" /> : <Mic size={18} aria-hidden="true" />}
                                             </div>
-                                            <span className={`text-[10px] font-bold uppercase tracking-widest ${uploads.voice ? 'text-emerald-400' : 'text-zinc-500'}`}>Voice {uploads.voice && '✓'}</span>
+                                            <span className={`text-[10px] font-bold uppercase tracking-widest ${uploads.voice ? 'text-emerald-400' : 'text-zinc-400'}`}>Voice {uploads.voice && '✓'}</span>
                                         </label>
-                                        <label htmlFor="video-upload" aria-label="Upload video reference sample" className={`flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border border-dashed transition-all cursor-pointer ${uploads.video ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-700 hover:border-indigo-500 hover:bg-indigo-500/5 group'}`}>
+                                        <label htmlFor="video-upload" className={`flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border border-dashed transition-all cursor-pointer ${uploads.video ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-700 hover:border-indigo-500 hover:bg-indigo-500/5 group'}`}>
+                                            <span className="sr-only">Upload video reference sample</span>
                                             <input id="video-upload" type="file" className="hidden" accept="video/*" onChange={(e) => handleFileChange(e, 'video')} />
                                             <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${uploads.video ? 'bg-emerald-500 text-white' : 'bg-zinc-800 group-hover:bg-indigo-500 group-hover:text-white'}`}>
-                                                {uploads.video ? <Check size={18} /> : <Video size={18} />}
+                                                {uploads.video ? <Check size={18} aria-hidden="true" /> : <Video size={18} aria-hidden="true" />}
                                             </div>
-                                            <span className={`text-[10px] font-bold uppercase tracking-widest ${uploads.video ? 'text-emerald-400' : 'text-zinc-500'}`}>Video {uploads.video && '✓'}</span>
+                                            <span className={`text-[10px] font-bold uppercase tracking-widest ${uploads.video ? 'text-emerald-400' : 'text-zinc-400'}`}>Video {uploads.video && '✓'}</span>
                                         </label>
                                     </div>
                                 </div>
@@ -171,7 +178,7 @@ export default function AITwinGenerator() {
                                 </div>
                                 <div className="flex flex-col items-center text-center space-y-6 py-8">
                                     <div className="w-24 h-24 rounded-full border-4 border-indigo-500/20 border-t-indigo-500 animate-spin flex items-center justify-center">
-                                        <Zap className="text-indigo-400 animate-pulse" />
+                                        <Zap className="text-indigo-400 animate-pulse" aria-hidden="true" />
                                     </div>
                                     <div>
                                         <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-2">Synthesizing Neural Map</h3>
@@ -183,9 +190,10 @@ export default function AITwinGenerator() {
                                     </div>
                                     <button
                                         onClick={handleCancel}
-                                        className="mt-4 flex items-center gap-2 text-zinc-500 hover:text-red-400 transition-colors uppercase text-[10px] font-black tracking-widest"
+                                        className="mt-4 flex items-center gap-2 text-zinc-400 hover:text-red-400 transition-colors uppercase text-[10px] font-black tracking-widest"
+                                        aria-label="Abort Cloning Sequence"
                                     >
-                                        <X size={12} />
+                                        <X size={12} aria-hidden="true" />
                                         Abort Sequence
                                     </button>
                                 </div>
@@ -256,20 +264,20 @@ export default function AITwinGenerator() {
                                     </div>
                                 </div>
                                 <h1 className="text-4xl font-black text-white uppercase tracking-tighter">
-                                    Dr. Alvin West <span className="text-zinc-500 text-2xl">AI</span>
+                                    Dr. Alvin West <span className="text-zinc-400 text-2xl">AI</span>
                                 </h1>
                                 <div className="grid grid-cols-3 gap-2">
                                     <div className="bg-black/50 backdrop-blur p-3 rounded-xl border border-white/10 text-center">
                                         <div className="text-emerald-400 font-bold text-lg">99%</div>
-                                        <div className="text-[8px] text-zinc-500 uppercase tracking-wider">Voice Match</div>
+                                        <div className="text-[8px] text-zinc-400 uppercase tracking-wider">Voice Match</div>
                                     </div>
                                     <div className="bg-black/50 backdrop-blur p-3 rounded-xl border border-white/10 text-center">
                                         <div className="text-indigo-400 font-bold text-lg">24/7</div>
-                                        <div className="text-[8px] text-zinc-500 uppercase tracking-wider">Availability</div>
+                                        <div className="text-[8px] text-zinc-400 uppercase tracking-wider">Availability</div>
                                     </div>
                                     <div className="bg-black/50 backdrop-blur p-3 rounded-xl border border-white/10 text-center">
                                         <div className="text-purple-400 font-bold text-lg">12</div>
-                                        <div className="text-[8px] text-zinc-500 uppercase tracking-wider">Languages</div>
+                                        <div className="text-[8px] text-zinc-400 uppercase tracking-wider">Languages</div>
                                     </div>
                                 </div>
                             </div>

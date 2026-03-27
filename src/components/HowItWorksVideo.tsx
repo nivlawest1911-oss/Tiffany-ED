@@ -97,6 +97,7 @@ export default function HowItWorksVideo() {
                                         <VideoPlayer
                                             src={step.video}
                                             poster={step.thumbnail}
+                                            ariaLabel={`Educational workflow: ${step.title}`}
                                             className="w-full h-full object-cover opacity-80"
                                             autoPlay={true}
                                             loop={true}

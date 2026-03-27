@@ -44,14 +44,15 @@ export function RestorativeReset() {
         <Card className="h-full border-zinc-200 dark:border-zinc-800">
             <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400">
-                    <RefreshCw className="h-5 w-5" />
+                    <RefreshCw className="h-5 w-5" aria-hidden="true" />
                     Restorative Reset
                 </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
                 <div className="space-y-2">
-                    <Label>Student Name</Label>
+                    <Label htmlFor="student-name">Student Name</Label>
                     <Input
+                        id="student-name"
                         placeholder="e.g. Jordan"
                         value={formData.studentName}
                         onChange={(e) => setFormData({ ...formData, studentName: e.target.value })}
@@ -59,8 +60,9 @@ export function RestorativeReset() {
                 </div>
 
                 <div className="space-y-2">
-                    <Label>Incident / Behavior</Label>
+                    <Label htmlFor="incident-behavior">Incident / Behavior</Label>
                     <Input
+                        id="incident-behavior"
                         placeholder="e.g. Refusing to work, disruption"
                         value={formData.incidentType}
                         onChange={(e) => setFormData({ ...formData, incidentType: e.target.value })}
@@ -72,11 +74,12 @@ export function RestorativeReset() {
                         <Label>Severity</Label>
                         <Select
                             value={formData.severity}
-                            onValueChange={(v: any) => setFormData({ ...formData, severity: v })}
+                            onValueChange={(v: string) => setFormData({ ...formData, severity: v as any })}
                         >
-                            <SelectTrigger>
+                            <SelectTrigger aria-label="Incident severity">
                                 <SelectValue placeholder="Select" />
                             </SelectTrigger>
+<div aria-hidden="true" />
                             <SelectContent>
                                 <SelectItem value="low">Low (Grumpy)</SelectItem>
                                 <SelectItem value="medium">Medium (Disruptive)</SelectItem>
@@ -88,11 +91,12 @@ export function RestorativeReset() {
                         <Label>Relationship</Label>
                         <Select
                             value={formData.relationshipHistory}
-                            onValueChange={(v: any) => setFormData({ ...formData, relationshipHistory: v })}
+                            onValueChange={(v: string) => setFormData({ ...formData, relationshipHistory: v as any })}
                         >
-                            <SelectTrigger>
+                            <SelectTrigger aria-label="Relationship history">
                                 <SelectValue placeholder="Select" />
                             </SelectTrigger>
+<div aria-hidden="true" />
                             <SelectContent>
                                 <SelectItem value="positive">Strong</SelectItem>
                                 <SelectItem value="neutral">Neutral</SelectItem>
@@ -109,12 +113,12 @@ export function RestorativeReset() {
                 >
                     {loading ? (
                         <>
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
                             Generating Script...
                         </>
                     ) : (
                         <>
-                            <MessageCircle className="mr-2 h-4 w-4" />
+                            <MessageCircle className="mr-2 h-4 w-4" aria-hidden="true" />
                             Generate Script
                         </>
                     )}
@@ -139,7 +143,7 @@ export function RestorativeReset() {
                             <p className="text-sm text-zinc-700 dark:text-zinc-300 italic">"{script.closing}"</p>
                         </div>
                         <div className="flex items-center gap-2 pt-2 text-xs text-indigo-500">
-                            <HeartHandshake className="h-3 w-3" />
+                            <HeartHandshake className="h-3 w-3" aria-hidden="true" />
                             <span>Goal: Reconnection & Repair</span>
                         </div>
                     </div>

@@ -26,8 +26,8 @@ export default function VideoGallery({ videos, categories = [] }: VideoGalleryPr
       {categories.length > 0 && (
         <GlassPanel variant="default" className="p-4">
           <div className="flex items-center gap-4 flex-wrap">
-            <div className="flex items-center gap-2 text-zinc-400">
-              <Filter className="w-4 h-4" />
+            <div className="flex items-center gap-2 text-zinc-300">
+              <Filter className="w-4 h-4" aria-hidden="true" />
               <span className="text-[10px] font-bold uppercase tracking-widest">Filter</span>
             </div>
             <motion.button
@@ -37,7 +37,7 @@ export default function VideoGallery({ videos, categories = [] }: VideoGalleryPr
               className={`px-4 py-2 rounded-xl text-sm font-bold uppercase tracking-wider transition-all ${
                 selectedCategory === null
                   ? 'bg-[#FFB300] text-black shadow-[0_0_20px_rgba(255,179,0,0.3)]'
-                  : 'bg-white/5 text-zinc-400 hover:bg-white/10 hover:text-white border border-white/10'
+                  : 'bg-white/5 text-zinc-300 hover:bg-white/10 hover:text-white border border-white/10'
               }`}
             >
               All Videos
@@ -51,7 +51,7 @@ export default function VideoGallery({ videos, categories = [] }: VideoGalleryPr
                 className={`px-4 py-2 rounded-xl text-sm font-bold uppercase tracking-wider transition-all ${
                   selectedCategory === category
                     ? 'bg-[#00E5FF] text-black shadow-[0_0_20px_rgba(0,229,255,0.3)]'
-                    : 'bg-white/5 text-zinc-400 hover:bg-white/10 hover:text-white border border-white/10'
+                    : 'bg-white/5 text-zinc-300 hover:bg-white/10 hover:text-white border border-white/10'
                 }`}
               >
                 {category}
@@ -64,7 +64,7 @@ export default function VideoGallery({ videos, categories = [] }: VideoGalleryPr
       {/* Video Count */}
       <div className="flex items-center justify-between">
         <NeonBadge variant="gold">
-          <Film size={12} />
+          <Film size={12} aria-hidden="true" />
           {filteredVideos.length} Videos Available
         </NeonBadge>
       </div>
@@ -94,12 +94,12 @@ export default function VideoGallery({ videos, categories = [] }: VideoGalleryPr
       {filteredVideos.length === 0 && (
         <GlassPanel variant="gold" className="text-center py-16">
           <div className="w-20 h-20 rounded-2xl bg-[#FFB300]/20 flex items-center justify-center mx-auto mb-6 border border-[#FFB300]/30">
-            <Play className="w-10 h-10 text-[#FFB300]" />
+            <Play className="w-10 h-10 text-[#FFB300]" aria-hidden="true" />
           </div>
           <HolographicText variant="gold" as="h3" className="text-xl font-bold mb-2">
             No Videos Found
           </HolographicText>
-          <p className="text-zinc-400">No videos found in this category. Try selecting a different filter.</p>
+          <p className="text-zinc-300">No videos found in this category. Try selecting a different filter.</p>
         </GlassPanel>
       )}
     </div>
@@ -126,7 +126,7 @@ function VideoCard({ video }: { video: VideoMeta }) {
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-zinc-800 to-zinc-900">
-              <Film className="w-12 h-12 text-zinc-600" />
+              <Film className="w-12 h-12 text-zinc-600" aria-hidden="true" />
             </div>
           )}
 
@@ -137,7 +137,7 @@ function VideoCard({ video }: { video: VideoMeta }) {
               whileHover={{ scale: 1.1 }}
               className="w-16 h-16 rounded-full bg-[#FFB300] flex items-center justify-center shadow-[0_0_40px_rgba(255,179,0,0.5)] border-2 border-white/20 group-hover:scale-100 group-hover:opacity-100 transition-all"
             >
-              <Play className="w-7 h-7 text-black ml-1" fill="black" />
+              <Play className="w-7 h-7 text-black ml-1" fill="black" aria-hidden="true" />
             </motion.div>
           </div>
 
@@ -149,7 +149,7 @@ function VideoCard({ video }: { video: VideoMeta }) {
           {/* Duration Badge */}
           {video.duration && (
             <div className="absolute bottom-3 right-3 px-2 py-1 rounded-lg bg-black/80 backdrop-blur-sm text-white text-xs font-mono flex items-center gap-1 border border-white/10">
-              <Clock className="w-3 h-3 text-[#00E5FF]" />
+              <Clock className="w-3 h-3 text-[#00E5FF]" aria-hidden="true" />
               {video.duration}
             </div>
           )}
@@ -157,7 +157,7 @@ function VideoCard({ video }: { video: VideoMeta }) {
           {/* Category Badge */}
           {video.category && (
             <div className="absolute top-3 left-3 px-3 py-1 rounded-lg bg-[#FFB300] text-black text-[10px] font-black uppercase tracking-wider shadow-[0_0_15px_rgba(255,179,0,0.4)] flex items-center gap-1">
-              <Sparkles size={10} />
+              <Sparkles size={10} aria-hidden="true" />
               {video.category}
             </div>
           )}
@@ -169,13 +169,13 @@ function VideoCard({ video }: { video: VideoMeta }) {
             {video.title}
           </h3>
           {video.description && (
-            <p className="text-zinc-400 text-sm line-clamp-2 leading-relaxed">{video.description}</p>
+            <p className="text-zinc-300 text-sm line-clamp-2 leading-relaxed">{video.description}</p>
           )}
           
           {/* Watch Now Indicator */}
           <div className="mt-4 flex items-center gap-2 text-[#00E5FF] text-[10px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
             <span>Watch Now</span>
-            <Play size={10} fill="currentColor" />
+            <Play size={10} fill="currentColor" aria-hidden="true" />
           </div>
         </div>
       </GlassPanel>

@@ -34,6 +34,7 @@ export default function PersonnelPulse() {
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder="Paste anonymized staff feedback..."
+        aria-label="Anonymized staff feedback"
         className="w-full h-24 p-3 text-xs rounded-xl bg-zinc-50 dark:bg-zinc-950 border-none outline-none resize-none"
       />
       

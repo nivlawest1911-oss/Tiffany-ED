@@ -14,6 +14,7 @@ interface VideoPlayerProps {
     controls?: boolean;
     className?: string;
     voiceSrc?: string;
+    ariaLabel?: string;
 }
 
 function formatDuration(seconds: number): string {
@@ -33,7 +34,8 @@ export default function VideoPlayer({
     muted = false,
     controls = true,
     className = '',
-    voiceSrc
+    voiceSrc,
+    ariaLabel
 }: VideoPlayerProps) {
     const videoRef = useRef<HTMLVideoElement>(null);
     const audioRef = useRef<HTMLAudioElement>(null);
@@ -192,9 +194,10 @@ export default function VideoPlayer({
                     poster={poster}
                     autoPlay={autoPlay}
                     loop={loop}
-                    muted={muted}
+                    muted={isMuted}
                     playsInline
-                    className="w-full h-auto"
+                    aria-label={ariaLabel || title || "Professional Intelligence Video"}
+                    className={`w-full h-full ${className}`}
                     onPlay={handlePlay}
                     onPause={handlePause}
                     onEnded={handleEnded}
@@ -275,6 +278,7 @@ export default function VideoPlayer({
                             {/* Play/Pause */}
                             <button
                                 onClick={togglePlay}
+                                aria-label={isPlaying ? "Pause" : "Play"}
                                 className="p-2 rounded-full hover:bg-white/10 transition-colors"
                             >
                                 {isPlaying ? (
@@ -287,6 +291,7 @@ export default function VideoPlayer({
                             {/* Skip Backward */}
                             <button
                                 onClick={skipBackward}
+                                aria-label="Skip back 10 seconds"
                                 className="p-2 rounded-full hover:bg-white/10 transition-colors"
                                 title="Skip back 10s"
                             >
@@ -296,6 +301,7 @@ export default function VideoPlayer({
                             {/* Skip Forward */}
                             <button
                                 onClick={skipForward}
+                                aria-label="Skip forward 10 seconds"
                                 className="p-2 rounded-full hover:bg-white/10 transition-colors"
                                 title="Skip forward 10s"
                             >
@@ -305,6 +311,7 @@ export default function VideoPlayer({
                             {/* Volume */}
                             <button
                                 onClick={toggleMute}
+                                aria-label={isMuted ? "Unmute" : "Mute"}
                                 className="p-2 rounded-full hover:bg-white/10 transition-colors"
                             >
                                 {isMuted ? (
@@ -323,6 +330,7 @@ export default function VideoPlayer({
                         {/* Fullscreen */}
                         <button
                             onClick={toggleFullscreen}
+                            aria-label="Toggle Fullscreen"
                             className="p-2 rounded-full hover:bg-white/10 transition-colors"
                             title="Fullscreen"
                         >

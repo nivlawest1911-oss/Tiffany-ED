@@ -32,13 +32,22 @@ export default function SovereignStatus() {
 
   if (isLoading) {
     return (
-      <div className="w-full h-20 bg-[#111] animate-pulse border-b border-zinc-800 flex items-center px-8">
-        <Loader2 className="animate-spin text-zinc-700" size={20} />
+      <div className="w-full h-16 bg-[#111] animate-pulse border-b border-zinc-900 flex items-center px-8">
+        <div className="flex items-center gap-4">
+          <Loader2 className="animate-spin text-zinc-800" size={16} />
+          <span className="text-[10px] text-zinc-700 uppercase tracking-widest font-bold">Synchronizing Grid...</span>
+        </div>
       </div>
     );
   }
 
-  if (!data) return null;
+  if (!data) {
+    return (
+      <div className="w-full h-16 bg-[#111] border-b border-zinc-900 flex items-center px-8">
+        <span className="text-[10px] text-zinc-800 uppercase tracking-widest font-bold">Offline Mode</span>
+      </div>
+    );
+  }
 
   return (
     <motion.div 

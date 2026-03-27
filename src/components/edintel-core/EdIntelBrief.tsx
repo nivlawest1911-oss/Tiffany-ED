@@ -44,7 +44,7 @@ export function EdIntelBrief() {
                     >
                         <div className="absolute top-0 right-0 w-16 h-16 bg-white/[0.02] rounded-full blur-2xl group-hover:bg-white/[0.05] transition-colors" />
                         <metric.icon size={16} className={`${metric.color} mb-3`} />
-                        <p className="text-[9px] font-black text-zinc-500 uppercase tracking-widest mb-1">{metric.label}</p>
+                        <p className="text-[9px] font-black text-zinc-400 uppercase tracking-widest mb-1">{metric.label}</p>
                         <p className="text-lg text-white font-black">{metric.value}</p>
                     </motion.div>
                 ))}
@@ -65,10 +65,10 @@ export function EdIntelBrief() {
                             </div>
                             <div>
                                 <h3 className="text-sm font-bold text-white uppercase tracking-tight">Narrative Architect</h3>
-                                <p className="text-[9px] text-zinc-500 uppercase tracking-widest">Monsha • Brisk AI</p>
+                                <p className="text-[9px] text-zinc-400 uppercase tracking-widest">Monsha • Brisk AI</p>
                             </div>
                         </div>
-                        <span className="text-[10px] font-mono text-zinc-600">Active</span>
+                        <span className="text-[10px] font-mono text-zinc-400">Active</span>
                     </div>
                     <ul className="space-y-3">
                         <li className="flex items-start gap-3 text-xs text-zinc-400">
@@ -91,7 +91,7 @@ export function EdIntelBrief() {
                             </div>
                             <div>
                                 <h3 className="text-sm font-bold text-white uppercase tracking-tight">Recidivism Kill-Switch</h3>
-                                <p className="text-[9px] text-zinc-500 uppercase tracking-widest">Affective Computing</p>
+                                <p className="text-[9px] text-zinc-400 uppercase tracking-widest">Affective Computing</p>
                             </div>
                         </div>
                         <div className="flex items-center gap-2 bg-rose-500/10 px-3 py-1 rounded-full border border-rose-500/20">

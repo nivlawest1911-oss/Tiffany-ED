@@ -59,6 +59,7 @@ export default function LegacyLedgerTimeline({ onSelectAction }: LegacyLedgerTim
                     placeholder="Search Immutable Chronicles..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
+                    aria-label="Search institutional chronicles"
                     className="w-full bg-black/40 border border-amber-500/20 rounded-lg py-2 pl-9 pr-4 text-xs text-amber-100 placeholder:text-amber-900 focus:outline-none focus:border-amber-500/50 transition-all"
                 />
             </div>
@@ -91,6 +92,15 @@ export default function LegacyLedgerTimeline({ onSelectAction }: LegacyLedgerTim
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: index * 0.05 }}
                                 onClick={() => onSelectAction(entry)}
+                                role="button"
+                                tabIndex={0}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        onSelectAction(entry);
+                                    }
+                                }}
+                                aria-label={`View chronicle: ${entry.title}`}
                                 className="group relative bg-amber-950/10 border border-amber-500/10 hover:border-amber-500/40 rounded-xl p-4 cursor-pointer transition-all overflow-hidden"
                             >
                                 {/* Immutability Watermark */}
@@ -119,13 +129,17 @@ export default function LegacyLedgerTimeline({ onSelectAction }: LegacyLedgerTim
                                     </div>
 
                                     <div className="flex flex-col items-end gap-2 text-[8px] font-bold uppercase tracking-widest text-zinc-600">
-                                        <div className="flex items-center gap-1 text-amber-500/40 hover:text-amber-500 transition-colors" onClick={(e) => {
-                                            e.stopPropagation();
-                                            setShareModal({ isOpen: true, id: entry.id });
-                                        }}>
+                                        <button 
+                                            className="flex items-center gap-1 text-amber-500/40 hover:text-amber-500 transition-colors" 
+                                            aria-label={`Share chronicle: ${entry.title}`}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                setShareModal({ isOpen: true, id: entry.id });
+                                            }}
+                                        >
                                             <span>SHARE</span>
                                             <Share2 className="w-2.5 h-2.5" />
-                                        </div>
+                                        </button>
                                         <div className="flex items-center gap-1">
                                             <Calendar className="w-2.5 h-2.5" />
                                             {format(new Date(entry.createdAt), 'MMM dd, yyyy')}

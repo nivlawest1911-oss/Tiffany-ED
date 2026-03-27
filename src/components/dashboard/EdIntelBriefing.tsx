@@ -70,7 +70,7 @@ export const EdIntelBriefing = ({ summary, loading, source }: EdIntelBriefingPro
                         <div className="hidden md:block relative group/player aspect-video rounded-xl overflow-hidden border border-white/10 bg-black/40 shadow-2xl">
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10" />
                             <div className="absolute inset-0 flex items-center justify-center z-20 opacity-0 group-hover/player:opacity-100 transition-opacity">
-                                <SovereignButton variant="primary" glow size="sm" className="rounded-full !p-3">
+                                <SovereignButton aria-label="Play Briefing" variant="primary" glow size="sm" className="rounded-full !p-3">
                                     <Play size={20} fill="currentColor" />
                                 </SovereignButton>
                             </div>

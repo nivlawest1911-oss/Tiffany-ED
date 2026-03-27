@@ -31,7 +31,7 @@ export function PricingSection() {
           <h2 className="font-black tracking-tighter text-5xl md:text-7xl mb-4 text-white uppercase italic">
             Professional <span className="text-gold-gradient">Value</span>
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg italic">
+          <p className="text-zinc-400 max-w-2xl mx-auto text-lg italic">
             "Invest in clarity. Our pricing structure is engineered to recapture lost administrative hours and ensure
             strategic legal protection from day one."
           </p>
@@ -62,19 +62,19 @@ export function PricingSection() {
                 )}
 
                 <div className="flex items-center gap-4 mb-8">
-                  <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${isHighlighted ? 'bg-intel-gold text-black' : 'bg-white/5 text-zinc-500'}`}>
+                  <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${isHighlighted ? 'bg-intel-gold text-black' : 'bg-white/5 text-zinc-400'}`}>
                     <Icon className="w-6 h-6" />
                   </div>
                   <div>
                     <h3 className="font-black text-white text-xl uppercase tracking-tighter italic">{tier.name}</h3>
-                    <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">{tier.idealFor}</p>
+                    <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest">{tier.idealFor}</p>
                   </div>
                 </div>
 
                 <div className="mb-8">
                   <div className="flex items-baseline gap-2">
                     <span className="text-5xl font-black text-white">${tier.price}</span>
-                    <span className="text-zinc-500 text-sm uppercase tracking-widest">/mo</span>
+                    <span className="text-zinc-400 text-sm uppercase tracking-widest">/mo</span>
                   </div>
                   <p className="text-xs text-[#10b981] font-bold mt-2 uppercase tracking-wide italic">30-day Free Trial Included</p>
                 </div>
@@ -85,7 +85,7 @@ export function PricingSection() {
                   {tier.features.map((feature) => (
                     <li key={feature} className="flex items-start gap-3 group/item">
                       <div className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center shrink-0 mt-0.5">
-                        <Check className={`w-3 h-3 ${isHighlighted ? 'text-intel-gold' : 'text-zinc-600'}`} />
+                        <Check className={`w-3 h-3 ${isHighlighted ? 'text-intel-gold' : 'text-zinc-400'}`} />
                       </div>
                       <span className="text-zinc-300 text-sm leading-tight group-hover/item:text-white transition-colors">{feature}</span>
                     </li>
@@ -113,7 +113,7 @@ export function PricingSection() {
           <div className="overflow-x-auto">
             <table className="w-full min-w-[600px] text-sm">
               <thead>
-                <tr className="border-b border-white/5 font-black text-[10px] uppercase tracking-widest text-zinc-500">
+                <tr className="border-b border-white/5 font-black text-[10px] uppercase tracking-widest text-zinc-400">
                   <th className="text-left py-6">Protocol Tier</th>
                   <th className="text-center py-6">Price</th>
                   <th className="text-center py-6">Cognitive Load</th>

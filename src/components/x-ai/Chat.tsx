@@ -48,12 +48,12 @@ export function XAIChat({ className = '' }: XAIChatProps) {
                                 <h3 className="text-2xl font-black text-white uppercase tracking-tighter">X.AI Grok</h3>
                                 <div className="px-2 py-0.5 bg-yellow-500/10 border border-yellow-500/30 rounded text-[10px] text-yellow-400 font-black uppercase tracking-widest">Real-time</div>
                             </div>
-                            <p className="text-xs text-zinc-500 font-medium uppercase tracking-widest mt-1 italic">EdIntel Sovereign Intelligence</p>
+                            <p className="text-xs text-zinc-300 font-medium uppercase tracking-widest mt-1 italic">EdIntel Sovereign Intelligence</p>
                         </div>
                     </div>
 
                     <div className="hidden md:flex flex-col items-end gap-2">
-                        <span className="text-[8px] text-zinc-600 font-bold uppercase tracking-[0.2em]">Neural Mode</span>
+                        <span className="text-[8px] text-zinc-300 font-bold uppercase tracking-[0.2em]">Neural Mode</span>
                         <div className="flex items-center gap-2 px-3 py-1.5 bg-black border border-white/10 rounded-lg text-white text-[10px] font-bold uppercase tracking-widest">
                             <Sparkles className="w-3 h-3 text-yellow-400" />
                             Grok-1 Advanced
@@ -77,8 +77,8 @@ export function XAIChat({ className = '' }: XAIChatProps) {
                             <Zap className="w-16 h-16 text-yellow-500/20" />
                         </motion.div>
                         <div className="space-y-2">
-                            <p className="text-zinc-400 font-bold text-lg uppercase tracking-tight">Grok Core Initialized</p>
-                            <p className="text-zinc-600 text-xs max-w-xs uppercase tracking-widest leading-relaxed">Establish neural link via high-latency command or research directive.</p>
+                            <p className="text-zinc-300 font-bold text-lg uppercase tracking-tight">Grok Core Initialized</p>
+                            <p className="text-zinc-300 text-xs max-w-xs uppercase tracking-widest leading-relaxed">Establish neural link via high-latency command or research directive.</p>
                         </div>
                     </div>
                 )}
@@ -133,7 +133,8 @@ export function XAIChat({ className = '' }: XAIChatProps) {
                             value={input}
                             onChange={handleInputChange}
                             placeholder="COMMENCE GROK ANALYSIS..."
-                            className="relative w-full px-6 py-5 bg-black border border-white/10 rounded-2xl text-white text-sm font-bold placeholder:text-zinc-700 outline-none focus:border-yellow-500/50 transition-all uppercase tracking-wider"
+                            aria-label="Message Grok"
+                            className="relative w-full px-6 py-5 bg-black border border-white/10 rounded-2xl text-white text-sm font-bold placeholder:text-zinc-500 outline-none focus:border-yellow-500/50 transition-all uppercase tracking-wider"
                             disabled={isLoading}
                         />
                     </div>
@@ -154,16 +155,16 @@ export function XAIChat({ className = '' }: XAIChatProps) {
                 </div>
                 <div className="mt-4 flex items-center justify-between px-2">
                     <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-1.5 text-[8px] font-black text-zinc-600 uppercase tracking-widest">
+                        <div className="flex items-center gap-1.5 text-[8px] font-black text-zinc-300 uppercase tracking-widest">
                             <Shield size={10} className="text-emerald-500" />
                             Sovereign Encryption
                         </div>
-                        <div className="flex items-center gap-1.5 text-[8px] font-black text-zinc-600 uppercase tracking-widest">
+                        <div className="flex items-center gap-1.5 text-[8px] font-black text-zinc-400 uppercase tracking-widest">
                             <Activity size={10} className="text-yellow-500" />
                             Neural Load: {isLoading ? 'Peak' : 'Nominal'}
                         </div>
                     </div>
-                    <p className="text-[7px] font-mono text-zinc-700 uppercase tracking-[0.3em]">X.AI-GROK-1-SOVEREIGN // EdIntel_Core_v4</p>
+                    <p className="text-[7px] font-mono text-zinc-500 uppercase tracking-[0.3em]">X.AI-GROK-1-SOVEREIGN // EdIntel_Core_v4</p>
                 </div>
             </form>
         </Card>

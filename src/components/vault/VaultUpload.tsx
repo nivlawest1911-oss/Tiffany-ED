@@ -88,6 +88,7 @@ export default function VaultUpload({ userId, onUploadComplete }: VaultUploadPro
                     type="file"
                     onChange={handleFileUpload}
                     disabled={isUploading}
+                    aria-label="Upload document to vault"
                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed z-10"
                 />
                 <div className={`

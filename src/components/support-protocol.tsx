@@ -70,6 +70,7 @@ export function SupportProtocol() {
               placeholder="Search support articles..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              aria-label="Search support articles"
               className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-2xl text-white placeholder:text-gray-500 focus:outline-none focus:border-[#00d2ff]/50"
             />
           </div>

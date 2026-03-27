@@ -165,7 +165,7 @@ export default function Footer() {
                         <Link href="/ferpa" className="text-zinc-400 hover:text-[#FFB300] transition-colors text-xs font-medium uppercase tracking-wider">
                             FERPA Compliance
                         </Link>
-                        <Link href="/contact" className="text-zinc-500 hover:text-[#00E5FF] transition-colors text-xs font-medium uppercase tracking-wider">
+                        <Link href="/contact" className="text-zinc-400 hover:text-[#00E5FF] transition-colors text-xs font-medium uppercase tracking-wider">
                             Contact Us
                         </Link>
                     </div>

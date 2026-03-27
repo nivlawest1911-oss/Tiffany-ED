@@ -137,6 +137,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                 <SovereignButton
                                     variant="glass"
                                     size="sm"
+                                    aria-label="Notifications"
                                     onMouseEnter={playHover}
                                     onClick={() => { playClick(); router.push('/activity'); }}
                                     className="h-9 w-9 p-0 rounded-xl"
@@ -146,6 +147,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                 <SovereignButton
                                     variant="glass"
                                     size="sm"
+                                    aria-label="All Tools"
                                     onMouseEnter={playHover}
                                     onClick={() => { playClick(); router.push('/all-tools'); }}
                                     className="h-9 w-9 p-0 rounded-xl"

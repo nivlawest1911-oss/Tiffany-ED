@@ -83,6 +83,6 @@ export const GlassCard = ({
 export const HeaderAccent = ({ text }: { text: string }) => (
     <div className="flex items-center gap-2 mb-4">
         <div className="h-1 w-1 bg-noble-gold rounded-full animate-pulse shadow-[0_0_10px_#D4AF37]" />
-        <h3 className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em]">{text}</h3>
+        <h3 className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.4em]">{text}</h3>
     </div>
 );

@@ -50,16 +50,16 @@ export function GlobalPresence() {
               </div>
               <div>
                 <h3 className="font-black tracking-tighter text-2xl text-white">EdIntel Professional</h3>
-                <p className="text-xs text-gray-400">Administrative Intelligence v4.0.2</p>
+                <p className="text-xs text-zinc-400">Administrative Intelligence v4.0.2</p>
               </div>
             </div>
-            <p className="text-gray-400 mb-6 max-w-md">
+            <p className="text-zinc-400 mb-6 max-w-md">
               Empowering Alabama educators with AI-powered tools for IEP creation, compliance management, and
               administrative excellence. Built for Mobile County Public Schools and the state of Alabama.
             </p>
 
             {/* Contact Info */}
-            <div className="space-y-2 text-sm text-gray-400">
+            <div className="space-y-2 text-sm text-zinc-400">
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-[#00d2ff]" />
                 <a href="mailto:support@edintel.ai" className="hover:text-white transition-colors">
@@ -79,7 +79,7 @@ export function GlobalPresence() {
             <ul className="space-y-2">
               {quickLinks.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-gray-400 hover:text-[#00d2ff] transition-colors text-sm">
+                  <Link href={link.href} className="text-zinc-400 hover:text-[#00d2ff] transition-colors text-sm">
                     {link.name}
                   </Link>
                 </li>
@@ -92,27 +92,27 @@ export function GlobalPresence() {
             <h4 className="font-bold text-white mb-4">Resources</h4>
             <ul className="space-y-2">
               <li>
-                <a href="https://www.alabamaachieves.org" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#00d2ff] transition-colors text-sm">
+                <a href="https://www.alabamaachieves.org" target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-[#00d2ff] transition-colors text-sm">
                   Alabama Achieves
                 </a>
               </li>
               <li>
-                <a href="https://www.mcpss.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#00d2ff] transition-colors text-sm">
+                <a href="https://www.mcpss.com" target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-[#00d2ff] transition-colors text-sm">
                   MCPSS Portal
                 </a>
               </li>
               <li>
-                <Link href="/admin/vault" className="text-gray-400 hover:text-[#00d2ff] transition-colors text-sm">
+                <Link href="/admin/vault" className="text-zinc-400 hover:text-[#00d2ff] transition-colors text-sm">
                   Legal Vault
                 </Link>
               </li>
               <li>
-                <Link href="/resources/alabama" className="text-gray-400 hover:text-[#00d2ff] transition-colors text-sm">
+                <Link href="/resources/alabama" className="text-zinc-400 hover:text-[#00d2ff] transition-colors text-sm">
                   Research Hub
                 </Link>
               </li>
               <li>
-                <Link href="/support/getting-started" className="text-gray-400 hover:text-[#00d2ff] transition-colors text-sm">
+                <Link href="/support/getting-started" className="text-zinc-400 hover:text-[#00d2ff] transition-colors text-sm">
                   API Documentation
                 </Link>
               </li>
@@ -138,7 +138,7 @@ export function GlobalPresence() {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-[#00d2ff]/30 hover:bg-[#00d2ff]/10 transition-all touch-target"
+                  className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-zinc-400 hover:text-white hover:border-[#00d2ff]/30 hover:bg-[#00d2ff]/10 transition-all touch-target"
                   title={social.name}
                   aria-label={`Follow us on ${social.name}`}
                 >
@@ -159,7 +159,7 @@ export function GlobalPresence() {
             </div>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-4 text-xs text-gray-400 mb-4">
+          <div className="flex flex-wrap justify-center gap-4 text-xs text-zinc-400 mb-4">
             <Link href="/privacy" className="hover:text-white transition-colors">
               Privacy Policy
             </Link>
@@ -177,7 +177,7 @@ export function GlobalPresence() {
             </Link>
           </div>
 
-          <p className="text-xs text-gray-400 tracking-widest">
+          <p className="text-xs text-zinc-400 tracking-widest">
             © 2026 EdIntel Professional. All rights reserved. Made with ♥ in Mobile, Alabama.
           </p>
         </div>

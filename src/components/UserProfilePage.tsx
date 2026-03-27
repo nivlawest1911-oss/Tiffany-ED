@@ -155,7 +155,7 @@ export default function UserProfilePage() {
                                     <span className="px-3 py-1 rounded-full bg-noble-gold/10 text-noble-gold text-[10px] font-black uppercase tracking-[0.2em] border border-noble-gold/20">
                                         {profileData.role}
                                     </span>
-                                    <span className="flex items-center gap-2 text-zinc-500 text-xs font-medium border-l border-white/10 pl-4 uppercase tracking-widest">
+                                    <span className="flex items-center gap-2 text-zinc-400 text-xs font-medium border-l border-white/10 pl-4 uppercase tracking-widest">
                                         <BookOpen className="w-4 h-4" />
                                         {profileData.school}
                                     </span>
@@ -172,7 +172,7 @@ export default function UserProfilePage() {
                                     >
                                         <div className="flex items-center gap-3 mb-2">
                                             <stat.icon className={`w-5 h-5 ${stat.color} group-hover/stat:scale-110 transition-transform`} />
-                                            <span className="text-zinc-500 text-[9px] font-black uppercase tracking-[0.2em]">{stat.label}</span>
+                                            <span className="text-zinc-400 text-[9px] font-black uppercase tracking-[0.2em]">{stat.label}</span>
                                         </div>
                                         <div className="text-white text-xl font-black tracking-tight">{stat.value}</div>
                                     </motion.div>
@@ -192,7 +192,7 @@ export default function UserProfilePage() {
                             onClick={() => setActiveTab(tab.id as any)}
                             className={`px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.3em] transition-all flex items-center gap-3 whitespace-nowrap border shrink-0 ${activeTab === tab.id
                                 ? 'bg-noble-gold text-black border-noble-gold shadow-[0_0_30px_rgba(212,175,55,0.3)]'
-                                : 'bg-zinc-900/30 text-zinc-500 hover:text-white border-white/5 backdrop-blur-md'
+                                : 'bg-zinc-900/30 text-zinc-400 hover:text-white border-white/5 backdrop-blur-md'
                                 }`}
                         >
                             <tab.icon className="w-4 h-4" />
@@ -233,7 +233,7 @@ export default function UserProfilePage() {
                                                     </div>
                                                     <div>
                                                         <div className="text-white font-bold text-lg leading-none mb-1">{activity.action}</div>
-                                                        <div className="text-zinc-500 text-[10px] font-black uppercase tracking-widest">{activity.tool}</div>
+                                                        <div className="text-zinc-400 text-[10px] font-black uppercase tracking-widest">{activity.tool}</div>
                                                     </div>
                                                 </div>
                                                 <div className="text-right">
@@ -262,14 +262,14 @@ export default function UserProfilePage() {
                                                 </div>
                                                 <div>
                                                     <div className="text-white font-bold text-sm tracking-widest uppercase italic">{a.name}</div>
-                                                    <div className="text-zinc-500 text-[10px] font-black tracking-widest">Unlocked Jan 2026</div>
+                                                    <div className="text-zinc-400 text-[10px] font-black tracking-widest">Unlocked Jan 2026</div>
                                                 </div>
                                             </div>
                                         ))}
                                     </div>
                                     <motion.button
                                         whileHover={{ scale: 1.02 }}
-                                        className="w-full mt-8 py-4 rounded-xl border border-dashed border-white/10 text-zinc-500 text-[10px] font-black uppercase tracking-[0.3em] hover:text-noble-gold hover:border-noble-gold/30 transition-all"
+                                        className="w-full mt-8 py-4 rounded-xl border border-dashed border-white/10 text-zinc-400 text-[10px] font-black uppercase tracking-[0.3em] hover:text-noble-gold hover:border-noble-gold/30 transition-all"
                                     >
                                         View All Clearance Medals
                                     </motion.button>
@@ -286,7 +286,7 @@ export default function UserProfilePage() {
                                         </div>
                                         <div>
                                             <h2 className="text-3xl font-black text-white italic tracking-tighter">Identity Core</h2>
-                                            <p className="text-zinc-500 text-xs font-black uppercase tracking-widest">Configure your EdIntel profile parameters</p>
+                                            <p className="text-zinc-400 text-xs font-black uppercase tracking-widest">Configure your EdIntel profile parameters</p>
                                         </div>
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -339,13 +339,13 @@ export default function UserProfilePage() {
                                             <h3 className="text-4xl font-black text-white tracking-tight italic mb-2 uppercase italic font-black">
                                                 {subscription?.tier_name || 'Initiate'}
                                             </h3>
-                                            <p className="text-zinc-500 text-sm font-medium">Status: {subscription?.status || 'Active (Trial)'}</p>
+                                            <p className="text-zinc-400 text-sm font-medium">Status: {subscription?.status || 'Active (Trial)'}</p>
                                         </div>
                                         <div className="text-right">
                                             <div className="text-3xl font-black text-noble-gold font-black italic">
                                                 {subscription?.tier_name?.includes('Pro') ? '$39.99' : '$0.00'}
                                             </div>
-                                            <div className="text-zinc-600 text-[10px] font-black uppercase tracking-widest ">Per Cycle</div>
+                                            <div className="text-zinc-400 text-[10px] font-black uppercase tracking-widest ">Per Cycle</div>
                                         </div>
                                     </div>
                                     <div className="space-y-4 border-t border-white/5 pt-8">
@@ -379,23 +379,23 @@ export default function UserProfilePage() {
                                             </div>
                                             <div>
                                                 <div className="text-white font-bold tracking-[0.2em]">•••• •••• 4242</div>
-                                                <div className="text-zinc-500 text-[10px] font-black uppercase tracking-widest">Global Master Vault</div>
+                                                <div className="text-zinc-400 text-[10px] font-black uppercase tracking-widest">Global Master Vault</div>
                                             </div>
                                         </div>
                                         <motion.button
                                             whileHover={{ scale: 1.1 }}
-                                            className="text-zinc-500 hover:text-noble-gold transition-colors"
+                                            className="text-zinc-400 hover:text-noble-gold transition-colors"
                                         >
                                             <Edit className="w-5 h-5" />
                                         </motion.button>
                                     </div>
                                     <div className="mt-8 space-y-4">
                                         <div className="flex justify-between text-sm">
-                                            <span className="text-zinc-500">Cycle Manifest</span>
+                                            <span className="text-zinc-400">Cycle Manifest</span>
                                             <span className="text-white font-bold tracking-widest">INV-2026-001A</span>
                                         </div>
                                         <div className="flex justify-between text-sm">
-                                            <span className="text-zinc-500">Next Transmission</span>
+                                            <span className="text-zinc-400">Next Transmission</span>
                                             <span className="text-white font-bold tracking-widest">FEB 14, 2026</span>
                                         </div>
                                     </div>

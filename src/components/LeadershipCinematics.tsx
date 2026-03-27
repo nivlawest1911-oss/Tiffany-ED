@@ -78,7 +78,7 @@ export default function LeadershipCinematics() {
                             Excellence.
                         </span>
                     </h2>
-                    <p className="text-xl text-zinc-500 max-w-2xl leading-relaxed font-light">
+                    <p className="text-xl text-zinc-400 max-w-2xl leading-relaxed font-light">
                         Experience the high-fidelity future of educational excellence. Our professional media center showcases the visionary leadership movement.
                     </p>
                 </div>
@@ -152,18 +152,18 @@ export default function LeadershipCinematics() {
                 <div className="mt-24 flex flex-col md:flex-row items-center justify-between gap-8 pt-12 border-t border-white/5 opacity-50">
                     <div className="flex items-center gap-8">
                         <div className="flex flex-col">
-                            <span className="text-[9px] font-black text-zinc-600 uppercase tracking-widest mb-1">Renderer</span>
+                            <span className="text-[9px] font-black text-zinc-400 uppercase tracking-widest mb-1">Renderer</span>
                             <span className="text-xs font-bold text-white uppercase tracking-tighter">EdIntel Engine v4.1 Omega</span>
                         </div>
                         <div className="h-8 w-px bg-white/10" />
                         <div className="flex flex-col">
-                            <span className="text-[9px] font-black text-zinc-600 uppercase tracking-widest mb-1">Fidelity</span>
+                            <span className="text-[9px] font-black text-zinc-400 uppercase tracking-widest mb-1">Fidelity</span>
                             <span className="text-xs font-bold text-white uppercase tracking-tighter">8K Professional Master</span>
                         </div>
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <div className="text-zinc-600 text-[10px] font-mono tracking-widest">SECURE_MEDIA_STREAM // CONNECTED</div>
+                        <div className="text-zinc-400 text-[10px] font-mono tracking-widest">SECURE_MEDIA_STREAM // CONNECTED</div>
                         <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                     </div>
                 </div>
@@ -209,6 +209,7 @@ export default function LeadershipCinematics() {
                                 <button
                                     onClick={() => setSelectedAsset(null)}
                                     className="absolute top-8 right-8 p-3 rounded-full bg-white/5 hover:bg-white/10 text-white transition-all z-10"
+                                    aria-label="Close briefing"
                                 >
                                     <X size={20} />
                                 </button>
@@ -228,7 +229,7 @@ export default function LeadershipCinematics() {
                                     {/* Briefing Text Box */}
                                     <div className="p-6 rounded-2xl bg-white/5 border border-white/10 mb-8 relative group">
                                         <div className="flex items-center justify-between mb-4">
-                                            <div className="text-[10px] font-black text-zinc-500 uppercase tracking-widest flex items-center gap-2">
+                                            <div className="text-[10px] font-black text-zinc-400 uppercase tracking-widest flex items-center gap-2">
                                                 <Activity size={12} className="text-emerald-500" />
                                                 <span>Professional Insight</span>
                                             </div>
@@ -260,7 +261,7 @@ export default function LeadershipCinematics() {
                                     <div className="flex gap-8 border-t border-white/5 pt-8 mt-auto">
                                         {selectedAsset.briefing.metrics.map((metric, i) => (
                                             <div key={i} className="flex flex-col">
-                                                <span className="text-[9px] font-bold text-zinc-600 uppercase tracking-widest mb-1">Metric_{i + 1}</span>
+                                                <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Metric_{i + 1}</span>
                                                 <span className="text-sm font-black text-white uppercase tracking-tighter italic">{metric}</span>
                                             </div>
                                         ))}

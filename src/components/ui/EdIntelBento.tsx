@@ -102,7 +102,7 @@ export const EdIntelBentoItem = ({
                 <div className="font-black text-white mb-2 mt-2 uppercase tracking-wide">
                     {title}
                 </div>
-                <div className="font-sans font-normal text-zinc-500 text-xs">
+                <div className="font-sans font-normal text-zinc-400 text-xs">
                     {description}
                 </div>
             </div>

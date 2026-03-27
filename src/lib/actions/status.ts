@@ -13,10 +13,17 @@ export async function getSovereignStatus() {
 
   const user = await prisma.user.findUnique({
     where: { id: userId },
-    include: {
-      schoolRelation: true,
-      tokenWallet: true,
-    },
+    select: {
+      name: true,
+      district: true,
+      trialEndsAt: true,
+      schoolRelation: {
+        select: { name: true }
+      },
+      tokenWallet: {
+        select: { balance: true }
+      }
+    }
   });
 
   if (!user) {

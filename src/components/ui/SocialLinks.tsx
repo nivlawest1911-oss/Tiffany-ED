@@ -21,7 +21,7 @@ export default function SocialLinks() {
 
     return (
         <div className="flex flex-wrap items-center gap-6 mt-12 pt-8 border-t border-zinc-200 dark:border-zinc-800">
-            <div className="flex items-center gap-4 text-zinc-500 mr-4 border-r border-zinc-200 dark:border-zinc-800 pr-4">
+            <div className="flex items-center gap-4 text-zinc-400 mr-4 border-r border-zinc-200 dark:border-zinc-800 pr-4">
                 <div className="flex items-center gap-2">
                     <Globe size={14} />
                     <span className="text-[10px] font-black uppercase tracking-[0.2em]">Global Presence</span>
@@ -34,7 +34,7 @@ export default function SocialLinks() {
                 <a
                     key={i}
                     href={social.href}
-                    className={`flex items-center gap-2 text-zinc-500 transition-all duration-300 ${social.color} hover:scale-110`}
+                    className={`flex items-center gap-2 text-zinc-400 transition-all duration-300 ${social.color} hover:scale-110`}
                     target="_blank"
                     rel="noopener noreferrer"
                 >
@@ -42,7 +42,7 @@ export default function SocialLinks() {
                     <span className="text-[10px] font-bold uppercase tracking-widest hidden sm:inline">{social.label}</span>
                 </a>
             ))}
-            <div className="ml-auto text-[9px] font-mono text-zinc-500 uppercase tracking-widest">
+            <div className="ml-auto text-[9px] font-mono text-zinc-400 uppercase tracking-widest">
                 EdIntel Professional Suite v4.0.2
             </div>
         </div>

@@ -88,7 +88,7 @@ export default function CommandPalette({ onCloseAction }: { onCloseAction?: () =
         const handleKeyDown = (e: KeyboardEvent) => {
             if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
                 e.preventDefault();
-                setIsOpen(prev => !prev);
+                setIsOpen((prev: boolean) => !prev);
             }
             if (e.key === 'Escape') {
                 setIsOpen(false);
@@ -98,11 +98,11 @@ export default function CommandPalette({ onCloseAction }: { onCloseAction?: () =
             if (isOpen) {
                 if (e.key === 'ArrowDown') {
                     e.preventDefault();
-                    setSelectedIndex(prev => (prev + 1) % filteredCommands.length);
+                    setSelectedIndex((prev: number) => (prev + 1) % filteredCommands.length);
                 }
                 if (e.key === 'ArrowUp') {
                     e.preventDefault();
-                    setSelectedIndex(prev => (prev - 1 + filteredCommands.length) % filteredCommands.length);
+                    setSelectedIndex((prev: number) => (prev - 1 + filteredCommands.length) % filteredCommands.length);
                 }
                 if (e.key === 'Enter' && filteredCommands[selectedIndex]) {
                     e.preventDefault();
@@ -135,15 +135,16 @@ export default function CommandPalette({ onCloseAction }: { onCloseAction?: () =
                             className="relative w-full max-w-2xl bg-zinc-900/90 border border-noble-gold/30 rounded-[2.5rem] shadow-[0_0_100px_rgba(212,175,55,0.2)] overflow-hidden"
                         >
                             <div className="p-6 border-b border-white/5 flex items-center gap-4">
-                                <Search className="text-noble-gold" size={24} />
+                                <Search className="text-noble-gold" size={24} aria-hidden="true" />
                                 <input
                                     autoFocus
                                     value={search}
                                     onChange={(e) => setSearch(e.target.value)}
                                     placeholder="Execute Command..."
+                                    aria-label="Search commands"
                                     className="bg-transparent border-none outline-none text-xl text-white w-full placeholder:text-white/10 uppercase font-black italic tracking-tighter"
                                 />
-                                <kbd className="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-[10px] text-white/40 font-black">ESC</kbd>
+                                <kbd className="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-[10px] text-white/40 font-black" aria-hidden="true">ESC</kbd>
                             </div>
 
                             <div className="max-h-[50vh] overflow-y-auto custom-scrollbar p-4 space-y-2">
@@ -158,13 +159,13 @@ export default function CommandPalette({ onCloseAction }: { onCloseAction?: () =
                                         className={`w-full p-4 rounded-2xl flex items-center gap-4 transition-all ${idx === selectedIndex ? 'bg-noble-gold/15 border border-noble-gold/40 shadow-[0_0_20px_rgba(212,175,55,0.1)]' : 'border border-transparent hover:bg-white/5'}`}
                                     >
                                         <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-colors ${idx === selectedIndex ? 'bg-noble-gold text-black' : 'bg-white/5 text-white/40'}`}>
-                                            {cmd.icon}
+                                            <div aria-hidden="true">{cmd.icon}</div>
                                         </div>
                                         <div className="text-left flex-1">
                                             <div className="text-sm font-black uppercase text-white tracking-widest">{cmd.title}</div>
                                             <div className="text-[10px] uppercase text-white/30 font-bold italic tracking-widest">{cmd.subtitle}</div>
                                         </div>
-                                        {idx === selectedIndex && <ArrowRight size={16} className="text-noble-gold animate-pulse" />}
+                                        {idx === selectedIndex && <ArrowRight size={16} className="text-noble-gold animate-pulse" aria-hidden="true" />}
                                     </button>
                                 ))}
                             </div>

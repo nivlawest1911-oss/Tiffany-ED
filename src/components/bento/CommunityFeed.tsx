@@ -27,7 +27,7 @@ export default function CommunityFeed() {
                         />
                         <div className="mt-10">
                             <h3 className="text-sm font-bold text-white">Alvin West II, DBA</h3>
-                            <p className="text-[10px] text-zinc-500">Educational Consultant</p>
+                            <p className="text-[10px] text-zinc-400">Educational Consultant</p>
                         </div>
                         <div className="mt-4 pt-4 border-t border-zinc-800 space-y-2">
                             <div className="flex justify-between text-xs text-zinc-400">
@@ -86,7 +86,7 @@ export default function CommunityFeed() {
                 {feed.map((post: FeedPost) => (
                     <div key={post.id} className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden hover:border-zinc-700 transition-colors animate-in fade-in slide-in-from-bottom-4 duration-700">
                         <div className="p-4 flex gap-4">
-                            <div className="w-12 h-12 rounded-xl bg-zinc-800 flex-shrink-0 flex items-center justify-center text-xs font-black text-zinc-500">
+                            <div className="w-12 h-12 rounded-xl bg-zinc-800 flex-shrink-0 flex items-center justify-center text-xs font-black text-zinc-400">
                                 {post.author.charAt(0)}
                             </div>
                             <div className="flex-1">
@@ -100,7 +100,7 @@ export default function CommunityFeed() {
                                             <Globe size={10} />
                                         </div>
                                     </div>
-                                    <button className="text-zinc-500 hover:text-white"><MoreHorizontal size={16} /></button>
+                                    <button className="text-zinc-400 hover:text-white" aria-label="More options"><MoreHorizontal size={16} /></button>
                                 </div>
                                 <p className="mt-3 text-sm text-zinc-300 leading-relaxed">{post.content}</p>
 
@@ -137,21 +137,21 @@ export default function CommunityFeed() {
                                 <span className="w-1.5 h-1.5 rounded-full bg-zinc-700 group-hover:bg-white transition-colors" />
                                 <p className="text-xs font-bold text-zinc-300 group-hover:text-white truncate">Professional Burnout Prevention</p>
                             </div>
-                            <p className="text-[10px] text-zinc-500 pl-3.5">Education Daily • 4,102 readers</p>
+                            <p className="text-[10px] text-zinc-400 pl-3.5">Education Daily • 4,102 readers</p>
                         </li>
                         <li className="group cursor-pointer">
                             <div className="flex items-center gap-2">
                                 <span className="w-1.5 h-1.5 rounded-full bg-zinc-700 group-hover:bg-white transition-colors" />
                                 <p className="text-xs font-bold text-zinc-300 group-hover:text-white truncate">New State Regulations</p>
                             </div>
-                            <p className="text-[10px] text-zinc-500 pl-3.5">Policy Review • 2h ago</p>
+                            <p className="text-[10px] text-zinc-400 pl-3.5">Policy Review • 2h ago</p>
                         </li>
                         <li className="group cursor-pointer">
                             <div className="flex items-center gap-2">
                                 <span className="w-1.5 h-1.5 rounded-full bg-zinc-700 group-hover:bg-white transition-colors" />
                                 <p className="text-xs font-bold text-zinc-300 group-hover:text-white truncate">Professional Development Grants</p>
                             </div>
-                            <p className="text-[10px] text-zinc-500 pl-3.5">Career Growth • 1d ago</p>
+                            <p className="text-[10px] text-zinc-400 pl-3.5">Career Growth • 1d ago</p>
                         </li>
                     </ul>
                 </div>

@@ -39,7 +39,7 @@ export default function TrialStatus() {
                             <TrendingUp size={16} />
                         </div>
                         <div>
-                            <p className="text-[10px] text-zinc-500 uppercase tracking-wider font-bold">Time Saved</p>
+                            <p className="text-[10px] text-zinc-400 uppercase tracking-wider font-bold">Time Saved</p>
                             <p className="text-white font-mono font-bold">{hoursSaved} Hrs</p>
                         </div>
                     </div>
@@ -49,7 +49,7 @@ export default function TrialStatus() {
                             <DollarSign size={16} />
                         </div>
                         <div>
-                            <p className="text-[10px] text-zinc-500 uppercase tracking-wider font-bold">Value Realized</p>
+                            <p className="text-[10px] text-zinc-400 uppercase tracking-wider font-bold">Value Realized</p>
                             <p className="text-white font-mono font-bold">${moneySaved}</p>
                         </div>
                     </div>

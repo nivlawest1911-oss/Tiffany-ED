@@ -79,7 +79,7 @@ export default function PodcastHub() {
                     <div>
                         <div className="mb-6">
                             <NeonBadge variant="gold" pulse>
-                                <Radio size={14} />
+                                <Radio size={14} aria-hidden="true" />
                                 EdIntel Sovereign Broadcast
                             </NeonBadge>
                         </div>
@@ -88,8 +88,8 @@ export default function PodcastHub() {
                             <HolographicText variant="gradient" as="span">Strategic Insights</HolographicText>
                         </h1>
 
-                        <p className="text-zinc-400 text-sm md:text-base max-w-2xl uppercase tracking-widest font-medium flex items-center gap-2">
-                            <Sparkles className="w-4 h-4 text-[#FFB300]" />
+                        <p className="text-zinc-300 text-sm md:text-base max-w-2xl uppercase tracking-widest font-medium flex items-center gap-2">
+                            <Sparkles className="w-4 h-4 text-[#FFB300]" aria-hidden="true" />
                             Curated audio intelligence for elite educators and administrators.
                         </p>
                     </div>
@@ -103,7 +103,7 @@ export default function PodcastHub() {
                         className={isSynthesizing ? 'animate-pulse' : ''}
                     >
                         <div className="flex items-center gap-3">
-                            {isSynthesizing ? <RotateCcw className="w-5 h-5 animate-spin" /> : <Cpu className="w-5 h-5" />}
+                            {isSynthesizing ? <RotateCcw className="w-5 h-5 animate-spin" aria-hidden="true" /> : <Cpu className="w-5 h-5" aria-hidden="true" />}
                             <div className="text-left">
                                 <div className="text-[10px] font-black uppercase tracking-widest mb-0.5">Neural Mode</div>
                                 <div className="text-xs font-bold uppercase tracking-tight">{isSynthesizing ? 'Processing' : 'Synthesize'}</div>
@@ -144,10 +144,10 @@ export default function PodcastHub() {
                         >
                             <GlassPanel variant="default" className="p-8">
                                 <div className="flex items-center gap-3 mb-4">
-                                    <Headphones className="text-[#FFB300]" size={20} />
+                                    <Headphones className="text-[#FFB300]" size={20} aria-hidden="true" />
                                     <h3 className="text-sm font-black text-white uppercase tracking-[0.2em]">Episode Directive</h3>
                                 </div>
-                                <p className="text-zinc-400 text-sm leading-relaxed font-serif italic mb-6">
+                                <p className="text-zinc-300 text-sm leading-relaxed font-serif italic mb-6">
                                     &ldquo;{currentEpisode.description}&rdquo;
                                 </p>
                                 <div className="flex gap-4 border-t border-white/5 pt-6">
@@ -166,12 +166,12 @@ export default function PodcastHub() {
                     <div className="lg:col-span-5 space-y-8">
                         <div>
                             <div className="flex items-center justify-between mb-6 px-2">
-                                <h3 className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.3em]">Available Episodes</h3>
+                                <h3 className="text-[10px] font-black text-zinc-300 uppercase tracking-[0.3em]">Available Episodes</h3>
                                 <div className="flex items-center gap-4">
                                     <button
                                         onClick={() => setShowAnalytics(!showAnalytics)}
                                         aria-label={showAnalytics ? "Hide telemetry dashboard" : "Show telemetry dashboard"}
-                                        className={`text-[10px] font-black uppercase tracking-widest transition-colors ${showAnalytics ? 'text-[#FFB300]' : 'text-zinc-400 hover:text-white'}`}
+                                        className={`text-[10px] font-black uppercase tracking-widest transition-colors ${showAnalytics ? 'text-[#FFB300]' : 'text-zinc-300 hover:text-white'}`}
                                     >
                                         {showAnalytics ? 'Hide Telemetry' : 'Show Telemetry'}
                                     </button>

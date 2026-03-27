@@ -14,8 +14,18 @@ import { wearableService, BioFeedback } from '@/lib/wearable-service';
 import { mockPodcasts } from '@/lib/data/podcasts';
 import { toast } from 'sonner';
 import WellnessWrapper from '@/components/WellnessWrapper';
-import { BiometricVisualizer } from '@/components/wellness/BiometricVisualizer';
-import { BurnoutShield } from '@/components/wellness/BurnoutShield';
+import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
+
+const BiometricVisualizer = dynamic(() => import('@/components/wellness/BiometricVisualizer').then(mod => mod.BiometricVisualizer), {
+    ssr: false,
+    loading: () => <div className="h-64 w-full bg-white/5 animate-pulse rounded-[50px] border border-white/5" />
+});
+
+const BurnoutShield = dynamic(() => import('@/components/wellness/BurnoutShield').then(mod => mod.BurnoutShield), {
+    ssr: false,
+    loading: () => <div className="h-48 w-full bg-white/5 animate-pulse rounded-[32px] border border-white/5" />
+});
 
 export default function WellnessPage() {
     const [biometrics, setBiometrics] = useState<BioFeedback | null>(null);
@@ -195,7 +205,9 @@ export default function WellnessPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Biometric Telemetry */}
                     <div className="lg:col-span-2 space-y-8">
-                        <BiometricVisualizer biometrics={biometrics} chartData={chartDataRef.current} />
+                        <Suspense fallback={<div className="h-64 w-full bg-white/5 animate-pulse rounded-[50px]" />}>
+                            <BiometricVisualizer biometrics={biometrics} chartData={chartDataRef.current} />
+                        </Suspense>
 
                         {/* Simulation/Analysis Row */}
                         <div className="p-12 rounded-[50px] bg-gradient-to-br from-zinc-900 to-black border border-white/5 relative overflow-hidden group text-left">
@@ -231,7 +243,9 @@ export default function WellnessPage() {
 
                     {/* Resets & Audio Hub */}
                     <div className="space-y-8 text-left">
-                        <BurnoutShield wellnessAgentRole={wellnessAgent?.role || 'Tactical Specialist'} onExecuteReset={handleExecuteReset} />
+                        <Suspense fallback={<div className="h-48 w-full bg-white/5 animate-pulse rounded-[32px]" />}>
+                            <BurnoutShield wellnessAgentRole={wellnessAgent?.role || 'Tactical Specialist'} onExecuteReset={handleExecuteReset} />
+                        </Suspense>
 
                         <div className="space-y-4 text-left">
                             <h3 className="text-xs font-black uppercase tracking-[0.3em] text-zinc-500 ml-2 text-left">Wellness Audio Hub</h3>

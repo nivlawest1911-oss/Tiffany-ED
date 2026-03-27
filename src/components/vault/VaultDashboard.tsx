@@ -97,11 +97,15 @@ export default function VaultDashboard() {
                         placeholder="Search secure documents..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
+                        aria-label="Search secure documents"
                         className="w-full bg-slate-900/50 border border-slate-800 rounded-lg pl-10 pr-4 py-2 text-sm text-slate-300 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all placeholder:text-slate-600"
                     />
                 </div>
                 <div className="w-full md:w-auto flex items-center gap-3">
-                    <button className="flex items-center gap-2 px-4 py-2 bg-slate-900/50 border border-slate-800 rounded-lg text-sm text-slate-400 hover:text-white hover:border-slate-700 transition-colors">
+                    <button 
+                        aria-label="Filter documents"
+                        className="flex items-center gap-2 px-4 py-2 bg-slate-900/50 border border-slate-800 rounded-lg text-sm text-slate-400 hover:text-white hover:border-slate-700 transition-colors"
+                    >
                         <Filter className="w-4 h-4" />
                         <span>Filter</span>
                     </button>
@@ -194,6 +198,7 @@ export default function VaultDashboard() {
                                 <button
                                     className="p-1 text-slate-600 hover:text-white transition-colors"
                                     title="Download Document"
+                                    aria-label={`Download document: ${doc.title}`}
                                 >
                                     <Download size={14} />
                                 </button>

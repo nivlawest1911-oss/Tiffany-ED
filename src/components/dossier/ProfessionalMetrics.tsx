@@ -49,12 +49,12 @@ export default function LeadershipMetrics() {
                         <div className={`w-8 h-8 rounded-xl ${item.bg} ${item.color} flex items-center justify-center`}>
                             <item.icon size={16} />
                         </div>
-                        <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">{item.label}</span>
+                        <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">{item.label}</span>
                     </div>
 
                     <div className="flex items-end justify-between relative z-10">
                         <div className="text-2xl font-black text-white tracking-tighter">
-                            {item.value.toFixed(1)}<span className="text-xs text-zinc-600">%</span>
+                            {item.value.toFixed(1)}<span className="text-xs text-zinc-400">%</span>
                         </div>
                         <div className="flex items-center gap-1 text-[8px] font-mono text-emerald-500 mb-1">
                             <TrendingUp size={8} /> +0.4%

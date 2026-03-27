@@ -58,8 +58,8 @@ export const ExecutiveGuard = ({ children, requiredTier }: { children: React.Rea
                     <div className="mt-12 flex flex-col items-center gap-4">
                         <motion.div
                             initial={{ width: 0 }}
-                            animate={{ width: 200 }}
-                            transition={{ duration: 1.5, ease: "circOut" }}
+                            animate={{ width: 140 }}
+                            transition={{ duration: 0.6, ease: "circOut" }}
                             className="h-[1px] bg-gradient-to-r from-transparent via-noble-gold/50 to-transparent"
                         />
                         <p className="text-[10px] tracking-[0.4em] text-noble-gold/80 uppercase font-black animate-pulse">

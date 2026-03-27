@@ -60,7 +60,7 @@ export default function PremiumPricingTable() {
                     <h1 className="text-6xl md:text-8xl font-black text-white mb-6 tracking-tight uppercase italic">
                         The <span className="bg-gradient-to-r from-[#D4AF37] via-[#F4D03F] to-[#B8860B] bg-clip-text text-transparent">EdIntel</span> Tier
                     </h1>
-                    <p className="text-xl text-zinc-500 mb-8 max-w-2xl mx-auto font-light leading-relaxed italic">
+                    <p className="text-xl text-zinc-400 mb-8 max-w-2xl mx-auto font-light leading-relaxed italic">
                         "Strategic pricing architectures built for educational leadership. Initialize your protocol with a 30-day trial. High-fidelity neural processing included."
                     </p>
                 </motion.div>
@@ -92,13 +92,13 @@ export default function PremiumPricingTable() {
                                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-kente-yellow via-kente-green to-kente-red opacity-30" />
 
                                     <div className="mb-10 relative">
-                                        <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-10 bg-black/60 border ${tier.popular ? 'border-noble-gold/50 text-noble-gold' : 'border-white/10 text-zinc-600'} shadow-2xl`}>
-                                            <Icon size={32} strokeWidth={1.5} />
+                                        <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-10 bg-black/60 border ${tier.popular ? 'border-noble-gold/50 text-noble-gold' : 'border-white/10 text-zinc-400'} shadow-2xl`}>
+                                            <Icon size={32} strokeWidth={1.5} aria-hidden="true" />
                                         </div>
                                         <h3 className="text-3xl font-black text-white mb-3 tracking-tighter uppercase italic">{tier.name}</h3>
                                         <div className="flex items-baseline gap-2 mb-6">
                                             <span className="text-6xl font-black text-white tracking-tighter">${tier.price}</span>
-                                            <span className="text-zinc-500 text-[10px] font-black uppercase tracking-[0.2em]">
+                                            <span className="text-zinc-400 text-[10px] font-black uppercase tracking-[0.2em]">
                                                 / Mo
                                             </span>
                                         </div>
@@ -108,8 +108,8 @@ export default function PremiumPricingTable() {
                                     <ul className="space-y-5 mb-12 flex-grow">
                                         {tier.features.map((feature, fIdx) => (
                                             <li key={fIdx} className="flex items-start gap-4 group/item">
-                                                <div className={`mt-1 flex-shrink-0 transition-colors ${tier.popular ? 'text-noble-gold' : 'text-zinc-700'}`}>
-                                                    <CheckCircle size={16} />
+                                                <div className={`mt-1 flex-shrink-0 transition-colors ${tier.popular ? 'text-noble-gold' : 'text-zinc-400'}`}>
+                                                    <CheckCircle size={16} aria-hidden="true" />
                                                 </div>
                                                 <span className="text-sm text-zinc-300 font-medium leading-tight group-hover/item:text-white transition-colors">{feature}</span>
                                             </li>
@@ -145,7 +145,7 @@ export default function PremiumPricingTable() {
                                         ) : (
                                             <>
                                                 {tier.price === 0 ? 'Start Free' : 'Deploy Node'}
-                                                <Zap size={14} className={tier.popular ? 'animate-pulse' : ''} />
+                                                <Zap size={14} className={tier.popular ? 'animate-pulse' : ''} aria-hidden="true" />
                                             </>
                                         )}
                                     </button>
@@ -158,9 +158,9 @@ export default function PremiumPricingTable() {
                                             role: tier.badge || 'Protocol Initiate',
                                             avatarImage: tier.price > 60 ? '/images/avatars/executive_leader.png' : '/images/avatars/dr_alvin_west_official.png'
                                         })}
-                                        className="mt-6 text-[9px] text-zinc-600 hover:text-noble-gold font-black uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2 group/info"
+                                        className="mt-6 text-[9px] text-zinc-400 hover:text-noble-gold font-black uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2 group/info"
                                     >
-                                        <Info size={10} className="group-hover/info:rotate-12 transition-transform" />
+                                        <Info size={10} className="group-hover/info:rotate-12 transition-transform" aria-hidden="true" />
                                         Deep Strategic Briefing // 01
                                     </button>
                                 </div>
@@ -179,36 +179,44 @@ export default function PremiumPricingTable() {
                     </div>
 
                     <div className="grid gap-6">
-                        {faqs.map((faq, idx) => (
-                            <div
-                                key={idx}
-                                className="rounded-3xl bg-zinc-900/40 border border-white/5 overflow-hidden transition-all hover:border-noble-gold/40 backdrop-blur-xl group"
-                            >
-                                <button
-                                    onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                                    className="w-full px-12 py-10 flex items-center justify-between text-left"
+                        {faqs.map((faq, idx) => {
+                            const isExpanded = openFaq === idx;
+                            return (
+                                <div
+                                    key={idx}
+                                    className="rounded-3xl bg-zinc-900/40 border border-white/5 overflow-hidden transition-all hover:border-noble-gold/40 backdrop-blur-xl group"
                                 >
-                                    <span className="text-2xl font-black text-zinc-400 uppercase tracking-tighter group-hover:text-white transition-colors">{faq.question}</span>
-                                    <div className={`p-3 rounded-xl transition-all duration-500 ${openFaq === idx ? 'bg-noble-gold rotate-180' : 'bg-black/40'}`}>
-                                        <Zap size={20} className={openFaq === idx ? 'text-black' : 'text-zinc-600'} />
+                                    <button
+                                        onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                                        {...({ "aria-expanded": isExpanded ? "true" : "false" })}
+                                        aria-controls={`faq-answer-premium-${idx}`}
+                                        className="w-full px-12 py-10 flex items-center justify-between text-left"
+                                    >
+                                        <span className="text-2xl font-black text-zinc-400 uppercase tracking-tighter group-hover:text-white transition-colors">{faq.question}</span>
+                                        <div className={`p-3 rounded-xl transition-all duration-500 ${openFaq === idx ? 'bg-noble-gold rotate-180' : 'bg-black/40'}`}>
+                                            <Zap size={20} className={openFaq === idx ? 'text-black' : 'text-zinc-400'} aria-hidden="true" />
+                                        </div>
+                                    </button>
+                                    <div id={`faq-answer-premium-${idx}`}>
+                                        <AnimatePresence>
+                                            {openFaq === idx && (
+                                                <motion.div
+                                                    initial={{ height: 0, opacity: 0 }}
+                                                    animate={{ height: "auto", opacity: 1 }}
+                                                    exit={{ height: 0, opacity: 0 }}
+                                                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                                                    className="overflow-hidden border-t border-white/5"
+                                                >
+                                                    <div className="px-12 py-10 text-zinc-400 text-lg font-light leading-relaxed italic">
+                                                        {faq.answer}
+                                                    </div>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
                                     </div>
-                                </button>
-                                <AnimatePresence>
-                                    {openFaq === idx && (
-                                        <motion.div
-                                            initial={{ height: 0, opacity: 0 }}
-                                            animate={{ height: 'auto', opacity: 1 }}
-                                            exit={{ height: 0, opacity: 0 }}
-                                            className="overflow-hidden"
-                                        >
-                                            <div className="px-12 pb-12 text-zinc-400 leading-relaxed font-light text-xl italic border-t border-white/5 pt-8">
-                                                "{faq.answer}"
-                                            </div>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </div>
-                        ))}
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             </div>

@@ -30,9 +30,9 @@ export default function VideosPageClient({ videos, categories }: VideosPageClien
           <Link
             href="/"
             aria-label="Return to Command Deck"
-            className="inline-flex items-center gap-2 text-zinc-400 hover:text-[#FFB300] transition-colors group"
+            className="inline-flex items-center gap-2 text-zinc-300 hover:text-[#FFB300] transition-colors group"
           >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" aria-hidden="true" />
             <span className="text-[10px] font-bold uppercase tracking-widest">Return to Command Deck</span>
           </Link>
         </motion.div>
@@ -43,7 +43,7 @@ export default function VideosPageClient({ videos, categories }: VideosPageClien
             animate={{ opacity: 1, y: 0 }}
           >
             <NeonBadge variant="gold" pulse className="mb-6">
-              <Film size={12} />
+              <Film size={12} aria-hidden="true" />
               Media Archive
             </NeonBadge>
           </motion.div>
@@ -61,7 +61,7 @@ export default function VideosPageClient({ videos, categories }: VideosPageClien
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="text-zinc-400 text-lg max-w-2xl mx-auto"
+            className="text-zinc-300 text-lg max-w-2xl mx-auto"
           >
             Explore tutorials, strategic briefings, demos, and educational content
           </motion.p>
@@ -95,13 +95,13 @@ export default function VideosPageClient({ videos, categories }: VideosPageClien
                 <div className="absolute inset-0 flex items-center justify-between p-8 md:p-12">
                   <div className="max-w-xl">
                     <div className="flex items-center gap-2 mb-4">
-                      <Sparkles className="w-4 h-4 text-[#FFB300]" />
+                      <Sparkles className="w-4 h-4 text-[#FFB300]" aria-hidden="true" />
                       <span className="text-[#FFB300] text-[10px] font-black uppercase tracking-widest">Featured Content</span>
                     </div>
                     <HolographicText variant="gold" as="h2" className="text-2xl md:text-4xl font-black uppercase tracking-tight mb-3">
                       {videos[0]?.title || 'Strategic Briefings'}
                     </HolographicText>
-                    <p className="text-zinc-400 text-sm md:text-base line-clamp-2">
+                    <p className="text-zinc-300 text-sm md:text-base line-clamp-2">
                       {videos[0]?.description || 'Explore our collection of professional development videos, tutorials, and strategic briefings.'}
                     </p>
                   </div>
@@ -113,7 +113,7 @@ export default function VideosPageClient({ videos, categories }: VideosPageClien
                         whileTap={{ scale: 0.95 }}
                         className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-[#FFB300] flex items-center justify-center shadow-[0_0_60px_rgba(255,179,0,0.5)] cursor-pointer border-4 border-white/20"
                       >
-                        <Play className="w-8 h-8 md:w-10 md:h-10 text-black ml-1" fill="black" />
+                        <Play className="w-8 h-8 md:w-10 md:h-10 text-black ml-1" fill="black" aria-hidden="true" />
                       </motion.div>
                     </Link>
                   )}
@@ -151,12 +151,12 @@ export default function VideosPageClient({ videos, categories }: VideosPageClien
         >
           <GlassPanel variant="cyan" className="p-8 text-center">
             <div className="w-16 h-16 rounded-2xl bg-[#00E5FF]/20 flex items-center justify-center mx-auto mb-6 border border-[#00E5FF]/30">
-              <Film className="w-8 h-8 text-[#00E5FF]" />
+              <Film className="w-8 h-8 text-[#00E5FF]" aria-hidden="true" />
             </div>
             <HolographicText variant="cyan" as="h3" className="text-xl font-bold mb-3">
               Request Custom Content
             </HolographicText>
-            <p className="text-zinc-400 mb-6 max-w-md mx-auto">
+            <p className="text-zinc-300 mb-6 max-w-md mx-auto">
               Need specific training videos or briefings for your district? Contact our media team to request custom content.
             </p>
             <Link href="/contact">

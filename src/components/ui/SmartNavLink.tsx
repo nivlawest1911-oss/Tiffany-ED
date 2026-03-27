@@ -47,7 +47,7 @@ export const SmartNavLink: React.FC<SmartNavLinkProps> = ({ item, active, classN
                 className
             )}
         >
-            <IconComponent size={20} className={active ? activeColor : "text-zinc-500 group-hover:text-white"} />
+            <IconComponent size={20} className={active ? activeColor : "text-zinc-400 group-hover:text-white"} />
             {!collapsed && (
                 <span className="text-[10px] font-black uppercase tracking-widest">
                     {item.label}

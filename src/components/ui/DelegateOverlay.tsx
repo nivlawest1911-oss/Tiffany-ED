@@ -95,12 +95,15 @@ export default function DelegateOverlay() {
             {delegates.map((d) => {
                 const delegateStyle = { left: `${d.position.x}%`, top: `${d.position.y}%` } as React.CSSProperties;
                 return (
-                    <div
+                    <button
                         key={d.id}
-                        className="absolute transition-all duration-1000 ease-in-out pointer-events-auto group"
+                        className="absolute transition-all duration-1000 ease-in-out pointer-events-auto group focus:outline-none focus:ring-2 focus:ring-intel-gold rounded-full"
                         style={delegateStyle}
                         onMouseEnter={() => setActiveId(d.id)}
                         onMouseLeave={() => setActiveId(null)}
+                        onFocus={() => setActiveId(d.id)}
+                        onBlur={() => setActiveId(null)}
+                        aria-label={`Delegate ${d.name}, ${d.role}`}
                     >
                         {/* Delegate Avatar Center */}
                         <div className="relative">
@@ -114,7 +117,7 @@ export default function DelegateOverlay() {
                                 </div>
 
                                 {/* Status Indicator */}
-                                <div className="absolute bottom-1 right-1 w-2.5 h-2.5 bg-green-500 border-2 border-black rounded-full animate-pulse z-20" />
+                                <div className="absolute bottom-1 right-1 w-2.5 h-2.5 bg-green-500 border-2 border-black rounded-full animate-pulse z-20" aria-hidden="true" />
                             </div>
 
                             {/* Talk Bubble */}
@@ -123,7 +126,7 @@ export default function DelegateOverlay() {
                                 <div className="bg-zinc-950 border border-zinc-800 p-4 rounded-2xl shadow-3xl relative">
                                     <div className="flex items-center gap-2 mb-2">
                                         <span className={`text-[8px] font-black text-${d.color}-400 uppercase tracking-widest`}>{d.name}</span>
-                                        <div className={`w-1 h-1 rounded-full bg-green-500 animate-pulse`} />
+                                        <div className={`w-1 h-1 rounded-full bg-green-500 animate-pulse`} aria-hidden="true" />
                                     </div>
                                     <p className="text-[10px] text-zinc-300 leading-tight">"{d.message}"</p>
                                     {/* Arrow */}
@@ -133,10 +136,10 @@ export default function DelegateOverlay() {
 
                             {/* Ambient Label (Always visible but faint) */}
                             <div className="mt-2 text-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                <p className="text-[8px] font-bold text-zinc-500 uppercase tracking-tighter">{d.role}</p>
+                                <p className="text-[8px] font-bold text-zinc-300 uppercase tracking-tighter">{d.role}</p>
                             </div>
                         </div>
-                    </div>
+                    </button>
                 );
             })}
         </div>

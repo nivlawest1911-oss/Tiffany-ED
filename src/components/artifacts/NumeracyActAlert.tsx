@@ -40,7 +40,7 @@ export function NumeracyActAlert({ studentId, score }: NumeracyActAlertProps) {
             <div className="mb-6">
                 <div className="flex items-center justify-between mb-2">
                     <span className="text-sm font-bold text-zinc-400">Assessment Score</span>
-                    <span className="text-sm text-zinc-500">Threshold: {threshold}%</span>
+                    <span className="text-sm text-zinc-400">Threshold: {threshold}%</span>
                 </div>
                 <div className="relative h-4 bg-zinc-800 rounded-full overflow-hidden">
                     <motion.div
@@ -96,10 +96,10 @@ export function NumeracyActAlert({ studentId, score }: NumeracyActAlertProps) {
             )}
 
             <div className="pt-6 border-t border-zinc-800">
-                <p className="text-xs text-zinc-500">
+                <p className="text-xs text-zinc-400">
                     Student ID: <span className="text-purple-400 font-mono">{studentId}</span>
                 </p>
-                <p className="text-xs text-zinc-500 mt-1">
+                <p className="text-xs text-zinc-400 mt-1">
                     Assessment Date: {new Date().toLocaleDateString()} |
                     Next Review: {new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString()}
                 </p>

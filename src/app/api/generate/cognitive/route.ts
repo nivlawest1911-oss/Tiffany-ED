@@ -17,11 +17,10 @@ export async function POST(request: NextRequest) {
         }
 
         const session = await getSession();
-        const user = session?.user;
-
-        if (!user) {
+        if (!session?.user) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
+        const user = session.user;
 
         // Fetch user context for protocol routing
         const dbUser = await prisma.user.findUnique({

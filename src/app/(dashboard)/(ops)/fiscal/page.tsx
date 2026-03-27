@@ -2,8 +2,14 @@
 
 import { motion } from 'framer-motion';
 import { DollarSign, ShieldCheck, Activity, ChevronRight } from 'lucide-react';
+import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
 import { HolographicBackground } from '@/components/ui/HolographicBackground';
-import { ResourceMarket } from '@/components/fiscal/ResourceMarket';
+
+const ResourceMarket = dynamic(() => import('@/components/fiscal/ResourceMarket').then(mod => mod.ResourceMarket), {
+    ssr: false,
+    loading: () => <div className="h-96 w-full bg-white/5 animate-pulse rounded-[40px] border border-white/5" />
+});
 
 export default function FiscalPage() {
     return (
@@ -58,7 +64,9 @@ export default function FiscalPage() {
                 transition={{ duration: 0.8 }}
                 className="relative z-10 flex-1"
             >
-                <ResourceMarket />
+                <Suspense fallback={<div className="h-96 w-full bg-white/5 animate-pulse rounded-[40px]" />}>
+                    <ResourceMarket />
+                </Suspense>
             </motion.div>
 
             {/* Footer Metadata */}

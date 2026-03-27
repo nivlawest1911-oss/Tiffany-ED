@@ -156,7 +156,7 @@ export default function WellnessClient() {
                         <div className="text-4xl font-black text-white">42%</div>
                     </div>
                     <div className="h-12 w-12 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                        <Brain className="text-emerald-400 w-6 h-6" />
+                        <Brain className="text-emerald-400 w-6 h-6" aria-hidden="true" />
                     </div>
                 </GlassCard>
 
@@ -166,7 +166,7 @@ export default function WellnessClient() {
                         <div className="text-4xl font-black text-white">Optimal</div>
                     </div>
                     <div className="h-12 w-12 rounded-full bg-amber-500/20 flex items-center justify-center">
-                        <Activity className="text-amber-400 w-6 h-6" />
+                        <Activity className="text-amber-400 w-6 h-6" aria-hidden="true" />
                     </div>
                 </GlassCard>
             </div>
@@ -178,53 +178,56 @@ export default function WellnessClient() {
                 <div className="lg:col-span-1 space-y-4">
                     <button
                         onClick={() => setActiveTab('check-in')}
+                        aria-label="Daily Align: Log mood and set intention"
                         className={`w-full p-4 rounded-xl border transition-all duration-300 flex items-center gap-4 group ${activeTab === 'check-in'
                             ? 'bg-purple-600/20 border-purple-500/50 text-white'
-                            : 'bg-white/5 border-white/5 text-zinc-400 hover:bg-white/10'
+                            : 'bg-white/5 border-white/5 text-zinc-300 hover:bg-white/10'
                             }`}
                     >
                         <div className={`p-2 rounded-lg ${activeTab === 'check-in' ? 'bg-purple-500' : 'bg-zinc-800'}`}>
-                            <TranscendLogo variant="minimal" size={20} className="text-white" />
+                            <TranscendLogo variant="minimal" size={20} className="text-white" aria-hidden="true" />
                         </div>
                         <div className="text-left">
                             <h3 className="font-bold text-sm">Daily Align</h3>
                             <p className="text-xs opacity-60">Log mood & set intention</p>
                         </div>
-                        <ChevronRight className={`ml-auto w-4 h-4 transition-transform ${activeTab === 'check-in' ? 'rotate-90' : ''}`} />
+                        <ChevronRight className={`ml-auto w-4 h-4 transition-transform ${activeTab === 'check-in' ? 'rotate-90' : ''}`} aria-hidden="true" />
                     </button>
 
                     <button
                         onClick={() => setActiveTab('gym')}
+                        aria-label="Resilience Gym: Mental conditioning exercises"
                         className={`w-full p-4 rounded-xl border transition-all duration-300 flex items-center gap-4 group ${activeTab === 'gym'
                             ? 'bg-emerald-600/20 border-emerald-500/50 text-white'
-                            : 'bg-white/5 border-white/5 text-zinc-400 hover:bg-white/10'
+                            : 'bg-white/5 border-white/5 text-zinc-300 hover:bg-white/10'
                             }`}
                     >
                         <div className={`p-2 rounded-lg ${activeTab === 'gym' ? 'bg-emerald-500' : 'bg-zinc-800'}`}>
-                            <Brain size={20} className="text-white" />
+                            <Brain size={20} className="text-white" aria-hidden="true" />
                         </div>
                         <div className="text-left">
                             <h3 className="font-bold text-sm">Resilience Gym</h3>
                             <p className="text-xs opacity-60">Mental conditioning exercises</p>
                         </div>
-                        <ChevronRight className={`ml-auto w-4 h-4 transition-transform ${activeTab === 'gym' ? 'rotate-90' : ''}`} />
+                        <ChevronRight className={`ml-auto w-4 h-4 transition-transform ${activeTab === 'gym' ? 'rotate-90' : ''}`} aria-hidden="true" />
                     </button>
 
                     <button
                         onClick={() => setActiveTab('chat')}
+                        aria-label="Wellness Agent: Personalized AI support"
                         className={`w-full p-4 rounded-xl border transition-all duration-300 flex items-center gap-4 group ${activeTab === 'chat'
                             ? 'bg-amber-600/20 border-amber-500/50 text-white'
-                            : 'bg-white/5 border-white/5 text-zinc-400 hover:bg-white/10'
+                            : 'bg-white/5 border-white/5 text-zinc-300 hover:bg-white/10'
                             }`}
                     >
                         <div className={`p-2 rounded-lg ${activeTab === 'chat' ? 'bg-amber-500' : 'bg-zinc-800'}`}>
-                            <Bot size={20} className="text-white" />
+                            <Bot size={20} className="text-white" aria-hidden="true" />
                         </div>
                         <div className="text-left">
                             <h3 className="font-bold text-sm">Wellness Agent</h3>
                             <p className="text-xs opacity-60">Personalized AI support</p>
                         </div>
-                        <ChevronRight className={`ml-auto w-4 h-4 transition-transform ${activeTab === 'chat' ? 'rotate-90' : ''}`} />
+                        <ChevronRight className={`ml-auto w-4 h-4 transition-transform ${activeTab === 'chat' ? 'rotate-90' : ''}`} aria-hidden="true" />
                     </button>
                 </div>
 
@@ -245,7 +248,7 @@ export default function WellnessClient() {
                                         <h2 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-purple-200">
                                             How is your spirit today?
                                         </h2>
-                                        <p className="text-zinc-400 text-sm">Track your emotional baseline to optimize performance.</p>
+                                        <p className="text-zinc-300 text-sm">Track your emotional baseline to optimize performance.</p>
                                     </div>
 
                                     <div className="flex gap-4">
@@ -253,6 +256,7 @@ export default function WellnessClient() {
                                             <button
                                                 key={m}
                                                 onClick={() => setMood(m as any)}
+                                                aria-label={`Mark mood as ${m}`}
                                                 className={`w-16 h-16 rounded-2xl flex items-center justify-center text-2xl border transition-all duration-300 hover:scale-110 ${mood === m
                                                     ? 'bg-purple-600 border-purple-400 shadow-[0_0_20px_rgba(168,85,247,0.4)]'
                                                     : 'bg-white/5 border-white/10 hover:bg-white/10'
@@ -277,6 +281,7 @@ export default function WellnessClient() {
                                                 value={reflection}
                                                 onChange={(e) => setReflection(e.target.value)}
                                                 placeholder="Any thoughts or context for today? (Optional)"
+                                                aria-label="Daily reflection thoughts"
                                                 className="w-full h-32 bg-black/50 border border-white/10 rounded-xl p-4 text-sm text-white focus:outline-none focus:border-purple-500/50 resize-none"
                                             />
                                             <button
@@ -302,7 +307,7 @@ export default function WellnessClient() {
                                     className="h-full flex flex-col"
                                 >
                                     <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-                                        <Brain className="text-emerald-400" /> Resilience Gym
+                                        <Brain className="text-emerald-400" aria-hidden="true" /> Resilience Gym
                                     </h2>
 
                                     {!activeExercise ? (
@@ -311,13 +316,14 @@ export default function WellnessClient() {
                                                 <button
                                                     key={workout.title}
                                                     onClick={() => setActiveExercise(workout)}
+                                                    aria-label={`Start ${workout.title} exercise (${workout.duration})`}
                                                     className="p-4 rounded-xl bg-white/5 border border-white/5 hover:bg-emerald-900/10 hover:border-emerald-500/30 text-left transition-all group"
                                                 >
                                                     <div className="flex items-center justify-between mb-1">
                                                         <span className="font-bold text-emerald-200">{workout.title}</span>
                                                         <span className="text-xs bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded">{workout.duration}</span>
                                                     </div>
-                                                    <p className="text-xs text-zinc-500 group-hover:text-emerald-200/50 transition-colors">
+                                                    <p className="text-xs text-zinc-300 group-hover:text-emerald-200/50 transition-colors">
                                                         {workout.description}
                                                     </p>
                                                 </button>
@@ -326,7 +332,7 @@ export default function WellnessClient() {
                                     ) : (
                                         <div className="flex-1 flex flex-col items-center justify-center text-center space-y-6">
                                             <div className="w-20 h-20 rounded-full bg-emerald-500/20 flex items-center justify-center animate-pulse">
-                                                <Activity className="w-10 h-10 text-emerald-400" />
+                                                <Activity className="w-10 h-10 text-emerald-400" aria-hidden="true" />
                                             </div>
                                             <div>
                                                 <h3 className="text-xl font-bold text-white">{activeExercise.title}</h3>
@@ -373,6 +379,7 @@ export default function WellnessClient() {
                                             onChange={(e) => setInput(e.target.value)}
                                             onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
                                             placeholder="Consult the Wellness Agent..."
+                                            aria-label="Message wellness agent"
                                             className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 pr-12 text-sm text-white focus:outline-none focus:border-amber-500/50 transition-colors"
                                         />
                                         <button

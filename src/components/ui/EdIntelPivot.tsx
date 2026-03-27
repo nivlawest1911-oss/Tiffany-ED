@@ -107,7 +107,7 @@ export function EdIntelPivotDashboard() {
 
                     <div className="space-y-6 mb-8">
                         <div>
-                            <h4 className="text-[9px] text-zinc-500 uppercase tracking-widest font-black mb-3">Core Metrics</h4>
+                            <h4 className="text-[9px] text-zinc-400 uppercase tracking-widest font-black mb-3">Core Metrics</h4>
                             <div className="space-y-2">
                                 <StatusItem
                                     icon={<Server size={12} />}
@@ -137,7 +137,7 @@ export function EdIntelPivotDashboard() {
                         </div>
 
                         <div>
-                            <h4 className="text-[9px] text-zinc-500 uppercase tracking-widest font-black mb-3">Live System Logs</h4>
+                            <h4 className="text-[9px] text-zinc-400 uppercase tracking-widest font-black mb-3">Live System Logs</h4>
                             <div className="space-y-1.5 font-mono text-[9px] h-32 overflow-hidden relative">
                                 <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#09090b] to-transparent pointer-events-none z-10" />
                                 {logs.map((log) => (
@@ -145,7 +145,7 @@ export function EdIntelPivotDashboard() {
                                         key={log.id}
                                         initial={{ opacity: 0, x: -5 }}
                                         animate={{ opacity: 1, x: 0 }}
-                                        className="flex gap-2 text-zinc-500"
+                                        className="flex gap-2 text-zinc-400"
                                     >
                                         <span className="text-zinc-700 select-none">[{log.time}]</span>
                                         <span className={log.level === 'WARN' ? 'text-amber-500' : log.level === 'SUCCESS' ? 'text-emerald-500' : 'text-blue-500'}>{log.level}</span>
@@ -159,7 +159,7 @@ export function EdIntelPivotDashboard() {
 
                 <div className="pt-4 border-t border-white/5">
                     <div className="flex items-center justify-between opacity-50 hover:opacity-100 transition-opacity">
-                        <span className="text-[9px] text-zinc-500 uppercase tracking-widest font-bold">Build v2.5.0</span>
+                        <span className="text-[9px] text-zinc-400 uppercase tracking-widest font-bold">Build v2.5.0</span>
                         <div className="h-1.5 w-1.5 rounded-full bg-noble-gold/50" />
                     </div>
                 </div>
@@ -173,7 +173,7 @@ export function EdIntelPivotDashboard() {
                         The EdIntel Pivot
                     </h2>
                     <p className="text-zinc-400 text-sm font-light leading-relaxed max-w-lg mt-1">
-                        Shift from <span className="text-zinc-500 line-through decoration-zinc-600">reactive chaos</span> to <span className="text-noble-gold font-medium">Absolute Strategic Clarity</span> using our predictive engines.
+                        Shift from <span className="text-zinc-400 line-through decoration-zinc-600">reactive chaos</span> to <span className="text-noble-gold font-medium">Absolute Strategic Clarity</span> using our predictive engines.
                     </p>
                 </div>
 
@@ -217,7 +217,7 @@ export function EdIntelPivotDashboard() {
 
                     {/* Active Modules Grid - Functional Looking */}
                     <div className="flex-1">
-                        <h4 className="text-[10px] font-black text-zinc-600 uppercase tracking-[0.2em] mb-3 flex items-center gap-2">
+                        <h4 className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] mb-3 flex items-center gap-2">
                             <Zap size={10} /> Intelligence Nodes
                         </h4>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -263,8 +263,8 @@ function StatusItem({ icon, label, status, color }: { icon: any; label: string; 
     return (
         <div className="flex items-center justify-between group p-1.5 rounded-lg hover:bg-white/5 transition-colors cursor-default">
             <div className="flex items-center gap-2.5">
-                <div className="text-zinc-600 group-hover:text-zinc-400 transition-colors">{icon}</div>
-                <span className="text-[10px] font-bold text-zinc-500 group-hover:text-zinc-300 transition-colors">{label}</span>
+                <div className="text-zinc-400 group-hover:text-zinc-400 transition-colors">{icon}</div>
+                <span className="text-[10px] font-bold text-zinc-400 group-hover:text-zinc-300 transition-colors">{label}</span>
             </div>
             <span className={`text-[9px] font-bold font-mono ${color}`}>{status}</span>
         </div>
@@ -289,10 +289,10 @@ function AIModule({ name, status, load, desc, icon }: { name: string; status: st
 
             <div className="relative z-10">
                 <h5 className="text-sm font-bold text-zinc-200 group-hover:text-white mb-0.5">{name}</h5>
-                <p className="text-[10px] text-zinc-500 font-medium group-hover:text-zinc-400">{desc}</p>
+                <p className="text-[10px] text-zinc-400 font-medium group-hover:text-zinc-400">{desc}</p>
                 <div className="mt-3 flex items-center justify-between border-t border-white/5 pt-2">
-                    <span className="text-[8px] text-zinc-600 uppercase tracking-wider font-bold">Load</span>
-                    <span className="text-[9px] font-mono text-zinc-500">{load}</span>
+                    <span className="text-[8px] text-zinc-400 uppercase tracking-wider font-bold">Load</span>
+                    <span className="text-[9px] font-mono text-zinc-400">{load}</span>
                 </div>
             </div>
         </div>
