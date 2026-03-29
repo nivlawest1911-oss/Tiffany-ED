@@ -14,13 +14,13 @@
         "lint": "echo 'Linting skipped'",
         "director": "npx tsx src/scripts/director-agent.ts",
         "setup": "node scripts/setup.js",
-        "db:generate": "npx --no-install prisma generate",
+        "db:generate": "npx prisma generate",
         "db:migrate": "prisma migrate dev",
         "db:migrate:deploy": "prisma migrate deploy",
         "db:studio": "prisma studio",
         "deploy:vercel": "vercel deploy --prod --force",
         "deploy:gcp": "cd cloud/avatar-engine && gcloud run deploy edintel-avatar-engine --source .",
-        "postinstall": "npx --no-install prisma generate"
+        "postinstall": "npx prisma generate"
     },
     "dependencies": {
         "@ai-sdk/anthropic": "^3.0.46",
@@ -47,7 +47,7 @@
         "@huggingface/inference": "^4.13.10",
         "@langchain/core": "^1.1.18",
         "@langchain/openai": "^1.2.4",
-        "@prisma/client": "^5.22.0",
+        "@prisma/client": "5.22.0",
         "@radix-ui/react-accordion": "1.2.2",
         "@radix-ui/react-alert-dialog": "1.1.4",
         "@radix-ui/react-aspect-ratio": "1.1.1",
@@ -152,7 +152,7 @@
         "y-indexeddb": "^9.0.12",
         "y-websocket": "^3.0.0",
         "yjs": "^13.6.29",
-        "prisma": "^5.22.0",
+        "prisma": "5.22.0",
         "zod": "3.25.76"
     },
     "devDependencies": {
