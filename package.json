@@ -9,18 +9,17 @@
         "preinstall": "echo 'Starting fresh install'",
         "dev": "next dev",
         "prebuild": "node -e \"const fs = require('fs'); if (fs.existsSync('.next')) fs.rmSync('.next', { recursive: true, force: true });\"",
-        "build": "next build",
+        "build": "prisma generate && next build",
         "start": "next start",
         "lint": "echo 'Linting skipped'",
         "director": "npx tsx src/scripts/director-agent.ts",
         "setup": "node scripts/setup.js",
-        "db:generate": "npx prisma generate",
+        "db:generate": "prisma generate",
         "db:migrate": "prisma migrate dev",
         "db:migrate:deploy": "prisma migrate deploy",
         "db:studio": "prisma studio",
         "deploy:vercel": "vercel deploy --prod --force",
-        "deploy:gcp": "cd cloud/avatar-engine && gcloud run deploy edintel-avatar-engine --source .",
-        "postinstall": "npx prisma generate"
+        "deploy:gcp": "cd cloud/avatar-engine && gcloud run deploy edintel-avatar-engine --source ."
     },
     "dependencies": {
         "@ai-sdk/anthropic": "^3.0.46",
