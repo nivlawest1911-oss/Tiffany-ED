@@ -14,13 +14,13 @@
         "lint": "echo 'Linting skipped'",
         "director": "npx tsx src/scripts/director-agent.ts",
         "setup": "node scripts/setup.js",
-        "db:generate": "npx prisma@5.22.0 generate",
+        "db:generate": "prisma generate",
         "db:migrate": "prisma migrate dev",
         "db:migrate:deploy": "prisma migrate deploy",
         "db:studio": "prisma studio",
         "deploy:vercel": "vercel deploy --prod --force",
         "deploy:gcp": "cd cloud/avatar-engine && gcloud run deploy edintel-avatar-engine --source .",
-        "postinstall": "npx prisma@5.22.0 generate"
+        "postinstall": "prisma generate"
     },
     "dependencies": {
         "@ai-sdk/anthropic": "^3.0.46",
