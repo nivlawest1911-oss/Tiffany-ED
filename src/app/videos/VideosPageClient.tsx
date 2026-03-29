@@ -85,6 +85,7 @@ export default function VideosPageClient({ videos, categories }: VideosPageClien
                     alt={videos[0].title}
                     width={1920}
                     height={1080}
+                    priority
                     className="w-full h-full object-cover opacity-60"
                   />
                 ) : (

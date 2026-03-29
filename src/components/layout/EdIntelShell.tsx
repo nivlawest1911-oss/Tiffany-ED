@@ -97,7 +97,7 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
                     </Link>
 
                     <nav className="flex-1 w-full px-4 space-y-4 relative z-10">
-                        {tools.map((tool) => {
+                        {tools.map((tool: CoreTool) => {
                             const active = pathname === tool.href;
                             const Icon = tool.icon;
                             return (
@@ -110,9 +110,9 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
                                         className="w-full"
                                     >
                                         <Link href={tool.href}>
-                                            <div className={`flex items-center p-4 rounded-2xl cursor-pointer border transition-all duration-500 group/item ${active ? 'bg-intel-gold/10 border-intel-gold/30 text-intel-gold shadow-[0_0_30px_rgba(197,164,126,0.1)]' : 'border-transparent hover:bg-white/[0.03] hover:border-white/10 text-zinc-300 hover:text-white'}`}>
-                                                <Icon className={`w-6 h-6 shrink-0 transition-transform duration-500 ${active ? 'scale-110' : 'group-hover/item:scale-110 group-hover/item:text-intel-gold'}`} aria-hidden="true" />
-                                                <span className={`ml-6 text-[11px] font-black uppercase tracking-[0.3em] opacity-0 group-hover:opacity-100 transition-all duration-500 whitespace-nowrap italic ${active ? 'translate-x-0' : '-translate-x-4 group-hover:translate-x-0'}`}>
+                                            <div className={`flex items-center p-4 rounded-2xl cursor-pointer border transition-all duration-500 group/item ${(active as boolean) ? 'bg-intel-gold/10 border-intel-gold/30 text-intel-gold shadow-[0_0_30px_rgba(197,164,126,0.1)]' : 'border-transparent hover:bg-white/[0.03] hover:border-white/10 text-zinc-300 hover:text-white'}`}>
+                                                <Icon className={`w-6 h-6 shrink-0 transition-transform duration-500 ${(active as boolean) ? 'scale-110' : 'group-hover/item:scale-110 group-hover/item:text-intel-gold'}`} aria-hidden="true" />
+                                                <span className={`ml-6 text-[11px] font-black uppercase tracking-[0.3em] opacity-0 group-hover:opacity-100 transition-all duration-500 whitespace-nowrap italic ${(active as boolean) ? 'translate-x-0' : '-translate-x-4 group-hover:translate-x-0'}`}>
                                                     {tool.label}
                                                 </span>
                                             </div>
@@ -337,13 +337,13 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
 
             {/* Mobile Bottom Navigation */}
             <nav className="md:hidden fixed bottom-0 left-0 right-0 h-20 bg-black/90 backdrop-blur-2xl border-t border-white/5 flex items-center justify-around px-6 z-50">
-                {tools.slice(0, 4).map((tool) => {
+                {tools.slice(0, 4).map((tool: CoreTool) => {
                     const active = pathname === tool.href;
                     const Icon = tool.icon;
                     return (
                         <Link key={tool.id} href={tool.href} aria-label={tool.label}>
-                            <div className={`p-3 rounded-xl transition-all ${active ? 'bg-intel-gold/20 text-intel-gold shadow-[0_0_20px_rgba(197,164,126,0.1)]' : 'text-zinc-400'}`}>
-                                <Icon size={20} className={active ? 'scale-110' : ''} aria-hidden="true" />
+                            <div className={`p-3 rounded-xl transition-all ${(active as boolean) ? 'bg-intel-gold/20 text-intel-gold shadow-[0_0_20px_rgba(197,164,126,0.1)]' : 'text-zinc-400'}`}>
+                                <Icon size={20} className={(active as boolean) ? 'scale-110' : ''} aria-hidden="true" />
                             </div>
                         </Link>
                     )

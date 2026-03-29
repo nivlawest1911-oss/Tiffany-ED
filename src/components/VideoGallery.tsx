@@ -84,7 +84,7 @@ export default function VideoGallery({ videos, categories = [] }: VideoGalleryPr
               transition={{ delay: idx * 0.05 }}
               layout
             >
-              <VideoCard video={video} />
+              <VideoCard video={video} priority={idx < 2} />
             </motion.div>
           ))}
         </AnimatePresence>
@@ -106,7 +106,7 @@ export default function VideoGallery({ videos, categories = [] }: VideoGalleryPr
   );
 }
 
-function VideoCard({ video }: { video: VideoMeta }) {
+function VideoCard({ video, priority = false }: { video: VideoMeta; priority?: boolean }) {
   return (
     <Link href={`/videos/${video.id}`} aria-label={`Watch video: ${video.title}`} className="block group">
       <GlassPanel 
@@ -122,6 +122,7 @@ function VideoCard({ video }: { video: VideoMeta }) {
               alt={video.title}
               width={640}
               height={360}
+              priority={priority}
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             />
           ) : (
