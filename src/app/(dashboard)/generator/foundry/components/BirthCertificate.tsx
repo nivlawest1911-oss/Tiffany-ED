@@ -4,7 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { CompanionCertificate } from '@/types/companion-certificate';
 import { SovereignBadge } from '@/components/ui/SovereignBadge';
-import { GlassPanel } from '@/components/ui/GlassPanel';
+import GlassPanel from '@/components/ui/GlassPanel';
 import { Orbitron, Outfit } from 'next/font/google';
 
 const orbitron = Orbitron({ subsets: ['latin'] });
@@ -33,7 +33,7 @@ export const BirthCertificate: React.FC<BirthCertificateProps> = ({ certificate 
 
             {/* 🛡️ SOVEREIGN SEAL */}
             <div className="absolute top-8 right-8">
-                <SovereignBadge className="w-24 h-24" />
+                <SovereignBadge tier={certificate.tier} className="w-24 h-24" />
             </div>
 
             {/* 📜 HEADER */}
