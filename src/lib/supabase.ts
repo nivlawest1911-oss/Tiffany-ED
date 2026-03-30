@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { unstable_cache } from 'next/cache';
+import { CompanionCertificate } from '@/types/companion-certificate';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -131,4 +132,70 @@ export async function createSupportTicket(userId: string, subject: string, messa
     }
 
     return data[0];
+}
+
+/**
+ * 🛰️ Edintel Birth Certificate: Persists a new AI companion's DNA to the institutional core.
+ */
+export async function issueBirthCertificate(certificate: CompanionCertificate) {
+    if (!supabase) return null;
+    const { data, error } = await supabase
+        .from('companion_certificates')
+        .insert([
+            {
+                id: certificate.id,
+                name: certificate.name,
+                role: certificate.role,
+                tier: certificate.tier,
+                persona: certificate.persona,
+                voice_id: certificate.voiceId,
+                avatar_id: certificate.avatarId,
+                master_system_prompt: certificate.masterSystemPrompt,
+                district_id: certificate.districtId,
+                creator_id: certificate.creatorId,
+                created_at: certificate.createdAt,
+                metadata: certificate.metadata
+            }
+        ])
+        .select();
+
+    if (error) {
+        console.error('[SUPABASE_ERROR] Failed to issue birth certificate:', error);
+        return null;
+    }
+
+    return data[0];
+}
+
+/**
+ * 🧠 Edintel Neural Link: Retrieves a specific companion's identity from the vault.
+ */
+export async function getBirthCertificate(companionId: string): Promise<CompanionCertificate | null> {
+    if (!supabase) return null;
+    const { data, error } = await supabase
+        .from('companion_certificates')
+        .select('*')
+        .eq('id', companionId)
+        .single();
+
+    if (error) {
+        console.warn('[SUPABASE_ERROR] Neural link denied for ID:', companionId, error);
+        return null;
+    }
+
+    // Map DB fields back to the interface
+    return {
+        id: data.id,
+        name: data.name,
+        role: data.role,
+        tier: data.tier,
+        persona: data.persona,
+        voiceId: data.voice_id,
+        avatarId: data.avatar_id,
+        masterSystemPrompt: data.master_system_prompt,
+        districtId: data.district_id,
+        creatorId: data.creator_id,
+        createdAt: data.created_at,
+        metadata: data.metadata
+    };
 }
