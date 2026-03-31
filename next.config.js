@@ -73,6 +73,16 @@ const nextConfig = {
                 destination: '/the-room',
                 permanent: true,
             },
+            {
+                source: '/all-tools',
+                destination: '/admin/tools',
+                permanent: true,
+            },
+            {
+                source: '/activity',
+                destination: '/ledger',
+                permanent: true,
+            },
         ];
     },
 };

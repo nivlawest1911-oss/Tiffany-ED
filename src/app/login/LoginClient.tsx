@@ -28,7 +28,14 @@ export default function LoginClient() {
     const [mode, setMode] = useState<'login' | 'signup'>('login');
     const router = useRouter();
     const searchParams = useSearchParams();
-    const { fetchUser } = useAuth();
+    const { fetchUser, user, isLoading } = useAuth();
+
+    // 🏛️ Already Authenticated Protocol: If user is already set, redirect to the-room
+    useEffect(() => {
+        if (!isLoading && user) {
+            router.push(ROUTES.THE_ROOM);
+        }
+    }, [user, isLoading, router]);
 
     // 🏛️ EdIntel Enrollment Fields
     const [signupData, setSignupData] = useState({

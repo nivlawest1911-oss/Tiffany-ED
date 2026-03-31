@@ -88,7 +88,20 @@ export const ExecutiveGuard = ({ children, requiredTier }: { children: React.Rea
 
     // 2. Fix Broken Routing: Redirect to login if no session
     if (!user) {
-        return null; // Effect will handle redirect
+        // 🏛️ Sovereign Access Protocol: Ensure unauthenticated users are never left with a black screen.
+        // The useEffect above handles the redirect, but this fallback UI provides immediate visual feedback.
+        return (
+            <div className="min-h-screen bg-[#020617] flex flex-col items-center justify-center relative overflow-hidden">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,179,0,0.05)_0%,transparent_70%)] animate-pulse" />
+                <div className="relative z-10 flex flex-col items-center gap-6 text-center px-4">
+                    <div className="w-16 h-16 rounded-full border-t-2 border-b-2 border-[#FFB300] animate-spin shadow-[0_0_20px_rgba(255,179,0,0.2)]" />
+                    <div className="space-y-2">
+                        <h2 className="text-[#FFB300] font-black uppercase tracking-[0.4em] text-[10px] animate-pulse">Establishing Secure Uplink</h2>
+                        <p className="text-zinc-500 text-[8px] uppercase tracking-widest">Verifying Sovereign Credentials...</p>
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     // 3. Tier Check: Prevent AI errors by ensuring the user has access

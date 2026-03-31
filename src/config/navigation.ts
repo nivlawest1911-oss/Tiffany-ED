@@ -25,7 +25,7 @@ export const EDINTEL_TIERS = [
 export const NAV_LINKS = {
     education: [
         { label: "Sovereign Room", href: "/the-room", icon: "Crown", minTier: 1, description: "Sovereign educator command center." },
-        { label: "Sovereign Broadcast", href: "/podcast", icon: "Radio", minTier: 0, description: "Strategic audio insights and briefings." },
+        { label: "Intelligence Briefings", href: "/briefings", icon: "Radio", minTier: 0, description: "Strategic audio insights and regional data." },
         { label: "Lesson Planner", href: "/generator/lesson", icon: "BookOpen", minTier: 0, description: "Strategic instructional design." },
         { label: "IEP Architect", href: "/generator/iep", icon: "FileText", minTier: 0, description: "Special education protocol generation." },
         { label: "Cognitive Fitness", href: "/generator/cognitive", icon: "Brain", minTier: 0, description: "Burnout reduction & mental resilience." },

@@ -43,14 +43,14 @@ export async function middleware(request: NextRequest) {
         if (isPublicApi) isProtectedRoute = false;
     }
 
-    // 3. Handle authenticated redirect for root and login paths immediately
-    if ((pathname === '/' || pathname === '/login') && isAuthenticated) {
+    // 3. Handle authenticated redirect for root immediately if hint suggests it
+    if (pathname === '/' && isAuthenticated) {
         return NextResponse.redirect(new URL('/the-room', request.url));
     }
 
-    // 4. Case: Protected route but not authenticated
+    // 4. Case: Protected route but not authenticated hint
     if (isProtectedRoute && !isAuthenticated) {
-        const url = new URL('/register', request.url);
+        const url = new URL('/login', request.url);
         url.searchParams.set('redirect', pathname);
         return NextResponse.redirect(url);
     }

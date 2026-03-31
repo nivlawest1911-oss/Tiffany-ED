@@ -138,7 +138,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                     variant="glass"
                                     size="sm"
                                     onMouseEnter={playHover}
-                                    onClick={() => { playClick(); router.push('/activity'); }}
+                                    onClick={() => { playClick(); router.push('/ledger'); }}
                                     className="h-9 w-9 p-0 rounded-xl"
                                 >
                                     <Bell className="h-4 w-4" />
@@ -147,7 +147,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                     variant="glass"
                                     size="sm"
                                     onMouseEnter={playHover}
-                                    onClick={() => { playClick(); router.push('/all-tools'); }}
+                                    onClick={() => { playClick(); router.push('/admin/tools'); }}
                                     className="h-9 w-9 p-0 rounded-xl"
                                 >
                                     <Grid className="h-4 w-4" />
