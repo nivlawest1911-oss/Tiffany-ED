@@ -29,7 +29,7 @@
         "@ai-sdk/react": "^3.0.29",
         "@ai-sdk/rsc": "^2.0.42",
         "@ai-sdk/xai": "^3.0.13",
-        "@deepgram/sdk": "^4.11.3",
+        "@deepgram/sdk": "^5.0.0",
         "@electric-sql/pglite": "^0.3.15",
         "@google-cloud/bigquery": "^8.2.0",
         "@google-cloud/language": "^7.2.1",
