@@ -8,6 +8,7 @@ interface VisualDeferProps {
     threshold?: number;
     placeholder?: React.ReactNode;
     className?: string;
+    height?: string;
 }
 
 /**
@@ -19,7 +20,8 @@ export default function VisualDefer({
     rootMargin = '200px',
     threshold = 0.01,
     placeholder = <div className="w-full h-full bg-zinc-900/50 animate-pulse rounded-3xl" />,
-    className = ""
+    className = "",
+    height
 }: VisualDeferProps) {
     const [isVisible, setIsVisible] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -45,7 +47,11 @@ export default function VisualDefer({
     }, [rootMargin, threshold]);
 
     return (
-        <div ref={containerRef} className={`w-full h-full ${className}`}>
+        <div 
+            ref={containerRef} 
+            className={`min-w-full ${className}`}
+            style={{ minHeight: height || 'auto' }}
+        >
             {isVisible ? children : placeholder}
         </div>
     );

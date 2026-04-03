@@ -94,9 +94,11 @@ const generators = [
   },
 ]
 
-export function AIGeneratorsHub() {
+export function AIGeneratorsHub({ initialGeneratorId }: { initialGeneratorId?: string }) {
   const { celebrate } = useCelebrate();
-  const [activeGenerator, setActiveGenerator] = useState(generators[0])
+  const [activeGenerator, setActiveGenerator] = useState(
+    generators.find(g => g.id === initialGeneratorId) || generators[0]
+  )
   const [prompt, setPrompt] = useState("")
   const [isGenerating, setIsGenerating] = useState(false)
   const [response, setResponse] = useState("")

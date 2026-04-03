@@ -26,6 +26,7 @@ const EdIntelCore = dynamic(() => import('./edintel-core/EdIntelCore'), {
 });
 import { useEdIntelVibe } from '@/context/EdIntelVibeContext';
 import HumanAvatar from './ui/HumanAvatar';
+import VisualDefer from './shared/VisualDefer';
 import Footer from './Footer';
 
 // Core Components (Safe)
@@ -397,7 +398,7 @@ export default function ModernHomePage() {
                         <CinematicLogoIntro 
                             onComplete={handleIntroComplete}
                             autoClose={true}
-                            autoCloseDuration={8000}
+                            autoCloseDuration={3000}
                         />
                     )}
                 </AnimatePresence>
@@ -488,24 +489,26 @@ export default function ModernHomePage() {
                                             <InteractiveTerminal onCommand={handleCommand} />
                                          </Suspense>
 
-                                        {/* Neural Metric Grid - NEW Addictive Element */}
-                                        <div className="mt-12 grid grid-cols-2 md:grid-cols-3 gap-6">
-                                            {[
-                                                { label: 'Neural Throughput', value: '4.2 TB/s', icon: Zap, color: 'text-cyan-400' },
-                                                { label: 'Strategic Accuracy', value: '99.98%', icon: Brain, color: 'text-indigo-400' },
-                                                { label: 'Labor Hours Saved', value: '14,204+', icon: Clock, color: 'text-emerald-400' },
-                                            ].map((stat, i) => (
-                                                <motion.div
-                                                    key={i}
-                                                    variants={fadeInUp}
-                                                    className="p-4 bg-black/40 border border-white/5 rounded-2xl backdrop-blur-md group hover:border-electric-cyan/20 transition-all shadow-xl"
-                                                >
-                                                    <stat.icon size={16} className="text-electric-cyan mb-2 animate-pulse" />
-                                                    <div className="text-xl font-black text-white italic">{stat.value}</div>
-                                                    <div className="text-[8px] text-zinc-500 uppercase font-black tracking-widest">{stat.label}</div>
-                                                </motion.div>
-                                            ))}
-                                        </div>
+                                         {/* Neural Metric Grid - NEW Addictive Element */}
+                                         <VisualDefer height="150px">
+                                             <div className="mt-12 grid grid-cols-2 md:grid-cols-3 gap-6">
+                                                 {[
+                                                     { label: 'Neural Throughput', value: '4.2 TB/s', icon: Zap, color: 'text-cyan-400' },
+                                                     { label: 'Strategic Accuracy', value: '99.98%', icon: Brain, color: 'text-indigo-400' },
+                                                     { label: 'Labor Hours Saved', value: '14,204+', icon: Clock, color: 'text-emerald-400' },
+                                                 ].map((stat, i) => (
+                                                     <motion.div
+                                                         key={i}
+                                                         variants={fadeInUp}
+                                                         className="p-4 bg-black/40 border border-white/5 rounded-2xl backdrop-blur-md group hover:border-electric-cyan/20 transition-all shadow-xl"
+                                                     >
+                                                         <stat.icon size={16} className="text-electric-cyan mb-2 animate-pulse" />
+                                                         <div className="text-xl font-black text-white italic">{stat.value}</div>
+                                                         <div className="text-[8px] text-zinc-500 uppercase font-black tracking-widest">{stat.label}</div>
+                                                     </motion.div>
+                                                 ))}
+                                             </div>
+                                         </VisualDefer>
 
                                     </motion.div>
 

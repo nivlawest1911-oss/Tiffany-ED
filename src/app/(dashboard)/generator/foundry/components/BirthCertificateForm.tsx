@@ -7,6 +7,7 @@ import { SOVEREIGN_PERSONAS, EdIntel_PERSONA } from '@/lib/ai-resilience';
 import { issueBirthCertificate } from '@/lib/supabase';
 import SovereignButton from '@/components/ui/SovereignButton';
 import GlassPanel from '@/components/ui/GlassPanel';
+import { useAuth } from '@/context/AuthContext';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -25,6 +26,7 @@ import { Loader2, Plus, Sparkles, Wand2 } from 'lucide-react';
  * for custom AI agents. 
  */
 export const BirthCertificateForm = () => {
+    const { user } = useAuth();
     const [isGenerating, setIsGenerating] = useState(false);
     const [certificate, setCertificate] = useState<CompanionCertificate | null>(null);
     const [step, setStep] = useState(1);
@@ -100,7 +102,7 @@ export const BirthCertificateForm = () => {
             avatarId: formData.avatarId,
             masterSystemPrompt: generateMasterPrompt(),
             districtId: 'MOBILE_COUNTY_AL', // Default for now
-            creatorId: 'current_user', // To be replaced with auth session
+            creatorId: user?.id || 'anonymous',
             createdAt: new Date().toISOString()
         };
 
@@ -129,10 +131,13 @@ export const BirthCertificateForm = () => {
         }
     };
 
-    if (!isMounted) return <div className="h-[600px] w-full animate-pulse bg-white/5 rounded-3xl border border-[#c5a47e]/20" aria-label="Loading identity foundry..." />;
+    if (!isMounted) return <div className="h-[600px] w-full animate-pulse bg-white/5 rounded-3xl border border-[#c5a47e]/20 flex items-center justify-center">
+        <p className="text-[10px] font-black text-[#c5a47e] uppercase animate-pulse">Initializing Sovereign Foundry...</p>
+    </div>;
 
     return (
-        <div className="max-w-5xl mx-auto py-12 px-4 gpu-accelerated">
+        <div className="max-w-5xl mx-auto py-12 px-4 gpu-accelerated content-visibility-auto">
+
             <AnimatePresence mode="wait">
                 {step === 1 && (
                     <motion.div

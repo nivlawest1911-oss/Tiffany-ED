@@ -1,5 +1,6 @@
 import { BirthCertificateForm } from './components/BirthCertificateForm';
 import { Metadata } from 'next';
+import { VisualDefer } from '@/components/shared/VisualDefer';
 
 export const metadata: Metadata = {
     title: 'EdIntel Foundry | Birth Certificate System',
@@ -14,21 +15,23 @@ export const metadata: Metadata = {
 export default function FoundryPage() {
     return (
         <main className="min-h-screen bg-black pt-20 pb-32">
-            {/* 🏗️ FOUNDRY AMBIANCE - HIGH-PERFORMANCE (Phase 24) */}
+            {/* 🏗️ FOUNDRY AMBIANCE - PERFORMANCE OPTIMIZED (Phase 24.1) */}
             <div className="fixed inset-0 pointer-events-none overflow-hidden content-visibility-auto">
                 <div 
                     className="absolute inset-0 opacity-20 gpu-accelerated"
                     style={{
                         background: `radial-gradient(circle at 20% 30%, #c5a47e 0%, transparent 40%),
                                      radial-gradient(circle at 80% 70%, #10b981 0%, transparent 40%)`,
-                        filter: 'blur(60px)',
+                        filter: 'blur(20px)', // Drastically reduced for performance
                         animation: 'drift1 20s infinite alternate ease-in-out'
                     }}
                 />
             </div>
 
             <div className="container relative z-10 mx-auto px-4">
-                <BirthCertificateForm />
+                <VisualDefer height="600px">
+                    <BirthCertificateForm />
+                </VisualDefer>
             </div>
 
             {/* 📜 SQL MIGRATION NOTICE (HIDDEN IN UI, VISUALIZED FOR DEVELOPER) */}

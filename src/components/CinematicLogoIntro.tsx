@@ -271,7 +271,7 @@ function OrbitalRings() {
 export function CinematicLogoIntro({ 
   onComplete, 
   autoClose = true, 
-  autoCloseDuration = 4000 // REDUCED FROM 8000 FOR LCP (Phase 14)
+  autoCloseDuration = 3000 // REDUCED FROM 4000 FOR LCP (Phase 14.1)
 }: LogoIntroProps) {
   const [isVisible, setIsVisible] = useState(true)
   const [isMobile, setIsMobile] = useState(false)
@@ -282,13 +282,13 @@ export function CinematicLogoIntro({
     setIsMobile(window.innerWidth < 768)
   }, [])
 
-  // Phase timing
+  // Phase timing - ULTRA FAST (Phase 14.1)
   useEffect(() => {
     const isMob = window.innerWidth < 768;
     const timers = [
-      setTimeout(() => setPhase('logo'), isMob ? 400 : 800),  // Faster on mobile
-      setTimeout(() => setPhase('text'), isMob ? 1000 : 1800), 
-      setTimeout(() => setPhase('complete'), isMob ? 2000 : 3000),
+      setTimeout(() => setPhase('logo'), isMob ? 200 : 400),  
+      setTimeout(() => setPhase('text'), isMob ? 500 : 800), 
+      setTimeout(() => setPhase('complete'), isMob ? 1000 : 1500),
     ]
     return () => timers.forEach(clearTimeout)
   }, [])
@@ -405,7 +405,7 @@ export function CinematicLogoIntro({
                     '0 0 60px rgba(255,179,0,0.3), 0 0 120px rgba(255,179,0,0.1)',
                   ],
                 }}
-                transition={{ duration: 2, repeat: Infinity }}
+                transition={{ duration: 1, repeat: Infinity }}
               />
               
               <div className="relative w-full h-full rounded-3xl overflow-hidden ring-2 ring-[#D4AF37]/50 shadow-2xl">
@@ -415,6 +415,7 @@ export function CinematicLogoIntro({
                   fill
                   className="object-contain p-4"
                   priority
+                  sizes="(max-width: 768px) 192px, 256px"
                 />
                 
                 {/* Holographic shimmer overlay */}
