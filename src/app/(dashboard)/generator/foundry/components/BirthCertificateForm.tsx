@@ -10,12 +10,14 @@ import GlassPanel from '@/components/ui/GlassPanel';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { BirthCertificate } from './BirthCertificate';
+import dynamic from 'next/dynamic';
+const BirthCertificate = dynamic(() => import('./BirthCertificate').then(mod => mod.BirthCertificate), {
+    loading: () => <div className="h-96 w-full animate-pulse bg-white/5 rounded-3xl border border-[#c5a47e]/20" />
+});
 import { toast } from 'sonner';
 import { Loader2, Plus, Sparkles, Wand2 } from 'lucide-react';
-import { Orbitron } from 'next/font/google';
-
-const orbitron = Orbitron({ subsets: ['latin'] });
+// Fonts are now centralized in layout.tsx via CSS variables.
+// Use 'font-orbitron' and 'font-outfit' Tailwind classes.
 
 /**
  * 🛠️ EdIntel Foundry: AI Companion Birth System
@@ -26,6 +28,11 @@ export const BirthCertificateForm = () => {
     const [isGenerating, setIsGenerating] = useState(false);
     const [certificate, setCertificate] = useState<CompanionCertificate | null>(null);
     const [step, setStep] = useState(1);
+    const [isMounted, setIsMounted] = useState(false);
+
+    React.useEffect(() => {
+        setIsMounted(true);
+    }, []);
     
     // Form State
     const [formData, setFormData] = useState({
@@ -122,8 +129,10 @@ export const BirthCertificateForm = () => {
         }
     };
 
+    if (!isMounted) return <div className="h-[600px] w-full animate-pulse bg-white/5 rounded-3xl border border-[#c5a47e]/20" aria-label="Loading identity foundry..." />;
+
     return (
-        <div className="max-w-5xl mx-auto py-12 px-4">
+        <div className="max-w-5xl mx-auto py-12 px-4 gpu-accelerated">
             <AnimatePresence mode="wait">
                 {step === 1 && (
                     <motion.div
@@ -131,10 +140,10 @@ export const BirthCertificateForm = () => {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: 20 }}
-                        className="space-y-8"
+                        className="space-y-8 transform-gpu will-change-transform"
                     >
                         <header className="mb-12">
-                            <h1 className={`${orbitron.className} text-3xl text-[#c5a47e] mb-2`}>
+                            <h1 className="font-heading text-3xl text-[#c5a47e] mb-2">
                                 The EdIntel Foundry
                             </h1>
                             <p className="text-white/60">Initialize the neural blueprint for your Sovereign AI companion.</p>
@@ -145,7 +154,7 @@ export const BirthCertificateForm = () => {
                                 <div className="space-y-2">
                                     <label className="text-xs uppercase tracking-widest text-[#c5a47e]/70">Base Persona Template</label>
                                     <Select onValueChange={handleBasePersonaChange}>
-                                        <SelectTrigger className="bg-black/40 border-[#c5a47e]/20">
+                                        <SelectTrigger className="bg-black/40 border-[#c5a47e]/20" aria-label="Select persona template">
                                             <SelectValue placeholder="Select a template..." />
                                         </SelectTrigger>
                                         <SelectContent>
@@ -162,7 +171,7 @@ export const BirthCertificateForm = () => {
                                         defaultValue={formData.tier} 
                                         onValueChange={(v: any) => setFormData({...formData, tier: v})}
                                     >
-                                        <SelectTrigger className="bg-black/40 border-[#c5a47e]/20">
+                                        <SelectTrigger className="bg-black/40 border-[#c5a47e]/20" aria-label="Select operational tier">
                                             <SelectValue />
                                         </SelectTrigger>
                                         <SelectContent>
@@ -214,7 +223,7 @@ export const BirthCertificateForm = () => {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: 20 }}
-                        className="space-y-8"
+                        className="space-y-8 transform-gpu"
                     >
                         <header className="mb-12">
                             <button 
@@ -223,7 +232,7 @@ export const BirthCertificateForm = () => {
                             >
                                 ← Back to Identity
                             </button>
-                            <h1 className={`${orbitron.className} text-3xl text-[#c5a47e] mb-2`}>
+                            <h1 className="font-heading text-3xl text-[#c5a47e] mb-2">
                                 Persona Refinement
                             </h1>
                             <p className="text-white/60">Define the mission, tone, and cultural context of your companion.</p>
@@ -288,14 +297,15 @@ export const BirthCertificateForm = () => {
                                             }
                                         }}
                                     />
-                                    <button 
-                                        onClick={() => {
-                                            const el = document.getElementById('directive-input') as HTMLInputElement;
-                                            addDirective(el.value);
-                                            el.value = '';
-                                        }}
-                                        className="p-2 border border-[#c5a47e]/30 rounded-lg hover:bg-[#c5a47e]/10 text-[#c5a47e]"
-                                    >
+                                        <button 
+                                            onClick={() => {
+                                                const el = document.getElementById('directive-input') as HTMLInputElement;
+                                                addDirective(el.value);
+                                                el.value = '';
+                                            }}
+                                            className="p-2 border border-[#c5a47e]/30 rounded-lg hover:bg-[#c5a47e]/10 text-[#c5a47e]"
+                                            aria-label="Add directive"
+                                        >
                                         <Plus size={18} />
                                     </button>
                                 </div>
@@ -340,7 +350,7 @@ export const BirthCertificateForm = () => {
                             >
                                 <Sparkles className="text-emerald-400" />
                             </motion.div>
-                            <h1 className={`${orbitron.className} text-3xl text-emerald-400`}>
+                            <h1 className="font-heading text-3xl text-emerald-400">
                                 Synthesis Complete
                             </h1>
                             <p className="text-white/60">Your Sovereign AI Companion has been successfully birthed.</p>

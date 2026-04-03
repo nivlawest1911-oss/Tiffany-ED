@@ -2,8 +2,9 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Pause, SkipBack, SkipForward, Volume2, Clock, MapPin, ExternalLink, ChevronRight } from 'lucide-react';
+import { Play, Pause, SkipBack, SkipForward, Clock, MapPin, ExternalLink, ChevronRight } from 'lucide-react';
 import { Episode, Chapter } from '@/lib/briefing-data';
+import Image from 'next/image';
 
 interface IntelPlayerProps {
     episode: Episode;
@@ -231,7 +232,13 @@ export default function IntelPlayer({ episode }: IntelPlayerProps) {
 
                 {/* Dr. West Bio Shortcut */}
                 <div className="liquid-glass border-white/10 bg-zinc-950 p-8 flex flex-col items-center text-center">
-                    <img src="/images/avatars/dr_alvin_west_official.png" className="w-16 h-16 rounded-full border border-noble-gold/30 mb-4 grayscale hover:grayscale-0 transition-all cursor-pointer" alt="Dr. Alvin West" />
+                    <Image 
+                        src="/images/avatars/dr_alvin_west_official.png" 
+                        width={64}
+                        height={64}
+                        className="rounded-full border border-noble-gold/30 mb-4 grayscale hover:grayscale-0 transition-all cursor-pointer" 
+                        alt="Dr. Alvin West" 
+                    />
                     <h4 className="text-white font-black uppercase text-xs tracking-widest">Dr. Alvin West</h4>
                     <p className="text-[10px] text-white/40 mt-1 uppercase tracking-[0.2em]">Lead Intelligence Architect</p>
                     <button className="mt-6 w-full py-3 liquid-glass border-white/10 text-[9px] font-black uppercase text-white/60 hover:text-white transition-all flex items-center justify-center gap-2">

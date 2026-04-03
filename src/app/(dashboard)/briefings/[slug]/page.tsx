@@ -3,14 +3,15 @@ import { notFound } from 'next/navigation';
 import { EPISODES } from '@/lib/briefing-data';
 import IntelPlayer from '@/components/intelligence/IntelPlayer';
 import Link from 'next/link';
-import { ChevronLeft, ShieldAlert } from 'lucide-react';
+import { ChevronLeft, ShieldAlert, Lock } from 'lucide-react';
 
 interface PageProps {
-    params: { slug: string };
+    params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-    const episode = EPISODES.find(e => e.slug === params.slug);
+    const { slug } = await params;
+    const episode = EPISODES.find(e => e.slug === slug);
     if (!episode) return { title: 'Briefing Not Found' };
 
     return {
@@ -25,8 +26,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
 }
 
-export default function BriefingDetailPage({ params }: PageProps) {
-    const episode = EPISODES.find(e => e.slug === params.slug);
+export default async function BriefingDetailPage({ params }: PageProps) {
+    const { slug } = await params;
+    const episode = EPISODES.find(e => e.slug === slug);
 
     if (!episode) notFound();
 

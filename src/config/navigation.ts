@@ -38,6 +38,8 @@ export const NAV_LINKS = {
     ],
     operations: [
         { label: "Site Command", href: "/admin", icon: "LayoutDashboard", minTier: 5, description: "District-wide executive oversight." },
+        { label: "Command Center", href: "/ops/command", icon: "Shield", minTier: 5, description: "Strategic 'God-mode' district oversight." },
+        { label: "Talent Command", href: "/ops/talent", icon: "Users", minTier: 4, description: "Bio-dynamic institutional pulse & staff well-being." },
         { label: "Decision Engine", href: "/generator/decision", icon: "Zap", minTier: 0, description: "AI-assisted strategic decision making." },
         { label: "Roster Logistics", href: "/roster", icon: "ClipboardList", minTier: 3, description: "Staff & student roster management." },
         { label: "Sovereign Vault", href: "/vault", icon: "Shield", minTier: 2, description: "Secure institutional data vault." },

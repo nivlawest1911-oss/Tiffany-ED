@@ -127,16 +127,18 @@ export function HeroSection() {
             {/* Holographic ring around avatar */}
             <div className="absolute inset-0 w-72 h-96 md:w-80 md:h-[28rem] -m-4 rounded-3xl holographic opacity-50" />
 
-            <div className="relative w-64 h-80 md:w-72 md:h-96 mb-6 rounded-3xl overflow-hidden border-2 border-[#00d2ff]/30 shadow-[0_0_40px_rgba(0,210,255,0.2)]">
-              <Image
-                src="/professional-black-man-in-business-suit--executive.jpg"
-                alt="Dr. Alvin West - Founder of EdIntel"
-                fill
-                className="object-cover"
-                priority
+            <div className="relative w-64 h-80 md:w-72 md:h-96 mb-6 rounded-3xl overflow-hidden border-2 border-[#00d2ff]/30 shadow-[0_0_40px_rgba(0,210,255,0.2)] bg-black">
+              <video
+                src="/videos/Video_Generation_for_School_Administrators.mp4"
+                poster="/professional-black-man-in-business-suit--executive.jpg"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover"
               />
               {/* Holographic overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
             </div>
 
             {/* Glow ring */}

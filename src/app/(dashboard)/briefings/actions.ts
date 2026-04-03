@@ -28,7 +28,7 @@ export async function isBriefingUnlocked(userId: string, slug: string): Promise<
  * Deducts 1 token to unlock a briefing's deep dive report.
  */
 export async function unlockBriefingData(slug: string) {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const sessionCookie = cookieStore.get('session');
     
     if (!sessionCookie) {

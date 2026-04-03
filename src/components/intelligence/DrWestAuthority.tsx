@@ -1,8 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { Mail, Calendar, MessageSquare, ShieldCheck, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function DrWestAuthority() {
     return (
@@ -15,9 +15,11 @@ export default function DrWestAuthority() {
                 <div className="lg:w-1/2 relative group">
                     <div className="absolute inset-0 bg-noble-gold/20 blur-[120px] rounded-full opacity-20 group-hover:opacity-40 transition-opacity" />
                     <div className="relative liquid-glass p-1 border-noble-gold/30 rounded-[3rem] overflow-hidden shadow-[0_0_80px_rgba(212,175,55,0.1)]">
-                        <img 
+                        <Image 
                             src="/images/avatars/dr_alvin_west_official.png" 
                             alt="Dr. Alvin West"
+                            width={800}
+                            height={800}
                             className="w-full h-full object-cover grayscale brightness-90 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-1000"
                         />
                         
@@ -67,7 +69,10 @@ export default function DrWestAuthority() {
                             Book Executive Consultation
                             <ChevronRight size={16} className="ml-auto group-hover:translate-x-2 transition-transform" />
                         </Link>
-                        <button className="flex items-center justify-center p-5 liquid-glass border-white/10 text-white/50 hover:text-white transition-all">
+                        <button 
+                            className="flex items-center justify-center p-5 liquid-glass border-white/10 text-white/50 hover:text-white transition-all"
+                            aria-label="Email Executive Office"
+                        >
                             <Mail size={18} />
                         </button>
                     </div>

@@ -2,35 +2,26 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import {
-    BarChart,
-    Bar,
-    XAxis,
-    YAxis,
-    CartesianGrid,
-    Tooltip,
-    ResponsiveContainer,
-    Cell,
-    PieChart,
-    Pie,
-    AreaChart,
-    Area
-} from 'recharts';
+import dynamic from 'next/dynamic';
 import { TrendingUp, Users, Clock, AlertCircle, Database, Zap } from 'lucide-react';
 import { getDistrictAnalytics } from '@/app/actions/bigquery';
 import EdIntelInteractionAgent from '@/components/intelligence/EdIntelInteractionAgent';
 
-const TOOLTIP_STYLE = {
-    backgroundColor: 'rgba(5, 5, 8, 0.98)',
-    border: '1px solid rgba(197,164,126,0.5)',
-    borderRadius: '24px',
-    boxShadow: '0 40px 100px rgba(0,0,0,0.9)',
-    fontSize: '9px',
-    fontWeight: '900',
-    textTransform: 'uppercase',
-    padding: '20px',
-    backdropFilter: 'blur(30px)',
-} as React.CSSProperties;
+// Dynamically import heavy chart components
+const AttendanceBarChart = dynamic(() => import('./components/AnalyticsCharts').then(mod => mod.AttendanceBarChart), {
+    ssr: false,
+    loading: () => <div className="w-full h-full bg-white/[0.02] animate-pulse rounded-3xl" />
+});
+
+const CapacityPieChart = dynamic(() => import('./components/AnalyticsCharts').then(mod => mod.CapacityPieChart), {
+    ssr: false,
+    loading: () => <div className="w-full h-full bg-white/[0.02] animate-pulse rounded-3xl" />
+});
+
+const ThroughputAreaChart = dynamic(() => import('./components/AnalyticsCharts').then(mod => mod.ThroughputAreaChart), {
+    ssr: false,
+    loading: () => <div className="w-full h-full bg-white/[0.02] animate-pulse rounded-3xl" />
+});
 
 export default function AnalyticsClient() {
     const [data, setData] = useState<any[]>([]);
@@ -97,8 +88,6 @@ export default function AnalyticsClient() {
             </div>
         );
     }
-
-    const COLORS = ['#C5A47E', '#8E795E', '#D9C1A3', '#6A5A46', '#B09677', '#E5D5C0', '#4A3D2F'];
 
     return (
         <div className="space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-1000 pb-32">
@@ -209,37 +198,7 @@ export default function AnalyticsClient() {
                     </div>
 
                     <div className="h-[400px] w-full relative z-10">
-                        <ResponsiveContainer width="100%" height="100%">
-                            <BarChart data={data}>
-                                <CartesianGrid strokeDasharray="10 10" stroke="rgba(255,255,255,0.01)" vertical={false} />
-                                <XAxis
-                                    dataKey="school_name"
-                                    axisLine={false}
-                                    tickLine={false}
-                                    tick={{ fill: 'rgba(255,255,255,0.2)', fontSize: 9, fontWeight: 900, textAnchor: 'middle' }}
-                                    dy={15}
-                                />
-                                <YAxis
-                                    axisLine={false}
-                                    tickLine={false}
-                                    tick={{ fill: 'rgba(255,255,255,0.2)', fontSize: 9, fontWeight: 900 }}
-                                />
-                                <Tooltip
-                                    cursor={{ fill: 'rgba(197,164,126,0.03)' }}
-                                    contentStyle={TOOLTIP_STYLE}
-                                />
-                                <Bar dataKey="avg_attendance" radius={[12, 12, 0, 0]}>
-                                    {data.map((entry, index) => (
-                                        <Cell
-                                            key={`cell-${index}`}
-                                            fill={COLORS[index % COLORS.length]}
-                                            opacity={0.7}
-                                            className="transition-all hover:opacity-100 cursor-pointer"
-                                        />
-                                    ))}
-                                </Bar>
-                            </BarChart>
-                        </ResponsiveContainer>
+                        <AttendanceBarChart data={data} />
                     </div>
                 </motion.div>
 
@@ -258,25 +217,7 @@ export default function AnalyticsClient() {
 
                     <div className="flex-1 flex flex-col justify-center items-center relative z-10">
                         <div className="h-[250px] w-full">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <PieChart>
-                                    <Pie
-                                        data={data}
-                                        cx="50%"
-                                        cy="50%"
-                                        innerRadius={70}
-                                        outerRadius={95}
-                                        paddingAngle={8}
-                                        dataKey="total_students"
-                                        stroke="none"
-                                    >
-                                        {data.map((entry, index) => (
-                                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} className="hover:opacity-60 transition-opacity cursor-pointer" />
-                                        ))}
-                                    </Pie>
-                                    <Tooltip contentStyle={TOOLTIP_STYLE} />
-                                </PieChart>
-                            </ResponsiveContainer>
+                            <CapacityPieChart data={data} />
                             <div className="absolute inset-0 flex items-center justify-center pointer-events-none flex-col mt-4">
                                 <span className="text-[10px] font-black text-zinc-700 uppercase tracking-[0.3em]">Total</span>
                                 <span className="text-3xl font-black text-white italic uppercase tracking-tighter">4.1K</span>
@@ -291,7 +232,7 @@ export default function AnalyticsClient() {
                                     className="flex items-center justify-between p-4 bg-black/40 border border-white/5 rounded-2xl group/item cursor-pointer"
                                 >
                                     <div className="flex items-center gap-3">
-                                        <div className="w-2.5 h-2.5 rounded-full shadow-[0_0_12px_rgba(255,255,255,0.05)]" style={{ backgroundColor: COLORS[i % COLORS.length] }} />
+                                        <div className="w-2.5 h-2.5 rounded-full shadow-[0_0_12px_rgba(255,255,255,0.05)]" style={{ backgroundColor: ['#C5A47E', '#8E795E', '#D9C1A3', '#6A5A46', '#B09677'][i % 5] }} />
                                         <span className="text-[10px] font-black uppercase text-zinc-500 truncate max-w-[120px] group-hover/item:text-white transition-colors">{school.school_name}</span>
                                     </div>
                                     <span className="text-[10px] font-black text-zinc-400 group-hover/item:text-intel-gold transition-colors">{school.total_students} NODES</span>
@@ -325,36 +266,7 @@ export default function AnalyticsClient() {
                 </div>
 
                 <div className="h-[450px] w-full relative z-10">
-                    <ResponsiveContainer width="100%" height="100%">
-                        <AreaChart data={data}>
-                            <defs>
-                                <linearGradient id="neuralGradient" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor="#C5A47E" stopOpacity={0.6} />
-                                    <stop offset="50%" stopColor="#C5A47E" stopOpacity={0.15} />
-                                    <stop offset="100%" stopColor="#C5A47E" stopOpacity={0} />
-                                </linearGradient>
-                            </defs>
-                            <CartesianGrid strokeDasharray="20 20" stroke="rgba(255,255,255,0.01)" vertical={false} />
-                            <XAxis dataKey="school_name" hide={true} />
-                            <YAxis
-                                axisLine={false}
-                                tickLine={false}
-                                tick={{ fill: 'rgba(255,255,255,0.15)', fontSize: 9, fontWeight: 900 }}
-                                dx={-10}
-                            />
-                            <Tooltip contentStyle={TOOLTIP_STYLE} />
-                            <Area
-                                type="monotone"
-                                dataKey="total_students"
-                                stroke="#C5A47E"
-                                strokeWidth={4}
-                                fillOpacity={1}
-                                fill="url(#neuralGradient)"
-                                animationDuration={4000}
-                                strokeLinecap="round"
-                            />
-                        </AreaChart>
-                    </ResponsiveContainer>
+                    <ThroughputAreaChart data={data} />
                 </div>
             </motion.div>
         </div>

@@ -5,10 +5,8 @@ import { motion } from 'framer-motion';
 import { CompanionCertificate } from '@/types/companion-certificate';
 import { SovereignBadge } from '@/components/ui/SovereignBadge';
 import GlassPanel from '@/components/ui/GlassPanel';
-import { Orbitron, Outfit } from 'next/font/google';
-
-const orbitron = Orbitron({ subsets: ['latin'] });
-const outfit = Outfit({ subsets: ['latin'] });
+// Fonts are now centralized in layout.tsx via CSS variables.
+// Use 'font-orbitron' and 'font-outfit' Tailwind classes.
 
 interface BirthCertificateProps {
     certificate: CompanionCertificate;
@@ -24,7 +22,8 @@ export const BirthCertificate: React.FC<BirthCertificateProps> = ({ certificate 
         <motion.div
             initial={{ opacity: 0, y: 30, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            className={`relative max-w-4xl mx-auto p-12 bg-[#020617] border-2 border-[#c5a47e]/30 rounded-lg shadow-2xl overflow-hidden ${outfit.className}`}
+            className={`relative max-w-4xl mx-auto p-12 bg-[#020617] border-2 border-[#c5a47e]/30 rounded-lg shadow-2xl overflow-hidden font-sans gpu-accelerated`}
+            style={{ willChange: 'transform, opacity' }}
         >
             {/* 🏛️ INSTITUTIONAL WATERMARK */}
             <div className="absolute inset-0 pointer-events-none opacity-[0.03] flex items-center justify-center">
@@ -38,7 +37,7 @@ export const BirthCertificate: React.FC<BirthCertificateProps> = ({ certificate 
 
             {/* 📜 HEADER */}
             <header className="text-center mb-12 relative z-10">
-                <h1 className={`${orbitron.className} text-4xl text-[#c5a47e] tracking-widest uppercase mb-2`}>
+                <h1 className="font-heading text-4xl text-[#c5a47e] tracking-widest uppercase mb-2">
                     Official Birth Certificate
                 </h1>
                 <p className="text-[#c5a47e]/60 text-sm tracking-[0.2em] uppercase font-light">
@@ -90,7 +89,7 @@ export const BirthCertificate: React.FC<BirthCertificateProps> = ({ certificate 
 
             {/* 🧠 MISSION & PERSONA */}
             <GlassPanel className="p-8 border-[#c5a47e]/10 mb-12 relative z-10">
-                <h3 className={`${orbitron.className} text-[#c5a47e] text-xs tracking-widest uppercase mb-4`}>
+                <h3 className="font-heading text-[#c5a47e] text-xs tracking-widest uppercase mb-4">
                     Assigned Mission Briefing
                 </h3>
                 <p className="text-white/90 leading-relaxed italic text-sm border-l-2 border-[#c5a47e]/40 pl-4">
@@ -117,7 +116,7 @@ export const BirthCertificate: React.FC<BirthCertificateProps> = ({ certificate 
             <footer className="flex justify-between items-end relative z-10">
                 <div className="space-y-1">
                     <p className="text-[10px] text-[#c5a47e]/30 uppercase tracking-[0.3em] font-light">Issued By</p>
-                    <p className={`${orbitron.className} text-sm text-[#c5a47e]/80 tracking-widest`}>EdIntel Sovereign Core</p>
+                    <p className="font-heading text-sm text-[#c5a47e]/80 tracking-widest">EdIntel Sovereign Core</p>
                 </div>
                 <div className="text-right">
                     <p className="text-[10px] text-[#c5a47e]/30 uppercase tracking-widest mb-1">Institutional Signature</p>

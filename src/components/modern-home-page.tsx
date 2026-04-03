@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect, startTransition } from 'react';
-import { motion, AnimatePresence, useScroll, useSpring, Variants } from 'framer-motion';
-import { ArrowRight, Cpu, Zap, Shield, Brain, Globe, Terminal, Mic, Clock, LayoutGrid } from 'lucide-react';
+import React, { useState, useEffect, useRef, Suspense, startTransition } from 'react';
+import { motion, AnimatePresence, useScroll, useSpring, Variants, LazyMotion, domAnimation, useInView } from 'framer-motion';
+import { ArrowRight, Cpu, Zap, Shield, Brain, Globe, Terminal, Mic, Clock, LayoutGrid, Activity } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -10,13 +10,16 @@ import dynamic from 'next/dynamic';
 import { CORE_AVATARS } from '@/data/avatars';
 import { ROUTES } from '@/lib/routes';
 import { useAuth } from '@/context/AuthContext';
-import ActivationIntro from './landing/ActivationIntro';
-import { CinematicLogoIntro } from './CinematicLogoIntro';
+const ActivationIntro = dynamic(() => import('./landing/ActivationIntro'), { ssr: false });
+const CinematicLogoIntro = dynamic(() => import('./CinematicLogoIntro').then(mod => mod.CinematicLogoIntro), { ssr: false });
 const ReadyToActivateCTA = dynamic(() => import('./landing/ReadyToActivateCTA'), { 
     ssr: true, // SSR enabled for content visibility (Phase 14)
     loading: () => <div className="h-96 w-full animate-pulse bg-white/5 rounded-3xl" />
 });
-import { EdIntelHero } from './edintel-core/EdIntelHero';
+const EdIntelHero = dynamic(() => import('./edintel-core/EdIntelHero').then(mod => mod.EdIntelHero), { 
+    ssr: true,
+    loading: () => <div className="h-screen w-full animate-pulse bg-white/5" />
+});
 const EdIntelCore = dynamic(() => import('./edintel-core/EdIntelCore'), { 
     ssr: false,
     loading: () => <div className="h-[600px] w-full animate-pulse bg-white/10 rounded-3xl border border-white/5" />
@@ -46,6 +49,18 @@ const DistrictIntelligenceScore = dynamic(() => import('./landing/DistrictIntell
 const PlatformActivity = dynamic(() => import('./landing/PlatformActivity'), { ssr: false });
 const FounderDossier = dynamic(() => import('./founder-dossier'), { ssr: false });
 
+/**
+ * ⚡ Performance Controller: Background Layer
+ * Ensures we only run one heavy background effect at a time.
+ */
+const SovereignBackground = ({ type = 'neural' }: { type?: 'neural' | 'holographic' }) => {
+    return (
+        <div className="fixed inset-0 -z-20 pointer-events-none">
+            {type === 'neural' ? <NeuralBackground /> : <HolographicBackground />}
+        </div>
+    );
+};
+
 // --- ANIMATION VARIANTS ---
 const fadeInUp: Variants = {
     hidden: { opacity: 0, y: 40 },
@@ -61,10 +76,25 @@ const staggerContainer: Variants = {
     visible: {
         opacity: 1,
         transition: {
-            staggerChildren: 0.2
+            staggerChildren: 0.1
         }
     }
 };
+
+/**
+ * ⚡ Performance Wrapper: Defer rendering of heavy components until they enter the viewport.
+ * Reduces TBT (Total Blocking Time) and initial hydration overhead.
+ */
+const LazySection = ({ children, className, id, height = "400px", margin = "200px" }: { children: React.ReactNode, className?: string, id?: string, height?: string, margin?: string }) => {
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true, margin: margin as any });
+
+    return (
+        <section ref={ref} id={id} className={cn("relative", className)} style={{ minHeight: height }}>
+            {isInView ? children : <div style={{ height }} />}
+        </section>
+    );
+}
 
 // --- COMPONENTS ---
 
@@ -212,7 +242,7 @@ function InteractiveTerminal({ onCommand }: { onCommand: (cmd: string) => void }
 
 // 5. MAIN PAGE
 export default function ModernHomePage() {
-    const [_mounted, setMounted] = useState(false); // Prefixed with _ to satisfy lint (internal use)
+    const [isMounted, setMounted] = useState(false);
     const [booted, setBooted] = useState(false);
     const [showCinematicIntro, setShowCinematicIntro] = useState(true);
     const [activeAgentIndex, setActiveAgentIndex] = useState(0);
@@ -356,11 +386,8 @@ export default function ModernHomePage() {
         }
     };
 
-    // REPLACED: if (!mounted) return null; 
-    // Allowing SSR for the initial intro container (Phase 14)
-
     return (
-        <>
+        <LazyMotion features={domAnimation}>
             <div className={cn(
                 "min-h-screen bg-[#020617] text-zinc-100 font-sans overflow-auto selection:bg-electric-cyan/30 transition-colors duration-1000",
                 isSystemThinking && "bg-[#05060f]"
@@ -379,11 +406,17 @@ export default function ModernHomePage() {
                     {!booted && <ActivationIntro onCompleteAction={handleBootComplete} />}
                 </AnimatePresence>
 
+                {/* CONSOLIDATED BACKGROUND ARCHITECTURE (Phase 14 Optimization) */}
+                {isMounted && booted && (
+                    <Suspense fallback={null}>
+                        <SovereignBackground type={isSystemThinking ? 'holographic' : 'neural'} />
+                    </Suspense>
+                )}
+
                 {booted && (
                     <>
-                        <HolographicBackground />
                         <motion.div style={{ opacity: scaleX }}>
-                            <NeuralBackground />
+                             {/* Neural background removed from here as it's now in SovereignBackground */}
                         </motion.div>
                         <motion.div
                             className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-electric-cyan via-blue-500 to-sovereign-gold z-[100] origin-left"
@@ -450,8 +483,10 @@ export default function ModernHomePage() {
                                             />
                                         )}
 
-                                        {/* INTERACTIVE TERMINAL */}
-                                        <InteractiveTerminal onCommand={handleCommand} />
+                                         {/* INTERACTIVE TERMINAL - DEFERRED (Phase 14) */}
+                                         <Suspense fallback={<div className="h-32 w-full animate-pulse bg-white/5 rounded-2xl mt-8" />}>
+                                            <InteractiveTerminal onCommand={handleCommand} />
+                                         </Suspense>
 
                                         {/* Neural Metric Grid - NEW Addictive Element */}
                                         <div className="mt-12 grid grid-cols-2 md:grid-cols-3 gap-6">
@@ -482,76 +517,81 @@ export default function ModernHomePage() {
                             </section>
 
                             {/* GLOBAL NEURAL FEED - NEW High-Engagement Marquee */}
-                            <section className={cn(
-                                "bg-black/80 border-y border-electric-cyan/10 py-4 relative z-30 overflow-hidden transition-all duration-700",
-                                isSystemThinking && "border-electric-cyan/40 shadow-[0_0_30px_rgba(0,176,255,0.15)]"
-                            )}>
-                                <div className={cn(
-                                    "flex gap-12 animate-marquee whitespace-nowrap transform-gpu",
-                                    isSystemThinking && "animate-marquee-fast"
+                            <LazySection id="neural-feed" height="60px">
+                                <section className={cn(
+                                    "bg-black/80 border-y border-electric-cyan/10 py-4 relative z-30 overflow-hidden transition-all duration-700",
+                                    isSystemThinking && "border-electric-cyan/40 shadow-[0_0_30px_rgba(0,176,255,0.15)]"
                                 )}>
-                                    {[
-                                        "IEP AGENT-7: GENERATING COMPLIANCE ARCHITECTURE...",
-                                        "FISCAL CORE: DETECTING REVENUE OPTIMIZATION OPPORTUNITIES...",
-                                        "CRISIS MODULE-4: MONITORING DISTRICT SENTIMENT TRENDS...",
-                                        "Edintel SYNC: UPDATING ALABAMA LEGISLATIVE ALERTS...",
-                                        "NEURAL CORE: 1.5 PB OF EDUCATIONAL DATA INDEXED",
-                                        "EXECUTIVE OVERRIDE: READY FOR STRATEGIC DEPLOYMENT",
-                                    ].map((protocol, i) => (
-                                        <div key={i} className={cn(
-                                            "flex items-center gap-4 text-[9px] font-black uppercase tracking-[0.4em] transition-colors duration-500",
-                                            isSystemThinking ? "text-electric-cyan" : "text-electric-cyan/40"
-                                        )}>
-                                            <div className={cn(
-                                                "w-1.5 h-1.5 rounded-full bg-electric-cyan",
-                                                isSystemThinking ? "animate-pulse" : "animate-ping"
-                                            )} />
-                                            {protocol}
-                                        </div>
-                                    ))}
-                                </div>
-                            </section>
-
-                            {/* INFINITE MARQUEE */}
-                            <section className="py-20 bg-black/50 border-b border-white/5 overflow-hidden backdrop-blur-sm relative z-20">
-                                <div className="w-full overflow-hidden">
-                                    <motion.div
-                                        className="flex gap-6 w-max transform-gpu"
-                                        animate={{ x: ["0%", "-50%"] }}
-                                        transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
-                                    >
-                        {[...CORE_AVATARS, ...CORE_AVATARS].map((agent, i) => (
-                                            <div key={i} className="w-[200px] h-[280px] sm:w-[260px] sm:h-[360px] md:w-[300px] md:h-[400px] rounded-3xl overflow-hidden relative border border-white/10 group bg-zinc-900 shadow-2xl flex-shrink-0">
-                                                <HumanAvatar
-                                                    src={agent.avatar}
-                                                    alt={agent.name || 'AI Avatar'}
-                                                    className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-700 group-hover:scale-110"
-                                                />
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-                                                <div className="absolute bottom-6 left-6">
-                                                    <div className="flex items-center gap-2 mb-2">
-                                                        <div className={`w-2 h-2 rounded-full animate-pulse ${['active', 'online'].includes(agent.status || '') ? 'bg-green-500' : 'bg-amber-500'}`} />
-                                                        <span className={`text-[10px] font-black uppercase tracking-wider ${['active', 'online'].includes(agent.status || '') ? 'text-green-500' : 'text-amber-500'}`}>
-                                                            {agent.status || 'Live'}
-                                                        </span>
-                                                    </div>
-                                                    <h3 className="text-white font-black text-2xl uppercase tracking-tighter italic cyan-gradient-text">{agent.name}</h3>
-                                                    <p className="text-zinc-400 text-[10px] font-mono uppercase tracking-[0.3em] font-black">{agent.role}</p>
-                                                </div>
+                                    <div className={cn(
+                                        "flex gap-12 animate-marquee whitespace-nowrap transform-gpu",
+                                        isSystemThinking && "animate-marquee-fast"
+                                    )}>
+                                        {[
+                                            "IEP AGENT-7: GENERATING COMPLIANCE ARCHITECTURE...",
+                                            "FISCAL CORE: DETECTING REVENUE OPTIMIZATION OPPORTUNITIES...",
+                                            "CRISIS MODULE-4: MONITORING DISTRICT SENTIMENT TRENDS...",
+                                            "Edintel SYNC: UPDATING ALABAMA LEGISLATIVE ALERTS...",
+                                            "NEURAL CORE: 1.5 PB OF EDUCATIONAL DATA INDEXED",
+                                            "EXECUTIVE OVERRIDE: READY FOR STRATEGIC DEPLOYMENT",
+                                        ].map((protocol, i) => (
+                                            <div key={i} className={cn(
+                                                "flex items-center gap-4 text-[9px] font-black uppercase tracking-[0.4em] transition-colors duration-500",
+                                                isSystemThinking ? "text-electric-cyan" : "text-electric-cyan/40"
+                                            )}>
+                                                <div className={cn(
+                                                    "w-1.5 h-1.5 rounded-full bg-electric-cyan",
+                                                    isSystemThinking ? "animate-pulse" : "animate-ping"
+                                                )} />
+                                                {protocol}
                                             </div>
                                         ))}
-                                    </motion.div>
-                                </div>
-                            </section>
+                                    </div>
+                                </section>
+                            </LazySection>
+
+                            {/* INFINITE MARQUEE - OPTIMIZED */}
+                            <LazySection id="infinite-marquee" height="400px">
+                                <section className="py-20 bg-black/50 border-b border-white/5 overflow-hidden backdrop-blur-sm relative z-20">
+                                    <div className="w-full overflow-hidden">
+                                        <motion.div
+                                            className="flex gap-6 w-max transform-gpu"
+                                            animate={{ x: ["0%", "-50%"] }}
+                                            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+                                        >
+                                            {/* Reduced redundant instances for performance (Phase 14) */}
+                                            {CORE_AVATARS.slice(0, 8).concat(CORE_AVATARS.slice(0, 8)).map((agent, i) => (
+                                                <div key={i} className="w-[200px] h-[280px] sm:w-[260px] sm:h-[360px] md:w-[300px] md:h-[400px] rounded-3xl overflow-hidden relative border border-white/10 group bg-zinc-900 shadow-2xl flex-shrink-0">
+                                                    <HumanAvatar
+                                                        src={agent.avatar}
+                                                        alt={agent.name || 'AI Avatar'}
+                                                        className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-700 group-hover:scale-105"
+                                                    />
+                                                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+                                                    <div className="absolute bottom-6 left-6">
+                                                        <div className="flex items-center gap-2 mb-2">
+                                                            <div className={`w-2 h-2 rounded-full animate-pulse ${['active', 'online'].includes(agent.status || '') ? 'bg-green-500' : 'bg-amber-500'}`} />
+                                                            <span className={`text-[10px] font-black uppercase tracking-wider ${['active', 'online'].includes(agent.status || '') ? 'text-green-500' : 'bg-amber-500'}`}>
+                                                                {agent.status || 'Live'}
+                                                            </span>
+                                                        </div>
+                                                        <h3 className="text-white font-black text-2xl uppercase tracking-tighter italic cyan-gradient-text">{agent.name}</h3>
+                                                        <p className="text-zinc-400 text-[10px] font-mono uppercase tracking-[0.3em] font-black">{agent.role}</p>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </motion.div>
+                                    </div>
+                                </section>
+                            </LazySection>
 
                             {/* AI TWIN GENERATOR SECTION */}
-                            <AITwinGenerator />
+                            <LazySection id="twin-generator" height="500px">
+                                <AITwinGenerator />
+                            </LazySection>
 
                             {/* VOICE IDENTITY SHOWCASE */}
-                            <section className="py-24 bg-zinc-900 border-y border-white/5 relative overflow-hidden">
-                                <div
-                                    className="absolute inset-0 opacity-5 bg-grid"
-                                />
+                            <LazySection id="voice-matrix" className="py-24 bg-zinc-900 border-y border-white/5 overflow-hidden">
+                                <div className="absolute inset-0 opacity-5 bg-grid" />
                                 <div className="max-w-7xl mx-auto px-6 relative z-10">
                                     <motion.div
                                         initial={{ opacity: 0, y: 20 }}
@@ -561,7 +601,7 @@ export default function ModernHomePage() {
                                         <h2 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tighter mb-4">
                                             Voice <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-400">Identity</span> Matrix
                                         </h2>
-                                        <p className="text-zinc-400">Secure biometric voice authentication and synthesis.</p>
+                                        <p className="text-zinc-400 font-medium tracking-wide">Secure biometric voice authentication and synthesis.</p>
                                     </motion.div>
                                     <div className="grid md:grid-cols-3 gap-6">
                                         <VoiceIdentity src="/voice-profiles/principal_voice.wav" label="Dr. West - Executive" />
@@ -569,13 +609,11 @@ export default function ModernHomePage() {
                                         <VoiceIdentity src="/voice-profiles/compliance_voice.wav" label="Patrice - Compliance" />
                                     </div>
                                 </div>
-                            </section>
+                            </LazySection>
 
                             {/* HUGGING FACE AVATAR SHOWCASE */}
-                            <section className="py-24 bg-zinc-950 border-y border-white/5 relative overflow-hidden">
-                                <div
-                                    className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2240%22%20height%3D%2240%22%3E%3Cpath%20d%3D%22M0%200h40v40H0z%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-opacity%3D%22.05%22%2F%3E%3C%2Fsvg%3E')]"
-                                />
+                            <LazySection id="neural-speech" className="py-24 bg-zinc-950 border-y border-white/5 overflow-hidden">
+                                <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2240%22%20height%3D%2240%22%3E%3Cpath%20d%3D%22M0%200h40v40H0z%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-opacity%3D%22.05%22%2F%3E%3C%2Fsvg%3E')]" />
                                 <div className="max-w-7xl mx-auto px-6 relative z-10">
                                     <motion.div
                                         initial={{ opacity: 0, y: 20 }}
@@ -585,7 +623,7 @@ export default function ModernHomePage() {
                                         <h2 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tighter mb-4">
                                             Neural <span className="text-indigo-500">Voice Synthesis</span>
                                         </h2>
-                                        <p className="text-zinc-400">Powered by Hugging Face Inference API</p>
+                                        <p className="text-zinc-400 font-medium tracking-wide">Powered by Hugging Face Inference API</p>
                                     </motion.div>
 
                                     <div className="grid md:grid-cols-3 gap-8">
@@ -611,15 +649,15 @@ export default function ModernHomePage() {
                                         />
                                     </div>
                                 </div>
-                            </section>
+                            </LazySection>
 
                             {/* BENTO SHOWCASE */}
-                            <section id="features">
+                            <LazySection id="features" height="100vh">
                                 <BentoShowcase />
-                            </section>
+                            </LazySection>
 
-                            {/* SYSTEM PERFORMANCE - NEW Integration */}
-                            <section className="py-24 px-6 max-w-7xl mx-auto">
+                            {/* SYSTEM PERFORMANCE */}
+                            <LazySection id="performance-matrix" className="py-24 px-6 max-w-7xl mx-auto">
                                 <div className="text-center mb-16">
                                     <h2 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter">
                                         System <span className="text-electric-cyan">Performance</span> Matrix
@@ -629,10 +667,10 @@ export default function ModernHomePage() {
                                     <DistrictIntelligenceScore />
                                     <PlatformActivity />
                                 </div>
-                            </section>
+                            </LazySection>
 
-                            {/* FOUNDER DOSSIER - NEW Integration */}
-                            <section className="py-24 bg-zinc-950/50 border-y border-white/5 relative overflow-hidden">
+                            {/* FOUNDER DOSSIER */}
+                            <LazySection id="founder" className="py-24 bg-zinc-950/50 border-y border-white/5 overflow-hidden">
                                 <div className="max-w-7xl mx-auto px-6 relative z-10">
                                     <div className="text-center mb-16">
                                         <h2 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter leading-none">
@@ -641,7 +679,7 @@ export default function ModernHomePage() {
                                     </div>
                                     <FounderDossier />
                                 </div>
-                            </section>
+                            </LazySection>
 
                             {/* ONBOARDING MODAL */}
                             <AnimatePresence>
@@ -653,82 +691,84 @@ export default function ModernHomePage() {
                             </AnimatePresence>
 
                             {/* EdIntel CORE SHOWCASE */}
-                            <section id="EdIntel" className="py-24 relative overflow-hidden bg-black/90">
-                                <div className="absolute inset-0 bg-gradient-to-b from-indigo-950/20 via-black to-black opacity-50" />
-                                <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
-                                    <motion.div
-                                        initial={{ opacity: 0, scale: 0.9 }}
-                                        whileInView={{ opacity: 1, scale: 1 }}
-                                        viewport={{ once: true }}
-                                        className="mb-16"
-                                    >
-                                        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-amber-500/10 border border-amber-500/20 rounded-full mb-8">
-                                            <Zap size={14} className="text-electric-cyan fill-electric-cyan" />
-                                            <span className="text-[10px] font-bold text-electric-cyan uppercase tracking-widest">Powered by EdIntel AI</span>
-                                        </div>
-                                        <h2 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter mb-6">
-                                            The <span className="text-transparent bg-clip-text bg-gradient-to-r from-electric-cyan to-blue-600">EdIntel Professional</span> Core
-                                        </h2>
-                                        <p className="text-zinc-400 text-lg max-w-2xl mx-auto mb-12">
-                                            The absolute nexus of educational intelligence. Transforming raw institutional data into a crystalline matrix of actionable protocols.
-                                        </p>
-                                    </motion.div>
-
-                                    <div className="grid lg:grid-cols-2 gap-16 items-center">
+                            <LazySection id="EdIntel" height="800px">
+                                <section className="py-24 relative overflow-hidden bg-black/90">
+                                    <div className="absolute inset-0 bg-gradient-to-b from-indigo-950/20 via-black to-black opacity-50" />
+                                    <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
                                         <motion.div
-                                            initial={{ opacity: 0, x: -30 }}
-                                            whileInView={{ opacity: 1, x: 0 }}
+                                            initial={{ opacity: 0, scale: 0.9 }}
+                                            whileInView={{ opacity: 1, scale: 1 }}
                                             viewport={{ once: true }}
-                                            className="h-[600px] relative rounded-3xl overflow-hidden border border-white/5 bg-zinc-900/50 backdrop-blur-md shadow-2xl shadow-amber-500/5"
+                                            className="mb-16"
                                         >
-                                            <EdIntelCore phase="ready" />
-                                        </motion.div>
-
-                                        <motion.div
-                                            initial={{ opacity: 0, x: 30 }}
-                                            whileInView={{ opacity: 1, x: 0 }}
-                                            viewport={{ once: true }}
-                                            className="text-left space-y-8"
-                                        >
-                                            {[
-                                                { title: "Universal Ledger", desc: "Every administrative decision tracked in a secure, immutable data architecture.", icon: Shield },
-                                                { title: "Neural Synthesis", desc: "Cross-departmental data merged into a single, cohesive institutional intelligence.", icon: Brain },
-                                                { title: "Autonomous Protocols", desc: "Auto-generating compliance reports and budget projections in real-time.", icon: Cpu },
-                                            ].map((feature, i) => (
-                                                <div key={i} className="flex gap-6 group">
-                                                    <div className="w-14 h-14 rounded-2xl bg-zinc-900 border border-white/10 flex items-center justify-center text-electric-cyan group-hover:bg-electric-cyan group-hover:text-black transition-all duration-500 group-hover:rotate-6">
-                                                        <feature.icon size={28} />
-                                                    </div>
-                                                    <div>
-                                                        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-electric-cyan transition-colors">{feature.title}</h3>
-                                                        <p className="text-zinc-400 leading-relaxed">{feature.desc}</p>
-                                                    </div>
-                                                </div>
-                                            ))}
-
-                                            <div className="pt-8">
-                                                {isSignedIn ? (
-                                                    <Link 
-                                                        href="/the-room"
-                                                        className="inline-flex items-center justify-center font-bold rounded-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 holographic-button shadow-holographic px-6 py-3 text-lg uppercase tracking-wider gap-3"
-                                                    >
-                                                        Return to Control
-                                                        <ArrowRight size={20} />
-                                                    </Link>
-                                                ) : (
-                                                    <Link 
-                                                        href={`${ROUTES.LOGIN}?mode=signup`}
-                                                        className="inline-flex items-center justify-center font-bold rounded-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 holographic-button shadow-holographic px-6 py-3 text-lg uppercase tracking-wider gap-3"
-                                                    >
-                                                        Activate Core
-                                                        <ArrowRight size={20} />
-                                                    </Link>
-                                                )}
+                                            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-amber-500/10 border border-amber-500/20 rounded-full mb-8">
+                                                <Zap size={14} className="text-electric-cyan fill-electric-cyan" />
+                                                <span className="text-[10px] font-bold text-electric-cyan uppercase tracking-widest">Powered by EdIntel AI</span>
                                             </div>
+                                            <h2 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter mb-6">
+                                                The <span className="text-transparent bg-clip-text bg-gradient-to-r from-electric-cyan to-blue-600">EdIntel Professional</span> Core
+                                            </h2>
+                                            <p className="text-zinc-400 text-lg max-w-2xl mx-auto mb-12">
+                                                The absolute nexus of educational intelligence. Transforming raw institutional data into a crystalline matrix of actionable protocols.
+                                            </p>
                                         </motion.div>
+
+                                        <div className="grid lg:grid-cols-2 gap-16 items-center">
+                                            <motion.div
+                                                initial={{ opacity: 0, x: -30 }}
+                                                whileInView={{ opacity: 1, x: 0 }}
+                                                viewport={{ once: true }}
+                                                className="h-[600px] relative rounded-3xl overflow-hidden border border-white/5 bg-zinc-900/50 backdrop-blur-md shadow-2xl shadow-amber-500/5"
+                                            >
+                                                <EdIntelCore phase="ready" />
+                                            </motion.div>
+
+                                            <motion.div
+                                                initial={{ opacity: 0, x: 30 }}
+                                                whileInView={{ opacity: 1, x: 0 }}
+                                                viewport={{ once: true }}
+                                                className="text-left space-y-8"
+                                            >
+                                                {[
+                                                    { title: "Universal Ledger", desc: "Every administrative decision tracked in a secure, immutable data architecture.", icon: Shield },
+                                                    { title: "Neural Synthesis", desc: "Cross-departmental data merged into a single, cohesive institutional intelligence.", icon: Brain },
+                                                    { title: "Autonomous Protocols", desc: "Auto-generating compliance reports and budget projections in real-time.", icon: Cpu },
+                                                ].map((feature, i) => (
+                                                    <div key={i} className="flex gap-6 group">
+                                                        <div className="w-14 h-14 rounded-2xl bg-zinc-900 border border-white/10 flex items-center justify-center text-electric-cyan group-hover:bg-electric-cyan group-hover:text-black transition-all duration-500 group-hover:rotate-6">
+                                                            <feature.icon size={28} />
+                                                        </div>
+                                                        <div>
+                                                            <h3 className="text-xl font-bold text-white mb-2 group-hover:text-electric-cyan transition-colors">{feature.title}</h3>
+                                                            <p className="text-zinc-400 leading-relaxed">{feature.desc}</p>
+                                                        </div>
+                                                    </div>
+                                                ))}
+
+                                                <div className="pt-8">
+                                                    {isSignedIn ? (
+                                                        <Link 
+                                                            href="/the-room"
+                                                            className="inline-flex items-center justify-center font-bold rounded-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 holographic-button shadow-holographic px-6 py-3 text-lg uppercase tracking-wider gap-3"
+                                                        >
+                                                            Return to Control
+                                                            <ArrowRight size={20} />
+                                                        </Link>
+                                                    ) : (
+                                                        <Link 
+                                                            href={`${ROUTES.LOGIN}?mode=signup`}
+                                                            className="inline-flex items-center justify-center font-bold rounded-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 holographic-button shadow-holographic px-6 py-3 text-lg uppercase tracking-wider gap-3"
+                                                        >
+                                                            Activate Core
+                                                            <ArrowRight size={20} />
+                                                        </Link>
+                                                    )}
+                                                </div>
+                                            </motion.div>
+                                        </div>
                                     </div>
-                                </div>
-                            </section>
+                                </section>
+                            </LazySection>
 
                             {/* READY TO ACTIVATE CTA */}
                             <ReadyToActivateCTA />
@@ -737,6 +777,6 @@ export default function ModernHomePage() {
                     </>
                 )}
             </div>
-        </>
+        </LazyMotion>
     );
 }

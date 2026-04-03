@@ -1,6 +1,12 @@
+import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { cookies } from 'next/headers';
 import LoginClient from './LoginClient';
+
+export const metadata: Metadata = {
+  title: 'Secure Uplink | EdIntel Professional Login',
+  description: 'Access the EdIntel Sovereign Ecosystem. Secure biometric and institutional authentication for education leaders.',
+};
 
 export default async function LoginPage() {
   await cookies(); // Force dynamic rendering at request time

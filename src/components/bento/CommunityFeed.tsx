@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Image as LucideImage, Video, FileText, ThumbsUp, MessageSquare, Repeat, Share2, MoreHorizontal, Globe, Bookmark, Users, Calendar } from 'lucide-react';
+import { Image as LucideImage, Video, FileText, Heart, MessageSquare, Repeat, Share2, MoreHorizontal, Globe, Bookmark, Users, Calendar } from 'lucide-react';
 import { default as NextImage } from 'next/image';
 import { useLeadershipFeed, FeedPost } from '@/hooks/useLeadershipFeed';
 import { SOCIAL_HUB_AVATAR } from '@/lib/assets';
@@ -100,21 +100,23 @@ export default function CommunityFeed() {
                                             <Globe size={10} />
                                         </div>
                                     </div>
-                                    <button className="text-zinc-500 hover:text-white"><MoreHorizontal size={16} /></button>
+                                    <button aria-label="More options" className="text-zinc-500 hover:text-white"><MoreHorizontal size={16} /></button>
                                 </div>
                                 <p className="mt-3 text-sm text-zinc-300 leading-relaxed">{post.content}</p>
 
                                 <div className="mt-4 pt-4 border-t border-zinc-800/50 flex items-center justify-between text-zinc-400">
-                                    <button className="flex items-center gap-2 text-xs font-bold hover:bg-zinc-800 px-3 py-2 rounded-lg transition-colors">
-                                        <ThumbsUp size={14} /> Like
+                                    <button className="flex items-center gap-1.5 text-zinc-500 hover:text-white transition-colors" aria-label="Like post">
+                                        <Heart size={14} />
+                                        <span>{post.stats.likes}</span>
                                     </button>
-                                    <button className="flex items-center gap-2 text-xs font-bold hover:bg-zinc-800 px-3 py-2 rounded-lg transition-colors">
-                                        <MessageSquare size={14} /> Comment
+                                    <button className="flex items-center gap-1.5 text-zinc-500 hover:text-white transition-colors" aria-label="Comment on post">
+                                        <MessageSquare size={14} />
+                                        <span>{post.stats.comments}</span>
                                     </button>
-                                    <button className="flex items-center gap-2 text-xs font-bold hover:bg-zinc-800 px-3 py-2 rounded-lg transition-colors">
-                                        <Repeat size={14} /> Repost
+                                    <button className="flex items-center gap-1.5 text-zinc-500 hover:text-white transition-colors" aria-label="Share post">
+                                        <Share2 size={14} />
                                     </button>
-                                    <button className="flex items-center gap-2 text-xs font-bold hover:bg-zinc-800 px-3 py-2 rounded-lg transition-colors">
+                                    <button aria-label="Send post" className="flex items-center gap-2 text-xs font-bold hover:bg-zinc-800 px-3 py-2 rounded-lg transition-colors">
                                         <Share2 size={14} /> Send
                                     </button>
                                 </div>

@@ -263,66 +263,28 @@
     }
 }
 
-.animate-aurora-1 {
-    animation: aurora-1 15s infinite alternate linear;
-}
-
-.animate-aurora-2 {
-    animation: aurora-2 25s infinite alternate linear;
-}
-
-.animate-aurora-3 {
-    animation: aurora-3 30s infinite alternate linear;
-}
+.animate-aurora-1 { animation: aurora-1 20s infinite linear; will-change: transform; }
+.animate-aurora-2 { animation: aurora-2 25s infinite linear; will-change: transform; }
+.animate-aurora-3 { animation: aurora-3 30s infinite linear; will-change: transform; }
 
 /* --- ANIMATION KEYFRAMES --- */
 
 @keyframes aurora-1 {
-    0% {
-        top: 0;
-        left: 0;
-        transform: translate(0, 0) rotate(0deg);
-        opacity: 0.4;
-    }
-
-    100% {
-        top: 20%;
-        left: 30%;
-        transform: translate(-20%, 10%) rotate(10deg);
-        opacity: 0.7;
-    }
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(10%, 15%, 0) scale(1.1); }
+  66% { transform: translate3d(-15%, 10%, 0) scale(0.9); }
 }
 
 @keyframes aurora-2 {
-    0% {
-        bottom: 0;
-        right: 0;
-        transform: translate(0, 0) rotate(0deg);
-        opacity: 0.3;
-    }
-
-    100% {
-        bottom: 20%;
-        right: 20%;
-        transform: translate(10%, -10%) rotate(-10deg);
-        opacity: 0.6;
-    }
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(-15%, -10%, 0) scale(0.9); }
+  66% { transform: translate3d(15%, -15%, 0) scale(1.1); }
 }
 
 @keyframes aurora-3 {
-    0% {
-        top: 40%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotate(0deg);
-        opacity: 0.2;
-    }
-
-    100% {
-        top: 60%;
-        left: 40%;
-        transform: translate(-30%, -30%) rotate(45deg);
-        opacity: 0.5;
-    }
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(15%, 15%, 0) scale(1.2); }
+  66% { transform: translate3d(-10%, -10%, 0) scale(0.8); }
 }
 
 /* --- SCANLINE & GLITCH EFFECTS --- */
@@ -521,36 +483,36 @@
 
         filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
     }
+
+    /* ⚡ PERFORMANCE UTILITIES (Phase 14) */
+    .content-visibility-auto {
+        content-visibility: auto;
+        contain-intrinsic-size: 0 500px; /* Reduces layout shift for lazy containers */
+    }
+
+    .gpu-accelerated {
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        perspective: 1000px;
+    }
+
+    .lazy-container {
+        content-visibility: auto;
+        contain-intrinsic-size: 1px 1000px;
+    }
 }
 
 /* CWV: CSS-only background animations (replaces framer-motion in GenerativeBackground) */
 @keyframes drift1 {
-    0% {
-        transform: scale(1) translate(0, 0);
-    }
-
-    50% {
-        transform: scale(1.1) translate(30px, 50px);
-    }
-
-    100% {
-        transform: scale(1) translate(0, 0);
-    }
+  0% { transform: translate3d(-10%, -10%, 0) rotate(0deg); }
+  50% { transform: translate3d(10%, 10%, 0) rotate(180deg); }
+  100% { transform: translate3d(-10%, -10%, 0) rotate(360deg); }
 }
 
 @keyframes drift2 {
-    0% {
-        transform: scale(1.1) translate(0, 0);
-    }
-
-    50% {
-        transform: scale(1) translate(-50px, -30px);
-    }
-
-    100% {
-        transform: scale(1.1) translate(0, 0);
-    }
-
+  0% { transform: translate3d(10%, 10%, 0) rotate(0deg); }
+  50% { transform: translate3d(-10%, -10%, 0) rotate(-180deg); }
+  100% { transform: translate3d(10%, 10%, 0) rotate(-360deg); }
 }
 
 /* Dynamic Behavior for AI Avatars */
@@ -1164,3 +1126,80 @@
 .h-prog-85 { height: 85%; }
 .h-prog-90 { height: 90%; }
 .h-prog-100 { height: 100%; }
+
+/* === RESCUE ONE PROTOCOL: TACTICAL OVERDRIVE === */
+
+.rescue-one-overdrive {
+    --color-background: #000000 !important;
+    --color-foreground: #ffffff !important;
+    --color-primary: #ef4444 !important; /* rose-500 */
+    --color-border: rgba(244, 63, 94, 0.5) !important;
+    background-color: #000 !important;
+    color: #fff !important;
+}
+
+.rescue-one-overdrive .glass-panel,
+.rescue-one-overdrive .glass-panel-premium {
+    background: rgba(10, 0, 0, 0.9) !important;
+    border-color: rgba(244, 63, 94, 0.4) !important;
+    backdrop-filter: blur(10px) !important;
+    box-shadow: 0 0 20px rgba(244, 63, 94, 0.1) !important;
+}
+
+.rescue-one-overdrive .text-zinc-400,
+.rescue-one-overdrive .text-zinc-500 {
+    color: #cbd5e1 !important; /* slate-300 for high contrast */
+}
+
+.rescue-one-overdrive .bg-emerald-500,
+.rescue-one-overdrive .bg-teal-500 {
+    background-color: #ef4444 !important; /* Tactical Red Override */
+}
+
+.rescue-one-overdrive .text-emerald-400,
+.rescue-one-overdrive .text-teal-400 {
+    color: #f87171 !important; /* Light Tactical Red */
+}
+
+/* Tactical Viewport Border */
+.rescue-one-overdrive::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    border: 2px solid rgba(244, 63, 94, 0.3);
+    pointer-events: none;
+    z-index: 9999;
+    animation: tactical-pulse 2s infinite ease-in-out;
+}
+
+/* Kill non-essential decorative animations */
+.rescue-one-overdrive .animate-aurora-1,
+.rescue-one-overdrive .animate-aurora-2,
+.rescue-one-overdrive .animate-aurora-3,
+.rescue-one-overdrive .animate-tilt {
+    animation-play-state: paused !important;
+    opacity: 0.1 !important;
+}
+
+@keyframes tactical-pulse {
+    0%, 100% { opacity: 0.3; border-width: 2px; }
+    50% { opacity: 0.8; border-width: 4px; box-shadow: inset 0 0 50px rgba(244, 63, 94, 0.2); }
+}
+
+.animate-tactical-scan {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to bottom, transparent, #ef4444, transparent);
+    opacity: 0.5;
+    animation: tactical-scan 4s linear infinite;
+    pointer-events: none;
+    z-index: 100;
+}
+
+@keyframes tactical-scan {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+}

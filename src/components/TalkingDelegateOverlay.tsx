@@ -118,6 +118,7 @@ export default function TalkingDelegateOverlay({
                             <button
                                 onClick={onClose}
                                 className="p-2 rounded-full bg-black/40 hover:bg-white/10 text-white transition-colors border border-white/5"
+                                aria-label="Close overlay"
                             >
                                 <X size={16} />
                             </button>
@@ -205,6 +206,7 @@ export default function TalkingDelegateOverlay({
                                     }}
                                     disabled={isLoading || (!audioSrc && !videoSrc)}
                                     className="flex-1 py-3 bg-white text-black font-bold uppercase text-xs tracking-widest rounded-xl hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+                                    aria-label={isPlaying ? 'Pause protocol' : 'Resume protocol'}
                                 >
                                     {isPlaying ? <Pause size={14} /> : <Play size={14} />}
                                     {isPlaying ? 'Pause Protocol' : 'Resume Protocol'}

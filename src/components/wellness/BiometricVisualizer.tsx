@@ -14,7 +14,7 @@ export const BiometricVisualizer: React.FC<BiometricVisualizerProps> = ({ biomet
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Heart Rate Card */}
-            <div className="group relative p-8 rounded-[40px] bg-black/40 border border-white/5 overflow-hidden text-left">
+            <div className="group relative p-8 rounded-[40px] bg-black/40 border border-white/5 overflow-hidden text-left hover:shadow-[0_0_50px_-12px_rgba(244,63,94,0.3)] transition-shadow duration-500">
                 <div className="absolute top-0 right-0 p-8">
                     <Heart className={`w-12 h-12 transition-all duration-300 ${biometrics ? 'text-rose-500 animate-pulse' : 'text-zinc-800'}`} />
                 </div>
@@ -48,10 +48,9 @@ export const BiometricVisualizer: React.FC<BiometricVisualizerProps> = ({ biomet
                     </AnimatePresence>
                     <div className="w-full flex items-end gap-1 h-12">
                         {chartData.map((val, i) => (
-                            <motion.div
+                            <div
                                 key={i}
-                                layout
-                                className="flex-1 bg-rose-500/20 rounded-t-sm"
+                                className="flex-1 bg-rose-500/20 rounded-t-sm transition-[height] duration-300 ease-out"
                                 style={{ height: `${(val / 180) * 100}%` }}
                             />
                         ))}
@@ -70,12 +69,29 @@ export const BiometricVisualizer: React.FC<BiometricVisualizerProps> = ({ biomet
                         {biometrics?.stressLevel || '--'}<span className="text-xl text-zinc-500 font-medium">%</span>
                     </div>
                 </div>
-                <div className="mt-8 w-full h-2 bg-white/5 rounded-full overflow-hidden">
-                    <motion.div
-                        animate={{ width: `${biometrics?.stressLevel || 0}%` }}
-                        className={`h-full transition-colors duration-500 ${(biometrics?.stressLevel || 0) > 70 ? 'bg-orange-500' : 'bg-cyan-500'
-                            }`}
-                    />
+                <div className="mt-8 space-y-6">
+                    <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
+                        <motion.div
+                            animate={{ width: `${biometrics?.stressLevel || 0}%` }}
+                            transition={{ duration: 0.5 }}
+                            className={`h-full transition-colors duration-500 ${(biometrics?.stressLevel || 0) > 70 ? 'bg-orange-600' : 'bg-cyan-500'}`}
+                        />
+                    </div>
+                    {/* Sub-metrics */}
+                    <div className="grid grid-cols-2 gap-4 pt-2">
+                        <div className="space-y-1 text-left">
+                            <span className="text-[9px] font-black text-zinc-600 uppercase tracking-widest text-left block">Neural Efficiency</span>
+                            <div className="text-xl font-black text-white/90 text-left">
+                                {biometrics ? Math.max(10, 100 - (biometrics.stressLevel || 0)) : '--'}%
+                            </div>
+                        </div>
+                        <div className="space-y-1 text-left">
+                            <span className="text-[9px] font-black text-zinc-600 uppercase tracking-widest text-left block">Memory Load</span>
+                            <div className="text-xl font-black text-white/90 text-left">
+                                {biometrics ? Math.min(95, (biometrics.stressLevel || 0) + 12) : '--'}%
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

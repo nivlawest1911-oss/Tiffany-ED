@@ -1,18 +1,19 @@
 import { Metadata } from 'next';
 import { notFound, redirect } from 'next/navigation';
 import { EPISODES } from '@/lib/briefing-data';
-import { isBriefingUnlocked } from '../actions';
+import { isBriefingUnlocked } from '../../actions';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { ChevronLeft, ShieldCheck, Download, Printer, Share2 } from 'lucide-react';
 import UnlockBriefingButton from './UnlockBriefingButton';
 
 interface PageProps {
-    params: { slug: string };
+    params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-    const episode = EPISODES.find(e => e.slug === params.slug);
+    const { slug } = await params;
+    const episode = EPISODES.find(e => e.slug === slug);
     if (!episode) return { title: 'Report Not Found' };
 
     return {
@@ -22,14 +23,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function BriefingDataPage({ params }: PageProps) {
-    const episode = EPISODES.find(e => e.slug === params.slug);
+    const { slug } = await params;
+    const episode = EPISODES.find(e => e.slug === slug);
     if (!episode) notFound();
 
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const sessionCookie = cookieStore.get('session');
 
     if (!sessionCookie) {
-        redirect('/login?returnTo=/briefings/' + params.slug + '/data');
+        redirect('/login?returnTo=/briefings/' + slug + '/data');
     }
 
     // Identify user
@@ -40,19 +42,19 @@ export default async function BriefingDataPage({ params }: PageProps) {
     
     if (!user) redirect('/login');
 
-    const unlocked = await isBriefingUnlocked(user.id, params.slug);
+    const unlocked = await isBriefingUnlocked(user.id, slug);
 
     if (!unlocked) {
         return (
             <div className="min-h-screen bg-black text-white pt-32 px-4">
                 <Link 
-                    href={`/briefings/${params.slug}`}
+                    href={`/briefings/${slug}`}
                     className="max-w-4xl mx-auto flex items-center gap-2 text-[10px] font-black text-white/40 uppercase tracking-[0.4em] mb-12 hover:text-noble-gold transition-colors"
                 >
                     <ChevronLeft size={14} />
                     Return to Briefing Player
                 </Link>
-                <UnlockBriefingButton slug={params.slug} />
+                <UnlockBriefingButton slug={slug} />
             </div>
         );
     }
@@ -67,7 +69,7 @@ export default async function BriefingDataPage({ params }: PageProps) {
                 <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16 pb-10 border-b border-white/5">
                     <div className="flex flex-col items-start text-left">
                         <Link 
-                            href={`/briefings/${params.slug}`}
+                            href={`/briefings/${slug}`}
                             className="flex items-center gap-2 text-[10px] font-black text-white/40 uppercase tracking-[0.4em] mb-4 hover:text-noble-gold transition-colors"
                         >
                             <ChevronLeft size={14} />
@@ -83,13 +85,13 @@ export default async function BriefingDataPage({ params }: PageProps) {
                     </div>
 
                     <div className="flex gap-4">
-                        <button className="p-4 liquid-glass border-white/10 text-white/50 hover:text-white transition-all rounded-full" title="Download Offline Report">
+                        <button className="p-4 liquid-glass border-white/10 text-white/50 hover:text-white transition-all rounded-full" title="Download Offline Report" aria-label="Download Offline Report">
                             <Download size={20} />
                         </button>
-                        <button className="p-4 liquid-glass border-white/10 text-white/50 hover:text-white transition-all rounded-full" title="Print Tactical View">
+                        <button className="p-4 liquid-glass border-white/10 text-white/50 hover:text-white transition-all rounded-full" title="Print Tactical View" aria-label="Print Tactical View">
                             <Printer size={20} />
                         </button>
-                        <button className="p-4 liquid-glass border-white/10 text-white/50 hover:text-white transition-all rounded-full">
+                        <button className="p-4 liquid-glass border-white/10 text-white/50 hover:text-white transition-all rounded-full" aria-label="Share Report">
                             <Share2 size={20} />
                         </button>
                     </div>

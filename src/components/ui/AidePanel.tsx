@@ -53,7 +53,7 @@ export default function AidePanel({ isOpen, mode, onClose }: AidePanelProps) {
                     <Sparkles className="text-blue-500" size={20} />
                     <h2 className="font-bold uppercase tracking-widest text-sm">{mode === 'aide' ? 'Classroom Aide' : 'IEP Architect'}</h2>
                 </div>
-                <button onClick={onClose} className="p-1 hover:bg-zinc-200 dark:hover:bg-zinc-800 rounded-full"><X size={20} /></button>
+                <button onClick={onClose} className="p-1 hover:bg-zinc-200 dark:hover:bg-zinc-800 rounded-full" aria-label="Close panel"><X size={20} /></button>
             </div>
 
             {/* Chat Area */}
@@ -85,7 +85,7 @@ export default function AidePanel({ isOpen, mode, onClose }: AidePanelProps) {
                         placeholder={`Ask the ${mode}...`}
                         className="w-full bg-zinc-100 dark:bg-zinc-800 border-none rounded-xl py-3 pl-4 pr-12 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
                     />
-                    <button onClick={handleSendMessage} className="absolute right-2 top-2 p-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    <button onClick={handleSendMessage} className="absolute right-2 top-2 p-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700" aria-label="Send message">
                         <Send size={16} />
                     </button>
                 </div>

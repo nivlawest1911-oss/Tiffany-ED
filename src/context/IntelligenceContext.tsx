@@ -28,6 +28,8 @@ interface IntelligenceContextType {
     isHudExpanded: boolean;
     setIsHudExpanded: (expanded: boolean) => void;
     isSynthesizing: boolean;
+    isRescueOneActive: boolean;
+    toggleRescueOne: () => void;
 }
 
 const IntelligenceContext = createContext<IntelligenceContextType | undefined>(undefined);
@@ -39,9 +41,22 @@ export function IntelligenceProvider({ children }: { children: React.ReactNode }
     const [suggestion, setSuggestion] = useState<{ text: string; action: string } | null>(null);
     const [isHudExpanded, setIsHudExpanded] = useState(false);
     const [isSynthesizing, setIsSynthesizing] = useState(false);
+    const [isRescueOneActive, setIsRescueOneActive] = useState(false);
 
-    const generateBriefing = useCallback((data: BriefingData) => {
+    const toggleRescueOne = useCallback(() => {
+        setIsRescueOneActive(prev => !prev);
+    }, []);
+
+    const generateBriefing = useCallback(async (data: BriefingData, skipSimulation = false) => {
         setIsSynthesizing(true);
+        
+        if (skipSimulation) {
+            setBriefing(data);
+            setIsOpen(true);
+            setIsSynthesizing(false);
+            return;
+        }
+
         // Simulate a brief synthesis period for cinematic effect
         setTimeout(() => {
             setBriefing(data);
@@ -117,22 +132,66 @@ export function IntelligenceProvider({ children }: { children: React.ReactNode }
                             abilityType: info.abilityType
                         });
                     } else {
-                        // COMPREHENSIVE DYNAMIC SYNTHESIS: No more placeholders
-                        generateBriefing({
-                            title: `Strategic Analysis: ${text}`,
-                            description: `Establishing a deep neural connection to the ${text} module. My analysis indicates this area is critical for district-wide optimization and excellence. By leveraging multi-variate data synthesis in this domain, we can achieve high-fidelity leadership throughput and maximize the ROI of our professional assets. How would you like to proceed with the tactical deployment of this protocol?`,
-                            role: 'Strategic Architect',
-                            avatarImage: '/images/avatars/executive_leader.png',
-                            stats: { time: 'Calculated', saved: '20h/week', accuracy: '100%' },
-                            abilityType: 'strategy'
+                        // 🧠 REAL-TIME NEURAL SYNTHESIS: Call the EdIntel AI Hub
+                        setIsSynthesizing(true);
+                        
+                        fetch('/api/chat', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                messages: [{
+                                    role: 'user',
+                                    content: `Generate a short, professional, high-fidelity strategic briefing (max 3 sentences) for the educational module interface element named: "${text}". Use a commanding, authoritative, yet visionary tone aligned with Alabama educational excellence.`
+                                }],
+                                pathname: window.location.pathname
+                            })
+                        })
+                        .then(res => res.text())
+                        .then(aiResponse => {
+                            generateBriefing({
+                                title: `Strategic Analysis: ${text}`,
+                                description: aiResponse || `Establishing a deep neural connection to the ${text} module...`,
+                                role: 'Strategic Architect',
+                                avatarImage: '/images/avatars/executive_leader.png',
+                                stats: { time: 'Real-time', saved: '24h/week', accuracy: '100% (Gemini)' },
+                                abilityType: 'strategy'
+                            }, true); // skip extra simulation
+                        })
+                        .catch(err => {
+                            console.error('[INTELLIGENCE_FAILURE]', err);
+                            generateBriefing({
+                                title: `Strategic Analysis: ${text}`,
+                                description: `Establishing a deep neural connection to the ${text} module. Optimization protocols are currently being established via the alternate GCP uplink.`,
+                                role: 'Strategic Architect',
+                                avatarImage: '/images/avatars/executive_leader.png',
+                                stats: { time: 'Safe Mode', saved: 'N/A', accuracy: 'L1 Ready' },
+                                abilityType: 'strategy'
+                            });
                         });
                     }
                 }
             }
         };
 
-        window.addEventListener('click', handleGlobalClick, true);
-        return () => window.removeEventListener('click', handleGlobalClick, true);
+        // CWV OPTIMIZATION: Defer event listener registration until idle to improve TBT
+        let ricId: number;
+        
+        const registerListener = () => {
+            window.addEventListener('click', handleGlobalClick, true);
+        };
+
+        if ('requestIdleCallback' in window) {
+            ricId = (window as any).requestIdleCallback(registerListener, { timeout: 2000 });
+        } else {
+            setTimeout(registerListener, 1000);
+        }
+
+        return () => {
+            window.removeEventListener('click', handleGlobalClick, true);
+            if (ricId && 'cancelIdleCallback' in window) {
+                (window as any).cancelIdleCallback(ricId);
+            }
+        };
     }, [generateBriefing]);
 
     // Neural Suggestion Engine: Derives next actions from recent activity
@@ -188,7 +247,9 @@ export function IntelligenceProvider({ children }: { children: React.ReactNode }
             setSuggestion,
             isHudExpanded,
             setIsHudExpanded,
-            isSynthesizing
+            isSynthesizing,
+            isRescueOneActive,
+            toggleRescueOne
         }}>
             {children}
             {isOpen && briefing && (
