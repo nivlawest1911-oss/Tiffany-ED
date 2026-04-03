@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react"
 import { Star, Link2, ExternalLink, GraduationCap, Play, Sparkles } from "lucide-react"
-import Image from "next/image"
 import Link from "next/link"
 
 export function HeroSection() {
@@ -129,7 +128,7 @@ export function HeroSection() {
 
             <div className="relative w-64 h-80 md:w-72 md:h-96 mb-6 rounded-3xl overflow-hidden border-2 border-[#00d2ff]/30 shadow-[0_0_40px_rgba(0,210,255,0.2)] bg-black">
               <video
-                src="/videos/Video_Generation_for_School_Administrators.mp4"
+                src="/videos/Edintel promotion.mp4"
                 poster="/professional-black-man-in-business-suit--executive.jpg"
                 autoPlay
                 loop
