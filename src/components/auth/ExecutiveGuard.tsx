@@ -4,7 +4,7 @@ import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useIntelligence } from '@/context/IntelligenceContext';
-import { Zap, ShieldAlert } from 'lucide-react';
+import { Zap } from 'lucide-react';
 
 /**
  * 🏛️ EdIntel Executive Guard

@@ -28,6 +28,7 @@ interface UseMultimodalAvatarProps {
     onXPGain?: (amount: number) => void;
     onSpeak?: (text: string, signal?: AbortSignal) => boolean; // Returns true if handled externally
     voiceId?: string; // Optional: Explicit voice ID/gender hint
+    companionId?: string; // Optional: Scope retrieved context to this companion
 }
 
 interface UseMultimodalAvatarReturn {
@@ -61,6 +62,7 @@ interface UseMultimodalAvatarReturn {
     isListening: boolean;
     isSpeaking: boolean;
     speak: (text: string, signal?: AbortSignal) => void;
+    groundingSources: Array<{ title?: string; content?: string; url?: string }>;
 }
 
 const LEADERSHIP_ARCHETYPES: Record<string, { tone: string, rate: number, pitch: number }> = {
@@ -78,7 +80,8 @@ export function useMultimodalAvatar({
     onTokenDeduct,
     onXPGain,
     onSpeak, // Optional: Allow external component to handle speech (e.g. HeyGen)
-    voiceId
+    voiceId,
+    companionId
 }: UseMultimodalAvatarProps): UseMultimodalAvatarReturn {
 
     const { user } = useAuth();
@@ -91,6 +94,7 @@ export function useMultimodalAvatar({
     const [sessionId, setSessionId] = useState<string | null>(null);
     const [sentiment, setSentiment] = useState<'neutral' | 'positive' | 'urgent' | 'distressed'>('neutral');
     const [error, setError] = useState<string | null>(null);
+    const [groundingSources, setGroundingSources] = useState<Array<{ title?: string; content?: string; url?: string }>>([]);
 
     // Multimodal State
     const [mode, setMode] = useState<'cloud-socket' | 'edge-stream'>('cloud-socket'); // Use the live Cloud Run engine by default
@@ -256,7 +260,8 @@ export function useMultimodalAvatar({
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     messages: messages.map(m => ({ role: m.role, content: m.text })).concat([{ role: 'user', content: text }]),
-                    protocolContext: `Role: ${avatarRole}. Name: ${avatarName}.`
+                    protocolContext: `Role: ${avatarRole}. Name: ${avatarName}.`,
+                    companionId
                 }),
                 signal: controller.signal
             });
@@ -280,20 +285,40 @@ export function useMultimodalAvatar({
                 accumulatedResponse += chunk;
                 sentenceBuffer += chunk;
 
+                // 2.2 Extraction Logic: [SOURCES: ...] Grounding metadata
+                const sourceMatch = accumulatedResponse.match(/\[SOURCES:\s*(\[.*?\])\]/);
+                let displayText = accumulatedResponse;
+
+                if (sourceMatch) {
+                    try {
+                        const parsed = JSON.parse(sourceMatch[1]);
+                        setGroundingSources(parsed);
+                        // Hide token from displayed text
+                        displayText = accumulatedResponse.replace(/\[SOURCES:\s*\[.*?\]\]/, '').trim();
+                    } catch (e) {
+                        console.warn("[MultimodalHook] Source metadata corruption detected.");
+                    }
+                }
+
                 // Update UI State
                 setMessages(prev => {
                     const newArr = [...prev];
-                    newArr[newArr.length - 1].text = accumulatedResponse;
+                    newArr[newArr.length - 1].text = displayText;
                     return newArr;
                 });
 
                 // Check for sentence completion to trigger TTS streaming
-                if (sentenceBuffer.match(/[.!?](\s|$)/)) {
-                    speak(sentenceBuffer.trim(), controller.signal); // Speak chunk
+                // Filter out protocol/source tokens from speech
+                const speechChunk = sentenceBuffer.replace(/\[PROTOCOL:.*?\]/g, '').replace(/\[SOURCES:.*?\]/g, '').trim();
+                if (speechChunk && sentenceBuffer.match(/[.!?](\s|$)/)) {
+                    speak(speechChunk, controller.signal); // Speak chunk
                     sentenceBuffer = '';
                 }
             }
-            if (sentenceBuffer.trim()) speak(sentenceBuffer.trim(), controller.signal); // Speak remaining
+            if (sentenceBuffer.trim()) {
+                const finalSpeech = sentenceBuffer.replace(/\[PROTOCOL:.*?\]/g, '').replace(/\[SOURCES:.*?\]/g, '').trim();
+                if (finalSpeech) speak(finalSpeech, controller.signal);
+            }
 
         } catch (err: any) {
             if (err.name === 'AbortError') return;
@@ -304,7 +329,7 @@ export function useMultimodalAvatar({
                 abortControllerRef.current = null;
             }
         }
-    }, [messages, avatarRole, avatarName, mode, speak, onTokenDeduct]);
+    }, [messages, avatarRole, avatarName, mode, speak, onTokenDeduct, companionId]);
 
     // ============================================
     // SPEECH RECOGNITION (STT)
@@ -499,6 +524,7 @@ export function useMultimodalAvatar({
         stopListening,
         isListening,
         isSpeaking,
-        speak
+        speak,
+        groundingSources
     };
 }

@@ -1,6 +1,7 @@
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { streamText } from 'ai';
 import { INTELLIGENCE_MAP } from '@/lib/intelligence-engine';
+import { queryEdIntelVault } from '@/lib/rag/rag-core';
 
 // BigQuery logic moved to proxy API to prevent SDK leakage
 export const runtime = 'nodejs';
@@ -13,17 +14,20 @@ export async function POST(req: Request) {
     const start = Date.now();
 
     try {
-        const { messages: rawMessages, protocolContext } = await req.json();
+        const { messages: rawMessages, protocolContext, companionId } = await req.json();
 
         // 1. Map messages from frontend format
         const messages = rawMessages.map((msg: any) => ({
-            role: msg.role === 'avatar' ? 'assistant' : msg.role,
+            role: msg.role === 'assistant' || msg.role === 'avatar' ? 'assistant' : msg.role,
             content: msg.content || msg.text || '',
         }));
 
         const lastUserMessage = messages.findLast((m: any) => m.role === 'user')?.content || '';
 
-        // 2. Log User Input to BigQuery via Proxy API
+        // 2. SOVEREIGN RAG: Retrieve grounded context from Knowledge Vault
+        const { context: ragContext, sources: ragSources } = await queryEdIntelVault(lastUserMessage, companionId);
+
+        // 3. Log User Input to BigQuery via Proxy API
         const logToBigQueryProxy = async (entry: any) => {
             try {
                 await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/logging/bigquery`, {
@@ -43,23 +47,25 @@ export async function POST(req: Request) {
             timestamp: new Date().toISOString(),
         });
 
-        // 3. Execute Stream with AI SDK (Gemini)
+        // 4. Execute Stream with AI SDK (Gemini)
         const result = await streamText({
             model: google('gemini-1.5-pro'),
             system: `You are a Tier-1 EdIntel Delegate for EdIntel. 
             Context: ${protocolContext || 'General Executive Assistance'}
+            ${ragContext}
             
             Platform Features & Specialized Intelligence Nodes:
             ${JSON.stringify(Object.keys(INTELLIGENCE_MAP).map(key => ({ id: key, role: INTELLIGENCE_MAP[key].role, description: INTELLIGENCE_MAP[key].description.slice(0, 100) })), null, 2)}
-|
+
             Directives:
             1. Speak with precision, authority, and empathy. You are a doctoral-level advisor.
             2. Prioritize "Instructional Agency"—returning time and choices to educators.
             3. Use terminology aligned with Alabama State Department of Education (ALSDE).
             4. If asked about compliance, cite FERPA and specific AL Acts (Literacy, Numeracy, RAISE).
             5. INTELLIGENCE FUSION: If the user's request aligns with an existing platform feature (listed above), proactively include a Protocol Token at the END of your response in the format: [PROTOCOL: ID]. Replace ID with the exact key from the feature list.
-            6. CONTEXTUAL TRANSITIONS: You can optionally include a JSON payload within the token to pass context, e.g., [PROTOCOL: IEP Architect {"student": "John Doe", "focus": "Social Skills"}]. Only include payloads if you have specific student names or goals from the conversation.
-            7. Keep responses concise (under 3 sentences unless asked for a deep dive).`,
+            6. CONTEXTUAL TRANSITIONS: You can optionally include a JSON payload within the token to pass context, v.g., [PROTOCOL: IEP Architect {"student": "John Doe", "focus": "Social Skills"}]. Only include payloads if you have specific student names or goals from the conversation.
+            7. GROUNDED CITATION: If you used information from the 'GROUNDED INSTITUTIONAL CONTEXT' provided, you MUST append a Source Token at the absolute END of your response in the format: [SOURCES: ${JSON.stringify(ragSources.map(s => s.title))}]. Only include this if you actually used the vault context.
+            8. Keep responses concise (under 3 sentences unless asked for a deep dive).`,
             messages,
             onFinish: async (event) => {
                 // Log Assistant Response to BigQuery via Proxy API
@@ -70,7 +76,8 @@ export async function POST(req: Request) {
                     timestamp: new Date().toISOString(),
                     metadata: {
                         latencyMs: Date.now() - start,
-                        finishReason: event.finishReason
+                        finishReason: event.finishReason,
+                        sources: ragSources.length
                     }
                 });
             },

@@ -1,8 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Users, HeartPulse, BrainCircuit, Activity, ShieldCheck, Zap } from 'lucide-react';
+import { Users, BrainCircuit, Activity, ShieldCheck, Zap } from 'lucide-react';
 import PersonnelPulse from '@/components/ui/PersonnelPulse';
 import LeadershipIntelligence from '@/components/ui/LeadershipIntelligence';
 import LeadershipMetrics from '@/components/dossier/ProfessionalMetrics';

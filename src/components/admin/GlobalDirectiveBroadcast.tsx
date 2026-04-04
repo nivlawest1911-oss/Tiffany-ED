@@ -4,12 +4,12 @@ import { motion } from 'framer-motion';
 import { Send, Zap, ShieldCheck, AlertCircle, RefreshCw } from 'lucide-react';
 import { GlassCard } from '@/components/ui/Cinematic';
 import { CollectiveLearningEngine, GlobalDirective } from '@/lib/CollectiveLearningEngine';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const engine = CollectiveLearningEngine.getInstance();
 
 export function GlobalDirectiveBroadcast() {
-    const [directives, setDirectives] = useState<GlobalDirective[]>(engine.getActiveDirectives());
+    const [directives] = useState<GlobalDirective[]>(engine.getActiveDirectives());
     const [isBroadcasting, setIsBroadcasting] = useState(false);
 
     const handleBroadcast = () => {
@@ -89,7 +89,7 @@ export function GlobalDirectiveBroadcast() {
                     </div>
                 </div>
 
-                {directives.map((dir, i) => (
+                {directives.map((dir) => (
                     <div key={dir.id} className="p-4 rounded-xl border border-white/5 bg-white/[0.02] group hover:bg-white/[0.04] transition-all relative overflow-hidden">
                         <div className="flex items-start justify-between mb-3 relative z-10">
                             <div className="flex flex-col gap-1">

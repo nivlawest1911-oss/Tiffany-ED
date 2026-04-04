@@ -158,6 +158,7 @@ export function HeroSection() {
                   href="https://www.linkedin.com/in/dr-alvin-west-ii-dba-pd-m-58133519/"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="LinkedIn profile of Dr. Alvin West II"
                   className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-gray-400 hover:text-[#00d2ff] transition-colors"
                 >
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">

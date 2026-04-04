@@ -37,12 +37,16 @@ export default function LoginClient() {
         }
     }, [user, isLoading, router]);
 
-    // 🏛️ EdIntel Enrollment Fields
     const [signupData, setSignupData] = useState({
         name: '',
         schoolSite: '',
         tierName: 'Sovereign Initiate'
     });
+
+    const [isMobile, setIsMobile] = useState(false);
+    useEffect(() => {
+        setIsMobile(window.innerWidth < 768);
+    }, []);
 
     // Initialize Sovereign Supabase Client safely - only if env vars are present
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
@@ -208,7 +212,7 @@ export default function LoginClient() {
                 {/* Cinematic Dark Background */}
                 <div className="absolute inset-0 z-0">
                     <div className="absolute inset-0 bg-[#020617] bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.1),rgba(255,255,255,0))]" />
-                    <ParticleBackground count={12} color="bg-[#FFB300]/20" />
+                    <ParticleBackground count={isMobile ? 4 : 12} color="bg-[#FFB300]/20" />
                     {/* Soft Glow Orbs */}
                     <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(255,179,0,0.08)_0%,transparent_70%)] rounded-full opacity-60 animate-pulse pointer-events-none" />
                     <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(0,176,255,0.08)_0%,transparent_70%)] rounded-full opacity-60 animate-pulse delay-1000 pointer-events-none" />

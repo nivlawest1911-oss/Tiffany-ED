@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Cpu, Activity, AlertTriangle, CheckCircle, Clock } from 'lucide-react';
+import { Cpu, Activity, CheckCircle, Clock } from 'lucide-react';
 import { GlassCard } from '@/components/ui/Cinematic';
 
 const AGENTS = [

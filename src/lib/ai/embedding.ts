@@ -4,7 +4,7 @@ import { google } from '@ai-sdk/google';
 /**
  * Generates a vector embedding for the given text.
  * Default model: text-embedding-004 (Google Vertex AI / Gemini)
- * Dimensions: 1536 (matching the Prisma Unsupported("vector(1536)") schema)
+ * Dimensions: 768 (matching the Supabase Vector Type)
  */
 export async function generateEmbedding(text: string): Promise<number[]> {
     try {

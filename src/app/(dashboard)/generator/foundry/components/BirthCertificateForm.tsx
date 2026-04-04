@@ -17,6 +17,7 @@ const BirthCertificate = dynamic(() => import('./BirthCertificate').then(mod => 
 });
 import { toast } from 'sonner';
 import { Loader2, Plus, Sparkles, Wand2 } from 'lucide-react';
+import { VaultUploader } from './VaultUploader';
 // Fonts are now centralized in layout.tsx via CSS variables.
 // Use 'font-orbitron' and 'font-outfit' Tailwind classes.
 
@@ -31,6 +32,7 @@ export const BirthCertificateForm = () => {
     const [certificate, setCertificate] = useState<CompanionCertificate | null>(null);
     const [step, setStep] = useState(1);
     const [isMounted, setIsMounted] = useState(false);
+    const [companionId] = useState(() => crypto.randomUUID());
 
     React.useEffect(() => {
         setIsMounted(true);
@@ -70,6 +72,7 @@ export const BirthCertificateForm = () => {
 
     const generateMasterPrompt = () => {
         return `
+            System: You are 'Sidekick,' the EdIntel AI Orchestrator.
             ACT AS: ${formData.role} 
             IDENTITY: ${formData.name}
             MISSION: ${formData.mission}
@@ -78,17 +81,18 @@ export const BirthCertificateForm = () => {
             TIER: ${formData.tier}
             
             UNIFIED STRATEGIC DIRECTIVE:
-            1. Respond with the authority and clinical precision of a EdIntel Chief Strategist.
-            2. Adhere strictly to Alabama SB 216 and SB 171 mandates.
-            3. Prioritize high-fidelity pedagogical scaffolds over generic assistance.
-            4. Never break character. You are the Sovereign Architect.
+            1. Respond with high intelligence and empathetic collaboration.
+            2. Adhere strictly to Alabama State Standards and Administrative Code mandates.
+            3. FERPA compliance is mandatory. Never hallucinate student data.
+            4. Prioritize clarity and conciseness for busy educators.
+            5. Always cite local school policy when grounded in specific data.
         `.trim();
     };
 
     const handleSubmit = async () => {
         setIsGenerating(true);
         const newCertificate: CompanionCertificate = {
-            id: crypto.randomUUID(),
+            id: companionId,
             name: formData.name,
             role: formData.role,
             tier: formData.tier,
@@ -102,9 +106,15 @@ export const BirthCertificateForm = () => {
             avatarId: formData.avatarId,
             masterSystemPrompt: generateMasterPrompt(),
             districtId: 'MOBILE_COUNTY_AL', // Default for now
-            creatorId: user?.id || 'anonymous',
+            creatorId: user?.id || '', // Must be a valid UUID from Supabase Auth
             createdAt: new Date().toISOString()
         };
+
+        if (!user) {
+            toast.error('Authentication Required: Please sign in to birth a companion.');
+            setIsGenerating(false);
+            return;
+        }
 
         try {
             const result = await issueBirthCertificate(newCertificate);
@@ -115,7 +125,7 @@ export const BirthCertificateForm = () => {
             } else {
                 toast.error('Synthesis Interrupted: Supabase Sync Failed.');
             }
-        } catch (error) {
+        } catch (_error) {
             toast.error('Critical Neural Failure.');
         } finally {
             setIsGenerating(false);
@@ -316,13 +326,26 @@ export const BirthCertificateForm = () => {
                                 </div>
                             </div>
 
+                            {/* 🧠 Knowledge Vault Integration */}
+                            <div className="pt-8 border-t border-[#c5a47e]/10">
+                                <VaultUploader 
+                                    companionId={companionId} 
+                                    onUploadComplete={() => toast.success('Institutional knowledge indexed.')}
+                                />
+                                <p className="text-[9px] text-[#c5a47e]/40 mt-3 uppercase tracking-widest text-center">
+                                    Knowledge Ingested here anchors the AI context in the Sovereign Vault.
+                                </p>
+                            </div>
+
                             <div className="pt-8 border-t border-[#c5a47e]/10">
                                 <SovereignButton 
                                     className="w-full flex items-center justify-center gap-3" 
                                     onClick={handleSubmit}
-                                    disabled={isGenerating || !formData.mission}
+                                    disabled={isGenerating || !formData.mission || !user}
                                 >
-                                    {isGenerating ? (
+                                    {!user ? (
+                                        "Authenticate to Birth Companion"
+                                    ) : isGenerating ? (
                                         <>
                                             <Loader2 className="animate-spin" size={18} />
                                             Establish Neural Link...

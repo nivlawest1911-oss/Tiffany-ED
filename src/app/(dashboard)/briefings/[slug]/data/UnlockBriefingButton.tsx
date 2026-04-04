@@ -20,7 +20,7 @@ export default function UnlockBriefingButton({ slug }: { slug: string }) {
             } else {
                 toast.error('Unlock Failed', { description: result.error, id: toastId });
             }
-        } catch (error: any) {
+        } catch (_error: any) {
             toast.error('Tactical Error', { description: 'Network synchronization failed.', id: toastId });
         } finally {
             setIsLoading(false);

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef, Suspense, startTransition } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring, Variants, LazyMotion, domAnimation, useInView } from 'framer-motion';
-import { ArrowRight, Cpu, Zap, Shield, Brain, Globe, Terminal, Mic, Clock, LayoutGrid, Activity } from 'lucide-react';
+import { ArrowRight, Cpu, Zap, Shield, Brain, Globe, Terminal, Mic, Clock, LayoutGrid } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -245,6 +245,7 @@ function InteractiveTerminal({ onCommand }: { onCommand: (cmd: string) => void }
 export default function ModernHomePage() {
     const [isMounted, setMounted] = useState(false);
     const [booted, setBooted] = useState(false);
+    const [isLowPowerMode, setIsLowPowerMode] = useState(false);
     const [showCinematicIntro, setShowCinematicIntro] = useState(true);
     const [activeAgentIndex, setActiveAgentIndex] = useState(0);
     const [agentMessage, setAgentMessage] = useState<string | null>(null);
@@ -253,6 +254,15 @@ export default function ModernHomePage() {
     const router = useRouter();
     const { user } = useAuth();
     const isSignedIn = !!user;
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        
+        // Detect mobile or reduced motion preference
+        const isMobile = window.innerWidth < 768;
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        setIsLowPowerMode(isMobile || prefersReducedMotion);
+    }, []);
 
     useEffect(() => {
         // Check for first-time visitor (only on client)
@@ -408,10 +418,13 @@ export default function ModernHomePage() {
                 </AnimatePresence>
 
                 {/* CONSOLIDATED BACKGROUND ARCHITECTURE (Phase 14 Optimization) */}
-                {isMounted && booted && (
+                {isMounted && booted && !isLowPowerMode && (
                     <Suspense fallback={null}>
                         <SovereignBackground type={isSystemThinking ? 'holographic' : 'neural'} />
                     </Suspense>
+                )}
+                {isMounted && booted && isLowPowerMode && (
+                    <div className="fixed inset-0 -z-20 bg-gradient-to-b from-slate-950 to-black opacity-50" />
                 )}
 
                 {booted && (
@@ -492,7 +505,7 @@ export default function ModernHomePage() {
                                          {/* Neural Metric Grid - NEW Addictive Element */}
                                          <VisualDefer height="150px">
                                              <div className="mt-12 grid grid-cols-2 md:grid-cols-3 gap-6">
-                                                 {[
+                                                 {React.useMemo(() => [
                                                      { label: 'Neural Throughput', value: '4.2 TB/s', icon: Zap, color: 'text-cyan-400' },
                                                      { label: 'Strategic Accuracy', value: '99.98%', icon: Brain, color: 'text-indigo-400' },
                                                      { label: 'Labor Hours Saved', value: '14,204+', icon: Clock, color: 'text-emerald-400' },
@@ -506,7 +519,7 @@ export default function ModernHomePage() {
                                                          <div className="text-xl font-black text-white italic">{stat.value}</div>
                                                          <div className="text-[8px] text-zinc-500 uppercase font-black tracking-widest">{stat.label}</div>
                                                      </motion.div>
-                                                 ))}
+                                                 )), [])}
                                              </div>
                                          </VisualDefer>
 
@@ -562,7 +575,7 @@ export default function ModernHomePage() {
                                             transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
                                         >
                                             {/* Reduced redundant instances for performance (Phase 14) */}
-                                            {CORE_AVATARS.slice(0, 8).concat(CORE_AVATARS.slice(0, 8)).map((agent, i) => (
+                                            {CORE_AVATARS.slice(0, isLowPowerMode ? 4 : 8).concat(CORE_AVATARS.slice(0, isLowPowerMode ? 4 : 8)).map((agent, i) => (
                                                 <div key={i} className="w-[200px] h-[280px] sm:w-[260px] sm:h-[360px] md:w-[300px] md:h-[400px] rounded-3xl overflow-hidden relative border border-white/10 group bg-zinc-900 shadow-2xl flex-shrink-0">
                                                     <HumanAvatar
                                                         src={agent.avatar}

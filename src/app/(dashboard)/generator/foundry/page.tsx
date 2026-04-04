@@ -1,6 +1,6 @@
 import { BirthCertificateForm } from './components/BirthCertificateForm';
 import { Metadata } from 'next';
-import { VisualDefer } from '@/components/shared/VisualDefer';
+import VisualDefer from '@/components/shared/VisualDefer';
 
 export const metadata: Metadata = {
     title: 'EdIntel Foundry | Birth Certificate System',

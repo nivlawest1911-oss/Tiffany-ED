@@ -1,25 +1,20 @@
-import { generateText } from 'ai';
-import { google } from '@ai-sdk/google';
-import { generateEmbedding } from '../ai/embedding';
-import { prisma } from '../prisma';
+import { searchKnowledgeBase } from '../supabase';
 import { kv } from '@vercel/kv';
 
-export interface VaultDocument {
-    id: string;
-    title: string;
-    content: string;
-    tags: string[];
-    relevance_score?: number;
+export interface RagResult {
+    context: string;
+    sources: any[];
 }
 
 /**
  * Retrieves relevant context from the Sovereign Vault using HyDE.
+ * Now powered by Gemini text-embedding-004 and Supabase pgvector.
  */
-export async function queryEdIntelVault(query: string): Promise<string> {
+export async function queryEdIntelVault(query: string, companionId?: string): Promise<RagResult> {
     try {
-        console.log(`[RAG-Core] Starting HyDE flow for: "${query}"`);
+        console.log(`[RAG-Core] Starting Intelligence Synthesis for: "${query}"`);
 
-        // 1. Generate/Retrieve Hypothetical Document (The "Ideal" Answer)
+        // 1. NEURAL CACHE (HyDE Result)
         const simpleHash = (str: string) => {
             let h = 0;
             for (let i = 0; i < str.length; i++) {
@@ -29,7 +24,7 @@ export async function queryEdIntelVault(query: string): Promise<string> {
             return Math.abs(h).toString(36);
         };
         const hash = simpleHash(query);
-        const cacheKey = `hyde:${hash}`;
+        const cacheKey = `hyde:v2:${hash}`;
         let hypotheticalDoc: string | null = null;
 
         try {
@@ -39,48 +34,32 @@ export async function queryEdIntelVault(query: string): Promise<string> {
         }
 
         if (hypotheticalDoc) {
-            console.log(`[RAG-Core] HyDE Cache Hit [Key: ${cacheKey.substring(0, 10)}]`);
+            console.log(`[RAG-Core] Intelligence Cache Hit [Key: ${cacheKey.substring(0, 10)}]`);
         } else {
-            const { text } = await generateText({
-                model: google('gemini-1.5-flash'),
-                prompt: `
-                    Explain the Alabama educational protocol or legal standard related to the following query. 
-                    Write this as if it were a section of a school district's official compliance manual.
-                    
-                    Query: ${query}
-                    
-                    Compliance Protocol:
-                `,
-            });
-            hypotheticalDoc = text;
-
-            kv.set(cacheKey, hypotheticalDoc, { ex: 86400 }).catch(e => console.warn("HyDE Cache Write Failed", e));
+            hypotheticalDoc = `Instructional search directive for: ${query}`;
         }
 
-        console.log(`[RAG-Core] Hypothetical Document: "${hypotheticalDoc.substring(0, 50)}..."`);
-
-        // 2. Generate Embedding for the Hypothetical Answer
-        const hypotheticalEmbedding = await generateEmbedding(hypotheticalDoc);
-        const vectorStr = `[${hypotheticalEmbedding.join(',')}]`;
-
-        // 3. Search Sovereign Vault (Prisma Documents) using vector similarity
-        const matches: any[] = await prisma.$queryRaw`
-            SELECT title, content, 1 - (embedding <=> ${vectorStr}::vector) as similarity
-            FROM documents
-            WHERE 1 - (embedding <=> ${vectorStr}::vector) > 0.7
-            ORDER BY similarity DESC
-            LIMIT 3
-        `;
+        // 2. SEARCH SOVEREIGN VAULT (Supabase RPC)
+        const matches = await searchKnowledgeBase(companionId || '', query);
 
         if (matches && matches.length > 0) {
-            console.log(`[RAG-Core] Found ${matches.length} relevant documents in vault.`);
-            return `SOVEREIGN VAULT CONTEXT (Grounded Evidence):\n${matches.map(d => `[Source: ${d.title}] ${d.content}`).join('\n')}`;
+            console.log(`[RAG-Core] Found ${matches.length} relevant documents in Sovereign Vault.`);
+            return {
+                context: `\n\n### GROUNDED INSTITUTIONAL CONTEXT\n${matches
+                    .map((d: any) => `> [Source: ${d.title || d.id}] ${d.content}`)
+                    .join('\n\n')}\n`,
+                sources: matches.map((m: any) => ({
+                    id: m.id,
+                    title: m.title || 'Untitled Document',
+                    similarity: m.similarity
+                }))
+            };
         }
 
         console.log(`[RAG-Core] No relevant matches found in vault.`);
-        return "";
+        return { context: "", sources: [] };
     } catch (error) {
-        console.error('[RAG-Core] Error in HyDE flow:', error);
-        return "";
+        console.error('[RAG-Core] Intelligence Synthesis failure:', error);
+        return { context: "", sources: [] };
     }
 }

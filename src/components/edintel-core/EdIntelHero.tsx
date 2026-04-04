@@ -134,7 +134,6 @@ function HolographicVariant({ activeAgent, agents, message }: { activeAgent: num
 
 function CinematicVariant() {
     // Default Cinematic Variant (Consolidated Hero + UnusualHero)
-    const [mounted, setMounted] = useState(false);
     const cardRef = useRef<HTMLDivElement>(null)
     const pixelGridRef = useRef<HTMLDivElement>(null)
     const tagsRef = useRef<HTMLDivElement>(null)
@@ -143,7 +142,6 @@ function CinematicVariant() {
     const [showBriefing, setShowBriefing] = useState(false);
 
     useEffect(() => {
-        setMounted(true);
         const tagsElement = tagsRef.current
         const cursorElement = customCursorRef.current
 
@@ -325,7 +323,6 @@ function CinematicVariant() {
                                 <source src="/videos/edintel_ad_strategic_engine.mp4" type="video/mp4" />
                             </video>
                         </div>
-                    )}
 
                     <div className="pointer-events-none absolute inset-0">
                         <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/80 via-transparent to-zinc-950" />

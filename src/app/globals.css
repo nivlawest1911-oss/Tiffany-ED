@@ -139,8 +139,9 @@
 
 .glass-panel {
     background: rgba(2, 6, 23, 0.65);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    backdrop-filter: blur(12px) saturate(180%);
+    will-change: transform, opacity;
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow:
         0 4px 6px -1px rgba(0, 0, 0, 0.1),
@@ -161,8 +162,9 @@
 
 .glass-panel-premium {
     background: linear-gradient(145deg, rgba(2, 6, 23, 0.8) 0%, rgba(15, 23, 42, 0.6) 100%);
-    -webkit-backdrop-filter: blur(40px) saturate(200%);
-    backdrop-filter: blur(40px) saturate(200%);
+    -webkit-backdrop-filter: blur(16px) saturate(200%);
+    backdrop-filter: blur(16px) saturate(200%);
+    will-change: transform;
     border: 1px solid rgba(197, 164, 126, 0.15);
     box-shadow:
         0 0 20px rgba(0, 0, 0, 0.5),
@@ -171,8 +173,8 @@
 
 .glass-panel-light {
     background: rgba(255, 255, 255, 0.4);
-    -webkit-backdrop-filter: blur(40px) saturate(150%);
-    backdrop-filter: blur(40px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    backdrop-filter: blur(16px) saturate(150%);
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow:
         0 8px 32px 0 rgba(31, 38, 135, 0.1),
@@ -301,7 +303,8 @@
     background-size: 100% 4px;
     pointer-events: none;
     z-index: 50;
-    opacity: 0.15;
+    opacity: 0.1;
+    will-change: background-position;
 }
 
 .animate-scan {
@@ -770,8 +773,9 @@
         rgba(255, 255, 255, 0.05) 50%,
         rgba(0, 229, 255, 0.05) 100%
     );
-    -webkit-backdrop-filter: blur(40px) saturate(180%);
-    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    backdrop-filter: blur(16px) saturate(180%);
+    will-change: transform;
     border: 1px solid rgba(255, 255, 255, 0.15);
     box-shadow: 
         0 8px 32px rgba(0, 0, 0, 0.3),
@@ -798,6 +802,47 @@
 
 .neon-text-gold {
     text-shadow: 
+        0 0 5px rgba(255, 179, 0, 0.5);
+}
+
+/* 📱 MOBILE PERFORMANCE OVERRIDES */
+@media (max-width: 768px) {
+    .glass-panel,
+    .glass-panel-premium,
+    .glass-panel-light,
+    .fluid-glass,
+    .backdrop-blur-sm,
+    .backdrop-blur-md,
+    .backdrop-blur-lg,
+    .backdrop-blur-xl {
+        -webkit-backdrop-filter: blur(4px) !important;
+        backdrop-filter: blur(4px) !important;
+    }
+
+    .animate-aurora-1,
+    .animate-aurora-2,
+    .animate-aurora-3,
+    .animate-scan,
+    .animate-scanline,
+    .animate-marquee,
+    .animate-tilt {
+        animation-duration: 60s !important; /* Slow down hardware-intensive animations */
+    }
+
+    .scanline,
+    .holographic-shimmer::after {
+        display: none !important; /* Disable non-critical effects */
+    }
+
+    .gpu-accelerated {
+        transform: none !important; /* Excessive GPU layers can hurt mobile scroll */
+        will-change: auto !important;
+    }
+}
+
+.neon-text-gold {
+    text-shadow: 
+        0 0 5px rgba(255, 179, 0, 0.5),
         0 0 10px #FFB300,
         0 0 20px #FFB300,
         0 0 40px rgba(255, 179, 0, 0.5);

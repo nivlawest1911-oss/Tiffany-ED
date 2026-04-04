@@ -206,7 +206,7 @@ export function AIGeneratorsHub({ initialGeneratorId }: { initialGeneratorId?: s
             </div>
           </div>
 
-          <div className="space-y-3 max-h-[600px] overflow-y-auto custom-scrollbar pr-2">
+          <div className="space-y-3 max-h-[600px] overflow-y-auto custom-scrollbar pr-2 content-visibility-auto">
             {generators.map((gen) => {
               const Icon = gen.icon
               const isActive = activeGenerator.id === gen.id;

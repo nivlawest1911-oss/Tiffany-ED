@@ -1,0 +1,123 @@
+﻿node.exe : npm warn Unknown 
+project config 
+"strict-peer-dependencies". This 
+will stop working in the next 
+major version of npm.
+At line:1 char:1
++ & "C:\nvm4w\nodejs/node.exe" "C
+:\nvm4w\nodejs/node_modules/npm/b
+in/np ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo          : No 
+   tSpecified: (npm warn Unknow  
+  ...version of npm.:String) [   
+ ], RemoteException
+    + FullyQualifiedErrorId : Na 
+   tiveCommandError
+ 
+npm warn Unknown project config 
+"auto-install-peers". This will 
+stop working in the next major 
+version of npm.
+npm warn using --force 
+Recommended protections disabled.
+
+./src/app/(dashboard)/(ops)/welln
+ess/WellnessClient.tsx
+286:41  Warning: Using `<img>` 
+could result in slower LCP and 
+higher bandwidth. Consider using 
+`<Image />` from `next/image` or 
+a custom image loader to 
+automatically optimize images. 
+This may incur additional usage 
+or cost from your provider. See: 
+https://nextjs.org/docs/messages/
+no-img-element  
+@next/next/no-img-element
+
+./src/components/auth/ExecutiveGu
+ard.tsx
+7:15  Error: 'ShieldAlert' is 
+defined but never used.  
+unused-imports/no-unused-imports
+
+./src/components/bento/CommunityF
+eed.tsx
+3:71  Error: 'Repeat' is defined 
+but never used.  
+unused-imports/no-unused-imports
+
+./src/components/dossier/Professi
+onalMetrics.tsx
+3:10  Error: 'Activity' is 
+defined but never used.  
+unused-imports/no-unused-imports
+3:53  Error: 'Cpu' is defined 
+but never used.  
+unused-imports/no-unused-imports
+
+./src/components/edintel-core/EdI
+ntelHero.tsx
+328:21  Error: Parsing error: 
+Unexpected token. Did you mean 
+`{'}'}` or `&rbrace;`?
+
+./src/components/intelligence/Swa
+rmGrid.tsx
+9:28  Error: 'DeepIntelligence' 
+is defined but never used.  
+unused-imports/no-unused-imports
+
+./src/components/LeadershipCinema
+tics.tsx
+5:8  Error: 'Image' is defined 
+but never used.  
+unused-imports/no-unused-imports
+6:20  Error: 'useRef' is defined 
+but never used.  
+unused-imports/no-unused-imports
+
+./src/components/LiveAvatarChat.t
+sx
+11:5  Error: 'Share2' is defined 
+but never used.  
+unused-imports/no-unused-imports
+
+./src/components/modern-home-page
+.tsx
+5:88  Error: 'Activity' is 
+defined but never used.  
+unused-imports/no-unused-imports
+522:54  Warning: React Hook 
+React.useMemo has an unnecessary 
+dependency: 'fadeInUp'. Either 
+exclude it or remove the 
+dependency array. Outer scope 
+values like 'fadeInUp' aren't 
+valid dependencies because 
+mutating them doesn't re-render 
+the component.  
+react-hooks/exhaustive-deps
+
+./src/components/ui/LeadershipInt
+elligence.tsx
+3:55  Error: 'ShieldAlert' is 
+defined but never used.  
+unused-imports/no-unused-imports
+
+./src/lib/swarm-intelligence.ts
+1:10  Error: 'INTELLIGENCE_MAP' 
+is defined but never used.  
+unused-imports/no-unused-imports
+1:28  Error: 'DeepIntelligence' 
+is defined but never used.  
+unused-imports/no-unused-imports
+
+info  - Need to disable some 
+ESLint rules? Learn more here: ht
+tps://nextjs.org/docs/app/api-ref
+erence/config/eslint#disabling-ru
+les

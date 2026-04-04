@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Shield, Activity, Zap, Cpu, Users, Globe, Lock, Brain } from 'lucide-react';
+import { Shield, Activity, Cpu, Users, Globe } from 'lucide-react';
 import { GlassCard } from '@/components/ui/Cinematic';
 import { SmartHover } from '@/components/ui/SmartHover';
 import { HolographicBackground } from '@/components/ui/HolographicBackground';
