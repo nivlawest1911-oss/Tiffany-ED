@@ -41,6 +41,8 @@ export const ExecutiveGuard = ({ children, requiredTier }: { children: React.Rea
 
     // 1. High-Performance Glassmorphism Loader
     // CWV OPTIMIZATION: Uses pure SVG and static CSS to ensure fast FCP and low TBT.
+    // --- Render Logic ---
+
     if (isLoading) {
         return (
             <div className={`fixed inset-0 z-[100] flex flex-col items-center justify-center ${isRescueOneActive ? 'bg-black' : 'bg-[#050505]'} overflow-hidden ${isRescueOneActive ? 'rescue-one-overdrive' : ''}`}>
@@ -83,7 +85,6 @@ export const ExecutiveGuard = ({ children, requiredTier }: { children: React.Rea
         );
     }
 
-    // 2. Redirect/Unauthorized State
     if (!user) {
         return (
             <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#050505]">

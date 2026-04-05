@@ -214,15 +214,15 @@ export default function LoginClient() {
                     <div className="absolute inset-0 bg-[#020617] bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.1),rgba(255,255,255,0))]" />
                     <ParticleBackground count={isMobile ? 4 : 12} color="bg-[#FFB300]/20" />
                     {/* Soft Glow Orbs */}
-                    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(255,179,0,0.08)_0%,transparent_70%)] rounded-full opacity-60 animate-pulse pointer-events-none" />
-                    <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(0,176,255,0.08)_0%,transparent_70%)] rounded-full opacity-60 animate-pulse delay-1000 pointer-events-none" />
+                    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(255,179,0,0.08)_0%,transparent_70%)] rounded-full opacity-60 md:animate-pulse pointer-events-none" />
+                    <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(0,176,255,0.08)_0%,transparent_70%)] rounded-full opacity-60 md:animate-pulse delay-1000 pointer-events-none" />
                 </div>
 
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95, y: 20 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="w-full max-w-[1100px] grid grid-cols-1 lg:grid-cols-2 bg-black/40 backdrop-blur-md rounded-[3rem] border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative z-10 overflow-hidden"
+                    className="w-full max-w-[1100px] grid grid-cols-1 lg:grid-cols-2 bg-[#020617]/95 md:bg-black/40 md:backdrop-blur-md rounded-[3rem] border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative z-10 overflow-hidden"
                 >
                     {/* LEFT PANEL: VISUAL IDENTITY */}
                     <div className="hidden lg:flex flex-col items-center justify-center p-12 relative bg-gradient-to-br from-white/5 to-white/0 border-r border-white/10 overflow-hidden">

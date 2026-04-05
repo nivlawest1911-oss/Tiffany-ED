@@ -255,6 +255,12 @@ export default function ModernHomePage() {
     const { user } = useAuth();
     const isSignedIn = !!user;
 
+    const stats = React.useMemo(() => [
+        { label: 'Neural Throughput', value: '4.2 TB/s', icon: Zap, color: 'text-cyan-400' },
+        { label: 'Strategic Accuracy', value: '99.98%', icon: Brain, color: 'text-indigo-400' },
+        { label: 'Labor Hours Saved', value: '14,204+', icon: Clock, color: 'text-emerald-400' },
+    ], []);
+
     useEffect(() => {
         if (typeof window === 'undefined') return;
         
@@ -505,11 +511,7 @@ export default function ModernHomePage() {
                                          {/* Neural Metric Grid - NEW Addictive Element */}
                                          <VisualDefer height="150px">
                                              <div className="mt-12 grid grid-cols-2 md:grid-cols-3 gap-6">
-                                                 {React.useMemo(() => [
-                                                     { label: 'Neural Throughput', value: '4.2 TB/s', icon: Zap, color: 'text-cyan-400' },
-                                                     { label: 'Strategic Accuracy', value: '99.98%', icon: Brain, color: 'text-indigo-400' },
-                                                     { label: 'Labor Hours Saved', value: '14,204+', icon: Clock, color: 'text-emerald-400' },
-                                                 ].map((stat, i) => (
+                                                 {stats.map((stat, i) => (
                                                      <motion.div
                                                          key={i}
                                                          variants={fadeInUp}
@@ -519,7 +521,7 @@ export default function ModernHomePage() {
                                                          <div className="text-xl font-black text-white italic">{stat.value}</div>
                                                          <div className="text-[8px] text-zinc-500 uppercase font-black tracking-widest">{stat.label}</div>
                                                      </motion.div>
-                                                 )), [])}
+                                                 ))}
                                              </div>
                                          </VisualDefer>
 

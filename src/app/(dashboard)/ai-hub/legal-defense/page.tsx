@@ -1,5 +1,5 @@
-import { AIGeneratorsHub } from '@/components/ai-generators-hub';
 import { Metadata } from 'next';
+import { ClientAIGeneratorsHub } from './ClientAIGeneratorsHub';
 
 export const metadata: Metadata = {
     title: 'Legal Defense Sentinel | EdIntel Sovereign',
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function LegalDefensePage() {
     return (
         <main className="min-h-screen bg-black pt-20">
-            <AIGeneratorsHub initialGeneratorId="policy-advisor" />
+            <ClientAIGeneratorsHub initialGeneratorId="policy-advisor" />
         </main>
     );
 }

@@ -2,6 +2,7 @@ import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { streamText } from 'ai';
 import { INTELLIGENCE_MAP } from '@/lib/intelligence-engine';
 import { queryEdIntelVault } from '@/lib/rag/rag-core';
+import { getBirthCertificate } from '@/lib/supabase';
 
 // BigQuery logic moved to proxy API to prevent SDK leakage
 export const runtime = 'nodejs';
@@ -47,11 +48,27 @@ export async function POST(req: Request) {
             timestamp: new Date().toISOString(),
         });
 
-        // 4. Execute Stream with AI SDK (Gemini)
+        // 4. Fetch Companion Identity if companionId is provided
+        let avatarName = 'Tier-1 EdIntel Delegate';
+        let avatarRole = 'Strategic Doctoral Advisor';
+        let customSystemPrompt = '';
+
+        if (companionId) {
+            const certificate = await getBirthCertificate(companionId);
+            if (certificate) {
+                avatarName = certificate.name;
+                avatarRole = certificate.role;
+                customSystemPrompt = certificate.masterSystemPrompt;
+            }
+        }
+
+        // 5. Execute Stream with AI SDK (Gemini)
         const result = await streamText({
             model: google('gemini-1.5-pro'),
-            system: `You are a Tier-1 EdIntel Delegate for EdIntel. 
-            Context: ${protocolContext || 'General Executive Assistance'}
+            system: `You are ${avatarName}, an elite EdIntel Companion serving in the role of ${avatarRole}. 
+            
+            ${customSystemPrompt ? `CORE IDENTITY PROTOCOL:\n${customSystemPrompt}` : `Context: ${protocolContext || 'General Executive Assistance'}`}
+            
             ${ragContext}
             
             Platform Features & Specialized Intelligence Nodes:

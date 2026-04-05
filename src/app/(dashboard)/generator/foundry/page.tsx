@@ -18,11 +18,11 @@ export default function FoundryPage() {
             {/* 🏗️ FOUNDRY AMBIANCE - PERFORMANCE OPTIMIZED (Phase 24.1) */}
             <div className="fixed inset-0 pointer-events-none overflow-hidden content-visibility-auto">
                 <div 
-                    className="absolute inset-0 opacity-20 gpu-accelerated"
+                    className="absolute inset-0 opacity-20 transform-gpu"
                     style={{
                         background: `radial-gradient(circle at 20% 30%, #c5a47e 0%, transparent 40%),
                                      radial-gradient(circle at 80% 70%, #10b981 0%, transparent 40%)`,
-                        filter: 'blur(20px)', // Drastically reduced for performance
+                        willChange: 'transform, opacity',
                         animation: 'drift1 20s infinite alternate ease-in-out'
                     }}
                 />
