@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useState, useMemo } from "react"
 import { motion } from "framer-motion"
 import {
   FileText,
@@ -175,6 +175,49 @@ export function AIGeneratorsHub({ initialGeneratorId }: { initialGeneratorId?: s
     }
   }
 
+  const memoizedGenerators = useMemo(() => generators.map((gen) => {
+    const Icon = gen.icon
+    const isActive = activeGenerator.id === gen.id;
+    return (
+      <button
+        key={gen.id}
+        onClick={() => {
+          setActiveGenerator(gen)
+          setResponse("")
+          setPrompt("")
+        }}
+        className={`w-full p-4 rounded-2xl text-left transition-all duration-300 relative overflow-hidden group border
+                  ${isActive
+            ? "bg-noble-gold/10 border-noble-gold/40 shadow-[0_0_30px_rgba(212,175,55,0.1)]"
+            : "bg-white/[0.02] border-white/5 hover:bg-white/[0.05] hover:border-white/10"
+          }`}
+      >
+        {isActive && (
+          <motion.div
+            layoutId="active-glow"
+            className="absolute inset-0 bg-gradient-to-r from-noble-gold/10 to-transparent opacity-20"
+          />
+        )}
+
+        <div className="relative z-10 flex items-center gap-4">
+          <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-500
+                      ${isActive ? 'bg-black text-noble-gold border border-noble-gold/30' : 'bg-white/5 text-white/20 group-hover:text-white/60'}`}>
+            <Icon className="w-6 h-6" strokeWidth={1.5} />
+          </div>
+
+          <div className="flex-1">
+            <h3 className={`font-black text-sm uppercase tracking-wider transition-colors ${isActive ? 'text-white' : 'text-white/40 group-hover:text-white/80'}`}>
+              {gen.name}
+            </h3>
+            <p className="text-[9px] font-bold text-noble-gold/60 uppercase tracking-wider">{gen.role}</p>
+          </div>
+
+          {isActive && <div className="w-2 h-2 rounded-full bg-noble-gold shadow-[0_0_10px_#D4AF37]" />}
+        </div>
+      </button>
+    )
+  }), [activeGenerator.id]);
+
   return (
     <div id="ai-generators" className="w-full relative overflow-hidden bg-black rounded-b-[3rem]">
 
@@ -207,48 +250,7 @@ export function AIGeneratorsHub({ initialGeneratorId }: { initialGeneratorId?: s
           </div>
 
           <div className="space-y-3 max-h-[600px] overflow-y-auto custom-scrollbar pr-2 content-visibility-auto">
-            {generators.map((gen) => {
-              const Icon = gen.icon
-              const isActive = activeGenerator.id === gen.id;
-              return (
-                <button
-                  key={gen.id}
-                  onClick={() => {
-                    setActiveGenerator(gen)
-                    setResponse("")
-                    setPrompt("")
-                  }}
-                  className={`w-full p-4 rounded-2xl text-left transition-all duration-300 relative overflow-hidden group border
-                            ${isActive
-                      ? "bg-noble-gold/10 border-noble-gold/40 shadow-[0_0_30px_rgba(212,175,55,0.1)]"
-                      : "bg-white/[0.02] border-white/5 hover:bg-white/[0.05] hover:border-white/10"
-                    }`}
-                >
-                  {isActive && (
-                    <motion.div
-                      layoutId="active-glow"
-                      className="absolute inset-0 bg-gradient-to-r from-noble-gold/10 to-transparent opacity-20"
-                    />
-                  )}
-
-                  <div className="relative z-10 flex items-center gap-4">
-                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-500
-                                ${isActive ? 'bg-black text-noble-gold border border-noble-gold/30' : 'bg-white/5 text-white/20 group-hover:text-white/60'}`}>
-                      <Icon className="w-6 h-6" strokeWidth={1.5} />
-                    </div>
-
-                    <div className="flex-1">
-                      <h3 className={`font-black text-sm uppercase tracking-wider transition-colors ${isActive ? 'text-white' : 'text-white/40 group-hover:text-white/80'}`}>
-                        {gen.name}
-                      </h3>
-                      <p className="text-[9px] font-bold text-noble-gold/60 uppercase tracking-wider">{gen.role}</p>
-                    </div>
-
-                    {isActive && <div className="w-2 h-2 rounded-full bg-noble-gold shadow-[0_0_10px_#D4AF37]" />}
-                  </div>
-                </button>
-              )
-            })}
+            {memoizedGenerators}
           </div>
         </div>
 
