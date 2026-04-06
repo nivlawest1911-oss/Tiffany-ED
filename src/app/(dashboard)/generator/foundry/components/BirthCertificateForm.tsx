@@ -33,12 +33,7 @@ export const BirthCertificateForm = () => {
     const [isGenerating, setIsGenerating] = useState(false);
     const [certificate, setCertificate] = useState<CompanionCertificate | null>(null);
     const [step, setStep] = useState(1);
-    const [isMounted, setIsMounted] = useState(false);
     const [companionId] = useState(() => crypto.randomUUID());
-
-    React.useEffect(() => {
-        setIsMounted(true);
-    }, []);
     
     // Form State
     const [formData, setFormData] = useState({
@@ -144,14 +139,9 @@ export const BirthCertificateForm = () => {
     };
 
     return (
-        <div className="max-w-5xl mx-auto py-12 px-4 gpu-accelerated content-visibility-auto">
-            {!isMounted ? (
-                <div className="h-[600px] w-full animate-pulse bg-white/5 rounded-3xl border border-[#c5a47e]/20 flex items-center justify-center">
-                    <p className="text-[10px] font-black text-[#c5a47e] uppercase animate-pulse">Initializing Sovereign Foundry...</p>
-                </div>
-            ) : (
-                <AnimatePresence mode="wait">
-                    {step === 1 && (
+        <div className="max-w-5xl mx-auto py-12 px-4 gpu-accelerated">
+            <AnimatePresence mode="wait">
+                {step === 1 && (
                         <motion.div
                             key="step1"
                             initial={{ opacity: 0, x: -20 }}
@@ -405,7 +395,6 @@ export const BirthCertificateForm = () => {
                         </motion.div>
                     )}
                 </AnimatePresence>
-            )}
         </div>
     );
 };
