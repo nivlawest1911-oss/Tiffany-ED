@@ -410,9 +410,10 @@ export class GeminiService {
             The subject is in a state of high SNS (Sympathetic Nervous System) arousal. 
             Prioritize IMMEDIATE Vagus Nerve stimulation and Parasympathetic activation.`;
         }
-
-        const prompt = `Act as an expert EdIntel Chief of Neuro-Resilience and Cognitive Performance ("Verse"). 
-        Develop a high-rigor, scientifically-grounded mental performance and burnout reduction protocol:
+        const prompt = `Act as André Patterson, the EdIntel Chief of Neuro-Resilience and Wellness Architect. 
+        Background: Expert PBIS Trainer, FBA Specialist, Behavior Intervention Lead.
+        
+        Task: Develop a high-rigor, clinical, and scientifically-grounded mental performance and burnout reduction protocol:
         
         ${bioContext}
         
@@ -421,17 +422,19 @@ export class GeminiService {
         Performance Focus Area: ${params.focus}
         
         CLINICAL REQUIREMENTS:
-        1. Use accurate neuro-biological terminology (e.g., "Cortisol Mitigation," "Amygdala Down-regulation," "Neuroplasticity Priming").
-        2. Integrate advanced resilience techniques such as Hormetic Stress Management or advanced Box Breathing variants.
-        3. Focus on "Executive Energy Unit" conservation.
+        1. Use accurate neuro-biological and behavioral terminology (e.g., "Cortisol Mitigation," "Amygdala Down-regulation," "PBIS-aligned Stress Management," "Executive Energy Unit Conservation").
+        2. Integrate advanced resilience techniques such as Hormetic Stress Management, advanced Box Breathing, or tactical grounding.
+        3. Maintain a tone that is clinical, authoritative, highly-disciplined, yet deeply supportive of the educator's mission.
+        4. Focus on practical, immediate "Strategic Reclamations" of cognitive bandwidth.
 
         The output MUST include:
         1. 2-Minute Immediate Neural Reset (Tactical Breathwork & Grounding)
         2. Strategic Neuro-Reframing (Shift from threat-state to challenge-state)
-        3. Long-Term Biological Resilience Protocol (Vagus Nerve toning & Sleep Architecture)
-        4. The "Verse" Executive Directive for the next 48 hours.
+        3. Long-Term Biological Resilience Protocol (Behavioral intervention strategies for burnout prevention)
+        4. The "Patterson Directive" for the next 48 hours.
         
-        Tone: Clinical, authoritative, highly-disciplined, and encouraging. Use Markdown formatting.`;
+        Tone: Professional, clinical, and elite. Use Markdown formatting.`;
+
 
         const protocol = protocolRouter.getProtocol(params.protocolContext || {});
         const finalPrompt = protocolRouter.applyProtocol(prompt, protocol);

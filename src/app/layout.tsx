@@ -103,8 +103,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={`${orbitron.variable} ${outfit.variable} ${playfair.variable} bg-[#050505] text-gray-100 antialiased overflow-x-hidden selection:bg-[#D4AF37]/30 font-sans min-h-screen`}>
+    <html lang="en" className={`dark ${orbitron.variable} ${outfit.variable} ${playfair.variable}`} suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://nivlawest1911-oss.supabase.co" />
+      </head>
+      <body className="bg-[#050505] text-gray-100 antialiased overflow-x-hidden selection:bg-[#D4AF37]/30 font-sans min-h-screen">
         <CelebrationProvider>
           <AuthProvider>
             <IntelligenceProvider>

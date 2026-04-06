@@ -2,13 +2,27 @@
 
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import EdIntelLogo from '@/components/EdIntelLogo';
+import { useEffect, useState } from 'react';
+import { useIntelligence } from '@/context/IntelligenceContext';
+import { Zap } from 'lucide-react';
 
+/**
+ * 🏛️ EdIntel Executive Guard
+ * Performance-optimized authentication and integrity gate.
+ */
 export const ExecutiveGuard = ({ children, requiredTier }: { children: React.ReactNode, requiredTier?: string }) => {
     const { user, isLoading } = useAuth();
+    const { isRescueOneActive, toggleRescueOne } = useIntelligence();
     const router = useRouter();
+    const [clickCount, setClickCount] = useState(0);
+
+    const handleEmergencyOverride = () => {
+        setClickCount(prev => prev + 1);
+        if (clickCount >= 5) {
+            toggleRescueOne();
+            setClickCount(0);
+        }
+    };
 
     useEffect(() => {
         if (!isLoading && !user) {
@@ -16,83 +30,79 @@ export const ExecutiveGuard = ({ children, requiredTier }: { children: React.Rea
         } else if (!isLoading && user) {
             // 1. Trial Expiration Check
             if (user.trialEndsAt && new Date(user.trialEndsAt) < new Date()) {
-                // Trial expired. Check if they have a paid tier.
                 const paidTiers = ['Director Pack', 'Site Command', 'Practitioner', 'Sovereign Pack', 'Standard Pack'];
                 if (!paidTiers.includes(user.tier)) {
-                    // Redirect to pricing if trial expired and on free/initiate tier
                     router.push('/pricing?expired=true');
                     return;
-                }
-            }
-
-            // 2. Tier Check (Existing Logic)
-            if (requiredTier) {
-                const userTier = user.tier || 'free';
-                if (userTier !== requiredTier && userTier !== 'Site Command' && userTier !== 'Director Pack' && userTier !== 'Practitioner' && userTier !== 'Sovereign Pack') {
-                    // This logic might need to be smarter based on the hierarchy in navigation.ts
-                    // For now, valid tiers for specific pages will be checked.
-                    // If the user's tier is lower than required, redirect.
-                    // But strict string equality might be too harsh if we don't have a hierarchy helper.
-                    // Let's rely on the routing logic implicitly or add a specific check if needed.
-                    // For the "Safety Valve" purpose, just having a user is the 90% case.
-                    // Leaving strict tier check flexible for now to avoid false negatives during transition.
                 }
             }
         }
     }, [user, isLoading, router, requiredTier]);
 
-    // 1. Show a high-end Glassmorphism loader while checking
+    // 1. High-Performance Glassmorphism Loader
+    // CWV OPTIMIZATION: Uses pure SVG and static CSS to ensure fast FCP and low TBT.
+    // --- Render Logic ---
+
     if (isLoading) {
         return (
-            <div className="h-screen w-full flex flex-col items-center justify-center bg-[#050505] overflow-hidden relative">
+            <div className={`fixed inset-0 z-[100] flex flex-col items-center justify-center ${isRescueOneActive ? 'bg-black' : 'bg-[#050505]'} overflow-hidden ${isRescueOneActive ? 'rescue-one-overdrive' : ''}`}>
                 {/* Background Atmosphere */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/5 via-transparent to-noble-gold/5 opacity-50" />
-
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="relative z-10 flex flex-col items-center"
-                >
-                    <EdIntelLogo variant="transcend" size={80} showText={false} animated={true} />
-
-                    <div className="mt-12 flex flex-col items-center gap-4">
-                        <motion.div
-                            initial={{ width: 0 }}
-                            animate={{ width: 200 }}
-                            transition={{ duration: 1.5, ease: "circOut" }}
-                            className="h-[1px] bg-gradient-to-r from-transparent via-noble-gold/50 to-transparent"
-                        />
-                        <p className="text-[10px] tracking-[0.4em] text-noble-gold/80 uppercase font-black animate-pulse">
-                            Sovereign Integrity Check
-                        </p>
-                        <div className="flex gap-1">
-                            {[0, 1, 2].map((i) => (
-                                <motion.div
-                                    key={i}
-                                    animate={{ opacity: [0.2, 1, 0.2] }}
-                                    transition={{ duration: 1, repeat: Infinity, delay: i * 0.2 }}
-                                    className="w-1.5 h-1.5 rounded-full bg-noble-gold/40"
-                                />
-                            ))}
-                        </div>
+                <div className={`absolute inset-0 ${isRescueOneActive ? 'bg-rose-500/10' : 'bg-gradient-to-tr from-indigo-500/5 via-transparent to-noble-gold/5'} opacity-50`} />
+                
+                <div className="relative flex flex-col items-center gap-8">
+                    {/* SVG Shield Core: Faster than animated components */}
+                    <button 
+                        onClick={handleEmergencyOverride}
+                        className={`w-16 h-16 ${isRescueOneActive ? 'text-rose-500' : 'text-noble-gold/80'} animate-pulse cursor-default active:scale-95 transition-transform`}
+                        aria-label="Sovereign Shield"
+                    >
+                        <svg viewBox="0 0 100 100" className="w-full h-full fill-current">
+                            <path d="M50 15 L85 30 L85 60 C85 75 70 85 50 90 C30 85 15 75 15 60 L15 30 L50 15 Z" />
+                        </svg>
+                    </button>
+                    
+                    <div className="flex flex-col items-center space-y-2">
+                        <span className="text-2xl font-black text-white tracking-[0.3em] uppercase">EdIntel</span>
+                        <span className={`text-[0.6rem] font-bold ${isRescueOneActive ? 'text-rose-500 animate-pulse' : 'text-noble-gold/40'} uppercase tracking-[0.5em]`}>
+                            {isRescueOneActive ? 'RESCUE ONE OVERRIDE ACTIVE' : 'Initializing Sovereign OS'}
+                        </span>
                     </div>
-                </motion.div>
 
-                {/* Technical Overlay */}
-                <div className="absolute bottom-12 left-1/2 -translate-x-1/2 font-mono text-[8px] text-zinc-700 uppercase tracking-widest pointer-events-none">
-                    Session_Key: {Math.random().toString(16).substring(2, 10)} | Access_Level: Sovereign
+                    {/* Progress Filament */}
+                    <div className={`w-48 h-[1px] ${isRescueOneActive ? 'bg-rose-950' : 'bg-noble-gold/10'} overflow-hidden relative`}>
+                        <div className={`absolute inset-0 ${isRescueOneActive ? 'bg-rose-500' : 'bg-noble-gold/40'} animate-[loading-bar_2s_ease-in-out_infinite] origin-left`} />
+                    </div>
+
+                    {isRescueOneActive && (
+                        <div className="flex items-center gap-2 px-4 py-2 bg-rose-500/10 border border-rose-500/30 rounded-full animate-pulse">
+                            <Zap className="w-3 h-3 text-rose-500" />
+                            <span className="text-[10px] font-black text-rose-500 uppercase tracking-widest">Tactical Mode</span>
+                        </div>
+                    )}
                 </div>
+                {isRescueOneActive && <div className="animate-tactical-scan" />}
             </div>
         );
     }
 
-    // 2. Fix Broken Routing: Redirect to login if no session
     if (!user) {
-        return null; // Effect will handle redirect
+        return (
+            <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#050505]">
+                <div className="relative p-12 border border-noble-gold/10 bg-black/40 backdrop-blur-3xl rounded-3xl flex flex-col items-center">
+                   <div className="w-12 h-12 text-noble-gold/20 mb-8">
+                        <svg viewBox="0 0 100 100" className="w-full h-full fill-current">
+                            <path d="M50 15 L85 30 L85 60 C85 75 70 85 50 90 C30 85 15 75 15 60 L15 30 L50 15 Z" />
+                        </svg>
+                    </div>
+                    <h2 className="text-noble-gold/80 text-xl font-black tracking-[0.2em] uppercase mb-4 text-center">Protocol Violation</h2>
+                    <p className="text-noble-gold/40 text-[10px] tracking-[0.2em] uppercase text-center mb-8 max-w-xs leading-relaxed">
+                        Secure uplink failed. Redirecting to sovereign gate for authentication.
+                    </p>
+                    <div className="w-24 h-[1px] bg-noble-gold/10 animate-pulse" />
+                </div>
+            </div>
+        );
     }
-
-    // 3. Tier Check: Prevent AI errors by ensuring the user has access
-    // (Optional rigid check here if passed)
 
     return <>{children}</>;
 };

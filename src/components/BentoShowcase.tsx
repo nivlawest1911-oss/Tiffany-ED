@@ -11,17 +11,19 @@ import {
 
 import dynamic from 'next/dynamic';
 
-const ExecutiveDashboard = dynamic(() => import('./bento/ExecutiveDashboard'));
-const NeuralTrainingCommand = dynamic(() => import('./bento/LeadershipTraining'));
-const LeadershipGenerator = dynamic(() => import('./bento/LeadershipGenerator'));
-const AvatarMasterclass = dynamic(() => import('./bento/AvatarMasterclass'));
-const IEPGenerator = dynamic(() => import('./bento/IEPGenerator'));
-const LessonPlanGenerator = dynamic(() => import('./bento/LessonPlanGenerator'));
-const NeuralSyncGym = dynamic(() => import('./bento/LeadershipGym'));
-const EdIntelSocialUplink = dynamic(() => import('@/components/dossier/ProfessionalSocialConnection'));
-const AutomatedIEPAudit = dynamic(() => import('./bento/AutomatedIEPAudit'));
-const PricingMatrix = dynamic(() => import('./bento/PricingMatrix'));
-const EdIntelBroadcastNode = dynamic(() => import('@/components/dossier/ProfessionalBroadcastCenter'));
+const ExecutiveDashboard = dynamic(() => import('./bento/ExecutiveDashboard'), { ssr: false });
+const NeuralTrainingCommand = dynamic(() => import('./bento/LeadershipTraining'), { ssr: false });
+const LeadershipGenerator = dynamic(() => import('./bento/LeadershipGenerator'), { ssr: false });
+const AvatarMasterclass = dynamic(() => import('./bento/AvatarMasterclass'), { ssr: false });
+const IEPGenerator = dynamic(() => import('./bento/IEPGenerator'), { ssr: false });
+const LessonPlanGenerator = dynamic(() => import('./bento/LessonPlanGenerator'), { ssr: false });
+const NeuralSyncGym = dynamic(() => import('./bento/LeadershipGym'), { ssr: false });
+const EdIntelSocialUplink = dynamic(() => import('@/components/dossier/ProfessionalSocialConnection'), { ssr: false });
+const AutomatedIEPAudit = dynamic(() => import('./bento/AutomatedIEPAudit'), { ssr: false });
+const PricingMatrix = dynamic(() => import('./bento/PricingMatrix'), { ssr: false });
+const EdIntelBroadcastNode = dynamic(() => import('@/components/dossier/ProfessionalBroadcastCenter'), { ssr: false });
+
+import VisualDefer from './shared/VisualDefer';
 
 export default function BentoShowcase() {
     return (
@@ -48,57 +50,79 @@ export default function BentoShowcase() {
 
                     {/* 1. Executive Dashboard (Large) */}
                     <div className="col-span-1 md:col-span-2 row-span-2 rounded-3xl overflow-hidden border border-white/10 bg-zinc-950">
-                        <ExecutiveDashboard />
+                        <VisualDefer>
+                            <ExecutiveDashboard />
+                        </VisualDefer>
                     </div>
 
                     {/* 2. Neural Training (Tall) */}
                     <div className="col-span-1 row-span-2 rounded-3xl overflow-hidden border border-white/10 bg-zinc-950">
-                        <NeuralTrainingCommand />
+                        <VisualDefer>
+                            <NeuralTrainingCommand />
+                        </VisualDefer>
                     </div>
 
                     {/* 3. Leadership Generator */}
                     <div className="col-span-1 row-span-1 rounded-3xl overflow-hidden border border-white/10 bg-zinc-950">
-                        <LeadershipGenerator />
+                        <VisualDefer>
+                            <LeadershipGenerator />
+                        </VisualDefer>
                     </div>
 
                     {/* 4. Avatar Masterclass */}
                     <div className="col-span-1 row-span-1 rounded-3xl overflow-hidden border border-white/10 bg-zinc-950">
-                        <AvatarMasterclass />
+                        <VisualDefer>
+                            <AvatarMasterclass />
+                        </VisualDefer>
                     </div>
 
                     {/* 5. IEP Generator (Large) */}
                     <div className="col-span-1 md:col-span-2 row-span-1 rounded-3xl overflow-hidden border border-white/10 bg-zinc-950">
-                        <IEPGenerator />
+                        <VisualDefer>
+                            <IEPGenerator />
+                        </VisualDefer>
                     </div>
 
                     {/* 6. Lesson Plan */}
                     <div className="col-span-1 row-span-1 rounded-3xl overflow-hidden border border-white/10 bg-zinc-950">
-                        <LessonPlanGenerator />
+                        <VisualDefer>
+                            <LessonPlanGenerator />
+                        </VisualDefer>
                     </div>
 
                     {/* 7. Neural Sync Gym */}
                     <div className="col-span-1 row-span-1 rounded-3xl overflow-hidden border border-white/10 bg-zinc-950">
-                        <NeuralSyncGym />
+                        <VisualDefer>
+                            <NeuralSyncGym />
+                        </VisualDefer>
                     </div>
 
                     {/* 8. Pricing Matrix (Wide) */}
                     <div className="col-span-1 md:col-span-2 row-span-2 rounded-3xl overflow-hidden border border-white/10 bg-zinc-950">
-                        <PricingMatrix />
+                        <VisualDefer>
+                            <PricingMatrix />
+                        </VisualDefer>
                     </div>
 
                     {/* 9. Social Uplink */}
                     <div className="col-span-1 row-span-1 rounded-3xl overflow-hidden border border-white/10 bg-zinc-950">
-                        <EdIntelSocialUplink />
+                        <VisualDefer>
+                            <EdIntelSocialUplink />
+                        </VisualDefer>
                     </div>
 
                     {/* 10. Automated Audit */}
                     <div className="col-span-1 row-span-1 rounded-3xl overflow-hidden border border-white/10 bg-zinc-950">
-                        <AutomatedIEPAudit />
+                        <VisualDefer>
+                            <AutomatedIEPAudit />
+                        </VisualDefer>
                     </div>
 
                     {/* 11. Broadcast Node */}
                     <div className="col-span-1 md:col-span-2 row-span-1 rounded-3xl overflow-hidden border border-white/10 bg-zinc-950">
-                        <EdIntelBroadcastNode />
+                        <VisualDefer>
+                            <EdIntelBroadcastNode />
+                        </VisualDefer>
                     </div>
 
                 </div>

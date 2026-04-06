@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { Volume2, VolumeX } from 'lucide-react';
 
 // Grand Entrance Video URL
-const ENTRANCE_VIDEO_URL = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Educators_using_edintel_app_44bfcfe528-4bcSevHv9NVPi7nYdhR9pkPjQdel7X.mp4';
+const ENTRANCE_VIDEO_URL = '/videos/Edintel promotion.mp4';
 
 const BIOS_LINES = [
     "EDINTEL(R) SOVEREIGN BIOS V5.0.0",

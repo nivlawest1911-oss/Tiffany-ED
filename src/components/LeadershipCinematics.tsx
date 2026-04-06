@@ -3,7 +3,8 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Sparkles, Shield as LucideShield, Zap, ArrowRight, Eye, X, Activity, FileText } from "lucide-react";
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import VideoPlayer from './VideoPlayer';
 
 const CINEMATIC_ASSETS = [
     {
@@ -11,6 +12,7 @@ const CINEMATIC_ASSETS = [
         title: "The Strategic Classroom",
         subtitle: "Alabama Regional Center",
         image: "/images/strategic_vision_classroom.png",
+        video: "/videos/how_edintel_works1.mp4",
         description: "A high-fidelity synthesis of instructional space and strategic telemetry, where every scholar is architected for success.",
         tag: "Live Synthesis",
         color: "from-blue-500 to-indigo-600",
@@ -27,6 +29,7 @@ const CINEMATIC_ASSETS = [
         title: "Executive Command",
         subtitle: "Global Leadership Center",
         image: "/images/strategic_leadership_node.png",
+        video: "/videos/District_Command_Update.mp4",
         description: "Proactive leadership at the speed of thought. Real-time telemetry visualized for absolute district integrity.",
         tag: "Strategic Hub",
         color: "from-amber-500 to-rose-600",
@@ -43,6 +46,7 @@ const CINEMATIC_ASSETS = [
         title: "Educational Connection",
         subtitle: "Universal Intelligence",
         image: "/images/global_educational_uplink.png",
+        video: "/videos/how_edintel_works2.mp4",
         description: "The global network of excellence, linking every district into a unified leadership matrix of shared instructional capital.",
         tag: "Quantum Secure",
         color: "from-purple-500 to-fuchsia-600",
@@ -94,13 +98,18 @@ export default function LeadershipCinematics() {
                             className="group relative"
                         >
                             <div className="relative aspect-[4/5] rounded-[3rem] overflow-hidden border border-white/10 bg-zinc-900 shadow-2xl transition-all duration-700 group-hover:border-white/30 group-hover:scale-[1.02]">
-                                {/* Image Layer */}
-                                <Image
-                                    src={asset.image}
-                                    alt={asset.title}
-                                    fill
-                                    className="object-cover transition-transform duration-1000 group-hover:scale-110 grayscale-[0.2] group-hover:grayscale-0"
-                                />
+                                {/* Media Layer */}
+                                <div className="absolute inset-0">
+                                    <video
+                                        src={asset.video}
+                                        poster={asset.image}
+                                        autoPlay
+                                        loop
+                                        muted
+                                        playsInline
+                                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 grayscale-[0.5] group-hover:grayscale-0 opacity-60 group-hover:opacity-100"
+                                    />
+                                </div>
 
                                 {/* Overlay Gradients & Scanlines */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80" />
@@ -127,6 +136,7 @@ export default function LeadershipCinematics() {
                                         <button
                                             onClick={() => setSelectedAsset(asset)}
                                             className="flex items-center gap-3 text-[10px] font-black text-white uppercase tracking-[0.2em] group/btn"
+                                            aria-label={`View details for ${asset.title}`}
                                         >
                                             <span>View Details</span>
                                             <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover/btn:bg-white group-hover/btn:text-black transition-all duration-300">
@@ -188,15 +198,16 @@ export default function LeadershipCinematics() {
                             onClick={(e) => e.stopPropagation()}
                         >
                             {/* Visual Panel */}
-                            <div className="lg:w-1/2 relative h-full">
-                                <Image
-                                    src={selectedAsset.image}
-                                    alt={selectedAsset.title}
-                                    fill
-                                    className="object-cover"
+                            <div className="lg:w-1/2 relative h-full bg-black">
+                                <VideoPlayer
+                                    src={selectedAsset.video}
+                                    poster={selectedAsset.image}
+                                    title={selectedAsset.title}
+                                    autoPlay={true}
+                                    loop={true}
+                                    className="w-full h-full"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent" />
-                                <div className="absolute top-8 left-8">
+                                <div className="absolute top-8 left-8 z-10">
                                     <div className="px-4 py-2 rounded-full bg-black/50 backdrop-blur-xl border border-white/20 text-[10px] font-black text-white uppercase tracking-widest flex items-center gap-2">
                                         <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                                         <span>Asset #{selectedAsset.id}</span>
@@ -209,6 +220,7 @@ export default function LeadershipCinematics() {
                                 <button
                                     onClick={() => setSelectedAsset(null)}
                                     className="absolute top-8 right-8 p-3 rounded-full bg-white/5 hover:bg-white/10 text-white transition-all z-10"
+                                    aria-label="Close details"
                                 >
                                     <X size={20} />
                                 </button>

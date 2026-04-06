@@ -134,7 +134,6 @@ function HolographicVariant({ activeAgent, agents, message }: { activeAgent: num
 
 function CinematicVariant() {
     // Default Cinematic Variant (Consolidated Hero + UnusualHero)
-    const [mounted, setMounted] = useState(false);
     const cardRef = useRef<HTMLDivElement>(null)
     const pixelGridRef = useRef<HTMLDivElement>(null)
     const tagsRef = useRef<HTMLDivElement>(null)
@@ -143,7 +142,6 @@ function CinematicVariant() {
     const [showBriefing, setShowBriefing] = useState(false);
 
     useEffect(() => {
-        setMounted(true);
         const tagsElement = tagsRef.current
         const cursorElement = customCursorRef.current
 
@@ -312,13 +310,19 @@ function CinematicVariant() {
                     />
 
                     {/* VIDEO DISABLED ON MOBILE TO SAVE LCP (Phase 14) */}
-                    {mounted && (
                         <div className="hidden sm:block absolute inset-0">
-                            <video autoPlay loop muted playsInline poster="/images/professional_hero_bg.png" className="absolute inset-0 h-full w-full object-cover">
-                                <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/liquid-metal-video_yX6NvjdW-6bLYorR3Ihmlwjivg3pjA978qrSKRU.mp4" type="video/mp4" />
+                            <video 
+                                autoPlay 
+                                loop 
+                                muted 
+                                playsInline 
+                                poster="/images/professional_hero_bg.png" 
+                                className="absolute inset-0 h-full w-full object-cover"
+                                preload="auto" // Eager preload (Phase 14.1)
+                            >
+                                <source src="/videos/edintel_ad_strategic_engine.mp4" type="video/mp4" />
                             </video>
                         </div>
-                    )}
 
                     <div className="pointer-events-none absolute inset-0">
                         <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/80 via-transparent to-zinc-950" />
@@ -469,7 +473,7 @@ function CinematicVariant() {
                     description="Greetings, I am Dr. Alvin West. You are accessing the EdIntel Leadership Platform. This platform is designed to provide comprehensive administrative and pedagogical support, fully aligned with Alabama SDE Chapter 290-8-9 and IDEA 2004 federal mandates. Our AI assistants are ready to support your district's efficiency. Get started with your first tool to begin."
                     role="Founder & Consultant"
                     avatarImage="/images/avatars/dr_alvin_west_official.png"
-                    videoSrc="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/liquid-metal-video_yX6NvjdW-6bLYorR3Ihmlwjivg3pjA978qrSKRU.mp4"
+                    videoSrc="/videos/briefings/principal_briefing.mp4"
                     stats={{ time: "30sec", saved: "∞", accuracy: "100%" }}
                 />
             </div>

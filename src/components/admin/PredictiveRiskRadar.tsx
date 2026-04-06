@@ -1,95 +1,117 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { ShieldAlert, AlertTriangle, TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { GlassCard } from '@/components/ui/Cinematic';
-import { ShieldAlert, AlertTriangle, Zap, Target, Users } from 'lucide-react';
+import { CollectiveLearningEngine, RiskVector } from '@/lib/CollectiveLearningEngine';
+import { useState, useEffect } from 'react';
 
-const RISK_CATEGORIES = [
-    { key: 'compliance', label: 'Compliance', icon: ShieldAlert, color: 'text-rose-500' },
-    { key: 'budget', label: 'Budget', icon: Zap, color: 'text-amber-500' },
-    { key: 'staffing', label: 'Staffing', icon: Users, color: 'text-blue-500' },
-    { key: 'performance', label: 'Performance', icon: Target, color: 'text-emerald-500' },
-    { key: 'operational', label: 'Operational', icon: AlertTriangle, color: 'text-indigo-500' },
-];
+const engine = CollectiveLearningEngine.getInstance();
 
 export function PredictiveRiskRadar() {
-    const [risks, setRisks] = useState<Record<string, number>>({
-        compliance: 12,
-        budget: 45,
-        staffing: 28,
-        performance: 15,
-        operational: 32
-    });
+    const [atlas, setAtlas] = useState(engine.getPredictiveRiskAtlas());
 
     useEffect(() => {
         const interval = setInterval(() => {
-            // Simulate live variance based on "Forecaster" agent jitter
-            setRisks(prev => {
-                const updated = { ...prev };
-                Object.keys(updated).forEach(k => {
-                    updated[k] = Math.max(5, Math.min(95, updated[k] + (Math.random() * 10 - 5)));
-                });
-                return updated;
-            });
-        }, 3000);
+            setAtlas(engine.getPredictiveRiskAtlas());
+        }, 10000);
         return () => clearInterval(interval);
     }, []);
 
+    const getTrendIcon = (trend: RiskVector['trend']) => {
+        switch (trend) {
+            case 'up': return <TrendingUp size={12} className="text-rose-500" />;
+            case 'down': return <TrendingDown size={12} className="text-emerald-500" />;
+            default: return <Minus size={12} className="text-zinc-500" />;
+        }
+    };
+
     return (
-        <GlassCard className="p-8 border-rose-500/10 bg-black/40 relative overflow-hidden group h-full">
-            <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
-                <ShieldAlert className="w-32 h-32 text-rose-500" />
+        <GlassCard className="p-8 border-rose-500/10 bg-rose-500/[0.01]">
+            <div className="flex items-center justify-between mb-8">
+                <div className="flex flex-col">
+                    <h2 className="text-xl font-black text-white tracking-widest uppercase flex items-center gap-3">
+                        Predictive Risk Radar
+                        <div className="px-2 py-0.5 rounded bg-rose-500/10 border border-rose-500/20">
+                            <span className="text-[10px] text-rose-500 font-black tracking-widest">LIVE RADAR</span>
+                        </div>
+                    </h2>
+                    <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest mt-1">Institutional Vulnerability Atlas</p>
+                </div>
+                <div className="text-right">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Aggregate Risk Index</span>
+                    <div className="text-2xl font-black text-rose-500 tracking-tighter">{atlas.overallRisk.toFixed(1)}</div>
+                </div>
             </div>
 
-            <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-8">
-                    <div className="p-2 rounded-lg bg-rose-500/10 border border-rose-500/20">
-                        <ShieldAlert className="w-4 h-4 text-rose-500" />
-                    </div>
-                    <div>
-                        <h3 className="text-xs font-black uppercase tracking-[0.2em] text-white/90">Predictive Risk Radar</h3>
-                        <p className="text-[10px] text-slate-500 font-bold">Live AI Threat Vector Assessment</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Radar Map Placeholder (Visual only for now) */}
+                <div className="relative aspect-square rounded-full border border-rose-500/20 bg-rose-500/5 flex items-center justify-center overflow-hidden group">
+                    <div className="absolute inset-0 border border-rose-500/5 rounded-full scale-[0.75]" />
+                    <div className="absolute inset-0 border border-rose-500/5 rounded-full scale-[0.5]" />
+                    <div className="absolute inset-0 border border-rose-500/5 rounded-full scale-[0.25]" />
+                    
+                    {/* Rotating Scan Line */}
+                    <motion.div 
+                        className="absolute h-1/2 w-[2px] bg-gradient-to-t from-rose-500 to-transparent top-0 origin-bottom"
+                        animate={{ rotate: 360 }}
+                        transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
+                    />
+
+                    {/* Risk Hotspots */}
+                    {atlas.vectors.map((v, i) => (
+                        <motion.div
+                            key={v.type}
+                            className={`absolute h-3 w-3 rounded-full blur-[2px] ${v.status === 'critical' ? 'bg-rose-500 shadow-rose-900' : v.status === 'warning' ? 'bg-amber-500 shadow-amber-900' : 'bg-emerald-500'}`}
+                            style={{
+                                top: `${25 + i * 15}%`,
+                                left: `${30 + i * 10}%`,
+                            }}
+                            animate={{ opacity: [0.4, 1, 0.4] }}
+                            transition={{ repeat: Infinity, duration: 2, delay: i * 0.5 }}
+                        />
+                    ))}
+
+                    <div className="relative z-10 flex flex-col items-center gap-1 opacity-40">
+                        <ShieldAlert size={32} className="text-rose-500" />
+                        <span className="text-[10px] font-black text-rose-500 uppercase tracking-widest">Scanning Grid</span>
                     </div>
                 </div>
 
-                <div className="space-y-6">
-                    {RISK_CATEGORIES.map((cat, _idx) => (
-                        <div key={cat.key} className="space-y-2">
-                            <div className="flex items-center justify-between text-[10px] uppercase font-black tracking-widest">
-                                <div className="flex items-center gap-2">
-                                    <cat.icon className={`w-3 h-3 ${cat.color}`} />
-                                    <span className="text-white/60">{cat.label}</span>
+                {/* Risk Vector Details */}
+                <div className="flex flex-col gap-4 justify-center">
+                    {atlas.vectors.map((vector) => (
+                        <div key={vector.type} className="p-4 rounded-xl border border-white/5 bg-white/[0.02] flex items-center justify-between group hover:bg-white/5 transition-colors">
+                            <div className="flex items-center gap-4">
+                                <div className={`p-2 rounded-lg ${vector.status === 'critical' ? 'bg-rose-500/10 text-rose-500' : vector.status === 'warning' ? 'bg-amber-500/10 text-amber-500' : 'bg-emerald-500/10 text-emerald-500'}`}>
+                                    {vector.status === 'stable' ? <ShieldAlert size={16} /> : <AlertTriangle size={16} />}
                                 </div>
-                                <span className={cat.color}>{risks[cat.key].toFixed(0)}%</span>
+                                <div className="flex flex-col">
+                                    <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">{vector.type}</span>
+                                    <span className="text-sm font-black text-white">{vector.status.toUpperCase()}</span>
+                                </div>
                             </div>
-                            <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-                                <motion.div
-                                    initial={{ width: 0 }}
-                                    animate={{
-                                        width: `${risks[cat.key]}%`,
-                                        backgroundColor: risks[cat.key] > 70 ? '#f43f5e' : risks[cat.key] > 40 ? '#f59e0b' : '#10b981'
-                                    }}
-                                    transition={{ duration: 1, ease: "easeOut" }}
-                                    className="h-full rounded-full shadow-[0_0_10px_rgba(255,255,255,0.1)]"
-                                />
+                            <div className="flex items-center gap-4">
+                                <div className="flex flex-col text-right">
+                                    <div className="flex items-center gap-1.5 justify-end">
+                                        {getTrendIcon(vector.trend)}
+                                        <span className="text-xs font-black text-white">{vector.score}%</span>
+                                    </div>
+                                    <span className="text-[8px] font-mono text-zinc-600 uppercase tracking-tight">Vulnerability_Ref: 0x{vector.score}</span>
+                                </div>
                             </div>
                         </div>
                     ))}
                 </div>
+            </div>
 
-                <div className="mt-8 pt-6 border-t border-white/5 flex items-center justify-between">
-                    <div className="flex -space-x-2">
-                        {[1, 2, 3].map(i => (
-                            <div key={i} className="w-6 h-6 rounded-full border-2 border-black bg-slate-800 flex items-center justify-center">
-                                <div className="w-1 h-1 rounded-full bg-rose-500 animate-ping" />
-                            </div>
-                        ))}
-                    </div>
-                    <span className="text-[9px] font-bold text-rose-500/50 uppercase tracking-widest animate-pulse">
-                        Analyzing 42 vector points...
-                    </span>
+            <div className="mt-8 pt-6 border-t border-white/5 flex items-center gap-4">
+                <div className="p-2 bg-amber-500/10 text-amber-500 rounded-lg">
+                    <AlertTriangle size={18} />
                 </div>
+                <p className="text-[10px] font-medium text-zinc-400 uppercase tracking-widest leading-relaxed">
+                    AI Entropy Analysis suggests a <span className="text-amber-500">rising burnout vector</span> in the Special Education department. Monitor interaction frequency to prevent threshold overflow.
+                </p>
             </div>
         </GlassCard>
     );

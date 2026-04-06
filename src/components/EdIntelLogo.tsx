@@ -43,12 +43,17 @@ export const EdIntelLogo = memo(({
     };
 
     const handleMouseLeave = () => {
+        setIsHovered(false);
         mouseX.set(0);
         mouseY.set(0);
-        setIsHovered(false);
     };
 
-    if (!isMounted) return null;
+    const isFidelity = variant === "fidelity" || variant === "sovereign-fidelity";
+    const isSovereign = variant === "sovereign-fidelity";
+
+    // --- Render Logic ---
+
+    if (!isMounted) return <div className={`logo-placeholder ${className}`} style={{ width: size, height: size }} />;
 
     if (variant === "orbital") {
         return (
@@ -157,8 +162,7 @@ export const EdIntelLogo = memo(({
         );
     }
 
-    if (variant === "fidelity" || variant === "sovereign-fidelity") {
-        const isSovereign = variant === "sovereign-fidelity";
+    if (isFidelity) {
         return (
             <div
                 className={`flex flex-col items-center justify-center gap-4 ${className}`}

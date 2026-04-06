@@ -34,6 +34,7 @@ export default function FloatingNavbar() {
             name: 'AI Hub',
             href: '#',
             submenu: [
+                { name: 'Collective Intelligence', href: '/collective', badge: 'SWARM' },
                 { name: 'Gemini Workspace', href: '/gemini-workspace', badge: 'NEW' },
                 { name: 'Hugging Face Studio', href: '/ai-hub', badge: 'AI' },
                 { name: 'AI Phone Center', href: '/phone', badge: 'LIVE' },

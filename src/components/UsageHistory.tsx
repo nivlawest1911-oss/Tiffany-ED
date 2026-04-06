@@ -17,7 +17,7 @@ export const UsageHistory = ({ logs }: { logs: any[] }) => {
                         <p className="text-[8px] text-zinc-600 uppercase font-bold">Encrypted Transaction History</p>
                     </div>
                 </div>
-                <button className="p-2 rounded-lg bg-white/5 border border-white/10 hover:border-indigo-500/30 transition-all group/btn">
+                <button className="p-2 rounded-lg bg-white/5 border border-white/10 hover:border-indigo-500/30 transition-all group/btn" aria-label="Download ledger history">
                     <Download className="w-3 h-3 text-zinc-500 group-hover/btn:text-indigo-400 transition-colors" />
                 </button>
             </div>

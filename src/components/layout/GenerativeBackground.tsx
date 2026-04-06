@@ -27,11 +27,11 @@ const GenerativeBackground: React.FC = () => {
 
     if (!mounted) {
         // Render minimal static background during SSR/initial paint
-        return <div className="fixed inset-0 -z-10 bg-gray-50" />;
+        return <div className="fixed inset-0 -z-10 bg-black" />;
     }
 
     return (
-        <div className="fixed inset-0 -z-10 overflow-hidden bg-gray-50">
+        <div className="fixed inset-0 -z-10 overflow-hidden bg-black">
             {/* CSS-only animated gradients — no JS animation library needed */}
             <div
                 className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full bg-gradient-to-br from-primary-500/10 to-secondary-500/10 blur-[100px] animate-[drift1_20s_linear_infinite]"

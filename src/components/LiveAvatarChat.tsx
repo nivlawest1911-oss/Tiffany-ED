@@ -6,8 +6,9 @@ import VoiceInterface from './ai/VoiceInterface';
 import {
     Mic, Video,
     MessageSquare, Send, X,
-    Brain, Activity, Trophy,
-    Zap, Users, LayoutGrid
+    Brain, Trophy,
+    Zap, Users, LayoutGrid, Database, 
+    ExternalLink
 } from 'lucide-react';
 import HumanAvatar from './ui/HumanAvatar';
 import { useHumanBehavior } from '@/hooks/useHumanBehavior';
@@ -38,6 +39,7 @@ interface LiveAvatarChatProps {
     theme?: 'default' | 'professional';
     onShowBriefing?: () => void;
     heygenId?: string;
+    companionId?: string;
     protocolContext?: string;
 }
 
@@ -50,6 +52,7 @@ export default function LiveAvatarChat({
     onAddXP = () => { },
     onClose,
     heygenId,
+    companionId,
     greetingText,
     protocolContext,
     usageTokens
@@ -68,11 +71,13 @@ export default function LiveAvatarChat({
         isSpeaking,
         connect,
         disconnect,
-        speak
+        speak,
+        groundingSources
     } = useMultimodalAvatar({
         avatarName,
         avatarRole,
         voiceId: avatarVoice,
+        companionId,
         engine: 'duix',
         onTokenDeduct: onTokenDeductInternal,
         onXPGain: onXPGainInternal,
@@ -466,6 +471,77 @@ export default function LiveAvatarChat({
                                 ))}
                             </div>
                         </div>
+
+                        {/* GROUNDED WISDOM: RAG Citations & Swarm Control */}
+                        <AnimatePresence>
+                            {(groundingSources.length > 0 || true) && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, scale: 0.95 }}
+                                    className="space-y-4 pt-4 border-t border-white/10"
+                                >
+                                    {/* GROUNDED WISDOM PANEL */}
+                                    {groundingSources.length > 0 && (
+                                        <div className="p-6 rounded-[2rem] bg-emerald-500/5 border border-emerald-500/20 space-y-4">
+                                            <div className="flex items-center justify-between">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="p-2 rounded-lg bg-emerald-500/10">
+                                                        <Database size={16} className="text-emerald-400" />
+                                                    </div>
+                                                    <span className="text-[10px] font-black uppercase text-emerald-400 tracking-[0.3em]">Grounded Wisdom</span>
+                                                </div>
+                                                <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[8px] font-black uppercase tracking-tighter">
+                                                    <div className="w-1 h-1 rounded-full bg-emerald-400 animate-pulse" />
+                                                    Verified
+                                                </div>
+                                            </div>
+                                            <div className="space-y-3 max-h-[200px] overflow-y-auto pr-2 custom-scrollbar">
+                                                {groundingSources.map((source, i) => (
+                                                    <div key={i} className="p-3 rounded-xl bg-white/[0.03] border border-white/5 space-y-2">
+                                                        <div className="flex items-center gap-2">
+                                                            <span className="text-[9px] font-black text-emerald-400/60 font-mono tracking-tighter">REF_{i + 1}</span>
+                                                            <p className="text-[10px] font-black text-white/80 uppercase truncate">{source.title || 'Institutional Record'}</p>
+                                                        </div>
+                                                        <p className="text-[10px] text-white/40 italic line-clamp-2 leading-relaxed">"{source.content?.substring(0, 100)}..."</p>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* SWARM COMMAND QUICKLINK */}
+                                    <div className="p-6 rounded-[2rem] bg-noble-gold/5 border border-noble-gold/20 space-y-4 shadow-[0_0_30px_rgba(212,175,55,0.05)]">
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-3">
+                                                <div className="p-2 rounded-lg bg-noble-gold/10">
+                                                    <Users size={16} className="text-noble-gold" />
+                                                </div>
+                                                <span className="text-[10px] font-black uppercase text-noble-gold tracking-[0.3em]">Tactical Swarm</span>
+                                            </div>
+                                            <a 
+                                                href="/dashboard/collective" 
+                                                target="_blank" 
+                                                className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white/40 hover:text-white transition-all"
+                                                aria-label="Open Collective Intelligence"
+                                            >
+                                                <ExternalLink size={14} />
+                                            </a>
+                                        </div>
+                                        <p className="text-[10px] text-white/40 font-bold uppercase tracking-tight">Active District Nodes: <span className="text-noble-gold">42 ONLINE</span></p>
+                                        <div className="flex -space-x-2">
+                                            {[1, 2, 3, 4].map(idx => (
+                                                <div key={idx} className="w-6 h-6 rounded-full border-2 border-[#0A0E1A] bg-zinc-800 overflow-hidden">
+                                                    <div className="w-full h-full bg-gradient-to-br from-noble-gold/20 to-transparent" />
+                                                </div>
+                                            ))}
+                                            <div className="w-6 h-6 rounded-full border-2 border-[#0A0E1A] bg-noble-gold/10 flex items-center justify-center text-[8px] font-black text-noble-gold">+38</div>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+
                     </div>
 
                     {/* Center: Avatar Interaction Hero (Podcast Stage) */}

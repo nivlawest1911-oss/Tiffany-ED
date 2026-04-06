@@ -26,6 +26,7 @@ import { TrialBanner } from '@/components/layout/TrialBanner';
 import GlassPanel from "@/components/ui/GlassPanel";
 import SovereignButton from "@/components/ui/SovereignButton";
 import { useAuth } from '@/context/AuthContext';
+import { useIntelligence } from '@/context/IntelligenceContext';
 
 import { AideProvider } from '@/context/AideMessagingContext';
 
@@ -36,6 +37,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     const { isCommandConsoleOpen, toggleCommandConsole } = useEdIntelVibe();
     const { playHover, playClick } = useProfessionalSounds()
     const { user, logout } = useAuth();
+    const { isRescueOneActive } = useIntelligence();
 
     // Derive real tier from live AuthContext user
     const tierName = user?.tier || 'Sovereign Initiate';
@@ -69,7 +71,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
     return (
         <AideProvider>
-            <div className="flex h-screen text-slate-200 overflow-hidden font-sans relative">
+            <div className={`flex h-screen text-slate-200 overflow-hidden font-sans relative ${isRescueOneActive ? 'rescue-one-overdrive' : ''}`}>
                 {/* GenerativeBackground is already in root layout */}
 
                 {/* COMMAND CONSOLE OVERLAY */}
@@ -138,7 +140,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                     variant="glass"
                                     size="sm"
                                     onMouseEnter={playHover}
-                                    onClick={() => { playClick(); router.push('/activity'); }}
+                                    onClick={() => { playClick(); router.push('/ledger'); }}
                                     className="h-9 w-9 p-0 rounded-xl"
                                 >
                                     <Bell className="h-4 w-4" />
@@ -147,7 +149,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                     variant="glass"
                                     size="sm"
                                     onMouseEnter={playHover}
-                                    onClick={() => { playClick(); router.push('/all-tools'); }}
+                                    onClick={() => { playClick(); router.push('/admin/tools'); }}
                                     className="h-9 w-9 p-0 rounded-xl"
                                 >
                                     <Grid className="h-4 w-4" />
@@ -227,6 +229,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                         <MobileNavigation />
                     </div>
                 </div>
+                {isRescueOneActive && <div className="animate-tactical-scan" />}
             </div>
         </AideProvider>
     );

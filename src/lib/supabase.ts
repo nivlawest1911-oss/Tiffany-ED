@@ -1,5 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { unstable_cache } from 'next/cache';
+import { CompanionCertificate } from '@/types/companion-certificate';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -127,6 +129,150 @@ export async function createSupportTicket(userId: string, subject: string, messa
 
     if (error) {
         console.error('[SUPABASE_ERROR] Support ingestion failed:', error);
+        return null;
+    }
+
+    return data[0];
+}
+
+/**
+ * 🛰️ Edintel Birth Certificate: Persists a new AI companion's DNA to the institutional core.
+ */
+export async function issueBirthCertificate(certificate: CompanionCertificate) {
+    if (!supabase) return null;
+    const { data, error } = await supabase
+        .from('companion_certificates')
+        .insert([
+            {
+                id: certificate.id,
+                name: certificate.name,
+                role: certificate.role,
+                tier: certificate.tier,
+                persona: certificate.persona,
+                voice_id: certificate.voiceId,
+                avatar_id: certificate.avatarId,
+                master_system_prompt: certificate.masterSystemPrompt,
+                district_id: certificate.districtId,
+                creator_id: certificate.creatorId,
+                created_at: certificate.createdAt,
+                metadata: certificate.metadata
+            }
+        ])
+        .select();
+
+    if (error) {
+        console.error('[SUPABASE_ERROR] Failed to issue birth certificate:', error);
+        return null;
+    }
+
+    return data[0];
+}
+
+/**
+ * 🧠 Edintel Neural Link: Retrieves a specific companion's identity from the vault.
+ */
+export async function getBirthCertificate(companionId: string): Promise<CompanionCertificate | null> {
+    if (!supabase) return null;
+    const { data, error } = await supabase
+        .from('companion_certificates')
+        .select('*')
+        .eq('id', companionId)
+        .single();
+
+    if (error) {
+        console.warn('[SUPABASE_ERROR] Neural link denied for ID:', companionId, error);
+        return null;
+    }
+
+    // Map DB fields back to the interface
+    return {
+        id: data.id,
+        name: data.name,
+        role: data.role,
+        tier: data.tier,
+        persona: data.persona,
+        voiceId: data.voice_id,
+        avatarId: data.avatar_id,
+        masterSystemPrompt: data.master_system_prompt,
+        districtId: data.district_id,
+        creatorId: data.creator_id,
+    };
+}
+
+/**
+ * 🧠 Neural Vectorization: Generates embeddings using Gemini text-embedding-004.
+ */
+export async function generateEmbedding(text: string): Promise<number[] | null> {
+    const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GOOGLE_GENAI_API_KEY;
+    if (!apiKey) {
+        console.warn('[EDINTEL_AI] Missing GEMINI_API_KEY. Vectorization unavailable.');
+        return null;
+    }
+
+    try {
+        const genAI = new GoogleGenerativeAI(apiKey);
+        const model = genAI.getGenerativeModel({ model: "text-embedding-004" });
+        const result = await model.embedContent(text);
+        return result.embedding.values;
+    } catch (error) {
+        console.error('[GEMINI_ERROR] Embedding failed:', error);
+        return null;
+    }
+}
+
+/**
+ * 📂 Knowledge Harvest: Performs semantic search across the Vault.
+ */
+export async function searchKnowledgeBase(companionId: string, query: string, limit: number = 3) {
+    if (!supabase) return [];
+    
+    const embedding = await generateEmbedding(query);
+    if (!embedding) return [];
+
+    const { data, error } = await supabase.rpc('match_knowledge_documents', {
+        query_embedding: embedding,
+        match_threshold: 0.5,
+        match_count: limit,
+        companion_id_filter: companionId
+    });
+
+    if (error) {
+        console.error('[SUPABASE_ERROR] Vector search failed:', error);
+        return [];
+    }
+
+    return data;
+}
+
+/**
+ * 🏛️ Vault Ingestion: Uploads a document and its embedding to the Vault.
+ */
+export async function uploadToVault(companionId: string, userId: string, name: string, content: string, metadata: any = {}) {
+    if (!supabase) return null;
+
+    const embedding = await generateEmbedding(content);
+    if (!embedding) {
+        throw new Error('Failed to generate neural embedding for document.');
+    }
+
+    const { data, error } = await supabase
+        .from('knowledge_documents')
+        .insert([{
+            companion_id: companionId,
+            owner_id: userId,
+            name,
+            content,
+            embedding,
+            metadata: {
+                ...metadata,
+                indexed_at: new Date().toISOString(),
+                engine: 'gemini-text-embedding-004'
+            }
+        }])
+        .select();
+
+    if (error) {
+        console.error('[SUPABASE_ERROR] Vault ingestion failed:', error);
         return null;
     }
 

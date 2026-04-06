@@ -26,7 +26,7 @@ export default function DecisionGeneratorPage() {
     const [riskTolerance, setRiskTolerance] = useState("Moderate");
     const [isGenerating, setIsGenerating] = useState(false);
     const [generatedPlan, setGeneratedPlan] = useState<string | null>(null);
-    const [isRescueOneMode, setIsRescueOneMode] = useState(false);
+    const { addAction, isRescueOneActive, toggleRescueOne: toggleGlobalRescueOne } = useIntelligence();
 
     const stakeholderPresets = ["Teachers", "Union", "Parents", "Admin Board", "Superintendent", "Students"];
 
@@ -42,7 +42,6 @@ export default function DecisionGeneratorPage() {
             setCustomStakeholder("");
         }
     };
-    const { addAction } = useIntelligence();
 
     const handleGenerateDecision = async () => {
         if (!scenario) {
@@ -59,9 +58,9 @@ export default function DecisionGeneratorPage() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     scenario,
-                    context: isRescueOneMode ? `[RESCUE ONE PROTOCOL ACTIVE] ${context}` : context,
-                    stakeholders: isRescueOneMode ? [...stakeholderList, "Rescue One Command"].join(", ") : stakeholderList.join(", "),
-                    riskTolerance: isRescueOneMode ? "Extreme" : riskTolerance
+                    context: isRescueOneActive ? `[RESCUE ONE PROTOCOL ACTIVE] ${context}` : context,
+                    stakeholders: isRescueOneActive ? [...stakeholderList, "Rescue One Command"].join(", ") : stakeholderList.join(", "),
+                    riskTolerance: isRescueOneActive ? "Extreme" : riskTolerance
                 })
             });
 
@@ -72,8 +71,8 @@ export default function DecisionGeneratorPage() {
 
             const data = await response.json();
             setGeneratedPlan(data.content);
-            addAction(isRescueOneMode ? `Rescue One Recovery Matrix Generated` : `Decision Matrix Generated`);
-            toast.success(isRescueOneMode ? "Rescue One Tactical Matrix Ready." : "Strategic Decision Matrix ready.");
+            addAction(isRescueOneActive ? `Rescue One Recovery Matrix Generated` : `Decision Matrix Generated`);
+            toast.success(isRescueOneActive ? "Rescue One Tactical Matrix Ready." : "Strategic Decision Matrix ready.");
         } catch (err: any) {
             console.error("Decision Gen Error:", err);
             toast.error(err.message || "Synthesis failed.");
@@ -83,8 +82,8 @@ export default function DecisionGeneratorPage() {
     };
 
     const toggleRescueOne = () => {
-        const newMode = !isRescueOneMode;
-        setIsRescueOneMode(newMode);
+        const newMode = !isRescueOneActive;
+        toggleGlobalRescueOne();
         if (newMode) {
             setRiskTolerance("High");
             if (!scenario) setScenario("Emergency System Recovery & Institutional Stabilization");
@@ -117,7 +116,7 @@ export default function DecisionGeneratorPage() {
                             <span className="text-xs font-black uppercase tracking-[0.3em]">Administrative AI Support</span>
                         </div>
                         <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-white uppercase">
-                            Decision <span className={`text-transparent bg-clip-text bg-gradient-to-r ${isRescueOneMode ? 'from-rose-500 to-orange-600' : 'from-emerald-400 to-teal-500'} italic`}>Engine</span>
+                            Decision <span className={`text-transparent bg-clip-text bg-gradient-to-r ${isRescueOneActive ? 'from-rose-500 to-orange-600' : 'from-emerald-400 to-teal-500'} italic`}>Engine</span>
                         </h1>
                         <p className="text-zinc-400 text-lg max-w-2xl leading-relaxed">
                             Analyze complex scenarios, evaluate risk, and eliminate decision fatigue with clear action matrices.
@@ -249,7 +248,7 @@ export default function DecisionGeneratorPage() {
                                 </div>
 
                                 <Button
-                                    className={`w-full h-12 ${isRescueOneMode ? 'bg-gradient-to-r from-rose-600 to-orange-600 hover:from-rose-500 hover:to-orange-500' : 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500'} text-white font-black uppercase tracking-widest rounded-xl shadow-lg transition-all group`}
+                                    className={`w-full h-12 ${isRescueOneActive ? 'bg-gradient-to-r from-rose-600 to-orange-600 hover:from-rose-500 hover:to-orange-500' : 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500'} text-white font-black uppercase tracking-widest rounded-xl shadow-lg transition-all group`}
                                     onClick={handleGenerateDecision}
                                     disabled={isGenerating}
                                 >
@@ -258,31 +257,31 @@ export default function DecisionGeneratorPage() {
                                     ) : (
                                         <Sparkles className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
                                     )}
-                                    {isGenerating ? 'Analyzing Matrices...' : isRescueOneMode ? 'Initialize Rescue One' : 'Generate Action Matrix'}
+                                    {isGenerating ? 'Analyzing Matrices...' : isRescueOneActive ? 'Initialize Rescue One' : 'Generate Action Matrix'}
                                 </Button>
 
                                 {/* Rescue One Override Toggle */}
                                 <div className="pt-4 border-t border-white/5">
                                     <button
                                         onClick={toggleRescueOne}
-                                        className={`w-full p-4 rounded-xl border flex items-center justify-between transition-all ${isRescueOneMode 
+                                        className={`w-full p-4 rounded-xl border flex items-center justify-between transition-all ${isRescueOneActive 
                                             ? 'bg-rose-500/10 border-rose-500/50 text-rose-400 shadow-[0_0_20px_rgba(244,63,94,0.1)]' 
                                             : 'bg-zinc-950/50 border-white/5 text-zinc-500 hover:border-white/20'}`}
                                     >
                                         <div className="flex items-center gap-3">
-                                            <div className={`p-2 rounded-lg ${isRescueOneMode ? 'bg-rose-500 text-white' : 'bg-zinc-800'}`}>
+                                            <div className={`p-2 rounded-lg ${isRescueOneActive ? 'bg-rose-500 text-white' : 'bg-zinc-800'}`}>
                                                 <Zap className="w-4 h-4" />
                                             </div>
                                             <div className="text-left">
                                                 <div className="text-[10px] font-black uppercase tracking-widest leading-none mb-1">Rescue One Override</div>
-                                                <div className={`text-[8px] font-bold uppercase tracking-tight ${isRescueOneMode ? 'text-rose-400/70' : 'text-zinc-600'}`}>
+                                                <div className={`text-[8px] font-bold uppercase tracking-tight ${isRescueOneActive ? 'text-rose-400/70' : 'text-zinc-600'}`}>
                                                     System Recovery Protocol
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className={`w-10 h-5 rounded-full relative transition-colors ${isRescueOneMode ? 'bg-rose-500' : 'bg-zinc-800'}`}>
+                                        <div className={`w-10 h-5 rounded-full relative transition-colors ${isRescueOneActive ? 'bg-rose-500' : 'bg-zinc-800'}`}>
                                             <motion.div 
-                                                animate={{ x: isRescueOneMode ? 20 : 0 }}
+                                                animate={{ x: isRescueOneActive ? 20 : 0 }}
                                                 className="absolute top-1 left-1 w-3 h-3 rounded-full bg-white shadow-sm" 
                                             />
                                         </div>

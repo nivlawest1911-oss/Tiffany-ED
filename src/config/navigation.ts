@@ -25,7 +25,7 @@ export const EDINTEL_TIERS = [
 export const NAV_LINKS = {
     education: [
         { label: "Sovereign Room", href: "/the-room", icon: "Crown", minTier: 1, description: "Sovereign educator command center." },
-        { label: "Sovereign Broadcast", href: "/podcast", icon: "Radio", minTier: 0, description: "Strategic audio insights and briefings." },
+        { label: "Intelligence Briefings", href: "/briefings", icon: "Radio", minTier: 0, description: "Strategic audio insights and regional data." },
         { label: "Lesson Planner", href: "/generator/lesson", icon: "BookOpen", minTier: 0, description: "Strategic instructional design." },
         { label: "IEP Architect", href: "/generator/iep", icon: "FileText", minTier: 0, description: "Special education protocol generation." },
         { label: "Cognitive Fitness", href: "/generator/cognitive", icon: "Brain", minTier: 0, description: "Burnout reduction & mental resilience." },
@@ -38,6 +38,8 @@ export const NAV_LINKS = {
     ],
     operations: [
         { label: "Site Command", href: "/admin", icon: "LayoutDashboard", minTier: 5, description: "District-wide executive oversight." },
+        { label: "Command Center", href: "/ops/command", icon: "Shield", minTier: 5, description: "Strategic 'God-mode' district oversight." },
+        { label: "Talent Command", href: "/ops/talent", icon: "Users", minTier: 4, description: "Bio-dynamic institutional pulse & staff well-being." },
         { label: "Decision Engine", href: "/generator/decision", icon: "Zap", minTier: 0, description: "AI-assisted strategic decision making." },
         { label: "Roster Logistics", href: "/roster", icon: "ClipboardList", minTier: 3, description: "Staff & student roster management." },
         { label: "Sovereign Vault", href: "/vault", icon: "Shield", minTier: 2, description: "Secure institutional data vault." },

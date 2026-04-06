@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react"
 import { Star, Link2, ExternalLink, GraduationCap, Play, Sparkles } from "lucide-react"
-import Image from "next/image"
 import Link from "next/link"
 
 export function HeroSection() {
@@ -127,16 +126,18 @@ export function HeroSection() {
             {/* Holographic ring around avatar */}
             <div className="absolute inset-0 w-72 h-96 md:w-80 md:h-[28rem] -m-4 rounded-3xl holographic opacity-50" />
 
-            <div className="relative w-64 h-80 md:w-72 md:h-96 mb-6 rounded-3xl overflow-hidden border-2 border-[#00d2ff]/30 shadow-[0_0_40px_rgba(0,210,255,0.2)]">
-              <Image
-                src="/professional-black-man-in-business-suit--executive.jpg"
-                alt="Dr. Alvin West - Founder of EdIntel"
-                fill
-                className="object-cover"
-                priority
+            <div className="relative w-64 h-80 md:w-72 md:h-96 mb-6 rounded-3xl overflow-hidden border-2 border-[#00d2ff]/30 shadow-[0_0_40px_rgba(0,210,255,0.2)] bg-black">
+              <video
+                src="/videos/Edintel promotion.mp4"
+                poster="/professional-black-man-in-business-suit--executive.jpg"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover"
               />
               {/* Holographic overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
             </div>
 
             {/* Glow ring */}
@@ -157,6 +158,7 @@ export function HeroSection() {
                   href="https://www.linkedin.com/in/dr-alvin-west-ii-dba-pd-m-58133519/"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="LinkedIn profile of Dr. Alvin West II"
                   className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-gray-400 hover:text-[#00d2ff] transition-colors"
                 >
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
