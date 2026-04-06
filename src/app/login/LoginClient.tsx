@@ -213,9 +213,9 @@ export default function LoginClient() {
                 <div className="absolute inset-0 z-0">
                     <div className="absolute inset-0 bg-[#020617] bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.1),rgba(255,255,255,0))]" />
                     <ParticleBackground count={isMobile ? 4 : 12} color="bg-[#FFB300]/20" />
-                    {/* Soft Glow Orbs */}
-                    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(255,179,0,0.08)_0%,transparent_70%)] rounded-full opacity-60 md:animate-pulse pointer-events-none" />
-                    <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(0,176,255,0.08)_0%,transparent_70%)] rounded-full opacity-60 md:animate-pulse delay-1000 pointer-events-none" />
+                    {/* Soft Glow Orbs - GPU Optimized */}
+                    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(255,179,0,0.08)_0%,transparent_70%)] rounded-full opacity-60 pointer-events-none transform-gpu" />
+                    <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(0,176,255,0.08)_0%,transparent_70%)] rounded-full opacity-60 pointer-events-none transform-gpu" />
                 </div>
 
                 <motion.div
@@ -226,7 +226,7 @@ export default function LoginClient() {
                 >
                     {/* LEFT PANEL: VISUAL IDENTITY */}
                     <div className="hidden lg:flex flex-col items-center justify-center p-12 relative bg-gradient-to-br from-white/5 to-white/0 border-r border-white/10 overflow-hidden">
-                        <div className="absolute inset-0 bg-[#020617]/50 mix-blend-overlay" />
+                        <div className="absolute inset-0 bg-[#020617]/70" />
 
                         <div className="relative z-10 text-center space-y-12">
                             <div className="relative">
