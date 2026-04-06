@@ -16,7 +16,7 @@ export default function FoundryPage() {
     return (
         <main className="min-h-screen bg-black pt-20 pb-32">
             {/* 🏗️ FOUNDRY AMBIANCE - PERFORMANCE OPTIMIZED (Phase 24.1) */}
-            <div className="fixed inset-0 pointer-events-none overflow-hidden content-visibility-auto">
+            <div className="fixed inset-0 pointer-events-none overflow-hidden">
                 <div 
                     className="absolute inset-0 opacity-20 transform-gpu"
                     style={{

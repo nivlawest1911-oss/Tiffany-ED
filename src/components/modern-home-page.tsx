@@ -165,7 +165,7 @@ function InteractiveTerminal({ onCommand }: { onCommand: (cmd: string) => void }
 
             <form onSubmit={handleSubmit} className="relative group/form">
                 {/* Dynamic Border */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-[#D4AF37]/20 via-[#C5A02E]/20 to-[#B68F25]/20 rounded-2xl blur-md opacity-0 group-hover:opacity-100 transition duration-1000" />
+                <div className="absolute -inset-1 bg-gradient-to-r from-[#D4AF37]/20 via-[#C5A02E]/20 to-[#B68F25]/20 rounded-2xl blur-md opacity-0 group-hover:opacity-100 transition duration-1000 transform-gpu will-change-opacity" />
 
                 <div className={cn(
                     "relative bg-black/60 backdrop-blur-md border border-white/5 rounded-2xl overflow-hidden shadow-2xl transition-all duration-500",
@@ -569,8 +569,8 @@ export default function ModernHomePage() {
 
                             {/* INFINITE MARQUEE - OPTIMIZED */}
                             <LazySection id="infinite-marquee" height="400px">
-                                <section className="py-20 bg-black/50 border-b border-white/5 overflow-hidden backdrop-blur-sm relative z-20">
-                                    <div className="w-full overflow-hidden">
+                                <section className="py-20 bg-black/50 border-b border-white/5 overflow-hidden relative z-20">
+                                    <div className="w-full overflow-hidden content-visibility-auto">
                                         <motion.div
                                             className="flex gap-6 w-max transform-gpu"
                                             animate={{ x: ["0%", "-50%"] }}
