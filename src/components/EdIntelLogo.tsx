@@ -179,10 +179,10 @@ export const EdIntelLogo = memo(({
                         animate={{ opacity: isHovered ? 0.6 : 0.3, scale: isHovered ? 1.2 : 1 }}
                         className="absolute inset-0 bg-noble-gold/20 blur-2xl rounded-full"
                     />
-                    <div className="relative z-10 rounded-3xl overflow-hidden shadow-[0_0_30px_rgba(255,179,0,0.25)] ring-1 ring-noble-gold/30">
+                    <div className="relative z-10 rounded-3xl overflow-hidden shadow-[0_0_30px_rgba(212,175,55,0.5)] ring-1 ring-noble-gold/30">
                         <Image
-                            src="/images/edintel-logo.png"
-                            alt="EdIntel Logo"
+                            src="/edintel-logo.png"
+                            alt="EdIntel - Intelligence in Education"
                             width={size || 120}
                             height={size || 120}
                             className="object-contain"

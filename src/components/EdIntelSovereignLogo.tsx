@@ -69,10 +69,10 @@ export default function EdIntelSovereignLogo({
                 />
 
                 {/* Primary Logo Image */}
-                <div className="relative z-10 rounded-[40px] overflow-hidden shadow-[0_0_30px_rgba(255,179,0,0.25)] ring-1 ring-noble-gold/30">
+                <div className="relative z-10 rounded-[40px] overflow-hidden shadow-[0_0_30px_rgba(212,175,55,0.5)] ring-1 ring-noble-gold/30">
                     <Image
-                        src="/images/edintel-logo.png"
-                        alt="EdIntel Logo"
+                        src="/edintel-logo.png"
+                        alt="EdIntel - Intelligence in Education"
                         width={size}
                         height={size}
                         className="object-contain"
