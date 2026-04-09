@@ -14,16 +14,22 @@
             "type": "image/x-icon"
         },
         {
-                    "src": "/images/edintel-logo.png",
+            "src": "/icon-192.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "any maskable"
         },
         {
-                    "src": "/images/edintel-logo.png",
+            "src": "/icon-512.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any maskable"
+        },
+        {
+            "src": "/apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png",
+            "purpose": "any"
         }
     ],
     "shortcuts": [
@@ -32,7 +38,7 @@
             "url": "/ai-hub",
             "icons": [
                 {
-                            "src": "/images/edintel-logo.png",
+                    "src": "/icon-192.png",
                     "sizes": "192x192"
                 }
             ]
@@ -42,7 +48,7 @@
             "url": "/vault",
             "icons": [
                 {
-                            "src": "/images/edintel-logo.png",
+                    "src": "/icon-192.png",
                     "sizes": "192x192"
                 }
             ]
@@ -52,7 +58,7 @@
             "url": "/gym",
             "icons": [
                 {
-                            "src": "/images/edintel-logo.png",
+                    "src": "/icon-192.png",
                     "sizes": "192x192"
                 }
             ]
