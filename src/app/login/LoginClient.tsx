@@ -34,6 +34,7 @@ export default function LoginClient() {
     useEffect(() => {
         if (!isLoading && user) {
             router.push(ROUTES.THE_ROOM);
+            router.refresh();
         }
     }, [user, isLoading, router]);
 
@@ -49,8 +50,10 @@ export default function LoginClient() {
     }, []);
 
     // Initialize Sovereign Supabase Client safely - only if env vars are present
+    // Note: NEXT_PUBLIC_ vars are always available in browser
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+    // Always true if we can import createBrowserClient - it means Supabase is configured
     const isSupabaseConfigured = !!(supabaseUrl && supabaseKey);
 
     const supabase = isSupabaseConfigured ? createBrowserClient(supabaseUrl, supabaseKey) : null;
