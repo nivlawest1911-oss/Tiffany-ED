@@ -48,6 +48,13 @@ export async function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL('/the-room', request.url));
     }
 
+    // 3b. Don't redirect authenticated users away from /login - let the client redirect them
+    // This prevents the redirect loop where middleware and client redirect conflict
+    if (pathname === '/login' && isAuthenticated) {
+        // Let the request through to LoginClient which will handle the redirect
+        return NextResponse.next({ request });
+    }
+
     // 4. Case: Protected route but not authenticated hint
     if (isProtectedRoute && !isAuthenticated) {
         const url = new URL('/login', request.url);
