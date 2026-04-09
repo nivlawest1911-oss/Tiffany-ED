@@ -233,11 +233,11 @@ export default function IntelPlayer({ episode }: IntelPlayerProps) {
                 {/* Dr. West Bio Shortcut */}
                 <div className="liquid-glass border-white/10 bg-zinc-950 p-8 flex flex-col items-center text-center">
                     <Image 
-                        src="/images/avatars/dr_alvin_west_official.png" 
+                        src="/dr-alvin-west.jpg" 
                         width={64}
                         height={64}
                         className="rounded-full border border-noble-gold/30 mb-4 grayscale hover:grayscale-0 transition-all cursor-pointer" 
-                        alt="Dr. Alvin West" 
+                        alt="Dr. Alvin West - Lead Intelligence Architect" 
                     />
                     <h4 className="text-white font-black uppercase text-xs tracking-widest">Dr. Alvin West</h4>
                     <p className="text-[10px] text-white/40 mt-1 uppercase tracking-[0.2em]">Lead Intelligence Architect</p>
