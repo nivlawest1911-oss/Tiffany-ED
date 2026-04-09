@@ -3,7 +3,7 @@ export const SOCIAL_HUB_TIKTOK = "https://images.unsplash.com/photo-161116261747
 export const SOCIAL_HUB_FACEBOOK = "https://images.unsplash.com/photo-1544367563-12123d896889";
 export const BUSINESS_SOLUTIONS_BG = "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40";
 export const NOISE_PATTERN = "https://grainy-gradients.vercel.app/noise.svg";
-export const SOCIAL_HUB_AVATAR = "https://images.unsplash.com/photo-1560250097-0b93528c311a";
+export const SOCIAL_HUB_AVATAR = "/dr-alvin-west.jpg";
 export const PRINCIPAL_ACADEMY_HERO = "https://images.unsplash.com/photo-1507679799987-c73779587ccf";
 
 export const BROADCAST_THUMB_1 = "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c";

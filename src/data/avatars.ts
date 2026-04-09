@@ -30,7 +30,7 @@ export const CORE_AVATARS: AvatarDefinition[] = [
         name: 'Dr. Alvin West II',
         role: 'Chief AI Strategist | DBA, Ph.D., MBA',
         status: 'online',
-        avatar: '/images/avatars/dr_alvin_west_official.png',
+        avatar: '/dr-alvin-west.jpg',
         specialty: 'Strategic Leadership & Universal I.E.P. Advisor',
         heygenId: 'josh_lite3_20230714',
         voiceId: 'JBFqnCBv79x13pTo1U5r', // Dr. West Custom Clone

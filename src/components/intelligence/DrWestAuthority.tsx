@@ -16,8 +16,8 @@ export default function DrWestAuthority() {
                     <div className="absolute inset-0 bg-noble-gold/20 blur-[120px] rounded-full opacity-20 group-hover:opacity-40 transition-opacity" />
                     <div className="relative liquid-glass p-1 border-noble-gold/30 rounded-[3rem] overflow-hidden shadow-[0_0_80px_rgba(212,175,55,0.1)]">
                         <Image 
-                            src="/images/avatars/dr_alvin_west_official.png" 
-                            alt="Dr. Alvin West"
+                            src="/dr-alvin-west.jpg" 
+                            alt="Dr. Alvin West - EdIntel Executive Architect"
                             width={800}
                             height={800}
                             className="w-full h-full object-cover grayscale brightness-90 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-1000"
