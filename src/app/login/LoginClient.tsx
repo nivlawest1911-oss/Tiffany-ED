@@ -339,7 +339,7 @@ export default function LoginClient() {
                                         <div className="w-full border-t border-white/10" />
                                     </div>
                                     <div className="relative flex justify-center">
-                                        <span className="bg-[#0b1021] px-4 text-[9px] font-black text-zinc-500 uppercase tracking-widest">OR CONTINUE WITH ENCRYPTION</span>
+                                        <span className="bg-[#0b1021] px-4 text-[9px] font-black text-zinc-400 uppercase tracking-widest">OR CONTINUE WITH ENCRYPTION</span>
                                     </div>
                                 </div>
                             </>

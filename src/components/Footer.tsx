@@ -156,16 +156,16 @@ export default function Footer() {
                     />
                     
                     <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
-                        <Link href="/privacy" className="text-zinc-400 hover:text-[#FFB300] transition-colors text-xs font-medium uppercase tracking-wider">
+                        <Link href="/privacy" className="text-zinc-300 hover:text-[#FFB300] transition-colors text-xs font-medium uppercase tracking-wider">
                             Privacy Policy
                         </Link>
-                        <Link href="/terms" className="text-zinc-400 hover:text-[#FFB300] transition-colors text-xs font-medium uppercase tracking-wider">
+                        <Link href="/terms" className="text-zinc-300 hover:text-[#FFB300] transition-colors text-xs font-medium uppercase tracking-wider">
                             Terms of Service
                         </Link>
-                        <Link href="/ferpa" className="text-zinc-400 hover:text-[#FFB300] transition-colors text-xs font-medium uppercase tracking-wider">
+                        <Link href="/ferpa" className="text-zinc-300 hover:text-[#FFB300] transition-colors text-xs font-medium uppercase tracking-wider">
                             FERPA Compliance
                         </Link>
-                        <Link href="/contact" className="text-zinc-500 hover:text-[#00E5FF] transition-colors text-xs font-medium uppercase tracking-wider">
+                        <Link href="/contact" className="text-zinc-300 hover:text-[#00E5FF] transition-colors text-xs font-medium uppercase tracking-wider">
                             Contact Us
                         </Link>
                     </div>
