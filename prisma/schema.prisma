@@ -593,3 +593,39 @@ enum SubscriptionStatus {
   CANCELED
   INACTIVE
 }
+
+model TokenPackage {
+  id           String   @id @default(cuid())
+  name         String
+  description  String?
+  tokenAmount  Int      @map("token_amount")
+  priceCents   Int      @map("price_cents")
+  bonusTokens  Int      @default(0) @map("bonus_tokens")
+  tierLevel    String   @default("free") @map("tier_level")
+  isActive     Boolean  @default(true) @map("is_active")
+  isFeatured   Boolean  @default(false) @map("is_featured")
+  badgeText    String?  @map("badge_text")
+  displayOrder Int      @default(0) @map("display_order")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("token_packages")
+}
+
+model TokenPurchase {
+  id                    String   @id @default(cuid())
+  userId                String   @map("user_id")
+  packageId             String   @map("package_id")
+  tokensPurchased       Int      @map("tokens_purchased")
+  pricePaidCents        Int      @map("price_paid_cents")
+  bonusTokens           Int      @default(0) @map("bonus_tokens")
+  stripePaymentIntentId String?  @map("stripe_payment_intent_id")
+  stripeCustomerId      String?  @map("stripe_customer_id")
+  status                String   @default("pending")
+  ipAddress             String?  @map("ip_address")
+  userAgent             String?  @map("user_agent")
+  createdAt             DateTime @default(now()) @map("created_at")
+  updatedAt             DateTime @updatedAt @map("updated_at")
+
+  @@map("token_purchases")
+}

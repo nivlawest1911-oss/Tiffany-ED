@@ -52,20 +52,21 @@ export async function getSession() {
     const supabase = await createClient();
     if (supabase) {
         try {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session?.user) {
-                const metadata = session.user.user_metadata || {};
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                const metadata = user.user_metadata || {};
                 return {
                     user: {
-                        id: session.user.id,
-                        email: session.user.email!,
-                        name: metadata.full_name || session.user.email?.split('@')[0] || 'Executive',
+                        id: user.id,
+                        email: user.email!,
+                        name: metadata.full_name || user.email?.split('@')[0] || 'Executive',
                         tier: metadata.tier || 'free'
                     }
                 };
             }
-        } catch {
-            // Supabase not available - fall through to legacy auth
+        } catch (err) {
+            console.error("[AUTH] Supabase getUser failed:", err);
+            // Supabase not available or session invalid - fall through to legacy auth
         }
     }
 
