@@ -3,8 +3,6 @@ export const dynamic = 'force-dynamic';
 import { getSession } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { sendWelcomeEmail } from '@/services/email-service';
-import { createServerClient } from '@supabase/ssr';
-import { cookies } from 'next/headers';
 
 export async function GET() {
     let authUser: any = null;
