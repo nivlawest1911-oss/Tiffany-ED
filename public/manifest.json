@@ -1,7 +1,7 @@
 {
-    "name": "Edintel",
-    "short_name": "Edintel",
-    "description": "Your personal AI avatar for reducing teacher burnout and empowering education",
+    "name": "EdIntel - Intelligence in Education",
+    "short_name": "EdIntel",
+    "description": "Advanced AI-powered educational intelligence platform with social authentication",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#050505",
@@ -9,26 +9,21 @@
     "orientation": "portrait-primary",
     "icons": [
         {
-            "src": "/favicon.ico",
-            "sizes": "64x64 32x32 24x24 16x16",
-            "type": "image/x-icon"
-        },
-        {
-            "src": "/icon-192.png",
+            "src": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/edintel_logo_high_fidelity_1774298407403.png-40aMNM0IwgAivJXguDqZ1AimCtnxVu.jpeg",
             "sizes": "192x192",
-            "type": "image/png",
+            "type": "image/jpeg",
             "purpose": "any maskable"
         },
         {
-            "src": "/icon-512.png",
+            "src": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/edintel_logo_high_fidelity_1774298407403.png-40aMNM0IwgAivJXguDqZ1AimCtnxVu.jpeg",
             "sizes": "512x512",
-            "type": "image/png",
+            "type": "image/jpeg",
             "purpose": "any maskable"
         },
         {
-            "src": "/apple-touch-icon.png",
+            "src": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/edintel_logo_high_fidelity_1774298407403.png-40aMNM0IwgAivJXguDqZ1AimCtnxVu.jpeg",
             "sizes": "180x180",
-            "type": "image/png",
+            "type": "image/jpeg",
             "purpose": "any"
         }
     ],
@@ -38,7 +33,7 @@
             "url": "/ai-hub",
             "icons": [
                 {
-                    "src": "/icon-192.png",
+                    "src": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/edintel_logo_high_fidelity_1774298407403.png-40aMNM0IwgAivJXguDqZ1AimCtnxVu.jpeg",
                     "sizes": "192x192"
                 }
             ]
@@ -48,7 +43,7 @@
             "url": "/vault",
             "icons": [
                 {
-                    "src": "/icon-192.png",
+                    "src": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/edintel_logo_high_fidelity_1774298407403.png-40aMNM0IwgAivJXguDqZ1AimCtnxVu.jpeg",
                     "sizes": "192x192"
                 }
             ]
@@ -58,7 +53,7 @@
             "url": "/gym",
             "icons": [
                 {
-                    "src": "/icon-192.png",
+                    "src": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/edintel_logo_high_fidelity_1774298407403.png-40aMNM0IwgAivJXguDqZ1AimCtnxVu.jpeg",
                     "sizes": "192x192"
                 }
             ]

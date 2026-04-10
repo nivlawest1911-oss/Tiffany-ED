@@ -410,7 +410,7 @@ export function CinematicLogoIntro({
               
               <div className="relative w-full h-full rounded-3xl overflow-hidden ring-2 ring-[#D4AF37]/50 shadow-2xl">
                 <Image
-                  src="/images/edintel-logo.png"
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/edintel_logo_high_fidelity_1774298407403.png-40aMNM0IwgAivJXguDqZ1AimCtnxVu.jpeg"
                   alt="EdIntel Logo"
                   fill
                   className="object-contain p-4"
