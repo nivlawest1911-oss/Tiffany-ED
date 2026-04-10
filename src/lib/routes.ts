@@ -37,6 +37,7 @@ export const ROUTES = {
     // Commerce
     PRICING: '/pricing',
     PROFILE: '/profile',
+    IDENTITY: '/profile',
 
     // Legal & Support
     PRIVACY: '/privacy',

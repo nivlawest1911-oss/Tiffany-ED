@@ -31,10 +31,10 @@ export default function MobileNavigation() {
 
     // 📱 REFINED TABS FOR EdIntel USERS
     const bottomTabs = [
-        { id: 'home', label: 'Home', icon: Home, link: '/' },
+        { id: 'home', label: 'Home', icon: Home, link: '/the-room' },
         { id: 'the-room', label: 'Room', icon: Sparkles, link: '/the-room' },
-        { id: 'command', label: 'Command', icon: LayoutDashboard, link: '/the-room' },
-        { id: 'identity', label: 'Identity', icon: User, link: '/identity' },
+        { id: 'command', label: 'Command', icon: LayoutDashboard, link: '/admin' },
+        { id: 'identity', label: 'Identity', icon: User, link: '/profile' },
         { id: 'more', label: 'More', icon: Menu, action: () => setMenuOpen(true) },
     ];
 
@@ -122,8 +122,8 @@ export default function MobileNavigation() {
                                         <div>
                                             <h3 className="text-white font-black text-lg leading-tight uppercase tracking-tight">{user.name}</h3>
                                             <div className="flex items-center gap-2 mt-1">
-                                                <span className="px-2 py-0.5 rounded-full bg-sovereign-gold/10 border border-sovereign-gold/20 text-[9px] font-bold text-sovereign-gold uppercase tracking-wider">
-                                                    {user.tier}
+                                            <span className="px-2 py-0.5 rounded-full bg-sovereign-gold/10 border border-sovereign-gold/20 text-[9px] font-bold text-sovereign-gold uppercase tracking-wider">
+                                                    {user.tier || 'SITE COMMAND'}
                                                 </span>
                                                 <span className="flex items-center gap-1 text-[9px] font-bold text-emerald-500 uppercase tracking-wider">
                                                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />

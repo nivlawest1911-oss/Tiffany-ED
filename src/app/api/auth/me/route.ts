@@ -7,6 +7,12 @@ import { sendWelcomeEmail } from '@/services/email-service';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
+// Executive whitelist for full admin access
+const EXECUTIVE_WHITELIST = [
+    'nivlawest1911@gmail.com',
+    'dralvinwest@transcendholisticwellness.com'
+];
+
 export async function GET() {
     let authUser: any = null;
 
@@ -69,6 +75,12 @@ export async function GET() {
             authUser.tier = freshNeon.subscription_tier || authUser.tier;
             authUser.position = freshNeon.position;
             authUser.bio = freshNeon.bio;
+        }
+
+        // Executive whitelist override - always grant Site Command access
+        if (authUser.email && EXECUTIVE_WHITELIST.includes(authUser.email.toLowerCase())) {
+            console.log(`[AUTH_SYNC] Executive whitelist detected: ${authUser.email} -> Site Command`);
+            authUser.tier = 'Site Command';
         }
 
         // B. Prisma Check/Provision (Supabase Postgres)
