@@ -181,7 +181,7 @@ export const EdIntelLogo = memo(({
                     />
                     <div className="relative z-10 rounded-3xl overflow-hidden shadow-[0_0_30px_rgba(212,175,55,0.5)] ring-1 ring-noble-gold/30">
                         <Image
-                            src="/edintel-logo.png"
+                            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/edintel_logo_high_fidelity_1774298407403.png-40aMNM0IwgAivJXguDqZ1AimCtnxVu.jpeg"
                             alt="EdIntel - Intelligence in Education"
                             width={size || 120}
                             height={size || 120}
