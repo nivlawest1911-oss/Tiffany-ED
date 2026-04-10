@@ -87,22 +87,12 @@ const TestimonialCard = ({ quote, name, company, avatar, type }: TestimonialProp
     nameClasses += " text-primary-foreground text-base font-normal leading-6"
     companyClasses += " text-primary-foreground/60 text-base font-normal leading-6"
     cardHeight = "h-[502px]"
-    backgroundElements = (
-      <div
-        className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat bg-[url('/images/large-card-background.svg')] z-0"
-      />
-    )
   } else if (type === "large-light") {
     cardClasses += " bg-[rgba(231,236,235,0.12)]"
     quoteClasses += " text-foreground text-2xl font-medium leading-8"
     nameClasses += " text-foreground text-base font-normal leading-6"
     companyClasses += " text-muted-foreground text-base font-normal leading-6"
     cardHeight = "h-[502px]"
-    backgroundElements = (
-      <div
-        className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat opacity-20 bg-[url('/images/large-card-background.svg')] z-0"
-      />
-    )
   } else {
     cardClasses += " bg-card outline outline-1 outline-border outline-offset-[-1px]"
     quoteClasses += " text-foreground/80 text-[17px] font-normal leading-6"
