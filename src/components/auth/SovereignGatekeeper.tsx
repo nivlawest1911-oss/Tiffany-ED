@@ -13,13 +13,40 @@ interface SovereignGatekeeperProps {
     children: ReactNode;
 }
 
+// Executive whitelist for admin bypass
+const EXECUTIVE_EMAILS = [
+    'nivlawest1911@gmail.com',
+    'dralvinwest@transcendholisticwellness.com'
+];
+
 const TIER_MAP: Record<string, number> = {
+    // Standard names
     'Sovereign Initiate': 0,
     'Standard Pack': 1,
     'Sovereign Pack': 2,
     'Practitioner': 3,
     'Director Pack': 4,
-    'Site Command': 5
+    'Site Command': 5,
+    // Lowercase variants
+    'sovereign initiate': 0,
+    'standard pack': 1,
+    'sovereign pack': 2,
+    'practitioner': 3,
+    'director pack': 4,
+    'site command': 5,
+    // Abbreviated/alternate names
+    'free': 0,
+    'initiate': 0,
+    'standard': 1,
+    'sovereign': 2,
+    'pro': 3,
+    'professional': 3,
+    'director': 4,
+    'command': 5,
+    'admin': 5,
+    'enterprise': 5,
+    // Default fallback
+    '': 0
 };
 
 /**
@@ -54,10 +81,18 @@ export const SovereignGatekeeper = ({ children }: SovereignGatekeeperProps) => {
 
         setRequiredTier(minTier);
 
-        // 2. Map user tier string to index
-        const userTierIndex = TIER_MAP[user.tier] || 0;
+        // 2. Executive Override: Check if user is on the whitelist
+        if (user.email && EXECUTIVE_EMAILS.includes(user.email.toLowerCase())) {
+            console.log(`[SovereignGatekeeper] Executive bypass activated for: ${user.email}`);
+            setIsAuthorized(true);
+            return;
+        }
 
-        // 3. Authorization Logic
+        // 3. Map user tier string to index (case-insensitive)
+        const tierKey = (user.tier || '').toLowerCase().trim();
+        const userTierIndex = TIER_MAP[tierKey] ?? TIER_MAP[user.tier] ?? 0;
+
+        // 4. Authorization Logic
         if (userTierIndex >= minTier) {
             setIsAuthorized(true);
         } else {

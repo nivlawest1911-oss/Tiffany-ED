@@ -49,7 +49,15 @@ export default function TalkingDelegateOverlay({
                     signal: controller.signal
                 });
 
-                if (!response.ok) throw new Error('Failed to synthesize speech');
+                if (!response.ok) {
+                    // Handle 503 Service Unavailable silently (TTS not configured)
+                    if (response.status === 503) {
+                        setError("Voice synthesis not available.");
+                        setIsLoading(false);
+                        return;
+                    }
+                    throw new Error('Failed to synthesize speech');
+                }
 
                 const blob = await response.blob();
                 if (controller.signal.aborted) return;
@@ -61,14 +69,14 @@ export default function TalkingDelegateOverlay({
                 // Auto-play
                 setTimeout(() => {
                     if (audioRef.current && !controller.signal.aborted) {
-                        audioRef.current.play().catch(e => console.error("Autoplay blocked", e));
+                        audioRef.current.play().catch(() => { /* Autoplay blocked - silent */ });
                     }
                 }, 500);
 
             } catch (err: any) {
                 if (err.name === 'AbortError') return;
-                console.error("TTS Error:", err);
-                setError("Voice synthesis unavailable. Using backup protocol.");
+                // Only log unexpected errors, not service unavailable
+                setError("Voice synthesis unavailable.");
                 setIsLoading(false);
             }
         };
