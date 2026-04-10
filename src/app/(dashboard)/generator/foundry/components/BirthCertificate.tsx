@@ -41,7 +41,7 @@ export const BirthCertificate: React.FC<BirthCertificateProps> = ({ certificate 
                     Official Birth Certificate
                 </h1>
                 <p className="text-[#c5a47e]/60 text-sm tracking-[0.2em] uppercase font-light">
-                    EdIntel Sovereign Foundation | Mobile County, Alabama
+                    EdIntel Sovereign Foundation | {certificate.districtId.includes('MOBILE') ? 'Mobile County, Alabama' : 'Sovereign Sandbox Nexus'}
                 </p>
                 <div className="h-px w-full bg-gradient-to-r from-transparent via-[#c5a47e]/40 to-transparent mt-8" />
             </header>

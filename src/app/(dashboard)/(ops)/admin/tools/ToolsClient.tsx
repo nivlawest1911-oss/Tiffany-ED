@@ -101,7 +101,7 @@ export default function ToolsClient() {
                         <Zap className="w-5 h-5 text-white/10 group-hover:text-intel-gold transition-colors" />
                     </div>
 
-                    <div className="p-2 bg-black/20">
+                    <div className="p-2 bg-black/20 min-h-[600px] [content-visibility:auto]">
                         <LeadershipGenerator />
                     </div>
                 </motion.div>
@@ -127,7 +127,7 @@ export default function ToolsClient() {
                         </div>
                     </div>
 
-                    <div className="p-2 bg-black/20">
+                    <div className="p-2 bg-black/20 min-h-[600px] [content-visibility:auto]">
                         <IEPGenerator />
                     </div>
                 </motion.div>
@@ -153,7 +153,7 @@ export default function ToolsClient() {
                         </div>
                     </div>
 
-                    <div className="p-2 bg-black/20 h-full min-h-[400px]">
+                    <div className="p-2 bg-black/20 h-full min-h-[600px] [content-visibility:auto]">
                         <LessonPlanGenerator />
                     </div>
                 </motion.div>
@@ -179,7 +179,7 @@ export default function ToolsClient() {
                         </div>
                     </div>
 
-                    <div className="p-2 bg-black/20 h-full min-h-[400px]">
+                    <div className="p-2 bg-black/20 h-full min-h-[600px] [content-visibility:auto]">
                         <AutomatedIEPAudit />
                     </div>
                 </motion.div>

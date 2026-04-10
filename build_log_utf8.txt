@@ -1,76 +1,143 @@
-﻿node.exe : npm warn Unknown project config 
-"strict-peer-dependencies". This will stop working 
-in the next major version of npm.
-At C:\Users\nivla\AppData\Roaming\npm\npm.ps1:24 
-char:5
-+     & "node$exe"  
-"$basedir/node_modules/npm/bin/npm-cli.js" $args
-+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~~~~~~~~~~~~~~
-    + CategoryInfo          : NotSpecified: (npm war 
-   n Unknow...version of npm.:String) [], RemoteExc  
-  eption
-    + FullyQualifiedErrorId : NativeCommandError
+﻿node.exe : npm warn Unknown 
+project config 
+"strict-peer-dependencies". This 
+will stop working in the next 
+major version of npm.
+At line:1 char:1
++ & "C:\nvm4w\nodejs/node.exe" "C
+:\nvm4w\nodejs/node_modules/npm/b
+in/np ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo          : No 
+   tSpecified: (npm warn Unknow  
+  ...version of npm.:String) [   
+ ], RemoteException
+    + FullyQualifiedErrorId : Na 
+   tiveCommandError
  
 npm warn Unknown project config 
-"auto-install-peers". This will stop working in the 
-next major version of npm.
-npm warn using --force Recommended protections 
-disabled.
+"auto-install-peers". This will 
+stop working in the next major 
+version of npm.
+npm warn using --force 
+Recommended protections disabled.
 
 > edintel-app@1.0.0 prebuild
 > node -e "const fs = require('fs'); if (fs.existsSync('.next')) fs.rmSync('.next', { recursive: true, force: true });"
 
 
 > edintel-app@1.0.0 build
-> next build
+> prisma generate && next build
 
+Environment variables loaded from .env
+Prisma schema loaded from prisma\schema.prisma
+
+Γ£ö Generated Prisma Client (v5.22.0) to .\node_modules\@prisma\client in 172ms
+
+Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+
+Help us improve the Prisma ORM for everyone. Share your feedback in a short 2-min survey: https://pris.ly/orm/survey/release-5-22
+
+ΓöîΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+ΓöÇΓöÇΓöÇΓöÉ
+Γöé  Update available 5.22.0 -> 
+7.7.0                       Γöé
+Γöé                              
+                           Γöé
+Γöé  This is a major update - 
+please follow the guide at    Γöé
+Γöé  https://pris.ly/d/major-vers
+ion-upgrade                Γöé
+Γöé                              
+                           Γöé
+Γöé  Run the following to update 
+                           Γöé
+Γöé    npm i --save-dev 
+prisma@latest                    
+   Γöé
+Γöé    npm i 
+@prisma/client@latest            
+              Γöé
+ΓööΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+ΓöÇΓöÇΓöÇΓöÿ
    Γû▓ Next.js 15.1.12
    - Environments: .env.production.local, .env.local, .env.production, .env
 
    Creating an optimized production build ...
- Γ£ô Compiled successfully
-   Linting and checking validity of types ...
-
-./src/app/videos/VideosPageClient.tsx
-81:19  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
-
-./src/app/videos/[id]/page.tsx
-139:27  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
-
-./src/components/VideoGallery.tsx
-119:13  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
-
-info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
 Failed to compile.
 
-./src/components/meta-ai/Chat.tsx:20:13
-Type error: Property 'submitUserMessage' does not 
-exist on type '{}'.
+./src/app/pricing/PricingClient.t
+sx
+Error:   [31mx[0m You're 
+importing a component that needs 
+`useState`. This React hook only 
+works in a client component. To 
+fix, mark the file (or its 
+parent) with the `"use client"` 
+directive.
+  [31m|[0m 
+  [31m|[0m  Learn more: https:/
+/nextjs.org/docs/app/api-referenc
+e/directives/use-client
+  [31m|[0m 
+  [31m|[0m 
+   ,-[[36;1;4mC:\Users\nivla\edi
+ntel-app\src\app\pricing\PricingC
+lient.tsx[0m:1:1]
+ [2m1[0m | import { useState, 
+useEffect } from 'react';
+   : [35;1m         ^^^^^^^^[0m
+ [2m2[0m | import 
+SovereignSubscription from '@/com
+ponents/SovereignSubscription';
+ [2m3[0m | import { 
+ParticleBackground } from 
+'@/components/ui/Cinematic';
+   `----
+  [31mx[0m You're importing a 
+component that needs 
+`useEffect`. This React hook 
+only works in a client 
+component. To fix, mark the file 
+(or its parent) with the `"use 
+client"` directive.
+  [31m|[0m 
+  [31m|[0m  Learn more: https:/
+/nextjs.org/docs/app/api-referenc
+e/directives/use-client
+  [31m|[0m 
+  [31m|[0m 
+   ,-[[36;1;4mC:\Users\nivla\edi
+ntel-app\src\app\pricing\PricingC
+lient.tsx[0m:1:1]
+ [2m1[0m | import { useState, 
+useEffect } from 'react';
+   : [35;1m                   
+^^^^^^^^^[0m
+ [2m2[0m | import 
+SovereignSubscription from '@/com
+ponents/SovereignSubscription';
+ [2m3[0m | import { 
+ParticleBackground } from 
+'@/components/ui/Cinematic';
+   `----
 
-[0m [90m 18 |[39m [36mexport[39m 
-[36mfunction[39m [33mMetaAIChat[39m({ className 
-[33m=[39m [32m''[39m }[33m:[39m 
-[33mMetaAIChatProps[39m) {[0m
-[0m [90m 19 |[39m     [36mconst[39m 
-[conversation[33m,[39m setConversation] 
-[33m=[39m useUIState[33m<[39m[36mtypeof[39m 
-[33mAI[39m[33m>[39m()[33m;[39m[0m
-[0m[31m[1m>[22m[39m[90m 20 |[39m     
-[36mconst[39m { submitUserMessage } [33m=[39m 
-useActions[33m<[39m[36mtypeof[39m 
-[33mAI[39m[33m>[39m()[33m;[39m[0m
-[0m [90m    |[39m             
-[31m[1m^[22m[39m[0m
-[0m [90m 21 |[39m     [36mconst[39m 
-[input[33m,[39m setInput] [33m=[39m 
-useState([32m''[39m)[33m;[39m[0m
-[0m [90m 22 |[39m     [36mconst[39m 
-[isLoading[33m,[39m setIsLoading] [33m=[39m 
-useState([36mfalse[39m)[33m;[39m[0m
-[0m [90m 23 |[39m     [36mconst[39m 
-[_edgeStatus[33m,[39m _setEdgeStatus] [33m=[39m u
-seState[33m<[39m[33many[39m[33m>[39m([36mnull
-[39m)[33m;[39m[0m
-Next.js build worker exited with code: 1 and signal: 
-null
+Import trace for requested 
+module:
+./src/app/pricing/PricingClient.t
+sx
+./src/app/pricing/page.tsx
+
+
+> Build failed because of 
+webpack errors

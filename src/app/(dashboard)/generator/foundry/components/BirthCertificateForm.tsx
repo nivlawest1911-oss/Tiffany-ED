@@ -39,7 +39,7 @@ export const BirthCertificateForm = () => {
     const [formData, setFormData] = useState({
         name: '',
         role: '',
-        tier: 'NOVICE' as const,
+        tier: 'NOVICE' as 'NOVICE' | 'SPECIALIST' | 'ARCHITECT',
         basePersona: 'custom',
         mission: '',
         tone: '',
@@ -68,6 +68,10 @@ export const BirthCertificateForm = () => {
     };
 
     const generateMasterPrompt = () => {
+        const directives = formData.pedagogicalDirectives.length > 0 
+            ? `PEDAGOGICAL DIRECTIVES:\n${formData.pedagogicalDirectives.map(d => `- ${d}`).join('\n')}`
+            : '';
+
         return `
             System: You are 'Sidekick,' the EdIntel AI Orchestrator.
             ACT AS: ${formData.role} 
@@ -77,6 +81,8 @@ export const BirthCertificateForm = () => {
             CULTURAL CONTEXT: ${formData.culturalContext}
             TIER: ${formData.tier}
             
+            ${directives}
+
             UNIFIED STRATEGIC DIRECTIVE:
             1. Respond with high intelligence and empathetic collaboration.
             2. Adhere strictly to Alabama State Standards and Administrative Code mandates.
@@ -102,9 +108,13 @@ export const BirthCertificateForm = () => {
             voiceId: formData.voiceId,
             avatarId: formData.avatarId,
             masterSystemPrompt: generateMasterPrompt(),
-            districtId: 'MOBILE_COUNTY_AL', // Default for now
+            districtId: user?.id ? 'AL_MOBILE_DISTRICT' : 'GUEST_SANDBOX', // Support dynamic district logic or fallback
             creatorId: user?.id || '', // Must be a valid UUID from Supabase Auth
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
+            metadata: {
+                engine: 'v2027_SOVEREIGN_FOUNDRY',
+                fidelity: (formData.tier as string) === 'ARCHITECT' ? 'MAX' : 'STANDARD'
+            }
         };
 
         if (!user) {
@@ -381,7 +391,7 @@ export const BirthCertificateForm = () => {
                             <div className="flex flex-col md:flex-row gap-4 justify-center">
                                 <SovereignButton 
                                     className="w-full md:w-auto"
-                                    onClick={() => router.push(`/generator/foundry/chat?companionId=${certificate.id}`)}
+                                    onClick={() => router.push(`/dashboard/chat?companionId=${certificate.id}`)}
                                 >
                                     Initiate Direct Comm
                                 </SovereignButton>

@@ -21,12 +21,23 @@ const server = http.createServer(app);
 const wss = new WebSocketServer({ server });
 
 // Initialize services
-const prisma = new PrismaClient();
-const storage = new Storage();
-const vertexAI = new VertexAI({
-    project: process.env.VERTEX_AI_PROJECT || 'edintel-sovereign',
-    location: process.env.VERTEX_AI_LOCATION || 'us-central1'
-});
+let prisma;
+let storage;
+let vertexAI;
+
+try {
+    prisma = new PrismaClient();
+    storage = new Storage();
+    vertexAI = new VertexAI({
+        project: process.env.VERTEX_AI_PROJECT || 'edintel-sovereign-2027',
+        location: process.env.VERTEX_AI_LOCATION || 'us-central1'
+    });
+    console.log('✅ Services Initialized (Prisma/Storage/VertexAI)');
+} catch (error) {
+    console.error('❌ CRITICAL: Failed to initialize core services:', error);
+    // Continue for now to allow health check to report status, or exit if preferred
+    // process.exit(1); 
+}
 
 const PORT = process.env.PORT || 8080;
 

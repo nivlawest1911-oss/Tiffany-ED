@@ -6,10 +6,10 @@ export async function POST(req: Request) {
         const { text, model } = await req.json();
 
         if (!process.env.HUGGINGFACE_API_KEY) {
-            console.error('TTS Error: HUGGINGFACE_API_KEY is missing');
+            // Return 503 Service Unavailable - no need to log every request
             return NextResponse.json(
-                { error: 'Hugging Face API key not configured' },
-                { status: 500 }
+                { error: 'TTS service not configured', unavailable: true },
+                { status: 503 }
             );
         }
 

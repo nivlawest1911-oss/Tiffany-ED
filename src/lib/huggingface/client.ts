@@ -5,8 +5,12 @@
 
 import { HfInference } from '@huggingface/inference';
 
-// Initialize Hugging Face client
-const hf = new HfInference(process.env.HUGGINGFACE_API_KEY);
+// Initialize Hugging Face client - gracefully handle missing API key
+const apiKey = process.env.HUGGINGFACE_API_KEY;
+const hf = apiKey ? new HfInference(apiKey) : null;
+
+// Flag to check if HF is available for UI components
+export const isHuggingFaceAvailable = !!apiKey;
 
 /**
  * Model Registry - Best models for each task

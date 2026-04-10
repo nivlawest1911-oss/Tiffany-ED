@@ -91,7 +91,7 @@ export default function StudioClient() {
                             </button>
                         </div>
 
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 min-h-[160px]">
                             {cat.items.map((item) => (
                                 <motion.div
                                     key={item.id}

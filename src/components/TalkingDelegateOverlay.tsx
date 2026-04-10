@@ -49,7 +49,14 @@ export default function TalkingDelegateOverlay({
                     signal: controller.signal
                 });
 
-                if (!response.ok) throw new Error('Failed to synthesize speech');
+                if (response.status === 503) {
+                    // Silently handle unavailable service
+                    setError("Voice synthesis not available.");
+                    setIsLoading(false);
+                    return;
+                }
+
+                if (!response.ok) throw new Error(`TTS failed with status: ${response.status}`);
 
                 const blob = await response.blob();
                 if (controller.signal.aborted) return;
@@ -67,8 +74,12 @@ export default function TalkingDelegateOverlay({
 
             } catch (err: any) {
                 if (err.name === 'AbortError') return;
-                console.error("TTS Error:", err);
-                setError("Voice synthesis unavailable. Using backup protocol.");
+                
+                // Only log unexpected errors (exclude 503-related issues)
+                if (!(err instanceof Error && err.message.includes('503'))) {
+                    console.error("TTS Error:", err);
+                    setError("Voice synthesis unavailable. Using backup protocol.");
+                }
                 setIsLoading(false);
             }
         };

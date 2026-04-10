@@ -185,11 +185,13 @@ export async function getBirthCertificate(companionId: string): Promise<Companio
     }
 
     // Map DB fields back to the interface
+    if (!data) return null;
+
     return {
         id: data.id,
         name: data.name,
         role: data.role,
-        tier: data.tier,
+        tier: data.tier as "Sovereign" | "Pioneer" | "Foundational",
         persona: data.persona,
         voiceId: data.voice_id,
         avatarId: data.avatar_id,

@@ -86,6 +86,11 @@ AnimatedHeader.displayName = 'AnimatedHeader';
 export default function ReadyToActivateCTA() {
     const { user } = useAuth();
     const isSignedIn = !!user;
+    const [isMobile, setIsMobile] = React.useState(false);
+
+    React.useEffect(() => {
+        setIsMobile(window.innerWidth < 768);
+    }, []);
 
     return (
         <section className="relative py-32 overflow-hidden bg-[#020617]">
@@ -127,13 +132,19 @@ export default function ReadyToActivateCTA() {
                 </div>
             </div>
 
-            {/* Glowing Orbs - Use transform-gpu for hardware acceleration */}
+            {/* Glowing Orbs - Simplified for Mobile performance */}
             <div 
-                className="absolute top-1/2 left-0 w-96 h-96 bg-electric-cyan/10 rounded-full blur-[120px] -z-10 animate-pulse transform-gpu" 
+                className={cn(
+                    "absolute top-1/2 left-0 rounded-full -z-10 animate-pulse transform-gpu bg-electric-cyan/10",
+                    isMobile ? "w-48 h-48 blur-[60px]" : "w-96 h-96 blur-[120px]"
+                )}
                 style={{ transform: 'translate3d(0, -50%, 0)' }}
             />
             <div 
-                className="absolute bottom-0 right-0 w-96 h-96 bg-sovereign-gold/10 rounded-full blur-[120px] -z-10 animate-pulse transform-gpu" 
+                className={cn(
+                    "absolute bottom-0 right-0 rounded-full -z-10 animate-pulse transform-gpu bg-sovereign-gold/10",
+                    isMobile ? "w-48 h-48 blur-[60px]" : "w-96 h-96 blur-[120px]"
+                )}
             />
         </section>
     );

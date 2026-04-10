@@ -103,6 +103,10 @@ const nextConfig = {
     typescript: {
         ignoreBuildErrors: true,
     },
+    devIndicators: {
+        buildActivity: true,
+        appIsrStatus: false,
+    },
 };
 
 module.exports = nextConfig;

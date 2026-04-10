@@ -36,7 +36,7 @@ export const StudioVideoSection = ({ userTier: _userTier, isCommandLevel }: Stud
         <>
             <div className="contents">
                 {/* Video Quadrant: InVideo AI */}
-                <div className="p-6 bg-zinc-900 border border-zinc-800 rounded-xl flex flex-col justify-between relative overflow-hidden group">
+                <div className="p-6 bg-zinc-900 border border-zinc-800 rounded-xl flex flex-col justify-between relative overflow-hidden group min-h-[220px]">
                     <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-30 transition-opacity">
                         <Zap className="w-12 h-12 text-indigo-500" />
                     </div>
@@ -66,7 +66,7 @@ export const StudioVideoSection = ({ userTier: _userTier, isCommandLevel }: Stud
                 </div>
 
                 {/* Video Quadrant: Captions.ai */}
-                <div className="p-6 bg-zinc-900 border border-zinc-800 rounded-xl flex flex-col justify-between relative overflow-hidden group">
+                <div className="p-6 bg-zinc-900 border border-zinc-800 rounded-xl flex flex-col justify-between relative overflow-hidden group min-h-[220px]">
                     <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-30 transition-opacity">
                         <Sparkles className="w-12 h-12 text-amber-500" />
                     </div>
