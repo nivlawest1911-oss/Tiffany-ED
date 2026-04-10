@@ -30,7 +30,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://edintel-app.vercel.app'),
+  metadataBase: new URL('https://edintelai.vercel.app'),
   alternates: {
     canonical: '/',
   },
@@ -39,12 +39,11 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: '64x64 32x32 24x24 16x16', type: 'image/x-icon' },
-      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
-      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+      { url: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/edintel_logo_high_fidelity_1774298407403.png-40aMNM0IwgAivJXguDqZ1AimCtnxVu.jpeg', sizes: '192x192', type: 'image/jpeg' },
+      { url: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/edintel_logo_high_fidelity_1774298407403.png-40aMNM0IwgAivJXguDqZ1AimCtnxVu.jpeg', sizes: '512x512', type: 'image/jpeg' },
     ],
-    apple: '/apple-touch-icon.png',
-    shortcut: '/favicon.ico',
+    apple: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/edintel_logo_high_fidelity_1774298407403.png-40aMNM0IwgAivJXguDqZ1AimCtnxVu.jpeg',
+    shortcut: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/edintel_logo_high_fidelity_1774298407403.png-40aMNM0IwgAivJXguDqZ1AimCtnxVu.jpeg',
   },
   appleWebApp: {
     capable: true,
@@ -59,11 +58,11 @@ export const metadata: Metadata = {
     siteName: 'EdIntel',
     title: 'EdIntel — AI Operating System for Education Leaders',
     description: 'The definitive AI operating layer for autonomous professionals and institutional intelligence. Sovereign analytics, neural delegation, and strategic insight.',
-    url: 'https://edintel-app.vercel.app',
+    url: 'https://edintelai.vercel.app',
     locale: 'en_US',
     images: [
       {
-        url: '/opengraph-image.jpg',
+        url: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/edintel_logo_high_fidelity_1774298407403.png-40aMNM0IwgAivJXguDqZ1AimCtnxVu.jpeg',
         width: 1200,
         height: 630,
         type: 'image/jpeg',
@@ -78,7 +77,7 @@ export const metadata: Metadata = {
     site: '@AlvinWe53959439',
     images: [
       {
-        url: '/twitter-image.jpg',
+        url: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/edintel_logo_high_fidelity_1774298407403.png-40aMNM0IwgAivJXguDqZ1AimCtnxVu.jpeg',
         width: 1200,
         height: 630,
       },
