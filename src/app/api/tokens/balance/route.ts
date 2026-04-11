@@ -60,7 +60,7 @@ export async function GET(request: NextRequest) {
 
         const balance = rows[0];
 
-        return NextResponse.json({
+return NextResponse.json({
             currentTokens: balance.current_tokens,
             lifetimePurchased: balance.lifetime_tokens_purchased,
             lifetimeUsed: balance.lifetime_tokens_used,
@@ -68,6 +68,10 @@ export async function GET(request: NextRequest) {
             subscriptionTier: balance.subscription_tier,
             subscriptionStatus: balance.subscription_status,
             updatedAt: balance.updated_at,
+        }, {
+            headers: {
+                'Cache-Control': 'private, max-age=30, stale-while-revalidate=60'
+            }
         });
     } catch (error: any) {
         console.error('Error fetching balance:', error);

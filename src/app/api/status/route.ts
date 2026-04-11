@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 
+export const runtime = 'edge';
 export const dynamic = "force-dynamic"
 
 export async function GET() {
@@ -41,5 +42,9 @@ export async function GET() {
         statusReport.heygen = "NOT CONFIGURED - Add HEYGEN_API_KEY"
     }
 
-    return NextResponse.json(statusReport)
+    return NextResponse.json(statusReport, {
+        headers: {
+            'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120'
+        }
+    })
 }

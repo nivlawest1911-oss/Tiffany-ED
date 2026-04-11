@@ -7,9 +7,10 @@
     },
     "scripts": {
         "preinstall": "echo 'Starting fresh install'",
-        "dev": "next dev",
+        "dev": "next dev --turbopack",
         "prebuild": "node -e \"const fs = require('fs'); if (fs.existsSync('.next')) fs.rmSync('.next', { recursive: true, force: true });\"",
         "build": "prisma generate && next build",
+        "build:analyze": "ANALYZE=true next build",
         "start": "next start",
         "lint": "echo 'Linting skipped'",
         "director": "npx tsx src/scripts/director-agent.ts",
@@ -153,9 +154,11 @@
         "y-indexeddb": "^9.0.12",
         "y-websocket": "^3.0.0",
         "yjs": "^13.6.29",
+        "web-vitals": "^4.2.4",
         "zod": "3.25.76"
     },
     "devDependencies": {
+        "@next/bundle-analyzer": "^15.1.12",
         "@eslint/eslintrc": "^3.2.0",
         "@eslint/js": "^9.18.0",
         "@next/eslint-plugin-next": "15.1.12",

@@ -8,6 +8,7 @@ import { SovereignProvider } from '@/context/SovereignState';
 import { Toaster } from 'sonner';
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import WebVitalsReporter from '@/components/analytics/WebVitalsReporter';
 import ClientShell from '@/components/layout/ClientShell';
 import { Orbitron, Outfit, Playfair_Display } from 'next/font/google';
 
@@ -126,6 +127,7 @@ export default function RootLayout({
                   <Toaster position="top-right" theme="dark" />
                   <Analytics />
                   <SpeedInsights />
+                  <WebVitalsReporter />
                   <script
                     dangerouslySetInnerHTML={{
                       __html: `
