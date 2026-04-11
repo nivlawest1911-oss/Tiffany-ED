@@ -7,7 +7,23 @@ const nextConfig = {
     compress: true,
     poweredByHeader: false,
     generateEtags: true,
-    
+
+    images: {
+        formats: ['image/avif', 'image/webp'],
+        deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
+        imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+        minimumCacheTTL: 60 * 60 * 24 * 30,
+        remotePatterns: [
+            { protocol: 'https', hostname: '**.supabase.co' },
+            { protocol: 'https', hostname: '**.vercel-storage.com' },
+            { protocol: 'https', hostname: '**.googleusercontent.com' },
+            { protocol: 'https', hostname: 'images.unsplash.com' },
+            { protocol: 'https', hostname: 'www.transparenttextures.com' },
+            { protocol: 'https', hostname: 'api.dicebear.com' },
+            { protocol: 'https', hostname: 'hebbkx1anhila5yf.public.blob.vercel-storage.com' }
+        ],
+    },
+
     webpack: (config, { dev, isServer: _isServer }) => {
         if (dev && config.cache) {
             config.cache = {
@@ -30,40 +46,9 @@ const nextConfig = {
         }
         return config;
     },
-    
-    images: {
-        formats: ['image/avif', 'image/webp'],
-        deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
-        imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-        minimumCacheTTL: 60 * 60 * 24 * 30,
-        remotePatterns: [
-            { protocol: 'https', hostname: '**.supabase.co' },
-            { protocol: 'https', hostname: '**.vercel-storage.com' },
-            { protocol: 'https', hostname: '**.googleusercontent.com' },
-            { protocol: 'https', hostname: 'images.unsplash.com' },
-            { protocol: 'https', hostname: 'www.transparenttextures.com' },
-            { protocol: 'https', hostname: 'api.dicebear.com' },
-            { protocol: 'https', hostname: 'hebbkx1anhila5yf.public.blob.vercel-storage.com' }
-        ],
-    },
-    
+
     serverExternalPackages: ['@google-cloud/bigquery', '@google-cloud/common'],
-    
-    experimental: {
-        optimizePackageImports: [
-            'lucide-react',
-            '@radix-ui/react-icons',
-            'recharts',
-            'framer-motion',
-            'date-fns',
-            'lodash',
-            '@heroicons/react',
-        ],
-        serverActions: {
-            bodySizeLimit: '10mb',
-        },
-    },
-    
+
     async headers() {
         return [
             {
@@ -95,7 +80,7 @@ const nextConfig = {
             },
         ];
     },
-    
+
     async redirects() {
         return [
             { source: '/dashboard', destination: '/the-room', permanent: true },
@@ -103,20 +88,32 @@ const nextConfig = {
             { source: '/activity', destination: '/ledger', permanent: true },
         ];
     },
-    
+
     async rewrites() {
         return [
             { source: '/dashboard/generator/foundry', destination: '/generator/foundry' },
             { source: '/ai-hub/legal-defense', destination: '/ai-hub/legal-defense' },
         ];
     },
-    
-    eslint: {
-        ignoreDuringBuilds: true,
+
+    experimental: {
+        optimizePackageImports: [
+            'lucide-react',
+            '@radix-ui/react-icons',
+            'recharts',
+            'framer-motion',
+            'date-fns',
+            'lodash',
+            '@heroicons/react',
+        ],
+        serverActions: {
+            bodySizeLimit: '10mb',
+        },
     },
-    
-    typescript: {
-        ignoreBuildErrors: true,
+
+    devIndicators: {
+        appIsrStatus: false,
+        buildActivity: true,
     },
 };
 
