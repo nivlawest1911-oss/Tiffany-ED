@@ -1,13 +1,11 @@
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-    enabled: process.env.ANALYZE === 'true',
-});
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    // Core settings
     compress: true,
     poweredByHeader: false,
     generateEtags: true,
-
+    
+    // Image optimization with modern formats
     images: {
         formats: ['image/avif', 'image/webp'],
         deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
@@ -24,6 +22,7 @@ const nextConfig = {
         ],
     },
 
+    // Webpack optimization
     webpack: (config, { dev, isServer: _isServer }) => {
         if (dev && config.cache) {
             config.cache = {
@@ -49,6 +48,7 @@ const nextConfig = {
 
     serverExternalPackages: ['@google-cloud/bigquery', '@google-cloud/common'],
 
+    // HTTP caching headers
     async headers() {
         return [
             {
@@ -81,6 +81,7 @@ const nextConfig = {
         ];
     },
 
+    // URL redirects
     async redirects() {
         return [
             { source: '/dashboard', destination: '/the-room', permanent: true },
@@ -89,6 +90,7 @@ const nextConfig = {
         ];
     },
 
+    // URL rewrites
     async rewrites() {
         return [
             { source: '/dashboard/generator/foundry', destination: '/generator/foundry' },
@@ -96,6 +98,7 @@ const nextConfig = {
         ];
     },
 
+    // Valid experimental features only
     experimental: {
         optimizePackageImports: [
             'lucide-react',
@@ -110,11 +113,4 @@ const nextConfig = {
             bodySizeLimit: '10mb',
         },
     },
-
-    devIndicators: {
-        appIsrStatus: false,
-        buildActivity: true,
-    },
 };
-
-module.exports = withBundleAnalyzer(nextConfig);
