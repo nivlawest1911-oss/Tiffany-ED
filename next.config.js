@@ -1,13 +1,28 @@
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-    enabled: process.env.ANALYZE === 'true',
-});
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    // Core settings
     compress: true,
     poweredByHeader: false,
     generateEtags: true,
-    
+
+    // Image optimization
+    images: {
+        formats: ['image/avif', 'image/webp'],
+        deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
+        imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+        minimumCacheTTL: 60 * 60 * 24 * 30,
+        remotePatterns: [
+            { protocol: 'https', hostname: '**.supabase.co' },
+            { protocol: 'https', hostname: '**.vercel-storage.com' },
+            { protocol: 'https', hostname: '**.googleusercontent.com' },
+            { protocol: 'https', hostname: 'images.unsplash.com' },
+            { protocol: 'https', hostname: 'www.transparenttextures.com' },
+            { protocol: 'https', hostname: 'api.dicebear.com' },
+            { protocol: 'https', hostname: 'hebbkx1anhila5yf.public.blob.vercel-storage.com' }
+        ],
+    },
+
+    // Webpack optimization
     webpack: (config, { dev, isServer: _isServer }) => {
         if (dev && config.cache) {
             config.cache = {
@@ -30,40 +45,19 @@ const nextConfig = {
         }
         return config;
     },
-    
-    images: {
-        formats: ['image/avif', 'image/webp'],
-        deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
-        imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-        minimumCacheTTL: 60 * 60 * 24 * 30,
-        remotePatterns: [
-            { protocol: 'https', hostname: '**.supabase.co' },
-            { protocol: 'https', hostname: '**.vercel-storage.com' },
-            { protocol: 'https', hostname: '**.googleusercontent.com' },
-            { protocol: 'https', hostname: 'images.unsplash.com' },
-            { protocol: 'https', hostname: 'www.transparenttextures.com' },
-            { protocol: 'https', hostname: 'api.dicebear.com' },
-            { protocol: 'https', hostname: 'hebbkx1anhila5yf.public.blob.vercel-storage.com' }
-        ],
-    },
-    
+
+    // External packages that can't run in Edge Runtime
     serverExternalPackages: ['@google-cloud/bigquery', '@google-cloud/common'],
-    
-    experimental: {
-        optimizePackageImports: [
-            'lucide-react',
-            '@radix-ui/react-icons',
-            'recharts',
-            'framer-motion',
-            'date-fns',
-            'lodash',
-            '@heroicons/react',
-        ],
-        serverActions: {
-            bodySizeLimit: '10mb',
-        },
+
+    // Security and build settings
+    eslint: {
+        ignoreDuringBuilds: true,
     },
-    
+    typescript: {
+        ignoreBuildErrors: true,
+    },
+
+    // Caching headers
     async headers() {
         return [
             {
@@ -95,7 +89,8 @@ const nextConfig = {
             },
         ];
     },
-    
+
+    // Route rewrites and redirects
     async redirects() {
         return [
             { source: '/dashboard', destination: '/the-room', permanent: true },
@@ -103,21 +98,13 @@ const nextConfig = {
             { source: '/activity', destination: '/ledger', permanent: true },
         ];
     },
-    
+
     async rewrites() {
         return [
             { source: '/dashboard/generator/foundry', destination: '/generator/foundry' },
             { source: '/ai-hub/legal-defense', destination: '/ai-hub/legal-defense' },
         ];
     },
-    
-    eslint: {
-        ignoreDuringBuilds: true,
-    },
-    
-    typescript: {
-        ignoreBuildErrors: true,
-    },
 };
 
-module.exports = withBundleAnalyzer(nextConfig);
+module.exports = nextConfig;
