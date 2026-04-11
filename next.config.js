@@ -30,12 +30,20 @@ const nextConfig = {
                 type: 'filesystem',
                 compression: 'gzip',
                 maxMemoryGenerations: 1,
+                // Suppress big string serialization warnings
+                maxAge: 5184000000,
             };
         }
+        // Suppress big string serialization warnings entirely
         config.infrastructureLogging = {
-            ...config.infrastructureLogging,
             level: 'error',
         };
+        // Suppress PackFileCacheStrategy warnings
+        config.ignoreWarnings = [
+            ...(config.ignoreWarnings || []),
+            /webpack\.cache\.PackFileCacheStrategy/,
+            /Serializing big strings/,
+        ];
         if (!dev) {
             config.optimization = {
                 ...config.optimization,
