@@ -1,11 +1,13 @@
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: process.env.ANALYZE === 'true',
+});
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // Core settings
     compress: true,
     poweredByHeader: false,
     generateEtags: true,
 
-    // Image optimization
     images: {
         formats: ['image/avif', 'image/webp'],
         deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
@@ -22,7 +24,6 @@ const nextConfig = {
         ],
     },
 
-    // Webpack optimization
     webpack: (config, { dev, isServer: _isServer }) => {
         if (dev && config.cache) {
             config.cache = {
@@ -46,10 +47,8 @@ const nextConfig = {
         return config;
     },
 
-    // External packages that can't run in Edge Runtime
     serverExternalPackages: ['@google-cloud/bigquery', '@google-cloud/common'],
 
-    // Caching headers
     async headers() {
         return [
             {
@@ -82,7 +81,6 @@ const nextConfig = {
         ];
     },
 
-    // Route rewrites and redirects
     async redirects() {
         return [
             { source: '/dashboard', destination: '/the-room', permanent: true },
@@ -98,7 +96,6 @@ const nextConfig = {
         ];
     },
 
-    // Experimental features and optimizations
     experimental: {
         optimizePackageImports: [
             'lucide-react',
@@ -114,11 +111,10 @@ const nextConfig = {
         },
     },
 
-    // Development indicators configuration
     devIndicators: {
         appIsrStatus: false,
         buildActivity: true,
     },
 };
 
-module.exports = nextConfig;
+module.exports = withBundleAnalyzer(nextConfig);
