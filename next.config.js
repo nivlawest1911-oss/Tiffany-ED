@@ -49,14 +49,6 @@ const nextConfig = {
     // External packages that can't run in Edge Runtime
     serverExternalPackages: ['@google-cloud/bigquery', '@google-cloud/common'],
 
-    // Security and build settings
-    eslint: {
-        ignoreDuringBuilds: true,
-    },
-    typescript: {
-        ignoreBuildErrors: true,
-    },
-
     // Caching headers
     async headers() {
         return [
@@ -104,6 +96,28 @@ const nextConfig = {
             { source: '/dashboard/generator/foundry', destination: '/generator/foundry' },
             { source: '/ai-hub/legal-defense', destination: '/ai-hub/legal-defense' },
         ];
+    },
+
+    // Experimental features and optimizations
+    experimental: {
+        optimizePackageImports: [
+            'lucide-react',
+            '@radix-ui/react-icons',
+            'recharts',
+            'framer-motion',
+            'date-fns',
+            'lodash',
+            '@heroicons/react',
+        ],
+        serverActions: {
+            bodySizeLimit: '10mb',
+        },
+    },
+
+    // Development indicators configuration
+    devIndicators: {
+        appIsrStatus: false,
+        buildActivity: true,
     },
 };
 
