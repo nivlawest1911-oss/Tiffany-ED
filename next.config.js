@@ -13,6 +13,13 @@ const nextConfig = {
     // Generate ETags for caching
     generateEtags: true,
     
+    // Dev indicators configuration (must be object, not boolean)
+    devIndicators: {
+        appIsrStatus: true,
+        buildActivity: true,
+        buildActivityPosition: 'bottom-right',
+    },
+    
     webpack: (config, { dev, isServer: _isServer }) => {
         // Configure cache to handle large strings without warnings
         if (dev && config.cache) {
