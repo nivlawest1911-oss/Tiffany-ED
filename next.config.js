@@ -4,9 +4,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // Enable Turbopack for faster builds (stable in Next.js 15)
-    turbopack: {},
-    
     // Compression settings
     compress: true,
     
@@ -76,6 +73,7 @@ const nextConfig = {
         serverActions: {
             bodySizeLimit: '10mb',
         },
+    },
     },
     async headers() {
         return [
