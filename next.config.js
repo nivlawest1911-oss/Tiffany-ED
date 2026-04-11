@@ -1,7 +1,14 @@
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: process.env.ANALYZE === 'true',
+});
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    compress: true,
+    poweredByHeader: false,
+    generateEtags: true,
+    
     webpack: (config, { dev, isServer: _isServer }) => {
-        // Configure cache to handle large strings without warnings
         if (dev && config.cache) {
             config.cache = {
                 ...config.cache,
@@ -10,99 +17,107 @@ const nextConfig = {
                 maxMemoryGenerations: 1,
             };
         }
-        // Suppress infrastructure logging warnings
         config.infrastructureLogging = {
             ...config.infrastructureLogging,
             level: 'error',
         };
+        if (!dev) {
+            config.optimization = {
+                ...config.optimization,
+                usedExports: true,
+                sideEffects: true,
+            };
+        }
         return config;
     },
+    
     images: {
+        formats: ['image/avif', 'image/webp'],
+        deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
+        imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+        minimumCacheTTL: 60 * 60 * 24 * 30,
         remotePatterns: [
             { protocol: 'https', hostname: '**.supabase.co' },
             { protocol: 'https', hostname: '**.vercel-storage.com' },
             { protocol: 'https', hostname: '**.googleusercontent.com' },
             { protocol: 'https', hostname: 'images.unsplash.com' },
             { protocol: 'https', hostname: 'www.transparenttextures.com' },
-            { protocol: 'https', hostname: 'api.dicebear.com' }
+            { protocol: 'https', hostname: 'api.dicebear.com' },
+            { protocol: 'https', hostname: 'hebbkx1anhila5yf.public.blob.vercel-storage.com' }
         ],
     },
+    
     serverExternalPackages: ['@google-cloud/bigquery', '@google-cloud/common'],
+    
     experimental: {
+        optimizePackageImports: [
+            'lucide-react',
+            '@radix-ui/react-icons',
+            'recharts',
+            'framer-motion',
+            'date-fns',
+            'lodash',
+            '@heroicons/react',
+        ],
         serverActions: {
             bodySizeLimit: '10mb',
         },
     },
+    
     async headers() {
         return [
             {
                 source: '/(.*)',
                 headers: [
-                    {
-                        key: 'X-DNS-Prefetch-Control',
-                        value: 'on'
-                    },
-                    {
-                        key: 'Strict-Transport-Security',
-                        value: 'max-age=63072000; includeSubDomains; preload'
-                    },
-                    {
-                        key: 'X-Content-Type-Options',
-                        value: 'nosniff'
-                    },
-                    {
-                        key: 'X-Frame-Options',
-                        value: 'DENY'
-                    },
-                    {
-                        key: 'X-XSS-Protection',
-                        value: '1; mode=block'
-                    },
-                    {
-                        key: 'Referrer-Policy',
-                        value: 'origin-when-cross-origin'
-                    }
+                    { key: 'X-DNS-Prefetch-Control', value: 'on' },
+                    { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
+                    { key: 'X-Content-Type-Options', value: 'nosniff' },
+                    { key: 'X-Frame-Options', value: 'DENY' },
+                    { key: 'X-XSS-Protection', value: '1; mode=block' },
+                    { key: 'Referrer-Policy', value: 'origin-when-cross-origin' }
                 ],
             },
+            {
+                source: '/images/:path*',
+                headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+            },
+            {
+                source: '/_next/static/:path*',
+                headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+            },
+            {
+                source: '/fonts/:path*',
+                headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+            },
+            {
+                source: '/api/:path*',
+                headers: [{ key: 'Cache-Control', value: 'public, s-maxage=60, stale-while-revalidate=300' }],
+            },
         ];
     },
+    
     async redirects() {
         return [
-            {
-                source: '/dashboard',
-                destination: '/the-room',
-                permanent: true,
-            },
-            {
-                source: '/all-tools',
-                destination: '/admin/tools',
-                permanent: true,
-            },
-            {
-                source: '/activity',
-                destination: '/ledger',
-                permanent: true,
-            },
+            { source: '/dashboard', destination: '/the-room', permanent: true },
+            { source: '/all-tools', destination: '/admin/tools', permanent: true },
+            { source: '/activity', destination: '/ledger', permanent: true },
         ];
     },
+    
     async rewrites() {
         return [
-            {
-                source: '/dashboard/generator/foundry',
-                destination: '/generator/foundry',
-            },
-            {
-                source: '/ai-hub/legal-defense',
-                destination: '/ai-hub/legal-defense', // Redundant but explicit for clarity
-            },
+            { source: '/dashboard/generator/foundry', destination: '/generator/foundry' },
+            { source: '/ai-hub/legal-defense', destination: '/ai-hub/legal-defense' },
         ];
     },
+    
     eslint: {
         ignoreDuringBuilds: true,
     },
+    
     typescript: {
         ignoreBuildErrors: true,
     },
 };
 
-module.exports = nextConfig;
+module.exports = withBundleAnalyzer(nextConfig);
