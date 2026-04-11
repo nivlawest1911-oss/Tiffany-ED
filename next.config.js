@@ -74,7 +74,6 @@ const nextConfig = {
             bodySizeLimit: '10mb',
         },
     },
-    },
     async headers() {
         return [
             {
