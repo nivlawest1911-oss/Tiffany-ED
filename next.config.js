@@ -63,8 +63,6 @@ const nextConfig = {
     },
     serverExternalPackages: ['@google-cloud/bigquery', '@google-cloud/common'],
     experimental: {
-        // Partial Prerendering for hybrid static/dynamic content
-        ppr: true,
         // Optimized package imports for tree-shaking
         optimizePackageImports: [
             'lucide-react',
