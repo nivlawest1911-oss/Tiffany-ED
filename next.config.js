@@ -4,14 +4,7 @@ const nextConfig = {
     compress: true,
     poweredByHeader: false,
     generateEtags: true,
-    
-    // Dev indicators must be object for Turbopack compatibility
-    devIndicators: {
-        appIsrStatus: false,
-        buildActivity: false,
-        buildActivityPosition: 'bottom-right',
-    },
-    
+
     // Image optimization with modern formats
     images: {
         formats: ['image/avif', 'image/webp'],
