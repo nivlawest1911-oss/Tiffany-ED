@@ -1,6 +1,37 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    webpack: (config, { dev, isServer: _isServer }) => {
+    webpack: (config, { dev, isServer, webpack }) => {
+        // Prevent prisma and auth from being bundled into client-side code
+        if (!isServer) {
+            config.resolve.alias['@/lib/prisma'] = false;
+            config.resolve.alias['@/lib/auth'] = false;
+            config.resolve.alias['@prisma/client'] = false;
+            config.resolve.alias['@generated/prisma/client'] = false;
+            
+            // Explicitly ignore node:* schemes on the client
+            config.resolve.fallback = {
+                ...config.resolve.fallback,
+                fs: false,
+                os: false,
+                crypto: false,
+                module: false,
+                path: false,
+                "node:fs": false,
+                "node:os": false,
+                "node:crypto": false,
+                "node:module": false,
+                "node:path": false,
+            };
+
+            // Nuclear Option: Replace these modules with empty ones
+            config.plugins.push(
+                new webpack.NormalModuleReplacementPlugin(
+                    /@prisma\/client|better-auth\/adapters\/prisma|generated\/prisma/,
+                    require.resolve('./src/lib/mocks/empty.ts')
+                )
+            );
+        }
+
         // Configure cache to handle large strings without warnings
         if (dev && config.cache) {
             config.cache = {
@@ -27,11 +58,12 @@ const nextConfig = {
             { protocol: 'https', hostname: 'api.dicebear.com' }
         ],
     },
-    serverExternalPackages: ['@google-cloud/bigquery', '@google-cloud/common'],
+    serverExternalPackages: ['@google-cloud/bigquery', '@google-cloud/common', '@prisma/client'],
     experimental: {
         serverActions: {
             bodySizeLimit: '10mb',
         },
+        serverComponentsExternalPackages: ['@prisma/client'],
     },
     async headers() {
         return [
@@ -103,10 +135,7 @@ const nextConfig = {
     typescript: {
         ignoreBuildErrors: true,
     },
-    devIndicators: {
-        buildActivity: true,
-        appIsrStatus: false,
-    },
 };
+
 
 module.exports = nextConfig;

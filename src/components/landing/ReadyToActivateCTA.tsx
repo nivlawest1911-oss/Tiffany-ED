@@ -6,6 +6,8 @@ import { Shield, ArrowRight, Zap, LucideIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import { ROUTES } from '@/lib/routes';
+import { cn } from '@/lib/utils';
+
 
 interface CTAButtonProps {
     href: string;

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
+export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
-import { prisma } from '@/lib/prisma';
 import { encrypt } from '@/lib/auth';
 
 export async function POST(req: Request) {
@@ -33,7 +33,8 @@ export async function POST(req: Request) {
             };
             tier = 'Site Command';
         } else {
-            // 2. Standard Database Identity Verification
+            // 2. Standard Database Identity Verification (Dynamic Import to prevent build-time engine errors)
+            const { prisma } = await import('@/lib/prisma');
             const user = await prisma.user.findUnique({
                 where: { email: email.toLowerCase() }
             });
@@ -43,7 +44,6 @@ export async function POST(req: Request) {
             }
 
             // Simple password check (assuming cleartext or hashed storage compatibility)
-            // Note: In production, use bcrypt/argon2
             const isPasswordCorrect = user.password === password;
             if (!isPasswordCorrect) {
                 return NextResponse.json({ error: 'Invalid Access Key' }, { status: 401 });

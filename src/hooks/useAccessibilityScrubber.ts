@@ -25,6 +25,11 @@ export function useAccessibilityScrubber(containerRef: RefObject<HTMLElement | n
         node.setAttribute('aria-hidden', val === 'true' ? 'true' : 'false');
       }
 
+      // 3. Automated Alt Guard: Ensure images have at least an empty alt string
+      if (node instanceof HTMLImageElement && !node.hasAttribute('alt')) {
+        node.setAttribute('alt', '');
+      }
+
       // Recursively scrub children
       node.querySelectorAll('*').forEach((child) => {
         if (child instanceof HTMLElement) {
@@ -35,6 +40,9 @@ export function useAccessibilityScrubber(containerRef: RefObject<HTMLElement | n
             const val = child.getAttribute('aria-hide');
             child.removeAttribute('aria-hide');
             child.setAttribute('aria-hidden', val === 'true' ? 'true' : 'false');
+          }
+          if (child instanceof HTMLImageElement && !child.hasAttribute('alt')) {
+            child.setAttribute('alt', '');
           }
         }
       });

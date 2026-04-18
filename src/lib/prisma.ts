@@ -1,44 +1,31 @@
-import { PrismaClient } from '@prisma/client'
+// Prisma client singleton for Sovereign platform
+// Optimized with Lazy Instantiation to prevent build-time engine validation errors
 
-const globalForPrisma = global as unknown as { prisma: PrismaClient }
-
-function createPrismaClient(): PrismaClient {
-    const url = process.env.DATABASE_URL || process.env.POSTGRES_PRISMA_URL || process.env.POSTGRES_URL
-    
-    if (!url) {
-        if (process.env.NODE_ENV === 'production') {
-            console.error('❌ [CRITICAL] DATABASE_URL is missing in production environment.')
-        } else {
-            console.warn('⚠️ [Prisma] DATABASE_URL is not set. Database operations will fail if invoked.')
-        }
-        
-        // Return a proxy that will only throw when a method is actually called
-        return new PrismaClient({
-            log: ['error'],
-        })
-    }
-
-    return new PrismaClient({
-        datasources: {
-            db: { url },
-        },
-        log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
-    })
-}
+let _prisma: any = null;
 
 /**
- * Global Prisma instance with lazy initialization
+ * Lazy-loaded Prisma Client Proxy
+ * This prevents the Prisma constructor from running during Next.js build-time 
+ * telemetry/static analysis, which often causes engine misidentification.
  */
-export const prisma = new Proxy({} as PrismaClient, {
-    get(_target, prop) {
-        if (prop === 'isConfigured') {
-            return !!(process.env.DATABASE_URL || process.env.POSTGRES_PRISMA_URL || process.env.POSTGRES_URL)
+export const prisma = new Proxy({} as any, {
+    get(target, prop) {
+        // Handle special properties for internal checks
+        if (prop === 'isConfigured') return !!(process.env.DATABASE_URL || process.env.POSTGRES_PRISMA_URL || process.env.POSTGRES_URL);
+        if (prop === 'toJSON') return () => 'PrismaClientProxy';
+        
+        // Lazy instantiate the real client upon first method call or access
+        if (!_prisma) {
+            const { PrismaClient } = require("@/generated/prisma/client");
+            _prisma = new PrismaClient({
+                log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
+            });
+            console.log(`[PRISMA_SENTINEL] Real client instantiated for property: ${String(prop)}`);
         }
-        if (!globalForPrisma.prisma) {
-            globalForPrisma.prisma = createPrismaClient()
-        }
-        return Reflect.get(globalForPrisma.prisma, prop)
-    },
-}) as PrismaClient & { isConfigured: boolean }
+        
+        const value = _prisma[prop];
+        return typeof value === 'function' ? value.bind(_prisma) : value;
+    }
+});
 
-export default prisma
+export default prisma;
