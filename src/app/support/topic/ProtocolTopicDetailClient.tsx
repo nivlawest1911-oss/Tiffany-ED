@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { Search, ChevronRight, Eye, Calendar, AlertCircle } from 'lucide-react';
 

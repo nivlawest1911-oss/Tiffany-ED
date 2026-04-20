@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import { useHumanBehavior } from '@/hooks/useHumanBehavior';

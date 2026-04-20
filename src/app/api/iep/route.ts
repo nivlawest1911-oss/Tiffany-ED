@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 import { generateProfessionalResponse } from '@/lib/leadership-ai';
 
 export const dynamic = 'force-dynamic';

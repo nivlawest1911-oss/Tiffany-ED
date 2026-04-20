@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ShareService: Unified utility for generating and managing professional share links
  * across the EdIntel Sovereign ecosystem.
  */

@@ -1,4 +1,4 @@
-import { generateText } from 'ai';
+﻿import { generateText } from 'ai';
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 
 const google = createGoogleGenerativeAI({
@@ -14,7 +14,7 @@ export async function generateBurnoutResponse(message: string): Promise<string> 
             
             Your Goal:
             1. VALIDATE: Acknowledge the difficulty of the situation without toxic positivity.
-            2. REFRAME: Offer a "Sovereign" perspective—remind the teacher of their power and what they can control.
+            2. REFRAME: Offer a "Sovereign" perspectiveâ€”remind the teacher of their power and what they can control.
             3. PROTECT: Advise them to release what isn't theirs to carry.
             4. ACTION: Suggest one small, concrete boundary or restorative act they can do right now.
             

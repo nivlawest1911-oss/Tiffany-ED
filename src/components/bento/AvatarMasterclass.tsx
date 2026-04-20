@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { Play, BookOpen, Film, Video, UserCheck, Sparkles, MonitorPlay } from 'lucide-react';
 
 export default function AvatarMasterclass() {

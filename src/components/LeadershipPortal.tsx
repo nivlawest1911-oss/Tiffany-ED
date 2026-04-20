@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mic, Globe, X, Video, Maximize2 } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';

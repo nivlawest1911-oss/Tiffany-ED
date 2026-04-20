@@ -1,4 +1,4 @@
-/**
+﻿/**
  * SynthesisDashboard Component
  * 
  * Visualization for active media synthesis tasks with cinematic progress 

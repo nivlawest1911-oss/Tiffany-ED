@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -72,7 +72,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         duration: '5:15',
         category: 'Analytics',
         aiGenerated: true,
-        briefingContent: "Executive Connection established. We are visualizing student performance vectors across 14 data streams. The Strategic System identifies 'Opportunity Centers'—pockets of potential that are currently underserved. By shifting resources at the speed of data, district leaders can optimize for ROI (Return on Instruction). We move beyond lagging indicators like state tests into leading indicators that allow for real-time course correction and instructional capital recovery.",
+        briefingContent: "Executive Connection established. We are visualizing student performance vectors across 14 data streams. The Strategic System identifies 'Opportunity Centers'â€”pockets of potential that are currently underserved. By shifting resources at the speed of data, district leaders can optimize for ROI (Return on Instruction). We move beyond lagging indicators like state tests into leading indicators that allow for real-time course correction and instructional capital recovery.",
         brieferName: "Marcus Johnson",
         brieferRole: "Professional Stem Lead",
         brieferAvatar: "/images/avatars/stem_coordinator.png"
@@ -100,7 +100,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         duration: '4:40',
         category: 'Literacy',
         aiGenerated: true,
-        briefingContent: "Literacy Stream Verified. Dr. Robinson is demonstrating the synthesis of raw reading scores into actionable intervention groups. The Strategic System identifies the specific 'Strategic Blockage' in literacy acquisition—be it phonemic awareness or high-level comprehension—and prescribes the exact instructional approach needed for gap closure. We don't just teach reading; we empower literacy leadership.",
+        briefingContent: "Literacy Stream Verified. Dr. Robinson is demonstrating the synthesis of raw reading scores into actionable intervention groups. The Strategic System identifies the specific 'Strategic Blockage' in literacy acquisitionâ€”be it phonemic awareness or high-level comprehensionâ€”and prescribes the exact instructional approach needed for gap closure. We don't just teach reading; we empower literacy leadership.",
         brieferName: "Dr. Emily Robinson",
         brieferRole: "Literacy & Data Scientist",
         brieferAvatar: "/images/avatars/literacy_coach.png"
@@ -114,7 +114,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         duration: '2:15',
         category: 'Identity',
         aiGenerated: true,
-        briefingContent: "Identity Link Confirmed. We are witnessing the bilateral transfer of leadership heuristics. The EdIntel Twin doesn't just mimic voice; it inherits the user's specific policy preferences and cultural context. This allows for 'Delegate Without Deployment'—the ability to be in 10 school buildings simultaneously through a unified executive mirror.",
+        briefingContent: "Identity Link Confirmed. We are witnessing the bilateral transfer of leadership heuristics. The EdIntel Twin doesn't just mimic voice; it inherits the user's specific policy preferences and cultural context. This allows for 'Delegate Without Deployment'â€”the ability to be in 10 school buildings simultaneously through a unified executive mirror.",
         brieferName: "Your EdIntel Twin",
         brieferRole: "Executive Mirror",
         brieferAvatar: "/images/avatars/executive_leader.png"
@@ -232,7 +232,7 @@ const AI_VIDEOS: VideoShowcase[] = [
         duration: '2:45',
         category: 'Simulation',
         aiGenerated: true,
-        briefingContent: "Scenario Loaded: High-Conflict Parent Meeting. In this simulation, the avatar anticipates emotional escalation points and preemptively deploys de-escalation rhetoric. Notice the tone shift at 0:45—the system detects elevated stress in the user's voice and instantly modulates its pitch and pacing to induce calm.",
+        briefingContent: "Scenario Loaded: High-Conflict Parent Meeting. In this simulation, the avatar anticipates emotional escalation points and preemptively deploys de-escalation rhetoric. Notice the tone shift at 0:45â€”the system detects elevated stress in the user's voice and instantly modulates its pitch and pacing to induce calm.",
         brieferName: "Keisha Reynolds",
         brieferRole: "Community Relations",
         brieferAvatar: "/images/avatars/curriculum_strategist.png"

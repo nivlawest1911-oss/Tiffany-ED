@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+﻿import { motion } from "framer-motion";
 import { Check, ArrowRight } from "lucide-react";
 import { EdIntel_TIERS } from '@/lib/pricing-config';
 

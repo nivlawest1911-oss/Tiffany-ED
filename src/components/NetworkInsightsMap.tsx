@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -283,7 +283,7 @@ function AtlasCard({ layout, title, subtitle, type, metric, status, value, icon:
                     <h4 className="text-2xl font-black text-white leading-tight group-hover:text-zinc-300 transition-colors uppercase italic">{title}</h4>
                 </div>
 
-                <p className="text-xs text-zinc-500 font-medium mb-8 flex-grow">{type} • {metric}</p>
+                <p className="text-xs text-zinc-500 font-medium mb-8 flex-grow">{type} â€¢ {metric}</p>
 
                 <div className="pt-6 border-t border-white/5 flex items-center justify-between">
                     <div className="flex items-center gap-4">

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
@@ -17,7 +17,7 @@ interface LogoProps {
 export const EdIntelLogo = memo(({
     className = "",
     animated = true,
-    variant = "transcend",
+    variant = "sovereign-fidelity",
     size = 40,
     showText = true
 }: LogoProps) => {
@@ -140,11 +140,15 @@ export const EdIntelLogo = memo(({
                         className="absolute inset-[4px] border border-white/10 rounded-full border-dashed"
                     />
 
-                    {/* Core: Sovereign Shield Icon */}
-                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-noble-gold/10 to-transparent rounded-full backdrop-blur-sm">
-                        <svg viewBox="0 0 100 100" className="w-1/2 h-1/2 text-noble-gold fill-current">
-                            <path d="M50 15 L85 30 L85 60 C85 75 70 85 50 90 C30 85 15 75 15 60 L15 30 L50 15 Z" />
-                        </svg>
+                    {/* Core: Sovereign Fidelity Logo */}
+                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-noble-gold/10 to-transparent rounded-full backdrop-blur-sm p-1">
+                        <Image
+                            src="/images/edintel-logo.png"
+                            alt="EdIntel"
+                            width={size * 0.8}
+                            height={size * 0.8}
+                            className="object-contain"
+                        />
                     </div>
                 </motion.div>
 

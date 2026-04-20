@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -23,7 +23,7 @@ import { VaultUploader } from './VaultUploader';
 // Use 'font-orbitron' and 'font-outfit' Tailwind classes.
 
 /**
- * 🛠️ EdIntel Foundry: AI Companion Birth System
+ * ðŸ› ï¸ EdIntel Foundry: AI Companion Birth System
  * A recursive, high-fidelity form for creating 'Birth Certificates' 
  * for custom AI agents. 
  */
@@ -247,7 +247,7 @@ export const BirthCertificateForm = () => {
                                     onClick={() => setStep(1)}
                                     className="text-[#c5a47e]/50 hover:text-[#c5a47e] text-xs uppercase tracking-widest mb-4 flex items-center gap-2"
                                 >
-                                    ← Back to Identity
+                                    â† Back to Identity
                                 </button>
                                 <h1 className="font-heading text-3xl text-[#c5a47e] mb-2">
                                     Persona Refinement
@@ -296,7 +296,7 @@ export const BirthCertificateForm = () => {
                                                     onClick={() => setFormData({...formData, pedagogicalDirectives: formData.pedagogicalDirectives.filter((_, idx) => idx !== i)})}
                                                     className="hover:text-white"
                                                 >
-                                                    ×
+                                                    Ã—
                                                 </button>
                                             </span>
                                         ))}
@@ -328,7 +328,7 @@ export const BirthCertificateForm = () => {
                                     </div>
                                 </div>
 
-                                {/* 🧠 Knowledge Vault Integration */}
+                                {/* ðŸ§  Knowledge Vault Integration */}
                                 <div className="pt-8 border-t border-[#c5a47e]/10">
                                     <VaultUploader 
                                         companionId={companionId} 

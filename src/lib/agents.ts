@@ -1,4 +1,4 @@
-export interface Agent {
+﻿export interface Agent {
     id: string;
     name: string;
     cluster: string;
@@ -15,6 +15,7 @@ export const AGENT_REGISTRY: Record<string, Agent> = {
     CURRICULUM_CARTOGRAPHER: { id: 'curr_cart', name: 'Curriculum Cartographer', cluster: 'Academic', role: 'Learning Designer', specialty: 'Scope and Sequence' },
     DATA_SCIENTIST: { id: 'data_sci', name: 'Data Insight Analyst', cluster: 'Intelligence', role: 'Analyst', specialty: 'Predictive Modeling' },
     FISCAL_STRATEGIST: { id: 'fiscal-strategist', name: 'Fiscal Strategist', cluster: 'Administrative', role: 'CFO', specialty: 'Title I & Alabama Red Book' },
+    CLINICAL_SYNTHESIZER: { id: 'clin_syn', name: 'AndrÃ© Patterson', cluster: 'Clinical', role: 'Neuro-psychologist', specialty: 'Neuro-resilience & Cognitive Synthesis' },
     // Expandable to 70+ agents
 };
 

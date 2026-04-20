@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
@@ -7,7 +7,7 @@ import { useIntelligence } from '@/context/IntelligenceContext';
 import { Zap } from 'lucide-react';
 
 /**
- * 🏛️ EdIntel Executive Guard
+ * ðŸ›ï¸ EdIntel Executive Guard
  * Performance-optimized authentication and integrity gate.
  */
 export const ExecutiveGuard = ({ children, requiredTier }: { children: React.ReactNode, requiredTier?: string }) => {

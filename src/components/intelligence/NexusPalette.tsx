@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -79,7 +79,7 @@ export default function NexusPalette({ onClose }: { onClose: () => void }) {
                     ))}
                 </div>
                 <div className="p-6 bg-black/40 border-t border-white/5 flex justify-between items-center text-[10px] font-black uppercase tracking-[0.3em] text-zinc-700">
-                    <span>Arrows to navigate • Enter to launch</span>
+                    <span>Arrows to navigate â€¢ Enter to launch</span>
                     <span className="text-electric-cyan/50">Sovereign Link Active</span>
                 </div>
             </motion.div>

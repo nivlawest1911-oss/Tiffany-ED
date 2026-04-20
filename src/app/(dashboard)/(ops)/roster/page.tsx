@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useEffect, useState } from 'react';
 import { StudentRosterCard, RosterStudent } from '@/components/roster/StudentRosterCard';

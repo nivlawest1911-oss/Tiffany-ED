@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
+﻿import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
 import Replicate from "replicate";
 import { put } from "@vercel/blob";
 import { UserContext, protocolRouter } from "./protocol-router";
@@ -340,7 +340,7 @@ export class GeminiService {
         - LRE Preference Profile: ${params.lrePreference || 'General Education (Inclusion)'}
         
         CRITICAL COMPLIANCE DIRECTIVES:
-        1. CITE Al. Admin. Code 290-8-9 and IDEA 2004 (20 U.S.C. § 1400) throughout the document.
+        1. CITE Al. Admin. Code 290-8-9 and IDEA 2004 (20 U.S.C. Â§ 1400) throughout the document.
         2. Ensure all Measurable Annual Goals are strictly SMART (Specific, Measurable, Attainable, Relevant, Time-bound).
         3. For any literacy goals, explicitly align with Science of Reading (SOR) instruction principles.
         4. Draft the Least Restrictive Environment (LRE) justification with sophisticated legal and educational reasoning.
@@ -410,7 +410,7 @@ export class GeminiService {
             The subject is in a state of high SNS (Sympathetic Nervous System) arousal. 
             Prioritize IMMEDIATE Vagus Nerve stimulation and Parasympathetic activation.`;
         }
-        const prompt = `Act as André Patterson, the EdIntel Chief of Neuro-Resilience and Wellness Architect. 
+        const prompt = `Act as AndrÃ© Patterson, the EdIntel Chief of Neuro-Resilience and Wellness Architect. 
         Background: Expert PBIS Trainer, FBA Specialist, Behavior Intervention Lead.
         
         Task: Develop a high-rigor, clinical, and scientifically-grounded mental performance and burnout reduction protocol:
@@ -441,6 +441,45 @@ export class GeminiService {
 
         return this.generateText(finalPrompt);
     }
+
+    async generateClinicalSynthesis(params: {
+        context: string;
+        nodes: string[];
+        priority: string;
+        protocolContext?: UserContext;
+    }): Promise<string> {
+        // Force Pro model for high-fidelity synthesis
+        const proService = new GeminiService("gemini-1.5-pro");
+        
+        const prompt = `Act as Dr. AndrÃ© Patterson, the EdIntel Clinical Synthesizer.
+        
+        TASK: Perform a High-Performance Cognitive Synthesis of the following institutional nodes and context.
+        
+        INSTITUTIONAL CONTEXT:
+        ${params.context}
+        
+        ACTIVE NODES UNDER ANALYSIS:
+        ${params.nodes.join(', ')}
+        
+        PRIORITY LEVEL: ${params.priority.toUpperCase()}
+        
+        CLINICAL SYNTHESIS DIRECTIVES:
+        1. Perform cross-node interference mapping: identify how stress in one node impacts cognitive load in others.
+        2. Apply the "Patterson Resilience Model" to derive 3 high-yield strategic interventions.
+        3. Ensure the tone is clinical, strategic, and optimized for high-tier institutional users (Principals/Superintendents).
+        
+        Structure your synthesis as:
+        - NEURAL OVERLOOK (Cross-node analysis)
+        - STRATEGIC INTERFERENCE MAPPING (Potential points of failure)
+        - RESILIENCE PROTOCOL (The "Patterson Directive" for this context)
+        
+        Tone: Clinical, authoritative, elite. Use sophisticated academic and strategic vocabulary.`;
+
+        const protocol = protocolRouter.getProtocol(params.protocolContext || {});
+        const finalPrompt = protocolRouter.applyProtocol(prompt, protocol);
+
+        return proService.generateText(finalPrompt);
+    }
 }
 
 export const geminiService = new GeminiService();
@@ -460,6 +499,9 @@ export const generateDecisionAction = (params: any) =>
 
 export const generateCognitiveFitnessAction = (params: any) =>
     geminiService.generateCognitiveFitness(params);
+
+export const generateClinicalSynthesisAction = (params: any) =>
+    geminiService.generateClinicalSynthesis(params);
 
 export const generateSovereignResponse = async (prompt: string, modelName: string = GEMINI_CONFIG.model) => {
     const service = new GeminiService(modelName);

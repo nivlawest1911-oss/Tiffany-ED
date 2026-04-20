@@ -1,4 +1,4 @@
-import { PGlite } from '@electric-sql/pglite';
+﻿import { PGlite } from '@electric-sql/pglite';
 
 /**
  * Sovereign Contextual Edge: PGLite Synchronization

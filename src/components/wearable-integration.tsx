@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useMemo } from "react"
 import { Heart, Activity, Watch, Smartphone, AlertCircle, Loader2 } from "lucide-react"
@@ -228,21 +228,21 @@ export function WearableIntegration() {
                                 <div className="space-y-4">
                                     {displayData.stressLevel > 70 ? (
                                         <div className="p-4 bg-red-500/5 border border-red-500/20 rounded-xl space-y-1">
-                                            <p className="text-xs text-red-400 font-bold uppercase tracking-tighter">⚠️ Burnout Risk Detected</p>
+                                            <p className="text-xs text-red-400 font-bold uppercase tracking-tighter">âš ï¸ Burnout Risk Detected</p>
                                             <p className="text-[10px] text-gray-500 leading-relaxed font-mono">
                                                 Physiological markers indicate high sympathetic activation. Lesson generator will prioritize low-energy instructional models.
                                             </p>
                                         </div>
                                     ) : (
                                         <div className="p-4 bg-emerald-500/5 border border-emerald-500/20 rounded-xl space-y-1">
-                                            <p className="text-xs text-emerald-400 font-bold uppercase tracking-tighter">✓ Optimal Homeostasis</p>
+                                            <p className="text-xs text-emerald-400 font-bold uppercase tracking-tighter">âœ“ Optimal Homeostasis</p>
                                             <p className="text-[10px] text-gray-500 leading-relaxed font-mono">
                                                 Your current metabolic sync is 94%. Prime state for creative instruction and high-stakes content generation.
                                             </p>
                                         </div>
                                     )}
                                     <div className="p-4 bg-indigo-500/5 border border-indigo-500/20 rounded-xl space-y-1">
-                                        <p className="text-xs text-indigo-400 font-bold uppercase tracking-tighter">💡 Flow State Potential</p>
+                                        <p className="text-xs text-indigo-400 font-bold uppercase tracking-tighter">ðŸ’¡ Flow State Potential</p>
                                         <p className="text-[10px] text-gray-500 leading-relaxed font-mono">
                                             Last heart rate variability markers suggest you are approaching a flow state. Recommended: Deep Work module.
                                         </p>

@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+﻿import { Metadata } from 'next';
 import { ClientAIGeneratorsHub } from './ClientAIGeneratorsHub';
 
 export const metadata: Metadata = {
@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 };
 
 /**
- * 👨‍⚖️ Legal Defense Protocol Page
+ * ðŸ‘¨â€âš–ï¸ Legal Defense Protocol Page
  * A dedicated entry point for the Compliance Sentinel (Policy Advisor).
  * This fulfills the /ai-hub/legal-defense route requirement.
  */

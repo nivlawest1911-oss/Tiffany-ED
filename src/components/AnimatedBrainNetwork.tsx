@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import { Brain, GraduationCap, BookOpen, Lightbulb, Sparkles, Zap } from 'lucide-react';

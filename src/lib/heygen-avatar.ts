@@ -1,4 +1,4 @@
-/**
+﻿/**
  * HeyGen Avatar Integration
  * Realistic human avatar with lip-sync and natural movements
  */

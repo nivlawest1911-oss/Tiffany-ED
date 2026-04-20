@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 import EdIntelShell from '@/components/layout/EdIntelShell';
@@ -97,7 +97,7 @@ export default function SecurityVaultPage() {
                                 <div className="p-6 rounded-[2rem] bg-black/60 border border-white/5">
                                     <p className="text-[10px] text-zinc-600 font-black uppercase tracking-[0.2em] mb-4 italic">District Private Key</p>
                                     <div className="flex items-center justify-between gap-4 bg-black/40 p-4 rounded-xl border border-white/5">
-                                        <span className="font-mono text-sm tracking-[0.4em] text-white/30">••••••••••••</span>
+                                        <span className="font-mono text-sm tracking-[0.4em] text-white/30">â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢</span>
                                         <Eye className="w-5 h-5 text-zinc-700 cursor-pointer hover:text-intel-gold transition-colors" />
                                     </div>
                                 </div>

@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+﻿import { Metadata } from 'next';
 import { getAllVideos, getCategories } from '@/lib/videos';
 import VideosPageClient from './VideosPageClient';
 

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
@@ -61,7 +61,7 @@ export default function VaultDashboard() {
                     <div className="text-2xl font-bold text-white">1,204 <span className="text-sm font-normal text-slate-500">files</span></div>
                     <div className="flex items-center gap-2 mt-3 text-xs text-slate-500">
                         <span className="text-emerald-400">+12 this week</span>
-                        <span>•</span>
+                        <span>â€¢</span>
                         <span>All encrypted</span>
                     </div>
                 </motion.div>
@@ -82,7 +82,7 @@ export default function VaultDashboard() {
                     <div className="text-2xl font-bold text-white">99.9% <span className="text-sm font-normal text-slate-500">integrity</span></div>
                     <div className="flex items-center gap-2 mt-3 text-xs text-slate-500">
                         <span className="text-amber-400">0 critical gaps</span>
-                        <span>•</span>
+                        <span>â€¢</span>
                         <span>OCR scan active</span>
                     </div>
                 </motion.div>
@@ -129,7 +129,7 @@ export default function VaultDashboard() {
                             <div key={issue.id} className="p-3 bg-slate-800/30 rounded-lg border border-slate-800 flex items-center justify-between hover:bg-slate-800/50 transition-colors cursor-pointer group">
                                 <div>
                                     <div className="text-xs font-bold text-slate-200 group-hover:text-white transition-colors">{issue.subject}</div>
-                                    <div className="text-[10px] text-slate-500">Student: {issue.student} • ID: {issue.id}</div>
+                                    <div className="text-[10px] text-slate-500">Student: {issue.student} â€¢ ID: {issue.id}</div>
                                 </div>
                                 <div className={`text-[10px] font-black uppercase px-2 py-0.5 rounded ${issue.risk === 'High' ? 'bg-rose-500/10 text-rose-500' : 'bg-amber-500/10 text-amber-500'}`}>
                                     {issue.risk}
@@ -186,7 +186,7 @@ export default function VaultDashboard() {
                                 </div>
                                 <div>
                                     <div className="text-sm font-medium text-slate-200">{doc.title}</div>
-                                    <div className="text-[10px] text-slate-500">{doc.status} • {doc.date}</div>
+                                    <div className="text-[10px] text-slate-500">{doc.status} â€¢ {doc.date}</div>
                                 </div>
                             </div>
                             <div className="flex items-center gap-4 text-xs text-slate-500">

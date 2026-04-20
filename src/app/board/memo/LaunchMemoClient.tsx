@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { jsPDF } from 'jspdf';
 import AdminGuard from '@/components/AdminGuard';
 

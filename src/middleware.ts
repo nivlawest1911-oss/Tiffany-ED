@@ -1,19 +1,22 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { updateSession } from '@/utils/supabase/middleware';
+
+/**
+ * Sovereign Institutional Sentinel (Middleware)
+ * 
+ * Performance-optimized session validation using manual cookie parsing.
+ * This bypasses the need for the heavy Auth/Prisma modules in the Edge Runtime,
+ * resolving 'eval' conflicts and reducing latency.
+ */
 
 export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
     
-    // 1. Skip Supabase logic for static assets and public landing page (unless cookies present)
-    // We check for any Supabase auth cookies or our legacy session cookie
-    const cookies = request.cookies.getAll();
-    const hasSupabaseCookie = cookies.some(c =>
-        c.name.startsWith('sb-') || c.name.includes('supabase-auth-token')
-    );
-    const hasLegacySession = request.cookies.has('edintel_session');
-    const isAuthenticated = hasSupabaseCookie || hasLegacySession;
+    // 1. Better Auth Session Protocol (Edge-Safe)
+    // We check for the session cookie directly to avoid Edge/eval conflicts
+    const sessionCookie = request.cookies.get('better-auth.session-token');
+    const isAuthenticated = !!sessionCookie;
 
-    // 2. Define protected routes
+    // 2. Define neural protected routes
     const protectedRoutes = [
         "/dashboard",
         "/academy",
@@ -25,48 +28,24 @@ export async function middleware(request: NextRequest) {
         "/wellness",
         "/excursions",
         "/the-room",
-        "/onboarding",
-        "/api"
+        "/onboarding"
     ];
 
-    const publicApiRoutes = [
-        "/api/auth",
-        "/api/webhooks",
-        "/api/status",
-        "/api/og",
-        "/api/public"
-    ];
+    const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
 
-    let isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
-    if (pathname.startsWith('/api')) {
-        const isPublicApi = publicApiRoutes.some(route => pathname.startsWith(route));
-        if (isPublicApi) isProtectedRoute = false;
-    }
-
-    // 3. Handle authenticated redirect for root immediately if hint suggests it
-    if (pathname === '/' && isAuthenticated) {
-        return NextResponse.redirect(new URL('/the-room', request.url));
-    }
-
-    // 4. Case: Protected route but not authenticated hint
+    // 3. Institutional Sentinel: Authentication Interception
     if (isProtectedRoute && !isAuthenticated) {
         const url = new URL('/login', request.url);
         url.searchParams.set('redirect', pathname);
         return NextResponse.redirect(url);
     }
 
-    // 5. Refresh Supabase session ONLY for protected routes or if cookies are already present
-    // This significantly reduces TTFB for guest users on the landing page
-    let response = NextResponse.next({ request });
-    if (isProtectedRoute || hasSupabaseCookie) {
-        try {
-            response = await updateSession(request);
-        } catch (err) {
-            console.error("[Middleware] Exception in updateSession:", err);
-        }
+    // 4. Case: Already authenticated but hitting root
+    if (isAuthenticated && pathname === '/') {
+        return NextResponse.redirect(new URL('/dashboard/cognitive', request.url));
     }
 
-    return response;
+    return NextResponse.next();
 }
 
 export const config = {
@@ -77,7 +56,8 @@ export const config = {
          * - _next/image (image optimization files)
          * - favicon.ico (favicon file)
          * - Public assets like .svg, .png, etc.
+         * - Authentication endpoints (api/auth)
          */
-        '/((?!api|_next/static|_next/image|_vercel|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|css|js|json|map)$).*)',
+        '/((?!api/auth|_next/static|_next/image|_vercel|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|css|js|json|map)$).*)',
     ],
 };

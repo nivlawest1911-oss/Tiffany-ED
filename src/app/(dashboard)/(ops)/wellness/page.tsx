@@ -6,6 +6,12 @@ export const metadata: Metadata = {
   description: 'Real-time biometric monitoring and cognitive de-escalation for high-fidelity educators. Protect your cognitive load and maintain peak performance.',
 };
 
+import SovereignGatekeeper from '@/components/auth/SovereignGatekeeper';
+
 export default function WellnessPage() {
-  return <WellnessPageClient />;
+  return (
+    <SovereignGatekeeper>
+      <WellnessPageClient />
+    </SovereignGatekeeper>
+  );
 }

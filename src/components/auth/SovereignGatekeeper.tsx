@@ -156,3 +156,5 @@ export const SovereignGatekeeper = ({ children }: SovereignGatekeeperProps) => {
 
     return <>{children}</>;
 };
+
+export default SovereignGatekeeper;

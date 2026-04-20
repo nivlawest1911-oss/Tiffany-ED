@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { Activity, DollarSign, ShieldCheck, ArrowUpRight, ArrowDownRight, Send, Loader2 } from 'lucide-react';
@@ -248,7 +248,7 @@ export default function LedgerPage() {
                                                     <span className="px-1.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 text-[8px] font-black uppercase tracking-tighter border border-emerald-500/20">Verified</span>
                                                 </div>
                                                 <p className="text-[10px] text-zinc-500 font-mono mt-1">
-                                                    {new Date(tx.created_at).toLocaleString([], { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' })} — HASH: {Math.random().toString(36).substring(7).toUpperCase()}
+                                                    {new Date(tx.created_at).toLocaleString([], { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' })} â€” HASH: {Math.random().toString(36).substring(7).toUpperCase()}
                                                 </p>
                                             </div>
                                         </div>

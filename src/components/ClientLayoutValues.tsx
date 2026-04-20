@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import dynamic from 'next/dynamic';
 
 const ProfessionalPortal = dynamic(() => import('@/components/LeadershipPortal'), { ssr: false });

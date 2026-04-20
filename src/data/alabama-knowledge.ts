@@ -1,4 +1,4 @@
-/**
+﻿/**
  * EdIntel Institutional Intelligence: Alabama State Registry
  * 
  * This file contains a structured database of Alabama-specific educational agencies, 
@@ -343,7 +343,7 @@ export const ALABAMA_INSTITUTIONAL_KNOWLEDGE = {
             name: "Alabama NBCT Network",
             website: "https://alabamanbctnetwork.org",
             stipend: "$5,000/year",
-            audit_note: "Principals лично liable for overpayments if certification lapses."
+            audit_note: "Principals Ð»Ð¸Ñ‡Ð½Ð¾ liable for overpayments if certification lapses."
         },
         retirement_rsa1: {
             name: "RSA-1 (Deferred Compensation)",

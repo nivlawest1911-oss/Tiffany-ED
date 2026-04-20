@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { Dumbbell, Brain, Activity, Timer, Target, Zap, Trophy, Loader2 } from 'lucide-react';
@@ -47,10 +47,10 @@ export default function GymPage() {
 
         if (index === currentScenario.correctOptionIndex) {
             toast.success("Sovereign Protocol Verified. Neural pathways reinforced.");
-            setFeedback(`✅ Correct. ${currentScenario.explanation}`);
+            setFeedback(`âœ… Correct. ${currentScenario.explanation}`);
         } else {
             toast.error("Suboptimal Pathway Detected.");
-            setFeedback(`❌ Incorrect. ${currentScenario.explanation}`);
+            setFeedback(`âŒ Incorrect. ${currentScenario.explanation}`);
         }
     };
 
@@ -270,7 +270,7 @@ export default function GymPage() {
                                                     animate={{ opacity: 1, height: 'auto' }}
                                                     className="mt-6"
                                                 >
-                                                    <div className={`p-5 rounded-2xl border ${feedback.includes('✅') ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-red-500/10 border-red-500/30'}`}>
+                                                    <div className={`p-5 rounded-2xl border ${feedback.includes('âœ…') ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-red-500/10 border-red-500/30'}`}>
                                                         <p className="text-sm font-medium leading-relaxed text-white">{feedback}</p>
                                                     </div>
                                                     <Button

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -34,7 +34,7 @@ const AGENTS: Record<string, Agent> = {
         abilityType: 'strategy' as const
     },
     tactical: {
-        name: "André Patterson",
+        name: "AndrÃ© Patterson",
         role: "Tactical Specialist",
         avatar: "/images/avatars/andre_patterson_premium.png",
         videoSrc: "/videos/Briefing - Andre Patterson (Behavior Specialist).mp4",

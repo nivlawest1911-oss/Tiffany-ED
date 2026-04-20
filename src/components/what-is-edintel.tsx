@@ -1,4 +1,4 @@
-import { Brain, Shield as LucideShield, Zap, Users, Target, Award } from "lucide-react"
+﻿import { Brain, Shield as LucideShield, Zap, Users, Target, Award } from "lucide-react"
 
 const features = [
   {

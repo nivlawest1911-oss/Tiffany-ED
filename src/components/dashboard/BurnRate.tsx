@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 import { TrendingDown, BarChart3, Zap } from 'lucide-react';

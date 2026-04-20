@@ -1,4 +1,4 @@
-import {
+﻿import {
     FileText, MessageSquare, GraduationCap, GraduationCap as StudentCap, Brain, Lightbulb, Sparkles, Check, BookOpen, Users,
     Mic, Code, Database, Megaphone, Palette, ClipboardCheck, TrendingUp, Target,
     Briefcase, BookMarked, PenTool, Video, Beaker, Calculator, HandCoins, Bus, ClipboardList,

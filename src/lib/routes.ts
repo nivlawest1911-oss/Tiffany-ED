@@ -1,4 +1,4 @@
-export const ROUTES = {
+﻿export const ROUTES = {
     // Core
     HOME: '/',
     LOGIN: '/login',

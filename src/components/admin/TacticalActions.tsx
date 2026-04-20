@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import { ShieldAlert, Zap, Radio, Lock, RefreshCw, Send } from 'lucide-react';

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 
 import { EdIntelGate } from '@/components/edintel-core/EdIntelGate';
 import { Sparkles, Loader2, Zap, ShieldCheck } from 'lucide-react';

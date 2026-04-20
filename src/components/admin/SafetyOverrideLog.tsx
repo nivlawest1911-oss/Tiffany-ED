@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { Database, Search, ShieldCheck, Clock, Download, FileText } from 'lucide-react';

@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Image as LucideImage, Video, FileText, Heart, MessageSquare, Repeat, Share2, MoreHorizontal, Globe, Bookmark, Users, Calendar } from 'lucide-react';
+import { Image as LucideImage, Video, FileText, Heart, MessageSquare, Share2, MoreHorizontal, Globe, Bookmark, Users, Calendar } from 'lucide-react';
 import { default as NextImage } from 'next/image';
 import { useLeadershipFeed, FeedPost } from '@/hooks/useLeadershipFeed';
 import { SOCIAL_HUB_AVATAR } from '@/lib/assets';
@@ -96,7 +96,7 @@ export default function CommunityFeed() {
                                         <p className="text-[10px] text-zinc-400">{post.role}</p>
                                         <div className="flex items-center gap-1 text-[10px] text-zinc-500 mt-0.5">
                                             <span>{post.time}</span>
-                                            <span>•</span>
+                                            <span>â€¢</span>
                                             <Globe size={10} />
                                         </div>
                                     </div>
@@ -139,21 +139,21 @@ export default function CommunityFeed() {
                                 <span className="w-1.5 h-1.5 rounded-full bg-zinc-700 group-hover:bg-white transition-colors" />
                                 <p className="text-xs font-bold text-zinc-300 group-hover:text-white truncate">Professional Burnout Prevention</p>
                             </div>
-                            <p className="text-[10px] text-zinc-500 pl-3.5">Education Daily • 4,102 readers</p>
+                            <p className="text-[10px] text-zinc-500 pl-3.5">Education Daily â€¢ 4,102 readers</p>
                         </li>
                         <li className="group cursor-pointer">
                             <div className="flex items-center gap-2">
                                 <span className="w-1.5 h-1.5 rounded-full bg-zinc-700 group-hover:bg-white transition-colors" />
                                 <p className="text-xs font-bold text-zinc-300 group-hover:text-white truncate">New State Regulations</p>
                             </div>
-                            <p className="text-[10px] text-zinc-500 pl-3.5">Policy Review • 2h ago</p>
+                            <p className="text-[10px] text-zinc-500 pl-3.5">Policy Review â€¢ 2h ago</p>
                         </li>
                         <li className="group cursor-pointer">
                             <div className="flex items-center gap-2">
                                 <span className="w-1.5 h-1.5 rounded-full bg-zinc-700 group-hover:bg-white transition-colors" />
                                 <p className="text-xs font-bold text-zinc-300 group-hover:text-white truncate">Professional Development Grants</p>
                             </div>
-                            <p className="text-[10px] text-zinc-500 pl-3.5">Career Growth • 1d ago</p>
+                            <p className="text-[10px] text-zinc-500 pl-3.5">Career Growth â€¢ 1d ago</p>
                         </li>
                     </ul>
                 </div>

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ResilienceEngine.ts
  * Sovereign failover and catastrophic recovery orchestration.
  */

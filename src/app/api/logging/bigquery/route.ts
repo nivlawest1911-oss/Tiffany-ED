@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
     try {
         const entry = await req.json();
 
-        // 🛡️ ENSURE SERVER RUNTIME
+        // ðŸ›¡ï¸ ENSURE SERVER RUNTIME
         if (typeof window !== 'undefined') {
             return NextResponse.json({ error: 'Server-side only' }, { status: 400 });
         }
@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
             .table(tableId)
             .insert([entry]);
 
-        console.log(`✅ [BigQuery] Logged ${entry.role} interaction.`);
+        console.log(`âœ… [BigQuery] Logged ${entry.role} interaction.`);
         return NextResponse.json({ success: true });
 
     } catch (error: any) {

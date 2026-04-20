@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
@@ -22,13 +22,13 @@ export default function NotFound() {
     const [isLoadingUser, setIsLoadingUser] = useState(true);
     const [userRole, setUserRole] = useState<'admin' | 'teacher' | null>(null);
 
-    // Initialize Sovereign Client — MUST be inside useEffect (browser-only)
+    // Initialize Sovereign Client â€” MUST be inside useEffect (browser-only)
     useEffect(() => {
         const checkUser = async () => {
             try {
                 const supabase = createClient();
                 if (!supabase) {
-                    // No env vars (e.g. build time or missing config) — skip silently
+                    // No env vars (e.g. build time or missing config) â€” skip silently
                     return;
                 }
                 const { data: { user } } = await supabase.auth.getUser();

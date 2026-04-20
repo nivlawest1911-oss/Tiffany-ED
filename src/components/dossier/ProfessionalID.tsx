@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { motion } from 'framer-motion';
 import { Shield, QrCode, Cpu } from 'lucide-react';
 import { useEffect, useState } from 'react';

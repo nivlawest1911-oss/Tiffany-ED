@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { createClient } from '@/utils/supabase/client';
 import { ROUTES } from '@/lib/routes';
 
 /**
- * 🏛️ Bio-Auth Initiator: Handshakes with Google/Apple/Facebook for EdIntel Protocol Login.
+ * ðŸ›ï¸ Bio-Auth Initiator: Handshakes with Google/Apple/Facebook for EdIntel Protocol Login.
  * Compliant with AL Code 290-8-9 auditing requirements.
  * Uses SSR-compatible Supabase browser client for proper session continuity.
  */
@@ -12,7 +12,7 @@ export async function initiateBioAuth(provider: 'google' | 'apple' | 'facebook')
     const supabase = createClient();
 
     if (!supabase) {
-        console.warn('🏛️ [EdIntel Auth Protocol Failure]: UPLINK_OFFLINE. Handshake unavailable.');
+        console.warn('ðŸ›ï¸ [EdIntel Auth Protocol Failure]: UPLINK_OFFLINE. Handshake unavailable.');
         return { error: 'Authentication Uplink is currently offline.' };
     }
 
@@ -28,7 +28,7 @@ export async function initiateBioAuth(provider: 'google' | 'apple' | 'facebook')
     });
 
     if (error) {
-        console.error('🏛️ [EdIntel Auth Protocol Failure]:', {
+        console.error('ðŸ›ï¸ [EdIntel Auth Protocol Failure]:', {
             message: error.message,
             provider,
             timestamp: new Date().toISOString()

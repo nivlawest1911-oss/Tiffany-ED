@@ -1,4 +1,4 @@
-/**
+﻿/**
  * EdIntel SWARM STATE SCHEMA
  * Graph-Based Memory Architecture for Long-Horizon Autonomy
  */

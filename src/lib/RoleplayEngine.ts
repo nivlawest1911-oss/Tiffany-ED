@@ -1,4 +1,4 @@
-/**
+﻿/**
  * RoleplayEngine.ts
  * Core logic for generating and managing branching conflict simulations.
  */

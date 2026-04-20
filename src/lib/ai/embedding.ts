@@ -1,4 +1,4 @@
-import { embed } from 'ai';
+﻿import { embed } from 'ai';
 import { google } from '@ai-sdk/google';
 
 /**

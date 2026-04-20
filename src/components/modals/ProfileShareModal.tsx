@@ -7,8 +7,8 @@ import {
     Copy, 
     CheckCircle, 
     X, 
-    Linkedin, 
-    Twitter, 
+    Briefcase as Linkedin, // Fallback social icon
+    Globe as Twitter, // Fallback social icon
     Globe,
     Shield,
     Sparkles,
@@ -202,3 +202,4 @@ export default function ProfileShareModal({
         </AnimatePresence>
     );
 }
+

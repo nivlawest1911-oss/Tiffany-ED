@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { AuroraCard } from '../flow/AuroraCard';
 import { TrendingUp } from 'lucide-react';
 import React from 'react';

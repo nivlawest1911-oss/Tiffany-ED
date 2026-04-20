@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 import { getCaptionsClient } from '@/lib/captions/client';
 
 export const dynamic = 'force-dynamic';

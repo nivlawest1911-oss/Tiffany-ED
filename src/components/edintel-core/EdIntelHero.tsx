@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import Link from "next/link"
 import Image from "next/image"
@@ -341,7 +341,7 @@ function CinematicVariant() {
                             <div className="flex flex-wrap gap-2 mb-4">
                                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[10px] font-bold uppercase tracking-[0.2em]">
                                     <MapPin size={10} />
-                                    <span>Alabama Focused • National Strategic Impact</span>
+                                    <span>Alabama Focused â€¢ National Strategic Impact</span>
                                 </div>
                                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[10px] font-bold uppercase tracking-[0.2em]">
                                     <Plus size={10} />
@@ -418,7 +418,7 @@ function CinematicVariant() {
                             </p>
                             <div className="flex gap-2 mt-3">
                                 <span className="text-[10px] px-2 py-1 rounded bg-white/5 text-zinc-400 font-mono border border-white/5">
-                                    📚 Mastering the Maze p. 42
+                                    ðŸ“š Mastering the Maze p. 42
                                 </span>
                             </div>
                         </div>
@@ -474,7 +474,7 @@ function CinematicVariant() {
                     role="Founder & Consultant"
                     avatarImage="/images/avatars/dr_alvin_west_official.png"
                     videoSrc="/videos/briefings/principal_briefing.mp4"
-                    stats={{ time: "30sec", saved: "∞", accuracy: "100%" }}
+                    stats={{ time: "30sec", saved: "âˆž", accuracy: "100%" }}
                 />
             </div>
         </section>

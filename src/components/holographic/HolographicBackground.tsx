@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import React from 'react'
 
 // CSS-based holographic background - replaces R3F Canvas which has compatibility issues with React 18

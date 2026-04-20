@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { Activity, Flame } from 'lucide-react';
 import { motion } from 'framer-motion';
 

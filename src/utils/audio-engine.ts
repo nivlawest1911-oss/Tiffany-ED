@@ -1,4 +1,4 @@
-export class ProfessionalAudioEngine {
+﻿export class ProfessionalAudioEngine {
     private context: AudioContext | null = null;
     private masterGain: GainNode | null = null;
 

@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+﻿import { motion } from "framer-motion";
 import { FileText, Scale, Users, Clock } from "lucide-react";
 
 const policies = [

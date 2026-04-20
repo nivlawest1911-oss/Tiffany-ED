@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
 
@@ -28,7 +28,7 @@ export default function BoardReport() {
   return (
     <div className="space-y-6">
       <h2 className="text-xl font-bold tracking-tight text-zinc-900 dark:text-white flex items-center gap-2">
-        <span className="text-2xl">⚡</span> Quarterly Board Oversight Report (Interim)
+        <span className="text-2xl">âš¡</span> Quarterly Board Oversight Report (Interim)
       </h2>
       <div className="grid grid-cols-3 gap-4">
         <div className="text-center p-4 bg-zinc-50 dark:bg-zinc-950 rounded-2xl border border-zinc-100 dark:border-zinc-800">

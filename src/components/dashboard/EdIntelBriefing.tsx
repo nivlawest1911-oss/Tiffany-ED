@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState } from 'react';
 import { HolographicCard } from '@/components/ui/HolographicCard';
@@ -119,7 +119,7 @@ export const EdIntelBriefing = ({ summary, loading, source }: EdIntelBriefingPro
 
                 <div className="mt-6 flex justify-end">
                     <SovereignButton variant="glass" size="sm" onClick={() => console.log('Executing protocols...')}>
-                        EXECUTE ALL PROTOCOLS →
+                        EXECUTE ALL PROTOCOLS â†’
                     </SovereignButton>
                 </div>
             </div>

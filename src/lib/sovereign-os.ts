@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
+﻿import { createClient } from '@supabase/supabase-js';
 import { AgentSwarmController, Agent } from './agents';
 import { depositToMemoryBank } from './memory-bank';
 

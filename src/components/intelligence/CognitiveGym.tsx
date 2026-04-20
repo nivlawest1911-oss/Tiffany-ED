@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -191,7 +191,7 @@ export default function CognitiveGym() {
                                                         <div>
                                                             <h3 className="text-lg font-black text-white leading-none mb-1">STRATEGIC NEURAL PROTOCOL</h3>
                                                             <div className="flex items-center gap-2">
-                                                                <p className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest">Authorized by Verse • Chief of Neuro-Resilience</p>
+                                                                <p className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest">Authorized by Verse â€¢ Chief of Neuro-Resilience</p>
                                                                 <div className="flex items-center gap-1 bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 rounded text-[8px] text-emerald-400 font-black uppercase tracking-tighter">
                                                                     <CheckCircle2 size={8} />
                                                                     Clinically Verified
@@ -609,7 +609,7 @@ function ActiveDrillArena({ type, onExit, isPlaying, setIsPlaying, score, onScor
                             }}
                             className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-noble-gold/30 hover:bg-noble-gold/5 text-white font-bold"
                         >
-                            {taskSwitchRule === 'even-odd' ? 'ODD' : 'LOW (≤5)'}
+                            {taskSwitchRule === 'even-odd' ? 'ODD' : 'LOW (â‰¤5)'}
                         </button>
                     </div>
                 </div>

@@ -1,8 +1,5 @@
 /**
  * EdIntel LEGACY LEDGER
- * 
- * Provides an immutable record of strategic directives and institutional decisions.
- * Ensures continuity across leadership cycles by preserving decision logic and swarm context.
  */
 
 import { prisma } from './prisma';
@@ -28,6 +25,7 @@ export interface LegacyEntry {
  * Commits a strategic directive to the immutable legacy ledger.
  */
 export async function recordStrategicDirective(entry: LegacyEntry) {
+    const { prisma } = await import('./prisma');
     try {
         const result = await prisma.legacyLedger.create({
             data: {
@@ -457,6 +455,7 @@ export const legacyLedger = {
     logOracleInsight,
     logUnitySync,
     logEvent: async (event: { id: string, type: string, timestamp: string, severity: string, description: string, metadata: any }) => {
+        const { prisma } = await import('./prisma');
         console.log(`[LegacyLedger] Generic Event: ${event.type} - ${event.id}`);
         try {
             await prisma.legacyLedger.create({

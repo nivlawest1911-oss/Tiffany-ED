@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers';
+﻿import { cookies } from 'next/headers';
 import ConnectorHubClient from './ConnectorHubClient';
 
 export const dynamic = 'force-dynamic';

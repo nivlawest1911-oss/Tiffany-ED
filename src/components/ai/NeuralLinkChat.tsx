@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState, useEffect } from "react"
 import {
@@ -112,7 +112,7 @@ export function NeuralLinkChat({ protocol, className }: NeuralLinkChatProps) {
             }
         } catch (error: any) {
             console.error('Generation failure:', error);
-            setResponse(`⚠️ CRITICAL ERROR: Neural synthesis failed. Reference: ${error.message}. Please restart the EdIntel Protocol.`);
+            setResponse(`âš ï¸ CRITICAL ERROR: Neural synthesis failed. Reference: ${error.message}. Please restart the EdIntel Protocol.`);
         } finally {
             setIsGenerating(false)
         }
@@ -194,7 +194,7 @@ export function NeuralLinkChat({ protocol, className }: NeuralLinkChatProps) {
                                         onClick={() => setPrompt(p)}
                                         className="px-3 py-2 rounded-lg bg-white border border-slate-200 hover:border-electric-cyan/30 hover:bg-electric-cyan/5 text-[10px] font-bold text-slate-500 hover:text-slate-900 transition-all text-left uppercase tracking-wide"
                                     >
-                                        <span className="text-electric-cyan mr-2">➜</span> {p}
+                                        <span className="text-electric-cyan mr-2">âžœ</span> {p}
                                     </button>
                                 ))}
                             </div>

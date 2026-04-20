@@ -1,4 +1,4 @@
-// 🧠 Professional Cloud Connection
+﻿// ðŸ§  Professional Cloud Connection
 // Bridge between Vercel Frontend and Google Cloud Brain
 
 const GOOGLE_CLOUD_URL = process.env.NEXT_PUBLIC_STRATEGIC_BRAIN_URL || "http://localhost:8080";

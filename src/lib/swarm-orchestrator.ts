@@ -1,4 +1,4 @@
-/**
+﻿/**
  * EdIntel SWARM ORCHESTRATOR
  * 
  * Manages specialized AI agents to execute complex, multi-step district objectives.

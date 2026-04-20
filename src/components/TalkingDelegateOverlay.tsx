@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -97,7 +97,7 @@ export default function TalkingDelegateOverlay({
         let interval: NodeJS.Timeout;
         if (isPlaying) {
             interval = setInterval(() => {
-                // jaw animation omitted — state removed
+                // jaw animation omitted â€” state removed
             }, 150);
         }
         return () => clearInterval(interval);

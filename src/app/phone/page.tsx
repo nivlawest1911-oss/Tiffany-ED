@@ -1,9 +1,9 @@
-import { cookies } from 'next/headers';
+﻿import { cookies } from 'next/headers';
 import AIPhoneCenter from '@/components/AIPhoneCenter';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: '📞 AI Phone Center | EdIntel Professional',
+    title: 'ðŸ“ž AI Phone Center | EdIntel Professional',
     description: 'World-class AI phone agents powered by Google Gemini, Twilio, and advanced speech AI',
 };
 

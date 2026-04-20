@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { Play, ChevronRight, Brain, Target, Zap, Shield as LucideShield } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';

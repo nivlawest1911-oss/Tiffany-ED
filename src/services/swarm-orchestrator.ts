@@ -1,4 +1,4 @@
-import { OpenAI } from 'openai';
+﻿import { OpenAI } from 'openai';
 import { EdIntelSystemState, initializeEdIntelState } from '@/lib/swarm-state';
 import { withResilience, ALABAMA_STRATEGIC_DIRECTIVE } from '@/lib/ai-resilience';
 
@@ -19,7 +19,7 @@ class SwarmOrchestrator {
         if (!this._openai) {
             const apiKey = process.env.OPENAI_API_KEY;
             if (!apiKey && process.env.NODE_ENV === 'production') {
-                console.warn('⚠️ [SwarmOrchestrator] OPENAI_API_KEY is missing. AI features will be disabled.');
+                console.warn('âš ï¸ [SwarmOrchestrator] OPENAI_API_KEY is missing. AI features will be disabled.');
             }
             this._openai = new OpenAI({ apiKey: apiKey || 'mock_key' });
         }

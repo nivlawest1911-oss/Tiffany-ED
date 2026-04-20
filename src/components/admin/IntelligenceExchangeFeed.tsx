@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { Share2, Zap, Brain, MessageSquare, ArrowRight } from 'lucide-react';

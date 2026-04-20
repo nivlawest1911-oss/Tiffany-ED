@@ -1,4 +1,4 @@
-import { SovereignGatekeeper } from "@/components/auth/SovereignGatekeeper";
+﻿import { SovereignGatekeeper } from "@/components/auth/SovereignGatekeeper";
 
 export default function IntelLayout({
     children,

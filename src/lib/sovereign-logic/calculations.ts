@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Sovereign Logic: Core Calculations
  * Centralized business logic for Financial ROI and Social Compliance.
  */

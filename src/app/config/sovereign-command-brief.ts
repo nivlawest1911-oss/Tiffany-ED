@@ -1,4 +1,4 @@
-export const EdIntel_COMMAND_BRIEF = {
+﻿export const EdIntel_COMMAND_BRIEF = {
     title: "EdIntel Command Brief: EdIntel Mobile County Rollout",
     executiveSummary: "EdIntel EdIntel is a robust, AI-driven educational intelligence operating system designed to elevate school site authority through data automation and content architecture.",
     technicalInfrastructure: {

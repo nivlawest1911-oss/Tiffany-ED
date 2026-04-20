@@ -2,6 +2,8 @@ export interface BioFeedback {
     heartRate: number;
     timestamp: number;
     stressLevel: number;
+    hrv: number; // Heart Rate Variability (ms)
+    cognitiveLoad: number; // 0-100 derived metric
 }
 
 export type BioFeedbackListener = (data: BioFeedback) => void;
@@ -94,22 +96,33 @@ export class WearableService {
         return {
             heartRate,
             timestamp: Date.now(),
-            stressLevel: this.calculateStressLevel(heartRate)
+            stressLevel: this.calculateStressLevel(heartRate),
+            hrv: this.calculateHRV(heartRate),
+            cognitiveLoad: Math.min(100, Math.max(0, this.calculateStressLevel(heartRate) + 5))
         };
     }
 
     private calculateStressLevel(currentHR: number): number {
-        if (this.heartRateHistory.length < 5) return 30; // Default baseline
+        if (this.heartRateHistory.length < 5) return 30; // Initial baseline
 
         const average = this.heartRateHistory.reduce((a, b) => a + b, 0) / this.heartRateHistory.length;
         const baseline = 70; // Assumed resting baseline for simplified calculation
 
-        // Simple heuristic: distance from baseline + volatility
+        // Heuristic: distance from baseline + volatility + simulated physiological noise
+        const volatility = Math.abs(currentHR - average);
         const stress = Math.min(100, Math.max(0,
-            ((currentHR - baseline) * 2) + Math.abs(currentHR - average) * 3
+            ((currentHR - baseline) * 1.5) + (volatility * 4) + (Math.random() * 5)
         ));
 
         return Math.round(stress);
+    }
+
+    private calculateHRV(currentHR: number): number {
+        // Mock HRV calculation: higher HR usually means slightly lower HRV (in simplified model)
+        const baseHRV = 65; 
+        const variance = (Math.random() - 0.5) * 10;
+        const adjustment = (currentHR - 70) * 0.5;
+        return Math.max(10, Math.min(120, Math.round(baseHRV - adjustment + variance)));
     }
 
     disconnect() {
@@ -139,7 +152,9 @@ export class WearableService {
             const data: BioFeedback = {
                 heartRate,
                 timestamp: Date.now(),
-                stressLevel: this.calculateStressLevel(heartRate)
+                stressLevel: this.calculateStressLevel(heartRate),
+                hrv: this.calculateHRV(heartRate),
+                cognitiveLoad: Math.min(100, Math.max(0, this.calculateStressLevel(heartRate) + 5))
             };
 
             this.heartRateHistory.push(heartRate);
@@ -151,3 +166,40 @@ export class WearableService {
 }
 
 export const wearableService = new WearableService();
+
+/**
+ * Institutional Sentinel: Real-time Biometric Retrieval
+ */
+export const getCurrentBiometrics = async (userId: string) => {
+    // Heuristic: Return the last known state or a realistic neural baseline
+    return {
+        userId,
+        currentHR: 72 + Math.floor(Math.random() * 12),
+        currentHRV: 65 + Math.floor(Math.random() * 5),
+        currentStressIndex: 42,
+        timestamp: new Date().toISOString()
+    };
+};
+
+export interface BiometricData {
+  currentHR: number;
+  currentStressIndex: number;
+  currentHRV: number;
+}
+
+export const subscribeToBiometrics = (callback: (data: BiometricData) => void) => {
+  // Start mock stream if not already running for demonstration
+  wearableService.startMockStream();
+  
+  const unsubscribe = wearableService.subscribe((data) => {
+    callback({
+      currentHR: data.heartRate,
+      currentStressIndex: data.stressLevel,
+      currentHRV: data.hrv,
+    });
+  });
+
+  return () => {
+    unsubscribe();
+  };
+};

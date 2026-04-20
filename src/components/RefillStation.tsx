@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 import { Zap, ShoppingCart, ShieldCheck } from 'lucide-react';
@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 export const RefillStation = () => {
     const handlePurchase = async (tokens: number) => {
         // This will trigger the Stripe Checkout flow in a production update
-        console.log(`💎 Protocol Initiated: Requesting EdIntel Charge of ${tokens} units`);
+        console.log(`ðŸ’Ž Protocol Initiated: Requesting EdIntel Charge of ${tokens} units`);
         alert(`Initiating EdIntel Charge: ${tokens} units. Connecting to EdIntel Treasury...`);
     };
 

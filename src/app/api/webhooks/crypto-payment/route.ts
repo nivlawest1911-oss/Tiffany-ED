@@ -1,4 +1,4 @@
-/**
+﻿/**
  * EdIntel EdIntel - Crypto Payment Webhook Handler
  * Processes cryptocurrency payment confirmations
  */

@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers';
+﻿import { cookies } from 'next/headers';
 import TheRoomClient from './TheRoomClient';
 
 export const dynamic = 'force-dynamic';

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { Target, Trophy, Crown, Star, Shield as LucideShield, Zap, Circle, User } from "lucide-react";
 
 export default function AchievementGuide() {
@@ -16,12 +16,12 @@ export default function AchievementGuide() {
     ];
 
     const targets = [
-        { label: "Performance Output", icon: "⚡", desc: "Total accomplishment credits earned" },
-        { label: "Session Volume", icon: "📚", desc: "Number of completed modules and simulations" },
-        { label: "Project Depth", icon: "🧠", desc: "Average complexity of tasks completed" },
-        { label: "Competency Index", icon: "📊", desc: "Overall performance and growth score" },
-        { label: "Professional Network", icon: "🔗", desc: "Active community connections" },
-        { label: "Consistency Streak", icon: "⏳", desc: "Regular session attendance reliability" }
+        { label: "Performance Output", icon: "âš¡", desc: "Total accomplishment credits earned" },
+        { label: "Session Volume", icon: "ðŸ“š", desc: "Number of completed modules and simulations" },
+        { label: "Project Depth", icon: "ðŸ§ ", desc: "Average complexity of tasks completed" },
+        { label: "Competency Index", icon: "ðŸ“Š", desc: "Overall performance and growth score" },
+        { label: "Professional Network", icon: "ðŸ”—", desc: "Active community connections" },
+        { label: "Consistency Streak", icon: "â³", desc: "Regular session attendance reliability" }
     ];
 
     return (

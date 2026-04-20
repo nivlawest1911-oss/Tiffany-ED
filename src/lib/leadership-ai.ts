@@ -1,4 +1,4 @@
-'use server';
+﻿'use server';
 
 // import { createGoogleGenerativeAI } from '@ai-sdk/google'; // Removed unused
 // import { generateText } from 'ai'; // Removed unused
@@ -22,7 +22,7 @@ export async function generateProfessionalResponse(
 ): Promise<string> {
   const activePersona = persona || EdIntel_PERSONA;
 
-  // 📚 VIRTUAL VAULT QUERY (RAG-lite)
+  // ðŸ“š VIRTUAL VAULT QUERY (RAG-lite)
   const vaultContext = await queryEdIntelVault(prompt);
 
   // SYSTEM PROMPT: FORCING HIGH-FIDELITY EdIntel PERSONA
@@ -40,7 +40,7 @@ export async function generateProfessionalResponse(
         SUPER-INTELLIGENCE MANDATE:
         - THOUGHT PROCESS: Before every answer, you MUST engage in a "Neural Synthesis" step. 
           Output your reasoning inside <neural_synthesis> tags, evaluating 3 distinct strategies and selecting the optimal one.
-        - CITATION PROTOCOL: You must cite specific Alabama codes (e.g., "Ala. Code § 16-6G-1" for Literacy) or federal statutes where applicable. Reference the COMPLIANCE ENGINE.
+        - CITATION PROTOCOL: You must cite specific Alabama codes (e.g., "Ala. Code Â§ 16-6G-1" for Literacy) or federal statutes where applicable. Reference the COMPLIANCE ENGINE.
         - COGNITIVE CONTEXT: Integrate these research pillars: ${COGNITIVE_FITNESS_CONTEXT.pillars.map(p => p.name + ": " + p.directive).join(" | ")}.
         - NO fluff: Do not use filler words. Be dense, high-entropy, and high-value.
         - ANALYTICAL DEPTH: If asked for a strategy, provide a multi-phase implementation plan with specific KPIs for Mobile County Schools.
@@ -60,7 +60,7 @@ export async function generateProfessionalResponse(
 
   try {
     return await withResilience(async () => {
-      // 🧠 NEURAL CACHE (Vercel KV)
+      // ðŸ§  NEURAL CACHE (Vercel KV)
       // Use a simple hash to prevent collisions on similar prompts without requiring Node.js crypto
       const simpleHash = (str: string) => {
         let hash = 0;
@@ -78,21 +78,21 @@ export async function generateProfessionalResponse(
       try {
         cached = await kv.get(cacheKey);
       } catch (_cacheError) {
-        console.warn("⚠️ Neural Cache (KV) offline. Proceeding to live synthesis.", _cacheError);
+        console.warn("âš ï¸ Neural Cache (KV) offline. Proceeding to live synthesis.", _cacheError);
       }
 
       if (cached) {
-        console.log(`💎 Serving from Neural Cache [Key: ${cacheKey.substring(0, 10)}...]`);
+        console.log(`ðŸ’Ž Serving from Neural Cache [Key: ${cacheKey.substring(0, 10)}...]`);
         return cached;
       }
 
-      // 🤖 EXECUTE INTELLIGENCE ENGINE (Failover Protected)
+      // ðŸ¤– EXECUTE INTELLIGENCE ENGINE (Failover Protected)
       // Standard Tier by default, can be upgraded based on persona in future
       const aiResult = await aiResilience.generateWithFailover(systemPrompt, prompt, 'standard');
 
       // Fallback Check - If fallback is triggered, we DO NOT cache the result
       if (aiResult.provider === 'fallback') {
-        console.warn("⚠️ AI Failover exhausted. Engaging Smart Fallback.");
+        console.warn("âš ï¸ AI Failover exhausted. Engaging Smart Fallback.");
         throw new Error("AI_FAILOVER_EXHAUSTED");
       }
 
@@ -104,7 +104,7 @@ export async function generateProfessionalResponse(
         kv.set(cacheKey, text, { ex: 7200 }).catch(err => console.warn("Cache Write Failed:", err));
       }
 
-      // 🏛️ EdIntel AUDIT LOG (Supabase)
+      // ðŸ›ï¸ EdIntel AUDIT LOG (Supabase)
       if (supabase) {
         try {
           await supabase.from('audit_logs').insert([{
@@ -116,11 +116,11 @@ export async function generateProfessionalResponse(
             timestamp: new Date().toISOString()
           }]);
         } catch (dbError) {
-          console.warn("⚠️ Audit log ingestion failed:", dbError);
+          console.warn("âš ï¸ Audit log ingestion failed:", dbError);
         }
       }
 
-      // 🛡️ IMMUTABLE LOG (BigQuery) - Called via API to prevent SDK leakage into client packages
+      // ðŸ›¡ï¸ IMMUTABLE LOG (BigQuery) - Called via API to prevent SDK leakage into client packages
       if (typeof window === 'undefined') {
         fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/logging/bigquery`, {
           method: 'POST',
@@ -163,7 +163,7 @@ async function SmartFallbackEngine(topic: string, persona: any, isChat: boolean)
 
   if (p.includes('iep') || p.includes('special')) {
     return `
-# 🦁 Strategic IEP Briefing (Resilient Logic)
+# ðŸ¦ Strategic IEP Briefing (Resilient Logic)
 **Architect:** ${persona.name} | **Status:** [SYNTHESIS_RECOVERED]
 
 In the absence of live neural connectivity, I have synthesized this response using high-fidelity local compliance data.
@@ -181,7 +181,7 @@ ${vaultContext || 'No specific IEP vault markers found. Reverting to base IDEA p
 
   if (p.includes('teacher') || p.includes('personnel') || p.includes('fight') || p.includes('conflict')) {
     return `
-# 🦁 Personnel Conflict Protocol (Resilient Logic)
+# ðŸ¦ Personnel Conflict Protocol (Resilient Logic)
 **Architect:** ${persona.name} | **Status:** [SYNTHESIS_RECOVERED]
 
 ${vaultContext || 'Retrieved Alabama Professional Conduct Standards from local cache.'}
@@ -201,7 +201,7 @@ ${vaultContext || 'Retrieved Alabama Professional Conduct Standards from local c
 
 
 
-  // 🎲 DYNAMIC ENTROPY INJECTION
+  // ðŸŽ² DYNAMIC ENTROPY INJECTION
   const strategies = [
     "Focus on Title I allocation efficiency and eGAP compliance.",
     "Prioritize Tier II/III intervention fidelity via Science of Reading (SOR) scaffolds.",
@@ -214,7 +214,7 @@ ${vaultContext || 'Retrieved Alabama Professional Conduct Standards from local c
   const randomStrategy = strategies[Math.floor(Math.random() * strategies.length)];
 
   return `
-# 🦁 EdIntel Executive Briefing (Resilient Logic)
+# ðŸ¦ EdIntel Executive Briefing (Resilient Logic)
 **Architect:** ${persona.name} | **Status:** [SYNTHESIS_RESERVERED]
 
 ## Strategic Synthesis: ${topic}
@@ -242,7 +242,7 @@ export async function streamProfessionalResponse(
 ) {
   const activePersona = persona || EdIntel_PERSONA;
 
-  // 📚 VIRTUAL VAULT QUERY (RAG-lite)
+  // ðŸ“š VIRTUAL VAULT QUERY (RAG-lite)
   const vaultContext = await queryEdIntelVault(prompt);
 
   const systemPrompt = `

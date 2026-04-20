@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Activity, Cpu, Globe, Zap, Database, Github } from 'lucide-react';
+import { Activity, Cpu, Globe, Zap, Database } from 'lucide-react';
 
 export default function NeuralNetworkMonitor() {
     const [metrics, setMetrics] = useState({
@@ -83,7 +83,7 @@ export default function NeuralNetworkMonitor() {
 
                     <div className="flex flex-col items-center gap-2 group cursor-help" title="GitHub Repo Management: Continuous Integration, Source Control">
                         <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-amber-500/50 transition-colors">
-                            <Github className="w-5 h-5 text-amber-400" />
+                            <Zap className="w-5 h-5 text-amber-400" />
                         </div>
                         <span className="text-[8px] font-bold text-zinc-400 uppercase group-hover:text-white transition-colors">GitHub</span>
                     </div>

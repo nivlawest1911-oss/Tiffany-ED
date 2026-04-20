@@ -1,4 +1,4 @@
-'use server';
+﻿'use server';
 import { sql } from '@vercel/postgres';
 
 export async function getEdIntelMedia(query?: string) {
@@ -28,7 +28,7 @@ export async function syncMediaToDatabase(manifestPath: string) {
         const fs = require('fs');
         const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
 
-        console.log(`🗄️  Syncing ${manifest.length} items to Vercel Postgres...`);
+        console.log(`ðŸ—„ï¸  Syncing ${manifest.length} items to Vercel Postgres...`);
 
         for (const item of manifest) {
             try {
@@ -40,13 +40,13 @@ export async function syncMediaToDatabase(manifestPath: string) {
             media_type = EXCLUDED.media_type,
             size = EXCLUDED.size
         `;
-                console.log(`✅ Synced: ${item.fileName}`);
+                console.log(`âœ… Synced: ${item.fileName}`);
             } catch (err: any) {
-                console.error(`❌ Sync error for ${item.fileName}:`, err.message);
+                console.error(`âŒ Sync error for ${item.fileName}:`, err.message);
             }
         }
 
-        console.log('🚀 Database sync complete!');
+        console.log('ðŸš€ Database sync complete!');
         return { success: true, count: manifest.length };
     } catch (error: any) {
         console.error('Sync failed:', error);

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Github, Send, CheckCircle2, Terminal } from 'lucide-react';
+import { Zap as Github, Send, CheckCircle2, Terminal } from 'lucide-react';
 
 export default function GitHubStrategicFeedback() {
     const [feedback, setFeedback] = useState('');

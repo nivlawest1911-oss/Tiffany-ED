@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { TrendingUp, DollarSign, Target } from 'lucide-react';
 
 export default function ROISingularityHeader() {

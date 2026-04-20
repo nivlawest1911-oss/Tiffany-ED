@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 import { EdIntelGate } from '@/components/edintel-core/EdIntelGate';

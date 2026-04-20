@@ -1,4 +1,4 @@
-import { analyzeLessonFriction } from '@/utils/lesson-friction';
+﻿import { analyzeLessonFriction } from '@/utils/lesson-friction';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {

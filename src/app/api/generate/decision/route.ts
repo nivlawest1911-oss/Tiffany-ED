@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { generateDecisionAction } from '@/lib/gemini-service';
 import { prisma } from '@/lib/prisma';
@@ -57,7 +57,7 @@ The proposed changes impact core scheduling and budgeting constraints.
 2. Phased Rollout (Moderate Risk, Slower Adoption)
 3. Maintain Status Quo (Low Risk, Missed Opportunity)
 
-*EdIntel System Status: AWAITING_BANDWIDTH — Please retry in a moment.*`
+*EdIntel System Status: AWAITING_BANDWIDTH â€” Please retry in a moment.*`
             });
         }
 

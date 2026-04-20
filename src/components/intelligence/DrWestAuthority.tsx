@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { Mail, Calendar, MessageSquare, ShieldCheck, ChevronRight } from 'lucide-react';
 import Link from 'next/link';

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mic, ChevronRight, AlertTriangle, Activity } from 'lucide-react';
 import { useState } from 'react';

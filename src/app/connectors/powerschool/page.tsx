@@ -1,4 +1,4 @@
-export const dynamic = 'force-dynamic';
+﻿export const dynamic = 'force-dynamic';
 
 import { Database, Shield, Zap, ChevronLeft } from 'lucide-react';
 import Link from 'next/link';

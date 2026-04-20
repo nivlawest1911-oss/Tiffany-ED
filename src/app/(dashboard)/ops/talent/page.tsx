@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 import { Users, BrainCircuit, Activity, ShieldCheck, Zap } from 'lucide-react';

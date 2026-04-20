@@ -1,4 +1,4 @@
-/**
+﻿/**
  * EdIntel Professional - Gemini 3 Pro Interactions API
  * Deep Research Agent with Thought Signatures
  * 
@@ -132,7 +132,7 @@ export async function startEdIntelSession(
                     },
 
                     generateLiteracyReport: {
-                        description: 'Generate Individual Reading Plan (IRP) per Alabama Literacy Act § 16-6G-5',
+                        description: 'Generate Individual Reading Plan (IRP) per Alabama Literacy Act Â§ 16-6G-5',
                         inputSchema: z.object({
                             studentId: z.string(),
                             deficiencyAreas: z.array(z.string()),

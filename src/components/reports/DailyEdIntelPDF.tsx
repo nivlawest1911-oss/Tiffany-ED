@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 
 // Register a clean, professional font if needed, but standard ones are fine for MVP
@@ -133,17 +133,17 @@ const DailyEdIntelPDF = ({ data }: DailyEdIntelPDFProps) => (
             <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Strategic Insights</Text>
                 <View style={{ marginBottom: 10 }}>
-                    <Text style={[styles.content, { fontWeight: 'bold' }]}>• Operational Continuity:</Text>
+                    <Text style={[styles.content, { fontWeight: 'bold' }]}>â€¢ Operational Continuity:</Text>
                     <Text style={styles.content}>Infrastructure remains 100% synchronized with Mobile County endpoints.</Text>
                 </View>
                 <View style={{ marginBottom: 10 }}>
-                    <Text style={[styles.content, { fontWeight: 'bold' }]}>• Cognitive Load Optimization:</Text>
+                    <Text style={[styles.content, { fontWeight: 'bold' }]}>â€¢ Cognitive Load Optimization:</Text>
                     <Text style={styles.content}>The Antigravity Core has successfully mitigated 14,000+ potential administrative bottleneck hours this week.</Text>
                 </View>
             </View>
 
             <View style={styles.footer}>
-                <Text style={styles.footerText}>© 2026 EdIntel | Intelligence in Education</Text>
+                <Text style={styles.footerText}>Â© 2026 EdIntel | Intelligence in Education</Text>
                 <Text style={styles.footerText}>Grounded in Transcend Holistic Wellness</Text>
             </View>
         </Page>

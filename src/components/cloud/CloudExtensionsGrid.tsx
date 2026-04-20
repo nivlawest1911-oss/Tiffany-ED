@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { Brain, Eye, Languages, Video, Cpu, Database, HardDrive, Map, GitBranch, Key } from 'lucide-react';
 
 const extensions = [

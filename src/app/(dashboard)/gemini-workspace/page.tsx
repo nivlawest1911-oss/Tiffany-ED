@@ -1,11 +1,11 @@
-import { cookies } from 'next/headers';
+﻿import { cookies } from 'next/headers';
 import GeminiWorkspaceHub from '@/components/GeminiWorkspaceHub';
 import type { Metadata } from 'next';
 
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-    title: '✨ Gemini Workspace | EdIntel Professional',
+    title: 'âœ¨ Gemini Workspace | EdIntel Professional',
     description: 'Import and integrate your Google Gemini content into EdIntel Professional',
 };
 

@@ -1,4 +1,4 @@
-import { ToolLoopAgent, stepCountIs, tool, Output } from 'ai';
+﻿import { ToolLoopAgent, stepCountIs, tool, Output } from 'ai';
 import { google } from '@ai-sdk/google';
 import { z } from 'zod';
 import { queryEdIntelVault } from '@/lib/rag/rag-core';
@@ -30,7 +30,7 @@ export const complianceResearchSubagent = new ToolLoopAgent({
     1. Focus on legislative accuracy and audit-ready justifications.
     2. Use the queryVault tool frequently to ground your responses.
     3. Synthesize multiple sources into the structured research report.
-    4. Cite specific Alabama codes (e.g., "Ala. Code § 16-6G-1").
+    4. Cite specific Alabama codes (e.g., "Ala. Code Â§ 16-6G-1").
     `,
     output: Output.object({
         name: 'ResearchReport',

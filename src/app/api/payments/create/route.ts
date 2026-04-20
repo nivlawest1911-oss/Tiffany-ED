@@ -1,4 +1,4 @@
-/**
+﻿/**
  * EdIntel EdIntel - Create Payment API
  * Handles payment creation for all supported methods
  */

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * FiscalEngine.ts
  * Core logic for autonomous budget optimization and resource allocation.
  */

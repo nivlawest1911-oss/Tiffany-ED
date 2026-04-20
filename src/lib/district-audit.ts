@@ -1,4 +1,4 @@
-import { jsPDF } from 'jspdf';
+﻿import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 
 export const generateDistrictAudit = (districtName: string, schoolData: any[]) => {
@@ -45,9 +45,9 @@ export const generateDistrictAudit = (districtName: string, schoolData: any[]) =
     doc.setFontSize(8);
     doc.setTextColor(100);
     doc.text([
-        '• All narratives generated meet the Alabama State Department of Education standards.',
-        '• Data handled via EdIntel Node isolation (FERPA/SOPPA compliant).',
-        '• Audit logs are immutable and stored in the EdIntel EdIntel Vault.'
+        'â€¢ All narratives generated meet the Alabama State Department of Education standards.',
+        'â€¢ Data handled via EdIntel Node isolation (FERPA/SOPPA compliant).',
+        'â€¢ Audit logs are immutable and stored in the EdIntel EdIntel Vault.'
     ], 14, finalY + 10);
 
     doc.save(`${districtName}_Audit_${new Date().toISOString().split('T')[0]}.pdf`);

@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
     Cpu, Database, Globe, Zap, Shield,
     MessageSquare, Eye, Mic, Book, Cloud,
-    BarChart3, Binary, HardDrive, Activity, Terminal, Layers, Video, Youtube,
+    BarChart3, Binary, HardDrive, Activity, Terminal, Layers, Video, Video as Youtube,
     Film, Workflow
 } from 'lucide-react';
 

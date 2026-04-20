@@ -14,7 +14,7 @@ export class TextAnalysisService {
      */
     static async analyzeSentiment(text: string) {
         try {
-            const result = await hf.textClassification({
+            const result = await hf!.textClassification({
                 model: MODELS.SENTIMENT,
                 inputs: text,
             });
@@ -35,7 +35,7 @@ export class TextAnalysisService {
      */
     static async detectEmotions(text: string) {
         try {
-            const result = await hf.textClassification({
+            const result = await hf!.textClassification({
                 model: MODELS.EMOTION,
                 inputs: text,
             });
@@ -55,7 +55,7 @@ export class TextAnalysisService {
      */
     static async checkToxicity(text: string) {
         try {
-            const result = await hf.textClassification({
+            const result = await hf!.textClassification({
                 model: MODELS.TOXICITY,
                 inputs: text,
             });
@@ -76,7 +76,7 @@ export class TextAnalysisService {
      */
     static async summarize(text: string, maxLength = 150) {
         try {
-            const result = await hf.summarization({
+            const result = await hf!.summarization({
                 model: MODELS.SUMMARIZATION,
                 inputs: text,
                 parameters: {
@@ -97,7 +97,7 @@ export class TextAnalysisService {
      */
     static async answerQuestion(question: string, context: string) {
         try {
-            const result = await hf.questionAnswering({
+            const result = await hf!.questionAnswering({
                 model: MODELS.QA,
                 inputs: {
                     question,
@@ -132,7 +132,7 @@ export class ImageGenerationService {
         numInferenceSteps?: number;
     }): Promise<Blob> {
         try {
-            const result = await hf.textToImage({
+            const result = await hf!.textToImage({
                 model: MODELS.IMAGE_GEN,
                 inputs: prompt,
                 parameters: {
@@ -174,7 +174,7 @@ export class ImageAnalysisService {
      */
     static async classifyImage(imageBlob: Blob) {
         try {
-            const result = await hf.imageClassification({
+            const result = await hf!.imageClassification({
                 model: MODELS.IMAGE_CLASSIFICATION,
                 data: imageBlob,
             });
@@ -194,7 +194,7 @@ export class ImageAnalysisService {
      */
     static async detectObjects(imageBlob: Blob) {
         try {
-            const result = await hf.objectDetection({
+            const result = await hf!.objectDetection({
                 model: MODELS.OBJECT_DETECTION,
                 data: imageBlob,
             });
@@ -215,7 +215,7 @@ export class ImageAnalysisService {
      */
     static async captionImage(imageBlob: Blob) {
         try {
-            const result = await hf.imageToText({
+            const result = await hf!.imageToText({
                 model: MODELS.IMAGE_CAPTIONING,
                 data: imageBlob,
             });
@@ -281,7 +281,7 @@ export class SpeechService {
      */
     static async transcribeAudio(audioBlob: Blob) {
         try {
-            const result = await hf.automaticSpeechRecognition({
+            const result = await hf!.automaticSpeechRecognition({
                 model: MODELS.SPEECH_TO_TEXT,
                 data: audioBlob,
             });
@@ -298,7 +298,7 @@ export class SpeechService {
      */
     static async textToSpeech(text: string) {
         try {
-            const result = await hf.textToSpeech({
+            const result = await hf!.textToSpeech({
                 model: MODELS.TEXT_TO_SPEECH,
                 inputs: text,
             });
@@ -320,7 +320,7 @@ export class SemanticSearchService {
      */
     static async generateEmbedding(text: string) {
         try {
-            const result = await hf.featureExtraction({
+            const result = await hf!.featureExtraction({
                 model: MODELS.EMBEDDINGS,
                 inputs: text,
             });
@@ -429,7 +429,7 @@ export class EducationalAIService {
         const prompt = `Create a ${gradeLevel} lesson plan about ${topic}. Include objectives, activities, and assessment.`;
 
         try {
-            const result = await hf.textGeneration({
+            const result = await hf!.textGeneration({
                 model: MODELS.INSTRUCTION_FOLLOWING,
                 inputs: prompt,
                 parameters: {

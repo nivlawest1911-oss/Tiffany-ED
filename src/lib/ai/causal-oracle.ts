@@ -1,4 +1,4 @@
-/**
+﻿/**
  * The Oracle: Causal Predictive Analytics
  * Moves beyond simple prediction to causal simulation (Do-Calculus).
  * Helps users understand the "Future Impact" of their choices.

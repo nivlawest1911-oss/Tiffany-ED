@@ -1,4 +1,4 @@
-import * as Y from 'yjs';
+﻿import * as Y from 'yjs';
 import { RealtimeChannel, SupabaseClient } from '@supabase/supabase-js';
 
 export class SupabaseYjsProvider {

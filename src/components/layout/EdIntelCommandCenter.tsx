@@ -7,8 +7,8 @@ import {
     MessageSquare,
     Phone,
     MapPin,
-    Linkedin,
-    Facebook,
+    Briefcase as Linkedin, // Social icon fallback
+    Zap as Facebook, // Social icon fallback
     Hexagon,
     ArrowUpRight,
     AtSign,

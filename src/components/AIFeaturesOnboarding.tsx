@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 /**
  * EdIntel EdIntel - AI Features Onboarding
@@ -47,11 +47,11 @@ const onboardingSteps: OnboardingStep[] = [
         icon: Sparkles,
         color: 'from-emerald-500 to-teal-600',
         features: [
-            '📥 Drag-and-drop file uploads (images, PDFs, text)',
-            '🤖 AI-powered auto-tagging and categorization',
-            '🔄 Convert Gemini conversations into EdIntel workflows',
-            '📚 Searchable content library with filters',
-            '🎯 Smart feature mapping (IEP, Lesson Plans, etc.)'
+            'ðŸ“¥ Drag-and-drop file uploads (images, PDFs, text)',
+            'ðŸ¤– AI-powered auto-tagging and categorization',
+            'ðŸ”„ Convert Gemini conversations into EdIntel workflows',
+            'ðŸ“š Searchable content library with filters',
+            'ðŸŽ¯ Smart feature mapping (IEP, Lesson Plans, etc.)'
         ],
         ctaText: 'Open Gemini Workspace',
         ctaLink: '/gemini-workspace',
@@ -60,15 +60,15 @@ const onboardingSteps: OnboardingStep[] = [
     {
         id: 'huggingface',
         title: 'Hugging Face AI Studio',
-        description: 'Access cutting-edge AI models for text analysis, image generation, speech processing, and semantic search—all in one unified interface.',
+        description: 'Access cutting-edge AI models for text analysis, image generation, speech processing, and semantic searchâ€”all in one unified interface.',
         icon: Brain,
         color: 'from-purple-500 to-pink-600',
         features: [
-            '✍️ Text Analysis: Sentiment, summarization, Q&A',
-            '🎨 Image Generation: Create visuals from text prompts',
-            '🔍 Image Analysis: Object detection, captioning',
-            '🎤 Speech Processing: Text-to-speech and transcription',
-            '🔎 Semantic Search: Find similar content intelligently'
+            'âœï¸ Text Analysis: Sentiment, summarization, Q&A',
+            'ðŸŽ¨ Image Generation: Create visuals from text prompts',
+            'ðŸ” Image Analysis: Object detection, captioning',
+            'ðŸŽ¤ Speech Processing: Text-to-speech and transcription',
+            'ðŸ”Ž Semantic Search: Find similar content intelligently'
         ],
         ctaText: 'Launch AI Studio',
         ctaLink: '/huggingface',
@@ -81,12 +81,12 @@ const onboardingSteps: OnboardingStep[] = [
         icon: Mic,
         color: 'from-blue-500 to-cyan-600',
         features: [
-            '📞 Incoming call handling with AI greetings',
-            '🎭 Multiple AI voice personalities',
-            '💬 Real-time sentiment analysis',
-            '🧠 Intelligent call routing',
-            '📊 Call analytics and history',
-            '📤 Outbound calling capabilities'
+            'ðŸ“ž Incoming call handling with AI greetings',
+            'ðŸŽ­ Multiple AI voice personalities',
+            'ðŸ’¬ Real-time sentiment analysis',
+            'ðŸ§  Intelligent call routing',
+            'ðŸ“Š Call analytics and history',
+            'ðŸ“¤ Outbound calling capabilities'
         ],
         ctaText: 'Open Phone Center',
         ctaLink: '/phone',
@@ -296,7 +296,7 @@ export default function AIFeaturesOnboarding() {
                                         <Check className="w-10 h-10 text-white" />
                                     </div>
                                     <h2 className="text-4xl font-black text-white mb-4">
-                                        You're All Set! 🎉
+                                        You're All Set! ðŸŽ‰
                                     </h2>
                                     <p className="text-xl text-zinc-400 text-center max-w-md">
                                         Explore the AI Hub from the navigation menu anytime.

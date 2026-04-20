@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useMemo, useCallback, memo, useEffect, startTransition } from 'react';
@@ -161,7 +161,7 @@ const StepSynthesis = memo(({ role, formData }: { role: string, formData: any })
             case 'TEACHER':
                 return { name: "Keisha Reynolds", role: "Strategic Lead", avatar: "/images/avatars/keisha_reynolds_premium.png", color: "text-emerald-400" };
             case 'COUNSELOR':
-                return { name: "André Patterson", role: "Tactical Specialist", avatar: "/images/avatars/andre_patterson_premium.png", color: "text-indigo-400" };
+                return { name: "AndrÃ© Patterson", role: "Tactical Specialist", avatar: "/images/avatars/andre_patterson_premium.png", color: "text-indigo-400" };
             default:
                 return { name: "Learning Architect", role: "Cognitive Lead", avatar: "/images/avatars/student_focus.png", color: "text-sky-400" };
         }
@@ -332,7 +332,7 @@ const OnboardingFlow = memo(({ onCompleteAction }: { onCompleteAction?: () => vo
 
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
-                // If it's an auth issue (401), proceed anyway — data is saved locally
+                // If it's an auth issue (401), proceed anyway â€” data is saved locally
                 if (response.status === 401) {
 
                 } else {

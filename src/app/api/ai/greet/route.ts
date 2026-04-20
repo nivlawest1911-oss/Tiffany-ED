@@ -1,11 +1,11 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 import { withResilience } from '@/lib/ai-resilience';
 
 export async function POST(req: Request) {
     try {
         const { schoolName, adminName } = await req.json();
 
-        // 🛡️ SECURITY PROTOCOL: Keys handled strictly server-side
+        // ðŸ›¡ï¸ SECURITY PROTOCOL: Keys handled strictly server-side
         const ELEVENLABS_API_KEY = process.env.ELEVENLABS_API_KEY;
         const VOICE_ID = process.env.DR_WEST_VOICE_ID || "JBFqnCBv79x13pTo1U5r"; // Default or custom cloned voice
 

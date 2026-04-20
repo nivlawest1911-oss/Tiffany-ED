@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
@@ -31,7 +31,7 @@ export default function ProfessionalCenterPage() {
                                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                                 Neural Link Active
                             </span>
-                            <span className="text-[10px] font-bold text-white/20 uppercase tracking-widest">•</span>
+                            <span className="text-[10px] font-bold text-white/20 uppercase tracking-widest">â€¢</span>
                             <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Academy Node 01</span>
                         </div>
                     </div>
@@ -75,7 +75,7 @@ export default function ProfessionalCenterPage() {
                     </div>
                     <div>
                         <div className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Neural Load</div>
-                        <div className="text-sm font-black text-white">42% • OPTIMIZED</div>
+                        <div className="text-sm font-black text-white">42% â€¢ OPTIMIZED</div>
                     </div>
                 </div>
                 <div className="flex items-center gap-4 p-6 rounded-3xl bg-white/5 border border-white/5 group">

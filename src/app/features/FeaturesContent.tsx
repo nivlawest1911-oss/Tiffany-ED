@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import { Sparkles, Zap, TrendingUp, Shield as LucideShield, Clock, Star, ArrowRight, Palette } from 'lucide-react';

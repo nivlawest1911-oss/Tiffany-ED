@@ -1,4 +1,4 @@
-import Image from 'next/image';
+﻿import Image from 'next/image';
 import { getEdIntelMedia } from '@/lib/actions/fetchMedia';
 import { Play } from 'lucide-react';
 
@@ -56,7 +56,7 @@ export default async function MediaBentoGrid({ query }: { query?: string }) {
                             </span>
                             {item.size && (
                                 <span className="text-[10px] text-zinc-400">
-                                    • {(item.size / 1024 / 1024).toFixed(2)} MB
+                                    â€¢ {(item.size / 1024 / 1024).toFixed(2)} MB
                                 </span>
                             )}
                         </div>

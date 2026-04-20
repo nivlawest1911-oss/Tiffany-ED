@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
@@ -24,7 +24,7 @@ const SCENES: Scene[] = [
         id: 2,
         title: "THE ACTIVATION",
         subtitle: "Scene 2: The Activation",
-        description: "A pulse of gold light ripples from the center. The crystalline core appears—solid, metallic, heavy. The EdIntel engine awakens, transforming chaos into clarity.",
+        description: "A pulse of gold light ripples from the center. The crystalline core appearsâ€”solid, metallic, heavy. The EdIntel engine awakens, transforming chaos into clarity.",
         duration: 4000
     },
     {

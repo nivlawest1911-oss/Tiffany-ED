@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Sovereign Tokenomics: Impact Ledger
  * Gamifies data integrity and culturally responsive documentation.
  * Teachers earn tokens for high-fidelity observation inputs.

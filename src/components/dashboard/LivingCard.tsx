@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import EdIntelNode from '../edintel-core/layout/EdIntelNode';
 

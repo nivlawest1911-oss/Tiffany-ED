@@ -6,7 +6,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-// 🏛️ Edintel SAFE_UPLINK: Returns null if configuration is missing to prevent crashes
+// ðŸ›ï¸ Edintel SAFE_UPLINK: Returns null if configuration is missing to prevent crashes
 export const supabase = (supabaseUrl && supabaseAnonKey)
     ? createClient(supabaseUrl, supabaseAnonKey)
     : null;
@@ -67,7 +67,7 @@ export async function archiveStrategicDocument(userId: string, title: string, co
 }
 
 /**
- * 🏛️ Edintel Audit Link: Logs neural synthesis events for institutional compliance.
+ * ðŸ›ï¸ Edintel Audit Link: Logs neural synthesis events for institutional compliance.
  */
 export async function logAiEvent(generatorId: string, prompt: string, status: string = 'SUCCESS') {
     if (!supabase) return;
@@ -88,7 +88,7 @@ export async function logAiEvent(generatorId: string, prompt: string, status: st
 }
 
 /**
- * 🎯 Institutional Outreach: Captures school site provisioning requests.
+ * ðŸŽ¯ Institutional Outreach: Captures school site provisioning requests.
  */
 export async function submitLead(email: string, schoolName: string, source: string = 'Digital Portal') {
     if (!supabase) return null;
@@ -111,7 +111,7 @@ export async function submitLead(email: string, schoolName: string, source: stri
 }
 
 /**
- * 🛰️ Edintel Support Uplink: Transmits teacher feedback to the institutional memory core.
+ * ðŸ›°ï¸ Edintel Support Uplink: Transmits teacher feedback to the institutional memory core.
  */
 export async function createSupportTicket(userId: string, subject: string, message: string, priority: string = 'STANDARD') {
     if (!supabase) return null;
@@ -136,7 +136,7 @@ export async function createSupportTicket(userId: string, subject: string, messa
 }
 
 /**
- * 🛰️ Edintel Birth Certificate: Persists a new AI companion's DNA to the institutional core.
+ * ðŸ›°ï¸ Edintel Birth Certificate: Persists a new AI companion's DNA to the institutional core.
  */
 export async function issueBirthCertificate(certificate: CompanionCertificate) {
     if (!supabase) return null;
@@ -169,7 +169,7 @@ export async function issueBirthCertificate(certificate: CompanionCertificate) {
 }
 
 /**
- * 🧠 Edintel Neural Link: Retrieves a specific companion's identity from the vault.
+ * ðŸ§  Edintel Neural Link: Retrieves a specific companion's identity from the vault.
  */
 export async function getBirthCertificate(companionId: string): Promise<CompanionCertificate | null> {
     if (!supabase) return null;
@@ -191,18 +191,19 @@ export async function getBirthCertificate(companionId: string): Promise<Companio
         id: data.id,
         name: data.name,
         role: data.role,
-        tier: data.tier as "Sovereign" | "Pioneer" | "Foundational",
+        tier: data.tier as 'NOVICE' | 'SPECIALIST' | 'ARCHITECT',
         persona: data.persona,
         voiceId: data.voice_id,
         avatarId: data.avatar_id,
         masterSystemPrompt: data.master_system_prompt,
         districtId: data.district_id,
         creatorId: data.creator_id,
+        createdAt: data.created_at,
     };
 }
 
 /**
- * 🧠 Neural Vectorization: Generates embeddings using Gemini text-embedding-004.
+ * ðŸ§  Neural Vectorization: Generates embeddings using Gemini text-embedding-004.
  */
 export async function generateEmbedding(text: string): Promise<number[] | null> {
     const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GOOGLE_GENAI_API_KEY;
@@ -223,7 +224,7 @@ export async function generateEmbedding(text: string): Promise<number[] | null> 
 }
 
 /**
- * 📂 Knowledge Harvest: Performs semantic search across the Vault.
+ * ðŸ“‚ Knowledge Harvest: Performs semantic search across the Vault.
  */
 export async function searchKnowledgeBase(companionId: string, query: string, limit: number = 3) {
     if (!supabase) return [];
@@ -247,7 +248,7 @@ export async function searchKnowledgeBase(companionId: string, query: string, li
 }
 
 /**
- * 🏛️ Vault Ingestion: Uploads a document and its embedding to the Vault.
+ * ðŸ›ï¸ Vault Ingestion: Uploads a document and its embedding to the Vault.
  */
 export async function uploadToVault(companionId: string, userId: string, name: string, content: string, metadata: any = {}) {
     if (!supabase) return null;

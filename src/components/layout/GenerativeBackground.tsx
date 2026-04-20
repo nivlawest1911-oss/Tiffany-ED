@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useEffect, useState } from 'react';
 
@@ -32,7 +32,7 @@ const GenerativeBackground: React.FC = () => {
 
     return (
         <div className="fixed inset-0 -z-10 overflow-hidden bg-black">
-            {/* CSS-only animated gradients — no JS animation library needed */}
+            {/* CSS-only animated gradients â€” no JS animation library needed */}
             <div
                 className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full bg-gradient-to-br from-primary-500/10 to-secondary-500/10 blur-[100px] animate-[drift1_20s_linear_infinite]"
             />

@@ -1,4 +1,4 @@
-import { sql } from '@/lib/db';
+﻿import { sql } from '@/lib/db';
 import { EdIntel_TIERS } from '@/lib/pricing-config';
 
 export class TokenService {
@@ -75,7 +75,7 @@ export class TokenService {
         if (amount <= 0) return true;
 
         // 1. Unlimited Tier Check: These users get unlimited AI access with no deductions.
-        // Standard Pack is included intentionally — token enforcement is gated for a future release.
+        // Standard Pack is included intentionally â€” token enforcement is gated for a future release.
         const UNLIMITED_TIERS = ['Site Command', 'Director Pack', 'Sovereign Pack', 'Practitioner', 'Standard Pack'];
         if (userTier && UNLIMITED_TIERS.some(t => t.toLowerCase() === userTier.toLowerCase())) {
             return true;

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { motion } from 'framer-motion';
 import { Zap, Lock, ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
@@ -25,7 +25,7 @@ export default function LeadershipCapacity() {
                     <span className="text-xs font-bold uppercase tracking-widest text-zinc-400">Strategic Capacity</span>
                 </div>
                 <span className={`font-mono text-xs font-bold ${isLow ? "text-amber-500" : "text-white"}`}>
-                    {usage}/{maxUsage === 1000 ? '∞' : maxUsage}
+                    {usage}/{maxUsage === 1000 ? 'âˆž' : maxUsage}
                 </span>
             </div>
 

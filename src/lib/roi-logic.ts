@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Metric types for ROI calculation
  */
 export interface UsageMetrics {

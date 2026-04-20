@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
@@ -144,7 +144,7 @@ export const SystemStatus = () => {
                     <span className="text-[10px] text-zinc-700 uppercase font-black tracking-[0.4em] italic">Encrypted EdIntel Link Passive // ACTIVE_NODE_951</span>
                 </div>
                 <button className="text-[10px] text-intel-gold/50 hover:text-white uppercase font-black tracking-[0.5em] transition-all flex items-center gap-3 italic group">
-                    <Activity className="w-4 h-4 group-hover:animate-spin" /> Initiate Institutional Handshake →
+                    <Activity className="w-4 h-4 group-hover:animate-spin" /> Initiate Institutional Handshake â†’
                 </button>
             </div>
         </div>

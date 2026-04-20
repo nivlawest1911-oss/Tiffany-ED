@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Twitter, Github, Linkedin } from "lucide-react"
+import { MessageSquare as Twitter, Zap as Github, Globe as Linkedin } from "lucide-react"
 
 export function FooterSection() {
   return (

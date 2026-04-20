@@ -1,4 +1,4 @@
-export interface Chapter {
+﻿export interface Chapter {
     timestamp: string;
     title: string;
     context: string;

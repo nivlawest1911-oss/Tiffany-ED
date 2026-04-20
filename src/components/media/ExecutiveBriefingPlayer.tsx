@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ExecutiveBriefingPlayer Component
  * 
  * A premium audio playback interface for synthetic podcasts and 

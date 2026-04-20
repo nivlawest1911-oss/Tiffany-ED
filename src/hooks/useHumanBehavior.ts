@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 
 type AvatarState = 'idle' | 'thinking' | 'speaking' | 'listening' | 'alert';
 

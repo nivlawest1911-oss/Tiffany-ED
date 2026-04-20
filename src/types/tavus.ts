@@ -1,4 +1,4 @@
-export interface TavusConversation {
+﻿export interface TavusConversation {
     conversation_id: string;
     conversation_url: string; // The URL to embed the Daily.co or WebRTC room
     status: 'active' | 'ended' | 'error';

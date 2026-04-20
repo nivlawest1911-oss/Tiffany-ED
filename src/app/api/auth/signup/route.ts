@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 import { sql } from '@/lib/db';
 import { login } from '@/lib/auth';
 

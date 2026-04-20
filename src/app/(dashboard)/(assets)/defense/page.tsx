@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { ShieldAlert, AlertTriangle, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';

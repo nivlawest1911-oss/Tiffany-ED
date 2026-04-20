@@ -1,4 +1,4 @@
-/**
+﻿/**
  * EdIntel EdIntel - Cryptocurrency Payment Integration
  * Supports Bitcoin, Ethereum, USDC, and other major cryptocurrencies
  */

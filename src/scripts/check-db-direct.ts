@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@/generated/prisma'
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -8,7 +8,7 @@ const prisma = new PrismaClient({
             url: process.env.DIRECT_URL
         }
     }
-})
+} as any)
 
 async function main() {
     try {

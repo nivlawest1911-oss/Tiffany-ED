@@ -2,8 +2,8 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Sparkles, Shield as LucideShield, Zap, ArrowRight, Eye, X, Activity, FileText } from "lucide-react";
-import Image from 'next/image';
-import { useState, useRef } from 'react';
+
+import { useState } from 'react';
 import VideoPlayer from './VideoPlayer';
 
 const CINEMATIC_ASSETS = [
@@ -36,7 +36,7 @@ const CINEMATIC_ASSETS = [
         briefing: {
             policy: "Alabama Quality Teaching Standards (AQTS) / PLP",
             context: "District Intelligence Command",
-            content: "Executive Matrix Connection Active. We are visualizing student performance vectors across 14 data streams. The Professional Engine identifies 'Opportunity Centers'—pockets of potential that are currently underserved. By shifting resources at the speed of data, district leaders can optimize for ROI (Return on Instruction). This protocol is fully aligned with AQTS standard 5 concerning professional leadership and administrative ethics.",
+            content: "Executive Matrix Connection Active. We are visualizing student performance vectors across 14 data streams. The Professional Engine identifies 'Opportunity Centers'â€”pockets of potential that are currently underserved. By shifting resources at the speed of data, district leaders can optimize for ROI (Return on Instruction). This protocol is fully aligned with AQTS standard 5 concerning professional leadership and administrative ethics.",
             metrics: ["Live Telemetry", "Predictive Analytics", "Budget Optimization"],
             links: ["ALSDE Data Standards", "AQTS Framework", "Strategic Plan 2026"]
         }

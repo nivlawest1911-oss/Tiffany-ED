@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Globe, Shield, MapPin, Search, Maximize2 } from 'lucide-react';
 import { useState } from 'react';

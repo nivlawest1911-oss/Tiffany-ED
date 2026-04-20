@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShieldAlert, AlertTriangle, XCircle, ShieldCheck, Zap, ArrowRight } from 'lucide-react';

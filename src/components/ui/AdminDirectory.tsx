@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useState } from 'react';
 import { useSchoolData } from '@/hooks/biometric/useStudentRoster';
 import { ShieldCheck, Zap, Loader2, FileText } from 'lucide-react';

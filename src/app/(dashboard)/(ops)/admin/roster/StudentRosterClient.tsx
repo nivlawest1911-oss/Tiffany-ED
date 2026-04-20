@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -128,7 +128,7 @@ export default function StudentRosterClient() {
                                     </div>
                                     <div>
                                         <h4 className="font-black text-xl uppercase italic group-hover:text-intel-gold transition-colors tracking-tighter">{student.name}</h4>
-                                        <p className="text-[9px] text-white/20 uppercase tracking-[0.2em] font-mono mt-1">{student.grade} • ID: {2024000 + parseInt(student.id)}</p>
+                                        <p className="text-[9px] text-white/20 uppercase tracking-[0.2em] font-mono mt-1">{student.grade} â€¢ ID: {2024000 + parseInt(student.id)}</p>
                                     </div>
                                 </div>
                                 <button className="p-2 hover:bg-white/10 rounded-xl text-white/20 hover:text-white transition-colors" title="More Options">

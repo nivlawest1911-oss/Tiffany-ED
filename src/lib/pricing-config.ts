@@ -1,4 +1,4 @@
-import { EDINTEL_TIERS } from '@/config/tiers';
+﻿import { EDINTEL_TIERS } from '@/config/tiers';
 
 export const EdIntel_TIERS = [
     {
@@ -31,7 +31,7 @@ export const EdIntel_TIERS = [
             "50 AI generations/day across all generators",
             "IEP Architect, Lesson Planner & Data Quant agents",
             "Full Cognitive Academy curriculum library",
-            "AI Conversation (Enhanced) — unlimited sessions",
+            "AI Conversation (Enhanced) â€” unlimited sessions",
             "Downloadable AI outputs (PDF/Copy)",
             "Email support with 48-hr response SLA",
         ],
@@ -51,8 +51,8 @@ export const EdIntel_TIERS = [
             "Unlimited AI generations across all 70+ agents",
             "Neural Coach, Policy Advisor & Compliance Auditor unlocked",
             "Personal Sovereign Vault (secure, encrypted doc storage)",
-            "Cognitive Gym — full suite of 15+ mental fitness modules",
-            "Priority AI routing — faster response times",
+            "Cognitive Gym â€” full suite of 15+ mental fitness modules",
+            "Priority AI routing â€” faster response times",
             "Chat support with 24-hr response SLA",
         ],
         popular: false,
@@ -70,9 +70,9 @@ export const EdIntel_TIERS = [
         features: [
             "Everything in Sovereign Pack, plus:",
             "Fiscal Strategist & Grant Compliance Auditor agents",
-            "Roster Logistics — full staff & student caseload tools",
+            "Roster Logistics â€” full staff & student caseload tools",
             "Wellness Hub with burnout analytics & self-care plans",
-            "Professional Ledger — CEU/PLU activity tracker",
+            "Professional Ledger â€” CEU/PLU activity tracker",
             "Dedicated account manager & priority support",
         ],
         popular: false,
@@ -89,7 +89,7 @@ export const EdIntel_TIERS = [
         idealFor: "Department Heads & APs",
         features: [
             "Everything in Practitioner, plus:",
-            "Admin Dashboard — district-wide KPI reporting & ROI metrics",
+            "Admin Dashboard â€” district-wide KPI reporting & ROI metrics",
             "Staff Retention Prophet & HR Talent Scout agents",
             "Instructional Walkthrough tools (AMSTI, ARI-aligned)",
             "Sovereign Vault team sharing (up to 10 members)",
@@ -109,7 +109,7 @@ export const EdIntel_TIERS = [
         idealFor: "Principals & School Administrators",
         features: [
             "Everything in Director Pack, plus:",
-            "Full Site Command — school-wide AI deployment for all staff",
+            "Full Site Command â€” school-wide AI deployment for all staff",
             "Unlimited Vault storage & shared collaborative workspaces",
             "Crisis Ops Lead, Safety Drill Master & Facilities Manager agents",
             "Direct API access for custom integrations (AIM, eGAP)",

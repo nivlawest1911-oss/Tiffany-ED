@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useRef, useEffect } from 'react';
 import { Loader2, Copy, Check, Sparkles, Download, ArrowRight, Bot, Zap, History, ChevronLeft, X, Mic, Volume2, FileText, BarChart3 } from 'lucide-react';
@@ -562,7 +562,7 @@ Context:
                                 </div>
 
                                 <p className="text-zinc-400 text-lg font-medium max-w-2xl leading-relaxed">
-                                    Strategic AI Interface • {delegateName}'s Exclusive Command Module
+                                    Strategic AI Interface â€¢ {delegateName}'s Exclusive Command Module
                                 </p>
 
                                 <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">

@@ -1,4 +1,4 @@
-import { ROIDashboard } from '@/components/admin/ROIDashboard';
+﻿import { ROIDashboard } from '@/components/admin/ROIDashboard';
 import { UsageMetrics } from '@/lib/roi-logic';
 
 export default function AdminROIPage() {

@@ -1,4 +1,4 @@
-import { Redis } from '@upstash/redis';
+﻿import { Redis } from '@upstash/redis';
 import { Ratelimit } from '@upstash/ratelimit';
 import { Deepgram } from '@deepgram/sdk';
 import { OpenAI } from 'openai';

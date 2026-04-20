@@ -6,7 +6,7 @@ import {
     Activity, Brain, Network, X
 } from 'lucide-react';
 import Image from 'next/image';
-import { INTELLIGENCE_MAP, DeepIntelligence } from '@/lib/intelligence-engine';
+import { INTELLIGENCE_MAP } from '@/lib/intelligence-engine';
 
 const SwarmGrid = () => {
     const agents = Object.entries(INTELLIGENCE_MAP).map(([id, data]) => ({

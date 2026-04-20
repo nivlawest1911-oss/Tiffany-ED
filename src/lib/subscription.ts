@@ -1,20 +1,20 @@
-import { Organization, User } from '@prisma/client';
+import { organizations, User } from '@/generated/prisma';
 
 /**
  * Checks if a trial is currently active for an organization.
  */
-export const isOrganizationTrialActive = (org: Organization) => {
+export const isOrganizationTrialActive = (org: organizations) => {
     const now = new Date();
-    return now < org.trialEndsAt && !org.isTrialConverted;
+    return now < org.trial_ends_at && !org.is_trial_converted;
 };
 
 /**
  * Checks if a trial is currently active for an individual user (fallback).
  */
 export const isUserTrialActive = (user: User) => {
-    if (!user.trialEndsAt) return false;
+    if (!user.trial_ends_at) return false;
     const now = new Date();
-    return now < user.trialEndsAt && !user.isTrialConverted;
+    return now < user.trial_ends_at && !user.is_trial_converted;
 };
 
 /**

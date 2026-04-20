@@ -1,6 +1,6 @@
 'use client';
 
-import { Facebook, Globe, Laptop, BookOpen, Brain, Briefcase, ExternalLink, Leaf, Shield as LucideShield, ArrowRight } from "lucide-react";
+import { Zap as Facebook, Globe, Laptop, BookOpen, Brain, Briefcase, ExternalLink, Leaf, Shield as LucideShield, ArrowRight } from "lucide-react";
 import React from 'react';
 import { BUSINESS_SOLUTIONS_BG } from '@/lib/assets';
 import Link from 'next/link';

@@ -58,12 +58,11 @@ const nextConfig = {
             { protocol: 'https', hostname: 'api.dicebear.com' }
         ],
     },
-    serverExternalPackages: ['@google-cloud/bigquery', '@google-cloud/common', '@prisma/client'],
+    serverExternalPackages: ['@google-cloud/bigquery', '@google-cloud/common', '@prisma/client', 'prisma'],
     experimental: {
         serverActions: {
             bodySizeLimit: '10mb',
         },
-        serverComponentsExternalPackages: ['@prisma/client'],
     },
     async headers() {
         return [
@@ -130,10 +129,10 @@ const nextConfig = {
         ];
     },
     eslint: {
-        ignoreDuringBuilds: true,
+        ignoreDuringBuilds: false,
     },
     typescript: {
-        ignoreBuildErrors: true,
+        ignoreBuildErrors: false,
     },
 };
 

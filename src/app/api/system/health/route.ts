@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 import { createClient } from '@/utils/supabase/server';
 import OpenAI from 'openai';
@@ -11,7 +11,7 @@ const openai = process.env.OPENAI_API_KEY
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
-    console.log('🏥 Health Check Initiated...');
+    console.log('ðŸ¥ Health Check Initiated...');
 
     const health = {
         status: 'green', // optimistic default

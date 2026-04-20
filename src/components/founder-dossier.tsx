@@ -6,11 +6,11 @@ import {
   Briefcase,
   Globe,
   GraduationCap,
-  Linkedin,
+  Briefcase as Linkedin,
   Mail,
   Play,
   Pause,
-  Twitter,
+  Globe as Twitter,
   Activity,
   Cpu
 } from 'lucide-react';
@@ -231,7 +231,7 @@ export default function FounderDossier() {
                 "We are not waiting for permission to innovate. We are building the infrastructure that makes permission irrelevant."
               </p>
               <div className="text-[10px] font-black text-noble-gold uppercase tracking-[0.4em]">
-                — Classified Directive 001 // EdIntel Founder
+                â€” Classified Directive 001 // EdIntel Founder
               </div>
             </div>
           </div>

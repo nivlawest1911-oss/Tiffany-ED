@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 import { swarmOrchestrator } from '@/lib/swarm-orchestrator';
 
 export async function GET() {

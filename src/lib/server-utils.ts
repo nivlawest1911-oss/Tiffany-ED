@@ -1,4 +1,4 @@
-export type ActionResult<T> =
+﻿export type ActionResult<T> =
     | { success: true; data: T; timestamp: number }
     | { success: false; error: string; code?: string; timestamp: number };
 

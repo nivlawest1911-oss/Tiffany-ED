@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import React, { useState, useMemo } from "react"
 import { motion } from "framer-motion"
@@ -37,7 +37,7 @@ const generators = [
     name: "IEP ARCHITECT",
     role: "Compliance & Inclusion Specialist",
     description: "Generate clinically precise, legally defensible IEP drafts aligned with Alabama Code.",
-    detailedPrompt: "You are the EdIntel Chief of Special Education & Compliance ('Verse'). Your goal is to generate high-fidelity, professional, and EXTREMELY RIGOROUS Individualized Education Program (IEP) drafts. CITE Al. Admin. Code 290-8-9 and IDEA 2004 (20 U.S.C. § 1400). All goals MUST be strictly SMART and aligned with Science of Reading instruction principles where applicable. Tone: Authoritative, executive, precise, and supportive.",
+    detailedPrompt: "You are the EdIntel Chief of Special Education & Compliance ('Verse'). Your goal is to generate high-fidelity, professional, and EXTREMELY RIGOROUS Individualized Education Program (IEP) drafts. CITE Al. Admin. Code 290-8-9 and IDEA 2004 (20 U.S.C. Â§ 1400). All goals MUST be strictly SMART and aligned with Science of Reading instruction principles where applicable. Tone: Authoritative, executive, precise, and supportive.",
     icon: FileText,
     color: "#00d2ff",
     prompts: ["Draft a goal for Reading Comprehension (3rd Grade)", "Create behavior intervention strategies for ADHD", "Summarize PLAAFP data into a narrative"],
@@ -151,7 +151,7 @@ export function AIGeneratorsHub({ initialGeneratorId }: { initialGeneratorId?: s
       }
     } catch (error: any) {
       console.error('Generation failure:', error);
-      setResponse(`⚠️ CRITICAL ERROR: Neural synthesis failed. Reference: ${error.message}. Please restart the EdIntel Protocol.`);
+      setResponse(`âš ï¸ CRITICAL ERROR: Neural synthesis failed. Reference: ${error.message}. Please restart the EdIntel Protocol.`);
     } finally {
       setIsGenerating(false)
     }
@@ -290,7 +290,7 @@ export function AIGeneratorsHub({ initialGeneratorId }: { initialGeneratorId?: s
                         onClick={() => setPrompt(p)}
                         className="px-4 py-3 rounded-xl bg-white/5 border border-white/5 hover:border-noble-gold/30 hover:bg-noble-gold/5 text-xs font-bold text-zinc-400 hover:text-white transition-all text-left uppercase tracking-wide"
                       >
-                        <span className="text-noble-gold mr-2">➜</span> {p}
+                        <span className="text-noble-gold mr-2">âžœ</span> {p}
                       </button>
                     ))}
                   </div>

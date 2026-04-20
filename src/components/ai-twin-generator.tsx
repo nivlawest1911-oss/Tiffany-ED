@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
@@ -127,21 +127,21 @@ export default function AITwinGenerator() {
                                             <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${uploads.photo ? 'bg-emerald-500 text-white' : 'bg-zinc-800 group-hover:bg-indigo-500 group-hover:text-white'}`}>
                                                 {uploads.photo ? <Check size={18} /> : <Upload size={18} />}
                                             </div>
-                                            <span className={`text-[10px] font-bold uppercase tracking-widest ${uploads.photo ? 'text-emerald-400' : 'text-zinc-500'}`}>Photo {uploads.photo && '✓'}</span>
+                                            <span className={`text-[10px] font-bold uppercase tracking-widest ${uploads.photo ? 'text-emerald-400' : 'text-zinc-500'}`}>Photo {uploads.photo && 'âœ“'}</span>
                                         </label>
                                         <label htmlFor="voice-upload" aria-label="Upload voice biometric data" className={`flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border border-dashed transition-all cursor-pointer ${uploads.voice ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-700 hover:border-indigo-500 hover:bg-indigo-500/5 group'}`}>
                                             <input id="voice-upload" type="file" className="hidden" accept="audio/*" onChange={(e) => handleFileChange(e, 'voice')} />
                                             <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${uploads.voice ? 'bg-emerald-500 text-white' : 'bg-zinc-800 group-hover:bg-indigo-500 group-hover:text-white'}`}>
                                                 {uploads.voice ? <Check size={18} /> : <Mic size={18} />}
                                             </div>
-                                            <span className={`text-[10px] font-bold uppercase tracking-widest ${uploads.voice ? 'text-emerald-400' : 'text-zinc-500'}`}>Voice {uploads.voice && '✓'}</span>
+                                            <span className={`text-[10px] font-bold uppercase tracking-widest ${uploads.voice ? 'text-emerald-400' : 'text-zinc-500'}`}>Voice {uploads.voice && 'âœ“'}</span>
                                         </label>
                                         <label htmlFor="video-upload" aria-label="Upload video reference sample" className={`flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border border-dashed transition-all cursor-pointer ${uploads.video ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-700 hover:border-indigo-500 hover:bg-indigo-500/5 group'}`}>
                                             <input id="video-upload" type="file" className="hidden" accept="video/*" onChange={(e) => handleFileChange(e, 'video')} />
                                             <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${uploads.video ? 'bg-emerald-500 text-white' : 'bg-zinc-800 group-hover:bg-indigo-500 group-hover:text-white'}`}>
                                                 {uploads.video ? <Check size={18} /> : <Video size={18} />}
                                             </div>
-                                            <span className={`text-[10px] font-bold uppercase tracking-widest ${uploads.video ? 'text-emerald-400' : 'text-zinc-500'}`}>Video {uploads.video && '✓'}</span>
+                                            <span className={`text-[10px] font-bold uppercase tracking-widest ${uploads.video ? 'text-emerald-400' : 'text-zinc-500'}`}>Video {uploads.video && 'âœ“'}</span>
                                         </label>
                                     </div>
                                 </div>

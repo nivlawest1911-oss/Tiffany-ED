@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState } from "react"
 import { Headphones, MessageCircle, Book, Video, ChevronRight, Search, Clock } from "lucide-react"

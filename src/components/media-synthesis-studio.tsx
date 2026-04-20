@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState } from "react"
 import { Mic, Film, Play, Download, Wand2, Sparkles, MonitorPlay } from "lucide-react"

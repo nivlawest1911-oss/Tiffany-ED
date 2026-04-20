@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Shield, Lock, FileText, Server, Eye } from 'lucide-react';
 
 export default function ProfessionalShieldPrivacyClient() {
@@ -71,9 +71,9 @@ export default function ProfessionalShieldPrivacyClient() {
                     </p>
                     <div className="flex justify-center gap-6 text-zinc-500 text-sm">
                         <span>VPAT Compliant</span>
-                        <span>•</span>
+                        <span>â€¢</span>
                         <span>Section 508 Ready</span>
-                        <span>•</span>
+                        <span>â€¢</span>
                         <span>GCP Secured</span>
                     </div>
                 </footer>

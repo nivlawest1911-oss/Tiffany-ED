@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import { getMetaAIClient } from '@/lib/meta-ai/client';
 
 /**

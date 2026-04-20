@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 export const dynamic = 'force-dynamic';
 import { DistrictService } from '@/lib/DistrictService';
 
@@ -18,6 +18,7 @@ export async function GET() {
         }
 
         const nodes = await DistrictService.getAllNodesAcrossDistricts();
+        const intelligence = await DistrictService.getFleetIntelligence();
         
         // Calculate regional metrics
         const totalActiveNodes = nodes.filter(n => n.status !== 'offline').length;
@@ -35,7 +36,8 @@ export async function GET() {
                 totalActiveNodes,
                 averageIntelligenceLoad,
                 regionalComplianceScore,
-                activeDirectives: 12
+                activeDirectives: 12,
+                intelligence // Inject the new Institutional Intelligence payload
             }
         };
 

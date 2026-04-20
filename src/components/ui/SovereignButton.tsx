@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 import { LucideIcon } from 'lucide-react';
 
 interface SovereignButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onAnimationStart' | 'onDrag' | 'onDragStart' | 'onDragEnd'> {
-    variant?: 'primary' | 'secondary' | 'glass' | 'ghost' | 'danger';
+    variant?: 'primary' | 'secondary' | 'glass' | 'ghost' | 'danger' | 'fidelity' | 'intel';
     size?: 'sm' | 'md' | 'lg' | 'xl';
     icon?: LucideIcon;
     loading?: boolean;
@@ -36,6 +36,8 @@ const SovereignButton: React.FC<SovereignButtonProps> = ({
         glass: "bg-white/10 backdrop-blur-md text-white border-white/20 hover:bg-white/20 shadow-hard border",
         ghost: "bg-transparent text-gray-600 hover:bg-gray-100 border-transparent",
         danger: "bg-accent-red text-white hover:bg-red-700 shadow-soft",
+        fidelity: "bg-gradient-to-r from-[#FFB300] to-[#FF8F00] text-black shadow-[0_0_20px_rgba(255,179,0,0.3)] border-transparent",
+        intel: "bg-gradient-to-r from-blue-600 to-sky-400 text-white shadow-[0_0_20px_rgba(56,189,248,0.3)] border-transparent",
     };
 
     return (
@@ -74,4 +76,5 @@ const SovereignButton: React.FC<SovereignButtonProps> = ({
     );
 };
 
+export { SovereignButton };
 export default SovereignButton;

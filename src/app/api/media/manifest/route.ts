@@ -1,10 +1,10 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 
 export const dynamic = 'force-dynamic';
 
 /**
- * 🎬 EdIntel Media Manifest API
+ * ðŸŽ¬ EdIntel Media Manifest API
  * Dynamically harvests high-fidelity `.mp4` video directives from the Supabase Memory Core.
  * Replaces static file-based routing with real-time district media synchronization.
  */

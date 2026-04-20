@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { DistrictService } from '@/lib/DistrictService';
 import { logUnitySync } from '@/lib/legacy-ledger';

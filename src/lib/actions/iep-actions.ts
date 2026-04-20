@@ -23,7 +23,7 @@ export async function generateIEPWithToken(studentName: string) {
   const userId = session.user.id;
 
   try {
-    const result = await prisma.$transaction(async (tx) => {
+    const result = await prisma.$transaction(async (tx: any) => {
       // 1. Locate and Lock the TokenWallet
       const wallet = await tx.tokenWallet.findUnique({
         where: { userId },

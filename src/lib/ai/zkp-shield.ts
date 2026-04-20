@@ -1,4 +1,4 @@
-/**
+﻿/**
  * The Invisible Shield: Zero-Knowledge Proofs (ZKP)
  * Protects student dignity by verifying eligibility for grants/resources
  * without revealing the underlying sensitive financial data.

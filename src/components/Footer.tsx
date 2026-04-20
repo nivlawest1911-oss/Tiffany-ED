@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Crown, Mail, MapPin, Facebook, Linkedin, Phone, MessageSquare, Video, ExternalLink } from 'lucide-react';
+import { Crown, Mail, MapPin, Zap as Facebook, Briefcase as Linkedin, Phone, MessageSquare, Video, ExternalLink } from 'lucide-react';
 import EdIntelLogo from './EdIntelLogo';
 import HolographicBriefing from '@/components/intelligence/HolographicBriefing';
 import { motion } from 'framer-motion';
@@ -77,8 +77,6 @@ export default function Footer() {
                             <li><Link href="/contact" className="text-zinc-300 hover:text-[#00E5FF] transition-colors text-sm font-medium">Contact Command</Link></li>
                         </ul>
                     </div>
-
-
 
                     {/* Contact Info */}
                     <div>

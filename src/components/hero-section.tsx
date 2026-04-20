@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState, useEffect } from "react"
 import { Star, Link2, ExternalLink, GraduationCap, Play, Sparkles } from "lucide-react"
@@ -151,7 +151,7 @@ export function HeroSection() {
                 <p className="text-xs text-[#d4af37] uppercase tracking-wider font-semibold">
                   Professional Architect & AI Developer
                 </p>
-                <p className="text-xs text-gray-500 mt-1">MBA, MS, MS, BS • Walden University</p>
+                <p className="text-xs text-gray-500 mt-1">MBA, MS, MS, BS â€¢ Walden University</p>
               </div>
               <div className="flex gap-2">
                 <a

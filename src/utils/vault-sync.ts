@@ -1,4 +1,4 @@
-import { createBrowserClient } from '@supabase/ssr';
+﻿import { createBrowserClient } from '@supabase/ssr';
 import { generateText } from 'ai';
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 

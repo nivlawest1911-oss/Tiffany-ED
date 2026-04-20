@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState } from "react"
 import { MessageSquare, Heart, Share2, TrendingUp, Users, Filter } from "lucide-react"

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -232,7 +232,7 @@ export default function IEPGeneratorPage() {
                                                     if (line.startsWith('# ')) return <h1 key={i} className="text-2xl font-black text-white uppercase tracking-tight mb-4">{line.replace('# ', '')}</h1>;
                                                     if (line.startsWith('## ')) return <h2 key={i} className="text-lg font-bold text-cyan-400 uppercase tracking-wide mt-6 mb-2">{line.replace('## ', '')}</h2>;
                                                     if (line.startsWith('### ')) return <h3 key={i} className="text-md font-semibold text-blue-400 uppercase tracking-wider mt-4 mb-2">{line.replace('### ', '')}</h3>;
-                                                    if (line.startsWith('* ') || line.startsWith('- ')) return <div key={i} className="text-zinc-400 ml-4 mb-1 flex gap-2"><span>•</span><span>{line.substring(2)}</span></div>;
+                                                    if (line.startsWith('* ') || line.startsWith('- ')) return <div key={i} className="text-zinc-400 ml-4 mb-1 flex gap-2"><span>â€¢</span><span>{line.substring(2)}</span></div>;
                                                     if (line.trim() === '') return <br key={i} />;
                                                     return <p key={i} className="text-zinc-400 leading-relaxed mb-3">{line}</p>;
                                                 })}

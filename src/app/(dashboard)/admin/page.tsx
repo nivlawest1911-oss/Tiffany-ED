@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useEffect, useState } from 'react'
 import { useAuth } from '@/context/AuthContext'
@@ -76,7 +76,7 @@ export default function AdminDashboard() {
                 const role = user.role?.toUpperCase() || 'TEACHER';
                 setUserRole(role);
 
-                // 🏛️ ADMIN GATEKEEPER: Check for ADMIN, SUPERINTENDENT, or EXECUTIVE role
+                // ðŸ›ï¸ ADMIN GATEKEEPER: Check for ADMIN, SUPERINTENDENT, or EXECUTIVE role
                 const allowedRoles = ['ADMIN', 'SUPERINTENDENT', 'EXECUTIVE'];
                 if (!allowedRoles.includes(role)) {
                     setLoading(false);
@@ -239,7 +239,7 @@ export default function AdminDashboard() {
         return (
             <div className="flex items-center justify-center min-h-screen bg-background p-8">
                 <div className="text-center max-w-md">
-                    <div className="text-6xl mb-6">🔒</div>
+                    <div className="text-6xl mb-6">ðŸ”’</div>
                     <h2 className="text-2xl font-bold mb-2">Access Restricted</h2>
                     <p className="text-muted-foreground">This terminal is reserved for District Administrators and Site Command staff.</p>
                 </div>
@@ -316,14 +316,14 @@ export default function AdminDashboard() {
 
             {/* KPI Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <MetricCard label="Total Users" value={metrics.totalUsers} change="+0%" icon="👥" />
-                <MetricCard label="Active Syncs" value={metrics.activeUsers} change="+0%" icon="⚡" />
-                <MetricCard label="Total Content Synth" value={metrics.generatedContentCount} change="Live" icon="🧠" />
-                <MetricCard label="Hours Saved" value={metrics.totalTimeSaved.toFixed(1)} change="Accrued" icon="⏱️" />
-                <MetricCard label="Institutional Memory" value={metrics.strategicVaultCount} change="Stored" icon="🗄️" />
-                <MetricCard label="Command Pulse" value={`${metrics.commandPulseRate.toFixed(1)}%`} change="Stable" icon="📡" />
-                <MetricCard label="Cost per User" value={`$${metrics.costPerUser.toFixed(2)}`} change="Direct" icon="💰" />
-                <MetricCard label="Seat Allocation" value={metrics.totalUsers} change="Occupied" icon="🎟️" />
+                <MetricCard label="Total Users" value={metrics.totalUsers} change="+0%" icon="ðŸ‘¥" />
+                <MetricCard label="Active Syncs" value={metrics.activeUsers} change="+0%" icon="âš¡" />
+                <MetricCard label="Total Content Synth" value={metrics.generatedContentCount} change="Live" icon="ðŸ§ " />
+                <MetricCard label="Hours Saved" value={metrics.totalTimeSaved.toFixed(1)} change="Accrued" icon="â±ï¸" />
+                <MetricCard label="Institutional Memory" value={metrics.strategicVaultCount} change="Stored" icon="ðŸ—„ï¸" />
+                <MetricCard label="Command Pulse" value={`${metrics.commandPulseRate.toFixed(1)}%`} change="Stable" icon="ðŸ“¡" />
+                <MetricCard label="Cost per User" value={`$${metrics.costPerUser.toFixed(2)}`} change="Direct" icon="ðŸ’°" />
+                <MetricCard label="Seat Allocation" value={metrics.totalUsers} change="Occupied" icon="ðŸŽŸï¸" />
             </div>
 
 

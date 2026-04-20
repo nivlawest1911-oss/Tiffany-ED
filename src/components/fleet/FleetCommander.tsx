@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -241,29 +241,92 @@ export default function FleetCommander() {
             {/* Regional Metrics & Node Detail */}
             <div className="lg:col-span-4 space-y-8">
                 {/* Regional Rollup */}
-                <div className="bg-noble-gold/5 border border-noble-gold/20 rounded-[2.5rem] p-8 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-noble-gold/10 blur-[80px] rounded-full" />
-                    <h3 className="text-xs font-black text-noble-gold uppercase tracking-[0.2em] mb-8">Regional Status</h3>
+                </div>
 
-                    <div className="grid grid-cols-2 gap-8">
+                {/* Fleet Intelligence: Institutional Vigor */}
+                <div className="bg-zinc-900 border border-white/10 rounded-[2.5rem] p-8 relative overflow-hidden group">
+                    <div className="flex items-center justify-between mb-8">
                         <div>
-                            <div className="text-3xl font-black text-white italic tracking-tighter mb-1">{metrics?.totalActiveNodes || 0}</div>
-                            <div className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest">Active nodes</div>
+                            <h3 className="text-xs font-black text-[#22d3ee] uppercase tracking-[0.2em]">Institutional Vigor</h3>
+                            <p className="text-[10px] text-zinc-500 uppercase tracking-widest mt-1">Biometric Resilience Index</p>
                         </div>
-                        <div>
-                            <div className="text-3xl font-black text-white italic tracking-tighter mb-1">{metrics?.regionalComplianceScore || 0}%</div>
-                            <div className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest">Compliance Adherence</div>
+                        <div className={`px-3 py-1 rounded-full border border-[#22d3ee]/20 text-[8px] font-black text-[#22d3ee] uppercase tracking-widest ${metrics?.intelligence?.vigor.trend === 'improving' ? 'bg-[#22d3ee]/5' : ''}`}>
+                            {metrics?.intelligence?.vigor.trend || 'stable'}
                         </div>
-                        <div>
-                            <div className="text-3xl font-black text-white italic tracking-tighter mb-1">{metrics?.averageIntelligenceLoad || 0}%</div>
-                            <div className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest">Fleet Capacity</div>
+                    </div>
+
+                    <div className="flex items-end gap-6 mb-8">
+                        <div className="text-6xl font-black text-white italic tracking-tighter leading-none">
+                            {metrics?.intelligence?.vigor.score || 0}%
                         </div>
-                        <div>
-                            <div className="text-3xl font-black text-white italic tracking-tighter mb-1">{metrics?.activeDirectives || 0}</div>
-                            <div className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest">Active Directives</div>
+                        <div className="pb-2">
+                            <div className="text-[9px] font-black text-zinc-500 uppercase tracking-widest mb-1">Fleet Composite</div>
+                            <div className="h-1.5 w-32 bg-white/5 rounded-full overflow-hidden">
+                                <motion.div 
+                                    className="h-full bg-[#22d3ee] shadow-[0_0_15px_rgba(34,211,238,0.4)]"
+                                    initial={{ width: 0 }}
+                                    animate={{ width: `${metrics?.intelligence?.vigor.score || 0}%` }}
+                                    transition={{ duration: 1.5, ease: "easeOut" }}
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                        <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+                            <div className="text-xl font-black text-white italic tracking-tighter mb-1">{metrics?.intelligence?.vigor.avgStress || 0}%</div>
+                            <div className="text-[8px] font-bold text-zinc-600 uppercase tracking-widest leading-none">Avg Stress</div>
+                        </div>
+                        <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+                            <div className="text-xl font-black text-white italic tracking-tighter mb-1">{metrics?.intelligence?.vigor.avgHrv || 0}ms</div>
+                            <div className="text-[8px] font-bold text-zinc-600 uppercase tracking-widest leading-none">Avg HRV</div>
                         </div>
                     </div>
                 </div>
+
+                {/* Fleet Intelligence: Instructional Momentum */}
+                <div className="bg-zinc-900 border border-noble-gold/10 rounded-[2.5rem] p-8 relative overflow-hidden group">
+                    <div className="flex items-center justify-between mb-8">
+                        <div>
+                            <h3 className="text-xs font-black text-noble-gold uppercase tracking-[0.2em]">Instructional Momentum</h3>
+                            <p className="text-[10px] text-zinc-500 uppercase tracking-widest mt-1">Academic Acceleration Matrix</p>
+                        </div>
+                        <div className="px-3 py-1 rounded-full bg-noble-gold/5 border border-noble-gold/20 text-[8px] font-black text-noble-gold uppercase tracking-widest">
+                            {metrics?.intelligence?.momentum.trend || 'accelerating'}
+                        </div>
+                    </div>
+
+                    <div className="flex items-end gap-6 mb-8">
+                        <div className="text-6xl font-black text-white italic tracking-tighter leading-none">
+                            {metrics?.intelligence?.momentum.momentumScore || 0}%
+                        </div>
+                        <div className="pb-2">
+                            <div className="text-[9px] font-black text-zinc-500 uppercase tracking-widest mb-1">System Velocity</div>
+                            <div className="h-1.5 w-32 bg-white/5 rounded-full overflow-hidden">
+                                <motion.div 
+                                    className="h-full bg-noble-gold shadow-[0_0_15px_rgba(212,175,55,0.4)]"
+                                    initial={{ width: 0 }}
+                                    animate={{ width: `${metrics?.intelligence?.momentum.momentumScore || 0}%` }}
+                                    transition={{ duration: 1.5, ease: "easeOut" }}
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-3">
+                        <div className="text-center p-3 rounded-xl bg-white/[0.02] border border-white/5">
+                            <div className="text-lg font-black text-white italic tracking-tighter">{(metrics?.intelligence?.momentum.totalLessons || 0).toLocaleString()}</div>
+                            <div className="text-[7px] font-bold text-zinc-600 uppercase tracking-widest leading-none mt-1">Lessons</div>
+                        </div>
+                        <div className="text-center p-3 rounded-xl bg-white/[0.02] border border-white/5">
+                            <div className="text-lg font-black text-white italic tracking-tighter">{(metrics?.intelligence?.momentum.totalEngagement || 0).toLocaleString()}</div>
+                            <div className="text-[7px] font-bold text-zinc-600 uppercase tracking-widest leading-none mt-1">Engaged</div>
+                        </div>
+                        <div className="text-center p-3 rounded-xl bg-white/[0.02] border border-white/5">
+                            <div className="text-lg font-black text-white italic tracking-tighter">{metrics?.intelligence?.momentum.totalTimeSaved || 0}h</div>
+                            <div className="text-[7px] font-bold text-zinc-600 uppercase tracking-widest leading-none mt-1">Saved</div>
+                        </div>
+                    </div>
 
                 <AnimatePresence mode="wait">
                     {selectedNode ? (

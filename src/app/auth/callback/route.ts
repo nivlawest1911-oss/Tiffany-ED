@@ -1,4 +1,4 @@
-import { createServerClient, type CookieOptions } from '@supabase/ssr';
+﻿import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 import { ROUTES } from '@/lib/routes';
 
@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
     const next = searchParams.get('next') ?? ROUTES.THE_ROOM;
 
     if (code) {
-        console.log('🏛️ [EdIntel_Auth] Initiating Code Exchange Protocol...');
+        console.log('ðŸ›ï¸ [EdIntel_Auth] Initiating Code Exchange Protocol...');
 
         // Track cookies that need to be forwarded to the browser response
         const cookiesToForward: { name: string; value: string; options: CookieOptions }[] = [];
@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
         const { error } = await supabase.auth.exchangeCodeForSession(code);
 
         if (!error) {
-            console.log('🏛️ [EdIntel_Auth] Session Established. Verifying Sovereign Role...');
+            console.log('ðŸ›ï¸ [EdIntel_Auth] Session Established. Verifying Sovereign Role...');
             const { data: { user } } = await supabase.auth.getUser();
             const role = user?.user_metadata?.role;
 
@@ -64,22 +64,22 @@ export async function GET(request: NextRequest) {
                 });
             });
 
-            console.log(`🏛️ [EdIntel_Auth] Identity Verified: ${user?.email} | Role: ${role || 'standard'} | Cookies Set: ${cookiesToForward.length}`);
+            console.log(`ðŸ›ï¸ [EdIntel_Auth] Identity Verified: ${user?.email} | Role: ${role || 'standard'} | Cookies Set: ${cookiesToForward.length}`);
 
             // Trigger Identity Synchronization (fire-and-forget)
             if (user) {
                 const syncUrl = new URL(ROUTES.AUTH_ME, request.url);
                 fetch(syncUrl.toString(), {
                     headers: { cookie: cookiesToForward.map(c => `${c.name}=${c.value}`).join('; ') }
-                }).catch(e => console.error('🏛️ [EdIntel_Auth] Sync Protocol Failed:', e));
+                }).catch(e => console.error('ðŸ›ï¸ [EdIntel_Auth] Sync Protocol Failed:', e));
             }
 
             return response;
         } else {
-            console.error('🏛️ [EdIntel_Auth] Code Exchange Failure:', error.message);
+            console.error('ðŸ›ï¸ [EdIntel_Auth] Code Exchange Failure:', error.message);
         }
     }
 
-    console.warn('🏛️ [EdIntel_Auth] Authentication Protocol Aborted. Rerouting to Sentinel Login.');
+    console.warn('ðŸ›ï¸ [EdIntel_Auth] Authentication Protocol Aborted. Rerouting to Sentinel Login.');
     return NextResponse.redirect(`${origin}${ROUTES.LOGIN}?error=auth_callback_failed`);
 }

@@ -1,4 +1,4 @@
-import { OpenAI } from 'openai';
+﻿import { OpenAI } from 'openai';
 import { sql } from '@/lib/db';
 import { withResilience, ALABAMA_STRATEGIC_DIRECTIVE } from '@/lib/ai-resilience';
 import { kv } from '@vercel/kv';

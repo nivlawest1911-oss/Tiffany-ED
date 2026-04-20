@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+﻿import { Metadata } from 'next';
 import { EPISODES } from '@/lib/briefing-data';
 import BriefingCard from '@/components/intelligence/BriefingCard';
 import DrWestAuthority from '@/components/intelligence/DrWestAuthority';

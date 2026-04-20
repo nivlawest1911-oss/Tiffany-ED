@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef, Suspense, useTransition, startTransition } from 'react';
+import React, { useState, useEffect, useRef, Suspense, useTransition } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring, Variants, LazyMotion, domAnimation, useInView } from 'framer-motion';
 import { ArrowRight, Cpu, Zap, Shield, Brain, Globe, Terminal, Mic, Clock, LayoutGrid } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -51,7 +51,7 @@ const PlatformActivity = dynamic(() => import('./landing/PlatformActivity'), { s
 const FounderDossier = dynamic(() => import('./founder-dossier'), { ssr: false });
 
 /**
- * ⚡ Performance Controller: Background Layer
+ * âš¡ Performance Controller: Background Layer
  * Ensures we only run one heavy background effect at a time.
  */
 const SovereignBackground = ({ type = 'neural' }: { type?: 'neural' | 'holographic' }) => {
@@ -83,7 +83,7 @@ const staggerContainer: Variants = {
 };
 
 /**
- * ⚡ Performance Wrapper: Defer rendering of heavy components until they enter the viewport.
+ * âš¡ Performance Wrapper: Defer rendering of heavy components until they enter the viewport.
  * Reduces TBT (Total Blocking Time) and initial hydration overhead.
  */
 const LazySection = ({ children, className, id, height = "400px", mobileHeight, margin = "200px" }: { children: React.ReactNode, className?: string, id?: string, height?: string, mobileHeight?: string, margin?: string }) => {

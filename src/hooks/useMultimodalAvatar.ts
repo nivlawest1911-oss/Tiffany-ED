@@ -1,4 +1,4 @@
-/**
+﻿/**
  * EdIntel Multimodal Live Avatar Hook
  * Vercel AI SDK Integration with Google Cloud Run Backend
  * 
@@ -69,7 +69,7 @@ const LEADERSHIP_ARCHETYPES: Record<string, { tone: string, rate: number, pitch:
     'alvin': { tone: 'visionary', rate: 0.9, pitch: 0.85 },
     'marcus': { tone: 'philosophical', rate: 0.8, pitch: 0.7 },
     'sarah': { tone: 'tactical', rate: 1.1, pitch: 1.05 },
-    'andré': { tone: 'innovative', rate: 1.0, pitch: 0.9 },
+    'andrÃ©': { tone: 'innovative', rate: 1.0, pitch: 0.9 },
     'default': { tone: 'professional', rate: 0.95, pitch: 0.9 }
 };
 
@@ -111,7 +111,7 @@ export function useMultimodalAvatar({
         if (lowerName.includes('alvin')) return LEADERSHIP_ARCHETYPES['alvin'];
         if (lowerName.includes('marcus')) return LEADERSHIP_ARCHETYPES['marcus'];
         if (lowerName.includes('sarah')) return LEADERSHIP_ARCHETYPES['sarah'];
-        if (lowerName.includes('andre') || lowerName.includes('andré')) return LEADERSHIP_ARCHETYPES['andré'];
+        if (lowerName.includes('andre') || lowerName.includes('andrÃ©')) return LEADERSHIP_ARCHETYPES['andrÃ©'];
         return LEADERSHIP_ARCHETYPES['default'];
     }, [avatarName, voiceId]);
 

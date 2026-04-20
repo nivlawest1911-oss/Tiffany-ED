@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { ExternalLink, Shield as LucideShield, BookOpen, GraduationCap, Building2, TrendingUp, Cpu, FlaskConical, Scale, Lightbulb, ChevronRight } from "lucide-react";
 import { ALL_RESOURCES, RESOURCE_METADATA, get2025Updates, getLiteracyResources, getResearchValidation, getIDEACompliance } from '@/config/resources';
 

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { Users, UserPlus, Settings, MessageSquare, BarChart3, Database, Shield as LucideShield, FileText, ChevronRight, Search } from 'lucide-react';
 import React from 'react';

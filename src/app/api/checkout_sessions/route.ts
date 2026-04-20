@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
 // Lazy initialization to avoid build-time crashes when STRIPE_SECRET_KEY is absent

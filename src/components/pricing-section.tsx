@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { Check, Shield as LucideShield, Star, Sparkles, GraduationCap, Building, Crown, Briefcase, Users } from "lucide-react"
 import { EdIntel_TIERS } from '@/lib/pricing-config';

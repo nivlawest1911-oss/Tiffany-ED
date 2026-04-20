@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState } from 'react';
 import { FileText, Zap, Scale, Clock, ArrowLeft, Shield, Users, CreditCard, AlertTriangle } from 'lucide-react';

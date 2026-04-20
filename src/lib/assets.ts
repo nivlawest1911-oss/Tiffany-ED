@@ -1,4 +1,4 @@
-export const SOCIAL_HUB_BANNER = "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e";
+﻿export const SOCIAL_HUB_BANNER = "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e";
 export const SOCIAL_HUB_TIKTOK = "https://images.unsplash.com/photo-1611162617474-5b21e879e113";
 export const SOCIAL_HUB_FACEBOOK = "https://images.unsplash.com/photo-1544367563-12123d896889";
 export const BUSINESS_SOLUTIONS_BG = "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40";

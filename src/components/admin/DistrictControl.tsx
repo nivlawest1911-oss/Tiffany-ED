@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { AuroraCard } from '../flow/AuroraCard';
 import { Download, Globe, CheckCircle } from 'lucide-react';
 import { generateDistrictAudit } from '@/lib/district-audit';

@@ -37,7 +37,7 @@ export class SemanticCache {
                         hitCount: { increment: 1 },
                         lastHitAt: new Date()
                     }
-                }).catch(e => console.error('Error tracking cache hit:', e));
+                }).catch((e: any) => console.error('Error tracking cache hit:', e));
 
                 return match.response;
             }

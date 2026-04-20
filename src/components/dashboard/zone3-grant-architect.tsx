@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Zap } from 'lucide-react';
 import Link from 'next/link';
 import { EdIntelPlayer } from '@/components/ui/EdIntelPlayer';

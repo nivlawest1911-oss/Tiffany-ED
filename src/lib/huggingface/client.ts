@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Hugging Face Integration Client
  * Provides access to state-of-the-art AI models
  */

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useRef, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
@@ -266,7 +266,7 @@ export function InVideoCreator({ className = '' }: InVideoCreatorProps) {
                         >
                             <div className="p-4 bg-green-500/20 border border-green-500/50 rounded-lg">
                                 <p className="text-sm text-green-300 font-medium">
-                                    ✓ Video created successfully!
+                                    âœ“ Video created successfully!
                                 </p>
                             </div>
 
@@ -309,7 +309,7 @@ export function InVideoCreator({ className = '' }: InVideoCreatorProps) {
 
                 {/* Tips */}
                 <div className="bg-white/5 rounded-lg p-4 space-y-2">
-                    <p className="text-xs font-semibold text-white/80">💡 Tips for better results:</p>
+                    <p className="text-xs font-semibold text-white/80">ðŸ’¡ Tips for better results:</p>
                     <ul className="text-xs text-white/60 space-y-1 list-disc list-inside">
                         <li>Be specific about the topic and target audience</li>
                         <li>Mention desired visual style (animations, live footage, etc.)</li>

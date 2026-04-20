@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Users, ShieldCheck, Zap, Activity } from 'lucide-react';
 import { useState, useEffect } from 'react';
@@ -40,7 +40,7 @@ export default function ProfessionalCabinet() {
         {
             id: 'data',
             role: 'Innovation Architect',
-            name: 'André State',
+            name: 'AndrÃ© State',
             status: 'idle',
             currentTask: 'Optimizing district agility...',
             icon: <Zap size={16} />,

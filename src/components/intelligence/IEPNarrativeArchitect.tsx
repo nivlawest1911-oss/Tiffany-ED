@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -121,7 +121,7 @@ export default function IEPNarrativeArchitect() {
                         <h1 className="text-3xl font-bold text-white tracking-tight">IEP Narrative Architect</h1>
                     </div>
                     <p className="text-slate-400 max-w-xl">
-                        EdIntel Intelligence Engine • Mobile County Compliance Protocol v2.4
+                        EdIntel Intelligence Engine â€¢ Mobile County Compliance Protocol v2.4
                     </p>
                 </div>
 

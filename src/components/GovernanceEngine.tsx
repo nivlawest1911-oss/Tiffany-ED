@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Gavel, Scale, BookOpen, Users } from 'lucide-react';
@@ -59,7 +59,7 @@ const MOTIONS: MotionTemplate[] = [
 
 const ALABAMA_BYLAWS = [
     {
-        code: "AL Code § 16-1-41.1",
+        code: "AL Code Â§ 16-1-41.1",
         title: "School Board Governance Improvement Act",
         summary: "Mandates that local boards adopt a code of conduct and receive annual training. Prioritizes student achievement and financial stewardship."
     },

@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import { TranslationServiceClient } from '@google-cloud/translate';
 
 export const dynamic = 'force-dynamic';

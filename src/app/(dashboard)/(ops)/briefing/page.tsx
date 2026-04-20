@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { SovereignBriefing } from '@/components/admin/SovereignBriefing';
 
 export default function BriefingPage() {

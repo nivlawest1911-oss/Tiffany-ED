@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 import { motion } from 'framer-motion';
@@ -65,7 +65,7 @@ export function EdIntelBrief() {
                             </div>
                             <div>
                                 <h3 className="text-sm font-bold text-white uppercase tracking-tight">Narrative Architect</h3>
-                                <p className="text-[9px] text-zinc-500 uppercase tracking-widest">Monsha • Brisk AI</p>
+                                <p className="text-[9px] text-zinc-500 uppercase tracking-widest">Monsha â€¢ Brisk AI</p>
                             </div>
                         </div>
                         <span className="text-[10px] font-mono text-zinc-600">Active</span>

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { professionalEngine, TrainingModule, SkillCategory } from '@/lib/ProfessionalEngine';
 import { GlassCard } from '@/components/ui/Cinematic';
+import { DualPersonaHUD } from '@/components/professional/DualPersonaHUD';
 import { toast } from 'sonner';
 import ProfileShareModal from '@/components/modals/ProfileShareModal';
 
@@ -56,7 +57,7 @@ export default function AcademyDashboard() {
     return (
         <div className="space-y-8">
             {/* Header section with Stats */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                 <GlassCard className="lg:col-span-2 p-8 relative overflow-hidden group">
                     <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
                         <GraduationCap size={160} className="text-intel-gold" />
@@ -97,6 +98,19 @@ export default function AcademyDashboard() {
                         Credentials Earned
                     </div>
                 </GlassCard>
+
+                <div className="flex flex-col gap-4">
+                    <DualPersonaHUD 
+                        isGenerating={false}
+                        stressLevel={42}
+                        clinicalSafetyTriggered={false}
+                        biometrics={{ hr: 68, hrv: 75 }}
+                    />
+                    <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
+                        <div className="text-[8px] font-black text-white/40 uppercase tracking-[0.2em] mb-1">Neural_Handshake_Status</div>
+                        <div className="text-[10px] font-bold text-[#22d3ee] uppercase tracking-wider animate-pulse">Synchronized // Patterson Active</div>
+                    </div>
+                </div>
             </div>
 
             {/* Skills Matrix / Radar Section */}
@@ -174,7 +188,7 @@ export default function AcademyDashboard() {
                                     <div className="flex-1 space-y-2">
                                         <div className="flex items-center justify-between">
                                             <span className="text-[10px] font-bold text-intel-gold uppercase tracking-widest">
-                                                {module.complexity} • {module.durationMinutes} MIN
+                                                {module.complexity} â€¢ {module.durationMinutes} MIN
                                             </span>
                                             {module.isCompleted && (
                                                 <div className="flex items-center gap-1 text-[10px] font-bold text-emerald-500 uppercase tracking-widest">

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Hugging Face API Route - Image Generation
  * POST /api/huggingface/image-generation
  */

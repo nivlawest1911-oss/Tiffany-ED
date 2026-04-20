@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Captions.ai API Client
  * AI-powered video editing, captioning, and enhancement
  */

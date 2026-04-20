@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState } from "react"
 import { ExternalLink, BookOpen, GraduationCap, Scale, Brain, Search, Shield } from "lucide-react"

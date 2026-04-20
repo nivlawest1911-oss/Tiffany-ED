@@ -1,6 +1,6 @@
 'use client';
 
-import { Facebook, Link as LinkIcon, Users, MapPin, Briefcase, GraduationCap, Video, Shield as LucideShield, ExternalLink } from 'lucide-react';
+import { Zap as Facebook, Link as LinkIcon, Users, MapPin, Briefcase, GraduationCap, Video, Shield as LucideShield, ExternalLink } from 'lucide-react';
 import React from 'react';
 import Image from 'next/image';
 import { SOCIAL_HUB_AVATAR } from '@/lib/assets';
@@ -101,7 +101,7 @@ export default function SocialHub() {
                                     <div className="flex items-center gap-2 mb-2">
                                         <span className="px-2 py-1 rounded bg-black/50 border border-pink-500/50 text-pink-400 text-[9px] font-black uppercase tracking-wider backdrop-blur-md">TikTok Feed</span>
                                     </div>
-                                    <p className="text-sm font-bold text-white leading-tight">@alvinwestii • Leadership & Growth Stream</p>
+                                    <p className="text-sm font-bold text-white leading-tight">@alvinwestii â€¢ Leadership & Growth Stream</p>
                                 </div>
                             </a>
                             <a href="https://www.facebook.com/alvin.west.18" target="_blank" rel="noopener noreferrer" className="group relative aspect-video rounded-xl bg-zinc-900 overflow-hidden border border-zinc-800 hover:border-blue-600 transition-all cursor-pointer">

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
@@ -29,7 +29,7 @@ export default function MobileNavigation() {
         router.push(path);
     };
 
-    // 📱 REFINED TABS FOR EdIntel USERS
+    // ðŸ“± REFINED TABS FOR EdIntel USERS
     const bottomTabs = [
         { id: 'home', label: 'Home', icon: Home, link: '/' },
         { id: 'the-room', label: 'Room', icon: Sparkles, link: '/the-room' },

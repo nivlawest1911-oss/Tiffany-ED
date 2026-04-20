@@ -1,4 +1,4 @@
-import { generators as GENERATORS } from './generators';
+﻿import { generators as GENERATORS } from './generators';
 import { globalProtocols as GLOBAL_PROTOCOLS } from './globalProtocols';
 import { EdIntel_PROTOCOLS } from './sovereign-protocols';
 

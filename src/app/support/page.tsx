@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers';
+﻿import { cookies } from 'next/headers';
 import SupportClient from './SupportClient';
 
 export const dynamic = 'force-dynamic';

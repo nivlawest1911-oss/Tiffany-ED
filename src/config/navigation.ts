@@ -1,4 +1,4 @@
-/**
+﻿/**
  * EdIntel Sovereign Suite Navigation Configuration
  * Single Source of Truth for Education & Wellness Modules
  */

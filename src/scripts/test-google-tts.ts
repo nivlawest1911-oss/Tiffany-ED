@@ -1,4 +1,4 @@
-import { TextToSpeechClient } from '@google-cloud/text-to-speech';
+﻿import { TextToSpeechClient } from '@google-cloud/text-to-speech';
 import * as dotenv from 'dotenv';
 import path from 'path';
 

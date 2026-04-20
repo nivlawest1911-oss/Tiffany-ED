@@ -1,4 +1,4 @@
-import Replicate from 'replicate';
+﻿import Replicate from 'replicate';
 import { depositToMemoryBank } from './memory-bank';
 
 /**

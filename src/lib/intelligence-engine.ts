@@ -1,4 +1,4 @@
-export interface DeepIntelligence {
+﻿export interface DeepIntelligence {
     title: string;
     description: string;
     stats: { time: string; saved: string; accuracy: string; };
@@ -75,7 +75,7 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
     },
     'Data Intelligence': {
         title: 'Executive Intelligence Command',
-        description: 'Aggregate and analyze fragmented district data streams into a unified strategic dashboard. We identify "Opportunity Centers"—pockets of instructional potential—and provide actionable directives for immediate capital recovery.',
+        description: 'Aggregate and analyze fragmented district data streams into a unified strategic dashboard. We identify "Opportunity Centers"â€”pockets of instructional potentialâ€”and provide actionable directives for immediate capital recovery.',
         stats: { time: '2 min', saved: '10h/report', accuracy: '100%' },
         role: 'Chief Analyst',
         avatar: '/images/avatars/data_analyst.png',
@@ -239,7 +239,7 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
     },
     'Neural Synthesis': {
         title: 'Quantum Synthesis Hub',
-        description: 'Neural synthesis merges disparate district data—from lunch wave logistics to Tier-3 behavior plans—into a single, cohesive institutional intelligence. It identifies hidden efficiencies and predicts student needs before they manifest.',
+        description: 'Neural synthesis merges disparate district dataâ€”from lunch wave logistics to Tier-3 behavior plansâ€”into a single, cohesive institutional intelligence. It identifies hidden efficiencies and predicts student needs before they manifest.',
         stats: { time: 'Real-time', saved: '40h/week', accuracy: '99.9%' },
         role: 'AI Strategist',
         avatar: '/images/avatars/stem_coordinator.png'
@@ -400,11 +400,11 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
         abilityType: 'strategy',
         suggestedNext: ['Admin Vision', 'Teacher Guard', 'district-strategy']
     },
-    'Wellness Architect': {
-        title: 'Wellness & Resilience Command',
-        description: 'André Patterson is your Dedicated Tactical Specialist for educator wellness and burnout mitigation. Leveraging biometric synthesis and physiological telemetry, he develops high-fidelity recovery protocols to ensure peak cognitive performance under institutional pressure. Transition from survival to sovereignty.',
-        stats: { time: 'Real-time', saved: 'Cognitive Units', accuracy: 'Clinical' },
-        role: 'Tactical Specialist',
+    'AndrÃ© Patterson': {
+        title: 'Neuro-Resilience Command: Dr. AndrÃ© Patterson',
+        description: 'Dr. AndrÃ© Patterson (LCSW, Ph.D.) is the EdIntel Chief of Neuro-Resilience. A specialist in high-stakes behavioral psychology and clinical de-escalation, he architected the Vanguard Neuro-Resilience protocols to transition educators from systemic survival to cognitive sovereignty. His bio-dynamic manifest acts as a stable anchor for parasympathetic activation, grounding the "Burnout Shield" in rigorous clinical science.',
+        stats: { time: 'Real-time', saved: 'Neural Bandwidth', accuracy: 'Clinical' },
+        role: 'Chief of Neuro-Resilience & Wellness Architect',
         avatar: '/images/avatars/andre_patterson_premium.png',
         abilityType: 'strategy',
         suggestedNext: ['Neural Sync Gym', 'Crisis Protocol', 'Teacher Guard']

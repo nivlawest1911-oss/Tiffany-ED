@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+﻿import { useState, useRef, useEffect, useCallback } from 'react';
 import { useEdIntelVibe } from '@/context/EdIntelVibeContext';
 
 export function useEdIntelSwarm() {

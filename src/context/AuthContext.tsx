@@ -1,9 +1,10 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState, useRef } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { ROUTES } from '@/lib/routes';
+import { authClient } from '@/lib/auth-client';
 
 interface User {
     name: string;
@@ -13,12 +14,9 @@ interface User {
     usageTokens: number;
     usage_count?: number;
     avatar_url?: string;
-    clerkId?: string;
-    position?: string;
-    bio?: string;
-    created_at?: string;
+    lastUplinkAt?: string;
     trialEndsAt?: string;
-    stripeId?: string;
+    created_at?: string;
 }
 
 interface AuthContextType {
@@ -31,70 +29,33 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-function getSafeSupabaseClient() {
-    try {
-        const { createClient } = require('@/utils/supabase/client');
-        return createClient();
-    } catch {
-        return null;
-    }
-}
-
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
     const router = useRouter();
-    const supabaseRef = useRef<any>(null);
-    const initialized = useRef(false);
-
-    // Initialize supabase client once, safely
-    if (!initialized.current) {
-        initialized.current = true;
-        supabaseRef.current = getSafeSupabaseClient();
-    }
-
-    const fetchUser = async () => {
-        try {
-            const res = await fetch('/api/auth/me');
-            const data = await res.json();
-            if (data.user) {
-                setUser(data.user);
-            } else {
-                setUser(null);
-            }
-        } catch (err) {
-            console.error("[AuthContext] Failed to fetch user", err);
-        } finally {
-            setIsLoading(false);
-        }
-    };
+    const { data: session, isPending, error: _error } = authClient.useSession();
 
     useEffect(() => {
-        fetchUser();
-
-        const supabase = supabaseRef.current;
-        if (supabase?.auth?.onAuthStateChange) {
-            const { data: { subscription } } = supabase.auth.onAuthStateChange((event: string, _session: any) => {
-                console.log(`[AuthContext] Supabase Auth Event: ${event}`);
-                if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
-                    setIsLoading(true);
-                }
-                fetchUser();
+        if (session?.user) {
+            // Bridge Better Auth User to Legacy Institutional User Type
+            setUser({
+                id: session.user.id,
+                email: session.user.email,
+                name: session.user.name || 'Executive',
+                tier: (session.user as any).tier || 'free',
+                usageTokens: (session.user as any).usageTokens || 0,
+                avatar_url: session.user.image || undefined,
+                lastUplinkAt: (session.user as any).lastUplinkAt,
+                trialEndsAt: (session.user as any).trialEndsAt,
+                created_at: session.user.createdAt ? new Date(session.user.createdAt).toISOString() : undefined,
             });
-            return () => subscription?.unsubscribe();
+        } else {
+            setUser(null);
         }
-    }, []);
+    }, [session]);
 
     const logout = async () => {
         try {
-            const supabase = supabaseRef.current;
-            if (supabase?.auth?.signOut) {
-                await supabase.auth.signOut();
-            }
-            await fetch('/api/auth/logout', { method: 'POST' }).catch(() => {
-                document.cookie = "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            });
-
+            await authClient.signOut();
             setUser(null);
             router.push(ROUTES.LOGIN);
             toast.success('Session Terminated', { description: 'Secure channel closed.' });
@@ -104,12 +65,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     const updateUser = async (data: Partial<User>) => {
-        toast.info('Synchronizing tactical profile...');
         setUser(prev => prev ? { ...prev, ...data } : null);
     };
 
+    const fetchUser = async () => {
+        // Handled reactively by useSession()
+    };
+
     return (
-        <AuthContext.Provider value={{ user, isLoading, logout, updateUser, fetchUser }}>
+        <AuthContext.Provider value={{ user, isLoading: isPending, logout, updateUser, fetchUser }}>
             {children}
         </AuthContext.Provider>
     );

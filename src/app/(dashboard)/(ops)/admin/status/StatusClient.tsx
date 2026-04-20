@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { SystemStatus } from '@/components/admin/SystemStatus';
 import { ShieldCheck, ArrowLeft, RefreshCcw, Cpu } from 'lucide-react';

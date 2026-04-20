@@ -8,7 +8,7 @@ import {
     MessageSquare, Send, X,
     Brain, Trophy,
     Zap, Users, LayoutGrid, Database, 
-    ExternalLink
+    ExternalLink, Activity
 } from 'lucide-react';
 import HumanAvatar from './ui/HumanAvatar';
 import { useHumanBehavior } from '@/hooks/useHumanBehavior';
@@ -663,7 +663,7 @@ export default function LiveAvatarChat({
                                 >
                                     <div className="bg-black/80 backdrop-blur-md border border-white/10 px-8 py-4 rounded-full shadow-2xl max-w-3xl text-center">
                                         <p className="text-lg md:text-xl text-white font-medium leading-relaxed">
-                                            <span className="text-noble-gold mr-2">●</span>
+                                            <span className="text-noble-gold mr-2">â—</span>
                                             {conversation[conversation.length - 1]?.text}
                                         </p>
                                     </div>

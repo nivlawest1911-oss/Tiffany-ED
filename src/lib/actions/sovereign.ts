@@ -1,10 +1,10 @@
-'use server';
+"use server";
 
-import { prisma } from '@/lib/prisma';
 import { createClient } from '@/utils/supabase/server';
 import { revalidatePath } from 'next/cache';
 
 export async function getSovereignUser() {
+    const { prisma } = await import('@/lib/prisma');
     const supabase = await createClient();
     if (!supabase) return null;
     const { data: { user: authUser } } = await supabase.auth.getUser();
@@ -38,6 +38,7 @@ export async function getSovereignUser() {
 }
 
 export async function updateUsageTokens(amount: number) {
+    const { prisma } = await import('@/lib/prisma');
     const supabase = await createClient();
     if (!supabase) throw new Error("Unauthorized");
     const { data: { user: authUser } } = await supabase.auth.getUser();
@@ -62,6 +63,7 @@ export async function updateUsageTokens(amount: number) {
 }
 
 export async function getStrategicLogs() {
+    const { prisma } = await import('@/lib/prisma');
     const supabase = await createClient();
     if (!supabase) return [];
     const { data: { user: authUser } } = await supabase.auth.getUser();

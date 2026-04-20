@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers';
+﻿import { cookies } from 'next/headers';
 import PaymentCancelClient from './PaymentCancelClient';
 
 export const dynamic = 'force-dynamic';

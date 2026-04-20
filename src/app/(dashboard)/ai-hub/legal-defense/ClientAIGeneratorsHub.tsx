@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { AIGeneratorsHub } from '@/components/ai-generators-hub';
 

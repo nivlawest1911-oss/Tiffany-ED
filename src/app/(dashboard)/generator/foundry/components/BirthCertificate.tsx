@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from 'react';
 import { motion } from 'framer-motion';
@@ -13,7 +13,7 @@ interface BirthCertificateProps {
 }
 
 /**
- * 🖋️ EdIntel Official Birth Certificate: Visual representation of an AI companion.
+ * ðŸ–‹ï¸ EdIntel Official Birth Certificate: Visual representation of an AI companion.
  * Features a high-fidelity 'official document' look with security watermarks,
  * an institutional seal, and neural link metadata.
  */
@@ -25,17 +25,17 @@ export const BirthCertificate: React.FC<BirthCertificateProps> = ({ certificate 
             className={`relative max-w-4xl mx-auto p-12 bg-[#020617] border-2 border-[#c5a47e]/30 rounded-lg shadow-2xl overflow-hidden font-sans gpu-accelerated`}
             style={{ willChange: 'transform, opacity' }}
         >
-            {/* 🏛️ INSTITUTIONAL WATERMARK */}
+            {/* ðŸ›ï¸ INSTITUTIONAL WATERMARK */}
             <div className="absolute inset-0 pointer-events-none opacity-[0.03] flex items-center justify-center">
                 <div className="w-[800px] h-[800px] rounded-full border-[60px] border-[#c5a47e] rotate-45" />
             </div>
 
-            {/* 🛡️ SOVEREIGN SEAL */}
+            {/* ðŸ›¡ï¸ SOVEREIGN SEAL */}
             <div className="absolute top-8 right-8">
                 <SovereignBadge tier={certificate.tier} className="w-24 h-24" />
             </div>
 
-            {/* 📜 HEADER */}
+            {/* ðŸ“œ HEADER */}
             <header className="text-center mb-12 relative z-10">
                 <h1 className="font-heading text-4xl text-[#c5a47e] tracking-widest uppercase mb-2">
                     Official Birth Certificate
@@ -46,7 +46,7 @@ export const BirthCertificate: React.FC<BirthCertificateProps> = ({ certificate 
                 <div className="h-px w-full bg-gradient-to-r from-transparent via-[#c5a47e]/40 to-transparent mt-8" />
             </header>
 
-            {/* 👤 COMPANION IDENTITY */}
+            {/* ðŸ‘¤ COMPANION IDENTITY */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12 relative z-10">
                 <div className="space-y-6">
                     <div>
@@ -87,7 +87,7 @@ export const BirthCertificate: React.FC<BirthCertificateProps> = ({ certificate 
                 </div>
             </div>
 
-            {/* 🧠 MISSION & PERSONA */}
+            {/* ðŸ§  MISSION & PERSONA */}
             <GlassPanel className="p-8 border-[#c5a47e]/10 mb-12 relative z-10">
                 <h3 className="font-heading text-[#c5a47e] text-xs tracking-widest uppercase mb-4">
                     Assigned Mission Briefing
@@ -102,7 +102,7 @@ export const BirthCertificate: React.FC<BirthCertificateProps> = ({ certificate 
                 </div>
             </GlassPanel>
 
-            {/* 📜 MASTER DIRECTIVE PREVIEW */}
+            {/* ðŸ“œ MASTER DIRECTIVE PREVIEW */}
             <div className="opacity-40 hover:opacity-100 transition-opacity duration-500 mb-12 relative z-10">
                 <label className="text-[10px] uppercase tracking-widest text-[#c5a47e]/50 block mb-4">Neural Anchor (Master System Prompt)</label>
                 <div className="bg-black/50 p-4 rounded border border-[#c5a47e]/10">
@@ -112,7 +112,7 @@ export const BirthCertificate: React.FC<BirthCertificateProps> = ({ certificate 
                 </div>
             </div>
 
-            {/* 🏛️ FOOTER */}
+            {/* ðŸ›ï¸ FOOTER */}
             <footer className="flex justify-between items-end relative z-10">
                 <div className="space-y-1">
                     <p className="text-[10px] text-[#c5a47e]/30 uppercase tracking-[0.3em] font-light">Issued By</p>
@@ -126,7 +126,7 @@ export const BirthCertificate: React.FC<BirthCertificateProps> = ({ certificate 
                 </div>
             </footer>
 
-            {/* 🖼️ SCANLINE EFFECT */}
+            {/* ðŸ–¼ï¸ SCANLINE EFFECT */}
             <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-[#c5a47e]/5 to-transparent h-2 animate-scan" />
         </motion.div>
     );

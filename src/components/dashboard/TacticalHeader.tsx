@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { VibeController } from './VibeController';
 import { useEdIntelVibe } from '@/context/EdIntelVibeContext';
 import { useAuth } from '@/context/AuthContext';

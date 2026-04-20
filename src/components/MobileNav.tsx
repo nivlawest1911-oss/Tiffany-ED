@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import Link from 'next/link'
@@ -20,7 +20,7 @@ export default function MobileNav() {
 
     return (
         <>
-            {/* 📱 Bottom Navigation for Mobile */}
+            {/* ðŸ“± Bottom Navigation for Mobile */}
             <nav className="fixed bottom-0 left-0 right-0 bg-background/80 backdrop-blur-xl border-t border-border md:hidden z-50 px-2 pb-safe-area-inset-bottom">
                 <div className="flex justify-around items-center h-16">
                     {NAV_ITEMS.map((item) => {
@@ -44,7 +44,7 @@ export default function MobileNav() {
                 </div>
             </nav>
 
-            {/* ☰ Mobile Hamburger for Drawer */}
+            {/* â˜° Mobile Hamburger for Drawer */}
             <button
                 onClick={() => setIsOpen(true)}
                 className="md:hidden fixed top-4 right-4 z-[60] p-2.5 bg-card/50 backdrop-blur-md border border-border rounded-xl shadow-lg active:scale-90 transition-transform"
@@ -53,7 +53,7 @@ export default function MobileNav() {
                 <Menu className="w-6 h-6 text-foreground" />
             </button>
 
-            {/* 🛸 Mobile Menu Drawer */}
+            {/* ðŸ›¸ Mobile Menu Drawer */}
             <AnimatePresence>
                 {isOpen && (
                     <div className="fixed inset-0 z-[100] md:hidden">

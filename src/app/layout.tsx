@@ -1,10 +1,11 @@
-import type { Metadata } from 'next';
+﻿import type { Metadata } from 'next';
 import '../style.css';
 import { AuthProvider } from '@/context/AuthContext';
 import { IntelligenceProvider } from '@/context/IntelligenceContext';
 import { EdIntelVibeProvider } from "@/context/EdIntelVibeContext";
 import { CelebrationProvider } from '@/context/CelebrationContext';
 import { SovereignProvider } from '@/context/SovereignState';
+import { GlobalSynapseProvider } from '@/context/GlobalSynapseContext';
 import { Toaster } from 'sonner';
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -35,11 +36,12 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   title: 'EdIntel Professional | AI Operating System for Education',
-  description: 'The definitive AI operating layer for autonomous professionals and institutional intelligence. Sovereign analytics, neural delegation, and strategic insight — all in one platform.',
+  description: 'The definitive AI operating layer for autonomous professionals and institutional intelligence. Sovereign analytics, neural delegation, and strategic insight â€” all in one platform.',
   manifest: '/manifest.json',
   icons: {
-    icon: '/favicon.ico',
+    icon: '/images/edintel-logo.png',
     apple: '/apple-touch-icon.png',
+    shortcut: '/images/edintel-logo.png',
   },
   appleWebApp: {
     capable: true,
@@ -52,7 +54,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     siteName: 'EdIntel',
-    title: 'EdIntel — AI Operating System for Education Leaders',
+    title: 'EdIntel â€” AI Operating System for Education Leaders',
     description: 'The definitive AI operating layer for autonomous professionals and institutional intelligence. Sovereign analytics, neural delegation, and strategic insight.',
     url: 'https://edintel-app.vercel.app',
     locale: 'en_US',
@@ -67,7 +69,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'EdIntel — AI Operating System for Education Leaders',
+    title: 'EdIntel â€” AI Operating System for Education Leaders',
     description: 'The definitive AI operating layer for autonomous professionals and institutional intelligence.',
     creator: '@AlvinWe53959439',
     site: '@AlvinWe53959439',
@@ -115,10 +117,12 @@ export default function RootLayout({
             <IntelligenceProvider>
               <SovereignProvider>
                 <EdIntelVibeProvider>
-                  <ClientShell />
-                  <AccessibleLayout>
-                    {children}
-                  </AccessibleLayout>
+                  <GlobalSynapseProvider>
+                    <ClientShell />
+                    <AccessibleLayout>
+                      {children}
+                    </AccessibleLayout>
+                  </GlobalSynapseProvider>
                   <Toaster position="top-right" theme="dark" />
                   <Analytics />
                   <SpeedInsights />

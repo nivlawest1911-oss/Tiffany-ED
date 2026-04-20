@@ -1,4 +1,4 @@
-export interface FleetNode {
+﻿export interface FleetNode {
     id: string;
     name: string;
     location: string;
@@ -15,6 +15,22 @@ export interface RegionalMetrics {
     averageIntelligenceLoad: number;
     regionalComplianceScore: number;
     activeDirectives: number;
+    intelligence?: {
+        vigor: {
+            score: number;
+            avgStress: number;
+            avgHrv: number;
+            totalResilienceProtocols: number;
+            trend: string;
+        };
+        momentum: {
+            totalLessons: number;
+            totalEngagement: number;
+            totalTimeSaved: number;
+            momentumScore: number;
+            trend: string;
+        };
+    };
 }
 
 export class FleetOrchestrator {

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useSchoolData } from '@/hooks/biometric/useSchoolData';
 import { Zap } from 'lucide-react';
 

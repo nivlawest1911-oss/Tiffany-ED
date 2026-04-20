@@ -1,4 +1,4 @@
-export default function MediaSkeleton() {
+﻿export default function MediaSkeleton() {
     const skeletonItems = Array.from({ length: 8 });
 
     return (

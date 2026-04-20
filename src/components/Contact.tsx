@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+﻿import { motion } from "framer-motion";
 import { Send, MapPin, Mail, Phone } from "lucide-react";
 import { useState } from "react";
 
@@ -170,7 +170,7 @@ export const Contact = () => {
 
             <div className="p-6 rounded-xl border border-accent/30 bg-accent/5">
               <p className="text-sm text-accent font-medium mb-2">
-                ⚡ RAPID DEPLOYMENT AVAILABLE
+                âš¡ RAPID DEPLOYMENT AVAILABLE
               </p>
               <p className="text-sm text-muted-foreground">
                 Qualified districts can begin pilot integration within 48 hours of authorization.
