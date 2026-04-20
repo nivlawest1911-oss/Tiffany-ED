@@ -1,4 +1,4 @@
-﻿/**
+/**
  * EdIntel Sovereign Suite Navigation Configuration
  * Single Source of Truth for Education & Wellness Modules
  */
@@ -39,6 +39,7 @@ export const NAV_LINKS = {
     operations: [
         { label: "Site Command", href: "/admin", icon: "LayoutDashboard", minTier: 5, description: "District-wide executive oversight." },
         { label: "Command Center", href: "/ops/command", icon: "Shield", minTier: 5, description: "Strategic 'God-mode' district oversight." },
+        { label: "Fleet Intelligence", href: "/fleet", icon: "Globe", minTier: 5, description: "District-wide biometric & academic telemetry." },
         { label: "Talent Command", href: "/ops/talent", icon: "Users", minTier: 4, description: "Bio-dynamic institutional pulse & staff well-being." },
         { label: "Decision Engine", href: "/generator/decision", icon: "Zap", minTier: 0, description: "AI-assisted strategic decision making." },
         { label: "Roster Logistics", href: "/roster", icon: "ClipboardList", minTier: 3, description: "Staff & student roster management." },

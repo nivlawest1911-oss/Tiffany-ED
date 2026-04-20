@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { motion } from 'framer-motion';
 import { Shield, Globe, Cpu, ChevronRight } from 'lucide-react';
@@ -7,12 +7,14 @@ import { GlassCard } from '@/components/ui/Cinematic';
 import FleetCommander from '@/components/fleet/FleetCommander';
 import { RegionalIntelligenceFeed } from '@/components/fleet/RegionalIntelligenceFeed';
 import { useGlobalSynapse } from '@/context/GlobalSynapseContext';
+import { SovereignGatekeeper } from '@/components/auth/SovereignGatekeeper';
 
 export default function FleetPage() {
     const { authStatus, curriculumLoad, uplinkHealth } = useGlobalSynapse();
     
     return (
-        <div className="relative flex flex-col font-inter text-slate-200">
+        <SovereignGatekeeper>
+            <div className="relative flex flex-col font-inter text-slate-200">
             <HolographicBackground />
 
             {/* Header / Hero */}
@@ -85,5 +87,6 @@ export default function FleetPage() {
                 </div>
             </div>
         </div>
+        </SovereignGatekeeper>
     );
 }

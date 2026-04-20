@@ -119,7 +119,7 @@ export class DistrictService {
         }));
     }
 
-    static async getFleetIntelligence() {
+    static async getFleetIntelligence(schoolId?: string, days: number = 7) {
         if (!process.env.DATABASE_URL && !process.env.POSTGRES_PRISMA_URL && !process.env.POSTGRES_URL) {
             return {
                 vigor: { score: 92, avgStress: 22, avgHrv: 78, totalResilienceProtocols: 412, trend: 'improving' },
@@ -127,10 +127,18 @@ export class DistrictService {
             };
         }
         const { prisma } = await import('./prisma');
+        const startDate = new Date();
+        startDate.setDate(startDate.getDate() - days);
 
         // Aggregate Institutional Vigor (Wellness)
+        // Note: Wellness protocols in generated_content_hub don't have a school_id directly, 
+        // they link to users who have school_ids.
         const wellnessRecords = await prisma.generated_content_hub.findMany({
-            where: { type: 'WELLNESS_RESET' },
+            where: { 
+                type: 'WELLNESS_RESET',
+                created_at: { gte: startDate },
+                ...(schoolId ? { users: { school_id: schoolId } } : {})
+            },
             select: { content: true }
         });
 
@@ -153,6 +161,10 @@ export class DistrictService {
 
         // Aggregate Instructional Momentum (Academic)
         const academicInsights = await prisma.analytics_insights.findMany({
+            where: {
+                date: { gte: startDate },
+                ...(schoolId ? { school_id: schoolId } : {})
+            },
             select: { lessons_created: true, students_engaged: true, time_saved_hours: true }
         });
 
@@ -166,14 +178,16 @@ export class DistrictService {
                 avgStress: Math.round(avgStress),
                 avgHrv: Math.round(avgHrv),
                 totalResilienceProtocols: wellnessCount,
-                trend: 'improving'
+                trend: 'improving',
+                period: `${days}d`
             },
             momentum: {
                 totalLessons,
                 totalEngagement,
                 totalTimeSaved,
                 momentumScore: Math.min(100, Math.round((totalLessons / 100) + (totalEngagement / 1000))),
-                trend: 'accelerating'
+                trend: 'accelerating',
+                period: `${days}d`
             }
         };
     }

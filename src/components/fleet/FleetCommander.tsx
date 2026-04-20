@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -7,6 +7,8 @@ import { FleetOrchestrator, FleetNode, RegionalMetrics } from '@/lib/FleetOrches
 import { toast } from 'sonner';
 import HumanAvatar from '../ui/HumanAvatar';
 import { CORE_AVATARS } from '@/data/avatars';
+import VigorTelemetry from './VigorTelemetry';
+import AcademicVelocity from './AcademicVelocity';
 
 const getRolePulseCode = (role: string) => {
     if (role.includes('Strategist')) return 'STRAT_ARCHITECT';
@@ -27,13 +29,14 @@ export default function FleetCommander() {
     const [directive, setDirective] = useState("");
     const [logs, setLogs] = useState<{ id: string; message: string; timestamp: string; type: 'directive' | 'alert' }[]>([]);
     const [isSyncing, setIsSyncing] = useState(false);
+    const [timeframe, setTimeframe] = useState<number>(7); // Default 7-day trailing average
 
     const orchestrator = useMemo(() => FleetOrchestrator.getInstance(), []);
 
     const loadData = useCallback(async () => {
         setIsSyncing(true);
-        const fleetNodes = await orchestrator.getFleetNodes();
-        const regionalMetrics = await orchestrator.getRegionalMetrics();
+        const fleetNodes = await orchestrator.getFleetNodes(timeframe);
+        const regionalMetrics = await orchestrator.getRegionalMetrics(timeframe);
         setNodes(fleetNodes);
         setMetrics(regionalMetrics);
         setIsLoading(false);
@@ -111,25 +114,55 @@ export default function FleetCommander() {
 
                     <div className="flex items-center justify-between mb-10">
                         <div>
-                            <h2 className="text-2xl font-black text-white italic uppercase tracking-tighter">Regional <span className="text-noble-gold">Fleet</span> Matrix</h2>
+                            <div className="flex items-center gap-3 mb-1">
+                                <h2 className="text-2xl font-black text-white italic uppercase tracking-tighter">Regional <span className="text-noble-gold">Fleet</span> Matrix</h2>
+                                {metrics?.metadata && (
+                                    <span className="px-2 py-0.5 rounded bg-noble-gold/10 border border-noble-gold/20 text-[8px] font-black text-noble-gold uppercase tracking-widest">
+                                        Scope: {metrics.metadata.scope}
+                                    </span>
+                                )}
+                            </div>
                             <p className="text-[10px] text-zinc-500 uppercase tracking-widest mt-1">Sovereign Node Distribution & Telemetry</p>
                         </div>
-                        <div className="flex items-center gap-3">
-                            <AnimatePresence>
-                                {isSyncing && (
-                                    <motion.div 
-                                        initial={{ opacity: 0, x: 20 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        exit={{ opacity: 0, x: 20 }}
-                                        className="text-[8px] font-black text-noble-gold uppercase tracking-[0.3em] flex items-center gap-1.5"
+                        <div className="flex items-center gap-6">
+                            {/* Timeframe Toggles */}
+                            <div className="flex bg-black/40 p-1 rounded-xl border border-white/5 mx-4">
+                                {[
+                                    { label: '24H', value: 1 },
+                                    { label: '7D', value: 7 },
+                                    { label: '30D', value: 30 }
+                                ].map((t) => (
+                                    <button
+                                        key={t.value}
+                                        onClick={() => setTimeframe(t.value)}
+                                        className={`px-3 py-1.5 rounded-lg text-[8px] font-black tracking-widest transition-all ${
+                                            timeframe === t.value 
+                                            ? 'bg-noble-gold text-black' 
+                                            : 'text-zinc-500 hover:text-white'
+                                        }`}
                                     >
-                                        <RefreshCcw className="w-2.5 h-2.5 animate-spin" /> Syncing...
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                            <div className="px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full flex items-center gap-2">
-                                <Activity className="w-3 h-3 text-emerald-400 animate-pulse" />
-                                <span className="text-[9px] font-black text-emerald-400 uppercase tracking-widest">Global Sync: Active</span>
+                                        {t.label}
+                                    </button>
+                                ))}
+                            </div>
+
+                            <div className="flex items-center gap-3">
+                                <AnimatePresence>
+                                    {isSyncing && (
+                                        <motion.div 
+                                            initial={{ opacity: 0, x: 20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{ opacity: 0, x: 20 }}
+                                            className="text-[8px] font-black text-noble-gold uppercase tracking-[0.3em] flex items-center gap-1.5"
+                                        >
+                                            <RefreshCcw className="w-2.5 h-2.5 animate-spin" /> Syncing...
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                                <div className="px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full flex items-center gap-2">
+                                    <Activity className="w-3 h-3 text-emerald-400 animate-pulse" />
+                                    <span className="text-[9px] font-black text-emerald-400 uppercase tracking-widest">Global Sync: Active</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -240,93 +273,17 @@ export default function FleetCommander() {
 
             {/* Regional Metrics & Node Detail */}
             <div className="lg:col-span-4 space-y-8">
-                {/* Regional Rollup */}
-                </div>
-
                 {/* Fleet Intelligence: Institutional Vigor */}
-                <div className="bg-zinc-900 border border-white/10 rounded-[2.5rem] p-8 relative overflow-hidden group">
-                    <div className="flex items-center justify-between mb-8">
-                        <div>
-                            <h3 className="text-xs font-black text-[#22d3ee] uppercase tracking-[0.2em]">Institutional Vigor</h3>
-                            <p className="text-[10px] text-zinc-500 uppercase tracking-widest mt-1">Biometric Resilience Index</p>
-                        </div>
-                        <div className={`px-3 py-1 rounded-full border border-[#22d3ee]/20 text-[8px] font-black text-[#22d3ee] uppercase tracking-widest ${metrics?.intelligence?.vigor.trend === 'improving' ? 'bg-[#22d3ee]/5' : ''}`}>
-                            {metrics?.intelligence?.vigor.trend || 'stable'}
-                        </div>
-                    </div>
-
-                    <div className="flex items-end gap-6 mb-8">
-                        <div className="text-6xl font-black text-white italic tracking-tighter leading-none">
-                            {metrics?.intelligence?.vigor.score || 0}%
-                        </div>
-                        <div className="pb-2">
-                            <div className="text-[9px] font-black text-zinc-500 uppercase tracking-widest mb-1">Fleet Composite</div>
-                            <div className="h-1.5 w-32 bg-white/5 rounded-full overflow-hidden">
-                                <motion.div 
-                                    className="h-full bg-[#22d3ee] shadow-[0_0_15px_rgba(34,211,238,0.4)]"
-                                    initial={{ width: 0 }}
-                                    animate={{ width: `${metrics?.intelligence?.vigor.score || 0}%` }}
-                                    transition={{ duration: 1.5, ease: "easeOut" }}
-                                />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4">
-                        <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
-                            <div className="text-xl font-black text-white italic tracking-tighter mb-1">{metrics?.intelligence?.vigor.avgStress || 0}%</div>
-                            <div className="text-[8px] font-bold text-zinc-600 uppercase tracking-widest leading-none">Avg Stress</div>
-                        </div>
-                        <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
-                            <div className="text-xl font-black text-white italic tracking-tighter mb-1">{metrics?.intelligence?.vigor.avgHrv || 0}ms</div>
-                            <div className="text-[8px] font-bold text-zinc-600 uppercase tracking-widest leading-none">Avg HRV</div>
-                        </div>
-                    </div>
-                </div>
+                <VigorTelemetry data={metrics?.intelligence?.vigor ? {
+                    ...metrics.intelligence.vigor,
+                    period: metrics.metadata?.timeframe || '7d'
+                } : null} />
 
                 {/* Fleet Intelligence: Instructional Momentum */}
-                <div className="bg-zinc-900 border border-noble-gold/10 rounded-[2.5rem] p-8 relative overflow-hidden group">
-                    <div className="flex items-center justify-between mb-8">
-                        <div>
-                            <h3 className="text-xs font-black text-noble-gold uppercase tracking-[0.2em]">Instructional Momentum</h3>
-                            <p className="text-[10px] text-zinc-500 uppercase tracking-widest mt-1">Academic Acceleration Matrix</p>
-                        </div>
-                        <div className="px-3 py-1 rounded-full bg-noble-gold/5 border border-noble-gold/20 text-[8px] font-black text-noble-gold uppercase tracking-widest">
-                            {metrics?.intelligence?.momentum.trend || 'accelerating'}
-                        </div>
-                    </div>
-
-                    <div className="flex items-end gap-6 mb-8">
-                        <div className="text-6xl font-black text-white italic tracking-tighter leading-none">
-                            {metrics?.intelligence?.momentum.momentumScore || 0}%
-                        </div>
-                        <div className="pb-2">
-                            <div className="text-[9px] font-black text-zinc-500 uppercase tracking-widest mb-1">System Velocity</div>
-                            <div className="h-1.5 w-32 bg-white/5 rounded-full overflow-hidden">
-                                <motion.div 
-                                    className="h-full bg-noble-gold shadow-[0_0_15px_rgba(212,175,55,0.4)]"
-                                    initial={{ width: 0 }}
-                                    animate={{ width: `${metrics?.intelligence?.momentum.momentumScore || 0}%` }}
-                                    transition={{ duration: 1.5, ease: "easeOut" }}
-                                />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-3 gap-3">
-                        <div className="text-center p-3 rounded-xl bg-white/[0.02] border border-white/5">
-                            <div className="text-lg font-black text-white italic tracking-tighter">{(metrics?.intelligence?.momentum.totalLessons || 0).toLocaleString()}</div>
-                            <div className="text-[7px] font-bold text-zinc-600 uppercase tracking-widest leading-none mt-1">Lessons</div>
-                        </div>
-                        <div className="text-center p-3 rounded-xl bg-white/[0.02] border border-white/5">
-                            <div className="text-lg font-black text-white italic tracking-tighter">{(metrics?.intelligence?.momentum.totalEngagement || 0).toLocaleString()}</div>
-                            <div className="text-[7px] font-bold text-zinc-600 uppercase tracking-widest leading-none mt-1">Engaged</div>
-                        </div>
-                        <div className="text-center p-3 rounded-xl bg-white/[0.02] border border-white/5">
-                            <div className="text-lg font-black text-white italic tracking-tighter">{metrics?.intelligence?.momentum.totalTimeSaved || 0}h</div>
-                            <div className="text-[7px] font-bold text-zinc-600 uppercase tracking-widest leading-none mt-1">Saved</div>
-                        </div>
-                    </div>
+                <AcademicVelocity data={metrics?.intelligence?.momentum ? {
+                    ...metrics.intelligence.momentum,
+                    period: metrics.metadata?.timeframe || '7d'
+                } : null} />
 
                 <AnimatePresence mode="wait">
                     {selectedNode ? (

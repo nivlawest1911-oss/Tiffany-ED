@@ -1,4 +1,4 @@
-﻿export interface FleetNode {
+export interface FleetNode {
     id: string;
     name: string;
     location: string;
@@ -22,6 +22,7 @@ export interface RegionalMetrics {
             avgHrv: number;
             totalResilienceProtocols: number;
             trend: string;
+            period: string;
         };
         momentum: {
             totalLessons: number;
@@ -29,7 +30,13 @@ export interface RegionalMetrics {
             totalTimeSaved: number;
             momentumScore: number;
             trend: string;
+            period: string;
         };
+    };
+    metadata?: {
+        role: string;
+        scope: string;
+        timeframe: string;
     };
 }
 
@@ -45,9 +52,9 @@ export class FleetOrchestrator {
         return FleetOrchestrator.instance;
     }
 
-    public async getFleetNodes(): Promise<FleetNode[]> {
+    public async getFleetNodes(days: number = 7): Promise<FleetNode[]> {
         try {
-            const response = await fetch('/api/fleet');
+            const response = await fetch(`/api/fleet?days=${days}`);
             const data = await response.json();
             return data.nodes || [];
         } catch (error) {
@@ -56,9 +63,9 @@ export class FleetOrchestrator {
         }
     }
 
-    public async getRegionalMetrics(): Promise<RegionalMetrics> {
+    public async getRegionalMetrics(days: number = 7): Promise<RegionalMetrics> {
         try {
-            const response = await fetch('/api/fleet');
+            const response = await fetch(`/api/fleet?days=${days}`);
             const data = await response.json();
             return data.metrics || {
                 totalActiveNodes: 0,
