@@ -1,6 +1,8 @@
-﻿import React from 'react';
+import React from 'react';
 import VerifyInstitutionalNode from '@/components/onboarding/VerifyInstitutionalNode';
 import { CinematicBackground } from '@/components/ui/CinematicBackground';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata = {
     title: 'Institutional Verification | EdIntel Sovereign',

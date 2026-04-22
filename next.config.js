@@ -97,6 +97,7 @@ const nextConfig = {
 
     experimental: {
         optimizePackageImports: [
+            '@prisma/client',
             'lucide-react',
             '@radix-ui/react-icons',
             'recharts',
