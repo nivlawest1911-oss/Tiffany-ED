@@ -108,9 +108,8 @@ export const LazyAvatarDisplay = dynamic(
   }
 );
 
-// Chart Component (for individual chart usage)
 export const LazyChartComponent = dynamic(
-  () => import('@/components/ui/chart').then(mod => mod),
+  () => import('@/components/ui/chart').then(mod => ({ default: mod.ChartContainer })),
   {
     loading: () => <ChartSkeleton />,
     ssr: false,
@@ -119,7 +118,7 @@ export const LazyChartComponent = dynamic(
 
 // Cinematic Logo Intro
 export const LazyCinematicLogoIntro = dynamic(
-  () => import('@/components/CinematicLogoIntro'),
+  () => import('@/components/CinematicLogoIntro').then(mod => ({ default: mod.CinematicLogoIntro })),
   {
     loading: () => (
       <div className="fixed inset-0 bg-black flex items-center justify-center z-50">
@@ -159,7 +158,7 @@ export const LazyMissionControlDashboard = dynamic(
 
 // ROI Dashboard
 export const LazyROIDashboard = dynamic(
-  () => import('@/components/admin/ROIDashboard'),
+  () => import('@/components/admin/ROIDashboard').then(mod => ({ default: mod.ROIDashboard })),
   {
     loading: () => <DashboardSkeleton />,
     ssr: false,
@@ -215,7 +214,7 @@ export const LazyAIFeaturesOnboarding = dynamic(
 
 // Research Hub
 export const LazyResearchHub = dynamic(
-  () => import('@/components/research-hub'),
+  () => import('@/components/research-hub').then(mod => ({ default: mod.ResearchHub })),
   {
     loading: () => <DashboardSkeleton />,
     ssr: false,
