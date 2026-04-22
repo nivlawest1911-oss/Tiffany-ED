@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+﻿import { useEffect, useState, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Shield, Lock, Brain, Network } from 'lucide-react';
 import { cn } from '@/lib/utils';

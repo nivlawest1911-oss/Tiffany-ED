@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -155,7 +155,7 @@ export default function InteractiveDashboard() {
                 >
                     <div>
                         <h1 className="text-4xl font-bold text-white mb-2">
-                            Welcome back, Dr. West! 👋
+                            Welcome back, Dr. West! ðŸ‘‹
                         </h1>
                         <p className="text-purple-300">
                             Here's what's happening with your EdIntel workspace

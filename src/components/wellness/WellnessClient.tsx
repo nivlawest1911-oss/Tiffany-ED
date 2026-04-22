@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -258,11 +258,11 @@ export default function WellnessClient() {
                                                     : 'bg-white/5 border-white/10 hover:bg-white/10'
                                                     }`}
                                             >
-                                                {m === 'great' && '🤩'}
-                                                {m === 'good' && '🙂'}
-                                                {m === 'neutral' && '😐'}
-                                                {m === 'low' && '😕'}
-                                                {m === 'bad' && '😫'}
+                                                {m === 'great' && 'ðŸ¤©'}
+                                                {m === 'good' && 'ðŸ™‚'}
+                                                {m === 'neutral' && 'ðŸ˜'}
+                                                {m === 'low' && 'ðŸ˜•'}
+                                                {m === 'bad' && 'ðŸ˜«'}
                                             </button>
                                         ))}
                                     </div>

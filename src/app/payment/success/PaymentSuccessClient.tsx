@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 /**
  * EdIntel EdIntel - Payment Success Page Client

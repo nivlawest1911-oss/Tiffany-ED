@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Twilio Phone Webhook - Incoming Calls
  * POST /api/phone/incoming
  */
@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
         const from = formData.get('From') as string;
         const to = formData.get('To') as string;
 
-        console.log(`[Phone] Incoming call: ${from} → ${to} (${callSid})`);
+        console.log(`[Phone] Incoming call: ${from} â†’ ${to} (${callSid})`);
 
         // Handle incoming call
         const _callInfo = await AIPhoneAgentService.handleIncomingCall(callSid, from);

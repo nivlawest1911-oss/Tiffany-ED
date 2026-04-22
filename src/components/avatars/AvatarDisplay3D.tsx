@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+﻿import React, { useRef, useState, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { useGLTF, useAnimations, OrbitControls, PerspectiveCamera } from '@react-three/drei'
 import * as THREE from 'three'
@@ -14,6 +14,8 @@ interface AvatarProps {
     visemeData?: Viseme[];
     isPlayingAudio?: boolean;
     audioContent?: string; // Base64 audio content
+    accentColor?: string;
+    isStableAnchor?: boolean;
 }
 
 // Viseme to BlendShape mapping (Simplified for ReadyPlayerMe style models)
@@ -35,7 +37,15 @@ const VISEME_MAP: Record<string, string> = {
     'rr': 'mouthSmile',
 };
 
-function AvatarModel({ modelPath, emotion, visemeData, isPlayingAudio, audioContent }: AvatarProps) {
+function AvatarModel({ 
+    modelPath, 
+    emotion, 
+    visemeData, 
+    isPlayingAudio, 
+    audioContent,
+    accentColor = '#22d3ee',
+    isStableAnchor = true
+}: AvatarProps) {
     const group = useRef<THREE.Group>(null)
     const { scene, animations } = useGLTF(modelPath)
     const { actions } = useAnimations(animations, group)
@@ -44,8 +54,8 @@ function AvatarModel({ modelPath, emotion, visemeData, isPlayingAudio, audioCont
     const holographicMaterial = React.useMemo(() => new THREE.ShaderMaterial({
         uniforms: {
             time: { value: 0 },
-            color: { value: new THREE.Color('#00f2ff') },
-            scanlineIntensity: { value: 0.3 },
+            color: { value: new THREE.Color(accentColor) },
+            scanlineIntensity: { value: isStableAnchor ? 0.2 : 0.4 },
         },
         vertexShader: `
             varying vec2 vUv;
@@ -64,14 +74,14 @@ function AvatarModel({ modelPath, emotion, visemeData, isPlayingAudio, audioCont
             varying vec3 vNormal;
             void main() {
                 float scanline = sin(vUv.y * 100.0 + time * 10.0) * scanlineIntensity;
-                float alpha = 1.0 - dot(vNormal, vec3(0.0, 0.0, 1.0));
-                gl_FragColor = vec4(color * (1.0 + scanline), alpha * 0.7);
+                float Fresnel = pow(1.0 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 2.0);
+                gl_FragColor = vec4(color * (1.0 + scanline), (Fresnel + 0.2) * 0.8);
             }
         `,
         transparent: true,
         side: THREE.DoubleSide,
         blending: THREE.AdditiveBlending,
-    }), [])
+    }), [accentColor, isStableAnchor])
     const [audio] = useState(() => typeof Audio !== 'undefined' ? new Audio() : null)
     const startTimeRef = useRef<number>(0)
     const [internalIsPlaying, setInternalIsPlaying] = useState(false)
@@ -160,21 +170,30 @@ function AvatarModel({ modelPath, emotion, visemeData, isPlayingAudio, audioCont
     )
 }
 
-export function AvatarDisplay3D({ selectedAvatar, isLoading, mood, isPlayingAudio, visemeData, audioContent }: any) {
+export function AvatarDisplay3D({ 
+    selectedAvatar, 
+    isLoading, 
+    mood, 
+    isPlayingAudio, 
+    visemeData, 
+    audioContent,
+    accentColor,
+    isStableAnchor
+}: any) {
     if (typeof window === 'undefined') return null;
     if (selectedAvatar?.modelPath) {
         useGLTF.preload(selectedAvatar.modelPath)
     }
 
     return (
-        <div className="w-full h-full relative border border-primary-500/20 rounded-3xl overflow-hidden bg-primary-950/20 backdrop-blur-sm">
+        <div className="w-full h-full relative border border-white/5 rounded-3xl overflow-hidden bg-black/40 backdrop-blur-xl">
             <Canvas shadows gl={{ antialias: true, alpha: true }}>
                 <PerspectiveCamera makeDefault position={[0, 1, 4]} fov={40} />
                 <ambientLight intensity={1.5} />
                 <spotLight position={[5, 10, 5]} angle={0.3} penumbra={1} intensity={2} castShadow />
-                <pointLight position={[-5, 5, -5]} intensity={1} color="#00f2ff" />
+                <pointLight position={[-5, 5, -5]} intensity={1} color={accentColor || "#22d3ee"} />
 
-                <React.Suspense fallback={<group><mesh><sphereGeometry args={[0.5, 32, 32]} /><meshStandardMaterial color="#00f2ff" wireframe /></mesh></group>}>
+                <React.Suspense fallback={<group><mesh><sphereGeometry args={[0.5, 32, 32]} /><meshStandardMaterial color={accentColor || "#22d3ee"} wireframe /></mesh></group>}>
                     {selectedAvatar?.modelPath && (
                         <AvatarModel
                             modelPath={selectedAvatar.modelPath}
@@ -182,9 +201,12 @@ export function AvatarDisplay3D({ selectedAvatar, isLoading, mood, isPlayingAudi
                             visemeData={visemeData}
                             isPlayingAudio={isPlayingAudio}
                             audioContent={audioContent}
+                            accentColor={accentColor}
+                            isStableAnchor={isStableAnchor}
                         />
                     )}
                 </React.Suspense>
+
                 <OrbitControls
                     enableZoom={false}
                     enablePan={false}

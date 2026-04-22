@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { Suspense } from 'react';
 import MediaBentoGrid from '@/components/MediaBentoGrid';
 import MediaSkeleton from '@/components/MediaSkeleton';

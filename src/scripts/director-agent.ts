@@ -1,4 +1,4 @@
-import fs from 'fs';
+﻿import fs from 'fs';
 import path from 'path';
 import dotenv from 'dotenv';
 import Replicate from 'replicate';
@@ -19,7 +19,7 @@ const IMAGE_DIR = path.join(process.cwd(), 'public', 'images', 'features');
 const OUTPUT_DIR = path.join(process.cwd(), 'public', 'videos', 'features');
 
 if (!REPLICATE_API_TOKEN) {
-    console.error('\n❌ CRITICAL: Animator Agent requires a REPLICATE_API_TOKEN.');
+    console.error('\nâŒ CRITICAL: Animator Agent requires a REPLICATE_API_TOKEN.');
     process.exit(1);
 }
 
@@ -28,14 +28,14 @@ const replicate = new Replicate({
 });
 
 async function animateAsset(imageFilename: string, outputFilename: string) {
-    console.log(`\n🎬 ANIMATOR AGENT: Initializing...`);
+    console.log(`\nðŸŽ¬ ANIMATOR AGENT: Initializing...`);
     console.log(`   Source: ${imageFilename} `);
     console.log(`   Target: ${outputFilename} `);
 
     // 1. Locate Source Image
     const imagePath = path.join(IMAGE_DIR, imageFilename);
     if (!fs.existsSync(imagePath)) {
-        console.error(`❌ Source Not Found: ${imagePath} `);
+        console.error(`âŒ Source Not Found: ${imagePath} `);
         return;
     }
 
@@ -48,19 +48,19 @@ async function animateAsset(imageFilename: string, outputFilename: string) {
     }
 
     // 3. Convert Image to Base64 URI
-    console.log(`   🎨 Encoding Visual Data...`);
+    console.log(`   ðŸŽ¨ Encoding Visual Data...`);
     const bitmap = fs.readFileSync(imagePath);
     const base64Image = Buffer.from(bitmap).toString('base64');
     const dataUri = `data: image / png; base64, ${base64Image} `;
 
     try {
-        console.log(`   🚀 Transmitting to Neural Core (SVD)...`);
+        console.log(`   ðŸš€ Transmitting to Neural Core (SVD)...`);
 
         // 4. Fetch Latest Model Version
         const model = await replicate.models.get("stability-ai", "stable-video-diffusion");
         const versionId = (model as any).latest_version?.id;
 
-        console.log(`   💎 Using Model Version: ${versionId}`);
+        console.log(`   ðŸ’Ž Using Model Version: ${versionId}`);
 
         // 5. Run Model
         const output = await replicate.run(
@@ -74,23 +74,23 @@ async function animateAsset(imageFilename: string, outputFilename: string) {
             }
         );
 
-        console.log("   ✅ Rendering Complete!");
-        console.log("   📝 Output URL:", output);
+        console.log("   âœ… Rendering Complete!");
+        console.log("   ðŸ“ Output URL:", output);
 
         // 5. Download Result
         // Output from SVD is usually a URL string (or array of 1 URL)
         // Check if output is standard
         const videoUrl = String(output);
 
-        console.log(`   ⬇️  Downloading Motion Asset...`);
+        console.log(`   â¬‡ï¸  Downloading Motion Asset...`);
         const videoRes = await fetch(videoUrl);
         const buffer = await videoRes.arrayBuffer();
 
         fs.writeFileSync(outputPath, Buffer.from(buffer));
-        console.log(`   🎉 ASSET SECURED: ${outputFilename} `);
+        console.log(`   ðŸŽ‰ ASSET SECURED: ${outputFilename} `);
 
     } catch (error: any) {
-        console.error(`\n❌ Animator Agent Failed: ${error.message} `);
+        console.error(`\nâŒ Animator Agent Failed: ${error.message} `);
     }
 }
 

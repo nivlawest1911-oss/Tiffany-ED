@@ -1,9 +1,9 @@
 'use client';
 import Link from 'next/link';
 import {
-    Linkedin,
-    Facebook,
-    Youtube,
+    Briefcase as Linkedin,
+    Zap as Facebook,
+    Video as Youtube,
     Globe,
     Video
 } from 'lucide-react';

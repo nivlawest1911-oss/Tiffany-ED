@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import dynamic from 'next/dynamic';
@@ -132,7 +132,7 @@ export function IntelligenceProvider({ children }: { children: React.ReactNode }
                             abilityType: info.abilityType
                         });
                     } else {
-                        // 🧠 REAL-TIME NEURAL SYNTHESIS: Call the EdIntel AI Hub
+                        // ðŸ§  REAL-TIME NEURAL SYNTHESIS: Call the EdIntel AI Hub
                         setIsSynthesizing(true);
                         
                         fetch('/api/chat', {

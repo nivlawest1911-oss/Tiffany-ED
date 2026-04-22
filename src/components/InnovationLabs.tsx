@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState } from "react"
 import { Beaker, Cpu, Lightbulb, Lock, Rocket, Zap } from "lucide-react"

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useState } from 'react';
 import { Upload, FileText, CheckCircle, AlertTriangle, XCircle, Shield as LucideShield, Sparkles, Loader2 } from "lucide-react";
 
@@ -120,7 +120,7 @@ export default function AutomatedIEPAudit() {
 
             const data = await response.json();
             const aiText = data.text || '';
-            console.log("💎 Neural Audit Synthesis complete:", aiText.substring(0, 50) + "...");
+            console.log("ðŸ’Ž Neural Audit Synthesis complete:", aiText.substring(0, 50) + "...");
 
             // Update compliance markers based on AI response if possible, 
             // or just randomize slightly while keeping it grounded in a real call.

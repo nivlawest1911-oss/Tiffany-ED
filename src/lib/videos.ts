@@ -1,4 +1,4 @@
-/**
+﻿/**
  * EdIntel Video Utilities
  * Manages video metadata and playback utilities
  */

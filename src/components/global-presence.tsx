@@ -1,6 +1,6 @@
 "use client"
 
-import { Facebook, Youtube, Linkedin, Instagram, Twitter, Mail, MapPin } from "lucide-react"
+import { Zap as Facebook, Video as Youtube, Globe as Linkedin, Camera as Instagram, MessageSquare as Twitter, Mail, MapPin } from "lucide-react"
 import Link from "next/link"
 
 function TikTokIcon({ className }: { className?: string }) {
@@ -125,7 +125,7 @@ export function GlobalPresence() {
           <div className="text-center md:text-left">
             <h4 className="font-black tracking-tighter text-xl text-white mb-2">Global Presence</h4>
             <Link href="/pricing" className="text-sm text-[#00d2ff] hover:underline">
-              Sales Protocol →
+              Sales Protocol â†’
             </Link>
           </div>
 
@@ -163,22 +163,22 @@ export function GlobalPresence() {
             <Link href="/privacy" className="hover:text-white transition-colors">
               Privacy Policy
             </Link>
-            <span>•</span>
+            <span>â€¢</span>
             <Link href="/terms" className="hover:text-white transition-colors">
               Terms of Service
             </Link>
-            <span>•</span>
+            <span>â€¢</span>
             <Link href="/ferpa" className="hover:text-white transition-colors">
               Accessibility
             </Link>
-            <span>•</span>
+            <span>â€¢</span>
             <Link href="/ferpa" className="hover:text-white transition-colors">
               FERPA Compliance
             </Link>
           </div>
 
           <p className="text-xs text-gray-400 tracking-widest">
-            © 2026 EdIntel Professional. All rights reserved. Made with ♥ in Mobile, Alabama.
+            Â© 2026 EdIntel Professional. All rights reserved. Made with â™¥ in Mobile, Alabama.
           </p>
         </div>
       </div>

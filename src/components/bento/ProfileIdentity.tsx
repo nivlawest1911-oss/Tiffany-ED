@@ -1,7 +1,7 @@
 'use client';
 
 import { 
-    Linkedin, 
+    Globe as Linkedin, 
     Share2, 
     GraduationCap, 
     Award, 

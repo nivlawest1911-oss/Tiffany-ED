@@ -5,7 +5,72 @@ const nextConfig = {
     poweredByHeader: false,
     generateEtags: true,
 
-    // Image optimization with modern formats
+    webpack: (config, { dev, isServer, webpack }) => {
+        // Prevent prisma and auth from being bundled into client-side code
+        if (!isServer) {
+            config.resolve.alias['@/lib/prisma'] = false;
+            config.resolve.alias['@/lib/auth'] = false;
+            config.resolve.alias['@prisma/client'] = false;
+            config.resolve.alias['@generated/prisma/client'] = false;
+            
+            // Explicitly ignore node:* schemes on the client
+            config.resolve.fallback = {
+                ...config.resolve.fallback,
+                fs: false,
+                os: false,
+                crypto: false,
+                module: false,
+                path: false,
+                "node:fs": false,
+                "node:os": false,
+                "node:crypto": false,
+                "node:module": false,
+                "node:path": false,
+            };
+
+            // Nuclear Option: Replace these modules with empty ones
+            config.plugins.push(
+                new webpack.NormalModuleReplacementPlugin(
+                    /@prisma\/client|better-auth\/adapters\/prisma|generated\/prisma/,
+                    require.resolve('./src/lib/mocks/empty.ts')
+                )
+            );
+        }
+
+        // Configure cache to handle large strings without warnings
+        if (dev && config.cache) {
+            config.cache = {
+                ...config.cache,
+                type: 'filesystem',
+                compression: 'gzip',
+                maxMemoryGenerations: 1,
+                maxAge: 5184000000,
+            };
+        }
+        
+        // Suppress infrastructure logging warnings
+        config.infrastructureLogging = {
+            level: 'error',
+        };
+
+        // Suppress specific webpack warnings
+        config.ignoreWarnings = [
+            ...(config.ignoreWarnings || []),
+            /webpack\.cache\.PackFileCacheStrategy/,
+            /Serializing big strings/,
+        ];
+
+        if (!dev) {
+            config.optimization = {
+                ...config.optimization,
+                usedExports: true,
+                sideEffects: true,
+            };
+        }
+
+        return config;
+    },
+
     images: {
         formats: ['image/avif', 'image/webp'],
         deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
@@ -22,39 +87,22 @@ const nextConfig = {
         ],
     },
 
-    // Webpack optimization
-    webpack: (config, { dev, isServer: _isServer }) => {
-        if (dev && config.cache) {
-            config.cache = {
-                ...config.cache,
-                type: 'filesystem',
-                compression: 'gzip',
-                maxMemoryGenerations: 1,
-                // Suppress big string serialization warnings
-                maxAge: 5184000000,
-            };
-        }
-        // Suppress big string serialization warnings entirely
-        config.infrastructureLogging = {
-            level: 'error',
-        };
-        // Suppress PackFileCacheStrategy warnings
-        config.ignoreWarnings = [
-            ...(config.ignoreWarnings || []),
-            /webpack\.cache\.PackFileCacheStrategy/,
-            /Serializing big strings/,
-        ];
-        if (!dev) {
-            config.optimization = {
-                ...config.optimization,
-                usedExports: true,
-                sideEffects: true,
-            };
-        }
-        return config;
-    },
+    serverExternalPackages: ['@google-cloud/bigquery', '@google-cloud/common', '@prisma/client', 'prisma'],
 
-    serverExternalPackages: ['@google-cloud/bigquery', '@google-cloud/common'],
+    experimental: {
+        optimizePackageImports: [
+            'lucide-react',
+            '@radix-ui/react-icons',
+            'recharts',
+            'framer-motion',
+            'date-fns',
+            'lodash',
+            '@heroicons/react',
+        ],
+        serverActions: {
+            bodySizeLimit: '10mb',
+        },
+    },
 
     // HTTP caching headers
     async headers() {
@@ -106,21 +154,51 @@ const nextConfig = {
         ];
     },
 
-    // Valid experimental features only
-    experimental: {
-        optimizePackageImports: [
-            'lucide-react',
-            '@radix-ui/react-icons',
-            'recharts',
-            'framer-motion',
-            'date-fns',
-            'lodash',
-            '@heroicons/react',
-        ],
-        serverActions: {
-            bodySizeLimit: '10mb',
-        },
+    eslint: {
+        ignoreDuringBuilds: false,
+    },
+    typescript: {
+        ignoreBuildErrors: false,
     },
 };
 
-module.exports = nextConfig;
+const { withSentryConfig } = require("@sentry/nextjs");
+
+module.exports = withSentryConfig(
+    nextConfig,
+    {
+        // For all available options, see:
+        // https://github.com/getsentry/sentry-webpack-plugin#options
+
+        // Suppresses source map uploading logs during bundling
+        silent: true,
+        org: "edintel",
+        project: "sovereign",
+    },
+    {
+        // For all available options, see:
+        // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
+
+        // Upload a larger set of source maps for prettier stack traces (increases build time)
+        widenClientFileUpload: true,
+
+        // Transpiles SDK to be compatible with IE11 (increases bundle size)
+        transpileClientSDK: false,
+
+        // Routes browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers (increases server load)
+        tunnelRoute: "/monitoring",
+
+        // Hides source maps from generated client bundles
+        hideSourceMaps: true,
+
+        // Automatically tree-shake Sentry logger statements to reduce bundle size
+        disableLogger: true,
+
+        // Enables automatic instrumentation of Vercel Cron Monitors.
+        // See the following for more information:
+        // https://docs.sentry.io/product/crons/
+        // https://vercel.com/docs/cron-jobs
+        automaticVercelMonitors: true,
+    }
+);
+

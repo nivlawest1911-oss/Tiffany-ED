@@ -1,6 +1,6 @@
 'use client';
 
-import { Facebook, Link as LinkIcon, Users, MapPin, Briefcase, GraduationCap, Video, Shield as LucideShield, ExternalLink } from 'lucide-react';
+import { Zap as Facebook, Link as LinkIcon, Users, MapPin, Briefcase, GraduationCap, Video, Shield as LucideShield, ExternalLink } from 'lucide-react';
 import React from 'react';
 import Image from 'next/image';
 import { SOCIAL_HUB_BANNER, SOCIAL_HUB_AVATAR, SOCIAL_HUB_TIKTOK, SOCIAL_HUB_FACEBOOK } from '@/lib/assets';

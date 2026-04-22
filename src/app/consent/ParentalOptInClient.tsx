@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -74,7 +74,7 @@ export default function ParentalOptInClient() {
                                 <div className="p-6 rounded-2xl bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-800/50 flex gap-4">
                                     <AlertTriangle className="text-amber-600 shrink-0" size={24} />
                                     <p className="text-sm text-amber-900 dark:text-amber-500 font-medium leading-relaxed">
-                                        As per <span className="font-bold underline">Alabama Act 2025-455</span>, written parental permission is required for students under 16 to receive school counseling services. Digital signatures in this vault carry full institutional authority under Alabama Code § 16-1-58.
+                                        As per <span className="font-bold underline">Alabama Act 2025-455</span>, written parental permission is required for students under 16 to receive school counseling services. Digital signatures in this vault carry full institutional authority under Alabama Code Â§ 16-1-58.
                                     </p>
                                 </div>
 

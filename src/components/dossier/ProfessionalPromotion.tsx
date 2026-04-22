@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Trophy, ChevronRight, Star } from 'lucide-react';
 import { useState, useEffect } from 'react';

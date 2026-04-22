@@ -1,22 +1,22 @@
-/**
- * 📜 EdIntel Companion Birth Certificate: The neural blueprint for AI companions.
+﻿/**
+ * ðŸ“œ EdIntel Companion Birth Certificate: The neural blueprint for AI companions.
  * This JSON schema defines the identity, persona, and institutional directives
  * of an EdIntel Sovereign companion.
  */
 export interface CompanionCertificate {
-    /** 🛰️ Unique identifier for the companion record. */
+    /** ðŸ›°ï¸ Unique identifier for the companion record. */
     id: string;
     
-    /** 👤 The companion's public name (e.g., "The EdIntel Architect"). */
+    /** ðŸ‘¤ The companion's public name (e.g., "The EdIntel Architect"). */
     name: string;
     
-    /** 🏛️ Institutional role (e.g., "Strategic Literacy Coach"). */
+    /** ðŸ›ï¸ Institutional role (e.g., "Strategic Literacy Coach"). */
     role: string;
     
-    /** 🎯 Operational Tier: Novice, Specialist, or Master Architect. */
+    /** ðŸŽ¯ Operational Tier: Novice, Specialist, or Master Architect. */
     tier: 'NOVICE' | 'SPECIALIST' | 'ARCHITECT';
     
-    /** 🧠 The persona configuration for high-fidelity responses. */
+    /** ðŸ§  The persona configuration for high-fidelity responses. */
     persona: {
         tone: string;
         mission: string;
@@ -25,24 +25,24 @@ export interface CompanionCertificate {
         pedagogicalDirectives?: string[];
     };
     
-    /** 🔊 ElevenLabs Voice ID for audio synthesis. */
+    /** ðŸ”Š ElevenLabs Voice ID for audio synthesis. */
     voiceId: string;
     
-    /** 🎞️ HeyGen Avatar ID for video generation. */
+    /** ðŸŽžï¸ HeyGen Avatar ID for video generation. */
     avatarId: string;
     
-    /** 🛡️ The core master system prompt that anchors the companion's identity. */
+    /** ðŸ›¡ï¸ The core master system prompt that anchors the companion's identity. */
     masterSystemPrompt: string;
     
-    /** 🏢 Associated school site or district ID. */
+    /** ðŸ¢ Associated school site or district ID. */
     districtId: string;
     
-    /** 👤 ID of the teacher/administrator who "birthed" this companion. */
+    /** ðŸ‘¤ ID of the teacher/administrator who "birthed" this companion. */
     creatorId: string;
     
-    /** 🕒 Neural birth timestamp. */
+    /** ðŸ•’ Neural birth timestamp. */
     createdAt: string;
     
-    /** 🔐 FERPA-compliant metadata (encrypted in Supabase). */
+    /** ðŸ” FERPA-compliant metadata (encrypted in Supabase). */
     metadata?: Record<string, any>;
 }

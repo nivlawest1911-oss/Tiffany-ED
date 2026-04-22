@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import { LanguageServiceClient } from '@google-cloud/language';
 
 export const dynamic = 'force-dynamic';

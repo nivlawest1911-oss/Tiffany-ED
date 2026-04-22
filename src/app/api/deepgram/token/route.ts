@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 import { Deepgram } from '@deepgram/sdk';
 
 export const dynamic = 'force-dynamic';

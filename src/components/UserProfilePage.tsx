@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -378,7 +378,7 @@ export default function UserProfilePage() {
                                                 VISA
                                             </div>
                                             <div>
-                                                <div className="text-white font-bold tracking-[0.2em]">•••• •••• 4242</div>
+                                                <div className="text-white font-bold tracking-[0.2em]">â€¢â€¢â€¢â€¢ â€¢â€¢â€¢â€¢ 4242</div>
                                                 <div className="text-zinc-500 text-[10px] font-black uppercase tracking-widest">Global Master Vault</div>
                                             </div>
                                         </div>

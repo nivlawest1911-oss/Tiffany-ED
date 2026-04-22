@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 import { Trophy, TrendingUp, Cpu, Workflow, BarChart3 } from 'lucide-react';
@@ -79,7 +79,7 @@ export const EfficiencyLeaderboard = ({ departments }: { departments: any[] }) =
                     <span className="text-[8px] text-zinc-600 uppercase font-black tracking-widest">Node: Mobile_County_V4</span>
                 </div>
                 <button className="text-[8px] text-emerald-500/50 uppercase font-black tracking-[0.3em] hover:text-emerald-400 transition-colors">
-                    Request Full Audit →
+                    Request Full Audit â†’
                 </button>
             </div>
         </div>

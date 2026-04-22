@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import { Terminal, ShieldAlert, Cpu, ChevronRight } from 'lucide-react';

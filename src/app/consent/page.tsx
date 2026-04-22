@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers';
+﻿import { cookies } from 'next/headers';
 import ParentalOptInClient from './ParentalOptInClient';
 
 export const dynamic = 'force-dynamic';

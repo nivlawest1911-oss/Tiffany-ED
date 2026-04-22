@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { User, Fingerprint, Zap, Upload, Trash2, Camera, Settings } from 'lucide-react';
 import React, { useState } from 'react';

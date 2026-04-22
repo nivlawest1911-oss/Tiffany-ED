@@ -1,9 +1,9 @@
-import type React from "react"
+﻿import type React from "react"
 
 interface DeploymentEasyProps {
-  /** Width of component – number (px) or any CSS size value */
+  /** Width of component â€“ number (px) or any CSS size value */
   width?: number | string
-  /** Height of component – number (px) or any CSS size value */
+  /** Height of component â€“ number (px) or any CSS size value */
   height?: number | string
   /** Extra Tailwind / CSS classes for root element */
   className?: string
@@ -15,10 +15,10 @@ const DeploymentEasy: React.FC<DeploymentEasyProps> = ({ className = "" }) => {
    * ---------------------------------------------------------- */
 
   /* ------------------------------------------------------------
-   * Console log output (static for demo) – can be replaced via props
+   * Console log output (static for demo) â€“ can be replaced via props
    * ---------------------------------------------------------- */
   const logLines = [
-    "[16:37:25.637] Running build in Washington, D.C., USA (East) – iad1",
+    "[16:37:25.637] Running build in Washington, D.C., USA (East) â€“ iad1",
     "[16:37:25.638] Build machine configuration: 2 cores, 8 GB",
     "[16:37:25.653] Retrieving list of deployment files...",
     "[16:37:25.741] Previous build caches not available",
@@ -32,12 +32,12 @@ const DeploymentEasy: React.FC<DeploymentEasyProps> = ({ className = "" }) => {
     '[16:37:34.436] warn: incorrect peer dependency "react@19.1.0"',
     "[16:37:37.265] Saved lockfile",
     "[16:37:39.076] Next.js anonymous telemetry notice",
-    "[16:37:39.137] ▲ Next.js 15.2.4",
-    "[16:37:41.439] ✓ Compiled successfully",
-    "[16:37:53.979] ✓ Generated static pages",
-    "[16:38:00.585] ○ (Static) prerendered as static content",
+    "[16:37:39.137] â–² Next.js 15.2.4",
+    "[16:37:41.439] âœ“ Compiled successfully",
+    "[16:37:53.979] âœ“ Generated static pages",
+    "[16:38:00.585] â—‹ (Static) prerendered as static content",
     "[16:38:01.099] Build Completed in /vercel/output [30s]",
-    "🚀 Deployment complete – Easy!",
+    "ðŸš€ Deployment complete â€“ Easy!",
   ]
 
   return (
@@ -48,7 +48,7 @@ const DeploymentEasy: React.FC<DeploymentEasyProps> = ({ className = "" }) => {
       {/* Console / Terminal panel                                */}
       {/* -------------------------------------------------------- */}
       <div className="bento-console-panel">
-        {/* Inner translucent panel – replicates subtle overlay */}
+        {/* Inner translucent panel â€“ replicates subtle overlay */}
         <div className="bento-console-inner" />
 
         {/* Log text */}
@@ -68,7 +68,7 @@ const DeploymentEasy: React.FC<DeploymentEasyProps> = ({ className = "" }) => {
       {/* Call-to-action button                                   */}
       {/* -------------------------------------------------------- */}
       <button className="bento-deploy-button">
-        🚀 Deploy on Vercel
+        ðŸš€ Deploy on Vercel
       </button>
     </div>
   )

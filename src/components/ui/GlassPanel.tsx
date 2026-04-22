@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from 'react';
 import { motion } from 'framer-motion';
@@ -62,4 +62,5 @@ const GlassPanel: React.FC<GlassPanelProps> = ({
     );
 };
 
+export { GlassPanel };
 export default GlassPanel;

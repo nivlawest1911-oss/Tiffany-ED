@@ -1,4 +1,4 @@
-// Error handler - logs errors and sends to audit trail
+﻿// Error handler - logs errors and sends to audit trail
 
 export function captureException(error: Error, context?: Record<string, any>) {
     console.error('[EDINTEL_SYSTEM_ERROR]', error)

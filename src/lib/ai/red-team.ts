@@ -1,4 +1,4 @@
-import { EquityVerificationSignature } from './signatures';
+﻿import { EquityVerificationSignature } from './signatures';
 import { generateObject } from 'ai';
 import { google } from '@ai-sdk/google';
 

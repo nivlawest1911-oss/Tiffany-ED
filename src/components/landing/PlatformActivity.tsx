@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import { FileText, Bot, Activity, ArrowUpRight } from 'lucide-react';

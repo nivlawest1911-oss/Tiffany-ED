@@ -1,4 +1,4 @@
-import AppLayout from "@/components/layout/AppLayout";
+﻿import AppLayout from "@/components/layout/AppLayout";
 import { ExecutiveGuard } from "@/components/auth/ExecutiveGuard";
 import { CommandPalette } from "@/components/ui/CommandPalette";
 import SovereignStatus from "@/components/dashboard/SovereignStatus";

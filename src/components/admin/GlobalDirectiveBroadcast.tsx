@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import { Send, Zap, ShieldCheck, AlertCircle, RefreshCw } from 'lucide-react';

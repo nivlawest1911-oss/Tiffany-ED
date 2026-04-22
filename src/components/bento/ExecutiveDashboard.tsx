@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { AlertCircle, FileText, Clock, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 

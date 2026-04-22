@@ -1,14 +1,14 @@
-"use client"
+﻿"use client"
 
 import { useState, useEffect } from "react"
 import { User, Wand2, Palette, Download, RefreshCw, Sparkles, Camera, Mic, Volume2 } from "lucide-react"
 import Image from "next/image"
 
 const avatarStyles = [
-  { id: "professional", name: "Professional", description: "Corporate and polished", emoji: "👔" },
-  { id: "educator", name: "Educator", description: "Warm and approachable", emoji: "📚" },
-  { id: "leader", name: "Leader", description: "Confident and inspiring", emoji: "🎯" },
-  { id: "creative", name: "Creative", description: "Artistic and expressive", emoji: "🎨" },
+  { id: "professional", name: "Professional", description: "Corporate and polished", emoji: "ðŸ‘”" },
+  { id: "educator", name: "Educator", description: "Warm and approachable", emoji: "ðŸ“š" },
+  { id: "leader", name: "Leader", description: "Confident and inspiring", emoji: "ðŸŽ¯" },
+  { id: "creative", name: "Creative", description: "Artistic and expressive", emoji: "ðŸŽ¨" },
 ]
 
 const skinTones = [

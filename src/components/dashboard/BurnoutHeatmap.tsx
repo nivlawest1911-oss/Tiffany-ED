@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import NextImage from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Flame, Activity, Clock, Info } from 'lucide-react';

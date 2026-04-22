@@ -1,6 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
-import { Activity, Shield, Zap, Target, TrendingUp, Cpu, Network } from 'lucide-react';
+import { Shield, Zap, Target, TrendingUp, Network } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useIntelligence } from '@/context/IntelligenceContext';
 

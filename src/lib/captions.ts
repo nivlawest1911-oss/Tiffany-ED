@@ -1,4 +1,4 @@
-const CAPTIONS_API_URL = 'https://api.mirage.app/v1'; // Base URL for the new Mirage/Captions API
+﻿const CAPTIONS_API_URL = 'https://api.mirage.app/v1'; // Base URL for the new Mirage/Captions API
 const CAPTIONS_API_KEY = process.env.CAPTIONS_API_KEY;
 
 export async function getCaptionsProject(stableId: string, signal?: AbortSignal) {

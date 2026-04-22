@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
+﻿import { createClient } from '@supabase/supabase-js';
 import { openai } from '@ai-sdk/openai';
 import { streamText } from 'ai';
 import { rateLimit } from '@/lib/EdIntel-connections';

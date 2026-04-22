@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import { Brain, Sparkles, GraduationCap, BookOpen, Lightbulb, TrendingUp } from 'lucide-react';
@@ -125,21 +125,21 @@ export default function AnimatedEducatorHero() {
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: 1 }}
                                 >
-                                    • Focus on reading comprehension
+                                    â€¢ Focus on reading comprehension
                                 </motion.div>
                                 <motion.div
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: 1.2 }}
                                 >
-                                    • Increase collaborative activities
+                                    â€¢ Increase collaborative activities
                                 </motion.div>
                                 <motion.div
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: 1.4 }}
                                 >
-                                    • Review math fundamentals
+                                    â€¢ Review math fundamentals
                                 </motion.div>
                             </div>
                         </motion.div>

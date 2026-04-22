@@ -1,4 +1,4 @@
-
+﻿
 import { NextRequest, NextResponse } from 'next/server';
 import { SwarmRouter } from '@/lib/ai/swarm-router';
 

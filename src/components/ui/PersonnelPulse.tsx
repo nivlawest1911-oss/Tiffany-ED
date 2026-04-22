@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useState } from 'react';
 import { Activity, ShieldAlert, Loader2, Zap, AlertTriangle, Fingerprint } from 'lucide-react';
 import { useIntelligence } from '@/context/IntelligenceContext';

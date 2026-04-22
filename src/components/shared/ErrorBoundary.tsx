@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { AlertCircle, RefreshCcw } from 'lucide-react';

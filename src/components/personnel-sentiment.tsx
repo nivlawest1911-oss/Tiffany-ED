@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState } from "react"
 import { AlertTriangle, Brain, Clock, Heart } from "lucide-react"

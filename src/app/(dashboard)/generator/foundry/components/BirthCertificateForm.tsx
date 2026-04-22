@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -23,7 +23,7 @@ import { VaultUploader } from './VaultUploader';
 // Use 'font-orbitron' and 'font-outfit' Tailwind classes.
 
 /**
- * 🛠️ EdIntel Foundry: AI Companion Birth System
+ * ðŸ› ï¸ EdIntel Foundry: AI Companion Birth System
  * A recursive, high-fidelity form for creating 'Birth Certificates' 
  * for custom AI agents. 
  */
@@ -39,7 +39,7 @@ export const BirthCertificateForm = () => {
     const [formData, setFormData] = useState({
         name: '',
         role: '',
-        tier: 'NOVICE' as const,
+        tier: 'NOVICE' as 'NOVICE' | 'SPECIALIST' | 'ARCHITECT',
         basePersona: 'custom',
         mission: '',
         tone: '',
@@ -68,6 +68,10 @@ export const BirthCertificateForm = () => {
     };
 
     const generateMasterPrompt = () => {
+        const directives = formData.pedagogicalDirectives.length > 0 
+            ? `PEDAGOGICAL DIRECTIVES:\n${formData.pedagogicalDirectives.map(d => `- ${d}`).join('\n')}`
+            : '';
+
         return `
             System: You are 'Sidekick,' the EdIntel AI Orchestrator.
             ACT AS: ${formData.role} 
@@ -77,6 +81,8 @@ export const BirthCertificateForm = () => {
             CULTURAL CONTEXT: ${formData.culturalContext}
             TIER: ${formData.tier}
             
+            ${directives}
+
             UNIFIED STRATEGIC DIRECTIVE:
             1. Respond with high intelligence and empathetic collaboration.
             2. Adhere strictly to Alabama State Standards and Administrative Code mandates.
@@ -102,9 +108,13 @@ export const BirthCertificateForm = () => {
             voiceId: formData.voiceId,
             avatarId: formData.avatarId,
             masterSystemPrompt: generateMasterPrompt(),
-            districtId: 'MOBILE_COUNTY_AL', // Default for now
+            districtId: user?.id ? 'AL_MOBILE_DISTRICT' : 'GUEST_SANDBOX', // Support dynamic district logic or fallback
             creatorId: user?.id || '', // Must be a valid UUID from Supabase Auth
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
+            metadata: {
+                engine: 'v2027_SOVEREIGN_FOUNDRY',
+                fidelity: (formData.tier as string) === 'ARCHITECT' ? 'MAX' : 'STANDARD'
+            }
         };
 
         if (!user) {
@@ -237,7 +247,7 @@ export const BirthCertificateForm = () => {
                                     onClick={() => setStep(1)}
                                     className="text-[#c5a47e]/50 hover:text-[#c5a47e] text-xs uppercase tracking-widest mb-4 flex items-center gap-2"
                                 >
-                                    ← Back to Identity
+                                    â† Back to Identity
                                 </button>
                                 <h1 className="font-heading text-3xl text-[#c5a47e] mb-2">
                                     Persona Refinement
@@ -286,7 +296,7 @@ export const BirthCertificateForm = () => {
                                                     onClick={() => setFormData({...formData, pedagogicalDirectives: formData.pedagogicalDirectives.filter((_, idx) => idx !== i)})}
                                                     className="hover:text-white"
                                                 >
-                                                    ×
+                                                    Ã—
                                                 </button>
                                             </span>
                                         ))}
@@ -318,7 +328,7 @@ export const BirthCertificateForm = () => {
                                     </div>
                                 </div>
 
-                                {/* 🧠 Knowledge Vault Integration */}
+                                {/* ðŸ§  Knowledge Vault Integration */}
                                 <div className="pt-8 border-t border-[#c5a47e]/10">
                                     <VaultUploader 
                                         companionId={companionId} 
@@ -381,7 +391,7 @@ export const BirthCertificateForm = () => {
                             <div className="flex flex-col md:flex-row gap-4 justify-center">
                                 <SovereignButton 
                                     className="w-full md:w-auto"
-                                    onClick={() => router.push(`/generator/foundry/chat?companionId=${certificate.id}`)}
+                                    onClick={() => router.push(`/dashboard/chat?companionId=${certificate.id}`)}
                                 >
                                     Initiate Direct Comm
                                 </SovereignButton>

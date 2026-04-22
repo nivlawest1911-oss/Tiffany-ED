@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+﻿import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Shield, Globe, Cpu, Zap, MessageSquare, Send, X, Terminal, Brain } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -304,14 +304,14 @@ Intelligence Coverage:
                                         transition={{ duration: 3, repeat: Infinity }}
                                         className="text-[8px] font-mono text-noble-gold/60 tracking-tighter"
                                     >
-                                        LAT: 30.6954° N
+                                        LAT: 30.6954Â° N
                                     </motion.span>
                                     <motion.span
                                         animate={{ opacity: [0.3, 0.7, 0.3] }}
                                         transition={{ duration: 3, repeat: Infinity, delay: 1.5 }}
                                         className="text-[8px] font-mono text-noble-gold/60 tracking-tighter"
                                     >
-                                        LONG: 88.0431° W
+                                        LONG: 88.0431Â° W
                                     </motion.span>
                                 </div>
                             </div>

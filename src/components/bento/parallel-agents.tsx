@@ -1,4 +1,4 @@
-import type React from "react"
+﻿import type React from "react"
 
 interface ParallelCodingAgentsProps {
   className?: string
@@ -122,7 +122,7 @@ const ParallelCodingAgents: React.FC<ParallelCodingAgentsProps> = ({ className =
                 {agent.title}
               </div>
               <div className={`bento-agent-subtitle ${index === 1 ? "bento-agent-subtitle-truncated" : ""}`}>
-                {`${agent.tokens} • ${agent.model} • ${agent.branch}`}
+                {`${agent.tokens} â€¢ ${agent.model} â€¢ ${agent.branch}`}
               </div>
             </div>
           </div>

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * InVideo AI API Client
  * AI-powered video creation from text prompts
  */

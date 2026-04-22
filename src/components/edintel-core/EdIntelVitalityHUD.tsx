@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { ShieldCheck, Zap, Database, Globe } from 'lucide-react';
 

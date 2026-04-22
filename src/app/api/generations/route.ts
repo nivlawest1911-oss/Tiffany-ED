@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server';
+﻿import { NextRequest } from 'next/server';
 import { sql } from '@vercel/postgres';
 
 // Save a generation to the database

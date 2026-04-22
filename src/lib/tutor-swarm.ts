@@ -1,4 +1,4 @@
-import { AGENT_REGISTRY, Agent } from './agents';
+﻿import { AGENT_REGISTRY, Agent } from './agents';
 
 export interface SwarmSignal {
     senderId: string;

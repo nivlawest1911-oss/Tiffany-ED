@@ -1,4 +1,4 @@
-import { EdIntel_TIERS } from './pricing-config';
+﻿import { EdIntel_TIERS } from './pricing-config';
 
 export enum EdIntelFeature {
     BASIC_GENERATOR = 'basic_generator',

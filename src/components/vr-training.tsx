@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState } from "react"
 import { Glasses, Play, Award, TrendingUp, Target, Zap } from "lucide-react"

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { Map, Plane, Compass, Camera, Calendar, Globe, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -96,7 +96,7 @@ export default function ExcursionsPage() {
                                     </div>
                                     <div>
                                         <p className="text-sm font-bold text-white group-hover:text-teal-400 transition-colors">{ex.title}</p>
-                                        <p className="text-[10px] text-slate-500 font-medium">{ex.date} • {ex.type}</p>
+                                        <p className="text-[10px] text-slate-500 font-medium">{ex.date} â€¢ {ex.type}</p>
                                     </div>
                                 </div>
                                 <div className="text-right">

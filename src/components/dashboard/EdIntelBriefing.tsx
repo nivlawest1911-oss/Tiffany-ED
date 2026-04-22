@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState } from 'react';
 import { HolographicCard } from '@/components/ui/HolographicCard';
@@ -38,9 +38,20 @@ export const EdIntelBriefing = ({ summary, loading, source }: EdIntelBriefingPro
                 onMouseLeave={() => setIsHovered(false)}
             >
                 {loading ? (
-                    <div className="animate-pulse space-y-4">
-                        <div className="h-4 bg-white/10 rounded w-3/4" />
-                        <div className="h-4 bg-white/10 rounded w-1/2" />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-pulse">
+                        <div className="space-y-6">
+                            {[1, 2, 3, 4].map(i => (
+                                <div key={i} className="flex items-start gap-3">
+                                    <div className="mt-1.5 h-1.5 w-1.5 rounded-full bg-white/10" />
+                                    <div className="space-y-2 flex-grow">
+                                        <div className="h-2 bg-white/5 rounded w-1/4" />
+                                        <div className="h-4 bg-white/10 rounded w-3/4" />
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="hidden md:block aspect-video rounded-xl bg-white/5 border border-white/5" />
+                        <div className="col-span-full h-10 w-32 bg-white/5 rounded-lg ml-auto mt-6" />
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -108,7 +119,7 @@ export const EdIntelBriefing = ({ summary, loading, source }: EdIntelBriefingPro
 
                 <div className="mt-6 flex justify-end">
                     <SovereignButton variant="glass" size="sm" onClick={() => console.log('Executing protocols...')}>
-                        EXECUTE ALL PROTOCOLS →
+                        EXECUTE ALL PROTOCOLS â†’
                     </SovereignButton>
                 </div>
             </div>

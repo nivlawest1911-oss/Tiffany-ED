@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import React, { useRef, useState } from 'react';
 import { Play, Pause, Maximize, Activity } from 'lucide-react';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';

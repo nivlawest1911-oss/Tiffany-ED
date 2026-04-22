@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { BookOpen, Share2, FilePlus, Layers, CheckCircle, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -68,7 +68,7 @@ export default function PublishingPage() {
                                 <Layers className="h-8 w-8 text-slate-500 group-hover:text-indigo-400" />
                             </div>
                             <h4 className="text-sm font-bold text-slate-300 mb-2">Drop local resource to begin standardization</h4>
-                            <p className="text-[10px] text-slate-500 font-medium">PDF, DOCX, or MD • MDX Preferred</p>
+                            <p className="text-[10px] text-slate-500 font-medium">PDF, DOCX, or MD â€¢ MDX Preferred</p>
                         </div>
 
                         <div className="pt-6">
@@ -82,7 +82,7 @@ export default function PublishingPage() {
                                             </div>
                                             <div>
                                                 <p className="text-sm font-bold text-white">{pub.title}</p>
-                                                <p className="text-[10px] text-slate-500 font-medium">{pub.author} • {pub.date}</p>
+                                                <p className="text-[10px] text-slate-500 font-medium">{pub.author} â€¢ {pub.date}</p>
                                             </div>
                                         </div>
                                         <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded ${pub.status === 'Published' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-amber-500/10 text-amber-500'}`}>
@@ -105,7 +105,7 @@ export default function PublishingPage() {
                             {[
                                 { label: "Standardization Engine", status: "Optimal", val: "100%" },
                                 { label: "Cross-Node Distribution", status: "Active", val: "88%" },
-                                { label: "Version Control Synthesis", status: "Standby", val: "—" }
+                                { label: "Version Control Synthesis", status: "Standby", val: "â€”" }
                             ].map((item, i) => (
                                 <div key={i} className="space-y-2">
                                     <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-tighter">

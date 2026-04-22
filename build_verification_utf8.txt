@@ -1,0 +1,100 @@
+﻿node.exe : npm warn using 
+--force Recommended 
+protections disabled.
+At line:1 char:1
++ & 
+"C:\nvm4w\nodejs/node.exe" "C:
+\nvm4w\nodejs/node_modules/npm
+/bin/np ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~
+    + CategoryInfo          : 
+No    tSpecified: (npm warn 
+using     ...tions 
+disabled.:String) [    ], 
+RemoteException
+    + FullyQualifiedErrorId : 
+Na    tiveCommandError
+ 
+
+> edintel-app@1.0.0 prebuild
+> node -e "const fs = require('fs'); if (fs.existsSync('.next')) fs.rmSync('.next', { recursive: true, force: true });"
+
+
+> edintel-app@1.0.0 build
+> prisma generate && next build
+
+Environment variables loaded from .env
+Prisma schema loaded from prisma\schema.prisma
+
+Γ£ö Generated Prisma Client (v5.22.0) to .\node_modules\@prisma\client in 178ms
+
+Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+
+Tip: Easily identify and fix slow SQL queries in your app. Optimize helps you enhance your visibility: https://pris.ly/--optimize
+
+   Γû▓ Next.js 15.1.12
+   - Environments: .env.production.local, .env.local, .env.production, .env
+
+   Creating an optimized production build ...
+ Γ£ô Compiled successfully
+   Skipping validation of types
+   Skipping linting
+   Collecting page data ...
+ ΓÜá Using edge runtime on a 
+page currently disables 
+static generation for that 
+page
+   Generating static pages (0/143) ...
+Error occurred prerendering 
+page "/". Read more: https://n
+extjs.org/docs/messages/preren
+der-error
+ReferenceError: useTransition 
+is not defined
+    at e0 (C:\Users\nivla\edin
+tel-app\.next\server\app\page.
+js:1:26646)
+    at n$ (C:\Users\nivla\edin
+tel-app\node_modules\next\dist
+\compiled\next-server\app-page
+.runtime.prod.js:20:45959)
+    at nI (C:\Users\nivla\edin
+tel-app\node_modules\next\dist
+\compiled\next-server\app-page
+.runtime.prod.js:20:47734)
+    at nI (C:\Users\nivla\edin
+tel-app\node_modules\next\dist
+\compiled\next-server\app-page
+.runtime.prod.js:20:62515)
+    at nL (C:\Users\nivla\edin
+tel-app\node_modules\next\dist
+\compiled\next-server\app-page
+.runtime.prod.js:20:65533)
+    at nN (C:\Users\nivla\edin
+tel-app\node_modules\next\dist
+\compiled\next-server\app-page
+.runtime.prod.js:20:63164)
+    at nB (C:\Users\nivla\edin
+tel-app\node_modules\next\dist
+\compiled\next-server\app-page
+.runtime.prod.js:20:68946)
+    at nD (C:\Users\nivla\edin
+tel-app\node_modules\next\dist
+\compiled\next-server\app-page
+.runtime.prod.js:20:67647)
+    at nL (C:\Users\nivla\edin
+tel-app\node_modules\next\dist
+\compiled\next-server\app-page
+.runtime.prod.js:20:65800)
+    at nN (C:\Users\nivla\edin
+tel-app\node_modules\next\dist
+\compiled\next-server\app-page
+.runtime.prod.js:20:63164)
+Export encountered an error 
+on /page: /, exiting the 
+build.
+ Γ¿» Next.js build worker 
+exited with code: 1 and 
+signal: null

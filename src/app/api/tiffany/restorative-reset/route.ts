@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 import { generateRestorativeScript, RestorativeContext } from '@/utils/restorative-service';
 import { createClient } from '@/utils/supabase/server';
 

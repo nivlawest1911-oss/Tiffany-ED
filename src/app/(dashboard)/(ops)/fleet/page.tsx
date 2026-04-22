@@ -6,10 +6,15 @@ import { HolographicBackground } from '@/components/ui/HolographicBackground';
 import { GlassCard } from '@/components/ui/Cinematic';
 import FleetCommander from '@/components/fleet/FleetCommander';
 import { RegionalIntelligenceFeed } from '@/components/fleet/RegionalIntelligenceFeed';
+import { useGlobalSynapse } from '@/context/GlobalSynapseContext';
+import { SovereignGatekeeper } from '@/components/auth/SovereignGatekeeper';
 
 export default function FleetPage() {
+    const { authStatus, curriculumLoad, uplinkHealth } = useGlobalSynapse();
+    
     return (
-        <div className="relative flex flex-col font-inter text-slate-200">
+        <SovereignGatekeeper>
+            <div className="relative flex flex-col font-inter text-slate-200">
             <HolographicBackground />
 
             {/* Header / Hero */}
@@ -36,16 +41,16 @@ export default function FleetPage() {
                     <GlassCard className="px-6 py-4 flex items-center gap-4 border-noble-gold/20 bg-noble-gold/5">
                         <Shield className="w-5 h-5 text-noble-gold" />
                         <div>
-                            <div className="text-[9px] font-black text-noble-gold/60 uppercase tracking-widest mb-1">Fleet Security Level</div>
-                            <div className="text-sm font-bold text-white uppercase tracking-tight tracking-tighter">Sovereign Ultra</div>
+                            <div className="text-[9px] font-black text-noble-gold/60 uppercase tracking-widest mb-1">Fleet Auth Status</div>
+                            <div className="text-sm font-bold text-white uppercase tracking-tight tracking-tighter">{authStatus}</div>
                         </div>
                     </GlassCard>
 
                     <GlassCard className="px-6 py-4 flex items-center gap-4 border-cyan-500/20 bg-cyan-500/5">
                         <Cpu className="w-5 h-5 text-cyan-400" />
                         <div>
-                            <div className="text-[9px] font-black text-cyan-400/60 uppercase tracking-widest mb-1">Global Neural Load</div>
-                            <div className="text-sm font-bold text-white uppercase tracking-tighter italic">66% Aggregate</div>
+                            <div className="text-[9px] font-black text-cyan-400/60 uppercase tracking-widest mb-1">Uplink Synapse</div>
+                            <div className="text-sm font-bold text-white uppercase tracking-tighter italic">{Math.round(curriculumLoad)}% Aggregate</div>
                         </div>
                     </GlassCard>
                 </div>
@@ -82,5 +87,6 @@ export default function FleetPage() {
                 </div>
             </div>
         </div>
+        </SovereignGatekeeper>
     );
 }

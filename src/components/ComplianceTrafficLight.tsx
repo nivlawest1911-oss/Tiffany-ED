@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { ShieldCheck, AlertTriangle, FileWarning, CheckCircle, Info } from 'lucide-react';
 
 export default function ComplianceTrafficLight() {

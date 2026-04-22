@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { Check, Star, ArrowRight, Sparkles, Crown, GraduationCap, Briefcase, Building } from "lucide-react";
 import { useTransition } from 'react';
 import { motion } from 'framer-motion';

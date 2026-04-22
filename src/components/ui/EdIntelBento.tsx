@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { Sparkles } from 'lucide-react';
 import { useEdIntelVibe } from '@/context/EdIntelVibeContext';

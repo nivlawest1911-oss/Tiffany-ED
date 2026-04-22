@@ -1,9 +1,9 @@
-'use server';
+"use server";
 
-import { prisma } from '@/lib/prisma';
-import { UserRole } from '@prisma/client';
+import { UserRole } from '@/generated/prisma';
 import bcrypt from 'bcryptjs';
-import { login } from '@/lib/auth';
+
+import { headers } from 'next/headers';
 
 interface OnboardingData {
   organizationName: string;
@@ -25,6 +25,7 @@ interface OnboardingData {
  * 5. Automatically logs the user in.
  */
 export async function onboardOrganization(data: OnboardingData) {
+  const { prisma } = await import('@/lib/prisma');
   console.log('[AuthAction] onboardOrganization started for admin email:', data.adminEmail);
   const { organizationName, adminEmail, adminName, password, districtId, initialTokenBalance = 50 } = data;
 
@@ -41,7 +42,7 @@ export async function onboardOrganization(data: OnboardingData) {
     }
 
     console.log('[AuthAction] Executing database transaction...');
-    const transactionResult = await prisma.$transaction(async (tx) => {
+    const transactionResult = await prisma.$transaction(async (tx: any) => {
       // 1. Create the School (Organization)
       const school = await tx.school.create({
         data: {
@@ -122,12 +123,8 @@ export async function onboardOrganization(data: OnboardingData) {
     // 6. Automatic Login
     if (transactionResult.success) {
         console.log(`[AuthAction] Attempting to log in user ID: ${transactionResult.userId}`);
-        await login({
-            id: transactionResult.userId,
-            email: transactionResult.userEmail,
-            name: transactionResult.userName,
-            tier: 'Director Pack' // Admin gets high tier status by default
-        });
+        // Better Auth handles the session automatically via state/cookies
+        // Removing legacy login call
         console.log(`[AuthAction] User ID: ${transactionResult.userId} logged in successfully.`);
     }
 
@@ -141,4 +138,78 @@ export async function onboardOrganization(data: OnboardingData) {
         error: error.message || 'The sovereign node could not be initialized. Please verify your connection.' 
     };
   }
+}
+
+/**
+ * executeSocialUplink
+ * 
+ * Secure wrapper for Social Authentication.
+ */
+export async function executeSocialUplink(provider: 'google' | 'github' | 'microsoft', _turnstileToken?: string) {
+    const { auth } = await import('@/lib/auth');
+    console.log(`[AuthAction] executeSocialUplink initiated for provider: ${provider}`);
+    
+    try {
+        // Use the auth instance (dynamically imported to prevent client leak)
+        const result = await auth.api.signInSocial({
+            headers: await headers(),
+            body: {
+                provider,
+                callbackURL: '/dashboard',
+                // Turnstile token is typically handled by the hook via headers
+            }
+        });
+
+        return { 
+            success: true, 
+            url: result.url 
+        };
+    } catch (error: any) {
+        console.error('[AuthAction] Social Uplink Failed:', error);
+        return { success: false, error: error.message || "Neural handshake interrupted." };
+    }
+}
+
+/**
+ * executeEmailUplink
+ * 
+ * Secure wrapper for Email/Password Authentication.
+ */
+export async function executeEmailUplink(data: { email: string; password?: string; name?: string; type: 'signIn' | 'signUp' }) {
+    const { auth } = await import('@/lib/auth');
+    console.log(`[AuthAction] executeEmailUplink initiated for: ${data.email} (${data.type})`);
+    
+    try {
+        const headerList = await headers();
+        
+        let result;
+        if (data.type === 'signIn') {
+            result = await auth.api.signInEmail({
+                headers: headerList,
+                body: {
+                    email: data.email,
+                    password: data.password || '',
+                }
+            });
+        } else {
+            result = await auth.api.signUpEmail({
+                headers: headerList,
+                body: {
+                    email: data.email,
+                    password: data.password || '',
+                    name: data.name || 'Sovereign Educator',
+                }
+            });
+        }
+
+        if (result?.user) {
+            console.log(`[AuthAction] Email authentication successful.`);
+            return { success: true };
+        }
+
+        return { success: false, error: "Authentication signature invalid." };
+    } catch (error: any) {
+        console.error('[AuthAction] Email Uplink Failed:', error);
+        return { success: false, error: error.message || "Manual uplink failed. Verify credentials." };
+    }
 }

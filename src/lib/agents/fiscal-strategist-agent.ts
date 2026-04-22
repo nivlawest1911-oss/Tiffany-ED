@@ -1,4 +1,4 @@
-import { ToolLoopAgent, stepCountIs, tool } from 'ai';
+﻿import { ToolLoopAgent, stepCountIs, tool } from 'ai';
 import { google } from '@ai-sdk/google';
 import { z } from 'zod';
 import { TokenService } from '@/lib/services/token-service';
@@ -43,7 +43,7 @@ export function createFiscalStrategistAgent() {
       1. Focus on Title I Part A allocation and eGAP (Electronic Grant Application Process) compliance.
       2. Adhere strictly to Alabama Red Book standards for school accounting.
       3. Provide multi-phase implementation plans with specific KPIs for Mobile County Schools.
-      4. Cite specific Alabama codes (e.g., "Ala. Code § 16-6G-1").
+      4. Cite specific Alabama codes (e.g., "Ala. Code Â§ 16-6G-1").
       5. No fluff. Be dense and high-entropy.
     `,
         tools: {
@@ -89,7 +89,7 @@ export function createFiscalStrategistAgent() {
                         reasoning: risk === 'HIGH'
                             ? 'Title I funds must be primarily instructional. Administrative overhead identified.'
                             : isHighDollar ? 'High-value transaction flagged for mandatory audit review.' : 'Aligned with instructional goals.',
-                        redBookReference: "Alabama Administrative Code § 290-2-1-.01",
+                        redBookReference: "Alabama Administrative Code Â§ 290-2-1-.01",
                         vulnerabilityScore: risk === 'HIGH' ? 85 : risk === 'MEDIUM' ? 45 : 12
                     };
                 },

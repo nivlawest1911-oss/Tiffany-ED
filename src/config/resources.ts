@@ -1,4 +1,4 @@
-/**
+﻿/**
  * EdIntel Suite - Official Resource Registry
  * 
  * This configuration file defines all authoritative sources for the Legal Singularity Vault.
@@ -264,7 +264,7 @@ export const RESEARCH_VALIDATION: ResourceNode[] = [
         url: 'https://www.researchgate.net',
         category: 'research',
         priority: 'high',
-        description: 'Montessori environments build Working Memory, Inhibitory Control, and Cognitive Flexibility—the three pillars of EdIntel Neural Sync',
+        description: 'Montessori environments build Working Memory, Inhibitory Control, and Cognitive Flexibilityâ€”the three pillars of EdIntel Neural Sync',
         tags: ['Montessori', 'executive-function', 'working-memory', 'inhibitory-control', 'cognitive-flexibility', 'peer-reviewed'],
         lastVerified: '2025-12-27'
     },

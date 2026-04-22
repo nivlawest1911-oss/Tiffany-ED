@@ -1,4 +1,4 @@
-// src/app/support/data.ts
+﻿// src/app/support/data.ts
 
 export const POPULAR_ARTICLES = [
     { id: 1, title: 'How to allocate Professional Tokens to sub-nodes?' },

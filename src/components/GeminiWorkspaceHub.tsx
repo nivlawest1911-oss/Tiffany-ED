@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 /**
  * Gemini Workspace Hub - Import and manage content from Google Gemini

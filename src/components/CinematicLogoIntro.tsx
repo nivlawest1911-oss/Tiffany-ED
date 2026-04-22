@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useState, useRef, useCallback } from 'react'
@@ -410,7 +410,7 @@ export function CinematicLogoIntro({
               
               <div className="relative w-full h-full rounded-3xl overflow-hidden ring-2 ring-[#D4AF37]/50 shadow-2xl">
                 <Image
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/edintel_logo_high_fidelity_1774298407403.png-40aMNM0IwgAivJXguDqZ1AimCtnxVu.jpeg"
+                  src="/images/edintel-logo.png"
                   alt="EdIntel Logo"
                   fill
                   className="object-contain p-4"

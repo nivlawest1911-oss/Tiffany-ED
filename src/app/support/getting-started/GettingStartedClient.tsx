@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { Search, ChevronRight, FileText, Zap, Shield as LucideShield, HelpCircle, Terminal, Cpu, Clock, Key } from 'lucide-react';
 

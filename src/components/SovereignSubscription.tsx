@@ -1,6 +1,6 @@
-'use client';
+﻿'use client';
 
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle, Zap, Info, CircleDollarSign } from "lucide-react";
 import { createEdIntelCheckout } from '@/app/actions/professional-stripe';
@@ -9,6 +9,7 @@ import { useIntelligence } from '@/context/IntelligenceContext';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 import { EdIntel_TIERS } from '@/lib/pricing-config';
 import HolographicBriefing from '@/components/intelligence/HolographicBriefing';
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import UniversalPaymentHub from '@/components/UniversalPaymentHub';
 
 interface SovereignSubscriptionProps {
@@ -16,10 +17,10 @@ interface SovereignSubscriptionProps {
 }
 
 export default function SovereignSubscription({ showBriefingButton = true }: SovereignSubscriptionProps) {
-    const [openFaq, setOpenFaq] = useState<number | null>(null);
     const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
     const [showBriefing, setShowBriefing] = useState(false);
     const [showPaymentHub, setShowPaymentHub] = useState<{ amount: number, name: string } | null>(null);
+    const [_isPending, startTransition] = useTransition();
 
     const { user } = useAuth();
     const { generateBriefing } = useIntelligence();
@@ -103,7 +104,10 @@ export default function SovereignSubscription({ showBriefingButton = true }: Sov
                 >
                     {showBriefingButton && (
                         <button
-                            onClick={() => { playClick(); setShowBriefing(true); }}
+                            onClick={() => { 
+                                playClick(); 
+                                startTransition(() => setShowBriefing(true)); 
+                            }}
                             className="inline-flex items-center gap-3 px-6 py-2 rounded-full border border-noble-gold/20 bg-noble-gold/5 text-noble-gold text-[9px] font-black uppercase tracking-[0.3em] hover:bg-noble-gold/10 transition-all mb-8 shadow-[0_0_20px_rgba(212,175,55,0.1)]"
                         >
                             <CircleDollarSign size={14} className="animate-pulse" />
@@ -123,7 +127,7 @@ export default function SovereignSubscription({ showBriefingButton = true }: Sov
                 </motion.div>
 
                 {/* Tiers Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-24">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-24 min-h-[900px] [content-visibility:auto] [contain-intrinsic-size:900px]">
                     {EdIntel_TIERS.map((tier, idx) => (
                         <motion.div
                             key={tier.id}
@@ -187,7 +191,9 @@ export default function SovereignSubscription({ showBriefingButton = true }: Sov
 
                                         // Fallback to internal payment hub or checkout session
                                         if (tier.price > 100) {
-                                            setShowPaymentHub({ amount: tier.price, name: tier.name });
+                                            startTransition(() => {
+                                                setShowPaymentHub({ amount: tier.price, name: tier.name });
+                                            });
                                             return;
                                         }
 
@@ -228,37 +234,37 @@ export default function SovereignSubscription({ showBriefingButton = true }: Sov
                 </div>
 
                 {/* FAQ Cluster */}
-                <div className="max-w-4xl mx-auto pb-32 relative z-10">
+                <div className="max-w-4xl mx-auto pb-32 relative z-10 min-h-[600px] [content-visibility:auto] [contain-intrinsic-size:600px]">
                     <div className="text-center mb-16">
                         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded bg-noble-gold/10 border border-noble-gold/20 text-noble-gold text-[10px] font-black uppercase tracking-[0.3em] mb-4 italic">
                             Verification Protocols
                         </div>
                         <h2 className="text-5xl font-black text-white uppercase tracking-tighter italic">Strategic Queries</h2>
                     </div>
-                    <div className="grid gap-6">
+                    <Accordion type="single" collapsible className="grid gap-6">
                         {faqs.map((faq, idx) => (
-                            <div key={idx} className="rounded-3xl bg-zinc-900/40 border border-white/5 overflow-hidden transition-all hover:border-noble-gold/40 backdrop-blur-xl group">
-                                <button
-                                    onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                                    className="w-full px-12 py-10 flex items-center justify-between text-left"
+                            <AccordionItem 
+                                key={idx} 
+                                value={`item-${idx}`} 
+                                className="rounded-3xl bg-zinc-900/40 border border-white/5 overflow-hidden transition-all hover:border-noble-gold/40 backdrop-blur-xl group mb-6 last:mb-0"
+                            >
+                                <AccordionTrigger 
+                                    className="w-full px-12 py-10 flex items-center justify-between text-left hover:no-underline [&>svg]:hidden"
+                                    onClick={() => playClick()}
                                 >
                                     <span className="text-2xl font-black text-zinc-400 uppercase tracking-tighter group-hover:text-white transition-colors">{faq.question}</span>
-                                    <div className={`p-4 rounded-xl transition-all duration-500 ${openFaq === idx ? 'bg-noble-gold rotate-180' : 'bg-black/40'}`}>
-                                        <Zap size={24} className={openFaq === idx ? 'text-black' : 'text-zinc-600'} />
+                                    <div className={`p-4 rounded-xl transition-all duration-500 bg-black/40 group-data-[state=open]:bg-noble-gold group-data-[state=open]:rotate-180`}>
+                                        <Zap size={24} className="text-zinc-600 group-data-[state=open]:text-black" />
                                     </div>
-                                </button>
-                                <AnimatePresence>
-                                    {openFaq === idx && (
-                                        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
-                                            <div className="px-12 pb-12 text-zinc-400 text-xl italic border-t border-white/5 pt-8 leading-relaxed">
-                                                {faq.answer}
-                                            </div>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </div>
+                                </AccordionTrigger>
+                                <AccordionContent className="bg-transparent border-none">
+                                    <div className="px-12 pb-12 text-zinc-400 text-xl italic border-t border-white/5 pt-8 leading-relaxed">
+                                        {faq.answer}
+                                    </div>
+                                </AccordionContent>
+                            </AccordionItem>
                         ))}
-                    </div>
+                    </Accordion>
                 </div>
             </div>
         </div>

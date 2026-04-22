@@ -1,4 +1,4 @@
-import Image from "next/image" // Import the Image component
+﻿import Image from "next/image" // Import the Image component
 
 export function DashboardPreview() {
   return (

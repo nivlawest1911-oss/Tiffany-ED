@@ -1,4 +1,4 @@
-/**
+﻿/**
  * EdIntel Professional - Gemini Workspace Integration
  * Sync and manage content from Google Gemini workspace
  */

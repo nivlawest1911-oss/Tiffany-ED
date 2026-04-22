@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import { useHumanBehavior } from '@/hooks/useHumanBehavior';
@@ -54,7 +54,7 @@ export default function HumanAvatar({
             alt={alt}
             width={400}
             height={400}
-            className={`${className} transition-all duration-700 ${isFocused ? 'brightness-[1.1] drop-shadow-[0_0_20px_rgba(212,175,55,0.3)] scale-[1.02]' : ''}`}
+            className={`${className} transition-all duration-700 aspect-square object-cover ${isFocused ? 'brightness-[1.1] drop-shadow-[0_0_20px_rgba(212,175,55,0.3)] scale-[1.02]' : ''}`}
             animate={mergedAnimate}
             transition={{ duration: 3.5, ease: [0.23, 1, 0.32, 1] }}
             onClick={onClick}

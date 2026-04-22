@@ -1,4 +1,4 @@
-/**
+﻿/**
  * CollectiveLearningEngine.ts
  * Manages the aggregation of strategic insights and swarm-wide intelligence.
  */

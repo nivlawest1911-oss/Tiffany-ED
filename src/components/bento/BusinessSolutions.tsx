@@ -1,6 +1,6 @@
 'use client';
 
-import { Facebook, Globe, Laptop, BookOpen, Brain, Briefcase, ExternalLink, Leaf, Shield as LucideShield, ArrowRight } from "lucide-react";
+import { Zap as Facebook, Globe, Laptop, BookOpen, Brain, Briefcase, ExternalLink, Leaf, Shield as LucideShield, ArrowRight } from "lucide-react";
 import React from 'react';
 import { BUSINESS_SOLUTIONS_BG } from '@/lib/assets';
 import Link from 'next/link';
@@ -25,7 +25,13 @@ export default function BusinessSolutions() {
                             </div>
                             <span className="text-[10px] uppercase font-bold text-teal-300 tracking-[0.2em] pr-2">Professional Growth Hub</span>
                         </div>
-                        <a href="https://www.facebook.com/TranscendSo/" target="_blank" className="p-3 rounded-full bg-white/10 hover:bg-teal-500 text-white transition-colors backdrop-blur-sm border border-white/10">
+                        <a 
+                            href="https://www.facebook.com/TranscendSo/" 
+                            target="_blank" 
+                            rel="noopener" 
+                            title="Visit Facebook"
+                            className="p-3 rounded-full bg-white/10 hover:bg-teal-500 text-white transition-colors backdrop-blur-sm border border-white/10"
+                        >
                             <Facebook size={20} />
                         </a>
                     </div>
@@ -119,7 +125,12 @@ export default function BusinessSolutions() {
                             </p>
                         </div>
                     </div>
-                    <a href="http://www.transcendholisticwellness.com/" target="_blank" className="px-8 py-3 rounded-xl bg-white text-black hover:bg-teal-500 hover:text-white transition-colors font-bold text-xs uppercase tracking-widest flex items-center gap-2 cursor-pointer shadow-lg shadow-white/5">
+                    <a 
+                        href="http://www.transcendholisticwellness.com/" 
+                        target="_blank" 
+                        rel="noopener" 
+                        className="px-8 py-3 rounded-xl bg-white text-black hover:bg-teal-500 hover:text-white transition-colors font-bold text-xs uppercase tracking-widest flex items-center gap-2 cursor-pointer shadow-lg shadow-white/5"
+                    >
                         Visit Official Website <ExternalLink size={12} />
                     </a>
                 </div>

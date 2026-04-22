@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { Users, Search, GraduationCap } from 'lucide-react';
 

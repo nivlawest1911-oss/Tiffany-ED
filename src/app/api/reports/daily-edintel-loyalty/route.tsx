@@ -1,4 +1,4 @@
-import { Resend } from 'resend';
+﻿import { Resend } from 'resend';
 import { renderToBuffer } from '@react-pdf/renderer';
 import DailyEdIntelPDF from '@/components/reports/DailyEdIntelPDF';
 import React from 'react';

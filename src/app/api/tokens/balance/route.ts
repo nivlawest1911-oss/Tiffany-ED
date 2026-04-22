@@ -1,4 +1,4 @@
-/**
+﻿/**
  * EdIntel Professional - Token Balance API
  * Check balance and deduct tokens for AI usage
  * 

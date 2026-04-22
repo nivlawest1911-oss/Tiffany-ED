@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import { Play, FileText, Lock, Shield, Share2, MapPin } from 'lucide-react';

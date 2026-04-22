@@ -1,8 +1,8 @@
-import { supabase } from '@/lib/supabase';
+﻿import { supabase } from '@/lib/supabase';
 import { NextResponse } from 'next/server';
 
 /**
- * 📵 STOP PROTOCOL: Universal Unsubscribe Node for EdIntel Alerts
+ * ðŸ“µ STOP PROTOCOL: Universal Unsubscribe Node for EdIntel Alerts
  * Captures inbound WhatsApp 'STOP' commands and blacklists numbers in the global identity cluster.
  */
 export async function POST(req: Request) {
@@ -22,7 +22,7 @@ export async function POST(req: Request) {
                 return NextResponse.json({ error: 'Identity cluster unreachable' }, { status: 503 });
             }
 
-            // 🛰️ Execute Blacklist Synchronization
+            // ðŸ›°ï¸ Execute Blacklist Synchronization
             const { error } = await supabase
                 .from('communication_blacklist')
                 .upsert({

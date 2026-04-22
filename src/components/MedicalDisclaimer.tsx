@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { AlertCircle } from 'lucide-react';
 
 export default function MedicalDisclaimer() {

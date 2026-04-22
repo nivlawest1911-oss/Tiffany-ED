@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -171,8 +171,8 @@ export default function CommandPalette({ onCloseAction }: { onCloseAction?: () =
 
                             <div className="p-4 bg-black/40 border-t border-white/5 flex items-center justify-between text-[8px] font-black text-white/20 uppercase tracking-[0.4em]">
                                 <div className="flex gap-6">
-                                    <span>↑↓ Navigate</span>
-                                    <span>↵ Select</span>
+                                    <span>â†‘â†“ Navigate</span>
+                                    <span>â†µ Select</span>
                                 </div>
                                 <span>EdIntel OS Command v5.1.S</span>
                             </div>

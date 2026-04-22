@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import { Heart, Users, Scale, Sprout, GraduationCap, MapPin, ArrowRight, Globe, Activity } from "lucide-react";

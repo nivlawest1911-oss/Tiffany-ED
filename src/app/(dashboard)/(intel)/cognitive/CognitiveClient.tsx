@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useState, useTransition } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -19,6 +19,7 @@ import { useLeadershipRank } from '@/hooks/useLeadershipRank';
 import { SmartHover } from '@/components/ui/SmartHover';
 import { syncCalibrationAction } from './actions';
 import { toast } from 'sonner';
+import { useGlobalSynapse } from '@/context/GlobalSynapseContext';
 
 interface CognitiveClientProps {
     initialStats: {
@@ -32,6 +33,7 @@ export default function CognitiveClient({ initialStats }: CognitiveClientProps) 
     const [activeTab, setActiveTab] = useState<'simulator' | 'analytics' | 'certification'>('simulator');
     const [isPending, startTransition] = useTransition();
     const { addXP, xp, currentRank, progressToNext } = useLeadershipRank();
+    const { authStatus, curriculumLoad, uplinkHealth } = useGlobalSynapse();
 
     // Edge Telemetry Orchestration
     const syncToEdge = async (type: string, value: number) => {
@@ -241,6 +243,21 @@ export default function CognitiveClient({ initialStats }: CognitiveClientProps) 
                                             <span className="text-xs font-bold text-zinc-200 uppercase tracking-widest">{currentRank.title}</span>
                                         </div>
                                         <span className="text-xl font-black text-white">{Math.floor(progressToNext)}%</span>
+                                    </div>
+                                    <div className="h-px bg-zinc-800 my-4" />
+                                    <div className="flex justify-between items-center px-2">
+                                        <div className="flex items-center gap-3">
+                                            <Activity className="text-green-500" size={16} />
+                                            <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">UPLINK_HEALTH</span>
+                                        </div>
+                                        <span className="text-xs font-black text-white">{uplinkHealth}%</span>
+                                    </div>
+                                    <div className="flex justify-between items-center px-2">
+                                        <div className="flex items-center gap-3">
+                                            <RefreshCw className="text-cyan-500" size={16} />
+                                            <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">PEDAGOGY_LOAD</span>
+                                        </div>
+                                        <span className="text-xs font-black text-white">{Math.round(curriculumLoad)}%</span>
                                     </div>
                                 </div>
                                 <div className="mt-8 h-2 bg-zinc-800 rounded-full overflow-hidden">

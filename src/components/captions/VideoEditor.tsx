@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { Card } from '@/components/ui/card';
@@ -264,7 +264,7 @@ export function CaptionsEditor({ className = '' }: CaptionsEditorProps) {
                         >
                             <div className="p-4 bg-green-500/20 border border-green-500/50 rounded-lg">
                                 <p className="text-sm text-green-300 font-medium">
-                                    ✓ Video processed successfully!
+                                    âœ“ Video processed successfully!
                                 </p>
                             </div>
 

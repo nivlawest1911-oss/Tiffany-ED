@@ -1,4 +1,4 @@
-import { Coins } from "lucide-react"
+﻿import { Coins } from "lucide-react"
 
 export function TokenSection() {
   return (

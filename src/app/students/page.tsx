@@ -1,4 +1,4 @@
-import StudentsClient from './StudentsClient';
+﻿import StudentsClient from './StudentsClient';
 
 export const metadata = {
     title: 'Student Intel | EdIntel',

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -201,7 +201,7 @@ export const CommandPalette: React.FC = () => {
                         <div className="px-4 py-3 bg-white/5 border-t border-white/5 flex items-center justify-between text-[10px] text-zinc-600 font-bold uppercase tracking-widest">
                             <div className="flex items-center gap-4">
                                 <span className="flex items-center gap-1"><Command size={12} /> + Enter to Select</span>
-                                <span className="flex items-center gap-1">↑↓ to Navigate</span>
+                                <span className="flex items-center gap-1">â†‘â†“ to Navigate</span>
                             </div>
                             <span className="text-cyan-500 opacity-50">EdIntel Sovereign Search v1.0</span>
                         </div>

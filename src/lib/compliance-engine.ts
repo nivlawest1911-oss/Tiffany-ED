@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ALABAMA EDUCATIONAL COMPLIANCE ENGINE
  * Structured intelligence for state-specific educational mandates.
  */
@@ -18,7 +18,7 @@ export const ALABAMA_COMPLIANCE_DATA: Record<string, ComplianceStatute> = {
     LITERACY_ACT: {
         id: "SB216",
         name: "Alabama Literacy Act",
-        code: "Ala. Code § 16-6G-1",
+        code: "Ala. Code Â§ 16-6G-1",
         summary: "Requires all 3rd-grade students to read at or above grade level for promotion, implementing intensive reading interventions.",
         key_provisions: [
             "K-3 science of reading instruction requirement",
@@ -42,7 +42,7 @@ export const ALABAMA_COMPLIANCE_DATA: Record<string, ComplianceStatute> = {
     NUMERACY_ACT: {
         id: "SB171",
         name: "Alabama Numeracy Act",
-        code: "Ala. Code § 16-6H-1",
+        code: "Ala. Code Â§ 16-6H-1",
         summary: "Establishes a framework for improving mathematics proficiency in K-5 through coaching and high-quality instructional materials.",
         key_provisions: [
             "Step-by-step math coaching model implementation",
@@ -64,7 +64,7 @@ export const ALABAMA_COMPLIANCE_DATA: Record<string, ComplianceStatute> = {
     PARENTAL_RIGHTS: {
         id: "SB202",
         name: "Parental Rights in Education",
-        code: "Ala. Code § 16-1-52",
+        code: "Ala. Code Â§ 16-1-52",
         summary: "Protects the fundamental right of parents to direct the upbringing and education of their children.",
         key_provisions: [
             "Notification of health or well-being changes",
@@ -122,7 +122,7 @@ export const ALABAMA_COMPLIANCE_DATA: Record<string, ComplianceStatute> = {
     STUDENT_PRIVACY: {
         id: "ACT2015-456",
         name: "Alabama Student Data Privacy Act",
-        code: "Ala. Code § 16-6D-1",
+        code: "Ala. Code Â§ 16-6D-1",
         summary: "Regulates the collection, security, and use of student data by schools and third-party vendors.",
         key_provisions: [
             "Prohibition on selling student data",
@@ -161,7 +161,7 @@ export const FEDERAL_COMPLIANCE_DATA: Record<string, ComplianceStatute> = {
     FERPA: {
         id: "FERPA",
         name: "Family Educational Rights and Privacy Act",
-        code: "20 U.S.C. § 1232g",
+        code: "20 U.S.C. Â§ 1232g",
         summary: "Federal law that protects the privacy of student education records.",
         key_provisions: [
             "Right to inspect and review education records",
@@ -179,7 +179,7 @@ export const FEDERAL_COMPLIANCE_DATA: Record<string, ComplianceStatute> = {
     COPPA: {
         id: "COPPA",
         name: "Children's Online Privacy Protection Act",
-        code: "15 U.S.C. §§ 6501-6506",
+        code: "15 U.S.C. Â§Â§ 6501-6506",
         summary: "Regulates the collection of personal information from children under 13 by online services.",
         key_provisions: [
             "Verifiable parental consent required",
@@ -197,7 +197,7 @@ export const FEDERAL_COMPLIANCE_DATA: Record<string, ComplianceStatute> = {
     IDEA: {
         id: "IDEA",
         name: "Individuals with Disabilities Education Act",
-        code: "20 U.S.C. § 1400",
+        code: "20 U.S.C. Â§ 1400",
         summary: "Ensures students with a disability are provided with Free Appropriate Public Education (FAPE).",
         key_provisions: [
             "Free Appropriate Public Education (FAPE)",
@@ -220,7 +220,7 @@ export const FEDERAL_COMPLIANCE_DATA: Record<string, ComplianceStatute> = {
     SECTION_504: {
         id: "SECTION_504",
         name: "Section 504 of the Rehabilitation Act",
-        code: "29 U.S.C. § 794",
+        code: "29 U.S.C. Â§ 794",
         summary: "Civil rights law that prohibits discrimination on the basis of disability.",
         key_provisions: [
             "Broad definition of disability",
@@ -241,7 +241,7 @@ export const FEDERAL_COMPLIANCE_DATA: Record<string, ComplianceStatute> = {
     CIPA: {
         id: "CIPA",
         name: "Children's Internet Protection Act",
-        code: "47 U.S.C. § 254",
+        code: "47 U.S.C. Â§ 254",
         summary: "Requires schools to implement internet safety policies and filtering to receive E-rate discounts.",
         key_provisions: [
             "Internet filtering and blocking",

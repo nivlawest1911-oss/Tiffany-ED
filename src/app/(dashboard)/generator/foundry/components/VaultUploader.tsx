@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
@@ -59,7 +59,7 @@ export const VaultUploader: React.FC<VaultUploaderProps> = ({ companionId, onUpl
             setFiles(prev => prev.map((f, idx) => idx === i ? { ...f, status: 'uploading' } : f));
 
             try {
-                // ⚠️ Alpha Note: Client-side text extraction for PDF is complex without heavy libs.
+                // âš ï¸ Alpha Note: Client-side text extraction for PDF is complex without heavy libs.
                 // For now, we ingest .txt and .md content directly. PDF ingestion will be expanded later.
                 let content = "";
                 if (currentFile.file.name.endsWith('.txt') || currentFile.file.name.endsWith('.md')) {

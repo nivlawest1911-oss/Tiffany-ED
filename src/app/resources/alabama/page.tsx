@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers';
+﻿import { cookies } from 'next/headers';
 import AlabamaResourcesClient from './AlabamaResourcesClient';
 
 export const dynamic = 'force-dynamic';

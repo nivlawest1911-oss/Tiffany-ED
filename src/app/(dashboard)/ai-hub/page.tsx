@@ -1,4 +1,4 @@
-import { AIGeneratorsHub } from '@/components/ai-generators-hub';
+﻿import { AIGeneratorsHub } from '@/components/ai-generators-hub';
 
 export const metadata = {
     title: 'Neural Grid Hub | EdIntel Sovereign',

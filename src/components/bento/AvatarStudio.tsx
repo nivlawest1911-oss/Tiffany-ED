@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useState, useEffect, useRef } from 'react';
 import {
     User,
@@ -691,7 +691,7 @@ export default function AvatarStudio() {
                         <span className="text-[9px] font-mono tracking-widest uppercase">Encryption: AES-256</span>
                         <span className="text-[9px] font-mono tracking-widest uppercase">Center: DIRECTOR-01</span>
                     </div>
-                    <span className="text-[9px] font-mono tracking-widest uppercase">Dr. Alvin West, II | Director © 2025</span>
+                    <span className="text-[9px] font-mono tracking-widest uppercase">Dr. Alvin West, II | Director Â© 2025</span>
                 </div>
             </div>
         </div>

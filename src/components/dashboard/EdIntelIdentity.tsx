@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import { Shield, MapPin, Scale, Award, Info } from 'lucide-react';

@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers';
+﻿import { cookies } from 'next/headers';
 import { Sparkles } from 'lucide-react';
 import React from 'react';
 import FeaturesContent from './FeaturesContent';

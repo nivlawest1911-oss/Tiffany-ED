@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import React from 'react';
 import { EdIntelPlayer } from '@/components/ui/EdIntelPlayer';
 import { motion } from 'framer-motion';

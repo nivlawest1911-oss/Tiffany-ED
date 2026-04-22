@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState } from 'react';
 import { Shield, Key, Lock, Eye, EyeOff, Cpu, Database, Zap, Activity, User as UserIcon, Mic, Globe } from 'lucide-react';
@@ -16,16 +16,16 @@ export default function EdIntelApiVault() {
     const [isOpen, setIsOpen] = useState(false);
 
     const _INITIAL_KEYS: ApiKey[] = [
-        { id: 'openai', name: 'Neural Processing (GPT-4o)', key: 'sk-proj-••••••••••••••••••••••••••••••••3a2f', status: 'active', usage: 12 },
-        { id: 'google', name: 'Quantum Reasoning (Gemini 2.0)', key: 'AIzaSy••••••••••••••••••••••••••••7b9d', status: 'active', usage: 45 },
-        { id: 'vertex', name: 'Vertex AI EdIntel (Gemini 1.5 Pro)', key: 'vtx-••••••••••••••••••••••••••••1a2b', status: 'active', usage: 89 },
-        { id: 'vision', name: 'Vision Intelligence (OCR & Analysis)', key: 'vis-••••••••••••••••••••••••••••3c4d', status: 'active', usage: 22 },
-        { id: 'bigquery', name: 'Strategic Data Analytics (BigQuery)', key: 'bq-••••••••••••••••••••••••••••5e6f', status: 'active', usage: 15 },
-        { id: 'meta', name: 'Open Architecture (Llama 3 405B)', key: 'meta-••••••••••••••••••••••••••••0c1f', status: 'active', usage: 5 },
-        { id: 'mistral', name: 'Efficiency Core (Mistral Large)', key: 'mi-••••••••••••••••••••••••••••9d4e', status: 'active', usage: 18 },
-        { id: 'anthropic', name: 'Reasoning Engine (Claude 3.5)', key: 'sk-ant-••••••••••••••••••••••••••••2e1c', status: 'active', usage: 8 },
-        { id: 'heygen', name: 'Avatar Synthesis (HeyGen v2)', key: 'hg-••••••••••••••••••••••••••••9f4d', status: 'active', usage: 60 },
-        { id: 'elevenlabs', name: 'Vocal Emulation (ElevenLabs)', key: 'el-••••••••••••••••••••••••••••5a2b', status: 'active', usage: 32 },
+        { id: 'openai', name: 'Neural Processing (GPT-4o)', key: 'sk-proj-â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢3a2f', status: 'active', usage: 12 },
+        { id: 'google', name: 'Quantum Reasoning (Gemini 2.0)', key: 'AIzaSyâ€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢7b9d', status: 'active', usage: 45 },
+        { id: 'vertex', name: 'Vertex AI EdIntel (Gemini 1.5 Pro)', key: 'vtx-â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢1a2b', status: 'active', usage: 89 },
+        { id: 'vision', name: 'Vision Intelligence (OCR & Analysis)', key: 'vis-â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢3c4d', status: 'active', usage: 22 },
+        { id: 'bigquery', name: 'Strategic Data Analytics (BigQuery)', key: 'bq-â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢5e6f', status: 'active', usage: 15 },
+        { id: 'meta', name: 'Open Architecture (Llama 3 405B)', key: 'meta-â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢0c1f', status: 'active', usage: 5 },
+        { id: 'mistral', name: 'Efficiency Core (Mistral Large)', key: 'mi-â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢9d4e', status: 'active', usage: 18 },
+        { id: 'anthropic', name: 'Reasoning Engine (Claude 3.5)', key: 'sk-ant-â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢2e1c', status: 'active', usage: 8 },
+        { id: 'heygen', name: 'Avatar Synthesis (HeyGen v2)', key: 'hg-â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢9f4d', status: 'active', usage: 60 },
+        { id: 'elevenlabs', name: 'Vocal Emulation (ElevenLabs)', key: 'el-â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢5a2b', status: 'active', usage: 32 },
     ];
 
     const [keys, setKeys] = useState<{ [key: string]: string }>({

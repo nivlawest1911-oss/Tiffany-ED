@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -120,7 +120,7 @@ export default function FloatingNavbar() {
                                                     transition={{ duration: 0.3 }}
                                                     className="group-hover:rotate-180 transition-transform text-[8px]"
                                                 >
-                                                    ▼
+                                                    â–¼
                                                 </motion.span>
                                             </Link>
                                             {/* Dropdown Menu */}

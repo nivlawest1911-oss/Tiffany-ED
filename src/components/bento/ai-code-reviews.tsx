@@ -1,4 +1,4 @@
-import type React from "react"
+﻿import type React from "react"
 
 const AiCodeReviews: React.FC = () => {
   
@@ -75,7 +75,7 @@ const AiCodeReviews: React.FC = () => {
               Apply changes
             </span>
             <span className="bento-apply-kbd">
-              ⌘Y
+              âŒ˜Y
             </span>
           </button>
         </div>

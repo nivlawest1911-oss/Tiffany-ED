@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import { Activity, ShieldCheck, Heart, Zap } from 'lucide-react';

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -32,7 +32,7 @@ const AGENTS = {
         bgColor: "bg-emerald-500/5"
     },
     tactical: {
-        name: "André Patterson",
+        name: "AndrÃ© Patterson",
         role: "Tactical Specialist",
         avatar: "/images/avatars/andre_patterson_premium.png",
         color: "text-blue-400",

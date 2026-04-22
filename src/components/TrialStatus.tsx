@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { Clock, TrendingUp, DollarSign, Shield } from 'lucide-react';
 import { useLeadershipRank } from '@/hooks/useLeadershipRank';
 import { useAuth } from '@/context/AuthContext';

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import { DollarSign, Users, CheckCircle, XCircle, TrendingUp } from 'lucide-react';
@@ -103,11 +103,11 @@ export function CHOOSEActCalculator({ income, size }: CHOOSEActCalculatorProps) 
                             <div className="mt-4 space-y-2">
                                 <h5 className="text-xs font-bold text-green-300">Eligible Expenses:</h5>
                                 <ul className="text-xs text-zinc-400 space-y-1">
-                                    <li>✓ Private school tuition</li>
-                                    <li>✓ Homeschool curriculum</li>
-                                    <li>✓ Tutoring services</li>
-                                    <li>✓ Educational therapy</li>
-                                    <li>✓ Online learning programs</li>
+                                    <li>âœ“ Private school tuition</li>
+                                    <li>âœ“ Homeschool curriculum</li>
+                                    <li>âœ“ Tutoring services</li>
+                                    <li>âœ“ Educational therapy</li>
+                                    <li>âœ“ Online learning programs</li>
                                 </ul>
                             </div>
                         </div>

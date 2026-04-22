@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import { FileText, Users, Target, Calendar, Shield } from 'lucide-react';
@@ -104,16 +104,16 @@ export function IEPArchitect({ studentId, type }: IEPArchitectProps) {
                 <h4 className="text-sm font-bold text-white mb-3">Accommodations</h4>
                 <div className="grid grid-cols-2 gap-2">
                     <div className="bg-zinc-800/50 border border-zinc-700 rounded-lg p-3 text-sm text-zinc-300">
-                        ✓ Extended time (50%)
+                        âœ“ Extended time (50%)
                     </div>
                     <div className="bg-zinc-800/50 border border-zinc-700 rounded-lg p-3 text-sm text-zinc-300">
-                        ✓ Reduced distraction
+                        âœ“ Reduced distraction
                     </div>
                     <div className="bg-zinc-800/50 border border-zinc-700 rounded-lg p-3 text-sm text-zinc-300">
-                        ✓ Digital scaffolding
+                        âœ“ Digital scaffolding
                     </div>
                     <div className="bg-zinc-800/50 border border-zinc-700 rounded-lg p-3 text-sm text-zinc-300">
-                        ✓ Multi-sensory tools
+                        âœ“ Multi-sensory tools
                     </div>
                 </div>
             </div>
@@ -125,7 +125,7 @@ export function IEPArchitect({ studentId, type }: IEPArchitectProps) {
                             Student ID: <span className="text-indigo-400 font-mono">{studentId}</span>
                         </p>
                         <p className="text-xs text-zinc-500 mt-1">
-                            Compliance: <span className="text-green-400">Alabama Code 290-8-9 ✓</span>
+                            Compliance: <span className="text-green-400">Alabama Code 290-8-9 âœ“</span>
                         </p>
                     </div>
                     <button className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-bold text-xs transition-colors">

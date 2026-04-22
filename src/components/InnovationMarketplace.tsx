@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import { ShoppingBag, Star, ArrowRight } from 'lucide-react';
@@ -47,7 +47,7 @@ export default function InnovationMarketplace() {
                             Turn Your Expertise Into <span className="text-emerald-400">Recurring Revenue</span>
                         </h2>
                         <p className="text-zinc-400 max-w-xl text-lg">
-                            Don't just use AI—share what you build. Join the Innovation Marketplace to list your quality-verified curriculum and resources.
+                            Don't just use AIâ€”share what you build. Join the Innovation Marketplace to list your quality-verified curriculum and resources.
                         </p>
                     </div>
 

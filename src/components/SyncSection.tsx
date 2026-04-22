@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState, useEffect } from "react"
 import { cn } from "@/lib/utils"
@@ -183,12 +183,12 @@ export function SyncSection() {
 
           <div className="mt-16 text-center">
             <p className="text-2xl md:text-3xl italic text-gray-700 mb-8">
-              {"\"The future of education isn't about technology—"}
+              {"\"The future of education isn't about technologyâ€”"}
               <br className="hidden md:block" />
               {"it's about "}
               <span className="font-black not-italic text-gray-900">professional excellence</span>.\"
             </p>
-            <p className="text-sm uppercase tracking-widest text-gray-500">— Dr. Alvin West, Founder</p>
+            <p className="text-sm uppercase tracking-widest text-gray-500">â€” Dr. Alvin West, Founder</p>
           </div>
         </div>
       </div>

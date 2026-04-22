@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Utility functions for Vercel-native features
  * - OG Image generation
  * - Analytics tracking

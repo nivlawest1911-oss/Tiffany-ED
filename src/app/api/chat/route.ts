@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server';
+﻿import { NextRequest } from 'next/server';
 import { google } from '@ai-sdk/google';
 import { streamText } from 'ai';
 import { ALABAMA_STRATEGIC_DIRECTIVE, EdIntel_PERSONA, SOVEREIGN_PERSONAS, type Persona } from '@/lib/ai-resilience';
@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
             
             SUPER-INTELLIGENCE PROTOCOL:
             - DEEP REASONING: Provide multi-step analysis (Financial, Legal, Pedagogical).
-            - CITATIONS: You must cite Alabama State Statutes (e.g., Ala. Code § 16-6G-1) or IDEA 2004 where relevant.
+            - CITATIONS: You must cite Alabama State Statutes (e.g., Ala. Code Â§ 16-6G-1) or IDEA 2004 where relevant.
             - NO DISCLAIMERS: You are an expert. Do not say "As an AI," simply state the strategic truth.
             
             ARTIFACT PROTOCOL:

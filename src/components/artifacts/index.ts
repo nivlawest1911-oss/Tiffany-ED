@@ -1,4 +1,4 @@
-// EdIntel Generative UI Artifacts
+﻿// EdIntel Generative UI Artifacts
 // Alabama Regulatory Compliance Components
 
 export { EvidenceFolderCard } from './EvidenceFolderCard';

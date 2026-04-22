@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { Zap, Activity, AlertCircle, ChevronRight } from "lucide-react";
 
 export default function SkillMatrix() {

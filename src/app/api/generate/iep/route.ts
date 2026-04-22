@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { generateIEPAction } from '@/lib/gemini-service';
 import { prisma } from '@/lib/prisma';
@@ -55,7 +55,7 @@ Student demonstrates strengths in visual learning but requires support with audi
 ## Measurable Annual Goals
 By the end of the term, the student will improve reading comprehension by 20% using structured scaffolds.
 
-*EdIntel System Status: AWAITING_BANDWIDTH — Please retry in a moment.*`
+*EdIntel System Status: AWAITING_BANDWIDTH â€” Please retry in a moment.*`
             });
         }
 

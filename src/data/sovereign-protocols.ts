@@ -1,4 +1,4 @@
-
+﻿
 export interface EdIntelProtocol {
     context: string;
     message: string;
@@ -19,7 +19,7 @@ export const EdIntel_PROTOCOLS: Record<string, EdIntelProtocol> = {
     },
     '/generators': {
         context: 'NEURAL TOOL NEXUS',
-        message: 'Accessing the Generator Matrix. Choose a specialized protocol—IEP Architecture, Fiscal Analysis, or Curriculum Design—to begin.',
+        message: 'Accessing the Generator Matrix. Choose a specialized protocolâ€”IEP Architecture, Fiscal Analysis, or Curriculum Designâ€”to begin.',
         videoBehavior: 'attentive',
         abilityType: 'strategy'
     },

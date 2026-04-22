@@ -1,4 +1,4 @@
-/**
+﻿/**
  * The Community Brain: Federated Learning Implementation
  * Captures mathematical weight updates (deltas) from school-level activity
  * without ever transmitting student PII (Personal Identifiable Information).

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import EdIntelNode from '../edintel-core/layout/EdIntelNode';
 
@@ -31,7 +31,7 @@ export const MorningSynthesisCard = () => {
                 </p>
                 <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg">
                     <p className="text-xs text-amber-400 font-mono">
-                        ⚠️ ACTION REQUIRED: Review 3 compliance flags for upcoming state audit
+                        âš ï¸ ACTION REQUIRED: Review 3 compliance flags for upcoming state audit
                     </p>
                 </div>
             </div>
@@ -60,7 +60,7 @@ export const CognitiveLoadCard = () => {
                 </p>
                 <div className="p-3 bg-indigo-500/10 border border-indigo-500/20 rounded-lg">
                     <p className="text-xs text-indigo-400 font-mono">
-                        💡 SUGGESTION: Deploy Antigravity automated documentation support
+                        ðŸ’¡ SUGGESTION: Deploy Antigravity automated documentation support
                     </p>
                 </div>
             </div>
@@ -92,7 +92,7 @@ export const StudioActionCard = () => {
                     onClick={() => router.push('/video-studio')}
                 >
                     <p className="text-xs text-amber-400 font-bold">
-                        🎬 Generate 'Victory Blast' Video? →
+                        ðŸŽ¬ Generate 'Victory Blast' Video? â†’
                     </p>
                 </div>
             </div>

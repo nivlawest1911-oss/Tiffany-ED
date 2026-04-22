@@ -1,4 +1,4 @@
-import {
+﻿import {
     Brain, Zap, Globe, MessageSquare, Video
 } from "lucide-react";
 import { CORE_AVATARS } from './avatars';

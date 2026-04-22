@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useEffect } from "react"
 import { motion } from "framer-motion"
@@ -53,7 +53,7 @@ export default function Dashboard() {
                             className="flex items-center gap-3"
                         >
                             <div className="h-2 w-2 rounded-full bg-primary-500 animate-pulse shadow-[0_0_15px_rgba(99,102,241,0.5)]" />
-                            <span className="text-[10px] font-black tracking-[0.4em] text-white/40 uppercase">System Nominal • EdIntel v2.0 Active</span>
+                            <span className="text-[10px] font-black tracking-[0.4em] text-white/40 uppercase">System Nominal â€¢ EdIntel v2.0 Active</span>
                         </motion.div>
                         <h1 className="text-4xl md:text-8xl font-black uppercase tracking-tighter text-white leading-none">
                             Command <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-white/60">Center</span>

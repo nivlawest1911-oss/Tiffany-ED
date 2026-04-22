@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -56,7 +56,7 @@ export default function NotificationCenter({ onClose }: { onClose?: () => void }
             id: '4',
             type: 'update',
             title: 'Usage Milestone Reached',
-            description: 'You\'ve saved 100+ hours this month! 🎉',
+            description: 'You\'ve saved 100+ hours this month! ðŸŽ‰',
             time: '1 day ago',
             read: true,
         },
@@ -265,7 +265,7 @@ export default function NotificationCenter({ onClose }: { onClose?: () => void }
                                                                     </span>
                                                                     {notification.actionLabel && (
                                                                         <button className="text-purple-400 hover:text-purple-300 text-xs font-medium">
-                                                                            {notification.actionLabel} →
+                                                                            {notification.actionLabel} â†’
                                                                         </button>
                                                                     )}
                                                                 </div>
@@ -294,7 +294,7 @@ export default function NotificationCenter({ onClose }: { onClose?: () => void }
                                 {/* Footer */}
                                 <div className="p-4 border-t border-purple-500/20 bg-black/20 flex items-center justify-between">
                                     <button className="text-purple-400 hover:text-purple-300 text-sm flex items-center gap-1">
-                                        View all notifications →
+                                        View all notifications â†’
                                     </button>
                                     <button className="text-purple-400 hover:text-purple-300 text-sm flex items-center gap-1">
                                         <Settings className="w-4 h-4" />

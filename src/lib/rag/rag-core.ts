@@ -1,4 +1,4 @@
-import { searchKnowledgeBase } from '../supabase';
+﻿import { searchKnowledgeBase } from '../supabase';
 import { kv } from '@vercel/kv';
 
 export interface RagResult {

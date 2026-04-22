@@ -1,4 +1,4 @@
-
+﻿
 export type AnimationState = 'idle' | 'thinking' | 'speaking' | 'listening' | 'alert';
 
 class AnimationService {

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { onboardOrganization } from '@/lib/actions/auth';
+import { onboardOrganization } from '@/lib/actions/handshakes';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -119,7 +119,7 @@ export default function RegistrationForm() {
                 <CardContent className="space-y-6 px-8 py-6">
                     {isSystemReady === false && (
                         <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-medium space-y-2">
-                            <p className="font-bold uppercase tracking-wider">⚠️ System Alert: Node Not Configured</p>
+                            <p className="font-bold uppercase tracking-wider">âš ï¸ System Alert: Node Not Configured</p>
                             <p>DATABASE_URL is missing or unreachable. Registration is currently disabled.</p>
                             <p className="font-bold underline">Fix required: Add your Postgres connection string to Vercel Environment Variables.</p>
                         </div>
@@ -184,7 +184,7 @@ export default function RegistrationForm() {
                                 id="password"
                                 name="password"
                                 type="password"
-                                placeholder="••••••••"
+                                placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                                 required
                                 className="bg-zinc-900/50 border-zinc-800 focus:border-zinc-600 focus:ring-zinc-600 text-white placeholder:text-zinc-600 h-12 rounded-xl transition-all"
                             />

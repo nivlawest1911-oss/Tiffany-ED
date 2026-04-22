@@ -1,4 +1,4 @@
-import { generateText } from 'ai';
+﻿import { generateText } from 'ai';
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 
 const google = createGoogleGenerativeAI({

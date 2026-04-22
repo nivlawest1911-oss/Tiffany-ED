@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { GraduationCap, BookOpen, Award, Target, Beaker, Zap, ChevronLeft, Loader2, Sparkles, Cpu } from 'lucide-react';

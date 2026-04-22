@@ -1,4 +1,4 @@
-import { Resend } from 'resend';
+﻿import { Resend } from 'resend';
 import nodemailer from 'nodemailer';
 
 const resend = new Resend(process.env.RESEND_API_KEY || 're_placeholder');
@@ -20,7 +20,7 @@ export async function sendWelcomeEmail(email: string, name: string) {
         return;
     }
 
-    const subject = 'Welcome to EdIntel | Your Master Access Initiated 🚀';
+    const subject = 'Welcome to EdIntel | Your Master Access Initiated ðŸš€';
     const htmlContent = `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #1a1a1a;">
             <h1 style="color: #10b981; text-transform: uppercase; letter-spacing: 2px;">Welcome to the Command Deck</h1>
@@ -37,10 +37,10 @@ export async function sendWelcomeEmail(email: string, name: string) {
             </div>
 
             <p style="background: #fffbeb; border: 1px solid #fcd34d; padding: 15px; border-radius: 8px; color: #92400e; font-size: 14px;">
-                <strong>⚠️ Strategic Note:</strong> You are currently in a <strong>14-day institutional trial</strong>. To ensure zero interruption to your service, please authorize token procurement before the trial expires.
+                <strong>âš ï¸ Strategic Note:</strong> You are currently in a <strong>14-day institutional trial</strong>. To ensure zero interruption to your service, please authorize token procurement before the trial expires.
             </p>
 
-            <p><strong>Pro-Tip:</strong> As an early adopter, you have access to the <strong>Zero-Gravity Mode</strong>—unlocked via the toggle on your dashboard for a fluid, low-latency strategic experience.</p>
+            <p><strong>Pro-Tip:</strong> As an early adopter, you have access to the <strong>Zero-Gravity Mode</strong>â€”unlocked via the toggle on your dashboard for a fluid, low-latency strategic experience.</p>
             
             <p>Should you require any assistance, our strategic support team is available at <a href="mailto:admin@edintel.app">admin@edintel.app</a>.</p>
             

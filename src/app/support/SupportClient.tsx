@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { Search, ArrowRight, Wallet, Zap, ShieldCheck, Lock, BarChart3, Users } from 'lucide-react';
 

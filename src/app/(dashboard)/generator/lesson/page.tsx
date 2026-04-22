@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     BookOpen,
@@ -22,21 +23,55 @@ import { generateImageFromPrompt } from '@/lib/gemini-service';
 import { useWearable } from '@/hooks/use-wearable';
 import { Activity } from 'lucide-react';
 import { useIntelligence } from '@/context/IntelligenceContext';
+import { executeEdgeSynthesis } from '@/lib/actions/edge-synthesis';
+import { DualPersonaHUD } from '@/components/professional/DualPersonaHUD';
+
+const BRANDING_STRINGS = [
+    "INITIATING NEURAL LINK",
+    "SYNTHESIZING PROTOCOLS",
+    "CALIBRATING ALCOS STANDARDS",
+    "OPTIMIZING SCAFFOLDS",
+    "INSTITUTIONAL RECORD SYNC"
+];
 
 export default function LessonGeneratorPage() {
     const [topic, setTopic] = useState("");
     const [subject, setSubject] = useState("Mathematics");
     const [gradeLevel, setGradeLevel] = useState("8th Grade");
     const [standards, setStandards] = useState("");
-    const [duration] = useState("60 Minutes");
+    const [_duration] = useState("60 Minutes");
     const [includePresentation, setIncludePresentation] = useState(true);
     const [includeProblems, setIncludeProblems] = useState(true);
     const [isGenerating, setIsGenerating] = useState(false);
     const [isGeneratingImage, setIsGeneratingImage] = useState(false);
     const [generatedPlan, setGeneratedPlan] = useState<string | null>(null);
     const [lessonImage, setLessonImage] = useState<string | null>(null);
+    const [generationStep, setGenerationStep] = useState(0);
+    const [isSafetyActive, setIsSafetyActive] = useState(false);
     const { isConnected, lastData } = useWearable();
     const { addAction } = useIntelligence();
+    const searchParams = useSearchParams();
+    const isEdgeSyncActive = searchParams.get('edge_sync') === 'true';
+
+    useEffect(() => {
+        if (isEdgeSyncActive && !topic) {
+            setTopic("Curriculum Restoration: [Topic Pending]");
+            toast.info("Bio-Adaptive Sync Active", {
+                description: "Dr. AndrÃ© Patterson has established a restorative handshake for this session."
+            });
+        }
+    }, [isEdgeSyncActive]);
+
+    // Rotate branding strings
+    useState(() => {
+        let interval: NodeJS.Timeout;
+        if (isGenerating) {
+            interval = setInterval(() => {
+                setGenerationStep(prev => (prev + 1) % BRANDING_STRINGS.length);
+            }, 5000);
+        }
+        return () => clearInterval(interval);
+    });
 
     const handleGeneratePlan = async () => {
         if (!topic) {
@@ -47,34 +82,34 @@ export default function LessonGeneratorPage() {
         setIsGenerating(true);
         setGeneratedPlan(null);
         setLessonImage(null);
+        setGenerationStep(0);
+        setIsSafetyActive(false);
 
         try {
-            const response = await fetch('/api/generate/lesson-plan', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    topic,
-                    subject,
-                    gradeLevel,
-                    standards,
-                    duration,
-                    includePresentation,
-                    includeProblems,
-                    stressLevel: lastData?.stressLevel
-                })
+            const result = await executeEdgeSynthesis({
+                topic,
+                subject,
+                gradeLevel,
+                duration: 60, // Default for now
             });
 
-            if (!response.ok) {
-                const err = await response.json();
-                throw new Error(err.error || 'Failed to generate');
+            if (!result.success) {
+                throw new Error("Edge Synthesis failed.");
             }
 
-            const data = await response.json();
-            setGeneratedPlan(data.content);
-            addAction(`Strategic Lesson Plan: ${topic}`);
-            toast.success("Strategic Lesson Plan synthesized!");
+            setGeneratedPlan(result.lesson || "");
+            setIsSafetyActive(result.clinicalSafetyTriggered);
+            
+            if (result.clinicalSafetyTriggered) {
+                toast.warning("Sovereign Override Active", {
+                    description: "Dr. AndrÃ© Patterson has modulated the instructional rigor for clinical safety."
+                });
+            }
+
+            addAction(`Edge Synthesis: ${topic} [${result.clinicalSafetyTriggered ? 'Restorative' : 'Optimal'}]`);
+            toast.success("Bio-Adaptive Lesson synthesized!");
         } catch (err: any) {
-            console.error("Lesson Gen Error:", err);
+            console.error("Edge Synthesis Error:", err);
             toast.error(err.message || "Synthesis failed.");
         } finally {
             setIsGenerating(false);
@@ -314,6 +349,17 @@ export default function LessonGeneratorPage() {
                         animate={{ opacity: 1, x: 0 }}
                         className="lg:col-span-8 space-y-6"
                     >
+                        {/* Dual Persona HUD Integration */}
+                        <DualPersonaHUD 
+                            stressLevel={lastData?.stressLevel || 50} 
+                            isGenerating={isGenerating}
+                            clinicalSafetyTriggered={isSafetyActive}
+                            biometrics={{
+                                hr: lastData?.heartRate,
+                                hrv: lastData?.hrv
+                            }}
+                        />
+
                         <Card className="bg-zinc-900/40 backdrop-blur-xl border-white/5 min-h-[500px] flex flex-col">
                             <CardHeader className="border-b border-white/5 bg-white/[0.02] flex flex-row items-center justify-between py-4">
                                 <div className="flex items-center gap-3">
@@ -377,7 +423,7 @@ export default function LessonGeneratorPage() {
                                                     if (line.startsWith('# ')) return <h1 key={i} className="text-2xl font-black text-white uppercase tracking-tight mb-4">{line.replace('# ', '')}</h1>;
                                                     if (line.startsWith('## ')) return <h2 key={i} className="text-lg font-bold text-purple-400 uppercase tracking-wide mt-6 mb-2">{line.replace('## ', '')}</h2>;
                                                     if (line.startsWith('### ')) return <h3 key={i} className="text-md font-semibold text-cyan-400 uppercase tracking-wider mt-4 mb-2">{line.replace('### ', '')}</h3>;
-                                                    if (line.startsWith('* ') || line.startsWith('- ')) return <div key={i} className="text-zinc-400 ml-4 mb-1 flex gap-2"><span>•</span><span>{line.substring(2)}</span></div>;
+                                                    if (line.startsWith('* ') || line.startsWith('- ')) return <div key={i} className="text-zinc-400 ml-4 mb-1 flex gap-2"><span>â€¢</span><span>{line.substring(2)}</span></div>;
                                                     if (line.trim() === '') return <br key={i} />;
                                                     return <p key={i} className="text-zinc-400 leading-relaxed mb-3">{line}</p>;
                                                 })}
@@ -404,14 +450,14 @@ export default function LessonGeneratorPage() {
                                                 <div className="absolute inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50">
                                                     <div className="text-center space-y-8 max-w-md px-6">
                                                         <div className="relative">
-                                                            <div className="w-24 h-24 border-2 border-purple-500/20 border-t-purple-500 rounded-full animate-spin mx-auto" />
+                                                            <div className={`w-24 h-24 border-2 ${isSafetyActive ? 'border-[#22d3ee]/20 border-t-[#22d3ee] shadow-[0_0_20px_#22d3ee44]' : 'border-purple-500/20 border-t-purple-500'} rounded-full animate-spin mx-auto transition-colors duration-1000`} />
                                                             <motion.div
                                                                 animate={{
                                                                     scale: [1, 1.2, 1],
                                                                     opacity: [0.3, 0.7, 0.3]
                                                                 }}
                                                                 transition={{ duration: 2, repeat: Infinity }}
-                                                                className="absolute inset-0 bg-purple-500/10 blur-2xl rounded-full"
+                                                                className={`absolute inset-0 ${isSafetyActive ? 'bg-[#22d3ee]/10' : 'bg-purple-500/10'} blur-2xl rounded-full transition-colors duration-1000`}
                                                             />
                                                         </div>
 
@@ -431,6 +477,23 @@ export default function LessonGeneratorPage() {
                                                                     transition={{ duration: 25, ease: "linear" }}
                                                                     className="h-full bg-gradient-to-r from-purple-600 via-cyan-500 to-purple-600"
                                                                 />
+                                                            </div>
+
+                                                            <div className="flex flex-col items-center gap-1">
+                                                                <AnimatePresence mode="wait">
+                                                                    <motion.p
+                                                                        key={generationStep}
+                                                                        initial={{ opacity: 0, y: 5 }}
+                                                                        animate={{ opacity: 1, y: 0 }}
+                                                                        exit={{ opacity: 0, y: -5 }}
+                                                                        className="text-[10px] text-white font-mono tracking-[0.2em] font-black uppercase"
+                                                                    >
+                                                                        {BRANDING_STRINGS[generationStep]}
+                                                                    </motion.p>
+                                                                </AnimatePresence>
+                                                                <p className="text-[8px] text-zinc-500 font-mono animate-pulse">
+                                                                    SCALING INTELLIGENCE NODES...
+                                                                </p>
                                                             </div>
 
                                                             <div className="grid grid-cols-2 gap-4 pt-4">

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { motion } from 'framer-motion';
 import { ScrollText, ExternalLink, RefreshCw, AlertTriangle } from 'lucide-react';
 import { useState } from 'react';

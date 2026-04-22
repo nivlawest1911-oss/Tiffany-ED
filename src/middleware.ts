@@ -1,19 +1,57 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { updateSession } from '@/utils/supabase/middleware';
+import { authRateLimit, apiRateLimit } from '@/lib/ratelimit';
+
+/**
+ * Sovereign Institutional Sentinel (Middleware)
+ * 
+ * Performance-optimized session validation, rate limiting, and security headers.
+ */
 
 export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
     
-    // 1. Skip Supabase logic for static assets and public landing page (unless cookies present)
-    // We check for any Supabase auth cookies or our legacy session cookie
-    const cookies = request.cookies.getAll();
-    const hasSupabaseCookie = cookies.some(c =>
-        c.name.startsWith('sb-') || c.name.includes('supabase-auth-token')
-    );
-    const hasLegacySession = request.cookies.has('edintel_session');
-    const isAuthenticated = hasSupabaseCookie || hasLegacySession;
+    // 0. Institutional Hardening: Rate Limiting
+    const ip = (request as any).ip ?? request.headers.get('x-forwarded-for') ?? '127.0.0.1';
+    
+    // Apply API Rate Limiting to sensitive telemetry nodes
+    if (pathname.startsWith('/api/fleet') || pathname.startsWith('/api/wellness')) {
+        const { success, limit, reset, remaining } = await apiRateLimit.limit(ip);
+        if (!success) {
+            return new NextResponse(
+                JSON.stringify({ 
+                    error: 'Sovereign Protocol: Rate Limit Exceeded.',
+                    message: 'Your institutional node is being throttled to preserve system integrity.',
+                    retryAfter: reset
+                }), 
+                { 
+                    status: 429, 
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'X-RateLimit-Limit': limit.toString(),
+                        'X-RateLimit-Remaining': remaining.toString(),
+                        'X-RateLimit-Reset': reset.toString(),
+                    } 
+                }
+            );
+        }
+    }
 
-    // 2. Define protected routes
+    // Apply Auth Rate Limiting to handshakes and login attempts
+    if (pathname.startsWith('/api/auth') || pathname.includes('login') || pathname.includes('signup')) {
+        const { success } = await authRateLimit.limit(ip);
+        if (!success) {
+            return new NextResponse(
+                JSON.stringify({ error: 'Authentication Throttled.', message: 'Too many handshake attempts. Please wait for the neural cooldown.' }),
+                { status: 429, headers: { 'Content-Type': 'application/json' } }
+            );
+        }
+    }
+
+    // 1. Better Auth Session Protocol (Edge-Safe)
+    const sessionCookie = request.cookies.get('better-auth.session-token');
+    const isAuthenticated = !!sessionCookie;
+
+    // 2. Define neural protected routes
     const protectedRoutes = [
         "/dashboard",
         "/academy",
@@ -26,52 +64,31 @@ export async function middleware(request: NextRequest) {
         "/excursions",
         "/the-room",
         "/onboarding",
-        "/api"
+        "/fleet"
     ];
 
-    const publicApiRoutes = [
-        "/api/auth",
-        "/api/webhooks",
-        "/api/status",
-        "/api/og",
-        "/api/public"
-    ];
+    const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
 
-    let isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
-    if (pathname.startsWith('/api')) {
-        const isPublicApi = publicApiRoutes.some(route => pathname.startsWith(route));
-        if (isPublicApi) isProtectedRoute = false;
-    }
-
-    // 3. Handle authenticated redirect for root immediately if hint suggests it
-    if (pathname === '/' && isAuthenticated) {
-        return NextResponse.redirect(new URL('/the-room', request.url));
-    }
-
-    // 3b. Don't redirect authenticated users away from /login - let the client redirect them
-    // This prevents the redirect loop where middleware and client redirect conflict
-    if (pathname === '/login' && isAuthenticated) {
-        // Let the request through to LoginClient which will handle the redirect
-        return NextResponse.next({ request });
-    }
-
-    // 4. Case: Protected route but not authenticated hint
+    // 3. Institutional Sentinel: Authentication Interception
     if (isProtectedRoute && !isAuthenticated) {
         const url = new URL('/login', request.url);
         url.searchParams.set('redirect', pathname);
         return NextResponse.redirect(url);
     }
 
-    // 5. Refresh Supabase session ONLY for protected routes or if cookies are already present
-    // This significantly reduces TTFB for guest users on the landing page
-    let response = NextResponse.next({ request });
-    if (isProtectedRoute || hasSupabaseCookie) {
-        try {
-            response = await updateSession(request);
-        } catch (err) {
-            console.error("[Middleware] Exception in updateSession:", err);
-        }
+    // 4. Case: Already authenticated but hitting root or login
+    if (isAuthenticated && (pathname === '/' || pathname === '/login')) {
+        return NextResponse.redirect(new URL('/the-room', request.url));
     }
+
+    // 5. Security Headers
+    const response = NextResponse.next();
+    response.headers.set('X-DNS-Prefetch-Control', 'on');
+    response.headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
+    response.headers.set('X-XSS-Protection', '1; mode=block');
+    response.headers.set('X-Frame-Options', 'SAMEORIGIN');
+    response.headers.set('X-Content-Type-Options', 'nosniff');
+    response.headers.set('Referrer-Policy', 'origin-when-cross-origin');
 
     return response;
 }
@@ -85,6 +102,6 @@ export const config = {
          * - favicon.ico (favicon file)
          * - Public assets like .svg, .png, etc.
          */
-        '/((?!api|_next/static|_next/image|_vercel|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|css|js|json|map)$).*)',
+        '/((?!_next/static|_next/image|_vercel|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|css|js|json|map)$).*)',
     ],
 };

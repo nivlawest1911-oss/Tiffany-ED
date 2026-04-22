@@ -5,6 +5,7 @@ import { IntelligenceProvider } from '@/context/IntelligenceContext';
 import { EdIntelVibeProvider } from "@/context/EdIntelVibeContext";
 import { CelebrationProvider } from '@/context/CelebrationContext';
 import { SovereignProvider } from '@/context/SovereignState';
+import { GlobalSynapseProvider } from '@/context/GlobalSynapseContext';
 import { Toaster } from 'sonner';
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -39,12 +40,9 @@ export const metadata: Metadata = {
   description: 'The definitive AI operating layer for autonomous professionals and institutional intelligence. Sovereign analytics, neural delegation, and strategic insight — all in one platform.',
   manifest: '/manifest.json',
   icons: {
-    icon: [
-      { url: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/edintel_logo_high_fidelity_1774298407403.png-40aMNM0IwgAivJXguDqZ1AimCtnxVu.jpeg', sizes: '192x192', type: 'image/jpeg' },
-      { url: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/edintel_logo_high_fidelity_1774298407403.png-40aMNM0IwgAivJXguDqZ1AimCtnxVu.jpeg', sizes: '512x512', type: 'image/jpeg' },
-    ],
-    apple: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/edintel_logo_high_fidelity_1774298407403.png-40aMNM0IwgAivJXguDqZ1AimCtnxVu.jpeg',
-    shortcut: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/edintel_logo_high_fidelity_1774298407403.png-40aMNM0IwgAivJXguDqZ1AimCtnxVu.jpeg',
+    icon: '/images/edintel-logo.png',
+    apple: '/apple-touch-icon.png',
+    shortcut: '/images/edintel-logo.png',
   },
   appleWebApp: {
     capable: true,
@@ -63,7 +61,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     images: [
       {
-        url: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/edintel_logo_high_fidelity_1774298407403.png-40aMNM0IwgAivJXguDqZ1AimCtnxVu.jpeg',
+        url: '/opengraph-image.jpg',
         width: 1200,
         height: 630,
         type: 'image/jpeg',
@@ -78,7 +76,7 @@ export const metadata: Metadata = {
     site: '@AlvinWe53959439',
     images: [
       {
-        url: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/edintel_logo_high_fidelity_1774298407403.png-40aMNM0IwgAivJXguDqZ1AimCtnxVu.jpeg',
+        url: '/twitter-image.jpg',
         width: 1200,
         height: 630,
       },
@@ -120,14 +118,16 @@ export default function RootLayout({
             <IntelligenceProvider>
               <SovereignProvider>
                 <EdIntelVibeProvider>
-                  <ClientShell />
-                  <AccessibleLayout>
-                    {children}
-                  </AccessibleLayout>
-                  <Toaster position="top-right" theme="dark" />
-                  <Analytics />
-                  <SpeedInsights />
-                  <WebVitalsReporter />
+                  <GlobalSynapseProvider>
+                    <ClientShell />
+                    <AccessibleLayout>
+                      {children}
+                    </AccessibleLayout>
+                    <Toaster position="top-right" theme="dark" />
+                    <Analytics />
+                    <SpeedInsights />
+                    <WebVitalsReporter />
+                  </GlobalSynapseProvider>
                   <script
                     dangerouslySetInnerHTML={{
                       __html: `
@@ -140,7 +140,7 @@ export default function RootLayout({
                                 function(err) {
                                   console.log('ServiceWorker registration failed: ', err);
                                 }
-                              );
+                                );
                             });
                           }
                         `,

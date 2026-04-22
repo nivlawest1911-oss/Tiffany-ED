@@ -1,4 +1,4 @@
-/**
+﻿/**
  * EdIntel Dynamic State Protocol Router
  * 
  * Part of the Phase 3 National Expansion Protocol.
@@ -18,6 +18,10 @@ export interface UserContext {
     state?: string;
     district?: string;
     schoolId?: string;
+    biometrics?: {
+        stress: number;
+        cognitiveLoad: number;
+    };
 }
 
 const ALABAMA_ALCOS: Protocol = {

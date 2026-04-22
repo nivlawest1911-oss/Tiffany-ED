@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 
 import { TrendingUp, BarChart3, Users, Brain, Mic, MapPin, Activity, Infinity } from "lucide-react"
@@ -131,7 +131,7 @@ export function DashboardSection() {
                 <span className="text-xs text-[#00d2ff]">Guided Practice: Multiple-step exercise</span>
               </div>
               <div className="flex items-center gap-3 p-3 bg-amber-500/10 rounded-lg border border-amber-500/30">
-                <span className="text-xs text-amber-400">⚠ Intervention Needed</span>
+                <span className="text-xs text-amber-400">âš  Intervention Needed</span>
               </div>
             </div>
             <p className="text-xs text-gray-500 mt-4">Suggesting a Restorative Specialty to Bailey High School</p>

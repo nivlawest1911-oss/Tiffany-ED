@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 /**
  * EdIntel EdIntel - Universal Payment Hub
@@ -366,7 +366,7 @@ export default function UniversalPaymentHub({
             >
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full text-sm text-gray-600">
                     <Shield className="w-4 h-4 text-green-500" />
-                    256-bit SSL Encrypted • PCI DSS Compliant • Blockchain Verified
+                    256-bit SSL Encrypted â€¢ PCI DSS Compliant â€¢ Blockchain Verified
                 </div>
             </motion.div>
         </div>

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Hugging Face Integration Client
  * Provides access to state-of-the-art AI models
  */
@@ -9,7 +9,7 @@ import { HfInference } from '@huggingface/inference';
 const apiKey = process.env.HUGGINGFACE_API_KEY;
 const hf = apiKey ? new HfInference(apiKey) : null;
 
-// Flag to check if HF is available
+// Flag to check if HF is available for UI components
 export const isHuggingFaceAvailable = !!apiKey;
 
 /**

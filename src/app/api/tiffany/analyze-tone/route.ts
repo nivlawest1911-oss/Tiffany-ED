@@ -1,4 +1,4 @@
-import { analyzeTone } from '@/lib/ai/tone-check';
+﻿import { analyzeTone } from '@/lib/ai/tone-check';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {

@@ -1,1 +1,1 @@
-export { createEdIntelServerClient } from './supabase/server';
+﻿export { createEdIntelServerClient } from './supabase/server';

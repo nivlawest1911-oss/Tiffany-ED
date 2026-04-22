@@ -1,6 +1,5 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 
-export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
@@ -35,10 +34,7 @@ export async function GET() {
         };
 
         return NextResponse.json(health, {
-            status: databaseStatus === 'connected' ? 200 : 503,
-            headers: {
-                'Cache-Control': 'public, s-maxage=30, stale-while-revalidate=60'
-            }
+            status: databaseStatus === 'connected' ? 200 : 503
         });
     } catch (error: any) {
         return NextResponse.json({ 

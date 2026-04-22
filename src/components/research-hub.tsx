@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState } from "react"
 import { BookOpen, ExternalLink, Brain, Heart, Shield as LucideShield, GraduationCap, TrendingUp, Users, Award } from "lucide-react"
@@ -54,7 +54,7 @@ const researchPapers = [
     category: "executive-function",
     impact: "Foundational",
     summary:
-      "Montessori environments build Working Memory, Inhibitory Control, and Cognitive Flexibility—the three pillars of EdIntel Strategic Sync training modules.",
+      "Montessori environments build Working Memory, Inhibitory Control, and Cognitive Flexibilityâ€”the three pillars of EdIntel Strategic Sync training modules.",
     url: "https://www.researchgate.net",
     citation: "Williams & Park, 2024",
     keyFindings: ["Working memory gains", "Inhibitory control", "Cognitive flexibility"],

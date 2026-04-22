@@ -1,4 +1,4 @@
-export interface RecidivismAlert {
+﻿export interface RecidivismAlert {
     detected: boolean;
     patternType?: 'frequency' | 'severity' | 'escalation';
     incidentCount?: number;

@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState } from "react"
 import { BadgeCheck, Award, Link2, Download, Share2, CheckCircle, Lock, Eye } from "lucide-react"

@@ -1,4 +1,4 @@
-'use client'; // Error components must be Client Components
+﻿'use client'; // Error components must be Client Components
 
 import { useEffect, useState } from 'react';
 import { RefreshCcw, AlertTriangle } from 'lucide-react';

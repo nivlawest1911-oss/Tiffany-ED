@@ -1,4 +1,4 @@
-import { createAI, getMutableAIState } from '@ai-sdk/rsc';
+﻿import { createAI, getMutableAIState } from '@ai-sdk/rsc';
 import { startEdIntelSession } from '@/app/actions/ai-session';
 import { ReactNode } from 'react';
 

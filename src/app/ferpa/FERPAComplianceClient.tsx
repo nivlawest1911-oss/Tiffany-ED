@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { ShieldCheck, Lock, FileKey, Check, Server, EyeOff, ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';

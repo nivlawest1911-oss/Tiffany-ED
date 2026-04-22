@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Hugging Face API Route - Image Analysis
  * POST /api/huggingface/image-analysis
  */

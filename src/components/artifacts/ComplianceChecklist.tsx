@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import { CheckCircle, XCircle, AlertTriangle, Shield } from 'lucide-react';

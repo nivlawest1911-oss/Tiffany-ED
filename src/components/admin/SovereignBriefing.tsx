@@ -16,15 +16,23 @@ import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import { unityOrchestrator } from '@/lib/UnityOrchestrator';
 import { oracleEngine } from '@/lib/OracleEngine';
-import { resilienceEngine } from '@/lib/ResilienceEngine';
 import { globalSynapse } from '@/lib/GlobalSynapse';
 import { ParticleBackground } from '@/components/ui/Cinematic';
 
 export function SovereignBriefing() {
     const health = unityOrchestrator.getGlobalHealth();
-    const resilience = resilienceEngine.getState();
+    const [resilience, setResilience] = React.useState({ hardeningLevel: 'standard' });
     const synapse = globalSynapse.getStatus();
-    const isZenith = globalSynapse.getStatus().isTranscended;
+
+    React.useEffect(() => {
+        // Break the static dependency trace for ResilienceEngine/Prisma/Auth
+        const loadResilience = async () => {
+            const { resilienceEngine } = await import('@/lib/ResilienceEngine');
+            setResilience(resilienceEngine.getState() as any);
+        };
+        loadResilience();
+    }, []);
+    const isZenith = synapse.isTranscended;
     const [isGenerating, setIsGenerating] = React.useState(false);
     const [briefingComplete, setBriefingComplete] = React.useState(false);
 

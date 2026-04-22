@@ -1,4 +1,4 @@
-import { pipeline } from '@xenova/transformers';
+﻿import { pipeline } from '@xenova/transformers';
 
 class EdgeAI {
     private classifier: any = null;

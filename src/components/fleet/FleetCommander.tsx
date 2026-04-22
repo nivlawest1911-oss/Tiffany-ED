@@ -7,6 +7,8 @@ import { FleetOrchestrator, FleetNode, RegionalMetrics } from '@/lib/FleetOrches
 import { toast } from 'sonner';
 import HumanAvatar from '../ui/HumanAvatar';
 import { CORE_AVATARS } from '@/data/avatars';
+import VigorTelemetry from './VigorTelemetry';
+import AcademicVelocity from './AcademicVelocity';
 
 const getRolePulseCode = (role: string) => {
     if (role.includes('Strategist')) return 'STRAT_ARCHITECT';
@@ -27,13 +29,14 @@ export default function FleetCommander() {
     const [directive, setDirective] = useState("");
     const [logs, setLogs] = useState<{ id: string; message: string; timestamp: string; type: 'directive' | 'alert' }[]>([]);
     const [isSyncing, setIsSyncing] = useState(false);
+    const [timeframe, setTimeframe] = useState<number>(7); // Default 7-day trailing average
 
     const orchestrator = useMemo(() => FleetOrchestrator.getInstance(), []);
 
     const loadData = useCallback(async () => {
         setIsSyncing(true);
-        const fleetNodes = await orchestrator.getFleetNodes();
-        const regionalMetrics = await orchestrator.getRegionalMetrics();
+        const fleetNodes = await orchestrator.getFleetNodes(timeframe);
+        const regionalMetrics = await orchestrator.getRegionalMetrics(timeframe);
         setNodes(fleetNodes);
         setMetrics(regionalMetrics);
         setIsLoading(false);
@@ -111,25 +114,55 @@ export default function FleetCommander() {
 
                     <div className="flex items-center justify-between mb-10">
                         <div>
-                            <h2 className="text-2xl font-black text-white italic uppercase tracking-tighter">Regional <span className="text-noble-gold">Fleet</span> Matrix</h2>
+                            <div className="flex items-center gap-3 mb-1">
+                                <h2 className="text-2xl font-black text-white italic uppercase tracking-tighter">Regional <span className="text-noble-gold">Fleet</span> Matrix</h2>
+                                {metrics?.metadata && (
+                                    <span className="px-2 py-0.5 rounded bg-noble-gold/10 border border-noble-gold/20 text-[8px] font-black text-noble-gold uppercase tracking-widest">
+                                        Scope: {metrics.metadata.scope}
+                                    </span>
+                                )}
+                            </div>
                             <p className="text-[10px] text-zinc-500 uppercase tracking-widest mt-1">Sovereign Node Distribution & Telemetry</p>
                         </div>
-                        <div className="flex items-center gap-3">
-                            <AnimatePresence>
-                                {isSyncing && (
-                                    <motion.div 
-                                        initial={{ opacity: 0, x: 20 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        exit={{ opacity: 0, x: 20 }}
-                                        className="text-[8px] font-black text-noble-gold uppercase tracking-[0.3em] flex items-center gap-1.5"
+                        <div className="flex items-center gap-6">
+                            {/* Timeframe Toggles */}
+                            <div className="flex bg-black/40 p-1 rounded-xl border border-white/5 mx-4">
+                                {[
+                                    { label: '24H', value: 1 },
+                                    { label: '7D', value: 7 },
+                                    { label: '30D', value: 30 }
+                                ].map((t) => (
+                                    <button
+                                        key={t.value}
+                                        onClick={() => setTimeframe(t.value)}
+                                        className={`px-3 py-1.5 rounded-lg text-[8px] font-black tracking-widest transition-all ${
+                                            timeframe === t.value 
+                                            ? 'bg-noble-gold text-black' 
+                                            : 'text-zinc-500 hover:text-white'
+                                        }`}
                                     >
-                                        <RefreshCcw className="w-2.5 h-2.5 animate-spin" /> Syncing...
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                            <div className="px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full flex items-center gap-2">
-                                <Activity className="w-3 h-3 text-emerald-400 animate-pulse" />
-                                <span className="text-[9px] font-black text-emerald-400 uppercase tracking-widest">Global Sync: Active</span>
+                                        {t.label}
+                                    </button>
+                                ))}
+                            </div>
+
+                            <div className="flex items-center gap-3">
+                                <AnimatePresence>
+                                    {isSyncing && (
+                                        <motion.div 
+                                            initial={{ opacity: 0, x: 20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{ opacity: 0, x: 20 }}
+                                            className="text-[8px] font-black text-noble-gold uppercase tracking-[0.3em] flex items-center gap-1.5"
+                                        >
+                                            <RefreshCcw className="w-2.5 h-2.5 animate-spin" /> Syncing...
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                                <div className="px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full flex items-center gap-2">
+                                    <Activity className="w-3 h-3 text-emerald-400 animate-pulse" />
+                                    <span className="text-[9px] font-black text-emerald-400 uppercase tracking-widest">Global Sync: Active</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -240,30 +273,18 @@ export default function FleetCommander() {
 
             {/* Regional Metrics & Node Detail */}
             <div className="lg:col-span-4 space-y-8">
-                {/* Regional Rollup */}
-                <div className="bg-noble-gold/5 border border-noble-gold/20 rounded-[2.5rem] p-8 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-noble-gold/10 blur-[80px] rounded-full" />
-                    <h3 className="text-xs font-black text-noble-gold uppercase tracking-[0.2em] mb-8">Regional Status</h3>
+                {/* Fleet Intelligence: Institutional Vigor */}
+                <VigorTelemetry data={metrics?.intelligence?.vigor ? {
+                    ...metrics.intelligence.vigor,
+                    trend: metrics.intelligence.vigor.trend as "stable" | "improving" | "declining",
+                    period: metrics.metadata?.timeframe || '7d'
+                } : null} />
 
-                    <div className="grid grid-cols-2 gap-8">
-                        <div>
-                            <div className="text-3xl font-black text-white italic tracking-tighter mb-1">{metrics?.totalActiveNodes || 0}</div>
-                            <div className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest">Active nodes</div>
-                        </div>
-                        <div>
-                            <div className="text-3xl font-black text-white italic tracking-tighter mb-1">{metrics?.regionalComplianceScore || 0}%</div>
-                            <div className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest">Compliance Adherence</div>
-                        </div>
-                        <div>
-                            <div className="text-3xl font-black text-white italic tracking-tighter mb-1">{metrics?.averageIntelligenceLoad || 0}%</div>
-                            <div className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest">Fleet Capacity</div>
-                        </div>
-                        <div>
-                            <div className="text-3xl font-black text-white italic tracking-tighter mb-1">{metrics?.activeDirectives || 0}</div>
-                            <div className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest">Active Directives</div>
-                        </div>
-                    </div>
-                </div>
+                {/* Fleet Intelligence: Instructional Momentum */}
+                <AcademicVelocity data={metrics?.intelligence?.momentum ? {
+                    ...metrics.intelligence.momentum,
+                    period: metrics.metadata?.timeframe || '7d'
+                } : null} />
 
                 <AnimatePresence mode="wait">
                     {selectedNode ? (

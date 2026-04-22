@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { Brain, Heart, Scale, BookOpen, Loader2, CheckCircle2, AlertTriangle, Layers } from 'lucide-react';

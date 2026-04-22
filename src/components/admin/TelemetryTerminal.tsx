@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useEffect, useState } from 'react';
 import { Terminal, Activity, Zap, ShieldAlert } from 'lucide-react';
@@ -66,7 +66,7 @@ export function TelemetryTerminal() {
                                         }`}>
                                         {log.event_type}
                                     </span>
-                                    <span className="text-[9px] text-slate-500">·</span>
+                                    <span className="text-[9px] text-slate-500">Â·</span>
                                     <span className="text-[9px] text-slate-400 capitalize">
                                         {log.event_data?.agent || 'System Node'}
                                     </span>

@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 import { validateCompliance } from '@/utils/vault-sync';
 
 export async function POST(req: Request) {

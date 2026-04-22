@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import Replicate from 'replicate';
 import { depositToMemoryBank } from '@/lib/memory-bank';
 import { getSession } from '@/lib/auth';

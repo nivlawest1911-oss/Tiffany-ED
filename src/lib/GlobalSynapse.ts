@@ -1,4 +1,4 @@
-/**
+﻿/**
  * EdIntel GLOBAL SYNAPSE
  * 
  * The ultimate intelligence layer that unifies all 14 nodes.

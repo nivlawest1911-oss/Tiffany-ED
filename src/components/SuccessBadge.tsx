@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -26,7 +26,7 @@ export default function SuccessBadge() {
         exit={{ x: 100, opacity: 0 }}
         className="fixed top-5 right-5 z-[100] bg-gradient-to-br from-emerald-500 to-green-700 text-white p-4 pr-6 rounded-2xl shadow-xl shadow-emerald-900/20 border border-white/20 flex items-center gap-3"
       >
-        <span className="text-2xl">⚡</span>
+        <span className="text-2xl">âš¡</span>
         <div>
           <div className="font-bold text-sm">Professional Tier Active</div>
           <div className="text-[10px] opacity-90 font-mono tracking-tight uppercase">Global Strategic Suite Enabled</div>

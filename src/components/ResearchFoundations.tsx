@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import { BookOpen, Award, GraduationCap, Microscope, ShieldCheck, Sparkles } from 'lucide-react';
@@ -101,7 +101,7 @@ export default function ResearchFoundations() {
                                         whileHover={{ scale: 1.05 }}
                                         className="text-[10px] font-black text-white uppercase tracking-widest hover:text-emerald-400 transition-colors"
                                     >
-                                        Read Abstract →
+                                        Read Abstract â†’
                                     </motion.button>
                                 </div>
                             </div>

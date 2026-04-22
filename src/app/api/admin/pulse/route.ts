@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
@@ -17,7 +17,7 @@ export async function GET() {
             if (!dbError) status.database.online = true;
         }
 
-        // 🧠 Check AI Core Connectivity
+        // ðŸ§  Check AI Core Connectivity
         const apiKey = process.env.GOOGLE_GENAI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GEMINI_API_KEY;
         if (apiKey) {
             const genAI = new GoogleGenerativeAI(apiKey);

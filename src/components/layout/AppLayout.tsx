@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import React from "react"
 import { Sidebar } from "@/components/layout/Sidebar"
@@ -92,7 +92,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 <Sidebar />
 
                 <div className="flex flex-col flex-1 relative overflow-hidden">
-                    {/* 1. Global Trial Banner (Conversion Hook) — hidden for free Initiate tier */}
+                    {/* 1. Global Trial Banner (Conversion Hook) â€” hidden for free Initiate tier */}
                     {!isInitiate && (
                         <TrialBanner
                             tierId={currentTier.id}
@@ -116,7 +116,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                     Search tools, agents, or assets...
                                     <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
                                         <kbd className="hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border border-white/10 bg-white/5 px-1.5 font-mono text-[10px] font-medium text-white/20 opacity-100">
-                                            <span className="text-xs">⌘</span>K
+                                            <span className="text-xs">âŒ˜</span>K
                                         </kbd>
                                     </div>
                                 </div>

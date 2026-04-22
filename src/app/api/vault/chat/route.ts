@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 import { rateLimit } from '@/lib/EdIntel-connections';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { Gavel, ShieldAlert, Cpu, UserCheck, Flame, Scale, ArrowRight, Zap, CheckCircle2 } from 'lucide-react';
 import { useState } from 'react';
 

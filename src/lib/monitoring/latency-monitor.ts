@@ -1,4 +1,4 @@
-/**
+﻿/**
  * EdIntel Latency Monitor
  * Performance tracking for Edge and Serverless functions
  */

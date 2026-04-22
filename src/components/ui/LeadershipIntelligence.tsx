@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useState } from 'react';
 import { HeartPulse, BrainCircuit, Loader2, Sparkles, Cpu } from 'lucide-react';
 import { useIntelligence } from '@/context/IntelligenceContext';

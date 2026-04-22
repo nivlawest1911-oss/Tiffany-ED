@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 import { sql } from '@/lib/db';
 import { getSession } from '@/lib/auth';
 import { createServerClient } from '@supabase/ssr';

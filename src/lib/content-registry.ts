@@ -1,4 +1,4 @@
-export const CONTENT_REGISTRY = {
+﻿export const CONTENT_REGISTRY = {
     // ... existing config
     assets: {
         total_count: 101, // Increment this!

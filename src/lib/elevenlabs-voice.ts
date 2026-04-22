@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ElevenLabs Voice Integration
  * Professional voice synthesis with Dr. Alvin West's voice characteristics
  */

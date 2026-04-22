@@ -1,4 +1,4 @@
-import { INTELLIGENCE_MAP, DeepIntelligence } from './intelligence-engine';
+
 
 export interface SwarmTask {
     id: string;

@@ -1,4 +1,4 @@
-import { createServerClient } from '@supabase/ssr';
+﻿import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
@@ -67,7 +67,7 @@ export async function GET() {
         return NextResponse.json({ sites });
 
     } catch (error: any) {
-        console.error('🏛️ [EdIntel_Sites] Protocol Failure:', error);
+        console.error('ðŸ›ï¸ [EdIntel_Sites] Protocol Failure:', error);
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
 }

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -151,7 +151,7 @@ export default function TheRoomClient() {
             <NexusCommandManager />
 
             <div className="max-w-[1600px] mx-auto px-6 pt-12 relative z-10">
-                <div className="mb-12">
+                <div className="mb-12 min-h-[420px]">
                     <ExecutiveBrief />
                 </div>
 
@@ -212,7 +212,7 @@ export default function TheRoomClient() {
                                 onClick={() => { setActiveNode(ai.id); playClick(); setTimeout(() => setActiveNode(null), 1000); }}
                                 className="w-full text-left h-full focus:outline-none"
                             >
-                                <GlassCard className={cn("h-full p-6 relative overflow-hidden group border transition-all duration-500 hover:scale-105 hover:shadow-[0_0_40px_rgba(0,176,255,0.15)]", ai.border, activeNode === ai.id && "scale-95 border-emerald-500 bg-emerald-500/10 shadow-[0_0_50px_rgba(16,185,129,0.3)]")}>
+                                <GlassCard className={cn("h-full min-h-[260px] p-6 relative overflow-hidden group border transition-all duration-500 hover:scale-105 hover:shadow-[0_0_40px_rgba(0,176,255,0.15)]", ai.border, activeNode === ai.id && "scale-95 border-emerald-500 bg-emerald-500/10 shadow-[0_0_50px_rgba(16,185,129,0.3)]")}>
                                     <div className={cn("absolute inset-0 bg-gradient-to-br opacity-10 group-hover:opacity-20 transition-opacity", ai.color)} />
                                     <div className="flex items-start justify-between mb-6 relative z-10">
                                         <div className={cn("p-3 rounded-xl bg-black/40", ai.accent)}>
@@ -266,7 +266,7 @@ export default function TheRoomClient() {
                             transition={{ delay: i * 0.1 }}
                         >
                             <Link href={tool.link} className="block h-full">
-                                <GlassCard className="h-full p-6 border-white/5 hover:border-white/20 hover:bg-white/5 transition-all group hover:scale-[1.02] active:scale-[0.98]">
+                                <GlassCard className="h-full min-h-[160px] p-6 border-white/5 hover:border-white/20 hover:bg-white/5 transition-all group hover:scale-[1.02] active:scale-[0.98]">
                                     <div className="flex items-center gap-4 mb-4">
                                         <div className={cn("p-2.5 rounded-xl bg-black/40", tool.color)}>
                                             <tool.icon size={20} />

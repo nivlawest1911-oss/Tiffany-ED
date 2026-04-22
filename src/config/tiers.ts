@@ -1,4 +1,4 @@
-
+﻿
 // EdIntel Sovereign Tiers - Locked Configuration
 // This is the single source of truth for all pricing and Stripe links.
 

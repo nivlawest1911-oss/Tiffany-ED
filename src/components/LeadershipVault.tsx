@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FileText, Shield, Zap, Lock, ChevronRight, Search, Download, Share2 } from 'lucide-react';
 import { useState, useEffect } from 'react';

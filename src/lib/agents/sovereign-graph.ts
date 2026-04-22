@@ -13,17 +13,17 @@ export class EdIntelGraph {
 
         // 2. Intent Classification & Delegation
         if (intent.includes('IEP') || intent.includes('Special Ed')) {
-            return this.delegateTo('NarrativeArchitect', intent, vaultContext, TaskComplexity.EXECUTIVE);
+            return this.delegateTo('NarrativeArchitect', intent, vaultContext.context, TaskComplexity.EXECUTIVE);
         }
         if (intent.includes('Lesson') || intent.includes('Plan')) {
-            return this.delegateTo('LessonArchitect', intent, vaultContext, TaskComplexity.ANALYSIS);
+            return this.delegateTo('LessonArchitect', intent, vaultContext.context, TaskComplexity.ANALYSIS);
         }
         if (intent.includes('Behavior') || intent.includes('Discipline')) {
-            return this.delegateTo('ReformGeneral', intent, vaultContext, TaskComplexity.ANALYSIS);
+            return this.delegateTo('ReformGeneral', intent, vaultContext.context, TaskComplexity.ANALYSIS);
         }
 
         // Default to Executive
-        return this.delegateTo('ExecutiveBriefing', intent, vaultContext, TaskComplexity.EXECUTIVE);
+        return this.delegateTo('ExecutiveBriefing', intent, vaultContext.context, TaskComplexity.EXECUTIVE);
     }
 
     private static async delegateTo(agentId: string, task: string, vaultContext: string, complexity: TaskComplexity) {

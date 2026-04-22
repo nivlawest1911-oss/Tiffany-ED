@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useRive, useStateMachineInput, Layout, Fit, Alignment } from '@rive-app/react-canvas';
 import { motion } from 'framer-motion';
@@ -36,7 +36,7 @@ export const AnimatedAgentUI = () => {
 
             <div className="relative z-20 p-8 h-full flex flex-col justify-end">
                 <h3 className="text-white font-black uppercase text-2xl mb-2">EdIntel Agent</h3>
-                <p className="text-zinc-400 text-sm">Interactive State Machine • Online</p>
+                <p className="text-zinc-400 text-sm">Interactive State Machine â€¢ Online</p>
             </div>
         </motion.div>
     );

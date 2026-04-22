@@ -1,4 +1,4 @@
-/**
+﻿/**
  * GovernanceEngine.ts
  * Core logic for Quadratic Voting and Proposal Management.
  */

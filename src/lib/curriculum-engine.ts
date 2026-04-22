@@ -1,4 +1,4 @@
-import { ALABAMA_INSTITUTIONAL_KNOWLEDGE } from '../data/alabama-knowledge';
+﻿import { ALABAMA_INSTITUTIONAL_KNOWLEDGE } from '../data/alabama-knowledge';
 
 export interface LearningModule {
     id: string;

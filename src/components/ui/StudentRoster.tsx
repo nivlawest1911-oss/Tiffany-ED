@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useSchoolData } from '@/hooks/biometric/useSchoolData';
 
 export default function StudentRoster() {

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
@@ -151,7 +151,7 @@ export function ContinuityBriefing({ userId: _userId }: ContinuityBriefingProps)
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="bg-white/5 rounded-lg p-3 border border-white/5">
                                         <p className="text-[8px] text-zinc-500 uppercase font-black mb-1">Knowledge Retention</p>
-                                        <p className="text-lg font-black text-white tracking-tighter">0.98<span className="text-[10px] text-zinc-500 ml-1">σ</span></p>
+                                        <p className="text-lg font-black text-white tracking-tighter">0.98<span className="text-[10px] text-zinc-500 ml-1">Ïƒ</span></p>
                                     </div>
                                     <div className="bg-white/5 rounded-lg p-3 border border-white/5">
                                         <p className="text-[8px] text-zinc-500 uppercase font-black mb-1">Succession Readiness</p>

@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 import { generateSovereignResponse } from '@/lib/gemini-service';
 
 export const runtime = 'edge';

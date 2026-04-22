@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Sovereign Media Moat
  * Logic for ensuring optimal asset delivery.
  */

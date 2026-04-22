@@ -1,4 +1,4 @@
-import CognitiveClient from './CognitiveClient';
+﻿import CognitiveClient from './CognitiveClient';
 
 // Mock data fetching function with smart caching
 async function getCognitiveStats() {

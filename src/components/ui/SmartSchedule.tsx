@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useSchoolData } from '@/hooks/biometric/useStudentRoster';
 import { Clock, AlertCircle } from 'lucide-react';
 

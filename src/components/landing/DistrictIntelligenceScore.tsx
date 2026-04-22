@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import { FileText, Users, Receipt, ShieldCheck, MessageSquare } from 'lucide-react';

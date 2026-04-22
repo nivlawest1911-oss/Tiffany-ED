@@ -1,4 +1,4 @@
-// No Lucide imports needed for the logic below
+﻿// No Lucide imports needed for the logic below
 
 export const getCategoryForGenerator = (gen: any) => {
     // Explicit Category Priority

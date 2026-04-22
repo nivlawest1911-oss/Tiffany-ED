@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import { Shield as LucideShield, Landmark, Globe, Briefcase, Award, ArrowRight } from 'lucide-react';

@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers';
+﻿import { cookies } from 'next/headers';
 import FERPAComplianceClient from './FERPAComplianceClient';
 
 export const dynamic = 'force-dynamic';

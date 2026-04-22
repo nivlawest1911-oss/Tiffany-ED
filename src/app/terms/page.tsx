@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers';
+﻿import { cookies } from 'next/headers';
 import TermsClient from './TermsClient';
 
 export const dynamic = 'force-dynamic';

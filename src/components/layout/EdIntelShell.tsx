@@ -11,7 +11,7 @@ import {
     Coins,
     Search,
     Home,
-    Facebook
+    Zap as Facebook // Social icon fallback
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -35,7 +35,6 @@ import { initiateBioAuth } from '@/app/auth/actions';
 export default function EdIntelShell({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const { isHudExpanded, setIsHudExpanded } = useIntelligence();
-
 
     const isMarketingRoute = ['/', '/signup', '/login', '/about', '/pricing', '/contact', '/whats-edintel', '/enterprise'].includes(pathname);
 
@@ -166,7 +165,7 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
 
                         {!isMarketingRoute && (
                             <div className="hidden sm:flex items-center gap-4 group cursor-default">
-                                <div className="w-2.5 h-2.5 rounded-full bg-shield-green animate-pulse shadow-[0_0_15px_rgba(16,185,129,0.5)]" />
+                                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_15px_rgba(16,185,129,0.5)]" />
                                 <span className="text-[10px] font-black font-mono text-zinc-400 uppercase tracking-[0.5em] italic">Due Process Shield: Active</span>
                             </div>
                         )}
@@ -257,8 +256,6 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
                     >
                         <Search className="w-6 h-6 sm:w-7 sm:h-7 group-hover:scale-110 transition-transform" />
                     </button>
-
-                    {/* Floating Regulatory Status removed - relocated to Command Center */}
 
                     {/* ANCHORED FOOTER */}
                     <footer className="mt-auto border-t border-white/[0.04] bg-black/20 backdrop-blur-lg relative z-30 pb-32 md:pb-12">
@@ -355,3 +352,4 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
         </div>
     );
 }
+

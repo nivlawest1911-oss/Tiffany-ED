@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 /**
  * Hugging Face AI Studio
@@ -58,7 +58,7 @@ export default function HuggingFaceStudio({ className = '' }: AIStudioProps) {
                                 <Sparkles className="w-8 h-8 text-white" />
                             </div>
                             <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
-                                🤗 Hugging Face AI Studio
+                                ðŸ¤— Hugging Face AI Studio
                             </h1>
                         </div>
                         <p className="text-xl text-slate-300 max-w-3xl mx-auto">
@@ -144,11 +144,11 @@ function TextAnalysisPanel({ loading, setLoading, result, setResult }: any) {
     const [operation, setOperation] = useState('sentiment');
 
     const operations = [
-        { id: 'sentiment', label: 'Sentiment Analysis', icon: '😊' },
-        { id: 'emotions', label: 'Emotion Detection', icon: '🎭' },
-        { id: 'toxicity', label: 'Toxicity Check', icon: '🛡️' },
-        { id: 'summarize', label: 'Summarization', icon: '📝' },
-        { id: 'analyze-writing', label: 'Writing Analysis', icon: '✍️' },
+        { id: 'sentiment', label: 'Sentiment Analysis', icon: 'ðŸ˜Š' },
+        { id: 'emotions', label: 'Emotion Detection', icon: 'ðŸŽ­' },
+        { id: 'toxicity', label: 'Toxicity Check', icon: 'ðŸ›¡ï¸' },
+        { id: 'summarize', label: 'Summarization', icon: 'ðŸ“' },
+        { id: 'analyze-writing', label: 'Writing Analysis', icon: 'âœï¸' },
     ];
 
     // Ref for cleanup
@@ -410,10 +410,10 @@ function ImageAnalysisPanel({ loading, setLoading, result, setResult }: any) {
     const [operation, setOperation] = useState('analyze-engagement');
 
     const operations = [
-        { id: 'classify', label: 'Classify', icon: '🏷️' },
-        { id: 'detect-objects', label: 'Detect Objects', icon: '🎯' },
-        { id: 'caption', label: 'Caption', icon: '💬' },
-        { id: 'analyze-engagement', label: 'Analyze Engagement', icon: '📊' },
+        { id: 'classify', label: 'Classify', icon: 'ðŸ·ï¸' },
+        { id: 'detect-objects', label: 'Detect Objects', icon: 'ðŸŽ¯' },
+        { id: 'caption', label: 'Caption', icon: 'ðŸ’¬' },
+        { id: 'analyze-engagement', label: 'Analyze Engagement', icon: 'ðŸ“Š' },
     ];
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {

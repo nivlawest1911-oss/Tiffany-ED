@@ -1,4 +1,4 @@
-import { getTrialStatus } from '@/actions/trial';
+﻿import { getTrialStatus } from '@/actions/trial';
 
 export default async function TrialBanner({ userId }: { userId: string }) {
     // 1. Ask the Server Action for the pre-calculated data

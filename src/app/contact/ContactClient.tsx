@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { Mail, MessageSquare, Phone, Send, MapPin, CheckCircle, Shield as LucideShield, Loader2, Video, ExternalLink } from 'lucide-react';
@@ -488,7 +488,7 @@ export default function ContactClient() {
                                 </form>
 
                                 <p className="text-xs text-zinc-500 mt-4 text-center">
-                                    Join 12,000+ subscribers • Unsubscribe anytime
+                                    Join 12,000+ subscribers â€¢ Unsubscribe anytime
                                 </p>
                             </div>
                         </motion.div>

@@ -1,4 +1,4 @@
-export const SOCIAL_LINKS = {
+﻿export const SOCIAL_LINKS = {
     LINKEDIN: 'https://www.linkedin.com/in/alvin-west-ii-dba-11a75323/',
     TWITTER: 'https://x.com/AlvinWe53959439',
     FACEBOOK: 'https://www.facebook.com/alvin.west.18',

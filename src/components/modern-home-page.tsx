@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef, Suspense, startTransition } from 'react';
+import React, { useState, useEffect, useRef, Suspense, useTransition } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring, Variants, LazyMotion, domAnimation, useInView } from 'framer-motion';
 import { ArrowRight, Cpu, Zap, Shield, Brain, Globe, Terminal, Mic, Clock, LayoutGrid } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -51,7 +51,7 @@ const PlatformActivity = dynamic(() => import('./landing/PlatformActivity'), { s
 const FounderDossier = dynamic(() => import('./founder-dossier'), { ssr: false });
 
 /**
- * ⚡ Performance Controller: Background Layer
+ * âš¡ Performance Controller: Background Layer
  * Ensures we only run one heavy background effect at a time.
  */
 const SovereignBackground = ({ type = 'neural' }: { type?: 'neural' | 'holographic' }) => {
@@ -83,16 +83,23 @@ const staggerContainer: Variants = {
 };
 
 /**
- * ⚡ Performance Wrapper: Defer rendering of heavy components until they enter the viewport.
+ * âš¡ Performance Wrapper: Defer rendering of heavy components until they enter the viewport.
  * Reduces TBT (Total Blocking Time) and initial hydration overhead.
  */
-const LazySection = ({ children, className, id, height = "400px", margin = "200px" }: { children: React.ReactNode, className?: string, id?: string, height?: string, margin?: string }) => {
+const LazySection = ({ children, className, id, height = "400px", mobileHeight, margin = "200px" }: { children: React.ReactNode, className?: string, id?: string, height?: string, mobileHeight?: string, margin?: string }) => {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, margin: margin as any });
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        setIsMobile(window.innerWidth < 768);
+    }, []);
+
+    const effectiveHeight = (isMobile && mobileHeight) ? mobileHeight : height;
 
     return (
-        <section ref={ref} id={id} className={cn("relative", className)} style={{ minHeight: height }}>
-            {isInView ? children : <div style={{ height }} />}
+        <section ref={ref} id={id} className={cn("relative", className)} style={{ minHeight: effectiveHeight }}>
+            {isInView ? children : <div style={{ height: effectiveHeight }} />}
         </section>
     );
 }
@@ -251,6 +258,7 @@ export default function ModernHomePage() {
     const [agentMessage, setAgentMessage] = useState<string | null>(null);
     const [showOnboarding, setShowOnboarding] = useState(false);
     const { isSystemThinking, setSystemThinking } = useEdIntelVibe();
+    const [_isPending, startTransition] = useTransition();
     const router = useRouter();
     const { user } = useAuth();
     const isSignedIn = !!user;
@@ -326,39 +334,41 @@ export default function ModernHomePage() {
     }, [agentMessage, isSystemThinking]);
 
     const handleCommand = async (cmd: string) => {
-        setSystemThinking(true);
-        setAgentMessage(`Accessing ${cmd} protocol...`);
+        startTransition(() => {
+            setSystemThinking(true);
+            setAgentMessage(`Accessing ${cmd} protocol...`);
+        });
 
         // Check for quick routing commands
         if (cmd.toLowerCase().includes('budget') || cmd.toLowerCase().includes('fiscal') || cmd.toLowerCase().includes('optimization')) {
-            setTimeout(() => {
+            startTransition(() => {
                 setSystemThinking(false);
                 router.push('/ai-hub/fiscal-strategist');
-            }, 1000);
+            });
             return;
         }
 
         if (cmd.toLowerCase().includes('iep')) {
-            setTimeout(() => {
+            startTransition(() => {
                 setSystemThinking(false);
                 router.push('/dashboard/iep-architect');
-            }, 1000);
+            });
             return;
         }
 
         if (cmd.toLowerCase().includes('audit') || cmd.toLowerCase().includes('compliance')) {
-            setTimeout(() => {
+            startTransition(() => {
                 setSystemThinking(false);
                 router.push('/ai-hub/legal-defense');
-            }, 1000);
+            });
             return;
         }
 
         if (cmd.toLowerCase().includes('matrix')) {
-            setTimeout(() => {
+            startTransition(() => {
                 setSystemThinking(false);
                 router.push('/dashboard');
-            }, 1000);
+            });
             return;
         }
 
@@ -568,7 +578,7 @@ export default function ModernHomePage() {
                             </LazySection>
 
                             {/* INFINITE MARQUEE - OPTIMIZED */}
-                            <LazySection id="infinite-marquee" height="400px">
+                            <LazySection id="infinite-marquee" height="560px" mobileHeight="440px">
                                 <section className="py-20 bg-black/50 border-b border-white/5 overflow-hidden relative z-20">
                                     <div className="w-full overflow-hidden content-visibility-auto">
                                         <motion.div
@@ -579,11 +589,13 @@ export default function ModernHomePage() {
                                             {/* Reduced redundant instances for performance (Phase 14) */}
                                             {CORE_AVATARS.slice(0, isLowPowerMode ? 4 : 8).concat(CORE_AVATARS.slice(0, isLowPowerMode ? 4 : 8)).map((agent, i) => (
                                                 <div key={i} className="w-[200px] h-[280px] sm:w-[260px] sm:h-[360px] md:w-[300px] md:h-[400px] rounded-3xl overflow-hidden relative border border-white/10 group bg-zinc-900 shadow-2xl flex-shrink-0">
-                                                    <HumanAvatar
-                                                        src={agent.avatar}
-                                                        alt={agent.name || 'AI Avatar'}
-                                                        className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-700 group-hover:scale-105"
-                                                    />
+                                                    <div className="absolute inset-0 aspect-[2/3] sm:aspect-[260/360] md:aspect-[300/400]">
+                                                        <HumanAvatar
+                                                            src={agent.avatar}
+                                                            alt={agent.name || 'AI Avatar'}
+                                                            className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-700 group-hover:scale-105"
+                                                        />
+                                                    </div>
                                                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
                                                     <div className="absolute bottom-6 left-6">
                                                         <div className="flex items-center gap-2 mb-2">
@@ -603,12 +615,12 @@ export default function ModernHomePage() {
                             </LazySection>
 
                             {/* AI TWIN GENERATOR SECTION */}
-                            <LazySection id="twin-generator" height="500px">
+                            <LazySection id="twin-generator" height="500px" mobileHeight="450px">
                                 <AITwinGenerator />
                             </LazySection>
 
                             {/* VOICE IDENTITY SHOWCASE */}
-                            <LazySection id="voice-matrix" className="py-24 bg-zinc-900 border-y border-white/5 overflow-hidden">
+                            <LazySection id="voice-matrix" height="600px" className="py-24 bg-zinc-900 border-y border-white/5 overflow-hidden">
                                 <div className="absolute inset-0 opacity-5 bg-grid" />
                                 <div className="max-w-7xl mx-auto px-6 relative z-10">
                                     <motion.div
@@ -630,7 +642,7 @@ export default function ModernHomePage() {
                             </LazySection>
 
                             {/* HUGGING FACE AVATAR SHOWCASE */}
-                            <LazySection id="neural-speech" className="py-24 bg-zinc-950 border-y border-white/5 overflow-hidden">
+                            <LazySection id="neural-speech" height="800px" className="py-24 bg-zinc-950 border-y border-white/5 overflow-hidden">
                                 <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2240%22%20height%3D%2240%22%3E%3Cpath%20d%3D%22M0%200h40v40H0z%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-opacity%3D%22.05%22%2F%3E%3C%2Fsvg%3E')]" />
                                 <div className="max-w-7xl mx-auto px-6 relative z-10">
                                     <motion.div
@@ -675,7 +687,7 @@ export default function ModernHomePage() {
                             </LazySection>
 
                             {/* SYSTEM PERFORMANCE */}
-                            <LazySection id="performance-matrix" className="py-24 px-6 max-w-7xl mx-auto">
+                            <LazySection id="performance-matrix" height="500px" className="py-24 px-6 max-w-7xl mx-auto">
                                 <div className="text-center mb-16">
                                     <h2 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter">
                                         System <span className="text-electric-cyan">Performance</span> Matrix
@@ -688,7 +700,7 @@ export default function ModernHomePage() {
                             </LazySection>
 
                             {/* FOUNDER DOSSIER */}
-                            <LazySection id="founder" className="py-24 bg-zinc-950/50 border-y border-white/5 overflow-hidden">
+                            <LazySection id="founder" height="800px" className="py-24 bg-zinc-950/50 border-y border-white/5 overflow-hidden">
                                 <div className="max-w-7xl mx-auto px-6 relative z-10">
                                     <div className="text-center mb-16">
                                         <h2 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter leading-none">
@@ -709,7 +721,7 @@ export default function ModernHomePage() {
                             </AnimatePresence>
 
                             {/* EdIntel CORE SHOWCASE */}
-                            <LazySection id="EdIntel" height="800px">
+                            <LazySection id="EdIntel" height="900px" mobileHeight="1400px">
                                 <section className="py-24 relative overflow-hidden bg-black/90">
                                     <div className="absolute inset-0 bg-gradient-to-b from-indigo-950/20 via-black to-black opacity-50" />
                                     <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">

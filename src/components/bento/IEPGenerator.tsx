@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useState } from 'react';
 import { FileText, Sparkles, Download, Copy, CheckCircle, User, Target, BookOpen, Calendar, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';

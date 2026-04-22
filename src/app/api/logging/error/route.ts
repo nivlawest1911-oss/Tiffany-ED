@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
+﻿import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 
 export async function POST(request: NextRequest) {
@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
 
         const error = await request.json()
 
-        // 🏛️ Institutional Logging: Save to institutional_error_logs
+        // ðŸ›ï¸ Institutional Logging: Save to institutional_error_logs
         const { error: dbError } = await supabase.from('error_logs').insert([
             {
                 message: error.message,

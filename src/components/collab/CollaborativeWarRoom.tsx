@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useEffect, useState, useRef } from 'react';
 import * as Y from 'yjs';

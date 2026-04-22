@@ -1,4 +1,4 @@
-/**
+﻿/**
  * EdIntel EdIntel - Payment Methods API
  * Get all available payment methods with capabilities
  */

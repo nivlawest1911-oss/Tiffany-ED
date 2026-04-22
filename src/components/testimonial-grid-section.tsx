@@ -1,4 +1,4 @@
-import Image from "next/image"
+﻿import Image from "next/image"
 
 const testimonials = [
   {
@@ -19,7 +19,7 @@ const testimonials = [
   },
   {
     quote:
-      "Pointer’s multi-agent coding feature has been a game changer. We’re fixing complex bugs in hours instead of spending entire sprints on them.",
+      "Pointerâ€™s multi-agent coding feature has been a game changer. Weâ€™re fixing complex bugs in hours instead of spending entire sprints on them.",
     name: "Cameron Williamson",
     company: "IBM",
     avatar: "/images/avatars/cameron-williamson.png",
@@ -35,7 +35,7 @@ const testimonials = [
   },
   {
     quote:
-      "We started with the free plan just to test it out, but within a week we upgraded to Pro. Now, we can’t imagine coding without it",
+      "We started with the free plan just to test it out, but within a week we upgraded to Pro. Now, we canâ€™t imagine coding without it",
     name: "Darlene Robertson",
     company: "Ferrari",
     avatar: "/images/avatars/darlene-robertson.png",
@@ -43,7 +43,7 @@ const testimonials = [
   },
   {
     quote:
-      "Collaborative coding feels effortless now. With Pointer’s real-time previews, pair programming has become faster and more productive.",
+      "Collaborative coding feels effortless now. With Pointerâ€™s real-time previews, pair programming has become faster and more productive.",
     name: "Cody Fisher",
     company: "Apple",
     avatar: "/images/avatars/cody-fisher.png",

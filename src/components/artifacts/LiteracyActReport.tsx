@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import { BookOpen, Clock, AlertCircle, FileText } from 'lucide-react';
@@ -22,7 +22,7 @@ export function LiteracyActReport({ studentId, deficiencies }: LiteracyActReport
                     </div>
                     <div>
                         <h3 className="text-xl font-bold text-white">Individual Reading Plan (IRP)</h3>
-                        <p className="text-sm text-purple-300">Alabama Literacy Act § 16-6G-5</p>
+                        <p className="text-sm text-purple-300">Alabama Literacy Act Â§ 16-6G-5</p>
                     </div>
                 </div>
                 <div className="px-4 py-2 bg-purple-500/20 rounded-full">

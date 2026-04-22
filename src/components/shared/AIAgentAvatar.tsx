@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+﻿import React, { useEffect, useRef, useState } from 'react';
 import StreamingAvatar, { AvatarQuality, TaskType } from '@heygen/streaming-avatar';
 
 interface AIAgentAvatarProps {

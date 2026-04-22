@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -49,15 +49,14 @@ export default function TalkingDelegateOverlay({
                     signal: controller.signal
                 });
 
-                if (!response.ok) {
-                    // Handle 503 Service Unavailable silently (TTS not configured)
-                    if (response.status === 503) {
-                        setError("Voice synthesis not available.");
-                        setIsLoading(false);
-                        return;
-                    }
-                    throw new Error('Failed to synthesize speech');
+                if (response.status === 503) {
+                    // Silently handle unavailable service
+                    setError("Voice synthesis not available.");
+                    setIsLoading(false);
+                    return;
                 }
+
+                if (!response.ok) throw new Error(`TTS failed with status: ${response.status}`);
 
                 const blob = await response.blob();
                 if (controller.signal.aborted) return;
@@ -69,14 +68,18 @@ export default function TalkingDelegateOverlay({
                 // Auto-play
                 setTimeout(() => {
                     if (audioRef.current && !controller.signal.aborted) {
-                        audioRef.current.play().catch(() => { /* Autoplay blocked - silent */ });
+                        audioRef.current.play().catch(e => console.error("Autoplay blocked", e));
                     }
                 }, 500);
 
             } catch (err: any) {
                 if (err.name === 'AbortError') return;
-                // Only log unexpected errors, not service unavailable
-                setError("Voice synthesis unavailable.");
+                
+                // Only log unexpected errors (exclude 503-related issues)
+                if (!(err instanceof Error && err.message.includes('503'))) {
+                    console.error("TTS Error:", err);
+                    setError("Voice synthesis unavailable. Using backup protocol.");
+                }
                 setIsLoading(false);
             }
         };
@@ -94,7 +97,7 @@ export default function TalkingDelegateOverlay({
         let interval: NodeJS.Timeout;
         if (isPlaying) {
             interval = setInterval(() => {
-                // jaw animation omitted — state removed
+                // jaw animation omitted â€” state removed
             }, 150);
         }
         return () => clearInterval(interval);

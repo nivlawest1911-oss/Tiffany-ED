@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { Users, FileText, School, Cpu } from 'lucide-react';
 

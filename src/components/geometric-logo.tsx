@@ -1,4 +1,4 @@
-export function GeometricLogo() {
+﻿export function GeometricLogo() {
   return (
     <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 p-2 sm:p-2.5 md:p-3 border-2 border-white/30 rounded-xl sm:rounded-2xl">
       <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">

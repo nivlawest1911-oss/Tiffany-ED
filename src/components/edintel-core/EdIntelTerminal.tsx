@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { Activity } from 'lucide-react';
 import EdIntelNode from './layout/EdIntelNode';
@@ -19,7 +19,7 @@ export default function EdIntelTerminal({ logs = [] }: EdIntelTerminalProps) {
         { id: '2', action: 'Loading Mobile County Directives...', timestamp: new Date().toISOString() },
         { id: '3', action: 'Hento ecosystem sync complete.', timestamp: new Date().toISOString() },
         { id: '4', action: 'Optimizing instructional nodes...', timestamp: new Date().toISOString() },
-        { id: '5', action: '✓ SYSTEM STATUS: OPTIMAL', timestamp: new Date().toISOString() },
+        { id: '5', action: 'âœ“ SYSTEM STATUS: OPTIMAL', timestamp: new Date().toISOString() },
     ];
 
     return (
@@ -40,7 +40,7 @@ export default function EdIntelTerminal({ logs = [] }: EdIntelTerminalProps) {
                         <div className="flex-1 min-w-0">
                             <p className="text-emerald-400">
                                 <span className="text-gray-600">[{new Date(log.timestamp).toLocaleTimeString()}]</span>{' '}
-                                <span className="text-emerald-500">→</span> {log.action}
+                                <span className="text-emerald-500">â†’</span> {log.action}
                             </p>
                         </div>
                         <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse flex-shrink-0" />

@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers';
+﻿import { cookies } from 'next/headers';
 import UserProfilePage from '@/components/UserProfilePage';
 
 export const dynamic = 'force-dynamic';

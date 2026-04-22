@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import { FileText, AlertTriangle, CheckCircle, TrendingUp } from 'lucide-react';

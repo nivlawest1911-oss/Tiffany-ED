@@ -1,4 +1,4 @@
-import React from 'react'
+﻿import React from 'react'
 
 export function ResponsiveGrid({ children }: { children: React.ReactNode }) {
     return (
@@ -38,7 +38,7 @@ export function MobileCard({
             <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">{description}</p>
 
             <div className="mt-4 flex items-center text-[10px] font-bold text-blue-500 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
-                Engage Protocol →
+                Engage Protocol â†’
             </div>
         </button>
     )

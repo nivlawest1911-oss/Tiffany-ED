@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { MorningSynthesisCard, CognitiveLoadCard, StudioActionCard } from './PrincipalTacticalHUD';
 
 export function LiveOperations() {

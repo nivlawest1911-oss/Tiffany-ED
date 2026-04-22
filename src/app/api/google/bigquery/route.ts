@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
             },
         });
 
-        console.log(`💎 BigQuery Uplink: Querying district_data for ${districtId}`);
+        console.log(`ðŸ’Ž BigQuery Uplink: Querying district_data for ${districtId}`);
 
         // Return mock data if credentials are missing for build process
         if (!process.env.GCP_PRIVATE_KEY) {

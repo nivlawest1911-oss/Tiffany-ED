@@ -1,4 +1,4 @@
-/**
+﻿/**
  * HeyGen API Client
  * Comprehensive integration for HeyGen's avatar and video generation services
  */

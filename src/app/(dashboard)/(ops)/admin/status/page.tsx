@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers';
+﻿import { cookies } from 'next/headers';
 import StatusClient from './StatusClient';
 
 export const dynamic = 'force-dynamic';
