@@ -1,18 +1,53 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { authRateLimit, apiRateLimit } from '@/lib/ratelimit';
 
 /**
  * Sovereign Institutional Sentinel (Middleware)
  * 
- * Performance-optimized session validation using manual cookie parsing.
- * This bypasses the need for the heavy Auth/Prisma modules in the Edge Runtime,
- * resolving 'eval' conflicts and reducing latency.
+ * Performance-optimized session validation and rate limiting.
  */
 
 export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
     
+    // 0. Institutional Hardening: Rate Limiting
+    const ip = (request as any).ip ?? request.headers.get('x-forwarded-for') ?? '127.0.0.1';
+    
+    // Apply API Rate Limiting to sensitive telemetry nodes
+    if (pathname.startsWith('/api/fleet') || pathname.startsWith('/api/wellness')) {
+        const { success, limit, reset, remaining } = await apiRateLimit.limit(ip);
+        if (!success) {
+            return new NextResponse(
+                JSON.stringify({ 
+                    error: 'Sovereign Protocol: Rate Limit Exceeded.',
+                    message: 'Your institutional node is being throttled to preserve system integrity.',
+                    retryAfter: reset
+                }), 
+                { 
+                    status: 429, 
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'X-RateLimit-Limit': limit.toString(),
+                        'X-RateLimit-Remaining': remaining.toString(),
+                        'X-RateLimit-Reset': reset.toString(),
+                    } 
+                }
+            );
+        }
+    }
+
+    // Apply Auth Rate Limiting to handshakes and login attempts
+    if (pathname.startsWith('/api/auth') || pathname.includes('login') || pathname.includes('signup')) {
+        const { success } = await authRateLimit.limit(ip);
+        if (!success) {
+            return new NextResponse(
+                JSON.stringify({ error: 'Authentication Throttled.', message: 'Too many handshake attempts. Please wait for the neural cooldown.' }),
+                { status: 429, headers: { 'Content-Type': 'application/json' } }
+            );
+        }
+    }
+
     // 1. Better Auth Session Protocol (Edge-Safe)
-    // We check for the session cookie directly to avoid Edge/eval conflicts
     const sessionCookie = request.cookies.get('better-auth.session-token');
     const isAuthenticated = !!sessionCookie;
 
@@ -28,7 +63,8 @@ export async function middleware(request: NextRequest) {
         "/wellness",
         "/excursions",
         "/the-room",
-        "/onboarding"
+        "/onboarding",
+        "/fleet" // Added fleet to protected routes
     ];
 
     const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
@@ -45,7 +81,16 @@ export async function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL('/dashboard/cognitive', request.url));
     }
 
-    return NextResponse.next();
+    // 5. Security Headers
+    const response = NextResponse.next();
+    response.headers.set('X-DNS-Prefetch-Control', 'on');
+    response.headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
+    response.headers.set('X-XSS-Protection', '1; mode=block');
+    response.headers.set('X-Frame-Options', 'SAMEORIGIN');
+    response.headers.set('X-Content-Type-Options', 'nosniff');
+    response.headers.set('Referrer-Policy', 'origin-when-cross-origin');
+
+    return response;
 }
 
 export const config = {
@@ -56,8 +101,7 @@ export const config = {
          * - _next/image (image optimization files)
          * - favicon.ico (favicon file)
          * - Public assets like .svg, .png, etc.
-         * - Authentication endpoints (api/auth)
          */
-        '/((?!api/auth|_next/static|_next/image|_vercel|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|css|js|json|map)$).*)',
+        '/((?!_next/static|_next/image|_vercel|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|css|js|json|map)$).*)',
     ],
 };

@@ -8,7 +8,26 @@ import { headers } from 'next/headers';
  * Cleanly isolated server action for social authentication 
  * to prevent top-level module leakage.
  */
-export async function executeSocialUplink(provider: 'google' | 'facebook', _turnstileToken?: string) {
+import { verifyTurnstileToken } from '@/lib/turnstile';
+import { logAuditEvent, AuditCategory, AuditAction } from '@/lib/audit';
+
+/**
+ * executeSocialUplink
+ * 
+ * Cleanly isolated server action for social authentication 
+ * to prevent top-level module leakage.
+ */
+export async function executeSocialUplink(provider: 'google' | 'facebook', turnstileToken?: string) {
+    // 1. Mandatory Human Residency Check
+    if (!turnstileToken) {
+        return { success: false, error: "Human verification (Turnstile) is required." };
+    }
+    
+    const isVerified = await verifyTurnstileToken(turnstileToken);
+    if (!isVerified) {
+        return { success: false, error: "Security Protocol: Human verification failed." };
+    }
+
     const { auth } = await import('@/lib/auth');
     try {
         const result = await auth.api.signInSocial({
@@ -34,10 +53,20 @@ export async function executeSocialUplink(provider: 'google' | 'facebook', _turn
  * 
  * Cleanly isolated server action for email authentication.
  */
-export async function executeEmailUplink(data: { email: string; password?: string; name?: string; type: 'signIn' | 'signUp' }) {
+export async function executeEmailUplink(data: { email: string; password?: string; name?: string; type: 'signIn' | 'signUp'; turnstileToken?: string }) {
     const { auth } = await import('@/lib/auth');
     try {
         const headerList = await headers();
+
+        // 1. Mandatory Human Residency Check
+        if (!data.turnstileToken) {
+            return { success: false, error: "Human verification (Turnstile) is required." };
+        }
+        
+        const isVerified = await verifyTurnstileToken(data.turnstileToken);
+        if (!isVerified) {
+            return { success: false, error: "Security Protocol: Human verification failed." };
+        }
         let result;
         
         if (data.type === 'signIn') {
@@ -60,6 +89,20 @@ export async function executeEmailUplink(data: { email: string; password?: strin
         }
 
         if (result?.user) {
+            // 2. Institutional Audit Logging
+            await logAuditEvent({
+                userId: result.user.id,
+                category: AuditCategory.AUTHENTICATION,
+                action: data.type === 'signIn' ? AuditAction.SIGN_IN : AuditAction.SIGN_UP,
+                label: `Email Uplink: ${data.email}`,
+                ipAddress: headerList.get('x-forwarded-for')?.split(',')[0] || undefined,
+                userAgent: headerList.get('user-agent') || undefined,
+                metadata: {
+                    type: data.type,
+                    provider: 'email'
+                }
+            });
+
             // Trigger profile synchronization
             if (data.type === 'signUp') {
                 try {

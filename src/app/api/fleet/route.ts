@@ -2,9 +2,10 @@ import { NextResponse, NextRequest } from 'next/server';
 export const dynamic = 'force-dynamic';
 import { DistrictService } from '@/lib/DistrictService';
 import { getSession } from '@/lib/auth';
+import { logAuditEvent, AuditCategory, AuditAction } from '@/lib/audit';
 
 // Simple in-memory cache for fleet metrics (with role-based keying)
-let fleetCache: Map<string, {
+const fleetCache: Map<string, {
     data: any;
     timestamp: number;
 }> = new Map();
@@ -28,6 +29,20 @@ export async function GET(req: NextRequest) {
         if (!allowedRoles.includes(role)) {
             return NextResponse.json({ error: 'Access Restricted' }, { status: 403 });
         }
+
+        // 1. Institutional Audit: Record Fleet Access
+        await logAuditEvent({
+            userId: user.id,
+            category: AuditCategory.FLEET_COMMAND,
+            action: AuditAction.FLEET_ACCESS,
+            label: `Fleet View: ${role}`,
+            ipAddress: req.headers.get('x-forwarded-for')?.split(',')[0] || undefined,
+            userAgent: req.headers.get('user-agent') || undefined,
+            metadata: {
+                role,
+                scope: role === 'PRINCIPAL' ? 'School' : 'District'
+            }
+        });
 
         const { searchParams } = new URL(req.url);
         const days = parseInt(searchParams.get('days') || '7');

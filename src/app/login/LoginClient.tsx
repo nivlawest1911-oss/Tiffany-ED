@@ -89,7 +89,8 @@ export default function LoginClient() {
                 const result = await executeEmailUplink({
                     email,
                     password,
-                    type: 'signIn'
+                    type: 'signIn',
+                    turnstileToken
                 });
 
                 if (!result.success) throw new Error(result.error);
@@ -102,7 +103,8 @@ export default function LoginClient() {
                     email,
                     password,
                     name: signupData.name,
-                    type: 'signUp'
+                    type: 'signUp',
+                    turnstileToken
                 });
 
                 if (!result.success) throw new Error(result.error);

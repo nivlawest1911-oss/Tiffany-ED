@@ -276,6 +276,7 @@ export default function FleetCommander() {
                 {/* Fleet Intelligence: Institutional Vigor */}
                 <VigorTelemetry data={metrics?.intelligence?.vigor ? {
                     ...metrics.intelligence.vigor,
+                    trend: metrics.intelligence.vigor.trend as "stable" | "improving" | "declining",
                     period: metrics.metadata?.timeframe || '7d'
                 } : null} />
 
