@@ -1,4 +1,4 @@
-﻿import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 
 export async function POST(request: NextRequest) {
@@ -9,14 +9,20 @@ export async function POST(request: NextRequest) {
 
         const error = await request.json()
 
-        // ðŸ›ï¸ Institutional Logging: Save to institutional_error_logs
+        // 🛡️ Omega Privacy Masking: Anonymize IP and User Agent
+        const rawIp = request.headers.get('x-forwarded-for') || '0.0.0.0';
+        const maskedIp = rawIp.split(',')[0].replace(/\d+$/, 'xxx'); // Mask last octet
+        const userAgent = request.headers.get('user-agent') || 'Unknown';
+        const maskedUserAgent = userAgent.substring(0, 50) + '...'; // Truncate for privacy
+
+        // 🛡️ Institutional Logging: Save to institutional_error_logs
         const { error: dbError } = await supabase.from('error_logs').insert([
             {
                 message: error.message,
                 stack: error.stack,
                 context: error.context,
-                user_agent: request.headers.get('user-agent'),
-                ip_address: request.headers.get('x-forwarded-for') || '0.0.0.0',
+                user_agent: maskedUserAgent,
+                ip_address: maskedIp,
                 timestamp: new Date().toISOString(),
             },
         ])

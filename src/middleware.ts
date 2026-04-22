@@ -10,7 +10,22 @@ import { authRateLimit, apiRateLimit } from '@/lib/ratelimit';
 export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
     
-    // 0. Institutional Hardening: Rate Limiting
+    // 0. Sentinel Lockdown Protocol: Maintenance Mode
+    if (process.env.MAINTENANCE_MODE === 'true' && !pathname.startsWith('/api/health')) {
+        return new NextResponse(
+            JSON.stringify({ 
+                error: 'Sentinel Lockdown: Active.',
+                message: 'The Sovereign institutional node is currently undergoing maintenance or high-risk synchronization. System integrity is prioritized.',
+                status: 'LOCKDOWN'
+            }), 
+            { 
+                status: 503, 
+                headers: { 'Content-Type': 'application/json', 'Retry-After': '3600' } 
+            }
+        );
+    }
+
+    // 1. Institutional Hardening: Rate Limiting
     const ip = (request as any).ip ?? request.headers.get('x-forwarded-for') ?? '127.0.0.1';
     
     // Apply API Rate Limiting to sensitive telemetry nodes
@@ -88,7 +103,7 @@ export async function middleware(request: NextRequest) {
     response.headers.set('X-XSS-Protection', '1; mode=block');
     response.headers.set('X-Frame-Options', 'SAMEORIGIN');
     response.headers.set('X-Content-Type-Options', 'nosniff');
-    response.headers.set('Referrer-Policy', 'origin-when-cross-origin');
+    response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
 
     return response;
 }

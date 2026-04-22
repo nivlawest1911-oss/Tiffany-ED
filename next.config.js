@@ -5,6 +5,12 @@ const nextConfig = {
     poweredByHeader: false,
     generateEtags: true,
 
+    // Performance & Bundle Optimization
+    compiler: {
+        removeConsole: process.env.NODE_ENV === "production",
+    },
+
+
     webpack: (config, { dev, isServer, webpack }) => {
         // Prevent prisma and auth from being bundled into client-side code
         if (!isServer) {
@@ -115,7 +121,8 @@ const nextConfig = {
                     { key: 'X-Content-Type-Options', value: 'nosniff' },
                     { key: 'X-Frame-Options', value: 'DENY' },
                     { key: 'X-XSS-Protection', value: '1; mode=block' },
-                    { key: 'Referrer-Policy', value: 'origin-when-cross-origin' }
+                    { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' }
+
                 ],
             },
             {
