@@ -4,6 +4,7 @@ const nextConfig = {
     compress: true,
     poweredByHeader: false,
     generateEtags: true,
+    transpilePackages: [],
 
     // Performance & Bundle Optimization
     compiler: {
