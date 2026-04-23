@@ -3,10 +3,22 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import BiometricVisualizer from "@/components/wellness/BiometricVisualizer";
-import BurnoutShield from "@/components/wellness/BurnoutShield";
-import ProtocolOutput from "@/components/wellness/ProtocolOutput";
+import dynamic from "next/dynamic";
 import { subscribeToBiometrics, type BiometricData } from "@/lib/wearable-service";
+
+const BiometricVisualizer = dynamic(() => import("@/components/wellness/BiometricVisualizer"), {
+  ssr: false,
+  loading: () => <div className="h-[220px] bg-zinc-900/50 rounded-3xl animate-pulse flex items-center justify-center text-zinc-600 font-mono text-xs uppercase tracking-widest">Initialising Neural Link...</div>
+});
+
+const BurnoutShield = dynamic(() => import("@/components/wellness/BurnoutShield"), {
+  ssr: false,
+  loading: () => <div className="h-[120px] bg-zinc-900/50 rounded-3xl animate-pulse mt-8" />
+});
+
+const ProtocolOutput = dynamic(() => import("@/components/wellness/ProtocolOutput"), {
+  ssr: false
+});
 
 export default function WellnessClient() {
   const [biometrics, setBiometrics] = useState<BiometricData>({
