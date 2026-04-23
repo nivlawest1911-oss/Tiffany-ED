@@ -97,13 +97,11 @@ const nextConfig = {
 
     experimental: {
         optimizePackageImports: [
-            '@prisma/client',
             'lucide-react',
             'framer-motion',
             '@vercel/speed-insights',
             '@radix-ui/react-icons',
             'recharts',
-            'framer-motion',
             'date-fns',
             'lodash',
             '@heroicons/react',
