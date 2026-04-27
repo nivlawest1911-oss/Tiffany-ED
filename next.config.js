@@ -4,6 +4,7 @@ const nextConfig = {
     compress: true,
     poweredByHeader: false,
     generateEtags: true,
+    // @prisma/client must be externalized and CANNOT be transpiled due to native binaries
     transpilePackages: [],
 
     // Performance & Bundle Optimization
