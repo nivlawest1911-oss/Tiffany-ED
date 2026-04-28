@@ -113,6 +113,10 @@ const nextConfig = {
         },
     },
 
+    // Memory-saving settings for Hobby tier
+    generateBuildId: () => "build-" + Date.now(),
+    output: "standalone",
+
     // HTTP caching headers
     async headers() {
         return [
