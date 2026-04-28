@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '../src/generated/prisma';
 import { EDINTEL_TIERS } from '../src/config/tiers';
 
 const prisma = new PrismaClient();
