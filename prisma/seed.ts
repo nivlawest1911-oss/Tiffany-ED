@@ -1,8 +1,6 @@
 import 'dotenv/config';
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '../src/lib/prisma';
 import { EDINTEL_TIERS } from '../src/config/tiers';
-
-const prisma = new PrismaClient();
 
 async function main() {
     console.log('Seeding EdIntel pricing tiers from source of truth...');

@@ -16,10 +16,11 @@ export const prisma = new Proxy({} as any, {
         
         // Lazy instantiate the real client upon first method call or access
         if (!_prisma) {
-            const { PrismaClient } = require("@/generated/prisma/client");
+            const { PrismaClient } = require("@/generated/prisma");
             _prisma = new PrismaClient({
                 log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
-            });
+                adapter: null,
+            } as any);
             console.log(`[PRISMA_SENTINEL] Real client instantiated for property: ${String(prop)}`);
         }
         

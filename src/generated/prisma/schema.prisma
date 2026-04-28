@@ -1,8 +1,7 @@
 generator client {
-  provider      = "prisma-client-js"
-  output        = "../src/generated/prisma" // Choose a clean path inside src/
-  engineType    = "library"
-  compilerBuild = "fast" // Best balance of speed/size in 2026
+  provider   = "prisma-client-js"
+  output     = "../src/generated/prisma"
+  engineType = "binary"
 }
 
 datasource db {
