@@ -1,4 +1,4 @@
-﻿import { getSession } from '@/lib/auth';
+import { getSession } from '@/lib/auth';
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { UserRole } from '@/generated/prisma';
@@ -67,18 +67,18 @@ export async function POST(req: Request) {
                 userRecord = await prisma.user.update({
                     where: { id: userRecord.id },
                     data: {
-                        clerkId: userId, // Ensure ID is linked
+                        clerk_id: userId, // Ensure ID is linked
                         role: normalizedRole,
                         district: districtName || userRecord.district,
                         position: position || userRecord.position,
-                        lastLogin: new Date()
+                        last_login: new Date()
                     }
                 });
             } else {
                 console.log(`[SET_ROLE] Creating new user record for ${email}`);
                 userRecord = await prisma.user.create({
                     data: {
-                        clerkId: userId,
+                        clerk_id: userId,
                         email: email,
                         role: normalizedRole,
                         district: districtName,

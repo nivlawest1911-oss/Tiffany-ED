@@ -19,7 +19,6 @@ export const prisma = new Proxy({} as any, {
             const { PrismaClient } = require("@/generated/prisma");
             _prisma = new PrismaClient({
                 log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
-                adapter: null,
             } as any);
             console.log(`[PRISMA_SENTINEL] Real client instantiated for property: ${String(prop)}`);
         }

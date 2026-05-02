@@ -30,35 +30,45 @@ export async function middleware(request: NextRequest) {
     
     // Apply API Rate Limiting to sensitive telemetry nodes
     if (pathname.startsWith('/api/fleet') || pathname.startsWith('/api/wellness')) {
-        const { success, limit, reset, remaining } = await apiRateLimit.limit(ip);
-        if (!success) {
-            return new NextResponse(
-                JSON.stringify({ 
-                    error: 'Sovereign Protocol: Rate Limit Exceeded.',
-                    message: 'Your institutional node is being throttled to preserve system integrity.',
-                    retryAfter: reset
-                }), 
-                { 
-                    status: 429, 
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'X-RateLimit-Limit': limit.toString(),
-                        'X-RateLimit-Remaining': remaining.toString(),
-                        'X-RateLimit-Reset': reset.toString(),
-                    } 
-                }
-            );
+        try {
+            const { success, limit, reset, remaining } = await apiRateLimit.limit(ip);
+            if (!success) {
+                return new NextResponse(
+                    JSON.stringify({ 
+                        error: 'Sovereign Protocol: Rate Limit Exceeded.',
+                        message: 'Your institutional node is being throttled to preserve system integrity.',
+                        retryAfter: reset
+                    }), 
+                    { 
+                        status: 429, 
+                        headers: { 
+                            'Content-Type': 'application/json',
+                            'X-RateLimit-Limit': limit.toString(),
+                            'X-RateLimit-Remaining': remaining.toString(),
+                            'X-RateLimit-Reset': reset.toString(),
+                        } 
+                    }
+                );
+            }
+        } catch (error) {
+            console.error('API Rate limiting error:', error);
+            // Fail open if KV is unreachable or unconfigured
         }
     }
 
     // Apply Auth Rate Limiting to handshakes and login attempts
     if (pathname.startsWith('/api/auth') || pathname.includes('login') || pathname.includes('signup')) {
-        const { success } = await authRateLimit.limit(ip);
-        if (!success) {
-            return new NextResponse(
-                JSON.stringify({ error: 'Authentication Throttled.', message: 'Too many handshake attempts. Please wait for the neural cooldown.' }),
-                { status: 429, headers: { 'Content-Type': 'application/json' } }
-            );
+        try {
+            const { success } = await authRateLimit.limit(ip);
+            if (!success) {
+                return new NextResponse(
+                    JSON.stringify({ error: 'Authentication Throttled.', message: 'Too many handshake attempts. Please wait for the neural cooldown.' }),
+                    { status: 429, headers: { 'Content-Type': 'application/json' } }
+                );
+            }
+        } catch (error) {
+            console.error('Auth Rate limiting error:', error);
+            // Fail open if KV is unreachable or unconfigured
         }
     }
 
