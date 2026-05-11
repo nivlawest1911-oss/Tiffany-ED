@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useState, useRef, useCallback } from 'react'
@@ -271,7 +271,7 @@ function OrbitalRings() {
 export function CinematicLogoIntro({ 
   onComplete, 
   autoClose = true, 
-  autoCloseDuration = 3000 // REDUCED FROM 4000 FOR LCP (Phase 14.1)
+  autoCloseDuration = 2000 // REDUCED FROM 3000 FOR LCP (Phase 14.2)
 }: LogoIntroProps) {
   const [isVisible, setIsVisible] = useState(true)
   const [isMobile, setIsMobile] = useState(false)
@@ -378,7 +378,7 @@ export function CinematicLogoIntro({
           className="relative z-20 flex flex-col items-center"
           initial={{ scale: 0.5, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1.5, delay: 1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         >
           {/* Glassmorphic logo container */}
           <GlassPanel className="p-8 md:p-12">
@@ -415,6 +415,7 @@ export function CinematicLogoIntro({
                   fill
                   className="object-contain p-4"
                   priority
+                  loading="eager" 
                   sizes="(max-width: 768px) 192px, 256px"
                 />
                 
@@ -433,7 +434,7 @@ export function CinematicLogoIntro({
             className="text-center mt-12"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 2.5 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
           >
             {/* Main title with holographic effect */}
             <motion.h1
@@ -446,7 +447,7 @@ export function CinematicLogoIntro({
               }}
               initial={{ letterSpacing: '0.6em', opacity: 0 }}
               animate={{ letterSpacing: '0.4em', opacity: 1 }}
-              transition={{ duration: 1.5, delay: 2.8 }}
+              transition={{ duration: 1.2, delay: 1.2 }}
             >
               EDINTEL
             </motion.h1>

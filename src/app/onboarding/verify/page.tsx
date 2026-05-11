@@ -1,10 +1,10 @@
-import React from 'react';
+import { Metadata } from 'next';
 import VerifyInstitutionalNode from '@/components/onboarding/VerifyInstitutionalNode';
 import { CinematicBackground } from '@/components/ui/CinematicBackground';
 
 export const dynamic = 'force-dynamic';
 
-export const metadata = {
+export const metadata: Metadata = {
     title: 'Institutional Verification | EdIntel Sovereign',
     description: 'Establish your institutional uplink and verify your professional role within the Sovereign ecosystem.',
 };

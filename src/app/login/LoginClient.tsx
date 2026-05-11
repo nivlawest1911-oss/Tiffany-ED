@@ -342,7 +342,7 @@ export default function LoginClient() {
                             {/* Neural Verification Hub (Turnstile) */}
                             <div className="flex justify-center py-2">
                                 <Turnstile
-                                    sitekey="1x00000000000000000000BB"
+                                    sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"}
                                     onVerify={(token) => setTurnstileToken(token)}
                                     theme="dark"
                                 />

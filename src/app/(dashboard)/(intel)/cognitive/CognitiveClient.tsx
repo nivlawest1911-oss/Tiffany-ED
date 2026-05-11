@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import { useState, useTransition } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -33,7 +33,7 @@ export default function CognitiveClient({ initialStats }: CognitiveClientProps) 
     const [activeTab, setActiveTab] = useState<'simulator' | 'analytics' | 'certification'>('simulator');
     const [isPending, startTransition] = useTransition();
     const { addXP, xp, currentRank, progressToNext } = useLeadershipRank();
-    const { authStatus, curriculumLoad, uplinkHealth } = useGlobalSynapse();
+    const { curriculumLoad, uplinkHealth } = useGlobalSynapse();
 
     // Edge Telemetry Orchestration
     const syncToEdge = async (type: string, value: number) => {

@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 
 import { EdIntelGate } from '@/components/edintel-core/EdIntelGate';
 import { Sparkles, Loader2, Zap, ShieldCheck } from 'lucide-react';
@@ -42,13 +42,13 @@ export const StudioVideoSection = ({ userTier: _userTier, isCommandLevel }: Stud
                     </div>
                     <div>
                         <div className="flex items-center gap-2 mb-2">
-                            <h4 className="text-amber-500 font-mono text-xs uppercase tracking-widest">InVideo AI Engine</h4>
+                            <h4 className="text-amber-500 font-mono text-xs uppercase tracking-widest">Neural Broadcast Engine</h4>
                             {isCommandLevel && <ShieldCheck className="w-3 h-3 text-emerald-500" />}
                         </div>
-                        <p className="text-zinc-400 text-sm mb-4 leading-relaxed">Convert student data logs into localized AI video lessons.</p>
+                        <p className="text-zinc-400 text-sm mb-4 leading-relaxed">Convert student data logs into localized internal video lessons.</p>
                     </div>
                     <button
-                        onClick={() => handleToolClick('InVideo AI')}
+                        onClick={() => handleToolClick('Broadcast Synthesis')}
                         disabled={isActivating}
                         className={cn(
                             "w-full py-3 font-bold rounded-lg transition-all uppercase text-[10px] tracking-widest flex items-center justify-center gap-2",
@@ -57,7 +57,7 @@ export const StudioVideoSection = ({ userTier: _userTier, isCommandLevel }: Stud
                                 : "bg-zinc-800 text-zinc-500 cursor-not-allowed"
                         )}
                     >
-                        {isActivating && activeTool === 'InVideo AI' ? (
+                        {isActivating && activeTool === 'Broadcast Synthesis' ? (
                             <><Loader2 className="w-3 h-3 animate-spin" /> Establishing Uplink...</>
                         ) : (
                             isCommandLevel ? 'Initiate Neural Render' : 'Access Restricted'
@@ -72,13 +72,13 @@ export const StudioVideoSection = ({ userTier: _userTier, isCommandLevel }: Stud
                     </div>
                     <div>
                         <div className="flex items-center gap-2 mb-2">
-                            <h4 className="text-amber-500 font-mono text-xs uppercase tracking-widest">Captions Protocol</h4>
+                            <h4 className="text-amber-500 font-mono text-xs uppercase tracking-widest">Accessibility Protocol</h4>
                             {isCommandLevel && <ShieldCheck className="w-3 h-3 text-emerald-500" />}
                         </div>
-                        <p className="text-zinc-400 text-sm mb-4 leading-relaxed">Auto-subtitle district announcements for ADA compliance.</p>
+                        <p className="text-zinc-400 text-sm mb-4 leading-relaxed">Auto-subtitle district announcements for absolute ADA compliance.</p>
                     </div>
                     <button
-                        onClick={() => handleToolClick('Captions.ai')}
+                        onClick={() => handleToolClick('Accessibility Engine')}
                         disabled={isActivating}
                         className={cn(
                             "w-full py-3 font-bold rounded-lg transition-all uppercase text-[10px] tracking-widest flex items-center justify-center gap-2",
@@ -87,7 +87,7 @@ export const StudioVideoSection = ({ userTier: _userTier, isCommandLevel }: Stud
                                 : "bg-zinc-800 text-zinc-500 cursor-not-allowed"
                         )}
                     >
-                        {isActivating && activeTool === 'Captions.ai' ? (
+                        {isActivating && activeTool === 'Accessibility Engine' ? (
                             <><Loader2 className="w-3 h-3 animate-spin" /> Synchronizing Subtitles...</>
                         ) : (
                             isCommandLevel ? 'Initiate Uplink' : 'Access Restricted'

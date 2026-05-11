@@ -58,7 +58,7 @@ export default function FleetCommander() {
         });
 
         setTimeout(() => setIsSyncing(false), 800);
-    }, [orchestrator]);
+    }, [orchestrator, timeframe]);
 
     useEffect(() => {
         loadData();

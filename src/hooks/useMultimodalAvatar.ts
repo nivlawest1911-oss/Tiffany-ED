@@ -1,4 +1,4 @@
-﻿/**
+/**
  * EdIntel Multimodal Live Avatar Hook
  * Vercel AI SDK Integration with Google Cloud Run Backend
  * 
@@ -23,7 +23,7 @@ interface AvatarMessage {
 interface UseMultimodalAvatarProps {
     avatarName: string;
     avatarRole: string;
-    engine?: 'duix' | 'tavus' | 'heygen' | 'liveportrait' | 'adobe' | 'viggle' | 'did' | 'akool';
+    engine?: 'duix' | 'tavus' | 'heygen' | 'liveportrait' | 'viggle' | 'did' | 'akool';
     onTokenDeduct?: (amount: number) => void;
     onXPGain?: (amount: number) => void;
     onSpeak?: (text: string, signal?: AbortSignal) => boolean; // Returns true if handled externally

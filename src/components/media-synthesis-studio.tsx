@@ -1,4 +1,4 @@
-﻿"use client"
+"use client"
 
 import { useState } from "react"
 import { Mic, Film, Play, Download, Wand2, Sparkles, MonitorPlay } from "lucide-react"
@@ -101,18 +101,20 @@ export function MediaSynthesisStudio() {
                             </h3>
                             <div className="space-y-4">
                                 <div>
-                                    <label className="text-xs text-gray-400 block mb-2">Select Engine</label>
+                                    <label htmlFor="engine-select" className="text-xs text-gray-400 block mb-2">Select Engine</label>
                                     <select
+                                        id="engine-select"
                                         value={selectedEngine}
                                         onChange={(e) => setSelectedEngine(e.target.value)}
                                         className="w-full bg-black/40 border border-white/10 rounded-lg p-2 text-sm text-gray-300"
+                                        title="Select AI Rendering Engine"
                                     >
                                         <option value="internal">EdIntel Professional (Internal)</option>
-                                        <option value="heygen">HeyGen (High-Fidelity Lip Sync)</option>
-                                        <option value="invideo">InVideo (Broadcast Synthesis)</option>
-                                        <option value="opus">Opus (Short-Form Clips)</option>
-                                        <option value="captions">Captions (Accessibility & Dubbing)</option>
-                                        <option value="gemini">Gemini (Multimodal Analysis)</option>
+                                        <option value="synthesis">EdIntel High-Fidelity (Synthesis)</option>
+                                        <option value="broadcast">Neural Broadcast (Generative)</option>
+                                        <option value="rapid">EdIntel Shorts (Rapid)</option>
+                                        <option value="accessibility">Universal Access (Subtitles)</option>
+                                        <option value="cognitive">Cognitive Analysis (Multi-Modal)</option>
                                     </select>
                                 </div>
                             </div>
@@ -125,8 +127,12 @@ export function MediaSynthesisStudio() {
                             </h3>
                             <div className="space-y-4">
                                 <div>
-                                    <label className="text-xs text-gray-400 block mb-2">Clone Voice Source</label>
-                                    <select className="w-full bg-black/40 border border-white/10 rounded-lg p-2 text-sm text-gray-300">
+                                    <label htmlFor="voice-select" className="text-xs text-gray-400 block mb-2">Clone Voice Source</label>
+                                    <select 
+                                        id="voice-select"
+                                        className="w-full bg-black/40 border border-white/10 rounded-lg p-2 text-sm text-gray-300"
+                                        title="Select Voice Clone Source"
+                                    >
                                         <option>Dr. Alvin West (Original)</option>
                                         <option>Professional Female (Sarah)</option>
                                         <option>Dynamic Narrator (Marcus)</option>
@@ -181,7 +187,11 @@ export function MediaSynthesisStudio() {
                                                 </div>
                                             )}
 
-                                            <button onClick={() => setIsGenerating(true)} className="mt-8 px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full backdrop-blur-md transition-all transform hover:scale-105 group-hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                                            <button 
+                                                onClick={() => setIsGenerating(true)} 
+                                                className="mt-8 px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full backdrop-blur-md transition-all transform hover:scale-105 group-hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]"
+                                                title="Play Preview"
+                                            >
                                                 <Play className="w-8 h-8 text-white fill-white" />
                                             </button>
                                         </div>

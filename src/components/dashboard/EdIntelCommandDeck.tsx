@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -162,7 +162,7 @@ const SWARM_AGGREGATORS = [
         color: 'text-amber-400',
         intent: 'Synthesize meeting audio into EdIntel vault compliance logs',
         description: 'Auto-logs meetings & updates Vault.',
-        agents: ['NotebookLM', 'Otter.ai', 'Jotform', 'Grammarly']
+        agents: ['Vault Link', 'Audit Node', 'Compliance Agent', 'Registry Guard']
     },
     {
         category: 'SPED & IEP',
@@ -173,7 +173,7 @@ const SWARM_AGGREGATORS = [
         color: 'text-emerald-400',
         intent: 'Generate comprehensive IEP protocol with predictive modeling',
         description: 'Drafts perfect IEPs in seconds.',
-        agents: ['Monsha', 'Brisk', 'Flint', 'Varsity Tutors']
+        agents: ['IEP Specialist', 'Curriculum Node', 'Instructional Link', 'Data Architect']
     },
     {
         category: 'Instructional Design',
@@ -184,7 +184,7 @@ const SWARM_AGGREGATORS = [
         color: 'text-blue-400',
         intent: 'Construct differentiated lesson plan aligned with Science of Reading',
         description: 'Targets Science of Reading benchmarks.',
-        agents: ['MagicSchool', 'Eduaide', 'Khanmigo', 'Curipod']
+        agents: ['Lesson Architect', 'Instructional Link', 'Differentiated Node', 'Engagement Agent']
     },
     {
         category: 'Creative & Media',
@@ -195,7 +195,7 @@ const SWARM_AGGREGATORS = [
         color: 'text-purple-400',
         intent: 'Synthesize text brief into high-fidelity avatar presentation',
         description: 'Turns briefs into Avatar Video.',
-        agents: ['HeyGen', 'InVideo', 'Gamma', 'Beautiful.ai']
+        agents: ['Synthesis Engine', 'Broadcast Node', 'Visual Link', 'Design Architect']
     },
     {
         category: 'Executive Function',
@@ -206,7 +206,7 @@ const SWARM_AGGREGATORS = [
         color: 'text-pink-400',
         intent: 'Initiate executive function training protocol',
         description: 'Mental sparring for leaders.',
-        agents: ['Lumosity', 'CogniFit', 'Peak']
+        agents: ['Cognitive Node', 'Memory Agent', 'Focus Link']
     },
 ];
 

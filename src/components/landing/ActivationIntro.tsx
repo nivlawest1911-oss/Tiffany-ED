@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -175,9 +175,9 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
     // Handle entrance video & Performance Skip (Phase 14)
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
+        const isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
         const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-        
-        if (params.get('perf') === 'true' || params.get('nosplash') === 'true') {
+        if (params.get('perf') === 'true' || params.get('nosplash') === 'true' || isBot) {
             onCompleteAction();
             return;
         }
@@ -211,6 +211,16 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
     };
 
     useEffect(() => {
+        if (step === 'scene2') {
+            // AUTO-COMPLETE FOR LCP: Reveal Hero section after 6s even if no click (Phase 14)
+            const timer = setTimeout(() => {
+                onCompleteAction();
+            }, 6000);
+            return () => clearTimeout(timer);
+        }
+    }, [step, onCompleteAction]);
+
+    useEffect(() => {
         if (step === 'boot') {
             let lineIdx = 0;
             const interval = setInterval(() => {
@@ -221,7 +231,7 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
                     clearInterval(interval);
                     setTimeout(() => setStep('scene1'), 300); // Sped up from 600
                 }
-            }, 40); // Sped up from 80
+            }, 30); // Sped up from 40
             return () => clearInterval(interval);
         }
     }, [step]);
@@ -256,7 +266,7 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
                             className="absolute inset-0 w-full h-full object-cover"
                             muted={isMuted}
                             playsInline
-                            preload="auto"
+                            preload="none" // DEFERRED TO PREVENT LCP HIJACK (Phase 14.2)
                             onEnded={handleVideoEnd}
                             onTimeUpdate={handleTimeUpdate}
                         />
@@ -414,7 +424,7 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 3 }}
+                            transition={{ delay: 1 }}
                             className="absolute bottom-16 left-1/2 -translate-x-1/2"
                         >
                             <button

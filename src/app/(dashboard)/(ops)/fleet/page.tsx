@@ -10,7 +10,7 @@ import { useGlobalSynapse } from '@/context/GlobalSynapseContext';
 import { SovereignGatekeeper } from '@/components/auth/SovereignGatekeeper';
 
 export default function FleetPage() {
-    const { authStatus, curriculumLoad, uplinkHealth } = useGlobalSynapse();
+    const { authStatus, curriculumLoad } = useGlobalSynapse();
     
     return (
         <SovereignGatekeeper>

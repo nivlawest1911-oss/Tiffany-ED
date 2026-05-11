@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -132,81 +132,6 @@ const AI_VIDEOS: VideoShowcase[] = [
         brieferName: "Cloud System Architect",
         brieferRole: "Infrastructure Lead",
         brieferAvatar: "/images/avatars/stem_coordinator.png"
-    },
-    // --- INTEGRATION: HEYGEN ---
-    {
-        id: 101,
-        title: 'Global Parent Communication (HeyGen)',
-        description: 'Instant translation of administrative updates into 40+ languages with perfect lip-sync.',
-        thumbnail: '/images/integrations/heygen_thumb.png',
-        videoUrl: '/videos/African_American_Teacher_Conference_Video.mp4',
-        duration: '2:15',
-        category: 'Communications',
-        aiGenerated: true,
-        briefingContent: "Communication Protocol: Global Reach. This module utilizes HeyGen's advanced video translation engine. Notice the seamless lip-synchronization as the Superintendent's message is converted from English to Spanish, then Vietnamese, in real-time. This ensures 100% equity in information access for all district families, regardless of primary language.",
-        brieferName: "System",
-        brieferRole: "Translation Engine",
-        brieferAvatar: "/images/avatars/executive_leader.png"
-    },
-    // --- INTEGRATION: INVIDEO ---
-    {
-        id: 102,
-        title: 'Daily District News (InVideo)',
-        description: 'Automated synthesis of daily bulletins into engaging, broadcast-quality video updates.',
-        thumbnail: '/images/integrations/invideo_thumb.png',
-        videoUrl: '/videos/EdIntel_OS_Layout_Enhancements.mp4',
-        duration: '3:00',
-        category: 'Broadcast',
-        aiGenerated: true,
-        briefingContent: "Broadcast Sequence Initiated. Utilizing InVideo's generative AI, the morning bulletin text was transformed into this dynamic visual presentation in under 60 seconds. The system automatically selects relevant stock footage, adds kinetic typography, and synchronizes a professional voiceover, turning static memos into must-watch content.",
-        brieferName: "System",
-        brieferRole: "Media Director",
-        brieferAvatar: "/images/avatars/executive_leader.png"
-    },
-    // --- INTEGRATION: CAPTIONS ---
-    {
-        id: 103,
-        title: 'Accessible Learning Materials (Captions)',
-        description: 'Automatic high-fidelity captioning and dubbing for universal design compliance.',
-        thumbnail: '/images/integrations/captions_thumb.png',
-        videoUrl: '/videos/The_Ultimate_Solution_for_Mode.mp4',
-        duration: '1:45',
-        category: 'Accessibility',
-        aiGenerated: true,
-        briefingContent: "Accessibility Audit: Passed. This demonstration highlights the 'Captions' integration. We are watching raw lecture footage being automatically processed for ADA compliance. The AI not only generates 99% accurate subtitles but also highlights key terms for emphasis, aiding cognitive retention for diverse learners.",
-        brieferName: "System",
-        brieferRole: "Compliance Bot",
-        brieferAvatar: "/images/avatars/executive_leader.png"
-    },
-    // --- INTEGRATION: OPUS ---
-    {
-        id: 104,
-        title: 'Micro-PD Generation (Opus)',
-        description: 'Intelligent extraction of viral moments from long-form professional development sessions.',
-        thumbnail: '/images/integrations/opus_thumb.png',
-        videoUrl: '/videos/District Command Update.mp4',
-        duration: '0:58',
-        category: 'Professional Dev',
-        aiGenerated: true,
-        briefingContent: "Content Distillation Active. The Opus engine has scanned a 60-minute board meeting and extracted this critical 1-minute segment on budget reallocation. It automatically reframes the video for mobile consumption and adds engaging captions, ensuring high-priority information reaches staff on the go.",
-        brieferName: "System",
-        brieferRole: "Content Curator",
-        brieferAvatar: "/images/avatars/executive_leader.png"
-    },
-    // --- INTEGRATION: GEMINI ---
-    {
-        id: 105,
-        title: 'Multimodal Assessment (Gemini)',
-        description: 'Analyzing student work samples (video, audio, text) for deep competency evidence.',
-        thumbnail: '/images/integrations/gemini_thumb.png',
-        videoUrl: '/videos/OS_Enhancements_AI_and_Layout.mp4', // Simulating Gemini Output
-        duration: '4:10',
-        category: 'Assessment',
-        aiGenerated: true,
-        briefingContent: "Multimodal Analysis in progress. Powered by Google Gemini, the system is watching a student's science project video presentation. It extracts evidence of critical thinking, communication standards, and scientific accuracy, cross-referencing against the rubric to generate a draft score and personalized feedback instantly.",
-        brieferName: "System",
-        brieferRole: "Assessment AI",
-        brieferAvatar: "/images/avatars/executive_leader.png"
     },
     // --- EdIntel EXECUTIVE ---
     {
@@ -563,7 +488,7 @@ export default function AIVideoShowcase() {
                                                     <div className="w-1.5 h-1.5 rounded-full bg-red-500" />
                                                     LIVE FEED
                                                 </div>
-                                                <button className="p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all">
+                                                <button className="p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all" title="Toggle Fullscreen">
                                                     <Maximize className="w-5 h-5" />
                                                 </button>
                                             </div>

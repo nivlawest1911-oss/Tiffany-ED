@@ -1,4 +1,4 @@
-﻿"use client"
+"use client"
 
 import Link from "next/link"
 import Image from "next/image"
@@ -305,7 +305,8 @@ function CinematicVariant() {
                         alt="Strategic Backdrop"
                         fill
                         className="object-cover opacity-60 mix-blend-screen grayscale-[0.5] hover:grayscale-0 transition-all duration-1000"
-                        priority
+                        priority={true}
+                        loading="eager" // FORCE FASTEST PAINT (Phase 14.2)
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px" // Optimized for mobile (Phase 14)
                     />
 
@@ -318,7 +319,7 @@ function CinematicVariant() {
                                 playsInline 
                                 poster="/images/professional_hero_bg.png" 
                                 className="absolute inset-0 h-full w-full object-cover"
-                                preload="auto" // Eager preload (Phase 14.1)
+                                preload="none" // DEFERRED (Phase 14.2)
                             >
                                 <source src="/videos/edintel_ad_strategic_engine.mp4" type="video/mp4" />
                             </video>

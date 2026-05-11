@@ -60,7 +60,7 @@ export default function LessonGeneratorPage() {
                 description: "Dr. AndrÃ© Patterson has established a restorative handshake for this session."
             });
         }
-    }, [isEdgeSyncActive]);
+    }, [isEdgeSyncActive, topic]);
 
     // Rotate branding strings
     useState(() => {

@@ -1,11 +1,11 @@
-﻿export const EdIntel_COMMAND_BRIEF = {
+export const EdIntel_COMMAND_BRIEF = {
     title: "EdIntel Command Brief: EdIntel Mobile County Rollout",
     executiveSummary: "EdIntel EdIntel is a robust, AI-driven educational intelligence operating system designed to elevate school site authority through data automation and content architecture.",
     technicalInfrastructure: {
         core: "EdIntel Tiered Node System (6-Levels)",
         security: "Role-Based Access Control (RBAC) with 14/30 Day Gated Trials",
         automation: "Antigravity Browser Agent for State Portal Data Sync",
-        contentEngine: "Integrated EdIntel Studio (Canva, Adobe Express, InVideo, Captions)"
+        contentEngine: "Integrated EdIntel Neural Synthesis Studio"
     },
     roiProjection: {
         administrativeLabor: "Reduces data entry and report generation time by ~15 hours/week per site.",

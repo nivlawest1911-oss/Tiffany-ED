@@ -16,11 +16,22 @@ export const prisma = new Proxy({} as any, {
         
         // Lazy instantiate the real client upon first method call or access
         if (!_prisma) {
-            const { PrismaClient } = require("@/generated/prisma");
-            _prisma = new PrismaClient({
-                log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
-            } as any);
-            console.log(`[PRISMA_SENTINEL] Real client instantiated for property: ${String(prop)}`);
+            // Institutional Check: Ensure we aren't trying to run this on the client
+            if (typeof window !== 'undefined') {
+                console.error('[PRISMA_SENTINEL] Attempted to access Prisma on the client-side.');
+                return undefined;
+            }
+
+            try {
+                const { PrismaClient } = require("@/generated/prisma");
+                _prisma = new PrismaClient({
+                    log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
+                });
+                console.log(`[PRISMA_SENTINEL] Real client instantiated for property: ${String(prop)}`);
+            } catch (error) {
+                console.error('[PRISMA_SENTINEL] Initialization Error:', error);
+                throw error;
+            }
         }
         
         const value = _prisma[prop];

@@ -251,9 +251,19 @@ function InteractiveTerminal({ onCommand }: { onCommand: (cmd: string) => void }
 // 5. MAIN PAGE
 export default function ModernHomePage() {
     const [isMounted, setMounted] = useState(false);
-    const [booted, setBooted] = useState(false);
+    const [showCinematicIntro, setShowCinematicIntro] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('edintel_intro_seen') !== 'true';
+        }
+        return true;
+    });
+    const [booted, setBooted] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('edintel_intro_seen') === 'true';
+        }
+        return false;
+    });
     const [isLowPowerMode, setIsLowPowerMode] = useState(false);
-    const [showCinematicIntro, setShowCinematicIntro] = useState(true);
     const [activeAgentIndex, setActiveAgentIndex] = useState(0);
     const [agentMessage, setAgentMessage] = useState<string | null>(null);
     const [showOnboarding, setShowOnboarding] = useState(false);
@@ -272,10 +282,18 @@ export default function ModernHomePage() {
     useEffect(() => {
         if (typeof window === 'undefined') return;
         
+        const isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
+        
         // Detect mobile or reduced motion preference
         const isMobile = window.innerWidth < 768;
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         setIsLowPowerMode(isMobile || prefersReducedMotion);
+
+        if (isBot) {
+            setShowCinematicIntro(false);
+            setBooted(true);
+            setMounted(true);
+        }
     }, []);
 
     useEffect(() => {
@@ -303,7 +321,7 @@ export default function ModernHomePage() {
             const onboarded = localStorage.getItem('onboarding_complete');
             if (!onboarded) {
                 // Delay onboarding until after boot sequence completes (Phase 14 Optimization)
-                setTimeout(() => setShowOnboarding(true), 5.0 * 1000); 
+                setTimeout(() => setShowOnboarding(true), 2.0 * 1000); 
             }
         } catch (e) {
             // localStorage may not be available

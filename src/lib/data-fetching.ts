@@ -243,7 +243,7 @@ export const REVALIDATION_INTERVALS = {
 export function createCachedFetch<T>(
   key: string,
   fetchFn: () => Promise<T>,
-  revalidate: number = REVALIDATION_INTERVALS.STANDARD
+  _revalidate: number = REVALIDATION_INTERVALS.STANDARD
 ) {
   return cache(async () => {
     try {
