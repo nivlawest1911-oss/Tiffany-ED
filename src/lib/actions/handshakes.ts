@@ -18,6 +18,19 @@ import { logAuditEvent, AuditCategory, AuditAction } from '@/lib/audit';
  * to prevent top-level module leakage.
  */
 export async function executeSocialUplink(provider: 'google' | 'facebook', turnstileToken?: string) {
+    // 0. Check if the provider is configured
+    const providerEnvCheck = {
+        google: !!(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET),
+        facebook: !!(process.env.FACEBOOK_CLIENT_ID && process.env.FACEBOOK_CLIENT_SECRET),
+    };
+    
+    if (!providerEnvCheck[provider]) {
+        return { 
+            success: false, 
+            error: `${provider.charAt(0).toUpperCase() + provider.slice(1)} authentication is not configured. Please contact your administrator.` 
+        };
+    }
+
     // 1. Mandatory Human Residency Check
     if (!turnstileToken) {
         return { success: false, error: "Human verification (Turnstile) is required." };

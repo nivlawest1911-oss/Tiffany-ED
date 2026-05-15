@@ -8,6 +8,25 @@ import { prisma } from "./prisma";
 // Check if database is configured
 const isDatabaseConfigured = !!(process.env.DATABASE_URL || process.env.POSTGRES_PRISMA_URL || process.env.POSTGRES_URL);
 
+// Check if social providers are configured
+const isGoogleConfigured = !!(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET);
+const isFacebookConfigured = !!(process.env.FACEBOOK_CLIENT_ID && process.env.FACEBOOK_CLIENT_SECRET);
+
+// Build social providers config only for configured providers
+const socialProviders: Record<string, any> = {};
+if (isGoogleConfigured) {
+    socialProviders.google = {
+        clientId: process.env.GOOGLE_CLIENT_ID!,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    };
+}
+if (isFacebookConfigured) {
+    socialProviders.facebook = {
+        clientId: process.env.FACEBOOK_CLIENT_ID!,
+        clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
+    };
+}
+
 export const auth = betterAuth({
     database: isDatabaseConfigured ? prismaAdapter(prisma, {
         provider: "postgresql",
@@ -18,16 +37,7 @@ export const auth = betterAuth({
         autoSignIn: true,
         requireEmailVerification: false,
     },
-    socialProviders: {
-        google: {
-            clientId: process.env.GOOGLE_CLIENT_ID || '',
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
-        },
-        facebook: {
-            clientId: process.env.FACEBOOK_CLIENT_ID || '',
-            clientSecret: process.env.FACEBOOK_CLIENT_SECRET || '',
-        }
-    },
+    socialProviders: Object.keys(socialProviders).length > 0 ? socialProviders : undefined,
 });
 
 export const { handlers, api } = auth as any;
