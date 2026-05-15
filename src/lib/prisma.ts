@@ -6,24 +6,37 @@ import { PrismaNeon } from "@prisma/adapter-neon";
 import { PrismaClient } from "@/generated/prisma";
 
 // Enable WebSocket support in serverless environments
-neonConfig.webSocketConstructor = globalThis.WebSocket;
+if (typeof globalThis.WebSocket !== 'undefined') {
+  neonConfig.webSocketConstructor = globalThis.WebSocket;
+}
 
 let _prisma: PrismaClient | null = null;
+let _connectionError: Error | null = null;
 
-function createPrismaClient(): PrismaClient {
-  const connectionString = process.env.DATABASE_URL || process.env.POSTGRES_PRISMA_URL || process.env.POSTGRES_URL;
+function getConnectionString(): string | null {
+  return process.env.DATABASE_URL || process.env.POSTGRES_PRISMA_URL || process.env.POSTGRES_URL || null;
+}
+
+function createPrismaClient(): PrismaClient | null {
+  const connectionString = getConnectionString();
   
   if (!connectionString) {
-    throw new Error("Database connection string not found. Please set DATABASE_URL, POSTGRES_PRISMA_URL, or POSTGRES_URL environment variable.");
+    _connectionError = new Error("Database connection string not found. Please set DATABASE_URL, POSTGRES_PRISMA_URL, or POSTGRES_URL environment variable.");
+    return null;
   }
   
-  const pool = new Pool({ connectionString });
-  const adapter = new PrismaNeon(pool);
-  
-  return new PrismaClient({
-    adapter,
-    log: process.env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
-  });
+  try {
+    const pool = new Pool({ connectionString });
+    const adapter = new PrismaNeon(pool);
+    
+    return new PrismaClient({
+      adapter,
+      log: process.env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
+    });
+  } catch (error) {
+    _connectionError = error as Error;
+    return null;
+  }
 }
 
 /**
@@ -34,13 +47,25 @@ function createPrismaClient(): PrismaClient {
 export const prisma = new Proxy({} as PrismaClient, {
   get(target, prop) {
     // Handle special properties for internal checks
-    if (prop === "isConfigured") return !!(process.env.DATABASE_URL || process.env.POSTGRES_PRISMA_URL || process.env.POSTGRES_URL);
+    if (prop === "isConfigured") return !!getConnectionString();
+    if (prop === "connectionError") return _connectionError?.message || null;
     if (prop === "toJSON") return () => "PrismaClientProxy";
+    if (prop === "then") return undefined; // Prevent Promise-like behavior
     
     // Lazy instantiate the real client upon first method call or access
-    if (!_prisma) {
+    if (!_prisma && !_connectionError) {
       _prisma = createPrismaClient();
-      console.log(`[PRISMA_SENTINEL] Real client instantiated for property: ${String(prop)}`);
+      if (_prisma) {
+        console.log(`[PRISMA_SENTINEL] Real client instantiated for property: ${String(prop)}`);
+      }
+    }
+    
+    // If we have a connection error, throw it on actual database operations
+    if (!_prisma) {
+      if (_connectionError) {
+        throw _connectionError;
+      }
+      throw new Error("Prisma client not initialized");
     }
     
     const value = (_prisma as any)[prop];

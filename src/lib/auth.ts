@@ -5,10 +5,13 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./prisma";
 
+// Check if database is configured
+const isDatabaseConfigured = !!(process.env.DATABASE_URL || process.env.POSTGRES_PRISMA_URL || process.env.POSTGRES_URL);
+
 export const auth = betterAuth({
-    database: prismaAdapter(prisma, {
+    database: isDatabaseConfigured ? prismaAdapter(prisma, {
         provider: "postgresql",
-    }),
+    }) : undefined as any,
     secret: process.env.BETTER_AUTH_SECRET || "SOVEREIGN_OVAL_2027_FALLBACK_SECRET_FOR_BUILD",
     emailAndPassword: {
         enabled: true,
