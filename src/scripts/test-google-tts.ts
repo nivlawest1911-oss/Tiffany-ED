@@ -1,4 +1,4 @@
-﻿import { TextToSpeechClient } from '@google-cloud/text-to-speech';
+import { TextToSpeechClient } from '@google-cloud/text-to-speech';
 import * as dotenv from 'dotenv';
 import path from 'path';
 
@@ -6,12 +6,15 @@ dotenv.config({ path: path.resolve(process.cwd(), '.env.local') });
 
 async function testTTS() {
     try {
+        const creds = process.env.GOOGLE_CREDENTIALS_JSON ? JSON.parse(process.env.GOOGLE_CREDENTIALS_JSON) : null;
+        console.log('--- PROJECT ID:', creds?.project_id || process.env.GOOGLE_PROJECT_ID);
+        
         const client = new TextToSpeechClient({
-            credentials: {
+            credentials: creds || {
                 client_email: process.env.GOOGLE_CLIENT_EMAIL,
                 private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
             },
-            projectId: process.env.GOOGLE_PROJECT_ID,
+            projectId: creds?.project_id || process.env.GOOGLE_PROJECT_ID,
         });
 
         console.log('--- TEST START ---');
