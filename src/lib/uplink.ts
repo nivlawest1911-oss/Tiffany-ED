@@ -97,7 +97,7 @@ export async function uplinkUserProfile(userId: string, metadata: {
 export async function upsertGeneratedContent(data: any) {
     try {
         // Vault the content into the institutional database
-        return await prisma.generatedContent.create({
+        return await (prisma as any).generated_content_hub.create({
             data: {
                 userId: data.userId,
                 type: data.type,

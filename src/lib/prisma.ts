@@ -47,7 +47,7 @@ export const prisma = new Proxy({} as PrismaClient, {
       try {
         _prisma = createPrismaClient();
         console.log(`[PRISMA_SENTINEL] Real client instantiated for property: ${String(prop)}`);
-      } catch (error) {
+      } catch (_error) {
         console.warn("[PRISMA_SENTINEL] Deferred Initialization Error. Database might be unreachable.");
         // Return a proxy that throws on any actual method call
         return (..._args: any[]) => {
