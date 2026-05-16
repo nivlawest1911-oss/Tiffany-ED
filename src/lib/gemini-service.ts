@@ -1,4 +1,4 @@
-﻿import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
+import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
 import Replicate from "replicate";
 import { put } from "@vercel/blob";
 import { UserContext, protocolRouter } from "./protocol-router";
@@ -56,6 +56,10 @@ export class GeminiService {
     }
 
     constructor(modelName: string = GEMINI_CONFIG.model) {
+        this.initializeModel(modelName);
+    }
+
+    private initializeModel(modelName: string) {
         this._model = this.genAI.getGenerativeModel({
             model: modelName,
             safetySettings: GEMINI_CONFIG.safetySettings,
@@ -68,16 +72,32 @@ export class GeminiService {
     }
 
     async generateText(prompt: string, history: any[] = []) {
-        const chat = this.model.startChat({
-            history: history.map(h => ({
-                role: h.role === 'user' ? 'user' : 'model',
-                parts: [{ text: h.content }],
-            })),
-        });
+        try {
+            const chat = this.model.startChat({
+                history: history.map(h => ({
+                    role: h.role === 'user' ? 'user' : 'model',
+                    parts: [{ text: h.content }],
+                })),
+            });
 
-        const result = await chat.sendMessage(prompt);
-        const response = await result.response;
-        return response.text();
+            const result = await chat.sendMessage(prompt);
+            const response = await result.response;
+            return response.text();
+        } catch (error: any) {
+            if (error.message?.includes("404") || error.message?.includes("not found")) {
+                console.warn(`[GeminiService] Model not found (404). Current model: ${this.model.model}.`);
+                
+                // Fallback mechanism: If Pro fails, try Flash
+                if (this.model.model === "gemini-1.5-pro") {
+                    console.info("[GeminiService] Attempting fallback to gemini-1.5-flash...");
+                    this.initializeModel("gemini-1.5-flash");
+                    return this.generateText(prompt, history);
+                }
+
+                console.error("[CRITICAL] Generative Language API may not be enabled in GCP Console for project edintel-sovereign-2027.");
+            }
+            throw error;
+        }
     }
 
     async generateMultimodal(prompt: string, mediaData: { data: string; mimeType: string }[]) {

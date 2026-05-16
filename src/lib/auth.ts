@@ -72,6 +72,9 @@ export const auth = betterAuth({
                             email: user.email,
                             name: user.name,
                             image: user.image || undefined,
+                            schoolSite: (user as any).school_site || undefined,
+                            position: (user as any).position || undefined,
+                            district: (user as any).district || undefined,
                         });
                     } catch (error) {
                         console.error("[AUTH_SIGNIN_HOOK] Uplink Handshake Failed:", error);

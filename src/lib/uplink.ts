@@ -30,13 +30,6 @@ export async function uplinkUserProfile(userId: string, metadata: {
             return null;
         }
 
-        // Idempotency Check: Avoid redundant uplinks within the same session block (e.g. 5 minutes)
-        const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
-        if (user.lastUplinkAt && user.lastUplinkAt > fiveMinutesAgo) {
-            console.log(`[UPLINK] Synchronicity maintained. Skipping redundant handshake.`);
-            return user;
-        }
-
         // Diff-based synchronization
         const updates: any = {
             lastUplinkAt: new Date(),
@@ -46,15 +39,23 @@ export async function uplinkUserProfile(userId: string, metadata: {
         if (metadata.name && user.name !== metadata.name) updates.name = metadata.name;
         if (metadata.image && user.image !== metadata.image) updates.image = metadata.image;
         
-        // Institutional Metadata Sync
-        if (metadata.district && !user.district) updates.district = metadata.district;
-        if (metadata.school && !user.school) updates.school = metadata.school;
-        if (metadata.schoolSite && !user.school_site) updates.school_site = metadata.schoolSite;
-        if (metadata.position && !user.position) updates.position = metadata.position;
+        // Institutional Metadata Sync (Diff-Aggressive)
+        if (metadata.district && user.district !== metadata.district) updates.district = metadata.district;
+        if (metadata.school && user.school !== metadata.school) updates.school = metadata.school;
+        if (metadata.schoolSite && user.school_site !== metadata.schoolSite) updates.school_site = metadata.schoolSite;
+        if (metadata.position && user.position !== metadata.position) updates.position = metadata.position;
+
+        // Idempotency Check: Skip DB hit if no updates beyond timestamp and last update was recent
+        const hasActualUpdates = Object.keys(updates).length > 1; // More than just lastUplinkAt
+        const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+        
+        if (!hasActualUpdates && user.lastUplinkAt && user.lastUplinkAt > fiveMinutesAgo) {
+            console.log(`[UPLINK] Synchronicity maintained. Skipping redundant handshake.`);
+            return user;
+        }
 
         // Auto-Derive District/School if missing but organization is present
         if (!updates.district && !user.district && metadata.organization) {
-            // Basic heuristic: check if organization looks like a district
             if (metadata.organization.toLowerCase().includes("district") || metadata.organization.toLowerCase().includes("schools")) {
                 updates.district = metadata.organization;
             }
