@@ -48,6 +48,7 @@ export default function LoginClient() {
     const [signupData, setSignupData] = useState({
         name: '',
         schoolSite: '',
+        position: '',
         tierName: 'Sovereign Initiate'
     });
 
@@ -69,6 +70,16 @@ export default function LoginClient() {
 
         const urlMode = searchParams.get('mode');
         if (urlMode === 'signup') setMode('signup');
+
+        const authFallback = searchParams.get('auth_fallback');
+        const provider = searchParams.get('provider');
+        if (authFallback === 'true' && provider) {
+            const msg = `Neural Handshake Deferred: ${provider.toUpperCase()} integration is currently in institutional isolation mode. Please utilize email authorization.`;
+            setError(msg);
+            toast.warning("UPLINK_RESTRICTED", {
+                description: msg,
+            });
+        }
     }, [searchParams]);
 
     const handleAuth = async (e: React.FormEvent) => {
@@ -103,6 +114,8 @@ export default function LoginClient() {
                     email,
                     password,
                     name: signupData.name,
+                    schoolSite: signupData.schoolSite,
+                    position: signupData.position,
                     type: 'signUp',
                     turnstileToken
                 });
@@ -114,15 +127,19 @@ export default function LoginClient() {
                 });
             }
 
-            // After server-side auth, check session or redirect
             router.push(ROUTES.THE_ROOM);
             router.refresh(); 
         } catch (err: any) {
             console.error(err);
-            const msg = err.message || 'Authentication Protocol Failed';
-            setError(msg);
-            toast.error("Authentication Failed", {
-                description: msg === "Invalid credentials" ? "Access Denied: The provided coordinates do not match our records." : msg,
+            const isConnectionError = err.message?.includes('DATABASE_CONNECTION_ERROR') || err.message?.includes('UPLINK_OFFLINE');
+            const errorTitle = isConnectionError ? "UPLINK_INTERRUPTED" : "IDENTITY_REJECTED";
+            const errorMessage = isConnectionError 
+                ? "The Sovereign Data Plane is currently unreachable. Institutional access is temporarily restricted." 
+                : (err.message === "Invalid credentials" ? "Access Denied: The provided coordinates do not match our records." : (err.message || 'Authentication Protocol Failed'));
+                
+            setError(errorMessage);
+            toast.error(errorTitle, {
+                description: errorMessage,
             });
         } finally {
             setIsLoggingIn(false);
@@ -157,9 +174,15 @@ export default function LoginClient() {
             }
         } catch (err: any) {
             console.error(err);
-            setError(err.message || 'Social Uplink Protocol Failed');
-            toast.error("UPLINK_INTERRUPTED", {
-                description: err.message,
+            const isConnectionError = err.message?.includes('DATABASE_CONNECTION_ERROR') || err.message?.includes('UPLINK_OFFLINE');
+            const errorTitle = isConnectionError ? "UPLINK_INTERRUPTED" : "UPLINK_FAILED";
+            const errorMessage = isConnectionError 
+                ? "The Sovereign Data Plane is currently unreachable. Institutional access is temporarily restricted." 
+                : (err.message || 'Social Uplink Protocol Failed');
+                
+            setError(errorMessage);
+            toast.error(errorTitle, {
+                description: errorMessage,
             });
         } finally {
             setIsSocialLoading(null);
@@ -239,17 +262,35 @@ export default function LoginClient() {
 
                     {/* RIGHT PANEL */}
                     <div className="p-8 lg:p-14 flex flex-col justify-center relative bg-white/5">
-                        <header className="mb-12 text-center lg:text-left relative">
-                            <span className="text-[8px] font-mono tracking-[0.4em] text-zinc-600 mb-6 uppercase block opacity-50">
-                                NEURAL AUTHORIZATION ACTIVE // BETTER AUTH HANDSHAKE
+                        {/* Neural Status Bar (High Fidelity) */}
+                        <div className="absolute top-8 left-8 right-8 flex justify-between items-center opacity-40 pointer-events-none">
+                            <div className="flex gap-4">
+                                <div className="flex items-center gap-1.5">
+                                    <div className="w-1 h-1 rounded-full bg-emerald-500" />
+                                    <span className="text-[7px] font-black tracking-[0.3em] text-zinc-400 uppercase">Uplink: Stable</span>
+                                </div>
+                                <div className="flex items-center gap-1.5">
+                                    <div className="w-1 h-1 rounded-full bg-sky-500" />
+                                    <span className="text-[7px] font-black tracking-[0.3em] text-zinc-400 uppercase">Signal: 100%</span>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-1.5">
+                                <span className="text-[7px] font-black tracking-[0.3em] text-zinc-400 uppercase">Encryption: Active</span>
+                                <div className="w-1 h-1 rounded-full bg-amber-500" />
+                            </div>
+                        </div>
+
+                        <header className="mb-12 text-center lg:text-left relative mt-6">
+                            <span className="text-[8px] font-black tracking-[0.4em] text-[#FFB300] mb-6 uppercase block">
+                                NEURAL AUTHORIZATION ACTIVE // PHASE 15 HARDENED
                             </span>
-                            <h3 className="text-2xl font-black text-white uppercase tracking-tighter mb-1">
-                                {mode === 'login' ? 'Welcome Back' : 'JOIN THE ELITE'}
+                            <h3 className="text-3xl font-black text-white uppercase tracking-tighter mb-1">
+                                {mode === 'login' ? 'Institutional Access' : 'Identity Induction'}
                             </h3>
                             <div className="flex items-center gap-2 justify-center lg:justify-start">
                                 <div className="h-2 w-2 rounded-full bg-[#00B0FF] animate-pulse shadow-[0_0_10px_rgba(0,176,255,0.5)]" />
                                 <p className="text-[10px] font-black text-[#00B0FF] uppercase tracking-[0.3em]">
-                                    INSTITUTIONAL UPLINK ACTIVE
+                                    SECURE GATEWAY ESTABLISHED
                                 </p>
                             </div>
                         </header>
@@ -306,14 +347,32 @@ export default function LoginClient() {
                         <form onSubmit={handleAuth} className="space-y-5">
                             <div className="space-y-4">
                                 {mode === 'signup' && (
-                                    <input
-                                        type="text"
-                                        value={signupData.name}
-                                        onChange={(e) => setSignupData({ ...signupData, name: e.target.value })}
-                                        placeholder="YOUR FULL NAME"
-                                        className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-[#FFB300] focus:bg-white/10 transition-all font-black text-[10px] tracking-[0.4em] text-white"
-                                        required
-                                    />
+                                    <>
+                                        <input
+                                            type="text"
+                                            value={signupData.name}
+                                            onChange={(e) => setSignupData({ ...signupData, name: e.target.value })}
+                                            placeholder="YOUR FULL NAME"
+                                            className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-[#FFB300] focus:bg-white/10 transition-all font-black text-[10px] tracking-[0.4em] text-white"
+                                            required
+                                        />
+                                        <input
+                                            type="text"
+                                            value={signupData.schoolSite}
+                                            onChange={(e) => setSignupData({ ...signupData, schoolSite: e.target.value })}
+                                            placeholder="INSTITUTIONAL SITE (SCHOOL)"
+                                            className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-[#FFB300] focus:bg-white/10 transition-all font-black text-[10px] tracking-[0.4em] text-white"
+                                            required
+                                        />
+                                        <input
+                                            type="text"
+                                            value={signupData.position}
+                                            onChange={(e) => setSignupData({ ...signupData, position: e.target.value })}
+                                            placeholder="PROFESSIONAL POSITION / ROLE"
+                                            className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-[#FFB300] focus:bg-white/10 transition-all font-black text-[10px] tracking-[0.4em] text-white"
+                                            required
+                                        />
+                                    </>
                                 )}
                                 <div className="relative group">
                                     <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-[#FFB300] transition-colors" size={16} />

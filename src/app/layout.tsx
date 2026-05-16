@@ -111,6 +111,11 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://nivlawest1911-oss.supabase.co" />
+        <link rel="dns-prefetch" href="https://vitals.vercel-insights.com" />
+        
+        {/* CRITICAL ASSET PRELOADS (Phase 15) */}
+        <link rel="preload" href="/images/professional_hero_bg.png" as="image" />
+        <link rel="preload" href="/images/edintel-logo.png" as="image" />
       </head>
       <body className="bg-[#050505] text-gray-100 antialiased overflow-x-hidden selection:bg-[#D4AF37]/30 font-sans min-h-screen">
         <CelebrationProvider>

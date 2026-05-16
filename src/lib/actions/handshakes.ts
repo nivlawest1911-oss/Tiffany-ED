@@ -28,6 +28,21 @@ export async function executeSocialUplink(provider: 'google' | 'facebook', turns
         return { success: false, error: "Security Protocol: Human verification failed." };
     }
 
+    // 2. Resilience Check: Provider Configuration
+    const isConfigured = provider === 'google' 
+        ? (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET)
+        : (process.env.FACEBOOK_CLIENT_ID && process.env.FACEBOOK_CLIENT_SECRET);
+
+    if (!isConfigured) {
+        console.warn(`[Handshake] ${provider} is not configured in this environment.`);
+        // Graceful fallback for non-production/unconfigured environments
+        // Instead of erroring out, we can redirect or show a specific institutional alert
+        return { 
+            success: true, 
+            url: '/login?auth_fallback=true&provider=' + provider 
+        };
+    }
+
     const { auth } = await import('@/lib/auth');
     try {
         const result = await auth.api.signInSocial({
@@ -53,7 +68,15 @@ export async function executeSocialUplink(provider: 'google' | 'facebook', turns
  * 
  * Cleanly isolated server action for email authentication.
  */
-export async function executeEmailUplink(data: { email: string; password?: string; name?: string; type: 'signIn' | 'signUp'; turnstileToken?: string }) {
+export async function executeEmailUplink(data: { 
+    email: string; 
+    password?: string; 
+    name?: string; 
+    schoolSite?: string;
+    position?: string;
+    type: 'signIn' | 'signUp'; 
+    turnstileToken?: string 
+}) {
     const { auth } = await import('@/lib/auth');
     try {
         const headerList = await headers();
@@ -84,7 +107,9 @@ export async function executeEmailUplink(data: { email: string; password?: strin
                     email: data.email,
                     password: data.password || '',
                     name: data.name || 'Sovereign Educator',
-                }
+                    school_site: data.schoolSite,
+                    position: data.position,
+                } as any
             });
         }
 
@@ -99,22 +124,13 @@ export async function executeEmailUplink(data: { email: string; password?: strin
                 userAgent: headerList.get('user-agent') || undefined,
                 metadata: {
                     type: data.type,
-                    provider: 'email'
+                    provider: 'email',
+                    schoolSite: data.schoolSite,
+                    position: data.position
                 }
             });
 
-            // Trigger profile synchronization
-            if (data.type === 'signUp') {
-                try {
-                    const { uplinkUserProfile } = await import('@/lib/uplink');
-                    await uplinkUserProfile(result.user.id, {
-                        email: result.user.email,
-                        name: result.user.name,
-                    });
-                } catch (e) {
-                    console.error('[Handshake] Profile sync deferred:', e);
-                }
-            }
+            // Note: Profile synchronization is now handled globally via Better Auth hooks in src/lib/auth.ts
             return { success: true };
         }
 

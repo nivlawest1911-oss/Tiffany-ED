@@ -183,8 +183,8 @@ function HolographicGrid() {
 
 // Floating particles
 function FloatingParticles({ isMobile }: { isMobile: boolean }) {
-  // OPTIMIZED PERFORMANCE: Reduced particle count for LCP/FCP (Phase 14)
-  const particles = Array.from({ length: isMobile ? 8 : 24 }, (_, i) => ({
+  // OPTIMIZED PERFORMANCE: Reduced particle count for LCP/FCP (Phase 15)
+  const particles = Array.from({ length: isMobile ? 4 : 12 }, (_, i) => ({
     id: i,
     x: Math.random() * 100,
     y: Math.random() * 100,
@@ -286,9 +286,9 @@ export function CinematicLogoIntro({
   useEffect(() => {
     const isMob = window.innerWidth < 768;
     const timers = [
-      setTimeout(() => setPhase('logo'), isMob ? 200 : 400),  
-      setTimeout(() => setPhase('text'), isMob ? 500 : 800), 
-      setTimeout(() => setPhase('complete'), isMob ? 1000 : 1500),
+      setTimeout(() => setPhase('logo'), isMob ? 100 : 200),  
+      setTimeout(() => setPhase('text'), isMob ? 300 : 500), 
+      setTimeout(() => setPhase('complete'), isMob ? 600 : 1000),
     ]
     return () => timers.forEach(clearTimeout)
   }, [])
@@ -315,8 +315,8 @@ export function CinematicLogoIntro({
       <motion.div
         ref={containerRef}
         initial={{ opacity: 1 }}
-        exit={{ opacity: 0, scale: 1.1 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        exit={{ opacity: 0, scale: 1.05 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
         className="fixed inset-0 z-[100] bg-[#030712] flex items-center justify-center overflow-hidden"
       >
         {/* Deep space background */}
@@ -434,7 +434,7 @@ export function CinematicLogoIntro({
             className="text-center mt-12"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
           >
             {/* Main title with holographic effect */}
             <motion.h1
@@ -447,7 +447,7 @@ export function CinematicLogoIntro({
               }}
               initial={{ letterSpacing: '0.6em', opacity: 0 }}
               animate={{ letterSpacing: '0.4em', opacity: 1 }}
-              transition={{ duration: 1.2, delay: 1.2 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
             >
               EDINTEL
             </motion.h1>

@@ -18,7 +18,6 @@ export const prisma = new Proxy({} as any, {
         if (!_prisma) {
             // Institutional Check: Ensure we aren't trying to run this on the client
             if (typeof window !== 'undefined') {
-                console.error('[PRISMA_SENTINEL] Attempted to access Prisma on the client-side.');
                 return undefined;
             }
 
@@ -27,14 +26,21 @@ export const prisma = new Proxy({} as any, {
                 _prisma = new PrismaClient({
                     log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
                 });
-                console.log(`[PRISMA_SENTINEL] Real client instantiated for property: ${String(prop)}`);
-            } catch (error) {
-                console.error('[PRISMA_SENTINEL] Initialization Error:', error);
-                throw error;
+            } catch (_error) {
+                console.warn('[PRISMA_SENTINEL] Deferred Initialization Error. Database might be unreachable.');
+                // Return a proxy that throws on any actual method call
+                return (..._args: any[]) => {
+                    throw new Error('DATABASE_CONNECTION_ERROR: The Sovereign Data Plane is currently unreachable.');
+                };
             }
         }
         
-        const value = _prisma[prop];
+        const value = _prisma ? _prisma[prop] : undefined;
+        if (value === undefined) {
+             return (..._args: any[]) => {
+                throw new Error('DATABASE_CONNECTION_ERROR: The Sovereign Data Plane is currently unreachable.');
+            };
+        }
         return typeof value === 'function' ? value.bind(_prisma) : value;
     }
 });

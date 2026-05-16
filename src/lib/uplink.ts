@@ -13,7 +13,9 @@ export async function uplinkUserProfile(userId: string, metadata: {
     image?: string;
     district?: string;
     school?: string;
+    schoolSite?: string;
     position?: string;
+    role?: UserRole;
     organization?: string;
 }) {
     console.log(`[UPLINK 2.0] Initiating handshake for user: ${userId}`);
@@ -47,6 +49,7 @@ export async function uplinkUserProfile(userId: string, metadata: {
         // Institutional Metadata Sync
         if (metadata.district && !user.district) updates.district = metadata.district;
         if (metadata.school && !user.school) updates.school = metadata.school;
+        if (metadata.schoolSite && !user.school_site) updates.school_site = metadata.schoolSite;
         if (metadata.position && !user.position) updates.position = metadata.position;
 
         // Auto-Derive District/School if missing but organization is present
@@ -58,8 +61,10 @@ export async function uplinkUserProfile(userId: string, metadata: {
         }
 
         // --- Sovereign Role Sentinel (Regex Mapping) ---
-        // Only update role if it's currently TEACHER (default) and we found a higher-tier title
-        if (user.role === UserRole.TEACHER && metadata.position) {
+        // Prioritize explicit role if provided, otherwise derive from position
+        if (metadata.role) {
+            updates.role = metadata.role;
+        } else if (user.role === UserRole.TEACHER && metadata.position) {
             const pos = metadata.position.toLowerCase();
             
             if (/superintendent|ceo|president|chancellor/i.test(pos)) {

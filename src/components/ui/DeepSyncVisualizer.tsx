@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -80,38 +80,55 @@ export default function DeepSyncVisualizer({ onComplete }: DeepSyncVisualizerPro
 
             {/* Status Text */}
             <div className="max-w-md w-full space-y-8 text-center">
-                <div className="space-y-2">
-                    <motion.h2 
-                        key={statusIndex}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-2xl font-light tracking-[0.2em] uppercase text-sky-200"
-                    >
-                        {PROGRESS_STRINGS[statusIndex]}
-                    </motion.h2>
-                    <p className="text-white/40 text-sm font-mono tracking-widest uppercase">
-                        Protocol: Uplink_Security_v2.0
-                    </p>
+                <div className="space-y-4">
+                    <div className="flex justify-center gap-6 mb-2">
+                        <div className="flex items-center gap-1.5">
+                            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+                            <span className="text-[9px] font-black tracking-widest text-emerald-500/80 uppercase">Uplink</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                            <div className="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse shadow-[0_0_8px_rgba(14,165,233,0.5)]" />
+                            <span className="text-[9px] font-black tracking-widest text-sky-500/80 uppercase">Signal</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                            <div className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse shadow-[0_0_8px_rgba(245,158,11,0.5)]" />
+                            <span className="text-[9px] font-black tracking-widest text-amber-500/80 uppercase">Encryption</span>
+                        </div>
+                    </div>
+
+                    <div className="space-y-2">
+                        <motion.h2 
+                            key={statusIndex}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="text-2xl font-black tracking-[0.2em] uppercase text-sky-200"
+                        >
+                            {PROGRESS_STRINGS[statusIndex]}
+                        </motion.h2>
+                        <p className="text-white/40 text-[10px] font-black tracking-[0.4em] uppercase">
+                            NEURAL_HUB_COORDINATION_ACTIVE
+                        </p>
+                    </div>
                 </div>
 
                 {/* Progress Bar (Cinematic) */}
-                <div className="relative h-1 bg-white/5 rounded-full overflow-hidden">
+                <div className="relative h-1.5 bg-white/5 rounded-full overflow-hidden border border-white/10">
                     <motion.div
                         initial={{ width: 0 }}
                         animate={{ width: `${progress}%` }}
-                        className="absolute inset-y-0 left-0 bg-gradient-to-right from-blue-600 to-sky-400 shadow-[0_0_15px_rgba(56,189,248,0.5)]"
+                        className="absolute inset-y-0 left-0 bg-gradient-to-r from-blue-600 via-sky-400 to-blue-600 bg-[size:200%_auto] shadow-[0_0:15px_rgba(56,189,248,0.5)]"
                     />
                 </div>
 
                 {/* Telemetry Grid */}
                 <div className="grid grid-cols-2 gap-4 pt-8 border-t border-white/5">
                     <div className="text-left space-y-1">
-                        <p className="text-[10px] uppercase tracking-tighter text-white/30">Latency</p>
-                        <p className="text-xs font-mono text-cyan-400">14ms</p>
+                        <p className="text-[9px] font-black uppercase tracking-widest text-white/30">Network_Latency</p>
+                        <p className="text-xs font-black font-mono text-cyan-400 tracking-wider">12ms <span className="opacity-40 tracking-tighter">(STABLE)</span></p>
                     </div>
                     <div className="text-right space-y-1">
-                        <p className="text-[10px] uppercase tracking-tighter text-white/30">Node_Sync</p>
-                        <p className="text-xs font-mono text-emerald-400">Stable</p>
+                        <p className="text-[9px] font-black uppercase tracking-widest text-white/30">Encryption_Level</p>
+                        <p className="text-xs font-black font-mono text-emerald-400 tracking-wider">AES-256-GCM</p>
                     </div>
                 </div>
             </div>

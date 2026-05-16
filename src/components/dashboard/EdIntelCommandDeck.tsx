@@ -191,11 +191,22 @@ const SWARM_AGGREGATORS = [
         name: 'Avatar Synthesis Hub',
         id: 'media_hub',
         icon: Video,
-        path: '/video-studio',
+        path: '/studio',
         color: 'text-purple-400',
         intent: 'Synthesize text brief into high-fidelity avatar presentation',
         description: 'Turns briefs into Avatar Video.',
         agents: ['Synthesis Engine', 'Broadcast Node', 'Visual Link', 'Design Architect']
+    },
+    {
+        category: 'District Operations',
+        name: 'Fleet Intelligence',
+        id: 'fleet_intel',
+        icon: Globe,
+        path: '/fleet',
+        color: 'text-amber-500',
+        intent: 'Analyze district-wide biometric and academic telemetry',
+        description: 'Command district-wide fleet intelligence.',
+        agents: ['Fleet Commander', 'Telemetry Node', 'Regional Link', 'Academic Agent']
     },
     {
         category: 'Executive Function',

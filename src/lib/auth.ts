@@ -6,25 +6,81 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./prisma";
 
 export const auth = betterAuth({
-    database: prismaAdapter(prisma, {
+    database: process.env.DATABASE_URL ? prismaAdapter(prisma, {
         provider: "postgresql",
-    }),
+    }) : undefined,
     secret: process.env.BETTER_AUTH_SECRET || "SOVEREIGN_OVAL_2027_FALLBACK_SECRET_FOR_BUILD",
+    user: {
+        additionalFields: {
+            clerk_id: { type: "string", required: false },
+            school_site: { type: "string", required: false },
+            position: { type: "string", required: false },
+            district: { type: "string", required: false },
+            lastUplinkAt: { type: "date", required: false },
+        }
+    },
     emailAndPassword: {
         enabled: true,
         autoSignIn: true,
         requireEmailVerification: false,
     },
     socialProviders: {
-        google: {
-            clientId: process.env.GOOGLE_CLIENT_ID || '',
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
-        },
-        facebook: {
-            clientId: process.env.FACEBOOK_CLIENT_ID || '',
-            clientSecret: process.env.FACEBOOK_CLIENT_SECRET || '',
+        ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET ? {
+            google: {
+                clientId: process.env.GOOGLE_CLIENT_ID,
+                clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            }
+        } : {}),
+        ...(process.env.FACEBOOK_CLIENT_ID && process.env.FACEBOOK_CLIENT_SECRET ? {
+            facebook: {
+                clientId: process.env.FACEBOOK_CLIENT_ID,
+                clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+            }
+        } : {}),
+    },
+    databaseHooks: {
+        user: {
+            create: {
+                after: async (user) => {
+                    // Institutional Uplink Sentinel: Runs after user creation
+                    try {
+                        const { uplinkUserProfile } = await import("./uplink");
+                        await uplinkUserProfile(user.id, {
+                            email: user.email,
+                            name: user.name,
+                            image: user.image || undefined,
+                            schoolSite: (user as any).school_site || undefined,
+                            position: (user as any).position || undefined,
+                        });
+                    } catch (error) {
+                        console.error("[AUTH_DB_HOOK] Uplink Handshake Failed:", error);
+                    }
+                }
+            }
         }
     },
+    hooks: {
+        after: async (ctx) => {
+            // Refresh Uplink on Sign-In
+            if ((ctx as any).path?.includes("sign-in")) {
+                const session = (ctx as any).context?.newSession;
+                if (session) {
+                    const { user } = session;
+                    try {
+                        const { uplinkUserProfile } = await import("./uplink");
+                        await uplinkUserProfile(user.id, {
+                            email: user.email,
+                            name: user.name,
+                            image: user.image || undefined,
+                        });
+                    } catch (error) {
+                        console.error("[AUTH_SIGNIN_HOOK] Uplink Handshake Failed:", error);
+                    }
+                }
+            }
+            return ctx;
+        }
+    }
 });
 
 export const { handlers, api } = auth as any;

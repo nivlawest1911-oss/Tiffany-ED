@@ -22,7 +22,7 @@ const eslintConfig = tseslint.config(
     {
         ignores: [".next/**", "node_modules/**", "dist/**", "src/generated/**", "src/App.jsx", "src/main.jsx", "vite.config.js", "cloud/**", "scripts/**", "original_delegate.tsx", "next-env.d.ts"],
     },
-    // ...compat.extends("next/core-web-vitals"),
+    ..._compat.extends("next/core-web-vitals"),
     ...tseslint.configs.recommended,
     {
         languageOptions: {
@@ -33,15 +33,10 @@ const eslintConfig = tseslint.config(
         },
         plugins: {
             "unused-imports": unusedImports,
-            // "@next/next": nextPlugin,
             "react": reactPlugin,
             "react-hooks": hooksPlugin,
         },
         rules: {
-            // ...nextPlugin.configs.recommended.rules,
-            // ...nextPlugin.configs["core-web-vitals"].rules,
-            // Re-apply critical rules
-            // "@next/next/no-html-link-for-pages": "error",
             "no-unused-vars": "off",
             "@typescript-eslint/no-unused-vars": "off",
             "unused-imports/no-unused-imports": "error",

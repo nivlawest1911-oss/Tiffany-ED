@@ -169,21 +169,30 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
     const [bootLines, setBootLines] = useState<string[]>([]);
     const [isMuted, setIsMuted] = useState(true);
     const [videoProgress, setVideoProgress] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
     const progressRef = useRef<HTMLDivElement>(null);
+
+    // Handle screen size detection
+    useEffect(() => {
+        setIsMobile(window.innerWidth < 768);
+    }, []);
 
     // Handle entrance video & Performance Skip (Phase 14)
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
         const isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
-        const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+        
+        // Use a local detection for immediate effect on first render
+        const currentIsMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+        
         if (params.get('perf') === 'true' || params.get('nosplash') === 'true' || isBot) {
             onCompleteAction();
             return;
         }
 
-        // MOBILE OPTIMIZATION: Skip heavy video entrance (Phase 14)
-        if (isMobile && step === 'entrance') {
+        // MOBILE OPTIMIZATION: Skip heavy video entrance (Phase 15)
+        if ((currentIsMobile || isMobile) && step === 'entrance') {
             setStep('boot');
             return;
         }
@@ -194,7 +203,7 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
                 setStep('boot');
             });
         }
-    }, [step, onCompleteAction]);
+    }, [step, onCompleteAction, isMobile]);
 
     const handleVideoEnd = () => {
         setStep('boot');
@@ -212,10 +221,10 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
 
     useEffect(() => {
         if (step === 'scene2') {
-            // AUTO-COMPLETE FOR LCP: Reveal Hero section after 6s even if no click (Phase 14)
+            // AUTO-COMPLETE FOR LCP: Reveal Hero section after 2s even if no click (Phase 15 Optimization)
             const timer = setTimeout(() => {
                 onCompleteAction();
-            }, 6000);
+            }, 2000);
             return () => clearTimeout(timer);
         }
     }, [step, onCompleteAction]);
@@ -229,9 +238,9 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
                     lineIdx++;
                 } else {
                     clearInterval(interval);
-                    setTimeout(() => setStep('scene1'), 300); // Sped up from 600
+                    setTimeout(() => setStep('scene1'), 150); // Sped up from 300
                 }
-            }, 30); // Sped up from 40
+            }, 15); // Sped up from 30
             return () => clearInterval(interval);
         }
     }, [step]);
@@ -249,8 +258,8 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
             <FluidParticles />
 
             <AnimatePresence mode="wait">
-                {/* GRAND ENTRANCE VIDEO */}
-                {step === 'entrance' && (
+                {/* GRAND ENTRANCE VIDEO - SKIPPED ON MOBILE FOR LCP (Phase 15) */}
+                {step === 'entrance' && !isMobile && (
                     <motion.div
                         key="entrance"
                         initial={{ opacity: 0 }}
@@ -266,7 +275,8 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
                             className="absolute inset-0 w-full h-full object-cover"
                             muted={isMuted}
                             playsInline
-                            preload="none" // DEFERRED TO PREVENT LCP HIJACK (Phase 14.2)
+                            autoPlay
+                            preload="auto" // CHANGED FROM 'none' TO 'auto' FOR FCP (Phase 15)
                             onEnded={handleVideoEnd}
                             onTimeUpdate={handleTimeUpdate}
                         />
@@ -340,8 +350,8 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
                     </motion.div>
                 )}
 
-                {/* BOOT SEQUENCE */}
-                {step === 'boot' && (
+                {/* BOOT SEQUENCE (Mobile starts here or skips to scene1) */}
+                {(step === 'boot' || (step === 'entrance' && isMobile)) && (
                     <motion.div
                         key="boot"
                         initial={{ opacity: 1 }}

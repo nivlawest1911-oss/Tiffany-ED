@@ -442,7 +442,7 @@ export default function ModernHomePage() {
                         <CinematicLogoIntro 
                             onComplete={handleIntroComplete}
                             autoClose={true}
-                            autoCloseDuration={3000}
+                            autoCloseDuration={1500} // REDUCED FROM 3000 FOR LCP (Phase 15)
                         />
                     )}
                 </AnimatePresence>

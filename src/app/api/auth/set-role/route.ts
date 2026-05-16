@@ -1,6 +1,5 @@
 import { getSession } from '@/lib/auth';
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
 import { UserRole } from '@/generated/prisma';
 
 export async function POST(req: Request) {
@@ -40,64 +39,19 @@ export async function POST(req: Request) {
         }
 
         console.log(`[SET_ROLE] Initiating persistence for user: ${userId} (${email}) | Role: ${normalizedRole}`);
+        
+        // 2. Sovereign Uplink Handshake
+        const { uplinkUserProfile } = await import('@/lib/uplink');
+        const userRecord = await uplinkUserProfile(userId, {
+            email: email,
+            role: normalizedRole,
+            district: districtName,
+            position: position,
+            schoolSite: districtName, // Mapping districtName to schoolSite as a fallback
+        });
 
-        // 2. Robust Database Persistence (Prisma)
-        let userRecord;
-        try {
-            // Attempt 1: Lookup by clerkId (primary)
-            userRecord = await prisma.user.findUnique({
-                where: { clerkId: userId }
-            });
-
-            // Attempt 2: Fallback to email (link existing record if found)
-            if (!userRecord) {
-                console.info(`[SET_ROLE] User ${userId} not found by ID, searching by email: ${email}`);
-                userRecord = await prisma.user.findUnique({
-                    where: { email: email }
-                });
-
-                if (userRecord && !userRecord.clerkId) {
-                    console.info(`[SET_ROLE] Linking existing user record ${userRecord.id} with new ID: ${userId}`);
-                }
-            }
-
-            // Upsert Logic: Create or Update
-            if (userRecord) {
-                console.log(`[SET_ROLE] Updating user record: ${userRecord.id}`);
-                userRecord = await prisma.user.update({
-                    where: { id: userRecord.id },
-                    data: {
-                        clerk_id: userId, // Ensure ID is linked
-                        role: normalizedRole,
-                        district: districtName || userRecord.district,
-                        position: position || userRecord.position,
-                        last_login: new Date()
-                    }
-                });
-            } else {
-                console.log(`[SET_ROLE] Creating new user record for ${email}`);
-                userRecord = await prisma.user.create({
-                    data: {
-                        clerk_id: userId,
-                        email: email,
-                        role: normalizedRole,
-                        district: districtName,
-                        position: position
-                    }
-                });
-            }
-        } catch (dbError: any) {
-            console.error('[SET_ROLE_PRISMA_ERROR]', {
-                userId,
-                email,
-                message: dbError.message,
-                code: dbError.code,
-                meta: dbError.meta
-            });
-            return NextResponse.json(
-                { error: 'Database persistence failed. Please check connection settings.' },
-                { status: 500 }
-            );
+        if (!userRecord) {
+            throw new Error('Neural handshake failed to persist profile.');
         }
 
         return NextResponse.json({
@@ -112,7 +66,7 @@ export async function POST(req: Request) {
     } catch (error: any) {
         console.error('[SET_ROLE_CRITICAL_FAILURE]', error);
         return NextResponse.json(
-            { error: 'A critical error occurred during onboarding.' },
+            { error: error.message || 'A critical error occurred during onboarding.' },
             { status: 500 }
         );
     }

@@ -1,5 +1,10 @@
-﻿import StudioClient from './StudioClient';
+import StudioClient from './StudioClient';
+import { SovereignGatekeeper } from '@/components/auth/SovereignGatekeeper';
 
 export default function StudioPage() {
-    return <StudioClient />;
+    return (
+        <SovereignGatekeeper>
+            <StudioClient />
+        </SovereignGatekeeper>
+    );
 }

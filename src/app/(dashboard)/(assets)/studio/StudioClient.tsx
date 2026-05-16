@@ -1,10 +1,11 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useUserSession } from '@/hooks/useUserSession';
 import { StudioVideoSection } from '@/components/StudioVideoSection';
 import { Play, Info, ChevronRight, Film, Library, Command } from 'lucide-react';
+import { MediaSynthesisStudio } from '@/components/media-synthesis-studio';
 
 const CATEGORIES = [
     {
@@ -114,7 +115,6 @@ export default function StudioClient() {
                         </div>
                     </section>
                 ))}
-
                 {/* Creative Command Section */}
                 <section className="space-y-6 pt-8 border-t border-white/5">
                     <div className="flex items-center gap-3">
@@ -123,17 +123,22 @@ export default function StudioClient() {
                         </div>
                         <h2 className="text-2xl font-black uppercase tracking-tighter text-white">Creative Command Tools</h2>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        <StudioVideoSection
-                            userTier={session?.tier || 'free'}
-                            isCommandLevel={isCommandLevel}
-                        />
-                        {/* Placeholder for future tools */}
-                        <div className="p-6 bg-zinc-900/40 border border-dashed border-zinc-800 rounded-xl flex flex-col items-center justify-center text-center opacity-40">
-                            <p className="text-zinc-600 font-mono text-[10px] uppercase tracking-widest">Protocol Expansion Pending</p>
-                        </div>
-                        <div className="p-6 bg-zinc-900/40 border border-dashed border-zinc-800 rounded-xl flex flex-col items-center justify-center text-center opacity-40">
-                            <p className="text-zinc-600 font-mono text-[10px] uppercase tracking-widest">Protocol Expansion Pending</p>
+                    
+                    <div className="grid grid-cols-1 gap-12">
+                        <MediaSynthesisStudio />
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <StudioVideoSection
+                                userTier={session?.tier || 'free'}
+                                isCommandLevel={isCommandLevel}
+                            />
+                            {/* Placeholder for future tools */}
+                            <div className="p-6 bg-zinc-900/40 border border-dashed border-zinc-800 rounded-xl flex flex-col items-center justify-center text-center opacity-40">
+                                <p className="text-zinc-600 font-mono text-[10px] uppercase tracking-widest">Protocol Expansion Pending</p>
+                            </div>
+                            <div className="p-6 bg-zinc-900/40 border border-dashed border-zinc-800 rounded-xl flex flex-col items-center justify-center text-center opacity-40">
+                                <p className="text-zinc-600 font-mono text-[10px] uppercase tracking-widest">Protocol Expansion Pending</p>
+                            </div>
                         </div>
                     </div>
                 </section>
