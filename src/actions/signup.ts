@@ -1,4 +1,4 @@
-﻿'use server';
+'use server';
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
@@ -22,7 +22,7 @@ export async function createEdIntelUser(formData: FormData) {
     }
 
     // Resolve Tier ID from Database (Must exist via Seed)
-    const tier = await prisma.tier.findUnique({
+    const tier = await prisma.tiers.findUnique({
         where: { name: tierName }
     });
 
