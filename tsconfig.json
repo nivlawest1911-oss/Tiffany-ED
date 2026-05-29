@@ -45,6 +45,7 @@
     "supabase",
     "src/test",
     "scripts",
-    "src/scripts"
+    "src/scripts",
+    "scratch"
   ]
 }

@@ -20,6 +20,7 @@ async function testUplinkHardening() {
                 email: testEmail,
                 name: "Test Sentinel",
                 role: UserRole.TEACHER,
+                updated_at: new Date(),
             }
         });
         console.log("Created test user.");
