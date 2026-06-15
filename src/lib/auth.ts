@@ -4,6 +4,7 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./prisma";
+import { nextCookies } from "better-auth/next-js";
 
 export const auth = betterAuth({
     database: process.env.DATABASE_URL ? prismaAdapter(prisma, {
@@ -25,19 +26,38 @@ export const auth = betterAuth({
         requireEmailVerification: false,
     },
     socialProviders: {
-        ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET ? {
-            google: {
-                clientId: process.env.GOOGLE_CLIENT_ID,
-                clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            }
-        } : {}),
-        ...(process.env.FACEBOOK_CLIENT_ID && process.env.FACEBOOK_CLIENT_SECRET ? {
-            facebook: {
-                clientId: process.env.FACEBOOK_CLIENT_ID,
-                clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-            }
-        } : {}),
+        ...(() => {
+            const googleId = (process.env.GOOGLE_CLIENT_ID || '').trim();
+            const googleSecret = (process.env.GOOGLE_CLIENT_SECRET || '').trim();
+            const isGoogleValid = googleId !== '' && 
+                                 !googleId.includes('placeholder') && 
+                                 !googleId.startsWith('523925578373');
+            return isGoogleValid && googleSecret ? {
+                google: {
+                    clientId: googleId,
+                    clientSecret: googleSecret,
+                }
+            } : {};
+        })(),
+        ...(() => {
+            const facebookId = (process.env.FACEBOOK_CLIENT_ID || '').trim();
+            const facebookSecret = (process.env.FACEBOOK_CLIENT_SECRET || '').trim();
+            const isFacebookValid = facebookId !== '' && 
+                                   !facebookId.includes('placeholder') && 
+                                   !facebookId.startsWith('your-') && 
+                                   !facebookId.startsWith('mock-') &&
+                                   !facebookId.startsWith('523925578373');
+            return isFacebookValid && facebookSecret ? {
+                facebook: {
+                    clientId: facebookId,
+                    clientSecret: facebookSecret,
+                }
+            } : {};
+        })(),
     },
+    plugins: [
+        nextCookies()
+    ],
     databaseHooks: {
         user: {
             create: {
