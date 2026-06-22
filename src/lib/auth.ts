@@ -25,6 +25,23 @@ export const auth = betterAuth({
         autoSignIn: true,
         requireEmailVerification: false,
     },
+    session: {
+        expiresIn: 60 * 60 * 24 * 7, // 7 days
+        updateAge: 60 * 60 * 24, // 1 day (refreshes session automatically)
+        cookieCache: {
+            enabled: true,
+            maxAge: 60 * 5, // 5 minutes
+        },
+    },
+    advanced: {
+        useSecureCookies: process.env.NODE_ENV === "production",
+        defaultCookieAttributes: {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            path: "/",
+        },
+    },
     socialProviders: {
         ...(() => {
             const googleId = (process.env.GOOGLE_CLIENT_ID || '').trim();
@@ -98,6 +115,30 @@ export const auth = betterAuth({
                         });
                     } catch (error) {
                         console.error("[AUTH_SIGNIN_HOOK] Uplink Handshake Failed:", error);
+                    }
+                }
+            }
+            // Social Login Audit Hook
+            if ((ctx as any).path?.includes("callback/google") || (ctx as any).path?.includes("callback/facebook")) {
+                const session = (ctx as any).context?.newSession;
+                if (session) {
+                    const { user } = session;
+                    const provider = (ctx as any).path?.includes("google") ? "google" : "facebook";
+                    const request = (ctx as any).context?.request;
+                    const ip = request?.headers?.get('x-forwarded-for') || request?.headers?.get('x-real-ip') || 'unknown';
+                    const userAgent = request?.headers?.get('user-agent') || 'unknown';
+                    
+                    try {
+                        const { logSocialLoginSuccess } = await import("./actions/handshakes");
+                        await logSocialLoginSuccess({
+                            userId: user.id,
+                            email: user.email,
+                            provider: provider as 'google' | 'facebook',
+                            ip,
+                            userAgent
+                        });
+                    } catch (auditErr) {
+                        console.error("[AUTH_SIGNIN_HOOK] Social Audit Logging Failed:", auditErr);
                     }
                 }
             }

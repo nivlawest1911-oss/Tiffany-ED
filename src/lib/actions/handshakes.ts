@@ -1,13 +1,6 @@
 "use server";
 
 import { headers } from 'next/headers';
-
-/**
- * executeSocialUplink
- * 
- * Cleanly isolated server action for social authentication 
- * to prevent top-level module leakage.
- */
 import { verifyTurnstileToken } from '@/lib/turnstile';
 import { logAuditEvent, AuditCategory, AuditAction } from '@/lib/audit';
 
@@ -18,6 +11,35 @@ import { logAuditEvent, AuditCategory, AuditAction } from '@/lib/audit';
  * to prevent top-level module leakage.
  */
 export async function executeSocialUplink(provider: 'google' | 'facebook', turnstileToken?: string) {
+    const headerList = await headers();
+    const clientIp = headerList.get('x-forwarded-for')?.split(',')[0] || '127.0.0.1';
+    const userAgent = headerList.get('user-agent') || 'unknown';
+
+    // 0. Rate Limit Security Check
+    try {
+        const { authRateLimit } = await import('@/lib/rate-limit');
+        const limitResult = await authRateLimit.limit(clientIp);
+        if (!limitResult.success) {
+            console.error(`[SECURITY_ALERT] Rate limit exceeded for IP: ${clientIp} on Social Uplink`);
+            
+            await logAuditEvent({
+                category: AuditCategory.AUTHENTICATION,
+                action: AuditAction.SIGN_IN,
+                label: `Rate Limit Exceeded: Social (${provider})`,
+                ipAddress: clientIp,
+                userAgent,
+                metadata: {
+                    provider,
+                    error: 'Rate limit exceeded'
+                }
+            });
+
+            return { success: false, error: "Too many authentication requests. Please try again later." };
+        }
+    } catch (rlError) {
+        console.warn('[SECURITY] Rate limiter unavailable, skipping check:', rlError);
+    }
+
     // 1. Mandatory Human Residency Check
     if (!turnstileToken) {
         return { success: false, error: "Human verification (Turnstile) is required." };
@@ -25,6 +47,17 @@ export async function executeSocialUplink(provider: 'google' | 'facebook', turns
     
     const isVerified = await verifyTurnstileToken(turnstileToken);
     if (!isVerified) {
+        await logAuditEvent({
+            category: AuditCategory.AUTHENTICATION,
+            action: AuditAction.SIGN_IN,
+            label: `Turnstile Verification Failed: Social (${provider})`,
+            ipAddress: clientIp,
+            userAgent,
+            metadata: {
+                provider,
+                error: 'Turnstile verification failed'
+            }
+        });
         return { success: false, error: "Security Protocol: Human verification failed." };
     }
 
@@ -56,7 +89,6 @@ export async function executeSocialUplink(provider: 'google' | 'facebook', turns
         const demoEmail = provider === 'google' ? "demo.google.educator@edintel.ai" : "demo.facebook.educator@edintel.ai";
         const demoName = provider === 'google' ? "Dr. Terry Google (Demo)" : "Patrice Facebook (Demo)";
         const demoPassword = "DemoSovereignPassword2026!";
-        const headerList = await headers();
 
         // 1. Direct Database Synchronization (Sovereign Upsert Strategy)
         // Ensures the demo educator account is always present and has the active demo password hash.
@@ -116,19 +148,52 @@ export async function executeSocialUplink(provider: 'google' | 'facebook', turns
 
         try {
             // 2. Perform direct sign-in with verified credentials
-            await auth.api.signInEmail({
+            const result = await auth.api.signInEmail({
                 headers: headerList,
                 body: {
                     email: demoEmail,
                     password: demoPassword,
                 }
             });
+
+            // 3. Log Demo Sign-in Audit Event
+            if (result?.user) {
+                await logAuditEvent({
+                    userId: result.user.id,
+                    category: AuditCategory.AUTHENTICATION,
+                    action: AuditAction.SIGN_IN,
+                    label: `Demo Social Uplink Bypass: ${provider}`,
+                    ipAddress: clientIp,
+                    userAgent,
+                    metadata: {
+                        provider,
+                        bypassMode: true,
+                        demoEmail
+                    }
+                });
+            }
+
             return {
                 success: true,
                 url: '/the-room'
             };
-        } catch (signInErr) {
+        } catch (signInErr: any) {
             console.error("[Handshake] Demo sign in failed after upsert:", signInErr);
+            
+            await logAuditEvent({
+                category: AuditCategory.AUTHENTICATION,
+                action: AuditAction.SIGN_IN,
+                label: `Demo Social Uplink Bypass Failed: ${provider}`,
+                ipAddress: clientIp,
+                userAgent,
+                metadata: {
+                    provider,
+                    bypassMode: true,
+                    demoEmail,
+                    error: signInErr.message || 'Demo sign in failed'
+                }
+            });
+
             // Fallback to warning route if Better Auth fails to build session
             return { 
                 success: true, 
@@ -139,7 +204,7 @@ export async function executeSocialUplink(provider: 'google' | 'facebook', turns
 
     try {
         const result = await auth.api.signInSocial({
-            headers: await headers(),
+            headers: headerList,
             body: {
                 provider,
                 callbackURL: '/dashboard',
@@ -173,6 +238,34 @@ export async function executeEmailUplink(data: {
     const { auth } = await import('@/lib/auth');
     try {
         const headerList = await headers();
+        const clientIp = headerList.get('x-forwarded-for')?.split(',')[0] || '127.0.0.1';
+        const userAgent = headerList.get('user-agent') || 'unknown';
+
+        // 0. Rate Limit Security Check
+        try {
+            const { authRateLimit } = await import('@/lib/rate-limit');
+            const limitResult = await authRateLimit.limit(clientIp);
+            if (!limitResult.success) {
+                console.error(`[SECURITY_ALERT] Rate limit exceeded for IP: ${clientIp} on Email Uplink (${data.type})`);
+                
+                await logAuditEvent({
+                    category: AuditCategory.AUTHENTICATION,
+                    action: data.type === 'signIn' ? AuditAction.SIGN_IN : AuditAction.SIGN_UP,
+                    label: `Rate Limit Exceeded: Email (${data.email})`,
+                    ipAddress: clientIp,
+                    userAgent,
+                    metadata: {
+                        email: data.email,
+                        type: data.type,
+                        error: 'Rate limit exceeded'
+                    }
+                });
+
+                return { success: false, error: "Too many authentication requests. Please try again later." };
+            }
+        } catch (rlError) {
+            console.warn('[SECURITY] Rate limiter unavailable, skipping check:', rlError);
+        }
 
         // 1. Mandatory Human Residency Check
         if (!data.turnstileToken) {
@@ -181,8 +274,21 @@ export async function executeEmailUplink(data: {
         
         const isVerified = await verifyTurnstileToken(data.turnstileToken);
         if (!isVerified) {
+            await logAuditEvent({
+                category: AuditCategory.AUTHENTICATION,
+                action: data.type === 'signIn' ? AuditAction.SIGN_IN : AuditAction.SIGN_UP,
+                label: `Turnstile Verification Failed: Email (${data.email})`,
+                ipAddress: clientIp,
+                userAgent,
+                metadata: {
+                    email: data.email,
+                    type: data.type,
+                    error: 'Turnstile verification failed'
+                }
+            });
             return { success: false, error: "Security Protocol: Human verification failed." };
         }
+        
         let result;
         
         if (data.type === 'signIn') {
@@ -212,9 +318,9 @@ export async function executeEmailUplink(data: {
                 userId: result.user.id,
                 category: AuditCategory.AUTHENTICATION,
                 action: data.type === 'signIn' ? AuditAction.SIGN_IN : AuditAction.SIGN_UP,
-                label: `Email Uplink: ${data.email}`,
-                ipAddress: headerList.get('x-forwarded-for')?.split(',')[0] || undefined,
-                userAgent: headerList.get('user-agent') || undefined,
+                label: `Email Uplink Success: ${data.email}`,
+                ipAddress: clientIp,
+                userAgent,
                 metadata: {
                     type: data.type,
                     provider: 'email',
@@ -227,9 +333,39 @@ export async function executeEmailUplink(data: {
             return { success: true };
         }
 
+        await logAuditEvent({
+            category: AuditCategory.AUTHENTICATION,
+            action: data.type === 'signIn' ? AuditAction.SIGN_IN : AuditAction.SIGN_UP,
+            label: `Email Uplink Rejected: ${data.email}`,
+            ipAddress: clientIp,
+            userAgent,
+            metadata: {
+                type: data.type,
+                error: "Authentication signature invalid"
+            }
+        });
+
         return { success: false, error: "Authentication signature invalid." };
     } catch (error: any) {
         console.error('[Handshake] Email Uplink Failed:', error);
+        
+        // Log authentication failure
+        const headerList = await headers();
+        const clientIp = headerList.get('x-forwarded-for')?.split(',')[0] || '127.0.0.1';
+        const userAgent = headerList.get('user-agent') || 'unknown';
+
+        await logAuditEvent({
+            category: AuditCategory.AUTHENTICATION,
+            action: data.type === 'signIn' ? AuditAction.SIGN_IN : AuditAction.SIGN_UP,
+            label: `Email Uplink Failed: ${data.email}`,
+            ipAddress: clientIp,
+            userAgent,
+            metadata: {
+                type: data.type,
+                error: error.message || "Manual uplink failed"
+            }
+        });
+
         return { success: false, error: error.message || "Manual uplink failed." };
     }
 }
@@ -340,4 +476,28 @@ export async function onboardOrganization(data: {
         error: error.message || 'The sovereign node could not be initialized.' 
     };
   }
+}
+
+/**
+ * Call this after successful social login (Google/Facebook)
+ */
+export async function logSocialLoginSuccess(params: {
+    userId: string;
+    email: string;
+    provider: 'google' | 'facebook';
+    ip?: string;
+    userAgent?: string;
+}) {
+    await logAuditEvent({
+        userId: params.userId,
+        category: AuditCategory.AUTHENTICATION,
+        action: AuditAction.SIGN_IN,
+        label: `Social Login Success: ${params.email} (${params.provider})`,
+        ipAddress: params.ip,
+        userAgent: params.userAgent,
+        metadata: {
+            action: 'social_oauth_login',
+            provider: params.provider
+        }
+    });
 }
