@@ -1,4 +1,4 @@
-﻿import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 export const dynamic = 'force-dynamic';
 import { getSession } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
@@ -25,7 +25,7 @@ export async function GET() {
         // A. Database Check/Provision (Using Prisma for cross-env compatibility)
         let user = await prisma.user.findUnique({
             where: { email: authUser.email.toLowerCase() },
-            select: { subscriptionTier: true, position: true, bio: true }
+            select: { subscription_tier: true, position: true, bio: true }
         });
 
         if (!user) {
@@ -35,7 +35,8 @@ export async function GET() {
                     id: authUser.id,
                     name: authUser.name,
                     email: authUser.email.toLowerCase(),
-                    subscriptionTier: authUser.tier || 'free',
+                    subscription_tier: authUser.tier || 'free',
+                    updated_at: new Date()
                 }
             }) as any;
         }
@@ -44,7 +45,7 @@ export async function GET() {
         return NextResponse.json({ 
             user: {
                 ...authUser,
-                tier: user?.subscriptionTier || authUser.tier,
+                tier: user?.subscription_tier || authUser.tier,
                 position: user?.position || null,
                 bio: user?.bio || null
             }
@@ -79,16 +80,18 @@ export async function POST(req: Request) {
             update: { 
                 name: name, 
                 id: userId, 
-                clerkId: userId,
-                subscriptionTier: tier || 'free'
+                clerk_id: userId,
+                subscription_tier: tier || 'free',
+                updated_at: new Date()
             },
             create: {
                 id: userId,
-                clerkId: userId,
+                clerk_id: userId,
                 email: normalizedEmail,
                 name: name,
-                subscriptionTier: tier || 'free',
-                role: 'TEACHER'
+                subscription_tier: tier || 'free',
+                role: 'TEACHER',
+                updated_at: new Date()
             }
         });
 

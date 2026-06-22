@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
 import StreamingAvatar, { AvatarQuality, StreamingEvents } from '@heygen/streaming-avatar';
@@ -80,7 +80,7 @@ export default function EdIntelAvatarInterface({ avatarId = 'ef08039a41354ed5a20
 
                 avatar.on(StreamingEvents.AVATAR_START_TALKING, () => setIsTalking(true));
                 avatar.on(StreamingEvents.AVATAR_STOP_TALKING, () => setIsTalking(false));
-                avatar.on(StreamingEvents.STREAM_READY, (event) => {
+                avatar.on(StreamingEvents.STREAM_READY, (event: any) => {
                     if (controller.signal.aborted) return;
                     setStream(event.detail);
                     setDebug('Visual Link Established');

@@ -2,6 +2,7 @@
  * DistrictService
  */
 
+import crypto from 'crypto';
 import { NodeStatus, GlobalHealth, DistrictData } from './UnityOrchestrator';
 
 /**
@@ -13,26 +14,26 @@ import { NodeStatus, GlobalHealth, DistrictData } from './UnityOrchestrator';
 export class DistrictService {
     static async getDistricts(): Promise<DistrictData[]> {
         const { prisma } = await import('./prisma');
-        const districts = await prisma.district.findMany({
-            include: { nodes: true }
+        const districts = await prisma.districts.findMany({
+            include: { district_nodes: true }
         });
 
         return districts.map((d: any) => ({
             name: d.name,
             id: d.id,
-            nodes: d.nodes.map((n: any) => ({
+            nodes: d.district_nodes.map((n: any) => ({
                 id: n.id,
                 name: n.name,
                 status: n.status as NodeStatus['status'],
                 health: n.health,
-                activeSwarms: n.activeSwarms,
-                lastPulse: n.lastPulse.toISOString()
+                activeSwarms: n.active_swarms,
+                lastPulse: n.last_pulse.toISOString()
             })),
             health: {
                 score: d.health,
-                activeNodes: d.nodes.length,
-                totalSwarms: d.nodes.reduce((acc: number, n: any) => acc + n.activeSwarms, 0),
-                systemLoad: Math.round(d.nodes.reduce((acc: number, n: any) => acc + (n.activeSwarms || 0), 0) * 4.2),
+                activeNodes: d.district_nodes.length,
+                totalSwarms: d.district_nodes.reduce((acc: number, n: any) => acc + n.active_swarms, 0),
+                systemLoad: Math.round(d.district_nodes.reduce((acc: number, n: any) => acc + (n.active_swarms || 0), 0) * 4.2),
                 equilibrium: d.health > 90 ? 'stable' : 'fluctuating'
             }
         }));
@@ -40,17 +41,21 @@ export class DistrictService {
 
     static async ingestDistrict(name: string, defaultNodes: string[]): Promise<string> {
         const { prisma } = await import('./prisma');
-        const district = await prisma.district.create({
+        const district = await prisma.districts.create({
             data: {
+                id: crypto.randomUUID(),
                 name,
                 health: 98,
-                nodes: {
+                updated_at: new Date(),
+                district_nodes: {
                     create: defaultNodes.map(nodeName => ({
+                        id: crypto.randomUUID(),
                         name: nodeName,
                         status: 'optimal',
                         health: 95 + Math.random() * 5,
-                        activeSwarms: Math.floor(Math.random() * 3),
-                        lastPulse: new Date()
+                        active_swarms: Math.floor(Math.random() * 3),
+                        last_pulse: new Date(),
+                        updated_at: new Date()
                     }))
                 }
             }
@@ -61,33 +66,34 @@ export class DistrictService {
 
     static async updateNodeTelemetry(nodeId: string, health: number, swarms: number) {
         const { prisma } = await import('./prisma');
-        return await prisma.districtNode.update({
+        return await prisma.district_nodes.update({
             where: { id: nodeId },
             data: {
                 health,
-                activeSwarms: swarms,
+                active_swarms: swarms,
                 status: health > 90 ? 'optimal' : health > 70 ? 'stressed' : 'critical',
-                lastPulse: new Date()
+                last_pulse: new Date(),
+                updated_at: new Date()
             }
         });
     }
 
     static async getGlobalHealth(districtId: string): Promise<GlobalHealth | null> {
         const { prisma } = await import('./prisma');
-        const district = await prisma.district.findUnique({
+        const district = await prisma.districts.findUnique({
             where: { id: districtId },
-            include: { nodes: true }
+            include: { district_nodes: true }
         });
 
         if (!district) return null;
 
-        const totalHealth = district.nodes.reduce((acc: number, n: any) => acc + n.health, 0);
-        const avgHealth = district.nodes.length > 0 ? totalHealth / district.nodes.length : 98;
-        const totalSwarms = district.nodes.reduce((acc: number, n: any) => acc + n.activeSwarms, 0);
+        const totalHealth = district.district_nodes.reduce((acc: number, n: any) => acc + n.health, 0);
+        const avgHealth = district.district_nodes.length > 0 ? totalHealth / district.district_nodes.length : 98;
+        const totalSwarms = district.district_nodes.reduce((acc: number, n: any) => acc + n.active_swarms, 0);
 
         return {
             score: Math.round(avgHealth),
-            activeNodes: district.nodes.length,
+            activeNodes: district.district_nodes.length,
             totalSwarms,
             systemLoad: Math.round(totalSwarms * 4.2),
             equilibrium: avgHealth > 90 ? 'stable' : 'fluctuating'
@@ -102,20 +108,20 @@ export class DistrictService {
             ];
         }
         const { prisma } = await import('./prisma');
-        const nodes = await prisma.districtNode.findMany({
-            include: { district: true }
+        const nodes = await prisma.district_nodes.findMany({
+            include: { districts: true }
         });
 
         return nodes.map((n: any) => ({
             id: n.id,
             name: n.name,
-            location: n.district?.name || 'Unknown Region',
+            location: n.districts?.name || 'Unknown Region',
             status: n.status === 'optimal' ? 'operational' : n.status === 'stressed' ? 'syncing' : n.status === 'critical' ? 'alert' : 'offline',
             intelligenceLoad: Math.round(n.health),
             vaultCompliance: n.vaultCompliance,
             vaultDocumentCount: n.vaultDocumentCount,
             activeUsers: Math.floor(n.health * 10),
-            lastSync: n.lastPulse.toISOString()
+            lastSync: n.last_pulse.toISOString()
         }));
     }
 

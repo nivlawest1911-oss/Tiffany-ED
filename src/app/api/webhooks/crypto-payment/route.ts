@@ -1,4 +1,4 @@
-﻿/**
+/**
  * EdIntel EdIntel - Crypto Payment Webhook Handler
  * Processes cryptocurrency payment confirmations
  */
@@ -98,14 +98,14 @@ async function handlePaymentSuccess(payload: any) {
         const user = await prisma.user.update({
             where: { id: userId },
             data: {
-                subscriptionTier: tier,
-                subscriptionStatus: 'active',
+                subscription_tier: tier,
+                subscription_status: 'active',
                 // Add bonus tokens for crypto payment
-                usageTokens: {
+                usage_tokens: {
                     increment: 50
                 },
                 // Award XP for "Early Adopter" behavior
-                xpPoints: {
+                xp_points: {
                     increment: 500
                 }
             }

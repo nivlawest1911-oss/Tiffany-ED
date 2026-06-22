@@ -1,4 +1,4 @@
-﻿import { createServerClient } from '@supabase/ssr';
+import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
@@ -31,7 +31,7 @@ export async function GET() {
         const dbUser = await prisma.user.findUnique({
             where: { email: userEmail },
             include: {
-                schoolRelation: true,
+                schools_users_school_idToschools: true,
             }
         });
 
@@ -49,18 +49,18 @@ export async function GET() {
 
         let sites: { id: string, name: string }[] = [];
 
-        if (isDistrictAdmin && dbUser.schoolRelation?.districtName) {
+        if (isDistrictAdmin && dbUser.schools_users_school_idToschools?.district_name) {
             // Fetch all schools in the same district
-            const schools = await prisma.school.findMany({
-                where: { districtName: dbUser.schoolRelation.districtName },
+            const schools = await prisma.schools.findMany({
+                where: { district_name: dbUser.schools_users_school_idToschools.district_name },
                 select: { id: true, name: true }
             });
             sites = schools;
-        } else if (dbUser.schoolId) {
+        } else if (dbUser.school_id) {
             // Return only their assigned school
             sites = [{
-                id: dbUser.schoolId,
-                name: dbUser.schoolRelation?.name || 'My School Site'
+                id: dbUser.school_id,
+                name: dbUser.schools_users_school_idToschools?.name || 'My School Site'
             }];
         }
 

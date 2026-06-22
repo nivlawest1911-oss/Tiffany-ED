@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useEffect, useRef, useState, useCallback } from 'react';
 import StreamingAvatar, {
@@ -92,12 +92,12 @@ export function HeyGenStreamingAvatar({
             });
 
             // Set up event listeners
-            avatar.current.on(StreamingEvents.AVATAR_START_TALKING, (e) => {
+            avatar.current.on(StreamingEvents.AVATAR_START_TALKING, (e: any) => {
                 console.log('Avatar started talking', e);
                 setDebug('Avatar is speaking...');
             });
 
-            avatar.current.on(StreamingEvents.AVATAR_STOP_TALKING, (e) => {
+            avatar.current.on(StreamingEvents.AVATAR_STOP_TALKING, (e: any) => {
                 console.log('Avatar stopped talking', e);
                 setDebug('Avatar finished speaking');
             });
@@ -108,7 +108,7 @@ export function HeyGenStreamingAvatar({
                 endSession();
             });
 
-            avatar.current.on(StreamingEvents.STREAM_READY, (event) => {
+            avatar.current.on(StreamingEvents.STREAM_READY, (event: any) => {
                 if (controller.signal.aborted) return;
                 console.log('Stream ready:', event.detail);
                 setDebug('Session started successfully');
@@ -117,12 +117,12 @@ export function HeyGenStreamingAvatar({
                 if (onReady) onReady();
             });
 
-            avatar.current.on(StreamingEvents.USER_START, (event) => {
+            avatar.current.on(StreamingEvents.USER_START, (event: any) => {
                 console.log('User started talking', event);
                 setDebug('Listening...');
             });
 
-            avatar.current.on(StreamingEvents.USER_STOP, (event) => {
+            avatar.current.on(StreamingEvents.USER_STOP, (event: any) => {
                 console.log('User stopped talking', event);
                 setDebug('Processing...');
             });
@@ -379,8 +379,8 @@ export function HeyGenStreamingAvatar({
                             <input
                                 type="text"
                                 value={text}
-                                onChange={(e) => setText(e.target.value)}
-                                onKeyPress={(e) => e.key === 'Enter' && handleSpeak()}
+                                onChange={(e: any) => setText(e.target.value)}
+                                onKeyPress={(e: any) => e.key === 'Enter' && handleSpeak()}
                                 placeholder="Type a message for the avatar to speak..."
                                 className="flex-1 px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500"
                                 disabled={isLoadingRepeat}

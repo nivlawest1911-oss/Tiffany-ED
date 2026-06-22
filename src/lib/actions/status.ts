@@ -1,4 +1,4 @@
-﻿'use server';
+'use server';
 
 import { prisma } from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
@@ -7,7 +7,7 @@ export async function getSovereignStatus() {
   try {
     const session = await getSession();
     if (!session?.user?.id) {
-      return null; // Return null instead of throwing to avoid 500s in dashboard client components
+      return null;
     }
 
     const userId = session.user.id;
@@ -15,8 +15,8 @@ export async function getSovereignStatus() {
     const user = await prisma.user.findUnique({
       where: { id: userId },
       include: {
-        schoolRelation: true,
-        tokenWallet: true,
+        schools_users_school_idToschools: true,
+        token_wallets: true,
       },
     });
 
@@ -25,7 +25,7 @@ export async function getSovereignStatus() {
     }
 
     const now = new Date();
-    const trialEndsAt = user.trialEndsAt ? new Date(user.trialEndsAt) : null;
+    const trialEndsAt = user.trial_ends_at ? new Date(user.trial_ends_at) : null;
     let daysRemaining = 0;
 
     if (trialEndsAt && trialEndsAt > now) {
@@ -35,9 +35,9 @@ export async function getSovereignStatus() {
 
     return {
       userName: user.name || 'Executive',
-      organizationName: user.schoolRelation?.name || user.district || 'Unassigned Node',
+      organizationName: user.schools_users_school_idToschools?.name || user.district || 'Unassigned Node',
       trialDaysRemaining: daysRemaining,
-      tokenBalance: user.tokenWallet?.balance || 0,
+      tokenBalance: user.token_wallets?.balance || 0,
     };
   } catch (error) {
     console.error('[STATUS_ACTION] Sovereign Status Protocol Failed:', error);

@@ -582,6 +582,117 @@ exports.Prisma.Vault_ocrScalarFieldEnum = {
   processedAt: 'processedAt'
 };
 
+exports.Prisma.Student_profilesScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  student_sis_id: 'student_sis_id',
+  first_name: 'first_name',
+  last_name: 'last_name',
+  grade_level: 'grade_level',
+  school_id: 'school_id',
+  lexile_level: 'lexile_level',
+  lexile_history: 'lexile_history',
+  ell_status: 'ell_status',
+  native_language: 'native_language',
+  sped_status: 'sped_status',
+  dyslexia_flag: 'dyslexia_flag',
+  intervention_tier: 'intervention_tier',
+  ala_skill_profile: 'ala_skill_profile',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Screener_resultsScalarFieldEnum = {
+  id: 'id',
+  student_profile_id: 'student_profile_id',
+  screener_platform: 'screener_platform',
+  assessment_window: 'assessment_window',
+  assessment_date: 'assessment_date',
+  composite_score: 'composite_score',
+  risk_level: 'risk_level',
+  skill_scores: 'skill_scores',
+  raw_data: 'raw_data',
+  created_at: 'created_at'
+};
+
+exports.Prisma.Differentiated_materialsScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  student_profile_id: 'student_profile_id',
+  title: 'title',
+  source_input: 'source_input',
+  target_lexile: 'target_lexile',
+  output_lexile: 'output_lexile',
+  dok_level: 'dok_level',
+  content_type: 'content_type',
+  generated_content: 'generated_content',
+  academic_standard: 'academic_standard',
+  subject: 'subject',
+  grade_level: 'grade_level',
+  language: 'language',
+  exported_to: 'exported_to',
+  tokens_used: 'tokens_used',
+  created_at: 'created_at'
+};
+
+exports.Prisma.Reading_improvement_plansScalarFieldEnum = {
+  id: 'id',
+  student_profile_id: 'student_profile_id',
+  created_by: 'created_by',
+  school_year: 'school_year',
+  status: 'status',
+  deficit_areas: 'deficit_areas',
+  intervention_program: 'intervention_program',
+  daily_materials: 'daily_materials',
+  progress_notes: 'progress_notes',
+  parent_notified: 'parent_notified',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.District_listeningScalarFieldEnum = {
+  id: 'id',
+  district_id: 'district_id',
+  snapshot_date: 'snapshot_date',
+  title_i_revenue: 'title_i_revenue',
+  erate_cat2_budget: 'erate_cat2_budget',
+  virtual_readiness: 'virtual_readiness',
+  hardware_score: 'hardware_score',
+  broadband_mbps: 'broadband_mbps',
+  teacher_training_pct: 'teacher_training_pct',
+  edtech_tools: 'edtech_tools',
+  enrollment_total: 'enrollment_total',
+  free_reduced_pct: 'free_reduced_pct',
+  ela_proficiency_pct: 'ela_proficiency_pct',
+  math_proficiency_pct: 'math_proficiency_pct',
+  metadata: 'metadata'
+};
+
+exports.Prisma.Infra_monitorsScalarFieldEnum = {
+  id: 'id',
+  school_id: 'school_id',
+  device_type: 'device_type',
+  device_name: 'device_name',
+  location: 'location',
+  status: 'status',
+  metrics: 'metrics',
+  alert_threshold: 'alert_threshold',
+  last_heartbeat: 'last_heartbeat',
+  created_at: 'created_at'
+};
+
+exports.Prisma.Infra_alertsScalarFieldEnum = {
+  id: 'id',
+  monitor_id: 'monitor_id',
+  severity: 'severity',
+  message: 'message',
+  metric_snapshot: 'metric_snapshot',
+  acknowledged: 'acknowledged',
+  acknowledged_by: 'acknowledged_by',
+  resolved_at: 'resolved_at',
+  created_at: 'created_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -656,7 +767,14 @@ exports.Prisma.ModelName = {
   verification: 'verification',
   vault_audits: 'vault_audits',
   vault_documents: 'vault_documents',
-  vault_ocr: 'vault_ocr'
+  vault_ocr: 'vault_ocr',
+  student_profiles: 'student_profiles',
+  screener_results: 'screener_results',
+  differentiated_materials: 'differentiated_materials',
+  reading_improvement_plans: 'reading_improvement_plans',
+  district_listening: 'district_listening',
+  infra_monitors: 'infra_monitors',
+  infra_alerts: 'infra_alerts'
 };
 
 /**

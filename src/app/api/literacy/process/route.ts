@@ -1,6 +1,7 @@
-﻿import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
+import crypto from 'crypto';
 
 export const runtime = 'nodejs';
 
@@ -23,14 +24,14 @@ export async function POST(request: NextRequest) {
         const tokenCost = 500;
         const user = await prisma.user.findUnique({
             where: { id: session.user.id },
-            select: { usageTokens: true, subscriptionTier: true }
+            select: { usage_tokens: true, subscription_tier: true }
         });
 
-        if (!user || user.usageTokens < tokenCost) {
+        if (!user || user.usage_tokens < tokenCost) {
             return NextResponse.json({
                 error: 'Insufficient Neural Capacity',
                 required: tokenCost,
-                current: user?.usageTokens || 0
+                current: user?.usage_tokens || 0
             }, { status: 402 });
         }
 
@@ -38,20 +39,22 @@ export async function POST(request: NextRequest) {
         await prisma.user.update({
             where: { id: session.user.id },
             data: {
-                usageTokens: { decrement: tokenCost }
+                usage_tokens: { decrement: tokenCost }
             }
         });
 
         // 2. SAVE TO SOVEREIGN VAULT (Prisma)
-        const vaultDoc = await (prisma as any).vaultDocument.create({
+        const vaultDoc = await prisma.vault_documents.create({
             data: {
+                id: crypto.randomUUID(),
                 userId: session.user.id,
                 fileName: file.name,
                 fileSize: file.size,
                 fileType: file.type,
                 storagePath: `literacy-audits/${session.user.id}/${Date.now()}-${file.name}`,
                 tags: ['literacy-audit', 'alabama-literacy-act', 'sovereign-audit', autoPilot ? 'auto-pilot' : 'manual'],
-                securityLevel: 'confidential'
+                securityLevel: 'confidential',
+                updatedAt: new Date()
             }
         });
 
@@ -83,12 +86,12 @@ export async function POST(request: NextRequest) {
         };
 
         // 4. LOG AUDIT ACTION
-        await (prisma as any).vaultAudit.create({
+        await prisma.vault_audits.create({
             data: {
+                id: crypto.randomUUID(),
                 documentId: vaultDoc.id,
                 userId: session.user.id,
-                action: autoPilot ? 'AUTO_PILOT_SYTHESIS' : 'LITERACY_ACT_AUDIT',
-                details: JSON.stringify(auditResults.metrics)
+                action: autoPilot ? 'AUTO_PILOT_SYTHESIS' : 'LITERACY_ACT_AUDIT'
             }
         });
 

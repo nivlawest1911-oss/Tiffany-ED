@@ -153,7 +153,7 @@ export async function executeCurriculumSynthesis(params: SynthesisParams) {
                         provider: result.provider,
                         model: result.model
                     }
-                },
+                } as any,
                 subject: params.subject,
                 grade_level: params.gradeLevel,
                 ai_model: result.model,

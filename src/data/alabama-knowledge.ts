@@ -1,4 +1,4 @@
-﻿/**
+/**
  * EdIntel Institutional Intelligence: Alabama State Registry
  * 
  * This file contains a structured database of Alabama-specific educational agencies, 
@@ -362,6 +362,71 @@ export const ALABAMA_INSTITUTIONAL_KNOWLEDGE = {
         support_staff_unions: {
             name: "Alabama School Bus Drivers Association",
             focus: "Transportation advocacy and operational continuity."
+        }
+    },
+    differentiation_and_literacy: {
+        ala_7_skills: {
+            phonemic_awareness: {
+                label: "Phonemic Awareness",
+                description: "Recognizing and manipulating individual sounds in spoken words.",
+                intervention_program: "Orton-Gillingham Multisensory Scaffolding"
+            },
+            phonics: {
+                label: "Phonics & Decoding",
+                description: "Understanding relationships between letters and sounds to decode decodable text.",
+                intervention_program: "Orton-Gillingham Decodable kits"
+            },
+            fluency: {
+                label: "Fluency (Oral Reading)",
+                description: "Reading with speed, accuracy, and proper expression.",
+                intervention_program: "Explicit Repeated Readings"
+            },
+            vocabulary: {
+                label: "Vocabulary Development",
+                description: "Acquiring and understanding general academic and domain-specific words.",
+                intervention_program: "Bilingual MLL Scaffold Guides"
+            },
+            comprehension: {
+                label: "Comprehension & Synthesis",
+                description: "Actively constructing meaning from text using strategic reasoning.",
+                intervention_program: "DOK-aligned Multi-Tiered Scaffolding"
+            },
+            written_expression: {
+                label: "Written Expression",
+                description: "Writing coherent and grammatically correct sentences to express ideas.",
+                intervention_program: "Explicit Sentence Combining Guides"
+            },
+            listening_comprehension: {
+                label: "Listening Comprehension",
+                description: "Understanding spoken language and oral instructions.",
+                intervention_program: "Trauma-Informed Oral Storytelling"
+            }
+        },
+        lexile_framework: {
+            kindergarten: { min: -100, max: 200, label: "Kindergarten" },
+            grade_1: { min: 100, max: 400, label: "1st Grade" },
+            grade_2: { min: 300, max: 500, label: "2nd Grade" },
+            grade_3: { min: 415, max: 760, label: "3rd Grade" },
+            grade_4: { min: 635, max: 950, label: "4th Grade" },
+            grade_5: { min: 770, max: 1010, label: "5th Grade" },
+            grade_6: { min: 855, max: 1065, label: "6th Grade" },
+            grade_7: { min: 925, max: 1120, label: "7th Grade" },
+            grade_8: { min: 985, max: 1155, label: "8th Grade" },
+            grade_9: { min: 1040, max: 1210, label: "9th Grade" },
+            grade_10: { min: 1085, max: 1260, label: "10th Grade" },
+            grade_11_12: { min: 1130, max: 1400, label: "11th-12th Grade" }
+        },
+        mcpss_campus_deployments: {
+            denton_magnet: {
+                name: "Denton Magnet School of Technology",
+                focus: "1:1 Chromebook saturation, virtual readiness index 4.8",
+                enrollment: 520
+            },
+            scarborough_model: {
+                name: "Scarborough Model Middle School",
+                focus: "SB 216 SRIP active monitoring, virtual readiness index 2.2",
+                enrollment: 410
+            }
         }
     }
 };

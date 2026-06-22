@@ -1,4 +1,4 @@
-﻿import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 
 /**
@@ -17,14 +17,15 @@ export async function GET(req: Request) {
         const now = new Date();
 
         // Update all organizations whose trial has expired and who haven't converted
-        const expiredOrgs = await prisma.organization.updateMany({
+        const expiredOrgs = await prisma.organizations.updateMany({
             where: {
-                trialEndsAt: { lt: now },
-                isTrialConverted: false,
+                trial_ends_at: { lt: now },
+                is_trial_converted: false,
                 tier: { not: 'EXPIRED_TRIAL' }
             },
             data: {
-                tier: 'EXPIRED_TRIAL'
+                tier: 'EXPIRED_TRIAL',
+                updated_at: now
             }
         });
 

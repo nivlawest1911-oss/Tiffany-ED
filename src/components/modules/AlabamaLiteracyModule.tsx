@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -227,6 +227,22 @@ export default function AlabamaLiteracyModule() {
                         </AnimatePresence>
                     </div>
                 </div>
+
+                {/* Closed-loop command center redirect */}
+                <div className="mt-8 pt-6 border-t border-slate-200/60 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div className="text-left">
+                        <span className="text-[9px] font-black text-electric-cyan uppercase tracking-widest block font-mono">CLOSED LOOP DIAGNOSTICS DETECTED</span>
+                        <p className="text-[11px] text-slate-500 leading-normal mt-0.5">3 active 3rd-grade student profiles at Denton Magnet are currently flagged at-risk under SB 216.</p>
+                    </div>
+                    <button 
+                        onClick={() => window.location.href = '/ops/assessment'}
+                        className="btn-sovereign flex items-center justify-center gap-2 bg-gradient-to-r from-electric-cyan to-cyan-600 text-white font-bold py-3.5 px-6 rounded-xl hover:from-cyan-600 hover:to-cyan-700 transition-all duration-300 shadow-[0_0_15px_rgba(6,182,212,0.15)] text-xs shrink-0"
+                    >
+                        <Sparkles className="w-4 h-4 text-white" />
+                        <span>Launch Assessment Command Console</span>
+                    </button>
+                </div>
+
             </div>
         </div>
     );

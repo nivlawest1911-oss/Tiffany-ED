@@ -1,6 +1,6 @@
-﻿
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import crypto from 'crypto';
 
 // Initialize Supabase Admin for secure operations if needed, 
 // but here we use prisma to write to DB.
@@ -16,8 +16,9 @@ export async function POST(req: Request) {
         }
 
         // Create VaultDocument record
-        const document = await prisma.vaultDocument.create({
+        const document = await prisma.vault_documents.create({
             data: {
+                id: crypto.randomUUID(),
                 userId,
                 fileName,
                 fileSize,
@@ -26,12 +27,14 @@ export async function POST(req: Request) {
                 isEncrypted: true,
                 securityLevel: 'confidential',
                 tags: [],
+                updatedAt: new Date()
             },
         });
 
         // Create Audit Log
-        await prisma.vaultAudit.create({
+        await prisma.vault_audits.create({
             data: {
+                id: crypto.randomUUID(),
                 documentId: document.id,
                 userId,
                 action: 'UPLOAD',

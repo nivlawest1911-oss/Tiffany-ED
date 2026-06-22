@@ -1,8 +1,8 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Shield, Activity, Wifi, Zap, Lock, Command } from 'lucide-react';
+import { X, Shield, Activity, Wifi, Zap, Lock, Command, Video, Network, Terminal } from 'lucide-react';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 import { useHumanBehavior } from '@/hooks/useHumanBehavior';
 import AbilityAnimation from '@/components/shared/AbilityAnimation';
@@ -103,15 +103,38 @@ export default function HolographicBriefing({
     const _humanBehavior = useHumanBehavior(isOpen);
     const videoRef = useRef<HTMLVideoElement>(null);
 
+    const [viewMode, setViewMode] = useState<'video' | 'waveform' | 'nodes' | 'diagnostics'>('waveform');
+    const [videoHasError, setVideoHasError] = useState(false);
+    const [consoleLines, setConsoleLines] = useState<string[]>([]);
+    
+    const waveformCanvasRef = useRef<HTMLCanvasElement>(null);
+    const nodesCanvasRef = useRef<HTMLCanvasElement>(null);
+    const terminalEndRef = useRef<HTMLDivElement>(null);
+
+    const handleVideoError = useCallback(() => {
+        console.warn("Video briefing file failed to load. Falling back to Neural Waveform.");
+        setVideoHasError(true);
+        setViewMode('waveform');
+    }, []);
+
+    // Set view mode based on video presence
+    useEffect(() => {
+        if (finalVideo && !videoHasError) {
+            setViewMode('video');
+        } else {
+            setViewMode('waveform');
+        }
+    }, [finalVideo, videoHasError]);
+
     useEffect(() => {
         if (videoRef.current) {
-            if (isSpeaking) {
+            if (isSpeaking && viewMode === 'video') {
                 videoRef.current.play().catch(e => console.warn("Briefing video play failed", e));
             } else {
                 videoRef.current.pause();
             }
         }
-    }, [isSpeaking]);
+    }, [isSpeaking, viewMode]);
 
     const startBriefing = useCallback(() => {
         if (finalMusic) playMusic(finalMusic);
@@ -182,6 +205,360 @@ export default function HolographicBriefing({
         }
     }, [isSpeaking]);
 
+    // Canvas Waveform Effect
+    useEffect(() => {
+        const canvas = waveformCanvasRef.current;
+        if (!canvas || viewMode !== 'waveform') return;
+        
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+        
+        let animationFrameId: number;
+        let phase = 0;
+        
+        const resize = () => {
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * (window.devicePixelRatio || 1);
+            canvas.height = rect.height * (window.devicePixelRatio || 1);
+        };
+        resize();
+        window.addEventListener('resize', resize);
+        
+        const render = () => {
+            const width = canvas.width;
+            const height = canvas.height;
+            ctx.clearRect(0, 0, width, height);
+            
+            // Draw background grid lines (subtle dark blue/gold)
+            ctx.strokeStyle = 'rgba(212, 175, 55, 0.03)';
+            ctx.lineWidth = 1;
+            const gridSpacing = 40;
+            for (let x = 0; x < width; x += gridSpacing) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, height);
+                ctx.stroke();
+            }
+            for (let y = 0; y < height; y += gridSpacing) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(width, y);
+                ctx.stroke();
+            }
+            
+            // Draw wave frequency lines
+            const baseAmplitude = isSpeaking ? height * 0.12 : height * 0.04;
+            const speed = isSpeaking ? 0.08 : 0.02;
+            const frequency = isSpeaking ? 0.015 : 0.008;
+            
+            phase += speed;
+            
+            // Draw 4 distinct waves with different offsets and styles
+            const waves = [
+                { color: 'rgba(212, 175, 55, 0.6)', ampMult: 1.0, freqMult: 1.0, offset: 0 },
+                { color: 'rgba(59, 130, 246, 0.35)', ampMult: 0.8, freqMult: 1.4, offset: Math.PI / 3 },
+                { color: 'rgba(99, 102, 241, 0.25)', ampMult: 1.1, freqMult: 0.7, offset: Math.PI * 2 / 3 },
+                { color: 'rgba(255, 255, 255, 0.12)', ampMult: 0.4, freqMult: 1.8, offset: Math.PI }
+            ];
+            
+            waves.forEach(wave => {
+                ctx.beginPath();
+                ctx.strokeStyle = wave.color;
+                ctx.lineWidth = wave.ampMult * 1.5;
+                
+                for (let x = 0; x < width; x++) {
+                    const progressVal = x / width;
+                    // Fade out waves near edges
+                    const edgeFade = Math.sin(progressVal * Math.PI);
+                    
+                    // Add micro-noise if speaking
+                    const speechNoise = isSpeaking ? Math.sin(phase * 4 + x * 0.06) * 3 : 0;
+                    
+                    const y = height / 2 + 
+                        Math.sin(x * frequency * wave.freqMult + phase + wave.offset) * 
+                        baseAmplitude * wave.ampMult * edgeFade + speechNoise;
+                        
+                    if (x === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+            });
+            
+            animationFrameId = requestAnimationFrame(render);
+        };
+        
+        render();
+        
+        return () => {
+            cancelAnimationFrame(animationFrameId);
+            window.removeEventListener('resize', resize);
+        };
+    }, [viewMode, isSpeaking]);
+
+    // Canvas Neural Nodes Effect
+    useEffect(() => {
+        const canvas = nodesCanvasRef.current;
+        if (!canvas || viewMode !== 'nodes') return;
+        
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+        
+        let animationFrameId: number;
+        
+        const resize = () => {
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * (window.devicePixelRatio || 1);
+            canvas.height = rect.height * (window.devicePixelRatio || 1);
+        };
+        resize();
+        window.addEventListener('resize', resize);
+        
+        // Initialize particles
+        const numParticles = 40;
+        const particles: Array<{
+            x: number;
+            y: number;
+            vx: number;
+            vy: number;
+            radius: number;
+            color: string;
+            pulse: number;
+            pulseSpeed: number;
+        }> = [];
+        
+        const colorPalette = [
+            'rgba(212, 175, 55, 0.65)',  // Noble Gold
+            'rgba(59, 130, 246, 0.65)',  // Blue
+            'rgba(99, 102, 241, 0.55)',  // Indigo
+            'rgba(255, 255, 255, 0.45)'  // White
+        ];
+        
+        for (let i = 0; i < numParticles; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 1.2,
+                vy: (Math.random() - 0.5) * 1.2,
+                radius: Math.random() * 2 + 1,
+                color: colorPalette[Math.floor(Math.random() * colorPalette.length)],
+                pulse: Math.random(),
+                pulseSpeed: 0.01 + Math.random() * 0.02
+            });
+        }
+        
+        let mouseX = -9999;
+        let mouseY = -9999;
+        let ripples: Array<{ x: number; y: number; radius: number; maxRadius: number; speed: number; alpha: number }> = [];
+        
+        const handleMouseMove = (e: MouseEvent) => {
+            const rect = canvas.getBoundingClientRect();
+            mouseX = (e.clientX - rect.left) * (window.devicePixelRatio || 1);
+            mouseY = (e.clientY - rect.top) * (window.devicePixelRatio || 1);
+        };
+        
+        const handleMouseLeave = () => {
+            mouseX = -9999;
+            mouseY = -9999;
+        };
+        
+        const handleCanvasClick = (e: MouseEvent) => {
+            const rect = canvas.getBoundingClientRect();
+            const clickX = (e.clientX - rect.left) * (window.devicePixelRatio || 1);
+            const clickY = (e.clientY - rect.top) * (window.devicePixelRatio || 1);
+            
+            // Push particles away
+            particles.forEach(p => {
+                const dx = p.x - clickX;
+                const dy = p.y - clickY;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 180) {
+                    const force = (180 - dist) / 12;
+                    p.vx += (dx / dist) * force;
+                    p.vy += (dy / dist) * force;
+                }
+            });
+            
+            // Create ripple
+            ripples.push({
+                x: clickX,
+                y: clickY,
+                radius: 0,
+                maxRadius: 120,
+                speed: 3,
+                alpha: 0.8
+            });
+        };
+        
+        canvas.addEventListener('mousemove', handleMouseMove);
+        canvas.addEventListener('mouseleave', handleMouseLeave);
+        canvas.addEventListener('click', handleCanvasClick);
+        
+        const render = () => {
+            const width = canvas.width;
+            const height = canvas.height;
+            ctx.clearRect(0, 0, width, height);
+            
+            // Render grid
+            ctx.strokeStyle = 'rgba(212, 175, 55, 0.02)';
+            ctx.lineWidth = 1;
+            const gridSpacing = 50;
+            for (let x = 0; x < width; x += gridSpacing) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, height);
+                ctx.stroke();
+            }
+            for (let y = 0; y < height; y += gridSpacing) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(width, y);
+                ctx.stroke();
+            }
+            
+            // Update and draw ripples
+            ripples.forEach((r) => {
+                r.radius += r.speed;
+                r.alpha -= 0.02;
+                if (r.alpha > 0) {
+                    ctx.strokeStyle = `rgba(212, 175, 55, ${r.alpha})`;
+                    ctx.lineWidth = 1.5;
+                    ctx.beginPath();
+                    ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
+                    ctx.stroke();
+                }
+            });
+            ripples = ripples.filter(r => r.alpha > 0);
+            
+            // Draw connections
+            const maxDistance = 100;
+            for (let i = 0; i < numParticles; i++) {
+                const p1 = particles[i];
+                
+                // Draw line to mouse
+                if (mouseX > 0) {
+                    const dx = p1.x - mouseX;
+                    const dy = p1.y - mouseY;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < maxDistance * 1.4) {
+                        ctx.strokeStyle = `rgba(212, 175, 55, ${(1 - dist / (maxDistance * 1.4)) * 0.2})`;
+                        ctx.lineWidth = 0.8;
+                        ctx.beginPath();
+                        ctx.moveTo(p1.x, p1.y);
+                        ctx.lineTo(mouseX, mouseY);
+                        ctx.stroke();
+                    }
+                }
+                
+                for (let j = i + 1; j < numParticles; j++) {
+                    const p2 = particles[j];
+                    const dx = p1.x - p2.x;
+                    const dy = p1.y - p2.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (dist < maxDistance) {
+                        const alpha = (1 - dist / maxDistance) * 0.12;
+                        ctx.strokeStyle = `rgba(212, 175, 55, ${alpha})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(p1.x, p1.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            
+            // Update and draw particles
+            particles.forEach(p => {
+                // Friction
+                p.vx *= 0.97;
+                p.vy *= 0.97;
+                
+                // Minimum ambient speed
+                const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+                if (speed < 0.25) {
+                    p.vx += (Math.random() - 0.5) * 0.08;
+                    p.vy += (Math.random() - 0.5) * 0.08;
+                }
+                
+                p.x += p.vx;
+                p.y += p.vy;
+                
+                // Bounces
+                if (p.x < 0 || p.x > width) p.vx *= -1;
+                if (p.y < 0 || p.y > height) p.vy *= -1;
+                
+                p.x = Math.max(0, Math.min(width, p.x));
+                p.y = Math.max(0, Math.min(height, p.y));
+                
+                // Pulsate size
+                p.pulse += p.pulseSpeed;
+                const sizeMult = 1 + Math.sin(p.pulse) * 0.25;
+                
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius * sizeMult, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            
+            animationFrameId = requestAnimationFrame(render);
+        };
+        
+        render();
+        
+        return () => {
+            cancelAnimationFrame(animationFrameId);
+            window.removeEventListener('resize', resize);
+            if (canvas) {
+                canvas.removeEventListener('mousemove', handleMouseMove);
+                canvas.removeEventListener('mouseleave', handleMouseLeave);
+                canvas.removeEventListener('click', handleCanvasClick);
+            }
+        };
+    }, [viewMode]);
+
+    // Diagnostics Console Logs Effect
+    useEffect(() => {
+        if (!isOpen || viewMode !== 'diagnostics') return;
+        
+        const initialLogs = [
+            '>>> SECURE UPLINK INITIATED - COGNITIVE LINK READY',
+            '>>> SECURITY LEVEL: EXECUTIVE COMMAND DELEGATE',
+            '>>> TARGET AGENT: ' + (finalRole || 'EDINTEL ARCHITECT'),
+            '>>> AUTHENTICATING DELEGATE PROTOCOLS...',
+            '>>> CERTIFICATE STATUS: VERIFIED S-1 CLEARANCE',
+            '>>> LINK STATE: ESTABLISHING STABLE SYNERGY...'
+        ];
+        setConsoleLines(initialLogs);
+        
+        const phrasePool = [
+            'ROTATING TEMPORARY SYMMETRIC SESSION KEYS',
+            'PARSING NEURAL MATRICES FOR ALABAMA STANDARDS',
+            'STABILIZING AUDIO SIGNAL FIDELITY [99.8%]',
+            'EVALUATING STRATEGIC PATHWAY CONTEXT MAPS',
+            'SUPPRESSING AUDITORY INTERACTIVE HARMONICS',
+            'UPDATING CENTRAL LEDGER SECURE SYSTEM BLOCKS',
+            'UPLINK HEARTBEAT STEADY - RESPONSE TIMEOUT: OK',
+            'COMPRESSING TRANSLATION VECTORS FOR LOCAL ENGINE',
+            'CHECKING COMPLIANCE REGULATION POLICY HASHES',
+            'DECRYPTING ATTACHED SYLLABUS CORRELATIONS'
+        ];
+        
+        const interval = setInterval(() => {
+            const randomPhrase = phrasePool[Math.floor(Math.random() * phrasePool.length)];
+            const timestamp = new Date().toLocaleTimeString();
+            setConsoleLines(prev => [...prev, `[${timestamp}] >>> ${randomPhrase}`].slice(-25));
+        }, 1500);
+        
+        return () => clearInterval(interval);
+    }, [isOpen, viewMode, finalRole]);
+
+    // Auto-scroll terminal
+    useEffect(() => {
+        if (terminalEndRef.current) {
+            terminalEndRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [consoleLines]);
+
     return (
         <AnimatePresence>
             {isOpen && (
@@ -205,15 +582,116 @@ export default function HolographicBriefing({
 
                         {/* LEFT: Neural Context Stream */}
                         <div className="md:w-[65%] h-64 md:h-full relative overflow-hidden border-r border-white/5 bg-black">
-                            {finalVideo ? (
-                                <video
-                                    src={finalVideo}
-                                    className="w-full h-full object-cover opacity-40 mix-blend-screen"
-                                    autoPlay loop muted playsInline
-                                />
-                            ) : (
-                                <div className="absolute inset-0 bg-zinc-950 flex items-center justify-center scale-75">
-                                    <AbilityAnimation type={finalAbility} />
+                            
+                            {/* Toolbar selector */}
+                            <div className="absolute top-28 md:top-10 left-1/2 -translate-x-1/2 z-30 flex">
+                                <div className="flex items-center gap-1.5 p-1 rounded-full bg-zinc-950/80 backdrop-blur-md border border-white/10 shadow-lg">
+                                    {finalVideo && (
+                                        <button
+                                            onClick={() => {
+                                                if (!videoHasError) setViewMode('video');
+                                            }}
+                                            disabled={videoHasError}
+                                            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-wider transition-all ${
+                                                videoHasError ? 'opacity-30 cursor-not-allowed' : ''
+                                            } ${
+                                                viewMode === 'video'
+                                                    ? 'bg-noble-gold text-black shadow-md font-bold'
+                                                    : 'text-zinc-400 hover:text-white hover:bg-white/5'
+                                            }`}
+                                        >
+                                            <Video size={10} />
+                                            <span className="hidden sm:inline">Feed</span>
+                                        </button>
+                                    )}
+                                    <button
+                                        onClick={() => setViewMode('waveform')}
+                                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-wider transition-all ${
+                                            viewMode === 'waveform'
+                                                ? 'bg-noble-gold text-black shadow-md font-bold'
+                                                : 'text-zinc-400 hover:text-white hover:bg-white/5'
+                                        }`}
+                                    >
+                                        <Activity size={10} />
+                                        <span className="hidden sm:inline">Waveform</span>
+                                        <span className="sm:hidden">Wave</span>
+                                    </button>
+                                    <button
+                                        onClick={() => setViewMode('nodes')}
+                                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-wider transition-all ${
+                                            viewMode === 'nodes'
+                                                ? 'bg-noble-gold text-black shadow-md font-bold'
+                                                : 'text-zinc-400 hover:text-white hover:bg-white/5'
+                                        }`}
+                                    >
+                                        <Network size={10} />
+                                        <span>Nodes</span>
+                                    </button>
+                                    <button
+                                        onClick={() => setViewMode('diagnostics')}
+                                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-wider transition-all ${
+                                            viewMode === 'diagnostics'
+                                                ? 'bg-noble-gold text-black shadow-md font-bold'
+                                                : 'text-zinc-400 hover:text-white hover:bg-white/5'
+                                        }`}
+                                    >
+                                        <Terminal size={10} />
+                                        <span className="hidden sm:inline">Diagnostics</span>
+                                        <span className="sm:hidden">Logs</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* View Switcher content */}
+                            {viewMode === 'video' && finalVideo && (
+                                <div className="w-full h-full relative bg-zinc-950 flex items-center justify-center">
+                                    <video
+                                        ref={videoRef}
+                                        src={finalVideo}
+                                        className="w-full h-full object-cover opacity-70"
+                                        autoPlay loop muted playsInline
+                                        onError={handleVideoError}
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30 pointer-events-none" />
+                                </div>
+                            )}
+
+                            {viewMode === 'waveform' && (
+                                <div className="absolute inset-0 bg-zinc-950 flex items-center justify-center">
+                                    <canvas ref={waveformCanvasRef} className="w-full h-full block" />
+                                    <div className="absolute bottom-28 md:bottom-24 left-10 right-10 flex items-center justify-between text-[8px] font-mono text-noble-gold/40 pointer-events-none">
+                                        <span>FREQUENCY SPECTRUM SYNAPSE FLOW</span>
+                                        <span>{isSpeaking ? 'VOICE LINK ACTIVE' : 'VOICE STREAM IDLE'}</span>
+                                    </div>
+                                </div>
+                            )}
+
+                            {viewMode === 'nodes' && (
+                                <div className="absolute inset-0 bg-zinc-950 flex items-center justify-center">
+                                    <canvas ref={nodesCanvasRef} className="w-full h-full block cursor-crosshair" />
+                                    <div className="absolute bottom-28 md:bottom-24 left-10 text-[8px] font-mono text-noble-gold/40 pointer-events-none">
+                                        <span>INTERACTIVE SYNAPTIC GRAPH: CLICK CANVAS FOR DISCHARGE RIPPLE</span>
+                                    </div>
+                                </div>
+                            )}
+
+                            {viewMode === 'diagnostics' && (
+                                <div className="absolute inset-0 bg-zinc-950 p-8 pt-40 md:pt-24 pb-28 md:pb-24 flex flex-col font-mono text-[9px] text-emerald-500 overflow-y-auto edintel-scrollbar">
+                                    <div className="flex-1 space-y-1">
+                                        {consoleLines.map((line, idx) => (
+                                            <div 
+                                                key={idx} 
+                                                className={
+                                                    line.includes('VERIFIED') || line.includes('READY') || line.includes('VALID') || line.includes('SECURITY')
+                                                        ? 'text-noble-gold' 
+                                                        : 'text-emerald-500/80'
+                                                }
+                                            >
+                                                {line}
+                                            </div>
+                                        ))}
+                                        <div ref={terminalEndRef} />
+                                    </div>
                                 </div>
                             )}
 

@@ -13,20 +13,22 @@ export async function getSovereignUser() {
 
     try {
         let user = await prisma.user.findFirst({
-            where: { clerkId: userId },
-            include: { tier: true }
+            where: { clerk_id: userId },
+            include: { tiers: true }
         });
 
         if (!user) {
             user = await prisma.user.create({
                 data: {
-                    clerkId: authUser.id,
+                    id: authUser.id,
+                    clerk_id: authUser.id,
                     email: authUser.email || '',
                     name: authUser.user_metadata?.full_name || 'Executive',
-                    subscriptionTier: 'free',
-                    usageTokens: 10,
+                    subscription_tier: 'free',
+                    usage_tokens: 10,
+                    updated_at: new Date()
                 },
-                include: { tier: true }
+                include: { tiers: true }
             });
         }
 
@@ -47,9 +49,9 @@ export async function updateUsageTokens(amount: number) {
 
     try {
         const user = await prisma.user.update({
-            where: { clerkId: userId },
+            where: { clerk_id: userId },
             data: {
-                usageTokens: {
+                usage_tokens: {
                     decrement: amount
                 }
             }
@@ -71,9 +73,9 @@ export async function getStrategicLogs() {
     const userId = authUser.id;
 
     try {
-        const generations = await prisma.generation.findMany({
+        const generations = await prisma.generations.findMany({
             where: {
-                user: { clerkId: userId }
+                users: { clerk_id: userId }
             },
             orderBy: {
                 createdAt: 'desc'

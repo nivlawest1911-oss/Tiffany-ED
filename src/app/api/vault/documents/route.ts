@@ -1,6 +1,7 @@
-﻿import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
+import crypto from 'crypto';
 
 export async function GET() {
     try {
@@ -10,9 +11,9 @@ export async function GET() {
         }
         const userId = session.user.id;
 
-        const documents = await prisma.strategicVault.findMany({
-            where: { userId },
-            orderBy: { createdAt: 'desc' },
+        const documents = await prisma.strategic_vault.findMany({
+            where: { user_id: userId },
+            orderBy: { created_at: 'desc' },
         });
 
         return NextResponse.json(documents);
@@ -33,13 +34,15 @@ export async function POST(req: Request) {
         const body = await req.json();
         const { fileName, content, metadata, tags } = body;
 
-        const document = await prisma.strategicVault.create({
+        const document = await prisma.strategic_vault.create({
             data: {
-                userId,
-                fileName,
+                id: crypto.randomUUID(),
+                user_id: userId,
+                file_name: fileName,
                 content,
-                metadata,
+                metadata: metadata || {},
                 tags: tags || [],
+                updated_at: new Date()
             },
         });
 

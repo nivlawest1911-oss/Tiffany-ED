@@ -73,7 +73,11 @@ export async function middleware(request: NextRequest) {
     }
 
     // 1. Better Auth Session Protocol (Edge-Safe)
-    const sessionCookie = request.cookies.get('better-auth.session-token');
+    const sessionCookie = request.cookies.get('better-auth.session_token') || 
+                          request.cookies.get('__Secure-better-auth.session_token') ||
+                          request.cookies.get('better-auth.session-token') ||
+                          request.cookies.get('__Secure-better-auth.session-token') ||
+                          request.cookies.getAll().find(c => c.name.endsWith('better-auth.session_token'));
     const isAuthenticated = !!sessionCookie;
 
     // 2. Define neural protected routes

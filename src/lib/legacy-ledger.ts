@@ -2,6 +2,7 @@
  * EdIntel LEGACY LEDGER
  */
 
+import crypto from 'crypto';
 import { prisma } from './prisma';
 
 export interface LegacyEntry {
@@ -27,17 +28,19 @@ export interface LegacyEntry {
 export async function recordStrategicDirective(entry: LegacyEntry) {
     const { prisma } = await import('./prisma');
     try {
-        const result = await prisma.legacyLedger.create({
+        const result = await prisma.legacy_ledger.create({
             data: {
-                userId: entry.userId,
+                id: entry.id || crypto.randomUUID(),
+                user_id: entry.userId,
                 title: entry.title,
                 directive: entry.strategicDirective,
                 logic: entry.decisionLogic,
-                swarmContext: entry.swarmContext as any,
+                swarm_context: entry.swarmContext as any,
                 outcome: entry.outcome,
                 learnings: entry.learnings,
                 tags: entry.tags,
-                isImmutable: true
+                is_immutable: true,
+                updated_at: new Date()
             }
         });
         return result;
@@ -52,16 +55,16 @@ export async function recordStrategicDirective(entry: LegacyEntry) {
  */
 export async function fetchLegacyTimeline(userId: string) {
     try {
-        const timeline = await prisma.legacyLedger.findMany({
-            where: { userId },
+        const timeline = await prisma.legacy_ledger.findMany({
+            where: { user_id: userId },
             select: {
                 id: true,
                 title: true,
                 directive: true,
-                createdAt: true,
+                created_at: true,
                 tags: true
             },
-            orderBy: { createdAt: 'desc' }
+            orderBy: { created_at: 'desc' }
         });
         return timeline;
     } catch (error) {
@@ -85,19 +88,21 @@ export interface GovernanceEvent {
 export async function logSimulation(event: any /* SimulationEvent */) {
     console.log(`[LegacyLedger] Logging Simulation Result: ${event.id}`);
     try {
-        await prisma.legacyLedger.create({
+        await prisma.legacy_ledger.create({
             data: {
-                userId: 'SYSTEM',
+                id: crypto.randomUUID(),
+                user_id: 'SYSTEM',
                 title: `SIMULATION: ${event.id}`,
                 directive: `Simulation result for scenario: ${event.scenarioType}`,
                 logic: JSON.stringify(event),
-                swarmContext: {
+                swarm_context: {
                     goal: "Simulation Persistence",
                     tasks: [{ task: "Log Outcome", status: "completed" }],
                     finalSynthesis: event.outcome
                 },
                 tags: ['simulation', event.scenarioType],
-                isImmutable: true
+                is_immutable: true,
+                updated_at: new Date()
             }
         });
     } catch (e) {
@@ -108,19 +113,21 @@ export async function logSimulation(event: any /* SimulationEvent */) {
 export async function logGovernanceAction(event: GovernanceEvent) {
     console.log(`[LegacyLedger] Logging Governance Action: ${event.id}`);
     try {
-        await prisma.legacyLedger.create({
+        await prisma.legacy_ledger.create({
             data: {
-                userId: 'GOVERNANCE',
+                id: crypto.randomUUID(),
+                user_id: 'GOVERNANCE',
                 title: `GOVERNANCE: ${event.proposalTitle}`,
                 directive: `Action type: ${event.type}`,
                 logic: JSON.stringify(event),
-                swarmContext: {
+                swarm_context: {
                     goal: "Governance Record",
                     tasks: [{ task: "Log Proposal Outcome", status: "completed" }],
                     finalSynthesis: `Votes recorded for ${event.id}`
                 },
                 tags: ['governance', event.type],
-                isImmutable: true
+                is_immutable: true,
+                updated_at: new Date()
             }
         });
     } catch (e) {
@@ -131,19 +138,21 @@ export async function logGovernanceAction(event: GovernanceEvent) {
 export async function logFiscalAction(event: FiscalEvent) {
     console.log(`[LegacyLedger] Logging Fiscal Action: ${event.id}`);
     try {
-        await prisma.legacyLedger.create({
+        await prisma.legacy_ledger.create({
             data: {
-                userId: 'FISCAL_COMMAND',
+                id: crypto.randomUUID(),
+                user_id: 'FISCAL_COMMAND',
                 title: `FISCAL: ${event.type} - ${event.targetNode}`,
                 directive: `Autonomous reallocation of ${event.amount} ${event.currency || 'USD'}`,
                 logic: JSON.stringify(event),
-                swarmContext: {
+                swarm_context: {
                     goal: "Fiscal Swarm Synchronization",
                     tasks: [{ task: "Ledger Update", status: "completed" }],
                     finalSynthesis: `Resource liquidity optimized via ${event.type}`
                 },
                 tags: ['fiscal', event.type],
-                isImmutable: true
+                is_immutable: true,
+                updated_at: new Date()
             }
         });
     } catch (e) {
@@ -154,19 +163,21 @@ export async function logFiscalAction(event: FiscalEvent) {
 export async function logMediaSynthesisArtifact(event: MediaSynthesisArtifactEvent) {
     console.log(`[LegacyLedger] Logging Media Artifact: ${event.id}`);
     try {
-        await prisma.legacyLedger.create({
+        await prisma.legacy_ledger.create({
             data: {
-                userId: 'MEDIA_HUB',
+                id: crypto.randomUUID(),
+                user_id: 'MEDIA_HUB',
                 title: `MEDIA: ${event.type} - ${event.title}`,
                 directive: `Autonomous media synthesis for ${event.domain} deployment.`,
                 logic: JSON.stringify(event),
-                swarmContext: {
+                swarm_context: {
                     goal: "Media Provenance Tracking",
                     tasks: [{ task: "Cryptographic Hashing", status: "completed" }],
                     finalSynthesis: `Media artifact verified and pushed to district nodes.`
                 },
                 tags: ['media', event.type, event.domain],
-                isImmutable: true
+                is_immutable: true,
+                updated_at: new Date()
             }
         });
     } catch (e) {
@@ -177,19 +188,21 @@ export async function logMediaSynthesisArtifact(event: MediaSynthesisArtifactEve
 export async function logCollectiveInsight(event: CollectiveKnowledgeEvent) {
     console.log(`[LegacyLedger] Logging Collective Insight: ${event.id}`);
     try {
-        await prisma.legacyLedger.create({
+        await prisma.legacy_ledger.create({
             data: {
-                userId: 'COLLECTIVE_INTELLIGENCE',
+                id: crypto.randomUUID(),
+                user_id: 'COLLECTIVE_INTELLIGENCE',
                 title: `KNOWLEDGE: ${event.domain} - ${event.impact}`,
                 directive: event.insight,
                 logic: JSON.stringify(event),
-                swarmContext: {
+                swarm_context: {
                     goal: "Collective Intelligence Aggregation",
                     tasks: [{ task: "Shared Knowledge Sync", status: "completed" }],
                     finalSynthesis: `Global IQ increased in ${event.domain}`
                 },
                 tags: ['intelligence', event.domain, event.impact],
-                isImmutable: true
+                is_immutable: true,
+                updated_at: new Date()
             }
         });
     } catch (e) {
@@ -200,9 +213,10 @@ export async function logCollectiveInsight(event: CollectiveKnowledgeEvent) {
 export async function logCertificationEarned(event: ProfessionalCertificationEvent) {
     console.log(`[LegacyLedger] Logging Certification: ${event.id}`);
     try {
-        await prisma.legacyLedger.create({
+        await prisma.legacy_ledger.create({
             data: {
-                userId: event.userId,
+                id: crypto.randomUUID(),
+                user_id: event.userId,
                 title: `CERTIFICATION: ${event.moduleTitle}`,
                 directive: `User earned ${event.category} certification for module ${event.moduleId}`,
                 logic: JSON.stringify({
@@ -212,13 +226,14 @@ export async function logCertificationEarned(event: ProfessionalCertificationEve
                     timestamp: event.timestamp,
                     systemHash: event.hash
                 }),
-                swarmContext: {
+                swarm_context: {
                     type: "ProfessionalDevelopment",
                     verified: true,
                     institutionalValue: "High"
                 },
                 tags: ['certification', event.category, 'professional'],
-                isImmutable: true
+                is_immutable: true,
+                updated_at: new Date()
             }
         });
     } catch (e) {
@@ -231,7 +246,7 @@ export async function logCertificationEarned(event: ProfessionalCertificationEve
  */
 export async function fetchEntryDetails(entryId: string) {
     try {
-        const entry = await prisma.legacyLedger.findUnique({
+        const entry = await prisma.legacy_ledger.findUnique({
             where: { id: entryId }
         });
         return entry;
@@ -289,7 +304,7 @@ export interface FiscalEvent {
  */
 export async function updateLegacyOutcome(entryId: string, outcome: string, learnings: string) {
     try {
-        const result = await prisma.legacyLedger.update({
+        const result = await prisma.legacy_ledger.update({
             where: { id: entryId },
             data: { outcome, learnings }
         });
@@ -343,20 +358,22 @@ export interface StaffingAssignmentEvent {
 export async function logStaffingChange(userId: string, event: StaffingAssignmentEvent) {
     console.log(`[LegacyLedger] Logging Staffing Change: ${event.id}`);
     try {
-        await prisma.legacyLedger.create({
+        await prisma.legacy_ledger.create({
             data: {
-                userId,
+                id: crypto.randomUUID(),
+                user_id: userId,
                 title: `STAFFING: ${event.fromStaffName} -> ${event.toStaffName}`,
                 directive: `Transferred ${event.transferredCount} caseload records due to capacity optimization.`,
                 logic: event.logic,
-                swarmContext: {
+                swarm_context: {
                     type: "WorkforceOptimization",
                     from: event.fromStaffId,
                     to: event.toStaffId,
                     hash: event.hash
                 },
                 tags: ['staffing', 'workforce', 'optimization'],
-                isImmutable: true
+                is_immutable: true,
+                updated_at: new Date()
             }
         });
     } catch (e) {
@@ -366,6 +383,7 @@ export async function logStaffingChange(userId: string, event: StaffingAssignmen
 
 export interface OracleInsightEvent {
     id: string;
+    oracleId?: string; // Support either property
     query: string;
     reasoning: any[];
     forecast: any;
@@ -388,9 +406,10 @@ export interface UnitySynchronizationEvent {
 export async function logOracleInsight(userId: string, event: OracleInsightEvent) {
     console.log(`[LegacyLedger] Logging Oracle Insight: ${event.id}`);
     try {
-        await prisma.legacyLedger.create({
+        await prisma.legacy_ledger.create({
             data: {
-                userId,
+                id: crypto.randomUUID(),
+                user_id: userId,
                 title: `ORACLE INSIGHT: ${event.query.substring(0, 40)}...`,
                 directive: `Strategic synthesis for "${event.query}". Confidence: ${event.forecast.confidence * 100}%`,
                 logic: JSON.stringify({
@@ -398,13 +417,14 @@ export async function logOracleInsight(userId: string, event: OracleInsightEvent
                     forecast: event.forecast,
                     hash: event.hash
                 }),
-                swarmContext: {
+                swarm_context: {
                     type: "SovereignOracle",
                     query: event.query,
                     impact: "Critical"
                 },
                 tags: ['oracle', 'strategy', 'reasoning', 'forecast'],
-                isImmutable: true
+                is_immutable: true,
+                updated_at: new Date()
             }
         });
     } catch (e) {
@@ -418,22 +438,24 @@ export async function logOracleInsight(userId: string, event: OracleInsightEvent
 export async function logUnitySync(userId: string, event: UnitySynchronizationEvent) {
     console.log(`[LegacyLedger] Logging Unity Sync: ${event.id}`);
     try {
-        await prisma.legacyLedger.create({
+        await prisma.legacy_ledger.create({
             data: {
-                userId,
+                id: crypto.randomUUID(),
+                user_id: userId,
                 title: `UNITY SYNC: Global Health ${event.globalScore}%`,
                 directive: `Total system synchronization across 12 nodes. Active Swarms: ${event.totalSwarms}`,
                 logic: JSON.stringify({
                     nodeStatuses: event.nodeStatuses,
                     hash: event.hash
                 }),
-                swarmContext: {
+                swarm_context: {
                     type: "UnitySynchronization",
                     score: event.globalScore,
                     timestamp: event.timestamp
                 },
                 tags: ['unity', 'synchronization', 'global-health'],
-                isImmutable: true
+                is_immutable: true,
+                updated_at: new Date()
             }
         });
     } catch (e) {
@@ -458,19 +480,21 @@ export const legacyLedger = {
         const { prisma } = await import('./prisma');
         console.log(`[LegacyLedger] Generic Event: ${event.type} - ${event.id}`);
         try {
-            await prisma.legacyLedger.create({
+            await prisma.legacy_ledger.create({
                 data: {
-                    userId: 'SYSTEM',
+                    id: crypto.randomUUID(),
+                    user_id: 'SYSTEM',
                     title: `${event.type}: ${event.id.substring(0, 8)}`,
                     directive: event.description,
                     logic: JSON.stringify(event.metadata),
-                    swarmContext: {
+                    swarm_context: {
                         goal: "System Resilience Log",
                         tasks: [{ task: "Audit Entry", status: "completed" }],
                         finalSynthesis: event.description
                     },
                     tags: ['system', event.type.toLowerCase()],
-                    isImmutable: true
+                    is_immutable: true,
+                    updated_at: new Date()
                 }
             });
         } catch (e) {

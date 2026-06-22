@@ -1,6 +1,5 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { Suspense } from 'react';
-import { cookies } from 'next/headers';
 import LoginClient from './LoginClient';
 
 export const metadata: Metadata = {
@@ -8,9 +7,7 @@ export const metadata: Metadata = {
   description: 'Access the EdIntel Sovereign Ecosystem. Secure biometric and institutional authentication for education leaders.',
 };
 
-export default async function LoginPage() {
-  await cookies(); // Force dynamic rendering at request time
-
+export default function LoginPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-[#020617] flex flex-col items-center justify-center relative overflow-hidden">

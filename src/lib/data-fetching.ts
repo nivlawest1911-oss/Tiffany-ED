@@ -175,17 +175,26 @@ export async function fetchWithTimeout<T>(
  */
 export const getPrismaUser = cache(async (email: string) => {
   try {
-    return await prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: { email: email.toLowerCase() },
       select: {
         id: true,
         email: true,
         name: true,
-        subscriptionTier: true,
+        subscription_tier: true,
         role: true,
-        createdAt: true,
+        created_at: true,
       },
     });
+    if (!user) return null;
+    return {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      subscriptionTier: user.subscription_tier,
+      role: user.role,
+      createdAt: user.created_at,
+    };
   } catch (error) {
     console.error('[DATA_FETCH] Prisma user fetch error:', error);
     return null;
@@ -200,19 +209,19 @@ export const getSubscriptionStatus = cache(async (email: string) => {
     const user = await prisma.user.findUnique({
       where: { email: email.toLowerCase() },
       select: {
-        subscriptionTier: true,
-        subscriptionStatus: true,
-        trialEndsAt: true,
+        subscription_tier: true,
+        subscription_status: true,
+        trial_ends_at: true,
       },
     });
     
     if (!user) return { tier: 'free', status: 'inactive', isTrialing: false };
     
-    const isTrialing = user.trialEndsAt ? new Date(user.trialEndsAt) > new Date() : false;
+    const isTrialing = user.trial_ends_at ? new Date(user.trial_ends_at) > new Date() : false;
     
     return {
-      tier: user.subscriptionTier || 'free',
-      status: user.subscriptionStatus || 'inactive',
+      tier: user.subscription_tier || 'free',
+      status: user.subscription_status || 'inactive',
       isTrialing,
     };
   } catch (error) {

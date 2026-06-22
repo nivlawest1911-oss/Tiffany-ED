@@ -1,4 +1,4 @@
-﻿import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { generateDecisionAction } from '@/lib/gemini-service';
 import { prisma } from '@/lib/prisma';
@@ -24,13 +24,13 @@ export async function POST(request: NextRequest) {
         // Fetch user context for protocol routing
         const dbUser = await prisma.user.findUnique({
             where: { email: user.email },
-            include: { schoolRelation: true }
+            include: { schools_users_school_idToschools: true }
         });
 
         const protocolContext = {
-            state: dbUser?.schoolRelation?.state || undefined,
-            district: dbUser?.schoolRelation?.districtName || undefined,
-            schoolId: dbUser?.schoolId || undefined
+            state: dbUser?.schools_users_school_idToschools?.state || undefined,
+            district: dbUser?.schools_users_school_idToschools?.district_name || undefined,
+            schoolId: dbUser?.school_id || undefined
         };
 
         // Token enforcement is temporarily disabled for Phase 2 implementation.

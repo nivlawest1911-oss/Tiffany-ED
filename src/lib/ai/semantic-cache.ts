@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import { prisma } from '../prisma';
 import { generateEmbedding } from './embedding';
 
@@ -31,11 +32,11 @@ export class SemanticCache {
                 console.log(`[SemanticCache] Hit! Similarity: ${match.similarity}`);
 
                 // Track hits asynchronously
-                prisma.semanticCache.update({
+                prisma.semantic_caches.update({
                     where: { id: match.id },
                     data: {
-                        hitCount: { increment: 1 },
-                        lastHitAt: new Date()
+                        hit_count: { increment: 1 },
+                        last_hit_at: new Date()
                     }
                 }).catch((e: any) => console.error('Error tracking cache hit:', e));
 

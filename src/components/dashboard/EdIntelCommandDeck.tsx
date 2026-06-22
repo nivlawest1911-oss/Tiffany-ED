@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import useSWR from 'swr';
-import { Brain, Shield, LogOut, Activity, Zap, Loader2, Mic, FileText, Briefcase, Video } from 'lucide-react';
+import { Brain, Shield, LogOut, Activity, Zap, Loader2, Mic, FileText, Briefcase, Video, Globe } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { cn } from '@/lib/utils';
 import { Card } from '@/components/ui/card';

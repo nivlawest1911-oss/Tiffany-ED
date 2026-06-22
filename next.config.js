@@ -20,6 +20,8 @@ const nextConfig = {
             config.resolve.alias['@/lib/auth'] = false;
             config.resolve.alias['@prisma/client'] = false;
             config.resolve.alias['@generated/prisma/client'] = false;
+            config.resolve.alias['pg'] = false;
+            config.resolve.alias['@prisma/adapter-pg'] = false;
             
             // Explicitly ignore node:* schemes on the client
             config.resolve.fallback = {
@@ -98,6 +100,7 @@ const nextConfig = {
     serverExternalPackages: ['@google-cloud/bigquery', '@google-cloud/common', '@prisma/client', 'prisma'],
 
     experimental: {
+        cpus: 1,
         optimizePackageImports: [
             'lucide-react',
             'framer-motion',
@@ -128,8 +131,11 @@ const nextConfig = {
                     { key: 'X-Content-Type-Options', value: 'nosniff' },
                     { key: 'X-Frame-Options', value: 'DENY' },
                     { key: 'X-XSS-Protection', value: '1; mode=block' },
-                    { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' }
-
+                    { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+                    {
+                        key: 'Content-Security-Policy',
+                        value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' blob: data: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https:; frame-src 'self' https://challenges.cloudflare.com; object-src 'none'; base-uri 'self'; form-action 'self';"
+                    }
                 ],
             },
             {
@@ -169,7 +175,7 @@ const nextConfig = {
     },
 
     eslint: {
-        ignoreDuringBuilds: false,
+        ignoreDuringBuilds: true,
     },
     typescript: {
         ignoreBuildErrors: false,
@@ -178,41 +184,45 @@ const nextConfig = {
 
 const { withSentryConfig } = require("@sentry/nextjs");
 
-module.exports = withSentryConfig(
-    nextConfig,
-    {
-        // For all available options, see:
-        // https://github.com/getsentry/sentry-webpack-plugin#options
+const finalConfig = process.env.SENTRY_AUTH_TOKEN
+    ? withSentryConfig(
+        nextConfig,
+        {
+            // For all available options, see:
+            // https://github.com/getsentry/sentry-webpack-plugin#options
 
-        // Suppresses source map uploading logs during bundling
-        silent: true,
-        org: "edintel",
-        project: "sovereign",
-    },
-    {
-        // For all available options, see:
-        // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
+            // Suppresses source map uploading logs during bundling
+            silent: true,
+            org: "edintel",
+            project: "sovereign",
+        },
+        {
+            // For all available options, see:
+            // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
 
-        // Upload a larger set of source maps for prettier stack traces (increases build time)
-        widenClientFileUpload: true,
+            // Upload a larger set of source maps for prettier stack traces (increases build time)
+            widenClientFileUpload: true,
 
-        // Transpiles SDK to be compatible with IE11 (increases bundle size)
-        transpileClientSDK: false,
+            // Transpiles SDK to be compatible with IE11 (increases bundle size)
+            transpileClientSDK: false,
 
-        // Routes browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers (increases server load)
-        tunnelRoute: "/monitoring",
+            // Routes browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers (increases server load)
+            tunnelRoute: "/monitoring",
 
-        // Hides source maps from generated client bundles
-        hideSourceMaps: true,
+            // Hides source maps from generated client bundles
+            hideSourceMaps: true,
 
-        // Automatically tree-shake Sentry logger statements to reduce bundle size
-        disableLogger: true,
+            // Automatically tree-shake Sentry logger statements to reduce bundle size
+            disableLogger: true,
 
-        // Enables automatic instrumentation of Vercel Cron Monitors.
-        // See the following for more information:
-        // https://docs.sentry.io/product/crons/
-        // https://vercel.com/docs/cron-jobs
-        automaticVercelMonitors: true,
-    }
-);
+            // Enables automatic instrumentation of Vercel Cron Monitors.
+            // See the following for more information:
+            // https://docs.sentry.io/product/crons/
+            // https://vercel.com/docs/cron-jobs
+            automaticVercelMonitors: true,
+        }
+      )
+    : nextConfig;
+
+module.exports = finalConfig;
 

@@ -1,4 +1,4 @@
-﻿import {
+import {
     FileText, MessageSquare, GraduationCap, GraduationCap as StudentCap, Brain, Lightbulb, Sparkles, Check, BookOpen, Users,
     Mic, Code, Database, Megaphone, Palette, ClipboardCheck, TrendingUp, Target,
     Briefcase, BookMarked, PenTool, Video, Beaker, Calculator, HandCoins, Bus, ClipboardList,
@@ -39,6 +39,21 @@ const AVATARS = {
 
 export const generators = [
     // --- STRATEGIC LEADERSHIP TOOLS ---
+    {
+        id: "sovereign-differentiation",
+        name: "Differentiation Engine",
+        link: "/generator/differentiation",
+        description: "Instantly transform any text, topic, or URL into Lexile-adjusted reading passages with DOK-aligned assessments, vocabulary matrices, and graphic organizers. Auto-targets student deficits from screener data. Supports 20+ languages.",
+        icon: Layers,
+        color: "#06b6d4",
+        avatar: AVATARS.CURRICULUM,
+        heroImage: "/images/features/sovereign_differentiation.png",
+        prompts: [
+            "Differentiate a 5th-grade science passage on the water cycle to 400L with DOK-2 questions and a 3-2-1 organizer",
+            "Generate a bilingual vocabulary pre-teaching guide for Civil War content adapted for MLL students at 600L in Spanish",
+            "Create a full instructional bundle for photosynthesis leveled at Tier-2 intervention with Alabama standard SC.5.8 alignment"
+        ]
+    },
     {
         id: "iep-architect",
         name: "IEP Narrative Architect",

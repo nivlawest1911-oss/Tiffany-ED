@@ -1,4 +1,4 @@
-﻿'use server'
+'use server'
 
 import prisma from '@/lib/prisma';
 
@@ -12,7 +12,7 @@ export async function getTrialStatus(userId: string): Promise<TrialStatus> {
     // 2. Fetch the data securely on the server
     const user = await prisma.user.findUnique({
         where: { id: userId },
-        select: { trialStartedAt: true }
+        select: { trial_started_at: true }
     });
 
     if (!user) {
@@ -21,7 +21,7 @@ export async function getTrialStatus(userId: string): Promise<TrialStatus> {
 
     // 3. Execute the business logic (30 days)
     const trialDurationMs = 30 * 24 * 60 * 60 * 1000;
-    const trialEndDate = new Date(user.trialStartedAt.getTime() + trialDurationMs);
+    const trialEndDate = new Date(user.trial_started_at.getTime() + trialDurationMs);
     const msLeft = trialEndDate.getTime() - Date.now();
 
     const daysLeft = Math.ceil(msLeft / (1000 * 60 * 60 * 24));

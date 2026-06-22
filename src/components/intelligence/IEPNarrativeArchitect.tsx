@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -153,9 +153,53 @@ export default function IEPNarrativeArchitect() {
                         <div className="absolute top-0 right-0 p-6 opacity-10 pointer-events-none">
                             <UserCircle size={120} />
                         </div>
-                        <h3 className="text-[#D4AF37] text-xs font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
-                            <span className="w-2 h-2 bg-[#D4AF37] rounded-full animate-pulse" /> Student Identity
-                        </h3>
+                        <div className="flex justify-between items-center mb-6">
+                            <h3 className="text-[#D4AF37] text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+                                <span className="w-2 h-2 bg-[#D4AF37] rounded-full animate-pulse" /> Student Identity
+                            </h3>
+                            <div className="flex items-center gap-2">
+                                <span className="text-[10px] text-slate-400 font-mono">LINK STUDENT:</span>
+                                <select 
+                                    onChange={(e) => {
+                                        const id = e.target.value;
+                                        if (id === 'st-01') {
+                                            setFormData({
+                                                studentName: 'Isaiah Vance',
+                                                stateId: 'SIS-8201',
+                                                grade: '3',
+                                                exceptionality: 'Specific Learning Disability',
+                                                strengths: 'Isaiah exhibits strong visual-spatial skills. He responds exceptionally well to auditory cues and interactive visual instruction.',
+                                                concerns: 'Isaiah exhibits severe reading decoding deficit patterns. Gaps in phonics impact his overall fluency and word recall speed.',
+                                                impact: 'Phonics and decoding deficits directly impede Isaiah\'s ability to comprehend grade-level science and history texts.',
+                                                evalDate: '2026-05-15',
+                                                iqScore: '104',
+                                                adaptiveScore: '92'
+                                            });
+                                            toast.success("Isaiah Vance's active diagnostic profile linked!");
+                                        } else if (id === 'st-02') {
+                                            setFormData({
+                                                studentName: 'Maria Rodriguez',
+                                                stateId: 'SIS-4512',
+                                                grade: '3',
+                                                exceptionality: 'Specific Learning Disability',
+                                                strengths: 'Maria shows high motivation in bilingual storytelling. Strong auditory learning capability.',
+                                                concerns: 'English language acquisition gaps combined with comprehension deficits.',
+                                                impact: 'Comprehension challenges create learning barriers during core classroom ELA periods.',
+                                                evalDate: '2026-05-14',
+                                                iqScore: '98',
+                                                adaptiveScore: '89'
+                                            });
+                                            toast.success("Maria Rodriguez's active diagnostic profile linked!");
+                                        }
+                                    }}
+                                    className="bg-black/60 border border-white/10 rounded-lg px-2.5 py-1 text-[10px] text-[#D4AF37] font-mono focus:outline-none"
+                                >
+                                    <option value="">Unlinked</option>
+                                    <option value="st-01">Isaiah Vance (520L)</option>
+                                    <option value="st-02">Maria Rodriguez (410L)</option>
+                                </select>
+                            </div>
+                        </div>
 
                         <div className="grid grid-cols-2 gap-4">
                             <div className="col-span-2">
@@ -339,7 +383,7 @@ export default function IEPNarrativeArchitect() {
                                 </div>
 
                                 {/* Action Bar */}
-                                <div className="bg-[#1a1a1a] border-t border-white/10 rounded-b-3xl p-4 flex gap-3">
+                                <div className="bg-[#1a1a1a] border-t border-white/10 rounded-b-3xl p-4 flex flex-wrap gap-2.5">
                                     <button
                                         onClick={() => {
                                             toast.info("Regenerating compliance narrative...", {
@@ -347,9 +391,9 @@ export default function IEPNarrativeArchitect() {
                                             });
                                             handleGenerate();
                                         }}
-                                        className="flex-1 bg-slate-800 hover:bg-slate-700 text-white py-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-colors"
+                                        className="flex-1 min-w-[90px] bg-slate-800 hover:bg-slate-700 text-white py-3 rounded-xl text-[10px] font-bold flex items-center justify-center gap-1.5 transition-colors"
                                     >
-                                        <RefreshCw size={14} /> REGENERATE
+                                        <RefreshCw size={12} /> REGENERATE
                                     </button>
                                     <button
                                         onClick={() => {
@@ -357,9 +401,9 @@ export default function IEPNarrativeArchitect() {
                                                 description: "Narrative securely stored in Student Digital Locker."
                                             });
                                         }}
-                                        className="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white py-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-colors"
+                                        className="flex-1 min-w-[90px] bg-indigo-600 hover:bg-indigo-500 text-white py-3 rounded-xl text-[10px] font-bold flex items-center justify-center gap-1.5 transition-colors"
                                     >
-                                        <Save size={14} /> SAVE TO VAULT
+                                        <Save size={12} /> SAVE
                                     </button>
                                     <button
                                         onClick={() => {
@@ -368,9 +412,18 @@ export default function IEPNarrativeArchitect() {
                                                 description: "Ready to paste into official IEP document."
                                             });
                                         }}
-                                        className="flex-1 bg-[#D4AF37] hover:bg-amber-400 text-black py-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-colors"
+                                        className="flex-1 min-w-[90px] bg-[#D4AF37] hover:bg-amber-400 text-black py-3 rounded-xl text-[10px] font-bold flex items-center justify-center gap-1.5 transition-colors"
                                     >
-                                        <Copy size={14} /> COPY
+                                        <Copy size={12} /> COPY
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            const studentId = formData.studentName.includes('Isaiah') ? 'st-01' : formData.studentName.includes('Maria') ? 'st-02' : '';
+                                            window.location.href = `/generator/differentiation?student=${studentId}`;
+                                        }}
+                                        className="flex-1 min-w-[90px] bg-cyan-600 hover:bg-cyan-500 text-white py-3 rounded-xl text-[10px] font-bold flex items-center justify-center gap-1.5 transition-colors"
+                                    >
+                                        <Sparkles size={12} /> DIFFERENTIATE
                                     </button>
                                 </div>
                             </motion.div>

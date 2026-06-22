@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { EDINTEL_TIERS } from '@/config/tiers';
 import { ROUTES } from '@/lib/routes';
+import { randomUUID } from 'crypto';
 
 export async function createEdIntelUser(formData: FormData) {
     const name = formData.get('name') as string;
@@ -35,14 +36,16 @@ export async function createEdIntelUser(formData: FormData) {
     try {
         const user = await prisma.user.create({
             data: {
+                id: randomUUID(),
                 email,
                 name,
-                schoolSite,
-                tierId: tier.id,
-                usageTokens: 10, // Default for 30-day trial
-                trialStartedAt: new Date(),
-                trialEndsAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
-                isActive: true
+                school_site: schoolSite,
+                tier_id: tier.id,
+                usage_tokens: 10, // Default for 30-day trial
+                trial_started_at: new Date(),
+                trial_ends_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
+                is_active: true,
+                updated_at: new Date()
             }
         });
 

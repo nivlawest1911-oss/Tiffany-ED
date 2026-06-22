@@ -1,6 +1,7 @@
-﻿import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
+import crypto from 'crypto';
 
 export async function GET() {
     try {
@@ -10,16 +11,16 @@ export async function GET() {
         }
         const userId = session.user.id;
 
-        const timeline = await prisma.legacyLedger.findMany({
-            where: { userId },
+        const timeline = await prisma.legacy_ledger.findMany({
+            where: { user_id: userId },
             select: {
                 id: true,
                 title: true,
                 directive: true,
-                createdAt: true,
+                created_at: true,
                 tags: true
             },
-            orderBy: { createdAt: 'desc' }
+            orderBy: { created_at: 'desc' }
         });
 
         return NextResponse.json(timeline);
@@ -40,15 +41,17 @@ export async function POST(req: Request) {
         const body = await req.json();
         const { title, directive, logic, swarmContext, tags } = body;
 
-        const result = await prisma.legacyLedger.create({
+        const result = await prisma.legacy_ledger.create({
             data: {
-                userId,
+                id: crypto.randomUUID(),
+                user_id: userId,
                 title,
                 directive,
                 logic,
-                swarmContext,
+                swarm_context: swarmContext || {},
                 tags: tags || [],
-                isImmutable: true
+                is_immutable: true,
+                updated_at: new Date()
             }
         });
 

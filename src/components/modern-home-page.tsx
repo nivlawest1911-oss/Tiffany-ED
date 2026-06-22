@@ -251,18 +251,9 @@ function InteractiveTerminal({ onCommand }: { onCommand: (cmd: string) => void }
 // 5. MAIN PAGE
 export default function ModernHomePage() {
     const [isMounted, setMounted] = useState(false);
-    const [showCinematicIntro, setShowCinematicIntro] = useState(() => {
-        if (typeof window !== 'undefined') {
-            return localStorage.getItem('edintel_intro_seen') !== 'true';
-        }
-        return true;
-    });
-    const [booted, setBooted] = useState(() => {
-        if (typeof window !== 'undefined') {
-            return localStorage.getItem('edintel_intro_seen') === 'true';
-        }
-        return false;
-    });
+    const [showCinematicIntro, setShowCinematicIntro] = useState(false);
+    const [showActivationIntro, setShowActivationIntro] = useState(false);
+    const [booted, setBooted] = useState(true); // Always true for SSR and client rendering
     const [isLowPowerMode, setIsLowPowerMode] = useState(false);
     const [activeAgentIndex, setActiveAgentIndex] = useState(0);
     const [agentMessage, setAgentMessage] = useState<string | null>(null);
@@ -280,69 +271,62 @@ export default function ModernHomePage() {
     ], []);
 
     useEffect(() => {
-        if (typeof window === 'undefined') return;
-        
-        const isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
-        
-        // Detect mobile or reduced motion preference
-        const isMobile = window.innerWidth < 768;
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        setIsLowPowerMode(isMobile || prefersReducedMotion);
-
-        if (isBot) {
-            setShowCinematicIntro(false);
-            setBooted(true);
-            setMounted(true);
-        }
-    }, []);
-
-    useEffect(() => {
-        // Check for first-time visitor (only on client)
+        setMounted(true);
         if (typeof window === 'undefined') return;
         
         try {
-            // PERFORMANCE MODE: Instant bypass (Phase 14)
             const params = new URLSearchParams(window.location.search);
-            if (params.get('nosplash') === 'true' || params.get('perf') === 'true') {
+            const isPerfOverride = params.get('nosplash') === 'true' || params.get('perf') === 'true';
+            const isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
+            const introSeen = localStorage.getItem('edintel_intro_seen') === 'true';
+
+            // Detect mobile or reduced motion preference
+            const isMobile = window.innerWidth < 768;
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            setIsLowPowerMode(isMobile || prefersReducedMotion);
+
+            if (isBot) {
                 setShowCinematicIntro(false);
-                setBooted(true);
-                setMounted(true);
+                setShowActivationIntro(false);
                 return;
             }
 
-            // RADICAL PERFORMANCE: Skip intros for returning visitors (Phase 14)
-            const introSeen = localStorage.getItem('edintel_intro_seen');
-            if (introSeen === 'true') {
+            if (isPerfOverride) {
                 setShowCinematicIntro(false);
-                setBooted(true);
+                setShowActivationIntro(false);
+                return;
             }
 
-            // Check for first-time visitor
+            if (!introSeen) {
+                setShowCinematicIntro(true);
+            }
+
+            // Check for onboarding
             const onboarded = localStorage.getItem('onboarding_complete');
             if (!onboarded) {
-                // Delay onboarding until after boot sequence completes (Phase 14 Optimization)
-                setTimeout(() => setShowOnboarding(true), 2.0 * 1000); 
+                setTimeout(() => setShowOnboarding(true), 2.0 * 1000);
             }
         } catch (e) {
-            // localStorage may not be available
-            console.error("Storage error:", e);
+            console.error("Mount initialization error:", e);
         }
     }, []);
 
     const handleIntroComplete = () => {
-        localStorage.setItem('edintel_intro_seen', 'true');
         setShowCinematicIntro(false);
+        setShowActivationIntro(true);
     };
 
     const handleBootComplete = () => {
-        localStorage.setItem('edintel_intro_seen', 'true');
-        startTransition(() => setBooted(true));
+        try {
+            localStorage.setItem('edintel_intro_seen', 'true');
+        } catch (e) {
+            console.error("Storage error:", e);
+        }
+        setShowActivationIntro(false);
     };
 
     const { scrollYProgress } = useScroll();
     const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
-
-    useEffect(() => setMounted(true), []);
 
     // Auto-rotate unless interacting
     useEffect(() => {
@@ -448,7 +432,7 @@ export default function ModernHomePage() {
                 </AnimatePresence>
 
                 <AnimatePresence>
-                    {!booted && <ActivationIntro onCompleteAction={handleBootComplete} />}
+                    {showActivationIntro && <ActivationIntro onCompleteAction={handleBootComplete} />}
                 </AnimatePresence>
 
                 {/* CONSOLIDATED BACKGROUND ARCHITECTURE (Phase 14 Optimization) */}

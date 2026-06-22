@@ -71,7 +71,7 @@ export class GeminiService {
         return this._model;
     }
 
-    async generateText(prompt: string, history: any[] = []) {
+    async generateText(prompt: string, history: any[] = []): Promise<string> {
         try {
             const chat = this.model.startChat({
                 history: history.map(h => ({

@@ -13,7 +13,7 @@ export async function GET(
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const entry = await prisma.legacyLedger.findUnique({
+        const entry = await prisma.legacy_ledger.findUnique({
             where: { id }
         });
 
@@ -42,7 +42,7 @@ export async function PATCH(
         const body = await req.json();
         const { outcome, learnings } = body;
 
-        const result = await prisma.legacyLedger.update({
+        const result = await prisma.legacy_ledger.update({
             where: { id },
             data: { outcome, learnings }
         });

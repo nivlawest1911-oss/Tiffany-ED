@@ -1,4 +1,3 @@
-﻿
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { prisma } from '@/lib/prisma';
@@ -46,7 +45,7 @@ export async function POST(req: Request) {
 
         if (customerEmail) {
             // 3. Look up the Tier ID in your database
-            const tier = await prisma.tier.findUnique({
+            const tier = await prisma.tiers.findUnique({
                 where: { name: tierName }
             });
 
@@ -65,21 +64,23 @@ export async function POST(req: Request) {
                 await prisma.user.upsert({
                     where: { email: customerEmail },
                     update: {
-                        tierId: tier.id,
-                        subscriptionTier: tier.name, // Sync the tier name for useAccess
-                        isActive: true, // Reactivate if they were inactive
-                        usageTokens: {
+                        tier_id: tier.id,
+                        subscription_tier: tier.name, // Sync the tier name for useAccess
+                        is_active: true, // Reactivate if they were inactive
+                        usage_tokens: {
                             increment: initialTokens // Grant tokens upon subscription/upgrade
                         }
                     },
                     create: {
+                        id: fallbackClerkId,
                         email: customerEmail,
-                        clerkId: fallbackClerkId,
+                        clerk_id: fallbackClerkId,
                         name: session.customer_details?.name || 'Authorized Personnel',
-                        tierId: tier.id,
-                        subscriptionTier: tier.name, // Sync the tier name
-                        usageTokens: initialTokens,  // Initialize mapped tokens
-                        isActive: true,
+                        tier_id: tier.id,
+                        subscription_tier: tier.name, // Sync the tier name
+                        usage_tokens: initialTokens,  // Initialize mapped tokens
+                        is_active: true,
+                        updated_at: new Date()
                     }
                 });
             } else {

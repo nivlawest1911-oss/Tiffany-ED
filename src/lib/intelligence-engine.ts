@@ -1,4 +1,4 @@
-﻿export interface DeepIntelligence {
+export interface DeepIntelligence {
     title: string;
     description: string;
     stats: { time: string; saved: string; accuracy: string; };
@@ -51,6 +51,15 @@ export const INTELLIGENCE_MAP: Record<string, DeepIntelligence> = {
         audio: '/audio/briefings/iep-architect.mp3',
         abilityType: 'compliance',
         suggestedNext: ['risk-analyzer', 'Lesson Wizard', 'Automated Audit']
+    },
+    'Differentiation Engine': {
+        title: 'Sovereign Differentiation Engine',
+        description: 'EdIntel\'s native AI differentiation capability. Instantly adapts any content to target Lexile levels with DOK-aligned assessments, vocabulary guides, and graphic organizers. Integrates with screener data and IEP records for precision targeting that standalone tools cannot match.',
+        stats: { time: '< 8s', saved: '3 hrs/lesson', accuracy: '99.2%' },
+        role: 'Differentiation Architect',
+        avatar: '/images/avatars/emily_robinson_premium.png',
+        abilityType: 'curriculum',
+        suggestedNext: ['IEP Architect', 'Lesson Wizard', 'Literacy Specialist']
     },
     'Lesson Wizard': {
         title: 'Quantum Curriculum Foundry',

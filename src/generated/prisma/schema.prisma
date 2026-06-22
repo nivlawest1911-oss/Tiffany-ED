@@ -140,13 +140,14 @@ model district_nodes {
 }
 
 model districts {
-  id             String           @id
-  name           String           @unique
-  health         Float            @default(98.0)
-  last_pulse     DateTime         @default(now())
-  created_at     DateTime         @default(now())
-  updated_at     DateTime
-  district_nodes district_nodes[]
+  id                 String               @id
+  name               String               @unique
+  health             Float                @default(98.0)
+  last_pulse         DateTime             @default(now())
+  created_at         DateTime             @default(now())
+  updated_at         DateTime
+  district_nodes     district_nodes[]
+  district_listening district_listening[]
 }
 
 model documents {
@@ -366,6 +367,8 @@ model schools {
   users_schools_admin_idTousers  User?                @relation("schools_admin_idTousers", fields: [admin_id], references: [id])
   subscriptions                  subscriptions[]
   users_users_school_idToschools User[]               @relation("users_school_idToschools")
+  student_profiles               student_profiles[]
+  infra_monitors                 infra_monitors[]
 
   @@index([admin_id])
 }
@@ -479,11 +482,11 @@ model usage_tracking {
 }
 
 model User {
-  id                               String                  @id
-  clerk_id                         String?                 @unique
-  email                            String                  @unique
+  id                               String                      @id
+  clerk_id                         String?                     @unique
+  email                            String                      @unique
   name                             String?
-  role                             UserRole                @default(TEACHER)
+  role                             UserRole                    @default(TEACHER)
   district                         String?
   school                           String?
   school_site                      String?
@@ -491,23 +494,23 @@ model User {
   bio                              String?
   organization_id                  String?
   school_id                        String?
-  stripe_customer_id               String?                 @unique
-  stripe_subscription_id           String?                 @unique
-  subscription_tier                String                  @default("free")
-  subscription_status              String                  @default("inactive")
-  usage_tokens                     Int                     @default(10)
-  xp_points                        Int                     @default(0)
-  trial_started_at                 DateTime                @default(now())
+  stripe_customer_id               String?                     @unique
+  stripe_subscription_id           String?                     @unique
+  subscription_tier                String                      @default("free")
+  subscription_status              String                      @default("inactive")
+  usage_tokens                     Int                         @default(10)
+  xp_points                        Int                         @default(0)
+  trial_started_at                 DateTime                    @default(now())
   trial_ends_at                    DateTime?
-  is_trial_converted               Boolean                 @default(false)
-  is_active                        Boolean                 @default(true)
+  is_trial_converted               Boolean                     @default(false)
+  is_active                        Boolean                     @default(true)
   tier_id                          String?
   avatar_url                       String?
-  created_at                       DateTime                @default(now())
+  created_at                       DateTime                    @default(now())
   updated_at                       DateTime
   last_login                       DateTime?
   password                         String?
-  emailVerified                    Boolean                 @default(false)
+  emailVerified                    Boolean                     @default(false)
   image                            String?
   lastUplinkAt                     DateTime?
   accounts                         account[]
@@ -521,17 +524,20 @@ model User {
   legacy_ledger                    legacy_ledger[]
   observations                     observations[]
   saved_items                      saved_items[]
-  schools_schools_admin_idTousers  schools[]               @relation("schools_admin_idTousers")
+  schools_schools_admin_idTousers  schools[]                   @relation("schools_admin_idTousers")
   strategic_vault                  strategic_vault[]
   subscriptions                    subscriptions[]
   system_feedback                  system_feedback[]
   token_wallets                    token_wallets?
   usage_tracking                   usage_tracking[]
-  organizations                    organizations?          @relation(fields: [organization_id], references: [id])
-  schools_users_school_idToschools schools?                @relation("users_school_idToschools", fields: [school_id], references: [id])
-  tiers                            tiers?                  @relation(fields: [tier_id], references: [id])
+  organizations                    organizations?              @relation(fields: [organization_id], references: [id])
+  schools_users_school_idToschools schools?                    @relation("users_school_idToschools", fields: [school_id], references: [id])
+  tiers                            tiers?                      @relation(fields: [tier_id], references: [id])
   vault_documents                  vault_documents[]
   knowledge_documents              knowledge_documents[]
+  student_profiles                 student_profiles[]          @relation("student_profiles")
+  differentiated_materials         differentiated_materials[]  @relation("differentiated_materials")
+  reading_improvement_plans        reading_improvement_plans[] @relation("reading_plans")
 
   @@index([clerk_id])
   @@index([district, school])
@@ -650,4 +656,161 @@ enum UserRole {
   SUPERINTENDENT
   EXECUTIVE
   PRINCIPAL
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SOVEREIGN DIFFERENTIATION ENGINE — NEW MODELS
+// ═══════════════════════════════════════════════════════════════
+
+/// Student academic profiles with Lexile tracking and ALA skill data
+model student_profiles {
+  id                        String                      @id @default(cuid())
+  user_id                   String
+  student_sis_id            String
+  first_name                String
+  last_name                 String
+  grade_level               String
+  school_id                 String?
+  lexile_level              Int?
+  lexile_history            Json?
+  ell_status                String?
+  native_language           String?
+  sped_status               String?
+  dyslexia_flag             Boolean                     @default(false)
+  intervention_tier         String?
+  ala_skill_profile         Json?
+  created_at                DateTime                    @default(now())
+  updated_at                DateTime                    @updatedAt
+  users                     User                        @relation("student_profiles", fields: [user_id], references: [id], onDelete: Cascade)
+  schools                   schools?                    @relation(fields: [school_id], references: [id])
+  screener_results          screener_results[]
+  differentiated_materials  differentiated_materials[]
+  reading_improvement_plans reading_improvement_plans[]
+
+  @@unique([user_id, student_sis_id])
+  @@index([school_id])
+  @@index([grade_level, lexile_level])
+}
+
+/// Assessment screener data from state-approved platforms
+model screener_results {
+  id                 String           @id @default(cuid())
+  student_profile_id String
+  screener_platform  String
+  assessment_window  String
+  assessment_date    DateTime
+  composite_score    Float?
+  risk_level         String?
+  skill_scores       Json
+  raw_data           Json?
+  created_at         DateTime         @default(now())
+  student_profiles   student_profiles @relation(fields: [student_profile_id], references: [id], onDelete: Cascade)
+
+  @@index([student_profile_id, assessment_window])
+  @@index([screener_platform])
+}
+
+/// AI-generated differentiated materials (surpasses Diffit)
+model differentiated_materials {
+  id                 String            @id @default(cuid())
+  user_id            String
+  student_profile_id String?
+  title              String
+  source_input       String
+  target_lexile      Int
+  output_lexile      Int?
+  dok_level          Int               @default(2)
+  content_type       String
+  generated_content  Json
+  academic_standard  String?
+  subject            String?
+  grade_level        String?
+  language           String            @default("en")
+  exported_to        String?
+  tokens_used        Int               @default(0)
+  created_at         DateTime          @default(now())
+  users              User              @relation("differentiated_materials", fields: [user_id], references: [id], onDelete: Cascade)
+  student_profiles   student_profiles? @relation(fields: [student_profile_id], references: [id])
+
+  @@index([user_id])
+  @@index([student_profile_id])
+  @@index([target_lexile])
+}
+
+/// Student Reading Improvement Plans (SRIP) per Alabama Literacy Act mandate
+model reading_improvement_plans {
+  id                   String           @id @default(cuid())
+  student_profile_id   String
+  created_by           String
+  school_year          String
+  status               String           @default("active")
+  deficit_areas        Json
+  intervention_program String?
+  daily_materials      Json?
+  progress_notes       Json?
+  parent_notified      Boolean          @default(false)
+  created_at           DateTime         @default(now())
+  updated_at           DateTime         @updatedAt
+  student_profiles     student_profiles @relation(fields: [student_profile_id], references: [id], onDelete: Cascade)
+  users                User             @relation("reading_plans", fields: [created_by], references: [id])
+
+  @@index([student_profile_id])
+}
+
+/// District Listening data snapshots for macro-level intelligence
+model district_listening {
+  id                   String    @id @default(cuid())
+  district_id          String
+  snapshot_date        DateTime  @default(now())
+  title_i_revenue      Float?
+  erate_cat2_budget    Float?
+  virtual_readiness    Int?
+  hardware_score       Float?
+  broadband_mbps       Float?
+  teacher_training_pct Float?
+  edtech_tools         Json?
+  enrollment_total     Int?
+  free_reduced_pct     Float?
+  ela_proficiency_pct  Float?
+  math_proficiency_pct Float?
+  metadata             Json?
+  districts            districts @relation(fields: [district_id], references: [id], onDelete: Cascade)
+
+  @@index([district_id, snapshot_date])
+}
+
+/// VIGIApp infrastructure device monitoring
+model infra_monitors {
+  id              String         @id @default(cuid())
+  school_id       String
+  device_type     String
+  device_name     String
+  location        String?
+  status          String         @default("normal")
+  metrics         Json?
+  alert_threshold Json?
+  last_heartbeat  DateTime       @default(now())
+  created_at      DateTime       @default(now())
+  schools         schools        @relation(fields: [school_id], references: [id], onDelete: Cascade)
+  infra_alerts    infra_alerts[]
+
+  @@index([school_id, device_type])
+  @@index([status])
+}
+
+/// VIGIApp infrastructure alerts
+model infra_alerts {
+  id              String         @id @default(cuid())
+  monitor_id      String
+  severity        String
+  message         String
+  metric_snapshot Json?
+  acknowledged    Boolean        @default(false)
+  acknowledged_by String?
+  resolved_at     DateTime?
+  created_at      DateTime       @default(now())
+  infra_monitors  infra_monitors @relation(fields: [monitor_id], references: [id], onDelete: Cascade)
+
+  @@index([monitor_id])
+  @@index([severity, acknowledged])
 }

@@ -190,6 +190,41 @@ export type vault_documents = $Result.DefaultSelection<Prisma.$vault_documentsPa
  * 
  */
 export type vault_ocr = $Result.DefaultSelection<Prisma.$vault_ocrPayload>
+/**
+ * Model student_profiles
+ * Student academic profiles with Lexile tracking and ALA skill data
+ */
+export type student_profiles = $Result.DefaultSelection<Prisma.$student_profilesPayload>
+/**
+ * Model screener_results
+ * Assessment screener data from state-approved platforms
+ */
+export type screener_results = $Result.DefaultSelection<Prisma.$screener_resultsPayload>
+/**
+ * Model differentiated_materials
+ * AI-generated differentiated materials (surpasses Diffit)
+ */
+export type differentiated_materials = $Result.DefaultSelection<Prisma.$differentiated_materialsPayload>
+/**
+ * Model reading_improvement_plans
+ * Student Reading Improvement Plans (SRIP) per Alabama Literacy Act mandate
+ */
+export type reading_improvement_plans = $Result.DefaultSelection<Prisma.$reading_improvement_plansPayload>
+/**
+ * Model district_listening
+ * District Listening data snapshots for macro-level intelligence
+ */
+export type district_listening = $Result.DefaultSelection<Prisma.$district_listeningPayload>
+/**
+ * Model infra_monitors
+ * VIGIApp infrastructure device monitoring
+ */
+export type infra_monitors = $Result.DefaultSelection<Prisma.$infra_monitorsPayload>
+/**
+ * Model infra_alerts
+ * VIGIApp infrastructure alerts
+ */
+export type infra_alerts = $Result.DefaultSelection<Prisma.$infra_alertsPayload>
 
 /**
  * Enums
@@ -711,6 +746,76 @@ export class PrismaClient<
     * ```
     */
   get vault_ocr(): Prisma.vault_ocrDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.student_profiles`: Exposes CRUD operations for the **student_profiles** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Student_profiles
+    * const student_profiles = await prisma.student_profiles.findMany()
+    * ```
+    */
+  get student_profiles(): Prisma.student_profilesDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.screener_results`: Exposes CRUD operations for the **screener_results** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Screener_results
+    * const screener_results = await prisma.screener_results.findMany()
+    * ```
+    */
+  get screener_results(): Prisma.screener_resultsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.differentiated_materials`: Exposes CRUD operations for the **differentiated_materials** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Differentiated_materials
+    * const differentiated_materials = await prisma.differentiated_materials.findMany()
+    * ```
+    */
+  get differentiated_materials(): Prisma.differentiated_materialsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.reading_improvement_plans`: Exposes CRUD operations for the **reading_improvement_plans** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Reading_improvement_plans
+    * const reading_improvement_plans = await prisma.reading_improvement_plans.findMany()
+    * ```
+    */
+  get reading_improvement_plans(): Prisma.reading_improvement_plansDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.district_listening`: Exposes CRUD operations for the **district_listening** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more District_listenings
+    * const district_listenings = await prisma.district_listening.findMany()
+    * ```
+    */
+  get district_listening(): Prisma.district_listeningDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.infra_monitors`: Exposes CRUD operations for the **infra_monitors** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Infra_monitors
+    * const infra_monitors = await prisma.infra_monitors.findMany()
+    * ```
+    */
+  get infra_monitors(): Prisma.infra_monitorsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.infra_alerts`: Exposes CRUD operations for the **infra_alerts** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Infra_alerts
+    * const infra_alerts = await prisma.infra_alerts.findMany()
+    * ```
+    */
+  get infra_alerts(): Prisma.infra_alertsDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1179,7 +1284,14 @@ export namespace Prisma {
     verification: 'verification',
     vault_audits: 'vault_audits',
     vault_documents: 'vault_documents',
-    vault_ocr: 'vault_ocr'
+    vault_ocr: 'vault_ocr',
+    student_profiles: 'student_profiles',
+    screener_results: 'screener_results',
+    differentiated_materials: 'differentiated_materials',
+    reading_improvement_plans: 'reading_improvement_plans',
+    district_listening: 'district_listening',
+    infra_monitors: 'infra_monitors',
+    infra_alerts: 'infra_alerts'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1195,7 +1307,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "analytics_events" | "analytics_insights" | "avatar_sessions" | "avatars" | "companion_certificates" | "conversation_messages" | "district_nodes" | "districts" | "documents" | "evidence_folders" | "generated_content_hub" | "generations" | "graph_edges" | "graph_nodes" | "knowledge_documents" | "legacy_ledger" | "observations" | "organizations" | "saved_items" | "schools" | "semantic_caches" | "strategic_vault" | "subscriptions" | "system_feedback" | "tiers" | "token_ledger" | "token_wallets" | "usage_tracking" | "user" | "session" | "account" | "verification" | "vault_audits" | "vault_documents" | "vault_ocr"
+      modelProps: "analytics_events" | "analytics_insights" | "avatar_sessions" | "avatars" | "companion_certificates" | "conversation_messages" | "district_nodes" | "districts" | "documents" | "evidence_folders" | "generated_content_hub" | "generations" | "graph_edges" | "graph_nodes" | "knowledge_documents" | "legacy_ledger" | "observations" | "organizations" | "saved_items" | "schools" | "semantic_caches" | "strategic_vault" | "subscriptions" | "system_feedback" | "tiers" | "token_ledger" | "token_wallets" | "usage_tracking" | "user" | "session" | "account" | "verification" | "vault_audits" | "vault_documents" | "vault_ocr" | "student_profiles" | "screener_results" | "differentiated_materials" | "reading_improvement_plans" | "district_listening" | "infra_monitors" | "infra_alerts"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3789,6 +3901,524 @@ export namespace Prisma {
           }
         }
       }
+      student_profiles: {
+        payload: Prisma.$student_profilesPayload<ExtArgs>
+        fields: Prisma.student_profilesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.student_profilesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$student_profilesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.student_profilesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$student_profilesPayload>
+          }
+          findFirst: {
+            args: Prisma.student_profilesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$student_profilesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.student_profilesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$student_profilesPayload>
+          }
+          findMany: {
+            args: Prisma.student_profilesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$student_profilesPayload>[]
+          }
+          create: {
+            args: Prisma.student_profilesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$student_profilesPayload>
+          }
+          createMany: {
+            args: Prisma.student_profilesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.student_profilesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$student_profilesPayload>[]
+          }
+          delete: {
+            args: Prisma.student_profilesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$student_profilesPayload>
+          }
+          update: {
+            args: Prisma.student_profilesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$student_profilesPayload>
+          }
+          deleteMany: {
+            args: Prisma.student_profilesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.student_profilesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.student_profilesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$student_profilesPayload>[]
+          }
+          upsert: {
+            args: Prisma.student_profilesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$student_profilesPayload>
+          }
+          aggregate: {
+            args: Prisma.Student_profilesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStudent_profiles>
+          }
+          groupBy: {
+            args: Prisma.student_profilesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Student_profilesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.student_profilesCountArgs<ExtArgs>
+            result: $Utils.Optional<Student_profilesCountAggregateOutputType> | number
+          }
+        }
+      }
+      screener_results: {
+        payload: Prisma.$screener_resultsPayload<ExtArgs>
+        fields: Prisma.screener_resultsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.screener_resultsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$screener_resultsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.screener_resultsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$screener_resultsPayload>
+          }
+          findFirst: {
+            args: Prisma.screener_resultsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$screener_resultsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.screener_resultsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$screener_resultsPayload>
+          }
+          findMany: {
+            args: Prisma.screener_resultsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$screener_resultsPayload>[]
+          }
+          create: {
+            args: Prisma.screener_resultsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$screener_resultsPayload>
+          }
+          createMany: {
+            args: Prisma.screener_resultsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.screener_resultsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$screener_resultsPayload>[]
+          }
+          delete: {
+            args: Prisma.screener_resultsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$screener_resultsPayload>
+          }
+          update: {
+            args: Prisma.screener_resultsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$screener_resultsPayload>
+          }
+          deleteMany: {
+            args: Prisma.screener_resultsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.screener_resultsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.screener_resultsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$screener_resultsPayload>[]
+          }
+          upsert: {
+            args: Prisma.screener_resultsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$screener_resultsPayload>
+          }
+          aggregate: {
+            args: Prisma.Screener_resultsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateScreener_results>
+          }
+          groupBy: {
+            args: Prisma.screener_resultsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Screener_resultsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.screener_resultsCountArgs<ExtArgs>
+            result: $Utils.Optional<Screener_resultsCountAggregateOutputType> | number
+          }
+        }
+      }
+      differentiated_materials: {
+        payload: Prisma.$differentiated_materialsPayload<ExtArgs>
+        fields: Prisma.differentiated_materialsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.differentiated_materialsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$differentiated_materialsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.differentiated_materialsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$differentiated_materialsPayload>
+          }
+          findFirst: {
+            args: Prisma.differentiated_materialsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$differentiated_materialsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.differentiated_materialsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$differentiated_materialsPayload>
+          }
+          findMany: {
+            args: Prisma.differentiated_materialsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$differentiated_materialsPayload>[]
+          }
+          create: {
+            args: Prisma.differentiated_materialsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$differentiated_materialsPayload>
+          }
+          createMany: {
+            args: Prisma.differentiated_materialsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.differentiated_materialsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$differentiated_materialsPayload>[]
+          }
+          delete: {
+            args: Prisma.differentiated_materialsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$differentiated_materialsPayload>
+          }
+          update: {
+            args: Prisma.differentiated_materialsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$differentiated_materialsPayload>
+          }
+          deleteMany: {
+            args: Prisma.differentiated_materialsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.differentiated_materialsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.differentiated_materialsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$differentiated_materialsPayload>[]
+          }
+          upsert: {
+            args: Prisma.differentiated_materialsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$differentiated_materialsPayload>
+          }
+          aggregate: {
+            args: Prisma.Differentiated_materialsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDifferentiated_materials>
+          }
+          groupBy: {
+            args: Prisma.differentiated_materialsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Differentiated_materialsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.differentiated_materialsCountArgs<ExtArgs>
+            result: $Utils.Optional<Differentiated_materialsCountAggregateOutputType> | number
+          }
+        }
+      }
+      reading_improvement_plans: {
+        payload: Prisma.$reading_improvement_plansPayload<ExtArgs>
+        fields: Prisma.reading_improvement_plansFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.reading_improvement_plansFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reading_improvement_plansPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.reading_improvement_plansFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reading_improvement_plansPayload>
+          }
+          findFirst: {
+            args: Prisma.reading_improvement_plansFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reading_improvement_plansPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.reading_improvement_plansFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reading_improvement_plansPayload>
+          }
+          findMany: {
+            args: Prisma.reading_improvement_plansFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reading_improvement_plansPayload>[]
+          }
+          create: {
+            args: Prisma.reading_improvement_plansCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reading_improvement_plansPayload>
+          }
+          createMany: {
+            args: Prisma.reading_improvement_plansCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.reading_improvement_plansCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reading_improvement_plansPayload>[]
+          }
+          delete: {
+            args: Prisma.reading_improvement_plansDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reading_improvement_plansPayload>
+          }
+          update: {
+            args: Prisma.reading_improvement_plansUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reading_improvement_plansPayload>
+          }
+          deleteMany: {
+            args: Prisma.reading_improvement_plansDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.reading_improvement_plansUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.reading_improvement_plansUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reading_improvement_plansPayload>[]
+          }
+          upsert: {
+            args: Prisma.reading_improvement_plansUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$reading_improvement_plansPayload>
+          }
+          aggregate: {
+            args: Prisma.Reading_improvement_plansAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateReading_improvement_plans>
+          }
+          groupBy: {
+            args: Prisma.reading_improvement_plansGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Reading_improvement_plansGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.reading_improvement_plansCountArgs<ExtArgs>
+            result: $Utils.Optional<Reading_improvement_plansCountAggregateOutputType> | number
+          }
+        }
+      }
+      district_listening: {
+        payload: Prisma.$district_listeningPayload<ExtArgs>
+        fields: Prisma.district_listeningFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.district_listeningFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$district_listeningPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.district_listeningFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$district_listeningPayload>
+          }
+          findFirst: {
+            args: Prisma.district_listeningFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$district_listeningPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.district_listeningFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$district_listeningPayload>
+          }
+          findMany: {
+            args: Prisma.district_listeningFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$district_listeningPayload>[]
+          }
+          create: {
+            args: Prisma.district_listeningCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$district_listeningPayload>
+          }
+          createMany: {
+            args: Prisma.district_listeningCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.district_listeningCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$district_listeningPayload>[]
+          }
+          delete: {
+            args: Prisma.district_listeningDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$district_listeningPayload>
+          }
+          update: {
+            args: Prisma.district_listeningUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$district_listeningPayload>
+          }
+          deleteMany: {
+            args: Prisma.district_listeningDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.district_listeningUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.district_listeningUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$district_listeningPayload>[]
+          }
+          upsert: {
+            args: Prisma.district_listeningUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$district_listeningPayload>
+          }
+          aggregate: {
+            args: Prisma.District_listeningAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDistrict_listening>
+          }
+          groupBy: {
+            args: Prisma.district_listeningGroupByArgs<ExtArgs>
+            result: $Utils.Optional<District_listeningGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.district_listeningCountArgs<ExtArgs>
+            result: $Utils.Optional<District_listeningCountAggregateOutputType> | number
+          }
+        }
+      }
+      infra_monitors: {
+        payload: Prisma.$infra_monitorsPayload<ExtArgs>
+        fields: Prisma.infra_monitorsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.infra_monitorsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$infra_monitorsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.infra_monitorsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$infra_monitorsPayload>
+          }
+          findFirst: {
+            args: Prisma.infra_monitorsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$infra_monitorsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.infra_monitorsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$infra_monitorsPayload>
+          }
+          findMany: {
+            args: Prisma.infra_monitorsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$infra_monitorsPayload>[]
+          }
+          create: {
+            args: Prisma.infra_monitorsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$infra_monitorsPayload>
+          }
+          createMany: {
+            args: Prisma.infra_monitorsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.infra_monitorsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$infra_monitorsPayload>[]
+          }
+          delete: {
+            args: Prisma.infra_monitorsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$infra_monitorsPayload>
+          }
+          update: {
+            args: Prisma.infra_monitorsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$infra_monitorsPayload>
+          }
+          deleteMany: {
+            args: Prisma.infra_monitorsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.infra_monitorsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.infra_monitorsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$infra_monitorsPayload>[]
+          }
+          upsert: {
+            args: Prisma.infra_monitorsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$infra_monitorsPayload>
+          }
+          aggregate: {
+            args: Prisma.Infra_monitorsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateInfra_monitors>
+          }
+          groupBy: {
+            args: Prisma.infra_monitorsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Infra_monitorsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.infra_monitorsCountArgs<ExtArgs>
+            result: $Utils.Optional<Infra_monitorsCountAggregateOutputType> | number
+          }
+        }
+      }
+      infra_alerts: {
+        payload: Prisma.$infra_alertsPayload<ExtArgs>
+        fields: Prisma.infra_alertsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.infra_alertsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$infra_alertsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.infra_alertsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$infra_alertsPayload>
+          }
+          findFirst: {
+            args: Prisma.infra_alertsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$infra_alertsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.infra_alertsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$infra_alertsPayload>
+          }
+          findMany: {
+            args: Prisma.infra_alertsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$infra_alertsPayload>[]
+          }
+          create: {
+            args: Prisma.infra_alertsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$infra_alertsPayload>
+          }
+          createMany: {
+            args: Prisma.infra_alertsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.infra_alertsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$infra_alertsPayload>[]
+          }
+          delete: {
+            args: Prisma.infra_alertsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$infra_alertsPayload>
+          }
+          update: {
+            args: Prisma.infra_alertsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$infra_alertsPayload>
+          }
+          deleteMany: {
+            args: Prisma.infra_alertsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.infra_alertsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.infra_alertsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$infra_alertsPayload>[]
+          }
+          upsert: {
+            args: Prisma.infra_alertsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$infra_alertsPayload>
+          }
+          aggregate: {
+            args: Prisma.Infra_alertsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateInfra_alerts>
+          }
+          groupBy: {
+            args: Prisma.infra_alertsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Infra_alertsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.infra_alertsCountArgs<ExtArgs>
+            result: $Utils.Optional<Infra_alertsCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3932,6 +4562,13 @@ export namespace Prisma {
     vault_audits?: vault_auditsOmit
     vault_documents?: vault_documentsOmit
     vault_ocr?: vault_ocrOmit
+    student_profiles?: student_profilesOmit
+    screener_results?: screener_resultsOmit
+    differentiated_materials?: differentiated_materialsOmit
+    reading_improvement_plans?: reading_improvement_plansOmit
+    district_listening?: district_listeningOmit
+    infra_monitors?: infra_monitorsOmit
+    infra_alerts?: infra_alertsOmit
   }
 
   /* Types for Logging */
@@ -4115,10 +4752,12 @@ export namespace Prisma {
 
   export type DistrictsCountOutputType = {
     district_nodes: number
+    district_listening: number
   }
 
   export type DistrictsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     district_nodes?: boolean | DistrictsCountOutputTypeCountDistrict_nodesArgs
+    district_listening?: boolean | DistrictsCountOutputTypeCountDistrict_listeningArgs
   }
 
   // Custom InputTypes
@@ -4137,6 +4776,13 @@ export namespace Prisma {
    */
   export type DistrictsCountOutputTypeCountDistrict_nodesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: district_nodesWhereInput
+  }
+
+  /**
+   * DistrictsCountOutputType without action
+   */
+  export type DistrictsCountOutputTypeCountDistrict_listeningArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: district_listeningWhereInput
   }
 
 
@@ -4290,12 +4936,16 @@ export namespace Prisma {
     analytics_insights: number
     subscriptions: number
     users_users_school_idToschools: number
+    student_profiles: number
+    infra_monitors: number
   }
 
   export type SchoolsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     analytics_insights?: boolean | SchoolsCountOutputTypeCountAnalytics_insightsArgs
     subscriptions?: boolean | SchoolsCountOutputTypeCountSubscriptionsArgs
     users_users_school_idToschools?: boolean | SchoolsCountOutputTypeCountUsers_users_school_idToschoolsArgs
+    student_profiles?: boolean | SchoolsCountOutputTypeCountStudent_profilesArgs
+    infra_monitors?: boolean | SchoolsCountOutputTypeCountInfra_monitorsArgs
   }
 
   // Custom InputTypes
@@ -4328,6 +4978,20 @@ export namespace Prisma {
    */
   export type SchoolsCountOutputTypeCountUsers_users_school_idToschoolsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserWhereInput
+  }
+
+  /**
+   * SchoolsCountOutputType without action
+   */
+  export type SchoolsCountOutputTypeCountStudent_profilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: student_profilesWhereInput
+  }
+
+  /**
+   * SchoolsCountOutputType without action
+   */
+  export type SchoolsCountOutputTypeCountInfra_monitorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: infra_monitorsWhereInput
   }
 
 
@@ -4416,6 +5080,9 @@ export namespace Prisma {
     usage_tracking: number
     vault_documents: number
     knowledge_documents: number
+    student_profiles: number
+    differentiated_materials: number
+    reading_improvement_plans: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4437,6 +5104,9 @@ export namespace Prisma {
     usage_tracking?: boolean | UserCountOutputTypeCountUsage_trackingArgs
     vault_documents?: boolean | UserCountOutputTypeCountVault_documentsArgs
     knowledge_documents?: boolean | UserCountOutputTypeCountKnowledge_documentsArgs
+    student_profiles?: boolean | UserCountOutputTypeCountStudent_profilesArgs
+    differentiated_materials?: boolean | UserCountOutputTypeCountDifferentiated_materialsArgs
+    reading_improvement_plans?: boolean | UserCountOutputTypeCountReading_improvement_plansArgs
   }
 
   // Custom InputTypes
@@ -4576,6 +5246,27 @@ export namespace Prisma {
     where?: knowledge_documentsWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountStudent_profilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: student_profilesWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountDifferentiated_materialsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: differentiated_materialsWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountReading_improvement_plansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: reading_improvement_plansWhereInput
+  }
+
 
   /**
    * Count Type Vault_documentsCountOutputType
@@ -4605,6 +5296,86 @@ export namespace Prisma {
    */
   export type Vault_documentsCountOutputTypeCountVault_auditsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: vault_auditsWhereInput
+  }
+
+
+  /**
+   * Count Type Student_profilesCountOutputType
+   */
+
+  export type Student_profilesCountOutputType = {
+    screener_results: number
+    differentiated_materials: number
+    reading_improvement_plans: number
+  }
+
+  export type Student_profilesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    screener_results?: boolean | Student_profilesCountOutputTypeCountScreener_resultsArgs
+    differentiated_materials?: boolean | Student_profilesCountOutputTypeCountDifferentiated_materialsArgs
+    reading_improvement_plans?: boolean | Student_profilesCountOutputTypeCountReading_improvement_plansArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * Student_profilesCountOutputType without action
+   */
+  export type Student_profilesCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Student_profilesCountOutputType
+     */
+    select?: Student_profilesCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * Student_profilesCountOutputType without action
+   */
+  export type Student_profilesCountOutputTypeCountScreener_resultsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: screener_resultsWhereInput
+  }
+
+  /**
+   * Student_profilesCountOutputType without action
+   */
+  export type Student_profilesCountOutputTypeCountDifferentiated_materialsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: differentiated_materialsWhereInput
+  }
+
+  /**
+   * Student_profilesCountOutputType without action
+   */
+  export type Student_profilesCountOutputTypeCountReading_improvement_plansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: reading_improvement_plansWhereInput
+  }
+
+
+  /**
+   * Count Type Infra_monitorsCountOutputType
+   */
+
+  export type Infra_monitorsCountOutputType = {
+    infra_alerts: number
+  }
+
+  export type Infra_monitorsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    infra_alerts?: boolean | Infra_monitorsCountOutputTypeCountInfra_alertsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * Infra_monitorsCountOutputType without action
+   */
+  export type Infra_monitorsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Infra_monitorsCountOutputType
+     */
+    select?: Infra_monitorsCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * Infra_monitorsCountOutputType without action
+   */
+  export type Infra_monitorsCountOutputTypeCountInfra_alertsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: infra_alertsWhereInput
   }
 
 
@@ -13101,6 +13872,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     district_nodes?: boolean | districts$district_nodesArgs<ExtArgs>
+    district_listening?: boolean | districts$district_listeningArgs<ExtArgs>
     _count?: boolean | DistrictsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["districts"]>
 
@@ -13134,6 +13906,7 @@ export namespace Prisma {
   export type districtsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "health" | "last_pulse" | "created_at" | "updated_at", ExtArgs["result"]["districts"]>
   export type districtsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     district_nodes?: boolean | districts$district_nodesArgs<ExtArgs>
+    district_listening?: boolean | districts$district_listeningArgs<ExtArgs>
     _count?: boolean | DistrictsCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type districtsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -13143,6 +13916,7 @@ export namespace Prisma {
     name: "districts"
     objects: {
       district_nodes: Prisma.$district_nodesPayload<ExtArgs>[]
+      district_listening: Prisma.$district_listeningPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -13546,6 +14320,7 @@ export namespace Prisma {
   export interface Prisma__districtsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     district_nodes<T extends districts$district_nodesArgs<ExtArgs> = {}>(args?: Subset<T, districts$district_nodesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$district_nodesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    district_listening<T extends districts$district_listeningArgs<ExtArgs> = {}>(args?: Subset<T, districts$district_listeningArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$district_listeningPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13995,6 +14770,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: District_nodesScalarFieldEnum | District_nodesScalarFieldEnum[]
+  }
+
+  /**
+   * districts.district_listening
+   */
+  export type districts$district_listeningArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the district_listening
+     */
+    select?: district_listeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the district_listening
+     */
+    omit?: district_listeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: district_listeningInclude<ExtArgs> | null
+    where?: district_listeningWhereInput
+    orderBy?: district_listeningOrderByWithRelationInput | district_listeningOrderByWithRelationInput[]
+    cursor?: district_listeningWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: District_listeningScalarFieldEnum | District_listeningScalarFieldEnum[]
   }
 
   /**
@@ -27150,6 +27949,8 @@ export namespace Prisma {
     users_schools_admin_idTousers?: boolean | schools$users_schools_admin_idTousersArgs<ExtArgs>
     subscriptions?: boolean | schools$subscriptionsArgs<ExtArgs>
     users_users_school_idToschools?: boolean | schools$users_users_school_idToschoolsArgs<ExtArgs>
+    student_profiles?: boolean | schools$student_profilesArgs<ExtArgs>
+    infra_monitors?: boolean | schools$infra_monitorsArgs<ExtArgs>
     _count?: boolean | SchoolsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["schools"]>
 
@@ -27203,6 +28004,8 @@ export namespace Prisma {
     users_schools_admin_idTousers?: boolean | schools$users_schools_admin_idTousersArgs<ExtArgs>
     subscriptions?: boolean | schools$subscriptionsArgs<ExtArgs>
     users_users_school_idToschools?: boolean | schools$users_users_school_idToschoolsArgs<ExtArgs>
+    student_profiles?: boolean | schools$student_profilesArgs<ExtArgs>
+    infra_monitors?: boolean | schools$infra_monitorsArgs<ExtArgs>
     _count?: boolean | SchoolsCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type schoolsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -27219,6 +28022,8 @@ export namespace Prisma {
       users_schools_admin_idTousers: Prisma.$UserPayload<ExtArgs> | null
       subscriptions: Prisma.$subscriptionsPayload<ExtArgs>[]
       users_users_school_idToschools: Prisma.$UserPayload<ExtArgs>[]
+      student_profiles: Prisma.$student_profilesPayload<ExtArgs>[]
+      infra_monitors: Prisma.$infra_monitorsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -27630,6 +28435,8 @@ export namespace Prisma {
     users_schools_admin_idTousers<T extends schools$users_schools_admin_idTousersArgs<ExtArgs> = {}>(args?: Subset<T, schools$users_schools_admin_idTousersArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     subscriptions<T extends schools$subscriptionsArgs<ExtArgs> = {}>(args?: Subset<T, schools$subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$subscriptionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     users_users_school_idToschools<T extends schools$users_users_school_idToschoolsArgs<ExtArgs> = {}>(args?: Subset<T, schools$users_users_school_idToschoolsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    student_profiles<T extends schools$student_profilesArgs<ExtArgs> = {}>(args?: Subset<T, schools$student_profilesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$student_profilesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    infra_monitors<T extends schools$infra_monitorsArgs<ExtArgs> = {}>(args?: Subset<T, schools$infra_monitorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$infra_monitorsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -28159,6 +28966,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * schools.student_profiles
+   */
+  export type schools$student_profilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the student_profiles
+     */
+    select?: student_profilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the student_profiles
+     */
+    omit?: student_profilesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: student_profilesInclude<ExtArgs> | null
+    where?: student_profilesWhereInput
+    orderBy?: student_profilesOrderByWithRelationInput | student_profilesOrderByWithRelationInput[]
+    cursor?: student_profilesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Student_profilesScalarFieldEnum | Student_profilesScalarFieldEnum[]
+  }
+
+  /**
+   * schools.infra_monitors
+   */
+  export type schools$infra_monitorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the infra_monitors
+     */
+    select?: infra_monitorsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the infra_monitors
+     */
+    omit?: infra_monitorsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: infra_monitorsInclude<ExtArgs> | null
+    where?: infra_monitorsWhereInput
+    orderBy?: infra_monitorsOrderByWithRelationInput | infra_monitorsOrderByWithRelationInput[]
+    cursor?: infra_monitorsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Infra_monitorsScalarFieldEnum | Infra_monitorsScalarFieldEnum[]
   }
 
   /**
@@ -37683,6 +38538,9 @@ export namespace Prisma {
     tiers?: boolean | User$tiersArgs<ExtArgs>
     vault_documents?: boolean | User$vault_documentsArgs<ExtArgs>
     knowledge_documents?: boolean | User$knowledge_documentsArgs<ExtArgs>
+    student_profiles?: boolean | User$student_profilesArgs<ExtArgs>
+    differentiated_materials?: boolean | User$differentiated_materialsArgs<ExtArgs>
+    reading_improvement_plans?: boolean | User$reading_improvement_plansArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -37818,6 +38676,9 @@ export namespace Prisma {
     tiers?: boolean | User$tiersArgs<ExtArgs>
     vault_documents?: boolean | User$vault_documentsArgs<ExtArgs>
     knowledge_documents?: boolean | User$knowledge_documentsArgs<ExtArgs>
+    student_profiles?: boolean | User$student_profilesArgs<ExtArgs>
+    differentiated_materials?: boolean | User$differentiated_materialsArgs<ExtArgs>
+    reading_improvement_plans?: boolean | User$reading_improvement_plansArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -37856,6 +38717,9 @@ export namespace Prisma {
       tiers: Prisma.$tiersPayload<ExtArgs> | null
       vault_documents: Prisma.$vault_documentsPayload<ExtArgs>[]
       knowledge_documents: Prisma.$knowledge_documentsPayload<ExtArgs>[]
+      student_profiles: Prisma.$student_profilesPayload<ExtArgs>[]
+      differentiated_materials: Prisma.$differentiated_materialsPayload<ExtArgs>[]
+      reading_improvement_plans: Prisma.$reading_improvement_plansPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -38305,6 +39169,9 @@ export namespace Prisma {
     tiers<T extends User$tiersArgs<ExtArgs> = {}>(args?: Subset<T, User$tiersArgs<ExtArgs>>): Prisma__tiersClient<$Result.GetResult<Prisma.$tiersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     vault_documents<T extends User$vault_documentsArgs<ExtArgs> = {}>(args?: Subset<T, User$vault_documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$vault_documentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     knowledge_documents<T extends User$knowledge_documentsArgs<ExtArgs> = {}>(args?: Subset<T, User$knowledge_documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$knowledge_documentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    student_profiles<T extends User$student_profilesArgs<ExtArgs> = {}>(args?: Subset<T, User$student_profilesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$student_profilesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    differentiated_materials<T extends User$differentiated_materialsArgs<ExtArgs> = {}>(args?: Subset<T, User$differentiated_materialsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$differentiated_materialsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reading_improvement_plans<T extends User$reading_improvement_plansArgs<ExtArgs> = {}>(args?: Subset<T, User$reading_improvement_plansArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reading_improvement_plansPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -39271,6 +40138,78 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Knowledge_documentsScalarFieldEnum | Knowledge_documentsScalarFieldEnum[]
+  }
+
+  /**
+   * User.student_profiles
+   */
+  export type User$student_profilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the student_profiles
+     */
+    select?: student_profilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the student_profiles
+     */
+    omit?: student_profilesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: student_profilesInclude<ExtArgs> | null
+    where?: student_profilesWhereInput
+    orderBy?: student_profilesOrderByWithRelationInput | student_profilesOrderByWithRelationInput[]
+    cursor?: student_profilesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Student_profilesScalarFieldEnum | Student_profilesScalarFieldEnum[]
+  }
+
+  /**
+   * User.differentiated_materials
+   */
+  export type User$differentiated_materialsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the differentiated_materials
+     */
+    select?: differentiated_materialsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the differentiated_materials
+     */
+    omit?: differentiated_materialsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: differentiated_materialsInclude<ExtArgs> | null
+    where?: differentiated_materialsWhereInput
+    orderBy?: differentiated_materialsOrderByWithRelationInput | differentiated_materialsOrderByWithRelationInput[]
+    cursor?: differentiated_materialsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Differentiated_materialsScalarFieldEnum | Differentiated_materialsScalarFieldEnum[]
+  }
+
+  /**
+   * User.reading_improvement_plans
+   */
+  export type User$reading_improvement_plansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reading_improvement_plans
+     */
+    select?: reading_improvement_plansSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reading_improvement_plans
+     */
+    omit?: reading_improvement_plansOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reading_improvement_plansInclude<ExtArgs> | null
+    where?: reading_improvement_plansWhereInput
+    orderBy?: reading_improvement_plansOrderByWithRelationInput | reading_improvement_plansOrderByWithRelationInput[]
+    cursor?: reading_improvement_plansWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Reading_improvement_plansScalarFieldEnum | Reading_improvement_plansScalarFieldEnum[]
   }
 
   /**
@@ -46011,6 +46950,8472 @@ export namespace Prisma {
 
 
   /**
+   * Model student_profiles
+   */
+
+  export type AggregateStudent_profiles = {
+    _count: Student_profilesCountAggregateOutputType | null
+    _avg: Student_profilesAvgAggregateOutputType | null
+    _sum: Student_profilesSumAggregateOutputType | null
+    _min: Student_profilesMinAggregateOutputType | null
+    _max: Student_profilesMaxAggregateOutputType | null
+  }
+
+  export type Student_profilesAvgAggregateOutputType = {
+    lexile_level: number | null
+  }
+
+  export type Student_profilesSumAggregateOutputType = {
+    lexile_level: number | null
+  }
+
+  export type Student_profilesMinAggregateOutputType = {
+    id: string | null
+    user_id: string | null
+    student_sis_id: string | null
+    first_name: string | null
+    last_name: string | null
+    grade_level: string | null
+    school_id: string | null
+    lexile_level: number | null
+    ell_status: string | null
+    native_language: string | null
+    sped_status: string | null
+    dyslexia_flag: boolean | null
+    intervention_tier: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Student_profilesMaxAggregateOutputType = {
+    id: string | null
+    user_id: string | null
+    student_sis_id: string | null
+    first_name: string | null
+    last_name: string | null
+    grade_level: string | null
+    school_id: string | null
+    lexile_level: number | null
+    ell_status: string | null
+    native_language: string | null
+    sped_status: string | null
+    dyslexia_flag: boolean | null
+    intervention_tier: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Student_profilesCountAggregateOutputType = {
+    id: number
+    user_id: number
+    student_sis_id: number
+    first_name: number
+    last_name: number
+    grade_level: number
+    school_id: number
+    lexile_level: number
+    lexile_history: number
+    ell_status: number
+    native_language: number
+    sped_status: number
+    dyslexia_flag: number
+    intervention_tier: number
+    ala_skill_profile: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type Student_profilesAvgAggregateInputType = {
+    lexile_level?: true
+  }
+
+  export type Student_profilesSumAggregateInputType = {
+    lexile_level?: true
+  }
+
+  export type Student_profilesMinAggregateInputType = {
+    id?: true
+    user_id?: true
+    student_sis_id?: true
+    first_name?: true
+    last_name?: true
+    grade_level?: true
+    school_id?: true
+    lexile_level?: true
+    ell_status?: true
+    native_language?: true
+    sped_status?: true
+    dyslexia_flag?: true
+    intervention_tier?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Student_profilesMaxAggregateInputType = {
+    id?: true
+    user_id?: true
+    student_sis_id?: true
+    first_name?: true
+    last_name?: true
+    grade_level?: true
+    school_id?: true
+    lexile_level?: true
+    ell_status?: true
+    native_language?: true
+    sped_status?: true
+    dyslexia_flag?: true
+    intervention_tier?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Student_profilesCountAggregateInputType = {
+    id?: true
+    user_id?: true
+    student_sis_id?: true
+    first_name?: true
+    last_name?: true
+    grade_level?: true
+    school_id?: true
+    lexile_level?: true
+    lexile_history?: true
+    ell_status?: true
+    native_language?: true
+    sped_status?: true
+    dyslexia_flag?: true
+    intervention_tier?: true
+    ala_skill_profile?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type Student_profilesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which student_profiles to aggregate.
+     */
+    where?: student_profilesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of student_profiles to fetch.
+     */
+    orderBy?: student_profilesOrderByWithRelationInput | student_profilesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: student_profilesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` student_profiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` student_profiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned student_profiles
+    **/
+    _count?: true | Student_profilesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Student_profilesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Student_profilesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Student_profilesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Student_profilesMaxAggregateInputType
+  }
+
+  export type GetStudent_profilesAggregateType<T extends Student_profilesAggregateArgs> = {
+        [P in keyof T & keyof AggregateStudent_profiles]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStudent_profiles[P]>
+      : GetScalarType<T[P], AggregateStudent_profiles[P]>
+  }
+
+
+
+
+  export type student_profilesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: student_profilesWhereInput
+    orderBy?: student_profilesOrderByWithAggregationInput | student_profilesOrderByWithAggregationInput[]
+    by: Student_profilesScalarFieldEnum[] | Student_profilesScalarFieldEnum
+    having?: student_profilesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Student_profilesCountAggregateInputType | true
+    _avg?: Student_profilesAvgAggregateInputType
+    _sum?: Student_profilesSumAggregateInputType
+    _min?: Student_profilesMinAggregateInputType
+    _max?: Student_profilesMaxAggregateInputType
+  }
+
+  export type Student_profilesGroupByOutputType = {
+    id: string
+    user_id: string
+    student_sis_id: string
+    first_name: string
+    last_name: string
+    grade_level: string
+    school_id: string | null
+    lexile_level: number | null
+    lexile_history: JsonValue | null
+    ell_status: string | null
+    native_language: string | null
+    sped_status: string | null
+    dyslexia_flag: boolean
+    intervention_tier: string | null
+    ala_skill_profile: JsonValue | null
+    created_at: Date
+    updated_at: Date
+    _count: Student_profilesCountAggregateOutputType | null
+    _avg: Student_profilesAvgAggregateOutputType | null
+    _sum: Student_profilesSumAggregateOutputType | null
+    _min: Student_profilesMinAggregateOutputType | null
+    _max: Student_profilesMaxAggregateOutputType | null
+  }
+
+  type GetStudent_profilesGroupByPayload<T extends student_profilesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Student_profilesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Student_profilesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Student_profilesGroupByOutputType[P]>
+            : GetScalarType<T[P], Student_profilesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type student_profilesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    student_sis_id?: boolean
+    first_name?: boolean
+    last_name?: boolean
+    grade_level?: boolean
+    school_id?: boolean
+    lexile_level?: boolean
+    lexile_history?: boolean
+    ell_status?: boolean
+    native_language?: boolean
+    sped_status?: boolean
+    dyslexia_flag?: boolean
+    intervention_tier?: boolean
+    ala_skill_profile?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    users?: boolean | UserDefaultArgs<ExtArgs>
+    schools?: boolean | student_profiles$schoolsArgs<ExtArgs>
+    screener_results?: boolean | student_profiles$screener_resultsArgs<ExtArgs>
+    differentiated_materials?: boolean | student_profiles$differentiated_materialsArgs<ExtArgs>
+    reading_improvement_plans?: boolean | student_profiles$reading_improvement_plansArgs<ExtArgs>
+    _count?: boolean | Student_profilesCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["student_profiles"]>
+
+  export type student_profilesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    student_sis_id?: boolean
+    first_name?: boolean
+    last_name?: boolean
+    grade_level?: boolean
+    school_id?: boolean
+    lexile_level?: boolean
+    lexile_history?: boolean
+    ell_status?: boolean
+    native_language?: boolean
+    sped_status?: boolean
+    dyslexia_flag?: boolean
+    intervention_tier?: boolean
+    ala_skill_profile?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    users?: boolean | UserDefaultArgs<ExtArgs>
+    schools?: boolean | student_profiles$schoolsArgs<ExtArgs>
+  }, ExtArgs["result"]["student_profiles"]>
+
+  export type student_profilesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    student_sis_id?: boolean
+    first_name?: boolean
+    last_name?: boolean
+    grade_level?: boolean
+    school_id?: boolean
+    lexile_level?: boolean
+    lexile_history?: boolean
+    ell_status?: boolean
+    native_language?: boolean
+    sped_status?: boolean
+    dyslexia_flag?: boolean
+    intervention_tier?: boolean
+    ala_skill_profile?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    users?: boolean | UserDefaultArgs<ExtArgs>
+    schools?: boolean | student_profiles$schoolsArgs<ExtArgs>
+  }, ExtArgs["result"]["student_profiles"]>
+
+  export type student_profilesSelectScalar = {
+    id?: boolean
+    user_id?: boolean
+    student_sis_id?: boolean
+    first_name?: boolean
+    last_name?: boolean
+    grade_level?: boolean
+    school_id?: boolean
+    lexile_level?: boolean
+    lexile_history?: boolean
+    ell_status?: boolean
+    native_language?: boolean
+    sped_status?: boolean
+    dyslexia_flag?: boolean
+    intervention_tier?: boolean
+    ala_skill_profile?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type student_profilesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "student_sis_id" | "first_name" | "last_name" | "grade_level" | "school_id" | "lexile_level" | "lexile_history" | "ell_status" | "native_language" | "sped_status" | "dyslexia_flag" | "intervention_tier" | "ala_skill_profile" | "created_at" | "updated_at", ExtArgs["result"]["student_profiles"]>
+  export type student_profilesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | UserDefaultArgs<ExtArgs>
+    schools?: boolean | student_profiles$schoolsArgs<ExtArgs>
+    screener_results?: boolean | student_profiles$screener_resultsArgs<ExtArgs>
+    differentiated_materials?: boolean | student_profiles$differentiated_materialsArgs<ExtArgs>
+    reading_improvement_plans?: boolean | student_profiles$reading_improvement_plansArgs<ExtArgs>
+    _count?: boolean | Student_profilesCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type student_profilesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | UserDefaultArgs<ExtArgs>
+    schools?: boolean | student_profiles$schoolsArgs<ExtArgs>
+  }
+  export type student_profilesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | UserDefaultArgs<ExtArgs>
+    schools?: boolean | student_profiles$schoolsArgs<ExtArgs>
+  }
+
+  export type $student_profilesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "student_profiles"
+    objects: {
+      users: Prisma.$UserPayload<ExtArgs>
+      schools: Prisma.$schoolsPayload<ExtArgs> | null
+      screener_results: Prisma.$screener_resultsPayload<ExtArgs>[]
+      differentiated_materials: Prisma.$differentiated_materialsPayload<ExtArgs>[]
+      reading_improvement_plans: Prisma.$reading_improvement_plansPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      user_id: string
+      student_sis_id: string
+      first_name: string
+      last_name: string
+      grade_level: string
+      school_id: string | null
+      lexile_level: number | null
+      lexile_history: Prisma.JsonValue | null
+      ell_status: string | null
+      native_language: string | null
+      sped_status: string | null
+      dyslexia_flag: boolean
+      intervention_tier: string | null
+      ala_skill_profile: Prisma.JsonValue | null
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["student_profiles"]>
+    composites: {}
+  }
+
+  type student_profilesGetPayload<S extends boolean | null | undefined | student_profilesDefaultArgs> = $Result.GetResult<Prisma.$student_profilesPayload, S>
+
+  type student_profilesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<student_profilesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Student_profilesCountAggregateInputType | true
+    }
+
+  export interface student_profilesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['student_profiles'], meta: { name: 'student_profiles' } }
+    /**
+     * Find zero or one Student_profiles that matches the filter.
+     * @param {student_profilesFindUniqueArgs} args - Arguments to find a Student_profiles
+     * @example
+     * // Get one Student_profiles
+     * const student_profiles = await prisma.student_profiles.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends student_profilesFindUniqueArgs>(args: SelectSubset<T, student_profilesFindUniqueArgs<ExtArgs>>): Prisma__student_profilesClient<$Result.GetResult<Prisma.$student_profilesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Student_profiles that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {student_profilesFindUniqueOrThrowArgs} args - Arguments to find a Student_profiles
+     * @example
+     * // Get one Student_profiles
+     * const student_profiles = await prisma.student_profiles.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends student_profilesFindUniqueOrThrowArgs>(args: SelectSubset<T, student_profilesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__student_profilesClient<$Result.GetResult<Prisma.$student_profilesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Student_profiles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {student_profilesFindFirstArgs} args - Arguments to find a Student_profiles
+     * @example
+     * // Get one Student_profiles
+     * const student_profiles = await prisma.student_profiles.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends student_profilesFindFirstArgs>(args?: SelectSubset<T, student_profilesFindFirstArgs<ExtArgs>>): Prisma__student_profilesClient<$Result.GetResult<Prisma.$student_profilesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Student_profiles that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {student_profilesFindFirstOrThrowArgs} args - Arguments to find a Student_profiles
+     * @example
+     * // Get one Student_profiles
+     * const student_profiles = await prisma.student_profiles.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends student_profilesFindFirstOrThrowArgs>(args?: SelectSubset<T, student_profilesFindFirstOrThrowArgs<ExtArgs>>): Prisma__student_profilesClient<$Result.GetResult<Prisma.$student_profilesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Student_profiles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {student_profilesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Student_profiles
+     * const student_profiles = await prisma.student_profiles.findMany()
+     * 
+     * // Get first 10 Student_profiles
+     * const student_profiles = await prisma.student_profiles.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const student_profilesWithIdOnly = await prisma.student_profiles.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends student_profilesFindManyArgs>(args?: SelectSubset<T, student_profilesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$student_profilesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Student_profiles.
+     * @param {student_profilesCreateArgs} args - Arguments to create a Student_profiles.
+     * @example
+     * // Create one Student_profiles
+     * const Student_profiles = await prisma.student_profiles.create({
+     *   data: {
+     *     // ... data to create a Student_profiles
+     *   }
+     * })
+     * 
+     */
+    create<T extends student_profilesCreateArgs>(args: SelectSubset<T, student_profilesCreateArgs<ExtArgs>>): Prisma__student_profilesClient<$Result.GetResult<Prisma.$student_profilesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Student_profiles.
+     * @param {student_profilesCreateManyArgs} args - Arguments to create many Student_profiles.
+     * @example
+     * // Create many Student_profiles
+     * const student_profiles = await prisma.student_profiles.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends student_profilesCreateManyArgs>(args?: SelectSubset<T, student_profilesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Student_profiles and returns the data saved in the database.
+     * @param {student_profilesCreateManyAndReturnArgs} args - Arguments to create many Student_profiles.
+     * @example
+     * // Create many Student_profiles
+     * const student_profiles = await prisma.student_profiles.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Student_profiles and only return the `id`
+     * const student_profilesWithIdOnly = await prisma.student_profiles.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends student_profilesCreateManyAndReturnArgs>(args?: SelectSubset<T, student_profilesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$student_profilesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Student_profiles.
+     * @param {student_profilesDeleteArgs} args - Arguments to delete one Student_profiles.
+     * @example
+     * // Delete one Student_profiles
+     * const Student_profiles = await prisma.student_profiles.delete({
+     *   where: {
+     *     // ... filter to delete one Student_profiles
+     *   }
+     * })
+     * 
+     */
+    delete<T extends student_profilesDeleteArgs>(args: SelectSubset<T, student_profilesDeleteArgs<ExtArgs>>): Prisma__student_profilesClient<$Result.GetResult<Prisma.$student_profilesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Student_profiles.
+     * @param {student_profilesUpdateArgs} args - Arguments to update one Student_profiles.
+     * @example
+     * // Update one Student_profiles
+     * const student_profiles = await prisma.student_profiles.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends student_profilesUpdateArgs>(args: SelectSubset<T, student_profilesUpdateArgs<ExtArgs>>): Prisma__student_profilesClient<$Result.GetResult<Prisma.$student_profilesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Student_profiles.
+     * @param {student_profilesDeleteManyArgs} args - Arguments to filter Student_profiles to delete.
+     * @example
+     * // Delete a few Student_profiles
+     * const { count } = await prisma.student_profiles.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends student_profilesDeleteManyArgs>(args?: SelectSubset<T, student_profilesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Student_profiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {student_profilesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Student_profiles
+     * const student_profiles = await prisma.student_profiles.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends student_profilesUpdateManyArgs>(args: SelectSubset<T, student_profilesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Student_profiles and returns the data updated in the database.
+     * @param {student_profilesUpdateManyAndReturnArgs} args - Arguments to update many Student_profiles.
+     * @example
+     * // Update many Student_profiles
+     * const student_profiles = await prisma.student_profiles.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Student_profiles and only return the `id`
+     * const student_profilesWithIdOnly = await prisma.student_profiles.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends student_profilesUpdateManyAndReturnArgs>(args: SelectSubset<T, student_profilesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$student_profilesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Student_profiles.
+     * @param {student_profilesUpsertArgs} args - Arguments to update or create a Student_profiles.
+     * @example
+     * // Update or create a Student_profiles
+     * const student_profiles = await prisma.student_profiles.upsert({
+     *   create: {
+     *     // ... data to create a Student_profiles
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Student_profiles we want to update
+     *   }
+     * })
+     */
+    upsert<T extends student_profilesUpsertArgs>(args: SelectSubset<T, student_profilesUpsertArgs<ExtArgs>>): Prisma__student_profilesClient<$Result.GetResult<Prisma.$student_profilesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Student_profiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {student_profilesCountArgs} args - Arguments to filter Student_profiles to count.
+     * @example
+     * // Count the number of Student_profiles
+     * const count = await prisma.student_profiles.count({
+     *   where: {
+     *     // ... the filter for the Student_profiles we want to count
+     *   }
+     * })
+    **/
+    count<T extends student_profilesCountArgs>(
+      args?: Subset<T, student_profilesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Student_profilesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Student_profiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Student_profilesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Student_profilesAggregateArgs>(args: Subset<T, Student_profilesAggregateArgs>): Prisma.PrismaPromise<GetStudent_profilesAggregateType<T>>
+
+    /**
+     * Group by Student_profiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {student_profilesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends student_profilesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: student_profilesGroupByArgs['orderBy'] }
+        : { orderBy?: student_profilesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, student_profilesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStudent_profilesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the student_profiles model
+   */
+  readonly fields: student_profilesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for student_profiles.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__student_profilesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    users<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    schools<T extends student_profiles$schoolsArgs<ExtArgs> = {}>(args?: Subset<T, student_profiles$schoolsArgs<ExtArgs>>): Prisma__schoolsClient<$Result.GetResult<Prisma.$schoolsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    screener_results<T extends student_profiles$screener_resultsArgs<ExtArgs> = {}>(args?: Subset<T, student_profiles$screener_resultsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$screener_resultsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    differentiated_materials<T extends student_profiles$differentiated_materialsArgs<ExtArgs> = {}>(args?: Subset<T, student_profiles$differentiated_materialsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$differentiated_materialsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reading_improvement_plans<T extends student_profiles$reading_improvement_plansArgs<ExtArgs> = {}>(args?: Subset<T, student_profiles$reading_improvement_plansArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reading_improvement_plansPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the student_profiles model
+   */
+  interface student_profilesFieldRefs {
+    readonly id: FieldRef<"student_profiles", 'String'>
+    readonly user_id: FieldRef<"student_profiles", 'String'>
+    readonly student_sis_id: FieldRef<"student_profiles", 'String'>
+    readonly first_name: FieldRef<"student_profiles", 'String'>
+    readonly last_name: FieldRef<"student_profiles", 'String'>
+    readonly grade_level: FieldRef<"student_profiles", 'String'>
+    readonly school_id: FieldRef<"student_profiles", 'String'>
+    readonly lexile_level: FieldRef<"student_profiles", 'Int'>
+    readonly lexile_history: FieldRef<"student_profiles", 'Json'>
+    readonly ell_status: FieldRef<"student_profiles", 'String'>
+    readonly native_language: FieldRef<"student_profiles", 'String'>
+    readonly sped_status: FieldRef<"student_profiles", 'String'>
+    readonly dyslexia_flag: FieldRef<"student_profiles", 'Boolean'>
+    readonly intervention_tier: FieldRef<"student_profiles", 'String'>
+    readonly ala_skill_profile: FieldRef<"student_profiles", 'Json'>
+    readonly created_at: FieldRef<"student_profiles", 'DateTime'>
+    readonly updated_at: FieldRef<"student_profiles", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * student_profiles findUnique
+   */
+  export type student_profilesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the student_profiles
+     */
+    select?: student_profilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the student_profiles
+     */
+    omit?: student_profilesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: student_profilesInclude<ExtArgs> | null
+    /**
+     * Filter, which student_profiles to fetch.
+     */
+    where: student_profilesWhereUniqueInput
+  }
+
+  /**
+   * student_profiles findUniqueOrThrow
+   */
+  export type student_profilesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the student_profiles
+     */
+    select?: student_profilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the student_profiles
+     */
+    omit?: student_profilesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: student_profilesInclude<ExtArgs> | null
+    /**
+     * Filter, which student_profiles to fetch.
+     */
+    where: student_profilesWhereUniqueInput
+  }
+
+  /**
+   * student_profiles findFirst
+   */
+  export type student_profilesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the student_profiles
+     */
+    select?: student_profilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the student_profiles
+     */
+    omit?: student_profilesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: student_profilesInclude<ExtArgs> | null
+    /**
+     * Filter, which student_profiles to fetch.
+     */
+    where?: student_profilesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of student_profiles to fetch.
+     */
+    orderBy?: student_profilesOrderByWithRelationInput | student_profilesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for student_profiles.
+     */
+    cursor?: student_profilesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` student_profiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` student_profiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of student_profiles.
+     */
+    distinct?: Student_profilesScalarFieldEnum | Student_profilesScalarFieldEnum[]
+  }
+
+  /**
+   * student_profiles findFirstOrThrow
+   */
+  export type student_profilesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the student_profiles
+     */
+    select?: student_profilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the student_profiles
+     */
+    omit?: student_profilesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: student_profilesInclude<ExtArgs> | null
+    /**
+     * Filter, which student_profiles to fetch.
+     */
+    where?: student_profilesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of student_profiles to fetch.
+     */
+    orderBy?: student_profilesOrderByWithRelationInput | student_profilesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for student_profiles.
+     */
+    cursor?: student_profilesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` student_profiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` student_profiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of student_profiles.
+     */
+    distinct?: Student_profilesScalarFieldEnum | Student_profilesScalarFieldEnum[]
+  }
+
+  /**
+   * student_profiles findMany
+   */
+  export type student_profilesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the student_profiles
+     */
+    select?: student_profilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the student_profiles
+     */
+    omit?: student_profilesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: student_profilesInclude<ExtArgs> | null
+    /**
+     * Filter, which student_profiles to fetch.
+     */
+    where?: student_profilesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of student_profiles to fetch.
+     */
+    orderBy?: student_profilesOrderByWithRelationInput | student_profilesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing student_profiles.
+     */
+    cursor?: student_profilesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` student_profiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` student_profiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of student_profiles.
+     */
+    distinct?: Student_profilesScalarFieldEnum | Student_profilesScalarFieldEnum[]
+  }
+
+  /**
+   * student_profiles create
+   */
+  export type student_profilesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the student_profiles
+     */
+    select?: student_profilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the student_profiles
+     */
+    omit?: student_profilesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: student_profilesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a student_profiles.
+     */
+    data: XOR<student_profilesCreateInput, student_profilesUncheckedCreateInput>
+  }
+
+  /**
+   * student_profiles createMany
+   */
+  export type student_profilesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many student_profiles.
+     */
+    data: student_profilesCreateManyInput | student_profilesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * student_profiles createManyAndReturn
+   */
+  export type student_profilesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the student_profiles
+     */
+    select?: student_profilesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the student_profiles
+     */
+    omit?: student_profilesOmit<ExtArgs> | null
+    /**
+     * The data used to create many student_profiles.
+     */
+    data: student_profilesCreateManyInput | student_profilesCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: student_profilesIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * student_profiles update
+   */
+  export type student_profilesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the student_profiles
+     */
+    select?: student_profilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the student_profiles
+     */
+    omit?: student_profilesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: student_profilesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a student_profiles.
+     */
+    data: XOR<student_profilesUpdateInput, student_profilesUncheckedUpdateInput>
+    /**
+     * Choose, which student_profiles to update.
+     */
+    where: student_profilesWhereUniqueInput
+  }
+
+  /**
+   * student_profiles updateMany
+   */
+  export type student_profilesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update student_profiles.
+     */
+    data: XOR<student_profilesUpdateManyMutationInput, student_profilesUncheckedUpdateManyInput>
+    /**
+     * Filter which student_profiles to update
+     */
+    where?: student_profilesWhereInput
+    /**
+     * Limit how many student_profiles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * student_profiles updateManyAndReturn
+   */
+  export type student_profilesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the student_profiles
+     */
+    select?: student_profilesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the student_profiles
+     */
+    omit?: student_profilesOmit<ExtArgs> | null
+    /**
+     * The data used to update student_profiles.
+     */
+    data: XOR<student_profilesUpdateManyMutationInput, student_profilesUncheckedUpdateManyInput>
+    /**
+     * Filter which student_profiles to update
+     */
+    where?: student_profilesWhereInput
+    /**
+     * Limit how many student_profiles to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: student_profilesIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * student_profiles upsert
+   */
+  export type student_profilesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the student_profiles
+     */
+    select?: student_profilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the student_profiles
+     */
+    omit?: student_profilesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: student_profilesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the student_profiles to update in case it exists.
+     */
+    where: student_profilesWhereUniqueInput
+    /**
+     * In case the student_profiles found by the `where` argument doesn't exist, create a new student_profiles with this data.
+     */
+    create: XOR<student_profilesCreateInput, student_profilesUncheckedCreateInput>
+    /**
+     * In case the student_profiles was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<student_profilesUpdateInput, student_profilesUncheckedUpdateInput>
+  }
+
+  /**
+   * student_profiles delete
+   */
+  export type student_profilesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the student_profiles
+     */
+    select?: student_profilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the student_profiles
+     */
+    omit?: student_profilesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: student_profilesInclude<ExtArgs> | null
+    /**
+     * Filter which student_profiles to delete.
+     */
+    where: student_profilesWhereUniqueInput
+  }
+
+  /**
+   * student_profiles deleteMany
+   */
+  export type student_profilesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which student_profiles to delete
+     */
+    where?: student_profilesWhereInput
+    /**
+     * Limit how many student_profiles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * student_profiles.schools
+   */
+  export type student_profiles$schoolsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the schools
+     */
+    select?: schoolsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the schools
+     */
+    omit?: schoolsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: schoolsInclude<ExtArgs> | null
+    where?: schoolsWhereInput
+  }
+
+  /**
+   * student_profiles.screener_results
+   */
+  export type student_profiles$screener_resultsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the screener_results
+     */
+    select?: screener_resultsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the screener_results
+     */
+    omit?: screener_resultsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: screener_resultsInclude<ExtArgs> | null
+    where?: screener_resultsWhereInput
+    orderBy?: screener_resultsOrderByWithRelationInput | screener_resultsOrderByWithRelationInput[]
+    cursor?: screener_resultsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Screener_resultsScalarFieldEnum | Screener_resultsScalarFieldEnum[]
+  }
+
+  /**
+   * student_profiles.differentiated_materials
+   */
+  export type student_profiles$differentiated_materialsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the differentiated_materials
+     */
+    select?: differentiated_materialsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the differentiated_materials
+     */
+    omit?: differentiated_materialsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: differentiated_materialsInclude<ExtArgs> | null
+    where?: differentiated_materialsWhereInput
+    orderBy?: differentiated_materialsOrderByWithRelationInput | differentiated_materialsOrderByWithRelationInput[]
+    cursor?: differentiated_materialsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Differentiated_materialsScalarFieldEnum | Differentiated_materialsScalarFieldEnum[]
+  }
+
+  /**
+   * student_profiles.reading_improvement_plans
+   */
+  export type student_profiles$reading_improvement_plansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reading_improvement_plans
+     */
+    select?: reading_improvement_plansSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reading_improvement_plans
+     */
+    omit?: reading_improvement_plansOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reading_improvement_plansInclude<ExtArgs> | null
+    where?: reading_improvement_plansWhereInput
+    orderBy?: reading_improvement_plansOrderByWithRelationInput | reading_improvement_plansOrderByWithRelationInput[]
+    cursor?: reading_improvement_plansWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Reading_improvement_plansScalarFieldEnum | Reading_improvement_plansScalarFieldEnum[]
+  }
+
+  /**
+   * student_profiles without action
+   */
+  export type student_profilesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the student_profiles
+     */
+    select?: student_profilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the student_profiles
+     */
+    omit?: student_profilesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: student_profilesInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model screener_results
+   */
+
+  export type AggregateScreener_results = {
+    _count: Screener_resultsCountAggregateOutputType | null
+    _avg: Screener_resultsAvgAggregateOutputType | null
+    _sum: Screener_resultsSumAggregateOutputType | null
+    _min: Screener_resultsMinAggregateOutputType | null
+    _max: Screener_resultsMaxAggregateOutputType | null
+  }
+
+  export type Screener_resultsAvgAggregateOutputType = {
+    composite_score: number | null
+  }
+
+  export type Screener_resultsSumAggregateOutputType = {
+    composite_score: number | null
+  }
+
+  export type Screener_resultsMinAggregateOutputType = {
+    id: string | null
+    student_profile_id: string | null
+    screener_platform: string | null
+    assessment_window: string | null
+    assessment_date: Date | null
+    composite_score: number | null
+    risk_level: string | null
+    created_at: Date | null
+  }
+
+  export type Screener_resultsMaxAggregateOutputType = {
+    id: string | null
+    student_profile_id: string | null
+    screener_platform: string | null
+    assessment_window: string | null
+    assessment_date: Date | null
+    composite_score: number | null
+    risk_level: string | null
+    created_at: Date | null
+  }
+
+  export type Screener_resultsCountAggregateOutputType = {
+    id: number
+    student_profile_id: number
+    screener_platform: number
+    assessment_window: number
+    assessment_date: number
+    composite_score: number
+    risk_level: number
+    skill_scores: number
+    raw_data: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type Screener_resultsAvgAggregateInputType = {
+    composite_score?: true
+  }
+
+  export type Screener_resultsSumAggregateInputType = {
+    composite_score?: true
+  }
+
+  export type Screener_resultsMinAggregateInputType = {
+    id?: true
+    student_profile_id?: true
+    screener_platform?: true
+    assessment_window?: true
+    assessment_date?: true
+    composite_score?: true
+    risk_level?: true
+    created_at?: true
+  }
+
+  export type Screener_resultsMaxAggregateInputType = {
+    id?: true
+    student_profile_id?: true
+    screener_platform?: true
+    assessment_window?: true
+    assessment_date?: true
+    composite_score?: true
+    risk_level?: true
+    created_at?: true
+  }
+
+  export type Screener_resultsCountAggregateInputType = {
+    id?: true
+    student_profile_id?: true
+    screener_platform?: true
+    assessment_window?: true
+    assessment_date?: true
+    composite_score?: true
+    risk_level?: true
+    skill_scores?: true
+    raw_data?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type Screener_resultsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which screener_results to aggregate.
+     */
+    where?: screener_resultsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of screener_results to fetch.
+     */
+    orderBy?: screener_resultsOrderByWithRelationInput | screener_resultsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: screener_resultsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` screener_results from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` screener_results.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned screener_results
+    **/
+    _count?: true | Screener_resultsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Screener_resultsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Screener_resultsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Screener_resultsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Screener_resultsMaxAggregateInputType
+  }
+
+  export type GetScreener_resultsAggregateType<T extends Screener_resultsAggregateArgs> = {
+        [P in keyof T & keyof AggregateScreener_results]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateScreener_results[P]>
+      : GetScalarType<T[P], AggregateScreener_results[P]>
+  }
+
+
+
+
+  export type screener_resultsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: screener_resultsWhereInput
+    orderBy?: screener_resultsOrderByWithAggregationInput | screener_resultsOrderByWithAggregationInput[]
+    by: Screener_resultsScalarFieldEnum[] | Screener_resultsScalarFieldEnum
+    having?: screener_resultsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Screener_resultsCountAggregateInputType | true
+    _avg?: Screener_resultsAvgAggregateInputType
+    _sum?: Screener_resultsSumAggregateInputType
+    _min?: Screener_resultsMinAggregateInputType
+    _max?: Screener_resultsMaxAggregateInputType
+  }
+
+  export type Screener_resultsGroupByOutputType = {
+    id: string
+    student_profile_id: string
+    screener_platform: string
+    assessment_window: string
+    assessment_date: Date
+    composite_score: number | null
+    risk_level: string | null
+    skill_scores: JsonValue
+    raw_data: JsonValue | null
+    created_at: Date
+    _count: Screener_resultsCountAggregateOutputType | null
+    _avg: Screener_resultsAvgAggregateOutputType | null
+    _sum: Screener_resultsSumAggregateOutputType | null
+    _min: Screener_resultsMinAggregateOutputType | null
+    _max: Screener_resultsMaxAggregateOutputType | null
+  }
+
+  type GetScreener_resultsGroupByPayload<T extends screener_resultsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Screener_resultsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Screener_resultsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Screener_resultsGroupByOutputType[P]>
+            : GetScalarType<T[P], Screener_resultsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type screener_resultsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    student_profile_id?: boolean
+    screener_platform?: boolean
+    assessment_window?: boolean
+    assessment_date?: boolean
+    composite_score?: boolean
+    risk_level?: boolean
+    skill_scores?: boolean
+    raw_data?: boolean
+    created_at?: boolean
+    student_profiles?: boolean | student_profilesDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["screener_results"]>
+
+  export type screener_resultsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    student_profile_id?: boolean
+    screener_platform?: boolean
+    assessment_window?: boolean
+    assessment_date?: boolean
+    composite_score?: boolean
+    risk_level?: boolean
+    skill_scores?: boolean
+    raw_data?: boolean
+    created_at?: boolean
+    student_profiles?: boolean | student_profilesDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["screener_results"]>
+
+  export type screener_resultsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    student_profile_id?: boolean
+    screener_platform?: boolean
+    assessment_window?: boolean
+    assessment_date?: boolean
+    composite_score?: boolean
+    risk_level?: boolean
+    skill_scores?: boolean
+    raw_data?: boolean
+    created_at?: boolean
+    student_profiles?: boolean | student_profilesDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["screener_results"]>
+
+  export type screener_resultsSelectScalar = {
+    id?: boolean
+    student_profile_id?: boolean
+    screener_platform?: boolean
+    assessment_window?: boolean
+    assessment_date?: boolean
+    composite_score?: boolean
+    risk_level?: boolean
+    skill_scores?: boolean
+    raw_data?: boolean
+    created_at?: boolean
+  }
+
+  export type screener_resultsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "student_profile_id" | "screener_platform" | "assessment_window" | "assessment_date" | "composite_score" | "risk_level" | "skill_scores" | "raw_data" | "created_at", ExtArgs["result"]["screener_results"]>
+  export type screener_resultsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    student_profiles?: boolean | student_profilesDefaultArgs<ExtArgs>
+  }
+  export type screener_resultsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    student_profiles?: boolean | student_profilesDefaultArgs<ExtArgs>
+  }
+  export type screener_resultsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    student_profiles?: boolean | student_profilesDefaultArgs<ExtArgs>
+  }
+
+  export type $screener_resultsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "screener_results"
+    objects: {
+      student_profiles: Prisma.$student_profilesPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      student_profile_id: string
+      screener_platform: string
+      assessment_window: string
+      assessment_date: Date
+      composite_score: number | null
+      risk_level: string | null
+      skill_scores: Prisma.JsonValue
+      raw_data: Prisma.JsonValue | null
+      created_at: Date
+    }, ExtArgs["result"]["screener_results"]>
+    composites: {}
+  }
+
+  type screener_resultsGetPayload<S extends boolean | null | undefined | screener_resultsDefaultArgs> = $Result.GetResult<Prisma.$screener_resultsPayload, S>
+
+  type screener_resultsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<screener_resultsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Screener_resultsCountAggregateInputType | true
+    }
+
+  export interface screener_resultsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['screener_results'], meta: { name: 'screener_results' } }
+    /**
+     * Find zero or one Screener_results that matches the filter.
+     * @param {screener_resultsFindUniqueArgs} args - Arguments to find a Screener_results
+     * @example
+     * // Get one Screener_results
+     * const screener_results = await prisma.screener_results.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends screener_resultsFindUniqueArgs>(args: SelectSubset<T, screener_resultsFindUniqueArgs<ExtArgs>>): Prisma__screener_resultsClient<$Result.GetResult<Prisma.$screener_resultsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Screener_results that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {screener_resultsFindUniqueOrThrowArgs} args - Arguments to find a Screener_results
+     * @example
+     * // Get one Screener_results
+     * const screener_results = await prisma.screener_results.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends screener_resultsFindUniqueOrThrowArgs>(args: SelectSubset<T, screener_resultsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__screener_resultsClient<$Result.GetResult<Prisma.$screener_resultsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Screener_results that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {screener_resultsFindFirstArgs} args - Arguments to find a Screener_results
+     * @example
+     * // Get one Screener_results
+     * const screener_results = await prisma.screener_results.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends screener_resultsFindFirstArgs>(args?: SelectSubset<T, screener_resultsFindFirstArgs<ExtArgs>>): Prisma__screener_resultsClient<$Result.GetResult<Prisma.$screener_resultsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Screener_results that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {screener_resultsFindFirstOrThrowArgs} args - Arguments to find a Screener_results
+     * @example
+     * // Get one Screener_results
+     * const screener_results = await prisma.screener_results.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends screener_resultsFindFirstOrThrowArgs>(args?: SelectSubset<T, screener_resultsFindFirstOrThrowArgs<ExtArgs>>): Prisma__screener_resultsClient<$Result.GetResult<Prisma.$screener_resultsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Screener_results that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {screener_resultsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Screener_results
+     * const screener_results = await prisma.screener_results.findMany()
+     * 
+     * // Get first 10 Screener_results
+     * const screener_results = await prisma.screener_results.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const screener_resultsWithIdOnly = await prisma.screener_results.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends screener_resultsFindManyArgs>(args?: SelectSubset<T, screener_resultsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$screener_resultsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Screener_results.
+     * @param {screener_resultsCreateArgs} args - Arguments to create a Screener_results.
+     * @example
+     * // Create one Screener_results
+     * const Screener_results = await prisma.screener_results.create({
+     *   data: {
+     *     // ... data to create a Screener_results
+     *   }
+     * })
+     * 
+     */
+    create<T extends screener_resultsCreateArgs>(args: SelectSubset<T, screener_resultsCreateArgs<ExtArgs>>): Prisma__screener_resultsClient<$Result.GetResult<Prisma.$screener_resultsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Screener_results.
+     * @param {screener_resultsCreateManyArgs} args - Arguments to create many Screener_results.
+     * @example
+     * // Create many Screener_results
+     * const screener_results = await prisma.screener_results.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends screener_resultsCreateManyArgs>(args?: SelectSubset<T, screener_resultsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Screener_results and returns the data saved in the database.
+     * @param {screener_resultsCreateManyAndReturnArgs} args - Arguments to create many Screener_results.
+     * @example
+     * // Create many Screener_results
+     * const screener_results = await prisma.screener_results.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Screener_results and only return the `id`
+     * const screener_resultsWithIdOnly = await prisma.screener_results.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends screener_resultsCreateManyAndReturnArgs>(args?: SelectSubset<T, screener_resultsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$screener_resultsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Screener_results.
+     * @param {screener_resultsDeleteArgs} args - Arguments to delete one Screener_results.
+     * @example
+     * // Delete one Screener_results
+     * const Screener_results = await prisma.screener_results.delete({
+     *   where: {
+     *     // ... filter to delete one Screener_results
+     *   }
+     * })
+     * 
+     */
+    delete<T extends screener_resultsDeleteArgs>(args: SelectSubset<T, screener_resultsDeleteArgs<ExtArgs>>): Prisma__screener_resultsClient<$Result.GetResult<Prisma.$screener_resultsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Screener_results.
+     * @param {screener_resultsUpdateArgs} args - Arguments to update one Screener_results.
+     * @example
+     * // Update one Screener_results
+     * const screener_results = await prisma.screener_results.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends screener_resultsUpdateArgs>(args: SelectSubset<T, screener_resultsUpdateArgs<ExtArgs>>): Prisma__screener_resultsClient<$Result.GetResult<Prisma.$screener_resultsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Screener_results.
+     * @param {screener_resultsDeleteManyArgs} args - Arguments to filter Screener_results to delete.
+     * @example
+     * // Delete a few Screener_results
+     * const { count } = await prisma.screener_results.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends screener_resultsDeleteManyArgs>(args?: SelectSubset<T, screener_resultsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Screener_results.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {screener_resultsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Screener_results
+     * const screener_results = await prisma.screener_results.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends screener_resultsUpdateManyArgs>(args: SelectSubset<T, screener_resultsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Screener_results and returns the data updated in the database.
+     * @param {screener_resultsUpdateManyAndReturnArgs} args - Arguments to update many Screener_results.
+     * @example
+     * // Update many Screener_results
+     * const screener_results = await prisma.screener_results.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Screener_results and only return the `id`
+     * const screener_resultsWithIdOnly = await prisma.screener_results.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends screener_resultsUpdateManyAndReturnArgs>(args: SelectSubset<T, screener_resultsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$screener_resultsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Screener_results.
+     * @param {screener_resultsUpsertArgs} args - Arguments to update or create a Screener_results.
+     * @example
+     * // Update or create a Screener_results
+     * const screener_results = await prisma.screener_results.upsert({
+     *   create: {
+     *     // ... data to create a Screener_results
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Screener_results we want to update
+     *   }
+     * })
+     */
+    upsert<T extends screener_resultsUpsertArgs>(args: SelectSubset<T, screener_resultsUpsertArgs<ExtArgs>>): Prisma__screener_resultsClient<$Result.GetResult<Prisma.$screener_resultsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Screener_results.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {screener_resultsCountArgs} args - Arguments to filter Screener_results to count.
+     * @example
+     * // Count the number of Screener_results
+     * const count = await prisma.screener_results.count({
+     *   where: {
+     *     // ... the filter for the Screener_results we want to count
+     *   }
+     * })
+    **/
+    count<T extends screener_resultsCountArgs>(
+      args?: Subset<T, screener_resultsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Screener_resultsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Screener_results.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Screener_resultsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Screener_resultsAggregateArgs>(args: Subset<T, Screener_resultsAggregateArgs>): Prisma.PrismaPromise<GetScreener_resultsAggregateType<T>>
+
+    /**
+     * Group by Screener_results.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {screener_resultsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends screener_resultsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: screener_resultsGroupByArgs['orderBy'] }
+        : { orderBy?: screener_resultsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, screener_resultsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetScreener_resultsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the screener_results model
+   */
+  readonly fields: screener_resultsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for screener_results.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__screener_resultsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    student_profiles<T extends student_profilesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, student_profilesDefaultArgs<ExtArgs>>): Prisma__student_profilesClient<$Result.GetResult<Prisma.$student_profilesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the screener_results model
+   */
+  interface screener_resultsFieldRefs {
+    readonly id: FieldRef<"screener_results", 'String'>
+    readonly student_profile_id: FieldRef<"screener_results", 'String'>
+    readonly screener_platform: FieldRef<"screener_results", 'String'>
+    readonly assessment_window: FieldRef<"screener_results", 'String'>
+    readonly assessment_date: FieldRef<"screener_results", 'DateTime'>
+    readonly composite_score: FieldRef<"screener_results", 'Float'>
+    readonly risk_level: FieldRef<"screener_results", 'String'>
+    readonly skill_scores: FieldRef<"screener_results", 'Json'>
+    readonly raw_data: FieldRef<"screener_results", 'Json'>
+    readonly created_at: FieldRef<"screener_results", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * screener_results findUnique
+   */
+  export type screener_resultsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the screener_results
+     */
+    select?: screener_resultsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the screener_results
+     */
+    omit?: screener_resultsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: screener_resultsInclude<ExtArgs> | null
+    /**
+     * Filter, which screener_results to fetch.
+     */
+    where: screener_resultsWhereUniqueInput
+  }
+
+  /**
+   * screener_results findUniqueOrThrow
+   */
+  export type screener_resultsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the screener_results
+     */
+    select?: screener_resultsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the screener_results
+     */
+    omit?: screener_resultsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: screener_resultsInclude<ExtArgs> | null
+    /**
+     * Filter, which screener_results to fetch.
+     */
+    where: screener_resultsWhereUniqueInput
+  }
+
+  /**
+   * screener_results findFirst
+   */
+  export type screener_resultsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the screener_results
+     */
+    select?: screener_resultsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the screener_results
+     */
+    omit?: screener_resultsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: screener_resultsInclude<ExtArgs> | null
+    /**
+     * Filter, which screener_results to fetch.
+     */
+    where?: screener_resultsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of screener_results to fetch.
+     */
+    orderBy?: screener_resultsOrderByWithRelationInput | screener_resultsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for screener_results.
+     */
+    cursor?: screener_resultsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` screener_results from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` screener_results.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of screener_results.
+     */
+    distinct?: Screener_resultsScalarFieldEnum | Screener_resultsScalarFieldEnum[]
+  }
+
+  /**
+   * screener_results findFirstOrThrow
+   */
+  export type screener_resultsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the screener_results
+     */
+    select?: screener_resultsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the screener_results
+     */
+    omit?: screener_resultsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: screener_resultsInclude<ExtArgs> | null
+    /**
+     * Filter, which screener_results to fetch.
+     */
+    where?: screener_resultsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of screener_results to fetch.
+     */
+    orderBy?: screener_resultsOrderByWithRelationInput | screener_resultsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for screener_results.
+     */
+    cursor?: screener_resultsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` screener_results from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` screener_results.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of screener_results.
+     */
+    distinct?: Screener_resultsScalarFieldEnum | Screener_resultsScalarFieldEnum[]
+  }
+
+  /**
+   * screener_results findMany
+   */
+  export type screener_resultsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the screener_results
+     */
+    select?: screener_resultsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the screener_results
+     */
+    omit?: screener_resultsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: screener_resultsInclude<ExtArgs> | null
+    /**
+     * Filter, which screener_results to fetch.
+     */
+    where?: screener_resultsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of screener_results to fetch.
+     */
+    orderBy?: screener_resultsOrderByWithRelationInput | screener_resultsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing screener_results.
+     */
+    cursor?: screener_resultsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` screener_results from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` screener_results.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of screener_results.
+     */
+    distinct?: Screener_resultsScalarFieldEnum | Screener_resultsScalarFieldEnum[]
+  }
+
+  /**
+   * screener_results create
+   */
+  export type screener_resultsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the screener_results
+     */
+    select?: screener_resultsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the screener_results
+     */
+    omit?: screener_resultsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: screener_resultsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a screener_results.
+     */
+    data: XOR<screener_resultsCreateInput, screener_resultsUncheckedCreateInput>
+  }
+
+  /**
+   * screener_results createMany
+   */
+  export type screener_resultsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many screener_results.
+     */
+    data: screener_resultsCreateManyInput | screener_resultsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * screener_results createManyAndReturn
+   */
+  export type screener_resultsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the screener_results
+     */
+    select?: screener_resultsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the screener_results
+     */
+    omit?: screener_resultsOmit<ExtArgs> | null
+    /**
+     * The data used to create many screener_results.
+     */
+    data: screener_resultsCreateManyInput | screener_resultsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: screener_resultsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * screener_results update
+   */
+  export type screener_resultsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the screener_results
+     */
+    select?: screener_resultsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the screener_results
+     */
+    omit?: screener_resultsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: screener_resultsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a screener_results.
+     */
+    data: XOR<screener_resultsUpdateInput, screener_resultsUncheckedUpdateInput>
+    /**
+     * Choose, which screener_results to update.
+     */
+    where: screener_resultsWhereUniqueInput
+  }
+
+  /**
+   * screener_results updateMany
+   */
+  export type screener_resultsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update screener_results.
+     */
+    data: XOR<screener_resultsUpdateManyMutationInput, screener_resultsUncheckedUpdateManyInput>
+    /**
+     * Filter which screener_results to update
+     */
+    where?: screener_resultsWhereInput
+    /**
+     * Limit how many screener_results to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * screener_results updateManyAndReturn
+   */
+  export type screener_resultsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the screener_results
+     */
+    select?: screener_resultsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the screener_results
+     */
+    omit?: screener_resultsOmit<ExtArgs> | null
+    /**
+     * The data used to update screener_results.
+     */
+    data: XOR<screener_resultsUpdateManyMutationInput, screener_resultsUncheckedUpdateManyInput>
+    /**
+     * Filter which screener_results to update
+     */
+    where?: screener_resultsWhereInput
+    /**
+     * Limit how many screener_results to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: screener_resultsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * screener_results upsert
+   */
+  export type screener_resultsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the screener_results
+     */
+    select?: screener_resultsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the screener_results
+     */
+    omit?: screener_resultsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: screener_resultsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the screener_results to update in case it exists.
+     */
+    where: screener_resultsWhereUniqueInput
+    /**
+     * In case the screener_results found by the `where` argument doesn't exist, create a new screener_results with this data.
+     */
+    create: XOR<screener_resultsCreateInput, screener_resultsUncheckedCreateInput>
+    /**
+     * In case the screener_results was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<screener_resultsUpdateInput, screener_resultsUncheckedUpdateInput>
+  }
+
+  /**
+   * screener_results delete
+   */
+  export type screener_resultsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the screener_results
+     */
+    select?: screener_resultsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the screener_results
+     */
+    omit?: screener_resultsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: screener_resultsInclude<ExtArgs> | null
+    /**
+     * Filter which screener_results to delete.
+     */
+    where: screener_resultsWhereUniqueInput
+  }
+
+  /**
+   * screener_results deleteMany
+   */
+  export type screener_resultsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which screener_results to delete
+     */
+    where?: screener_resultsWhereInput
+    /**
+     * Limit how many screener_results to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * screener_results without action
+   */
+  export type screener_resultsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the screener_results
+     */
+    select?: screener_resultsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the screener_results
+     */
+    omit?: screener_resultsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: screener_resultsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model differentiated_materials
+   */
+
+  export type AggregateDifferentiated_materials = {
+    _count: Differentiated_materialsCountAggregateOutputType | null
+    _avg: Differentiated_materialsAvgAggregateOutputType | null
+    _sum: Differentiated_materialsSumAggregateOutputType | null
+    _min: Differentiated_materialsMinAggregateOutputType | null
+    _max: Differentiated_materialsMaxAggregateOutputType | null
+  }
+
+  export type Differentiated_materialsAvgAggregateOutputType = {
+    target_lexile: number | null
+    output_lexile: number | null
+    dok_level: number | null
+    tokens_used: number | null
+  }
+
+  export type Differentiated_materialsSumAggregateOutputType = {
+    target_lexile: number | null
+    output_lexile: number | null
+    dok_level: number | null
+    tokens_used: number | null
+  }
+
+  export type Differentiated_materialsMinAggregateOutputType = {
+    id: string | null
+    user_id: string | null
+    student_profile_id: string | null
+    title: string | null
+    source_input: string | null
+    target_lexile: number | null
+    output_lexile: number | null
+    dok_level: number | null
+    content_type: string | null
+    academic_standard: string | null
+    subject: string | null
+    grade_level: string | null
+    language: string | null
+    exported_to: string | null
+    tokens_used: number | null
+    created_at: Date | null
+  }
+
+  export type Differentiated_materialsMaxAggregateOutputType = {
+    id: string | null
+    user_id: string | null
+    student_profile_id: string | null
+    title: string | null
+    source_input: string | null
+    target_lexile: number | null
+    output_lexile: number | null
+    dok_level: number | null
+    content_type: string | null
+    academic_standard: string | null
+    subject: string | null
+    grade_level: string | null
+    language: string | null
+    exported_to: string | null
+    tokens_used: number | null
+    created_at: Date | null
+  }
+
+  export type Differentiated_materialsCountAggregateOutputType = {
+    id: number
+    user_id: number
+    student_profile_id: number
+    title: number
+    source_input: number
+    target_lexile: number
+    output_lexile: number
+    dok_level: number
+    content_type: number
+    generated_content: number
+    academic_standard: number
+    subject: number
+    grade_level: number
+    language: number
+    exported_to: number
+    tokens_used: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type Differentiated_materialsAvgAggregateInputType = {
+    target_lexile?: true
+    output_lexile?: true
+    dok_level?: true
+    tokens_used?: true
+  }
+
+  export type Differentiated_materialsSumAggregateInputType = {
+    target_lexile?: true
+    output_lexile?: true
+    dok_level?: true
+    tokens_used?: true
+  }
+
+  export type Differentiated_materialsMinAggregateInputType = {
+    id?: true
+    user_id?: true
+    student_profile_id?: true
+    title?: true
+    source_input?: true
+    target_lexile?: true
+    output_lexile?: true
+    dok_level?: true
+    content_type?: true
+    academic_standard?: true
+    subject?: true
+    grade_level?: true
+    language?: true
+    exported_to?: true
+    tokens_used?: true
+    created_at?: true
+  }
+
+  export type Differentiated_materialsMaxAggregateInputType = {
+    id?: true
+    user_id?: true
+    student_profile_id?: true
+    title?: true
+    source_input?: true
+    target_lexile?: true
+    output_lexile?: true
+    dok_level?: true
+    content_type?: true
+    academic_standard?: true
+    subject?: true
+    grade_level?: true
+    language?: true
+    exported_to?: true
+    tokens_used?: true
+    created_at?: true
+  }
+
+  export type Differentiated_materialsCountAggregateInputType = {
+    id?: true
+    user_id?: true
+    student_profile_id?: true
+    title?: true
+    source_input?: true
+    target_lexile?: true
+    output_lexile?: true
+    dok_level?: true
+    content_type?: true
+    generated_content?: true
+    academic_standard?: true
+    subject?: true
+    grade_level?: true
+    language?: true
+    exported_to?: true
+    tokens_used?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type Differentiated_materialsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which differentiated_materials to aggregate.
+     */
+    where?: differentiated_materialsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of differentiated_materials to fetch.
+     */
+    orderBy?: differentiated_materialsOrderByWithRelationInput | differentiated_materialsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: differentiated_materialsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` differentiated_materials from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` differentiated_materials.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned differentiated_materials
+    **/
+    _count?: true | Differentiated_materialsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Differentiated_materialsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Differentiated_materialsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Differentiated_materialsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Differentiated_materialsMaxAggregateInputType
+  }
+
+  export type GetDifferentiated_materialsAggregateType<T extends Differentiated_materialsAggregateArgs> = {
+        [P in keyof T & keyof AggregateDifferentiated_materials]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDifferentiated_materials[P]>
+      : GetScalarType<T[P], AggregateDifferentiated_materials[P]>
+  }
+
+
+
+
+  export type differentiated_materialsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: differentiated_materialsWhereInput
+    orderBy?: differentiated_materialsOrderByWithAggregationInput | differentiated_materialsOrderByWithAggregationInput[]
+    by: Differentiated_materialsScalarFieldEnum[] | Differentiated_materialsScalarFieldEnum
+    having?: differentiated_materialsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Differentiated_materialsCountAggregateInputType | true
+    _avg?: Differentiated_materialsAvgAggregateInputType
+    _sum?: Differentiated_materialsSumAggregateInputType
+    _min?: Differentiated_materialsMinAggregateInputType
+    _max?: Differentiated_materialsMaxAggregateInputType
+  }
+
+  export type Differentiated_materialsGroupByOutputType = {
+    id: string
+    user_id: string
+    student_profile_id: string | null
+    title: string
+    source_input: string
+    target_lexile: number
+    output_lexile: number | null
+    dok_level: number
+    content_type: string
+    generated_content: JsonValue
+    academic_standard: string | null
+    subject: string | null
+    grade_level: string | null
+    language: string
+    exported_to: string | null
+    tokens_used: number
+    created_at: Date
+    _count: Differentiated_materialsCountAggregateOutputType | null
+    _avg: Differentiated_materialsAvgAggregateOutputType | null
+    _sum: Differentiated_materialsSumAggregateOutputType | null
+    _min: Differentiated_materialsMinAggregateOutputType | null
+    _max: Differentiated_materialsMaxAggregateOutputType | null
+  }
+
+  type GetDifferentiated_materialsGroupByPayload<T extends differentiated_materialsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Differentiated_materialsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Differentiated_materialsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Differentiated_materialsGroupByOutputType[P]>
+            : GetScalarType<T[P], Differentiated_materialsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type differentiated_materialsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    student_profile_id?: boolean
+    title?: boolean
+    source_input?: boolean
+    target_lexile?: boolean
+    output_lexile?: boolean
+    dok_level?: boolean
+    content_type?: boolean
+    generated_content?: boolean
+    academic_standard?: boolean
+    subject?: boolean
+    grade_level?: boolean
+    language?: boolean
+    exported_to?: boolean
+    tokens_used?: boolean
+    created_at?: boolean
+    users?: boolean | UserDefaultArgs<ExtArgs>
+    student_profiles?: boolean | differentiated_materials$student_profilesArgs<ExtArgs>
+  }, ExtArgs["result"]["differentiated_materials"]>
+
+  export type differentiated_materialsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    student_profile_id?: boolean
+    title?: boolean
+    source_input?: boolean
+    target_lexile?: boolean
+    output_lexile?: boolean
+    dok_level?: boolean
+    content_type?: boolean
+    generated_content?: boolean
+    academic_standard?: boolean
+    subject?: boolean
+    grade_level?: boolean
+    language?: boolean
+    exported_to?: boolean
+    tokens_used?: boolean
+    created_at?: boolean
+    users?: boolean | UserDefaultArgs<ExtArgs>
+    student_profiles?: boolean | differentiated_materials$student_profilesArgs<ExtArgs>
+  }, ExtArgs["result"]["differentiated_materials"]>
+
+  export type differentiated_materialsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    student_profile_id?: boolean
+    title?: boolean
+    source_input?: boolean
+    target_lexile?: boolean
+    output_lexile?: boolean
+    dok_level?: boolean
+    content_type?: boolean
+    generated_content?: boolean
+    academic_standard?: boolean
+    subject?: boolean
+    grade_level?: boolean
+    language?: boolean
+    exported_to?: boolean
+    tokens_used?: boolean
+    created_at?: boolean
+    users?: boolean | UserDefaultArgs<ExtArgs>
+    student_profiles?: boolean | differentiated_materials$student_profilesArgs<ExtArgs>
+  }, ExtArgs["result"]["differentiated_materials"]>
+
+  export type differentiated_materialsSelectScalar = {
+    id?: boolean
+    user_id?: boolean
+    student_profile_id?: boolean
+    title?: boolean
+    source_input?: boolean
+    target_lexile?: boolean
+    output_lexile?: boolean
+    dok_level?: boolean
+    content_type?: boolean
+    generated_content?: boolean
+    academic_standard?: boolean
+    subject?: boolean
+    grade_level?: boolean
+    language?: boolean
+    exported_to?: boolean
+    tokens_used?: boolean
+    created_at?: boolean
+  }
+
+  export type differentiated_materialsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "student_profile_id" | "title" | "source_input" | "target_lexile" | "output_lexile" | "dok_level" | "content_type" | "generated_content" | "academic_standard" | "subject" | "grade_level" | "language" | "exported_to" | "tokens_used" | "created_at", ExtArgs["result"]["differentiated_materials"]>
+  export type differentiated_materialsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | UserDefaultArgs<ExtArgs>
+    student_profiles?: boolean | differentiated_materials$student_profilesArgs<ExtArgs>
+  }
+  export type differentiated_materialsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | UserDefaultArgs<ExtArgs>
+    student_profiles?: boolean | differentiated_materials$student_profilesArgs<ExtArgs>
+  }
+  export type differentiated_materialsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | UserDefaultArgs<ExtArgs>
+    student_profiles?: boolean | differentiated_materials$student_profilesArgs<ExtArgs>
+  }
+
+  export type $differentiated_materialsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "differentiated_materials"
+    objects: {
+      users: Prisma.$UserPayload<ExtArgs>
+      student_profiles: Prisma.$student_profilesPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      user_id: string
+      student_profile_id: string | null
+      title: string
+      source_input: string
+      target_lexile: number
+      output_lexile: number | null
+      dok_level: number
+      content_type: string
+      generated_content: Prisma.JsonValue
+      academic_standard: string | null
+      subject: string | null
+      grade_level: string | null
+      language: string
+      exported_to: string | null
+      tokens_used: number
+      created_at: Date
+    }, ExtArgs["result"]["differentiated_materials"]>
+    composites: {}
+  }
+
+  type differentiated_materialsGetPayload<S extends boolean | null | undefined | differentiated_materialsDefaultArgs> = $Result.GetResult<Prisma.$differentiated_materialsPayload, S>
+
+  type differentiated_materialsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<differentiated_materialsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Differentiated_materialsCountAggregateInputType | true
+    }
+
+  export interface differentiated_materialsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['differentiated_materials'], meta: { name: 'differentiated_materials' } }
+    /**
+     * Find zero or one Differentiated_materials that matches the filter.
+     * @param {differentiated_materialsFindUniqueArgs} args - Arguments to find a Differentiated_materials
+     * @example
+     * // Get one Differentiated_materials
+     * const differentiated_materials = await prisma.differentiated_materials.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends differentiated_materialsFindUniqueArgs>(args: SelectSubset<T, differentiated_materialsFindUniqueArgs<ExtArgs>>): Prisma__differentiated_materialsClient<$Result.GetResult<Prisma.$differentiated_materialsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Differentiated_materials that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {differentiated_materialsFindUniqueOrThrowArgs} args - Arguments to find a Differentiated_materials
+     * @example
+     * // Get one Differentiated_materials
+     * const differentiated_materials = await prisma.differentiated_materials.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends differentiated_materialsFindUniqueOrThrowArgs>(args: SelectSubset<T, differentiated_materialsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__differentiated_materialsClient<$Result.GetResult<Prisma.$differentiated_materialsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Differentiated_materials that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {differentiated_materialsFindFirstArgs} args - Arguments to find a Differentiated_materials
+     * @example
+     * // Get one Differentiated_materials
+     * const differentiated_materials = await prisma.differentiated_materials.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends differentiated_materialsFindFirstArgs>(args?: SelectSubset<T, differentiated_materialsFindFirstArgs<ExtArgs>>): Prisma__differentiated_materialsClient<$Result.GetResult<Prisma.$differentiated_materialsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Differentiated_materials that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {differentiated_materialsFindFirstOrThrowArgs} args - Arguments to find a Differentiated_materials
+     * @example
+     * // Get one Differentiated_materials
+     * const differentiated_materials = await prisma.differentiated_materials.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends differentiated_materialsFindFirstOrThrowArgs>(args?: SelectSubset<T, differentiated_materialsFindFirstOrThrowArgs<ExtArgs>>): Prisma__differentiated_materialsClient<$Result.GetResult<Prisma.$differentiated_materialsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Differentiated_materials that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {differentiated_materialsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Differentiated_materials
+     * const differentiated_materials = await prisma.differentiated_materials.findMany()
+     * 
+     * // Get first 10 Differentiated_materials
+     * const differentiated_materials = await prisma.differentiated_materials.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const differentiated_materialsWithIdOnly = await prisma.differentiated_materials.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends differentiated_materialsFindManyArgs>(args?: SelectSubset<T, differentiated_materialsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$differentiated_materialsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Differentiated_materials.
+     * @param {differentiated_materialsCreateArgs} args - Arguments to create a Differentiated_materials.
+     * @example
+     * // Create one Differentiated_materials
+     * const Differentiated_materials = await prisma.differentiated_materials.create({
+     *   data: {
+     *     // ... data to create a Differentiated_materials
+     *   }
+     * })
+     * 
+     */
+    create<T extends differentiated_materialsCreateArgs>(args: SelectSubset<T, differentiated_materialsCreateArgs<ExtArgs>>): Prisma__differentiated_materialsClient<$Result.GetResult<Prisma.$differentiated_materialsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Differentiated_materials.
+     * @param {differentiated_materialsCreateManyArgs} args - Arguments to create many Differentiated_materials.
+     * @example
+     * // Create many Differentiated_materials
+     * const differentiated_materials = await prisma.differentiated_materials.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends differentiated_materialsCreateManyArgs>(args?: SelectSubset<T, differentiated_materialsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Differentiated_materials and returns the data saved in the database.
+     * @param {differentiated_materialsCreateManyAndReturnArgs} args - Arguments to create many Differentiated_materials.
+     * @example
+     * // Create many Differentiated_materials
+     * const differentiated_materials = await prisma.differentiated_materials.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Differentiated_materials and only return the `id`
+     * const differentiated_materialsWithIdOnly = await prisma.differentiated_materials.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends differentiated_materialsCreateManyAndReturnArgs>(args?: SelectSubset<T, differentiated_materialsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$differentiated_materialsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Differentiated_materials.
+     * @param {differentiated_materialsDeleteArgs} args - Arguments to delete one Differentiated_materials.
+     * @example
+     * // Delete one Differentiated_materials
+     * const Differentiated_materials = await prisma.differentiated_materials.delete({
+     *   where: {
+     *     // ... filter to delete one Differentiated_materials
+     *   }
+     * })
+     * 
+     */
+    delete<T extends differentiated_materialsDeleteArgs>(args: SelectSubset<T, differentiated_materialsDeleteArgs<ExtArgs>>): Prisma__differentiated_materialsClient<$Result.GetResult<Prisma.$differentiated_materialsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Differentiated_materials.
+     * @param {differentiated_materialsUpdateArgs} args - Arguments to update one Differentiated_materials.
+     * @example
+     * // Update one Differentiated_materials
+     * const differentiated_materials = await prisma.differentiated_materials.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends differentiated_materialsUpdateArgs>(args: SelectSubset<T, differentiated_materialsUpdateArgs<ExtArgs>>): Prisma__differentiated_materialsClient<$Result.GetResult<Prisma.$differentiated_materialsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Differentiated_materials.
+     * @param {differentiated_materialsDeleteManyArgs} args - Arguments to filter Differentiated_materials to delete.
+     * @example
+     * // Delete a few Differentiated_materials
+     * const { count } = await prisma.differentiated_materials.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends differentiated_materialsDeleteManyArgs>(args?: SelectSubset<T, differentiated_materialsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Differentiated_materials.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {differentiated_materialsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Differentiated_materials
+     * const differentiated_materials = await prisma.differentiated_materials.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends differentiated_materialsUpdateManyArgs>(args: SelectSubset<T, differentiated_materialsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Differentiated_materials and returns the data updated in the database.
+     * @param {differentiated_materialsUpdateManyAndReturnArgs} args - Arguments to update many Differentiated_materials.
+     * @example
+     * // Update many Differentiated_materials
+     * const differentiated_materials = await prisma.differentiated_materials.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Differentiated_materials and only return the `id`
+     * const differentiated_materialsWithIdOnly = await prisma.differentiated_materials.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends differentiated_materialsUpdateManyAndReturnArgs>(args: SelectSubset<T, differentiated_materialsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$differentiated_materialsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Differentiated_materials.
+     * @param {differentiated_materialsUpsertArgs} args - Arguments to update or create a Differentiated_materials.
+     * @example
+     * // Update or create a Differentiated_materials
+     * const differentiated_materials = await prisma.differentiated_materials.upsert({
+     *   create: {
+     *     // ... data to create a Differentiated_materials
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Differentiated_materials we want to update
+     *   }
+     * })
+     */
+    upsert<T extends differentiated_materialsUpsertArgs>(args: SelectSubset<T, differentiated_materialsUpsertArgs<ExtArgs>>): Prisma__differentiated_materialsClient<$Result.GetResult<Prisma.$differentiated_materialsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Differentiated_materials.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {differentiated_materialsCountArgs} args - Arguments to filter Differentiated_materials to count.
+     * @example
+     * // Count the number of Differentiated_materials
+     * const count = await prisma.differentiated_materials.count({
+     *   where: {
+     *     // ... the filter for the Differentiated_materials we want to count
+     *   }
+     * })
+    **/
+    count<T extends differentiated_materialsCountArgs>(
+      args?: Subset<T, differentiated_materialsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Differentiated_materialsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Differentiated_materials.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Differentiated_materialsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Differentiated_materialsAggregateArgs>(args: Subset<T, Differentiated_materialsAggregateArgs>): Prisma.PrismaPromise<GetDifferentiated_materialsAggregateType<T>>
+
+    /**
+     * Group by Differentiated_materials.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {differentiated_materialsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends differentiated_materialsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: differentiated_materialsGroupByArgs['orderBy'] }
+        : { orderBy?: differentiated_materialsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, differentiated_materialsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDifferentiated_materialsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the differentiated_materials model
+   */
+  readonly fields: differentiated_materialsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for differentiated_materials.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__differentiated_materialsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    users<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    student_profiles<T extends differentiated_materials$student_profilesArgs<ExtArgs> = {}>(args?: Subset<T, differentiated_materials$student_profilesArgs<ExtArgs>>): Prisma__student_profilesClient<$Result.GetResult<Prisma.$student_profilesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the differentiated_materials model
+   */
+  interface differentiated_materialsFieldRefs {
+    readonly id: FieldRef<"differentiated_materials", 'String'>
+    readonly user_id: FieldRef<"differentiated_materials", 'String'>
+    readonly student_profile_id: FieldRef<"differentiated_materials", 'String'>
+    readonly title: FieldRef<"differentiated_materials", 'String'>
+    readonly source_input: FieldRef<"differentiated_materials", 'String'>
+    readonly target_lexile: FieldRef<"differentiated_materials", 'Int'>
+    readonly output_lexile: FieldRef<"differentiated_materials", 'Int'>
+    readonly dok_level: FieldRef<"differentiated_materials", 'Int'>
+    readonly content_type: FieldRef<"differentiated_materials", 'String'>
+    readonly generated_content: FieldRef<"differentiated_materials", 'Json'>
+    readonly academic_standard: FieldRef<"differentiated_materials", 'String'>
+    readonly subject: FieldRef<"differentiated_materials", 'String'>
+    readonly grade_level: FieldRef<"differentiated_materials", 'String'>
+    readonly language: FieldRef<"differentiated_materials", 'String'>
+    readonly exported_to: FieldRef<"differentiated_materials", 'String'>
+    readonly tokens_used: FieldRef<"differentiated_materials", 'Int'>
+    readonly created_at: FieldRef<"differentiated_materials", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * differentiated_materials findUnique
+   */
+  export type differentiated_materialsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the differentiated_materials
+     */
+    select?: differentiated_materialsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the differentiated_materials
+     */
+    omit?: differentiated_materialsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: differentiated_materialsInclude<ExtArgs> | null
+    /**
+     * Filter, which differentiated_materials to fetch.
+     */
+    where: differentiated_materialsWhereUniqueInput
+  }
+
+  /**
+   * differentiated_materials findUniqueOrThrow
+   */
+  export type differentiated_materialsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the differentiated_materials
+     */
+    select?: differentiated_materialsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the differentiated_materials
+     */
+    omit?: differentiated_materialsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: differentiated_materialsInclude<ExtArgs> | null
+    /**
+     * Filter, which differentiated_materials to fetch.
+     */
+    where: differentiated_materialsWhereUniqueInput
+  }
+
+  /**
+   * differentiated_materials findFirst
+   */
+  export type differentiated_materialsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the differentiated_materials
+     */
+    select?: differentiated_materialsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the differentiated_materials
+     */
+    omit?: differentiated_materialsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: differentiated_materialsInclude<ExtArgs> | null
+    /**
+     * Filter, which differentiated_materials to fetch.
+     */
+    where?: differentiated_materialsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of differentiated_materials to fetch.
+     */
+    orderBy?: differentiated_materialsOrderByWithRelationInput | differentiated_materialsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for differentiated_materials.
+     */
+    cursor?: differentiated_materialsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` differentiated_materials from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` differentiated_materials.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of differentiated_materials.
+     */
+    distinct?: Differentiated_materialsScalarFieldEnum | Differentiated_materialsScalarFieldEnum[]
+  }
+
+  /**
+   * differentiated_materials findFirstOrThrow
+   */
+  export type differentiated_materialsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the differentiated_materials
+     */
+    select?: differentiated_materialsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the differentiated_materials
+     */
+    omit?: differentiated_materialsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: differentiated_materialsInclude<ExtArgs> | null
+    /**
+     * Filter, which differentiated_materials to fetch.
+     */
+    where?: differentiated_materialsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of differentiated_materials to fetch.
+     */
+    orderBy?: differentiated_materialsOrderByWithRelationInput | differentiated_materialsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for differentiated_materials.
+     */
+    cursor?: differentiated_materialsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` differentiated_materials from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` differentiated_materials.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of differentiated_materials.
+     */
+    distinct?: Differentiated_materialsScalarFieldEnum | Differentiated_materialsScalarFieldEnum[]
+  }
+
+  /**
+   * differentiated_materials findMany
+   */
+  export type differentiated_materialsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the differentiated_materials
+     */
+    select?: differentiated_materialsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the differentiated_materials
+     */
+    omit?: differentiated_materialsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: differentiated_materialsInclude<ExtArgs> | null
+    /**
+     * Filter, which differentiated_materials to fetch.
+     */
+    where?: differentiated_materialsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of differentiated_materials to fetch.
+     */
+    orderBy?: differentiated_materialsOrderByWithRelationInput | differentiated_materialsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing differentiated_materials.
+     */
+    cursor?: differentiated_materialsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` differentiated_materials from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` differentiated_materials.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of differentiated_materials.
+     */
+    distinct?: Differentiated_materialsScalarFieldEnum | Differentiated_materialsScalarFieldEnum[]
+  }
+
+  /**
+   * differentiated_materials create
+   */
+  export type differentiated_materialsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the differentiated_materials
+     */
+    select?: differentiated_materialsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the differentiated_materials
+     */
+    omit?: differentiated_materialsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: differentiated_materialsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a differentiated_materials.
+     */
+    data: XOR<differentiated_materialsCreateInput, differentiated_materialsUncheckedCreateInput>
+  }
+
+  /**
+   * differentiated_materials createMany
+   */
+  export type differentiated_materialsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many differentiated_materials.
+     */
+    data: differentiated_materialsCreateManyInput | differentiated_materialsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * differentiated_materials createManyAndReturn
+   */
+  export type differentiated_materialsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the differentiated_materials
+     */
+    select?: differentiated_materialsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the differentiated_materials
+     */
+    omit?: differentiated_materialsOmit<ExtArgs> | null
+    /**
+     * The data used to create many differentiated_materials.
+     */
+    data: differentiated_materialsCreateManyInput | differentiated_materialsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: differentiated_materialsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * differentiated_materials update
+   */
+  export type differentiated_materialsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the differentiated_materials
+     */
+    select?: differentiated_materialsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the differentiated_materials
+     */
+    omit?: differentiated_materialsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: differentiated_materialsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a differentiated_materials.
+     */
+    data: XOR<differentiated_materialsUpdateInput, differentiated_materialsUncheckedUpdateInput>
+    /**
+     * Choose, which differentiated_materials to update.
+     */
+    where: differentiated_materialsWhereUniqueInput
+  }
+
+  /**
+   * differentiated_materials updateMany
+   */
+  export type differentiated_materialsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update differentiated_materials.
+     */
+    data: XOR<differentiated_materialsUpdateManyMutationInput, differentiated_materialsUncheckedUpdateManyInput>
+    /**
+     * Filter which differentiated_materials to update
+     */
+    where?: differentiated_materialsWhereInput
+    /**
+     * Limit how many differentiated_materials to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * differentiated_materials updateManyAndReturn
+   */
+  export type differentiated_materialsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the differentiated_materials
+     */
+    select?: differentiated_materialsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the differentiated_materials
+     */
+    omit?: differentiated_materialsOmit<ExtArgs> | null
+    /**
+     * The data used to update differentiated_materials.
+     */
+    data: XOR<differentiated_materialsUpdateManyMutationInput, differentiated_materialsUncheckedUpdateManyInput>
+    /**
+     * Filter which differentiated_materials to update
+     */
+    where?: differentiated_materialsWhereInput
+    /**
+     * Limit how many differentiated_materials to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: differentiated_materialsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * differentiated_materials upsert
+   */
+  export type differentiated_materialsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the differentiated_materials
+     */
+    select?: differentiated_materialsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the differentiated_materials
+     */
+    omit?: differentiated_materialsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: differentiated_materialsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the differentiated_materials to update in case it exists.
+     */
+    where: differentiated_materialsWhereUniqueInput
+    /**
+     * In case the differentiated_materials found by the `where` argument doesn't exist, create a new differentiated_materials with this data.
+     */
+    create: XOR<differentiated_materialsCreateInput, differentiated_materialsUncheckedCreateInput>
+    /**
+     * In case the differentiated_materials was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<differentiated_materialsUpdateInput, differentiated_materialsUncheckedUpdateInput>
+  }
+
+  /**
+   * differentiated_materials delete
+   */
+  export type differentiated_materialsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the differentiated_materials
+     */
+    select?: differentiated_materialsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the differentiated_materials
+     */
+    omit?: differentiated_materialsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: differentiated_materialsInclude<ExtArgs> | null
+    /**
+     * Filter which differentiated_materials to delete.
+     */
+    where: differentiated_materialsWhereUniqueInput
+  }
+
+  /**
+   * differentiated_materials deleteMany
+   */
+  export type differentiated_materialsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which differentiated_materials to delete
+     */
+    where?: differentiated_materialsWhereInput
+    /**
+     * Limit how many differentiated_materials to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * differentiated_materials.student_profiles
+   */
+  export type differentiated_materials$student_profilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the student_profiles
+     */
+    select?: student_profilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the student_profiles
+     */
+    omit?: student_profilesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: student_profilesInclude<ExtArgs> | null
+    where?: student_profilesWhereInput
+  }
+
+  /**
+   * differentiated_materials without action
+   */
+  export type differentiated_materialsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the differentiated_materials
+     */
+    select?: differentiated_materialsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the differentiated_materials
+     */
+    omit?: differentiated_materialsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: differentiated_materialsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model reading_improvement_plans
+   */
+
+  export type AggregateReading_improvement_plans = {
+    _count: Reading_improvement_plansCountAggregateOutputType | null
+    _min: Reading_improvement_plansMinAggregateOutputType | null
+    _max: Reading_improvement_plansMaxAggregateOutputType | null
+  }
+
+  export type Reading_improvement_plansMinAggregateOutputType = {
+    id: string | null
+    student_profile_id: string | null
+    created_by: string | null
+    school_year: string | null
+    status: string | null
+    intervention_program: string | null
+    parent_notified: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Reading_improvement_plansMaxAggregateOutputType = {
+    id: string | null
+    student_profile_id: string | null
+    created_by: string | null
+    school_year: string | null
+    status: string | null
+    intervention_program: string | null
+    parent_notified: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Reading_improvement_plansCountAggregateOutputType = {
+    id: number
+    student_profile_id: number
+    created_by: number
+    school_year: number
+    status: number
+    deficit_areas: number
+    intervention_program: number
+    daily_materials: number
+    progress_notes: number
+    parent_notified: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type Reading_improvement_plansMinAggregateInputType = {
+    id?: true
+    student_profile_id?: true
+    created_by?: true
+    school_year?: true
+    status?: true
+    intervention_program?: true
+    parent_notified?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Reading_improvement_plansMaxAggregateInputType = {
+    id?: true
+    student_profile_id?: true
+    created_by?: true
+    school_year?: true
+    status?: true
+    intervention_program?: true
+    parent_notified?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Reading_improvement_plansCountAggregateInputType = {
+    id?: true
+    student_profile_id?: true
+    created_by?: true
+    school_year?: true
+    status?: true
+    deficit_areas?: true
+    intervention_program?: true
+    daily_materials?: true
+    progress_notes?: true
+    parent_notified?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type Reading_improvement_plansAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which reading_improvement_plans to aggregate.
+     */
+    where?: reading_improvement_plansWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of reading_improvement_plans to fetch.
+     */
+    orderBy?: reading_improvement_plansOrderByWithRelationInput | reading_improvement_plansOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: reading_improvement_plansWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` reading_improvement_plans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` reading_improvement_plans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned reading_improvement_plans
+    **/
+    _count?: true | Reading_improvement_plansCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Reading_improvement_plansMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Reading_improvement_plansMaxAggregateInputType
+  }
+
+  export type GetReading_improvement_plansAggregateType<T extends Reading_improvement_plansAggregateArgs> = {
+        [P in keyof T & keyof AggregateReading_improvement_plans]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateReading_improvement_plans[P]>
+      : GetScalarType<T[P], AggregateReading_improvement_plans[P]>
+  }
+
+
+
+
+  export type reading_improvement_plansGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: reading_improvement_plansWhereInput
+    orderBy?: reading_improvement_plansOrderByWithAggregationInput | reading_improvement_plansOrderByWithAggregationInput[]
+    by: Reading_improvement_plansScalarFieldEnum[] | Reading_improvement_plansScalarFieldEnum
+    having?: reading_improvement_plansScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Reading_improvement_plansCountAggregateInputType | true
+    _min?: Reading_improvement_plansMinAggregateInputType
+    _max?: Reading_improvement_plansMaxAggregateInputType
+  }
+
+  export type Reading_improvement_plansGroupByOutputType = {
+    id: string
+    student_profile_id: string
+    created_by: string
+    school_year: string
+    status: string
+    deficit_areas: JsonValue
+    intervention_program: string | null
+    daily_materials: JsonValue | null
+    progress_notes: JsonValue | null
+    parent_notified: boolean
+    created_at: Date
+    updated_at: Date
+    _count: Reading_improvement_plansCountAggregateOutputType | null
+    _min: Reading_improvement_plansMinAggregateOutputType | null
+    _max: Reading_improvement_plansMaxAggregateOutputType | null
+  }
+
+  type GetReading_improvement_plansGroupByPayload<T extends reading_improvement_plansGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Reading_improvement_plansGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Reading_improvement_plansGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Reading_improvement_plansGroupByOutputType[P]>
+            : GetScalarType<T[P], Reading_improvement_plansGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type reading_improvement_plansSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    student_profile_id?: boolean
+    created_by?: boolean
+    school_year?: boolean
+    status?: boolean
+    deficit_areas?: boolean
+    intervention_program?: boolean
+    daily_materials?: boolean
+    progress_notes?: boolean
+    parent_notified?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    student_profiles?: boolean | student_profilesDefaultArgs<ExtArgs>
+    users?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["reading_improvement_plans"]>
+
+  export type reading_improvement_plansSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    student_profile_id?: boolean
+    created_by?: boolean
+    school_year?: boolean
+    status?: boolean
+    deficit_areas?: boolean
+    intervention_program?: boolean
+    daily_materials?: boolean
+    progress_notes?: boolean
+    parent_notified?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    student_profiles?: boolean | student_profilesDefaultArgs<ExtArgs>
+    users?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["reading_improvement_plans"]>
+
+  export type reading_improvement_plansSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    student_profile_id?: boolean
+    created_by?: boolean
+    school_year?: boolean
+    status?: boolean
+    deficit_areas?: boolean
+    intervention_program?: boolean
+    daily_materials?: boolean
+    progress_notes?: boolean
+    parent_notified?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    student_profiles?: boolean | student_profilesDefaultArgs<ExtArgs>
+    users?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["reading_improvement_plans"]>
+
+  export type reading_improvement_plansSelectScalar = {
+    id?: boolean
+    student_profile_id?: boolean
+    created_by?: boolean
+    school_year?: boolean
+    status?: boolean
+    deficit_areas?: boolean
+    intervention_program?: boolean
+    daily_materials?: boolean
+    progress_notes?: boolean
+    parent_notified?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type reading_improvement_plansOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "student_profile_id" | "created_by" | "school_year" | "status" | "deficit_areas" | "intervention_program" | "daily_materials" | "progress_notes" | "parent_notified" | "created_at" | "updated_at", ExtArgs["result"]["reading_improvement_plans"]>
+  export type reading_improvement_plansInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    student_profiles?: boolean | student_profilesDefaultArgs<ExtArgs>
+    users?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type reading_improvement_plansIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    student_profiles?: boolean | student_profilesDefaultArgs<ExtArgs>
+    users?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type reading_improvement_plansIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    student_profiles?: boolean | student_profilesDefaultArgs<ExtArgs>
+    users?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $reading_improvement_plansPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "reading_improvement_plans"
+    objects: {
+      student_profiles: Prisma.$student_profilesPayload<ExtArgs>
+      users: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      student_profile_id: string
+      created_by: string
+      school_year: string
+      status: string
+      deficit_areas: Prisma.JsonValue
+      intervention_program: string | null
+      daily_materials: Prisma.JsonValue | null
+      progress_notes: Prisma.JsonValue | null
+      parent_notified: boolean
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["reading_improvement_plans"]>
+    composites: {}
+  }
+
+  type reading_improvement_plansGetPayload<S extends boolean | null | undefined | reading_improvement_plansDefaultArgs> = $Result.GetResult<Prisma.$reading_improvement_plansPayload, S>
+
+  type reading_improvement_plansCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<reading_improvement_plansFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Reading_improvement_plansCountAggregateInputType | true
+    }
+
+  export interface reading_improvement_plansDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['reading_improvement_plans'], meta: { name: 'reading_improvement_plans' } }
+    /**
+     * Find zero or one Reading_improvement_plans that matches the filter.
+     * @param {reading_improvement_plansFindUniqueArgs} args - Arguments to find a Reading_improvement_plans
+     * @example
+     * // Get one Reading_improvement_plans
+     * const reading_improvement_plans = await prisma.reading_improvement_plans.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends reading_improvement_plansFindUniqueArgs>(args: SelectSubset<T, reading_improvement_plansFindUniqueArgs<ExtArgs>>): Prisma__reading_improvement_plansClient<$Result.GetResult<Prisma.$reading_improvement_plansPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Reading_improvement_plans that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {reading_improvement_plansFindUniqueOrThrowArgs} args - Arguments to find a Reading_improvement_plans
+     * @example
+     * // Get one Reading_improvement_plans
+     * const reading_improvement_plans = await prisma.reading_improvement_plans.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends reading_improvement_plansFindUniqueOrThrowArgs>(args: SelectSubset<T, reading_improvement_plansFindUniqueOrThrowArgs<ExtArgs>>): Prisma__reading_improvement_plansClient<$Result.GetResult<Prisma.$reading_improvement_plansPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Reading_improvement_plans that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {reading_improvement_plansFindFirstArgs} args - Arguments to find a Reading_improvement_plans
+     * @example
+     * // Get one Reading_improvement_plans
+     * const reading_improvement_plans = await prisma.reading_improvement_plans.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends reading_improvement_plansFindFirstArgs>(args?: SelectSubset<T, reading_improvement_plansFindFirstArgs<ExtArgs>>): Prisma__reading_improvement_plansClient<$Result.GetResult<Prisma.$reading_improvement_plansPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Reading_improvement_plans that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {reading_improvement_plansFindFirstOrThrowArgs} args - Arguments to find a Reading_improvement_plans
+     * @example
+     * // Get one Reading_improvement_plans
+     * const reading_improvement_plans = await prisma.reading_improvement_plans.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends reading_improvement_plansFindFirstOrThrowArgs>(args?: SelectSubset<T, reading_improvement_plansFindFirstOrThrowArgs<ExtArgs>>): Prisma__reading_improvement_plansClient<$Result.GetResult<Prisma.$reading_improvement_plansPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Reading_improvement_plans that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {reading_improvement_plansFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Reading_improvement_plans
+     * const reading_improvement_plans = await prisma.reading_improvement_plans.findMany()
+     * 
+     * // Get first 10 Reading_improvement_plans
+     * const reading_improvement_plans = await prisma.reading_improvement_plans.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const reading_improvement_plansWithIdOnly = await prisma.reading_improvement_plans.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends reading_improvement_plansFindManyArgs>(args?: SelectSubset<T, reading_improvement_plansFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reading_improvement_plansPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Reading_improvement_plans.
+     * @param {reading_improvement_plansCreateArgs} args - Arguments to create a Reading_improvement_plans.
+     * @example
+     * // Create one Reading_improvement_plans
+     * const Reading_improvement_plans = await prisma.reading_improvement_plans.create({
+     *   data: {
+     *     // ... data to create a Reading_improvement_plans
+     *   }
+     * })
+     * 
+     */
+    create<T extends reading_improvement_plansCreateArgs>(args: SelectSubset<T, reading_improvement_plansCreateArgs<ExtArgs>>): Prisma__reading_improvement_plansClient<$Result.GetResult<Prisma.$reading_improvement_plansPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Reading_improvement_plans.
+     * @param {reading_improvement_plansCreateManyArgs} args - Arguments to create many Reading_improvement_plans.
+     * @example
+     * // Create many Reading_improvement_plans
+     * const reading_improvement_plans = await prisma.reading_improvement_plans.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends reading_improvement_plansCreateManyArgs>(args?: SelectSubset<T, reading_improvement_plansCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Reading_improvement_plans and returns the data saved in the database.
+     * @param {reading_improvement_plansCreateManyAndReturnArgs} args - Arguments to create many Reading_improvement_plans.
+     * @example
+     * // Create many Reading_improvement_plans
+     * const reading_improvement_plans = await prisma.reading_improvement_plans.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Reading_improvement_plans and only return the `id`
+     * const reading_improvement_plansWithIdOnly = await prisma.reading_improvement_plans.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends reading_improvement_plansCreateManyAndReturnArgs>(args?: SelectSubset<T, reading_improvement_plansCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reading_improvement_plansPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Reading_improvement_plans.
+     * @param {reading_improvement_plansDeleteArgs} args - Arguments to delete one Reading_improvement_plans.
+     * @example
+     * // Delete one Reading_improvement_plans
+     * const Reading_improvement_plans = await prisma.reading_improvement_plans.delete({
+     *   where: {
+     *     // ... filter to delete one Reading_improvement_plans
+     *   }
+     * })
+     * 
+     */
+    delete<T extends reading_improvement_plansDeleteArgs>(args: SelectSubset<T, reading_improvement_plansDeleteArgs<ExtArgs>>): Prisma__reading_improvement_plansClient<$Result.GetResult<Prisma.$reading_improvement_plansPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Reading_improvement_plans.
+     * @param {reading_improvement_plansUpdateArgs} args - Arguments to update one Reading_improvement_plans.
+     * @example
+     * // Update one Reading_improvement_plans
+     * const reading_improvement_plans = await prisma.reading_improvement_plans.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends reading_improvement_plansUpdateArgs>(args: SelectSubset<T, reading_improvement_plansUpdateArgs<ExtArgs>>): Prisma__reading_improvement_plansClient<$Result.GetResult<Prisma.$reading_improvement_plansPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Reading_improvement_plans.
+     * @param {reading_improvement_plansDeleteManyArgs} args - Arguments to filter Reading_improvement_plans to delete.
+     * @example
+     * // Delete a few Reading_improvement_plans
+     * const { count } = await prisma.reading_improvement_plans.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends reading_improvement_plansDeleteManyArgs>(args?: SelectSubset<T, reading_improvement_plansDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Reading_improvement_plans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {reading_improvement_plansUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Reading_improvement_plans
+     * const reading_improvement_plans = await prisma.reading_improvement_plans.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends reading_improvement_plansUpdateManyArgs>(args: SelectSubset<T, reading_improvement_plansUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Reading_improvement_plans and returns the data updated in the database.
+     * @param {reading_improvement_plansUpdateManyAndReturnArgs} args - Arguments to update many Reading_improvement_plans.
+     * @example
+     * // Update many Reading_improvement_plans
+     * const reading_improvement_plans = await prisma.reading_improvement_plans.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Reading_improvement_plans and only return the `id`
+     * const reading_improvement_plansWithIdOnly = await prisma.reading_improvement_plans.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends reading_improvement_plansUpdateManyAndReturnArgs>(args: SelectSubset<T, reading_improvement_plansUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reading_improvement_plansPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Reading_improvement_plans.
+     * @param {reading_improvement_plansUpsertArgs} args - Arguments to update or create a Reading_improvement_plans.
+     * @example
+     * // Update or create a Reading_improvement_plans
+     * const reading_improvement_plans = await prisma.reading_improvement_plans.upsert({
+     *   create: {
+     *     // ... data to create a Reading_improvement_plans
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Reading_improvement_plans we want to update
+     *   }
+     * })
+     */
+    upsert<T extends reading_improvement_plansUpsertArgs>(args: SelectSubset<T, reading_improvement_plansUpsertArgs<ExtArgs>>): Prisma__reading_improvement_plansClient<$Result.GetResult<Prisma.$reading_improvement_plansPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Reading_improvement_plans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {reading_improvement_plansCountArgs} args - Arguments to filter Reading_improvement_plans to count.
+     * @example
+     * // Count the number of Reading_improvement_plans
+     * const count = await prisma.reading_improvement_plans.count({
+     *   where: {
+     *     // ... the filter for the Reading_improvement_plans we want to count
+     *   }
+     * })
+    **/
+    count<T extends reading_improvement_plansCountArgs>(
+      args?: Subset<T, reading_improvement_plansCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Reading_improvement_plansCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Reading_improvement_plans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Reading_improvement_plansAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Reading_improvement_plansAggregateArgs>(args: Subset<T, Reading_improvement_plansAggregateArgs>): Prisma.PrismaPromise<GetReading_improvement_plansAggregateType<T>>
+
+    /**
+     * Group by Reading_improvement_plans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {reading_improvement_plansGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends reading_improvement_plansGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: reading_improvement_plansGroupByArgs['orderBy'] }
+        : { orderBy?: reading_improvement_plansGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, reading_improvement_plansGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetReading_improvement_plansGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the reading_improvement_plans model
+   */
+  readonly fields: reading_improvement_plansFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for reading_improvement_plans.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__reading_improvement_plansClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    student_profiles<T extends student_profilesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, student_profilesDefaultArgs<ExtArgs>>): Prisma__student_profilesClient<$Result.GetResult<Prisma.$student_profilesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    users<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the reading_improvement_plans model
+   */
+  interface reading_improvement_plansFieldRefs {
+    readonly id: FieldRef<"reading_improvement_plans", 'String'>
+    readonly student_profile_id: FieldRef<"reading_improvement_plans", 'String'>
+    readonly created_by: FieldRef<"reading_improvement_plans", 'String'>
+    readonly school_year: FieldRef<"reading_improvement_plans", 'String'>
+    readonly status: FieldRef<"reading_improvement_plans", 'String'>
+    readonly deficit_areas: FieldRef<"reading_improvement_plans", 'Json'>
+    readonly intervention_program: FieldRef<"reading_improvement_plans", 'String'>
+    readonly daily_materials: FieldRef<"reading_improvement_plans", 'Json'>
+    readonly progress_notes: FieldRef<"reading_improvement_plans", 'Json'>
+    readonly parent_notified: FieldRef<"reading_improvement_plans", 'Boolean'>
+    readonly created_at: FieldRef<"reading_improvement_plans", 'DateTime'>
+    readonly updated_at: FieldRef<"reading_improvement_plans", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * reading_improvement_plans findUnique
+   */
+  export type reading_improvement_plansFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reading_improvement_plans
+     */
+    select?: reading_improvement_plansSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reading_improvement_plans
+     */
+    omit?: reading_improvement_plansOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reading_improvement_plansInclude<ExtArgs> | null
+    /**
+     * Filter, which reading_improvement_plans to fetch.
+     */
+    where: reading_improvement_plansWhereUniqueInput
+  }
+
+  /**
+   * reading_improvement_plans findUniqueOrThrow
+   */
+  export type reading_improvement_plansFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reading_improvement_plans
+     */
+    select?: reading_improvement_plansSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reading_improvement_plans
+     */
+    omit?: reading_improvement_plansOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reading_improvement_plansInclude<ExtArgs> | null
+    /**
+     * Filter, which reading_improvement_plans to fetch.
+     */
+    where: reading_improvement_plansWhereUniqueInput
+  }
+
+  /**
+   * reading_improvement_plans findFirst
+   */
+  export type reading_improvement_plansFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reading_improvement_plans
+     */
+    select?: reading_improvement_plansSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reading_improvement_plans
+     */
+    omit?: reading_improvement_plansOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reading_improvement_plansInclude<ExtArgs> | null
+    /**
+     * Filter, which reading_improvement_plans to fetch.
+     */
+    where?: reading_improvement_plansWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of reading_improvement_plans to fetch.
+     */
+    orderBy?: reading_improvement_plansOrderByWithRelationInput | reading_improvement_plansOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for reading_improvement_plans.
+     */
+    cursor?: reading_improvement_plansWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` reading_improvement_plans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` reading_improvement_plans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of reading_improvement_plans.
+     */
+    distinct?: Reading_improvement_plansScalarFieldEnum | Reading_improvement_plansScalarFieldEnum[]
+  }
+
+  /**
+   * reading_improvement_plans findFirstOrThrow
+   */
+  export type reading_improvement_plansFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reading_improvement_plans
+     */
+    select?: reading_improvement_plansSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reading_improvement_plans
+     */
+    omit?: reading_improvement_plansOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reading_improvement_plansInclude<ExtArgs> | null
+    /**
+     * Filter, which reading_improvement_plans to fetch.
+     */
+    where?: reading_improvement_plansWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of reading_improvement_plans to fetch.
+     */
+    orderBy?: reading_improvement_plansOrderByWithRelationInput | reading_improvement_plansOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for reading_improvement_plans.
+     */
+    cursor?: reading_improvement_plansWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` reading_improvement_plans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` reading_improvement_plans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of reading_improvement_plans.
+     */
+    distinct?: Reading_improvement_plansScalarFieldEnum | Reading_improvement_plansScalarFieldEnum[]
+  }
+
+  /**
+   * reading_improvement_plans findMany
+   */
+  export type reading_improvement_plansFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reading_improvement_plans
+     */
+    select?: reading_improvement_plansSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reading_improvement_plans
+     */
+    omit?: reading_improvement_plansOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reading_improvement_plansInclude<ExtArgs> | null
+    /**
+     * Filter, which reading_improvement_plans to fetch.
+     */
+    where?: reading_improvement_plansWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of reading_improvement_plans to fetch.
+     */
+    orderBy?: reading_improvement_plansOrderByWithRelationInput | reading_improvement_plansOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing reading_improvement_plans.
+     */
+    cursor?: reading_improvement_plansWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` reading_improvement_plans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` reading_improvement_plans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of reading_improvement_plans.
+     */
+    distinct?: Reading_improvement_plansScalarFieldEnum | Reading_improvement_plansScalarFieldEnum[]
+  }
+
+  /**
+   * reading_improvement_plans create
+   */
+  export type reading_improvement_plansCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reading_improvement_plans
+     */
+    select?: reading_improvement_plansSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reading_improvement_plans
+     */
+    omit?: reading_improvement_plansOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reading_improvement_plansInclude<ExtArgs> | null
+    /**
+     * The data needed to create a reading_improvement_plans.
+     */
+    data: XOR<reading_improvement_plansCreateInput, reading_improvement_plansUncheckedCreateInput>
+  }
+
+  /**
+   * reading_improvement_plans createMany
+   */
+  export type reading_improvement_plansCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many reading_improvement_plans.
+     */
+    data: reading_improvement_plansCreateManyInput | reading_improvement_plansCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * reading_improvement_plans createManyAndReturn
+   */
+  export type reading_improvement_plansCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reading_improvement_plans
+     */
+    select?: reading_improvement_plansSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the reading_improvement_plans
+     */
+    omit?: reading_improvement_plansOmit<ExtArgs> | null
+    /**
+     * The data used to create many reading_improvement_plans.
+     */
+    data: reading_improvement_plansCreateManyInput | reading_improvement_plansCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reading_improvement_plansIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * reading_improvement_plans update
+   */
+  export type reading_improvement_plansUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reading_improvement_plans
+     */
+    select?: reading_improvement_plansSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reading_improvement_plans
+     */
+    omit?: reading_improvement_plansOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reading_improvement_plansInclude<ExtArgs> | null
+    /**
+     * The data needed to update a reading_improvement_plans.
+     */
+    data: XOR<reading_improvement_plansUpdateInput, reading_improvement_plansUncheckedUpdateInput>
+    /**
+     * Choose, which reading_improvement_plans to update.
+     */
+    where: reading_improvement_plansWhereUniqueInput
+  }
+
+  /**
+   * reading_improvement_plans updateMany
+   */
+  export type reading_improvement_plansUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update reading_improvement_plans.
+     */
+    data: XOR<reading_improvement_plansUpdateManyMutationInput, reading_improvement_plansUncheckedUpdateManyInput>
+    /**
+     * Filter which reading_improvement_plans to update
+     */
+    where?: reading_improvement_plansWhereInput
+    /**
+     * Limit how many reading_improvement_plans to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * reading_improvement_plans updateManyAndReturn
+   */
+  export type reading_improvement_plansUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reading_improvement_plans
+     */
+    select?: reading_improvement_plansSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the reading_improvement_plans
+     */
+    omit?: reading_improvement_plansOmit<ExtArgs> | null
+    /**
+     * The data used to update reading_improvement_plans.
+     */
+    data: XOR<reading_improvement_plansUpdateManyMutationInput, reading_improvement_plansUncheckedUpdateManyInput>
+    /**
+     * Filter which reading_improvement_plans to update
+     */
+    where?: reading_improvement_plansWhereInput
+    /**
+     * Limit how many reading_improvement_plans to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reading_improvement_plansIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * reading_improvement_plans upsert
+   */
+  export type reading_improvement_plansUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reading_improvement_plans
+     */
+    select?: reading_improvement_plansSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reading_improvement_plans
+     */
+    omit?: reading_improvement_plansOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reading_improvement_plansInclude<ExtArgs> | null
+    /**
+     * The filter to search for the reading_improvement_plans to update in case it exists.
+     */
+    where: reading_improvement_plansWhereUniqueInput
+    /**
+     * In case the reading_improvement_plans found by the `where` argument doesn't exist, create a new reading_improvement_plans with this data.
+     */
+    create: XOR<reading_improvement_plansCreateInput, reading_improvement_plansUncheckedCreateInput>
+    /**
+     * In case the reading_improvement_plans was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<reading_improvement_plansUpdateInput, reading_improvement_plansUncheckedUpdateInput>
+  }
+
+  /**
+   * reading_improvement_plans delete
+   */
+  export type reading_improvement_plansDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reading_improvement_plans
+     */
+    select?: reading_improvement_plansSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reading_improvement_plans
+     */
+    omit?: reading_improvement_plansOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reading_improvement_plansInclude<ExtArgs> | null
+    /**
+     * Filter which reading_improvement_plans to delete.
+     */
+    where: reading_improvement_plansWhereUniqueInput
+  }
+
+  /**
+   * reading_improvement_plans deleteMany
+   */
+  export type reading_improvement_plansDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which reading_improvement_plans to delete
+     */
+    where?: reading_improvement_plansWhereInput
+    /**
+     * Limit how many reading_improvement_plans to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * reading_improvement_plans without action
+   */
+  export type reading_improvement_plansDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the reading_improvement_plans
+     */
+    select?: reading_improvement_plansSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the reading_improvement_plans
+     */
+    omit?: reading_improvement_plansOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: reading_improvement_plansInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model district_listening
+   */
+
+  export type AggregateDistrict_listening = {
+    _count: District_listeningCountAggregateOutputType | null
+    _avg: District_listeningAvgAggregateOutputType | null
+    _sum: District_listeningSumAggregateOutputType | null
+    _min: District_listeningMinAggregateOutputType | null
+    _max: District_listeningMaxAggregateOutputType | null
+  }
+
+  export type District_listeningAvgAggregateOutputType = {
+    title_i_revenue: number | null
+    erate_cat2_budget: number | null
+    virtual_readiness: number | null
+    hardware_score: number | null
+    broadband_mbps: number | null
+    teacher_training_pct: number | null
+    enrollment_total: number | null
+    free_reduced_pct: number | null
+    ela_proficiency_pct: number | null
+    math_proficiency_pct: number | null
+  }
+
+  export type District_listeningSumAggregateOutputType = {
+    title_i_revenue: number | null
+    erate_cat2_budget: number | null
+    virtual_readiness: number | null
+    hardware_score: number | null
+    broadband_mbps: number | null
+    teacher_training_pct: number | null
+    enrollment_total: number | null
+    free_reduced_pct: number | null
+    ela_proficiency_pct: number | null
+    math_proficiency_pct: number | null
+  }
+
+  export type District_listeningMinAggregateOutputType = {
+    id: string | null
+    district_id: string | null
+    snapshot_date: Date | null
+    title_i_revenue: number | null
+    erate_cat2_budget: number | null
+    virtual_readiness: number | null
+    hardware_score: number | null
+    broadband_mbps: number | null
+    teacher_training_pct: number | null
+    enrollment_total: number | null
+    free_reduced_pct: number | null
+    ela_proficiency_pct: number | null
+    math_proficiency_pct: number | null
+  }
+
+  export type District_listeningMaxAggregateOutputType = {
+    id: string | null
+    district_id: string | null
+    snapshot_date: Date | null
+    title_i_revenue: number | null
+    erate_cat2_budget: number | null
+    virtual_readiness: number | null
+    hardware_score: number | null
+    broadband_mbps: number | null
+    teacher_training_pct: number | null
+    enrollment_total: number | null
+    free_reduced_pct: number | null
+    ela_proficiency_pct: number | null
+    math_proficiency_pct: number | null
+  }
+
+  export type District_listeningCountAggregateOutputType = {
+    id: number
+    district_id: number
+    snapshot_date: number
+    title_i_revenue: number
+    erate_cat2_budget: number
+    virtual_readiness: number
+    hardware_score: number
+    broadband_mbps: number
+    teacher_training_pct: number
+    edtech_tools: number
+    enrollment_total: number
+    free_reduced_pct: number
+    ela_proficiency_pct: number
+    math_proficiency_pct: number
+    metadata: number
+    _all: number
+  }
+
+
+  export type District_listeningAvgAggregateInputType = {
+    title_i_revenue?: true
+    erate_cat2_budget?: true
+    virtual_readiness?: true
+    hardware_score?: true
+    broadband_mbps?: true
+    teacher_training_pct?: true
+    enrollment_total?: true
+    free_reduced_pct?: true
+    ela_proficiency_pct?: true
+    math_proficiency_pct?: true
+  }
+
+  export type District_listeningSumAggregateInputType = {
+    title_i_revenue?: true
+    erate_cat2_budget?: true
+    virtual_readiness?: true
+    hardware_score?: true
+    broadband_mbps?: true
+    teacher_training_pct?: true
+    enrollment_total?: true
+    free_reduced_pct?: true
+    ela_proficiency_pct?: true
+    math_proficiency_pct?: true
+  }
+
+  export type District_listeningMinAggregateInputType = {
+    id?: true
+    district_id?: true
+    snapshot_date?: true
+    title_i_revenue?: true
+    erate_cat2_budget?: true
+    virtual_readiness?: true
+    hardware_score?: true
+    broadband_mbps?: true
+    teacher_training_pct?: true
+    enrollment_total?: true
+    free_reduced_pct?: true
+    ela_proficiency_pct?: true
+    math_proficiency_pct?: true
+  }
+
+  export type District_listeningMaxAggregateInputType = {
+    id?: true
+    district_id?: true
+    snapshot_date?: true
+    title_i_revenue?: true
+    erate_cat2_budget?: true
+    virtual_readiness?: true
+    hardware_score?: true
+    broadband_mbps?: true
+    teacher_training_pct?: true
+    enrollment_total?: true
+    free_reduced_pct?: true
+    ela_proficiency_pct?: true
+    math_proficiency_pct?: true
+  }
+
+  export type District_listeningCountAggregateInputType = {
+    id?: true
+    district_id?: true
+    snapshot_date?: true
+    title_i_revenue?: true
+    erate_cat2_budget?: true
+    virtual_readiness?: true
+    hardware_score?: true
+    broadband_mbps?: true
+    teacher_training_pct?: true
+    edtech_tools?: true
+    enrollment_total?: true
+    free_reduced_pct?: true
+    ela_proficiency_pct?: true
+    math_proficiency_pct?: true
+    metadata?: true
+    _all?: true
+  }
+
+  export type District_listeningAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which district_listening to aggregate.
+     */
+    where?: district_listeningWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of district_listenings to fetch.
+     */
+    orderBy?: district_listeningOrderByWithRelationInput | district_listeningOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: district_listeningWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` district_listenings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` district_listenings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned district_listenings
+    **/
+    _count?: true | District_listeningCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: District_listeningAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: District_listeningSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: District_listeningMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: District_listeningMaxAggregateInputType
+  }
+
+  export type GetDistrict_listeningAggregateType<T extends District_listeningAggregateArgs> = {
+        [P in keyof T & keyof AggregateDistrict_listening]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDistrict_listening[P]>
+      : GetScalarType<T[P], AggregateDistrict_listening[P]>
+  }
+
+
+
+
+  export type district_listeningGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: district_listeningWhereInput
+    orderBy?: district_listeningOrderByWithAggregationInput | district_listeningOrderByWithAggregationInput[]
+    by: District_listeningScalarFieldEnum[] | District_listeningScalarFieldEnum
+    having?: district_listeningScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: District_listeningCountAggregateInputType | true
+    _avg?: District_listeningAvgAggregateInputType
+    _sum?: District_listeningSumAggregateInputType
+    _min?: District_listeningMinAggregateInputType
+    _max?: District_listeningMaxAggregateInputType
+  }
+
+  export type District_listeningGroupByOutputType = {
+    id: string
+    district_id: string
+    snapshot_date: Date
+    title_i_revenue: number | null
+    erate_cat2_budget: number | null
+    virtual_readiness: number | null
+    hardware_score: number | null
+    broadband_mbps: number | null
+    teacher_training_pct: number | null
+    edtech_tools: JsonValue | null
+    enrollment_total: number | null
+    free_reduced_pct: number | null
+    ela_proficiency_pct: number | null
+    math_proficiency_pct: number | null
+    metadata: JsonValue | null
+    _count: District_listeningCountAggregateOutputType | null
+    _avg: District_listeningAvgAggregateOutputType | null
+    _sum: District_listeningSumAggregateOutputType | null
+    _min: District_listeningMinAggregateOutputType | null
+    _max: District_listeningMaxAggregateOutputType | null
+  }
+
+  type GetDistrict_listeningGroupByPayload<T extends district_listeningGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<District_listeningGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof District_listeningGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], District_listeningGroupByOutputType[P]>
+            : GetScalarType<T[P], District_listeningGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type district_listeningSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    district_id?: boolean
+    snapshot_date?: boolean
+    title_i_revenue?: boolean
+    erate_cat2_budget?: boolean
+    virtual_readiness?: boolean
+    hardware_score?: boolean
+    broadband_mbps?: boolean
+    teacher_training_pct?: boolean
+    edtech_tools?: boolean
+    enrollment_total?: boolean
+    free_reduced_pct?: boolean
+    ela_proficiency_pct?: boolean
+    math_proficiency_pct?: boolean
+    metadata?: boolean
+    districts?: boolean | districtsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["district_listening"]>
+
+  export type district_listeningSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    district_id?: boolean
+    snapshot_date?: boolean
+    title_i_revenue?: boolean
+    erate_cat2_budget?: boolean
+    virtual_readiness?: boolean
+    hardware_score?: boolean
+    broadband_mbps?: boolean
+    teacher_training_pct?: boolean
+    edtech_tools?: boolean
+    enrollment_total?: boolean
+    free_reduced_pct?: boolean
+    ela_proficiency_pct?: boolean
+    math_proficiency_pct?: boolean
+    metadata?: boolean
+    districts?: boolean | districtsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["district_listening"]>
+
+  export type district_listeningSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    district_id?: boolean
+    snapshot_date?: boolean
+    title_i_revenue?: boolean
+    erate_cat2_budget?: boolean
+    virtual_readiness?: boolean
+    hardware_score?: boolean
+    broadband_mbps?: boolean
+    teacher_training_pct?: boolean
+    edtech_tools?: boolean
+    enrollment_total?: boolean
+    free_reduced_pct?: boolean
+    ela_proficiency_pct?: boolean
+    math_proficiency_pct?: boolean
+    metadata?: boolean
+    districts?: boolean | districtsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["district_listening"]>
+
+  export type district_listeningSelectScalar = {
+    id?: boolean
+    district_id?: boolean
+    snapshot_date?: boolean
+    title_i_revenue?: boolean
+    erate_cat2_budget?: boolean
+    virtual_readiness?: boolean
+    hardware_score?: boolean
+    broadband_mbps?: boolean
+    teacher_training_pct?: boolean
+    edtech_tools?: boolean
+    enrollment_total?: boolean
+    free_reduced_pct?: boolean
+    ela_proficiency_pct?: boolean
+    math_proficiency_pct?: boolean
+    metadata?: boolean
+  }
+
+  export type district_listeningOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "district_id" | "snapshot_date" | "title_i_revenue" | "erate_cat2_budget" | "virtual_readiness" | "hardware_score" | "broadband_mbps" | "teacher_training_pct" | "edtech_tools" | "enrollment_total" | "free_reduced_pct" | "ela_proficiency_pct" | "math_proficiency_pct" | "metadata", ExtArgs["result"]["district_listening"]>
+  export type district_listeningInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    districts?: boolean | districtsDefaultArgs<ExtArgs>
+  }
+  export type district_listeningIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    districts?: boolean | districtsDefaultArgs<ExtArgs>
+  }
+  export type district_listeningIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    districts?: boolean | districtsDefaultArgs<ExtArgs>
+  }
+
+  export type $district_listeningPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "district_listening"
+    objects: {
+      districts: Prisma.$districtsPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      district_id: string
+      snapshot_date: Date
+      title_i_revenue: number | null
+      erate_cat2_budget: number | null
+      virtual_readiness: number | null
+      hardware_score: number | null
+      broadband_mbps: number | null
+      teacher_training_pct: number | null
+      edtech_tools: Prisma.JsonValue | null
+      enrollment_total: number | null
+      free_reduced_pct: number | null
+      ela_proficiency_pct: number | null
+      math_proficiency_pct: number | null
+      metadata: Prisma.JsonValue | null
+    }, ExtArgs["result"]["district_listening"]>
+    composites: {}
+  }
+
+  type district_listeningGetPayload<S extends boolean | null | undefined | district_listeningDefaultArgs> = $Result.GetResult<Prisma.$district_listeningPayload, S>
+
+  type district_listeningCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<district_listeningFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: District_listeningCountAggregateInputType | true
+    }
+
+  export interface district_listeningDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['district_listening'], meta: { name: 'district_listening' } }
+    /**
+     * Find zero or one District_listening that matches the filter.
+     * @param {district_listeningFindUniqueArgs} args - Arguments to find a District_listening
+     * @example
+     * // Get one District_listening
+     * const district_listening = await prisma.district_listening.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends district_listeningFindUniqueArgs>(args: SelectSubset<T, district_listeningFindUniqueArgs<ExtArgs>>): Prisma__district_listeningClient<$Result.GetResult<Prisma.$district_listeningPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one District_listening that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {district_listeningFindUniqueOrThrowArgs} args - Arguments to find a District_listening
+     * @example
+     * // Get one District_listening
+     * const district_listening = await prisma.district_listening.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends district_listeningFindUniqueOrThrowArgs>(args: SelectSubset<T, district_listeningFindUniqueOrThrowArgs<ExtArgs>>): Prisma__district_listeningClient<$Result.GetResult<Prisma.$district_listeningPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first District_listening that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {district_listeningFindFirstArgs} args - Arguments to find a District_listening
+     * @example
+     * // Get one District_listening
+     * const district_listening = await prisma.district_listening.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends district_listeningFindFirstArgs>(args?: SelectSubset<T, district_listeningFindFirstArgs<ExtArgs>>): Prisma__district_listeningClient<$Result.GetResult<Prisma.$district_listeningPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first District_listening that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {district_listeningFindFirstOrThrowArgs} args - Arguments to find a District_listening
+     * @example
+     * // Get one District_listening
+     * const district_listening = await prisma.district_listening.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends district_listeningFindFirstOrThrowArgs>(args?: SelectSubset<T, district_listeningFindFirstOrThrowArgs<ExtArgs>>): Prisma__district_listeningClient<$Result.GetResult<Prisma.$district_listeningPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more District_listenings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {district_listeningFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all District_listenings
+     * const district_listenings = await prisma.district_listening.findMany()
+     * 
+     * // Get first 10 District_listenings
+     * const district_listenings = await prisma.district_listening.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const district_listeningWithIdOnly = await prisma.district_listening.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends district_listeningFindManyArgs>(args?: SelectSubset<T, district_listeningFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$district_listeningPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a District_listening.
+     * @param {district_listeningCreateArgs} args - Arguments to create a District_listening.
+     * @example
+     * // Create one District_listening
+     * const District_listening = await prisma.district_listening.create({
+     *   data: {
+     *     // ... data to create a District_listening
+     *   }
+     * })
+     * 
+     */
+    create<T extends district_listeningCreateArgs>(args: SelectSubset<T, district_listeningCreateArgs<ExtArgs>>): Prisma__district_listeningClient<$Result.GetResult<Prisma.$district_listeningPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many District_listenings.
+     * @param {district_listeningCreateManyArgs} args - Arguments to create many District_listenings.
+     * @example
+     * // Create many District_listenings
+     * const district_listening = await prisma.district_listening.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends district_listeningCreateManyArgs>(args?: SelectSubset<T, district_listeningCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many District_listenings and returns the data saved in the database.
+     * @param {district_listeningCreateManyAndReturnArgs} args - Arguments to create many District_listenings.
+     * @example
+     * // Create many District_listenings
+     * const district_listening = await prisma.district_listening.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many District_listenings and only return the `id`
+     * const district_listeningWithIdOnly = await prisma.district_listening.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends district_listeningCreateManyAndReturnArgs>(args?: SelectSubset<T, district_listeningCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$district_listeningPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a District_listening.
+     * @param {district_listeningDeleteArgs} args - Arguments to delete one District_listening.
+     * @example
+     * // Delete one District_listening
+     * const District_listening = await prisma.district_listening.delete({
+     *   where: {
+     *     // ... filter to delete one District_listening
+     *   }
+     * })
+     * 
+     */
+    delete<T extends district_listeningDeleteArgs>(args: SelectSubset<T, district_listeningDeleteArgs<ExtArgs>>): Prisma__district_listeningClient<$Result.GetResult<Prisma.$district_listeningPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one District_listening.
+     * @param {district_listeningUpdateArgs} args - Arguments to update one District_listening.
+     * @example
+     * // Update one District_listening
+     * const district_listening = await prisma.district_listening.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends district_listeningUpdateArgs>(args: SelectSubset<T, district_listeningUpdateArgs<ExtArgs>>): Prisma__district_listeningClient<$Result.GetResult<Prisma.$district_listeningPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more District_listenings.
+     * @param {district_listeningDeleteManyArgs} args - Arguments to filter District_listenings to delete.
+     * @example
+     * // Delete a few District_listenings
+     * const { count } = await prisma.district_listening.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends district_listeningDeleteManyArgs>(args?: SelectSubset<T, district_listeningDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more District_listenings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {district_listeningUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many District_listenings
+     * const district_listening = await prisma.district_listening.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends district_listeningUpdateManyArgs>(args: SelectSubset<T, district_listeningUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more District_listenings and returns the data updated in the database.
+     * @param {district_listeningUpdateManyAndReturnArgs} args - Arguments to update many District_listenings.
+     * @example
+     * // Update many District_listenings
+     * const district_listening = await prisma.district_listening.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more District_listenings and only return the `id`
+     * const district_listeningWithIdOnly = await prisma.district_listening.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends district_listeningUpdateManyAndReturnArgs>(args: SelectSubset<T, district_listeningUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$district_listeningPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one District_listening.
+     * @param {district_listeningUpsertArgs} args - Arguments to update or create a District_listening.
+     * @example
+     * // Update or create a District_listening
+     * const district_listening = await prisma.district_listening.upsert({
+     *   create: {
+     *     // ... data to create a District_listening
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the District_listening we want to update
+     *   }
+     * })
+     */
+    upsert<T extends district_listeningUpsertArgs>(args: SelectSubset<T, district_listeningUpsertArgs<ExtArgs>>): Prisma__district_listeningClient<$Result.GetResult<Prisma.$district_listeningPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of District_listenings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {district_listeningCountArgs} args - Arguments to filter District_listenings to count.
+     * @example
+     * // Count the number of District_listenings
+     * const count = await prisma.district_listening.count({
+     *   where: {
+     *     // ... the filter for the District_listenings we want to count
+     *   }
+     * })
+    **/
+    count<T extends district_listeningCountArgs>(
+      args?: Subset<T, district_listeningCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], District_listeningCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a District_listening.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {District_listeningAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends District_listeningAggregateArgs>(args: Subset<T, District_listeningAggregateArgs>): Prisma.PrismaPromise<GetDistrict_listeningAggregateType<T>>
+
+    /**
+     * Group by District_listening.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {district_listeningGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends district_listeningGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: district_listeningGroupByArgs['orderBy'] }
+        : { orderBy?: district_listeningGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, district_listeningGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDistrict_listeningGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the district_listening model
+   */
+  readonly fields: district_listeningFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for district_listening.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__district_listeningClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    districts<T extends districtsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, districtsDefaultArgs<ExtArgs>>): Prisma__districtsClient<$Result.GetResult<Prisma.$districtsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the district_listening model
+   */
+  interface district_listeningFieldRefs {
+    readonly id: FieldRef<"district_listening", 'String'>
+    readonly district_id: FieldRef<"district_listening", 'String'>
+    readonly snapshot_date: FieldRef<"district_listening", 'DateTime'>
+    readonly title_i_revenue: FieldRef<"district_listening", 'Float'>
+    readonly erate_cat2_budget: FieldRef<"district_listening", 'Float'>
+    readonly virtual_readiness: FieldRef<"district_listening", 'Int'>
+    readonly hardware_score: FieldRef<"district_listening", 'Float'>
+    readonly broadband_mbps: FieldRef<"district_listening", 'Float'>
+    readonly teacher_training_pct: FieldRef<"district_listening", 'Float'>
+    readonly edtech_tools: FieldRef<"district_listening", 'Json'>
+    readonly enrollment_total: FieldRef<"district_listening", 'Int'>
+    readonly free_reduced_pct: FieldRef<"district_listening", 'Float'>
+    readonly ela_proficiency_pct: FieldRef<"district_listening", 'Float'>
+    readonly math_proficiency_pct: FieldRef<"district_listening", 'Float'>
+    readonly metadata: FieldRef<"district_listening", 'Json'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * district_listening findUnique
+   */
+  export type district_listeningFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the district_listening
+     */
+    select?: district_listeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the district_listening
+     */
+    omit?: district_listeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: district_listeningInclude<ExtArgs> | null
+    /**
+     * Filter, which district_listening to fetch.
+     */
+    where: district_listeningWhereUniqueInput
+  }
+
+  /**
+   * district_listening findUniqueOrThrow
+   */
+  export type district_listeningFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the district_listening
+     */
+    select?: district_listeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the district_listening
+     */
+    omit?: district_listeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: district_listeningInclude<ExtArgs> | null
+    /**
+     * Filter, which district_listening to fetch.
+     */
+    where: district_listeningWhereUniqueInput
+  }
+
+  /**
+   * district_listening findFirst
+   */
+  export type district_listeningFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the district_listening
+     */
+    select?: district_listeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the district_listening
+     */
+    omit?: district_listeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: district_listeningInclude<ExtArgs> | null
+    /**
+     * Filter, which district_listening to fetch.
+     */
+    where?: district_listeningWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of district_listenings to fetch.
+     */
+    orderBy?: district_listeningOrderByWithRelationInput | district_listeningOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for district_listenings.
+     */
+    cursor?: district_listeningWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` district_listenings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` district_listenings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of district_listenings.
+     */
+    distinct?: District_listeningScalarFieldEnum | District_listeningScalarFieldEnum[]
+  }
+
+  /**
+   * district_listening findFirstOrThrow
+   */
+  export type district_listeningFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the district_listening
+     */
+    select?: district_listeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the district_listening
+     */
+    omit?: district_listeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: district_listeningInclude<ExtArgs> | null
+    /**
+     * Filter, which district_listening to fetch.
+     */
+    where?: district_listeningWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of district_listenings to fetch.
+     */
+    orderBy?: district_listeningOrderByWithRelationInput | district_listeningOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for district_listenings.
+     */
+    cursor?: district_listeningWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` district_listenings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` district_listenings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of district_listenings.
+     */
+    distinct?: District_listeningScalarFieldEnum | District_listeningScalarFieldEnum[]
+  }
+
+  /**
+   * district_listening findMany
+   */
+  export type district_listeningFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the district_listening
+     */
+    select?: district_listeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the district_listening
+     */
+    omit?: district_listeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: district_listeningInclude<ExtArgs> | null
+    /**
+     * Filter, which district_listenings to fetch.
+     */
+    where?: district_listeningWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of district_listenings to fetch.
+     */
+    orderBy?: district_listeningOrderByWithRelationInput | district_listeningOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing district_listenings.
+     */
+    cursor?: district_listeningWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` district_listenings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` district_listenings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of district_listenings.
+     */
+    distinct?: District_listeningScalarFieldEnum | District_listeningScalarFieldEnum[]
+  }
+
+  /**
+   * district_listening create
+   */
+  export type district_listeningCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the district_listening
+     */
+    select?: district_listeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the district_listening
+     */
+    omit?: district_listeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: district_listeningInclude<ExtArgs> | null
+    /**
+     * The data needed to create a district_listening.
+     */
+    data: XOR<district_listeningCreateInput, district_listeningUncheckedCreateInput>
+  }
+
+  /**
+   * district_listening createMany
+   */
+  export type district_listeningCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many district_listenings.
+     */
+    data: district_listeningCreateManyInput | district_listeningCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * district_listening createManyAndReturn
+   */
+  export type district_listeningCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the district_listening
+     */
+    select?: district_listeningSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the district_listening
+     */
+    omit?: district_listeningOmit<ExtArgs> | null
+    /**
+     * The data used to create many district_listenings.
+     */
+    data: district_listeningCreateManyInput | district_listeningCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: district_listeningIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * district_listening update
+   */
+  export type district_listeningUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the district_listening
+     */
+    select?: district_listeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the district_listening
+     */
+    omit?: district_listeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: district_listeningInclude<ExtArgs> | null
+    /**
+     * The data needed to update a district_listening.
+     */
+    data: XOR<district_listeningUpdateInput, district_listeningUncheckedUpdateInput>
+    /**
+     * Choose, which district_listening to update.
+     */
+    where: district_listeningWhereUniqueInput
+  }
+
+  /**
+   * district_listening updateMany
+   */
+  export type district_listeningUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update district_listenings.
+     */
+    data: XOR<district_listeningUpdateManyMutationInput, district_listeningUncheckedUpdateManyInput>
+    /**
+     * Filter which district_listenings to update
+     */
+    where?: district_listeningWhereInput
+    /**
+     * Limit how many district_listenings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * district_listening updateManyAndReturn
+   */
+  export type district_listeningUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the district_listening
+     */
+    select?: district_listeningSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the district_listening
+     */
+    omit?: district_listeningOmit<ExtArgs> | null
+    /**
+     * The data used to update district_listenings.
+     */
+    data: XOR<district_listeningUpdateManyMutationInput, district_listeningUncheckedUpdateManyInput>
+    /**
+     * Filter which district_listenings to update
+     */
+    where?: district_listeningWhereInput
+    /**
+     * Limit how many district_listenings to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: district_listeningIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * district_listening upsert
+   */
+  export type district_listeningUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the district_listening
+     */
+    select?: district_listeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the district_listening
+     */
+    omit?: district_listeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: district_listeningInclude<ExtArgs> | null
+    /**
+     * The filter to search for the district_listening to update in case it exists.
+     */
+    where: district_listeningWhereUniqueInput
+    /**
+     * In case the district_listening found by the `where` argument doesn't exist, create a new district_listening with this data.
+     */
+    create: XOR<district_listeningCreateInput, district_listeningUncheckedCreateInput>
+    /**
+     * In case the district_listening was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<district_listeningUpdateInput, district_listeningUncheckedUpdateInput>
+  }
+
+  /**
+   * district_listening delete
+   */
+  export type district_listeningDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the district_listening
+     */
+    select?: district_listeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the district_listening
+     */
+    omit?: district_listeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: district_listeningInclude<ExtArgs> | null
+    /**
+     * Filter which district_listening to delete.
+     */
+    where: district_listeningWhereUniqueInput
+  }
+
+  /**
+   * district_listening deleteMany
+   */
+  export type district_listeningDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which district_listenings to delete
+     */
+    where?: district_listeningWhereInput
+    /**
+     * Limit how many district_listenings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * district_listening without action
+   */
+  export type district_listeningDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the district_listening
+     */
+    select?: district_listeningSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the district_listening
+     */
+    omit?: district_listeningOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: district_listeningInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model infra_monitors
+   */
+
+  export type AggregateInfra_monitors = {
+    _count: Infra_monitorsCountAggregateOutputType | null
+    _min: Infra_monitorsMinAggregateOutputType | null
+    _max: Infra_monitorsMaxAggregateOutputType | null
+  }
+
+  export type Infra_monitorsMinAggregateOutputType = {
+    id: string | null
+    school_id: string | null
+    device_type: string | null
+    device_name: string | null
+    location: string | null
+    status: string | null
+    last_heartbeat: Date | null
+    created_at: Date | null
+  }
+
+  export type Infra_monitorsMaxAggregateOutputType = {
+    id: string | null
+    school_id: string | null
+    device_type: string | null
+    device_name: string | null
+    location: string | null
+    status: string | null
+    last_heartbeat: Date | null
+    created_at: Date | null
+  }
+
+  export type Infra_monitorsCountAggregateOutputType = {
+    id: number
+    school_id: number
+    device_type: number
+    device_name: number
+    location: number
+    status: number
+    metrics: number
+    alert_threshold: number
+    last_heartbeat: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type Infra_monitorsMinAggregateInputType = {
+    id?: true
+    school_id?: true
+    device_type?: true
+    device_name?: true
+    location?: true
+    status?: true
+    last_heartbeat?: true
+    created_at?: true
+  }
+
+  export type Infra_monitorsMaxAggregateInputType = {
+    id?: true
+    school_id?: true
+    device_type?: true
+    device_name?: true
+    location?: true
+    status?: true
+    last_heartbeat?: true
+    created_at?: true
+  }
+
+  export type Infra_monitorsCountAggregateInputType = {
+    id?: true
+    school_id?: true
+    device_type?: true
+    device_name?: true
+    location?: true
+    status?: true
+    metrics?: true
+    alert_threshold?: true
+    last_heartbeat?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type Infra_monitorsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which infra_monitors to aggregate.
+     */
+    where?: infra_monitorsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of infra_monitors to fetch.
+     */
+    orderBy?: infra_monitorsOrderByWithRelationInput | infra_monitorsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: infra_monitorsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` infra_monitors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` infra_monitors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned infra_monitors
+    **/
+    _count?: true | Infra_monitorsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Infra_monitorsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Infra_monitorsMaxAggregateInputType
+  }
+
+  export type GetInfra_monitorsAggregateType<T extends Infra_monitorsAggregateArgs> = {
+        [P in keyof T & keyof AggregateInfra_monitors]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateInfra_monitors[P]>
+      : GetScalarType<T[P], AggregateInfra_monitors[P]>
+  }
+
+
+
+
+  export type infra_monitorsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: infra_monitorsWhereInput
+    orderBy?: infra_monitorsOrderByWithAggregationInput | infra_monitorsOrderByWithAggregationInput[]
+    by: Infra_monitorsScalarFieldEnum[] | Infra_monitorsScalarFieldEnum
+    having?: infra_monitorsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Infra_monitorsCountAggregateInputType | true
+    _min?: Infra_monitorsMinAggregateInputType
+    _max?: Infra_monitorsMaxAggregateInputType
+  }
+
+  export type Infra_monitorsGroupByOutputType = {
+    id: string
+    school_id: string
+    device_type: string
+    device_name: string
+    location: string | null
+    status: string
+    metrics: JsonValue | null
+    alert_threshold: JsonValue | null
+    last_heartbeat: Date
+    created_at: Date
+    _count: Infra_monitorsCountAggregateOutputType | null
+    _min: Infra_monitorsMinAggregateOutputType | null
+    _max: Infra_monitorsMaxAggregateOutputType | null
+  }
+
+  type GetInfra_monitorsGroupByPayload<T extends infra_monitorsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Infra_monitorsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Infra_monitorsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Infra_monitorsGroupByOutputType[P]>
+            : GetScalarType<T[P], Infra_monitorsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type infra_monitorsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    school_id?: boolean
+    device_type?: boolean
+    device_name?: boolean
+    location?: boolean
+    status?: boolean
+    metrics?: boolean
+    alert_threshold?: boolean
+    last_heartbeat?: boolean
+    created_at?: boolean
+    schools?: boolean | schoolsDefaultArgs<ExtArgs>
+    infra_alerts?: boolean | infra_monitors$infra_alertsArgs<ExtArgs>
+    _count?: boolean | Infra_monitorsCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["infra_monitors"]>
+
+  export type infra_monitorsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    school_id?: boolean
+    device_type?: boolean
+    device_name?: boolean
+    location?: boolean
+    status?: boolean
+    metrics?: boolean
+    alert_threshold?: boolean
+    last_heartbeat?: boolean
+    created_at?: boolean
+    schools?: boolean | schoolsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["infra_monitors"]>
+
+  export type infra_monitorsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    school_id?: boolean
+    device_type?: boolean
+    device_name?: boolean
+    location?: boolean
+    status?: boolean
+    metrics?: boolean
+    alert_threshold?: boolean
+    last_heartbeat?: boolean
+    created_at?: boolean
+    schools?: boolean | schoolsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["infra_monitors"]>
+
+  export type infra_monitorsSelectScalar = {
+    id?: boolean
+    school_id?: boolean
+    device_type?: boolean
+    device_name?: boolean
+    location?: boolean
+    status?: boolean
+    metrics?: boolean
+    alert_threshold?: boolean
+    last_heartbeat?: boolean
+    created_at?: boolean
+  }
+
+  export type infra_monitorsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "school_id" | "device_type" | "device_name" | "location" | "status" | "metrics" | "alert_threshold" | "last_heartbeat" | "created_at", ExtArgs["result"]["infra_monitors"]>
+  export type infra_monitorsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    schools?: boolean | schoolsDefaultArgs<ExtArgs>
+    infra_alerts?: boolean | infra_monitors$infra_alertsArgs<ExtArgs>
+    _count?: boolean | Infra_monitorsCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type infra_monitorsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    schools?: boolean | schoolsDefaultArgs<ExtArgs>
+  }
+  export type infra_monitorsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    schools?: boolean | schoolsDefaultArgs<ExtArgs>
+  }
+
+  export type $infra_monitorsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "infra_monitors"
+    objects: {
+      schools: Prisma.$schoolsPayload<ExtArgs>
+      infra_alerts: Prisma.$infra_alertsPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      school_id: string
+      device_type: string
+      device_name: string
+      location: string | null
+      status: string
+      metrics: Prisma.JsonValue | null
+      alert_threshold: Prisma.JsonValue | null
+      last_heartbeat: Date
+      created_at: Date
+    }, ExtArgs["result"]["infra_monitors"]>
+    composites: {}
+  }
+
+  type infra_monitorsGetPayload<S extends boolean | null | undefined | infra_monitorsDefaultArgs> = $Result.GetResult<Prisma.$infra_monitorsPayload, S>
+
+  type infra_monitorsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<infra_monitorsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Infra_monitorsCountAggregateInputType | true
+    }
+
+  export interface infra_monitorsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['infra_monitors'], meta: { name: 'infra_monitors' } }
+    /**
+     * Find zero or one Infra_monitors that matches the filter.
+     * @param {infra_monitorsFindUniqueArgs} args - Arguments to find a Infra_monitors
+     * @example
+     * // Get one Infra_monitors
+     * const infra_monitors = await prisma.infra_monitors.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends infra_monitorsFindUniqueArgs>(args: SelectSubset<T, infra_monitorsFindUniqueArgs<ExtArgs>>): Prisma__infra_monitorsClient<$Result.GetResult<Prisma.$infra_monitorsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Infra_monitors that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {infra_monitorsFindUniqueOrThrowArgs} args - Arguments to find a Infra_monitors
+     * @example
+     * // Get one Infra_monitors
+     * const infra_monitors = await prisma.infra_monitors.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends infra_monitorsFindUniqueOrThrowArgs>(args: SelectSubset<T, infra_monitorsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__infra_monitorsClient<$Result.GetResult<Prisma.$infra_monitorsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Infra_monitors that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {infra_monitorsFindFirstArgs} args - Arguments to find a Infra_monitors
+     * @example
+     * // Get one Infra_monitors
+     * const infra_monitors = await prisma.infra_monitors.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends infra_monitorsFindFirstArgs>(args?: SelectSubset<T, infra_monitorsFindFirstArgs<ExtArgs>>): Prisma__infra_monitorsClient<$Result.GetResult<Prisma.$infra_monitorsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Infra_monitors that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {infra_monitorsFindFirstOrThrowArgs} args - Arguments to find a Infra_monitors
+     * @example
+     * // Get one Infra_monitors
+     * const infra_monitors = await prisma.infra_monitors.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends infra_monitorsFindFirstOrThrowArgs>(args?: SelectSubset<T, infra_monitorsFindFirstOrThrowArgs<ExtArgs>>): Prisma__infra_monitorsClient<$Result.GetResult<Prisma.$infra_monitorsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Infra_monitors that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {infra_monitorsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Infra_monitors
+     * const infra_monitors = await prisma.infra_monitors.findMany()
+     * 
+     * // Get first 10 Infra_monitors
+     * const infra_monitors = await prisma.infra_monitors.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const infra_monitorsWithIdOnly = await prisma.infra_monitors.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends infra_monitorsFindManyArgs>(args?: SelectSubset<T, infra_monitorsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$infra_monitorsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Infra_monitors.
+     * @param {infra_monitorsCreateArgs} args - Arguments to create a Infra_monitors.
+     * @example
+     * // Create one Infra_monitors
+     * const Infra_monitors = await prisma.infra_monitors.create({
+     *   data: {
+     *     // ... data to create a Infra_monitors
+     *   }
+     * })
+     * 
+     */
+    create<T extends infra_monitorsCreateArgs>(args: SelectSubset<T, infra_monitorsCreateArgs<ExtArgs>>): Prisma__infra_monitorsClient<$Result.GetResult<Prisma.$infra_monitorsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Infra_monitors.
+     * @param {infra_monitorsCreateManyArgs} args - Arguments to create many Infra_monitors.
+     * @example
+     * // Create many Infra_monitors
+     * const infra_monitors = await prisma.infra_monitors.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends infra_monitorsCreateManyArgs>(args?: SelectSubset<T, infra_monitorsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Infra_monitors and returns the data saved in the database.
+     * @param {infra_monitorsCreateManyAndReturnArgs} args - Arguments to create many Infra_monitors.
+     * @example
+     * // Create many Infra_monitors
+     * const infra_monitors = await prisma.infra_monitors.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Infra_monitors and only return the `id`
+     * const infra_monitorsWithIdOnly = await prisma.infra_monitors.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends infra_monitorsCreateManyAndReturnArgs>(args?: SelectSubset<T, infra_monitorsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$infra_monitorsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Infra_monitors.
+     * @param {infra_monitorsDeleteArgs} args - Arguments to delete one Infra_monitors.
+     * @example
+     * // Delete one Infra_monitors
+     * const Infra_monitors = await prisma.infra_monitors.delete({
+     *   where: {
+     *     // ... filter to delete one Infra_monitors
+     *   }
+     * })
+     * 
+     */
+    delete<T extends infra_monitorsDeleteArgs>(args: SelectSubset<T, infra_monitorsDeleteArgs<ExtArgs>>): Prisma__infra_monitorsClient<$Result.GetResult<Prisma.$infra_monitorsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Infra_monitors.
+     * @param {infra_monitorsUpdateArgs} args - Arguments to update one Infra_monitors.
+     * @example
+     * // Update one Infra_monitors
+     * const infra_monitors = await prisma.infra_monitors.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends infra_monitorsUpdateArgs>(args: SelectSubset<T, infra_monitorsUpdateArgs<ExtArgs>>): Prisma__infra_monitorsClient<$Result.GetResult<Prisma.$infra_monitorsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Infra_monitors.
+     * @param {infra_monitorsDeleteManyArgs} args - Arguments to filter Infra_monitors to delete.
+     * @example
+     * // Delete a few Infra_monitors
+     * const { count } = await prisma.infra_monitors.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends infra_monitorsDeleteManyArgs>(args?: SelectSubset<T, infra_monitorsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Infra_monitors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {infra_monitorsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Infra_monitors
+     * const infra_monitors = await prisma.infra_monitors.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends infra_monitorsUpdateManyArgs>(args: SelectSubset<T, infra_monitorsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Infra_monitors and returns the data updated in the database.
+     * @param {infra_monitorsUpdateManyAndReturnArgs} args - Arguments to update many Infra_monitors.
+     * @example
+     * // Update many Infra_monitors
+     * const infra_monitors = await prisma.infra_monitors.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Infra_monitors and only return the `id`
+     * const infra_monitorsWithIdOnly = await prisma.infra_monitors.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends infra_monitorsUpdateManyAndReturnArgs>(args: SelectSubset<T, infra_monitorsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$infra_monitorsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Infra_monitors.
+     * @param {infra_monitorsUpsertArgs} args - Arguments to update or create a Infra_monitors.
+     * @example
+     * // Update or create a Infra_monitors
+     * const infra_monitors = await prisma.infra_monitors.upsert({
+     *   create: {
+     *     // ... data to create a Infra_monitors
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Infra_monitors we want to update
+     *   }
+     * })
+     */
+    upsert<T extends infra_monitorsUpsertArgs>(args: SelectSubset<T, infra_monitorsUpsertArgs<ExtArgs>>): Prisma__infra_monitorsClient<$Result.GetResult<Prisma.$infra_monitorsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Infra_monitors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {infra_monitorsCountArgs} args - Arguments to filter Infra_monitors to count.
+     * @example
+     * // Count the number of Infra_monitors
+     * const count = await prisma.infra_monitors.count({
+     *   where: {
+     *     // ... the filter for the Infra_monitors we want to count
+     *   }
+     * })
+    **/
+    count<T extends infra_monitorsCountArgs>(
+      args?: Subset<T, infra_monitorsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Infra_monitorsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Infra_monitors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Infra_monitorsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Infra_monitorsAggregateArgs>(args: Subset<T, Infra_monitorsAggregateArgs>): Prisma.PrismaPromise<GetInfra_monitorsAggregateType<T>>
+
+    /**
+     * Group by Infra_monitors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {infra_monitorsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends infra_monitorsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: infra_monitorsGroupByArgs['orderBy'] }
+        : { orderBy?: infra_monitorsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, infra_monitorsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetInfra_monitorsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the infra_monitors model
+   */
+  readonly fields: infra_monitorsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for infra_monitors.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__infra_monitorsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    schools<T extends schoolsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, schoolsDefaultArgs<ExtArgs>>): Prisma__schoolsClient<$Result.GetResult<Prisma.$schoolsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    infra_alerts<T extends infra_monitors$infra_alertsArgs<ExtArgs> = {}>(args?: Subset<T, infra_monitors$infra_alertsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$infra_alertsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the infra_monitors model
+   */
+  interface infra_monitorsFieldRefs {
+    readonly id: FieldRef<"infra_monitors", 'String'>
+    readonly school_id: FieldRef<"infra_monitors", 'String'>
+    readonly device_type: FieldRef<"infra_monitors", 'String'>
+    readonly device_name: FieldRef<"infra_monitors", 'String'>
+    readonly location: FieldRef<"infra_monitors", 'String'>
+    readonly status: FieldRef<"infra_monitors", 'String'>
+    readonly metrics: FieldRef<"infra_monitors", 'Json'>
+    readonly alert_threshold: FieldRef<"infra_monitors", 'Json'>
+    readonly last_heartbeat: FieldRef<"infra_monitors", 'DateTime'>
+    readonly created_at: FieldRef<"infra_monitors", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * infra_monitors findUnique
+   */
+  export type infra_monitorsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the infra_monitors
+     */
+    select?: infra_monitorsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the infra_monitors
+     */
+    omit?: infra_monitorsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: infra_monitorsInclude<ExtArgs> | null
+    /**
+     * Filter, which infra_monitors to fetch.
+     */
+    where: infra_monitorsWhereUniqueInput
+  }
+
+  /**
+   * infra_monitors findUniqueOrThrow
+   */
+  export type infra_monitorsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the infra_monitors
+     */
+    select?: infra_monitorsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the infra_monitors
+     */
+    omit?: infra_monitorsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: infra_monitorsInclude<ExtArgs> | null
+    /**
+     * Filter, which infra_monitors to fetch.
+     */
+    where: infra_monitorsWhereUniqueInput
+  }
+
+  /**
+   * infra_monitors findFirst
+   */
+  export type infra_monitorsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the infra_monitors
+     */
+    select?: infra_monitorsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the infra_monitors
+     */
+    omit?: infra_monitorsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: infra_monitorsInclude<ExtArgs> | null
+    /**
+     * Filter, which infra_monitors to fetch.
+     */
+    where?: infra_monitorsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of infra_monitors to fetch.
+     */
+    orderBy?: infra_monitorsOrderByWithRelationInput | infra_monitorsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for infra_monitors.
+     */
+    cursor?: infra_monitorsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` infra_monitors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` infra_monitors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of infra_monitors.
+     */
+    distinct?: Infra_monitorsScalarFieldEnum | Infra_monitorsScalarFieldEnum[]
+  }
+
+  /**
+   * infra_monitors findFirstOrThrow
+   */
+  export type infra_monitorsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the infra_monitors
+     */
+    select?: infra_monitorsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the infra_monitors
+     */
+    omit?: infra_monitorsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: infra_monitorsInclude<ExtArgs> | null
+    /**
+     * Filter, which infra_monitors to fetch.
+     */
+    where?: infra_monitorsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of infra_monitors to fetch.
+     */
+    orderBy?: infra_monitorsOrderByWithRelationInput | infra_monitorsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for infra_monitors.
+     */
+    cursor?: infra_monitorsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` infra_monitors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` infra_monitors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of infra_monitors.
+     */
+    distinct?: Infra_monitorsScalarFieldEnum | Infra_monitorsScalarFieldEnum[]
+  }
+
+  /**
+   * infra_monitors findMany
+   */
+  export type infra_monitorsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the infra_monitors
+     */
+    select?: infra_monitorsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the infra_monitors
+     */
+    omit?: infra_monitorsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: infra_monitorsInclude<ExtArgs> | null
+    /**
+     * Filter, which infra_monitors to fetch.
+     */
+    where?: infra_monitorsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of infra_monitors to fetch.
+     */
+    orderBy?: infra_monitorsOrderByWithRelationInput | infra_monitorsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing infra_monitors.
+     */
+    cursor?: infra_monitorsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` infra_monitors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` infra_monitors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of infra_monitors.
+     */
+    distinct?: Infra_monitorsScalarFieldEnum | Infra_monitorsScalarFieldEnum[]
+  }
+
+  /**
+   * infra_monitors create
+   */
+  export type infra_monitorsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the infra_monitors
+     */
+    select?: infra_monitorsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the infra_monitors
+     */
+    omit?: infra_monitorsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: infra_monitorsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a infra_monitors.
+     */
+    data: XOR<infra_monitorsCreateInput, infra_monitorsUncheckedCreateInput>
+  }
+
+  /**
+   * infra_monitors createMany
+   */
+  export type infra_monitorsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many infra_monitors.
+     */
+    data: infra_monitorsCreateManyInput | infra_monitorsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * infra_monitors createManyAndReturn
+   */
+  export type infra_monitorsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the infra_monitors
+     */
+    select?: infra_monitorsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the infra_monitors
+     */
+    omit?: infra_monitorsOmit<ExtArgs> | null
+    /**
+     * The data used to create many infra_monitors.
+     */
+    data: infra_monitorsCreateManyInput | infra_monitorsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: infra_monitorsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * infra_monitors update
+   */
+  export type infra_monitorsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the infra_monitors
+     */
+    select?: infra_monitorsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the infra_monitors
+     */
+    omit?: infra_monitorsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: infra_monitorsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a infra_monitors.
+     */
+    data: XOR<infra_monitorsUpdateInput, infra_monitorsUncheckedUpdateInput>
+    /**
+     * Choose, which infra_monitors to update.
+     */
+    where: infra_monitorsWhereUniqueInput
+  }
+
+  /**
+   * infra_monitors updateMany
+   */
+  export type infra_monitorsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update infra_monitors.
+     */
+    data: XOR<infra_monitorsUpdateManyMutationInput, infra_monitorsUncheckedUpdateManyInput>
+    /**
+     * Filter which infra_monitors to update
+     */
+    where?: infra_monitorsWhereInput
+    /**
+     * Limit how many infra_monitors to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * infra_monitors updateManyAndReturn
+   */
+  export type infra_monitorsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the infra_monitors
+     */
+    select?: infra_monitorsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the infra_monitors
+     */
+    omit?: infra_monitorsOmit<ExtArgs> | null
+    /**
+     * The data used to update infra_monitors.
+     */
+    data: XOR<infra_monitorsUpdateManyMutationInput, infra_monitorsUncheckedUpdateManyInput>
+    /**
+     * Filter which infra_monitors to update
+     */
+    where?: infra_monitorsWhereInput
+    /**
+     * Limit how many infra_monitors to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: infra_monitorsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * infra_monitors upsert
+   */
+  export type infra_monitorsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the infra_monitors
+     */
+    select?: infra_monitorsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the infra_monitors
+     */
+    omit?: infra_monitorsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: infra_monitorsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the infra_monitors to update in case it exists.
+     */
+    where: infra_monitorsWhereUniqueInput
+    /**
+     * In case the infra_monitors found by the `where` argument doesn't exist, create a new infra_monitors with this data.
+     */
+    create: XOR<infra_monitorsCreateInput, infra_monitorsUncheckedCreateInput>
+    /**
+     * In case the infra_monitors was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<infra_monitorsUpdateInput, infra_monitorsUncheckedUpdateInput>
+  }
+
+  /**
+   * infra_monitors delete
+   */
+  export type infra_monitorsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the infra_monitors
+     */
+    select?: infra_monitorsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the infra_monitors
+     */
+    omit?: infra_monitorsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: infra_monitorsInclude<ExtArgs> | null
+    /**
+     * Filter which infra_monitors to delete.
+     */
+    where: infra_monitorsWhereUniqueInput
+  }
+
+  /**
+   * infra_monitors deleteMany
+   */
+  export type infra_monitorsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which infra_monitors to delete
+     */
+    where?: infra_monitorsWhereInput
+    /**
+     * Limit how many infra_monitors to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * infra_monitors.infra_alerts
+   */
+  export type infra_monitors$infra_alertsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the infra_alerts
+     */
+    select?: infra_alertsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the infra_alerts
+     */
+    omit?: infra_alertsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: infra_alertsInclude<ExtArgs> | null
+    where?: infra_alertsWhereInput
+    orderBy?: infra_alertsOrderByWithRelationInput | infra_alertsOrderByWithRelationInput[]
+    cursor?: infra_alertsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Infra_alertsScalarFieldEnum | Infra_alertsScalarFieldEnum[]
+  }
+
+  /**
+   * infra_monitors without action
+   */
+  export type infra_monitorsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the infra_monitors
+     */
+    select?: infra_monitorsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the infra_monitors
+     */
+    omit?: infra_monitorsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: infra_monitorsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model infra_alerts
+   */
+
+  export type AggregateInfra_alerts = {
+    _count: Infra_alertsCountAggregateOutputType | null
+    _min: Infra_alertsMinAggregateOutputType | null
+    _max: Infra_alertsMaxAggregateOutputType | null
+  }
+
+  export type Infra_alertsMinAggregateOutputType = {
+    id: string | null
+    monitor_id: string | null
+    severity: string | null
+    message: string | null
+    acknowledged: boolean | null
+    acknowledged_by: string | null
+    resolved_at: Date | null
+    created_at: Date | null
+  }
+
+  export type Infra_alertsMaxAggregateOutputType = {
+    id: string | null
+    monitor_id: string | null
+    severity: string | null
+    message: string | null
+    acknowledged: boolean | null
+    acknowledged_by: string | null
+    resolved_at: Date | null
+    created_at: Date | null
+  }
+
+  export type Infra_alertsCountAggregateOutputType = {
+    id: number
+    monitor_id: number
+    severity: number
+    message: number
+    metric_snapshot: number
+    acknowledged: number
+    acknowledged_by: number
+    resolved_at: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type Infra_alertsMinAggregateInputType = {
+    id?: true
+    monitor_id?: true
+    severity?: true
+    message?: true
+    acknowledged?: true
+    acknowledged_by?: true
+    resolved_at?: true
+    created_at?: true
+  }
+
+  export type Infra_alertsMaxAggregateInputType = {
+    id?: true
+    monitor_id?: true
+    severity?: true
+    message?: true
+    acknowledged?: true
+    acknowledged_by?: true
+    resolved_at?: true
+    created_at?: true
+  }
+
+  export type Infra_alertsCountAggregateInputType = {
+    id?: true
+    monitor_id?: true
+    severity?: true
+    message?: true
+    metric_snapshot?: true
+    acknowledged?: true
+    acknowledged_by?: true
+    resolved_at?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type Infra_alertsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which infra_alerts to aggregate.
+     */
+    where?: infra_alertsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of infra_alerts to fetch.
+     */
+    orderBy?: infra_alertsOrderByWithRelationInput | infra_alertsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: infra_alertsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` infra_alerts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` infra_alerts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned infra_alerts
+    **/
+    _count?: true | Infra_alertsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Infra_alertsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Infra_alertsMaxAggregateInputType
+  }
+
+  export type GetInfra_alertsAggregateType<T extends Infra_alertsAggregateArgs> = {
+        [P in keyof T & keyof AggregateInfra_alerts]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateInfra_alerts[P]>
+      : GetScalarType<T[P], AggregateInfra_alerts[P]>
+  }
+
+
+
+
+  export type infra_alertsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: infra_alertsWhereInput
+    orderBy?: infra_alertsOrderByWithAggregationInput | infra_alertsOrderByWithAggregationInput[]
+    by: Infra_alertsScalarFieldEnum[] | Infra_alertsScalarFieldEnum
+    having?: infra_alertsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Infra_alertsCountAggregateInputType | true
+    _min?: Infra_alertsMinAggregateInputType
+    _max?: Infra_alertsMaxAggregateInputType
+  }
+
+  export type Infra_alertsGroupByOutputType = {
+    id: string
+    monitor_id: string
+    severity: string
+    message: string
+    metric_snapshot: JsonValue | null
+    acknowledged: boolean
+    acknowledged_by: string | null
+    resolved_at: Date | null
+    created_at: Date
+    _count: Infra_alertsCountAggregateOutputType | null
+    _min: Infra_alertsMinAggregateOutputType | null
+    _max: Infra_alertsMaxAggregateOutputType | null
+  }
+
+  type GetInfra_alertsGroupByPayload<T extends infra_alertsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Infra_alertsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Infra_alertsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Infra_alertsGroupByOutputType[P]>
+            : GetScalarType<T[P], Infra_alertsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type infra_alertsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    monitor_id?: boolean
+    severity?: boolean
+    message?: boolean
+    metric_snapshot?: boolean
+    acknowledged?: boolean
+    acknowledged_by?: boolean
+    resolved_at?: boolean
+    created_at?: boolean
+    infra_monitors?: boolean | infra_monitorsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["infra_alerts"]>
+
+  export type infra_alertsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    monitor_id?: boolean
+    severity?: boolean
+    message?: boolean
+    metric_snapshot?: boolean
+    acknowledged?: boolean
+    acknowledged_by?: boolean
+    resolved_at?: boolean
+    created_at?: boolean
+    infra_monitors?: boolean | infra_monitorsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["infra_alerts"]>
+
+  export type infra_alertsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    monitor_id?: boolean
+    severity?: boolean
+    message?: boolean
+    metric_snapshot?: boolean
+    acknowledged?: boolean
+    acknowledged_by?: boolean
+    resolved_at?: boolean
+    created_at?: boolean
+    infra_monitors?: boolean | infra_monitorsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["infra_alerts"]>
+
+  export type infra_alertsSelectScalar = {
+    id?: boolean
+    monitor_id?: boolean
+    severity?: boolean
+    message?: boolean
+    metric_snapshot?: boolean
+    acknowledged?: boolean
+    acknowledged_by?: boolean
+    resolved_at?: boolean
+    created_at?: boolean
+  }
+
+  export type infra_alertsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "monitor_id" | "severity" | "message" | "metric_snapshot" | "acknowledged" | "acknowledged_by" | "resolved_at" | "created_at", ExtArgs["result"]["infra_alerts"]>
+  export type infra_alertsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    infra_monitors?: boolean | infra_monitorsDefaultArgs<ExtArgs>
+  }
+  export type infra_alertsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    infra_monitors?: boolean | infra_monitorsDefaultArgs<ExtArgs>
+  }
+  export type infra_alertsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    infra_monitors?: boolean | infra_monitorsDefaultArgs<ExtArgs>
+  }
+
+  export type $infra_alertsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "infra_alerts"
+    objects: {
+      infra_monitors: Prisma.$infra_monitorsPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      monitor_id: string
+      severity: string
+      message: string
+      metric_snapshot: Prisma.JsonValue | null
+      acknowledged: boolean
+      acknowledged_by: string | null
+      resolved_at: Date | null
+      created_at: Date
+    }, ExtArgs["result"]["infra_alerts"]>
+    composites: {}
+  }
+
+  type infra_alertsGetPayload<S extends boolean | null | undefined | infra_alertsDefaultArgs> = $Result.GetResult<Prisma.$infra_alertsPayload, S>
+
+  type infra_alertsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<infra_alertsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Infra_alertsCountAggregateInputType | true
+    }
+
+  export interface infra_alertsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['infra_alerts'], meta: { name: 'infra_alerts' } }
+    /**
+     * Find zero or one Infra_alerts that matches the filter.
+     * @param {infra_alertsFindUniqueArgs} args - Arguments to find a Infra_alerts
+     * @example
+     * // Get one Infra_alerts
+     * const infra_alerts = await prisma.infra_alerts.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends infra_alertsFindUniqueArgs>(args: SelectSubset<T, infra_alertsFindUniqueArgs<ExtArgs>>): Prisma__infra_alertsClient<$Result.GetResult<Prisma.$infra_alertsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Infra_alerts that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {infra_alertsFindUniqueOrThrowArgs} args - Arguments to find a Infra_alerts
+     * @example
+     * // Get one Infra_alerts
+     * const infra_alerts = await prisma.infra_alerts.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends infra_alertsFindUniqueOrThrowArgs>(args: SelectSubset<T, infra_alertsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__infra_alertsClient<$Result.GetResult<Prisma.$infra_alertsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Infra_alerts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {infra_alertsFindFirstArgs} args - Arguments to find a Infra_alerts
+     * @example
+     * // Get one Infra_alerts
+     * const infra_alerts = await prisma.infra_alerts.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends infra_alertsFindFirstArgs>(args?: SelectSubset<T, infra_alertsFindFirstArgs<ExtArgs>>): Prisma__infra_alertsClient<$Result.GetResult<Prisma.$infra_alertsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Infra_alerts that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {infra_alertsFindFirstOrThrowArgs} args - Arguments to find a Infra_alerts
+     * @example
+     * // Get one Infra_alerts
+     * const infra_alerts = await prisma.infra_alerts.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends infra_alertsFindFirstOrThrowArgs>(args?: SelectSubset<T, infra_alertsFindFirstOrThrowArgs<ExtArgs>>): Prisma__infra_alertsClient<$Result.GetResult<Prisma.$infra_alertsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Infra_alerts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {infra_alertsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Infra_alerts
+     * const infra_alerts = await prisma.infra_alerts.findMany()
+     * 
+     * // Get first 10 Infra_alerts
+     * const infra_alerts = await prisma.infra_alerts.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const infra_alertsWithIdOnly = await prisma.infra_alerts.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends infra_alertsFindManyArgs>(args?: SelectSubset<T, infra_alertsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$infra_alertsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Infra_alerts.
+     * @param {infra_alertsCreateArgs} args - Arguments to create a Infra_alerts.
+     * @example
+     * // Create one Infra_alerts
+     * const Infra_alerts = await prisma.infra_alerts.create({
+     *   data: {
+     *     // ... data to create a Infra_alerts
+     *   }
+     * })
+     * 
+     */
+    create<T extends infra_alertsCreateArgs>(args: SelectSubset<T, infra_alertsCreateArgs<ExtArgs>>): Prisma__infra_alertsClient<$Result.GetResult<Prisma.$infra_alertsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Infra_alerts.
+     * @param {infra_alertsCreateManyArgs} args - Arguments to create many Infra_alerts.
+     * @example
+     * // Create many Infra_alerts
+     * const infra_alerts = await prisma.infra_alerts.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends infra_alertsCreateManyArgs>(args?: SelectSubset<T, infra_alertsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Infra_alerts and returns the data saved in the database.
+     * @param {infra_alertsCreateManyAndReturnArgs} args - Arguments to create many Infra_alerts.
+     * @example
+     * // Create many Infra_alerts
+     * const infra_alerts = await prisma.infra_alerts.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Infra_alerts and only return the `id`
+     * const infra_alertsWithIdOnly = await prisma.infra_alerts.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends infra_alertsCreateManyAndReturnArgs>(args?: SelectSubset<T, infra_alertsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$infra_alertsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Infra_alerts.
+     * @param {infra_alertsDeleteArgs} args - Arguments to delete one Infra_alerts.
+     * @example
+     * // Delete one Infra_alerts
+     * const Infra_alerts = await prisma.infra_alerts.delete({
+     *   where: {
+     *     // ... filter to delete one Infra_alerts
+     *   }
+     * })
+     * 
+     */
+    delete<T extends infra_alertsDeleteArgs>(args: SelectSubset<T, infra_alertsDeleteArgs<ExtArgs>>): Prisma__infra_alertsClient<$Result.GetResult<Prisma.$infra_alertsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Infra_alerts.
+     * @param {infra_alertsUpdateArgs} args - Arguments to update one Infra_alerts.
+     * @example
+     * // Update one Infra_alerts
+     * const infra_alerts = await prisma.infra_alerts.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends infra_alertsUpdateArgs>(args: SelectSubset<T, infra_alertsUpdateArgs<ExtArgs>>): Prisma__infra_alertsClient<$Result.GetResult<Prisma.$infra_alertsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Infra_alerts.
+     * @param {infra_alertsDeleteManyArgs} args - Arguments to filter Infra_alerts to delete.
+     * @example
+     * // Delete a few Infra_alerts
+     * const { count } = await prisma.infra_alerts.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends infra_alertsDeleteManyArgs>(args?: SelectSubset<T, infra_alertsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Infra_alerts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {infra_alertsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Infra_alerts
+     * const infra_alerts = await prisma.infra_alerts.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends infra_alertsUpdateManyArgs>(args: SelectSubset<T, infra_alertsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Infra_alerts and returns the data updated in the database.
+     * @param {infra_alertsUpdateManyAndReturnArgs} args - Arguments to update many Infra_alerts.
+     * @example
+     * // Update many Infra_alerts
+     * const infra_alerts = await prisma.infra_alerts.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Infra_alerts and only return the `id`
+     * const infra_alertsWithIdOnly = await prisma.infra_alerts.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends infra_alertsUpdateManyAndReturnArgs>(args: SelectSubset<T, infra_alertsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$infra_alertsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Infra_alerts.
+     * @param {infra_alertsUpsertArgs} args - Arguments to update or create a Infra_alerts.
+     * @example
+     * // Update or create a Infra_alerts
+     * const infra_alerts = await prisma.infra_alerts.upsert({
+     *   create: {
+     *     // ... data to create a Infra_alerts
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Infra_alerts we want to update
+     *   }
+     * })
+     */
+    upsert<T extends infra_alertsUpsertArgs>(args: SelectSubset<T, infra_alertsUpsertArgs<ExtArgs>>): Prisma__infra_alertsClient<$Result.GetResult<Prisma.$infra_alertsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Infra_alerts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {infra_alertsCountArgs} args - Arguments to filter Infra_alerts to count.
+     * @example
+     * // Count the number of Infra_alerts
+     * const count = await prisma.infra_alerts.count({
+     *   where: {
+     *     // ... the filter for the Infra_alerts we want to count
+     *   }
+     * })
+    **/
+    count<T extends infra_alertsCountArgs>(
+      args?: Subset<T, infra_alertsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Infra_alertsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Infra_alerts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Infra_alertsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Infra_alertsAggregateArgs>(args: Subset<T, Infra_alertsAggregateArgs>): Prisma.PrismaPromise<GetInfra_alertsAggregateType<T>>
+
+    /**
+     * Group by Infra_alerts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {infra_alertsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends infra_alertsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: infra_alertsGroupByArgs['orderBy'] }
+        : { orderBy?: infra_alertsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, infra_alertsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetInfra_alertsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the infra_alerts model
+   */
+  readonly fields: infra_alertsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for infra_alerts.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__infra_alertsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    infra_monitors<T extends infra_monitorsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, infra_monitorsDefaultArgs<ExtArgs>>): Prisma__infra_monitorsClient<$Result.GetResult<Prisma.$infra_monitorsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the infra_alerts model
+   */
+  interface infra_alertsFieldRefs {
+    readonly id: FieldRef<"infra_alerts", 'String'>
+    readonly monitor_id: FieldRef<"infra_alerts", 'String'>
+    readonly severity: FieldRef<"infra_alerts", 'String'>
+    readonly message: FieldRef<"infra_alerts", 'String'>
+    readonly metric_snapshot: FieldRef<"infra_alerts", 'Json'>
+    readonly acknowledged: FieldRef<"infra_alerts", 'Boolean'>
+    readonly acknowledged_by: FieldRef<"infra_alerts", 'String'>
+    readonly resolved_at: FieldRef<"infra_alerts", 'DateTime'>
+    readonly created_at: FieldRef<"infra_alerts", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * infra_alerts findUnique
+   */
+  export type infra_alertsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the infra_alerts
+     */
+    select?: infra_alertsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the infra_alerts
+     */
+    omit?: infra_alertsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: infra_alertsInclude<ExtArgs> | null
+    /**
+     * Filter, which infra_alerts to fetch.
+     */
+    where: infra_alertsWhereUniqueInput
+  }
+
+  /**
+   * infra_alerts findUniqueOrThrow
+   */
+  export type infra_alertsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the infra_alerts
+     */
+    select?: infra_alertsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the infra_alerts
+     */
+    omit?: infra_alertsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: infra_alertsInclude<ExtArgs> | null
+    /**
+     * Filter, which infra_alerts to fetch.
+     */
+    where: infra_alertsWhereUniqueInput
+  }
+
+  /**
+   * infra_alerts findFirst
+   */
+  export type infra_alertsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the infra_alerts
+     */
+    select?: infra_alertsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the infra_alerts
+     */
+    omit?: infra_alertsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: infra_alertsInclude<ExtArgs> | null
+    /**
+     * Filter, which infra_alerts to fetch.
+     */
+    where?: infra_alertsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of infra_alerts to fetch.
+     */
+    orderBy?: infra_alertsOrderByWithRelationInput | infra_alertsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for infra_alerts.
+     */
+    cursor?: infra_alertsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` infra_alerts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` infra_alerts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of infra_alerts.
+     */
+    distinct?: Infra_alertsScalarFieldEnum | Infra_alertsScalarFieldEnum[]
+  }
+
+  /**
+   * infra_alerts findFirstOrThrow
+   */
+  export type infra_alertsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the infra_alerts
+     */
+    select?: infra_alertsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the infra_alerts
+     */
+    omit?: infra_alertsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: infra_alertsInclude<ExtArgs> | null
+    /**
+     * Filter, which infra_alerts to fetch.
+     */
+    where?: infra_alertsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of infra_alerts to fetch.
+     */
+    orderBy?: infra_alertsOrderByWithRelationInput | infra_alertsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for infra_alerts.
+     */
+    cursor?: infra_alertsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` infra_alerts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` infra_alerts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of infra_alerts.
+     */
+    distinct?: Infra_alertsScalarFieldEnum | Infra_alertsScalarFieldEnum[]
+  }
+
+  /**
+   * infra_alerts findMany
+   */
+  export type infra_alertsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the infra_alerts
+     */
+    select?: infra_alertsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the infra_alerts
+     */
+    omit?: infra_alertsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: infra_alertsInclude<ExtArgs> | null
+    /**
+     * Filter, which infra_alerts to fetch.
+     */
+    where?: infra_alertsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of infra_alerts to fetch.
+     */
+    orderBy?: infra_alertsOrderByWithRelationInput | infra_alertsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing infra_alerts.
+     */
+    cursor?: infra_alertsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` infra_alerts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` infra_alerts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of infra_alerts.
+     */
+    distinct?: Infra_alertsScalarFieldEnum | Infra_alertsScalarFieldEnum[]
+  }
+
+  /**
+   * infra_alerts create
+   */
+  export type infra_alertsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the infra_alerts
+     */
+    select?: infra_alertsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the infra_alerts
+     */
+    omit?: infra_alertsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: infra_alertsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a infra_alerts.
+     */
+    data: XOR<infra_alertsCreateInput, infra_alertsUncheckedCreateInput>
+  }
+
+  /**
+   * infra_alerts createMany
+   */
+  export type infra_alertsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many infra_alerts.
+     */
+    data: infra_alertsCreateManyInput | infra_alertsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * infra_alerts createManyAndReturn
+   */
+  export type infra_alertsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the infra_alerts
+     */
+    select?: infra_alertsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the infra_alerts
+     */
+    omit?: infra_alertsOmit<ExtArgs> | null
+    /**
+     * The data used to create many infra_alerts.
+     */
+    data: infra_alertsCreateManyInput | infra_alertsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: infra_alertsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * infra_alerts update
+   */
+  export type infra_alertsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the infra_alerts
+     */
+    select?: infra_alertsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the infra_alerts
+     */
+    omit?: infra_alertsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: infra_alertsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a infra_alerts.
+     */
+    data: XOR<infra_alertsUpdateInput, infra_alertsUncheckedUpdateInput>
+    /**
+     * Choose, which infra_alerts to update.
+     */
+    where: infra_alertsWhereUniqueInput
+  }
+
+  /**
+   * infra_alerts updateMany
+   */
+  export type infra_alertsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update infra_alerts.
+     */
+    data: XOR<infra_alertsUpdateManyMutationInput, infra_alertsUncheckedUpdateManyInput>
+    /**
+     * Filter which infra_alerts to update
+     */
+    where?: infra_alertsWhereInput
+    /**
+     * Limit how many infra_alerts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * infra_alerts updateManyAndReturn
+   */
+  export type infra_alertsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the infra_alerts
+     */
+    select?: infra_alertsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the infra_alerts
+     */
+    omit?: infra_alertsOmit<ExtArgs> | null
+    /**
+     * The data used to update infra_alerts.
+     */
+    data: XOR<infra_alertsUpdateManyMutationInput, infra_alertsUncheckedUpdateManyInput>
+    /**
+     * Filter which infra_alerts to update
+     */
+    where?: infra_alertsWhereInput
+    /**
+     * Limit how many infra_alerts to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: infra_alertsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * infra_alerts upsert
+   */
+  export type infra_alertsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the infra_alerts
+     */
+    select?: infra_alertsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the infra_alerts
+     */
+    omit?: infra_alertsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: infra_alertsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the infra_alerts to update in case it exists.
+     */
+    where: infra_alertsWhereUniqueInput
+    /**
+     * In case the infra_alerts found by the `where` argument doesn't exist, create a new infra_alerts with this data.
+     */
+    create: XOR<infra_alertsCreateInput, infra_alertsUncheckedCreateInput>
+    /**
+     * In case the infra_alerts was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<infra_alertsUpdateInput, infra_alertsUncheckedUpdateInput>
+  }
+
+  /**
+   * infra_alerts delete
+   */
+  export type infra_alertsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the infra_alerts
+     */
+    select?: infra_alertsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the infra_alerts
+     */
+    omit?: infra_alertsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: infra_alertsInclude<ExtArgs> | null
+    /**
+     * Filter which infra_alerts to delete.
+     */
+    where: infra_alertsWhereUniqueInput
+  }
+
+  /**
+   * infra_alerts deleteMany
+   */
+  export type infra_alertsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which infra_alerts to delete
+     */
+    where?: infra_alertsWhereInput
+    /**
+     * Limit how many infra_alerts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * infra_alerts without action
+   */
+  export type infra_alertsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the infra_alerts
+     */
+    select?: infra_alertsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the infra_alerts
+     */
+    omit?: infra_alertsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: infra_alertsInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -46589,6 +55994,138 @@ export namespace Prisma {
   };
 
   export type Vault_ocrScalarFieldEnum = (typeof Vault_ocrScalarFieldEnum)[keyof typeof Vault_ocrScalarFieldEnum]
+
+
+  export const Student_profilesScalarFieldEnum: {
+    id: 'id',
+    user_id: 'user_id',
+    student_sis_id: 'student_sis_id',
+    first_name: 'first_name',
+    last_name: 'last_name',
+    grade_level: 'grade_level',
+    school_id: 'school_id',
+    lexile_level: 'lexile_level',
+    lexile_history: 'lexile_history',
+    ell_status: 'ell_status',
+    native_language: 'native_language',
+    sped_status: 'sped_status',
+    dyslexia_flag: 'dyslexia_flag',
+    intervention_tier: 'intervention_tier',
+    ala_skill_profile: 'ala_skill_profile',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type Student_profilesScalarFieldEnum = (typeof Student_profilesScalarFieldEnum)[keyof typeof Student_profilesScalarFieldEnum]
+
+
+  export const Screener_resultsScalarFieldEnum: {
+    id: 'id',
+    student_profile_id: 'student_profile_id',
+    screener_platform: 'screener_platform',
+    assessment_window: 'assessment_window',
+    assessment_date: 'assessment_date',
+    composite_score: 'composite_score',
+    risk_level: 'risk_level',
+    skill_scores: 'skill_scores',
+    raw_data: 'raw_data',
+    created_at: 'created_at'
+  };
+
+  export type Screener_resultsScalarFieldEnum = (typeof Screener_resultsScalarFieldEnum)[keyof typeof Screener_resultsScalarFieldEnum]
+
+
+  export const Differentiated_materialsScalarFieldEnum: {
+    id: 'id',
+    user_id: 'user_id',
+    student_profile_id: 'student_profile_id',
+    title: 'title',
+    source_input: 'source_input',
+    target_lexile: 'target_lexile',
+    output_lexile: 'output_lexile',
+    dok_level: 'dok_level',
+    content_type: 'content_type',
+    generated_content: 'generated_content',
+    academic_standard: 'academic_standard',
+    subject: 'subject',
+    grade_level: 'grade_level',
+    language: 'language',
+    exported_to: 'exported_to',
+    tokens_used: 'tokens_used',
+    created_at: 'created_at'
+  };
+
+  export type Differentiated_materialsScalarFieldEnum = (typeof Differentiated_materialsScalarFieldEnum)[keyof typeof Differentiated_materialsScalarFieldEnum]
+
+
+  export const Reading_improvement_plansScalarFieldEnum: {
+    id: 'id',
+    student_profile_id: 'student_profile_id',
+    created_by: 'created_by',
+    school_year: 'school_year',
+    status: 'status',
+    deficit_areas: 'deficit_areas',
+    intervention_program: 'intervention_program',
+    daily_materials: 'daily_materials',
+    progress_notes: 'progress_notes',
+    parent_notified: 'parent_notified',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type Reading_improvement_plansScalarFieldEnum = (typeof Reading_improvement_plansScalarFieldEnum)[keyof typeof Reading_improvement_plansScalarFieldEnum]
+
+
+  export const District_listeningScalarFieldEnum: {
+    id: 'id',
+    district_id: 'district_id',
+    snapshot_date: 'snapshot_date',
+    title_i_revenue: 'title_i_revenue',
+    erate_cat2_budget: 'erate_cat2_budget',
+    virtual_readiness: 'virtual_readiness',
+    hardware_score: 'hardware_score',
+    broadband_mbps: 'broadband_mbps',
+    teacher_training_pct: 'teacher_training_pct',
+    edtech_tools: 'edtech_tools',
+    enrollment_total: 'enrollment_total',
+    free_reduced_pct: 'free_reduced_pct',
+    ela_proficiency_pct: 'ela_proficiency_pct',
+    math_proficiency_pct: 'math_proficiency_pct',
+    metadata: 'metadata'
+  };
+
+  export type District_listeningScalarFieldEnum = (typeof District_listeningScalarFieldEnum)[keyof typeof District_listeningScalarFieldEnum]
+
+
+  export const Infra_monitorsScalarFieldEnum: {
+    id: 'id',
+    school_id: 'school_id',
+    device_type: 'device_type',
+    device_name: 'device_name',
+    location: 'location',
+    status: 'status',
+    metrics: 'metrics',
+    alert_threshold: 'alert_threshold',
+    last_heartbeat: 'last_heartbeat',
+    created_at: 'created_at'
+  };
+
+  export type Infra_monitorsScalarFieldEnum = (typeof Infra_monitorsScalarFieldEnum)[keyof typeof Infra_monitorsScalarFieldEnum]
+
+
+  export const Infra_alertsScalarFieldEnum: {
+    id: 'id',
+    monitor_id: 'monitor_id',
+    severity: 'severity',
+    message: 'message',
+    metric_snapshot: 'metric_snapshot',
+    acknowledged: 'acknowledged',
+    acknowledged_by: 'acknowledged_by',
+    resolved_at: 'resolved_at',
+    created_at: 'created_at'
+  };
+
+  export type Infra_alertsScalarFieldEnum = (typeof Infra_alertsScalarFieldEnum)[keyof typeof Infra_alertsScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -47386,6 +56923,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"districts"> | Date | string
     updated_at?: DateTimeFilter<"districts"> | Date | string
     district_nodes?: District_nodesListRelationFilter
+    district_listening?: District_listeningListRelationFilter
   }
 
   export type districtsOrderByWithRelationInput = {
@@ -47396,6 +56934,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     district_nodes?: district_nodesOrderByRelationAggregateInput
+    district_listening?: district_listeningOrderByRelationAggregateInput
   }
 
   export type districtsWhereUniqueInput = Prisma.AtLeast<{
@@ -47409,6 +56948,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"districts"> | Date | string
     updated_at?: DateTimeFilter<"districts"> | Date | string
     district_nodes?: District_nodesListRelationFilter
+    district_listening?: District_listeningListRelationFilter
   }, "id" | "name">
 
   export type districtsOrderByWithAggregationInput = {
@@ -48396,6 +57936,8 @@ export namespace Prisma {
     users_schools_admin_idTousers?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     subscriptions?: SubscriptionsListRelationFilter
     users_users_school_idToschools?: UserListRelationFilter
+    student_profiles?: Student_profilesListRelationFilter
+    infra_monitors?: Infra_monitorsListRelationFilter
   }
 
   export type schoolsOrderByWithRelationInput = {
@@ -48414,6 +57956,8 @@ export namespace Prisma {
     users_schools_admin_idTousers?: UserOrderByWithRelationInput
     subscriptions?: subscriptionsOrderByRelationAggregateInput
     users_users_school_idToschools?: UserOrderByRelationAggregateInput
+    student_profiles?: student_profilesOrderByRelationAggregateInput
+    infra_monitors?: infra_monitorsOrderByRelationAggregateInput
   }
 
   export type schoolsWhereUniqueInput = Prisma.AtLeast<{
@@ -48435,6 +57979,8 @@ export namespace Prisma {
     users_schools_admin_idTousers?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     subscriptions?: SubscriptionsListRelationFilter
     users_users_school_idToschools?: UserListRelationFilter
+    student_profiles?: Student_profilesListRelationFilter
+    infra_monitors?: Infra_monitorsListRelationFilter
   }, "id" | "stripe_customer_id">
 
   export type schoolsOrderByWithAggregationInput = {
@@ -49109,6 +58655,9 @@ export namespace Prisma {
     tiers?: XOR<TiersNullableScalarRelationFilter, tiersWhereInput> | null
     vault_documents?: Vault_documentsListRelationFilter
     knowledge_documents?: Knowledge_documentsListRelationFilter
+    student_profiles?: Student_profilesListRelationFilter
+    differentiated_materials?: Differentiated_materialsListRelationFilter
+    reading_improvement_plans?: Reading_improvement_plansListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -49165,6 +58714,9 @@ export namespace Prisma {
     tiers?: tiersOrderByWithRelationInput
     vault_documents?: vault_documentsOrderByRelationAggregateInput
     knowledge_documents?: knowledge_documentsOrderByRelationAggregateInput
+    student_profiles?: student_profilesOrderByRelationAggregateInput
+    differentiated_materials?: differentiated_materialsOrderByRelationAggregateInput
+    reading_improvement_plans?: reading_improvement_plansOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -49224,6 +58776,9 @@ export namespace Prisma {
     tiers?: XOR<TiersNullableScalarRelationFilter, tiersWhereInput> | null
     vault_documents?: Vault_documentsListRelationFilter
     knowledge_documents?: Knowledge_documentsListRelationFilter
+    student_profiles?: Student_profilesListRelationFilter
+    differentiated_materials?: Differentiated_materialsListRelationFilter
+    reading_improvement_plans?: Reading_improvement_plansListRelationFilter
   }, "id" | "clerk_id" | "email" | "stripe_customer_id" | "stripe_subscription_id">
 
   export type UserOrderByWithAggregationInput = {
@@ -49747,6 +59302,696 @@ export namespace Prisma {
     extractedText?: StringWithAggregatesFilter<"vault_ocr"> | string
     confidence?: FloatNullableWithAggregatesFilter<"vault_ocr"> | number | null
     processedAt?: DateTimeWithAggregatesFilter<"vault_ocr"> | Date | string
+  }
+
+  export type student_profilesWhereInput = {
+    AND?: student_profilesWhereInput | student_profilesWhereInput[]
+    OR?: student_profilesWhereInput[]
+    NOT?: student_profilesWhereInput | student_profilesWhereInput[]
+    id?: StringFilter<"student_profiles"> | string
+    user_id?: StringFilter<"student_profiles"> | string
+    student_sis_id?: StringFilter<"student_profiles"> | string
+    first_name?: StringFilter<"student_profiles"> | string
+    last_name?: StringFilter<"student_profiles"> | string
+    grade_level?: StringFilter<"student_profiles"> | string
+    school_id?: StringNullableFilter<"student_profiles"> | string | null
+    lexile_level?: IntNullableFilter<"student_profiles"> | number | null
+    lexile_history?: JsonNullableFilter<"student_profiles">
+    ell_status?: StringNullableFilter<"student_profiles"> | string | null
+    native_language?: StringNullableFilter<"student_profiles"> | string | null
+    sped_status?: StringNullableFilter<"student_profiles"> | string | null
+    dyslexia_flag?: BoolFilter<"student_profiles"> | boolean
+    intervention_tier?: StringNullableFilter<"student_profiles"> | string | null
+    ala_skill_profile?: JsonNullableFilter<"student_profiles">
+    created_at?: DateTimeFilter<"student_profiles"> | Date | string
+    updated_at?: DateTimeFilter<"student_profiles"> | Date | string
+    users?: XOR<UserScalarRelationFilter, UserWhereInput>
+    schools?: XOR<SchoolsNullableScalarRelationFilter, schoolsWhereInput> | null
+    screener_results?: Screener_resultsListRelationFilter
+    differentiated_materials?: Differentiated_materialsListRelationFilter
+    reading_improvement_plans?: Reading_improvement_plansListRelationFilter
+  }
+
+  export type student_profilesOrderByWithRelationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    student_sis_id?: SortOrder
+    first_name?: SortOrder
+    last_name?: SortOrder
+    grade_level?: SortOrder
+    school_id?: SortOrderInput | SortOrder
+    lexile_level?: SortOrderInput | SortOrder
+    lexile_history?: SortOrderInput | SortOrder
+    ell_status?: SortOrderInput | SortOrder
+    native_language?: SortOrderInput | SortOrder
+    sped_status?: SortOrderInput | SortOrder
+    dyslexia_flag?: SortOrder
+    intervention_tier?: SortOrderInput | SortOrder
+    ala_skill_profile?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    users?: UserOrderByWithRelationInput
+    schools?: schoolsOrderByWithRelationInput
+    screener_results?: screener_resultsOrderByRelationAggregateInput
+    differentiated_materials?: differentiated_materialsOrderByRelationAggregateInput
+    reading_improvement_plans?: reading_improvement_plansOrderByRelationAggregateInput
+  }
+
+  export type student_profilesWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    user_id_student_sis_id?: student_profilesUser_idStudent_sis_idCompoundUniqueInput
+    AND?: student_profilesWhereInput | student_profilesWhereInput[]
+    OR?: student_profilesWhereInput[]
+    NOT?: student_profilesWhereInput | student_profilesWhereInput[]
+    user_id?: StringFilter<"student_profiles"> | string
+    student_sis_id?: StringFilter<"student_profiles"> | string
+    first_name?: StringFilter<"student_profiles"> | string
+    last_name?: StringFilter<"student_profiles"> | string
+    grade_level?: StringFilter<"student_profiles"> | string
+    school_id?: StringNullableFilter<"student_profiles"> | string | null
+    lexile_level?: IntNullableFilter<"student_profiles"> | number | null
+    lexile_history?: JsonNullableFilter<"student_profiles">
+    ell_status?: StringNullableFilter<"student_profiles"> | string | null
+    native_language?: StringNullableFilter<"student_profiles"> | string | null
+    sped_status?: StringNullableFilter<"student_profiles"> | string | null
+    dyslexia_flag?: BoolFilter<"student_profiles"> | boolean
+    intervention_tier?: StringNullableFilter<"student_profiles"> | string | null
+    ala_skill_profile?: JsonNullableFilter<"student_profiles">
+    created_at?: DateTimeFilter<"student_profiles"> | Date | string
+    updated_at?: DateTimeFilter<"student_profiles"> | Date | string
+    users?: XOR<UserScalarRelationFilter, UserWhereInput>
+    schools?: XOR<SchoolsNullableScalarRelationFilter, schoolsWhereInput> | null
+    screener_results?: Screener_resultsListRelationFilter
+    differentiated_materials?: Differentiated_materialsListRelationFilter
+    reading_improvement_plans?: Reading_improvement_plansListRelationFilter
+  }, "id" | "user_id_student_sis_id">
+
+  export type student_profilesOrderByWithAggregationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    student_sis_id?: SortOrder
+    first_name?: SortOrder
+    last_name?: SortOrder
+    grade_level?: SortOrder
+    school_id?: SortOrderInput | SortOrder
+    lexile_level?: SortOrderInput | SortOrder
+    lexile_history?: SortOrderInput | SortOrder
+    ell_status?: SortOrderInput | SortOrder
+    native_language?: SortOrderInput | SortOrder
+    sped_status?: SortOrderInput | SortOrder
+    dyslexia_flag?: SortOrder
+    intervention_tier?: SortOrderInput | SortOrder
+    ala_skill_profile?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: student_profilesCountOrderByAggregateInput
+    _avg?: student_profilesAvgOrderByAggregateInput
+    _max?: student_profilesMaxOrderByAggregateInput
+    _min?: student_profilesMinOrderByAggregateInput
+    _sum?: student_profilesSumOrderByAggregateInput
+  }
+
+  export type student_profilesScalarWhereWithAggregatesInput = {
+    AND?: student_profilesScalarWhereWithAggregatesInput | student_profilesScalarWhereWithAggregatesInput[]
+    OR?: student_profilesScalarWhereWithAggregatesInput[]
+    NOT?: student_profilesScalarWhereWithAggregatesInput | student_profilesScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"student_profiles"> | string
+    user_id?: StringWithAggregatesFilter<"student_profiles"> | string
+    student_sis_id?: StringWithAggregatesFilter<"student_profiles"> | string
+    first_name?: StringWithAggregatesFilter<"student_profiles"> | string
+    last_name?: StringWithAggregatesFilter<"student_profiles"> | string
+    grade_level?: StringWithAggregatesFilter<"student_profiles"> | string
+    school_id?: StringNullableWithAggregatesFilter<"student_profiles"> | string | null
+    lexile_level?: IntNullableWithAggregatesFilter<"student_profiles"> | number | null
+    lexile_history?: JsonNullableWithAggregatesFilter<"student_profiles">
+    ell_status?: StringNullableWithAggregatesFilter<"student_profiles"> | string | null
+    native_language?: StringNullableWithAggregatesFilter<"student_profiles"> | string | null
+    sped_status?: StringNullableWithAggregatesFilter<"student_profiles"> | string | null
+    dyslexia_flag?: BoolWithAggregatesFilter<"student_profiles"> | boolean
+    intervention_tier?: StringNullableWithAggregatesFilter<"student_profiles"> | string | null
+    ala_skill_profile?: JsonNullableWithAggregatesFilter<"student_profiles">
+    created_at?: DateTimeWithAggregatesFilter<"student_profiles"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"student_profiles"> | Date | string
+  }
+
+  export type screener_resultsWhereInput = {
+    AND?: screener_resultsWhereInput | screener_resultsWhereInput[]
+    OR?: screener_resultsWhereInput[]
+    NOT?: screener_resultsWhereInput | screener_resultsWhereInput[]
+    id?: StringFilter<"screener_results"> | string
+    student_profile_id?: StringFilter<"screener_results"> | string
+    screener_platform?: StringFilter<"screener_results"> | string
+    assessment_window?: StringFilter<"screener_results"> | string
+    assessment_date?: DateTimeFilter<"screener_results"> | Date | string
+    composite_score?: FloatNullableFilter<"screener_results"> | number | null
+    risk_level?: StringNullableFilter<"screener_results"> | string | null
+    skill_scores?: JsonFilter<"screener_results">
+    raw_data?: JsonNullableFilter<"screener_results">
+    created_at?: DateTimeFilter<"screener_results"> | Date | string
+    student_profiles?: XOR<Student_profilesScalarRelationFilter, student_profilesWhereInput>
+  }
+
+  export type screener_resultsOrderByWithRelationInput = {
+    id?: SortOrder
+    student_profile_id?: SortOrder
+    screener_platform?: SortOrder
+    assessment_window?: SortOrder
+    assessment_date?: SortOrder
+    composite_score?: SortOrderInput | SortOrder
+    risk_level?: SortOrderInput | SortOrder
+    skill_scores?: SortOrder
+    raw_data?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    student_profiles?: student_profilesOrderByWithRelationInput
+  }
+
+  export type screener_resultsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: screener_resultsWhereInput | screener_resultsWhereInput[]
+    OR?: screener_resultsWhereInput[]
+    NOT?: screener_resultsWhereInput | screener_resultsWhereInput[]
+    student_profile_id?: StringFilter<"screener_results"> | string
+    screener_platform?: StringFilter<"screener_results"> | string
+    assessment_window?: StringFilter<"screener_results"> | string
+    assessment_date?: DateTimeFilter<"screener_results"> | Date | string
+    composite_score?: FloatNullableFilter<"screener_results"> | number | null
+    risk_level?: StringNullableFilter<"screener_results"> | string | null
+    skill_scores?: JsonFilter<"screener_results">
+    raw_data?: JsonNullableFilter<"screener_results">
+    created_at?: DateTimeFilter<"screener_results"> | Date | string
+    student_profiles?: XOR<Student_profilesScalarRelationFilter, student_profilesWhereInput>
+  }, "id">
+
+  export type screener_resultsOrderByWithAggregationInput = {
+    id?: SortOrder
+    student_profile_id?: SortOrder
+    screener_platform?: SortOrder
+    assessment_window?: SortOrder
+    assessment_date?: SortOrder
+    composite_score?: SortOrderInput | SortOrder
+    risk_level?: SortOrderInput | SortOrder
+    skill_scores?: SortOrder
+    raw_data?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    _count?: screener_resultsCountOrderByAggregateInput
+    _avg?: screener_resultsAvgOrderByAggregateInput
+    _max?: screener_resultsMaxOrderByAggregateInput
+    _min?: screener_resultsMinOrderByAggregateInput
+    _sum?: screener_resultsSumOrderByAggregateInput
+  }
+
+  export type screener_resultsScalarWhereWithAggregatesInput = {
+    AND?: screener_resultsScalarWhereWithAggregatesInput | screener_resultsScalarWhereWithAggregatesInput[]
+    OR?: screener_resultsScalarWhereWithAggregatesInput[]
+    NOT?: screener_resultsScalarWhereWithAggregatesInput | screener_resultsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"screener_results"> | string
+    student_profile_id?: StringWithAggregatesFilter<"screener_results"> | string
+    screener_platform?: StringWithAggregatesFilter<"screener_results"> | string
+    assessment_window?: StringWithAggregatesFilter<"screener_results"> | string
+    assessment_date?: DateTimeWithAggregatesFilter<"screener_results"> | Date | string
+    composite_score?: FloatNullableWithAggregatesFilter<"screener_results"> | number | null
+    risk_level?: StringNullableWithAggregatesFilter<"screener_results"> | string | null
+    skill_scores?: JsonWithAggregatesFilter<"screener_results">
+    raw_data?: JsonNullableWithAggregatesFilter<"screener_results">
+    created_at?: DateTimeWithAggregatesFilter<"screener_results"> | Date | string
+  }
+
+  export type differentiated_materialsWhereInput = {
+    AND?: differentiated_materialsWhereInput | differentiated_materialsWhereInput[]
+    OR?: differentiated_materialsWhereInput[]
+    NOT?: differentiated_materialsWhereInput | differentiated_materialsWhereInput[]
+    id?: StringFilter<"differentiated_materials"> | string
+    user_id?: StringFilter<"differentiated_materials"> | string
+    student_profile_id?: StringNullableFilter<"differentiated_materials"> | string | null
+    title?: StringFilter<"differentiated_materials"> | string
+    source_input?: StringFilter<"differentiated_materials"> | string
+    target_lexile?: IntFilter<"differentiated_materials"> | number
+    output_lexile?: IntNullableFilter<"differentiated_materials"> | number | null
+    dok_level?: IntFilter<"differentiated_materials"> | number
+    content_type?: StringFilter<"differentiated_materials"> | string
+    generated_content?: JsonFilter<"differentiated_materials">
+    academic_standard?: StringNullableFilter<"differentiated_materials"> | string | null
+    subject?: StringNullableFilter<"differentiated_materials"> | string | null
+    grade_level?: StringNullableFilter<"differentiated_materials"> | string | null
+    language?: StringFilter<"differentiated_materials"> | string
+    exported_to?: StringNullableFilter<"differentiated_materials"> | string | null
+    tokens_used?: IntFilter<"differentiated_materials"> | number
+    created_at?: DateTimeFilter<"differentiated_materials"> | Date | string
+    users?: XOR<UserScalarRelationFilter, UserWhereInput>
+    student_profiles?: XOR<Student_profilesNullableScalarRelationFilter, student_profilesWhereInput> | null
+  }
+
+  export type differentiated_materialsOrderByWithRelationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    student_profile_id?: SortOrderInput | SortOrder
+    title?: SortOrder
+    source_input?: SortOrder
+    target_lexile?: SortOrder
+    output_lexile?: SortOrderInput | SortOrder
+    dok_level?: SortOrder
+    content_type?: SortOrder
+    generated_content?: SortOrder
+    academic_standard?: SortOrderInput | SortOrder
+    subject?: SortOrderInput | SortOrder
+    grade_level?: SortOrderInput | SortOrder
+    language?: SortOrder
+    exported_to?: SortOrderInput | SortOrder
+    tokens_used?: SortOrder
+    created_at?: SortOrder
+    users?: UserOrderByWithRelationInput
+    student_profiles?: student_profilesOrderByWithRelationInput
+  }
+
+  export type differentiated_materialsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: differentiated_materialsWhereInput | differentiated_materialsWhereInput[]
+    OR?: differentiated_materialsWhereInput[]
+    NOT?: differentiated_materialsWhereInput | differentiated_materialsWhereInput[]
+    user_id?: StringFilter<"differentiated_materials"> | string
+    student_profile_id?: StringNullableFilter<"differentiated_materials"> | string | null
+    title?: StringFilter<"differentiated_materials"> | string
+    source_input?: StringFilter<"differentiated_materials"> | string
+    target_lexile?: IntFilter<"differentiated_materials"> | number
+    output_lexile?: IntNullableFilter<"differentiated_materials"> | number | null
+    dok_level?: IntFilter<"differentiated_materials"> | number
+    content_type?: StringFilter<"differentiated_materials"> | string
+    generated_content?: JsonFilter<"differentiated_materials">
+    academic_standard?: StringNullableFilter<"differentiated_materials"> | string | null
+    subject?: StringNullableFilter<"differentiated_materials"> | string | null
+    grade_level?: StringNullableFilter<"differentiated_materials"> | string | null
+    language?: StringFilter<"differentiated_materials"> | string
+    exported_to?: StringNullableFilter<"differentiated_materials"> | string | null
+    tokens_used?: IntFilter<"differentiated_materials"> | number
+    created_at?: DateTimeFilter<"differentiated_materials"> | Date | string
+    users?: XOR<UserScalarRelationFilter, UserWhereInput>
+    student_profiles?: XOR<Student_profilesNullableScalarRelationFilter, student_profilesWhereInput> | null
+  }, "id">
+
+  export type differentiated_materialsOrderByWithAggregationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    student_profile_id?: SortOrderInput | SortOrder
+    title?: SortOrder
+    source_input?: SortOrder
+    target_lexile?: SortOrder
+    output_lexile?: SortOrderInput | SortOrder
+    dok_level?: SortOrder
+    content_type?: SortOrder
+    generated_content?: SortOrder
+    academic_standard?: SortOrderInput | SortOrder
+    subject?: SortOrderInput | SortOrder
+    grade_level?: SortOrderInput | SortOrder
+    language?: SortOrder
+    exported_to?: SortOrderInput | SortOrder
+    tokens_used?: SortOrder
+    created_at?: SortOrder
+    _count?: differentiated_materialsCountOrderByAggregateInput
+    _avg?: differentiated_materialsAvgOrderByAggregateInput
+    _max?: differentiated_materialsMaxOrderByAggregateInput
+    _min?: differentiated_materialsMinOrderByAggregateInput
+    _sum?: differentiated_materialsSumOrderByAggregateInput
+  }
+
+  export type differentiated_materialsScalarWhereWithAggregatesInput = {
+    AND?: differentiated_materialsScalarWhereWithAggregatesInput | differentiated_materialsScalarWhereWithAggregatesInput[]
+    OR?: differentiated_materialsScalarWhereWithAggregatesInput[]
+    NOT?: differentiated_materialsScalarWhereWithAggregatesInput | differentiated_materialsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"differentiated_materials"> | string
+    user_id?: StringWithAggregatesFilter<"differentiated_materials"> | string
+    student_profile_id?: StringNullableWithAggregatesFilter<"differentiated_materials"> | string | null
+    title?: StringWithAggregatesFilter<"differentiated_materials"> | string
+    source_input?: StringWithAggregatesFilter<"differentiated_materials"> | string
+    target_lexile?: IntWithAggregatesFilter<"differentiated_materials"> | number
+    output_lexile?: IntNullableWithAggregatesFilter<"differentiated_materials"> | number | null
+    dok_level?: IntWithAggregatesFilter<"differentiated_materials"> | number
+    content_type?: StringWithAggregatesFilter<"differentiated_materials"> | string
+    generated_content?: JsonWithAggregatesFilter<"differentiated_materials">
+    academic_standard?: StringNullableWithAggregatesFilter<"differentiated_materials"> | string | null
+    subject?: StringNullableWithAggregatesFilter<"differentiated_materials"> | string | null
+    grade_level?: StringNullableWithAggregatesFilter<"differentiated_materials"> | string | null
+    language?: StringWithAggregatesFilter<"differentiated_materials"> | string
+    exported_to?: StringNullableWithAggregatesFilter<"differentiated_materials"> | string | null
+    tokens_used?: IntWithAggregatesFilter<"differentiated_materials"> | number
+    created_at?: DateTimeWithAggregatesFilter<"differentiated_materials"> | Date | string
+  }
+
+  export type reading_improvement_plansWhereInput = {
+    AND?: reading_improvement_plansWhereInput | reading_improvement_plansWhereInput[]
+    OR?: reading_improvement_plansWhereInput[]
+    NOT?: reading_improvement_plansWhereInput | reading_improvement_plansWhereInput[]
+    id?: StringFilter<"reading_improvement_plans"> | string
+    student_profile_id?: StringFilter<"reading_improvement_plans"> | string
+    created_by?: StringFilter<"reading_improvement_plans"> | string
+    school_year?: StringFilter<"reading_improvement_plans"> | string
+    status?: StringFilter<"reading_improvement_plans"> | string
+    deficit_areas?: JsonFilter<"reading_improvement_plans">
+    intervention_program?: StringNullableFilter<"reading_improvement_plans"> | string | null
+    daily_materials?: JsonNullableFilter<"reading_improvement_plans">
+    progress_notes?: JsonNullableFilter<"reading_improvement_plans">
+    parent_notified?: BoolFilter<"reading_improvement_plans"> | boolean
+    created_at?: DateTimeFilter<"reading_improvement_plans"> | Date | string
+    updated_at?: DateTimeFilter<"reading_improvement_plans"> | Date | string
+    student_profiles?: XOR<Student_profilesScalarRelationFilter, student_profilesWhereInput>
+    users?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type reading_improvement_plansOrderByWithRelationInput = {
+    id?: SortOrder
+    student_profile_id?: SortOrder
+    created_by?: SortOrder
+    school_year?: SortOrder
+    status?: SortOrder
+    deficit_areas?: SortOrder
+    intervention_program?: SortOrderInput | SortOrder
+    daily_materials?: SortOrderInput | SortOrder
+    progress_notes?: SortOrderInput | SortOrder
+    parent_notified?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    student_profiles?: student_profilesOrderByWithRelationInput
+    users?: UserOrderByWithRelationInput
+  }
+
+  export type reading_improvement_plansWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: reading_improvement_plansWhereInput | reading_improvement_plansWhereInput[]
+    OR?: reading_improvement_plansWhereInput[]
+    NOT?: reading_improvement_plansWhereInput | reading_improvement_plansWhereInput[]
+    student_profile_id?: StringFilter<"reading_improvement_plans"> | string
+    created_by?: StringFilter<"reading_improvement_plans"> | string
+    school_year?: StringFilter<"reading_improvement_plans"> | string
+    status?: StringFilter<"reading_improvement_plans"> | string
+    deficit_areas?: JsonFilter<"reading_improvement_plans">
+    intervention_program?: StringNullableFilter<"reading_improvement_plans"> | string | null
+    daily_materials?: JsonNullableFilter<"reading_improvement_plans">
+    progress_notes?: JsonNullableFilter<"reading_improvement_plans">
+    parent_notified?: BoolFilter<"reading_improvement_plans"> | boolean
+    created_at?: DateTimeFilter<"reading_improvement_plans"> | Date | string
+    updated_at?: DateTimeFilter<"reading_improvement_plans"> | Date | string
+    student_profiles?: XOR<Student_profilesScalarRelationFilter, student_profilesWhereInput>
+    users?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type reading_improvement_plansOrderByWithAggregationInput = {
+    id?: SortOrder
+    student_profile_id?: SortOrder
+    created_by?: SortOrder
+    school_year?: SortOrder
+    status?: SortOrder
+    deficit_areas?: SortOrder
+    intervention_program?: SortOrderInput | SortOrder
+    daily_materials?: SortOrderInput | SortOrder
+    progress_notes?: SortOrderInput | SortOrder
+    parent_notified?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: reading_improvement_plansCountOrderByAggregateInput
+    _max?: reading_improvement_plansMaxOrderByAggregateInput
+    _min?: reading_improvement_plansMinOrderByAggregateInput
+  }
+
+  export type reading_improvement_plansScalarWhereWithAggregatesInput = {
+    AND?: reading_improvement_plansScalarWhereWithAggregatesInput | reading_improvement_plansScalarWhereWithAggregatesInput[]
+    OR?: reading_improvement_plansScalarWhereWithAggregatesInput[]
+    NOT?: reading_improvement_plansScalarWhereWithAggregatesInput | reading_improvement_plansScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"reading_improvement_plans"> | string
+    student_profile_id?: StringWithAggregatesFilter<"reading_improvement_plans"> | string
+    created_by?: StringWithAggregatesFilter<"reading_improvement_plans"> | string
+    school_year?: StringWithAggregatesFilter<"reading_improvement_plans"> | string
+    status?: StringWithAggregatesFilter<"reading_improvement_plans"> | string
+    deficit_areas?: JsonWithAggregatesFilter<"reading_improvement_plans">
+    intervention_program?: StringNullableWithAggregatesFilter<"reading_improvement_plans"> | string | null
+    daily_materials?: JsonNullableWithAggregatesFilter<"reading_improvement_plans">
+    progress_notes?: JsonNullableWithAggregatesFilter<"reading_improvement_plans">
+    parent_notified?: BoolWithAggregatesFilter<"reading_improvement_plans"> | boolean
+    created_at?: DateTimeWithAggregatesFilter<"reading_improvement_plans"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"reading_improvement_plans"> | Date | string
+  }
+
+  export type district_listeningWhereInput = {
+    AND?: district_listeningWhereInput | district_listeningWhereInput[]
+    OR?: district_listeningWhereInput[]
+    NOT?: district_listeningWhereInput | district_listeningWhereInput[]
+    id?: StringFilter<"district_listening"> | string
+    district_id?: StringFilter<"district_listening"> | string
+    snapshot_date?: DateTimeFilter<"district_listening"> | Date | string
+    title_i_revenue?: FloatNullableFilter<"district_listening"> | number | null
+    erate_cat2_budget?: FloatNullableFilter<"district_listening"> | number | null
+    virtual_readiness?: IntNullableFilter<"district_listening"> | number | null
+    hardware_score?: FloatNullableFilter<"district_listening"> | number | null
+    broadband_mbps?: FloatNullableFilter<"district_listening"> | number | null
+    teacher_training_pct?: FloatNullableFilter<"district_listening"> | number | null
+    edtech_tools?: JsonNullableFilter<"district_listening">
+    enrollment_total?: IntNullableFilter<"district_listening"> | number | null
+    free_reduced_pct?: FloatNullableFilter<"district_listening"> | number | null
+    ela_proficiency_pct?: FloatNullableFilter<"district_listening"> | number | null
+    math_proficiency_pct?: FloatNullableFilter<"district_listening"> | number | null
+    metadata?: JsonNullableFilter<"district_listening">
+    districts?: XOR<DistrictsScalarRelationFilter, districtsWhereInput>
+  }
+
+  export type district_listeningOrderByWithRelationInput = {
+    id?: SortOrder
+    district_id?: SortOrder
+    snapshot_date?: SortOrder
+    title_i_revenue?: SortOrderInput | SortOrder
+    erate_cat2_budget?: SortOrderInput | SortOrder
+    virtual_readiness?: SortOrderInput | SortOrder
+    hardware_score?: SortOrderInput | SortOrder
+    broadband_mbps?: SortOrderInput | SortOrder
+    teacher_training_pct?: SortOrderInput | SortOrder
+    edtech_tools?: SortOrderInput | SortOrder
+    enrollment_total?: SortOrderInput | SortOrder
+    free_reduced_pct?: SortOrderInput | SortOrder
+    ela_proficiency_pct?: SortOrderInput | SortOrder
+    math_proficiency_pct?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    districts?: districtsOrderByWithRelationInput
+  }
+
+  export type district_listeningWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: district_listeningWhereInput | district_listeningWhereInput[]
+    OR?: district_listeningWhereInput[]
+    NOT?: district_listeningWhereInput | district_listeningWhereInput[]
+    district_id?: StringFilter<"district_listening"> | string
+    snapshot_date?: DateTimeFilter<"district_listening"> | Date | string
+    title_i_revenue?: FloatNullableFilter<"district_listening"> | number | null
+    erate_cat2_budget?: FloatNullableFilter<"district_listening"> | number | null
+    virtual_readiness?: IntNullableFilter<"district_listening"> | number | null
+    hardware_score?: FloatNullableFilter<"district_listening"> | number | null
+    broadband_mbps?: FloatNullableFilter<"district_listening"> | number | null
+    teacher_training_pct?: FloatNullableFilter<"district_listening"> | number | null
+    edtech_tools?: JsonNullableFilter<"district_listening">
+    enrollment_total?: IntNullableFilter<"district_listening"> | number | null
+    free_reduced_pct?: FloatNullableFilter<"district_listening"> | number | null
+    ela_proficiency_pct?: FloatNullableFilter<"district_listening"> | number | null
+    math_proficiency_pct?: FloatNullableFilter<"district_listening"> | number | null
+    metadata?: JsonNullableFilter<"district_listening">
+    districts?: XOR<DistrictsScalarRelationFilter, districtsWhereInput>
+  }, "id">
+
+  export type district_listeningOrderByWithAggregationInput = {
+    id?: SortOrder
+    district_id?: SortOrder
+    snapshot_date?: SortOrder
+    title_i_revenue?: SortOrderInput | SortOrder
+    erate_cat2_budget?: SortOrderInput | SortOrder
+    virtual_readiness?: SortOrderInput | SortOrder
+    hardware_score?: SortOrderInput | SortOrder
+    broadband_mbps?: SortOrderInput | SortOrder
+    teacher_training_pct?: SortOrderInput | SortOrder
+    edtech_tools?: SortOrderInput | SortOrder
+    enrollment_total?: SortOrderInput | SortOrder
+    free_reduced_pct?: SortOrderInput | SortOrder
+    ela_proficiency_pct?: SortOrderInput | SortOrder
+    math_proficiency_pct?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    _count?: district_listeningCountOrderByAggregateInput
+    _avg?: district_listeningAvgOrderByAggregateInput
+    _max?: district_listeningMaxOrderByAggregateInput
+    _min?: district_listeningMinOrderByAggregateInput
+    _sum?: district_listeningSumOrderByAggregateInput
+  }
+
+  export type district_listeningScalarWhereWithAggregatesInput = {
+    AND?: district_listeningScalarWhereWithAggregatesInput | district_listeningScalarWhereWithAggregatesInput[]
+    OR?: district_listeningScalarWhereWithAggregatesInput[]
+    NOT?: district_listeningScalarWhereWithAggregatesInput | district_listeningScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"district_listening"> | string
+    district_id?: StringWithAggregatesFilter<"district_listening"> | string
+    snapshot_date?: DateTimeWithAggregatesFilter<"district_listening"> | Date | string
+    title_i_revenue?: FloatNullableWithAggregatesFilter<"district_listening"> | number | null
+    erate_cat2_budget?: FloatNullableWithAggregatesFilter<"district_listening"> | number | null
+    virtual_readiness?: IntNullableWithAggregatesFilter<"district_listening"> | number | null
+    hardware_score?: FloatNullableWithAggregatesFilter<"district_listening"> | number | null
+    broadband_mbps?: FloatNullableWithAggregatesFilter<"district_listening"> | number | null
+    teacher_training_pct?: FloatNullableWithAggregatesFilter<"district_listening"> | number | null
+    edtech_tools?: JsonNullableWithAggregatesFilter<"district_listening">
+    enrollment_total?: IntNullableWithAggregatesFilter<"district_listening"> | number | null
+    free_reduced_pct?: FloatNullableWithAggregatesFilter<"district_listening"> | number | null
+    ela_proficiency_pct?: FloatNullableWithAggregatesFilter<"district_listening"> | number | null
+    math_proficiency_pct?: FloatNullableWithAggregatesFilter<"district_listening"> | number | null
+    metadata?: JsonNullableWithAggregatesFilter<"district_listening">
+  }
+
+  export type infra_monitorsWhereInput = {
+    AND?: infra_monitorsWhereInput | infra_monitorsWhereInput[]
+    OR?: infra_monitorsWhereInput[]
+    NOT?: infra_monitorsWhereInput | infra_monitorsWhereInput[]
+    id?: StringFilter<"infra_monitors"> | string
+    school_id?: StringFilter<"infra_monitors"> | string
+    device_type?: StringFilter<"infra_monitors"> | string
+    device_name?: StringFilter<"infra_monitors"> | string
+    location?: StringNullableFilter<"infra_monitors"> | string | null
+    status?: StringFilter<"infra_monitors"> | string
+    metrics?: JsonNullableFilter<"infra_monitors">
+    alert_threshold?: JsonNullableFilter<"infra_monitors">
+    last_heartbeat?: DateTimeFilter<"infra_monitors"> | Date | string
+    created_at?: DateTimeFilter<"infra_monitors"> | Date | string
+    schools?: XOR<SchoolsScalarRelationFilter, schoolsWhereInput>
+    infra_alerts?: Infra_alertsListRelationFilter
+  }
+
+  export type infra_monitorsOrderByWithRelationInput = {
+    id?: SortOrder
+    school_id?: SortOrder
+    device_type?: SortOrder
+    device_name?: SortOrder
+    location?: SortOrderInput | SortOrder
+    status?: SortOrder
+    metrics?: SortOrderInput | SortOrder
+    alert_threshold?: SortOrderInput | SortOrder
+    last_heartbeat?: SortOrder
+    created_at?: SortOrder
+    schools?: schoolsOrderByWithRelationInput
+    infra_alerts?: infra_alertsOrderByRelationAggregateInput
+  }
+
+  export type infra_monitorsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: infra_monitorsWhereInput | infra_monitorsWhereInput[]
+    OR?: infra_monitorsWhereInput[]
+    NOT?: infra_monitorsWhereInput | infra_monitorsWhereInput[]
+    school_id?: StringFilter<"infra_monitors"> | string
+    device_type?: StringFilter<"infra_monitors"> | string
+    device_name?: StringFilter<"infra_monitors"> | string
+    location?: StringNullableFilter<"infra_monitors"> | string | null
+    status?: StringFilter<"infra_monitors"> | string
+    metrics?: JsonNullableFilter<"infra_monitors">
+    alert_threshold?: JsonNullableFilter<"infra_monitors">
+    last_heartbeat?: DateTimeFilter<"infra_monitors"> | Date | string
+    created_at?: DateTimeFilter<"infra_monitors"> | Date | string
+    schools?: XOR<SchoolsScalarRelationFilter, schoolsWhereInput>
+    infra_alerts?: Infra_alertsListRelationFilter
+  }, "id">
+
+  export type infra_monitorsOrderByWithAggregationInput = {
+    id?: SortOrder
+    school_id?: SortOrder
+    device_type?: SortOrder
+    device_name?: SortOrder
+    location?: SortOrderInput | SortOrder
+    status?: SortOrder
+    metrics?: SortOrderInput | SortOrder
+    alert_threshold?: SortOrderInput | SortOrder
+    last_heartbeat?: SortOrder
+    created_at?: SortOrder
+    _count?: infra_monitorsCountOrderByAggregateInput
+    _max?: infra_monitorsMaxOrderByAggregateInput
+    _min?: infra_monitorsMinOrderByAggregateInput
+  }
+
+  export type infra_monitorsScalarWhereWithAggregatesInput = {
+    AND?: infra_monitorsScalarWhereWithAggregatesInput | infra_monitorsScalarWhereWithAggregatesInput[]
+    OR?: infra_monitorsScalarWhereWithAggregatesInput[]
+    NOT?: infra_monitorsScalarWhereWithAggregatesInput | infra_monitorsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"infra_monitors"> | string
+    school_id?: StringWithAggregatesFilter<"infra_monitors"> | string
+    device_type?: StringWithAggregatesFilter<"infra_monitors"> | string
+    device_name?: StringWithAggregatesFilter<"infra_monitors"> | string
+    location?: StringNullableWithAggregatesFilter<"infra_monitors"> | string | null
+    status?: StringWithAggregatesFilter<"infra_monitors"> | string
+    metrics?: JsonNullableWithAggregatesFilter<"infra_monitors">
+    alert_threshold?: JsonNullableWithAggregatesFilter<"infra_monitors">
+    last_heartbeat?: DateTimeWithAggregatesFilter<"infra_monitors"> | Date | string
+    created_at?: DateTimeWithAggregatesFilter<"infra_monitors"> | Date | string
+  }
+
+  export type infra_alertsWhereInput = {
+    AND?: infra_alertsWhereInput | infra_alertsWhereInput[]
+    OR?: infra_alertsWhereInput[]
+    NOT?: infra_alertsWhereInput | infra_alertsWhereInput[]
+    id?: StringFilter<"infra_alerts"> | string
+    monitor_id?: StringFilter<"infra_alerts"> | string
+    severity?: StringFilter<"infra_alerts"> | string
+    message?: StringFilter<"infra_alerts"> | string
+    metric_snapshot?: JsonNullableFilter<"infra_alerts">
+    acknowledged?: BoolFilter<"infra_alerts"> | boolean
+    acknowledged_by?: StringNullableFilter<"infra_alerts"> | string | null
+    resolved_at?: DateTimeNullableFilter<"infra_alerts"> | Date | string | null
+    created_at?: DateTimeFilter<"infra_alerts"> | Date | string
+    infra_monitors?: XOR<Infra_monitorsScalarRelationFilter, infra_monitorsWhereInput>
+  }
+
+  export type infra_alertsOrderByWithRelationInput = {
+    id?: SortOrder
+    monitor_id?: SortOrder
+    severity?: SortOrder
+    message?: SortOrder
+    metric_snapshot?: SortOrderInput | SortOrder
+    acknowledged?: SortOrder
+    acknowledged_by?: SortOrderInput | SortOrder
+    resolved_at?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    infra_monitors?: infra_monitorsOrderByWithRelationInput
+  }
+
+  export type infra_alertsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: infra_alertsWhereInput | infra_alertsWhereInput[]
+    OR?: infra_alertsWhereInput[]
+    NOT?: infra_alertsWhereInput | infra_alertsWhereInput[]
+    monitor_id?: StringFilter<"infra_alerts"> | string
+    severity?: StringFilter<"infra_alerts"> | string
+    message?: StringFilter<"infra_alerts"> | string
+    metric_snapshot?: JsonNullableFilter<"infra_alerts">
+    acknowledged?: BoolFilter<"infra_alerts"> | boolean
+    acknowledged_by?: StringNullableFilter<"infra_alerts"> | string | null
+    resolved_at?: DateTimeNullableFilter<"infra_alerts"> | Date | string | null
+    created_at?: DateTimeFilter<"infra_alerts"> | Date | string
+    infra_monitors?: XOR<Infra_monitorsScalarRelationFilter, infra_monitorsWhereInput>
+  }, "id">
+
+  export type infra_alertsOrderByWithAggregationInput = {
+    id?: SortOrder
+    monitor_id?: SortOrder
+    severity?: SortOrder
+    message?: SortOrder
+    metric_snapshot?: SortOrderInput | SortOrder
+    acknowledged?: SortOrder
+    acknowledged_by?: SortOrderInput | SortOrder
+    resolved_at?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    _count?: infra_alertsCountOrderByAggregateInput
+    _max?: infra_alertsMaxOrderByAggregateInput
+    _min?: infra_alertsMinOrderByAggregateInput
+  }
+
+  export type infra_alertsScalarWhereWithAggregatesInput = {
+    AND?: infra_alertsScalarWhereWithAggregatesInput | infra_alertsScalarWhereWithAggregatesInput[]
+    OR?: infra_alertsScalarWhereWithAggregatesInput[]
+    NOT?: infra_alertsScalarWhereWithAggregatesInput | infra_alertsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"infra_alerts"> | string
+    monitor_id?: StringWithAggregatesFilter<"infra_alerts"> | string
+    severity?: StringWithAggregatesFilter<"infra_alerts"> | string
+    message?: StringWithAggregatesFilter<"infra_alerts"> | string
+    metric_snapshot?: JsonNullableWithAggregatesFilter<"infra_alerts">
+    acknowledged?: BoolWithAggregatesFilter<"infra_alerts"> | boolean
+    acknowledged_by?: StringNullableWithAggregatesFilter<"infra_alerts"> | string | null
+    resolved_at?: DateTimeNullableWithAggregatesFilter<"infra_alerts"> | Date | string | null
+    created_at?: DateTimeWithAggregatesFilter<"infra_alerts"> | Date | string
   }
 
   export type analytics_eventsCreateInput = {
@@ -50459,6 +60704,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at: Date | string
     district_nodes?: district_nodesCreateNestedManyWithoutDistrictsInput
+    district_listening?: district_listeningCreateNestedManyWithoutDistrictsInput
   }
 
   export type districtsUncheckedCreateInput = {
@@ -50469,6 +60715,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at: Date | string
     district_nodes?: district_nodesUncheckedCreateNestedManyWithoutDistrictsInput
+    district_listening?: district_listeningUncheckedCreateNestedManyWithoutDistrictsInput
   }
 
   export type districtsUpdateInput = {
@@ -50479,6 +60726,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     district_nodes?: district_nodesUpdateManyWithoutDistrictsNestedInput
+    district_listening?: district_listeningUpdateManyWithoutDistrictsNestedInput
   }
 
   export type districtsUncheckedUpdateInput = {
@@ -50489,6 +60737,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     district_nodes?: district_nodesUncheckedUpdateManyWithoutDistrictsNestedInput
+    district_listening?: district_listeningUncheckedUpdateManyWithoutDistrictsNestedInput
   }
 
   export type districtsCreateManyInput = {
@@ -51572,6 +61821,8 @@ export namespace Prisma {
     users_schools_admin_idTousers?: UserCreateNestedOneWithoutSchools_schools_admin_idTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutSchoolsInput
     users_users_school_idToschools?: UserCreateNestedManyWithoutSchools_users_school_idToschoolsInput
+    student_profiles?: student_profilesCreateNestedManyWithoutSchoolsInput
+    infra_monitors?: infra_monitorsCreateNestedManyWithoutSchoolsInput
   }
 
   export type schoolsUncheckedCreateInput = {
@@ -51589,6 +61840,8 @@ export namespace Prisma {
     analytics_insights?: analytics_insightsUncheckedCreateNestedManyWithoutSchoolsInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutSchoolsInput
     users_users_school_idToschools?: UserUncheckedCreateNestedManyWithoutSchools_users_school_idToschoolsInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutSchoolsInput
+    infra_monitors?: infra_monitorsUncheckedCreateNestedManyWithoutSchoolsInput
   }
 
   export type schoolsUpdateInput = {
@@ -51606,6 +61859,8 @@ export namespace Prisma {
     users_schools_admin_idTousers?: UserUpdateOneWithoutSchools_schools_admin_idTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutSchoolsNestedInput
     users_users_school_idToschools?: UserUpdateManyWithoutSchools_users_school_idToschoolsNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutSchoolsNestedInput
+    infra_monitors?: infra_monitorsUpdateManyWithoutSchoolsNestedInput
   }
 
   export type schoolsUncheckedUpdateInput = {
@@ -51623,6 +61878,8 @@ export namespace Prisma {
     analytics_insights?: analytics_insightsUncheckedUpdateManyWithoutSchoolsNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutSchoolsNestedInput
     users_users_school_idToschools?: UserUncheckedUpdateManyWithoutSchools_users_school_idToschoolsNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutSchoolsNestedInput
+    infra_monitors?: infra_monitorsUncheckedUpdateManyWithoutSchoolsNestedInput
   }
 
   export type schoolsCreateManyInput = {
@@ -52341,6 +62598,9 @@ export namespace Prisma {
     tiers?: tiersCreateNestedOneWithoutUsersInput
     vault_documents?: vault_documentsCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -52394,6 +62654,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedCreateNestedManyWithoutUsersInput
     vault_documents?: vault_documentsUncheckedCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserUpdateInput = {
@@ -52447,6 +62710,9 @@ export namespace Prisma {
     tiers?: tiersUpdateOneWithoutUsersNestedInput
     vault_documents?: vault_documentsUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -52500,6 +62766,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedUpdateManyWithoutUsersNestedInput
     vault_documents?: vault_documentsUncheckedUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -53092,6 +63361,789 @@ export namespace Prisma {
     extractedText?: StringFieldUpdateOperationsInput | string
     confidence?: NullableFloatFieldUpdateOperationsInput | number | null
     processedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type student_profilesCreateInput = {
+    id?: string
+    student_sis_id: string
+    first_name: string
+    last_name: string
+    grade_level: string
+    lexile_level?: number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: string | null
+    native_language?: string | null
+    sped_status?: string | null
+    dyslexia_flag?: boolean
+    intervention_tier?: string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+    users: UserCreateNestedOneWithoutStudent_profilesInput
+    schools?: schoolsCreateNestedOneWithoutStudent_profilesInput
+    screener_results?: screener_resultsCreateNestedManyWithoutStudent_profilesInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutStudent_profilesInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutStudent_profilesInput
+  }
+
+  export type student_profilesUncheckedCreateInput = {
+    id?: string
+    user_id: string
+    student_sis_id: string
+    first_name: string
+    last_name: string
+    grade_level: string
+    school_id?: string | null
+    lexile_level?: number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: string | null
+    native_language?: string | null
+    sped_status?: string | null
+    dyslexia_flag?: boolean
+    intervention_tier?: string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+    screener_results?: screener_resultsUncheckedCreateNestedManyWithoutStudent_profilesInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutStudent_profilesInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutStudent_profilesInput
+  }
+
+  export type student_profilesUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    student_sis_id?: StringFieldUpdateOperationsInput | string
+    first_name?: StringFieldUpdateOperationsInput | string
+    last_name?: StringFieldUpdateOperationsInput | string
+    grade_level?: StringFieldUpdateOperationsInput | string
+    lexile_level?: NullableIntFieldUpdateOperationsInput | number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: NullableStringFieldUpdateOperationsInput | string | null
+    native_language?: NullableStringFieldUpdateOperationsInput | string | null
+    sped_status?: NullableStringFieldUpdateOperationsInput | string | null
+    dyslexia_flag?: BoolFieldUpdateOperationsInput | boolean
+    intervention_tier?: NullableStringFieldUpdateOperationsInput | string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateOneRequiredWithoutStudent_profilesNestedInput
+    schools?: schoolsUpdateOneWithoutStudent_profilesNestedInput
+    screener_results?: screener_resultsUpdateManyWithoutStudent_profilesNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutStudent_profilesNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutStudent_profilesNestedInput
+  }
+
+  export type student_profilesUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    student_sis_id?: StringFieldUpdateOperationsInput | string
+    first_name?: StringFieldUpdateOperationsInput | string
+    last_name?: StringFieldUpdateOperationsInput | string
+    grade_level?: StringFieldUpdateOperationsInput | string
+    school_id?: NullableStringFieldUpdateOperationsInput | string | null
+    lexile_level?: NullableIntFieldUpdateOperationsInput | number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: NullableStringFieldUpdateOperationsInput | string | null
+    native_language?: NullableStringFieldUpdateOperationsInput | string | null
+    sped_status?: NullableStringFieldUpdateOperationsInput | string | null
+    dyslexia_flag?: BoolFieldUpdateOperationsInput | boolean
+    intervention_tier?: NullableStringFieldUpdateOperationsInput | string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    screener_results?: screener_resultsUncheckedUpdateManyWithoutStudent_profilesNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutStudent_profilesNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutStudent_profilesNestedInput
+  }
+
+  export type student_profilesCreateManyInput = {
+    id?: string
+    user_id: string
+    student_sis_id: string
+    first_name: string
+    last_name: string
+    grade_level: string
+    school_id?: string | null
+    lexile_level?: number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: string | null
+    native_language?: string | null
+    sped_status?: string | null
+    dyslexia_flag?: boolean
+    intervention_tier?: string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type student_profilesUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    student_sis_id?: StringFieldUpdateOperationsInput | string
+    first_name?: StringFieldUpdateOperationsInput | string
+    last_name?: StringFieldUpdateOperationsInput | string
+    grade_level?: StringFieldUpdateOperationsInput | string
+    lexile_level?: NullableIntFieldUpdateOperationsInput | number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: NullableStringFieldUpdateOperationsInput | string | null
+    native_language?: NullableStringFieldUpdateOperationsInput | string | null
+    sped_status?: NullableStringFieldUpdateOperationsInput | string | null
+    dyslexia_flag?: BoolFieldUpdateOperationsInput | boolean
+    intervention_tier?: NullableStringFieldUpdateOperationsInput | string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type student_profilesUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    student_sis_id?: StringFieldUpdateOperationsInput | string
+    first_name?: StringFieldUpdateOperationsInput | string
+    last_name?: StringFieldUpdateOperationsInput | string
+    grade_level?: StringFieldUpdateOperationsInput | string
+    school_id?: NullableStringFieldUpdateOperationsInput | string | null
+    lexile_level?: NullableIntFieldUpdateOperationsInput | number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: NullableStringFieldUpdateOperationsInput | string | null
+    native_language?: NullableStringFieldUpdateOperationsInput | string | null
+    sped_status?: NullableStringFieldUpdateOperationsInput | string | null
+    dyslexia_flag?: BoolFieldUpdateOperationsInput | boolean
+    intervention_tier?: NullableStringFieldUpdateOperationsInput | string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type screener_resultsCreateInput = {
+    id?: string
+    screener_platform: string
+    assessment_window: string
+    assessment_date: Date | string
+    composite_score?: number | null
+    risk_level?: string | null
+    skill_scores: JsonNullValueInput | InputJsonValue
+    raw_data?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    student_profiles: student_profilesCreateNestedOneWithoutScreener_resultsInput
+  }
+
+  export type screener_resultsUncheckedCreateInput = {
+    id?: string
+    student_profile_id: string
+    screener_platform: string
+    assessment_window: string
+    assessment_date: Date | string
+    composite_score?: number | null
+    risk_level?: string | null
+    skill_scores: JsonNullValueInput | InputJsonValue
+    raw_data?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+  }
+
+  export type screener_resultsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screener_platform?: StringFieldUpdateOperationsInput | string
+    assessment_window?: StringFieldUpdateOperationsInput | string
+    assessment_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    composite_score?: NullableFloatFieldUpdateOperationsInput | number | null
+    risk_level?: NullableStringFieldUpdateOperationsInput | string | null
+    skill_scores?: JsonNullValueInput | InputJsonValue
+    raw_data?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    student_profiles?: student_profilesUpdateOneRequiredWithoutScreener_resultsNestedInput
+  }
+
+  export type screener_resultsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    student_profile_id?: StringFieldUpdateOperationsInput | string
+    screener_platform?: StringFieldUpdateOperationsInput | string
+    assessment_window?: StringFieldUpdateOperationsInput | string
+    assessment_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    composite_score?: NullableFloatFieldUpdateOperationsInput | number | null
+    risk_level?: NullableStringFieldUpdateOperationsInput | string | null
+    skill_scores?: JsonNullValueInput | InputJsonValue
+    raw_data?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type screener_resultsCreateManyInput = {
+    id?: string
+    student_profile_id: string
+    screener_platform: string
+    assessment_window: string
+    assessment_date: Date | string
+    composite_score?: number | null
+    risk_level?: string | null
+    skill_scores: JsonNullValueInput | InputJsonValue
+    raw_data?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+  }
+
+  export type screener_resultsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screener_platform?: StringFieldUpdateOperationsInput | string
+    assessment_window?: StringFieldUpdateOperationsInput | string
+    assessment_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    composite_score?: NullableFloatFieldUpdateOperationsInput | number | null
+    risk_level?: NullableStringFieldUpdateOperationsInput | string | null
+    skill_scores?: JsonNullValueInput | InputJsonValue
+    raw_data?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type screener_resultsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    student_profile_id?: StringFieldUpdateOperationsInput | string
+    screener_platform?: StringFieldUpdateOperationsInput | string
+    assessment_window?: StringFieldUpdateOperationsInput | string
+    assessment_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    composite_score?: NullableFloatFieldUpdateOperationsInput | number | null
+    risk_level?: NullableStringFieldUpdateOperationsInput | string | null
+    skill_scores?: JsonNullValueInput | InputJsonValue
+    raw_data?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type differentiated_materialsCreateInput = {
+    id?: string
+    title: string
+    source_input: string
+    target_lexile: number
+    output_lexile?: number | null
+    dok_level?: number
+    content_type: string
+    generated_content: JsonNullValueInput | InputJsonValue
+    academic_standard?: string | null
+    subject?: string | null
+    grade_level?: string | null
+    language?: string
+    exported_to?: string | null
+    tokens_used?: number
+    created_at?: Date | string
+    users: UserCreateNestedOneWithoutDifferentiated_materialsInput
+    student_profiles?: student_profilesCreateNestedOneWithoutDifferentiated_materialsInput
+  }
+
+  export type differentiated_materialsUncheckedCreateInput = {
+    id?: string
+    user_id: string
+    student_profile_id?: string | null
+    title: string
+    source_input: string
+    target_lexile: number
+    output_lexile?: number | null
+    dok_level?: number
+    content_type: string
+    generated_content: JsonNullValueInput | InputJsonValue
+    academic_standard?: string | null
+    subject?: string | null
+    grade_level?: string | null
+    language?: string
+    exported_to?: string | null
+    tokens_used?: number
+    created_at?: Date | string
+  }
+
+  export type differentiated_materialsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    source_input?: StringFieldUpdateOperationsInput | string
+    target_lexile?: IntFieldUpdateOperationsInput | number
+    output_lexile?: NullableIntFieldUpdateOperationsInput | number | null
+    dok_level?: IntFieldUpdateOperationsInput | number
+    content_type?: StringFieldUpdateOperationsInput | string
+    generated_content?: JsonNullValueInput | InputJsonValue
+    academic_standard?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    grade_level?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    exported_to?: NullableStringFieldUpdateOperationsInput | string | null
+    tokens_used?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateOneRequiredWithoutDifferentiated_materialsNestedInput
+    student_profiles?: student_profilesUpdateOneWithoutDifferentiated_materialsNestedInput
+  }
+
+  export type differentiated_materialsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    student_profile_id?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    source_input?: StringFieldUpdateOperationsInput | string
+    target_lexile?: IntFieldUpdateOperationsInput | number
+    output_lexile?: NullableIntFieldUpdateOperationsInput | number | null
+    dok_level?: IntFieldUpdateOperationsInput | number
+    content_type?: StringFieldUpdateOperationsInput | string
+    generated_content?: JsonNullValueInput | InputJsonValue
+    academic_standard?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    grade_level?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    exported_to?: NullableStringFieldUpdateOperationsInput | string | null
+    tokens_used?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type differentiated_materialsCreateManyInput = {
+    id?: string
+    user_id: string
+    student_profile_id?: string | null
+    title: string
+    source_input: string
+    target_lexile: number
+    output_lexile?: number | null
+    dok_level?: number
+    content_type: string
+    generated_content: JsonNullValueInput | InputJsonValue
+    academic_standard?: string | null
+    subject?: string | null
+    grade_level?: string | null
+    language?: string
+    exported_to?: string | null
+    tokens_used?: number
+    created_at?: Date | string
+  }
+
+  export type differentiated_materialsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    source_input?: StringFieldUpdateOperationsInput | string
+    target_lexile?: IntFieldUpdateOperationsInput | number
+    output_lexile?: NullableIntFieldUpdateOperationsInput | number | null
+    dok_level?: IntFieldUpdateOperationsInput | number
+    content_type?: StringFieldUpdateOperationsInput | string
+    generated_content?: JsonNullValueInput | InputJsonValue
+    academic_standard?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    grade_level?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    exported_to?: NullableStringFieldUpdateOperationsInput | string | null
+    tokens_used?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type differentiated_materialsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    student_profile_id?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    source_input?: StringFieldUpdateOperationsInput | string
+    target_lexile?: IntFieldUpdateOperationsInput | number
+    output_lexile?: NullableIntFieldUpdateOperationsInput | number | null
+    dok_level?: IntFieldUpdateOperationsInput | number
+    content_type?: StringFieldUpdateOperationsInput | string
+    generated_content?: JsonNullValueInput | InputJsonValue
+    academic_standard?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    grade_level?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    exported_to?: NullableStringFieldUpdateOperationsInput | string | null
+    tokens_used?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type reading_improvement_plansCreateInput = {
+    id?: string
+    school_year: string
+    status?: string
+    deficit_areas: JsonNullValueInput | InputJsonValue
+    intervention_program?: string | null
+    daily_materials?: NullableJsonNullValueInput | InputJsonValue
+    progress_notes?: NullableJsonNullValueInput | InputJsonValue
+    parent_notified?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    student_profiles: student_profilesCreateNestedOneWithoutReading_improvement_plansInput
+    users: UserCreateNestedOneWithoutReading_improvement_plansInput
+  }
+
+  export type reading_improvement_plansUncheckedCreateInput = {
+    id?: string
+    student_profile_id: string
+    created_by: string
+    school_year: string
+    status?: string
+    deficit_areas: JsonNullValueInput | InputJsonValue
+    intervention_program?: string | null
+    daily_materials?: NullableJsonNullValueInput | InputJsonValue
+    progress_notes?: NullableJsonNullValueInput | InputJsonValue
+    parent_notified?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type reading_improvement_plansUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    school_year?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    deficit_areas?: JsonNullValueInput | InputJsonValue
+    intervention_program?: NullableStringFieldUpdateOperationsInput | string | null
+    daily_materials?: NullableJsonNullValueInput | InputJsonValue
+    progress_notes?: NullableJsonNullValueInput | InputJsonValue
+    parent_notified?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    student_profiles?: student_profilesUpdateOneRequiredWithoutReading_improvement_plansNestedInput
+    users?: UserUpdateOneRequiredWithoutReading_improvement_plansNestedInput
+  }
+
+  export type reading_improvement_plansUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    student_profile_id?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    school_year?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    deficit_areas?: JsonNullValueInput | InputJsonValue
+    intervention_program?: NullableStringFieldUpdateOperationsInput | string | null
+    daily_materials?: NullableJsonNullValueInput | InputJsonValue
+    progress_notes?: NullableJsonNullValueInput | InputJsonValue
+    parent_notified?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type reading_improvement_plansCreateManyInput = {
+    id?: string
+    student_profile_id: string
+    created_by: string
+    school_year: string
+    status?: string
+    deficit_areas: JsonNullValueInput | InputJsonValue
+    intervention_program?: string | null
+    daily_materials?: NullableJsonNullValueInput | InputJsonValue
+    progress_notes?: NullableJsonNullValueInput | InputJsonValue
+    parent_notified?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type reading_improvement_plansUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    school_year?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    deficit_areas?: JsonNullValueInput | InputJsonValue
+    intervention_program?: NullableStringFieldUpdateOperationsInput | string | null
+    daily_materials?: NullableJsonNullValueInput | InputJsonValue
+    progress_notes?: NullableJsonNullValueInput | InputJsonValue
+    parent_notified?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type reading_improvement_plansUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    student_profile_id?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    school_year?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    deficit_areas?: JsonNullValueInput | InputJsonValue
+    intervention_program?: NullableStringFieldUpdateOperationsInput | string | null
+    daily_materials?: NullableJsonNullValueInput | InputJsonValue
+    progress_notes?: NullableJsonNullValueInput | InputJsonValue
+    parent_notified?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type district_listeningCreateInput = {
+    id?: string
+    snapshot_date?: Date | string
+    title_i_revenue?: number | null
+    erate_cat2_budget?: number | null
+    virtual_readiness?: number | null
+    hardware_score?: number | null
+    broadband_mbps?: number | null
+    teacher_training_pct?: number | null
+    edtech_tools?: NullableJsonNullValueInput | InputJsonValue
+    enrollment_total?: number | null
+    free_reduced_pct?: number | null
+    ela_proficiency_pct?: number | null
+    math_proficiency_pct?: number | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    districts: districtsCreateNestedOneWithoutDistrict_listeningInput
+  }
+
+  export type district_listeningUncheckedCreateInput = {
+    id?: string
+    district_id: string
+    snapshot_date?: Date | string
+    title_i_revenue?: number | null
+    erate_cat2_budget?: number | null
+    virtual_readiness?: number | null
+    hardware_score?: number | null
+    broadband_mbps?: number | null
+    teacher_training_pct?: number | null
+    edtech_tools?: NullableJsonNullValueInput | InputJsonValue
+    enrollment_total?: number | null
+    free_reduced_pct?: number | null
+    ela_proficiency_pct?: number | null
+    math_proficiency_pct?: number | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type district_listeningUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    snapshot_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    title_i_revenue?: NullableFloatFieldUpdateOperationsInput | number | null
+    erate_cat2_budget?: NullableFloatFieldUpdateOperationsInput | number | null
+    virtual_readiness?: NullableIntFieldUpdateOperationsInput | number | null
+    hardware_score?: NullableFloatFieldUpdateOperationsInput | number | null
+    broadband_mbps?: NullableFloatFieldUpdateOperationsInput | number | null
+    teacher_training_pct?: NullableFloatFieldUpdateOperationsInput | number | null
+    edtech_tools?: NullableJsonNullValueInput | InputJsonValue
+    enrollment_total?: NullableIntFieldUpdateOperationsInput | number | null
+    free_reduced_pct?: NullableFloatFieldUpdateOperationsInput | number | null
+    ela_proficiency_pct?: NullableFloatFieldUpdateOperationsInput | number | null
+    math_proficiency_pct?: NullableFloatFieldUpdateOperationsInput | number | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    districts?: districtsUpdateOneRequiredWithoutDistrict_listeningNestedInput
+  }
+
+  export type district_listeningUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    district_id?: StringFieldUpdateOperationsInput | string
+    snapshot_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    title_i_revenue?: NullableFloatFieldUpdateOperationsInput | number | null
+    erate_cat2_budget?: NullableFloatFieldUpdateOperationsInput | number | null
+    virtual_readiness?: NullableIntFieldUpdateOperationsInput | number | null
+    hardware_score?: NullableFloatFieldUpdateOperationsInput | number | null
+    broadband_mbps?: NullableFloatFieldUpdateOperationsInput | number | null
+    teacher_training_pct?: NullableFloatFieldUpdateOperationsInput | number | null
+    edtech_tools?: NullableJsonNullValueInput | InputJsonValue
+    enrollment_total?: NullableIntFieldUpdateOperationsInput | number | null
+    free_reduced_pct?: NullableFloatFieldUpdateOperationsInput | number | null
+    ela_proficiency_pct?: NullableFloatFieldUpdateOperationsInput | number | null
+    math_proficiency_pct?: NullableFloatFieldUpdateOperationsInput | number | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type district_listeningCreateManyInput = {
+    id?: string
+    district_id: string
+    snapshot_date?: Date | string
+    title_i_revenue?: number | null
+    erate_cat2_budget?: number | null
+    virtual_readiness?: number | null
+    hardware_score?: number | null
+    broadband_mbps?: number | null
+    teacher_training_pct?: number | null
+    edtech_tools?: NullableJsonNullValueInput | InputJsonValue
+    enrollment_total?: number | null
+    free_reduced_pct?: number | null
+    ela_proficiency_pct?: number | null
+    math_proficiency_pct?: number | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type district_listeningUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    snapshot_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    title_i_revenue?: NullableFloatFieldUpdateOperationsInput | number | null
+    erate_cat2_budget?: NullableFloatFieldUpdateOperationsInput | number | null
+    virtual_readiness?: NullableIntFieldUpdateOperationsInput | number | null
+    hardware_score?: NullableFloatFieldUpdateOperationsInput | number | null
+    broadband_mbps?: NullableFloatFieldUpdateOperationsInput | number | null
+    teacher_training_pct?: NullableFloatFieldUpdateOperationsInput | number | null
+    edtech_tools?: NullableJsonNullValueInput | InputJsonValue
+    enrollment_total?: NullableIntFieldUpdateOperationsInput | number | null
+    free_reduced_pct?: NullableFloatFieldUpdateOperationsInput | number | null
+    ela_proficiency_pct?: NullableFloatFieldUpdateOperationsInput | number | null
+    math_proficiency_pct?: NullableFloatFieldUpdateOperationsInput | number | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type district_listeningUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    district_id?: StringFieldUpdateOperationsInput | string
+    snapshot_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    title_i_revenue?: NullableFloatFieldUpdateOperationsInput | number | null
+    erate_cat2_budget?: NullableFloatFieldUpdateOperationsInput | number | null
+    virtual_readiness?: NullableIntFieldUpdateOperationsInput | number | null
+    hardware_score?: NullableFloatFieldUpdateOperationsInput | number | null
+    broadband_mbps?: NullableFloatFieldUpdateOperationsInput | number | null
+    teacher_training_pct?: NullableFloatFieldUpdateOperationsInput | number | null
+    edtech_tools?: NullableJsonNullValueInput | InputJsonValue
+    enrollment_total?: NullableIntFieldUpdateOperationsInput | number | null
+    free_reduced_pct?: NullableFloatFieldUpdateOperationsInput | number | null
+    ela_proficiency_pct?: NullableFloatFieldUpdateOperationsInput | number | null
+    math_proficiency_pct?: NullableFloatFieldUpdateOperationsInput | number | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type infra_monitorsCreateInput = {
+    id?: string
+    device_type: string
+    device_name: string
+    location?: string | null
+    status?: string
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    alert_threshold?: NullableJsonNullValueInput | InputJsonValue
+    last_heartbeat?: Date | string
+    created_at?: Date | string
+    schools: schoolsCreateNestedOneWithoutInfra_monitorsInput
+    infra_alerts?: infra_alertsCreateNestedManyWithoutInfra_monitorsInput
+  }
+
+  export type infra_monitorsUncheckedCreateInput = {
+    id?: string
+    school_id: string
+    device_type: string
+    device_name: string
+    location?: string | null
+    status?: string
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    alert_threshold?: NullableJsonNullValueInput | InputJsonValue
+    last_heartbeat?: Date | string
+    created_at?: Date | string
+    infra_alerts?: infra_alertsUncheckedCreateNestedManyWithoutInfra_monitorsInput
+  }
+
+  export type infra_monitorsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    device_type?: StringFieldUpdateOperationsInput | string
+    device_name?: StringFieldUpdateOperationsInput | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    alert_threshold?: NullableJsonNullValueInput | InputJsonValue
+    last_heartbeat?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    schools?: schoolsUpdateOneRequiredWithoutInfra_monitorsNestedInput
+    infra_alerts?: infra_alertsUpdateManyWithoutInfra_monitorsNestedInput
+  }
+
+  export type infra_monitorsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    school_id?: StringFieldUpdateOperationsInput | string
+    device_type?: StringFieldUpdateOperationsInput | string
+    device_name?: StringFieldUpdateOperationsInput | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    alert_threshold?: NullableJsonNullValueInput | InputJsonValue
+    last_heartbeat?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    infra_alerts?: infra_alertsUncheckedUpdateManyWithoutInfra_monitorsNestedInput
+  }
+
+  export type infra_monitorsCreateManyInput = {
+    id?: string
+    school_id: string
+    device_type: string
+    device_name: string
+    location?: string | null
+    status?: string
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    alert_threshold?: NullableJsonNullValueInput | InputJsonValue
+    last_heartbeat?: Date | string
+    created_at?: Date | string
+  }
+
+  export type infra_monitorsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    device_type?: StringFieldUpdateOperationsInput | string
+    device_name?: StringFieldUpdateOperationsInput | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    alert_threshold?: NullableJsonNullValueInput | InputJsonValue
+    last_heartbeat?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type infra_monitorsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    school_id?: StringFieldUpdateOperationsInput | string
+    device_type?: StringFieldUpdateOperationsInput | string
+    device_name?: StringFieldUpdateOperationsInput | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    alert_threshold?: NullableJsonNullValueInput | InputJsonValue
+    last_heartbeat?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type infra_alertsCreateInput = {
+    id?: string
+    severity: string
+    message: string
+    metric_snapshot?: NullableJsonNullValueInput | InputJsonValue
+    acknowledged?: boolean
+    acknowledged_by?: string | null
+    resolved_at?: Date | string | null
+    created_at?: Date | string
+    infra_monitors: infra_monitorsCreateNestedOneWithoutInfra_alertsInput
+  }
+
+  export type infra_alertsUncheckedCreateInput = {
+    id?: string
+    monitor_id: string
+    severity: string
+    message: string
+    metric_snapshot?: NullableJsonNullValueInput | InputJsonValue
+    acknowledged?: boolean
+    acknowledged_by?: string | null
+    resolved_at?: Date | string | null
+    created_at?: Date | string
+  }
+
+  export type infra_alertsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    severity?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    metric_snapshot?: NullableJsonNullValueInput | InputJsonValue
+    acknowledged?: BoolFieldUpdateOperationsInput | boolean
+    acknowledged_by?: NullableStringFieldUpdateOperationsInput | string | null
+    resolved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    infra_monitors?: infra_monitorsUpdateOneRequiredWithoutInfra_alertsNestedInput
+  }
+
+  export type infra_alertsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    monitor_id?: StringFieldUpdateOperationsInput | string
+    severity?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    metric_snapshot?: NullableJsonNullValueInput | InputJsonValue
+    acknowledged?: BoolFieldUpdateOperationsInput | boolean
+    acknowledged_by?: NullableStringFieldUpdateOperationsInput | string | null
+    resolved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type infra_alertsCreateManyInput = {
+    id?: string
+    monitor_id: string
+    severity: string
+    message: string
+    metric_snapshot?: NullableJsonNullValueInput | InputJsonValue
+    acknowledged?: boolean
+    acknowledged_by?: string | null
+    resolved_at?: Date | string | null
+    created_at?: Date | string
+  }
+
+  export type infra_alertsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    severity?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    metric_snapshot?: NullableJsonNullValueInput | InputJsonValue
+    acknowledged?: BoolFieldUpdateOperationsInput | boolean
+    acknowledged_by?: NullableStringFieldUpdateOperationsInput | string | null
+    resolved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type infra_alertsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    monitor_id?: StringFieldUpdateOperationsInput | string
+    severity?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    metric_snapshot?: NullableJsonNullValueInput | InputJsonValue
+    acknowledged?: BoolFieldUpdateOperationsInput | boolean
+    acknowledged_by?: NullableStringFieldUpdateOperationsInput | string | null
+    resolved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -53894,7 +64946,17 @@ export namespace Prisma {
     none?: district_nodesWhereInput
   }
 
+  export type District_listeningListRelationFilter = {
+    every?: district_listeningWhereInput
+    some?: district_listeningWhereInput
+    none?: district_listeningWhereInput
+  }
+
   export type district_nodesOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type district_listeningOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -54539,11 +65601,31 @@ export namespace Prisma {
     none?: subscriptionsWhereInput
   }
 
+  export type Student_profilesListRelationFilter = {
+    every?: student_profilesWhereInput
+    some?: student_profilesWhereInput
+    none?: student_profilesWhereInput
+  }
+
+  export type Infra_monitorsListRelationFilter = {
+    every?: infra_monitorsWhereInput
+    some?: infra_monitorsWhereInput
+    none?: infra_monitorsWhereInput
+  }
+
   export type analytics_insightsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type subscriptionsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type student_profilesOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type infra_monitorsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -55026,6 +66108,18 @@ export namespace Prisma {
     none?: vault_documentsWhereInput
   }
 
+  export type Differentiated_materialsListRelationFilter = {
+    every?: differentiated_materialsWhereInput
+    some?: differentiated_materialsWhereInput
+    none?: differentiated_materialsWhereInput
+  }
+
+  export type Reading_improvement_plansListRelationFilter = {
+    every?: reading_improvement_plansWhereInput
+    some?: reading_improvement_plansWhereInput
+    none?: reading_improvement_plansWhereInput
+  }
+
   export type accountOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -55067,6 +66161,14 @@ export namespace Prisma {
   }
 
   export type vault_documentsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type differentiated_materialsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type reading_improvement_plansOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -55436,6 +66538,414 @@ export namespace Prisma {
     confidence?: SortOrder
   }
 
+  export type Screener_resultsListRelationFilter = {
+    every?: screener_resultsWhereInput
+    some?: screener_resultsWhereInput
+    none?: screener_resultsWhereInput
+  }
+
+  export type screener_resultsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type student_profilesUser_idStudent_sis_idCompoundUniqueInput = {
+    user_id: string
+    student_sis_id: string
+  }
+
+  export type student_profilesCountOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    student_sis_id?: SortOrder
+    first_name?: SortOrder
+    last_name?: SortOrder
+    grade_level?: SortOrder
+    school_id?: SortOrder
+    lexile_level?: SortOrder
+    lexile_history?: SortOrder
+    ell_status?: SortOrder
+    native_language?: SortOrder
+    sped_status?: SortOrder
+    dyslexia_flag?: SortOrder
+    intervention_tier?: SortOrder
+    ala_skill_profile?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type student_profilesAvgOrderByAggregateInput = {
+    lexile_level?: SortOrder
+  }
+
+  export type student_profilesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    student_sis_id?: SortOrder
+    first_name?: SortOrder
+    last_name?: SortOrder
+    grade_level?: SortOrder
+    school_id?: SortOrder
+    lexile_level?: SortOrder
+    ell_status?: SortOrder
+    native_language?: SortOrder
+    sped_status?: SortOrder
+    dyslexia_flag?: SortOrder
+    intervention_tier?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type student_profilesMinOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    student_sis_id?: SortOrder
+    first_name?: SortOrder
+    last_name?: SortOrder
+    grade_level?: SortOrder
+    school_id?: SortOrder
+    lexile_level?: SortOrder
+    ell_status?: SortOrder
+    native_language?: SortOrder
+    sped_status?: SortOrder
+    dyslexia_flag?: SortOrder
+    intervention_tier?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type student_profilesSumOrderByAggregateInput = {
+    lexile_level?: SortOrder
+  }
+
+  export type Student_profilesScalarRelationFilter = {
+    is?: student_profilesWhereInput
+    isNot?: student_profilesWhereInput
+  }
+
+  export type screener_resultsCountOrderByAggregateInput = {
+    id?: SortOrder
+    student_profile_id?: SortOrder
+    screener_platform?: SortOrder
+    assessment_window?: SortOrder
+    assessment_date?: SortOrder
+    composite_score?: SortOrder
+    risk_level?: SortOrder
+    skill_scores?: SortOrder
+    raw_data?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type screener_resultsAvgOrderByAggregateInput = {
+    composite_score?: SortOrder
+  }
+
+  export type screener_resultsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    student_profile_id?: SortOrder
+    screener_platform?: SortOrder
+    assessment_window?: SortOrder
+    assessment_date?: SortOrder
+    composite_score?: SortOrder
+    risk_level?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type screener_resultsMinOrderByAggregateInput = {
+    id?: SortOrder
+    student_profile_id?: SortOrder
+    screener_platform?: SortOrder
+    assessment_window?: SortOrder
+    assessment_date?: SortOrder
+    composite_score?: SortOrder
+    risk_level?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type screener_resultsSumOrderByAggregateInput = {
+    composite_score?: SortOrder
+  }
+
+  export type Student_profilesNullableScalarRelationFilter = {
+    is?: student_profilesWhereInput | null
+    isNot?: student_profilesWhereInput | null
+  }
+
+  export type differentiated_materialsCountOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    student_profile_id?: SortOrder
+    title?: SortOrder
+    source_input?: SortOrder
+    target_lexile?: SortOrder
+    output_lexile?: SortOrder
+    dok_level?: SortOrder
+    content_type?: SortOrder
+    generated_content?: SortOrder
+    academic_standard?: SortOrder
+    subject?: SortOrder
+    grade_level?: SortOrder
+    language?: SortOrder
+    exported_to?: SortOrder
+    tokens_used?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type differentiated_materialsAvgOrderByAggregateInput = {
+    target_lexile?: SortOrder
+    output_lexile?: SortOrder
+    dok_level?: SortOrder
+    tokens_used?: SortOrder
+  }
+
+  export type differentiated_materialsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    student_profile_id?: SortOrder
+    title?: SortOrder
+    source_input?: SortOrder
+    target_lexile?: SortOrder
+    output_lexile?: SortOrder
+    dok_level?: SortOrder
+    content_type?: SortOrder
+    academic_standard?: SortOrder
+    subject?: SortOrder
+    grade_level?: SortOrder
+    language?: SortOrder
+    exported_to?: SortOrder
+    tokens_used?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type differentiated_materialsMinOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    student_profile_id?: SortOrder
+    title?: SortOrder
+    source_input?: SortOrder
+    target_lexile?: SortOrder
+    output_lexile?: SortOrder
+    dok_level?: SortOrder
+    content_type?: SortOrder
+    academic_standard?: SortOrder
+    subject?: SortOrder
+    grade_level?: SortOrder
+    language?: SortOrder
+    exported_to?: SortOrder
+    tokens_used?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type differentiated_materialsSumOrderByAggregateInput = {
+    target_lexile?: SortOrder
+    output_lexile?: SortOrder
+    dok_level?: SortOrder
+    tokens_used?: SortOrder
+  }
+
+  export type reading_improvement_plansCountOrderByAggregateInput = {
+    id?: SortOrder
+    student_profile_id?: SortOrder
+    created_by?: SortOrder
+    school_year?: SortOrder
+    status?: SortOrder
+    deficit_areas?: SortOrder
+    intervention_program?: SortOrder
+    daily_materials?: SortOrder
+    progress_notes?: SortOrder
+    parent_notified?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type reading_improvement_plansMaxOrderByAggregateInput = {
+    id?: SortOrder
+    student_profile_id?: SortOrder
+    created_by?: SortOrder
+    school_year?: SortOrder
+    status?: SortOrder
+    intervention_program?: SortOrder
+    parent_notified?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type reading_improvement_plansMinOrderByAggregateInput = {
+    id?: SortOrder
+    student_profile_id?: SortOrder
+    created_by?: SortOrder
+    school_year?: SortOrder
+    status?: SortOrder
+    intervention_program?: SortOrder
+    parent_notified?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type district_listeningCountOrderByAggregateInput = {
+    id?: SortOrder
+    district_id?: SortOrder
+    snapshot_date?: SortOrder
+    title_i_revenue?: SortOrder
+    erate_cat2_budget?: SortOrder
+    virtual_readiness?: SortOrder
+    hardware_score?: SortOrder
+    broadband_mbps?: SortOrder
+    teacher_training_pct?: SortOrder
+    edtech_tools?: SortOrder
+    enrollment_total?: SortOrder
+    free_reduced_pct?: SortOrder
+    ela_proficiency_pct?: SortOrder
+    math_proficiency_pct?: SortOrder
+    metadata?: SortOrder
+  }
+
+  export type district_listeningAvgOrderByAggregateInput = {
+    title_i_revenue?: SortOrder
+    erate_cat2_budget?: SortOrder
+    virtual_readiness?: SortOrder
+    hardware_score?: SortOrder
+    broadband_mbps?: SortOrder
+    teacher_training_pct?: SortOrder
+    enrollment_total?: SortOrder
+    free_reduced_pct?: SortOrder
+    ela_proficiency_pct?: SortOrder
+    math_proficiency_pct?: SortOrder
+  }
+
+  export type district_listeningMaxOrderByAggregateInput = {
+    id?: SortOrder
+    district_id?: SortOrder
+    snapshot_date?: SortOrder
+    title_i_revenue?: SortOrder
+    erate_cat2_budget?: SortOrder
+    virtual_readiness?: SortOrder
+    hardware_score?: SortOrder
+    broadband_mbps?: SortOrder
+    teacher_training_pct?: SortOrder
+    enrollment_total?: SortOrder
+    free_reduced_pct?: SortOrder
+    ela_proficiency_pct?: SortOrder
+    math_proficiency_pct?: SortOrder
+  }
+
+  export type district_listeningMinOrderByAggregateInput = {
+    id?: SortOrder
+    district_id?: SortOrder
+    snapshot_date?: SortOrder
+    title_i_revenue?: SortOrder
+    erate_cat2_budget?: SortOrder
+    virtual_readiness?: SortOrder
+    hardware_score?: SortOrder
+    broadband_mbps?: SortOrder
+    teacher_training_pct?: SortOrder
+    enrollment_total?: SortOrder
+    free_reduced_pct?: SortOrder
+    ela_proficiency_pct?: SortOrder
+    math_proficiency_pct?: SortOrder
+  }
+
+  export type district_listeningSumOrderByAggregateInput = {
+    title_i_revenue?: SortOrder
+    erate_cat2_budget?: SortOrder
+    virtual_readiness?: SortOrder
+    hardware_score?: SortOrder
+    broadband_mbps?: SortOrder
+    teacher_training_pct?: SortOrder
+    enrollment_total?: SortOrder
+    free_reduced_pct?: SortOrder
+    ela_proficiency_pct?: SortOrder
+    math_proficiency_pct?: SortOrder
+  }
+
+  export type SchoolsScalarRelationFilter = {
+    is?: schoolsWhereInput
+    isNot?: schoolsWhereInput
+  }
+
+  export type Infra_alertsListRelationFilter = {
+    every?: infra_alertsWhereInput
+    some?: infra_alertsWhereInput
+    none?: infra_alertsWhereInput
+  }
+
+  export type infra_alertsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type infra_monitorsCountOrderByAggregateInput = {
+    id?: SortOrder
+    school_id?: SortOrder
+    device_type?: SortOrder
+    device_name?: SortOrder
+    location?: SortOrder
+    status?: SortOrder
+    metrics?: SortOrder
+    alert_threshold?: SortOrder
+    last_heartbeat?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type infra_monitorsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    school_id?: SortOrder
+    device_type?: SortOrder
+    device_name?: SortOrder
+    location?: SortOrder
+    status?: SortOrder
+    last_heartbeat?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type infra_monitorsMinOrderByAggregateInput = {
+    id?: SortOrder
+    school_id?: SortOrder
+    device_type?: SortOrder
+    device_name?: SortOrder
+    location?: SortOrder
+    status?: SortOrder
+    last_heartbeat?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type Infra_monitorsScalarRelationFilter = {
+    is?: infra_monitorsWhereInput
+    isNot?: infra_monitorsWhereInput
+  }
+
+  export type infra_alertsCountOrderByAggregateInput = {
+    id?: SortOrder
+    monitor_id?: SortOrder
+    severity?: SortOrder
+    message?: SortOrder
+    metric_snapshot?: SortOrder
+    acknowledged?: SortOrder
+    acknowledged_by?: SortOrder
+    resolved_at?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type infra_alertsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    monitor_id?: SortOrder
+    severity?: SortOrder
+    message?: SortOrder
+    acknowledged?: SortOrder
+    acknowledged_by?: SortOrder
+    resolved_at?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type infra_alertsMinOrderByAggregateInput = {
+    id?: SortOrder
+    monitor_id?: SortOrder
+    severity?: SortOrder
+    message?: SortOrder
+    acknowledged?: SortOrder
+    acknowledged_by?: SortOrder
+    resolved_at?: SortOrder
+    created_at?: SortOrder
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -55771,11 +67281,25 @@ export namespace Prisma {
     connect?: district_nodesWhereUniqueInput | district_nodesWhereUniqueInput[]
   }
 
+  export type district_listeningCreateNestedManyWithoutDistrictsInput = {
+    create?: XOR<district_listeningCreateWithoutDistrictsInput, district_listeningUncheckedCreateWithoutDistrictsInput> | district_listeningCreateWithoutDistrictsInput[] | district_listeningUncheckedCreateWithoutDistrictsInput[]
+    connectOrCreate?: district_listeningCreateOrConnectWithoutDistrictsInput | district_listeningCreateOrConnectWithoutDistrictsInput[]
+    createMany?: district_listeningCreateManyDistrictsInputEnvelope
+    connect?: district_listeningWhereUniqueInput | district_listeningWhereUniqueInput[]
+  }
+
   export type district_nodesUncheckedCreateNestedManyWithoutDistrictsInput = {
     create?: XOR<district_nodesCreateWithoutDistrictsInput, district_nodesUncheckedCreateWithoutDistrictsInput> | district_nodesCreateWithoutDistrictsInput[] | district_nodesUncheckedCreateWithoutDistrictsInput[]
     connectOrCreate?: district_nodesCreateOrConnectWithoutDistrictsInput | district_nodesCreateOrConnectWithoutDistrictsInput[]
     createMany?: district_nodesCreateManyDistrictsInputEnvelope
     connect?: district_nodesWhereUniqueInput | district_nodesWhereUniqueInput[]
+  }
+
+  export type district_listeningUncheckedCreateNestedManyWithoutDistrictsInput = {
+    create?: XOR<district_listeningCreateWithoutDistrictsInput, district_listeningUncheckedCreateWithoutDistrictsInput> | district_listeningCreateWithoutDistrictsInput[] | district_listeningUncheckedCreateWithoutDistrictsInput[]
+    connectOrCreate?: district_listeningCreateOrConnectWithoutDistrictsInput | district_listeningCreateOrConnectWithoutDistrictsInput[]
+    createMany?: district_listeningCreateManyDistrictsInputEnvelope
+    connect?: district_listeningWhereUniqueInput | district_listeningWhereUniqueInput[]
   }
 
   export type district_nodesUpdateManyWithoutDistrictsNestedInput = {
@@ -55792,6 +67316,20 @@ export namespace Prisma {
     deleteMany?: district_nodesScalarWhereInput | district_nodesScalarWhereInput[]
   }
 
+  export type district_listeningUpdateManyWithoutDistrictsNestedInput = {
+    create?: XOR<district_listeningCreateWithoutDistrictsInput, district_listeningUncheckedCreateWithoutDistrictsInput> | district_listeningCreateWithoutDistrictsInput[] | district_listeningUncheckedCreateWithoutDistrictsInput[]
+    connectOrCreate?: district_listeningCreateOrConnectWithoutDistrictsInput | district_listeningCreateOrConnectWithoutDistrictsInput[]
+    upsert?: district_listeningUpsertWithWhereUniqueWithoutDistrictsInput | district_listeningUpsertWithWhereUniqueWithoutDistrictsInput[]
+    createMany?: district_listeningCreateManyDistrictsInputEnvelope
+    set?: district_listeningWhereUniqueInput | district_listeningWhereUniqueInput[]
+    disconnect?: district_listeningWhereUniqueInput | district_listeningWhereUniqueInput[]
+    delete?: district_listeningWhereUniqueInput | district_listeningWhereUniqueInput[]
+    connect?: district_listeningWhereUniqueInput | district_listeningWhereUniqueInput[]
+    update?: district_listeningUpdateWithWhereUniqueWithoutDistrictsInput | district_listeningUpdateWithWhereUniqueWithoutDistrictsInput[]
+    updateMany?: district_listeningUpdateManyWithWhereWithoutDistrictsInput | district_listeningUpdateManyWithWhereWithoutDistrictsInput[]
+    deleteMany?: district_listeningScalarWhereInput | district_listeningScalarWhereInput[]
+  }
+
   export type district_nodesUncheckedUpdateManyWithoutDistrictsNestedInput = {
     create?: XOR<district_nodesCreateWithoutDistrictsInput, district_nodesUncheckedCreateWithoutDistrictsInput> | district_nodesCreateWithoutDistrictsInput[] | district_nodesUncheckedCreateWithoutDistrictsInput[]
     connectOrCreate?: district_nodesCreateOrConnectWithoutDistrictsInput | district_nodesCreateOrConnectWithoutDistrictsInput[]
@@ -55804,6 +67342,20 @@ export namespace Prisma {
     update?: district_nodesUpdateWithWhereUniqueWithoutDistrictsInput | district_nodesUpdateWithWhereUniqueWithoutDistrictsInput[]
     updateMany?: district_nodesUpdateManyWithWhereWithoutDistrictsInput | district_nodesUpdateManyWithWhereWithoutDistrictsInput[]
     deleteMany?: district_nodesScalarWhereInput | district_nodesScalarWhereInput[]
+  }
+
+  export type district_listeningUncheckedUpdateManyWithoutDistrictsNestedInput = {
+    create?: XOR<district_listeningCreateWithoutDistrictsInput, district_listeningUncheckedCreateWithoutDistrictsInput> | district_listeningCreateWithoutDistrictsInput[] | district_listeningUncheckedCreateWithoutDistrictsInput[]
+    connectOrCreate?: district_listeningCreateOrConnectWithoutDistrictsInput | district_listeningCreateOrConnectWithoutDistrictsInput[]
+    upsert?: district_listeningUpsertWithWhereUniqueWithoutDistrictsInput | district_listeningUpsertWithWhereUniqueWithoutDistrictsInput[]
+    createMany?: district_listeningCreateManyDistrictsInputEnvelope
+    set?: district_listeningWhereUniqueInput | district_listeningWhereUniqueInput[]
+    disconnect?: district_listeningWhereUniqueInput | district_listeningWhereUniqueInput[]
+    delete?: district_listeningWhereUniqueInput | district_listeningWhereUniqueInput[]
+    connect?: district_listeningWhereUniqueInput | district_listeningWhereUniqueInput[]
+    update?: district_listeningUpdateWithWhereUniqueWithoutDistrictsInput | district_listeningUpdateWithWhereUniqueWithoutDistrictsInput[]
+    updateMany?: district_listeningUpdateManyWithWhereWithoutDistrictsInput | district_listeningUpdateManyWithWhereWithoutDistrictsInput[]
+    deleteMany?: district_listeningScalarWhereInput | district_listeningScalarWhereInput[]
   }
 
   export type evidence_foldersCreateNestedOneWithoutDocumentsInput = {
@@ -56320,6 +67872,20 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
+  export type student_profilesCreateNestedManyWithoutSchoolsInput = {
+    create?: XOR<student_profilesCreateWithoutSchoolsInput, student_profilesUncheckedCreateWithoutSchoolsInput> | student_profilesCreateWithoutSchoolsInput[] | student_profilesUncheckedCreateWithoutSchoolsInput[]
+    connectOrCreate?: student_profilesCreateOrConnectWithoutSchoolsInput | student_profilesCreateOrConnectWithoutSchoolsInput[]
+    createMany?: student_profilesCreateManySchoolsInputEnvelope
+    connect?: student_profilesWhereUniqueInput | student_profilesWhereUniqueInput[]
+  }
+
+  export type infra_monitorsCreateNestedManyWithoutSchoolsInput = {
+    create?: XOR<infra_monitorsCreateWithoutSchoolsInput, infra_monitorsUncheckedCreateWithoutSchoolsInput> | infra_monitorsCreateWithoutSchoolsInput[] | infra_monitorsUncheckedCreateWithoutSchoolsInput[]
+    connectOrCreate?: infra_monitorsCreateOrConnectWithoutSchoolsInput | infra_monitorsCreateOrConnectWithoutSchoolsInput[]
+    createMany?: infra_monitorsCreateManySchoolsInputEnvelope
+    connect?: infra_monitorsWhereUniqueInput | infra_monitorsWhereUniqueInput[]
+  }
+
   export type analytics_insightsUncheckedCreateNestedManyWithoutSchoolsInput = {
     create?: XOR<analytics_insightsCreateWithoutSchoolsInput, analytics_insightsUncheckedCreateWithoutSchoolsInput> | analytics_insightsCreateWithoutSchoolsInput[] | analytics_insightsUncheckedCreateWithoutSchoolsInput[]
     connectOrCreate?: analytics_insightsCreateOrConnectWithoutSchoolsInput | analytics_insightsCreateOrConnectWithoutSchoolsInput[]
@@ -56339,6 +67905,20 @@ export namespace Prisma {
     connectOrCreate?: UserCreateOrConnectWithoutSchools_users_school_idToschoolsInput | UserCreateOrConnectWithoutSchools_users_school_idToschoolsInput[]
     createMany?: UserCreateManySchools_users_school_idToschoolsInputEnvelope
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type student_profilesUncheckedCreateNestedManyWithoutSchoolsInput = {
+    create?: XOR<student_profilesCreateWithoutSchoolsInput, student_profilesUncheckedCreateWithoutSchoolsInput> | student_profilesCreateWithoutSchoolsInput[] | student_profilesUncheckedCreateWithoutSchoolsInput[]
+    connectOrCreate?: student_profilesCreateOrConnectWithoutSchoolsInput | student_profilesCreateOrConnectWithoutSchoolsInput[]
+    createMany?: student_profilesCreateManySchoolsInputEnvelope
+    connect?: student_profilesWhereUniqueInput | student_profilesWhereUniqueInput[]
+  }
+
+  export type infra_monitorsUncheckedCreateNestedManyWithoutSchoolsInput = {
+    create?: XOR<infra_monitorsCreateWithoutSchoolsInput, infra_monitorsUncheckedCreateWithoutSchoolsInput> | infra_monitorsCreateWithoutSchoolsInput[] | infra_monitorsUncheckedCreateWithoutSchoolsInput[]
+    connectOrCreate?: infra_monitorsCreateOrConnectWithoutSchoolsInput | infra_monitorsCreateOrConnectWithoutSchoolsInput[]
+    createMany?: infra_monitorsCreateManySchoolsInputEnvelope
+    connect?: infra_monitorsWhereUniqueInput | infra_monitorsWhereUniqueInput[]
   }
 
   export type analytics_insightsUpdateManyWithoutSchoolsNestedInput = {
@@ -56393,6 +67973,34 @@ export namespace Prisma {
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
+  export type student_profilesUpdateManyWithoutSchoolsNestedInput = {
+    create?: XOR<student_profilesCreateWithoutSchoolsInput, student_profilesUncheckedCreateWithoutSchoolsInput> | student_profilesCreateWithoutSchoolsInput[] | student_profilesUncheckedCreateWithoutSchoolsInput[]
+    connectOrCreate?: student_profilesCreateOrConnectWithoutSchoolsInput | student_profilesCreateOrConnectWithoutSchoolsInput[]
+    upsert?: student_profilesUpsertWithWhereUniqueWithoutSchoolsInput | student_profilesUpsertWithWhereUniqueWithoutSchoolsInput[]
+    createMany?: student_profilesCreateManySchoolsInputEnvelope
+    set?: student_profilesWhereUniqueInput | student_profilesWhereUniqueInput[]
+    disconnect?: student_profilesWhereUniqueInput | student_profilesWhereUniqueInput[]
+    delete?: student_profilesWhereUniqueInput | student_profilesWhereUniqueInput[]
+    connect?: student_profilesWhereUniqueInput | student_profilesWhereUniqueInput[]
+    update?: student_profilesUpdateWithWhereUniqueWithoutSchoolsInput | student_profilesUpdateWithWhereUniqueWithoutSchoolsInput[]
+    updateMany?: student_profilesUpdateManyWithWhereWithoutSchoolsInput | student_profilesUpdateManyWithWhereWithoutSchoolsInput[]
+    deleteMany?: student_profilesScalarWhereInput | student_profilesScalarWhereInput[]
+  }
+
+  export type infra_monitorsUpdateManyWithoutSchoolsNestedInput = {
+    create?: XOR<infra_monitorsCreateWithoutSchoolsInput, infra_monitorsUncheckedCreateWithoutSchoolsInput> | infra_monitorsCreateWithoutSchoolsInput[] | infra_monitorsUncheckedCreateWithoutSchoolsInput[]
+    connectOrCreate?: infra_monitorsCreateOrConnectWithoutSchoolsInput | infra_monitorsCreateOrConnectWithoutSchoolsInput[]
+    upsert?: infra_monitorsUpsertWithWhereUniqueWithoutSchoolsInput | infra_monitorsUpsertWithWhereUniqueWithoutSchoolsInput[]
+    createMany?: infra_monitorsCreateManySchoolsInputEnvelope
+    set?: infra_monitorsWhereUniqueInput | infra_monitorsWhereUniqueInput[]
+    disconnect?: infra_monitorsWhereUniqueInput | infra_monitorsWhereUniqueInput[]
+    delete?: infra_monitorsWhereUniqueInput | infra_monitorsWhereUniqueInput[]
+    connect?: infra_monitorsWhereUniqueInput | infra_monitorsWhereUniqueInput[]
+    update?: infra_monitorsUpdateWithWhereUniqueWithoutSchoolsInput | infra_monitorsUpdateWithWhereUniqueWithoutSchoolsInput[]
+    updateMany?: infra_monitorsUpdateManyWithWhereWithoutSchoolsInput | infra_monitorsUpdateManyWithWhereWithoutSchoolsInput[]
+    deleteMany?: infra_monitorsScalarWhereInput | infra_monitorsScalarWhereInput[]
+  }
+
   export type analytics_insightsUncheckedUpdateManyWithoutSchoolsNestedInput = {
     create?: XOR<analytics_insightsCreateWithoutSchoolsInput, analytics_insightsUncheckedCreateWithoutSchoolsInput> | analytics_insightsCreateWithoutSchoolsInput[] | analytics_insightsUncheckedCreateWithoutSchoolsInput[]
     connectOrCreate?: analytics_insightsCreateOrConnectWithoutSchoolsInput | analytics_insightsCreateOrConnectWithoutSchoolsInput[]
@@ -56433,6 +68041,34 @@ export namespace Prisma {
     update?: UserUpdateWithWhereUniqueWithoutSchools_users_school_idToschoolsInput | UserUpdateWithWhereUniqueWithoutSchools_users_school_idToschoolsInput[]
     updateMany?: UserUpdateManyWithWhereWithoutSchools_users_school_idToschoolsInput | UserUpdateManyWithWhereWithoutSchools_users_school_idToschoolsInput[]
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type student_profilesUncheckedUpdateManyWithoutSchoolsNestedInput = {
+    create?: XOR<student_profilesCreateWithoutSchoolsInput, student_profilesUncheckedCreateWithoutSchoolsInput> | student_profilesCreateWithoutSchoolsInput[] | student_profilesUncheckedCreateWithoutSchoolsInput[]
+    connectOrCreate?: student_profilesCreateOrConnectWithoutSchoolsInput | student_profilesCreateOrConnectWithoutSchoolsInput[]
+    upsert?: student_profilesUpsertWithWhereUniqueWithoutSchoolsInput | student_profilesUpsertWithWhereUniqueWithoutSchoolsInput[]
+    createMany?: student_profilesCreateManySchoolsInputEnvelope
+    set?: student_profilesWhereUniqueInput | student_profilesWhereUniqueInput[]
+    disconnect?: student_profilesWhereUniqueInput | student_profilesWhereUniqueInput[]
+    delete?: student_profilesWhereUniqueInput | student_profilesWhereUniqueInput[]
+    connect?: student_profilesWhereUniqueInput | student_profilesWhereUniqueInput[]
+    update?: student_profilesUpdateWithWhereUniqueWithoutSchoolsInput | student_profilesUpdateWithWhereUniqueWithoutSchoolsInput[]
+    updateMany?: student_profilesUpdateManyWithWhereWithoutSchoolsInput | student_profilesUpdateManyWithWhereWithoutSchoolsInput[]
+    deleteMany?: student_profilesScalarWhereInput | student_profilesScalarWhereInput[]
+  }
+
+  export type infra_monitorsUncheckedUpdateManyWithoutSchoolsNestedInput = {
+    create?: XOR<infra_monitorsCreateWithoutSchoolsInput, infra_monitorsUncheckedCreateWithoutSchoolsInput> | infra_monitorsCreateWithoutSchoolsInput[] | infra_monitorsUncheckedCreateWithoutSchoolsInput[]
+    connectOrCreate?: infra_monitorsCreateOrConnectWithoutSchoolsInput | infra_monitorsCreateOrConnectWithoutSchoolsInput[]
+    upsert?: infra_monitorsUpsertWithWhereUniqueWithoutSchoolsInput | infra_monitorsUpsertWithWhereUniqueWithoutSchoolsInput[]
+    createMany?: infra_monitorsCreateManySchoolsInputEnvelope
+    set?: infra_monitorsWhereUniqueInput | infra_monitorsWhereUniqueInput[]
+    disconnect?: infra_monitorsWhereUniqueInput | infra_monitorsWhereUniqueInput[]
+    delete?: infra_monitorsWhereUniqueInput | infra_monitorsWhereUniqueInput[]
+    connect?: infra_monitorsWhereUniqueInput | infra_monitorsWhereUniqueInput[]
+    update?: infra_monitorsUpdateWithWhereUniqueWithoutSchoolsInput | infra_monitorsUpdateWithWhereUniqueWithoutSchoolsInput[]
+    updateMany?: infra_monitorsUpdateManyWithWhereWithoutSchoolsInput | infra_monitorsUpdateManyWithWhereWithoutSchoolsInput[]
+    deleteMany?: infra_monitorsScalarWhereInput | infra_monitorsScalarWhereInput[]
   }
 
   export type strategic_vaultCreatetagsInput = {
@@ -56782,6 +68418,27 @@ export namespace Prisma {
     connect?: knowledge_documentsWhereUniqueInput | knowledge_documentsWhereUniqueInput[]
   }
 
+  export type student_profilesCreateNestedManyWithoutUsersInput = {
+    create?: XOR<student_profilesCreateWithoutUsersInput, student_profilesUncheckedCreateWithoutUsersInput> | student_profilesCreateWithoutUsersInput[] | student_profilesUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: student_profilesCreateOrConnectWithoutUsersInput | student_profilesCreateOrConnectWithoutUsersInput[]
+    createMany?: student_profilesCreateManyUsersInputEnvelope
+    connect?: student_profilesWhereUniqueInput | student_profilesWhereUniqueInput[]
+  }
+
+  export type differentiated_materialsCreateNestedManyWithoutUsersInput = {
+    create?: XOR<differentiated_materialsCreateWithoutUsersInput, differentiated_materialsUncheckedCreateWithoutUsersInput> | differentiated_materialsCreateWithoutUsersInput[] | differentiated_materialsUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: differentiated_materialsCreateOrConnectWithoutUsersInput | differentiated_materialsCreateOrConnectWithoutUsersInput[]
+    createMany?: differentiated_materialsCreateManyUsersInputEnvelope
+    connect?: differentiated_materialsWhereUniqueInput | differentiated_materialsWhereUniqueInput[]
+  }
+
+  export type reading_improvement_plansCreateNestedManyWithoutUsersInput = {
+    create?: XOR<reading_improvement_plansCreateWithoutUsersInput, reading_improvement_plansUncheckedCreateWithoutUsersInput> | reading_improvement_plansCreateWithoutUsersInput[] | reading_improvement_plansUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: reading_improvement_plansCreateOrConnectWithoutUsersInput | reading_improvement_plansCreateOrConnectWithoutUsersInput[]
+    createMany?: reading_improvement_plansCreateManyUsersInputEnvelope
+    connect?: reading_improvement_plansWhereUniqueInput | reading_improvement_plansWhereUniqueInput[]
+  }
+
   export type accountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<accountCreateWithoutUserInput, accountUncheckedCreateWithoutUserInput> | accountCreateWithoutUserInput[] | accountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: accountCreateOrConnectWithoutUserInput | accountCreateOrConnectWithoutUserInput[]
@@ -56912,6 +68569,27 @@ export namespace Prisma {
     connectOrCreate?: knowledge_documentsCreateOrConnectWithoutUsersInput | knowledge_documentsCreateOrConnectWithoutUsersInput[]
     createMany?: knowledge_documentsCreateManyUsersInputEnvelope
     connect?: knowledge_documentsWhereUniqueInput | knowledge_documentsWhereUniqueInput[]
+  }
+
+  export type student_profilesUncheckedCreateNestedManyWithoutUsersInput = {
+    create?: XOR<student_profilesCreateWithoutUsersInput, student_profilesUncheckedCreateWithoutUsersInput> | student_profilesCreateWithoutUsersInput[] | student_profilesUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: student_profilesCreateOrConnectWithoutUsersInput | student_profilesCreateOrConnectWithoutUsersInput[]
+    createMany?: student_profilesCreateManyUsersInputEnvelope
+    connect?: student_profilesWhereUniqueInput | student_profilesWhereUniqueInput[]
+  }
+
+  export type differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput = {
+    create?: XOR<differentiated_materialsCreateWithoutUsersInput, differentiated_materialsUncheckedCreateWithoutUsersInput> | differentiated_materialsCreateWithoutUsersInput[] | differentiated_materialsUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: differentiated_materialsCreateOrConnectWithoutUsersInput | differentiated_materialsCreateOrConnectWithoutUsersInput[]
+    createMany?: differentiated_materialsCreateManyUsersInputEnvelope
+    connect?: differentiated_materialsWhereUniqueInput | differentiated_materialsWhereUniqueInput[]
+  }
+
+  export type reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput = {
+    create?: XOR<reading_improvement_plansCreateWithoutUsersInput, reading_improvement_plansUncheckedCreateWithoutUsersInput> | reading_improvement_plansCreateWithoutUsersInput[] | reading_improvement_plansUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: reading_improvement_plansCreateOrConnectWithoutUsersInput | reading_improvement_plansCreateOrConnectWithoutUsersInput[]
+    createMany?: reading_improvement_plansCreateManyUsersInputEnvelope
+    connect?: reading_improvement_plansWhereUniqueInput | reading_improvement_plansWhereUniqueInput[]
   }
 
   export type EnumUserRoleFieldUpdateOperationsInput = {
@@ -57210,6 +68888,48 @@ export namespace Prisma {
     deleteMany?: knowledge_documentsScalarWhereInput | knowledge_documentsScalarWhereInput[]
   }
 
+  export type student_profilesUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<student_profilesCreateWithoutUsersInput, student_profilesUncheckedCreateWithoutUsersInput> | student_profilesCreateWithoutUsersInput[] | student_profilesUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: student_profilesCreateOrConnectWithoutUsersInput | student_profilesCreateOrConnectWithoutUsersInput[]
+    upsert?: student_profilesUpsertWithWhereUniqueWithoutUsersInput | student_profilesUpsertWithWhereUniqueWithoutUsersInput[]
+    createMany?: student_profilesCreateManyUsersInputEnvelope
+    set?: student_profilesWhereUniqueInput | student_profilesWhereUniqueInput[]
+    disconnect?: student_profilesWhereUniqueInput | student_profilesWhereUniqueInput[]
+    delete?: student_profilesWhereUniqueInput | student_profilesWhereUniqueInput[]
+    connect?: student_profilesWhereUniqueInput | student_profilesWhereUniqueInput[]
+    update?: student_profilesUpdateWithWhereUniqueWithoutUsersInput | student_profilesUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: student_profilesUpdateManyWithWhereWithoutUsersInput | student_profilesUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: student_profilesScalarWhereInput | student_profilesScalarWhereInput[]
+  }
+
+  export type differentiated_materialsUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<differentiated_materialsCreateWithoutUsersInput, differentiated_materialsUncheckedCreateWithoutUsersInput> | differentiated_materialsCreateWithoutUsersInput[] | differentiated_materialsUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: differentiated_materialsCreateOrConnectWithoutUsersInput | differentiated_materialsCreateOrConnectWithoutUsersInput[]
+    upsert?: differentiated_materialsUpsertWithWhereUniqueWithoutUsersInput | differentiated_materialsUpsertWithWhereUniqueWithoutUsersInput[]
+    createMany?: differentiated_materialsCreateManyUsersInputEnvelope
+    set?: differentiated_materialsWhereUniqueInput | differentiated_materialsWhereUniqueInput[]
+    disconnect?: differentiated_materialsWhereUniqueInput | differentiated_materialsWhereUniqueInput[]
+    delete?: differentiated_materialsWhereUniqueInput | differentiated_materialsWhereUniqueInput[]
+    connect?: differentiated_materialsWhereUniqueInput | differentiated_materialsWhereUniqueInput[]
+    update?: differentiated_materialsUpdateWithWhereUniqueWithoutUsersInput | differentiated_materialsUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: differentiated_materialsUpdateManyWithWhereWithoutUsersInput | differentiated_materialsUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: differentiated_materialsScalarWhereInput | differentiated_materialsScalarWhereInput[]
+  }
+
+  export type reading_improvement_plansUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<reading_improvement_plansCreateWithoutUsersInput, reading_improvement_plansUncheckedCreateWithoutUsersInput> | reading_improvement_plansCreateWithoutUsersInput[] | reading_improvement_plansUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: reading_improvement_plansCreateOrConnectWithoutUsersInput | reading_improvement_plansCreateOrConnectWithoutUsersInput[]
+    upsert?: reading_improvement_plansUpsertWithWhereUniqueWithoutUsersInput | reading_improvement_plansUpsertWithWhereUniqueWithoutUsersInput[]
+    createMany?: reading_improvement_plansCreateManyUsersInputEnvelope
+    set?: reading_improvement_plansWhereUniqueInput | reading_improvement_plansWhereUniqueInput[]
+    disconnect?: reading_improvement_plansWhereUniqueInput | reading_improvement_plansWhereUniqueInput[]
+    delete?: reading_improvement_plansWhereUniqueInput | reading_improvement_plansWhereUniqueInput[]
+    connect?: reading_improvement_plansWhereUniqueInput | reading_improvement_plansWhereUniqueInput[]
+    update?: reading_improvement_plansUpdateWithWhereUniqueWithoutUsersInput | reading_improvement_plansUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: reading_improvement_plansUpdateManyWithWhereWithoutUsersInput | reading_improvement_plansUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: reading_improvement_plansScalarWhereInput | reading_improvement_plansScalarWhereInput[]
+  }
+
   export type accountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<accountCreateWithoutUserInput, accountUncheckedCreateWithoutUserInput> | accountCreateWithoutUserInput[] | accountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: accountCreateOrConnectWithoutUserInput | accountCreateOrConnectWithoutUserInput[]
@@ -57472,6 +69192,48 @@ export namespace Prisma {
     deleteMany?: knowledge_documentsScalarWhereInput | knowledge_documentsScalarWhereInput[]
   }
 
+  export type student_profilesUncheckedUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<student_profilesCreateWithoutUsersInput, student_profilesUncheckedCreateWithoutUsersInput> | student_profilesCreateWithoutUsersInput[] | student_profilesUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: student_profilesCreateOrConnectWithoutUsersInput | student_profilesCreateOrConnectWithoutUsersInput[]
+    upsert?: student_profilesUpsertWithWhereUniqueWithoutUsersInput | student_profilesUpsertWithWhereUniqueWithoutUsersInput[]
+    createMany?: student_profilesCreateManyUsersInputEnvelope
+    set?: student_profilesWhereUniqueInput | student_profilesWhereUniqueInput[]
+    disconnect?: student_profilesWhereUniqueInput | student_profilesWhereUniqueInput[]
+    delete?: student_profilesWhereUniqueInput | student_profilesWhereUniqueInput[]
+    connect?: student_profilesWhereUniqueInput | student_profilesWhereUniqueInput[]
+    update?: student_profilesUpdateWithWhereUniqueWithoutUsersInput | student_profilesUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: student_profilesUpdateManyWithWhereWithoutUsersInput | student_profilesUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: student_profilesScalarWhereInput | student_profilesScalarWhereInput[]
+  }
+
+  export type differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<differentiated_materialsCreateWithoutUsersInput, differentiated_materialsUncheckedCreateWithoutUsersInput> | differentiated_materialsCreateWithoutUsersInput[] | differentiated_materialsUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: differentiated_materialsCreateOrConnectWithoutUsersInput | differentiated_materialsCreateOrConnectWithoutUsersInput[]
+    upsert?: differentiated_materialsUpsertWithWhereUniqueWithoutUsersInput | differentiated_materialsUpsertWithWhereUniqueWithoutUsersInput[]
+    createMany?: differentiated_materialsCreateManyUsersInputEnvelope
+    set?: differentiated_materialsWhereUniqueInput | differentiated_materialsWhereUniqueInput[]
+    disconnect?: differentiated_materialsWhereUniqueInput | differentiated_materialsWhereUniqueInput[]
+    delete?: differentiated_materialsWhereUniqueInput | differentiated_materialsWhereUniqueInput[]
+    connect?: differentiated_materialsWhereUniqueInput | differentiated_materialsWhereUniqueInput[]
+    update?: differentiated_materialsUpdateWithWhereUniqueWithoutUsersInput | differentiated_materialsUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: differentiated_materialsUpdateManyWithWhereWithoutUsersInput | differentiated_materialsUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: differentiated_materialsScalarWhereInput | differentiated_materialsScalarWhereInput[]
+  }
+
+  export type reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<reading_improvement_plansCreateWithoutUsersInput, reading_improvement_plansUncheckedCreateWithoutUsersInput> | reading_improvement_plansCreateWithoutUsersInput[] | reading_improvement_plansUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: reading_improvement_plansCreateOrConnectWithoutUsersInput | reading_improvement_plansCreateOrConnectWithoutUsersInput[]
+    upsert?: reading_improvement_plansUpsertWithWhereUniqueWithoutUsersInput | reading_improvement_plansUpsertWithWhereUniqueWithoutUsersInput[]
+    createMany?: reading_improvement_plansCreateManyUsersInputEnvelope
+    set?: reading_improvement_plansWhereUniqueInput | reading_improvement_plansWhereUniqueInput[]
+    disconnect?: reading_improvement_plansWhereUniqueInput | reading_improvement_plansWhereUniqueInput[]
+    delete?: reading_improvement_plansWhereUniqueInput | reading_improvement_plansWhereUniqueInput[]
+    connect?: reading_improvement_plansWhereUniqueInput | reading_improvement_plansWhereUniqueInput[]
+    update?: reading_improvement_plansUpdateWithWhereUniqueWithoutUsersInput | reading_improvement_plansUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: reading_improvement_plansUpdateManyWithWhereWithoutUsersInput | reading_improvement_plansUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: reading_improvement_plansScalarWhereInput | reading_improvement_plansScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutSessionsInput = {
     create?: XOR<UserCreateWithoutSessionsInput, UserUncheckedCreateWithoutSessionsInput>
     connectOrCreate?: UserCreateOrConnectWithoutSessionsInput
@@ -57623,6 +69385,318 @@ export namespace Prisma {
     upsert?: vault_documentsUpsertWithoutVault_ocrInput
     connect?: vault_documentsWhereUniqueInput
     update?: XOR<XOR<vault_documentsUpdateToOneWithWhereWithoutVault_ocrInput, vault_documentsUpdateWithoutVault_ocrInput>, vault_documentsUncheckedUpdateWithoutVault_ocrInput>
+  }
+
+  export type UserCreateNestedOneWithoutStudent_profilesInput = {
+    create?: XOR<UserCreateWithoutStudent_profilesInput, UserUncheckedCreateWithoutStudent_profilesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutStudent_profilesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type schoolsCreateNestedOneWithoutStudent_profilesInput = {
+    create?: XOR<schoolsCreateWithoutStudent_profilesInput, schoolsUncheckedCreateWithoutStudent_profilesInput>
+    connectOrCreate?: schoolsCreateOrConnectWithoutStudent_profilesInput
+    connect?: schoolsWhereUniqueInput
+  }
+
+  export type screener_resultsCreateNestedManyWithoutStudent_profilesInput = {
+    create?: XOR<screener_resultsCreateWithoutStudent_profilesInput, screener_resultsUncheckedCreateWithoutStudent_profilesInput> | screener_resultsCreateWithoutStudent_profilesInput[] | screener_resultsUncheckedCreateWithoutStudent_profilesInput[]
+    connectOrCreate?: screener_resultsCreateOrConnectWithoutStudent_profilesInput | screener_resultsCreateOrConnectWithoutStudent_profilesInput[]
+    createMany?: screener_resultsCreateManyStudent_profilesInputEnvelope
+    connect?: screener_resultsWhereUniqueInput | screener_resultsWhereUniqueInput[]
+  }
+
+  export type differentiated_materialsCreateNestedManyWithoutStudent_profilesInput = {
+    create?: XOR<differentiated_materialsCreateWithoutStudent_profilesInput, differentiated_materialsUncheckedCreateWithoutStudent_profilesInput> | differentiated_materialsCreateWithoutStudent_profilesInput[] | differentiated_materialsUncheckedCreateWithoutStudent_profilesInput[]
+    connectOrCreate?: differentiated_materialsCreateOrConnectWithoutStudent_profilesInput | differentiated_materialsCreateOrConnectWithoutStudent_profilesInput[]
+    createMany?: differentiated_materialsCreateManyStudent_profilesInputEnvelope
+    connect?: differentiated_materialsWhereUniqueInput | differentiated_materialsWhereUniqueInput[]
+  }
+
+  export type reading_improvement_plansCreateNestedManyWithoutStudent_profilesInput = {
+    create?: XOR<reading_improvement_plansCreateWithoutStudent_profilesInput, reading_improvement_plansUncheckedCreateWithoutStudent_profilesInput> | reading_improvement_plansCreateWithoutStudent_profilesInput[] | reading_improvement_plansUncheckedCreateWithoutStudent_profilesInput[]
+    connectOrCreate?: reading_improvement_plansCreateOrConnectWithoutStudent_profilesInput | reading_improvement_plansCreateOrConnectWithoutStudent_profilesInput[]
+    createMany?: reading_improvement_plansCreateManyStudent_profilesInputEnvelope
+    connect?: reading_improvement_plansWhereUniqueInput | reading_improvement_plansWhereUniqueInput[]
+  }
+
+  export type screener_resultsUncheckedCreateNestedManyWithoutStudent_profilesInput = {
+    create?: XOR<screener_resultsCreateWithoutStudent_profilesInput, screener_resultsUncheckedCreateWithoutStudent_profilesInput> | screener_resultsCreateWithoutStudent_profilesInput[] | screener_resultsUncheckedCreateWithoutStudent_profilesInput[]
+    connectOrCreate?: screener_resultsCreateOrConnectWithoutStudent_profilesInput | screener_resultsCreateOrConnectWithoutStudent_profilesInput[]
+    createMany?: screener_resultsCreateManyStudent_profilesInputEnvelope
+    connect?: screener_resultsWhereUniqueInput | screener_resultsWhereUniqueInput[]
+  }
+
+  export type differentiated_materialsUncheckedCreateNestedManyWithoutStudent_profilesInput = {
+    create?: XOR<differentiated_materialsCreateWithoutStudent_profilesInput, differentiated_materialsUncheckedCreateWithoutStudent_profilesInput> | differentiated_materialsCreateWithoutStudent_profilesInput[] | differentiated_materialsUncheckedCreateWithoutStudent_profilesInput[]
+    connectOrCreate?: differentiated_materialsCreateOrConnectWithoutStudent_profilesInput | differentiated_materialsCreateOrConnectWithoutStudent_profilesInput[]
+    createMany?: differentiated_materialsCreateManyStudent_profilesInputEnvelope
+    connect?: differentiated_materialsWhereUniqueInput | differentiated_materialsWhereUniqueInput[]
+  }
+
+  export type reading_improvement_plansUncheckedCreateNestedManyWithoutStudent_profilesInput = {
+    create?: XOR<reading_improvement_plansCreateWithoutStudent_profilesInput, reading_improvement_plansUncheckedCreateWithoutStudent_profilesInput> | reading_improvement_plansCreateWithoutStudent_profilesInput[] | reading_improvement_plansUncheckedCreateWithoutStudent_profilesInput[]
+    connectOrCreate?: reading_improvement_plansCreateOrConnectWithoutStudent_profilesInput | reading_improvement_plansCreateOrConnectWithoutStudent_profilesInput[]
+    createMany?: reading_improvement_plansCreateManyStudent_profilesInputEnvelope
+    connect?: reading_improvement_plansWhereUniqueInput | reading_improvement_plansWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutStudent_profilesNestedInput = {
+    create?: XOR<UserCreateWithoutStudent_profilesInput, UserUncheckedCreateWithoutStudent_profilesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutStudent_profilesInput
+    upsert?: UserUpsertWithoutStudent_profilesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutStudent_profilesInput, UserUpdateWithoutStudent_profilesInput>, UserUncheckedUpdateWithoutStudent_profilesInput>
+  }
+
+  export type schoolsUpdateOneWithoutStudent_profilesNestedInput = {
+    create?: XOR<schoolsCreateWithoutStudent_profilesInput, schoolsUncheckedCreateWithoutStudent_profilesInput>
+    connectOrCreate?: schoolsCreateOrConnectWithoutStudent_profilesInput
+    upsert?: schoolsUpsertWithoutStudent_profilesInput
+    disconnect?: schoolsWhereInput | boolean
+    delete?: schoolsWhereInput | boolean
+    connect?: schoolsWhereUniqueInput
+    update?: XOR<XOR<schoolsUpdateToOneWithWhereWithoutStudent_profilesInput, schoolsUpdateWithoutStudent_profilesInput>, schoolsUncheckedUpdateWithoutStudent_profilesInput>
+  }
+
+  export type screener_resultsUpdateManyWithoutStudent_profilesNestedInput = {
+    create?: XOR<screener_resultsCreateWithoutStudent_profilesInput, screener_resultsUncheckedCreateWithoutStudent_profilesInput> | screener_resultsCreateWithoutStudent_profilesInput[] | screener_resultsUncheckedCreateWithoutStudent_profilesInput[]
+    connectOrCreate?: screener_resultsCreateOrConnectWithoutStudent_profilesInput | screener_resultsCreateOrConnectWithoutStudent_profilesInput[]
+    upsert?: screener_resultsUpsertWithWhereUniqueWithoutStudent_profilesInput | screener_resultsUpsertWithWhereUniqueWithoutStudent_profilesInput[]
+    createMany?: screener_resultsCreateManyStudent_profilesInputEnvelope
+    set?: screener_resultsWhereUniqueInput | screener_resultsWhereUniqueInput[]
+    disconnect?: screener_resultsWhereUniqueInput | screener_resultsWhereUniqueInput[]
+    delete?: screener_resultsWhereUniqueInput | screener_resultsWhereUniqueInput[]
+    connect?: screener_resultsWhereUniqueInput | screener_resultsWhereUniqueInput[]
+    update?: screener_resultsUpdateWithWhereUniqueWithoutStudent_profilesInput | screener_resultsUpdateWithWhereUniqueWithoutStudent_profilesInput[]
+    updateMany?: screener_resultsUpdateManyWithWhereWithoutStudent_profilesInput | screener_resultsUpdateManyWithWhereWithoutStudent_profilesInput[]
+    deleteMany?: screener_resultsScalarWhereInput | screener_resultsScalarWhereInput[]
+  }
+
+  export type differentiated_materialsUpdateManyWithoutStudent_profilesNestedInput = {
+    create?: XOR<differentiated_materialsCreateWithoutStudent_profilesInput, differentiated_materialsUncheckedCreateWithoutStudent_profilesInput> | differentiated_materialsCreateWithoutStudent_profilesInput[] | differentiated_materialsUncheckedCreateWithoutStudent_profilesInput[]
+    connectOrCreate?: differentiated_materialsCreateOrConnectWithoutStudent_profilesInput | differentiated_materialsCreateOrConnectWithoutStudent_profilesInput[]
+    upsert?: differentiated_materialsUpsertWithWhereUniqueWithoutStudent_profilesInput | differentiated_materialsUpsertWithWhereUniqueWithoutStudent_profilesInput[]
+    createMany?: differentiated_materialsCreateManyStudent_profilesInputEnvelope
+    set?: differentiated_materialsWhereUniqueInput | differentiated_materialsWhereUniqueInput[]
+    disconnect?: differentiated_materialsWhereUniqueInput | differentiated_materialsWhereUniqueInput[]
+    delete?: differentiated_materialsWhereUniqueInput | differentiated_materialsWhereUniqueInput[]
+    connect?: differentiated_materialsWhereUniqueInput | differentiated_materialsWhereUniqueInput[]
+    update?: differentiated_materialsUpdateWithWhereUniqueWithoutStudent_profilesInput | differentiated_materialsUpdateWithWhereUniqueWithoutStudent_profilesInput[]
+    updateMany?: differentiated_materialsUpdateManyWithWhereWithoutStudent_profilesInput | differentiated_materialsUpdateManyWithWhereWithoutStudent_profilesInput[]
+    deleteMany?: differentiated_materialsScalarWhereInput | differentiated_materialsScalarWhereInput[]
+  }
+
+  export type reading_improvement_plansUpdateManyWithoutStudent_profilesNestedInput = {
+    create?: XOR<reading_improvement_plansCreateWithoutStudent_profilesInput, reading_improvement_plansUncheckedCreateWithoutStudent_profilesInput> | reading_improvement_plansCreateWithoutStudent_profilesInput[] | reading_improvement_plansUncheckedCreateWithoutStudent_profilesInput[]
+    connectOrCreate?: reading_improvement_plansCreateOrConnectWithoutStudent_profilesInput | reading_improvement_plansCreateOrConnectWithoutStudent_profilesInput[]
+    upsert?: reading_improvement_plansUpsertWithWhereUniqueWithoutStudent_profilesInput | reading_improvement_plansUpsertWithWhereUniqueWithoutStudent_profilesInput[]
+    createMany?: reading_improvement_plansCreateManyStudent_profilesInputEnvelope
+    set?: reading_improvement_plansWhereUniqueInput | reading_improvement_plansWhereUniqueInput[]
+    disconnect?: reading_improvement_plansWhereUniqueInput | reading_improvement_plansWhereUniqueInput[]
+    delete?: reading_improvement_plansWhereUniqueInput | reading_improvement_plansWhereUniqueInput[]
+    connect?: reading_improvement_plansWhereUniqueInput | reading_improvement_plansWhereUniqueInput[]
+    update?: reading_improvement_plansUpdateWithWhereUniqueWithoutStudent_profilesInput | reading_improvement_plansUpdateWithWhereUniqueWithoutStudent_profilesInput[]
+    updateMany?: reading_improvement_plansUpdateManyWithWhereWithoutStudent_profilesInput | reading_improvement_plansUpdateManyWithWhereWithoutStudent_profilesInput[]
+    deleteMany?: reading_improvement_plansScalarWhereInput | reading_improvement_plansScalarWhereInput[]
+  }
+
+  export type screener_resultsUncheckedUpdateManyWithoutStudent_profilesNestedInput = {
+    create?: XOR<screener_resultsCreateWithoutStudent_profilesInput, screener_resultsUncheckedCreateWithoutStudent_profilesInput> | screener_resultsCreateWithoutStudent_profilesInput[] | screener_resultsUncheckedCreateWithoutStudent_profilesInput[]
+    connectOrCreate?: screener_resultsCreateOrConnectWithoutStudent_profilesInput | screener_resultsCreateOrConnectWithoutStudent_profilesInput[]
+    upsert?: screener_resultsUpsertWithWhereUniqueWithoutStudent_profilesInput | screener_resultsUpsertWithWhereUniqueWithoutStudent_profilesInput[]
+    createMany?: screener_resultsCreateManyStudent_profilesInputEnvelope
+    set?: screener_resultsWhereUniqueInput | screener_resultsWhereUniqueInput[]
+    disconnect?: screener_resultsWhereUniqueInput | screener_resultsWhereUniqueInput[]
+    delete?: screener_resultsWhereUniqueInput | screener_resultsWhereUniqueInput[]
+    connect?: screener_resultsWhereUniqueInput | screener_resultsWhereUniqueInput[]
+    update?: screener_resultsUpdateWithWhereUniqueWithoutStudent_profilesInput | screener_resultsUpdateWithWhereUniqueWithoutStudent_profilesInput[]
+    updateMany?: screener_resultsUpdateManyWithWhereWithoutStudent_profilesInput | screener_resultsUpdateManyWithWhereWithoutStudent_profilesInput[]
+    deleteMany?: screener_resultsScalarWhereInput | screener_resultsScalarWhereInput[]
+  }
+
+  export type differentiated_materialsUncheckedUpdateManyWithoutStudent_profilesNestedInput = {
+    create?: XOR<differentiated_materialsCreateWithoutStudent_profilesInput, differentiated_materialsUncheckedCreateWithoutStudent_profilesInput> | differentiated_materialsCreateWithoutStudent_profilesInput[] | differentiated_materialsUncheckedCreateWithoutStudent_profilesInput[]
+    connectOrCreate?: differentiated_materialsCreateOrConnectWithoutStudent_profilesInput | differentiated_materialsCreateOrConnectWithoutStudent_profilesInput[]
+    upsert?: differentiated_materialsUpsertWithWhereUniqueWithoutStudent_profilesInput | differentiated_materialsUpsertWithWhereUniqueWithoutStudent_profilesInput[]
+    createMany?: differentiated_materialsCreateManyStudent_profilesInputEnvelope
+    set?: differentiated_materialsWhereUniqueInput | differentiated_materialsWhereUniqueInput[]
+    disconnect?: differentiated_materialsWhereUniqueInput | differentiated_materialsWhereUniqueInput[]
+    delete?: differentiated_materialsWhereUniqueInput | differentiated_materialsWhereUniqueInput[]
+    connect?: differentiated_materialsWhereUniqueInput | differentiated_materialsWhereUniqueInput[]
+    update?: differentiated_materialsUpdateWithWhereUniqueWithoutStudent_profilesInput | differentiated_materialsUpdateWithWhereUniqueWithoutStudent_profilesInput[]
+    updateMany?: differentiated_materialsUpdateManyWithWhereWithoutStudent_profilesInput | differentiated_materialsUpdateManyWithWhereWithoutStudent_profilesInput[]
+    deleteMany?: differentiated_materialsScalarWhereInput | differentiated_materialsScalarWhereInput[]
+  }
+
+  export type reading_improvement_plansUncheckedUpdateManyWithoutStudent_profilesNestedInput = {
+    create?: XOR<reading_improvement_plansCreateWithoutStudent_profilesInput, reading_improvement_plansUncheckedCreateWithoutStudent_profilesInput> | reading_improvement_plansCreateWithoutStudent_profilesInput[] | reading_improvement_plansUncheckedCreateWithoutStudent_profilesInput[]
+    connectOrCreate?: reading_improvement_plansCreateOrConnectWithoutStudent_profilesInput | reading_improvement_plansCreateOrConnectWithoutStudent_profilesInput[]
+    upsert?: reading_improvement_plansUpsertWithWhereUniqueWithoutStudent_profilesInput | reading_improvement_plansUpsertWithWhereUniqueWithoutStudent_profilesInput[]
+    createMany?: reading_improvement_plansCreateManyStudent_profilesInputEnvelope
+    set?: reading_improvement_plansWhereUniqueInput | reading_improvement_plansWhereUniqueInput[]
+    disconnect?: reading_improvement_plansWhereUniqueInput | reading_improvement_plansWhereUniqueInput[]
+    delete?: reading_improvement_plansWhereUniqueInput | reading_improvement_plansWhereUniqueInput[]
+    connect?: reading_improvement_plansWhereUniqueInput | reading_improvement_plansWhereUniqueInput[]
+    update?: reading_improvement_plansUpdateWithWhereUniqueWithoutStudent_profilesInput | reading_improvement_plansUpdateWithWhereUniqueWithoutStudent_profilesInput[]
+    updateMany?: reading_improvement_plansUpdateManyWithWhereWithoutStudent_profilesInput | reading_improvement_plansUpdateManyWithWhereWithoutStudent_profilesInput[]
+    deleteMany?: reading_improvement_plansScalarWhereInput | reading_improvement_plansScalarWhereInput[]
+  }
+
+  export type student_profilesCreateNestedOneWithoutScreener_resultsInput = {
+    create?: XOR<student_profilesCreateWithoutScreener_resultsInput, student_profilesUncheckedCreateWithoutScreener_resultsInput>
+    connectOrCreate?: student_profilesCreateOrConnectWithoutScreener_resultsInput
+    connect?: student_profilesWhereUniqueInput
+  }
+
+  export type student_profilesUpdateOneRequiredWithoutScreener_resultsNestedInput = {
+    create?: XOR<student_profilesCreateWithoutScreener_resultsInput, student_profilesUncheckedCreateWithoutScreener_resultsInput>
+    connectOrCreate?: student_profilesCreateOrConnectWithoutScreener_resultsInput
+    upsert?: student_profilesUpsertWithoutScreener_resultsInput
+    connect?: student_profilesWhereUniqueInput
+    update?: XOR<XOR<student_profilesUpdateToOneWithWhereWithoutScreener_resultsInput, student_profilesUpdateWithoutScreener_resultsInput>, student_profilesUncheckedUpdateWithoutScreener_resultsInput>
+  }
+
+  export type UserCreateNestedOneWithoutDifferentiated_materialsInput = {
+    create?: XOR<UserCreateWithoutDifferentiated_materialsInput, UserUncheckedCreateWithoutDifferentiated_materialsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDifferentiated_materialsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type student_profilesCreateNestedOneWithoutDifferentiated_materialsInput = {
+    create?: XOR<student_profilesCreateWithoutDifferentiated_materialsInput, student_profilesUncheckedCreateWithoutDifferentiated_materialsInput>
+    connectOrCreate?: student_profilesCreateOrConnectWithoutDifferentiated_materialsInput
+    connect?: student_profilesWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutDifferentiated_materialsNestedInput = {
+    create?: XOR<UserCreateWithoutDifferentiated_materialsInput, UserUncheckedCreateWithoutDifferentiated_materialsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDifferentiated_materialsInput
+    upsert?: UserUpsertWithoutDifferentiated_materialsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDifferentiated_materialsInput, UserUpdateWithoutDifferentiated_materialsInput>, UserUncheckedUpdateWithoutDifferentiated_materialsInput>
+  }
+
+  export type student_profilesUpdateOneWithoutDifferentiated_materialsNestedInput = {
+    create?: XOR<student_profilesCreateWithoutDifferentiated_materialsInput, student_profilesUncheckedCreateWithoutDifferentiated_materialsInput>
+    connectOrCreate?: student_profilesCreateOrConnectWithoutDifferentiated_materialsInput
+    upsert?: student_profilesUpsertWithoutDifferentiated_materialsInput
+    disconnect?: student_profilesWhereInput | boolean
+    delete?: student_profilesWhereInput | boolean
+    connect?: student_profilesWhereUniqueInput
+    update?: XOR<XOR<student_profilesUpdateToOneWithWhereWithoutDifferentiated_materialsInput, student_profilesUpdateWithoutDifferentiated_materialsInput>, student_profilesUncheckedUpdateWithoutDifferentiated_materialsInput>
+  }
+
+  export type student_profilesCreateNestedOneWithoutReading_improvement_plansInput = {
+    create?: XOR<student_profilesCreateWithoutReading_improvement_plansInput, student_profilesUncheckedCreateWithoutReading_improvement_plansInput>
+    connectOrCreate?: student_profilesCreateOrConnectWithoutReading_improvement_plansInput
+    connect?: student_profilesWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutReading_improvement_plansInput = {
+    create?: XOR<UserCreateWithoutReading_improvement_plansInput, UserUncheckedCreateWithoutReading_improvement_plansInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReading_improvement_plansInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type student_profilesUpdateOneRequiredWithoutReading_improvement_plansNestedInput = {
+    create?: XOR<student_profilesCreateWithoutReading_improvement_plansInput, student_profilesUncheckedCreateWithoutReading_improvement_plansInput>
+    connectOrCreate?: student_profilesCreateOrConnectWithoutReading_improvement_plansInput
+    upsert?: student_profilesUpsertWithoutReading_improvement_plansInput
+    connect?: student_profilesWhereUniqueInput
+    update?: XOR<XOR<student_profilesUpdateToOneWithWhereWithoutReading_improvement_plansInput, student_profilesUpdateWithoutReading_improvement_plansInput>, student_profilesUncheckedUpdateWithoutReading_improvement_plansInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutReading_improvement_plansNestedInput = {
+    create?: XOR<UserCreateWithoutReading_improvement_plansInput, UserUncheckedCreateWithoutReading_improvement_plansInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReading_improvement_plansInput
+    upsert?: UserUpsertWithoutReading_improvement_plansInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReading_improvement_plansInput, UserUpdateWithoutReading_improvement_plansInput>, UserUncheckedUpdateWithoutReading_improvement_plansInput>
+  }
+
+  export type districtsCreateNestedOneWithoutDistrict_listeningInput = {
+    create?: XOR<districtsCreateWithoutDistrict_listeningInput, districtsUncheckedCreateWithoutDistrict_listeningInput>
+    connectOrCreate?: districtsCreateOrConnectWithoutDistrict_listeningInput
+    connect?: districtsWhereUniqueInput
+  }
+
+  export type districtsUpdateOneRequiredWithoutDistrict_listeningNestedInput = {
+    create?: XOR<districtsCreateWithoutDistrict_listeningInput, districtsUncheckedCreateWithoutDistrict_listeningInput>
+    connectOrCreate?: districtsCreateOrConnectWithoutDistrict_listeningInput
+    upsert?: districtsUpsertWithoutDistrict_listeningInput
+    connect?: districtsWhereUniqueInput
+    update?: XOR<XOR<districtsUpdateToOneWithWhereWithoutDistrict_listeningInput, districtsUpdateWithoutDistrict_listeningInput>, districtsUncheckedUpdateWithoutDistrict_listeningInput>
+  }
+
+  export type schoolsCreateNestedOneWithoutInfra_monitorsInput = {
+    create?: XOR<schoolsCreateWithoutInfra_monitorsInput, schoolsUncheckedCreateWithoutInfra_monitorsInput>
+    connectOrCreate?: schoolsCreateOrConnectWithoutInfra_monitorsInput
+    connect?: schoolsWhereUniqueInput
+  }
+
+  export type infra_alertsCreateNestedManyWithoutInfra_monitorsInput = {
+    create?: XOR<infra_alertsCreateWithoutInfra_monitorsInput, infra_alertsUncheckedCreateWithoutInfra_monitorsInput> | infra_alertsCreateWithoutInfra_monitorsInput[] | infra_alertsUncheckedCreateWithoutInfra_monitorsInput[]
+    connectOrCreate?: infra_alertsCreateOrConnectWithoutInfra_monitorsInput | infra_alertsCreateOrConnectWithoutInfra_monitorsInput[]
+    createMany?: infra_alertsCreateManyInfra_monitorsInputEnvelope
+    connect?: infra_alertsWhereUniqueInput | infra_alertsWhereUniqueInput[]
+  }
+
+  export type infra_alertsUncheckedCreateNestedManyWithoutInfra_monitorsInput = {
+    create?: XOR<infra_alertsCreateWithoutInfra_monitorsInput, infra_alertsUncheckedCreateWithoutInfra_monitorsInput> | infra_alertsCreateWithoutInfra_monitorsInput[] | infra_alertsUncheckedCreateWithoutInfra_monitorsInput[]
+    connectOrCreate?: infra_alertsCreateOrConnectWithoutInfra_monitorsInput | infra_alertsCreateOrConnectWithoutInfra_monitorsInput[]
+    createMany?: infra_alertsCreateManyInfra_monitorsInputEnvelope
+    connect?: infra_alertsWhereUniqueInput | infra_alertsWhereUniqueInput[]
+  }
+
+  export type schoolsUpdateOneRequiredWithoutInfra_monitorsNestedInput = {
+    create?: XOR<schoolsCreateWithoutInfra_monitorsInput, schoolsUncheckedCreateWithoutInfra_monitorsInput>
+    connectOrCreate?: schoolsCreateOrConnectWithoutInfra_monitorsInput
+    upsert?: schoolsUpsertWithoutInfra_monitorsInput
+    connect?: schoolsWhereUniqueInput
+    update?: XOR<XOR<schoolsUpdateToOneWithWhereWithoutInfra_monitorsInput, schoolsUpdateWithoutInfra_monitorsInput>, schoolsUncheckedUpdateWithoutInfra_monitorsInput>
+  }
+
+  export type infra_alertsUpdateManyWithoutInfra_monitorsNestedInput = {
+    create?: XOR<infra_alertsCreateWithoutInfra_monitorsInput, infra_alertsUncheckedCreateWithoutInfra_monitorsInput> | infra_alertsCreateWithoutInfra_monitorsInput[] | infra_alertsUncheckedCreateWithoutInfra_monitorsInput[]
+    connectOrCreate?: infra_alertsCreateOrConnectWithoutInfra_monitorsInput | infra_alertsCreateOrConnectWithoutInfra_monitorsInput[]
+    upsert?: infra_alertsUpsertWithWhereUniqueWithoutInfra_monitorsInput | infra_alertsUpsertWithWhereUniqueWithoutInfra_monitorsInput[]
+    createMany?: infra_alertsCreateManyInfra_monitorsInputEnvelope
+    set?: infra_alertsWhereUniqueInput | infra_alertsWhereUniqueInput[]
+    disconnect?: infra_alertsWhereUniqueInput | infra_alertsWhereUniqueInput[]
+    delete?: infra_alertsWhereUniqueInput | infra_alertsWhereUniqueInput[]
+    connect?: infra_alertsWhereUniqueInput | infra_alertsWhereUniqueInput[]
+    update?: infra_alertsUpdateWithWhereUniqueWithoutInfra_monitorsInput | infra_alertsUpdateWithWhereUniqueWithoutInfra_monitorsInput[]
+    updateMany?: infra_alertsUpdateManyWithWhereWithoutInfra_monitorsInput | infra_alertsUpdateManyWithWhereWithoutInfra_monitorsInput[]
+    deleteMany?: infra_alertsScalarWhereInput | infra_alertsScalarWhereInput[]
+  }
+
+  export type infra_alertsUncheckedUpdateManyWithoutInfra_monitorsNestedInput = {
+    create?: XOR<infra_alertsCreateWithoutInfra_monitorsInput, infra_alertsUncheckedCreateWithoutInfra_monitorsInput> | infra_alertsCreateWithoutInfra_monitorsInput[] | infra_alertsUncheckedCreateWithoutInfra_monitorsInput[]
+    connectOrCreate?: infra_alertsCreateOrConnectWithoutInfra_monitorsInput | infra_alertsCreateOrConnectWithoutInfra_monitorsInput[]
+    upsert?: infra_alertsUpsertWithWhereUniqueWithoutInfra_monitorsInput | infra_alertsUpsertWithWhereUniqueWithoutInfra_monitorsInput[]
+    createMany?: infra_alertsCreateManyInfra_monitorsInputEnvelope
+    set?: infra_alertsWhereUniqueInput | infra_alertsWhereUniqueInput[]
+    disconnect?: infra_alertsWhereUniqueInput | infra_alertsWhereUniqueInput[]
+    delete?: infra_alertsWhereUniqueInput | infra_alertsWhereUniqueInput[]
+    connect?: infra_alertsWhereUniqueInput | infra_alertsWhereUniqueInput[]
+    update?: infra_alertsUpdateWithWhereUniqueWithoutInfra_monitorsInput | infra_alertsUpdateWithWhereUniqueWithoutInfra_monitorsInput[]
+    updateMany?: infra_alertsUpdateManyWithWhereWithoutInfra_monitorsInput | infra_alertsUpdateManyWithWhereWithoutInfra_monitorsInput[]
+    deleteMany?: infra_alertsScalarWhereInput | infra_alertsScalarWhereInput[]
+  }
+
+  export type infra_monitorsCreateNestedOneWithoutInfra_alertsInput = {
+    create?: XOR<infra_monitorsCreateWithoutInfra_alertsInput, infra_monitorsUncheckedCreateWithoutInfra_alertsInput>
+    connectOrCreate?: infra_monitorsCreateOrConnectWithoutInfra_alertsInput
+    connect?: infra_monitorsWhereUniqueInput
+  }
+
+  export type infra_monitorsUpdateOneRequiredWithoutInfra_alertsNestedInput = {
+    create?: XOR<infra_monitorsCreateWithoutInfra_alertsInput, infra_monitorsUncheckedCreateWithoutInfra_alertsInput>
+    connectOrCreate?: infra_monitorsCreateOrConnectWithoutInfra_alertsInput
+    upsert?: infra_monitorsUpsertWithoutInfra_alertsInput
+    connect?: infra_monitorsWhereUniqueInput
+    update?: XOR<XOR<infra_monitorsUpdateToOneWithWhereWithoutInfra_alertsInput, infra_monitorsUpdateWithoutInfra_alertsInput>, infra_monitorsUncheckedUpdateWithoutInfra_alertsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -58012,6 +70086,8 @@ export namespace Prisma {
     users_schools_admin_idTousers?: UserCreateNestedOneWithoutSchools_schools_admin_idTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutSchoolsInput
     users_users_school_idToschools?: UserCreateNestedManyWithoutSchools_users_school_idToschoolsInput
+    student_profiles?: student_profilesCreateNestedManyWithoutSchoolsInput
+    infra_monitors?: infra_monitorsCreateNestedManyWithoutSchoolsInput
   }
 
   export type schoolsUncheckedCreateWithoutAnalytics_insightsInput = {
@@ -58028,6 +70104,8 @@ export namespace Prisma {
     updated_at: Date | string
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutSchoolsInput
     users_users_school_idToschools?: UserUncheckedCreateNestedManyWithoutSchools_users_school_idToschoolsInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutSchoolsInput
+    infra_monitors?: infra_monitorsUncheckedCreateNestedManyWithoutSchoolsInput
   }
 
   export type schoolsCreateOrConnectWithoutAnalytics_insightsInput = {
@@ -58085,6 +70163,9 @@ export namespace Prisma {
     tiers?: tiersCreateNestedOneWithoutUsersInput
     vault_documents?: vault_documentsCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutAnalytics_insightsInput = {
@@ -58137,6 +70218,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedCreateNestedManyWithoutUsersInput
     vault_documents?: vault_documentsUncheckedCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutAnalytics_insightsInput = {
@@ -58169,6 +70253,8 @@ export namespace Prisma {
     users_schools_admin_idTousers?: UserUpdateOneWithoutSchools_schools_admin_idTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutSchoolsNestedInput
     users_users_school_idToschools?: UserUpdateManyWithoutSchools_users_school_idToschoolsNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutSchoolsNestedInput
+    infra_monitors?: infra_monitorsUpdateManyWithoutSchoolsNestedInput
   }
 
   export type schoolsUncheckedUpdateWithoutAnalytics_insightsInput = {
@@ -58185,6 +70271,8 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutSchoolsNestedInput
     users_users_school_idToschools?: UserUncheckedUpdateManyWithoutSchools_users_school_idToschoolsNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutSchoolsNestedInput
+    infra_monitors?: infra_monitorsUncheckedUpdateManyWithoutSchoolsNestedInput
   }
 
   export type UserUpsertWithoutAnalytics_insightsInput = {
@@ -58248,6 +70336,9 @@ export namespace Prisma {
     tiers?: tiersUpdateOneWithoutUsersNestedInput
     vault_documents?: vault_documentsUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAnalytics_insightsInput = {
@@ -58300,6 +70391,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedUpdateManyWithoutUsersNestedInput
     vault_documents?: vault_documentsUncheckedUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type avatarsCreateWithoutAvatar_sessionsInput = {
@@ -58381,6 +70475,9 @@ export namespace Prisma {
     tiers?: tiersCreateNestedOneWithoutUsersInput
     vault_documents?: vault_documentsCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutAvatar_sessionsInput = {
@@ -58433,6 +70530,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedCreateNestedManyWithoutUsersInput
     vault_documents?: vault_documentsUncheckedCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutAvatar_sessionsInput = {
@@ -58616,6 +70716,9 @@ export namespace Prisma {
     tiers?: tiersUpdateOneWithoutUsersNestedInput
     vault_documents?: vault_documentsUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAvatar_sessionsInput = {
@@ -58668,6 +70771,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedUpdateManyWithoutUsersNestedInput
     vault_documents?: vault_documentsUncheckedUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type conversation_messagesUpsertWithWhereUniqueWithoutAvatar_sessionsInput = {
@@ -58980,6 +71086,9 @@ export namespace Prisma {
     tiers?: tiersCreateNestedOneWithoutUsersInput
     vault_documents?: vault_documentsCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutConversation_messagesInput = {
@@ -59032,6 +71141,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedCreateNestedManyWithoutUsersInput
     vault_documents?: vault_documentsUncheckedCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutConversation_messagesInput = {
@@ -59151,6 +71263,9 @@ export namespace Prisma {
     tiers?: tiersUpdateOneWithoutUsersNestedInput
     vault_documents?: vault_documentsUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutConversation_messagesInput = {
@@ -59203,6 +71318,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedUpdateManyWithoutUsersNestedInput
     vault_documents?: vault_documentsUncheckedUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type districtsCreateWithoutDistrict_nodesInput = {
@@ -59212,6 +71330,7 @@ export namespace Prisma {
     last_pulse?: Date | string
     created_at?: Date | string
     updated_at: Date | string
+    district_listening?: district_listeningCreateNestedManyWithoutDistrictsInput
   }
 
   export type districtsUncheckedCreateWithoutDistrict_nodesInput = {
@@ -59221,6 +71340,7 @@ export namespace Prisma {
     last_pulse?: Date | string
     created_at?: Date | string
     updated_at: Date | string
+    district_listening?: district_listeningUncheckedCreateNestedManyWithoutDistrictsInput
   }
 
   export type districtsCreateOrConnectWithoutDistrict_nodesInput = {
@@ -59246,6 +71366,7 @@ export namespace Prisma {
     last_pulse?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    district_listening?: district_listeningUpdateManyWithoutDistrictsNestedInput
   }
 
   export type districtsUncheckedUpdateWithoutDistrict_nodesInput = {
@@ -59255,6 +71376,7 @@ export namespace Prisma {
     last_pulse?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    district_listening?: district_listeningUncheckedUpdateManyWithoutDistrictsNestedInput
   }
 
   export type district_nodesCreateWithoutDistrictsInput = {
@@ -59293,6 +71415,50 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type district_listeningCreateWithoutDistrictsInput = {
+    id?: string
+    snapshot_date?: Date | string
+    title_i_revenue?: number | null
+    erate_cat2_budget?: number | null
+    virtual_readiness?: number | null
+    hardware_score?: number | null
+    broadband_mbps?: number | null
+    teacher_training_pct?: number | null
+    edtech_tools?: NullableJsonNullValueInput | InputJsonValue
+    enrollment_total?: number | null
+    free_reduced_pct?: number | null
+    ela_proficiency_pct?: number | null
+    math_proficiency_pct?: number | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type district_listeningUncheckedCreateWithoutDistrictsInput = {
+    id?: string
+    snapshot_date?: Date | string
+    title_i_revenue?: number | null
+    erate_cat2_budget?: number | null
+    virtual_readiness?: number | null
+    hardware_score?: number | null
+    broadband_mbps?: number | null
+    teacher_training_pct?: number | null
+    edtech_tools?: NullableJsonNullValueInput | InputJsonValue
+    enrollment_total?: number | null
+    free_reduced_pct?: number | null
+    ela_proficiency_pct?: number | null
+    math_proficiency_pct?: number | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type district_listeningCreateOrConnectWithoutDistrictsInput = {
+    where: district_listeningWhereUniqueInput
+    create: XOR<district_listeningCreateWithoutDistrictsInput, district_listeningUncheckedCreateWithoutDistrictsInput>
+  }
+
+  export type district_listeningCreateManyDistrictsInputEnvelope = {
+    data: district_listeningCreateManyDistrictsInput | district_listeningCreateManyDistrictsInput[]
+    skipDuplicates?: boolean
+  }
+
   export type district_nodesUpsertWithWhereUniqueWithoutDistrictsInput = {
     where: district_nodesWhereUniqueInput
     update: XOR<district_nodesUpdateWithoutDistrictsInput, district_nodesUncheckedUpdateWithoutDistrictsInput>
@@ -59324,6 +71490,43 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"district_nodes"> | Date | string
     vaultCompliance?: FloatFilter<"district_nodes"> | number
     vaultDocumentCount?: IntFilter<"district_nodes"> | number
+  }
+
+  export type district_listeningUpsertWithWhereUniqueWithoutDistrictsInput = {
+    where: district_listeningWhereUniqueInput
+    update: XOR<district_listeningUpdateWithoutDistrictsInput, district_listeningUncheckedUpdateWithoutDistrictsInput>
+    create: XOR<district_listeningCreateWithoutDistrictsInput, district_listeningUncheckedCreateWithoutDistrictsInput>
+  }
+
+  export type district_listeningUpdateWithWhereUniqueWithoutDistrictsInput = {
+    where: district_listeningWhereUniqueInput
+    data: XOR<district_listeningUpdateWithoutDistrictsInput, district_listeningUncheckedUpdateWithoutDistrictsInput>
+  }
+
+  export type district_listeningUpdateManyWithWhereWithoutDistrictsInput = {
+    where: district_listeningScalarWhereInput
+    data: XOR<district_listeningUpdateManyMutationInput, district_listeningUncheckedUpdateManyWithoutDistrictsInput>
+  }
+
+  export type district_listeningScalarWhereInput = {
+    AND?: district_listeningScalarWhereInput | district_listeningScalarWhereInput[]
+    OR?: district_listeningScalarWhereInput[]
+    NOT?: district_listeningScalarWhereInput | district_listeningScalarWhereInput[]
+    id?: StringFilter<"district_listening"> | string
+    district_id?: StringFilter<"district_listening"> | string
+    snapshot_date?: DateTimeFilter<"district_listening"> | Date | string
+    title_i_revenue?: FloatNullableFilter<"district_listening"> | number | null
+    erate_cat2_budget?: FloatNullableFilter<"district_listening"> | number | null
+    virtual_readiness?: IntNullableFilter<"district_listening"> | number | null
+    hardware_score?: FloatNullableFilter<"district_listening"> | number | null
+    broadband_mbps?: FloatNullableFilter<"district_listening"> | number | null
+    teacher_training_pct?: FloatNullableFilter<"district_listening"> | number | null
+    edtech_tools?: JsonNullableFilter<"district_listening">
+    enrollment_total?: IntNullableFilter<"district_listening"> | number | null
+    free_reduced_pct?: FloatNullableFilter<"district_listening"> | number | null
+    ela_proficiency_pct?: FloatNullableFilter<"district_listening"> | number | null
+    math_proficiency_pct?: FloatNullableFilter<"district_listening"> | number | null
+    metadata?: JsonNullableFilter<"district_listening">
   }
 
   export type evidence_foldersCreateWithoutDocumentsInput = {
@@ -59492,6 +71695,9 @@ export namespace Prisma {
     tiers?: tiersCreateNestedOneWithoutUsersInput
     vault_documents?: vault_documentsCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutEvidence_foldersInput = {
@@ -59544,6 +71750,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedCreateNestedManyWithoutUsersInput
     vault_documents?: vault_documentsUncheckedCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutEvidence_foldersInput = {
@@ -59695,6 +71904,9 @@ export namespace Prisma {
     tiers?: tiersUpdateOneWithoutUsersNestedInput
     vault_documents?: vault_documentsUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEvidence_foldersInput = {
@@ -59747,6 +71959,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedUpdateManyWithoutUsersNestedInput
     vault_documents?: vault_documentsUncheckedUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type observationsUpsertWithWhereUniqueWithoutEvidence_foldersInput = {
@@ -59815,6 +72030,9 @@ export namespace Prisma {
     tiers?: tiersCreateNestedOneWithoutUsersInput
     vault_documents?: vault_documentsCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutGenerated_content_hubInput = {
@@ -59867,6 +72085,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedCreateNestedManyWithoutUsersInput
     vault_documents?: vault_documentsUncheckedCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutGenerated_content_hubInput = {
@@ -59959,6 +72180,9 @@ export namespace Prisma {
     tiers?: tiersUpdateOneWithoutUsersNestedInput
     vault_documents?: vault_documentsUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGenerated_content_hubInput = {
@@ -60011,6 +72235,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedUpdateManyWithoutUsersNestedInput
     vault_documents?: vault_documentsUncheckedUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type saved_itemsUpsertWithWhereUniqueWithoutGenerated_content_hubInput = {
@@ -60090,6 +72317,9 @@ export namespace Prisma {
     tiers?: tiersCreateNestedOneWithoutUsersInput
     vault_documents?: vault_documentsCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutGenerationsInput = {
@@ -60142,6 +72372,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedCreateNestedManyWithoutUsersInput
     vault_documents?: vault_documentsUncheckedCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutGenerationsInput = {
@@ -60210,6 +72443,9 @@ export namespace Prisma {
     tiers?: tiersUpdateOneWithoutUsersNestedInput
     vault_documents?: vault_documentsUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGenerationsInput = {
@@ -60262,6 +72498,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedUpdateManyWithoutUsersNestedInput
     vault_documents?: vault_documentsUncheckedUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type graph_nodesCreateWithoutGraph_edges_graph_edges_sourceIdTograph_nodesInput = {
@@ -60554,6 +72793,9 @@ export namespace Prisma {
     schools_users_school_idToschools?: schoolsCreateNestedOneWithoutUsers_users_school_idToschoolsInput
     tiers?: tiersCreateNestedOneWithoutUsersInput
     vault_documents?: vault_documentsCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutKnowledge_documentsInput = {
@@ -60606,6 +72848,9 @@ export namespace Prisma {
     token_wallets?: token_walletsUncheckedCreateNestedOneWithoutUsersInput
     usage_tracking?: usage_trackingUncheckedCreateNestedManyWithoutUsersInput
     vault_documents?: vault_documentsUncheckedCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutKnowledge_documentsInput = {
@@ -60715,6 +72960,9 @@ export namespace Prisma {
     schools_users_school_idToschools?: schoolsUpdateOneWithoutUsers_users_school_idToschoolsNestedInput
     tiers?: tiersUpdateOneWithoutUsersNestedInput
     vault_documents?: vault_documentsUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutKnowledge_documentsInput = {
@@ -60767,6 +73015,9 @@ export namespace Prisma {
     token_wallets?: token_walletsUncheckedUpdateOneWithoutUsersNestedInput
     usage_tracking?: usage_trackingUncheckedUpdateManyWithoutUsersNestedInput
     vault_documents?: vault_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type UserCreateWithoutLegacy_ledgerInput = {
@@ -60819,6 +73070,9 @@ export namespace Prisma {
     tiers?: tiersCreateNestedOneWithoutUsersInput
     vault_documents?: vault_documentsCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutLegacy_ledgerInput = {
@@ -60871,6 +73125,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedCreateNestedManyWithoutUsersInput
     vault_documents?: vault_documentsUncheckedCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutLegacy_ledgerInput = {
@@ -60939,6 +73196,9 @@ export namespace Prisma {
     tiers?: tiersUpdateOneWithoutUsersNestedInput
     vault_documents?: vault_documentsUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLegacy_ledgerInput = {
@@ -60991,6 +73251,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedUpdateManyWithoutUsersNestedInput
     vault_documents?: vault_documentsUncheckedUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type avatar_sessionsCreateWithoutObservationsInput = {
@@ -61125,6 +73388,9 @@ export namespace Prisma {
     tiers?: tiersCreateNestedOneWithoutUsersInput
     vault_documents?: vault_documentsCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutObservationsInput = {
@@ -61177,6 +73443,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedCreateNestedManyWithoutUsersInput
     vault_documents?: vault_documentsUncheckedCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutObservationsInput = {
@@ -61339,6 +73608,9 @@ export namespace Prisma {
     tiers?: tiersUpdateOneWithoutUsersNestedInput
     vault_documents?: vault_documentsUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutObservationsInput = {
@@ -61391,6 +73663,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedUpdateManyWithoutUsersNestedInput
     vault_documents?: vault_documentsUncheckedUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type UserCreateWithoutOrganizationsInput = {
@@ -61443,6 +73718,9 @@ export namespace Prisma {
     tiers?: tiersCreateNestedOneWithoutUsersInput
     vault_documents?: vault_documentsCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutOrganizationsInput = {
@@ -61495,6 +73773,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedCreateNestedManyWithoutUsersInput
     vault_documents?: vault_documentsUncheckedCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutOrganizationsInput = {
@@ -61655,6 +73936,9 @@ export namespace Prisma {
     tiers?: tiersCreateNestedOneWithoutUsersInput
     vault_documents?: vault_documentsCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutSaved_itemsInput = {
@@ -61707,6 +73991,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedCreateNestedManyWithoutUsersInput
     vault_documents?: vault_documentsUncheckedCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutSaved_itemsInput = {
@@ -61826,6 +74113,9 @@ export namespace Prisma {
     tiers?: tiersUpdateOneWithoutUsersNestedInput
     vault_documents?: vault_documentsUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSaved_itemsInput = {
@@ -61878,6 +74168,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedUpdateManyWithoutUsersNestedInput
     vault_documents?: vault_documentsUncheckedUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type analytics_insightsCreateWithoutSchoolsInput = {
@@ -61962,6 +74255,9 @@ export namespace Prisma {
     tiers?: tiersCreateNestedOneWithoutUsersInput
     vault_documents?: vault_documentsCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutSchools_schools_admin_idTousersInput = {
@@ -62014,6 +74310,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedCreateNestedManyWithoutUsersInput
     vault_documents?: vault_documentsUncheckedCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutSchools_schools_admin_idTousersInput = {
@@ -62113,6 +74412,9 @@ export namespace Prisma {
     tiers?: tiersCreateNestedOneWithoutUsersInput
     vault_documents?: vault_documentsCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutSchools_users_school_idToschoolsInput = {
@@ -62165,6 +74467,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedCreateNestedManyWithoutUsersInput
     vault_documents?: vault_documentsUncheckedCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutSchools_users_school_idToschoolsInput = {
@@ -62174,6 +74479,96 @@ export namespace Prisma {
 
   export type UserCreateManySchools_users_school_idToschoolsInputEnvelope = {
     data: UserCreateManySchools_users_school_idToschoolsInput | UserCreateManySchools_users_school_idToschoolsInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type student_profilesCreateWithoutSchoolsInput = {
+    id?: string
+    student_sis_id: string
+    first_name: string
+    last_name: string
+    grade_level: string
+    lexile_level?: number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: string | null
+    native_language?: string | null
+    sped_status?: string | null
+    dyslexia_flag?: boolean
+    intervention_tier?: string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+    users: UserCreateNestedOneWithoutStudent_profilesInput
+    screener_results?: screener_resultsCreateNestedManyWithoutStudent_profilesInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutStudent_profilesInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutStudent_profilesInput
+  }
+
+  export type student_profilesUncheckedCreateWithoutSchoolsInput = {
+    id?: string
+    user_id: string
+    student_sis_id: string
+    first_name: string
+    last_name: string
+    grade_level: string
+    lexile_level?: number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: string | null
+    native_language?: string | null
+    sped_status?: string | null
+    dyslexia_flag?: boolean
+    intervention_tier?: string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+    screener_results?: screener_resultsUncheckedCreateNestedManyWithoutStudent_profilesInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutStudent_profilesInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutStudent_profilesInput
+  }
+
+  export type student_profilesCreateOrConnectWithoutSchoolsInput = {
+    where: student_profilesWhereUniqueInput
+    create: XOR<student_profilesCreateWithoutSchoolsInput, student_profilesUncheckedCreateWithoutSchoolsInput>
+  }
+
+  export type student_profilesCreateManySchoolsInputEnvelope = {
+    data: student_profilesCreateManySchoolsInput | student_profilesCreateManySchoolsInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type infra_monitorsCreateWithoutSchoolsInput = {
+    id?: string
+    device_type: string
+    device_name: string
+    location?: string | null
+    status?: string
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    alert_threshold?: NullableJsonNullValueInput | InputJsonValue
+    last_heartbeat?: Date | string
+    created_at?: Date | string
+    infra_alerts?: infra_alertsCreateNestedManyWithoutInfra_monitorsInput
+  }
+
+  export type infra_monitorsUncheckedCreateWithoutSchoolsInput = {
+    id?: string
+    device_type: string
+    device_name: string
+    location?: string | null
+    status?: string
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    alert_threshold?: NullableJsonNullValueInput | InputJsonValue
+    last_heartbeat?: Date | string
+    created_at?: Date | string
+    infra_alerts?: infra_alertsUncheckedCreateNestedManyWithoutInfra_monitorsInput
+  }
+
+  export type infra_monitorsCreateOrConnectWithoutSchoolsInput = {
+    where: infra_monitorsWhereUniqueInput
+    create: XOR<infra_monitorsCreateWithoutSchoolsInput, infra_monitorsUncheckedCreateWithoutSchoolsInput>
+  }
+
+  export type infra_monitorsCreateManySchoolsInputEnvelope = {
+    data: infra_monitorsCreateManySchoolsInput | infra_monitorsCreateManySchoolsInput[]
     skipDuplicates?: boolean
   }
 
@@ -62269,6 +74664,9 @@ export namespace Prisma {
     tiers?: tiersUpdateOneWithoutUsersNestedInput
     vault_documents?: vault_documentsUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSchools_schools_admin_idTousersInput = {
@@ -62321,6 +74719,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedUpdateManyWithoutUsersNestedInput
     vault_documents?: vault_documentsUncheckedUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type subscriptionsUpsertWithWhereUniqueWithoutSchoolsInput = {
@@ -62375,6 +74776,77 @@ export namespace Prisma {
     data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutSchools_users_school_idToschoolsInput>
   }
 
+  export type student_profilesUpsertWithWhereUniqueWithoutSchoolsInput = {
+    where: student_profilesWhereUniqueInput
+    update: XOR<student_profilesUpdateWithoutSchoolsInput, student_profilesUncheckedUpdateWithoutSchoolsInput>
+    create: XOR<student_profilesCreateWithoutSchoolsInput, student_profilesUncheckedCreateWithoutSchoolsInput>
+  }
+
+  export type student_profilesUpdateWithWhereUniqueWithoutSchoolsInput = {
+    where: student_profilesWhereUniqueInput
+    data: XOR<student_profilesUpdateWithoutSchoolsInput, student_profilesUncheckedUpdateWithoutSchoolsInput>
+  }
+
+  export type student_profilesUpdateManyWithWhereWithoutSchoolsInput = {
+    where: student_profilesScalarWhereInput
+    data: XOR<student_profilesUpdateManyMutationInput, student_profilesUncheckedUpdateManyWithoutSchoolsInput>
+  }
+
+  export type student_profilesScalarWhereInput = {
+    AND?: student_profilesScalarWhereInput | student_profilesScalarWhereInput[]
+    OR?: student_profilesScalarWhereInput[]
+    NOT?: student_profilesScalarWhereInput | student_profilesScalarWhereInput[]
+    id?: StringFilter<"student_profiles"> | string
+    user_id?: StringFilter<"student_profiles"> | string
+    student_sis_id?: StringFilter<"student_profiles"> | string
+    first_name?: StringFilter<"student_profiles"> | string
+    last_name?: StringFilter<"student_profiles"> | string
+    grade_level?: StringFilter<"student_profiles"> | string
+    school_id?: StringNullableFilter<"student_profiles"> | string | null
+    lexile_level?: IntNullableFilter<"student_profiles"> | number | null
+    lexile_history?: JsonNullableFilter<"student_profiles">
+    ell_status?: StringNullableFilter<"student_profiles"> | string | null
+    native_language?: StringNullableFilter<"student_profiles"> | string | null
+    sped_status?: StringNullableFilter<"student_profiles"> | string | null
+    dyslexia_flag?: BoolFilter<"student_profiles"> | boolean
+    intervention_tier?: StringNullableFilter<"student_profiles"> | string | null
+    ala_skill_profile?: JsonNullableFilter<"student_profiles">
+    created_at?: DateTimeFilter<"student_profiles"> | Date | string
+    updated_at?: DateTimeFilter<"student_profiles"> | Date | string
+  }
+
+  export type infra_monitorsUpsertWithWhereUniqueWithoutSchoolsInput = {
+    where: infra_monitorsWhereUniqueInput
+    update: XOR<infra_monitorsUpdateWithoutSchoolsInput, infra_monitorsUncheckedUpdateWithoutSchoolsInput>
+    create: XOR<infra_monitorsCreateWithoutSchoolsInput, infra_monitorsUncheckedCreateWithoutSchoolsInput>
+  }
+
+  export type infra_monitorsUpdateWithWhereUniqueWithoutSchoolsInput = {
+    where: infra_monitorsWhereUniqueInput
+    data: XOR<infra_monitorsUpdateWithoutSchoolsInput, infra_monitorsUncheckedUpdateWithoutSchoolsInput>
+  }
+
+  export type infra_monitorsUpdateManyWithWhereWithoutSchoolsInput = {
+    where: infra_monitorsScalarWhereInput
+    data: XOR<infra_monitorsUpdateManyMutationInput, infra_monitorsUncheckedUpdateManyWithoutSchoolsInput>
+  }
+
+  export type infra_monitorsScalarWhereInput = {
+    AND?: infra_monitorsScalarWhereInput | infra_monitorsScalarWhereInput[]
+    OR?: infra_monitorsScalarWhereInput[]
+    NOT?: infra_monitorsScalarWhereInput | infra_monitorsScalarWhereInput[]
+    id?: StringFilter<"infra_monitors"> | string
+    school_id?: StringFilter<"infra_monitors"> | string
+    device_type?: StringFilter<"infra_monitors"> | string
+    device_name?: StringFilter<"infra_monitors"> | string
+    location?: StringNullableFilter<"infra_monitors"> | string | null
+    status?: StringFilter<"infra_monitors"> | string
+    metrics?: JsonNullableFilter<"infra_monitors">
+    alert_threshold?: JsonNullableFilter<"infra_monitors">
+    last_heartbeat?: DateTimeFilter<"infra_monitors"> | Date | string
+    created_at?: DateTimeFilter<"infra_monitors"> | Date | string
+  }
+
   export type UserCreateWithoutStrategic_vaultInput = {
     id: string
     clerk_id?: string | null
@@ -62425,6 +74897,9 @@ export namespace Prisma {
     tiers?: tiersCreateNestedOneWithoutUsersInput
     vault_documents?: vault_documentsCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutStrategic_vaultInput = {
@@ -62477,6 +74952,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedCreateNestedManyWithoutUsersInput
     vault_documents?: vault_documentsUncheckedCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutStrategic_vaultInput = {
@@ -62545,6 +75023,9 @@ export namespace Prisma {
     tiers?: tiersUpdateOneWithoutUsersNestedInput
     vault_documents?: vault_documentsUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStrategic_vaultInput = {
@@ -62597,6 +75078,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedUpdateManyWithoutUsersNestedInput
     vault_documents?: vault_documentsUncheckedUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type schoolsCreateWithoutSubscriptionsInput = {
@@ -62613,6 +75097,8 @@ export namespace Prisma {
     analytics_insights?: analytics_insightsCreateNestedManyWithoutSchoolsInput
     users_schools_admin_idTousers?: UserCreateNestedOneWithoutSchools_schools_admin_idTousersInput
     users_users_school_idToschools?: UserCreateNestedManyWithoutSchools_users_school_idToschoolsInput
+    student_profiles?: student_profilesCreateNestedManyWithoutSchoolsInput
+    infra_monitors?: infra_monitorsCreateNestedManyWithoutSchoolsInput
   }
 
   export type schoolsUncheckedCreateWithoutSubscriptionsInput = {
@@ -62629,6 +75115,8 @@ export namespace Prisma {
     updated_at: Date | string
     analytics_insights?: analytics_insightsUncheckedCreateNestedManyWithoutSchoolsInput
     users_users_school_idToschools?: UserUncheckedCreateNestedManyWithoutSchools_users_school_idToschoolsInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutSchoolsInput
+    infra_monitors?: infra_monitorsUncheckedCreateNestedManyWithoutSchoolsInput
   }
 
   export type schoolsCreateOrConnectWithoutSubscriptionsInput = {
@@ -62686,6 +75174,9 @@ export namespace Prisma {
     tiers?: tiersCreateNestedOneWithoutUsersInput
     vault_documents?: vault_documentsCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutSubscriptionsInput = {
@@ -62738,6 +75229,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedCreateNestedManyWithoutUsersInput
     vault_documents?: vault_documentsUncheckedCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutSubscriptionsInput = {
@@ -62770,6 +75264,8 @@ export namespace Prisma {
     analytics_insights?: analytics_insightsUpdateManyWithoutSchoolsNestedInput
     users_schools_admin_idTousers?: UserUpdateOneWithoutSchools_schools_admin_idTousersNestedInput
     users_users_school_idToschools?: UserUpdateManyWithoutSchools_users_school_idToschoolsNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutSchoolsNestedInput
+    infra_monitors?: infra_monitorsUpdateManyWithoutSchoolsNestedInput
   }
 
   export type schoolsUncheckedUpdateWithoutSubscriptionsInput = {
@@ -62786,6 +75282,8 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     analytics_insights?: analytics_insightsUncheckedUpdateManyWithoutSchoolsNestedInput
     users_users_school_idToschools?: UserUncheckedUpdateManyWithoutSchools_users_school_idToschoolsNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutSchoolsNestedInput
+    infra_monitors?: infra_monitorsUncheckedUpdateManyWithoutSchoolsNestedInput
   }
 
   export type UserUpsertWithoutSubscriptionsInput = {
@@ -62849,6 +75347,9 @@ export namespace Prisma {
     tiers?: tiersUpdateOneWithoutUsersNestedInput
     vault_documents?: vault_documentsUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSubscriptionsInput = {
@@ -62901,6 +75402,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedUpdateManyWithoutUsersNestedInput
     vault_documents?: vault_documentsUncheckedUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type UserCreateWithoutSystem_feedbackInput = {
@@ -62953,6 +75457,9 @@ export namespace Prisma {
     tiers?: tiersCreateNestedOneWithoutUsersInput
     vault_documents?: vault_documentsCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutSystem_feedbackInput = {
@@ -63005,6 +75512,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedCreateNestedManyWithoutUsersInput
     vault_documents?: vault_documentsUncheckedCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutSystem_feedbackInput = {
@@ -63073,6 +75583,9 @@ export namespace Prisma {
     tiers?: tiersUpdateOneWithoutUsersNestedInput
     vault_documents?: vault_documentsUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSystem_feedbackInput = {
@@ -63125,6 +75638,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedUpdateManyWithoutUsersNestedInput
     vault_documents?: vault_documentsUncheckedUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type UserCreateWithoutTiersInput = {
@@ -63177,6 +75693,9 @@ export namespace Prisma {
     schools_users_school_idToschools?: schoolsCreateNestedOneWithoutUsers_users_school_idToschoolsInput
     vault_documents?: vault_documentsCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutTiersInput = {
@@ -63229,6 +75748,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedCreateNestedManyWithoutUsersInput
     vault_documents?: vault_documentsUncheckedCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutTiersInput = {
@@ -63401,6 +75923,9 @@ export namespace Prisma {
     tiers?: tiersCreateNestedOneWithoutUsersInput
     vault_documents?: vault_documentsCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutToken_walletsInput = {
@@ -63453,6 +75978,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedCreateNestedManyWithoutUsersInput
     vault_documents?: vault_documentsUncheckedCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutToken_walletsInput = {
@@ -63551,6 +76079,9 @@ export namespace Prisma {
     tiers?: tiersUpdateOneWithoutUsersNestedInput
     vault_documents?: vault_documentsUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutToken_walletsInput = {
@@ -63603,6 +76134,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedUpdateManyWithoutUsersNestedInput
     vault_documents?: vault_documentsUncheckedUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type UserCreateWithoutUsage_trackingInput = {
@@ -63655,6 +76189,9 @@ export namespace Prisma {
     tiers?: tiersCreateNestedOneWithoutUsersInput
     vault_documents?: vault_documentsCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutUsage_trackingInput = {
@@ -63707,6 +76244,9 @@ export namespace Prisma {
     token_wallets?: token_walletsUncheckedCreateNestedOneWithoutUsersInput
     vault_documents?: vault_documentsUncheckedCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutUsage_trackingInput = {
@@ -63775,6 +76315,9 @@ export namespace Prisma {
     tiers?: tiersUpdateOneWithoutUsersNestedInput
     vault_documents?: vault_documentsUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUsage_trackingInput = {
@@ -63827,6 +76370,9 @@ export namespace Prisma {
     token_wallets?: token_walletsUncheckedUpdateOneWithoutUsersNestedInput
     vault_documents?: vault_documentsUncheckedUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type accountCreateWithoutUserInput = {
@@ -64259,6 +76805,8 @@ export namespace Prisma {
     analytics_insights?: analytics_insightsCreateNestedManyWithoutSchoolsInput
     subscriptions?: subscriptionsCreateNestedManyWithoutSchoolsInput
     users_users_school_idToschools?: UserCreateNestedManyWithoutSchools_users_school_idToschoolsInput
+    student_profiles?: student_profilesCreateNestedManyWithoutSchoolsInput
+    infra_monitors?: infra_monitorsCreateNestedManyWithoutSchoolsInput
   }
 
   export type schoolsUncheckedCreateWithoutUsers_schools_admin_idTousersInput = {
@@ -64275,6 +76823,8 @@ export namespace Prisma {
     analytics_insights?: analytics_insightsUncheckedCreateNestedManyWithoutSchoolsInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutSchoolsInput
     users_users_school_idToschools?: UserUncheckedCreateNestedManyWithoutSchools_users_school_idToschoolsInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutSchoolsInput
+    infra_monitors?: infra_monitorsUncheckedCreateNestedManyWithoutSchoolsInput
   }
 
   export type schoolsCreateOrConnectWithoutUsers_schools_admin_idTousersInput = {
@@ -64499,6 +77049,8 @@ export namespace Prisma {
     analytics_insights?: analytics_insightsCreateNestedManyWithoutSchoolsInput
     users_schools_admin_idTousers?: UserCreateNestedOneWithoutSchools_schools_admin_idTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutSchoolsInput
+    student_profiles?: student_profilesCreateNestedManyWithoutSchoolsInput
+    infra_monitors?: infra_monitorsCreateNestedManyWithoutSchoolsInput
   }
 
   export type schoolsUncheckedCreateWithoutUsers_users_school_idToschoolsInput = {
@@ -64515,6 +77067,8 @@ export namespace Prisma {
     updated_at: Date | string
     analytics_insights?: analytics_insightsUncheckedCreateNestedManyWithoutSchoolsInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutSchoolsInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutSchoolsInput
+    infra_monitors?: infra_monitorsUncheckedCreateNestedManyWithoutSchoolsInput
   }
 
   export type schoolsCreateOrConnectWithoutUsers_users_school_idToschoolsInput = {
@@ -64608,6 +77162,146 @@ export namespace Prisma {
 
   export type knowledge_documentsCreateManyUsersInputEnvelope = {
     data: knowledge_documentsCreateManyUsersInput | knowledge_documentsCreateManyUsersInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type student_profilesCreateWithoutUsersInput = {
+    id?: string
+    student_sis_id: string
+    first_name: string
+    last_name: string
+    grade_level: string
+    lexile_level?: number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: string | null
+    native_language?: string | null
+    sped_status?: string | null
+    dyslexia_flag?: boolean
+    intervention_tier?: string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+    schools?: schoolsCreateNestedOneWithoutStudent_profilesInput
+    screener_results?: screener_resultsCreateNestedManyWithoutStudent_profilesInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutStudent_profilesInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutStudent_profilesInput
+  }
+
+  export type student_profilesUncheckedCreateWithoutUsersInput = {
+    id?: string
+    student_sis_id: string
+    first_name: string
+    last_name: string
+    grade_level: string
+    school_id?: string | null
+    lexile_level?: number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: string | null
+    native_language?: string | null
+    sped_status?: string | null
+    dyslexia_flag?: boolean
+    intervention_tier?: string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+    screener_results?: screener_resultsUncheckedCreateNestedManyWithoutStudent_profilesInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutStudent_profilesInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutStudent_profilesInput
+  }
+
+  export type student_profilesCreateOrConnectWithoutUsersInput = {
+    where: student_profilesWhereUniqueInput
+    create: XOR<student_profilesCreateWithoutUsersInput, student_profilesUncheckedCreateWithoutUsersInput>
+  }
+
+  export type student_profilesCreateManyUsersInputEnvelope = {
+    data: student_profilesCreateManyUsersInput | student_profilesCreateManyUsersInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type differentiated_materialsCreateWithoutUsersInput = {
+    id?: string
+    title: string
+    source_input: string
+    target_lexile: number
+    output_lexile?: number | null
+    dok_level?: number
+    content_type: string
+    generated_content: JsonNullValueInput | InputJsonValue
+    academic_standard?: string | null
+    subject?: string | null
+    grade_level?: string | null
+    language?: string
+    exported_to?: string | null
+    tokens_used?: number
+    created_at?: Date | string
+    student_profiles?: student_profilesCreateNestedOneWithoutDifferentiated_materialsInput
+  }
+
+  export type differentiated_materialsUncheckedCreateWithoutUsersInput = {
+    id?: string
+    student_profile_id?: string | null
+    title: string
+    source_input: string
+    target_lexile: number
+    output_lexile?: number | null
+    dok_level?: number
+    content_type: string
+    generated_content: JsonNullValueInput | InputJsonValue
+    academic_standard?: string | null
+    subject?: string | null
+    grade_level?: string | null
+    language?: string
+    exported_to?: string | null
+    tokens_used?: number
+    created_at?: Date | string
+  }
+
+  export type differentiated_materialsCreateOrConnectWithoutUsersInput = {
+    where: differentiated_materialsWhereUniqueInput
+    create: XOR<differentiated_materialsCreateWithoutUsersInput, differentiated_materialsUncheckedCreateWithoutUsersInput>
+  }
+
+  export type differentiated_materialsCreateManyUsersInputEnvelope = {
+    data: differentiated_materialsCreateManyUsersInput | differentiated_materialsCreateManyUsersInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type reading_improvement_plansCreateWithoutUsersInput = {
+    id?: string
+    school_year: string
+    status?: string
+    deficit_areas: JsonNullValueInput | InputJsonValue
+    intervention_program?: string | null
+    daily_materials?: NullableJsonNullValueInput | InputJsonValue
+    progress_notes?: NullableJsonNullValueInput | InputJsonValue
+    parent_notified?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    student_profiles: student_profilesCreateNestedOneWithoutReading_improvement_plansInput
+  }
+
+  export type reading_improvement_plansUncheckedCreateWithoutUsersInput = {
+    id?: string
+    student_profile_id: string
+    school_year: string
+    status?: string
+    deficit_areas: JsonNullValueInput | InputJsonValue
+    intervention_program?: string | null
+    daily_materials?: NullableJsonNullValueInput | InputJsonValue
+    progress_notes?: NullableJsonNullValueInput | InputJsonValue
+    parent_notified?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type reading_improvement_plansCreateOrConnectWithoutUsersInput = {
+    where: reading_improvement_plansWhereUniqueInput
+    create: XOR<reading_improvement_plansCreateWithoutUsersInput, reading_improvement_plansUncheckedCreateWithoutUsersInput>
+  }
+
+  export type reading_improvement_plansCreateManyUsersInputEnvelope = {
+    data: reading_improvement_plansCreateManyUsersInput | reading_improvement_plansCreateManyUsersInput[]
     skipDuplicates?: boolean
   }
 
@@ -65134,6 +77828,8 @@ export namespace Prisma {
     analytics_insights?: analytics_insightsUpdateManyWithoutSchoolsNestedInput
     users_schools_admin_idTousers?: UserUpdateOneWithoutSchools_schools_admin_idTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutSchoolsNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutSchoolsNestedInput
+    infra_monitors?: infra_monitorsUpdateManyWithoutSchoolsNestedInput
   }
 
   export type schoolsUncheckedUpdateWithoutUsers_users_school_idToschoolsInput = {
@@ -65150,6 +77846,8 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     analytics_insights?: analytics_insightsUncheckedUpdateManyWithoutSchoolsNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutSchoolsNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutSchoolsNestedInput
+    infra_monitors?: infra_monitorsUncheckedUpdateManyWithoutSchoolsNestedInput
   }
 
   export type tiersUpsertWithoutUsersInput = {
@@ -65226,6 +77924,95 @@ export namespace Prisma {
     data: XOR<knowledge_documentsUpdateManyMutationInput, knowledge_documentsUncheckedUpdateManyWithoutUsersInput>
   }
 
+  export type student_profilesUpsertWithWhereUniqueWithoutUsersInput = {
+    where: student_profilesWhereUniqueInput
+    update: XOR<student_profilesUpdateWithoutUsersInput, student_profilesUncheckedUpdateWithoutUsersInput>
+    create: XOR<student_profilesCreateWithoutUsersInput, student_profilesUncheckedCreateWithoutUsersInput>
+  }
+
+  export type student_profilesUpdateWithWhereUniqueWithoutUsersInput = {
+    where: student_profilesWhereUniqueInput
+    data: XOR<student_profilesUpdateWithoutUsersInput, student_profilesUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type student_profilesUpdateManyWithWhereWithoutUsersInput = {
+    where: student_profilesScalarWhereInput
+    data: XOR<student_profilesUpdateManyMutationInput, student_profilesUncheckedUpdateManyWithoutUsersInput>
+  }
+
+  export type differentiated_materialsUpsertWithWhereUniqueWithoutUsersInput = {
+    where: differentiated_materialsWhereUniqueInput
+    update: XOR<differentiated_materialsUpdateWithoutUsersInput, differentiated_materialsUncheckedUpdateWithoutUsersInput>
+    create: XOR<differentiated_materialsCreateWithoutUsersInput, differentiated_materialsUncheckedCreateWithoutUsersInput>
+  }
+
+  export type differentiated_materialsUpdateWithWhereUniqueWithoutUsersInput = {
+    where: differentiated_materialsWhereUniqueInput
+    data: XOR<differentiated_materialsUpdateWithoutUsersInput, differentiated_materialsUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type differentiated_materialsUpdateManyWithWhereWithoutUsersInput = {
+    where: differentiated_materialsScalarWhereInput
+    data: XOR<differentiated_materialsUpdateManyMutationInput, differentiated_materialsUncheckedUpdateManyWithoutUsersInput>
+  }
+
+  export type differentiated_materialsScalarWhereInput = {
+    AND?: differentiated_materialsScalarWhereInput | differentiated_materialsScalarWhereInput[]
+    OR?: differentiated_materialsScalarWhereInput[]
+    NOT?: differentiated_materialsScalarWhereInput | differentiated_materialsScalarWhereInput[]
+    id?: StringFilter<"differentiated_materials"> | string
+    user_id?: StringFilter<"differentiated_materials"> | string
+    student_profile_id?: StringNullableFilter<"differentiated_materials"> | string | null
+    title?: StringFilter<"differentiated_materials"> | string
+    source_input?: StringFilter<"differentiated_materials"> | string
+    target_lexile?: IntFilter<"differentiated_materials"> | number
+    output_lexile?: IntNullableFilter<"differentiated_materials"> | number | null
+    dok_level?: IntFilter<"differentiated_materials"> | number
+    content_type?: StringFilter<"differentiated_materials"> | string
+    generated_content?: JsonFilter<"differentiated_materials">
+    academic_standard?: StringNullableFilter<"differentiated_materials"> | string | null
+    subject?: StringNullableFilter<"differentiated_materials"> | string | null
+    grade_level?: StringNullableFilter<"differentiated_materials"> | string | null
+    language?: StringFilter<"differentiated_materials"> | string
+    exported_to?: StringNullableFilter<"differentiated_materials"> | string | null
+    tokens_used?: IntFilter<"differentiated_materials"> | number
+    created_at?: DateTimeFilter<"differentiated_materials"> | Date | string
+  }
+
+  export type reading_improvement_plansUpsertWithWhereUniqueWithoutUsersInput = {
+    where: reading_improvement_plansWhereUniqueInput
+    update: XOR<reading_improvement_plansUpdateWithoutUsersInput, reading_improvement_plansUncheckedUpdateWithoutUsersInput>
+    create: XOR<reading_improvement_plansCreateWithoutUsersInput, reading_improvement_plansUncheckedCreateWithoutUsersInput>
+  }
+
+  export type reading_improvement_plansUpdateWithWhereUniqueWithoutUsersInput = {
+    where: reading_improvement_plansWhereUniqueInput
+    data: XOR<reading_improvement_plansUpdateWithoutUsersInput, reading_improvement_plansUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type reading_improvement_plansUpdateManyWithWhereWithoutUsersInput = {
+    where: reading_improvement_plansScalarWhereInput
+    data: XOR<reading_improvement_plansUpdateManyMutationInput, reading_improvement_plansUncheckedUpdateManyWithoutUsersInput>
+  }
+
+  export type reading_improvement_plansScalarWhereInput = {
+    AND?: reading_improvement_plansScalarWhereInput | reading_improvement_plansScalarWhereInput[]
+    OR?: reading_improvement_plansScalarWhereInput[]
+    NOT?: reading_improvement_plansScalarWhereInput | reading_improvement_plansScalarWhereInput[]
+    id?: StringFilter<"reading_improvement_plans"> | string
+    student_profile_id?: StringFilter<"reading_improvement_plans"> | string
+    created_by?: StringFilter<"reading_improvement_plans"> | string
+    school_year?: StringFilter<"reading_improvement_plans"> | string
+    status?: StringFilter<"reading_improvement_plans"> | string
+    deficit_areas?: JsonFilter<"reading_improvement_plans">
+    intervention_program?: StringNullableFilter<"reading_improvement_plans"> | string | null
+    daily_materials?: JsonNullableFilter<"reading_improvement_plans">
+    progress_notes?: JsonNullableFilter<"reading_improvement_plans">
+    parent_notified?: BoolFilter<"reading_improvement_plans"> | boolean
+    created_at?: DateTimeFilter<"reading_improvement_plans"> | Date | string
+    updated_at?: DateTimeFilter<"reading_improvement_plans"> | Date | string
+  }
+
   export type UserCreateWithoutSessionsInput = {
     id: string
     clerk_id?: string | null
@@ -65276,6 +78063,9 @@ export namespace Prisma {
     tiers?: tiersCreateNestedOneWithoutUsersInput
     vault_documents?: vault_documentsCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -65328,6 +78118,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedCreateNestedManyWithoutUsersInput
     vault_documents?: vault_documentsUncheckedCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -65396,6 +78189,9 @@ export namespace Prisma {
     tiers?: tiersUpdateOneWithoutUsersNestedInput
     vault_documents?: vault_documentsUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -65448,6 +78244,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedUpdateManyWithoutUsersNestedInput
     vault_documents?: vault_documentsUncheckedUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type UserCreateWithoutAccountsInput = {
@@ -65500,6 +78299,9 @@ export namespace Prisma {
     tiers?: tiersCreateNestedOneWithoutUsersInput
     vault_documents?: vault_documentsCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -65552,6 +78354,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedCreateNestedManyWithoutUsersInput
     vault_documents?: vault_documentsUncheckedCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -65620,6 +78425,9 @@ export namespace Prisma {
     tiers?: tiersUpdateOneWithoutUsersNestedInput
     vault_documents?: vault_documentsUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -65672,6 +78480,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedUpdateManyWithoutUsersNestedInput
     vault_documents?: vault_documentsUncheckedUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type vault_documentsCreateWithoutVault_auditsInput = {
@@ -65836,6 +78647,9 @@ export namespace Prisma {
     schools_users_school_idToschools?: schoolsCreateNestedOneWithoutUsers_users_school_idToschoolsInput
     tiers?: tiersCreateNestedOneWithoutUsersInput
     knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutVault_documentsInput = {
@@ -65888,6 +78702,9 @@ export namespace Prisma {
     token_wallets?: token_walletsUncheckedCreateNestedOneWithoutUsersInput
     usage_tracking?: usage_trackingUncheckedCreateNestedManyWithoutUsersInput
     knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutVault_documentsInput = {
@@ -66004,6 +78821,9 @@ export namespace Prisma {
     schools_users_school_idToschools?: schoolsUpdateOneWithoutUsers_users_school_idToschoolsNestedInput
     tiers?: tiersUpdateOneWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVault_documentsInput = {
@@ -66056,6 +78876,9 @@ export namespace Prisma {
     token_wallets?: token_walletsUncheckedUpdateOneWithoutUsersNestedInput
     usage_tracking?: usage_trackingUncheckedUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type vault_ocrUpsertWithoutVault_documentsInput = {
@@ -66165,6 +78988,1573 @@ export namespace Prisma {
     encrypted_content?: NullableStringFieldUpdateOperationsInput | string | null
     encryption_iv?: NullableStringFieldUpdateOperationsInput | string | null
     vault_audits?: vault_auditsUncheckedUpdateManyWithoutVault_documentsNestedInput
+  }
+
+  export type UserCreateWithoutStudent_profilesInput = {
+    id: string
+    clerk_id?: string | null
+    email: string
+    name?: string | null
+    role?: $Enums.UserRole
+    district?: string | null
+    school?: string | null
+    school_site?: string | null
+    position?: string | null
+    bio?: string | null
+    stripe_customer_id?: string | null
+    stripe_subscription_id?: string | null
+    subscription_tier?: string
+    subscription_status?: string
+    usage_tokens?: number
+    xp_points?: number
+    trial_started_at?: Date | string
+    trial_ends_at?: Date | string | null
+    is_trial_converted?: boolean
+    is_active?: boolean
+    avatar_url?: string | null
+    created_at?: Date | string
+    updated_at: Date | string
+    last_login?: Date | string | null
+    password?: string | null
+    emailVerified?: boolean
+    image?: string | null
+    lastUplinkAt?: Date | string | null
+    accounts?: accountCreateNestedManyWithoutUserInput
+    sessions?: sessionCreateNestedManyWithoutUserInput
+    analytics_insights?: analytics_insightsCreateNestedManyWithoutUsersInput
+    avatar_sessions?: avatar_sessionsCreateNestedManyWithoutUsersInput
+    conversation_messages?: conversation_messagesCreateNestedManyWithoutUsersInput
+    evidence_folders?: evidence_foldersCreateNestedManyWithoutUsersInput
+    generated_content_hub?: generated_content_hubCreateNestedManyWithoutUsersInput
+    generations?: generationsCreateNestedManyWithoutUsersInput
+    legacy_ledger?: legacy_ledgerCreateNestedManyWithoutUsersInput
+    observations?: observationsCreateNestedManyWithoutUsersInput
+    saved_items?: saved_itemsCreateNestedManyWithoutUsersInput
+    schools_schools_admin_idTousers?: schoolsCreateNestedManyWithoutUsers_schools_admin_idTousersInput
+    strategic_vault?: strategic_vaultCreateNestedManyWithoutUsersInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    system_feedback?: system_feedbackCreateNestedManyWithoutUsersInput
+    token_wallets?: token_walletsCreateNestedOneWithoutUsersInput
+    usage_tracking?: usage_trackingCreateNestedManyWithoutUsersInput
+    organizations?: organizationsCreateNestedOneWithoutUsersInput
+    schools_users_school_idToschools?: schoolsCreateNestedOneWithoutUsers_users_school_idToschoolsInput
+    tiers?: tiersCreateNestedOneWithoutUsersInput
+    vault_documents?: vault_documentsCreateNestedManyWithoutUsersInput
+    knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutStudent_profilesInput = {
+    id: string
+    clerk_id?: string | null
+    email: string
+    name?: string | null
+    role?: $Enums.UserRole
+    district?: string | null
+    school?: string | null
+    school_site?: string | null
+    position?: string | null
+    bio?: string | null
+    organization_id?: string | null
+    school_id?: string | null
+    stripe_customer_id?: string | null
+    stripe_subscription_id?: string | null
+    subscription_tier?: string
+    subscription_status?: string
+    usage_tokens?: number
+    xp_points?: number
+    trial_started_at?: Date | string
+    trial_ends_at?: Date | string | null
+    is_trial_converted?: boolean
+    is_active?: boolean
+    tier_id?: string | null
+    avatar_url?: string | null
+    created_at?: Date | string
+    updated_at: Date | string
+    last_login?: Date | string | null
+    password?: string | null
+    emailVerified?: boolean
+    image?: string | null
+    lastUplinkAt?: Date | string | null
+    accounts?: accountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: sessionUncheckedCreateNestedManyWithoutUserInput
+    analytics_insights?: analytics_insightsUncheckedCreateNestedManyWithoutUsersInput
+    avatar_sessions?: avatar_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    conversation_messages?: conversation_messagesUncheckedCreateNestedManyWithoutUsersInput
+    evidence_folders?: evidence_foldersUncheckedCreateNestedManyWithoutUsersInput
+    generated_content_hub?: generated_content_hubUncheckedCreateNestedManyWithoutUsersInput
+    generations?: generationsUncheckedCreateNestedManyWithoutUsersInput
+    legacy_ledger?: legacy_ledgerUncheckedCreateNestedManyWithoutUsersInput
+    observations?: observationsUncheckedCreateNestedManyWithoutUsersInput
+    saved_items?: saved_itemsUncheckedCreateNestedManyWithoutUsersInput
+    schools_schools_admin_idTousers?: schoolsUncheckedCreateNestedManyWithoutUsers_schools_admin_idTousersInput
+    strategic_vault?: strategic_vaultUncheckedCreateNestedManyWithoutUsersInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    system_feedback?: system_feedbackUncheckedCreateNestedManyWithoutUsersInput
+    token_wallets?: token_walletsUncheckedCreateNestedOneWithoutUsersInput
+    usage_tracking?: usage_trackingUncheckedCreateNestedManyWithoutUsersInput
+    vault_documents?: vault_documentsUncheckedCreateNestedManyWithoutUsersInput
+    knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
+  }
+
+  export type UserCreateOrConnectWithoutStudent_profilesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutStudent_profilesInput, UserUncheckedCreateWithoutStudent_profilesInput>
+  }
+
+  export type schoolsCreateWithoutStudent_profilesInput = {
+    id: string
+    name: string
+    district_name?: string | null
+    state?: string | null
+    zip_code?: string | null
+    stripe_customer_id?: string | null
+    subscription_tier?: string
+    max_users?: number
+    created_at?: Date | string
+    updated_at: Date | string
+    analytics_insights?: analytics_insightsCreateNestedManyWithoutSchoolsInput
+    users_schools_admin_idTousers?: UserCreateNestedOneWithoutSchools_schools_admin_idTousersInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutSchoolsInput
+    users_users_school_idToschools?: UserCreateNestedManyWithoutSchools_users_school_idToschoolsInput
+    infra_monitors?: infra_monitorsCreateNestedManyWithoutSchoolsInput
+  }
+
+  export type schoolsUncheckedCreateWithoutStudent_profilesInput = {
+    id: string
+    name: string
+    district_name?: string | null
+    state?: string | null
+    zip_code?: string | null
+    admin_id?: string | null
+    stripe_customer_id?: string | null
+    subscription_tier?: string
+    max_users?: number
+    created_at?: Date | string
+    updated_at: Date | string
+    analytics_insights?: analytics_insightsUncheckedCreateNestedManyWithoutSchoolsInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutSchoolsInput
+    users_users_school_idToschools?: UserUncheckedCreateNestedManyWithoutSchools_users_school_idToschoolsInput
+    infra_monitors?: infra_monitorsUncheckedCreateNestedManyWithoutSchoolsInput
+  }
+
+  export type schoolsCreateOrConnectWithoutStudent_profilesInput = {
+    where: schoolsWhereUniqueInput
+    create: XOR<schoolsCreateWithoutStudent_profilesInput, schoolsUncheckedCreateWithoutStudent_profilesInput>
+  }
+
+  export type screener_resultsCreateWithoutStudent_profilesInput = {
+    id?: string
+    screener_platform: string
+    assessment_window: string
+    assessment_date: Date | string
+    composite_score?: number | null
+    risk_level?: string | null
+    skill_scores: JsonNullValueInput | InputJsonValue
+    raw_data?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+  }
+
+  export type screener_resultsUncheckedCreateWithoutStudent_profilesInput = {
+    id?: string
+    screener_platform: string
+    assessment_window: string
+    assessment_date: Date | string
+    composite_score?: number | null
+    risk_level?: string | null
+    skill_scores: JsonNullValueInput | InputJsonValue
+    raw_data?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+  }
+
+  export type screener_resultsCreateOrConnectWithoutStudent_profilesInput = {
+    where: screener_resultsWhereUniqueInput
+    create: XOR<screener_resultsCreateWithoutStudent_profilesInput, screener_resultsUncheckedCreateWithoutStudent_profilesInput>
+  }
+
+  export type screener_resultsCreateManyStudent_profilesInputEnvelope = {
+    data: screener_resultsCreateManyStudent_profilesInput | screener_resultsCreateManyStudent_profilesInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type differentiated_materialsCreateWithoutStudent_profilesInput = {
+    id?: string
+    title: string
+    source_input: string
+    target_lexile: number
+    output_lexile?: number | null
+    dok_level?: number
+    content_type: string
+    generated_content: JsonNullValueInput | InputJsonValue
+    academic_standard?: string | null
+    subject?: string | null
+    grade_level?: string | null
+    language?: string
+    exported_to?: string | null
+    tokens_used?: number
+    created_at?: Date | string
+    users: UserCreateNestedOneWithoutDifferentiated_materialsInput
+  }
+
+  export type differentiated_materialsUncheckedCreateWithoutStudent_profilesInput = {
+    id?: string
+    user_id: string
+    title: string
+    source_input: string
+    target_lexile: number
+    output_lexile?: number | null
+    dok_level?: number
+    content_type: string
+    generated_content: JsonNullValueInput | InputJsonValue
+    academic_standard?: string | null
+    subject?: string | null
+    grade_level?: string | null
+    language?: string
+    exported_to?: string | null
+    tokens_used?: number
+    created_at?: Date | string
+  }
+
+  export type differentiated_materialsCreateOrConnectWithoutStudent_profilesInput = {
+    where: differentiated_materialsWhereUniqueInput
+    create: XOR<differentiated_materialsCreateWithoutStudent_profilesInput, differentiated_materialsUncheckedCreateWithoutStudent_profilesInput>
+  }
+
+  export type differentiated_materialsCreateManyStudent_profilesInputEnvelope = {
+    data: differentiated_materialsCreateManyStudent_profilesInput | differentiated_materialsCreateManyStudent_profilesInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type reading_improvement_plansCreateWithoutStudent_profilesInput = {
+    id?: string
+    school_year: string
+    status?: string
+    deficit_areas: JsonNullValueInput | InputJsonValue
+    intervention_program?: string | null
+    daily_materials?: NullableJsonNullValueInput | InputJsonValue
+    progress_notes?: NullableJsonNullValueInput | InputJsonValue
+    parent_notified?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    users: UserCreateNestedOneWithoutReading_improvement_plansInput
+  }
+
+  export type reading_improvement_plansUncheckedCreateWithoutStudent_profilesInput = {
+    id?: string
+    created_by: string
+    school_year: string
+    status?: string
+    deficit_areas: JsonNullValueInput | InputJsonValue
+    intervention_program?: string | null
+    daily_materials?: NullableJsonNullValueInput | InputJsonValue
+    progress_notes?: NullableJsonNullValueInput | InputJsonValue
+    parent_notified?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type reading_improvement_plansCreateOrConnectWithoutStudent_profilesInput = {
+    where: reading_improvement_plansWhereUniqueInput
+    create: XOR<reading_improvement_plansCreateWithoutStudent_profilesInput, reading_improvement_plansUncheckedCreateWithoutStudent_profilesInput>
+  }
+
+  export type reading_improvement_plansCreateManyStudent_profilesInputEnvelope = {
+    data: reading_improvement_plansCreateManyStudent_profilesInput | reading_improvement_plansCreateManyStudent_profilesInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutStudent_profilesInput = {
+    update: XOR<UserUpdateWithoutStudent_profilesInput, UserUncheckedUpdateWithoutStudent_profilesInput>
+    create: XOR<UserCreateWithoutStudent_profilesInput, UserUncheckedCreateWithoutStudent_profilesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutStudent_profilesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutStudent_profilesInput, UserUncheckedUpdateWithoutStudent_profilesInput>
+  }
+
+  export type UserUpdateWithoutStudent_profilesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerk_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    district?: NullableStringFieldUpdateOperationsInput | string | null
+    school?: NullableStringFieldUpdateOperationsInput | string | null
+    school_site?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    stripe_customer_id?: NullableStringFieldUpdateOperationsInput | string | null
+    stripe_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
+    subscription_tier?: StringFieldUpdateOperationsInput | string
+    subscription_status?: StringFieldUpdateOperationsInput | string
+    usage_tokens?: IntFieldUpdateOperationsInput | number
+    xp_points?: IntFieldUpdateOperationsInput | number
+    trial_started_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    trial_ends_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    is_trial_converted?: BoolFieldUpdateOperationsInput | boolean
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    lastUplinkAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accounts?: accountUpdateManyWithoutUserNestedInput
+    sessions?: sessionUpdateManyWithoutUserNestedInput
+    analytics_insights?: analytics_insightsUpdateManyWithoutUsersNestedInput
+    avatar_sessions?: avatar_sessionsUpdateManyWithoutUsersNestedInput
+    conversation_messages?: conversation_messagesUpdateManyWithoutUsersNestedInput
+    evidence_folders?: evidence_foldersUpdateManyWithoutUsersNestedInput
+    generated_content_hub?: generated_content_hubUpdateManyWithoutUsersNestedInput
+    generations?: generationsUpdateManyWithoutUsersNestedInput
+    legacy_ledger?: legacy_ledgerUpdateManyWithoutUsersNestedInput
+    observations?: observationsUpdateManyWithoutUsersNestedInput
+    saved_items?: saved_itemsUpdateManyWithoutUsersNestedInput
+    schools_schools_admin_idTousers?: schoolsUpdateManyWithoutUsers_schools_admin_idTousersNestedInput
+    strategic_vault?: strategic_vaultUpdateManyWithoutUsersNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    system_feedback?: system_feedbackUpdateManyWithoutUsersNestedInput
+    token_wallets?: token_walletsUpdateOneWithoutUsersNestedInput
+    usage_tracking?: usage_trackingUpdateManyWithoutUsersNestedInput
+    organizations?: organizationsUpdateOneWithoutUsersNestedInput
+    schools_users_school_idToschools?: schoolsUpdateOneWithoutUsers_users_school_idToschoolsNestedInput
+    tiers?: tiersUpdateOneWithoutUsersNestedInput
+    vault_documents?: vault_documentsUpdateManyWithoutUsersNestedInput
+    knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutStudent_profilesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerk_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    district?: NullableStringFieldUpdateOperationsInput | string | null
+    school?: NullableStringFieldUpdateOperationsInput | string | null
+    school_site?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    organization_id?: NullableStringFieldUpdateOperationsInput | string | null
+    school_id?: NullableStringFieldUpdateOperationsInput | string | null
+    stripe_customer_id?: NullableStringFieldUpdateOperationsInput | string | null
+    stripe_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
+    subscription_tier?: StringFieldUpdateOperationsInput | string
+    subscription_status?: StringFieldUpdateOperationsInput | string
+    usage_tokens?: IntFieldUpdateOperationsInput | number
+    xp_points?: IntFieldUpdateOperationsInput | number
+    trial_started_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    trial_ends_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    is_trial_converted?: BoolFieldUpdateOperationsInput | boolean
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    tier_id?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    lastUplinkAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accounts?: accountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: sessionUncheckedUpdateManyWithoutUserNestedInput
+    analytics_insights?: analytics_insightsUncheckedUpdateManyWithoutUsersNestedInput
+    avatar_sessions?: avatar_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+    conversation_messages?: conversation_messagesUncheckedUpdateManyWithoutUsersNestedInput
+    evidence_folders?: evidence_foldersUncheckedUpdateManyWithoutUsersNestedInput
+    generated_content_hub?: generated_content_hubUncheckedUpdateManyWithoutUsersNestedInput
+    generations?: generationsUncheckedUpdateManyWithoutUsersNestedInput
+    legacy_ledger?: legacy_ledgerUncheckedUpdateManyWithoutUsersNestedInput
+    observations?: observationsUncheckedUpdateManyWithoutUsersNestedInput
+    saved_items?: saved_itemsUncheckedUpdateManyWithoutUsersNestedInput
+    schools_schools_admin_idTousers?: schoolsUncheckedUpdateManyWithoutUsers_schools_admin_idTousersNestedInput
+    strategic_vault?: strategic_vaultUncheckedUpdateManyWithoutUsersNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    system_feedback?: system_feedbackUncheckedUpdateManyWithoutUsersNestedInput
+    token_wallets?: token_walletsUncheckedUpdateOneWithoutUsersNestedInput
+    usage_tracking?: usage_trackingUncheckedUpdateManyWithoutUsersNestedInput
+    vault_documents?: vault_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
+  }
+
+  export type schoolsUpsertWithoutStudent_profilesInput = {
+    update: XOR<schoolsUpdateWithoutStudent_profilesInput, schoolsUncheckedUpdateWithoutStudent_profilesInput>
+    create: XOR<schoolsCreateWithoutStudent_profilesInput, schoolsUncheckedCreateWithoutStudent_profilesInput>
+    where?: schoolsWhereInput
+  }
+
+  export type schoolsUpdateToOneWithWhereWithoutStudent_profilesInput = {
+    where?: schoolsWhereInput
+    data: XOR<schoolsUpdateWithoutStudent_profilesInput, schoolsUncheckedUpdateWithoutStudent_profilesInput>
+  }
+
+  export type schoolsUpdateWithoutStudent_profilesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    district_name?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zip_code?: NullableStringFieldUpdateOperationsInput | string | null
+    stripe_customer_id?: NullableStringFieldUpdateOperationsInput | string | null
+    subscription_tier?: StringFieldUpdateOperationsInput | string
+    max_users?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    analytics_insights?: analytics_insightsUpdateManyWithoutSchoolsNestedInput
+    users_schools_admin_idTousers?: UserUpdateOneWithoutSchools_schools_admin_idTousersNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutSchoolsNestedInput
+    users_users_school_idToschools?: UserUpdateManyWithoutSchools_users_school_idToschoolsNestedInput
+    infra_monitors?: infra_monitorsUpdateManyWithoutSchoolsNestedInput
+  }
+
+  export type schoolsUncheckedUpdateWithoutStudent_profilesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    district_name?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zip_code?: NullableStringFieldUpdateOperationsInput | string | null
+    admin_id?: NullableStringFieldUpdateOperationsInput | string | null
+    stripe_customer_id?: NullableStringFieldUpdateOperationsInput | string | null
+    subscription_tier?: StringFieldUpdateOperationsInput | string
+    max_users?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    analytics_insights?: analytics_insightsUncheckedUpdateManyWithoutSchoolsNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutSchoolsNestedInput
+    users_users_school_idToschools?: UserUncheckedUpdateManyWithoutSchools_users_school_idToschoolsNestedInput
+    infra_monitors?: infra_monitorsUncheckedUpdateManyWithoutSchoolsNestedInput
+  }
+
+  export type screener_resultsUpsertWithWhereUniqueWithoutStudent_profilesInput = {
+    where: screener_resultsWhereUniqueInput
+    update: XOR<screener_resultsUpdateWithoutStudent_profilesInput, screener_resultsUncheckedUpdateWithoutStudent_profilesInput>
+    create: XOR<screener_resultsCreateWithoutStudent_profilesInput, screener_resultsUncheckedCreateWithoutStudent_profilesInput>
+  }
+
+  export type screener_resultsUpdateWithWhereUniqueWithoutStudent_profilesInput = {
+    where: screener_resultsWhereUniqueInput
+    data: XOR<screener_resultsUpdateWithoutStudent_profilesInput, screener_resultsUncheckedUpdateWithoutStudent_profilesInput>
+  }
+
+  export type screener_resultsUpdateManyWithWhereWithoutStudent_profilesInput = {
+    where: screener_resultsScalarWhereInput
+    data: XOR<screener_resultsUpdateManyMutationInput, screener_resultsUncheckedUpdateManyWithoutStudent_profilesInput>
+  }
+
+  export type screener_resultsScalarWhereInput = {
+    AND?: screener_resultsScalarWhereInput | screener_resultsScalarWhereInput[]
+    OR?: screener_resultsScalarWhereInput[]
+    NOT?: screener_resultsScalarWhereInput | screener_resultsScalarWhereInput[]
+    id?: StringFilter<"screener_results"> | string
+    student_profile_id?: StringFilter<"screener_results"> | string
+    screener_platform?: StringFilter<"screener_results"> | string
+    assessment_window?: StringFilter<"screener_results"> | string
+    assessment_date?: DateTimeFilter<"screener_results"> | Date | string
+    composite_score?: FloatNullableFilter<"screener_results"> | number | null
+    risk_level?: StringNullableFilter<"screener_results"> | string | null
+    skill_scores?: JsonFilter<"screener_results">
+    raw_data?: JsonNullableFilter<"screener_results">
+    created_at?: DateTimeFilter<"screener_results"> | Date | string
+  }
+
+  export type differentiated_materialsUpsertWithWhereUniqueWithoutStudent_profilesInput = {
+    where: differentiated_materialsWhereUniqueInput
+    update: XOR<differentiated_materialsUpdateWithoutStudent_profilesInput, differentiated_materialsUncheckedUpdateWithoutStudent_profilesInput>
+    create: XOR<differentiated_materialsCreateWithoutStudent_profilesInput, differentiated_materialsUncheckedCreateWithoutStudent_profilesInput>
+  }
+
+  export type differentiated_materialsUpdateWithWhereUniqueWithoutStudent_profilesInput = {
+    where: differentiated_materialsWhereUniqueInput
+    data: XOR<differentiated_materialsUpdateWithoutStudent_profilesInput, differentiated_materialsUncheckedUpdateWithoutStudent_profilesInput>
+  }
+
+  export type differentiated_materialsUpdateManyWithWhereWithoutStudent_profilesInput = {
+    where: differentiated_materialsScalarWhereInput
+    data: XOR<differentiated_materialsUpdateManyMutationInput, differentiated_materialsUncheckedUpdateManyWithoutStudent_profilesInput>
+  }
+
+  export type reading_improvement_plansUpsertWithWhereUniqueWithoutStudent_profilesInput = {
+    where: reading_improvement_plansWhereUniqueInput
+    update: XOR<reading_improvement_plansUpdateWithoutStudent_profilesInput, reading_improvement_plansUncheckedUpdateWithoutStudent_profilesInput>
+    create: XOR<reading_improvement_plansCreateWithoutStudent_profilesInput, reading_improvement_plansUncheckedCreateWithoutStudent_profilesInput>
+  }
+
+  export type reading_improvement_plansUpdateWithWhereUniqueWithoutStudent_profilesInput = {
+    where: reading_improvement_plansWhereUniqueInput
+    data: XOR<reading_improvement_plansUpdateWithoutStudent_profilesInput, reading_improvement_plansUncheckedUpdateWithoutStudent_profilesInput>
+  }
+
+  export type reading_improvement_plansUpdateManyWithWhereWithoutStudent_profilesInput = {
+    where: reading_improvement_plansScalarWhereInput
+    data: XOR<reading_improvement_plansUpdateManyMutationInput, reading_improvement_plansUncheckedUpdateManyWithoutStudent_profilesInput>
+  }
+
+  export type student_profilesCreateWithoutScreener_resultsInput = {
+    id?: string
+    student_sis_id: string
+    first_name: string
+    last_name: string
+    grade_level: string
+    lexile_level?: number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: string | null
+    native_language?: string | null
+    sped_status?: string | null
+    dyslexia_flag?: boolean
+    intervention_tier?: string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+    users: UserCreateNestedOneWithoutStudent_profilesInput
+    schools?: schoolsCreateNestedOneWithoutStudent_profilesInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutStudent_profilesInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutStudent_profilesInput
+  }
+
+  export type student_profilesUncheckedCreateWithoutScreener_resultsInput = {
+    id?: string
+    user_id: string
+    student_sis_id: string
+    first_name: string
+    last_name: string
+    grade_level: string
+    school_id?: string | null
+    lexile_level?: number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: string | null
+    native_language?: string | null
+    sped_status?: string | null
+    dyslexia_flag?: boolean
+    intervention_tier?: string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutStudent_profilesInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutStudent_profilesInput
+  }
+
+  export type student_profilesCreateOrConnectWithoutScreener_resultsInput = {
+    where: student_profilesWhereUniqueInput
+    create: XOR<student_profilesCreateWithoutScreener_resultsInput, student_profilesUncheckedCreateWithoutScreener_resultsInput>
+  }
+
+  export type student_profilesUpsertWithoutScreener_resultsInput = {
+    update: XOR<student_profilesUpdateWithoutScreener_resultsInput, student_profilesUncheckedUpdateWithoutScreener_resultsInput>
+    create: XOR<student_profilesCreateWithoutScreener_resultsInput, student_profilesUncheckedCreateWithoutScreener_resultsInput>
+    where?: student_profilesWhereInput
+  }
+
+  export type student_profilesUpdateToOneWithWhereWithoutScreener_resultsInput = {
+    where?: student_profilesWhereInput
+    data: XOR<student_profilesUpdateWithoutScreener_resultsInput, student_profilesUncheckedUpdateWithoutScreener_resultsInput>
+  }
+
+  export type student_profilesUpdateWithoutScreener_resultsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    student_sis_id?: StringFieldUpdateOperationsInput | string
+    first_name?: StringFieldUpdateOperationsInput | string
+    last_name?: StringFieldUpdateOperationsInput | string
+    grade_level?: StringFieldUpdateOperationsInput | string
+    lexile_level?: NullableIntFieldUpdateOperationsInput | number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: NullableStringFieldUpdateOperationsInput | string | null
+    native_language?: NullableStringFieldUpdateOperationsInput | string | null
+    sped_status?: NullableStringFieldUpdateOperationsInput | string | null
+    dyslexia_flag?: BoolFieldUpdateOperationsInput | boolean
+    intervention_tier?: NullableStringFieldUpdateOperationsInput | string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateOneRequiredWithoutStudent_profilesNestedInput
+    schools?: schoolsUpdateOneWithoutStudent_profilesNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutStudent_profilesNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutStudent_profilesNestedInput
+  }
+
+  export type student_profilesUncheckedUpdateWithoutScreener_resultsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    student_sis_id?: StringFieldUpdateOperationsInput | string
+    first_name?: StringFieldUpdateOperationsInput | string
+    last_name?: StringFieldUpdateOperationsInput | string
+    grade_level?: StringFieldUpdateOperationsInput | string
+    school_id?: NullableStringFieldUpdateOperationsInput | string | null
+    lexile_level?: NullableIntFieldUpdateOperationsInput | number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: NullableStringFieldUpdateOperationsInput | string | null
+    native_language?: NullableStringFieldUpdateOperationsInput | string | null
+    sped_status?: NullableStringFieldUpdateOperationsInput | string | null
+    dyslexia_flag?: BoolFieldUpdateOperationsInput | boolean
+    intervention_tier?: NullableStringFieldUpdateOperationsInput | string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutStudent_profilesNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutStudent_profilesNestedInput
+  }
+
+  export type UserCreateWithoutDifferentiated_materialsInput = {
+    id: string
+    clerk_id?: string | null
+    email: string
+    name?: string | null
+    role?: $Enums.UserRole
+    district?: string | null
+    school?: string | null
+    school_site?: string | null
+    position?: string | null
+    bio?: string | null
+    stripe_customer_id?: string | null
+    stripe_subscription_id?: string | null
+    subscription_tier?: string
+    subscription_status?: string
+    usage_tokens?: number
+    xp_points?: number
+    trial_started_at?: Date | string
+    trial_ends_at?: Date | string | null
+    is_trial_converted?: boolean
+    is_active?: boolean
+    avatar_url?: string | null
+    created_at?: Date | string
+    updated_at: Date | string
+    last_login?: Date | string | null
+    password?: string | null
+    emailVerified?: boolean
+    image?: string | null
+    lastUplinkAt?: Date | string | null
+    accounts?: accountCreateNestedManyWithoutUserInput
+    sessions?: sessionCreateNestedManyWithoutUserInput
+    analytics_insights?: analytics_insightsCreateNestedManyWithoutUsersInput
+    avatar_sessions?: avatar_sessionsCreateNestedManyWithoutUsersInput
+    conversation_messages?: conversation_messagesCreateNestedManyWithoutUsersInput
+    evidence_folders?: evidence_foldersCreateNestedManyWithoutUsersInput
+    generated_content_hub?: generated_content_hubCreateNestedManyWithoutUsersInput
+    generations?: generationsCreateNestedManyWithoutUsersInput
+    legacy_ledger?: legacy_ledgerCreateNestedManyWithoutUsersInput
+    observations?: observationsCreateNestedManyWithoutUsersInput
+    saved_items?: saved_itemsCreateNestedManyWithoutUsersInput
+    schools_schools_admin_idTousers?: schoolsCreateNestedManyWithoutUsers_schools_admin_idTousersInput
+    strategic_vault?: strategic_vaultCreateNestedManyWithoutUsersInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    system_feedback?: system_feedbackCreateNestedManyWithoutUsersInput
+    token_wallets?: token_walletsCreateNestedOneWithoutUsersInput
+    usage_tracking?: usage_trackingCreateNestedManyWithoutUsersInput
+    organizations?: organizationsCreateNestedOneWithoutUsersInput
+    schools_users_school_idToschools?: schoolsCreateNestedOneWithoutUsers_users_school_idToschoolsInput
+    tiers?: tiersCreateNestedOneWithoutUsersInput
+    vault_documents?: vault_documentsCreateNestedManyWithoutUsersInput
+    knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutDifferentiated_materialsInput = {
+    id: string
+    clerk_id?: string | null
+    email: string
+    name?: string | null
+    role?: $Enums.UserRole
+    district?: string | null
+    school?: string | null
+    school_site?: string | null
+    position?: string | null
+    bio?: string | null
+    organization_id?: string | null
+    school_id?: string | null
+    stripe_customer_id?: string | null
+    stripe_subscription_id?: string | null
+    subscription_tier?: string
+    subscription_status?: string
+    usage_tokens?: number
+    xp_points?: number
+    trial_started_at?: Date | string
+    trial_ends_at?: Date | string | null
+    is_trial_converted?: boolean
+    is_active?: boolean
+    tier_id?: string | null
+    avatar_url?: string | null
+    created_at?: Date | string
+    updated_at: Date | string
+    last_login?: Date | string | null
+    password?: string | null
+    emailVerified?: boolean
+    image?: string | null
+    lastUplinkAt?: Date | string | null
+    accounts?: accountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: sessionUncheckedCreateNestedManyWithoutUserInput
+    analytics_insights?: analytics_insightsUncheckedCreateNestedManyWithoutUsersInput
+    avatar_sessions?: avatar_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    conversation_messages?: conversation_messagesUncheckedCreateNestedManyWithoutUsersInput
+    evidence_folders?: evidence_foldersUncheckedCreateNestedManyWithoutUsersInput
+    generated_content_hub?: generated_content_hubUncheckedCreateNestedManyWithoutUsersInput
+    generations?: generationsUncheckedCreateNestedManyWithoutUsersInput
+    legacy_ledger?: legacy_ledgerUncheckedCreateNestedManyWithoutUsersInput
+    observations?: observationsUncheckedCreateNestedManyWithoutUsersInput
+    saved_items?: saved_itemsUncheckedCreateNestedManyWithoutUsersInput
+    schools_schools_admin_idTousers?: schoolsUncheckedCreateNestedManyWithoutUsers_schools_admin_idTousersInput
+    strategic_vault?: strategic_vaultUncheckedCreateNestedManyWithoutUsersInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    system_feedback?: system_feedbackUncheckedCreateNestedManyWithoutUsersInput
+    token_wallets?: token_walletsUncheckedCreateNestedOneWithoutUsersInput
+    usage_tracking?: usage_trackingUncheckedCreateNestedManyWithoutUsersInput
+    vault_documents?: vault_documentsUncheckedCreateNestedManyWithoutUsersInput
+    knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
+  }
+
+  export type UserCreateOrConnectWithoutDifferentiated_materialsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDifferentiated_materialsInput, UserUncheckedCreateWithoutDifferentiated_materialsInput>
+  }
+
+  export type student_profilesCreateWithoutDifferentiated_materialsInput = {
+    id?: string
+    student_sis_id: string
+    first_name: string
+    last_name: string
+    grade_level: string
+    lexile_level?: number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: string | null
+    native_language?: string | null
+    sped_status?: string | null
+    dyslexia_flag?: boolean
+    intervention_tier?: string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+    users: UserCreateNestedOneWithoutStudent_profilesInput
+    schools?: schoolsCreateNestedOneWithoutStudent_profilesInput
+    screener_results?: screener_resultsCreateNestedManyWithoutStudent_profilesInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutStudent_profilesInput
+  }
+
+  export type student_profilesUncheckedCreateWithoutDifferentiated_materialsInput = {
+    id?: string
+    user_id: string
+    student_sis_id: string
+    first_name: string
+    last_name: string
+    grade_level: string
+    school_id?: string | null
+    lexile_level?: number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: string | null
+    native_language?: string | null
+    sped_status?: string | null
+    dyslexia_flag?: boolean
+    intervention_tier?: string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+    screener_results?: screener_resultsUncheckedCreateNestedManyWithoutStudent_profilesInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutStudent_profilesInput
+  }
+
+  export type student_profilesCreateOrConnectWithoutDifferentiated_materialsInput = {
+    where: student_profilesWhereUniqueInput
+    create: XOR<student_profilesCreateWithoutDifferentiated_materialsInput, student_profilesUncheckedCreateWithoutDifferentiated_materialsInput>
+  }
+
+  export type UserUpsertWithoutDifferentiated_materialsInput = {
+    update: XOR<UserUpdateWithoutDifferentiated_materialsInput, UserUncheckedUpdateWithoutDifferentiated_materialsInput>
+    create: XOR<UserCreateWithoutDifferentiated_materialsInput, UserUncheckedCreateWithoutDifferentiated_materialsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutDifferentiated_materialsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutDifferentiated_materialsInput, UserUncheckedUpdateWithoutDifferentiated_materialsInput>
+  }
+
+  export type UserUpdateWithoutDifferentiated_materialsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerk_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    district?: NullableStringFieldUpdateOperationsInput | string | null
+    school?: NullableStringFieldUpdateOperationsInput | string | null
+    school_site?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    stripe_customer_id?: NullableStringFieldUpdateOperationsInput | string | null
+    stripe_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
+    subscription_tier?: StringFieldUpdateOperationsInput | string
+    subscription_status?: StringFieldUpdateOperationsInput | string
+    usage_tokens?: IntFieldUpdateOperationsInput | number
+    xp_points?: IntFieldUpdateOperationsInput | number
+    trial_started_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    trial_ends_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    is_trial_converted?: BoolFieldUpdateOperationsInput | boolean
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    lastUplinkAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accounts?: accountUpdateManyWithoutUserNestedInput
+    sessions?: sessionUpdateManyWithoutUserNestedInput
+    analytics_insights?: analytics_insightsUpdateManyWithoutUsersNestedInput
+    avatar_sessions?: avatar_sessionsUpdateManyWithoutUsersNestedInput
+    conversation_messages?: conversation_messagesUpdateManyWithoutUsersNestedInput
+    evidence_folders?: evidence_foldersUpdateManyWithoutUsersNestedInput
+    generated_content_hub?: generated_content_hubUpdateManyWithoutUsersNestedInput
+    generations?: generationsUpdateManyWithoutUsersNestedInput
+    legacy_ledger?: legacy_ledgerUpdateManyWithoutUsersNestedInput
+    observations?: observationsUpdateManyWithoutUsersNestedInput
+    saved_items?: saved_itemsUpdateManyWithoutUsersNestedInput
+    schools_schools_admin_idTousers?: schoolsUpdateManyWithoutUsers_schools_admin_idTousersNestedInput
+    strategic_vault?: strategic_vaultUpdateManyWithoutUsersNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    system_feedback?: system_feedbackUpdateManyWithoutUsersNestedInput
+    token_wallets?: token_walletsUpdateOneWithoutUsersNestedInput
+    usage_tracking?: usage_trackingUpdateManyWithoutUsersNestedInput
+    organizations?: organizationsUpdateOneWithoutUsersNestedInput
+    schools_users_school_idToschools?: schoolsUpdateOneWithoutUsers_users_school_idToschoolsNestedInput
+    tiers?: tiersUpdateOneWithoutUsersNestedInput
+    vault_documents?: vault_documentsUpdateManyWithoutUsersNestedInput
+    knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDifferentiated_materialsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerk_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    district?: NullableStringFieldUpdateOperationsInput | string | null
+    school?: NullableStringFieldUpdateOperationsInput | string | null
+    school_site?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    organization_id?: NullableStringFieldUpdateOperationsInput | string | null
+    school_id?: NullableStringFieldUpdateOperationsInput | string | null
+    stripe_customer_id?: NullableStringFieldUpdateOperationsInput | string | null
+    stripe_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
+    subscription_tier?: StringFieldUpdateOperationsInput | string
+    subscription_status?: StringFieldUpdateOperationsInput | string
+    usage_tokens?: IntFieldUpdateOperationsInput | number
+    xp_points?: IntFieldUpdateOperationsInput | number
+    trial_started_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    trial_ends_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    is_trial_converted?: BoolFieldUpdateOperationsInput | boolean
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    tier_id?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    lastUplinkAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accounts?: accountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: sessionUncheckedUpdateManyWithoutUserNestedInput
+    analytics_insights?: analytics_insightsUncheckedUpdateManyWithoutUsersNestedInput
+    avatar_sessions?: avatar_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+    conversation_messages?: conversation_messagesUncheckedUpdateManyWithoutUsersNestedInput
+    evidence_folders?: evidence_foldersUncheckedUpdateManyWithoutUsersNestedInput
+    generated_content_hub?: generated_content_hubUncheckedUpdateManyWithoutUsersNestedInput
+    generations?: generationsUncheckedUpdateManyWithoutUsersNestedInput
+    legacy_ledger?: legacy_ledgerUncheckedUpdateManyWithoutUsersNestedInput
+    observations?: observationsUncheckedUpdateManyWithoutUsersNestedInput
+    saved_items?: saved_itemsUncheckedUpdateManyWithoutUsersNestedInput
+    schools_schools_admin_idTousers?: schoolsUncheckedUpdateManyWithoutUsers_schools_admin_idTousersNestedInput
+    strategic_vault?: strategic_vaultUncheckedUpdateManyWithoutUsersNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    system_feedback?: system_feedbackUncheckedUpdateManyWithoutUsersNestedInput
+    token_wallets?: token_walletsUncheckedUpdateOneWithoutUsersNestedInput
+    usage_tracking?: usage_trackingUncheckedUpdateManyWithoutUsersNestedInput
+    vault_documents?: vault_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
+  }
+
+  export type student_profilesUpsertWithoutDifferentiated_materialsInput = {
+    update: XOR<student_profilesUpdateWithoutDifferentiated_materialsInput, student_profilesUncheckedUpdateWithoutDifferentiated_materialsInput>
+    create: XOR<student_profilesCreateWithoutDifferentiated_materialsInput, student_profilesUncheckedCreateWithoutDifferentiated_materialsInput>
+    where?: student_profilesWhereInput
+  }
+
+  export type student_profilesUpdateToOneWithWhereWithoutDifferentiated_materialsInput = {
+    where?: student_profilesWhereInput
+    data: XOR<student_profilesUpdateWithoutDifferentiated_materialsInput, student_profilesUncheckedUpdateWithoutDifferentiated_materialsInput>
+  }
+
+  export type student_profilesUpdateWithoutDifferentiated_materialsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    student_sis_id?: StringFieldUpdateOperationsInput | string
+    first_name?: StringFieldUpdateOperationsInput | string
+    last_name?: StringFieldUpdateOperationsInput | string
+    grade_level?: StringFieldUpdateOperationsInput | string
+    lexile_level?: NullableIntFieldUpdateOperationsInput | number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: NullableStringFieldUpdateOperationsInput | string | null
+    native_language?: NullableStringFieldUpdateOperationsInput | string | null
+    sped_status?: NullableStringFieldUpdateOperationsInput | string | null
+    dyslexia_flag?: BoolFieldUpdateOperationsInput | boolean
+    intervention_tier?: NullableStringFieldUpdateOperationsInput | string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateOneRequiredWithoutStudent_profilesNestedInput
+    schools?: schoolsUpdateOneWithoutStudent_profilesNestedInput
+    screener_results?: screener_resultsUpdateManyWithoutStudent_profilesNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutStudent_profilesNestedInput
+  }
+
+  export type student_profilesUncheckedUpdateWithoutDifferentiated_materialsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    student_sis_id?: StringFieldUpdateOperationsInput | string
+    first_name?: StringFieldUpdateOperationsInput | string
+    last_name?: StringFieldUpdateOperationsInput | string
+    grade_level?: StringFieldUpdateOperationsInput | string
+    school_id?: NullableStringFieldUpdateOperationsInput | string | null
+    lexile_level?: NullableIntFieldUpdateOperationsInput | number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: NullableStringFieldUpdateOperationsInput | string | null
+    native_language?: NullableStringFieldUpdateOperationsInput | string | null
+    sped_status?: NullableStringFieldUpdateOperationsInput | string | null
+    dyslexia_flag?: BoolFieldUpdateOperationsInput | boolean
+    intervention_tier?: NullableStringFieldUpdateOperationsInput | string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    screener_results?: screener_resultsUncheckedUpdateManyWithoutStudent_profilesNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutStudent_profilesNestedInput
+  }
+
+  export type student_profilesCreateWithoutReading_improvement_plansInput = {
+    id?: string
+    student_sis_id: string
+    first_name: string
+    last_name: string
+    grade_level: string
+    lexile_level?: number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: string | null
+    native_language?: string | null
+    sped_status?: string | null
+    dyslexia_flag?: boolean
+    intervention_tier?: string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+    users: UserCreateNestedOneWithoutStudent_profilesInput
+    schools?: schoolsCreateNestedOneWithoutStudent_profilesInput
+    screener_results?: screener_resultsCreateNestedManyWithoutStudent_profilesInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutStudent_profilesInput
+  }
+
+  export type student_profilesUncheckedCreateWithoutReading_improvement_plansInput = {
+    id?: string
+    user_id: string
+    student_sis_id: string
+    first_name: string
+    last_name: string
+    grade_level: string
+    school_id?: string | null
+    lexile_level?: number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: string | null
+    native_language?: string | null
+    sped_status?: string | null
+    dyslexia_flag?: boolean
+    intervention_tier?: string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+    screener_results?: screener_resultsUncheckedCreateNestedManyWithoutStudent_profilesInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutStudent_profilesInput
+  }
+
+  export type student_profilesCreateOrConnectWithoutReading_improvement_plansInput = {
+    where: student_profilesWhereUniqueInput
+    create: XOR<student_profilesCreateWithoutReading_improvement_plansInput, student_profilesUncheckedCreateWithoutReading_improvement_plansInput>
+  }
+
+  export type UserCreateWithoutReading_improvement_plansInput = {
+    id: string
+    clerk_id?: string | null
+    email: string
+    name?: string | null
+    role?: $Enums.UserRole
+    district?: string | null
+    school?: string | null
+    school_site?: string | null
+    position?: string | null
+    bio?: string | null
+    stripe_customer_id?: string | null
+    stripe_subscription_id?: string | null
+    subscription_tier?: string
+    subscription_status?: string
+    usage_tokens?: number
+    xp_points?: number
+    trial_started_at?: Date | string
+    trial_ends_at?: Date | string | null
+    is_trial_converted?: boolean
+    is_active?: boolean
+    avatar_url?: string | null
+    created_at?: Date | string
+    updated_at: Date | string
+    last_login?: Date | string | null
+    password?: string | null
+    emailVerified?: boolean
+    image?: string | null
+    lastUplinkAt?: Date | string | null
+    accounts?: accountCreateNestedManyWithoutUserInput
+    sessions?: sessionCreateNestedManyWithoutUserInput
+    analytics_insights?: analytics_insightsCreateNestedManyWithoutUsersInput
+    avatar_sessions?: avatar_sessionsCreateNestedManyWithoutUsersInput
+    conversation_messages?: conversation_messagesCreateNestedManyWithoutUsersInput
+    evidence_folders?: evidence_foldersCreateNestedManyWithoutUsersInput
+    generated_content_hub?: generated_content_hubCreateNestedManyWithoutUsersInput
+    generations?: generationsCreateNestedManyWithoutUsersInput
+    legacy_ledger?: legacy_ledgerCreateNestedManyWithoutUsersInput
+    observations?: observationsCreateNestedManyWithoutUsersInput
+    saved_items?: saved_itemsCreateNestedManyWithoutUsersInput
+    schools_schools_admin_idTousers?: schoolsCreateNestedManyWithoutUsers_schools_admin_idTousersInput
+    strategic_vault?: strategic_vaultCreateNestedManyWithoutUsersInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    system_feedback?: system_feedbackCreateNestedManyWithoutUsersInput
+    token_wallets?: token_walletsCreateNestedOneWithoutUsersInput
+    usage_tracking?: usage_trackingCreateNestedManyWithoutUsersInput
+    organizations?: organizationsCreateNestedOneWithoutUsersInput
+    schools_users_school_idToschools?: schoolsCreateNestedOneWithoutUsers_users_school_idToschoolsInput
+    tiers?: tiersCreateNestedOneWithoutUsersInput
+    vault_documents?: vault_documentsCreateNestedManyWithoutUsersInput
+    knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutReading_improvement_plansInput = {
+    id: string
+    clerk_id?: string | null
+    email: string
+    name?: string | null
+    role?: $Enums.UserRole
+    district?: string | null
+    school?: string | null
+    school_site?: string | null
+    position?: string | null
+    bio?: string | null
+    organization_id?: string | null
+    school_id?: string | null
+    stripe_customer_id?: string | null
+    stripe_subscription_id?: string | null
+    subscription_tier?: string
+    subscription_status?: string
+    usage_tokens?: number
+    xp_points?: number
+    trial_started_at?: Date | string
+    trial_ends_at?: Date | string | null
+    is_trial_converted?: boolean
+    is_active?: boolean
+    tier_id?: string | null
+    avatar_url?: string | null
+    created_at?: Date | string
+    updated_at: Date | string
+    last_login?: Date | string | null
+    password?: string | null
+    emailVerified?: boolean
+    image?: string | null
+    lastUplinkAt?: Date | string | null
+    accounts?: accountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: sessionUncheckedCreateNestedManyWithoutUserInput
+    analytics_insights?: analytics_insightsUncheckedCreateNestedManyWithoutUsersInput
+    avatar_sessions?: avatar_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    conversation_messages?: conversation_messagesUncheckedCreateNestedManyWithoutUsersInput
+    evidence_folders?: evidence_foldersUncheckedCreateNestedManyWithoutUsersInput
+    generated_content_hub?: generated_content_hubUncheckedCreateNestedManyWithoutUsersInput
+    generations?: generationsUncheckedCreateNestedManyWithoutUsersInput
+    legacy_ledger?: legacy_ledgerUncheckedCreateNestedManyWithoutUsersInput
+    observations?: observationsUncheckedCreateNestedManyWithoutUsersInput
+    saved_items?: saved_itemsUncheckedCreateNestedManyWithoutUsersInput
+    schools_schools_admin_idTousers?: schoolsUncheckedCreateNestedManyWithoutUsers_schools_admin_idTousersInput
+    strategic_vault?: strategic_vaultUncheckedCreateNestedManyWithoutUsersInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    system_feedback?: system_feedbackUncheckedCreateNestedManyWithoutUsersInput
+    token_wallets?: token_walletsUncheckedCreateNestedOneWithoutUsersInput
+    usage_tracking?: usage_trackingUncheckedCreateNestedManyWithoutUsersInput
+    vault_documents?: vault_documentsUncheckedCreateNestedManyWithoutUsersInput
+    knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
+  }
+
+  export type UserCreateOrConnectWithoutReading_improvement_plansInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutReading_improvement_plansInput, UserUncheckedCreateWithoutReading_improvement_plansInput>
+  }
+
+  export type student_profilesUpsertWithoutReading_improvement_plansInput = {
+    update: XOR<student_profilesUpdateWithoutReading_improvement_plansInput, student_profilesUncheckedUpdateWithoutReading_improvement_plansInput>
+    create: XOR<student_profilesCreateWithoutReading_improvement_plansInput, student_profilesUncheckedCreateWithoutReading_improvement_plansInput>
+    where?: student_profilesWhereInput
+  }
+
+  export type student_profilesUpdateToOneWithWhereWithoutReading_improvement_plansInput = {
+    where?: student_profilesWhereInput
+    data: XOR<student_profilesUpdateWithoutReading_improvement_plansInput, student_profilesUncheckedUpdateWithoutReading_improvement_plansInput>
+  }
+
+  export type student_profilesUpdateWithoutReading_improvement_plansInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    student_sis_id?: StringFieldUpdateOperationsInput | string
+    first_name?: StringFieldUpdateOperationsInput | string
+    last_name?: StringFieldUpdateOperationsInput | string
+    grade_level?: StringFieldUpdateOperationsInput | string
+    lexile_level?: NullableIntFieldUpdateOperationsInput | number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: NullableStringFieldUpdateOperationsInput | string | null
+    native_language?: NullableStringFieldUpdateOperationsInput | string | null
+    sped_status?: NullableStringFieldUpdateOperationsInput | string | null
+    dyslexia_flag?: BoolFieldUpdateOperationsInput | boolean
+    intervention_tier?: NullableStringFieldUpdateOperationsInput | string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateOneRequiredWithoutStudent_profilesNestedInput
+    schools?: schoolsUpdateOneWithoutStudent_profilesNestedInput
+    screener_results?: screener_resultsUpdateManyWithoutStudent_profilesNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutStudent_profilesNestedInput
+  }
+
+  export type student_profilesUncheckedUpdateWithoutReading_improvement_plansInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    student_sis_id?: StringFieldUpdateOperationsInput | string
+    first_name?: StringFieldUpdateOperationsInput | string
+    last_name?: StringFieldUpdateOperationsInput | string
+    grade_level?: StringFieldUpdateOperationsInput | string
+    school_id?: NullableStringFieldUpdateOperationsInput | string | null
+    lexile_level?: NullableIntFieldUpdateOperationsInput | number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: NullableStringFieldUpdateOperationsInput | string | null
+    native_language?: NullableStringFieldUpdateOperationsInput | string | null
+    sped_status?: NullableStringFieldUpdateOperationsInput | string | null
+    dyslexia_flag?: BoolFieldUpdateOperationsInput | boolean
+    intervention_tier?: NullableStringFieldUpdateOperationsInput | string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    screener_results?: screener_resultsUncheckedUpdateManyWithoutStudent_profilesNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutStudent_profilesNestedInput
+  }
+
+  export type UserUpsertWithoutReading_improvement_plansInput = {
+    update: XOR<UserUpdateWithoutReading_improvement_plansInput, UserUncheckedUpdateWithoutReading_improvement_plansInput>
+    create: XOR<UserCreateWithoutReading_improvement_plansInput, UserUncheckedCreateWithoutReading_improvement_plansInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutReading_improvement_plansInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutReading_improvement_plansInput, UserUncheckedUpdateWithoutReading_improvement_plansInput>
+  }
+
+  export type UserUpdateWithoutReading_improvement_plansInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerk_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    district?: NullableStringFieldUpdateOperationsInput | string | null
+    school?: NullableStringFieldUpdateOperationsInput | string | null
+    school_site?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    stripe_customer_id?: NullableStringFieldUpdateOperationsInput | string | null
+    stripe_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
+    subscription_tier?: StringFieldUpdateOperationsInput | string
+    subscription_status?: StringFieldUpdateOperationsInput | string
+    usage_tokens?: IntFieldUpdateOperationsInput | number
+    xp_points?: IntFieldUpdateOperationsInput | number
+    trial_started_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    trial_ends_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    is_trial_converted?: BoolFieldUpdateOperationsInput | boolean
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    lastUplinkAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accounts?: accountUpdateManyWithoutUserNestedInput
+    sessions?: sessionUpdateManyWithoutUserNestedInput
+    analytics_insights?: analytics_insightsUpdateManyWithoutUsersNestedInput
+    avatar_sessions?: avatar_sessionsUpdateManyWithoutUsersNestedInput
+    conversation_messages?: conversation_messagesUpdateManyWithoutUsersNestedInput
+    evidence_folders?: evidence_foldersUpdateManyWithoutUsersNestedInput
+    generated_content_hub?: generated_content_hubUpdateManyWithoutUsersNestedInput
+    generations?: generationsUpdateManyWithoutUsersNestedInput
+    legacy_ledger?: legacy_ledgerUpdateManyWithoutUsersNestedInput
+    observations?: observationsUpdateManyWithoutUsersNestedInput
+    saved_items?: saved_itemsUpdateManyWithoutUsersNestedInput
+    schools_schools_admin_idTousers?: schoolsUpdateManyWithoutUsers_schools_admin_idTousersNestedInput
+    strategic_vault?: strategic_vaultUpdateManyWithoutUsersNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    system_feedback?: system_feedbackUpdateManyWithoutUsersNestedInput
+    token_wallets?: token_walletsUpdateOneWithoutUsersNestedInput
+    usage_tracking?: usage_trackingUpdateManyWithoutUsersNestedInput
+    organizations?: organizationsUpdateOneWithoutUsersNestedInput
+    schools_users_school_idToschools?: schoolsUpdateOneWithoutUsers_users_school_idToschoolsNestedInput
+    tiers?: tiersUpdateOneWithoutUsersNestedInput
+    vault_documents?: vault_documentsUpdateManyWithoutUsersNestedInput
+    knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutReading_improvement_plansInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerk_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    district?: NullableStringFieldUpdateOperationsInput | string | null
+    school?: NullableStringFieldUpdateOperationsInput | string | null
+    school_site?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    organization_id?: NullableStringFieldUpdateOperationsInput | string | null
+    school_id?: NullableStringFieldUpdateOperationsInput | string | null
+    stripe_customer_id?: NullableStringFieldUpdateOperationsInput | string | null
+    stripe_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
+    subscription_tier?: StringFieldUpdateOperationsInput | string
+    subscription_status?: StringFieldUpdateOperationsInput | string
+    usage_tokens?: IntFieldUpdateOperationsInput | number
+    xp_points?: IntFieldUpdateOperationsInput | number
+    trial_started_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    trial_ends_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    is_trial_converted?: BoolFieldUpdateOperationsInput | boolean
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    tier_id?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    lastUplinkAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accounts?: accountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: sessionUncheckedUpdateManyWithoutUserNestedInput
+    analytics_insights?: analytics_insightsUncheckedUpdateManyWithoutUsersNestedInput
+    avatar_sessions?: avatar_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+    conversation_messages?: conversation_messagesUncheckedUpdateManyWithoutUsersNestedInput
+    evidence_folders?: evidence_foldersUncheckedUpdateManyWithoutUsersNestedInput
+    generated_content_hub?: generated_content_hubUncheckedUpdateManyWithoutUsersNestedInput
+    generations?: generationsUncheckedUpdateManyWithoutUsersNestedInput
+    legacy_ledger?: legacy_ledgerUncheckedUpdateManyWithoutUsersNestedInput
+    observations?: observationsUncheckedUpdateManyWithoutUsersNestedInput
+    saved_items?: saved_itemsUncheckedUpdateManyWithoutUsersNestedInput
+    schools_schools_admin_idTousers?: schoolsUncheckedUpdateManyWithoutUsers_schools_admin_idTousersNestedInput
+    strategic_vault?: strategic_vaultUncheckedUpdateManyWithoutUsersNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    system_feedback?: system_feedbackUncheckedUpdateManyWithoutUsersNestedInput
+    token_wallets?: token_walletsUncheckedUpdateOneWithoutUsersNestedInput
+    usage_tracking?: usage_trackingUncheckedUpdateManyWithoutUsersNestedInput
+    vault_documents?: vault_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
+  }
+
+  export type districtsCreateWithoutDistrict_listeningInput = {
+    id: string
+    name: string
+    health?: number
+    last_pulse?: Date | string
+    created_at?: Date | string
+    updated_at: Date | string
+    district_nodes?: district_nodesCreateNestedManyWithoutDistrictsInput
+  }
+
+  export type districtsUncheckedCreateWithoutDistrict_listeningInput = {
+    id: string
+    name: string
+    health?: number
+    last_pulse?: Date | string
+    created_at?: Date | string
+    updated_at: Date | string
+    district_nodes?: district_nodesUncheckedCreateNestedManyWithoutDistrictsInput
+  }
+
+  export type districtsCreateOrConnectWithoutDistrict_listeningInput = {
+    where: districtsWhereUniqueInput
+    create: XOR<districtsCreateWithoutDistrict_listeningInput, districtsUncheckedCreateWithoutDistrict_listeningInput>
+  }
+
+  export type districtsUpsertWithoutDistrict_listeningInput = {
+    update: XOR<districtsUpdateWithoutDistrict_listeningInput, districtsUncheckedUpdateWithoutDistrict_listeningInput>
+    create: XOR<districtsCreateWithoutDistrict_listeningInput, districtsUncheckedCreateWithoutDistrict_listeningInput>
+    where?: districtsWhereInput
+  }
+
+  export type districtsUpdateToOneWithWhereWithoutDistrict_listeningInput = {
+    where?: districtsWhereInput
+    data: XOR<districtsUpdateWithoutDistrict_listeningInput, districtsUncheckedUpdateWithoutDistrict_listeningInput>
+  }
+
+  export type districtsUpdateWithoutDistrict_listeningInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    health?: FloatFieldUpdateOperationsInput | number
+    last_pulse?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    district_nodes?: district_nodesUpdateManyWithoutDistrictsNestedInput
+  }
+
+  export type districtsUncheckedUpdateWithoutDistrict_listeningInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    health?: FloatFieldUpdateOperationsInput | number
+    last_pulse?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    district_nodes?: district_nodesUncheckedUpdateManyWithoutDistrictsNestedInput
+  }
+
+  export type schoolsCreateWithoutInfra_monitorsInput = {
+    id: string
+    name: string
+    district_name?: string | null
+    state?: string | null
+    zip_code?: string | null
+    stripe_customer_id?: string | null
+    subscription_tier?: string
+    max_users?: number
+    created_at?: Date | string
+    updated_at: Date | string
+    analytics_insights?: analytics_insightsCreateNestedManyWithoutSchoolsInput
+    users_schools_admin_idTousers?: UserCreateNestedOneWithoutSchools_schools_admin_idTousersInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutSchoolsInput
+    users_users_school_idToschools?: UserCreateNestedManyWithoutSchools_users_school_idToschoolsInput
+    student_profiles?: student_profilesCreateNestedManyWithoutSchoolsInput
+  }
+
+  export type schoolsUncheckedCreateWithoutInfra_monitorsInput = {
+    id: string
+    name: string
+    district_name?: string | null
+    state?: string | null
+    zip_code?: string | null
+    admin_id?: string | null
+    stripe_customer_id?: string | null
+    subscription_tier?: string
+    max_users?: number
+    created_at?: Date | string
+    updated_at: Date | string
+    analytics_insights?: analytics_insightsUncheckedCreateNestedManyWithoutSchoolsInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutSchoolsInput
+    users_users_school_idToschools?: UserUncheckedCreateNestedManyWithoutSchools_users_school_idToschoolsInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutSchoolsInput
+  }
+
+  export type schoolsCreateOrConnectWithoutInfra_monitorsInput = {
+    where: schoolsWhereUniqueInput
+    create: XOR<schoolsCreateWithoutInfra_monitorsInput, schoolsUncheckedCreateWithoutInfra_monitorsInput>
+  }
+
+  export type infra_alertsCreateWithoutInfra_monitorsInput = {
+    id?: string
+    severity: string
+    message: string
+    metric_snapshot?: NullableJsonNullValueInput | InputJsonValue
+    acknowledged?: boolean
+    acknowledged_by?: string | null
+    resolved_at?: Date | string | null
+    created_at?: Date | string
+  }
+
+  export type infra_alertsUncheckedCreateWithoutInfra_monitorsInput = {
+    id?: string
+    severity: string
+    message: string
+    metric_snapshot?: NullableJsonNullValueInput | InputJsonValue
+    acknowledged?: boolean
+    acknowledged_by?: string | null
+    resolved_at?: Date | string | null
+    created_at?: Date | string
+  }
+
+  export type infra_alertsCreateOrConnectWithoutInfra_monitorsInput = {
+    where: infra_alertsWhereUniqueInput
+    create: XOR<infra_alertsCreateWithoutInfra_monitorsInput, infra_alertsUncheckedCreateWithoutInfra_monitorsInput>
+  }
+
+  export type infra_alertsCreateManyInfra_monitorsInputEnvelope = {
+    data: infra_alertsCreateManyInfra_monitorsInput | infra_alertsCreateManyInfra_monitorsInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type schoolsUpsertWithoutInfra_monitorsInput = {
+    update: XOR<schoolsUpdateWithoutInfra_monitorsInput, schoolsUncheckedUpdateWithoutInfra_monitorsInput>
+    create: XOR<schoolsCreateWithoutInfra_monitorsInput, schoolsUncheckedCreateWithoutInfra_monitorsInput>
+    where?: schoolsWhereInput
+  }
+
+  export type schoolsUpdateToOneWithWhereWithoutInfra_monitorsInput = {
+    where?: schoolsWhereInput
+    data: XOR<schoolsUpdateWithoutInfra_monitorsInput, schoolsUncheckedUpdateWithoutInfra_monitorsInput>
+  }
+
+  export type schoolsUpdateWithoutInfra_monitorsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    district_name?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zip_code?: NullableStringFieldUpdateOperationsInput | string | null
+    stripe_customer_id?: NullableStringFieldUpdateOperationsInput | string | null
+    subscription_tier?: StringFieldUpdateOperationsInput | string
+    max_users?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    analytics_insights?: analytics_insightsUpdateManyWithoutSchoolsNestedInput
+    users_schools_admin_idTousers?: UserUpdateOneWithoutSchools_schools_admin_idTousersNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutSchoolsNestedInput
+    users_users_school_idToschools?: UserUpdateManyWithoutSchools_users_school_idToschoolsNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutSchoolsNestedInput
+  }
+
+  export type schoolsUncheckedUpdateWithoutInfra_monitorsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    district_name?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zip_code?: NullableStringFieldUpdateOperationsInput | string | null
+    admin_id?: NullableStringFieldUpdateOperationsInput | string | null
+    stripe_customer_id?: NullableStringFieldUpdateOperationsInput | string | null
+    subscription_tier?: StringFieldUpdateOperationsInput | string
+    max_users?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    analytics_insights?: analytics_insightsUncheckedUpdateManyWithoutSchoolsNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutSchoolsNestedInput
+    users_users_school_idToschools?: UserUncheckedUpdateManyWithoutSchools_users_school_idToschoolsNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutSchoolsNestedInput
+  }
+
+  export type infra_alertsUpsertWithWhereUniqueWithoutInfra_monitorsInput = {
+    where: infra_alertsWhereUniqueInput
+    update: XOR<infra_alertsUpdateWithoutInfra_monitorsInput, infra_alertsUncheckedUpdateWithoutInfra_monitorsInput>
+    create: XOR<infra_alertsCreateWithoutInfra_monitorsInput, infra_alertsUncheckedCreateWithoutInfra_monitorsInput>
+  }
+
+  export type infra_alertsUpdateWithWhereUniqueWithoutInfra_monitorsInput = {
+    where: infra_alertsWhereUniqueInput
+    data: XOR<infra_alertsUpdateWithoutInfra_monitorsInput, infra_alertsUncheckedUpdateWithoutInfra_monitorsInput>
+  }
+
+  export type infra_alertsUpdateManyWithWhereWithoutInfra_monitorsInput = {
+    where: infra_alertsScalarWhereInput
+    data: XOR<infra_alertsUpdateManyMutationInput, infra_alertsUncheckedUpdateManyWithoutInfra_monitorsInput>
+  }
+
+  export type infra_alertsScalarWhereInput = {
+    AND?: infra_alertsScalarWhereInput | infra_alertsScalarWhereInput[]
+    OR?: infra_alertsScalarWhereInput[]
+    NOT?: infra_alertsScalarWhereInput | infra_alertsScalarWhereInput[]
+    id?: StringFilter<"infra_alerts"> | string
+    monitor_id?: StringFilter<"infra_alerts"> | string
+    severity?: StringFilter<"infra_alerts"> | string
+    message?: StringFilter<"infra_alerts"> | string
+    metric_snapshot?: JsonNullableFilter<"infra_alerts">
+    acknowledged?: BoolFilter<"infra_alerts"> | boolean
+    acknowledged_by?: StringNullableFilter<"infra_alerts"> | string | null
+    resolved_at?: DateTimeNullableFilter<"infra_alerts"> | Date | string | null
+    created_at?: DateTimeFilter<"infra_alerts"> | Date | string
+  }
+
+  export type infra_monitorsCreateWithoutInfra_alertsInput = {
+    id?: string
+    device_type: string
+    device_name: string
+    location?: string | null
+    status?: string
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    alert_threshold?: NullableJsonNullValueInput | InputJsonValue
+    last_heartbeat?: Date | string
+    created_at?: Date | string
+    schools: schoolsCreateNestedOneWithoutInfra_monitorsInput
+  }
+
+  export type infra_monitorsUncheckedCreateWithoutInfra_alertsInput = {
+    id?: string
+    school_id: string
+    device_type: string
+    device_name: string
+    location?: string | null
+    status?: string
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    alert_threshold?: NullableJsonNullValueInput | InputJsonValue
+    last_heartbeat?: Date | string
+    created_at?: Date | string
+  }
+
+  export type infra_monitorsCreateOrConnectWithoutInfra_alertsInput = {
+    where: infra_monitorsWhereUniqueInput
+    create: XOR<infra_monitorsCreateWithoutInfra_alertsInput, infra_monitorsUncheckedCreateWithoutInfra_alertsInput>
+  }
+
+  export type infra_monitorsUpsertWithoutInfra_alertsInput = {
+    update: XOR<infra_monitorsUpdateWithoutInfra_alertsInput, infra_monitorsUncheckedUpdateWithoutInfra_alertsInput>
+    create: XOR<infra_monitorsCreateWithoutInfra_alertsInput, infra_monitorsUncheckedCreateWithoutInfra_alertsInput>
+    where?: infra_monitorsWhereInput
+  }
+
+  export type infra_monitorsUpdateToOneWithWhereWithoutInfra_alertsInput = {
+    where?: infra_monitorsWhereInput
+    data: XOR<infra_monitorsUpdateWithoutInfra_alertsInput, infra_monitorsUncheckedUpdateWithoutInfra_alertsInput>
+  }
+
+  export type infra_monitorsUpdateWithoutInfra_alertsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    device_type?: StringFieldUpdateOperationsInput | string
+    device_name?: StringFieldUpdateOperationsInput | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    alert_threshold?: NullableJsonNullValueInput | InputJsonValue
+    last_heartbeat?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    schools?: schoolsUpdateOneRequiredWithoutInfra_monitorsNestedInput
+  }
+
+  export type infra_monitorsUncheckedUpdateWithoutInfra_alertsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    school_id?: StringFieldUpdateOperationsInput | string
+    device_type?: StringFieldUpdateOperationsInput | string
+    device_name?: StringFieldUpdateOperationsInput | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    alert_threshold?: NullableJsonNullValueInput | InputJsonValue
+    last_heartbeat?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type conversation_messagesCreateManyAvatar_sessionsInput = {
@@ -66412,6 +80802,23 @@ export namespace Prisma {
     vaultDocumentCount?: number
   }
 
+  export type district_listeningCreateManyDistrictsInput = {
+    id?: string
+    snapshot_date?: Date | string
+    title_i_revenue?: number | null
+    erate_cat2_budget?: number | null
+    virtual_readiness?: number | null
+    hardware_score?: number | null
+    broadband_mbps?: number | null
+    teacher_training_pct?: number | null
+    edtech_tools?: NullableJsonNullValueInput | InputJsonValue
+    enrollment_total?: number | null
+    free_reduced_pct?: number | null
+    ela_proficiency_pct?: number | null
+    math_proficiency_pct?: number | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
   export type district_nodesUpdateWithoutDistrictsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -66449,6 +80856,57 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     vaultCompliance?: FloatFieldUpdateOperationsInput | number
     vaultDocumentCount?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type district_listeningUpdateWithoutDistrictsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    snapshot_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    title_i_revenue?: NullableFloatFieldUpdateOperationsInput | number | null
+    erate_cat2_budget?: NullableFloatFieldUpdateOperationsInput | number | null
+    virtual_readiness?: NullableIntFieldUpdateOperationsInput | number | null
+    hardware_score?: NullableFloatFieldUpdateOperationsInput | number | null
+    broadband_mbps?: NullableFloatFieldUpdateOperationsInput | number | null
+    teacher_training_pct?: NullableFloatFieldUpdateOperationsInput | number | null
+    edtech_tools?: NullableJsonNullValueInput | InputJsonValue
+    enrollment_total?: NullableIntFieldUpdateOperationsInput | number | null
+    free_reduced_pct?: NullableFloatFieldUpdateOperationsInput | number | null
+    ela_proficiency_pct?: NullableFloatFieldUpdateOperationsInput | number | null
+    math_proficiency_pct?: NullableFloatFieldUpdateOperationsInput | number | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type district_listeningUncheckedUpdateWithoutDistrictsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    snapshot_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    title_i_revenue?: NullableFloatFieldUpdateOperationsInput | number | null
+    erate_cat2_budget?: NullableFloatFieldUpdateOperationsInput | number | null
+    virtual_readiness?: NullableIntFieldUpdateOperationsInput | number | null
+    hardware_score?: NullableFloatFieldUpdateOperationsInput | number | null
+    broadband_mbps?: NullableFloatFieldUpdateOperationsInput | number | null
+    teacher_training_pct?: NullableFloatFieldUpdateOperationsInput | number | null
+    edtech_tools?: NullableJsonNullValueInput | InputJsonValue
+    enrollment_total?: NullableIntFieldUpdateOperationsInput | number | null
+    free_reduced_pct?: NullableFloatFieldUpdateOperationsInput | number | null
+    ela_proficiency_pct?: NullableFloatFieldUpdateOperationsInput | number | null
+    math_proficiency_pct?: NullableFloatFieldUpdateOperationsInput | number | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type district_listeningUncheckedUpdateManyWithoutDistrictsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    snapshot_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    title_i_revenue?: NullableFloatFieldUpdateOperationsInput | number | null
+    erate_cat2_budget?: NullableFloatFieldUpdateOperationsInput | number | null
+    virtual_readiness?: NullableIntFieldUpdateOperationsInput | number | null
+    hardware_score?: NullableFloatFieldUpdateOperationsInput | number | null
+    broadband_mbps?: NullableFloatFieldUpdateOperationsInput | number | null
+    teacher_training_pct?: NullableFloatFieldUpdateOperationsInput | number | null
+    edtech_tools?: NullableJsonNullValueInput | InputJsonValue
+    enrollment_total?: NullableIntFieldUpdateOperationsInput | number | null
+    free_reduced_pct?: NullableFloatFieldUpdateOperationsInput | number | null
+    ela_proficiency_pct?: NullableFloatFieldUpdateOperationsInput | number | null
+    math_proficiency_pct?: NullableFloatFieldUpdateOperationsInput | number | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type documentsCreateManyEvidence_foldersInput = {
@@ -66766,6 +81224,9 @@ export namespace Prisma {
     tiers?: tiersUpdateOneWithoutUsersNestedInput
     vault_documents?: vault_documentsUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrganizationsInput = {
@@ -66818,6 +81279,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedUpdateManyWithoutUsersNestedInput
     vault_documents?: vault_documentsUncheckedUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutOrganizationsInput = {
@@ -66911,6 +81375,37 @@ export namespace Prisma {
     emailVerified?: boolean
     image?: string | null
     lastUplinkAt?: Date | string | null
+  }
+
+  export type student_profilesCreateManySchoolsInput = {
+    id?: string
+    user_id: string
+    student_sis_id: string
+    first_name: string
+    last_name: string
+    grade_level: string
+    lexile_level?: number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: string | null
+    native_language?: string | null
+    sped_status?: string | null
+    dyslexia_flag?: boolean
+    intervention_tier?: string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type infra_monitorsCreateManySchoolsInput = {
+    id?: string
+    device_type: string
+    device_name: string
+    location?: string | null
+    status?: string
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    alert_threshold?: NullableJsonNullValueInput | InputJsonValue
+    last_heartbeat?: Date | string
+    created_at?: Date | string
   }
 
   export type analytics_insightsUpdateWithoutSchoolsInput = {
@@ -67044,6 +81539,9 @@ export namespace Prisma {
     tiers?: tiersUpdateOneWithoutUsersNestedInput
     vault_documents?: vault_documentsUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSchools_users_school_idToschoolsInput = {
@@ -67096,6 +81594,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedUpdateManyWithoutUsersNestedInput
     vault_documents?: vault_documentsUncheckedUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutSchools_users_school_idToschoolsInput = {
@@ -67129,6 +81630,107 @@ export namespace Prisma {
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     image?: NullableStringFieldUpdateOperationsInput | string | null
     lastUplinkAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type student_profilesUpdateWithoutSchoolsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    student_sis_id?: StringFieldUpdateOperationsInput | string
+    first_name?: StringFieldUpdateOperationsInput | string
+    last_name?: StringFieldUpdateOperationsInput | string
+    grade_level?: StringFieldUpdateOperationsInput | string
+    lexile_level?: NullableIntFieldUpdateOperationsInput | number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: NullableStringFieldUpdateOperationsInput | string | null
+    native_language?: NullableStringFieldUpdateOperationsInput | string | null
+    sped_status?: NullableStringFieldUpdateOperationsInput | string | null
+    dyslexia_flag?: BoolFieldUpdateOperationsInput | boolean
+    intervention_tier?: NullableStringFieldUpdateOperationsInput | string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateOneRequiredWithoutStudent_profilesNestedInput
+    screener_results?: screener_resultsUpdateManyWithoutStudent_profilesNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutStudent_profilesNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutStudent_profilesNestedInput
+  }
+
+  export type student_profilesUncheckedUpdateWithoutSchoolsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    student_sis_id?: StringFieldUpdateOperationsInput | string
+    first_name?: StringFieldUpdateOperationsInput | string
+    last_name?: StringFieldUpdateOperationsInput | string
+    grade_level?: StringFieldUpdateOperationsInput | string
+    lexile_level?: NullableIntFieldUpdateOperationsInput | number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: NullableStringFieldUpdateOperationsInput | string | null
+    native_language?: NullableStringFieldUpdateOperationsInput | string | null
+    sped_status?: NullableStringFieldUpdateOperationsInput | string | null
+    dyslexia_flag?: BoolFieldUpdateOperationsInput | boolean
+    intervention_tier?: NullableStringFieldUpdateOperationsInput | string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    screener_results?: screener_resultsUncheckedUpdateManyWithoutStudent_profilesNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutStudent_profilesNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutStudent_profilesNestedInput
+  }
+
+  export type student_profilesUncheckedUpdateManyWithoutSchoolsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    student_sis_id?: StringFieldUpdateOperationsInput | string
+    first_name?: StringFieldUpdateOperationsInput | string
+    last_name?: StringFieldUpdateOperationsInput | string
+    grade_level?: StringFieldUpdateOperationsInput | string
+    lexile_level?: NullableIntFieldUpdateOperationsInput | number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: NullableStringFieldUpdateOperationsInput | string | null
+    native_language?: NullableStringFieldUpdateOperationsInput | string | null
+    sped_status?: NullableStringFieldUpdateOperationsInput | string | null
+    dyslexia_flag?: BoolFieldUpdateOperationsInput | boolean
+    intervention_tier?: NullableStringFieldUpdateOperationsInput | string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type infra_monitorsUpdateWithoutSchoolsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    device_type?: StringFieldUpdateOperationsInput | string
+    device_name?: StringFieldUpdateOperationsInput | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    alert_threshold?: NullableJsonNullValueInput | InputJsonValue
+    last_heartbeat?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    infra_alerts?: infra_alertsUpdateManyWithoutInfra_monitorsNestedInput
+  }
+
+  export type infra_monitorsUncheckedUpdateWithoutSchoolsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    device_type?: StringFieldUpdateOperationsInput | string
+    device_name?: StringFieldUpdateOperationsInput | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    alert_threshold?: NullableJsonNullValueInput | InputJsonValue
+    last_heartbeat?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    infra_alerts?: infra_alertsUncheckedUpdateManyWithoutInfra_monitorsNestedInput
+  }
+
+  export type infra_monitorsUncheckedUpdateManyWithoutSchoolsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    device_type?: StringFieldUpdateOperationsInput | string
+    device_name?: StringFieldUpdateOperationsInput | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    alert_threshold?: NullableJsonNullValueInput | InputJsonValue
+    last_heartbeat?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserCreateManyTiersInput = {
@@ -67214,6 +81816,9 @@ export namespace Prisma {
     schools_users_school_idToschools?: schoolsUpdateOneWithoutUsers_users_school_idToschoolsNestedInput
     vault_documents?: vault_documentsUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTiersInput = {
@@ -67266,6 +81871,9 @@ export namespace Prisma {
     usage_tracking?: usage_trackingUncheckedUpdateManyWithoutUsersNestedInput
     vault_documents?: vault_documentsUncheckedUpdateManyWithoutUsersNestedInput
     knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutTiersInput = {
@@ -67571,6 +82179,58 @@ export namespace Prisma {
     content: string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string | null
+  }
+
+  export type student_profilesCreateManyUsersInput = {
+    id?: string
+    student_sis_id: string
+    first_name: string
+    last_name: string
+    grade_level: string
+    school_id?: string | null
+    lexile_level?: number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: string | null
+    native_language?: string | null
+    sped_status?: string | null
+    dyslexia_flag?: boolean
+    intervention_tier?: string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type differentiated_materialsCreateManyUsersInput = {
+    id?: string
+    student_profile_id?: string | null
+    title: string
+    source_input: string
+    target_lexile: number
+    output_lexile?: number | null
+    dok_level?: number
+    content_type: string
+    generated_content: JsonNullValueInput | InputJsonValue
+    academic_standard?: string | null
+    subject?: string | null
+    grade_level?: string | null
+    language?: string
+    exported_to?: string | null
+    tokens_used?: number
+    created_at?: Date | string
+  }
+
+  export type reading_improvement_plansCreateManyUsersInput = {
+    id?: string
+    student_profile_id: string
+    school_year: string
+    status?: string
+    deficit_areas: JsonNullValueInput | InputJsonValue
+    intervention_program?: string | null
+    daily_materials?: NullableJsonNullValueInput | InputJsonValue
+    progress_notes?: NullableJsonNullValueInput | InputJsonValue
+    parent_notified?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type accountUpdateWithoutUserInput = {
@@ -68041,6 +82701,8 @@ export namespace Prisma {
     analytics_insights?: analytics_insightsUpdateManyWithoutSchoolsNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutSchoolsNestedInput
     users_users_school_idToschools?: UserUpdateManyWithoutSchools_users_school_idToschoolsNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutSchoolsNestedInput
+    infra_monitors?: infra_monitorsUpdateManyWithoutSchoolsNestedInput
   }
 
   export type schoolsUncheckedUpdateWithoutUsers_schools_admin_idTousersInput = {
@@ -68057,6 +82719,8 @@ export namespace Prisma {
     analytics_insights?: analytics_insightsUncheckedUpdateManyWithoutSchoolsNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutSchoolsNestedInput
     users_users_school_idToschools?: UserUncheckedUpdateManyWithoutSchools_users_school_idToschoolsNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutSchoolsNestedInput
+    infra_monitors?: infra_monitorsUncheckedUpdateManyWithoutSchoolsNestedInput
   }
 
   export type schoolsUncheckedUpdateManyWithoutUsers_schools_admin_idTousersInput = {
@@ -68289,6 +82953,168 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type student_profilesUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    student_sis_id?: StringFieldUpdateOperationsInput | string
+    first_name?: StringFieldUpdateOperationsInput | string
+    last_name?: StringFieldUpdateOperationsInput | string
+    grade_level?: StringFieldUpdateOperationsInput | string
+    lexile_level?: NullableIntFieldUpdateOperationsInput | number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: NullableStringFieldUpdateOperationsInput | string | null
+    native_language?: NullableStringFieldUpdateOperationsInput | string | null
+    sped_status?: NullableStringFieldUpdateOperationsInput | string | null
+    dyslexia_flag?: BoolFieldUpdateOperationsInput | boolean
+    intervention_tier?: NullableStringFieldUpdateOperationsInput | string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    schools?: schoolsUpdateOneWithoutStudent_profilesNestedInput
+    screener_results?: screener_resultsUpdateManyWithoutStudent_profilesNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutStudent_profilesNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutStudent_profilesNestedInput
+  }
+
+  export type student_profilesUncheckedUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    student_sis_id?: StringFieldUpdateOperationsInput | string
+    first_name?: StringFieldUpdateOperationsInput | string
+    last_name?: StringFieldUpdateOperationsInput | string
+    grade_level?: StringFieldUpdateOperationsInput | string
+    school_id?: NullableStringFieldUpdateOperationsInput | string | null
+    lexile_level?: NullableIntFieldUpdateOperationsInput | number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: NullableStringFieldUpdateOperationsInput | string | null
+    native_language?: NullableStringFieldUpdateOperationsInput | string | null
+    sped_status?: NullableStringFieldUpdateOperationsInput | string | null
+    dyslexia_flag?: BoolFieldUpdateOperationsInput | boolean
+    intervention_tier?: NullableStringFieldUpdateOperationsInput | string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    screener_results?: screener_resultsUncheckedUpdateManyWithoutStudent_profilesNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutStudent_profilesNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutStudent_profilesNestedInput
+  }
+
+  export type student_profilesUncheckedUpdateManyWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    student_sis_id?: StringFieldUpdateOperationsInput | string
+    first_name?: StringFieldUpdateOperationsInput | string
+    last_name?: StringFieldUpdateOperationsInput | string
+    grade_level?: StringFieldUpdateOperationsInput | string
+    school_id?: NullableStringFieldUpdateOperationsInput | string | null
+    lexile_level?: NullableIntFieldUpdateOperationsInput | number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: NullableStringFieldUpdateOperationsInput | string | null
+    native_language?: NullableStringFieldUpdateOperationsInput | string | null
+    sped_status?: NullableStringFieldUpdateOperationsInput | string | null
+    dyslexia_flag?: BoolFieldUpdateOperationsInput | boolean
+    intervention_tier?: NullableStringFieldUpdateOperationsInput | string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type differentiated_materialsUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    source_input?: StringFieldUpdateOperationsInput | string
+    target_lexile?: IntFieldUpdateOperationsInput | number
+    output_lexile?: NullableIntFieldUpdateOperationsInput | number | null
+    dok_level?: IntFieldUpdateOperationsInput | number
+    content_type?: StringFieldUpdateOperationsInput | string
+    generated_content?: JsonNullValueInput | InputJsonValue
+    academic_standard?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    grade_level?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    exported_to?: NullableStringFieldUpdateOperationsInput | string | null
+    tokens_used?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    student_profiles?: student_profilesUpdateOneWithoutDifferentiated_materialsNestedInput
+  }
+
+  export type differentiated_materialsUncheckedUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    student_profile_id?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    source_input?: StringFieldUpdateOperationsInput | string
+    target_lexile?: IntFieldUpdateOperationsInput | number
+    output_lexile?: NullableIntFieldUpdateOperationsInput | number | null
+    dok_level?: IntFieldUpdateOperationsInput | number
+    content_type?: StringFieldUpdateOperationsInput | string
+    generated_content?: JsonNullValueInput | InputJsonValue
+    academic_standard?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    grade_level?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    exported_to?: NullableStringFieldUpdateOperationsInput | string | null
+    tokens_used?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type differentiated_materialsUncheckedUpdateManyWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    student_profile_id?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    source_input?: StringFieldUpdateOperationsInput | string
+    target_lexile?: IntFieldUpdateOperationsInput | number
+    output_lexile?: NullableIntFieldUpdateOperationsInput | number | null
+    dok_level?: IntFieldUpdateOperationsInput | number
+    content_type?: StringFieldUpdateOperationsInput | string
+    generated_content?: JsonNullValueInput | InputJsonValue
+    academic_standard?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    grade_level?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    exported_to?: NullableStringFieldUpdateOperationsInput | string | null
+    tokens_used?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type reading_improvement_plansUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    school_year?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    deficit_areas?: JsonNullValueInput | InputJsonValue
+    intervention_program?: NullableStringFieldUpdateOperationsInput | string | null
+    daily_materials?: NullableJsonNullValueInput | InputJsonValue
+    progress_notes?: NullableJsonNullValueInput | InputJsonValue
+    parent_notified?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    student_profiles?: student_profilesUpdateOneRequiredWithoutReading_improvement_plansNestedInput
+  }
+
+  export type reading_improvement_plansUncheckedUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    student_profile_id?: StringFieldUpdateOperationsInput | string
+    school_year?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    deficit_areas?: JsonNullValueInput | InputJsonValue
+    intervention_program?: NullableStringFieldUpdateOperationsInput | string | null
+    daily_materials?: NullableJsonNullValueInput | InputJsonValue
+    progress_notes?: NullableJsonNullValueInput | InputJsonValue
+    parent_notified?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type reading_improvement_plansUncheckedUpdateManyWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    student_profile_id?: StringFieldUpdateOperationsInput | string
+    school_year?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    deficit_areas?: JsonNullValueInput | InputJsonValue
+    intervention_program?: NullableStringFieldUpdateOperationsInput | string | null
+    daily_materials?: NullableJsonNullValueInput | InputJsonValue
+    progress_notes?: NullableJsonNullValueInput | InputJsonValue
+    parent_notified?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type vault_auditsCreateManyVault_documentsInput = {
     id: string
     userId: string
@@ -68323,6 +83149,230 @@ export namespace Prisma {
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     userAgent?: NullableStringFieldUpdateOperationsInput | string | null
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type screener_resultsCreateManyStudent_profilesInput = {
+    id?: string
+    screener_platform: string
+    assessment_window: string
+    assessment_date: Date | string
+    composite_score?: number | null
+    risk_level?: string | null
+    skill_scores: JsonNullValueInput | InputJsonValue
+    raw_data?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+  }
+
+  export type differentiated_materialsCreateManyStudent_profilesInput = {
+    id?: string
+    user_id: string
+    title: string
+    source_input: string
+    target_lexile: number
+    output_lexile?: number | null
+    dok_level?: number
+    content_type: string
+    generated_content: JsonNullValueInput | InputJsonValue
+    academic_standard?: string | null
+    subject?: string | null
+    grade_level?: string | null
+    language?: string
+    exported_to?: string | null
+    tokens_used?: number
+    created_at?: Date | string
+  }
+
+  export type reading_improvement_plansCreateManyStudent_profilesInput = {
+    id?: string
+    created_by: string
+    school_year: string
+    status?: string
+    deficit_areas: JsonNullValueInput | InputJsonValue
+    intervention_program?: string | null
+    daily_materials?: NullableJsonNullValueInput | InputJsonValue
+    progress_notes?: NullableJsonNullValueInput | InputJsonValue
+    parent_notified?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type screener_resultsUpdateWithoutStudent_profilesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screener_platform?: StringFieldUpdateOperationsInput | string
+    assessment_window?: StringFieldUpdateOperationsInput | string
+    assessment_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    composite_score?: NullableFloatFieldUpdateOperationsInput | number | null
+    risk_level?: NullableStringFieldUpdateOperationsInput | string | null
+    skill_scores?: JsonNullValueInput | InputJsonValue
+    raw_data?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type screener_resultsUncheckedUpdateWithoutStudent_profilesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screener_platform?: StringFieldUpdateOperationsInput | string
+    assessment_window?: StringFieldUpdateOperationsInput | string
+    assessment_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    composite_score?: NullableFloatFieldUpdateOperationsInput | number | null
+    risk_level?: NullableStringFieldUpdateOperationsInput | string | null
+    skill_scores?: JsonNullValueInput | InputJsonValue
+    raw_data?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type screener_resultsUncheckedUpdateManyWithoutStudent_profilesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screener_platform?: StringFieldUpdateOperationsInput | string
+    assessment_window?: StringFieldUpdateOperationsInput | string
+    assessment_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    composite_score?: NullableFloatFieldUpdateOperationsInput | number | null
+    risk_level?: NullableStringFieldUpdateOperationsInput | string | null
+    skill_scores?: JsonNullValueInput | InputJsonValue
+    raw_data?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type differentiated_materialsUpdateWithoutStudent_profilesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    source_input?: StringFieldUpdateOperationsInput | string
+    target_lexile?: IntFieldUpdateOperationsInput | number
+    output_lexile?: NullableIntFieldUpdateOperationsInput | number | null
+    dok_level?: IntFieldUpdateOperationsInput | number
+    content_type?: StringFieldUpdateOperationsInput | string
+    generated_content?: JsonNullValueInput | InputJsonValue
+    academic_standard?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    grade_level?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    exported_to?: NullableStringFieldUpdateOperationsInput | string | null
+    tokens_used?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateOneRequiredWithoutDifferentiated_materialsNestedInput
+  }
+
+  export type differentiated_materialsUncheckedUpdateWithoutStudent_profilesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    source_input?: StringFieldUpdateOperationsInput | string
+    target_lexile?: IntFieldUpdateOperationsInput | number
+    output_lexile?: NullableIntFieldUpdateOperationsInput | number | null
+    dok_level?: IntFieldUpdateOperationsInput | number
+    content_type?: StringFieldUpdateOperationsInput | string
+    generated_content?: JsonNullValueInput | InputJsonValue
+    academic_standard?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    grade_level?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    exported_to?: NullableStringFieldUpdateOperationsInput | string | null
+    tokens_used?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type differentiated_materialsUncheckedUpdateManyWithoutStudent_profilesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    source_input?: StringFieldUpdateOperationsInput | string
+    target_lexile?: IntFieldUpdateOperationsInput | number
+    output_lexile?: NullableIntFieldUpdateOperationsInput | number | null
+    dok_level?: IntFieldUpdateOperationsInput | number
+    content_type?: StringFieldUpdateOperationsInput | string
+    generated_content?: JsonNullValueInput | InputJsonValue
+    academic_standard?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    grade_level?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    exported_to?: NullableStringFieldUpdateOperationsInput | string | null
+    tokens_used?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type reading_improvement_plansUpdateWithoutStudent_profilesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    school_year?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    deficit_areas?: JsonNullValueInput | InputJsonValue
+    intervention_program?: NullableStringFieldUpdateOperationsInput | string | null
+    daily_materials?: NullableJsonNullValueInput | InputJsonValue
+    progress_notes?: NullableJsonNullValueInput | InputJsonValue
+    parent_notified?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateOneRequiredWithoutReading_improvement_plansNestedInput
+  }
+
+  export type reading_improvement_plansUncheckedUpdateWithoutStudent_profilesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    school_year?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    deficit_areas?: JsonNullValueInput | InputJsonValue
+    intervention_program?: NullableStringFieldUpdateOperationsInput | string | null
+    daily_materials?: NullableJsonNullValueInput | InputJsonValue
+    progress_notes?: NullableJsonNullValueInput | InputJsonValue
+    parent_notified?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type reading_improvement_plansUncheckedUpdateManyWithoutStudent_profilesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    school_year?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    deficit_areas?: JsonNullValueInput | InputJsonValue
+    intervention_program?: NullableStringFieldUpdateOperationsInput | string | null
+    daily_materials?: NullableJsonNullValueInput | InputJsonValue
+    progress_notes?: NullableJsonNullValueInput | InputJsonValue
+    parent_notified?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type infra_alertsCreateManyInfra_monitorsInput = {
+    id?: string
+    severity: string
+    message: string
+    metric_snapshot?: NullableJsonNullValueInput | InputJsonValue
+    acknowledged?: boolean
+    acknowledged_by?: string | null
+    resolved_at?: Date | string | null
+    created_at?: Date | string
+  }
+
+  export type infra_alertsUpdateWithoutInfra_monitorsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    severity?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    metric_snapshot?: NullableJsonNullValueInput | InputJsonValue
+    acknowledged?: BoolFieldUpdateOperationsInput | boolean
+    acknowledged_by?: NullableStringFieldUpdateOperationsInput | string | null
+    resolved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type infra_alertsUncheckedUpdateWithoutInfra_monitorsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    severity?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    metric_snapshot?: NullableJsonNullValueInput | InputJsonValue
+    acknowledged?: BoolFieldUpdateOperationsInput | boolean
+    acknowledged_by?: NullableStringFieldUpdateOperationsInput | string | null
+    resolved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type infra_alertsUncheckedUpdateManyWithoutInfra_monitorsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    severity?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    metric_snapshot?: NullableJsonNullValueInput | InputJsonValue
+    acknowledged?: BoolFieldUpdateOperationsInput | boolean
+    acknowledged_by?: NullableStringFieldUpdateOperationsInput | string | null
+    resolved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

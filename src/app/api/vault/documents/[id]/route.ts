@@ -15,15 +15,15 @@ export async function DELETE(
 
         const { id } = await params;
 
-        const document = await prisma.strategicVault.findFirst({
-            where: { id, userId },
+        const document = await prisma.strategic_vault.findFirst({
+            where: { id, user_id: userId },
         });
 
         if (!document) {
             return NextResponse.json({ error: 'Asset not found or access denied' }, { status: 404 });
         }
 
-        await prisma.strategicVault.delete({
+        await prisma.strategic_vault.delete({
             where: { id },
         });
 
