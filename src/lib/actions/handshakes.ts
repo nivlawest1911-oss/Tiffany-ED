@@ -62,13 +62,13 @@ export async function executeSocialUplink(provider: 'google' | 'facebook', turns
         // Ensures the demo educator account is always present and has the active demo password hash.
         try {
             const { prisma } = await import('@/lib/prisma');
-            const bcrypt = await import('bcryptjs');
+            const { hashPassword } = await import('@better-auth/utils/password');
             const { UserRole } = await import('@/generated/prisma');
             const { randomUUID } = await import('crypto');
             
-            const hashedPassword = await bcrypt.default.hash(demoPassword, 10);
+            const hashedPassword = await hashPassword(demoPassword);
             
-            await prisma.user.upsert({
+            const user = await prisma.user.upsert({
                 where: { email: demoEmail },
                 update: {
                     password: hashedPassword,
@@ -88,7 +88,28 @@ export async function executeSocialUplink(provider: 'google' | 'facebook', turns
                     updated_at: new Date()
                 }
             });
-            console.log(`[Handshake] Direct DB Upsert successful for ${demoEmail}`);
+
+            // Better Auth credentials provider requires a corresponding account record with providerId: 'credential'
+            await prisma.account.upsert({
+                where: { id: `demo-account-${provider === 'google' ? 'google' : 'facebook'}` },
+                update: {
+                    providerId: "credential",
+                    accountId: demoEmail,
+                    password: hashedPassword,
+                    updatedAt: new Date()
+                },
+                create: {
+                    id: `demo-account-${provider === 'google' ? 'google' : 'facebook'}`,
+                    userId: user.id,
+                    accountId: demoEmail,
+                    providerId: "credential",
+                    password: hashedPassword,
+                    createdAt: new Date(),
+                    updatedAt: new Date()
+                }
+            });
+
+            console.log(`[Handshake] Direct DB User & Account Upsert successful for ${demoEmail}`);
         } catch (dbErr) {
             console.error("[Handshake] Direct DB Upsert failed:", dbErr);
         }
