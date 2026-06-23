@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { validateLTI13Launch } from '@/lib/lti/validate-launch';
+import { validateLtiLaunch } from '@/lib/lti/validate-launch';
 import {
   EDINTEL_DEEP_LINK_RESOURCES,
   buildDeepLinkResponseJwt,
@@ -21,7 +21,7 @@ export const dynamic = 'force-dynamic';
  */
 export async function POST(req: NextRequest) {
   try {
-    const launchResult = await validateLTI13Launch(req);
+    const launchResult = await validateLtiLaunch(req);
 
     if (!launchResult.valid || !launchResult.claims) {
       return NextResponse.json(

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { validateLTI13Launch } from "@/lib/lti/validate-launch";
+import { validateLtiLaunch } from "@/lib/lti/validate-launch";
 import { prisma } from "@/lib/prisma";
 import { randomUUID } from "crypto";
 import { UserRole } from "@/generated/prisma";
@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
     const userAgent = request.headers.get("user-agent") || "unknown";
     const ipAddress = request.headers.get("x-forwarded-for")?.split(",")[0] || "127.0.0.1";
 
-    const launchResult = await validateLTI13Launch(request);
+    const launchResult = await validateLtiLaunch(request);
 
     if (!launchResult.valid || !launchResult.claims) {
       console.error("[LTI Launch] Cryptographic validation failed:", launchResult.error);
