@@ -22,12 +22,28 @@ export interface LTIClaims {
     id: string;
     title?: string;
   };
+  // LTI Advantage – Deep Linking
+  "https://purl.imsglobal.org/spec/lti-dl/claim/deep_linking_settings"?: {
+    deep_link_return_url: string;
+    accept_types: string[];
+    accept_presentation_document_targets: string[];
+  };
+  // Derived / mapped fields
   internalRole?: string;
   email?: string;
   name?: string;
   given_name?: string;
   family_name?: string;
 }
+
+/** OAuth 2.0 scopes required for full LTI Advantage services */
+export const LTI_ADVANTAGE_SCOPES = [
+  'https://purl.imsglobal.org/spec/lti-ags/scope/lineitem',
+  'https://purl.imsglobal.org/spec/lti-ags/scope/result.readonly',
+  'https://purl.imsglobal.org/spec/lti-ags/scope/score',
+  'https://purl.imsglobal.org/spec/lti-dl/scope/contentitem',
+  'https://purl.imsglobal.org/spec/lti-nrps/scope/contextmembership.readonly',
+] as const;
 
 /**
  * Validates an LTI 1.3 Launch request.
@@ -37,6 +53,12 @@ export interface LTIClaims {
 export async function validateLTI13Launch(request: NextRequest): Promise<{
   valid: boolean;
   claims?: LTIClaims;
+  /** Deep Linking return URL (present only on LtiDeepLinkingRequest launches) */
+  deepLinkReturnUrl?: string;
+  /** Resource link ID for AGS grade passback */
+  resourceLinkId?: string;
+  /** Deployment ID from the LTI launch */
+  deploymentId?: string;
   error?: string;
 }> {
   try {
@@ -113,12 +135,18 @@ export async function validateLTI13Launch(request: NextRequest): Promise<{
 
     console.log("[LTI] Cryptographically validated launch for:", claims.sub, "Issuer:", claims.iss);
 
+    const deepLinkSettings = claims['https://purl.imsglobal.org/spec/lti-dl/claim/deep_linking_settings'];
+    const resourceLink = claims['https://purl.imsglobal.org/spec/lti/claim/resource_link'];
+
     return {
       valid: true,
       claims: {
         ...claims,
         internalRole: isAdmin ? "ADMIN" : isTeacher ? "TEACHER" : "STUDENT",
       },
+      deepLinkReturnUrl: deepLinkSettings?.deep_link_return_url,
+      resourceLinkId: resourceLink?.id,
+      deploymentId: claims['https://purl.imsglobal.org/spec/lti/claim/deployment_id'],
     };
   } catch (error: any) {
     console.error("[LTI] Dynamic validation failed:", error.message || error);

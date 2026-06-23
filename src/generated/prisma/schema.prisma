@@ -865,16 +865,38 @@ model EducatorAIInteraction {
 }
 
 model LtiPlatform {
-  id           String   @id @default(cuid())
-  issuer       String   @unique
+  id           String        @id @default(cuid())
+  issuer       String        @unique
   clientId     String
   deploymentId String?
   platformName String? // "Canvas", "Clever", "Google Classroom"
   jwksUrl      String
   authTokenUrl String
   authLoginUrl String
-  registeredAt DateTime @default(now())
-  isActive     Boolean  @default(true)
+  registeredAt DateTime      @default(now())
+  isActive     Boolean       @default(true)
+  lineItems    LtiLineItem[]
 
   @@map("lti_platforms")
+}
+
+/// Tracks LTI Advantage line items created for AGS grade passback
+model LtiLineItem {
+  id         String      @id @default(cuid())
+  platformId String
+  platform   LtiPlatform @relation(fields: [platformId], references: [id], onDelete: Cascade)
+
+  resourceLinkId String? // Deep Linking resource link id from LMS
+  lineItemUrl    String? // AGS line item URL from the LMS
+  label          String
+  scoreMaximum   Float   @default(100)
+  resourceId     String? // EdIntel internal resource (e.g. "tiffany-ed-lesson")
+  tag            String? // Optional grouping tag (e.g. "rubric", "quiz")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([platformId])
+  @@index([resourceLinkId])
+  @@map("lti_line_items")
 }

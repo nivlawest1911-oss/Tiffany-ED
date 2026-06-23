@@ -738,6 +738,19 @@ exports.Prisma.LtiPlatformScalarFieldEnum = {
   isActive: 'isActive'
 };
 
+exports.Prisma.LtiLineItemScalarFieldEnum = {
+  id: 'id',
+  platformId: 'platformId',
+  resourceLinkId: 'resourceLinkId',
+  lineItemUrl: 'lineItemUrl',
+  label: 'label',
+  scoreMaximum: 'scoreMaximum',
+  resourceId: 'resourceId',
+  tag: 'tag',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -822,7 +835,8 @@ exports.Prisma.ModelName = {
   infra_alerts: 'infra_alerts',
   AuditLog: 'AuditLog',
   EducatorAIInteraction: 'EducatorAIInteraction',
-  LtiPlatform: 'LtiPlatform'
+  LtiPlatform: 'LtiPlatform',
+  LtiLineItem: 'LtiLineItem'
 };
 
 /**

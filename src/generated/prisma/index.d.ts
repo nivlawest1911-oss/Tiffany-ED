@@ -240,6 +240,11 @@ export type EducatorAIInteraction = $Result.DefaultSelection<Prisma.$EducatorAII
  * 
  */
 export type LtiPlatform = $Result.DefaultSelection<Prisma.$LtiPlatformPayload>
+/**
+ * Model LtiLineItem
+ * Tracks LTI Advantage line items created for AGS grade passback
+ */
+export type LtiLineItem = $Result.DefaultSelection<Prisma.$LtiLineItemPayload>
 
 /**
  * Enums
@@ -861,6 +866,16 @@ export class PrismaClient<
     * ```
     */
   get ltiPlatform(): Prisma.LtiPlatformDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.ltiLineItem`: Exposes CRUD operations for the **LtiLineItem** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LtiLineItems
+    * const ltiLineItems = await prisma.ltiLineItem.findMany()
+    * ```
+    */
+  get ltiLineItem(): Prisma.LtiLineItemDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1339,7 +1354,8 @@ export namespace Prisma {
     infra_alerts: 'infra_alerts',
     AuditLog: 'AuditLog',
     EducatorAIInteraction: 'EducatorAIInteraction',
-    LtiPlatform: 'LtiPlatform'
+    LtiPlatform: 'LtiPlatform',
+    LtiLineItem: 'LtiLineItem'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1355,7 +1371,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "analytics_events" | "analytics_insights" | "avatar_sessions" | "avatars" | "companion_certificates" | "conversation_messages" | "district_nodes" | "districts" | "documents" | "evidence_folders" | "generated_content_hub" | "generations" | "graph_edges" | "graph_nodes" | "knowledge_documents" | "legacy_ledger" | "observations" | "organizations" | "saved_items" | "schools" | "semantic_caches" | "strategic_vault" | "subscriptions" | "system_feedback" | "tiers" | "token_ledger" | "token_wallets" | "usage_tracking" | "user" | "session" | "account" | "verification" | "vault_audits" | "vault_documents" | "vault_ocr" | "student_profiles" | "screener_results" | "differentiated_materials" | "reading_improvement_plans" | "district_listening" | "infra_monitors" | "infra_alerts" | "auditLog" | "educatorAIInteraction" | "ltiPlatform"
+      modelProps: "analytics_events" | "analytics_insights" | "avatar_sessions" | "avatars" | "companion_certificates" | "conversation_messages" | "district_nodes" | "districts" | "documents" | "evidence_folders" | "generated_content_hub" | "generations" | "graph_edges" | "graph_nodes" | "knowledge_documents" | "legacy_ledger" | "observations" | "organizations" | "saved_items" | "schools" | "semantic_caches" | "strategic_vault" | "subscriptions" | "system_feedback" | "tiers" | "token_ledger" | "token_wallets" | "usage_tracking" | "user" | "session" | "account" | "verification" | "vault_audits" | "vault_documents" | "vault_ocr" | "student_profiles" | "screener_results" | "differentiated_materials" | "reading_improvement_plans" | "district_listening" | "infra_monitors" | "infra_alerts" | "auditLog" | "educatorAIInteraction" | "ltiPlatform" | "ltiLineItem"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -4689,6 +4705,80 @@ export namespace Prisma {
           }
         }
       }
+      LtiLineItem: {
+        payload: Prisma.$LtiLineItemPayload<ExtArgs>
+        fields: Prisma.LtiLineItemFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LtiLineItemFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LtiLineItemPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LtiLineItemFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LtiLineItemPayload>
+          }
+          findFirst: {
+            args: Prisma.LtiLineItemFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LtiLineItemPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LtiLineItemFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LtiLineItemPayload>
+          }
+          findMany: {
+            args: Prisma.LtiLineItemFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LtiLineItemPayload>[]
+          }
+          create: {
+            args: Prisma.LtiLineItemCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LtiLineItemPayload>
+          }
+          createMany: {
+            args: Prisma.LtiLineItemCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LtiLineItemCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LtiLineItemPayload>[]
+          }
+          delete: {
+            args: Prisma.LtiLineItemDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LtiLineItemPayload>
+          }
+          update: {
+            args: Prisma.LtiLineItemUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LtiLineItemPayload>
+          }
+          deleteMany: {
+            args: Prisma.LtiLineItemDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LtiLineItemUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LtiLineItemUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LtiLineItemPayload>[]
+          }
+          upsert: {
+            args: Prisma.LtiLineItemUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LtiLineItemPayload>
+          }
+          aggregate: {
+            args: Prisma.LtiLineItemAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLtiLineItem>
+          }
+          groupBy: {
+            args: Prisma.LtiLineItemGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LtiLineItemGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LtiLineItemCountArgs<ExtArgs>
+            result: $Utils.Optional<LtiLineItemCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -4842,6 +4932,7 @@ export namespace Prisma {
     auditLog?: AuditLogOmit
     educatorAIInteraction?: EducatorAIInteractionOmit
     ltiPlatform?: LtiPlatformOmit
+    ltiLineItem?: LtiLineItemOmit
   }
 
   /* Types for Logging */
@@ -5667,6 +5758,37 @@ export namespace Prisma {
    */
   export type Infra_monitorsCountOutputTypeCountInfra_alertsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: infra_alertsWhereInput
+  }
+
+
+  /**
+   * Count Type LtiPlatformCountOutputType
+   */
+
+  export type LtiPlatformCountOutputType = {
+    lineItems: number
+  }
+
+  export type LtiPlatformCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lineItems?: boolean | LtiPlatformCountOutputTypeCountLineItemsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * LtiPlatformCountOutputType without action
+   */
+  export type LtiPlatformCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LtiPlatformCountOutputType
+     */
+    select?: LtiPlatformCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * LtiPlatformCountOutputType without action
+   */
+  export type LtiPlatformCountOutputTypeCountLineItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LtiLineItemWhereInput
   }
 
 
@@ -58282,6 +58404,8 @@ export namespace Prisma {
     authLoginUrl?: boolean
     registeredAt?: boolean
     isActive?: boolean
+    lineItems?: boolean | LtiPlatform$lineItemsArgs<ExtArgs>
+    _count?: boolean | LtiPlatformCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ltiPlatform"]>
 
   export type LtiPlatformSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -58324,10 +58448,18 @@ export namespace Prisma {
   }
 
   export type LtiPlatformOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "issuer" | "clientId" | "deploymentId" | "platformName" | "jwksUrl" | "authTokenUrl" | "authLoginUrl" | "registeredAt" | "isActive", ExtArgs["result"]["ltiPlatform"]>
+  export type LtiPlatformInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lineItems?: boolean | LtiPlatform$lineItemsArgs<ExtArgs>
+    _count?: boolean | LtiPlatformCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type LtiPlatformIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type LtiPlatformIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $LtiPlatformPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "LtiPlatform"
-    objects: {}
+    objects: {
+      lineItems: Prisma.$LtiLineItemPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       issuer: string
@@ -58733,6 +58865,7 @@ export namespace Prisma {
    */
   export interface Prisma__LtiPlatformClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    lineItems<T extends LtiPlatform$lineItemsArgs<ExtArgs> = {}>(args?: Subset<T, LtiPlatform$lineItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LtiLineItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -58789,6 +58922,10 @@ export namespace Prisma {
      */
     omit?: LtiPlatformOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LtiPlatformInclude<ExtArgs> | null
+    /**
      * Filter, which LtiPlatform to fetch.
      */
     where: LtiPlatformWhereUniqueInput
@@ -58807,6 +58944,10 @@ export namespace Prisma {
      */
     omit?: LtiPlatformOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LtiPlatformInclude<ExtArgs> | null
+    /**
      * Filter, which LtiPlatform to fetch.
      */
     where: LtiPlatformWhereUniqueInput
@@ -58824,6 +58965,10 @@ export namespace Prisma {
      * Omit specific fields from the LtiPlatform
      */
     omit?: LtiPlatformOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LtiPlatformInclude<ExtArgs> | null
     /**
      * Filter, which LtiPlatform to fetch.
      */
@@ -58873,6 +59018,10 @@ export namespace Prisma {
      */
     omit?: LtiPlatformOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LtiPlatformInclude<ExtArgs> | null
+    /**
      * Filter, which LtiPlatform to fetch.
      */
     where?: LtiPlatformWhereInput
@@ -58920,6 +59069,10 @@ export namespace Prisma {
      * Omit specific fields from the LtiPlatform
      */
     omit?: LtiPlatformOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LtiPlatformInclude<ExtArgs> | null
     /**
      * Filter, which LtiPlatforms to fetch.
      */
@@ -58969,6 +59122,10 @@ export namespace Prisma {
      */
     omit?: LtiPlatformOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LtiPlatformInclude<ExtArgs> | null
+    /**
      * The data needed to create a LtiPlatform.
      */
     data: XOR<LtiPlatformCreateInput, LtiPlatformUncheckedCreateInput>
@@ -59016,6 +59173,10 @@ export namespace Prisma {
      * Omit specific fields from the LtiPlatform
      */
     omit?: LtiPlatformOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LtiPlatformInclude<ExtArgs> | null
     /**
      * The data needed to update a LtiPlatform.
      */
@@ -59083,6 +59244,10 @@ export namespace Prisma {
      */
     omit?: LtiPlatformOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LtiPlatformInclude<ExtArgs> | null
+    /**
      * The filter to search for the LtiPlatform to update in case it exists.
      */
     where: LtiPlatformWhereUniqueInput
@@ -59109,6 +59274,10 @@ export namespace Prisma {
      */
     omit?: LtiPlatformOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LtiPlatformInclude<ExtArgs> | null
+    /**
      * Filter which LtiPlatform to delete.
      */
     where: LtiPlatformWhereUniqueInput
@@ -59129,6 +59298,30 @@ export namespace Prisma {
   }
 
   /**
+   * LtiPlatform.lineItems
+   */
+  export type LtiPlatform$lineItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LtiLineItem
+     */
+    select?: LtiLineItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LtiLineItem
+     */
+    omit?: LtiLineItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LtiLineItemInclude<ExtArgs> | null
+    where?: LtiLineItemWhereInput
+    orderBy?: LtiLineItemOrderByWithRelationInput | LtiLineItemOrderByWithRelationInput[]
+    cursor?: LtiLineItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LtiLineItemScalarFieldEnum | LtiLineItemScalarFieldEnum[]
+  }
+
+  /**
    * LtiPlatform without action
    */
   export type LtiPlatformDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -59140,6 +59333,1172 @@ export namespace Prisma {
      * Omit specific fields from the LtiPlatform
      */
     omit?: LtiPlatformOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LtiPlatformInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model LtiLineItem
+   */
+
+  export type AggregateLtiLineItem = {
+    _count: LtiLineItemCountAggregateOutputType | null
+    _avg: LtiLineItemAvgAggregateOutputType | null
+    _sum: LtiLineItemSumAggregateOutputType | null
+    _min: LtiLineItemMinAggregateOutputType | null
+    _max: LtiLineItemMaxAggregateOutputType | null
+  }
+
+  export type LtiLineItemAvgAggregateOutputType = {
+    scoreMaximum: number | null
+  }
+
+  export type LtiLineItemSumAggregateOutputType = {
+    scoreMaximum: number | null
+  }
+
+  export type LtiLineItemMinAggregateOutputType = {
+    id: string | null
+    platformId: string | null
+    resourceLinkId: string | null
+    lineItemUrl: string | null
+    label: string | null
+    scoreMaximum: number | null
+    resourceId: string | null
+    tag: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LtiLineItemMaxAggregateOutputType = {
+    id: string | null
+    platformId: string | null
+    resourceLinkId: string | null
+    lineItemUrl: string | null
+    label: string | null
+    scoreMaximum: number | null
+    resourceId: string | null
+    tag: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LtiLineItemCountAggregateOutputType = {
+    id: number
+    platformId: number
+    resourceLinkId: number
+    lineItemUrl: number
+    label: number
+    scoreMaximum: number
+    resourceId: number
+    tag: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type LtiLineItemAvgAggregateInputType = {
+    scoreMaximum?: true
+  }
+
+  export type LtiLineItemSumAggregateInputType = {
+    scoreMaximum?: true
+  }
+
+  export type LtiLineItemMinAggregateInputType = {
+    id?: true
+    platformId?: true
+    resourceLinkId?: true
+    lineItemUrl?: true
+    label?: true
+    scoreMaximum?: true
+    resourceId?: true
+    tag?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LtiLineItemMaxAggregateInputType = {
+    id?: true
+    platformId?: true
+    resourceLinkId?: true
+    lineItemUrl?: true
+    label?: true
+    scoreMaximum?: true
+    resourceId?: true
+    tag?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LtiLineItemCountAggregateInputType = {
+    id?: true
+    platformId?: true
+    resourceLinkId?: true
+    lineItemUrl?: true
+    label?: true
+    scoreMaximum?: true
+    resourceId?: true
+    tag?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type LtiLineItemAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LtiLineItem to aggregate.
+     */
+    where?: LtiLineItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LtiLineItems to fetch.
+     */
+    orderBy?: LtiLineItemOrderByWithRelationInput | LtiLineItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LtiLineItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LtiLineItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LtiLineItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LtiLineItems
+    **/
+    _count?: true | LtiLineItemCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LtiLineItemAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LtiLineItemSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LtiLineItemMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LtiLineItemMaxAggregateInputType
+  }
+
+  export type GetLtiLineItemAggregateType<T extends LtiLineItemAggregateArgs> = {
+        [P in keyof T & keyof AggregateLtiLineItem]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLtiLineItem[P]>
+      : GetScalarType<T[P], AggregateLtiLineItem[P]>
+  }
+
+
+
+
+  export type LtiLineItemGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LtiLineItemWhereInput
+    orderBy?: LtiLineItemOrderByWithAggregationInput | LtiLineItemOrderByWithAggregationInput[]
+    by: LtiLineItemScalarFieldEnum[] | LtiLineItemScalarFieldEnum
+    having?: LtiLineItemScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LtiLineItemCountAggregateInputType | true
+    _avg?: LtiLineItemAvgAggregateInputType
+    _sum?: LtiLineItemSumAggregateInputType
+    _min?: LtiLineItemMinAggregateInputType
+    _max?: LtiLineItemMaxAggregateInputType
+  }
+
+  export type LtiLineItemGroupByOutputType = {
+    id: string
+    platformId: string
+    resourceLinkId: string | null
+    lineItemUrl: string | null
+    label: string
+    scoreMaximum: number
+    resourceId: string | null
+    tag: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: LtiLineItemCountAggregateOutputType | null
+    _avg: LtiLineItemAvgAggregateOutputType | null
+    _sum: LtiLineItemSumAggregateOutputType | null
+    _min: LtiLineItemMinAggregateOutputType | null
+    _max: LtiLineItemMaxAggregateOutputType | null
+  }
+
+  type GetLtiLineItemGroupByPayload<T extends LtiLineItemGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LtiLineItemGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LtiLineItemGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LtiLineItemGroupByOutputType[P]>
+            : GetScalarType<T[P], LtiLineItemGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LtiLineItemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    platformId?: boolean
+    resourceLinkId?: boolean
+    lineItemUrl?: boolean
+    label?: boolean
+    scoreMaximum?: boolean
+    resourceId?: boolean
+    tag?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    platform?: boolean | LtiPlatformDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["ltiLineItem"]>
+
+  export type LtiLineItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    platformId?: boolean
+    resourceLinkId?: boolean
+    lineItemUrl?: boolean
+    label?: boolean
+    scoreMaximum?: boolean
+    resourceId?: boolean
+    tag?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    platform?: boolean | LtiPlatformDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["ltiLineItem"]>
+
+  export type LtiLineItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    platformId?: boolean
+    resourceLinkId?: boolean
+    lineItemUrl?: boolean
+    label?: boolean
+    scoreMaximum?: boolean
+    resourceId?: boolean
+    tag?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    platform?: boolean | LtiPlatformDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["ltiLineItem"]>
+
+  export type LtiLineItemSelectScalar = {
+    id?: boolean
+    platformId?: boolean
+    resourceLinkId?: boolean
+    lineItemUrl?: boolean
+    label?: boolean
+    scoreMaximum?: boolean
+    resourceId?: boolean
+    tag?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type LtiLineItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "platformId" | "resourceLinkId" | "lineItemUrl" | "label" | "scoreMaximum" | "resourceId" | "tag" | "createdAt" | "updatedAt", ExtArgs["result"]["ltiLineItem"]>
+  export type LtiLineItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    platform?: boolean | LtiPlatformDefaultArgs<ExtArgs>
+  }
+  export type LtiLineItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    platform?: boolean | LtiPlatformDefaultArgs<ExtArgs>
+  }
+  export type LtiLineItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    platform?: boolean | LtiPlatformDefaultArgs<ExtArgs>
+  }
+
+  export type $LtiLineItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LtiLineItem"
+    objects: {
+      platform: Prisma.$LtiPlatformPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      platformId: string
+      resourceLinkId: string | null
+      lineItemUrl: string | null
+      label: string
+      scoreMaximum: number
+      resourceId: string | null
+      tag: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["ltiLineItem"]>
+    composites: {}
+  }
+
+  type LtiLineItemGetPayload<S extends boolean | null | undefined | LtiLineItemDefaultArgs> = $Result.GetResult<Prisma.$LtiLineItemPayload, S>
+
+  type LtiLineItemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LtiLineItemFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LtiLineItemCountAggregateInputType | true
+    }
+
+  export interface LtiLineItemDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LtiLineItem'], meta: { name: 'LtiLineItem' } }
+    /**
+     * Find zero or one LtiLineItem that matches the filter.
+     * @param {LtiLineItemFindUniqueArgs} args - Arguments to find a LtiLineItem
+     * @example
+     * // Get one LtiLineItem
+     * const ltiLineItem = await prisma.ltiLineItem.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LtiLineItemFindUniqueArgs>(args: SelectSubset<T, LtiLineItemFindUniqueArgs<ExtArgs>>): Prisma__LtiLineItemClient<$Result.GetResult<Prisma.$LtiLineItemPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LtiLineItem that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LtiLineItemFindUniqueOrThrowArgs} args - Arguments to find a LtiLineItem
+     * @example
+     * // Get one LtiLineItem
+     * const ltiLineItem = await prisma.ltiLineItem.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LtiLineItemFindUniqueOrThrowArgs>(args: SelectSubset<T, LtiLineItemFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LtiLineItemClient<$Result.GetResult<Prisma.$LtiLineItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LtiLineItem that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LtiLineItemFindFirstArgs} args - Arguments to find a LtiLineItem
+     * @example
+     * // Get one LtiLineItem
+     * const ltiLineItem = await prisma.ltiLineItem.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LtiLineItemFindFirstArgs>(args?: SelectSubset<T, LtiLineItemFindFirstArgs<ExtArgs>>): Prisma__LtiLineItemClient<$Result.GetResult<Prisma.$LtiLineItemPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LtiLineItem that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LtiLineItemFindFirstOrThrowArgs} args - Arguments to find a LtiLineItem
+     * @example
+     * // Get one LtiLineItem
+     * const ltiLineItem = await prisma.ltiLineItem.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LtiLineItemFindFirstOrThrowArgs>(args?: SelectSubset<T, LtiLineItemFindFirstOrThrowArgs<ExtArgs>>): Prisma__LtiLineItemClient<$Result.GetResult<Prisma.$LtiLineItemPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LtiLineItems that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LtiLineItemFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LtiLineItems
+     * const ltiLineItems = await prisma.ltiLineItem.findMany()
+     * 
+     * // Get first 10 LtiLineItems
+     * const ltiLineItems = await prisma.ltiLineItem.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const ltiLineItemWithIdOnly = await prisma.ltiLineItem.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LtiLineItemFindManyArgs>(args?: SelectSubset<T, LtiLineItemFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LtiLineItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LtiLineItem.
+     * @param {LtiLineItemCreateArgs} args - Arguments to create a LtiLineItem.
+     * @example
+     * // Create one LtiLineItem
+     * const LtiLineItem = await prisma.ltiLineItem.create({
+     *   data: {
+     *     // ... data to create a LtiLineItem
+     *   }
+     * })
+     * 
+     */
+    create<T extends LtiLineItemCreateArgs>(args: SelectSubset<T, LtiLineItemCreateArgs<ExtArgs>>): Prisma__LtiLineItemClient<$Result.GetResult<Prisma.$LtiLineItemPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LtiLineItems.
+     * @param {LtiLineItemCreateManyArgs} args - Arguments to create many LtiLineItems.
+     * @example
+     * // Create many LtiLineItems
+     * const ltiLineItem = await prisma.ltiLineItem.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LtiLineItemCreateManyArgs>(args?: SelectSubset<T, LtiLineItemCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LtiLineItems and returns the data saved in the database.
+     * @param {LtiLineItemCreateManyAndReturnArgs} args - Arguments to create many LtiLineItems.
+     * @example
+     * // Create many LtiLineItems
+     * const ltiLineItem = await prisma.ltiLineItem.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LtiLineItems and only return the `id`
+     * const ltiLineItemWithIdOnly = await prisma.ltiLineItem.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LtiLineItemCreateManyAndReturnArgs>(args?: SelectSubset<T, LtiLineItemCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LtiLineItemPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LtiLineItem.
+     * @param {LtiLineItemDeleteArgs} args - Arguments to delete one LtiLineItem.
+     * @example
+     * // Delete one LtiLineItem
+     * const LtiLineItem = await prisma.ltiLineItem.delete({
+     *   where: {
+     *     // ... filter to delete one LtiLineItem
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LtiLineItemDeleteArgs>(args: SelectSubset<T, LtiLineItemDeleteArgs<ExtArgs>>): Prisma__LtiLineItemClient<$Result.GetResult<Prisma.$LtiLineItemPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LtiLineItem.
+     * @param {LtiLineItemUpdateArgs} args - Arguments to update one LtiLineItem.
+     * @example
+     * // Update one LtiLineItem
+     * const ltiLineItem = await prisma.ltiLineItem.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LtiLineItemUpdateArgs>(args: SelectSubset<T, LtiLineItemUpdateArgs<ExtArgs>>): Prisma__LtiLineItemClient<$Result.GetResult<Prisma.$LtiLineItemPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LtiLineItems.
+     * @param {LtiLineItemDeleteManyArgs} args - Arguments to filter LtiLineItems to delete.
+     * @example
+     * // Delete a few LtiLineItems
+     * const { count } = await prisma.ltiLineItem.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LtiLineItemDeleteManyArgs>(args?: SelectSubset<T, LtiLineItemDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LtiLineItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LtiLineItemUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LtiLineItems
+     * const ltiLineItem = await prisma.ltiLineItem.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LtiLineItemUpdateManyArgs>(args: SelectSubset<T, LtiLineItemUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LtiLineItems and returns the data updated in the database.
+     * @param {LtiLineItemUpdateManyAndReturnArgs} args - Arguments to update many LtiLineItems.
+     * @example
+     * // Update many LtiLineItems
+     * const ltiLineItem = await prisma.ltiLineItem.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LtiLineItems and only return the `id`
+     * const ltiLineItemWithIdOnly = await prisma.ltiLineItem.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LtiLineItemUpdateManyAndReturnArgs>(args: SelectSubset<T, LtiLineItemUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LtiLineItemPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LtiLineItem.
+     * @param {LtiLineItemUpsertArgs} args - Arguments to update or create a LtiLineItem.
+     * @example
+     * // Update or create a LtiLineItem
+     * const ltiLineItem = await prisma.ltiLineItem.upsert({
+     *   create: {
+     *     // ... data to create a LtiLineItem
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LtiLineItem we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LtiLineItemUpsertArgs>(args: SelectSubset<T, LtiLineItemUpsertArgs<ExtArgs>>): Prisma__LtiLineItemClient<$Result.GetResult<Prisma.$LtiLineItemPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LtiLineItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LtiLineItemCountArgs} args - Arguments to filter LtiLineItems to count.
+     * @example
+     * // Count the number of LtiLineItems
+     * const count = await prisma.ltiLineItem.count({
+     *   where: {
+     *     // ... the filter for the LtiLineItems we want to count
+     *   }
+     * })
+    **/
+    count<T extends LtiLineItemCountArgs>(
+      args?: Subset<T, LtiLineItemCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LtiLineItemCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LtiLineItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LtiLineItemAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LtiLineItemAggregateArgs>(args: Subset<T, LtiLineItemAggregateArgs>): Prisma.PrismaPromise<GetLtiLineItemAggregateType<T>>
+
+    /**
+     * Group by LtiLineItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LtiLineItemGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LtiLineItemGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LtiLineItemGroupByArgs['orderBy'] }
+        : { orderBy?: LtiLineItemGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LtiLineItemGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLtiLineItemGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LtiLineItem model
+   */
+  readonly fields: LtiLineItemFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LtiLineItem.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LtiLineItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    platform<T extends LtiPlatformDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LtiPlatformDefaultArgs<ExtArgs>>): Prisma__LtiPlatformClient<$Result.GetResult<Prisma.$LtiPlatformPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LtiLineItem model
+   */
+  interface LtiLineItemFieldRefs {
+    readonly id: FieldRef<"LtiLineItem", 'String'>
+    readonly platformId: FieldRef<"LtiLineItem", 'String'>
+    readonly resourceLinkId: FieldRef<"LtiLineItem", 'String'>
+    readonly lineItemUrl: FieldRef<"LtiLineItem", 'String'>
+    readonly label: FieldRef<"LtiLineItem", 'String'>
+    readonly scoreMaximum: FieldRef<"LtiLineItem", 'Float'>
+    readonly resourceId: FieldRef<"LtiLineItem", 'String'>
+    readonly tag: FieldRef<"LtiLineItem", 'String'>
+    readonly createdAt: FieldRef<"LtiLineItem", 'DateTime'>
+    readonly updatedAt: FieldRef<"LtiLineItem", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LtiLineItem findUnique
+   */
+  export type LtiLineItemFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LtiLineItem
+     */
+    select?: LtiLineItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LtiLineItem
+     */
+    omit?: LtiLineItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LtiLineItemInclude<ExtArgs> | null
+    /**
+     * Filter, which LtiLineItem to fetch.
+     */
+    where: LtiLineItemWhereUniqueInput
+  }
+
+  /**
+   * LtiLineItem findUniqueOrThrow
+   */
+  export type LtiLineItemFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LtiLineItem
+     */
+    select?: LtiLineItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LtiLineItem
+     */
+    omit?: LtiLineItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LtiLineItemInclude<ExtArgs> | null
+    /**
+     * Filter, which LtiLineItem to fetch.
+     */
+    where: LtiLineItemWhereUniqueInput
+  }
+
+  /**
+   * LtiLineItem findFirst
+   */
+  export type LtiLineItemFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LtiLineItem
+     */
+    select?: LtiLineItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LtiLineItem
+     */
+    omit?: LtiLineItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LtiLineItemInclude<ExtArgs> | null
+    /**
+     * Filter, which LtiLineItem to fetch.
+     */
+    where?: LtiLineItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LtiLineItems to fetch.
+     */
+    orderBy?: LtiLineItemOrderByWithRelationInput | LtiLineItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LtiLineItems.
+     */
+    cursor?: LtiLineItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LtiLineItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LtiLineItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LtiLineItems.
+     */
+    distinct?: LtiLineItemScalarFieldEnum | LtiLineItemScalarFieldEnum[]
+  }
+
+  /**
+   * LtiLineItem findFirstOrThrow
+   */
+  export type LtiLineItemFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LtiLineItem
+     */
+    select?: LtiLineItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LtiLineItem
+     */
+    omit?: LtiLineItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LtiLineItemInclude<ExtArgs> | null
+    /**
+     * Filter, which LtiLineItem to fetch.
+     */
+    where?: LtiLineItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LtiLineItems to fetch.
+     */
+    orderBy?: LtiLineItemOrderByWithRelationInput | LtiLineItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LtiLineItems.
+     */
+    cursor?: LtiLineItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LtiLineItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LtiLineItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LtiLineItems.
+     */
+    distinct?: LtiLineItemScalarFieldEnum | LtiLineItemScalarFieldEnum[]
+  }
+
+  /**
+   * LtiLineItem findMany
+   */
+  export type LtiLineItemFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LtiLineItem
+     */
+    select?: LtiLineItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LtiLineItem
+     */
+    omit?: LtiLineItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LtiLineItemInclude<ExtArgs> | null
+    /**
+     * Filter, which LtiLineItems to fetch.
+     */
+    where?: LtiLineItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LtiLineItems to fetch.
+     */
+    orderBy?: LtiLineItemOrderByWithRelationInput | LtiLineItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LtiLineItems.
+     */
+    cursor?: LtiLineItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LtiLineItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LtiLineItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LtiLineItems.
+     */
+    distinct?: LtiLineItemScalarFieldEnum | LtiLineItemScalarFieldEnum[]
+  }
+
+  /**
+   * LtiLineItem create
+   */
+  export type LtiLineItemCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LtiLineItem
+     */
+    select?: LtiLineItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LtiLineItem
+     */
+    omit?: LtiLineItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LtiLineItemInclude<ExtArgs> | null
+    /**
+     * The data needed to create a LtiLineItem.
+     */
+    data: XOR<LtiLineItemCreateInput, LtiLineItemUncheckedCreateInput>
+  }
+
+  /**
+   * LtiLineItem createMany
+   */
+  export type LtiLineItemCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LtiLineItems.
+     */
+    data: LtiLineItemCreateManyInput | LtiLineItemCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LtiLineItem createManyAndReturn
+   */
+  export type LtiLineItemCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LtiLineItem
+     */
+    select?: LtiLineItemSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LtiLineItem
+     */
+    omit?: LtiLineItemOmit<ExtArgs> | null
+    /**
+     * The data used to create many LtiLineItems.
+     */
+    data: LtiLineItemCreateManyInput | LtiLineItemCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LtiLineItemIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LtiLineItem update
+   */
+  export type LtiLineItemUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LtiLineItem
+     */
+    select?: LtiLineItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LtiLineItem
+     */
+    omit?: LtiLineItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LtiLineItemInclude<ExtArgs> | null
+    /**
+     * The data needed to update a LtiLineItem.
+     */
+    data: XOR<LtiLineItemUpdateInput, LtiLineItemUncheckedUpdateInput>
+    /**
+     * Choose, which LtiLineItem to update.
+     */
+    where: LtiLineItemWhereUniqueInput
+  }
+
+  /**
+   * LtiLineItem updateMany
+   */
+  export type LtiLineItemUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LtiLineItems.
+     */
+    data: XOR<LtiLineItemUpdateManyMutationInput, LtiLineItemUncheckedUpdateManyInput>
+    /**
+     * Filter which LtiLineItems to update
+     */
+    where?: LtiLineItemWhereInput
+    /**
+     * Limit how many LtiLineItems to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LtiLineItem updateManyAndReturn
+   */
+  export type LtiLineItemUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LtiLineItem
+     */
+    select?: LtiLineItemSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LtiLineItem
+     */
+    omit?: LtiLineItemOmit<ExtArgs> | null
+    /**
+     * The data used to update LtiLineItems.
+     */
+    data: XOR<LtiLineItemUpdateManyMutationInput, LtiLineItemUncheckedUpdateManyInput>
+    /**
+     * Filter which LtiLineItems to update
+     */
+    where?: LtiLineItemWhereInput
+    /**
+     * Limit how many LtiLineItems to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LtiLineItemIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LtiLineItem upsert
+   */
+  export type LtiLineItemUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LtiLineItem
+     */
+    select?: LtiLineItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LtiLineItem
+     */
+    omit?: LtiLineItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LtiLineItemInclude<ExtArgs> | null
+    /**
+     * The filter to search for the LtiLineItem to update in case it exists.
+     */
+    where: LtiLineItemWhereUniqueInput
+    /**
+     * In case the LtiLineItem found by the `where` argument doesn't exist, create a new LtiLineItem with this data.
+     */
+    create: XOR<LtiLineItemCreateInput, LtiLineItemUncheckedCreateInput>
+    /**
+     * In case the LtiLineItem was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LtiLineItemUpdateInput, LtiLineItemUncheckedUpdateInput>
+  }
+
+  /**
+   * LtiLineItem delete
+   */
+  export type LtiLineItemDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LtiLineItem
+     */
+    select?: LtiLineItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LtiLineItem
+     */
+    omit?: LtiLineItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LtiLineItemInclude<ExtArgs> | null
+    /**
+     * Filter which LtiLineItem to delete.
+     */
+    where: LtiLineItemWhereUniqueInput
+  }
+
+  /**
+   * LtiLineItem deleteMany
+   */
+  export type LtiLineItemDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LtiLineItems to delete
+     */
+    where?: LtiLineItemWhereInput
+    /**
+     * Limit how many LtiLineItems to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LtiLineItem without action
+   */
+  export type LtiLineItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LtiLineItem
+     */
+    select?: LtiLineItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LtiLineItem
+     */
+    omit?: LtiLineItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LtiLineItemInclude<ExtArgs> | null
   }
 
 
@@ -59908,6 +61267,22 @@ export namespace Prisma {
   };
 
   export type LtiPlatformScalarFieldEnum = (typeof LtiPlatformScalarFieldEnum)[keyof typeof LtiPlatformScalarFieldEnum]
+
+
+  export const LtiLineItemScalarFieldEnum: {
+    id: 'id',
+    platformId: 'platformId',
+    resourceLinkId: 'resourceLinkId',
+    lineItemUrl: 'lineItemUrl',
+    label: 'label',
+    scoreMaximum: 'scoreMaximum',
+    resourceId: 'resourceId',
+    tag: 'tag',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type LtiLineItemScalarFieldEnum = (typeof LtiLineItemScalarFieldEnum)[keyof typeof LtiLineItemScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -63988,6 +65363,7 @@ export namespace Prisma {
     authLoginUrl?: StringFilter<"LtiPlatform"> | string
     registeredAt?: DateTimeFilter<"LtiPlatform"> | Date | string
     isActive?: BoolFilter<"LtiPlatform"> | boolean
+    lineItems?: LtiLineItemListRelationFilter
   }
 
   export type LtiPlatformOrderByWithRelationInput = {
@@ -64001,6 +65377,7 @@ export namespace Prisma {
     authLoginUrl?: SortOrder
     registeredAt?: SortOrder
     isActive?: SortOrder
+    lineItems?: LtiLineItemOrderByRelationAggregateInput
   }
 
   export type LtiPlatformWhereUniqueInput = Prisma.AtLeast<{
@@ -64017,6 +65394,7 @@ export namespace Prisma {
     authLoginUrl?: StringFilter<"LtiPlatform"> | string
     registeredAt?: DateTimeFilter<"LtiPlatform"> | Date | string
     isActive?: BoolFilter<"LtiPlatform"> | boolean
+    lineItems?: LtiLineItemListRelationFilter
   }, "id" | "issuer">
 
   export type LtiPlatformOrderByWithAggregationInput = {
@@ -64049,6 +65427,88 @@ export namespace Prisma {
     authLoginUrl?: StringWithAggregatesFilter<"LtiPlatform"> | string
     registeredAt?: DateTimeWithAggregatesFilter<"LtiPlatform"> | Date | string
     isActive?: BoolWithAggregatesFilter<"LtiPlatform"> | boolean
+  }
+
+  export type LtiLineItemWhereInput = {
+    AND?: LtiLineItemWhereInput | LtiLineItemWhereInput[]
+    OR?: LtiLineItemWhereInput[]
+    NOT?: LtiLineItemWhereInput | LtiLineItemWhereInput[]
+    id?: StringFilter<"LtiLineItem"> | string
+    platformId?: StringFilter<"LtiLineItem"> | string
+    resourceLinkId?: StringNullableFilter<"LtiLineItem"> | string | null
+    lineItemUrl?: StringNullableFilter<"LtiLineItem"> | string | null
+    label?: StringFilter<"LtiLineItem"> | string
+    scoreMaximum?: FloatFilter<"LtiLineItem"> | number
+    resourceId?: StringNullableFilter<"LtiLineItem"> | string | null
+    tag?: StringNullableFilter<"LtiLineItem"> | string | null
+    createdAt?: DateTimeFilter<"LtiLineItem"> | Date | string
+    updatedAt?: DateTimeFilter<"LtiLineItem"> | Date | string
+    platform?: XOR<LtiPlatformScalarRelationFilter, LtiPlatformWhereInput>
+  }
+
+  export type LtiLineItemOrderByWithRelationInput = {
+    id?: SortOrder
+    platformId?: SortOrder
+    resourceLinkId?: SortOrderInput | SortOrder
+    lineItemUrl?: SortOrderInput | SortOrder
+    label?: SortOrder
+    scoreMaximum?: SortOrder
+    resourceId?: SortOrderInput | SortOrder
+    tag?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    platform?: LtiPlatformOrderByWithRelationInput
+  }
+
+  export type LtiLineItemWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: LtiLineItemWhereInput | LtiLineItemWhereInput[]
+    OR?: LtiLineItemWhereInput[]
+    NOT?: LtiLineItemWhereInput | LtiLineItemWhereInput[]
+    platformId?: StringFilter<"LtiLineItem"> | string
+    resourceLinkId?: StringNullableFilter<"LtiLineItem"> | string | null
+    lineItemUrl?: StringNullableFilter<"LtiLineItem"> | string | null
+    label?: StringFilter<"LtiLineItem"> | string
+    scoreMaximum?: FloatFilter<"LtiLineItem"> | number
+    resourceId?: StringNullableFilter<"LtiLineItem"> | string | null
+    tag?: StringNullableFilter<"LtiLineItem"> | string | null
+    createdAt?: DateTimeFilter<"LtiLineItem"> | Date | string
+    updatedAt?: DateTimeFilter<"LtiLineItem"> | Date | string
+    platform?: XOR<LtiPlatformScalarRelationFilter, LtiPlatformWhereInput>
+  }, "id">
+
+  export type LtiLineItemOrderByWithAggregationInput = {
+    id?: SortOrder
+    platformId?: SortOrder
+    resourceLinkId?: SortOrderInput | SortOrder
+    lineItemUrl?: SortOrderInput | SortOrder
+    label?: SortOrder
+    scoreMaximum?: SortOrder
+    resourceId?: SortOrderInput | SortOrder
+    tag?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: LtiLineItemCountOrderByAggregateInput
+    _avg?: LtiLineItemAvgOrderByAggregateInput
+    _max?: LtiLineItemMaxOrderByAggregateInput
+    _min?: LtiLineItemMinOrderByAggregateInput
+    _sum?: LtiLineItemSumOrderByAggregateInput
+  }
+
+  export type LtiLineItemScalarWhereWithAggregatesInput = {
+    AND?: LtiLineItemScalarWhereWithAggregatesInput | LtiLineItemScalarWhereWithAggregatesInput[]
+    OR?: LtiLineItemScalarWhereWithAggregatesInput[]
+    NOT?: LtiLineItemScalarWhereWithAggregatesInput | LtiLineItemScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"LtiLineItem"> | string
+    platformId?: StringWithAggregatesFilter<"LtiLineItem"> | string
+    resourceLinkId?: StringNullableWithAggregatesFilter<"LtiLineItem"> | string | null
+    lineItemUrl?: StringNullableWithAggregatesFilter<"LtiLineItem"> | string | null
+    label?: StringWithAggregatesFilter<"LtiLineItem"> | string
+    scoreMaximum?: FloatWithAggregatesFilter<"LtiLineItem"> | number
+    resourceId?: StringNullableWithAggregatesFilter<"LtiLineItem"> | string | null
+    tag?: StringNullableWithAggregatesFilter<"LtiLineItem"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"LtiLineItem"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"LtiLineItem"> | Date | string
   }
 
   export type analytics_eventsCreateInput = {
@@ -68444,6 +69904,7 @@ export namespace Prisma {
     authLoginUrl: string
     registeredAt?: Date | string
     isActive?: boolean
+    lineItems?: LtiLineItemCreateNestedManyWithoutPlatformInput
   }
 
   export type LtiPlatformUncheckedCreateInput = {
@@ -68457,6 +69918,7 @@ export namespace Prisma {
     authLoginUrl: string
     registeredAt?: Date | string
     isActive?: boolean
+    lineItems?: LtiLineItemUncheckedCreateNestedManyWithoutPlatformInput
   }
 
   export type LtiPlatformUpdateInput = {
@@ -68470,6 +69932,7 @@ export namespace Prisma {
     authLoginUrl?: StringFieldUpdateOperationsInput | string
     registeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    lineItems?: LtiLineItemUpdateManyWithoutPlatformNestedInput
   }
 
   export type LtiPlatformUncheckedUpdateInput = {
@@ -68483,6 +69946,7 @@ export namespace Prisma {
     authLoginUrl?: StringFieldUpdateOperationsInput | string
     registeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    lineItems?: LtiLineItemUncheckedUpdateManyWithoutPlatformNestedInput
   }
 
   export type LtiPlatformCreateManyInput = {
@@ -68522,6 +69986,96 @@ export namespace Prisma {
     authLoginUrl?: StringFieldUpdateOperationsInput | string
     registeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type LtiLineItemCreateInput = {
+    id?: string
+    resourceLinkId?: string | null
+    lineItemUrl?: string | null
+    label: string
+    scoreMaximum?: number
+    resourceId?: string | null
+    tag?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    platform: LtiPlatformCreateNestedOneWithoutLineItemsInput
+  }
+
+  export type LtiLineItemUncheckedCreateInput = {
+    id?: string
+    platformId: string
+    resourceLinkId?: string | null
+    lineItemUrl?: string | null
+    label: string
+    scoreMaximum?: number
+    resourceId?: string | null
+    tag?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LtiLineItemUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    resourceLinkId?: NullableStringFieldUpdateOperationsInput | string | null
+    lineItemUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    label?: StringFieldUpdateOperationsInput | string
+    scoreMaximum?: FloatFieldUpdateOperationsInput | number
+    resourceId?: NullableStringFieldUpdateOperationsInput | string | null
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    platform?: LtiPlatformUpdateOneRequiredWithoutLineItemsNestedInput
+  }
+
+  export type LtiLineItemUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    platformId?: StringFieldUpdateOperationsInput | string
+    resourceLinkId?: NullableStringFieldUpdateOperationsInput | string | null
+    lineItemUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    label?: StringFieldUpdateOperationsInput | string
+    scoreMaximum?: FloatFieldUpdateOperationsInput | number
+    resourceId?: NullableStringFieldUpdateOperationsInput | string | null
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LtiLineItemCreateManyInput = {
+    id?: string
+    platformId: string
+    resourceLinkId?: string | null
+    lineItemUrl?: string | null
+    label: string
+    scoreMaximum?: number
+    resourceId?: string | null
+    tag?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LtiLineItemUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    resourceLinkId?: NullableStringFieldUpdateOperationsInput | string | null
+    lineItemUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    label?: StringFieldUpdateOperationsInput | string
+    scoreMaximum?: FloatFieldUpdateOperationsInput | number
+    resourceId?: NullableStringFieldUpdateOperationsInput | string | null
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LtiLineItemUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    platformId?: StringFieldUpdateOperationsInput | string
+    resourceLinkId?: NullableStringFieldUpdateOperationsInput | string | null
+    lineItemUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    label?: StringFieldUpdateOperationsInput | string
+    scoreMaximum?: FloatFieldUpdateOperationsInput | number
+    resourceId?: NullableStringFieldUpdateOperationsInput | string | null
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -71430,6 +72984,16 @@ export namespace Prisma {
     tokensUsed?: SortOrder
   }
 
+  export type LtiLineItemListRelationFilter = {
+    every?: LtiLineItemWhereInput
+    some?: LtiLineItemWhereInput
+    none?: LtiLineItemWhereInput
+  }
+
+  export type LtiLineItemOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type LtiPlatformCountOrderByAggregateInput = {
     id?: SortOrder
     issuer?: SortOrder
@@ -71467,6 +73031,58 @@ export namespace Prisma {
     authLoginUrl?: SortOrder
     registeredAt?: SortOrder
     isActive?: SortOrder
+  }
+
+  export type LtiPlatformScalarRelationFilter = {
+    is?: LtiPlatformWhereInput
+    isNot?: LtiPlatformWhereInput
+  }
+
+  export type LtiLineItemCountOrderByAggregateInput = {
+    id?: SortOrder
+    platformId?: SortOrder
+    resourceLinkId?: SortOrder
+    lineItemUrl?: SortOrder
+    label?: SortOrder
+    scoreMaximum?: SortOrder
+    resourceId?: SortOrder
+    tag?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LtiLineItemAvgOrderByAggregateInput = {
+    scoreMaximum?: SortOrder
+  }
+
+  export type LtiLineItemMaxOrderByAggregateInput = {
+    id?: SortOrder
+    platformId?: SortOrder
+    resourceLinkId?: SortOrder
+    lineItemUrl?: SortOrder
+    label?: SortOrder
+    scoreMaximum?: SortOrder
+    resourceId?: SortOrder
+    tag?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LtiLineItemMinOrderByAggregateInput = {
+    id?: SortOrder
+    platformId?: SortOrder
+    resourceLinkId?: SortOrder
+    lineItemUrl?: SortOrder
+    label?: SortOrder
+    scoreMaximum?: SortOrder
+    resourceId?: SortOrder
+    tag?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LtiLineItemSumOrderByAggregateInput = {
+    scoreMaximum?: SortOrder
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -74343,6 +75959,62 @@ export namespace Prisma {
     delete?: student_profilesWhereInput | boolean
     connect?: student_profilesWhereUniqueInput
     update?: XOR<XOR<student_profilesUpdateToOneWithWhereWithoutEducator_ai_interactionsInput, student_profilesUpdateWithoutEducator_ai_interactionsInput>, student_profilesUncheckedUpdateWithoutEducator_ai_interactionsInput>
+  }
+
+  export type LtiLineItemCreateNestedManyWithoutPlatformInput = {
+    create?: XOR<LtiLineItemCreateWithoutPlatformInput, LtiLineItemUncheckedCreateWithoutPlatformInput> | LtiLineItemCreateWithoutPlatformInput[] | LtiLineItemUncheckedCreateWithoutPlatformInput[]
+    connectOrCreate?: LtiLineItemCreateOrConnectWithoutPlatformInput | LtiLineItemCreateOrConnectWithoutPlatformInput[]
+    createMany?: LtiLineItemCreateManyPlatformInputEnvelope
+    connect?: LtiLineItemWhereUniqueInput | LtiLineItemWhereUniqueInput[]
+  }
+
+  export type LtiLineItemUncheckedCreateNestedManyWithoutPlatformInput = {
+    create?: XOR<LtiLineItemCreateWithoutPlatformInput, LtiLineItemUncheckedCreateWithoutPlatformInput> | LtiLineItemCreateWithoutPlatformInput[] | LtiLineItemUncheckedCreateWithoutPlatformInput[]
+    connectOrCreate?: LtiLineItemCreateOrConnectWithoutPlatformInput | LtiLineItemCreateOrConnectWithoutPlatformInput[]
+    createMany?: LtiLineItemCreateManyPlatformInputEnvelope
+    connect?: LtiLineItemWhereUniqueInput | LtiLineItemWhereUniqueInput[]
+  }
+
+  export type LtiLineItemUpdateManyWithoutPlatformNestedInput = {
+    create?: XOR<LtiLineItemCreateWithoutPlatformInput, LtiLineItemUncheckedCreateWithoutPlatformInput> | LtiLineItemCreateWithoutPlatformInput[] | LtiLineItemUncheckedCreateWithoutPlatformInput[]
+    connectOrCreate?: LtiLineItemCreateOrConnectWithoutPlatformInput | LtiLineItemCreateOrConnectWithoutPlatformInput[]
+    upsert?: LtiLineItemUpsertWithWhereUniqueWithoutPlatformInput | LtiLineItemUpsertWithWhereUniqueWithoutPlatformInput[]
+    createMany?: LtiLineItemCreateManyPlatformInputEnvelope
+    set?: LtiLineItemWhereUniqueInput | LtiLineItemWhereUniqueInput[]
+    disconnect?: LtiLineItemWhereUniqueInput | LtiLineItemWhereUniqueInput[]
+    delete?: LtiLineItemWhereUniqueInput | LtiLineItemWhereUniqueInput[]
+    connect?: LtiLineItemWhereUniqueInput | LtiLineItemWhereUniqueInput[]
+    update?: LtiLineItemUpdateWithWhereUniqueWithoutPlatformInput | LtiLineItemUpdateWithWhereUniqueWithoutPlatformInput[]
+    updateMany?: LtiLineItemUpdateManyWithWhereWithoutPlatformInput | LtiLineItemUpdateManyWithWhereWithoutPlatformInput[]
+    deleteMany?: LtiLineItemScalarWhereInput | LtiLineItemScalarWhereInput[]
+  }
+
+  export type LtiLineItemUncheckedUpdateManyWithoutPlatformNestedInput = {
+    create?: XOR<LtiLineItemCreateWithoutPlatformInput, LtiLineItemUncheckedCreateWithoutPlatformInput> | LtiLineItemCreateWithoutPlatformInput[] | LtiLineItemUncheckedCreateWithoutPlatformInput[]
+    connectOrCreate?: LtiLineItemCreateOrConnectWithoutPlatformInput | LtiLineItemCreateOrConnectWithoutPlatformInput[]
+    upsert?: LtiLineItemUpsertWithWhereUniqueWithoutPlatformInput | LtiLineItemUpsertWithWhereUniqueWithoutPlatformInput[]
+    createMany?: LtiLineItemCreateManyPlatformInputEnvelope
+    set?: LtiLineItemWhereUniqueInput | LtiLineItemWhereUniqueInput[]
+    disconnect?: LtiLineItemWhereUniqueInput | LtiLineItemWhereUniqueInput[]
+    delete?: LtiLineItemWhereUniqueInput | LtiLineItemWhereUniqueInput[]
+    connect?: LtiLineItemWhereUniqueInput | LtiLineItemWhereUniqueInput[]
+    update?: LtiLineItemUpdateWithWhereUniqueWithoutPlatformInput | LtiLineItemUpdateWithWhereUniqueWithoutPlatformInput[]
+    updateMany?: LtiLineItemUpdateManyWithWhereWithoutPlatformInput | LtiLineItemUpdateManyWithWhereWithoutPlatformInput[]
+    deleteMany?: LtiLineItemScalarWhereInput | LtiLineItemScalarWhereInput[]
+  }
+
+  export type LtiPlatformCreateNestedOneWithoutLineItemsInput = {
+    create?: XOR<LtiPlatformCreateWithoutLineItemsInput, LtiPlatformUncheckedCreateWithoutLineItemsInput>
+    connectOrCreate?: LtiPlatformCreateOrConnectWithoutLineItemsInput
+    connect?: LtiPlatformWhereUniqueInput
+  }
+
+  export type LtiPlatformUpdateOneRequiredWithoutLineItemsNestedInput = {
+    create?: XOR<LtiPlatformCreateWithoutLineItemsInput, LtiPlatformUncheckedCreateWithoutLineItemsInput>
+    connectOrCreate?: LtiPlatformCreateOrConnectWithoutLineItemsInput
+    upsert?: LtiPlatformUpsertWithoutLineItemsInput
+    connect?: LtiPlatformWhereUniqueInput
+    update?: XOR<XOR<LtiPlatformUpdateToOneWithWhereWithoutLineItemsInput, LtiPlatformUpdateWithoutLineItemsInput>, LtiPlatformUncheckedUpdateWithoutLineItemsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -85792,6 +87464,140 @@ export namespace Prisma {
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutStudent_profilesNestedInput
   }
 
+  export type LtiLineItemCreateWithoutPlatformInput = {
+    id?: string
+    resourceLinkId?: string | null
+    lineItemUrl?: string | null
+    label: string
+    scoreMaximum?: number
+    resourceId?: string | null
+    tag?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LtiLineItemUncheckedCreateWithoutPlatformInput = {
+    id?: string
+    resourceLinkId?: string | null
+    lineItemUrl?: string | null
+    label: string
+    scoreMaximum?: number
+    resourceId?: string | null
+    tag?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LtiLineItemCreateOrConnectWithoutPlatformInput = {
+    where: LtiLineItemWhereUniqueInput
+    create: XOR<LtiLineItemCreateWithoutPlatformInput, LtiLineItemUncheckedCreateWithoutPlatformInput>
+  }
+
+  export type LtiLineItemCreateManyPlatformInputEnvelope = {
+    data: LtiLineItemCreateManyPlatformInput | LtiLineItemCreateManyPlatformInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LtiLineItemUpsertWithWhereUniqueWithoutPlatformInput = {
+    where: LtiLineItemWhereUniqueInput
+    update: XOR<LtiLineItemUpdateWithoutPlatformInput, LtiLineItemUncheckedUpdateWithoutPlatformInput>
+    create: XOR<LtiLineItemCreateWithoutPlatformInput, LtiLineItemUncheckedCreateWithoutPlatformInput>
+  }
+
+  export type LtiLineItemUpdateWithWhereUniqueWithoutPlatformInput = {
+    where: LtiLineItemWhereUniqueInput
+    data: XOR<LtiLineItemUpdateWithoutPlatformInput, LtiLineItemUncheckedUpdateWithoutPlatformInput>
+  }
+
+  export type LtiLineItemUpdateManyWithWhereWithoutPlatformInput = {
+    where: LtiLineItemScalarWhereInput
+    data: XOR<LtiLineItemUpdateManyMutationInput, LtiLineItemUncheckedUpdateManyWithoutPlatformInput>
+  }
+
+  export type LtiLineItemScalarWhereInput = {
+    AND?: LtiLineItemScalarWhereInput | LtiLineItemScalarWhereInput[]
+    OR?: LtiLineItemScalarWhereInput[]
+    NOT?: LtiLineItemScalarWhereInput | LtiLineItemScalarWhereInput[]
+    id?: StringFilter<"LtiLineItem"> | string
+    platformId?: StringFilter<"LtiLineItem"> | string
+    resourceLinkId?: StringNullableFilter<"LtiLineItem"> | string | null
+    lineItemUrl?: StringNullableFilter<"LtiLineItem"> | string | null
+    label?: StringFilter<"LtiLineItem"> | string
+    scoreMaximum?: FloatFilter<"LtiLineItem"> | number
+    resourceId?: StringNullableFilter<"LtiLineItem"> | string | null
+    tag?: StringNullableFilter<"LtiLineItem"> | string | null
+    createdAt?: DateTimeFilter<"LtiLineItem"> | Date | string
+    updatedAt?: DateTimeFilter<"LtiLineItem"> | Date | string
+  }
+
+  export type LtiPlatformCreateWithoutLineItemsInput = {
+    id?: string
+    issuer: string
+    clientId: string
+    deploymentId?: string | null
+    platformName?: string | null
+    jwksUrl: string
+    authTokenUrl: string
+    authLoginUrl: string
+    registeredAt?: Date | string
+    isActive?: boolean
+  }
+
+  export type LtiPlatformUncheckedCreateWithoutLineItemsInput = {
+    id?: string
+    issuer: string
+    clientId: string
+    deploymentId?: string | null
+    platformName?: string | null
+    jwksUrl: string
+    authTokenUrl: string
+    authLoginUrl: string
+    registeredAt?: Date | string
+    isActive?: boolean
+  }
+
+  export type LtiPlatformCreateOrConnectWithoutLineItemsInput = {
+    where: LtiPlatformWhereUniqueInput
+    create: XOR<LtiPlatformCreateWithoutLineItemsInput, LtiPlatformUncheckedCreateWithoutLineItemsInput>
+  }
+
+  export type LtiPlatformUpsertWithoutLineItemsInput = {
+    update: XOR<LtiPlatformUpdateWithoutLineItemsInput, LtiPlatformUncheckedUpdateWithoutLineItemsInput>
+    create: XOR<LtiPlatformCreateWithoutLineItemsInput, LtiPlatformUncheckedCreateWithoutLineItemsInput>
+    where?: LtiPlatformWhereInput
+  }
+
+  export type LtiPlatformUpdateToOneWithWhereWithoutLineItemsInput = {
+    where?: LtiPlatformWhereInput
+    data: XOR<LtiPlatformUpdateWithoutLineItemsInput, LtiPlatformUncheckedUpdateWithoutLineItemsInput>
+  }
+
+  export type LtiPlatformUpdateWithoutLineItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    issuer?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    deploymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    platformName?: NullableStringFieldUpdateOperationsInput | string | null
+    jwksUrl?: StringFieldUpdateOperationsInput | string
+    authTokenUrl?: StringFieldUpdateOperationsInput | string
+    authLoginUrl?: StringFieldUpdateOperationsInput | string
+    registeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type LtiPlatformUncheckedUpdateWithoutLineItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    issuer?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    deploymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    platformName?: NullableStringFieldUpdateOperationsInput | string | null
+    jwksUrl?: StringFieldUpdateOperationsInput | string
+    authTokenUrl?: StringFieldUpdateOperationsInput | string
+    authLoginUrl?: StringFieldUpdateOperationsInput | string
+    registeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+  }
+
   export type conversation_messagesCreateManyAvatar_sessionsInput = {
     id: string
     user_id: string
@@ -88738,6 +90544,54 @@ export namespace Prisma {
     acknowledged_by?: NullableStringFieldUpdateOperationsInput | string | null
     resolved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LtiLineItemCreateManyPlatformInput = {
+    id?: string
+    resourceLinkId?: string | null
+    lineItemUrl?: string | null
+    label: string
+    scoreMaximum?: number
+    resourceId?: string | null
+    tag?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LtiLineItemUpdateWithoutPlatformInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    resourceLinkId?: NullableStringFieldUpdateOperationsInput | string | null
+    lineItemUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    label?: StringFieldUpdateOperationsInput | string
+    scoreMaximum?: FloatFieldUpdateOperationsInput | number
+    resourceId?: NullableStringFieldUpdateOperationsInput | string | null
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LtiLineItemUncheckedUpdateWithoutPlatformInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    resourceLinkId?: NullableStringFieldUpdateOperationsInput | string | null
+    lineItemUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    label?: StringFieldUpdateOperationsInput | string
+    scoreMaximum?: FloatFieldUpdateOperationsInput | number
+    resourceId?: NullableStringFieldUpdateOperationsInput | string | null
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LtiLineItemUncheckedUpdateManyWithoutPlatformInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    resourceLinkId?: NullableStringFieldUpdateOperationsInput | string | null
+    lineItemUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    label?: StringFieldUpdateOperationsInput | string
+    scoreMaximum?: FloatFieldUpdateOperationsInput | number
+    resourceId?: NullableStringFieldUpdateOperationsInput | string | null
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

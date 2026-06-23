@@ -33,6 +33,8 @@ export async function POST(request: NextRequest) {
     }
 
     const { claims } = launchResult;
+    const resourceLinkId = launchResult.resourceLinkId;
+    const deploymentId = launchResult.deploymentId;
     
     // Resolve email, name, and role from claims
     const email = (claims.email || `${claims.sub}@lti.platform.com`).toLowerCase().trim();
