@@ -89,8 +89,25 @@ export async function POST(request: NextRequest) {
       questionCount: questionCount ? Number(questionCount) : undefined,
       questionFormats,
       organizerType,
-      vocabularyCount: vocabularyCount ? Number(vocabularyCount) : undefined
     });
+
+    // Log the differentiation interaction asynchronously
+    if (user && user.id !== 'guest-user') {
+      try {
+        const { logEducatorAIInteraction } = await import('@/lib/ai/log-educator-interaction');
+        logEducatorAIInteraction({
+          teacherId: user.id,
+          interactionType: 'differentiation_planner',
+          prompt: `Source: ${sourceInput.substring(0, 100)}...\nTarget Lexile: ${targetLexile}\nDOK Level: ${dokLevel}\nStandard: ${academicStandard || 'N/A'}\nSubject: ${subject || 'N/A'}\nGrade: ${gradeLevel || 'N/A'}\nContent: ${contentType}`,
+          aiResponse: JSON.stringify(result),
+          standardsAligned: academicStandard ? [academicStandard] : [],
+          studentId: studentProfileId || undefined,
+          modelUsed: 'gemini-1.5-pro',
+        }).catch(err => console.error("[AuditLog] Differentiation logging failed:", err));
+      } catch (importErr) {
+        console.error("[AuditLog] Failed to import interaction logger for differentiation:", importErr);
+      }
+    }
 
     return NextResponse.json(result);
   } catch (error: any) {

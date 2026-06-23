@@ -8,6 +8,44 @@ import { createFiscalStrategistAgent } from '@/lib/agents/fiscal-strategist-agen
 
 export const runtime = 'nodejs';
 
+
+// Standalone audit logging helper for streaming responses
+function auditLogResponse(response: Response, user: any, prompt: string, generatorId: string) {
+    if (user && user.id !== 'guest-user' && response) {
+        try {
+            const clone = response.clone();
+            clone.text().then(async (text) => {
+                try {
+                    const { logEducatorAIInteraction } = await import('@/lib/ai/log-educator-interaction');
+                    const standardsAligned: string[] = [];
+                    // Extract standards (ALCOS.ELA.3.RI.1 or similar)
+                    const matches = (prompt + ' ' + text).match(/ALCOS\.[A-Z0-9\.]+/g);
+                    if (matches) {
+                        matches.forEach(m => {
+                            if (!standardsAligned.includes(m)) standardsAligned.push(m);
+                        });
+                    }
+                    await logEducatorAIInteraction({
+                        teacherId: user.id,
+                        interactionType: generatorId || 'general_synthesis',
+                        prompt: prompt,
+                        aiResponse: text,
+                        standardsAligned,
+                        modelUsed: generatorId.includes('llama') ? 'llama-3.3' : 'gemini-1.5-pro',
+                    });
+                } catch (logErr) {
+                    console.error("[AuditLog] Failed inside async logging resolution:", logErr);
+                }
+            }).catch(cloneErr => {
+                console.error("[AuditLog] Failed to read clone text:", cloneErr);
+            });
+        } catch (cloneSetupErr) {
+            console.error("[AuditLog] Failed to setup clone:", cloneSetupErr);
+        }
+    }
+    return response;
+}
+
 export async function POST(request: NextRequest) {
     try {
         const { prompt, generatorId, delegate } = await request.json();
@@ -211,9 +249,9 @@ export async function POST(request: NextRequest) {
                         }
                     });
 
-                    return new Response(readableStream, {
+                    return auditLogResponse(new Response(readableStream, {
                         headers: { 'Content-Type': 'text/plain; charset=utf-8' }
-                    });
+                    }), user, prompt, generatorId);
                 } catch (llamaError) {
                     console.warn("[Synthesis Failover] Llama 3.3 connection failed, falling back to Gemini.", llamaError);
                     // Fall back to Gemini by letting the code continue past this block
@@ -260,9 +298,9 @@ export async function POST(request: NextRequest) {
                 }
             });
 
-            return new Response(readableStream, {
+            return auditLogResponse(new Response(readableStream, {
                 headers: { 'Content-Type': 'text/plain; charset=utf-8' }
-            });
+            }), user, prompt, generatorId);
         }
 
         // 2. USE AGENTIC PATTERN FOR FISCAL STRATEGIST & SWARM
@@ -275,7 +313,7 @@ export async function POST(request: NextRequest) {
                     userTier: user.tier || 'standard'
                 }
             });
-            return result.toTextStreamResponse();
+            return auditLogResponse(result.toTextStreamResponse(), user, prompt, generatorId);
         }
 
         if (generatorId === 'district-strategy' || generatorId === 'strategic-visionary') {
@@ -298,9 +336,9 @@ export async function POST(request: NextRequest) {
                 }
             });
 
-            return new Response(readableStream, {
+            return auditLogResponse(new Response(readableStream, {
                 headers: { 'Content-Type': 'text/plain; charset=utf-8' }
-            });
+            }), user, prompt, generatorId);
         }
 
         // 3. FALLBACK TO STANDARD STREAMING
@@ -312,7 +350,7 @@ export async function POST(request: NextRequest) {
                 isHighFidelityTool ? 'premium' : 'standard'
             );
 
-            return streamResult.toTextStreamResponse();
+            return auditLogResponse(streamResult.toTextStreamResponse(), user, prompt, generatorId);
         } catch (streamError: any) {
             console.warn("[Generation API] Upstream AI provider fully exhausted. Activating Simulation Stream.", streamError.message);
             // SIMULATION MODE FOR QUOTA EXHAUSTION
@@ -348,9 +386,9 @@ Subject: ${prompt.substring(0, 50)}...
                 }
             });
 
-            return new Response(readableStream, {
+            return auditLogResponse(new Response(readableStream, {
                 headers: { 'Content-Type': 'text/plain; charset=utf-8' }
-            });
+            }), user, prompt, generatorId);
         }
 
     } catch (error: any) {

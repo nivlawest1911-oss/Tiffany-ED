@@ -230,6 +230,16 @@ export type infra_alerts = $Result.DefaultSelection<Prisma.$infra_alertsPayload>
  * 
  */
 export type AuditLog = $Result.DefaultSelection<Prisma.$AuditLogPayload>
+/**
+ * Model EducatorAIInteraction
+ * 
+ */
+export type EducatorAIInteraction = $Result.DefaultSelection<Prisma.$EducatorAIInteractionPayload>
+/**
+ * Model LtiPlatform
+ * 
+ */
+export type LtiPlatform = $Result.DefaultSelection<Prisma.$LtiPlatformPayload>
 
 /**
  * Enums
@@ -831,6 +841,26 @@ export class PrismaClient<
     * ```
     */
   get auditLog(): Prisma.AuditLogDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.educatorAIInteraction`: Exposes CRUD operations for the **EducatorAIInteraction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EducatorAIInteractions
+    * const educatorAIInteractions = await prisma.educatorAIInteraction.findMany()
+    * ```
+    */
+  get educatorAIInteraction(): Prisma.EducatorAIInteractionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.ltiPlatform`: Exposes CRUD operations for the **LtiPlatform** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LtiPlatforms
+    * const ltiPlatforms = await prisma.ltiPlatform.findMany()
+    * ```
+    */
+  get ltiPlatform(): Prisma.LtiPlatformDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1307,7 +1337,9 @@ export namespace Prisma {
     district_listening: 'district_listening',
     infra_monitors: 'infra_monitors',
     infra_alerts: 'infra_alerts',
-    AuditLog: 'AuditLog'
+    AuditLog: 'AuditLog',
+    EducatorAIInteraction: 'EducatorAIInteraction',
+    LtiPlatform: 'LtiPlatform'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1323,7 +1355,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "analytics_events" | "analytics_insights" | "avatar_sessions" | "avatars" | "companion_certificates" | "conversation_messages" | "district_nodes" | "districts" | "documents" | "evidence_folders" | "generated_content_hub" | "generations" | "graph_edges" | "graph_nodes" | "knowledge_documents" | "legacy_ledger" | "observations" | "organizations" | "saved_items" | "schools" | "semantic_caches" | "strategic_vault" | "subscriptions" | "system_feedback" | "tiers" | "token_ledger" | "token_wallets" | "usage_tracking" | "user" | "session" | "account" | "verification" | "vault_audits" | "vault_documents" | "vault_ocr" | "student_profiles" | "screener_results" | "differentiated_materials" | "reading_improvement_plans" | "district_listening" | "infra_monitors" | "infra_alerts" | "auditLog"
+      modelProps: "analytics_events" | "analytics_insights" | "avatar_sessions" | "avatars" | "companion_certificates" | "conversation_messages" | "district_nodes" | "districts" | "documents" | "evidence_folders" | "generated_content_hub" | "generations" | "graph_edges" | "graph_nodes" | "knowledge_documents" | "legacy_ledger" | "observations" | "organizations" | "saved_items" | "schools" | "semantic_caches" | "strategic_vault" | "subscriptions" | "system_feedback" | "tiers" | "token_ledger" | "token_wallets" | "usage_tracking" | "user" | "session" | "account" | "verification" | "vault_audits" | "vault_documents" | "vault_ocr" | "student_profiles" | "screener_results" | "differentiated_materials" | "reading_improvement_plans" | "district_listening" | "infra_monitors" | "infra_alerts" | "auditLog" | "educatorAIInteraction" | "ltiPlatform"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -4509,6 +4541,154 @@ export namespace Prisma {
           }
         }
       }
+      EducatorAIInteraction: {
+        payload: Prisma.$EducatorAIInteractionPayload<ExtArgs>
+        fields: Prisma.EducatorAIInteractionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EducatorAIInteractionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducatorAIInteractionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EducatorAIInteractionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducatorAIInteractionPayload>
+          }
+          findFirst: {
+            args: Prisma.EducatorAIInteractionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducatorAIInteractionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EducatorAIInteractionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducatorAIInteractionPayload>
+          }
+          findMany: {
+            args: Prisma.EducatorAIInteractionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducatorAIInteractionPayload>[]
+          }
+          create: {
+            args: Prisma.EducatorAIInteractionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducatorAIInteractionPayload>
+          }
+          createMany: {
+            args: Prisma.EducatorAIInteractionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EducatorAIInteractionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducatorAIInteractionPayload>[]
+          }
+          delete: {
+            args: Prisma.EducatorAIInteractionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducatorAIInteractionPayload>
+          }
+          update: {
+            args: Prisma.EducatorAIInteractionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducatorAIInteractionPayload>
+          }
+          deleteMany: {
+            args: Prisma.EducatorAIInteractionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EducatorAIInteractionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EducatorAIInteractionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducatorAIInteractionPayload>[]
+          }
+          upsert: {
+            args: Prisma.EducatorAIInteractionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducatorAIInteractionPayload>
+          }
+          aggregate: {
+            args: Prisma.EducatorAIInteractionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEducatorAIInteraction>
+          }
+          groupBy: {
+            args: Prisma.EducatorAIInteractionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EducatorAIInteractionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EducatorAIInteractionCountArgs<ExtArgs>
+            result: $Utils.Optional<EducatorAIInteractionCountAggregateOutputType> | number
+          }
+        }
+      }
+      LtiPlatform: {
+        payload: Prisma.$LtiPlatformPayload<ExtArgs>
+        fields: Prisma.LtiPlatformFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LtiPlatformFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LtiPlatformPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LtiPlatformFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LtiPlatformPayload>
+          }
+          findFirst: {
+            args: Prisma.LtiPlatformFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LtiPlatformPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LtiPlatformFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LtiPlatformPayload>
+          }
+          findMany: {
+            args: Prisma.LtiPlatformFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LtiPlatformPayload>[]
+          }
+          create: {
+            args: Prisma.LtiPlatformCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LtiPlatformPayload>
+          }
+          createMany: {
+            args: Prisma.LtiPlatformCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LtiPlatformCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LtiPlatformPayload>[]
+          }
+          delete: {
+            args: Prisma.LtiPlatformDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LtiPlatformPayload>
+          }
+          update: {
+            args: Prisma.LtiPlatformUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LtiPlatformPayload>
+          }
+          deleteMany: {
+            args: Prisma.LtiPlatformDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LtiPlatformUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LtiPlatformUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LtiPlatformPayload>[]
+          }
+          upsert: {
+            args: Prisma.LtiPlatformUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LtiPlatformPayload>
+          }
+          aggregate: {
+            args: Prisma.LtiPlatformAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLtiPlatform>
+          }
+          groupBy: {
+            args: Prisma.LtiPlatformGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LtiPlatformGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LtiPlatformCountArgs<ExtArgs>
+            result: $Utils.Optional<LtiPlatformCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -4660,6 +4840,8 @@ export namespace Prisma {
     infra_monitors?: infra_monitorsOmit
     infra_alerts?: infra_alertsOmit
     auditLog?: AuditLogOmit
+    educatorAIInteraction?: EducatorAIInteractionOmit
+    ltiPlatform?: LtiPlatformOmit
   }
 
   /* Types for Logging */
@@ -5174,6 +5356,7 @@ export namespace Prisma {
     student_profiles: number
     differentiated_materials: number
     reading_improvement_plans: number
+    educator_ai_interactions: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5198,6 +5381,7 @@ export namespace Prisma {
     student_profiles?: boolean | UserCountOutputTypeCountStudent_profilesArgs
     differentiated_materials?: boolean | UserCountOutputTypeCountDifferentiated_materialsArgs
     reading_improvement_plans?: boolean | UserCountOutputTypeCountReading_improvement_plansArgs
+    educator_ai_interactions?: boolean | UserCountOutputTypeCountEducator_ai_interactionsArgs
   }
 
   // Custom InputTypes
@@ -5358,6 +5542,13 @@ export namespace Prisma {
     where?: reading_improvement_plansWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountEducator_ai_interactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EducatorAIInteractionWhereInput
+  }
+
 
   /**
    * Count Type Vault_documentsCountOutputType
@@ -5398,12 +5589,14 @@ export namespace Prisma {
     screener_results: number
     differentiated_materials: number
     reading_improvement_plans: number
+    educator_ai_interactions: number
   }
 
   export type Student_profilesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     screener_results?: boolean | Student_profilesCountOutputTypeCountScreener_resultsArgs
     differentiated_materials?: boolean | Student_profilesCountOutputTypeCountDifferentiated_materialsArgs
     reading_improvement_plans?: boolean | Student_profilesCountOutputTypeCountReading_improvement_plansArgs
+    educator_ai_interactions?: boolean | Student_profilesCountOutputTypeCountEducator_ai_interactionsArgs
   }
 
   // Custom InputTypes
@@ -5436,6 +5629,13 @@ export namespace Prisma {
    */
   export type Student_profilesCountOutputTypeCountReading_improvement_plansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: reading_improvement_plansWhereInput
+  }
+
+  /**
+   * Student_profilesCountOutputType without action
+   */
+  export type Student_profilesCountOutputTypeCountEducator_ai_interactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EducatorAIInteractionWhereInput
   }
 
 
@@ -38632,6 +38832,7 @@ export namespace Prisma {
     student_profiles?: boolean | User$student_profilesArgs<ExtArgs>
     differentiated_materials?: boolean | User$differentiated_materialsArgs<ExtArgs>
     reading_improvement_plans?: boolean | User$reading_improvement_plansArgs<ExtArgs>
+    educator_ai_interactions?: boolean | User$educator_ai_interactionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -38770,6 +38971,7 @@ export namespace Prisma {
     student_profiles?: boolean | User$student_profilesArgs<ExtArgs>
     differentiated_materials?: boolean | User$differentiated_materialsArgs<ExtArgs>
     reading_improvement_plans?: boolean | User$reading_improvement_plansArgs<ExtArgs>
+    educator_ai_interactions?: boolean | User$educator_ai_interactionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -38811,6 +39013,7 @@ export namespace Prisma {
       student_profiles: Prisma.$student_profilesPayload<ExtArgs>[]
       differentiated_materials: Prisma.$differentiated_materialsPayload<ExtArgs>[]
       reading_improvement_plans: Prisma.$reading_improvement_plansPayload<ExtArgs>[]
+      educator_ai_interactions: Prisma.$EducatorAIInteractionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -39263,6 +39466,7 @@ export namespace Prisma {
     student_profiles<T extends User$student_profilesArgs<ExtArgs> = {}>(args?: Subset<T, User$student_profilesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$student_profilesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     differentiated_materials<T extends User$differentiated_materialsArgs<ExtArgs> = {}>(args?: Subset<T, User$differentiated_materialsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$differentiated_materialsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reading_improvement_plans<T extends User$reading_improvement_plansArgs<ExtArgs> = {}>(args?: Subset<T, User$reading_improvement_plansArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reading_improvement_plansPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    educator_ai_interactions<T extends User$educator_ai_interactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$educator_ai_interactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EducatorAIInteractionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -40301,6 +40505,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Reading_improvement_plansScalarFieldEnum | Reading_improvement_plansScalarFieldEnum[]
+  }
+
+  /**
+   * User.educator_ai_interactions
+   */
+  export type User$educator_ai_interactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducatorAIInteraction
+     */
+    select?: EducatorAIInteractionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducatorAIInteraction
+     */
+    omit?: EducatorAIInteractionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducatorAIInteractionInclude<ExtArgs> | null
+    where?: EducatorAIInteractionWhereInput
+    orderBy?: EducatorAIInteractionOrderByWithRelationInput | EducatorAIInteractionOrderByWithRelationInput[]
+    cursor?: EducatorAIInteractionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EducatorAIInteractionScalarFieldEnum | EducatorAIInteractionScalarFieldEnum[]
   }
 
   /**
@@ -47331,6 +47559,7 @@ export namespace Prisma {
     screener_results?: boolean | student_profiles$screener_resultsArgs<ExtArgs>
     differentiated_materials?: boolean | student_profiles$differentiated_materialsArgs<ExtArgs>
     reading_improvement_plans?: boolean | student_profiles$reading_improvement_plansArgs<ExtArgs>
+    educator_ai_interactions?: boolean | student_profiles$educator_ai_interactionsArgs<ExtArgs>
     _count?: boolean | Student_profilesCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["student_profiles"]>
 
@@ -47405,6 +47634,7 @@ export namespace Prisma {
     screener_results?: boolean | student_profiles$screener_resultsArgs<ExtArgs>
     differentiated_materials?: boolean | student_profiles$differentiated_materialsArgs<ExtArgs>
     reading_improvement_plans?: boolean | student_profiles$reading_improvement_plansArgs<ExtArgs>
+    educator_ai_interactions?: boolean | student_profiles$educator_ai_interactionsArgs<ExtArgs>
     _count?: boolean | Student_profilesCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type student_profilesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -47424,6 +47654,7 @@ export namespace Prisma {
       screener_results: Prisma.$screener_resultsPayload<ExtArgs>[]
       differentiated_materials: Prisma.$differentiated_materialsPayload<ExtArgs>[]
       reading_improvement_plans: Prisma.$reading_improvement_plansPayload<ExtArgs>[]
+      educator_ai_interactions: Prisma.$EducatorAIInteractionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -47842,6 +48073,7 @@ export namespace Prisma {
     screener_results<T extends student_profiles$screener_resultsArgs<ExtArgs> = {}>(args?: Subset<T, student_profiles$screener_resultsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$screener_resultsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     differentiated_materials<T extends student_profiles$differentiated_materialsArgs<ExtArgs> = {}>(args?: Subset<T, student_profiles$differentiated_materialsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$differentiated_materialsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reading_improvement_plans<T extends student_profiles$reading_improvement_plansArgs<ExtArgs> = {}>(args?: Subset<T, student_profiles$reading_improvement_plansArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reading_improvement_plansPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    educator_ai_interactions<T extends student_profiles$educator_ai_interactionsArgs<ExtArgs> = {}>(args?: Subset<T, student_profiles$educator_ai_interactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EducatorAIInteractionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -48377,6 +48609,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Reading_improvement_plansScalarFieldEnum | Reading_improvement_plansScalarFieldEnum[]
+  }
+
+  /**
+   * student_profiles.educator_ai_interactions
+   */
+  export type student_profiles$educator_ai_interactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducatorAIInteraction
+     */
+    select?: EducatorAIInteractionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducatorAIInteraction
+     */
+    omit?: EducatorAIInteractionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducatorAIInteractionInclude<ExtArgs> | null
+    where?: EducatorAIInteractionWhereInput
+    orderBy?: EducatorAIInteractionOrderByWithRelationInput | EducatorAIInteractionOrderByWithRelationInput[]
+    cursor?: EducatorAIInteractionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EducatorAIInteractionScalarFieldEnum | EducatorAIInteractionScalarFieldEnum[]
   }
 
   /**
@@ -56603,6 +56859,2291 @@ export namespace Prisma {
 
 
   /**
+   * Model EducatorAIInteraction
+   */
+
+  export type AggregateEducatorAIInteraction = {
+    _count: EducatorAIInteractionCountAggregateOutputType | null
+    _avg: EducatorAIInteractionAvgAggregateOutputType | null
+    _sum: EducatorAIInteractionSumAggregateOutputType | null
+    _min: EducatorAIInteractionMinAggregateOutputType | null
+    _max: EducatorAIInteractionMaxAggregateOutputType | null
+  }
+
+  export type EducatorAIInteractionAvgAggregateOutputType = {
+    tokensUsed: number | null
+  }
+
+  export type EducatorAIInteractionSumAggregateOutputType = {
+    tokensUsed: number | null
+  }
+
+  export type EducatorAIInteractionMinAggregateOutputType = {
+    id: string | null
+    teacherId: string | null
+    studentId: string | null
+    classId: string | null
+    interactionType: string | null
+    prompt: string | null
+    aiResponse: string | null
+    modelUsed: string | null
+    tokensUsed: number | null
+    sessionId: string | null
+    timestamp: Date | null
+  }
+
+  export type EducatorAIInteractionMaxAggregateOutputType = {
+    id: string | null
+    teacherId: string | null
+    studentId: string | null
+    classId: string | null
+    interactionType: string | null
+    prompt: string | null
+    aiResponse: string | null
+    modelUsed: string | null
+    tokensUsed: number | null
+    sessionId: string | null
+    timestamp: Date | null
+  }
+
+  export type EducatorAIInteractionCountAggregateOutputType = {
+    id: number
+    teacherId: number
+    studentId: number
+    classId: number
+    interactionType: number
+    prompt: number
+    aiResponse: number
+    standardsAligned: number
+    rubricCriteria: number
+    modelUsed: number
+    tokensUsed: number
+    sessionId: number
+    timestamp: number
+    _all: number
+  }
+
+
+  export type EducatorAIInteractionAvgAggregateInputType = {
+    tokensUsed?: true
+  }
+
+  export type EducatorAIInteractionSumAggregateInputType = {
+    tokensUsed?: true
+  }
+
+  export type EducatorAIInteractionMinAggregateInputType = {
+    id?: true
+    teacherId?: true
+    studentId?: true
+    classId?: true
+    interactionType?: true
+    prompt?: true
+    aiResponse?: true
+    modelUsed?: true
+    tokensUsed?: true
+    sessionId?: true
+    timestamp?: true
+  }
+
+  export type EducatorAIInteractionMaxAggregateInputType = {
+    id?: true
+    teacherId?: true
+    studentId?: true
+    classId?: true
+    interactionType?: true
+    prompt?: true
+    aiResponse?: true
+    modelUsed?: true
+    tokensUsed?: true
+    sessionId?: true
+    timestamp?: true
+  }
+
+  export type EducatorAIInteractionCountAggregateInputType = {
+    id?: true
+    teacherId?: true
+    studentId?: true
+    classId?: true
+    interactionType?: true
+    prompt?: true
+    aiResponse?: true
+    standardsAligned?: true
+    rubricCriteria?: true
+    modelUsed?: true
+    tokensUsed?: true
+    sessionId?: true
+    timestamp?: true
+    _all?: true
+  }
+
+  export type EducatorAIInteractionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EducatorAIInteraction to aggregate.
+     */
+    where?: EducatorAIInteractionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EducatorAIInteractions to fetch.
+     */
+    orderBy?: EducatorAIInteractionOrderByWithRelationInput | EducatorAIInteractionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EducatorAIInteractionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EducatorAIInteractions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EducatorAIInteractions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EducatorAIInteractions
+    **/
+    _count?: true | EducatorAIInteractionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: EducatorAIInteractionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: EducatorAIInteractionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EducatorAIInteractionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EducatorAIInteractionMaxAggregateInputType
+  }
+
+  export type GetEducatorAIInteractionAggregateType<T extends EducatorAIInteractionAggregateArgs> = {
+        [P in keyof T & keyof AggregateEducatorAIInteraction]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEducatorAIInteraction[P]>
+      : GetScalarType<T[P], AggregateEducatorAIInteraction[P]>
+  }
+
+
+
+
+  export type EducatorAIInteractionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EducatorAIInteractionWhereInput
+    orderBy?: EducatorAIInteractionOrderByWithAggregationInput | EducatorAIInteractionOrderByWithAggregationInput[]
+    by: EducatorAIInteractionScalarFieldEnum[] | EducatorAIInteractionScalarFieldEnum
+    having?: EducatorAIInteractionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EducatorAIInteractionCountAggregateInputType | true
+    _avg?: EducatorAIInteractionAvgAggregateInputType
+    _sum?: EducatorAIInteractionSumAggregateInputType
+    _min?: EducatorAIInteractionMinAggregateInputType
+    _max?: EducatorAIInteractionMaxAggregateInputType
+  }
+
+  export type EducatorAIInteractionGroupByOutputType = {
+    id: string
+    teacherId: string
+    studentId: string | null
+    classId: string | null
+    interactionType: string
+    prompt: string
+    aiResponse: string
+    standardsAligned: string[]
+    rubricCriteria: JsonValue | null
+    modelUsed: string | null
+    tokensUsed: number | null
+    sessionId: string | null
+    timestamp: Date
+    _count: EducatorAIInteractionCountAggregateOutputType | null
+    _avg: EducatorAIInteractionAvgAggregateOutputType | null
+    _sum: EducatorAIInteractionSumAggregateOutputType | null
+    _min: EducatorAIInteractionMinAggregateOutputType | null
+    _max: EducatorAIInteractionMaxAggregateOutputType | null
+  }
+
+  type GetEducatorAIInteractionGroupByPayload<T extends EducatorAIInteractionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EducatorAIInteractionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EducatorAIInteractionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EducatorAIInteractionGroupByOutputType[P]>
+            : GetScalarType<T[P], EducatorAIInteractionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EducatorAIInteractionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    teacherId?: boolean
+    studentId?: boolean
+    classId?: boolean
+    interactionType?: boolean
+    prompt?: boolean
+    aiResponse?: boolean
+    standardsAligned?: boolean
+    rubricCriteria?: boolean
+    modelUsed?: boolean
+    tokensUsed?: boolean
+    sessionId?: boolean
+    timestamp?: boolean
+    teacher?: boolean | UserDefaultArgs<ExtArgs>
+    student?: boolean | EducatorAIInteraction$studentArgs<ExtArgs>
+  }, ExtArgs["result"]["educatorAIInteraction"]>
+
+  export type EducatorAIInteractionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    teacherId?: boolean
+    studentId?: boolean
+    classId?: boolean
+    interactionType?: boolean
+    prompt?: boolean
+    aiResponse?: boolean
+    standardsAligned?: boolean
+    rubricCriteria?: boolean
+    modelUsed?: boolean
+    tokensUsed?: boolean
+    sessionId?: boolean
+    timestamp?: boolean
+    teacher?: boolean | UserDefaultArgs<ExtArgs>
+    student?: boolean | EducatorAIInteraction$studentArgs<ExtArgs>
+  }, ExtArgs["result"]["educatorAIInteraction"]>
+
+  export type EducatorAIInteractionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    teacherId?: boolean
+    studentId?: boolean
+    classId?: boolean
+    interactionType?: boolean
+    prompt?: boolean
+    aiResponse?: boolean
+    standardsAligned?: boolean
+    rubricCriteria?: boolean
+    modelUsed?: boolean
+    tokensUsed?: boolean
+    sessionId?: boolean
+    timestamp?: boolean
+    teacher?: boolean | UserDefaultArgs<ExtArgs>
+    student?: boolean | EducatorAIInteraction$studentArgs<ExtArgs>
+  }, ExtArgs["result"]["educatorAIInteraction"]>
+
+  export type EducatorAIInteractionSelectScalar = {
+    id?: boolean
+    teacherId?: boolean
+    studentId?: boolean
+    classId?: boolean
+    interactionType?: boolean
+    prompt?: boolean
+    aiResponse?: boolean
+    standardsAligned?: boolean
+    rubricCriteria?: boolean
+    modelUsed?: boolean
+    tokensUsed?: boolean
+    sessionId?: boolean
+    timestamp?: boolean
+  }
+
+  export type EducatorAIInteractionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "teacherId" | "studentId" | "classId" | "interactionType" | "prompt" | "aiResponse" | "standardsAligned" | "rubricCriteria" | "modelUsed" | "tokensUsed" | "sessionId" | "timestamp", ExtArgs["result"]["educatorAIInteraction"]>
+  export type EducatorAIInteractionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    teacher?: boolean | UserDefaultArgs<ExtArgs>
+    student?: boolean | EducatorAIInteraction$studentArgs<ExtArgs>
+  }
+  export type EducatorAIInteractionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    teacher?: boolean | UserDefaultArgs<ExtArgs>
+    student?: boolean | EducatorAIInteraction$studentArgs<ExtArgs>
+  }
+  export type EducatorAIInteractionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    teacher?: boolean | UserDefaultArgs<ExtArgs>
+    student?: boolean | EducatorAIInteraction$studentArgs<ExtArgs>
+  }
+
+  export type $EducatorAIInteractionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EducatorAIInteraction"
+    objects: {
+      teacher: Prisma.$UserPayload<ExtArgs>
+      student: Prisma.$student_profilesPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      teacherId: string
+      studentId: string | null
+      classId: string | null
+      interactionType: string
+      prompt: string
+      aiResponse: string
+      standardsAligned: string[]
+      rubricCriteria: Prisma.JsonValue | null
+      modelUsed: string | null
+      tokensUsed: number | null
+      sessionId: string | null
+      timestamp: Date
+    }, ExtArgs["result"]["educatorAIInteraction"]>
+    composites: {}
+  }
+
+  type EducatorAIInteractionGetPayload<S extends boolean | null | undefined | EducatorAIInteractionDefaultArgs> = $Result.GetResult<Prisma.$EducatorAIInteractionPayload, S>
+
+  type EducatorAIInteractionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EducatorAIInteractionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EducatorAIInteractionCountAggregateInputType | true
+    }
+
+  export interface EducatorAIInteractionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EducatorAIInteraction'], meta: { name: 'EducatorAIInteraction' } }
+    /**
+     * Find zero or one EducatorAIInteraction that matches the filter.
+     * @param {EducatorAIInteractionFindUniqueArgs} args - Arguments to find a EducatorAIInteraction
+     * @example
+     * // Get one EducatorAIInteraction
+     * const educatorAIInteraction = await prisma.educatorAIInteraction.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EducatorAIInteractionFindUniqueArgs>(args: SelectSubset<T, EducatorAIInteractionFindUniqueArgs<ExtArgs>>): Prisma__EducatorAIInteractionClient<$Result.GetResult<Prisma.$EducatorAIInteractionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one EducatorAIInteraction that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EducatorAIInteractionFindUniqueOrThrowArgs} args - Arguments to find a EducatorAIInteraction
+     * @example
+     * // Get one EducatorAIInteraction
+     * const educatorAIInteraction = await prisma.educatorAIInteraction.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EducatorAIInteractionFindUniqueOrThrowArgs>(args: SelectSubset<T, EducatorAIInteractionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EducatorAIInteractionClient<$Result.GetResult<Prisma.$EducatorAIInteractionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EducatorAIInteraction that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EducatorAIInteractionFindFirstArgs} args - Arguments to find a EducatorAIInteraction
+     * @example
+     * // Get one EducatorAIInteraction
+     * const educatorAIInteraction = await prisma.educatorAIInteraction.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EducatorAIInteractionFindFirstArgs>(args?: SelectSubset<T, EducatorAIInteractionFindFirstArgs<ExtArgs>>): Prisma__EducatorAIInteractionClient<$Result.GetResult<Prisma.$EducatorAIInteractionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EducatorAIInteraction that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EducatorAIInteractionFindFirstOrThrowArgs} args - Arguments to find a EducatorAIInteraction
+     * @example
+     * // Get one EducatorAIInteraction
+     * const educatorAIInteraction = await prisma.educatorAIInteraction.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EducatorAIInteractionFindFirstOrThrowArgs>(args?: SelectSubset<T, EducatorAIInteractionFindFirstOrThrowArgs<ExtArgs>>): Prisma__EducatorAIInteractionClient<$Result.GetResult<Prisma.$EducatorAIInteractionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more EducatorAIInteractions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EducatorAIInteractionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EducatorAIInteractions
+     * const educatorAIInteractions = await prisma.educatorAIInteraction.findMany()
+     * 
+     * // Get first 10 EducatorAIInteractions
+     * const educatorAIInteractions = await prisma.educatorAIInteraction.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const educatorAIInteractionWithIdOnly = await prisma.educatorAIInteraction.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EducatorAIInteractionFindManyArgs>(args?: SelectSubset<T, EducatorAIInteractionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EducatorAIInteractionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a EducatorAIInteraction.
+     * @param {EducatorAIInteractionCreateArgs} args - Arguments to create a EducatorAIInteraction.
+     * @example
+     * // Create one EducatorAIInteraction
+     * const EducatorAIInteraction = await prisma.educatorAIInteraction.create({
+     *   data: {
+     *     // ... data to create a EducatorAIInteraction
+     *   }
+     * })
+     * 
+     */
+    create<T extends EducatorAIInteractionCreateArgs>(args: SelectSubset<T, EducatorAIInteractionCreateArgs<ExtArgs>>): Prisma__EducatorAIInteractionClient<$Result.GetResult<Prisma.$EducatorAIInteractionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many EducatorAIInteractions.
+     * @param {EducatorAIInteractionCreateManyArgs} args - Arguments to create many EducatorAIInteractions.
+     * @example
+     * // Create many EducatorAIInteractions
+     * const educatorAIInteraction = await prisma.educatorAIInteraction.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EducatorAIInteractionCreateManyArgs>(args?: SelectSubset<T, EducatorAIInteractionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many EducatorAIInteractions and returns the data saved in the database.
+     * @param {EducatorAIInteractionCreateManyAndReturnArgs} args - Arguments to create many EducatorAIInteractions.
+     * @example
+     * // Create many EducatorAIInteractions
+     * const educatorAIInteraction = await prisma.educatorAIInteraction.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many EducatorAIInteractions and only return the `id`
+     * const educatorAIInteractionWithIdOnly = await prisma.educatorAIInteraction.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EducatorAIInteractionCreateManyAndReturnArgs>(args?: SelectSubset<T, EducatorAIInteractionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EducatorAIInteractionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a EducatorAIInteraction.
+     * @param {EducatorAIInteractionDeleteArgs} args - Arguments to delete one EducatorAIInteraction.
+     * @example
+     * // Delete one EducatorAIInteraction
+     * const EducatorAIInteraction = await prisma.educatorAIInteraction.delete({
+     *   where: {
+     *     // ... filter to delete one EducatorAIInteraction
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EducatorAIInteractionDeleteArgs>(args: SelectSubset<T, EducatorAIInteractionDeleteArgs<ExtArgs>>): Prisma__EducatorAIInteractionClient<$Result.GetResult<Prisma.$EducatorAIInteractionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one EducatorAIInteraction.
+     * @param {EducatorAIInteractionUpdateArgs} args - Arguments to update one EducatorAIInteraction.
+     * @example
+     * // Update one EducatorAIInteraction
+     * const educatorAIInteraction = await prisma.educatorAIInteraction.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EducatorAIInteractionUpdateArgs>(args: SelectSubset<T, EducatorAIInteractionUpdateArgs<ExtArgs>>): Prisma__EducatorAIInteractionClient<$Result.GetResult<Prisma.$EducatorAIInteractionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more EducatorAIInteractions.
+     * @param {EducatorAIInteractionDeleteManyArgs} args - Arguments to filter EducatorAIInteractions to delete.
+     * @example
+     * // Delete a few EducatorAIInteractions
+     * const { count } = await prisma.educatorAIInteraction.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EducatorAIInteractionDeleteManyArgs>(args?: SelectSubset<T, EducatorAIInteractionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EducatorAIInteractions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EducatorAIInteractionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EducatorAIInteractions
+     * const educatorAIInteraction = await prisma.educatorAIInteraction.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EducatorAIInteractionUpdateManyArgs>(args: SelectSubset<T, EducatorAIInteractionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EducatorAIInteractions and returns the data updated in the database.
+     * @param {EducatorAIInteractionUpdateManyAndReturnArgs} args - Arguments to update many EducatorAIInteractions.
+     * @example
+     * // Update many EducatorAIInteractions
+     * const educatorAIInteraction = await prisma.educatorAIInteraction.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more EducatorAIInteractions and only return the `id`
+     * const educatorAIInteractionWithIdOnly = await prisma.educatorAIInteraction.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EducatorAIInteractionUpdateManyAndReturnArgs>(args: SelectSubset<T, EducatorAIInteractionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EducatorAIInteractionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one EducatorAIInteraction.
+     * @param {EducatorAIInteractionUpsertArgs} args - Arguments to update or create a EducatorAIInteraction.
+     * @example
+     * // Update or create a EducatorAIInteraction
+     * const educatorAIInteraction = await prisma.educatorAIInteraction.upsert({
+     *   create: {
+     *     // ... data to create a EducatorAIInteraction
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EducatorAIInteraction we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EducatorAIInteractionUpsertArgs>(args: SelectSubset<T, EducatorAIInteractionUpsertArgs<ExtArgs>>): Prisma__EducatorAIInteractionClient<$Result.GetResult<Prisma.$EducatorAIInteractionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of EducatorAIInteractions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EducatorAIInteractionCountArgs} args - Arguments to filter EducatorAIInteractions to count.
+     * @example
+     * // Count the number of EducatorAIInteractions
+     * const count = await prisma.educatorAIInteraction.count({
+     *   where: {
+     *     // ... the filter for the EducatorAIInteractions we want to count
+     *   }
+     * })
+    **/
+    count<T extends EducatorAIInteractionCountArgs>(
+      args?: Subset<T, EducatorAIInteractionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EducatorAIInteractionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EducatorAIInteraction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EducatorAIInteractionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EducatorAIInteractionAggregateArgs>(args: Subset<T, EducatorAIInteractionAggregateArgs>): Prisma.PrismaPromise<GetEducatorAIInteractionAggregateType<T>>
+
+    /**
+     * Group by EducatorAIInteraction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EducatorAIInteractionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EducatorAIInteractionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EducatorAIInteractionGroupByArgs['orderBy'] }
+        : { orderBy?: EducatorAIInteractionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EducatorAIInteractionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEducatorAIInteractionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EducatorAIInteraction model
+   */
+  readonly fields: EducatorAIInteractionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EducatorAIInteraction.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EducatorAIInteractionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    teacher<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    student<T extends EducatorAIInteraction$studentArgs<ExtArgs> = {}>(args?: Subset<T, EducatorAIInteraction$studentArgs<ExtArgs>>): Prisma__student_profilesClient<$Result.GetResult<Prisma.$student_profilesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EducatorAIInteraction model
+   */
+  interface EducatorAIInteractionFieldRefs {
+    readonly id: FieldRef<"EducatorAIInteraction", 'String'>
+    readonly teacherId: FieldRef<"EducatorAIInteraction", 'String'>
+    readonly studentId: FieldRef<"EducatorAIInteraction", 'String'>
+    readonly classId: FieldRef<"EducatorAIInteraction", 'String'>
+    readonly interactionType: FieldRef<"EducatorAIInteraction", 'String'>
+    readonly prompt: FieldRef<"EducatorAIInteraction", 'String'>
+    readonly aiResponse: FieldRef<"EducatorAIInteraction", 'String'>
+    readonly standardsAligned: FieldRef<"EducatorAIInteraction", 'String[]'>
+    readonly rubricCriteria: FieldRef<"EducatorAIInteraction", 'Json'>
+    readonly modelUsed: FieldRef<"EducatorAIInteraction", 'String'>
+    readonly tokensUsed: FieldRef<"EducatorAIInteraction", 'Int'>
+    readonly sessionId: FieldRef<"EducatorAIInteraction", 'String'>
+    readonly timestamp: FieldRef<"EducatorAIInteraction", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EducatorAIInteraction findUnique
+   */
+  export type EducatorAIInteractionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducatorAIInteraction
+     */
+    select?: EducatorAIInteractionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducatorAIInteraction
+     */
+    omit?: EducatorAIInteractionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducatorAIInteractionInclude<ExtArgs> | null
+    /**
+     * Filter, which EducatorAIInteraction to fetch.
+     */
+    where: EducatorAIInteractionWhereUniqueInput
+  }
+
+  /**
+   * EducatorAIInteraction findUniqueOrThrow
+   */
+  export type EducatorAIInteractionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducatorAIInteraction
+     */
+    select?: EducatorAIInteractionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducatorAIInteraction
+     */
+    omit?: EducatorAIInteractionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducatorAIInteractionInclude<ExtArgs> | null
+    /**
+     * Filter, which EducatorAIInteraction to fetch.
+     */
+    where: EducatorAIInteractionWhereUniqueInput
+  }
+
+  /**
+   * EducatorAIInteraction findFirst
+   */
+  export type EducatorAIInteractionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducatorAIInteraction
+     */
+    select?: EducatorAIInteractionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducatorAIInteraction
+     */
+    omit?: EducatorAIInteractionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducatorAIInteractionInclude<ExtArgs> | null
+    /**
+     * Filter, which EducatorAIInteraction to fetch.
+     */
+    where?: EducatorAIInteractionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EducatorAIInteractions to fetch.
+     */
+    orderBy?: EducatorAIInteractionOrderByWithRelationInput | EducatorAIInteractionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EducatorAIInteractions.
+     */
+    cursor?: EducatorAIInteractionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EducatorAIInteractions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EducatorAIInteractions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EducatorAIInteractions.
+     */
+    distinct?: EducatorAIInteractionScalarFieldEnum | EducatorAIInteractionScalarFieldEnum[]
+  }
+
+  /**
+   * EducatorAIInteraction findFirstOrThrow
+   */
+  export type EducatorAIInteractionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducatorAIInteraction
+     */
+    select?: EducatorAIInteractionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducatorAIInteraction
+     */
+    omit?: EducatorAIInteractionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducatorAIInteractionInclude<ExtArgs> | null
+    /**
+     * Filter, which EducatorAIInteraction to fetch.
+     */
+    where?: EducatorAIInteractionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EducatorAIInteractions to fetch.
+     */
+    orderBy?: EducatorAIInteractionOrderByWithRelationInput | EducatorAIInteractionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EducatorAIInteractions.
+     */
+    cursor?: EducatorAIInteractionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EducatorAIInteractions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EducatorAIInteractions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EducatorAIInteractions.
+     */
+    distinct?: EducatorAIInteractionScalarFieldEnum | EducatorAIInteractionScalarFieldEnum[]
+  }
+
+  /**
+   * EducatorAIInteraction findMany
+   */
+  export type EducatorAIInteractionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducatorAIInteraction
+     */
+    select?: EducatorAIInteractionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducatorAIInteraction
+     */
+    omit?: EducatorAIInteractionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducatorAIInteractionInclude<ExtArgs> | null
+    /**
+     * Filter, which EducatorAIInteractions to fetch.
+     */
+    where?: EducatorAIInteractionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EducatorAIInteractions to fetch.
+     */
+    orderBy?: EducatorAIInteractionOrderByWithRelationInput | EducatorAIInteractionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EducatorAIInteractions.
+     */
+    cursor?: EducatorAIInteractionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EducatorAIInteractions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EducatorAIInteractions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EducatorAIInteractions.
+     */
+    distinct?: EducatorAIInteractionScalarFieldEnum | EducatorAIInteractionScalarFieldEnum[]
+  }
+
+  /**
+   * EducatorAIInteraction create
+   */
+  export type EducatorAIInteractionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducatorAIInteraction
+     */
+    select?: EducatorAIInteractionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducatorAIInteraction
+     */
+    omit?: EducatorAIInteractionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducatorAIInteractionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a EducatorAIInteraction.
+     */
+    data: XOR<EducatorAIInteractionCreateInput, EducatorAIInteractionUncheckedCreateInput>
+  }
+
+  /**
+   * EducatorAIInteraction createMany
+   */
+  export type EducatorAIInteractionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EducatorAIInteractions.
+     */
+    data: EducatorAIInteractionCreateManyInput | EducatorAIInteractionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EducatorAIInteraction createManyAndReturn
+   */
+  export type EducatorAIInteractionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducatorAIInteraction
+     */
+    select?: EducatorAIInteractionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducatorAIInteraction
+     */
+    omit?: EducatorAIInteractionOmit<ExtArgs> | null
+    /**
+     * The data used to create many EducatorAIInteractions.
+     */
+    data: EducatorAIInteractionCreateManyInput | EducatorAIInteractionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducatorAIInteractionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EducatorAIInteraction update
+   */
+  export type EducatorAIInteractionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducatorAIInteraction
+     */
+    select?: EducatorAIInteractionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducatorAIInteraction
+     */
+    omit?: EducatorAIInteractionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducatorAIInteractionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a EducatorAIInteraction.
+     */
+    data: XOR<EducatorAIInteractionUpdateInput, EducatorAIInteractionUncheckedUpdateInput>
+    /**
+     * Choose, which EducatorAIInteraction to update.
+     */
+    where: EducatorAIInteractionWhereUniqueInput
+  }
+
+  /**
+   * EducatorAIInteraction updateMany
+   */
+  export type EducatorAIInteractionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EducatorAIInteractions.
+     */
+    data: XOR<EducatorAIInteractionUpdateManyMutationInput, EducatorAIInteractionUncheckedUpdateManyInput>
+    /**
+     * Filter which EducatorAIInteractions to update
+     */
+    where?: EducatorAIInteractionWhereInput
+    /**
+     * Limit how many EducatorAIInteractions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EducatorAIInteraction updateManyAndReturn
+   */
+  export type EducatorAIInteractionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducatorAIInteraction
+     */
+    select?: EducatorAIInteractionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducatorAIInteraction
+     */
+    omit?: EducatorAIInteractionOmit<ExtArgs> | null
+    /**
+     * The data used to update EducatorAIInteractions.
+     */
+    data: XOR<EducatorAIInteractionUpdateManyMutationInput, EducatorAIInteractionUncheckedUpdateManyInput>
+    /**
+     * Filter which EducatorAIInteractions to update
+     */
+    where?: EducatorAIInteractionWhereInput
+    /**
+     * Limit how many EducatorAIInteractions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducatorAIInteractionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EducatorAIInteraction upsert
+   */
+  export type EducatorAIInteractionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducatorAIInteraction
+     */
+    select?: EducatorAIInteractionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducatorAIInteraction
+     */
+    omit?: EducatorAIInteractionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducatorAIInteractionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the EducatorAIInteraction to update in case it exists.
+     */
+    where: EducatorAIInteractionWhereUniqueInput
+    /**
+     * In case the EducatorAIInteraction found by the `where` argument doesn't exist, create a new EducatorAIInteraction with this data.
+     */
+    create: XOR<EducatorAIInteractionCreateInput, EducatorAIInteractionUncheckedCreateInput>
+    /**
+     * In case the EducatorAIInteraction was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EducatorAIInteractionUpdateInput, EducatorAIInteractionUncheckedUpdateInput>
+  }
+
+  /**
+   * EducatorAIInteraction delete
+   */
+  export type EducatorAIInteractionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducatorAIInteraction
+     */
+    select?: EducatorAIInteractionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducatorAIInteraction
+     */
+    omit?: EducatorAIInteractionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducatorAIInteractionInclude<ExtArgs> | null
+    /**
+     * Filter which EducatorAIInteraction to delete.
+     */
+    where: EducatorAIInteractionWhereUniqueInput
+  }
+
+  /**
+   * EducatorAIInteraction deleteMany
+   */
+  export type EducatorAIInteractionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EducatorAIInteractions to delete
+     */
+    where?: EducatorAIInteractionWhereInput
+    /**
+     * Limit how many EducatorAIInteractions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * EducatorAIInteraction.student
+   */
+  export type EducatorAIInteraction$studentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the student_profiles
+     */
+    select?: student_profilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the student_profiles
+     */
+    omit?: student_profilesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: student_profilesInclude<ExtArgs> | null
+    where?: student_profilesWhereInput
+  }
+
+  /**
+   * EducatorAIInteraction without action
+   */
+  export type EducatorAIInteractionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducatorAIInteraction
+     */
+    select?: EducatorAIInteractionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducatorAIInteraction
+     */
+    omit?: EducatorAIInteractionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducatorAIInteractionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model LtiPlatform
+   */
+
+  export type AggregateLtiPlatform = {
+    _count: LtiPlatformCountAggregateOutputType | null
+    _min: LtiPlatformMinAggregateOutputType | null
+    _max: LtiPlatformMaxAggregateOutputType | null
+  }
+
+  export type LtiPlatformMinAggregateOutputType = {
+    id: string | null
+    issuer: string | null
+    clientId: string | null
+    deploymentId: string | null
+    platformName: string | null
+    jwksUrl: string | null
+    authTokenUrl: string | null
+    authLoginUrl: string | null
+    registeredAt: Date | null
+    isActive: boolean | null
+  }
+
+  export type LtiPlatformMaxAggregateOutputType = {
+    id: string | null
+    issuer: string | null
+    clientId: string | null
+    deploymentId: string | null
+    platformName: string | null
+    jwksUrl: string | null
+    authTokenUrl: string | null
+    authLoginUrl: string | null
+    registeredAt: Date | null
+    isActive: boolean | null
+  }
+
+  export type LtiPlatformCountAggregateOutputType = {
+    id: number
+    issuer: number
+    clientId: number
+    deploymentId: number
+    platformName: number
+    jwksUrl: number
+    authTokenUrl: number
+    authLoginUrl: number
+    registeredAt: number
+    isActive: number
+    _all: number
+  }
+
+
+  export type LtiPlatformMinAggregateInputType = {
+    id?: true
+    issuer?: true
+    clientId?: true
+    deploymentId?: true
+    platformName?: true
+    jwksUrl?: true
+    authTokenUrl?: true
+    authLoginUrl?: true
+    registeredAt?: true
+    isActive?: true
+  }
+
+  export type LtiPlatformMaxAggregateInputType = {
+    id?: true
+    issuer?: true
+    clientId?: true
+    deploymentId?: true
+    platformName?: true
+    jwksUrl?: true
+    authTokenUrl?: true
+    authLoginUrl?: true
+    registeredAt?: true
+    isActive?: true
+  }
+
+  export type LtiPlatformCountAggregateInputType = {
+    id?: true
+    issuer?: true
+    clientId?: true
+    deploymentId?: true
+    platformName?: true
+    jwksUrl?: true
+    authTokenUrl?: true
+    authLoginUrl?: true
+    registeredAt?: true
+    isActive?: true
+    _all?: true
+  }
+
+  export type LtiPlatformAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LtiPlatform to aggregate.
+     */
+    where?: LtiPlatformWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LtiPlatforms to fetch.
+     */
+    orderBy?: LtiPlatformOrderByWithRelationInput | LtiPlatformOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LtiPlatformWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LtiPlatforms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LtiPlatforms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LtiPlatforms
+    **/
+    _count?: true | LtiPlatformCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LtiPlatformMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LtiPlatformMaxAggregateInputType
+  }
+
+  export type GetLtiPlatformAggregateType<T extends LtiPlatformAggregateArgs> = {
+        [P in keyof T & keyof AggregateLtiPlatform]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLtiPlatform[P]>
+      : GetScalarType<T[P], AggregateLtiPlatform[P]>
+  }
+
+
+
+
+  export type LtiPlatformGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LtiPlatformWhereInput
+    orderBy?: LtiPlatformOrderByWithAggregationInput | LtiPlatformOrderByWithAggregationInput[]
+    by: LtiPlatformScalarFieldEnum[] | LtiPlatformScalarFieldEnum
+    having?: LtiPlatformScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LtiPlatformCountAggregateInputType | true
+    _min?: LtiPlatformMinAggregateInputType
+    _max?: LtiPlatformMaxAggregateInputType
+  }
+
+  export type LtiPlatformGroupByOutputType = {
+    id: string
+    issuer: string
+    clientId: string
+    deploymentId: string | null
+    platformName: string | null
+    jwksUrl: string
+    authTokenUrl: string
+    authLoginUrl: string
+    registeredAt: Date
+    isActive: boolean
+    _count: LtiPlatformCountAggregateOutputType | null
+    _min: LtiPlatformMinAggregateOutputType | null
+    _max: LtiPlatformMaxAggregateOutputType | null
+  }
+
+  type GetLtiPlatformGroupByPayload<T extends LtiPlatformGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LtiPlatformGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LtiPlatformGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LtiPlatformGroupByOutputType[P]>
+            : GetScalarType<T[P], LtiPlatformGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LtiPlatformSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    issuer?: boolean
+    clientId?: boolean
+    deploymentId?: boolean
+    platformName?: boolean
+    jwksUrl?: boolean
+    authTokenUrl?: boolean
+    authLoginUrl?: boolean
+    registeredAt?: boolean
+    isActive?: boolean
+  }, ExtArgs["result"]["ltiPlatform"]>
+
+  export type LtiPlatformSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    issuer?: boolean
+    clientId?: boolean
+    deploymentId?: boolean
+    platformName?: boolean
+    jwksUrl?: boolean
+    authTokenUrl?: boolean
+    authLoginUrl?: boolean
+    registeredAt?: boolean
+    isActive?: boolean
+  }, ExtArgs["result"]["ltiPlatform"]>
+
+  export type LtiPlatformSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    issuer?: boolean
+    clientId?: boolean
+    deploymentId?: boolean
+    platformName?: boolean
+    jwksUrl?: boolean
+    authTokenUrl?: boolean
+    authLoginUrl?: boolean
+    registeredAt?: boolean
+    isActive?: boolean
+  }, ExtArgs["result"]["ltiPlatform"]>
+
+  export type LtiPlatformSelectScalar = {
+    id?: boolean
+    issuer?: boolean
+    clientId?: boolean
+    deploymentId?: boolean
+    platformName?: boolean
+    jwksUrl?: boolean
+    authTokenUrl?: boolean
+    authLoginUrl?: boolean
+    registeredAt?: boolean
+    isActive?: boolean
+  }
+
+  export type LtiPlatformOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "issuer" | "clientId" | "deploymentId" | "platformName" | "jwksUrl" | "authTokenUrl" | "authLoginUrl" | "registeredAt" | "isActive", ExtArgs["result"]["ltiPlatform"]>
+
+  export type $LtiPlatformPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LtiPlatform"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      issuer: string
+      clientId: string
+      deploymentId: string | null
+      platformName: string | null
+      jwksUrl: string
+      authTokenUrl: string
+      authLoginUrl: string
+      registeredAt: Date
+      isActive: boolean
+    }, ExtArgs["result"]["ltiPlatform"]>
+    composites: {}
+  }
+
+  type LtiPlatformGetPayload<S extends boolean | null | undefined | LtiPlatformDefaultArgs> = $Result.GetResult<Prisma.$LtiPlatformPayload, S>
+
+  type LtiPlatformCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LtiPlatformFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LtiPlatformCountAggregateInputType | true
+    }
+
+  export interface LtiPlatformDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LtiPlatform'], meta: { name: 'LtiPlatform' } }
+    /**
+     * Find zero or one LtiPlatform that matches the filter.
+     * @param {LtiPlatformFindUniqueArgs} args - Arguments to find a LtiPlatform
+     * @example
+     * // Get one LtiPlatform
+     * const ltiPlatform = await prisma.ltiPlatform.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LtiPlatformFindUniqueArgs>(args: SelectSubset<T, LtiPlatformFindUniqueArgs<ExtArgs>>): Prisma__LtiPlatformClient<$Result.GetResult<Prisma.$LtiPlatformPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LtiPlatform that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LtiPlatformFindUniqueOrThrowArgs} args - Arguments to find a LtiPlatform
+     * @example
+     * // Get one LtiPlatform
+     * const ltiPlatform = await prisma.ltiPlatform.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LtiPlatformFindUniqueOrThrowArgs>(args: SelectSubset<T, LtiPlatformFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LtiPlatformClient<$Result.GetResult<Prisma.$LtiPlatformPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LtiPlatform that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LtiPlatformFindFirstArgs} args - Arguments to find a LtiPlatform
+     * @example
+     * // Get one LtiPlatform
+     * const ltiPlatform = await prisma.ltiPlatform.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LtiPlatformFindFirstArgs>(args?: SelectSubset<T, LtiPlatformFindFirstArgs<ExtArgs>>): Prisma__LtiPlatformClient<$Result.GetResult<Prisma.$LtiPlatformPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LtiPlatform that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LtiPlatformFindFirstOrThrowArgs} args - Arguments to find a LtiPlatform
+     * @example
+     * // Get one LtiPlatform
+     * const ltiPlatform = await prisma.ltiPlatform.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LtiPlatformFindFirstOrThrowArgs>(args?: SelectSubset<T, LtiPlatformFindFirstOrThrowArgs<ExtArgs>>): Prisma__LtiPlatformClient<$Result.GetResult<Prisma.$LtiPlatformPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LtiPlatforms that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LtiPlatformFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LtiPlatforms
+     * const ltiPlatforms = await prisma.ltiPlatform.findMany()
+     * 
+     * // Get first 10 LtiPlatforms
+     * const ltiPlatforms = await prisma.ltiPlatform.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const ltiPlatformWithIdOnly = await prisma.ltiPlatform.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LtiPlatformFindManyArgs>(args?: SelectSubset<T, LtiPlatformFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LtiPlatformPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LtiPlatform.
+     * @param {LtiPlatformCreateArgs} args - Arguments to create a LtiPlatform.
+     * @example
+     * // Create one LtiPlatform
+     * const LtiPlatform = await prisma.ltiPlatform.create({
+     *   data: {
+     *     // ... data to create a LtiPlatform
+     *   }
+     * })
+     * 
+     */
+    create<T extends LtiPlatformCreateArgs>(args: SelectSubset<T, LtiPlatformCreateArgs<ExtArgs>>): Prisma__LtiPlatformClient<$Result.GetResult<Prisma.$LtiPlatformPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LtiPlatforms.
+     * @param {LtiPlatformCreateManyArgs} args - Arguments to create many LtiPlatforms.
+     * @example
+     * // Create many LtiPlatforms
+     * const ltiPlatform = await prisma.ltiPlatform.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LtiPlatformCreateManyArgs>(args?: SelectSubset<T, LtiPlatformCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LtiPlatforms and returns the data saved in the database.
+     * @param {LtiPlatformCreateManyAndReturnArgs} args - Arguments to create many LtiPlatforms.
+     * @example
+     * // Create many LtiPlatforms
+     * const ltiPlatform = await prisma.ltiPlatform.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LtiPlatforms and only return the `id`
+     * const ltiPlatformWithIdOnly = await prisma.ltiPlatform.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LtiPlatformCreateManyAndReturnArgs>(args?: SelectSubset<T, LtiPlatformCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LtiPlatformPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LtiPlatform.
+     * @param {LtiPlatformDeleteArgs} args - Arguments to delete one LtiPlatform.
+     * @example
+     * // Delete one LtiPlatform
+     * const LtiPlatform = await prisma.ltiPlatform.delete({
+     *   where: {
+     *     // ... filter to delete one LtiPlatform
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LtiPlatformDeleteArgs>(args: SelectSubset<T, LtiPlatformDeleteArgs<ExtArgs>>): Prisma__LtiPlatformClient<$Result.GetResult<Prisma.$LtiPlatformPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LtiPlatform.
+     * @param {LtiPlatformUpdateArgs} args - Arguments to update one LtiPlatform.
+     * @example
+     * // Update one LtiPlatform
+     * const ltiPlatform = await prisma.ltiPlatform.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LtiPlatformUpdateArgs>(args: SelectSubset<T, LtiPlatformUpdateArgs<ExtArgs>>): Prisma__LtiPlatformClient<$Result.GetResult<Prisma.$LtiPlatformPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LtiPlatforms.
+     * @param {LtiPlatformDeleteManyArgs} args - Arguments to filter LtiPlatforms to delete.
+     * @example
+     * // Delete a few LtiPlatforms
+     * const { count } = await prisma.ltiPlatform.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LtiPlatformDeleteManyArgs>(args?: SelectSubset<T, LtiPlatformDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LtiPlatforms.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LtiPlatformUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LtiPlatforms
+     * const ltiPlatform = await prisma.ltiPlatform.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LtiPlatformUpdateManyArgs>(args: SelectSubset<T, LtiPlatformUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LtiPlatforms and returns the data updated in the database.
+     * @param {LtiPlatformUpdateManyAndReturnArgs} args - Arguments to update many LtiPlatforms.
+     * @example
+     * // Update many LtiPlatforms
+     * const ltiPlatform = await prisma.ltiPlatform.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LtiPlatforms and only return the `id`
+     * const ltiPlatformWithIdOnly = await prisma.ltiPlatform.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LtiPlatformUpdateManyAndReturnArgs>(args: SelectSubset<T, LtiPlatformUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LtiPlatformPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LtiPlatform.
+     * @param {LtiPlatformUpsertArgs} args - Arguments to update or create a LtiPlatform.
+     * @example
+     * // Update or create a LtiPlatform
+     * const ltiPlatform = await prisma.ltiPlatform.upsert({
+     *   create: {
+     *     // ... data to create a LtiPlatform
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LtiPlatform we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LtiPlatformUpsertArgs>(args: SelectSubset<T, LtiPlatformUpsertArgs<ExtArgs>>): Prisma__LtiPlatformClient<$Result.GetResult<Prisma.$LtiPlatformPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LtiPlatforms.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LtiPlatformCountArgs} args - Arguments to filter LtiPlatforms to count.
+     * @example
+     * // Count the number of LtiPlatforms
+     * const count = await prisma.ltiPlatform.count({
+     *   where: {
+     *     // ... the filter for the LtiPlatforms we want to count
+     *   }
+     * })
+    **/
+    count<T extends LtiPlatformCountArgs>(
+      args?: Subset<T, LtiPlatformCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LtiPlatformCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LtiPlatform.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LtiPlatformAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LtiPlatformAggregateArgs>(args: Subset<T, LtiPlatformAggregateArgs>): Prisma.PrismaPromise<GetLtiPlatformAggregateType<T>>
+
+    /**
+     * Group by LtiPlatform.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LtiPlatformGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LtiPlatformGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LtiPlatformGroupByArgs['orderBy'] }
+        : { orderBy?: LtiPlatformGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LtiPlatformGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLtiPlatformGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LtiPlatform model
+   */
+  readonly fields: LtiPlatformFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LtiPlatform.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LtiPlatformClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LtiPlatform model
+   */
+  interface LtiPlatformFieldRefs {
+    readonly id: FieldRef<"LtiPlatform", 'String'>
+    readonly issuer: FieldRef<"LtiPlatform", 'String'>
+    readonly clientId: FieldRef<"LtiPlatform", 'String'>
+    readonly deploymentId: FieldRef<"LtiPlatform", 'String'>
+    readonly platformName: FieldRef<"LtiPlatform", 'String'>
+    readonly jwksUrl: FieldRef<"LtiPlatform", 'String'>
+    readonly authTokenUrl: FieldRef<"LtiPlatform", 'String'>
+    readonly authLoginUrl: FieldRef<"LtiPlatform", 'String'>
+    readonly registeredAt: FieldRef<"LtiPlatform", 'DateTime'>
+    readonly isActive: FieldRef<"LtiPlatform", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LtiPlatform findUnique
+   */
+  export type LtiPlatformFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LtiPlatform
+     */
+    select?: LtiPlatformSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LtiPlatform
+     */
+    omit?: LtiPlatformOmit<ExtArgs> | null
+    /**
+     * Filter, which LtiPlatform to fetch.
+     */
+    where: LtiPlatformWhereUniqueInput
+  }
+
+  /**
+   * LtiPlatform findUniqueOrThrow
+   */
+  export type LtiPlatformFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LtiPlatform
+     */
+    select?: LtiPlatformSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LtiPlatform
+     */
+    omit?: LtiPlatformOmit<ExtArgs> | null
+    /**
+     * Filter, which LtiPlatform to fetch.
+     */
+    where: LtiPlatformWhereUniqueInput
+  }
+
+  /**
+   * LtiPlatform findFirst
+   */
+  export type LtiPlatformFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LtiPlatform
+     */
+    select?: LtiPlatformSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LtiPlatform
+     */
+    omit?: LtiPlatformOmit<ExtArgs> | null
+    /**
+     * Filter, which LtiPlatform to fetch.
+     */
+    where?: LtiPlatformWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LtiPlatforms to fetch.
+     */
+    orderBy?: LtiPlatformOrderByWithRelationInput | LtiPlatformOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LtiPlatforms.
+     */
+    cursor?: LtiPlatformWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LtiPlatforms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LtiPlatforms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LtiPlatforms.
+     */
+    distinct?: LtiPlatformScalarFieldEnum | LtiPlatformScalarFieldEnum[]
+  }
+
+  /**
+   * LtiPlatform findFirstOrThrow
+   */
+  export type LtiPlatformFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LtiPlatform
+     */
+    select?: LtiPlatformSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LtiPlatform
+     */
+    omit?: LtiPlatformOmit<ExtArgs> | null
+    /**
+     * Filter, which LtiPlatform to fetch.
+     */
+    where?: LtiPlatformWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LtiPlatforms to fetch.
+     */
+    orderBy?: LtiPlatformOrderByWithRelationInput | LtiPlatformOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LtiPlatforms.
+     */
+    cursor?: LtiPlatformWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LtiPlatforms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LtiPlatforms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LtiPlatforms.
+     */
+    distinct?: LtiPlatformScalarFieldEnum | LtiPlatformScalarFieldEnum[]
+  }
+
+  /**
+   * LtiPlatform findMany
+   */
+  export type LtiPlatformFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LtiPlatform
+     */
+    select?: LtiPlatformSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LtiPlatform
+     */
+    omit?: LtiPlatformOmit<ExtArgs> | null
+    /**
+     * Filter, which LtiPlatforms to fetch.
+     */
+    where?: LtiPlatformWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LtiPlatforms to fetch.
+     */
+    orderBy?: LtiPlatformOrderByWithRelationInput | LtiPlatformOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LtiPlatforms.
+     */
+    cursor?: LtiPlatformWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LtiPlatforms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LtiPlatforms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LtiPlatforms.
+     */
+    distinct?: LtiPlatformScalarFieldEnum | LtiPlatformScalarFieldEnum[]
+  }
+
+  /**
+   * LtiPlatform create
+   */
+  export type LtiPlatformCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LtiPlatform
+     */
+    select?: LtiPlatformSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LtiPlatform
+     */
+    omit?: LtiPlatformOmit<ExtArgs> | null
+    /**
+     * The data needed to create a LtiPlatform.
+     */
+    data: XOR<LtiPlatformCreateInput, LtiPlatformUncheckedCreateInput>
+  }
+
+  /**
+   * LtiPlatform createMany
+   */
+  export type LtiPlatformCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LtiPlatforms.
+     */
+    data: LtiPlatformCreateManyInput | LtiPlatformCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LtiPlatform createManyAndReturn
+   */
+  export type LtiPlatformCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LtiPlatform
+     */
+    select?: LtiPlatformSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LtiPlatform
+     */
+    omit?: LtiPlatformOmit<ExtArgs> | null
+    /**
+     * The data used to create many LtiPlatforms.
+     */
+    data: LtiPlatformCreateManyInput | LtiPlatformCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LtiPlatform update
+   */
+  export type LtiPlatformUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LtiPlatform
+     */
+    select?: LtiPlatformSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LtiPlatform
+     */
+    omit?: LtiPlatformOmit<ExtArgs> | null
+    /**
+     * The data needed to update a LtiPlatform.
+     */
+    data: XOR<LtiPlatformUpdateInput, LtiPlatformUncheckedUpdateInput>
+    /**
+     * Choose, which LtiPlatform to update.
+     */
+    where: LtiPlatformWhereUniqueInput
+  }
+
+  /**
+   * LtiPlatform updateMany
+   */
+  export type LtiPlatformUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LtiPlatforms.
+     */
+    data: XOR<LtiPlatformUpdateManyMutationInput, LtiPlatformUncheckedUpdateManyInput>
+    /**
+     * Filter which LtiPlatforms to update
+     */
+    where?: LtiPlatformWhereInput
+    /**
+     * Limit how many LtiPlatforms to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LtiPlatform updateManyAndReturn
+   */
+  export type LtiPlatformUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LtiPlatform
+     */
+    select?: LtiPlatformSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LtiPlatform
+     */
+    omit?: LtiPlatformOmit<ExtArgs> | null
+    /**
+     * The data used to update LtiPlatforms.
+     */
+    data: XOR<LtiPlatformUpdateManyMutationInput, LtiPlatformUncheckedUpdateManyInput>
+    /**
+     * Filter which LtiPlatforms to update
+     */
+    where?: LtiPlatformWhereInput
+    /**
+     * Limit how many LtiPlatforms to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LtiPlatform upsert
+   */
+  export type LtiPlatformUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LtiPlatform
+     */
+    select?: LtiPlatformSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LtiPlatform
+     */
+    omit?: LtiPlatformOmit<ExtArgs> | null
+    /**
+     * The filter to search for the LtiPlatform to update in case it exists.
+     */
+    where: LtiPlatformWhereUniqueInput
+    /**
+     * In case the LtiPlatform found by the `where` argument doesn't exist, create a new LtiPlatform with this data.
+     */
+    create: XOR<LtiPlatformCreateInput, LtiPlatformUncheckedCreateInput>
+    /**
+     * In case the LtiPlatform was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LtiPlatformUpdateInput, LtiPlatformUncheckedUpdateInput>
+  }
+
+  /**
+   * LtiPlatform delete
+   */
+  export type LtiPlatformDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LtiPlatform
+     */
+    select?: LtiPlatformSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LtiPlatform
+     */
+    omit?: LtiPlatformOmit<ExtArgs> | null
+    /**
+     * Filter which LtiPlatform to delete.
+     */
+    where: LtiPlatformWhereUniqueInput
+  }
+
+  /**
+   * LtiPlatform deleteMany
+   */
+  export type LtiPlatformDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LtiPlatforms to delete
+     */
+    where?: LtiPlatformWhereInput
+    /**
+     * Limit how many LtiPlatforms to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LtiPlatform without action
+   */
+  export type LtiPlatformDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LtiPlatform
+     */
+    select?: LtiPlatformSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LtiPlatform
+     */
+    omit?: LtiPlatformOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -57332,6 +59873,41 @@ export namespace Prisma {
   };
 
   export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
+
+
+  export const EducatorAIInteractionScalarFieldEnum: {
+    id: 'id',
+    teacherId: 'teacherId',
+    studentId: 'studentId',
+    classId: 'classId',
+    interactionType: 'interactionType',
+    prompt: 'prompt',
+    aiResponse: 'aiResponse',
+    standardsAligned: 'standardsAligned',
+    rubricCriteria: 'rubricCriteria',
+    modelUsed: 'modelUsed',
+    tokensUsed: 'tokensUsed',
+    sessionId: 'sessionId',
+    timestamp: 'timestamp'
+  };
+
+  export type EducatorAIInteractionScalarFieldEnum = (typeof EducatorAIInteractionScalarFieldEnum)[keyof typeof EducatorAIInteractionScalarFieldEnum]
+
+
+  export const LtiPlatformScalarFieldEnum: {
+    id: 'id',
+    issuer: 'issuer',
+    clientId: 'clientId',
+    deploymentId: 'deploymentId',
+    platformName: 'platformName',
+    jwksUrl: 'jwksUrl',
+    authTokenUrl: 'authTokenUrl',
+    authLoginUrl: 'authLoginUrl',
+    registeredAt: 'registeredAt',
+    isActive: 'isActive'
+  };
+
+  export type LtiPlatformScalarFieldEnum = (typeof LtiPlatformScalarFieldEnum)[keyof typeof LtiPlatformScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -59864,6 +62440,7 @@ export namespace Prisma {
     student_profiles?: Student_profilesListRelationFilter
     differentiated_materials?: Differentiated_materialsListRelationFilter
     reading_improvement_plans?: Reading_improvement_plansListRelationFilter
+    educator_ai_interactions?: EducatorAIInteractionListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -59923,6 +62500,7 @@ export namespace Prisma {
     student_profiles?: student_profilesOrderByRelationAggregateInput
     differentiated_materials?: differentiated_materialsOrderByRelationAggregateInput
     reading_improvement_plans?: reading_improvement_plansOrderByRelationAggregateInput
+    educator_ai_interactions?: EducatorAIInteractionOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -59985,6 +62563,7 @@ export namespace Prisma {
     student_profiles?: Student_profilesListRelationFilter
     differentiated_materials?: Differentiated_materialsListRelationFilter
     reading_improvement_plans?: Reading_improvement_plansListRelationFilter
+    educator_ai_interactions?: EducatorAIInteractionListRelationFilter
   }, "id" | "clerk_id" | "email" | "stripe_customer_id" | "stripe_subscription_id">
 
   export type UserOrderByWithAggregationInput = {
@@ -60536,6 +63115,7 @@ export namespace Prisma {
     screener_results?: Screener_resultsListRelationFilter
     differentiated_materials?: Differentiated_materialsListRelationFilter
     reading_improvement_plans?: Reading_improvement_plansListRelationFilter
+    educator_ai_interactions?: EducatorAIInteractionListRelationFilter
   }
 
   export type student_profilesOrderByWithRelationInput = {
@@ -60561,6 +63141,7 @@ export namespace Prisma {
     screener_results?: screener_resultsOrderByRelationAggregateInput
     differentiated_materials?: differentiated_materialsOrderByRelationAggregateInput
     reading_improvement_plans?: reading_improvement_plansOrderByRelationAggregateInput
+    educator_ai_interactions?: EducatorAIInteractionOrderByRelationAggregateInput
   }
 
   export type student_profilesWhereUniqueInput = Prisma.AtLeast<{
@@ -60590,6 +63171,7 @@ export namespace Prisma {
     screener_results?: Screener_resultsListRelationFilter
     differentiated_materials?: Differentiated_materialsListRelationFilter
     reading_improvement_plans?: Reading_improvement_plansListRelationFilter
+    educator_ai_interactions?: EducatorAIInteractionListRelationFilter
   }, "id" | "user_id_student_sis_id">
 
   export type student_profilesOrderByWithAggregationInput = {
@@ -61290,6 +63872,183 @@ export namespace Prisma {
     sessionId?: StringNullableWithAggregatesFilter<"AuditLog"> | string | null
     outcome?: StringWithAggregatesFilter<"AuditLog"> | string
     metadata?: JsonNullableWithAggregatesFilter<"AuditLog">
+  }
+
+  export type EducatorAIInteractionWhereInput = {
+    AND?: EducatorAIInteractionWhereInput | EducatorAIInteractionWhereInput[]
+    OR?: EducatorAIInteractionWhereInput[]
+    NOT?: EducatorAIInteractionWhereInput | EducatorAIInteractionWhereInput[]
+    id?: StringFilter<"EducatorAIInteraction"> | string
+    teacherId?: StringFilter<"EducatorAIInteraction"> | string
+    studentId?: StringNullableFilter<"EducatorAIInteraction"> | string | null
+    classId?: StringNullableFilter<"EducatorAIInteraction"> | string | null
+    interactionType?: StringFilter<"EducatorAIInteraction"> | string
+    prompt?: StringFilter<"EducatorAIInteraction"> | string
+    aiResponse?: StringFilter<"EducatorAIInteraction"> | string
+    standardsAligned?: StringNullableListFilter<"EducatorAIInteraction">
+    rubricCriteria?: JsonNullableFilter<"EducatorAIInteraction">
+    modelUsed?: StringNullableFilter<"EducatorAIInteraction"> | string | null
+    tokensUsed?: IntNullableFilter<"EducatorAIInteraction"> | number | null
+    sessionId?: StringNullableFilter<"EducatorAIInteraction"> | string | null
+    timestamp?: DateTimeFilter<"EducatorAIInteraction"> | Date | string
+    teacher?: XOR<UserScalarRelationFilter, UserWhereInput>
+    student?: XOR<Student_profilesNullableScalarRelationFilter, student_profilesWhereInput> | null
+  }
+
+  export type EducatorAIInteractionOrderByWithRelationInput = {
+    id?: SortOrder
+    teacherId?: SortOrder
+    studentId?: SortOrderInput | SortOrder
+    classId?: SortOrderInput | SortOrder
+    interactionType?: SortOrder
+    prompt?: SortOrder
+    aiResponse?: SortOrder
+    standardsAligned?: SortOrder
+    rubricCriteria?: SortOrderInput | SortOrder
+    modelUsed?: SortOrderInput | SortOrder
+    tokensUsed?: SortOrderInput | SortOrder
+    sessionId?: SortOrderInput | SortOrder
+    timestamp?: SortOrder
+    teacher?: UserOrderByWithRelationInput
+    student?: student_profilesOrderByWithRelationInput
+  }
+
+  export type EducatorAIInteractionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: EducatorAIInteractionWhereInput | EducatorAIInteractionWhereInput[]
+    OR?: EducatorAIInteractionWhereInput[]
+    NOT?: EducatorAIInteractionWhereInput | EducatorAIInteractionWhereInput[]
+    teacherId?: StringFilter<"EducatorAIInteraction"> | string
+    studentId?: StringNullableFilter<"EducatorAIInteraction"> | string | null
+    classId?: StringNullableFilter<"EducatorAIInteraction"> | string | null
+    interactionType?: StringFilter<"EducatorAIInteraction"> | string
+    prompt?: StringFilter<"EducatorAIInteraction"> | string
+    aiResponse?: StringFilter<"EducatorAIInteraction"> | string
+    standardsAligned?: StringNullableListFilter<"EducatorAIInteraction">
+    rubricCriteria?: JsonNullableFilter<"EducatorAIInteraction">
+    modelUsed?: StringNullableFilter<"EducatorAIInteraction"> | string | null
+    tokensUsed?: IntNullableFilter<"EducatorAIInteraction"> | number | null
+    sessionId?: StringNullableFilter<"EducatorAIInteraction"> | string | null
+    timestamp?: DateTimeFilter<"EducatorAIInteraction"> | Date | string
+    teacher?: XOR<UserScalarRelationFilter, UserWhereInput>
+    student?: XOR<Student_profilesNullableScalarRelationFilter, student_profilesWhereInput> | null
+  }, "id">
+
+  export type EducatorAIInteractionOrderByWithAggregationInput = {
+    id?: SortOrder
+    teacherId?: SortOrder
+    studentId?: SortOrderInput | SortOrder
+    classId?: SortOrderInput | SortOrder
+    interactionType?: SortOrder
+    prompt?: SortOrder
+    aiResponse?: SortOrder
+    standardsAligned?: SortOrder
+    rubricCriteria?: SortOrderInput | SortOrder
+    modelUsed?: SortOrderInput | SortOrder
+    tokensUsed?: SortOrderInput | SortOrder
+    sessionId?: SortOrderInput | SortOrder
+    timestamp?: SortOrder
+    _count?: EducatorAIInteractionCountOrderByAggregateInput
+    _avg?: EducatorAIInteractionAvgOrderByAggregateInput
+    _max?: EducatorAIInteractionMaxOrderByAggregateInput
+    _min?: EducatorAIInteractionMinOrderByAggregateInput
+    _sum?: EducatorAIInteractionSumOrderByAggregateInput
+  }
+
+  export type EducatorAIInteractionScalarWhereWithAggregatesInput = {
+    AND?: EducatorAIInteractionScalarWhereWithAggregatesInput | EducatorAIInteractionScalarWhereWithAggregatesInput[]
+    OR?: EducatorAIInteractionScalarWhereWithAggregatesInput[]
+    NOT?: EducatorAIInteractionScalarWhereWithAggregatesInput | EducatorAIInteractionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"EducatorAIInteraction"> | string
+    teacherId?: StringWithAggregatesFilter<"EducatorAIInteraction"> | string
+    studentId?: StringNullableWithAggregatesFilter<"EducatorAIInteraction"> | string | null
+    classId?: StringNullableWithAggregatesFilter<"EducatorAIInteraction"> | string | null
+    interactionType?: StringWithAggregatesFilter<"EducatorAIInteraction"> | string
+    prompt?: StringWithAggregatesFilter<"EducatorAIInteraction"> | string
+    aiResponse?: StringWithAggregatesFilter<"EducatorAIInteraction"> | string
+    standardsAligned?: StringNullableListFilter<"EducatorAIInteraction">
+    rubricCriteria?: JsonNullableWithAggregatesFilter<"EducatorAIInteraction">
+    modelUsed?: StringNullableWithAggregatesFilter<"EducatorAIInteraction"> | string | null
+    tokensUsed?: IntNullableWithAggregatesFilter<"EducatorAIInteraction"> | number | null
+    sessionId?: StringNullableWithAggregatesFilter<"EducatorAIInteraction"> | string | null
+    timestamp?: DateTimeWithAggregatesFilter<"EducatorAIInteraction"> | Date | string
+  }
+
+  export type LtiPlatformWhereInput = {
+    AND?: LtiPlatformWhereInput | LtiPlatformWhereInput[]
+    OR?: LtiPlatformWhereInput[]
+    NOT?: LtiPlatformWhereInput | LtiPlatformWhereInput[]
+    id?: StringFilter<"LtiPlatform"> | string
+    issuer?: StringFilter<"LtiPlatform"> | string
+    clientId?: StringFilter<"LtiPlatform"> | string
+    deploymentId?: StringNullableFilter<"LtiPlatform"> | string | null
+    platformName?: StringNullableFilter<"LtiPlatform"> | string | null
+    jwksUrl?: StringFilter<"LtiPlatform"> | string
+    authTokenUrl?: StringFilter<"LtiPlatform"> | string
+    authLoginUrl?: StringFilter<"LtiPlatform"> | string
+    registeredAt?: DateTimeFilter<"LtiPlatform"> | Date | string
+    isActive?: BoolFilter<"LtiPlatform"> | boolean
+  }
+
+  export type LtiPlatformOrderByWithRelationInput = {
+    id?: SortOrder
+    issuer?: SortOrder
+    clientId?: SortOrder
+    deploymentId?: SortOrderInput | SortOrder
+    platformName?: SortOrderInput | SortOrder
+    jwksUrl?: SortOrder
+    authTokenUrl?: SortOrder
+    authLoginUrl?: SortOrder
+    registeredAt?: SortOrder
+    isActive?: SortOrder
+  }
+
+  export type LtiPlatformWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    issuer?: string
+    AND?: LtiPlatformWhereInput | LtiPlatformWhereInput[]
+    OR?: LtiPlatformWhereInput[]
+    NOT?: LtiPlatformWhereInput | LtiPlatformWhereInput[]
+    clientId?: StringFilter<"LtiPlatform"> | string
+    deploymentId?: StringNullableFilter<"LtiPlatform"> | string | null
+    platformName?: StringNullableFilter<"LtiPlatform"> | string | null
+    jwksUrl?: StringFilter<"LtiPlatform"> | string
+    authTokenUrl?: StringFilter<"LtiPlatform"> | string
+    authLoginUrl?: StringFilter<"LtiPlatform"> | string
+    registeredAt?: DateTimeFilter<"LtiPlatform"> | Date | string
+    isActive?: BoolFilter<"LtiPlatform"> | boolean
+  }, "id" | "issuer">
+
+  export type LtiPlatformOrderByWithAggregationInput = {
+    id?: SortOrder
+    issuer?: SortOrder
+    clientId?: SortOrder
+    deploymentId?: SortOrderInput | SortOrder
+    platformName?: SortOrderInput | SortOrder
+    jwksUrl?: SortOrder
+    authTokenUrl?: SortOrder
+    authLoginUrl?: SortOrder
+    registeredAt?: SortOrder
+    isActive?: SortOrder
+    _count?: LtiPlatformCountOrderByAggregateInput
+    _max?: LtiPlatformMaxOrderByAggregateInput
+    _min?: LtiPlatformMinOrderByAggregateInput
+  }
+
+  export type LtiPlatformScalarWhereWithAggregatesInput = {
+    AND?: LtiPlatformScalarWhereWithAggregatesInput | LtiPlatformScalarWhereWithAggregatesInput[]
+    OR?: LtiPlatformScalarWhereWithAggregatesInput[]
+    NOT?: LtiPlatformScalarWhereWithAggregatesInput | LtiPlatformScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"LtiPlatform"> | string
+    issuer?: StringWithAggregatesFilter<"LtiPlatform"> | string
+    clientId?: StringWithAggregatesFilter<"LtiPlatform"> | string
+    deploymentId?: StringNullableWithAggregatesFilter<"LtiPlatform"> | string | null
+    platformName?: StringNullableWithAggregatesFilter<"LtiPlatform"> | string | null
+    jwksUrl?: StringWithAggregatesFilter<"LtiPlatform"> | string
+    authTokenUrl?: StringWithAggregatesFilter<"LtiPlatform"> | string
+    authLoginUrl?: StringWithAggregatesFilter<"LtiPlatform"> | string
+    registeredAt?: DateTimeWithAggregatesFilter<"LtiPlatform"> | Date | string
+    isActive?: BoolWithAggregatesFilter<"LtiPlatform"> | boolean
   }
 
   export type analytics_eventsCreateInput = {
@@ -63899,6 +66658,7 @@ export namespace Prisma {
     student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -63955,6 +66715,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUpdateInput = {
@@ -64011,6 +66772,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -64067,6 +66829,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -64682,6 +67445,7 @@ export namespace Prisma {
     screener_results?: screener_resultsCreateNestedManyWithoutStudent_profilesInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutStudent_profilesInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutStudent_profilesInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutStudentInput
   }
 
   export type student_profilesUncheckedCreateInput = {
@@ -64705,6 +67469,7 @@ export namespace Prisma {
     screener_results?: screener_resultsUncheckedCreateNestedManyWithoutStudent_profilesInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutStudent_profilesInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutStudent_profilesInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type student_profilesUpdateInput = {
@@ -64728,6 +67493,7 @@ export namespace Prisma {
     screener_results?: screener_resultsUpdateManyWithoutStudent_profilesNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutStudent_profilesNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutStudent_profilesNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutStudentNestedInput
   }
 
   export type student_profilesUncheckedUpdateInput = {
@@ -64751,6 +67517,7 @@ export namespace Prisma {
     screener_results?: screener_resultsUncheckedUpdateManyWithoutStudent_profilesNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutStudent_profilesNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutStudent_profilesNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type student_profilesCreateManyInput = {
@@ -65554,6 +68321,207 @@ export namespace Prisma {
     sessionId?: NullableStringFieldUpdateOperationsInput | string | null
     outcome?: StringFieldUpdateOperationsInput | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type EducatorAIInteractionCreateInput = {
+    id?: string
+    classId?: string | null
+    interactionType: string
+    prompt: string
+    aiResponse: string
+    standardsAligned?: EducatorAIInteractionCreatestandardsAlignedInput | string[]
+    rubricCriteria?: NullableJsonNullValueInput | InputJsonValue
+    modelUsed?: string | null
+    tokensUsed?: number | null
+    sessionId?: string | null
+    timestamp?: Date | string
+    teacher: UserCreateNestedOneWithoutEducator_ai_interactionsInput
+    student?: student_profilesCreateNestedOneWithoutEducator_ai_interactionsInput
+  }
+
+  export type EducatorAIInteractionUncheckedCreateInput = {
+    id?: string
+    teacherId: string
+    studentId?: string | null
+    classId?: string | null
+    interactionType: string
+    prompt: string
+    aiResponse: string
+    standardsAligned?: EducatorAIInteractionCreatestandardsAlignedInput | string[]
+    rubricCriteria?: NullableJsonNullValueInput | InputJsonValue
+    modelUsed?: string | null
+    tokensUsed?: number | null
+    sessionId?: string | null
+    timestamp?: Date | string
+  }
+
+  export type EducatorAIInteractionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    interactionType?: StringFieldUpdateOperationsInput | string
+    prompt?: StringFieldUpdateOperationsInput | string
+    aiResponse?: StringFieldUpdateOperationsInput | string
+    standardsAligned?: EducatorAIInteractionUpdatestandardsAlignedInput | string[]
+    rubricCriteria?: NullableJsonNullValueInput | InputJsonValue
+    modelUsed?: NullableStringFieldUpdateOperationsInput | string | null
+    tokensUsed?: NullableIntFieldUpdateOperationsInput | number | null
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    teacher?: UserUpdateOneRequiredWithoutEducator_ai_interactionsNestedInput
+    student?: student_profilesUpdateOneWithoutEducator_ai_interactionsNestedInput
+  }
+
+  export type EducatorAIInteractionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    teacherId?: StringFieldUpdateOperationsInput | string
+    studentId?: NullableStringFieldUpdateOperationsInput | string | null
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    interactionType?: StringFieldUpdateOperationsInput | string
+    prompt?: StringFieldUpdateOperationsInput | string
+    aiResponse?: StringFieldUpdateOperationsInput | string
+    standardsAligned?: EducatorAIInteractionUpdatestandardsAlignedInput | string[]
+    rubricCriteria?: NullableJsonNullValueInput | InputJsonValue
+    modelUsed?: NullableStringFieldUpdateOperationsInput | string | null
+    tokensUsed?: NullableIntFieldUpdateOperationsInput | number | null
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EducatorAIInteractionCreateManyInput = {
+    id?: string
+    teacherId: string
+    studentId?: string | null
+    classId?: string | null
+    interactionType: string
+    prompt: string
+    aiResponse: string
+    standardsAligned?: EducatorAIInteractionCreatestandardsAlignedInput | string[]
+    rubricCriteria?: NullableJsonNullValueInput | InputJsonValue
+    modelUsed?: string | null
+    tokensUsed?: number | null
+    sessionId?: string | null
+    timestamp?: Date | string
+  }
+
+  export type EducatorAIInteractionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    interactionType?: StringFieldUpdateOperationsInput | string
+    prompt?: StringFieldUpdateOperationsInput | string
+    aiResponse?: StringFieldUpdateOperationsInput | string
+    standardsAligned?: EducatorAIInteractionUpdatestandardsAlignedInput | string[]
+    rubricCriteria?: NullableJsonNullValueInput | InputJsonValue
+    modelUsed?: NullableStringFieldUpdateOperationsInput | string | null
+    tokensUsed?: NullableIntFieldUpdateOperationsInput | number | null
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EducatorAIInteractionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    teacherId?: StringFieldUpdateOperationsInput | string
+    studentId?: NullableStringFieldUpdateOperationsInput | string | null
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    interactionType?: StringFieldUpdateOperationsInput | string
+    prompt?: StringFieldUpdateOperationsInput | string
+    aiResponse?: StringFieldUpdateOperationsInput | string
+    standardsAligned?: EducatorAIInteractionUpdatestandardsAlignedInput | string[]
+    rubricCriteria?: NullableJsonNullValueInput | InputJsonValue
+    modelUsed?: NullableStringFieldUpdateOperationsInput | string | null
+    tokensUsed?: NullableIntFieldUpdateOperationsInput | number | null
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LtiPlatformCreateInput = {
+    id?: string
+    issuer: string
+    clientId: string
+    deploymentId?: string | null
+    platformName?: string | null
+    jwksUrl: string
+    authTokenUrl: string
+    authLoginUrl: string
+    registeredAt?: Date | string
+    isActive?: boolean
+  }
+
+  export type LtiPlatformUncheckedCreateInput = {
+    id?: string
+    issuer: string
+    clientId: string
+    deploymentId?: string | null
+    platformName?: string | null
+    jwksUrl: string
+    authTokenUrl: string
+    authLoginUrl: string
+    registeredAt?: Date | string
+    isActive?: boolean
+  }
+
+  export type LtiPlatformUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    issuer?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    deploymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    platformName?: NullableStringFieldUpdateOperationsInput | string | null
+    jwksUrl?: StringFieldUpdateOperationsInput | string
+    authTokenUrl?: StringFieldUpdateOperationsInput | string
+    authLoginUrl?: StringFieldUpdateOperationsInput | string
+    registeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type LtiPlatformUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    issuer?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    deploymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    platformName?: NullableStringFieldUpdateOperationsInput | string | null
+    jwksUrl?: StringFieldUpdateOperationsInput | string
+    authTokenUrl?: StringFieldUpdateOperationsInput | string
+    authLoginUrl?: StringFieldUpdateOperationsInput | string
+    registeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type LtiPlatformCreateManyInput = {
+    id?: string
+    issuer: string
+    clientId: string
+    deploymentId?: string | null
+    platformName?: string | null
+    jwksUrl: string
+    authTokenUrl: string
+    authLoginUrl: string
+    registeredAt?: Date | string
+    isActive?: boolean
+  }
+
+  export type LtiPlatformUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    issuer?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    deploymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    platformName?: NullableStringFieldUpdateOperationsInput | string | null
+    jwksUrl?: StringFieldUpdateOperationsInput | string
+    authTokenUrl?: StringFieldUpdateOperationsInput | string
+    authLoginUrl?: StringFieldUpdateOperationsInput | string
+    registeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type LtiPlatformUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    issuer?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    deploymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    platformName?: NullableStringFieldUpdateOperationsInput | string | null
+    jwksUrl?: StringFieldUpdateOperationsInput | string
+    authTokenUrl?: StringFieldUpdateOperationsInput | string
+    authLoginUrl?: StringFieldUpdateOperationsInput | string
+    registeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -67530,6 +70498,12 @@ export namespace Prisma {
     none?: reading_improvement_plansWhereInput
   }
 
+  export type EducatorAIInteractionListRelationFilter = {
+    every?: EducatorAIInteractionWhereInput
+    some?: EducatorAIInteractionWhereInput
+    none?: EducatorAIInteractionWhereInput
+  }
+
   export type accountOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -67579,6 +70553,10 @@ export namespace Prisma {
   }
 
   export type reading_improvement_plansOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type EducatorAIInteractionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -68398,6 +71376,97 @@ export namespace Prisma {
     userAgent?: SortOrder
     sessionId?: SortOrder
     outcome?: SortOrder
+  }
+
+  export type EducatorAIInteractionCountOrderByAggregateInput = {
+    id?: SortOrder
+    teacherId?: SortOrder
+    studentId?: SortOrder
+    classId?: SortOrder
+    interactionType?: SortOrder
+    prompt?: SortOrder
+    aiResponse?: SortOrder
+    standardsAligned?: SortOrder
+    rubricCriteria?: SortOrder
+    modelUsed?: SortOrder
+    tokensUsed?: SortOrder
+    sessionId?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type EducatorAIInteractionAvgOrderByAggregateInput = {
+    tokensUsed?: SortOrder
+  }
+
+  export type EducatorAIInteractionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    teacherId?: SortOrder
+    studentId?: SortOrder
+    classId?: SortOrder
+    interactionType?: SortOrder
+    prompt?: SortOrder
+    aiResponse?: SortOrder
+    modelUsed?: SortOrder
+    tokensUsed?: SortOrder
+    sessionId?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type EducatorAIInteractionMinOrderByAggregateInput = {
+    id?: SortOrder
+    teacherId?: SortOrder
+    studentId?: SortOrder
+    classId?: SortOrder
+    interactionType?: SortOrder
+    prompt?: SortOrder
+    aiResponse?: SortOrder
+    modelUsed?: SortOrder
+    tokensUsed?: SortOrder
+    sessionId?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type EducatorAIInteractionSumOrderByAggregateInput = {
+    tokensUsed?: SortOrder
+  }
+
+  export type LtiPlatformCountOrderByAggregateInput = {
+    id?: SortOrder
+    issuer?: SortOrder
+    clientId?: SortOrder
+    deploymentId?: SortOrder
+    platformName?: SortOrder
+    jwksUrl?: SortOrder
+    authTokenUrl?: SortOrder
+    authLoginUrl?: SortOrder
+    registeredAt?: SortOrder
+    isActive?: SortOrder
+  }
+
+  export type LtiPlatformMaxOrderByAggregateInput = {
+    id?: SortOrder
+    issuer?: SortOrder
+    clientId?: SortOrder
+    deploymentId?: SortOrder
+    platformName?: SortOrder
+    jwksUrl?: SortOrder
+    authTokenUrl?: SortOrder
+    authLoginUrl?: SortOrder
+    registeredAt?: SortOrder
+    isActive?: SortOrder
+  }
+
+  export type LtiPlatformMinOrderByAggregateInput = {
+    id?: SortOrder
+    issuer?: SortOrder
+    clientId?: SortOrder
+    deploymentId?: SortOrder
+    platformName?: SortOrder
+    jwksUrl?: SortOrder
+    authTokenUrl?: SortOrder
+    authLoginUrl?: SortOrder
+    registeredAt?: SortOrder
+    isActive?: SortOrder
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -69893,6 +72962,13 @@ export namespace Prisma {
     connect?: reading_improvement_plansWhereUniqueInput | reading_improvement_plansWhereUniqueInput[]
   }
 
+  export type EducatorAIInteractionCreateNestedManyWithoutTeacherInput = {
+    create?: XOR<EducatorAIInteractionCreateWithoutTeacherInput, EducatorAIInteractionUncheckedCreateWithoutTeacherInput> | EducatorAIInteractionCreateWithoutTeacherInput[] | EducatorAIInteractionUncheckedCreateWithoutTeacherInput[]
+    connectOrCreate?: EducatorAIInteractionCreateOrConnectWithoutTeacherInput | EducatorAIInteractionCreateOrConnectWithoutTeacherInput[]
+    createMany?: EducatorAIInteractionCreateManyTeacherInputEnvelope
+    connect?: EducatorAIInteractionWhereUniqueInput | EducatorAIInteractionWhereUniqueInput[]
+  }
+
   export type accountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<accountCreateWithoutUserInput, accountUncheckedCreateWithoutUserInput> | accountCreateWithoutUserInput[] | accountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: accountCreateOrConnectWithoutUserInput | accountCreateOrConnectWithoutUserInput[]
@@ -70044,6 +73120,13 @@ export namespace Prisma {
     connectOrCreate?: reading_improvement_plansCreateOrConnectWithoutUsersInput | reading_improvement_plansCreateOrConnectWithoutUsersInput[]
     createMany?: reading_improvement_plansCreateManyUsersInputEnvelope
     connect?: reading_improvement_plansWhereUniqueInput | reading_improvement_plansWhereUniqueInput[]
+  }
+
+  export type EducatorAIInteractionUncheckedCreateNestedManyWithoutTeacherInput = {
+    create?: XOR<EducatorAIInteractionCreateWithoutTeacherInput, EducatorAIInteractionUncheckedCreateWithoutTeacherInput> | EducatorAIInteractionCreateWithoutTeacherInput[] | EducatorAIInteractionUncheckedCreateWithoutTeacherInput[]
+    connectOrCreate?: EducatorAIInteractionCreateOrConnectWithoutTeacherInput | EducatorAIInteractionCreateOrConnectWithoutTeacherInput[]
+    createMany?: EducatorAIInteractionCreateManyTeacherInputEnvelope
+    connect?: EducatorAIInteractionWhereUniqueInput | EducatorAIInteractionWhereUniqueInput[]
   }
 
   export type EnumUserRoleFieldUpdateOperationsInput = {
@@ -70384,6 +73467,20 @@ export namespace Prisma {
     deleteMany?: reading_improvement_plansScalarWhereInput | reading_improvement_plansScalarWhereInput[]
   }
 
+  export type EducatorAIInteractionUpdateManyWithoutTeacherNestedInput = {
+    create?: XOR<EducatorAIInteractionCreateWithoutTeacherInput, EducatorAIInteractionUncheckedCreateWithoutTeacherInput> | EducatorAIInteractionCreateWithoutTeacherInput[] | EducatorAIInteractionUncheckedCreateWithoutTeacherInput[]
+    connectOrCreate?: EducatorAIInteractionCreateOrConnectWithoutTeacherInput | EducatorAIInteractionCreateOrConnectWithoutTeacherInput[]
+    upsert?: EducatorAIInteractionUpsertWithWhereUniqueWithoutTeacherInput | EducatorAIInteractionUpsertWithWhereUniqueWithoutTeacherInput[]
+    createMany?: EducatorAIInteractionCreateManyTeacherInputEnvelope
+    set?: EducatorAIInteractionWhereUniqueInput | EducatorAIInteractionWhereUniqueInput[]
+    disconnect?: EducatorAIInteractionWhereUniqueInput | EducatorAIInteractionWhereUniqueInput[]
+    delete?: EducatorAIInteractionWhereUniqueInput | EducatorAIInteractionWhereUniqueInput[]
+    connect?: EducatorAIInteractionWhereUniqueInput | EducatorAIInteractionWhereUniqueInput[]
+    update?: EducatorAIInteractionUpdateWithWhereUniqueWithoutTeacherInput | EducatorAIInteractionUpdateWithWhereUniqueWithoutTeacherInput[]
+    updateMany?: EducatorAIInteractionUpdateManyWithWhereWithoutTeacherInput | EducatorAIInteractionUpdateManyWithWhereWithoutTeacherInput[]
+    deleteMany?: EducatorAIInteractionScalarWhereInput | EducatorAIInteractionScalarWhereInput[]
+  }
+
   export type accountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<accountCreateWithoutUserInput, accountUncheckedCreateWithoutUserInput> | accountCreateWithoutUserInput[] | accountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: accountCreateOrConnectWithoutUserInput | accountCreateOrConnectWithoutUserInput[]
@@ -70688,6 +73785,20 @@ export namespace Prisma {
     deleteMany?: reading_improvement_plansScalarWhereInput | reading_improvement_plansScalarWhereInput[]
   }
 
+  export type EducatorAIInteractionUncheckedUpdateManyWithoutTeacherNestedInput = {
+    create?: XOR<EducatorAIInteractionCreateWithoutTeacherInput, EducatorAIInteractionUncheckedCreateWithoutTeacherInput> | EducatorAIInteractionCreateWithoutTeacherInput[] | EducatorAIInteractionUncheckedCreateWithoutTeacherInput[]
+    connectOrCreate?: EducatorAIInteractionCreateOrConnectWithoutTeacherInput | EducatorAIInteractionCreateOrConnectWithoutTeacherInput[]
+    upsert?: EducatorAIInteractionUpsertWithWhereUniqueWithoutTeacherInput | EducatorAIInteractionUpsertWithWhereUniqueWithoutTeacherInput[]
+    createMany?: EducatorAIInteractionCreateManyTeacherInputEnvelope
+    set?: EducatorAIInteractionWhereUniqueInput | EducatorAIInteractionWhereUniqueInput[]
+    disconnect?: EducatorAIInteractionWhereUniqueInput | EducatorAIInteractionWhereUniqueInput[]
+    delete?: EducatorAIInteractionWhereUniqueInput | EducatorAIInteractionWhereUniqueInput[]
+    connect?: EducatorAIInteractionWhereUniqueInput | EducatorAIInteractionWhereUniqueInput[]
+    update?: EducatorAIInteractionUpdateWithWhereUniqueWithoutTeacherInput | EducatorAIInteractionUpdateWithWhereUniqueWithoutTeacherInput[]
+    updateMany?: EducatorAIInteractionUpdateManyWithWhereWithoutTeacherInput | EducatorAIInteractionUpdateManyWithWhereWithoutTeacherInput[]
+    deleteMany?: EducatorAIInteractionScalarWhereInput | EducatorAIInteractionScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutSessionsInput = {
     create?: XOR<UserCreateWithoutSessionsInput, UserUncheckedCreateWithoutSessionsInput>
     connectOrCreate?: UserCreateOrConnectWithoutSessionsInput
@@ -70874,6 +73985,13 @@ export namespace Prisma {
     connect?: reading_improvement_plansWhereUniqueInput | reading_improvement_plansWhereUniqueInput[]
   }
 
+  export type EducatorAIInteractionCreateNestedManyWithoutStudentInput = {
+    create?: XOR<EducatorAIInteractionCreateWithoutStudentInput, EducatorAIInteractionUncheckedCreateWithoutStudentInput> | EducatorAIInteractionCreateWithoutStudentInput[] | EducatorAIInteractionUncheckedCreateWithoutStudentInput[]
+    connectOrCreate?: EducatorAIInteractionCreateOrConnectWithoutStudentInput | EducatorAIInteractionCreateOrConnectWithoutStudentInput[]
+    createMany?: EducatorAIInteractionCreateManyStudentInputEnvelope
+    connect?: EducatorAIInteractionWhereUniqueInput | EducatorAIInteractionWhereUniqueInput[]
+  }
+
   export type screener_resultsUncheckedCreateNestedManyWithoutStudent_profilesInput = {
     create?: XOR<screener_resultsCreateWithoutStudent_profilesInput, screener_resultsUncheckedCreateWithoutStudent_profilesInput> | screener_resultsCreateWithoutStudent_profilesInput[] | screener_resultsUncheckedCreateWithoutStudent_profilesInput[]
     connectOrCreate?: screener_resultsCreateOrConnectWithoutStudent_profilesInput | screener_resultsCreateOrConnectWithoutStudent_profilesInput[]
@@ -70893,6 +74011,13 @@ export namespace Prisma {
     connectOrCreate?: reading_improvement_plansCreateOrConnectWithoutStudent_profilesInput | reading_improvement_plansCreateOrConnectWithoutStudent_profilesInput[]
     createMany?: reading_improvement_plansCreateManyStudent_profilesInputEnvelope
     connect?: reading_improvement_plansWhereUniqueInput | reading_improvement_plansWhereUniqueInput[]
+  }
+
+  export type EducatorAIInteractionUncheckedCreateNestedManyWithoutStudentInput = {
+    create?: XOR<EducatorAIInteractionCreateWithoutStudentInput, EducatorAIInteractionUncheckedCreateWithoutStudentInput> | EducatorAIInteractionCreateWithoutStudentInput[] | EducatorAIInteractionUncheckedCreateWithoutStudentInput[]
+    connectOrCreate?: EducatorAIInteractionCreateOrConnectWithoutStudentInput | EducatorAIInteractionCreateOrConnectWithoutStudentInput[]
+    createMany?: EducatorAIInteractionCreateManyStudentInputEnvelope
+    connect?: EducatorAIInteractionWhereUniqueInput | EducatorAIInteractionWhereUniqueInput[]
   }
 
   export type UserUpdateOneRequiredWithoutStudent_profilesNestedInput = {
@@ -70955,6 +74080,20 @@ export namespace Prisma {
     deleteMany?: reading_improvement_plansScalarWhereInput | reading_improvement_plansScalarWhereInput[]
   }
 
+  export type EducatorAIInteractionUpdateManyWithoutStudentNestedInput = {
+    create?: XOR<EducatorAIInteractionCreateWithoutStudentInput, EducatorAIInteractionUncheckedCreateWithoutStudentInput> | EducatorAIInteractionCreateWithoutStudentInput[] | EducatorAIInteractionUncheckedCreateWithoutStudentInput[]
+    connectOrCreate?: EducatorAIInteractionCreateOrConnectWithoutStudentInput | EducatorAIInteractionCreateOrConnectWithoutStudentInput[]
+    upsert?: EducatorAIInteractionUpsertWithWhereUniqueWithoutStudentInput | EducatorAIInteractionUpsertWithWhereUniqueWithoutStudentInput[]
+    createMany?: EducatorAIInteractionCreateManyStudentInputEnvelope
+    set?: EducatorAIInteractionWhereUniqueInput | EducatorAIInteractionWhereUniqueInput[]
+    disconnect?: EducatorAIInteractionWhereUniqueInput | EducatorAIInteractionWhereUniqueInput[]
+    delete?: EducatorAIInteractionWhereUniqueInput | EducatorAIInteractionWhereUniqueInput[]
+    connect?: EducatorAIInteractionWhereUniqueInput | EducatorAIInteractionWhereUniqueInput[]
+    update?: EducatorAIInteractionUpdateWithWhereUniqueWithoutStudentInput | EducatorAIInteractionUpdateWithWhereUniqueWithoutStudentInput[]
+    updateMany?: EducatorAIInteractionUpdateManyWithWhereWithoutStudentInput | EducatorAIInteractionUpdateManyWithWhereWithoutStudentInput[]
+    deleteMany?: EducatorAIInteractionScalarWhereInput | EducatorAIInteractionScalarWhereInput[]
+  }
+
   export type screener_resultsUncheckedUpdateManyWithoutStudent_profilesNestedInput = {
     create?: XOR<screener_resultsCreateWithoutStudent_profilesInput, screener_resultsUncheckedCreateWithoutStudent_profilesInput> | screener_resultsCreateWithoutStudent_profilesInput[] | screener_resultsUncheckedCreateWithoutStudent_profilesInput[]
     connectOrCreate?: screener_resultsCreateOrConnectWithoutStudent_profilesInput | screener_resultsCreateOrConnectWithoutStudent_profilesInput[]
@@ -70995,6 +74134,20 @@ export namespace Prisma {
     update?: reading_improvement_plansUpdateWithWhereUniqueWithoutStudent_profilesInput | reading_improvement_plansUpdateWithWhereUniqueWithoutStudent_profilesInput[]
     updateMany?: reading_improvement_plansUpdateManyWithWhereWithoutStudent_profilesInput | reading_improvement_plansUpdateManyWithWhereWithoutStudent_profilesInput[]
     deleteMany?: reading_improvement_plansScalarWhereInput | reading_improvement_plansScalarWhereInput[]
+  }
+
+  export type EducatorAIInteractionUncheckedUpdateManyWithoutStudentNestedInput = {
+    create?: XOR<EducatorAIInteractionCreateWithoutStudentInput, EducatorAIInteractionUncheckedCreateWithoutStudentInput> | EducatorAIInteractionCreateWithoutStudentInput[] | EducatorAIInteractionUncheckedCreateWithoutStudentInput[]
+    connectOrCreate?: EducatorAIInteractionCreateOrConnectWithoutStudentInput | EducatorAIInteractionCreateOrConnectWithoutStudentInput[]
+    upsert?: EducatorAIInteractionUpsertWithWhereUniqueWithoutStudentInput | EducatorAIInteractionUpsertWithWhereUniqueWithoutStudentInput[]
+    createMany?: EducatorAIInteractionCreateManyStudentInputEnvelope
+    set?: EducatorAIInteractionWhereUniqueInput | EducatorAIInteractionWhereUniqueInput[]
+    disconnect?: EducatorAIInteractionWhereUniqueInput | EducatorAIInteractionWhereUniqueInput[]
+    delete?: EducatorAIInteractionWhereUniqueInput | EducatorAIInteractionWhereUniqueInput[]
+    connect?: EducatorAIInteractionWhereUniqueInput | EducatorAIInteractionWhereUniqueInput[]
+    update?: EducatorAIInteractionUpdateWithWhereUniqueWithoutStudentInput | EducatorAIInteractionUpdateWithWhereUniqueWithoutStudentInput[]
+    updateMany?: EducatorAIInteractionUpdateManyWithWhereWithoutStudentInput | EducatorAIInteractionUpdateManyWithWhereWithoutStudentInput[]
+    deleteMany?: EducatorAIInteractionScalarWhereInput | EducatorAIInteractionScalarWhereInput[]
   }
 
   export type student_profilesCreateNestedOneWithoutScreener_resultsInput = {
@@ -71151,6 +74304,45 @@ export namespace Prisma {
     upsert?: infra_monitorsUpsertWithoutInfra_alertsInput
     connect?: infra_monitorsWhereUniqueInput
     update?: XOR<XOR<infra_monitorsUpdateToOneWithWhereWithoutInfra_alertsInput, infra_monitorsUpdateWithoutInfra_alertsInput>, infra_monitorsUncheckedUpdateWithoutInfra_alertsInput>
+  }
+
+  export type EducatorAIInteractionCreatestandardsAlignedInput = {
+    set: string[]
+  }
+
+  export type UserCreateNestedOneWithoutEducator_ai_interactionsInput = {
+    create?: XOR<UserCreateWithoutEducator_ai_interactionsInput, UserUncheckedCreateWithoutEducator_ai_interactionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutEducator_ai_interactionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type student_profilesCreateNestedOneWithoutEducator_ai_interactionsInput = {
+    create?: XOR<student_profilesCreateWithoutEducator_ai_interactionsInput, student_profilesUncheckedCreateWithoutEducator_ai_interactionsInput>
+    connectOrCreate?: student_profilesCreateOrConnectWithoutEducator_ai_interactionsInput
+    connect?: student_profilesWhereUniqueInput
+  }
+
+  export type EducatorAIInteractionUpdatestandardsAlignedInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type UserUpdateOneRequiredWithoutEducator_ai_interactionsNestedInput = {
+    create?: XOR<UserCreateWithoutEducator_ai_interactionsInput, UserUncheckedCreateWithoutEducator_ai_interactionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutEducator_ai_interactionsInput
+    upsert?: UserUpsertWithoutEducator_ai_interactionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutEducator_ai_interactionsInput, UserUpdateWithoutEducator_ai_interactionsInput>, UserUncheckedUpdateWithoutEducator_ai_interactionsInput>
+  }
+
+  export type student_profilesUpdateOneWithoutEducator_ai_interactionsNestedInput = {
+    create?: XOR<student_profilesCreateWithoutEducator_ai_interactionsInput, student_profilesUncheckedCreateWithoutEducator_ai_interactionsInput>
+    connectOrCreate?: student_profilesCreateOrConnectWithoutEducator_ai_interactionsInput
+    upsert?: student_profilesUpsertWithoutEducator_ai_interactionsInput
+    disconnect?: student_profilesWhereInput | boolean
+    delete?: student_profilesWhereInput | boolean
+    connect?: student_profilesWhereUniqueInput
+    update?: XOR<XOR<student_profilesUpdateToOneWithWhereWithoutEducator_ai_interactionsInput, student_profilesUpdateWithoutEducator_ai_interactionsInput>, student_profilesUncheckedUpdateWithoutEducator_ai_interactionsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -71620,6 +74812,7 @@ export namespace Prisma {
     student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUncheckedCreateWithoutAnalytics_insightsInput = {
@@ -71675,6 +74868,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutTeacherInput
   }
 
   export type UserCreateOrConnectWithoutAnalytics_insightsInput = {
@@ -71793,6 +74987,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAnalytics_insightsInput = {
@@ -71848,6 +75043,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutTeacherNestedInput
   }
 
   export type avatarsCreateWithoutAvatar_sessionsInput = {
@@ -71932,6 +75128,7 @@ export namespace Prisma {
     student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUncheckedCreateWithoutAvatar_sessionsInput = {
@@ -71987,6 +75184,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutTeacherInput
   }
 
   export type UserCreateOrConnectWithoutAvatar_sessionsInput = {
@@ -72173,6 +75371,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAvatar_sessionsInput = {
@@ -72228,6 +75427,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutTeacherNestedInput
   }
 
   export type conversation_messagesUpsertWithWhereUniqueWithoutAvatar_sessionsInput = {
@@ -72543,6 +75743,7 @@ export namespace Prisma {
     student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUncheckedCreateWithoutConversation_messagesInput = {
@@ -72598,6 +75799,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutTeacherInput
   }
 
   export type UserCreateOrConnectWithoutConversation_messagesInput = {
@@ -72720,6 +75922,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateWithoutConversation_messagesInput = {
@@ -72775,6 +75978,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutTeacherNestedInput
   }
 
   export type districtsCreateWithoutDistrict_nodesInput = {
@@ -73152,6 +76356,7 @@ export namespace Prisma {
     student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUncheckedCreateWithoutEvidence_foldersInput = {
@@ -73207,6 +76412,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutTeacherInput
   }
 
   export type UserCreateOrConnectWithoutEvidence_foldersInput = {
@@ -73361,6 +76567,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEvidence_foldersInput = {
@@ -73416,6 +76623,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutTeacherNestedInput
   }
 
   export type observationsUpsertWithWhereUniqueWithoutEvidence_foldersInput = {
@@ -73487,6 +76695,7 @@ export namespace Prisma {
     student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUncheckedCreateWithoutGenerated_content_hubInput = {
@@ -73542,6 +76751,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutTeacherInput
   }
 
   export type UserCreateOrConnectWithoutGenerated_content_hubInput = {
@@ -73637,6 +76847,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGenerated_content_hubInput = {
@@ -73692,6 +76903,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutTeacherNestedInput
   }
 
   export type saved_itemsUpsertWithWhereUniqueWithoutGenerated_content_hubInput = {
@@ -73774,6 +76986,7 @@ export namespace Prisma {
     student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUncheckedCreateWithoutGenerationsInput = {
@@ -73829,6 +77042,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutTeacherInput
   }
 
   export type UserCreateOrConnectWithoutGenerationsInput = {
@@ -73900,6 +77114,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGenerationsInput = {
@@ -73955,6 +77170,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutTeacherNestedInput
   }
 
   export type graph_nodesCreateWithoutGraph_edges_graph_edges_sourceIdTograph_nodesInput = {
@@ -74250,6 +77466,7 @@ export namespace Prisma {
     student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUncheckedCreateWithoutKnowledge_documentsInput = {
@@ -74305,6 +77522,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutTeacherInput
   }
 
   export type UserCreateOrConnectWithoutKnowledge_documentsInput = {
@@ -74417,6 +77635,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateWithoutKnowledge_documentsInput = {
@@ -74472,6 +77691,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserCreateWithoutLegacy_ledgerInput = {
@@ -74527,6 +77747,7 @@ export namespace Prisma {
     student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUncheckedCreateWithoutLegacy_ledgerInput = {
@@ -74582,6 +77803,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutTeacherInput
   }
 
   export type UserCreateOrConnectWithoutLegacy_ledgerInput = {
@@ -74653,6 +77875,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLegacy_ledgerInput = {
@@ -74708,6 +77931,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutTeacherNestedInput
   }
 
   export type avatar_sessionsCreateWithoutObservationsInput = {
@@ -74845,6 +78069,7 @@ export namespace Prisma {
     student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUncheckedCreateWithoutObservationsInput = {
@@ -74900,6 +78125,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutTeacherInput
   }
 
   export type UserCreateOrConnectWithoutObservationsInput = {
@@ -75065,6 +78291,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateWithoutObservationsInput = {
@@ -75120,6 +78347,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserCreateWithoutOrganizationsInput = {
@@ -75175,6 +78403,7 @@ export namespace Prisma {
     student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUncheckedCreateWithoutOrganizationsInput = {
@@ -75230,6 +78459,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutTeacherInput
   }
 
   export type UserCreateOrConnectWithoutOrganizationsInput = {
@@ -75393,6 +78623,7 @@ export namespace Prisma {
     student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUncheckedCreateWithoutSaved_itemsInput = {
@@ -75448,6 +78679,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutTeacherInput
   }
 
   export type UserCreateOrConnectWithoutSaved_itemsInput = {
@@ -75570,6 +78802,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSaved_itemsInput = {
@@ -75625,6 +78858,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutTeacherNestedInput
   }
 
   export type analytics_insightsCreateWithoutSchoolsInput = {
@@ -75712,6 +78946,7 @@ export namespace Prisma {
     student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUncheckedCreateWithoutSchools_schools_admin_idTousersInput = {
@@ -75767,6 +79002,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutTeacherInput
   }
 
   export type UserCreateOrConnectWithoutSchools_schools_admin_idTousersInput = {
@@ -75869,6 +79105,7 @@ export namespace Prisma {
     student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUncheckedCreateWithoutSchools_users_school_idToschoolsInput = {
@@ -75924,6 +79161,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutTeacherInput
   }
 
   export type UserCreateOrConnectWithoutSchools_users_school_idToschoolsInput = {
@@ -75956,6 +79194,7 @@ export namespace Prisma {
     screener_results?: screener_resultsCreateNestedManyWithoutStudent_profilesInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutStudent_profilesInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutStudent_profilesInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutStudentInput
   }
 
   export type student_profilesUncheckedCreateWithoutSchoolsInput = {
@@ -75978,6 +79217,7 @@ export namespace Prisma {
     screener_results?: screener_resultsUncheckedCreateNestedManyWithoutStudent_profilesInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutStudent_profilesInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutStudent_profilesInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type student_profilesCreateOrConnectWithoutSchoolsInput = {
@@ -76121,6 +79361,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSchools_schools_admin_idTousersInput = {
@@ -76176,6 +79417,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutTeacherNestedInput
   }
 
   export type subscriptionsUpsertWithWhereUniqueWithoutSchoolsInput = {
@@ -76354,6 +79596,7 @@ export namespace Prisma {
     student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUncheckedCreateWithoutStrategic_vaultInput = {
@@ -76409,6 +79652,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutTeacherInput
   }
 
   export type UserCreateOrConnectWithoutStrategic_vaultInput = {
@@ -76480,6 +79724,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStrategic_vaultInput = {
@@ -76535,6 +79780,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutTeacherNestedInput
   }
 
   export type schoolsCreateWithoutSubscriptionsInput = {
@@ -76631,6 +79877,7 @@ export namespace Prisma {
     student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUncheckedCreateWithoutSubscriptionsInput = {
@@ -76686,6 +79933,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutTeacherInput
   }
 
   export type UserCreateOrConnectWithoutSubscriptionsInput = {
@@ -76804,6 +80052,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSubscriptionsInput = {
@@ -76859,6 +80108,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserCreateWithoutSystem_feedbackInput = {
@@ -76914,6 +80164,7 @@ export namespace Prisma {
     student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUncheckedCreateWithoutSystem_feedbackInput = {
@@ -76969,6 +80220,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutTeacherInput
   }
 
   export type UserCreateOrConnectWithoutSystem_feedbackInput = {
@@ -77040,6 +80292,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSystem_feedbackInput = {
@@ -77095,6 +80348,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserCreateWithoutTiersInput = {
@@ -77150,6 +80404,7 @@ export namespace Prisma {
     student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUncheckedCreateWithoutTiersInput = {
@@ -77205,6 +80460,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutTeacherInput
   }
 
   export type UserCreateOrConnectWithoutTiersInput = {
@@ -77380,6 +80636,7 @@ export namespace Prisma {
     student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUncheckedCreateWithoutToken_walletsInput = {
@@ -77435,6 +80692,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutTeacherInput
   }
 
   export type UserCreateOrConnectWithoutToken_walletsInput = {
@@ -77536,6 +80794,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateWithoutToken_walletsInput = {
@@ -77591,6 +80850,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserCreateWithoutUsage_trackingInput = {
@@ -77646,6 +80906,7 @@ export namespace Prisma {
     student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUncheckedCreateWithoutUsage_trackingInput = {
@@ -77701,6 +80962,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutTeacherInput
   }
 
   export type UserCreateOrConnectWithoutUsage_trackingInput = {
@@ -77772,6 +81034,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUsage_trackingInput = {
@@ -77827,6 +81090,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutTeacherNestedInput
   }
 
   export type accountCreateWithoutUserInput = {
@@ -78639,6 +81903,7 @@ export namespace Prisma {
     screener_results?: screener_resultsCreateNestedManyWithoutStudent_profilesInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutStudent_profilesInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutStudent_profilesInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutStudentInput
   }
 
   export type student_profilesUncheckedCreateWithoutUsersInput = {
@@ -78661,6 +81926,7 @@ export namespace Prisma {
     screener_results?: screener_resultsUncheckedCreateNestedManyWithoutStudent_profilesInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutStudent_profilesInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutStudent_profilesInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type student_profilesCreateOrConnectWithoutUsersInput = {
@@ -78756,6 +82022,46 @@ export namespace Prisma {
 
   export type reading_improvement_plansCreateManyUsersInputEnvelope = {
     data: reading_improvement_plansCreateManyUsersInput | reading_improvement_plansCreateManyUsersInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EducatorAIInteractionCreateWithoutTeacherInput = {
+    id?: string
+    classId?: string | null
+    interactionType: string
+    prompt: string
+    aiResponse: string
+    standardsAligned?: EducatorAIInteractionCreatestandardsAlignedInput | string[]
+    rubricCriteria?: NullableJsonNullValueInput | InputJsonValue
+    modelUsed?: string | null
+    tokensUsed?: number | null
+    sessionId?: string | null
+    timestamp?: Date | string
+    student?: student_profilesCreateNestedOneWithoutEducator_ai_interactionsInput
+  }
+
+  export type EducatorAIInteractionUncheckedCreateWithoutTeacherInput = {
+    id?: string
+    studentId?: string | null
+    classId?: string | null
+    interactionType: string
+    prompt: string
+    aiResponse: string
+    standardsAligned?: EducatorAIInteractionCreatestandardsAlignedInput | string[]
+    rubricCriteria?: NullableJsonNullValueInput | InputJsonValue
+    modelUsed?: string | null
+    tokensUsed?: number | null
+    sessionId?: string | null
+    timestamp?: Date | string
+  }
+
+  export type EducatorAIInteractionCreateOrConnectWithoutTeacherInput = {
+    where: EducatorAIInteractionWhereUniqueInput
+    create: XOR<EducatorAIInteractionCreateWithoutTeacherInput, EducatorAIInteractionUncheckedCreateWithoutTeacherInput>
+  }
+
+  export type EducatorAIInteractionCreateManyTeacherInputEnvelope = {
+    data: EducatorAIInteractionCreateManyTeacherInput | EducatorAIInteractionCreateManyTeacherInput[]
     skipDuplicates?: boolean
   }
 
@@ -79467,6 +82773,41 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"reading_improvement_plans"> | Date | string
   }
 
+  export type EducatorAIInteractionUpsertWithWhereUniqueWithoutTeacherInput = {
+    where: EducatorAIInteractionWhereUniqueInput
+    update: XOR<EducatorAIInteractionUpdateWithoutTeacherInput, EducatorAIInteractionUncheckedUpdateWithoutTeacherInput>
+    create: XOR<EducatorAIInteractionCreateWithoutTeacherInput, EducatorAIInteractionUncheckedCreateWithoutTeacherInput>
+  }
+
+  export type EducatorAIInteractionUpdateWithWhereUniqueWithoutTeacherInput = {
+    where: EducatorAIInteractionWhereUniqueInput
+    data: XOR<EducatorAIInteractionUpdateWithoutTeacherInput, EducatorAIInteractionUncheckedUpdateWithoutTeacherInput>
+  }
+
+  export type EducatorAIInteractionUpdateManyWithWhereWithoutTeacherInput = {
+    where: EducatorAIInteractionScalarWhereInput
+    data: XOR<EducatorAIInteractionUpdateManyMutationInput, EducatorAIInteractionUncheckedUpdateManyWithoutTeacherInput>
+  }
+
+  export type EducatorAIInteractionScalarWhereInput = {
+    AND?: EducatorAIInteractionScalarWhereInput | EducatorAIInteractionScalarWhereInput[]
+    OR?: EducatorAIInteractionScalarWhereInput[]
+    NOT?: EducatorAIInteractionScalarWhereInput | EducatorAIInteractionScalarWhereInput[]
+    id?: StringFilter<"EducatorAIInteraction"> | string
+    teacherId?: StringFilter<"EducatorAIInteraction"> | string
+    studentId?: StringNullableFilter<"EducatorAIInteraction"> | string | null
+    classId?: StringNullableFilter<"EducatorAIInteraction"> | string | null
+    interactionType?: StringFilter<"EducatorAIInteraction"> | string
+    prompt?: StringFilter<"EducatorAIInteraction"> | string
+    aiResponse?: StringFilter<"EducatorAIInteraction"> | string
+    standardsAligned?: StringNullableListFilter<"EducatorAIInteraction">
+    rubricCriteria?: JsonNullableFilter<"EducatorAIInteraction">
+    modelUsed?: StringNullableFilter<"EducatorAIInteraction"> | string | null
+    tokensUsed?: IntNullableFilter<"EducatorAIInteraction"> | number | null
+    sessionId?: StringNullableFilter<"EducatorAIInteraction"> | string | null
+    timestamp?: DateTimeFilter<"EducatorAIInteraction"> | Date | string
+  }
+
   export type UserCreateWithoutSessionsInput = {
     id: string
     clerk_id?: string | null
@@ -79520,6 +82861,7 @@ export namespace Prisma {
     student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -79575,6 +82917,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutTeacherInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -79646,6 +82989,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -79701,6 +83045,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserCreateWithoutAccountsInput = {
@@ -79756,6 +83101,7 @@ export namespace Prisma {
     student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -79811,6 +83157,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutTeacherInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -79882,6 +83229,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -79937,6 +83285,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutTeacherNestedInput
   }
 
   export type vault_documentsCreateWithoutVault_auditsInput = {
@@ -80104,6 +83453,7 @@ export namespace Prisma {
     student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUncheckedCreateWithoutVault_documentsInput = {
@@ -80159,6 +83509,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutTeacherInput
   }
 
   export type UserCreateOrConnectWithoutVault_documentsInput = {
@@ -80278,6 +83629,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVault_documentsInput = {
@@ -80333,6 +83685,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutTeacherNestedInput
   }
 
   export type vault_ocrUpsertWithoutVault_documentsInput = {
@@ -80497,6 +83850,7 @@ export namespace Prisma {
     knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUncheckedCreateWithoutStudent_profilesInput = {
@@ -80552,6 +83906,7 @@ export namespace Prisma {
     knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutTeacherInput
   }
 
   export type UserCreateOrConnectWithoutStudent_profilesInput = {
@@ -80720,6 +84075,46 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type EducatorAIInteractionCreateWithoutStudentInput = {
+    id?: string
+    classId?: string | null
+    interactionType: string
+    prompt: string
+    aiResponse: string
+    standardsAligned?: EducatorAIInteractionCreatestandardsAlignedInput | string[]
+    rubricCriteria?: NullableJsonNullValueInput | InputJsonValue
+    modelUsed?: string | null
+    tokensUsed?: number | null
+    sessionId?: string | null
+    timestamp?: Date | string
+    teacher: UserCreateNestedOneWithoutEducator_ai_interactionsInput
+  }
+
+  export type EducatorAIInteractionUncheckedCreateWithoutStudentInput = {
+    id?: string
+    teacherId: string
+    classId?: string | null
+    interactionType: string
+    prompt: string
+    aiResponse: string
+    standardsAligned?: EducatorAIInteractionCreatestandardsAlignedInput | string[]
+    rubricCriteria?: NullableJsonNullValueInput | InputJsonValue
+    modelUsed?: string | null
+    tokensUsed?: number | null
+    sessionId?: string | null
+    timestamp?: Date | string
+  }
+
+  export type EducatorAIInteractionCreateOrConnectWithoutStudentInput = {
+    where: EducatorAIInteractionWhereUniqueInput
+    create: XOR<EducatorAIInteractionCreateWithoutStudentInput, EducatorAIInteractionUncheckedCreateWithoutStudentInput>
+  }
+
+  export type EducatorAIInteractionCreateManyStudentInputEnvelope = {
+    data: EducatorAIInteractionCreateManyStudentInput | EducatorAIInteractionCreateManyStudentInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutStudent_profilesInput = {
     update: XOR<UserUpdateWithoutStudent_profilesInput, UserUncheckedUpdateWithoutStudent_profilesInput>
     create: XOR<UserCreateWithoutStudent_profilesInput, UserUncheckedCreateWithoutStudent_profilesInput>
@@ -80784,6 +84179,7 @@ export namespace Prisma {
     knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStudent_profilesInput = {
@@ -80839,6 +84235,7 @@ export namespace Prisma {
     knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutTeacherNestedInput
   }
 
   export type schoolsUpsertWithoutStudent_profilesInput = {
@@ -80952,6 +84349,22 @@ export namespace Prisma {
     data: XOR<reading_improvement_plansUpdateManyMutationInput, reading_improvement_plansUncheckedUpdateManyWithoutStudent_profilesInput>
   }
 
+  export type EducatorAIInteractionUpsertWithWhereUniqueWithoutStudentInput = {
+    where: EducatorAIInteractionWhereUniqueInput
+    update: XOR<EducatorAIInteractionUpdateWithoutStudentInput, EducatorAIInteractionUncheckedUpdateWithoutStudentInput>
+    create: XOR<EducatorAIInteractionCreateWithoutStudentInput, EducatorAIInteractionUncheckedCreateWithoutStudentInput>
+  }
+
+  export type EducatorAIInteractionUpdateWithWhereUniqueWithoutStudentInput = {
+    where: EducatorAIInteractionWhereUniqueInput
+    data: XOR<EducatorAIInteractionUpdateWithoutStudentInput, EducatorAIInteractionUncheckedUpdateWithoutStudentInput>
+  }
+
+  export type EducatorAIInteractionUpdateManyWithWhereWithoutStudentInput = {
+    where: EducatorAIInteractionScalarWhereInput
+    data: XOR<EducatorAIInteractionUpdateManyMutationInput, EducatorAIInteractionUncheckedUpdateManyWithoutStudentInput>
+  }
+
   export type student_profilesCreateWithoutScreener_resultsInput = {
     id?: string
     student_sis_id: string
@@ -80972,6 +84385,7 @@ export namespace Prisma {
     schools?: schoolsCreateNestedOneWithoutStudent_profilesInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutStudent_profilesInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutStudent_profilesInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutStudentInput
   }
 
   export type student_profilesUncheckedCreateWithoutScreener_resultsInput = {
@@ -80994,6 +84408,7 @@ export namespace Prisma {
     updated_at?: Date | string
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutStudent_profilesInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutStudent_profilesInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type student_profilesCreateOrConnectWithoutScreener_resultsInput = {
@@ -81032,6 +84447,7 @@ export namespace Prisma {
     schools?: schoolsUpdateOneWithoutStudent_profilesNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutStudent_profilesNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutStudent_profilesNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutStudentNestedInput
   }
 
   export type student_profilesUncheckedUpdateWithoutScreener_resultsInput = {
@@ -81054,6 +84470,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutStudent_profilesNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutStudent_profilesNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type UserCreateWithoutDifferentiated_materialsInput = {
@@ -81109,6 +84526,7 @@ export namespace Prisma {
     knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
     student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUncheckedCreateWithoutDifferentiated_materialsInput = {
@@ -81164,6 +84582,7 @@ export namespace Prisma {
     knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
     student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutTeacherInput
   }
 
   export type UserCreateOrConnectWithoutDifferentiated_materialsInput = {
@@ -81191,6 +84610,7 @@ export namespace Prisma {
     schools?: schoolsCreateNestedOneWithoutStudent_profilesInput
     screener_results?: screener_resultsCreateNestedManyWithoutStudent_profilesInput
     reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutStudent_profilesInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutStudentInput
   }
 
   export type student_profilesUncheckedCreateWithoutDifferentiated_materialsInput = {
@@ -81213,6 +84633,7 @@ export namespace Prisma {
     updated_at?: Date | string
     screener_results?: screener_resultsUncheckedCreateNestedManyWithoutStudent_profilesInput
     reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutStudent_profilesInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type student_profilesCreateOrConnectWithoutDifferentiated_materialsInput = {
@@ -81284,6 +84705,7 @@ export namespace Prisma {
     knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
     student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDifferentiated_materialsInput = {
@@ -81339,6 +84761,7 @@ export namespace Prisma {
     knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
     student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutTeacherNestedInput
   }
 
   export type student_profilesUpsertWithoutDifferentiated_materialsInput = {
@@ -81372,6 +84795,7 @@ export namespace Prisma {
     schools?: schoolsUpdateOneWithoutStudent_profilesNestedInput
     screener_results?: screener_resultsUpdateManyWithoutStudent_profilesNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutStudent_profilesNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutStudentNestedInput
   }
 
   export type student_profilesUncheckedUpdateWithoutDifferentiated_materialsInput = {
@@ -81394,6 +84818,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     screener_results?: screener_resultsUncheckedUpdateManyWithoutStudent_profilesNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutStudent_profilesNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type student_profilesCreateWithoutReading_improvement_plansInput = {
@@ -81416,6 +84841,7 @@ export namespace Prisma {
     schools?: schoolsCreateNestedOneWithoutStudent_profilesInput
     screener_results?: screener_resultsCreateNestedManyWithoutStudent_profilesInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutStudent_profilesInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutStudentInput
   }
 
   export type student_profilesUncheckedCreateWithoutReading_improvement_plansInput = {
@@ -81438,6 +84864,7 @@ export namespace Prisma {
     updated_at?: Date | string
     screener_results?: screener_resultsUncheckedCreateNestedManyWithoutStudent_profilesInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutStudent_profilesInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type student_profilesCreateOrConnectWithoutReading_improvement_plansInput = {
@@ -81498,6 +84925,7 @@ export namespace Prisma {
     knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
     student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionCreateNestedManyWithoutTeacherInput
   }
 
   export type UserUncheckedCreateWithoutReading_improvement_plansInput = {
@@ -81553,6 +84981,7 @@ export namespace Prisma {
     knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
     student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
     differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedCreateNestedManyWithoutTeacherInput
   }
 
   export type UserCreateOrConnectWithoutReading_improvement_plansInput = {
@@ -81591,6 +85020,7 @@ export namespace Prisma {
     schools?: schoolsUpdateOneWithoutStudent_profilesNestedInput
     screener_results?: screener_resultsUpdateManyWithoutStudent_profilesNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutStudent_profilesNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutStudentNestedInput
   }
 
   export type student_profilesUncheckedUpdateWithoutReading_improvement_plansInput = {
@@ -81613,6 +85043,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     screener_results?: screener_resultsUncheckedUpdateManyWithoutStudent_profilesNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutStudent_profilesNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type UserUpsertWithoutReading_improvement_plansInput = {
@@ -81679,6 +85110,7 @@ export namespace Prisma {
     knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
     student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReading_improvement_plansInput = {
@@ -81734,6 +85166,7 @@ export namespace Prisma {
     knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
     student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutTeacherNestedInput
   }
 
   export type districtsCreateWithoutDistrict_listeningInput = {
@@ -82009,6 +85442,354 @@ export namespace Prisma {
     alert_threshold?: NullableJsonNullValueInput | InputJsonValue
     last_heartbeat?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCreateWithoutEducator_ai_interactionsInput = {
+    id: string
+    clerk_id?: string | null
+    email: string
+    name?: string | null
+    role?: $Enums.UserRole
+    district?: string | null
+    school?: string | null
+    school_site?: string | null
+    position?: string | null
+    bio?: string | null
+    stripe_customer_id?: string | null
+    stripe_subscription_id?: string | null
+    subscription_tier?: string
+    subscription_status?: string
+    usage_tokens?: number
+    xp_points?: number
+    trial_started_at?: Date | string
+    trial_ends_at?: Date | string | null
+    is_trial_converted?: boolean
+    is_active?: boolean
+    avatar_url?: string | null
+    created_at?: Date | string
+    updated_at: Date | string
+    last_login?: Date | string | null
+    password?: string | null
+    emailVerified?: boolean
+    image?: string | null
+    lastUplinkAt?: Date | string | null
+    accounts?: accountCreateNestedManyWithoutUserInput
+    sessions?: sessionCreateNestedManyWithoutUserInput
+    analytics_insights?: analytics_insightsCreateNestedManyWithoutUsersInput
+    avatar_sessions?: avatar_sessionsCreateNestedManyWithoutUsersInput
+    conversation_messages?: conversation_messagesCreateNestedManyWithoutUsersInput
+    evidence_folders?: evidence_foldersCreateNestedManyWithoutUsersInput
+    generated_content_hub?: generated_content_hubCreateNestedManyWithoutUsersInput
+    generations?: generationsCreateNestedManyWithoutUsersInput
+    legacy_ledger?: legacy_ledgerCreateNestedManyWithoutUsersInput
+    observations?: observationsCreateNestedManyWithoutUsersInput
+    saved_items?: saved_itemsCreateNestedManyWithoutUsersInput
+    schools_schools_admin_idTousers?: schoolsCreateNestedManyWithoutUsers_schools_admin_idTousersInput
+    strategic_vault?: strategic_vaultCreateNestedManyWithoutUsersInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    system_feedback?: system_feedbackCreateNestedManyWithoutUsersInput
+    token_wallets?: token_walletsCreateNestedOneWithoutUsersInput
+    usage_tracking?: usage_trackingCreateNestedManyWithoutUsersInput
+    organizations?: organizationsCreateNestedOneWithoutUsersInput
+    schools_users_school_idToschools?: schoolsCreateNestedOneWithoutUsers_users_school_idToschoolsInput
+    tiers?: tiersCreateNestedOneWithoutUsersInput
+    vault_documents?: vault_documentsCreateNestedManyWithoutUsersInput
+    knowledge_documents?: knowledge_documentsCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutEducator_ai_interactionsInput = {
+    id: string
+    clerk_id?: string | null
+    email: string
+    name?: string | null
+    role?: $Enums.UserRole
+    district?: string | null
+    school?: string | null
+    school_site?: string | null
+    position?: string | null
+    bio?: string | null
+    organization_id?: string | null
+    school_id?: string | null
+    stripe_customer_id?: string | null
+    stripe_subscription_id?: string | null
+    subscription_tier?: string
+    subscription_status?: string
+    usage_tokens?: number
+    xp_points?: number
+    trial_started_at?: Date | string
+    trial_ends_at?: Date | string | null
+    is_trial_converted?: boolean
+    is_active?: boolean
+    tier_id?: string | null
+    avatar_url?: string | null
+    created_at?: Date | string
+    updated_at: Date | string
+    last_login?: Date | string | null
+    password?: string | null
+    emailVerified?: boolean
+    image?: string | null
+    lastUplinkAt?: Date | string | null
+    accounts?: accountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: sessionUncheckedCreateNestedManyWithoutUserInput
+    analytics_insights?: analytics_insightsUncheckedCreateNestedManyWithoutUsersInput
+    avatar_sessions?: avatar_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    conversation_messages?: conversation_messagesUncheckedCreateNestedManyWithoutUsersInput
+    evidence_folders?: evidence_foldersUncheckedCreateNestedManyWithoutUsersInput
+    generated_content_hub?: generated_content_hubUncheckedCreateNestedManyWithoutUsersInput
+    generations?: generationsUncheckedCreateNestedManyWithoutUsersInput
+    legacy_ledger?: legacy_ledgerUncheckedCreateNestedManyWithoutUsersInput
+    observations?: observationsUncheckedCreateNestedManyWithoutUsersInput
+    saved_items?: saved_itemsUncheckedCreateNestedManyWithoutUsersInput
+    schools_schools_admin_idTousers?: schoolsUncheckedCreateNestedManyWithoutUsers_schools_admin_idTousersInput
+    strategic_vault?: strategic_vaultUncheckedCreateNestedManyWithoutUsersInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    system_feedback?: system_feedbackUncheckedCreateNestedManyWithoutUsersInput
+    token_wallets?: token_walletsUncheckedCreateNestedOneWithoutUsersInput
+    usage_tracking?: usage_trackingUncheckedCreateNestedManyWithoutUsersInput
+    vault_documents?: vault_documentsUncheckedCreateNestedManyWithoutUsersInput
+    knowledge_documents?: knowledge_documentsUncheckedCreateNestedManyWithoutUsersInput
+    student_profiles?: student_profilesUncheckedCreateNestedManyWithoutUsersInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutUsersInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutUsersInput
+  }
+
+  export type UserCreateOrConnectWithoutEducator_ai_interactionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutEducator_ai_interactionsInput, UserUncheckedCreateWithoutEducator_ai_interactionsInput>
+  }
+
+  export type student_profilesCreateWithoutEducator_ai_interactionsInput = {
+    id?: string
+    student_sis_id: string
+    first_name: string
+    last_name: string
+    grade_level: string
+    lexile_level?: number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: string | null
+    native_language?: string | null
+    sped_status?: string | null
+    dyslexia_flag?: boolean
+    intervention_tier?: string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+    users: UserCreateNestedOneWithoutStudent_profilesInput
+    schools?: schoolsCreateNestedOneWithoutStudent_profilesInput
+    screener_results?: screener_resultsCreateNestedManyWithoutStudent_profilesInput
+    differentiated_materials?: differentiated_materialsCreateNestedManyWithoutStudent_profilesInput
+    reading_improvement_plans?: reading_improvement_plansCreateNestedManyWithoutStudent_profilesInput
+  }
+
+  export type student_profilesUncheckedCreateWithoutEducator_ai_interactionsInput = {
+    id?: string
+    user_id: string
+    student_sis_id: string
+    first_name: string
+    last_name: string
+    grade_level: string
+    school_id?: string | null
+    lexile_level?: number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: string | null
+    native_language?: string | null
+    sped_status?: string | null
+    dyslexia_flag?: boolean
+    intervention_tier?: string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+    screener_results?: screener_resultsUncheckedCreateNestedManyWithoutStudent_profilesInput
+    differentiated_materials?: differentiated_materialsUncheckedCreateNestedManyWithoutStudent_profilesInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedCreateNestedManyWithoutStudent_profilesInput
+  }
+
+  export type student_profilesCreateOrConnectWithoutEducator_ai_interactionsInput = {
+    where: student_profilesWhereUniqueInput
+    create: XOR<student_profilesCreateWithoutEducator_ai_interactionsInput, student_profilesUncheckedCreateWithoutEducator_ai_interactionsInput>
+  }
+
+  export type UserUpsertWithoutEducator_ai_interactionsInput = {
+    update: XOR<UserUpdateWithoutEducator_ai_interactionsInput, UserUncheckedUpdateWithoutEducator_ai_interactionsInput>
+    create: XOR<UserCreateWithoutEducator_ai_interactionsInput, UserUncheckedCreateWithoutEducator_ai_interactionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutEducator_ai_interactionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutEducator_ai_interactionsInput, UserUncheckedUpdateWithoutEducator_ai_interactionsInput>
+  }
+
+  export type UserUpdateWithoutEducator_ai_interactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerk_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    district?: NullableStringFieldUpdateOperationsInput | string | null
+    school?: NullableStringFieldUpdateOperationsInput | string | null
+    school_site?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    stripe_customer_id?: NullableStringFieldUpdateOperationsInput | string | null
+    stripe_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
+    subscription_tier?: StringFieldUpdateOperationsInput | string
+    subscription_status?: StringFieldUpdateOperationsInput | string
+    usage_tokens?: IntFieldUpdateOperationsInput | number
+    xp_points?: IntFieldUpdateOperationsInput | number
+    trial_started_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    trial_ends_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    is_trial_converted?: BoolFieldUpdateOperationsInput | boolean
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    lastUplinkAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accounts?: accountUpdateManyWithoutUserNestedInput
+    sessions?: sessionUpdateManyWithoutUserNestedInput
+    analytics_insights?: analytics_insightsUpdateManyWithoutUsersNestedInput
+    avatar_sessions?: avatar_sessionsUpdateManyWithoutUsersNestedInput
+    conversation_messages?: conversation_messagesUpdateManyWithoutUsersNestedInput
+    evidence_folders?: evidence_foldersUpdateManyWithoutUsersNestedInput
+    generated_content_hub?: generated_content_hubUpdateManyWithoutUsersNestedInput
+    generations?: generationsUpdateManyWithoutUsersNestedInput
+    legacy_ledger?: legacy_ledgerUpdateManyWithoutUsersNestedInput
+    observations?: observationsUpdateManyWithoutUsersNestedInput
+    saved_items?: saved_itemsUpdateManyWithoutUsersNestedInput
+    schools_schools_admin_idTousers?: schoolsUpdateManyWithoutUsers_schools_admin_idTousersNestedInput
+    strategic_vault?: strategic_vaultUpdateManyWithoutUsersNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    system_feedback?: system_feedbackUpdateManyWithoutUsersNestedInput
+    token_wallets?: token_walletsUpdateOneWithoutUsersNestedInput
+    usage_tracking?: usage_trackingUpdateManyWithoutUsersNestedInput
+    organizations?: organizationsUpdateOneWithoutUsersNestedInput
+    schools_users_school_idToschools?: schoolsUpdateOneWithoutUsers_users_school_idToschoolsNestedInput
+    tiers?: tiersUpdateOneWithoutUsersNestedInput
+    vault_documents?: vault_documentsUpdateManyWithoutUsersNestedInput
+    knowledge_documents?: knowledge_documentsUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutEducator_ai_interactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerk_id?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    district?: NullableStringFieldUpdateOperationsInput | string | null
+    school?: NullableStringFieldUpdateOperationsInput | string | null
+    school_site?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    organization_id?: NullableStringFieldUpdateOperationsInput | string | null
+    school_id?: NullableStringFieldUpdateOperationsInput | string | null
+    stripe_customer_id?: NullableStringFieldUpdateOperationsInput | string | null
+    stripe_subscription_id?: NullableStringFieldUpdateOperationsInput | string | null
+    subscription_tier?: StringFieldUpdateOperationsInput | string
+    subscription_status?: StringFieldUpdateOperationsInput | string
+    usage_tokens?: IntFieldUpdateOperationsInput | number
+    xp_points?: IntFieldUpdateOperationsInput | number
+    trial_started_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    trial_ends_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    is_trial_converted?: BoolFieldUpdateOperationsInput | boolean
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    tier_id?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    lastUplinkAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accounts?: accountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: sessionUncheckedUpdateManyWithoutUserNestedInput
+    analytics_insights?: analytics_insightsUncheckedUpdateManyWithoutUsersNestedInput
+    avatar_sessions?: avatar_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+    conversation_messages?: conversation_messagesUncheckedUpdateManyWithoutUsersNestedInput
+    evidence_folders?: evidence_foldersUncheckedUpdateManyWithoutUsersNestedInput
+    generated_content_hub?: generated_content_hubUncheckedUpdateManyWithoutUsersNestedInput
+    generations?: generationsUncheckedUpdateManyWithoutUsersNestedInput
+    legacy_ledger?: legacy_ledgerUncheckedUpdateManyWithoutUsersNestedInput
+    observations?: observationsUncheckedUpdateManyWithoutUsersNestedInput
+    saved_items?: saved_itemsUncheckedUpdateManyWithoutUsersNestedInput
+    schools_schools_admin_idTousers?: schoolsUncheckedUpdateManyWithoutUsers_schools_admin_idTousersNestedInput
+    strategic_vault?: strategic_vaultUncheckedUpdateManyWithoutUsersNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    system_feedback?: system_feedbackUncheckedUpdateManyWithoutUsersNestedInput
+    token_wallets?: token_walletsUncheckedUpdateOneWithoutUsersNestedInput
+    usage_tracking?: usage_trackingUncheckedUpdateManyWithoutUsersNestedInput
+    vault_documents?: vault_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    knowledge_documents?: knowledge_documentsUncheckedUpdateManyWithoutUsersNestedInput
+    student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
+  }
+
+  export type student_profilesUpsertWithoutEducator_ai_interactionsInput = {
+    update: XOR<student_profilesUpdateWithoutEducator_ai_interactionsInput, student_profilesUncheckedUpdateWithoutEducator_ai_interactionsInput>
+    create: XOR<student_profilesCreateWithoutEducator_ai_interactionsInput, student_profilesUncheckedCreateWithoutEducator_ai_interactionsInput>
+    where?: student_profilesWhereInput
+  }
+
+  export type student_profilesUpdateToOneWithWhereWithoutEducator_ai_interactionsInput = {
+    where?: student_profilesWhereInput
+    data: XOR<student_profilesUpdateWithoutEducator_ai_interactionsInput, student_profilesUncheckedUpdateWithoutEducator_ai_interactionsInput>
+  }
+
+  export type student_profilesUpdateWithoutEducator_ai_interactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    student_sis_id?: StringFieldUpdateOperationsInput | string
+    first_name?: StringFieldUpdateOperationsInput | string
+    last_name?: StringFieldUpdateOperationsInput | string
+    grade_level?: StringFieldUpdateOperationsInput | string
+    lexile_level?: NullableIntFieldUpdateOperationsInput | number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: NullableStringFieldUpdateOperationsInput | string | null
+    native_language?: NullableStringFieldUpdateOperationsInput | string | null
+    sped_status?: NullableStringFieldUpdateOperationsInput | string | null
+    dyslexia_flag?: BoolFieldUpdateOperationsInput | boolean
+    intervention_tier?: NullableStringFieldUpdateOperationsInput | string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateOneRequiredWithoutStudent_profilesNestedInput
+    schools?: schoolsUpdateOneWithoutStudent_profilesNestedInput
+    screener_results?: screener_resultsUpdateManyWithoutStudent_profilesNestedInput
+    differentiated_materials?: differentiated_materialsUpdateManyWithoutStudent_profilesNestedInput
+    reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutStudent_profilesNestedInput
+  }
+
+  export type student_profilesUncheckedUpdateWithoutEducator_ai_interactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    student_sis_id?: StringFieldUpdateOperationsInput | string
+    first_name?: StringFieldUpdateOperationsInput | string
+    last_name?: StringFieldUpdateOperationsInput | string
+    grade_level?: StringFieldUpdateOperationsInput | string
+    school_id?: NullableStringFieldUpdateOperationsInput | string | null
+    lexile_level?: NullableIntFieldUpdateOperationsInput | number | null
+    lexile_history?: NullableJsonNullValueInput | InputJsonValue
+    ell_status?: NullableStringFieldUpdateOperationsInput | string | null
+    native_language?: NullableStringFieldUpdateOperationsInput | string | null
+    sped_status?: NullableStringFieldUpdateOperationsInput | string | null
+    dyslexia_flag?: BoolFieldUpdateOperationsInput | boolean
+    intervention_tier?: NullableStringFieldUpdateOperationsInput | string | null
+    ala_skill_profile?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    screener_results?: screener_resultsUncheckedUpdateManyWithoutStudent_profilesNestedInput
+    differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutStudent_profilesNestedInput
+    reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutStudent_profilesNestedInput
   }
 
   export type conversation_messagesCreateManyAvatar_sessionsInput = {
@@ -82681,6 +86462,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrganizationsInput = {
@@ -82736,6 +86518,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutOrganizationsInput = {
@@ -82996,6 +86779,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSchools_users_school_idToschoolsInput = {
@@ -83051,6 +86835,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutSchools_users_school_idToschoolsInput = {
@@ -83106,6 +86891,7 @@ export namespace Prisma {
     screener_results?: screener_resultsUpdateManyWithoutStudent_profilesNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutStudent_profilesNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutStudent_profilesNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutStudentNestedInput
   }
 
   export type student_profilesUncheckedUpdateWithoutSchoolsInput = {
@@ -83128,6 +86914,7 @@ export namespace Prisma {
     screener_results?: screener_resultsUncheckedUpdateManyWithoutStudent_profilesNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutStudent_profilesNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutStudent_profilesNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type student_profilesUncheckedUpdateManyWithoutSchoolsInput = {
@@ -83273,6 +87060,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTiersInput = {
@@ -83328,6 +87116,7 @@ export namespace Prisma {
     student_profiles?: student_profilesUncheckedUpdateManyWithoutUsersNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutUsersNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutUsersNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutTeacherNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutTiersInput = {
@@ -83685,6 +87474,21 @@ export namespace Prisma {
     parent_notified?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+  }
+
+  export type EducatorAIInteractionCreateManyTeacherInput = {
+    id?: string
+    studentId?: string | null
+    classId?: string | null
+    interactionType: string
+    prompt: string
+    aiResponse: string
+    standardsAligned?: EducatorAIInteractionCreatestandardsAlignedInput | string[]
+    rubricCriteria?: NullableJsonNullValueInput | InputJsonValue
+    modelUsed?: string | null
+    tokensUsed?: number | null
+    sessionId?: string | null
+    timestamp?: Date | string
   }
 
   export type accountUpdateWithoutUserInput = {
@@ -84427,6 +88231,7 @@ export namespace Prisma {
     screener_results?: screener_resultsUpdateManyWithoutStudent_profilesNestedInput
     differentiated_materials?: differentiated_materialsUpdateManyWithoutStudent_profilesNestedInput
     reading_improvement_plans?: reading_improvement_plansUpdateManyWithoutStudent_profilesNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUpdateManyWithoutStudentNestedInput
   }
 
   export type student_profilesUncheckedUpdateWithoutUsersInput = {
@@ -84449,6 +88254,7 @@ export namespace Prisma {
     screener_results?: screener_resultsUncheckedUpdateManyWithoutStudent_profilesNestedInput
     differentiated_materials?: differentiated_materialsUncheckedUpdateManyWithoutStudent_profilesNestedInput
     reading_improvement_plans?: reading_improvement_plansUncheckedUpdateManyWithoutStudent_profilesNestedInput
+    educator_ai_interactions?: EducatorAIInteractionUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type student_profilesUncheckedUpdateManyWithoutUsersInput = {
@@ -84569,6 +88375,51 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type EducatorAIInteractionUpdateWithoutTeacherInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    interactionType?: StringFieldUpdateOperationsInput | string
+    prompt?: StringFieldUpdateOperationsInput | string
+    aiResponse?: StringFieldUpdateOperationsInput | string
+    standardsAligned?: EducatorAIInteractionUpdatestandardsAlignedInput | string[]
+    rubricCriteria?: NullableJsonNullValueInput | InputJsonValue
+    modelUsed?: NullableStringFieldUpdateOperationsInput | string | null
+    tokensUsed?: NullableIntFieldUpdateOperationsInput | number | null
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    student?: student_profilesUpdateOneWithoutEducator_ai_interactionsNestedInput
+  }
+
+  export type EducatorAIInteractionUncheckedUpdateWithoutTeacherInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: NullableStringFieldUpdateOperationsInput | string | null
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    interactionType?: StringFieldUpdateOperationsInput | string
+    prompt?: StringFieldUpdateOperationsInput | string
+    aiResponse?: StringFieldUpdateOperationsInput | string
+    standardsAligned?: EducatorAIInteractionUpdatestandardsAlignedInput | string[]
+    rubricCriteria?: NullableJsonNullValueInput | InputJsonValue
+    modelUsed?: NullableStringFieldUpdateOperationsInput | string | null
+    tokensUsed?: NullableIntFieldUpdateOperationsInput | number | null
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EducatorAIInteractionUncheckedUpdateManyWithoutTeacherInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: NullableStringFieldUpdateOperationsInput | string | null
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    interactionType?: StringFieldUpdateOperationsInput | string
+    prompt?: StringFieldUpdateOperationsInput | string
+    aiResponse?: StringFieldUpdateOperationsInput | string
+    standardsAligned?: EducatorAIInteractionUpdatestandardsAlignedInput | string[]
+    rubricCriteria?: NullableJsonNullValueInput | InputJsonValue
+    modelUsed?: NullableStringFieldUpdateOperationsInput | string | null
+    tokensUsed?: NullableIntFieldUpdateOperationsInput | number | null
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type vault_auditsCreateManyVault_documentsInput = {
     id: string
     userId: string
@@ -84648,6 +88499,21 @@ export namespace Prisma {
     parent_notified?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+  }
+
+  export type EducatorAIInteractionCreateManyStudentInput = {
+    id?: string
+    teacherId: string
+    classId?: string | null
+    interactionType: string
+    prompt: string
+    aiResponse: string
+    standardsAligned?: EducatorAIInteractionCreatestandardsAlignedInput | string[]
+    rubricCriteria?: NullableJsonNullValueInput | InputJsonValue
+    modelUsed?: string | null
+    tokensUsed?: number | null
+    sessionId?: string | null
+    timestamp?: Date | string
   }
 
   export type screener_resultsUpdateWithoutStudent_profilesInput = {
@@ -84783,6 +88649,51 @@ export namespace Prisma {
     parent_notified?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EducatorAIInteractionUpdateWithoutStudentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    interactionType?: StringFieldUpdateOperationsInput | string
+    prompt?: StringFieldUpdateOperationsInput | string
+    aiResponse?: StringFieldUpdateOperationsInput | string
+    standardsAligned?: EducatorAIInteractionUpdatestandardsAlignedInput | string[]
+    rubricCriteria?: NullableJsonNullValueInput | InputJsonValue
+    modelUsed?: NullableStringFieldUpdateOperationsInput | string | null
+    tokensUsed?: NullableIntFieldUpdateOperationsInput | number | null
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    teacher?: UserUpdateOneRequiredWithoutEducator_ai_interactionsNestedInput
+  }
+
+  export type EducatorAIInteractionUncheckedUpdateWithoutStudentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    teacherId?: StringFieldUpdateOperationsInput | string
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    interactionType?: StringFieldUpdateOperationsInput | string
+    prompt?: StringFieldUpdateOperationsInput | string
+    aiResponse?: StringFieldUpdateOperationsInput | string
+    standardsAligned?: EducatorAIInteractionUpdatestandardsAlignedInput | string[]
+    rubricCriteria?: NullableJsonNullValueInput | InputJsonValue
+    modelUsed?: NullableStringFieldUpdateOperationsInput | string | null
+    tokensUsed?: NullableIntFieldUpdateOperationsInput | number | null
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EducatorAIInteractionUncheckedUpdateManyWithoutStudentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    teacherId?: StringFieldUpdateOperationsInput | string
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    interactionType?: StringFieldUpdateOperationsInput | string
+    prompt?: StringFieldUpdateOperationsInput | string
+    aiResponse?: StringFieldUpdateOperationsInput | string
+    standardsAligned?: EducatorAIInteractionUpdatestandardsAlignedInput | string[]
+    rubricCriteria?: NullableJsonNullValueInput | InputJsonValue
+    modelUsed?: NullableStringFieldUpdateOperationsInput | string | null
+    tokensUsed?: NullableIntFieldUpdateOperationsInput | number | null
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type infra_alertsCreateManyInfra_monitorsInput = {

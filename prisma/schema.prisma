@@ -546,6 +546,8 @@ model User {
   student_profiles                 student_profiles[]      @relation("student_profiles")
   differentiated_materials         differentiated_materials[] @relation("differentiated_materials")
   reading_improvement_plans        reading_improvement_plans[] @relation("reading_plans")
+  educator_ai_interactions         EducatorAIInteraction[] @relation("EducatorAIInteractions")
+
 
   @@index([clerk_id])
   @@index([district, school])
@@ -697,6 +699,8 @@ model student_profiles {
   screener_results  screener_results[]
   differentiated_materials differentiated_materials[]
   reading_improvement_plans reading_improvement_plans[]
+  educator_ai_interactions  EducatorAIInteraction[] @relation("StudentAIInteractions")
+
 
   @@unique([user_id, student_sis_id])
   @@index([school_id])
@@ -846,4 +850,43 @@ model AuditLog {
   @@index([action])
   @@index([resourceType, resourceId])
   @@map("audit_logs")
+}
+model EducatorAIInteraction {
+  id                String            @id @default(cuid())
+  teacherId         String
+  teacher           User              @relation("EducatorAIInteractions", fields: [teacherId], references: [id], onDelete: Cascade)
+  studentId         String?
+  student           student_profiles? @relation("StudentAIInteractions", fields: [studentId], references: [id], onDelete: SetNull)
+  classId           String?
+
+  interactionType   String   // "grading_draft" | "lesson_scaffold" | "rubric_feedback" | "progress_insight"
+  prompt            String   @db.Text
+  aiResponse        String   @db.Text
+  standardsAligned  String[] // e.g. ["ALCOS.ELA.3.RI.1", "Science of Reading - Phonics"]
+  rubricCriteria    Json?    // Store the rubric the teacher provided
+  modelUsed         String?  // "gpt-4o" | "gemini-1.5-pro" etc.
+  tokensUsed        Int?
+  sessionId         String?
+
+  timestamp         DateTime @default(now())
+
+  @@index([teacherId, timestamp])
+  @@index([studentId, timestamp])
+  @@index([classId, timestamp])
+  @@map("educator_ai_interactions")
+}
+
+model LtiPlatform {
+  id              String   @id @default(cuid())
+  issuer          String   @unique
+  clientId        String
+  deploymentId    String?
+  platformName    String?  // "Canvas", "Clever", "Google Classroom"
+  jwksUrl         String
+  authTokenUrl    String
+  authLoginUrl    String
+  registeredAt    DateTime @default(now())
+  isActive        Boolean  @default(true)
+
+  @@map("lti_platforms")
 }

@@ -709,6 +709,35 @@ exports.Prisma.AuditLogScalarFieldEnum = {
   metadata: 'metadata'
 };
 
+exports.Prisma.EducatorAIInteractionScalarFieldEnum = {
+  id: 'id',
+  teacherId: 'teacherId',
+  studentId: 'studentId',
+  classId: 'classId',
+  interactionType: 'interactionType',
+  prompt: 'prompt',
+  aiResponse: 'aiResponse',
+  standardsAligned: 'standardsAligned',
+  rubricCriteria: 'rubricCriteria',
+  modelUsed: 'modelUsed',
+  tokensUsed: 'tokensUsed',
+  sessionId: 'sessionId',
+  timestamp: 'timestamp'
+};
+
+exports.Prisma.LtiPlatformScalarFieldEnum = {
+  id: 'id',
+  issuer: 'issuer',
+  clientId: 'clientId',
+  deploymentId: 'deploymentId',
+  platformName: 'platformName',
+  jwksUrl: 'jwksUrl',
+  authTokenUrl: 'authTokenUrl',
+  authLoginUrl: 'authLoginUrl',
+  registeredAt: 'registeredAt',
+  isActive: 'isActive'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -791,7 +820,9 @@ exports.Prisma.ModelName = {
   district_listening: 'district_listening',
   infra_monitors: 'infra_monitors',
   infra_alerts: 'infra_alerts',
-  AuditLog: 'AuditLog'
+  AuditLog: 'AuditLog',
+  EducatorAIInteraction: 'EducatorAIInteraction',
+  LtiPlatform: 'LtiPlatform'
 };
 
 /**
