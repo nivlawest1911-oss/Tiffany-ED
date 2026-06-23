@@ -693,6 +693,22 @@ exports.Prisma.Infra_alertsScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.AuditLogScalarFieldEnum = {
+  id: 'id',
+  timestamp: 'timestamp',
+  actorId: 'actorId',
+  actorRole: 'actorRole',
+  action: 'action',
+  resourceType: 'resourceType',
+  resourceId: 'resourceId',
+  details: 'details',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  sessionId: 'sessionId',
+  outcome: 'outcome',
+  metadata: 'metadata'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -774,7 +790,8 @@ exports.Prisma.ModelName = {
   reading_improvement_plans: 'reading_improvement_plans',
   district_listening: 'district_listening',
   infra_monitors: 'infra_monitors',
-  infra_alerts: 'infra_alerts'
+  infra_alerts: 'infra_alerts',
+  AuditLog: 'AuditLog'
 };
 
 /**

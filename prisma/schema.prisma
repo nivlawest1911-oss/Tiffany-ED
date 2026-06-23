@@ -825,3 +825,25 @@ model infra_alerts {
   @@index([monitor_id])
   @@index([severity, acknowledged])
 }
+
+model AuditLog {
+  id            String   @id @default(cuid())
+  timestamp     DateTime @default(now())
+  actorId       String   // User who performed the action (Teacher/Admin/Parent)
+  actorRole     String   // TEACHER | ADMIN | PARENT | SYSTEM
+  action        String   // e.g. "VIEW_STUDENT_PROGRESS", "GENERATE_LESSON", "EXPORT_DATA"
+  resourceType  String   // STUDENT | CLASS | LESSON | REPORT | etc.
+  resourceId    String?  // ID of the affected resource
+  details       Json?    // Structured details (never store raw PII here)
+  ipAddress     String?
+  userAgent     String?
+  sessionId     String?
+  outcome       String   // SUCCESS | FAILURE | PARTIAL
+  metadata      Json?    // Any additional context (traceable to curriculum standard when AI involved)
+
+  @@index([timestamp])
+  @@index([actorId])
+  @@index([action])
+  @@index([resourceType, resourceId])
+  @@map("audit_logs")
+}
