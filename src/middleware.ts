@@ -10,6 +10,12 @@ import { authRateLimit, apiRateLimit } from '@/lib/ratelimit';
 export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
     
+    // ✅ IMPORTANT: Always allow Better Auth routes to pass through
+    // This prevents the OAuth callback from being blocked
+    if (pathname.startsWith('/api/auth')) {
+        return NextResponse.next();
+    }
+    
     // 0. Sentinel Lockdown Protocol: Maintenance Mode
     if (process.env.MAINTENANCE_MODE === 'true' && !pathname.startsWith('/api/health')) {
         return new NextResponse(
@@ -126,11 +132,12 @@ export const config = {
     matcher: [
         /*
          * Match all request paths except for the ones starting with:
+         * - api/auth (Better Auth routes - MUST be excluded)
          * - _next/static (static files)
          * - _next/image (image optimization files)
          * - favicon.ico (favicon file)
          * - Public assets like .svg, .png, etc.
          */
-        '/((?!_next/static|_next/image|_vercel|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|css|js|json|map)$).*)',
+        '/((?!api/auth|_next/static|_next/image|_vercel|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|css|js|json|map)$).*)',
     ],
 };
