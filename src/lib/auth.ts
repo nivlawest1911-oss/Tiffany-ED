@@ -43,36 +43,16 @@ export const auth = betterAuth({
         },
     },
     socialProviders: {
-        ...(() => {
-            const googleId = (process.env.GOOGLE_CLIENT_ID || '').trim();
-            const googleSecret = (process.env.GOOGLE_CLIENT_SECRET || '').trim();
-            const isGoogleValid = googleId !== '' && 
-                                 !googleId.includes('placeholder') && 
-                                 !googleId.startsWith('523925578373');
-            return isGoogleValid && googleSecret ? {
-                google: {
-                    clientId: googleId,
-                    clientSecret: googleSecret,
-                    redirectURI: process.env.BETTER_AUTH_URL ? `${process.env.BETTER_AUTH_URL}/api/auth/callback/google` : undefined,
-                }
-            } : {};
-        })(),
-        ...(() => {
-            const facebookId = (process.env.FACEBOOK_CLIENT_ID || '').trim();
-            const facebookSecret = (process.env.FACEBOOK_CLIENT_SECRET || '').trim();
-            const isFacebookValid = facebookId !== '' && 
-                                   !facebookId.includes('placeholder') && 
-                                   !facebookId.startsWith('your-') && 
-                                   !facebookId.startsWith('mock-') &&
-                                   !facebookId.startsWith('523925578373');
-            return isFacebookValid && facebookSecret ? {
-                facebook: {
-                    clientId: facebookId,
-                    clientSecret: facebookSecret,
-                    redirectURI: process.env.BETTER_AUTH_URL ? `${process.env.BETTER_AUTH_URL}/api/auth/callback/facebook` : undefined,
-                }
-            } : {};
-        })(),
+        google: {
+            clientId: process.env.GOOGLE_CLIENT_ID as string,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+            redirectURI: `${process.env.BETTER_AUTH_URL}/api/auth/callback/google`,
+        },
+        facebook: {
+            clientId: process.env.FACEBOOK_CLIENT_ID as string,
+            clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
+            redirectURI: `${process.env.BETTER_AUTH_URL}/api/auth/callback/facebook`,
+        },
     },
     onError: (error, request) => {
         console.error("Auth Error:", error);
