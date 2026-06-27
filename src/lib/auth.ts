@@ -53,6 +53,7 @@ export const auth = betterAuth({
                 google: {
                     clientId: googleId,
                     clientSecret: googleSecret,
+                    redirectURI: process.env.BETTER_AUTH_URL ? `${process.env.BETTER_AUTH_URL}/api/auth/callback/google` : undefined,
                 }
             } : {};
         })(),
@@ -68,9 +69,13 @@ export const auth = betterAuth({
                 facebook: {
                     clientId: facebookId,
                     clientSecret: facebookSecret,
+                    redirectURI: process.env.BETTER_AUTH_URL ? `${process.env.BETTER_AUTH_URL}/api/auth/callback/facebook` : undefined,
                 }
             } : {};
         })(),
+    },
+    onError: (error, request) => {
+        console.error("Auth Error:", error);
     },
     plugins: [
         nextCookies()
