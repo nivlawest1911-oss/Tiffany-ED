@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { toast } from 'sonner';
 
 export default function TiffanyEDPage() {
   const [prompt, setPrompt] = useState('');
@@ -41,6 +42,7 @@ export default function TiffanyEDPage() {
 
     setOutput(mockOutput);
     setIsGenerating(false);
+    toast.success('Lesson scaffold generated successfully');
   };
 
   return (

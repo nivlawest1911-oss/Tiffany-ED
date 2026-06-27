@@ -6,7 +6,7 @@ import { EdIntelVibeProvider } from "@/context/EdIntelVibeContext";
 import { CelebrationProvider } from '@/context/CelebrationContext';
 import { SovereignProvider } from '@/context/SovereignState';
 import { GlobalSynapseProvider } from '@/context/GlobalSynapseContext';
-import { Toaster } from 'sonner';
+import { Toaster } from '@/components/ui/toaster';
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import WebVitalsReporter from '@/components/analytics/WebVitalsReporter';
@@ -128,7 +128,7 @@ export default function RootLayout({
                     <AccessibleLayout>
                       {children}
                     </AccessibleLayout>
-                    <Toaster position="top-right" theme="dark" />
+                    <Toaster />
                     <Analytics />
                     <SpeedInsights />
                     <WebVitalsReporter />
