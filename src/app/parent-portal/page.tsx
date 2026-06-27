@@ -4,99 +4,98 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
 export default function ParentPortalPage() {
+  const children = [
+    {
+      name: 'Liam Thompson',
+      grade: '4th Grade',
+      teacher: 'Ms. Rivera',
+      status: 'On Track',
+      literacyGrowth: 78,
+      lastUpdate: 'Today',
+    },
+    {
+      name: 'Sophia Kim',
+      grade: '4th Grade',
+      teacher: 'Ms. Rivera',
+      status: 'Making Progress',
+      literacyGrowth: 65,
+      lastUpdate: 'Yesterday',
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-[#0A0F1C] text-white p-8">
       <div className="max-w-5xl mx-auto">
         {/* Header */}
-        <div className="mb-10">
+        <div className="mb-8">
           <h1 className="text-4xl font-semibold tracking-[-2px]">Parent Portal</h1>
-          <p className="text-white/70 mt-2">Welcome back, Mrs. Thompson. Here’s how your children are progressing.</p>
+          <p className="text-white/70 mt-1">Welcome back, Dr. West. Here’s how your children are doing.</p>
         </div>
 
         {/* Children Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-          {/* Child 1 */}
-          <Card className="bg-white/[0.03] border-white/10">
-            <CardHeader>
-              <div className="flex items-center justify-between">
+        <div className="space-y-6">
+          {children.map((child, index) => (
+            <Card key={index} className="bg-white/[0.03] border-white/10">
+              <CardHeader className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                  <CardTitle className="text-2xl">Liam Thompson</CardTitle>
-                  <p className="text-white/60 text-sm">4th Grade • Ms. Rivera’s Class</p>
+                  <CardTitle className="text-2xl">{child.name}</CardTitle>
+                  <p className="text-white/60">{child.grade} • {child.teacher}</p>
                 </div>
-                <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/30">On Track</Badge>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <div className="flex justify-between text-sm mb-1">
-                  <span className="text-white/70">Literacy Growth</span>
-                  <span className="font-medium">+18%</span>
-                </div>
-                <div className="h-2 bg-white/10 rounded-full">
-                  <div className="h-2 w-[78%] bg-[#C5A46E] rounded-full" />
-                </div>
-              </div>
+                <Badge 
+                  className={
+                    child.status === 'On Track' 
+                      ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' 
+                      : 'bg-[#C5A46E]/10 text-[#C5A46E] border-[#C5A46E]/30'
+                  }
+                >
+                  {child.status}
+                </Badge>
+              </CardHeader>
 
-              <div className="pt-2 text-sm">
-                <p className="text-white/70">Recent Focus:</p>
-                <p className="font-medium">Main Idea & Supporting Details</p>
-              </div>
-            </CardContent>
-          </Card>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {/* Literacy Growth */}
+                  <div>
+                    <p className="text-sm text-white/60 mb-1">Literacy Growth</p>
+                    <div className="text-4xl font-semibold">{child.literacyGrowth}%</div>
+                    <p className="text-emerald-400 text-sm mt-1">↑ 8% since last month</p>
+                  </div>
 
-          {/* Child 2 */}
-          <Card className="bg-white/[0.03] border-white/10">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle className="text-2xl">Sophia Thompson</CardTitle>
-                  <p className="text-white/60 text-sm">2nd Grade • Mr. Patel’s Class</p>
-                </div>
-                <Badge className="bg-[#C5A46E]/10 text-[#C5A46E] border-[#C5A46E]/30">Needs Support</Badge>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <div className="flex justify-between text-sm mb-1">
-                  <span className="text-white/70">Phonics Mastery</span>
-                  <span className="font-medium">64%</span>
-                </div>
-                <div className="h-2 bg-white/10 rounded-full">
-                  <div className="h-2 w-[64%] bg-[#C5A46E] rounded-full" />
-                </div>
-              </div>
+                  {/* Key Areas */}
+                  <div>
+                    <p className="text-sm text-white/60 mb-2">Key Areas</p>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span>Phonics</span>
+                        <span className="font-medium">82%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Fluency</span>
+                        <span className="font-medium">71%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Comprehension</span>
+                        <span className="font-medium">76%</span>
+                      </div>
+                    </div>
+                  </div>
 
-              <div className="pt-2 text-sm">
-                <p className="text-white/70">Recent Focus:</p>
-                <p className="font-medium">Short vowel sounds & blending</p>
-              </div>
-            </CardContent>
-          </Card>
+                  {/* Recent Activity */}
+                  <div>
+                    <p className="text-sm text-white/60 mb-2">Recent Activity</p>
+                    <div className="text-sm text-white/80">
+                      <p>Tiffany-ED generated feedback on main idea</p>
+                      <p className="text-white/50 text-xs mt-1">Updated {child.lastUpdate}</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
 
-        {/* Insights Section */}
-        <Card className="bg-white/[0.03] border-white/10">
-          <CardHeader>
-            <CardTitle>Key Insights</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4 text-sm">
-            <div className="flex gap-4">
-              <div className="text-[#C5A46E]">●</div>
-              <div>
-                <span className="font-medium">Liam</span> has shown strong improvement in reading comprehension this month.
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="text-[#C5A46E]">●</div>
-              <div>
-                <span className="font-medium">Sophia</span> would benefit from extra practice with short vowel sounds at home.
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <p className="text-center text-xs text-white/50 mt-10 tracking-[1px]">
-          All information is secure and FERPA compliant. Last updated today at 8:42 AM.
+        <p className="text-xs text-white/40 mt-8 text-center">
+          This is a secure view. All data is protected under FERPA.
         </p>
       </div>
     </div>
