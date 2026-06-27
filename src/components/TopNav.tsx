@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation';
 import { Bell, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { GlobalSearch } from '@/components/GlobalSearch';
 
 export function TopNav() {
   const pathname = usePathname();
@@ -23,6 +24,11 @@ export function TopNav() {
       {/* Left: Page Title */}
       <div>
         <h1 className="text-xl font-semibold tracking-[-1px]">{getPageTitle()}</h1>
+      </div>
+
+      {/* Center: Global Search */}
+      <div className="flex-1 max-w-md mx-8">
+        <GlobalSearch />
       </div>
 
       {/* Right: Actions */}
