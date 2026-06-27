@@ -1,8 +1,7 @@
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function WelcomePage() {
   return (
@@ -10,79 +9,68 @@ export default function WelcomePage() {
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-6">
+            <div className="w-2 h-2 rounded-full bg-[#C5A46E]" />
+            <span className="text-sm tracking-[2px] text-white/60">WELCOME TO EDINTEL</span>
+          </div>
           <h1 className="text-5xl font-semibold tracking-[-2.5px] mb-4">
             Welcome to EdIntel Sovereign
           </h1>
           <p className="text-xl text-white/70 max-w-2xl mx-auto">
-            You’re all set. Here’s how to get the most out of the platform.
+            You now have access to powerful tools that help you understand every student’s story and act with precision.
           </p>
         </div>
 
-        {/* Getting Started Steps */}
+        {/* Quick Start Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <Card className="bg-white/[0.03] border-white/10">
+          <Card className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 transition-all">
             <CardHeader>
-              <div className="text-[#C5A46E] text-4xl mb-4">01</div>
-              <CardTitle>Explore Your Dashboard</CardTitle>
+              <CardTitle>1. Explore Your Dashboard</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-white/70 text-sm">
-                Get an overview of your students, recent AI activity, and quick actions.
+              <p className="text-white/70 mb-4">
+                Get a clear overview of your students, at-risk alerts, and recent AI activity.
               </p>
-              <Link href="/dashboard">
-                <Button variant="outline" className="mt-4 w-full">Go to Dashboard</Button>
-              </Link>
+              <Button variant="outline" className="w-full">Go to Dashboard</Button>
             </CardContent>
           </Card>
 
-          <Card className="bg-white/[0.03] border-white/10">
+          <Card className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 transition-all">
             <CardHeader>
-              <div className="text-[#C5A46E] text-4xl mb-4">02</div>
-              <CardTitle>Try Tiffany-ED</CardTitle>
+              <CardTitle>2. Try Tiffany-ED</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-white/70 text-sm">
-                Generate lesson scaffolds, grading drafts, and rubric feedback in seconds.
+              <p className="text-white/70 mb-4">
+                Generate traceable lesson scaffolds and rubric feedback in seconds.
               </p>
-              <Link href="/tiffany-ed">
-                <Button variant="outline" className="mt-4 w-full">Open Tiffany-ED</Button>
-              </Link>
+              <Button variant="outline" className="w-full">Open Tiffany-ED</Button>
             </CardContent>
           </Card>
 
-          <Card className="bg-white/[0.03] border-white/10">
+          <Card className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 transition-all">
             <CardHeader>
-              <div className="text-[#C5A46E] text-4xl mb-4">03</div>
-              <CardTitle>Create Smart Groups</CardTitle>
+              <CardTitle>3. Create Smart Groups</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-white/70 text-sm">
-                Automatically group students based on Science of Reading data.
+              <p className="text-white/70 mb-4">
+                Use AI to automatically group students based on Science of Reading data.
               </p>
-              <Link href="/grouping">
-                <Button variant="outline" className="mt-4 w-full">Try Grouping</Button>
-              </Link>
+              <Button variant="outline" className="w-full">Try Grouping</Button>
             </CardContent>
           </Card>
         </div>
 
-        {/* Support Section */}
-        <Card className="bg-white/[0.03] border-white/10 text-center py-10">
-          <CardContent>
-            <h3 className="text-2xl font-semibold mb-2">Need help getting started?</h3>
-            <p className="text-white/70 mb-6 max-w-md mx-auto">
-              Our support team is here to help you and your district succeed with EdIntel.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/help">
-                <Button variant="outline">Visit Help Center</Button>
-              </Link>
-              <Button className="bg-[#C5A46E] hover:bg-[#A67C52] text-[#0A0F1C]">
-                Contact Support
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+        {/* Bottom CTA */}
+        <div className="text-center">
+          <p className="text-white/60 mb-4">Ready to get started?</p>
+          <Button 
+            size="lg" 
+            className="bg-[#C5A46E] hover:bg-[#A67C52] text-[#0A0F1C] font-semibold px-10"
+            onClick={() => window.location.href = '/dashboard'}
+          >
+            Go to Dashboard
+          </Button>
+        </div>
       </div>
     </div>
   );
