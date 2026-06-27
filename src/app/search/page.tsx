@@ -1,93 +1,116 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Input } from '@/components/ui/input';
-import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 
-export default function SearchPage() {
-  const [query, setQuery] = useState('');
-  const [results, setResults] = useState<any[]>([]);
+function SearchResultsContent() {
+  const searchParams = useSearchParams();
+  const query = searchParams.get('q') || '';
 
-  // Mock search results (replace with real API later)
-  const mockResults = [
-    { type: 'Student', title: 'Liam Thompson', subtitle: '4th Grade • Ms. Rivera', path: '/students/123' },
-    { type: 'Student', title: 'Sophia Patel', subtitle: '2nd Grade • Mr. Chen', path: '/students/456' },
-    { type: 'Class', title: '4th Grade ELA - Ms. Rivera', subtitle: '28 students', path: '/classes/1' },
-    { type: 'Report', title: 'Science of Reading Report - March 2026', subtitle: 'District-wide', path: '/reports/89' },
-    { type: 'AI Activity', title: 'Tiffany-ED: Lesson Scaffold', subtitle: 'Generated for 12 students', path: '/tiffany-ed' },
+  // Mock results (replace with real search logic later)
+  const results = [
+    {
+      type: 'Student',
+      title: 'Liam Thompson',
+      subtitle: '4th Grade • Ms. Rivera',
+      link: '/students/1',
+    },
+    {
+      type: 'Lesson',
+      title: 'Main Idea & Supporting Details',
+      subtitle: '4th Grade ELA • Tiffany-ED',
+      link: '/tiffany-ed',
+    },
+    {
+      type: 'Class',
+      title: '4th Grade ELA - Section A',
+      subtitle: '28 students • Last activity today',
+      link: '/classes/1',
+    },
+    {
+      type: 'Report',
+      title: 'Science of Reading Progress - May 2026',
+      subtitle: 'District-wide report',
+      link: '/reports',
+    },
   ];
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!query.trim()) {
-      setResults([]);
-      return;
-    }
-    // Filter mock results
-    const filtered = mockResults.filter(item =>
-      item.title.toLowerCase().includes(query.toLowerCase()) ||
-      item.subtitle.toLowerCase().includes(query.toLowerCase())
-    );
-    setResults(filtered);
-  };
+  const filteredResults = query
+    ? results.filter(r =>
+        r.title.toLowerCase().includes(query.toLowerCase()) ||
+        r.subtitle.toLowerCase().includes(query.toLowerCase())
+      )
+    : results;
 
   return (
     <div className="min-h-screen bg-[#0A0F1C] text-white p-8">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-semibold tracking-[-2px]">Search</h1>
-          <p className="text-white/70 mt-1">Search across students, classes, reports, and AI activity</p>
+          <h1 className="text-4xl font-semibold tracking-[-2px]">Search Results</h1>
+          {query && (
+            <p className="text-white/70 mt-2">
+              Showing results for <span className="text-[#C5A46E]">“{query}”</span>
+            </p>
+          )}
         </div>
 
-        {/* Search Bar */}
-        <form onSubmit={handleSearch} className="mb-8">
+        {/* Search Input */}
+        <div className="mb-8 max-w-md">
           <Input
-            type="text"
-            placeholder="Search students, classes, reports..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className="bg-white/5 border-white/10 py-6 text-lg"
+            placeholder="Search again..."
+            defaultValue={query}
+            className="bg-white/5 border-white/10 text-white"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                window.location.href = `/search?q=${encodeURIComponent((e.target as HTMLInputElement).value)}`;
+              }
+            }}
           />
-        </form>
+        </div>
 
         {/* Results */}
-        {results.length > 0 ? (
+        {filteredResults.length === 0 ? (
+          <div className="text-center py-16">
+            <p className="text-white/60">No results found for “{query}”.</p>
+            <Button variant="outline" className="mt-4 border-white/20 hover:bg-white/5" onClick={() => window.location.href = '/dashboard'}>
+              Back to Dashboard
+            </Button>
+          </div>
+        ) : (
           <div className="space-y-4">
-            {results.map((result, index) => (
+            {filteredResults.map((result, index) => (
               <Card 
                 key={index} 
                 className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 transition-all cursor-pointer"
+                onClick={() => window.location.href = result.link}
               >
-                <CardContent className="p-6 flex items-center justify-between">
+                <CardContent className="p-4 flex items-center justify-between">
                   <div>
-                    <div className="flex items-center gap-3">
-                      <Badge variant="outline" className="text-xs">
-                        {result.type}
-                      </Badge>
-                      <h3 className="text-xl font-semibold">{result.title}</h3>
-                    </div>
-                    <p className="text-white/70 mt-1">{result.subtitle}</p>
+                    <h3 className="text-lg font-medium text-white">{result.title}</h3>
+                    <p className="text-sm text-white/60 mt-1">{result.subtitle}</p>
                   </div>
-                  <Button variant="outline" size="sm">
-                    Open
-                  </Button>
+                  <Badge className="bg-[#C5A46E]/10 text-[#C5A46E] border-[#C5A46E]/30">
+                    {result.type}
+                  </Badge>
                 </CardContent>
               </Card>
             ))}
           </div>
-        ) : query ? (
-          <div className="text-center py-12 text-white/60">
-            No results found for “{query}”.
-          </div>
-        ) : (
-          <div className="text-center py-12 text-white/50">
-            Start typing to search across the platform.
-          </div>
         )}
       </div>
     </div>
+  );
+}
+
+export default function SearchResultsPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#0A0F1C] text-white p-8">Loading search results...</div>}>
+      <SearchResultsContent />
+    </Suspense>
   );
 }
