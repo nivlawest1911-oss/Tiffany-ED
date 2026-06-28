@@ -4,7 +4,7 @@ import type { NextRequest } from 'next/server';
 export async function middleware(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
 
-  // ✅ Allow demo mode to bypass auth
+  // ✅ Allow demo mode to completely bypass authentication
   if (search.includes('demo=true')) {
     return NextResponse.next();
   }
@@ -14,7 +14,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // ✅ Allow login, forgot password, etc.
+  // ✅ Allow public auth pages
   if (
     pathname.startsWith('/login') ||
     pathname.startsWith('/forgot-password') ||
@@ -22,9 +22,6 @@ export async function middleware(request: NextRequest) {
   ) {
     return NextResponse.next();
   }
-
-  // For everything else under dashboard, require auth (normal behavior)
-  // You can add your real auth check here later if needed
 
   return NextResponse.next();
 }
