@@ -54,7 +54,7 @@ export const auth = betterAuth({
             redirectURI: `${process.env.BETTER_AUTH_URL}/api/auth/callback/facebook`,
         },
     },
-    onError: (error, request) => {
+    onError: (error: any, request: any) => {
         console.error("Auth Error:", error);
     },
     plugins: [
