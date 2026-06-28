@@ -1,19 +1,13 @@
 'use client';
 
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 
 export default function LoginPage() {
-  const [loading, setLoading] = useState(false);
-
   const handleDemoLogin = () => {
-    setLoading(true);
-
-    // Small delay for polish
+    // Add a small delay + force hard redirect
     setTimeout(() => {
-      // Force a clean redirect with demo parameter
-      window.location.href = '/dashboard?demo=true';
-    }, 400);
+      window.location.replace('/dashboard?demo=true');
+    }, 150);
   };
 
   return (
@@ -26,20 +20,17 @@ export default function LoginPage() {
           </div>
         </div>
 
-        {/* Header */}
         <h1 className="text-4xl font-semibold tracking-[-2px] text-white mb-3">
           EdIntel Sovereign
         </h1>
         <p className="text-white/60 mb-10">Institutional Demo Access</p>
 
-        {/* Demo Button */}
         <div className="bg-white/[0.03] border border-white/10 rounded-3xl p-8">
           <Button 
             onClick={handleDemoLogin}
-            disabled={loading}
             className="w-full bg-[#C5A46E] hover:bg-[#A67C52] text-[#0A0F1C] font-semibold text-lg py-8 rounded-2xl"
           >
-            {loading ? "Entering demo..." : "Sign In as Demo User"}
+            Sign In as Demo User
           </Button>
 
           <p className="text-xs text-white/50 mt-6">
