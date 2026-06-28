@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Suspense } from 'react';
 
-function DemoModeBannerContent() {
+function DemoModeContent() {
   const searchParams = useSearchParams();
   const isDemo = searchParams.get('demo') === 'true';
 
@@ -17,8 +17,8 @@ function DemoModeBannerContent() {
           <span className="font-semibold tracking-wider">DEMO MODE</span>
           <span className="text-white/60">— All data is simulated for presentation purposes</span>
         </div>
-        
-        <Button 
+
+        <Button
           onClick={() => window.location.href = '/login'}
           variant="outline"
           size="sm"
@@ -34,7 +34,7 @@ function DemoModeBannerContent() {
 export function DemoModeBanner() {
   return (
     <Suspense fallback={null}>
-      <DemoModeBannerContent />
+      <DemoModeContent />
     </Suspense>
   );
 }
