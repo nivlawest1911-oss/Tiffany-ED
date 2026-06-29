@@ -15,7 +15,6 @@ export default function DashboardLayout({
       <div className="flex-1 flex flex-col overflow-hidden">
         <TopNav />
 
-        {/* Demo Banner wrapped in Suspense (important) */}
         <Suspense fallback={null}>
           <DemoModeBanner />
         </Suspense>
