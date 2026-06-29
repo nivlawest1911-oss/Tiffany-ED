@@ -4,10 +4,8 @@ import { Button } from '@/components/ui/button';
 
 export default function LoginPage() {
   const handleDemoLogin = () => {
-    // Most reliable redirect method
-    setTimeout(() => {
-      window.location.replace('/dashboard?demo=true');
-    }, 200);
+    // Nuclear-level stable redirect
+    window.location.replace('/dashboard?demo=true');
   };
 
   return (

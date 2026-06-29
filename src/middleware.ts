@@ -4,17 +4,17 @@ import type { NextRequest } from 'next/server';
 export async function middleware(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
 
-  // ✅ Allow demo mode to completely bypass authentication
+  // 🔥 NUCLEAR: Allow demo mode to completely bypass everything
   if (search.includes('demo=true')) {
     return NextResponse.next();
   }
 
-  // ✅ Always allow Better Auth routes
+  // Allow Better Auth routes
   if (pathname.startsWith('/api/auth')) {
     return NextResponse.next();
   }
 
-  // ✅ Allow public auth pages
+  // Allow public pages
   if (
     pathname.startsWith('/login') ||
     pathname.startsWith('/forgot-password') ||
