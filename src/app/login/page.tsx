@@ -4,16 +4,15 @@ import { Button } from '@/components/ui/button';
 
 export default function LoginPage() {
   const handleDemoLogin = () => {
-    // Add a small delay + force hard redirect
+    // Most reliable redirect method
     setTimeout(() => {
       window.location.replace('/dashboard?demo=true');
-    }, 150);
+    }, 200);
   };
 
   return (
     <div className="min-h-screen bg-[#0A0F1C] flex items-center justify-center p-6">
       <div className="w-full max-w-md text-center">
-        {/* Logo */}
         <div className="flex justify-center mb-8">
           <div className="w-20 h-20 rounded-full bg-[#C5A46E] flex items-center justify-center">
             <span className="text-[#0A0F1C] text-4xl font-bold">E</span>
