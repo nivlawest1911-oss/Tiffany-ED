@@ -4,7 +4,10 @@ import { Button } from '@/components/ui/button';
 
 export default function LoginPage() {
   const handleDemoLogin = () => {
-    // Nuclear-level stable redirect
+    // Set a flag in sessionStorage (client-side only)
+    sessionStorage.setItem('demoMode', 'true');
+    
+    // Hard redirect
     window.location.replace('/dashboard?demo=true');
   };
 
