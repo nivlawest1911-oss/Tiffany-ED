@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { 
   LayoutDashboard, Users, BookOpen, TrendingUp, AlertTriangle, 
-  Calendar, Award, Clock, Search, Bell, User, LogOut 
+  Calendar, Award, Clock, Search, Bell, User, LogOut, ShieldCheck
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -77,10 +77,12 @@ export default function DemoPage() {
               { icon: TrendingUp, label: 'Progress' },
               { icon: AlertTriangle, label: 'Interventions' },
               { icon: Award, label: 'Reports' },
+              { href: '/demo/compliance', label: 'Compliance', icon: ShieldCheck },
               { icon: Calendar, label: 'Calendar' },
             ].map((item, index) => (
               <div 
                 key={index}
+                onClick={() => { if (item.href) window.location.href = item.href; }}
                 className={`flex items-center gap-3 px-4 py-3 rounded-2xl text-sm transition-all cursor-pointer
                   ${item.active 
                     ? 'bg-white/5 text-white border border-[#C5A46E]/30' 
