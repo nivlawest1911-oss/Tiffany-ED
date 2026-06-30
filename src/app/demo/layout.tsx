@@ -50,8 +50,9 @@ export default function DemoLayout({ children }: { children: React.ReactNode }) 
         {/* SIDEBAR */}
         <div className="w-72 border-r border-white/10 bg-[#0A0F1C] flex flex-col">
           <div className="p-6 border-b border-white/10">
+            {/* Optimized Logo */}
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-[#C5A46E] flex items-center justify-center">
+              <div className="w-9 h-9 rounded-xl bg-[#C5A46E] flex items-center justify-center flex-shrink-0">
                 <span className="text-[#0A0F1C] font-bold text-xl tracking-[-1px]">E</span>
               </div>
               <div>
