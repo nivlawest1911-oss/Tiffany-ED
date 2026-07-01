@@ -26,6 +26,7 @@ export default function PresentLayout({ children }: { children: React.ReactNode 
     { href: '/demo/present/research', label: 'Research & Curriculum', icon: Microscope },
     { href: '/demo/present/modalities', label: 'School Modalities', icon: Target },
     { href: '/demo/present/global-best-practices', label: 'Global Best Practices', icon: Globe },
+    { href: '/demo/present/ecosystem-gravity', label: 'Ecosystem Gravity', icon: Globe },
     { href: '/demo/present/full-stack-operations', label: 'Full-Stack Operations', icon: Rocket },
     { href: '/demo/present/pricing-strategy', label: 'Pricing Strategy', icon: DollarSign },
     { href: '/demo/present/platform-economics', label: 'Platform Economics', icon: DollarSign },
