@@ -3,6 +3,7 @@ import { getSession } from '@/lib/auth';
 import { TokenService } from '@/lib/services/token-service';
 import { differentiationEngine } from '@/lib/differentiation-engine';
 import { DifferentiationRequest } from '@/types/differentiation';
+import { trackCost } from '@/lib/usage/track-cost';
 
 export const runtime = 'nodejs';
 
@@ -89,6 +90,15 @@ export async function POST(request: NextRequest) {
       questionCount: questionCount ? Number(questionCount) : undefined,
       questionFormats,
       organizerType,
+    });
+
+    // === REAL COST TRACKING ===
+    await trackCost({
+      districtId: user?.districtId || 'unknown',
+      userId: user?.id,
+      sessionType: 'differentiation',
+      tokensUsed: (result as any).usage?.totalTokens || 850, // pull from actual LLM response if available
+      modelUsed: (result as any).model || 'gemini-1.5-pro',
     });
 
     // Log the differentiation interaction asynchronously

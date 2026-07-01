@@ -635,6 +635,22 @@ model vault_ocr {
   vault_documents vault_documents @relation(fields: [documentId], references: [id], onDelete: Cascade)
 }
 
+model UsageMetric {
+  id            String   @id @default(cuid())
+  districtId    String?
+  userId        String?
+  sessionType   String // "differentiation" | "progress_report" | "grouping" | "tiffany_ed"
+  tokensUsed    Int
+  estimatedCost Float // USD
+  modelUsed     String?
+  createdAt     DateTime @default(now())
+
+  @@index([districtId])
+  @@index([userId])
+  @@index([createdAt])
+  @@index([sessionType])
+}
+
 enum aal_level {
   aal1
   aal2

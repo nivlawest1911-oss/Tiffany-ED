@@ -582,6 +582,17 @@ exports.Prisma.Vault_ocrScalarFieldEnum = {
   processedAt: 'processedAt'
 };
 
+exports.Prisma.UsageMetricScalarFieldEnum = {
+  id: 'id',
+  districtId: 'districtId',
+  userId: 'userId',
+  sessionType: 'sessionType',
+  tokensUsed: 'tokensUsed',
+  estimatedCost: 'estimatedCost',
+  modelUsed: 'modelUsed',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.Student_profilesScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
@@ -826,6 +837,7 @@ exports.Prisma.ModelName = {
   vault_audits: 'vault_audits',
   vault_documents: 'vault_documents',
   vault_ocr: 'vault_ocr',
+  UsageMetric: 'UsageMetric',
   student_profiles: 'student_profiles',
   screener_results: 'screener_results',
   differentiated_materials: 'differentiated_materials',
