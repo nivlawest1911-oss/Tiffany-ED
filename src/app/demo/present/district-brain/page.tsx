@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { 
   Brain, Shield, Database, TrendingUp, Award, Globe, Zap, 
-  Play, CheckCircle, AlertTriangle 
+  Play, CheckCircle, AlertTriangle, Calendar 
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -31,12 +31,35 @@ export default function DistrictBrain() {
         </div>
         <p className="text-white/70 max-w-4xl text-lg">
           EdIntel as the <span className="font-semibold text-[#C5A46E]">Unified District Operating System (UDOS)</span> — 
-          the indispensable infrastructure layer that manages district operations, not just tasks.
+          the indispensable infrastructure that transforms data into institutional strategy.
         </p>
-        <div className="mt-2 flex items-center gap-2">
-          <Badge className="bg-orange-500/10 text-orange-400">SIS/LMS Data Fabric — #1 Priority (Next 90 Days)</Badge>
-          <Badge className="bg-emerald-500/10 text-emerald-400">Data Sovereignty & Portability — Core Moat</Badge>
+      </div>
+
+      {/* 60-Day SIS Integration Roadmap Status */}
+      <div className="bg-white/[0.03] border border-[#C5A46E]/40 rounded-3xl p-8">
+        <div className="flex items-center gap-3 mb-6">
+          <Calendar className="h-6 w-6 text-[#C5A46E]" />
+          <h2 className="text-2xl font-semibold tracking-tight">60-Day SIS Integration Roadmap (Priority #1)</h2>
         </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
+          {[
+            { phase: "Phase 1", days: "Days 1–14", title: "Architecture & Security", status: "Ready to Start", color: "bg-emerald-500/10 text-emerald-400" },
+            { phase: "Phase 2", days: "Days 15–35", title: "Core Connectors (PowerSchool + Infinite Campus)", status: "High Priority", color: "bg-orange-500/10 text-orange-400" },
+            { phase: "Phase 3", days: "Days 36–50", title: "Data Fabric & Orchestration", status: "Planned", color: "bg-white/10 text-white/70" },
+            { phase: "Phase 4", days: "Days 51–60", title: "Compliance + Production Readiness", status: "Planned", color: "bg-white/10 text-white/70" },
+          ].map((item, i) => (
+            <div key={i} className="bg-white/[0.02] border border-white/10 rounded-2xl p-5">
+              <div className="text-xs text-white/50">{item.phase} • {item.days}</div>
+              <div className="font-semibold mt-2">{item.title}</div>
+              <Badge className={`mt-3 ${item.color}`}>{item.status}</Badge>
+            </div>
+          ))}
+        </div>
+
+        <p className="text-sm text-white/60 mt-6">
+          This is the critical bridge. Once complete, EdIntel becomes a live participant in district data workflows rather than a peripheral tool.
+        </p>
       </div>
 
       {/* System of Record + Universal Data Fabric */}
@@ -53,7 +76,7 @@ export default function DistrictBrain() {
             </CardHeader>
             <CardContent className="space-y-3 text-sm">
               <p>Bidirectional connectors to PowerSchool, Infinite Campus, Skyward, Canvas. EdIntel becomes the glue that orchestrates data across systems.</p>
-              <p className="text-orange-400">Status: Primary R&D focus (Next 90 days)</p>
+              <p className="text-orange-400">Status: Primary R&D focus (Next 60 days)</p>
               <Button onClick={() => triggerToast("Data Fabric sync simulation complete — Production connectors ready for sprint")} className="w-full bg-[#C5A46E] hover:bg-[#C5A46E]/90 text-[#0A0F1C] rounded-2xl">
                 Simulate Live SIS Sync
               </Button>
@@ -65,7 +88,7 @@ export default function DistrictBrain() {
               <CardTitle className="flex items-center gap-2 text-lg">Immutable Audit & Compliance Ledger</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 text-sm">
-              <p>Blockchain-backed, append-only record of every AI decision and data access. One-click “Governance Report” for state audits or parent challenges.</p>
+              <p>Blockchain-backed, append-only record of every AI decision and data access. One-click “Governance Report” for state audits.</p>
               <Button onClick={() => triggerToast("Immutable audit entry created — Zero-trust traceability active")} variant="outline" className="w-full border-[#C5A46E]/40 text-[#C5A46E]">
                 Generate Governance Report
               </Button>
@@ -77,7 +100,7 @@ export default function DistrictBrain() {
               <CardTitle className="flex items-center gap-2 text-lg">Automated Legislative Compliance Engine</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 text-sm">
-              <p>Rules engine that automatically updates when state or federal education law changes. Auto-adjusts IEP templates, audit requirements, and compliance checks.</p>
+              <p>Rules engine that automatically updates when state or federal education law changes. Auto-adjusts IEP templates and compliance checks.</p>
               <Button onClick={() => triggerToast("Legislative update applied — All templates and rules refreshed")} variant="outline" className="w-full border-[#C5A46E]/40 text-[#C5A46E]">
                 Apply Latest Legislative Update
               </Button>
@@ -99,7 +122,7 @@ export default function DistrictBrain() {
               <CardTitle>Autonomous Compliance Agent</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 text-sm">
-              <p>Automatically detects and patches non-compliant IEP/504 documents based on real-time state legislative changes. Becomes the district’s legal shield.</p>
+              <p>Automatically detects and patches non-compliant IEP/504 documents based on real-time state legislative changes.</p>
               <Button onClick={() => triggerToast("Non-compliant IEP auto-patched and re-filed per current state rules")} className="w-full bg-[#C5A46E] hover:bg-[#C5A46E]/90 text-[#0A0F1C] rounded-2xl">
                 Run Autonomous Compliance Pass
               </Button>
@@ -132,16 +155,16 @@ export default function DistrictBrain() {
         </div>
       </div>
 
-      {/* Pedagogical Infrastructure + Academic Passport */}
+      {/* Procurement Hub + Academic Passport */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="bg-white/[0.03] border-white/10 rounded-3xl">
           <CardHeader>
-            <CardTitle>Multimodal Process Assessment</CardTitle>
+            <CardTitle>Vendor-Agnostic Procurement Hub</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 text-sm">
-            <p>Computer vision + audio analysis of problem-solving processes, sketches, and oral explanations — moving beyond text-only grading to true process evaluation.</p>
-            <Button onClick={() => triggerToast("Multimodal assessment complete — Rich process profile generated")} className="w-full bg-[#C5A46E] hover:bg-[#C5A46E]/90 text-[#0A0F1C] rounded-2xl">
-              Analyze Performance Task
+            <p>Internal App Store where third-party EdTech tools must integrate via API to reach the district. EdIntel takes commission on every transaction.</p>
+            <Button onClick={() => triggerToast("Procurement Hub commission tracking activated")} variant="outline" className="w-full border-[#C5A46E]/40 text-[#C5A46E]">
+              Open Procurement Hub
             </Button>
           </CardContent>
         </Card>
@@ -151,52 +174,12 @@ export default function DistrictBrain() {
             <CardTitle className="flex items-center gap-2">Academic Passport (Lifelong Credentials)</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 text-sm">
-            <p>A portable, cryptographically verified record of student achievement, certifications, and portfolios that moves with them across districts and borders.</p>
-            <Button onClick={() => triggerToast("Academic Passport generated — Verified credential ready")} variant="outline" className="w-full border-[#C5A46E]/40 text-[#C5A46E]">
-              View Verified Passport
+            <p>Blockchain-backed digital portfolio that follows students K-12 into college and career. Anchors academic identity in EdIntel’s ecosystem.</p>
+            <Button onClick={() => triggerToast("Academic Passport updated — New verified skills and projects recorded")} variant="outline" className="w-full border-[#C5A46E]/40 text-[#C5A46E]">
+              Update Student Passport
             </Button>
           </CardContent>
         </Card>
-      </div>
-
-      {/* Revenue Supremacy + Marketplace */}
-      <div>
-        <div className="flex items-center gap-3 mb-5 px-1">
-          <Globe className="h-5 w-5 text-[#C5A46E]" />
-          <h2 className="text-xl font-semibold tracking-tight">3. Revenue Supremacy & Ecosystem Moat</h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <Card className="bg-white/[0.03] border-white/10 rounded-3xl">
-            <CardContent className="p-6">
-              <div className="font-semibold mb-2">Vendor-Agnostic Marketplace</div>
-              <p className="text-sm text-white/80 mb-4">Third-party tools must plug into EdIntel to reach the district. You take commission on every transaction and become the central procurement hub.</p>
-              <Button onClick={() => triggerToast("Marketplace commission engine activated")} variant="outline" className="w-full border-[#C5A46E]/40 text-[#C5A46E]">
-                Open Marketplace
-              </Button>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white/[0.03] border-white/10 rounded-3xl">
-            <CardContent className="p-6">
-              <div className="font-semibold mb-2">Performance-Based Value-Share</div>
-              <p className="text-sm text-white/80 mb-4">Partner on grants and performance goals. Take a share of cost savings or state performance bonuses when EdIntel drives measurable outcomes.</p>
-              <Button onClick={() => triggerToast("Value-share agreement simulated — 12% of projected savings captured")} className="w-full bg-[#C5A46E] hover:bg-[#C5A46E]/90 text-[#0A0F1C] rounded-2xl">
-                Simulate Value-Share Model
-              </Button>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white/[0.03] border-white/10 rounded-3xl">
-            <CardContent className="p-6">
-              <div className="font-semibold mb-2">Data-as-a-Service (DaaS)</div>
-              <p className="text-sm text-white/80 mb-4">Sell anonymized, aggregated benchmarking insights to state departments and research institutions. High-margin secondary revenue stream.</p>
-              <Button onClick={() => triggerToast("Anonymized state-level benchmark report generated")} variant="outline" className="w-full border-[#C5A46E]/40 text-[#C5A46E]">
-                Generate DaaS Report
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
       </div>
 
       {showToast && (
