@@ -12,7 +12,7 @@ import { Badge } from '@/components/ui/badge';
 interface OptimizationPillar {
   id: number;
   title: string;
-  icon: React.ElementType;
+  icon: any;
   score: number;
   status: string;
   lastAction: string;

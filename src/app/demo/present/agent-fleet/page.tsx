@@ -12,7 +12,7 @@ import { Badge } from '@/components/ui/badge';
 interface Agent {
   id: number;
   name: string;
-  icon: React.ElementType;
+  icon: any;
   monitors: string;
   score: number;
   status: string;

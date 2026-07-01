@@ -928,3 +928,51 @@ model LtiLineItem {
   @@index([resourceLinkId])
   @@map("lti_line_items")
 }
+
+// === State-Report Auto-Filer ===
+model StateReport {
+  id            String   @id @default(cuid())
+  districtId    String
+  reportType    String   // e.g. "attendance", "assessment", "special_education"
+  period        String   // e.g. "2025-2026_Q1"
+  status        String   @default("draft") // draft, reviewed, submitted
+  generatedBy   String?
+  fileUrl       String?
+  dataSnapshot  Json?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([districtId, reportType])
+}
+
+// === Mastery Graph ===
+model SkillNode {
+  id            String   @id @default(cuid())
+  code          String   // e.g. "AL.MATH.4.NF.A.1"
+  name          String
+  description   String?
+  parentId      String?
+  gradeLevel    Int?
+  subject       String
+  createdAt     DateTime @default(now())
+
+  parent        SkillNode?  @relation("SkillHierarchy", fields: [parentId], references: [id])
+  children      SkillNode[] @relation("SkillHierarchy")
+  masteryScores MasteryScore[]
+}
+
+model MasteryScore {
+  id            String   @id @default(cuid())
+  studentId     String
+  skillNodeId   String
+  score         Float    // 0-100
+  confidence    Float?   // 0-1
+  source        String?  // differentiation, assessment, teacher_override, adaptive_practice
+  recordedAt    DateTime @default(now())
+
+  skillNode     SkillNode @relation(fields: [skillNodeId], references: [id])
+
+  @@index([studentId])
+  @@index([skillNodeId])
+}
+
