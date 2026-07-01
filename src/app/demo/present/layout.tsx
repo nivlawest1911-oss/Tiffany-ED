@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { 
-  LayoutDashboard, Users, TrendingUp, BookOpen, ShieldCheck, LogOut, Target, Layers, Award, Scale, Microscope, AppWindow
+  LayoutDashboard, Users, TrendingUp, BookOpen, ShieldCheck, LogOut, Target, Layers, Award, Scale, Microscope, AppWindow, Globe
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useExitDemo } from '@/hooks/useExitDemo';
@@ -25,6 +25,7 @@ export default function PresentLayout({ children }: { children: React.ReactNode 
     { href: '/demo/present/government', label: 'Government & Policy', icon: Scale },
     { href: '/demo/present/research', label: 'Research & Curriculum', icon: Microscope },
     { href: '/demo/present/modalities', label: 'School Modalities', icon: Target },
+    { href: '/demo/present/global', label: 'Global Intelligence', icon: Globe },
   ];
 
   return (
