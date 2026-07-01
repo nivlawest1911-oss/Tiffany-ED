@@ -50,14 +50,15 @@ export default function GlobalBestPractices() {
   return (
     <div className="p-6 md:p-8 max-w-6xl mx-auto space-y-8">
       <div>
-        <div className="flex items-center gap-3 mb-2">
+        <div className="flex items-center gap-3 mb-3">
           <div className="p-3 rounded-2xl bg-[#C5A46E]/10">
             <Globe className="h-7 w-7 text-[#C5A46E]" />
           </div>
           <h1 className="text-3xl font-semibold tracking-tight">Global Best Practices</h1>
         </div>
-        <p className="text-white/70 max-w-3xl">
-          EdIntel Sovereign is built to learn from the world’s highest-performing education systems and bring those insights to every school.
+        <p className="text-white/70 max-w-4xl text-lg">
+          EdIntel Sovereign is the operating system for modern education — learning from the world’s best systems 
+          while serving every stakeholder, every school type, and every community with Alphabet-level scalability and profitability.
         </p>
       </div>
 
