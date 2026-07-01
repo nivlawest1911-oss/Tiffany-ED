@@ -202,6 +202,47 @@ export default function PricingStrategy() {
         </div>
       </div>
 
+      {/* 5-Year Financial Projections */}
+      <div>
+        <div className="flex items-center gap-3 mb-5 px-1">
+          <TrendingUp className="h-5 w-5 text-[#C5A46E]" />
+          <h2 className="text-xl font-semibold tracking-tight">5-Year Financial Projection (Conservative)</h2>
+        </div>
+
+        <div className="bg-white/[0.03] border border-white/10 rounded-3xl overflow-hidden">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-white/10 bg-white/[0.02]">
+                <th className="text-left p-5 font-medium">Metric</th>
+                <th className="text-right p-5 font-medium">Year 1</th>
+                <th className="text-right p-5 font-medium">Year 2</th>
+                <th className="text-right p-5 font-medium">Year 3</th>
+                <th className="text-right p-5 font-medium">Year 4</th>
+                <th className="text-right p-5 font-medium">Year 5</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-white/10">
+              {[
+                ["Active Districts", "12", "28", "52", "87", "135"],
+                ["ARR", "$1.8M", "$4.9M", "$11.2M", "$23.4M", "$41.7M"],
+                ["Gross Margin", "78%", "82%", "85%", "87%", "89%"],
+                ["LTV : CAC", "6.2x", "7.8x", "9.1x", "10.4x", "11.8x"],
+                ["Churn Rate", "6.8%", "5.1%", "4.2%", "3.6%", "3.1%"],
+              ].map((row, i) => (
+                <tr key={i} className="hover:bg-white/[0.015]">
+                  {row.map((cell, j) => (
+                    <td key={j} className={`p-5 font-medium ${j === 0 ? 'text-white/70' : 'text-right text-[#C5A46E]'}`}>
+                      {cell}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="text-xs text-white/50 mt-3 text-center">Projections based on hybrid usage model with strong product-led growth and low churn from guardrails.</p>
+      </div>
+
       {showToast && (
         <div className="fixed bottom-6 right-6 bg-[#C5A46E] text-[#0A0F1C] px-6 py-3 rounded-2xl shadow-xl flex items-center gap-3 text-sm font-medium z-50">
           <CheckCircle className="h-4 w-4" />
