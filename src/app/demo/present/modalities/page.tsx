@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Target, Play, CheckCircle } from 'lucide-react';
+import { Target, Play, CheckCircle, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -56,6 +56,18 @@ export default function Modalities() {
             </CardContent>
           </Card>
         ))}
+      </div>
+
+      <div className="flex justify-end mt-4">
+        <Button 
+          asChild 
+          variant="outline" 
+          className="border-[#C5A46E]/40 text-[#C5A46E] hover:bg-[#C5A46E]/10"
+        >
+          <a href="/demo/present/global-best-practices">
+            Explore Global Best Practices <ArrowRight className="h-4 w-4 ml-2" />
+          </a>
+        </Button>
       </div>
 
       {showToast && (
