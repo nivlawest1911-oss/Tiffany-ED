@@ -194,6 +194,12 @@ export default function RevenueEngine() {
         EdIntel is positioned to become the dominant, high-margin intelligence layer for education worldwide.
       </div>
 
+      <div className="flex justify-end mt-4">
+        <Button asChild variant="outline" className="border-[#C5A46E]/40 text-[#C5A46E] hover:bg-[#C5A46E]/10">
+          <a href="/demo/present/strategic-optimization">View Full Strategic Optimization</a>
+        </Button>
+      </div>
+
       {showToast && (
         <div className="fixed bottom-6 right-6 bg-[#C5A46E] text-[#0A0F1C] px-6 py-3 rounded-2xl shadow-xl flex items-center gap-3 text-sm font-medium z-50">
           <CheckCircle className="h-4 w-4" />

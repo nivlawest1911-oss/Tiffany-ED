@@ -103,9 +103,9 @@ export default function AgentFleetCommand() {
           </div>
           <Button 
             onClick={runFullFleetOptimization}
-            className="bg-[#C5A46E] hover:bg-[#C5A46E]/90 text-[#0A0F1C] rounded-2xl px-8 py-6 text-base"
+            className="bg-[#C5A46E] hover:bg-[#C5A46E]/90 active:scale-[0.985] transition-all text-[#0A0F1C] rounded-2xl px-10 py-7 text-lg font-medium shadow-lg"
           >
-            <Play className="h-5 w-5 mr-2" /> Run Full Fleet Optimization Cycle
+            <Play className="h-5 w-5 mr-3" /> Run Full Fleet Optimization Cycle
           </Button>
         </div>
 

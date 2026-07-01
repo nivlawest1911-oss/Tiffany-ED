@@ -108,7 +108,7 @@ export default function StrategicOptimization() {
           and multi-jurisdictional legal compliance — ensuring maximum scalability, profitability, and risk mitigation 
           at federal, Alabama state, and Mobile County levels.
         </p>
-        <div className="mt-2 text-sm text-[#C5A46E]">
+        <div className="mt-3 text-sm text-[#C5A46E]">
           Alphabet-level operational intelligence applied to education • Built for sustainable growth and institutional trust
         </div>
       </div>
@@ -123,9 +123,9 @@ export default function StrategicOptimization() {
           </div>
           <Button 
             onClick={runFullStrategicOptimization}
-            className="bg-[#C5A46E] hover:bg-[#C5A46E]/90 text-[#0A0F1C] rounded-2xl px-8 py-6 text-base"
+            className="bg-[#C5A46E] hover:bg-[#C5A46E]/90 active:scale-[0.985] transition-all text-[#0A0F1C] rounded-2xl px-10 py-7 text-lg font-medium shadow-lg"
           >
-            <Play className="h-5 w-5 mr-2" /> Run Full Strategic Optimization Cycle
+            <Play className="h-5 w-5 mr-3" /> Run Full Strategic Optimization Cycle
           </Button>
         </div>
       </div>

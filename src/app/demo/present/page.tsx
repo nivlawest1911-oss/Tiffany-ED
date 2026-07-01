@@ -165,11 +165,12 @@ export default function SovereignEcosystem() {
         );
       })}
 
-      <div className="flex justify-end mt-6">
+      <div className="flex justify-end gap-3 mt-6">
         <Button asChild variant="outline" className="border-[#C5A46E]/40 text-[#C5A46E] hover:bg-[#C5A46E]/10">
-          <a href="/demo/present/agent-fleet">
-            View Active Agent Fleet <Zap className="h-4 w-4 ml-2" />
-          </a>
+          <a href="/demo/present/revenue-engine">Revenue Engine</a>
+        </Button>
+        <Button asChild variant="outline" className="border-[#C5A46E]/40 text-[#C5A46E] hover:bg-[#C5A46E]/10">
+          <a href="/demo/present/agent-fleet">Agent Fleet Command</a>
         </Button>
       </div>
 
