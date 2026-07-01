@@ -41,7 +41,7 @@ export default function PresentStudents() {
         </div>
         <Button 
           onClick={handleAction}
-          className="bg-[#C5A46E] hover:bg-[#C5A46E]/90 text-[#0A0F1C] rounded-2xl px-6"
+          className="bg-[#C5A46E] hover:bg-[#C5A46E]/90 active:scale-[0.985] transition-all text-[#0A0F1C] rounded-2xl font-medium px-6"
         >
           Export Student List
         </Button>

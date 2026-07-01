@@ -129,7 +129,7 @@ export default function SovereignEcosystem() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {group.agents.map((agent, i) => (
-                <Card key={i} className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl">
+                <Card key={i} className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl transition-all">
                   <CardHeader className="pb-3">
                     <div className="flex justify-between items-start">
                       <CardTitle className="text-lg">{agent.name}</CardTitle>
@@ -153,7 +153,7 @@ export default function SovereignEcosystem() {
                     </div>
                     <Button 
                       onClick={() => triggerAgent(agent)}
-                      className="w-full bg-[#C5A46E] hover:bg-[#C5A46E]/90 text-[#0A0F1C] rounded-2xl mt-2"
+                      className="w-full bg-[#C5A46E] hover:bg-[#C5A46E]/90 active:scale-[0.985] transition-all text-[#0A0F1C] rounded-2xl font-medium mt-2"
                     >
                       <Play className="h-4 w-4 mr-2" /> Trigger Agent
                     </Button>
@@ -166,10 +166,10 @@ export default function SovereignEcosystem() {
       })}
 
       <div className="flex justify-end gap-3 mt-6">
-        <Button asChild variant="outline" className="border-[#C5A46E]/40 text-[#C5A46E] hover:bg-[#C5A46E]/10">
+        <Button asChild variant="outline" className="border-[#C5A46E]/40 text-[#C5A46E] hover:bg-[#C5A46E]/10 rounded-2xl">
           <a href="/demo/present/revenue-engine">Revenue Engine</a>
         </Button>
-        <Button asChild variant="outline" className="border-[#C5A46E]/40 text-[#C5A46E] hover:bg-[#C5A46E]/10">
+        <Button asChild variant="outline" className="border-[#C5A46E]/40 text-[#C5A46E] hover:bg-[#C5A46E]/10 rounded-2xl">
           <a href="/demo/present/agent-fleet">Agent Fleet Command</a>
         </Button>
       </div>

@@ -68,7 +68,7 @@ export default function SovereignEcosystem() {
   return (
     <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-10">
       <div>
-        <div className="flex items-center gap-3 mb-2">
+        <div className="flex items-center gap-3 mb-3">
           <div className="p-3 rounded-2xl bg-[#C5A46E]/10">
             <Target className="h-7 w-7 text-[#C5A46E]" />
           </div>
@@ -83,7 +83,7 @@ export default function SovereignEcosystem() {
         {ecosystem.map((group, index) => {
           const Icon = group.icon;
           return (
-            <Card key={index} className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl">
+            <Card key={index} className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl transition-all">
               <CardHeader className="pb-4">
                 <div className="flex items-center gap-3">
                   <Icon className="h-5 w-5 text-[#C5A46E]" />

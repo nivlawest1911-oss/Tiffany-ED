@@ -22,7 +22,7 @@ export default function ResearchCurriculum() {
 
   return (
     <div className="p-6 md:p-8 max-w-6xl mx-auto space-y-8">
-      <div className="flex items-center gap-3 mb-2">
+      <div className="flex items-center gap-3 mb-3">
         <div className="p-3 rounded-2xl bg-[#C5A46E]/10">
           <Microscope className="h-7 w-7 text-[#C5A46E]" />
         </div>
@@ -33,7 +33,7 @@ export default function ResearchCurriculum() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {researchAreas.map((area, i) => (
-          <Card key={i} className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl">
+          <Card key={i} className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl transition-all">
             <CardHeader>
               <div className="flex items-center gap-3">
                 <BookOpen className="h-5 w-5 text-[#C5A46E]" />

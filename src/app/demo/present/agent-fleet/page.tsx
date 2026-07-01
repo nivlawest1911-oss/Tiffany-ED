@@ -135,7 +135,7 @@ export default function AgentFleetCommand() {
           {agents.map((agent) => {
             const Icon = agent.icon;
             return (
-              <Card key={agent.id} className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl">
+              <Card key={agent.id} className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl transition-all">
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">

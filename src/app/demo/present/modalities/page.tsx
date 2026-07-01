@@ -33,7 +33,7 @@ export default function Modalities() {
   return (
     <div className="p-6 md:p-8 max-w-6xl mx-auto space-y-8">
       <div>
-        <div className="flex items-center gap-3 mb-2">
+        <div className="flex items-center gap-3 mb-3">
           <div className="p-3 rounded-2xl bg-[#C5A46E]/10">
             <Target className="h-7 w-7 text-[#C5A46E]" />
           </div>
@@ -44,7 +44,7 @@ export default function Modalities() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {modalities.map((mod, i) => (
-          <Card key={i} className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl">
+          <Card key={i} className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl transition-all">
             <CardContent className="p-5 flex items-center justify-between">
               <div>
                 <div className="font-medium">{mod.name}</div>
@@ -62,7 +62,7 @@ export default function Modalities() {
         <Button 
           asChild 
           variant="outline" 
-          className="border-[#C5A46E]/40 text-[#C5A46E] hover:bg-[#C5A46E]/10"
+          className="border-[#C5A46E]/40 text-[#C5A46E] hover:bg-[#C5A46E]/10 rounded-2xl"
         >
           <a href="/demo/present/global-best-practices">
             Explore Global Best Practices <ArrowRight className="h-4 w-4 ml-2" />

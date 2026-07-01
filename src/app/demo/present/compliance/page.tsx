@@ -25,7 +25,7 @@ export default function PresentCompliance() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {pillars.map((p, i) => (
-          <Card key={i} className="bg-white/[0.03] border-white/10 rounded-3xl">
+          <Card key={i} className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl transition-all">
             <CardHeader>
               <div className="flex justify-between items-start">
                 <CardTitle>{p.title}</CardTitle>

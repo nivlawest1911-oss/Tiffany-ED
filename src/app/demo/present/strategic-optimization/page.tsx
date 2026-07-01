@@ -135,7 +135,7 @@ export default function StrategicOptimization() {
         {pillars.map((pillar) => {
           const Icon = pillar.icon;
           return (
-            <Card key={pillar.id} className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl flex flex-col">
+            <Card key={pillar.id} className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl transition-all flex flex-col">
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
@@ -176,7 +176,7 @@ export default function StrategicOptimization() {
 
                 <Button 
                   onClick={() => optimizePillar(pillar.id)}
-                  className="w-full bg-[#C5A46E] hover:bg-[#C5A46E]/90 text-[#0A0F1C] rounded-2xl mt-auto"
+                  className="w-full bg-[#C5A46E] hover:bg-[#C5A46E]/90 active:scale-[0.985] transition-all text-[#0A0F1C] rounded-2xl font-medium mt-auto"
                 >
                   Trigger Deep Optimization
                 </Button>
@@ -195,7 +195,7 @@ export default function StrategicOptimization() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {/* Federal */}
-          <Card className="bg-white/[0.03] border-white/10 rounded-3xl">
+          <Card className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl transition-all">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-lg">
                 <Scale className="h-5 w-5 text-[#C5A46E]" /> Federal Level
@@ -211,7 +211,7 @@ export default function StrategicOptimization() {
           </Card>
 
           {/* Alabama State */}
-          <Card className="bg-white/[0.03] border-white/10 rounded-3xl">
+          <Card className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl transition-all">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-lg">
                 <Scale className="h-5 w-5 text-[#C5A46E]" /> Alabama State
@@ -227,7 +227,7 @@ export default function StrategicOptimization() {
           </Card>
 
           {/* Mobile County Local */}
-          <Card className="bg-white/[0.03] border-white/10 rounded-3xl">
+          <Card className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl transition-all">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-lg">
                 <Scale className="h-5 w-5 text-[#C5A46E]" /> Mobile County Local

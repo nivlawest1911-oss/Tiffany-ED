@@ -44,7 +44,7 @@ export default function GovernmentPolicy() {
   return (
     <div className="p-6 md:p-8 max-w-6xl mx-auto space-y-8">
       <div>
-        <div className="flex items-center gap-3 mb-2">
+        <div className="flex items-center gap-3 mb-3">
           <div className="p-3 rounded-2xl bg-[#C5A46E]/10">
             <Scale className="h-7 w-7 text-[#C5A46E]" />
           </div>
@@ -64,7 +64,7 @@ export default function GovernmentPolicy() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {layer.items.map((item, i) => (
-                <Card key={i} className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl">
+                <Card key={i} className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl transition-all">
                   <CardHeader>
                     <div className="flex justify-between items-start">
                       <CardTitle>{item.name}</CardTitle>
@@ -73,7 +73,7 @@ export default function GovernmentPolicy() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-white/70 mb-4">{item.desc}</p>
-                    <Button onClick={trigger} className="w-full bg-[#C5A46E] hover:bg-[#C5A46E]/90 text-[#0A0F1C] rounded-2xl">
+                    <Button onClick={trigger} className="w-full bg-[#C5A46E] hover:bg-[#C5A46E]/90 active:scale-[0.985] transition-all text-[#0A0F1C] rounded-2xl font-medium">
                       <Play className="h-4 w-4 mr-2" /> Trigger Agent
                     </Button>
                   </CardContent>

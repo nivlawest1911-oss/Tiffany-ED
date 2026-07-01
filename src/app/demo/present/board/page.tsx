@@ -12,7 +12,7 @@ export default function BoardView() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        <Card className="bg-white/[0.03] border-white/10 rounded-3xl">
+        <Card className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl transition-all">
           <CardHeader><CardTitle className="flex items-center gap-2"><ShieldCheck className="text-[#C5A46E]" /> Alabama Literacy Act</CardTitle></CardHeader>
           <CardContent>
             <div className="text-5xl font-semibold tracking-tighter">98.7%</div>
@@ -20,7 +20,7 @@ export default function BoardView() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white/[0.03] border-white/10 rounded-3xl">
+        <Card className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl transition-all">
           <CardHeader><CardTitle className="flex items-center gap-2"><TrendingUp className="text-[#C5A46E]" /> District Literacy Growth</CardTitle></CardHeader>
           <CardContent>
             <div className="text-5xl font-semibold tracking-tighter">+13.8%</div>
@@ -28,7 +28,7 @@ export default function BoardView() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white/[0.03] border-white/10 rounded-3xl">
+        <Card className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl transition-all">
           <CardHeader><CardTitle className="flex items-center gap-2"><Users className="text-[#C5A46E]" /> Students On Track</CardTitle></CardHeader>
           <CardContent>
             <div className="text-5xl font-semibold tracking-tighter">87%</div>
@@ -37,7 +37,7 @@ export default function BoardView() {
         </Card>
       </div>
 
-      <Card className="bg-white/[0.03] border-white/10 rounded-3xl p-8">
+      <Card className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl transition-all p-8">
         <div className="text-lg font-medium mb-4">Key Board Insights</div>
         <ul className="space-y-3 text-white/80">
           <li>• 312 active Student Reading Improvement Plans (100% within 30-day window)</li>

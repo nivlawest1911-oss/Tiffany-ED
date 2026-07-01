@@ -64,7 +64,7 @@ export default function GlobalBestPractices() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         {bestPractices.map((practice, index) => (
-          <Card key={index} className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl">
+          <Card key={index} className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl transition-all">
             <CardHeader>
               <div className="flex items-start justify-between">
                 <div>
@@ -87,7 +87,7 @@ export default function GlobalBestPractices() {
 
               <Button 
                 onClick={trigger}
-                className="w-full bg-[#C5A46E] hover:bg-[#C5A46E]/90 text-[#0A0F1C] rounded-2xl mt-2"
+                className="w-full bg-[#C5A46E] hover:bg-[#C5A46E]/90 active:scale-[0.985] transition-all text-[#0A0F1C] rounded-2xl font-medium mt-2"
               >
                 <Play className="h-4 w-4 mr-2" /> Integrate into EdIntel
               </Button>

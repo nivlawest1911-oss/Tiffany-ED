@@ -116,7 +116,7 @@ export default function RevenueEngine() {
           </div>
           <Button 
             onClick={simulateGrowth}
-            className="bg-[#C5A46E] hover:bg-[#C5A46E]/90 text-[#0A0F1C] rounded-2xl px-6"
+            className="bg-[#C5A46E] hover:bg-[#C5A46E]/90 active:scale-[0.985] transition-all text-[#0A0F1C] rounded-2xl font-medium px-6"
           >
             <Play className="h-4 w-4 mr-2" /> Simulate Next Quarter Growth
           </Button>
@@ -151,7 +151,7 @@ export default function RevenueEngine() {
           {alphabetPillars.map((pillar, index) => {
             const Icon = pillar.icon;
             return (
-              <Card key={index} className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl">
+              <Card key={index} className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl transition-all">
                 <CardHeader>
                   <div className="flex items-start gap-4">
                     <div className="p-3 rounded-2xl bg-[#C5A46E]/10 mt-1">
@@ -195,7 +195,7 @@ export default function RevenueEngine() {
       </div>
 
       <div className="flex justify-end mt-4">
-        <Button asChild variant="outline" className="border-[#C5A46E]/40 text-[#C5A46E] hover:bg-[#C5A46E]/10">
+        <Button asChild variant="outline" className="border-[#C5A46E]/40 text-[#C5A46E] hover:bg-[#C5A46E]/10 rounded-2xl">
           <a href="/demo/present/strategic-optimization">View Full Strategic Optimization</a>
         </Button>
       </div>

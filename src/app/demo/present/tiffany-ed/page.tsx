@@ -46,7 +46,7 @@ export default function PresentTiffanyED() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-        <Card className="lg:col-span-2 bg-white/[0.03] border-white/10 rounded-3xl">
+        <Card className="lg:col-span-2 bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl transition-all">
           <CardHeader>
             <CardTitle>Lesson Request</CardTitle>
           </CardHeader>
@@ -60,14 +60,14 @@ export default function PresentTiffanyED() {
             <Button 
               onClick={handleGenerate} 
               disabled={!prompt.trim() || isGenerating}
-              className="w-full bg-[#C5A46E] hover:bg-[#C5A46E]/90 text-[#0A0F1C] rounded-2xl"
+              className="w-full bg-[#C5A46E] hover:bg-[#C5A46E]/90 active:scale-[0.985] transition-all text-[#0A0F1C] rounded-2xl font-medium"
             >
               {isGenerating ? "Generating..." : "Generate Lesson Plan"}
             </Button>
           </CardContent>
         </Card>
 
-        <Card className="lg:col-span-3 bg-white/[0.03] border-white/10 rounded-3xl">
+        <Card className="lg:col-span-3 bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl transition-all">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <BookOpen className="h-5 w-5 text-[#C5A46E]" /> Generated Lesson

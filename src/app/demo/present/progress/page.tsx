@@ -39,12 +39,12 @@ export default function PresentProgress() {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-        <Button className="bg-[#C5A46E] hover:bg-[#C5A46E]/90 text-[#0A0F1C] rounded-2xl">
+        <Button className="bg-[#C5A46E] hover:bg-[#C5A46E]/90 active:scale-[0.985] transition-all text-[#0A0F1C] rounded-2xl font-medium">
           Export Report
         </Button>
       </div>
 
-      <Card className="bg-white/[0.03] border-white/10 rounded-3xl overflow-hidden">
+      <Card className="bg-white/[0.03] border-white/10 hover:border-[#C5A46E]/40 rounded-3xl transition-all overflow-hidden">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <TrendingUp className="h-5 w-5 text-[#C5A46E]" /> Student Growth Tracker
