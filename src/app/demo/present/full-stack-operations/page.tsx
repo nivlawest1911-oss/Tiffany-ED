@@ -30,7 +30,7 @@ export default function FullStackOperations() {
   // Load real metrics from database
   const loadRealMetrics = async () => {
     try {
-      const res = await fetch('/api/usage?days=30');
+      const res = await fetch('/api/admin/usage-metrics?days=30');
       if (res.ok) {
         const data = await res.json();
         setRealMetrics(data.summary);
@@ -211,6 +211,39 @@ export default function FullStackOperations() {
             <div><strong>DevOps + MLOps</strong> — Daily shipping with full compliance guardrails</div>
           </CardContent>
         </Card>
+      </div>
+
+      {/* Persistent AI Agents Section */}
+      <div>
+        <div className="flex items-center gap-3 mb-5 px-1">
+          <Zap className="h-5 w-5 text-[#C5A46E]" />
+          <h2 className="text-xl font-semibold tracking-tight">4. Persistent AI Agents (The Always-On Layer)</h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {[
+            { 
+              title: "End-of-Term Report Agent", 
+              desc: "Automatically generates district-wide progress reports, flags incomplete data, and prepares compliance exports — no teacher request needed." 
+            },
+            { 
+              title: "Usage & Margin Sentinel", 
+              desc: "Monitors real token cost per session in real time. Triggers upgrade prompts at 75% and 80% usage. Protects gross margins automatically." 
+            },
+            { 
+              title: "Renewal & Expansion Agent", 
+              desc: "Detects high-usage schools months before contract end and proactively surfaces personalized value reports + upgrade recommendations." 
+            },
+          ].map((agent, i) => (
+            <Card key={i} className="bg-white/[0.03] border-white/10 rounded-3xl">
+              <CardContent className="p-6">
+                <div className="font-semibold text-lg mb-2">{agent.title}</div>
+                <p className="text-sm text-white/80">{agent.desc}</p>
+                <div className="mt-4 text-xs text-emerald-400">Status: Active • Self-optimizing</div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
 
       {showToast && (

@@ -68,10 +68,15 @@ export default function PricingStrategy() {
           <h1 className="text-3xl font-semibold tracking-tight">Sovereign Pricing Command</h1>
         </div>
         <p className="text-white/70 max-w-4xl text-lg">
-          EdIntel’s hybrid usage-based model surpasses Alphabet’s Google Cloud approach by combining predictable base revenue with automatic upside from district success — while protecting schools from bill shock through intelligent guardrails.
+          EdIntel’s hybrid usage-based model is built around the single most valuable action a teacher performs: 
+          the <span className="font-semibold text-[#C5A46E]">Intelligent Differentiation Session</span>.
         </p>
-        <div className="mt-2 text-sm text-[#C5A46E]">
-          Primary Value Metric: <span className="font-medium">Intelligent Differentiation Sessions</span> (Tiffany-ED powered)
+        <p className="mt-2 text-white/70">
+          This is the true “Aha!” moment — turning 3–5 hours of manual differentiation and compliance work into under 60 seconds 
+          of high-quality, Alabama Literacy Act-aligned output. Schools pay for the outcome they actually value.
+        </p>
+        <div className="mt-3 inline-flex items-center gap-2 text-sm text-[#C5A46E]">
+          Primary Value Metric: Intelligent Differentiation Sessions (Tiffany-ED)
         </div>
       </div>
 
@@ -186,6 +191,12 @@ export default function PricingStrategy() {
           <Users className="h-6 w-6 text-[#C5A46E]" />
           <h3 className="text-xl font-semibold tracking-tight">Land & Expand Flywheel (Alphabet-Grade Scalability)</h3>
         </div>
+        
+        <div className="mb-4 p-4 bg-[#C5A46E]/10 border border-[#C5A46E]/30 rounded-2xl text-sm">
+          <strong>The Aha! Moment is the Product.</strong> Every time a teacher completes an Intelligent Differentiation Session, 
+          they experience immediate time savings and better student outcomes. This is the action they will pay for repeatedly.
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
           <div>
             <div className="font-medium text-[#C5A46E] mb-1">LAND (30-Day Trial)</div>
