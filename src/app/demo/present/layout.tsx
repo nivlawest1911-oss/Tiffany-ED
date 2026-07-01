@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { 
-  LayoutDashboard, Users, TrendingUp, BookOpen, ShieldCheck, LogOut, Target, Layers, Award, Scale, Microscope, AppWindow, Globe, DollarSign, Zap, Briefcase, CreditCard
+  LayoutDashboard, Users, TrendingUp, BookOpen, ShieldCheck, LogOut, Target, Layers, Award, Scale, Microscope, AppWindow, Globe, DollarSign, Zap, Briefcase, CreditCard, Database
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useExitDemo } from '@/hooks/useExitDemo';
@@ -27,6 +27,7 @@ export default function PresentLayout({ children }: { children: React.ReactNode 
     { href: '/demo/present/modalities', label: 'School Modalities', icon: Target },
     { href: '/demo/present/global-best-practices', label: 'Global Best Practices', icon: Globe },
     { href: '/demo/present/pricing-strategy', label: 'Pricing Strategy', icon: DollarSign },
+    { href: '/demo/present/platform-economics', label: 'Platform Economics', icon: DollarSign },
     { href: '/demo/present/revenue-engine', label: 'Revenue Engine', icon: DollarSign },
     { href: '/demo/present/strategic-optimization', label: 'Strategic Optimization', icon: Zap },
   ];
