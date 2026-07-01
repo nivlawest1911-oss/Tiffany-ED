@@ -25,7 +25,7 @@ export default function PresentLayout({ children }: { children: React.ReactNode 
     { href: '/demo/present/government', label: 'Government & Policy', icon: Scale },
     { href: '/demo/present/research', label: 'Research & Curriculum', icon: Microscope },
     { href: '/demo/present/modalities', label: 'School Modalities', icon: Target },
-    { href: '/demo/present/global', label: 'Global Intelligence', icon: Globe },
+    { href: '/demo/present/global-best-practices', label: 'Global Best Practices', icon: Globe },
   ];
 
   return (
