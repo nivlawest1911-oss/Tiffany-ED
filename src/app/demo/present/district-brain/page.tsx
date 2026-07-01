@@ -31,42 +31,42 @@ export default function DistrictBrain() {
         </div>
         <p className="text-white/70 max-w-4xl text-lg">
           EdIntel as the <span className="font-semibold text-[#C5A46E]">Unified District Operating System (UDOS)</span> — 
-          the indispensable infrastructure layer that manages operations, not just tasks.
+          the indispensable infrastructure layer that manages district operations, not just tasks.
         </p>
         <div className="mt-2 flex items-center gap-2">
-          <Badge className="bg-orange-500/10 text-orange-400">SIS/LMS Sync — Priority Sprint</Badge>
-          <Badge className="bg-emerald-500/10 text-emerald-400">Data Ownership & Portability — Core Moat</Badge>
+          <Badge className="bg-orange-500/10 text-orange-400">SIS/LMS Data Fabric — #1 Priority (Next 90 Days)</Badge>
+          <Badge className="bg-emerald-500/10 text-emerald-400">Data Sovereignty & Portability — Core Moat</Badge>
         </div>
       </div>
 
-      {/* System of Record Layer */}
+      {/* System of Record + Universal Data Fabric */}
       <div>
         <div className="flex items-center gap-3 mb-5 px-1">
           <Database className="h-5 w-5 text-[#C5A46E]" />
-          <h2 className="text-xl font-semibold tracking-tight">1. System of Record Foundation</h2>
+          <h2 className="text-xl font-semibold tracking-tight">1. System of Record & Universal Data Fabric</h2>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
           <Card className="bg-white/[0.03] border-white/10 rounded-3xl">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">Native SIS/LMS Sync</CardTitle>
+              <CardTitle className="flex items-center gap-2 text-lg">Native SIS/LMS Sync Engine</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 text-sm">
-              <p>Bidirectional connectors to PowerSchool, Infinite Campus, Skyward, Canvas, and Google Classroom.</p>
-              <p className="text-emerald-400">Status: Priority development item</p>
-              <Button onClick={() => triggerToast("SIS sync simulation complete — Live bidirectional sync ready for sprint")} className="w-full bg-[#C5A46E] hover:bg-[#C5A46E]/90 text-[#0A0F1C] rounded-2xl">
-                Simulate Live SIS Sync
+              <p>Bidirectional connectors to PowerSchool, Infinite Campus, Skyward, Canvas, and Google Classroom. The critical bridge into daily district workflow.</p>
+              <p className="text-orange-400">Status: Primary R&D focus for next 90 days</p>
+              <Button onClick={() => triggerToast("Data Fabric simulation complete — Production sync engine ready for sprint")} className="w-full bg-[#C5A46E] hover:bg-[#C5A46E]/90 text-[#0A0F1C] rounded-2xl">
+                Simulate Live Data Fabric Sync
               </Button>
             </CardContent>
           </Card>
 
           <Card className="bg-white/[0.03] border-white/10 rounded-3xl">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">Immutable Audit Ledger</CardTitle>
+              <CardTitle className="flex items-center gap-2 text-lg">Immutable Audit & Compliance Ledger</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 text-sm">
-              <p>Append-only, time-stamped record of every AI-generated decision (IEP changes, grading, resource moves). Provides legal defense during audits.</p>
-              <Button onClick={() => triggerToast("Audit ledger entry created — Full traceability enabled")} variant="outline" className="w-full border-[#C5A46E]/40 text-[#C5A46E]">
+              <p>Append-only, time-stamped record of every AI decision (IEP changes, grading, resource moves). Creates a legal defense layer during state audits or parent challenges.</p>
+              <Button onClick={() => triggerToast("Audit ledger entry created — Full traceability active")} variant="outline" className="w-full border-[#C5A46E]/40 text-[#C5A46E]">
                 View Sample Audit Trail
               </Button>
             </CardContent>
@@ -74,7 +74,7 @@ export default function DistrictBrain() {
 
           <Card className="bg-white/[0.03] border-white/10 rounded-3xl">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">Unified Identity (IAM)</CardTitle>
+              <CardTitle className="flex items-center gap-2 text-lg">Unified Identity & Access (IAM)</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 text-sm">
               <p>EdIntel becomes the primary gateway for roles and permissions across all district systems.</p>
@@ -86,22 +86,34 @@ export default function DistrictBrain() {
         </div>
       </div>
 
-      {/* Operational Intelligence */}
+      {/* Autonomous District Engine + Predictive Flight Simulator */}
       <div>
         <div className="flex items-center gap-3 mb-5 px-1">
           <TrendingUp className="h-5 w-5 text-[#C5A46E]" />
-          <h2 className="text-xl font-semibold tracking-tight">2. Operational Intelligence (Command & Control)</h2>
+          <h2 className="text-xl font-semibold tracking-tight">2. Autonomous District Engine & Predictive Intelligence</h2>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
           <Card className="bg-white/[0.03] border-white/10 rounded-3xl">
             <CardHeader>
-              <CardTitle>Predictive What-If Budget Engine</CardTitle>
+              <CardTitle>Autonomous Compliance Agent</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 text-sm">
-              <p>Simulate: “What happens to 8th-grade literacy if we move $500k from Facilities to Academic Intervention?”</p>
-              <Button onClick={() => triggerToast("Simulation complete — +2.1% projected proficiency gain")} className="w-full bg-[#C5A46E] hover:bg-[#C5A46E]/90 text-[#0A0F1C] rounded-2xl">
-                Run Budget Simulation
+              <p>Automatically detects and patches non-compliant IEP/504 documents based on real-time state legislative changes. Becomes the district’s legal shield.</p>
+              <Button onClick={() => triggerToast("Non-compliant IEP auto-patched and re-filed per state rules")} className="w-full bg-[#C5A46E] hover:bg-[#C5A46E]/90 text-[#0A0F1C] rounded-2xl">
+                Run Autonomous Compliance Pass
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-white/[0.03] border-white/10 rounded-3xl">
+            <CardHeader>
+              <CardTitle>District Flight Simulator (What-If Engine)</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3 text-sm">
+              <p>Model complex scenarios: “If we move $500k from Facilities to Academic Intervention, what is the 3-year projected impact on literacy rates?”</p>
+              <Button onClick={() => triggerToast("Flight simulation complete — +2.4% projected literacy growth over 3 years")} className="w-full bg-[#C5A46E] hover:bg-[#C5A46E]/90 text-[#0A0F1C] rounded-2xl">
+                Run District Flight Simulation
               </Button>
             </CardContent>
           </Card>
@@ -111,36 +123,24 @@ export default function DistrictBrain() {
               <CardTitle>Facilities & Resource Optimizer</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 text-sm">
-              <p>Analyzes building usage, HVAC, and enrollment trends to recommend consolidations and cost-saving moves.</p>
-              <Button onClick={() => triggerToast("Facilities optimization complete — $1.2M annual savings identified")} variant="outline" className="w-full border-[#C5A46E]/40 text-[#C5A46E]">
+              <p>Analyzes enrollment trends, building usage, and HVAC data to recommend consolidations and cost-saving moves before they become emergencies.</p>
+              <Button onClick={() => triggerToast("Facilities optimization complete — $1.4M annual savings identified")} variant="outline" className="w-full border-[#C5A46E]/40 text-[#C5A46E]">
                 Optimize Facilities Plan
-              </Button>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white/[0.03] border-white/10 rounded-3xl">
-            <CardHeader>
-              <CardTitle>District Health Sentiment Sensor</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3 text-sm">
-              <p>Privacy-first detection of burnout clusters and cultural risk before they become turnover or crises.</p>
-              <Button onClick={() => triggerToast("Sentiment scan complete — 2 schools flagged for proactive support")} variant="outline" className="w-full border-[#C5A46E]/40 text-[#C5A46E]">
-                Run District Health Scan
               </Button>
             </CardContent>
           </Card>
         </div>
       </div>
 
-      {/* Pedagogical Infrastructure + Revenue Moat */}
+      {/* Pedagogical Moat + Academic Passport */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="bg-white/[0.03] border-white/10 rounded-3xl">
           <CardHeader>
             <CardTitle>Multimodal Process Assessment</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 text-sm">
-            <p>Computer vision + audio analysis of problem-solving processes, sketches, and oral explanations — moving beyond text-only grading.</p>
-            <Button onClick={() => triggerToast("Multimodal assessment complete — Rich process profile generated")} className="w-full bg-[#C5A46E] hover:bg-[#C5A46E]/90 text-[#0A0F1C] rounded-2xl">
+            <p>Uses computer vision and audio analysis to evaluate problem-solving processes, sketches, and oral explanations — not just final answers.</p>
+            <Button onClick={() => triggerToast("Multimodal analysis complete — Rich diagnostic profile generated")} className="w-full bg-[#C5A46E] hover:bg-[#C5A46E]/90 text-[#0A0F1C] rounded-2xl">
               Analyze Performance Task
             </Button>
           </CardContent>
@@ -151,21 +151,52 @@ export default function DistrictBrain() {
             <CardTitle className="flex items-center gap-2">Academic Passport (Lifelong Credentials)</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 text-sm">
-            <p>A portable, cryptographically verified record of student achievement, certifications, and portfolios that moves with them across districts and borders.</p>
-            <Button onClick={() => triggerToast("Academic Passport generated — Verified credential ready")} variant="outline" className="w-full border-[#C5A46E]/40 text-[#C5A46E]">
-              View Verified Passport
+            <p>Blockchain-backed digital wallet that follows students K-12 into college and career. Owns the longitudinal record of skills and achievements.</p>
+            <Button onClick={() => triggerToast("Academic Passport updated — New verified credentials recorded")} variant="outline" className="w-full border-[#C5A46E]/40 text-[#C5A46E]">
+              Update Student Passport
             </Button>
           </CardContent>
         </Card>
       </div>
 
-      {/* Moat & Differentiation */}
-      <div className="bg-white/[0.03] border border-[#C5A46E]/40 rounded-3xl p-8 text-center mt-8">
-        <div className="text-sm text-[#C5A46E] mb-2">THE EDINTEL MOAT</div>
-        <div className="text-2xl font-semibold tracking-tight">Data Sovereignty + Open Ecosystem</div>
-        <p className="mt-4 text-white/70 max-w-3xl mx-auto">
-          Districts own their models. Third parties build on our Marketplace. We capture value across the entire educational supply chain while preventing rip-and-replace churn through deep native integration.
-        </p>
+      {/* Revenue Supremacy + Marketplace */}
+      <div>
+        <div className="flex items-center gap-3 mb-5 px-1">
+          <Globe className="h-5 w-5 text-[#C5A46E]" />
+          <h2 className="text-xl font-semibold tracking-tight">3. Revenue Supremacy & Ecosystem Moat</h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <Card className="bg-white/[0.03] border-white/10 rounded-3xl">
+            <CardContent className="p-6">
+              <div className="font-semibold mb-2">Vendor-Agnostic Marketplace</div>
+              <p className="text-sm text-white/80 mb-4">Third-party tools must plug into EdIntel to reach the district. You take commission on every transaction and become the central procurement hub.</p>
+              <Button onClick={() => triggerToast("Marketplace commission engine activated")} variant="outline" className="w-full border-[#C5A46E]/40 text-[#C5A46E]">
+                Open Marketplace
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-white/[0.03] border-white/10 rounded-3xl">
+            <CardContent className="p-6">
+              <div className="font-semibold mb-2">Performance-Based Value-Share</div>
+              <p className="text-sm text-white/80 mb-4">Partner on grants and performance goals. Take a share of cost savings or state performance bonuses when EdIntel drives measurable outcomes.</p>
+              <Button onClick={() => triggerToast("Value-share agreement simulated — 12% of projected savings captured")} className="w-full bg-[#C5A46E] hover:bg-[#C5A46E]/90 text-[#0A0F1C] rounded-2xl">
+                Simulate Value-Share Model
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-white/[0.03] border-white/10 rounded-3xl">
+            <CardContent className="p-6">
+              <div className="font-semibold mb-2">Data-as-a-Service (DaaS)</div>
+              <p className="text-sm text-white/80 mb-4">Sell anonymized, aggregated benchmarking insights to state departments and research institutions. High-margin secondary revenue stream.</p>
+              <Button onClick={() => triggerToast("Anonymized state-level benchmark report generated")} variant="outline" className="w-full border-[#C5A46E]/40 text-[#C5A46E]">
+                Generate DaaS Report
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
       </div>
 
       {showToast && (
