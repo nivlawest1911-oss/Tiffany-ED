@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { 
-  LayoutDashboard, Users, TrendingUp, BookOpen, ShieldCheck, LogOut 
+  LayoutDashboard, Users, TrendingUp, BookOpen, ShieldCheck, LogOut, Target
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useExitDemo } from '@/hooks/useExitDemo';
@@ -15,6 +15,7 @@ export default function PresentLayout({ children }: { children: React.ReactNode 
 
   const navItems = [
     { href: '/demo/present', label: 'Dashboard', icon: LayoutDashboard },
+    { href: '/demo/present/agents', label: 'Sovereign Agents', icon: Target },
     { href: '/demo/present/students', label: 'Students', icon: Users },
     { href: '/demo/present/progress', label: 'Progress', icon: TrendingUp },
     { href: '/demo/present/tiffany-ed', label: 'Tiffany-ED', icon: BookOpen },
