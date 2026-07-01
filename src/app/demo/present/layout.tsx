@@ -15,6 +15,7 @@ export default function PresentLayout({ children }: { children: React.ReactNode 
 
   const navItems = [
     { href: '/demo/present', label: 'Dashboard', icon: LayoutDashboard },
+    { href: '/demo/present/students', label: 'Students', icon: Users },
     { href: '/demo/present/progress', label: 'Progress', icon: TrendingUp },
     { href: '/demo/present/tiffany-ed', label: 'Tiffany-ED', icon: BookOpen },
     { href: '/demo/present/compliance', label: 'Compliance', icon: ShieldCheck },
