@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { 
   Users, TrendingUp, ShieldCheck, BarChart3, CreditCard, Target,
-  School, UserCheck, Users2, Award, Play, CheckCircle 
+  School, UserCheck, Users2, Award, Play, CheckCircle, Zap 
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -164,6 +164,14 @@ export default function SovereignEcosystem() {
           </div>
         );
       })}
+
+      <div className="flex justify-end mt-6">
+        <Button asChild variant="outline" className="border-[#C5A46E]/40 text-[#C5A46E] hover:bg-[#C5A46E]/10">
+          <a href="/demo/present/agent-fleet">
+            View Active Agent Fleet <Zap className="h-4 w-4 ml-2" />
+          </a>
+        </Button>
+      </div>
 
       {showToast && selected && (
         <div className="fixed bottom-6 right-6 bg-[#C5A46E] text-[#0A0F1C] px-6 py-3 rounded-2xl shadow-xl flex items-center gap-3 text-sm font-medium z-50">
