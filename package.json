@@ -10,7 +10,7 @@
         "preinstall": "echo 'Starting fresh install'",
         "dev": "next dev",
         "prebuild": "node -e \"const fs = require('fs'); if (fs.existsSync('.next')) fs.rmSync('.next', { recursive: true, force: true });\"",
-        "build": "prisma generate && NODE_OPTIONS='--max-old-space-size=4096' next build",
+        "build": "prisma generate && npx cross-env NODE_OPTIONS='--max-old-space-size=4096' next build",
         "build:analyze": "ANALYZE=true next build",
         "start": "next start",
         "lint": "echo 'Linting skipped'",
