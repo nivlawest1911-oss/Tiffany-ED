@@ -1,133 +1,29 @@
-/**
- * Auth configuration for Sovereign platform
- */
-import { betterAuth } from "better-auth";
-import { prismaAdapter } from "better-auth/adapters/prisma";
-import { prisma } from "./prisma";
-import { nextCookies } from "better-auth/next-js";
+import { betterAuth } from 'better-auth';
+import { prismaAdapter } from 'better-auth/adapters/prisma';
+import { prisma } from './prisma';
 
 export const auth = betterAuth({
-    database: (process.env.DATABASE_URL || process.env.POSTGRES_PRISMA_URL || process.env.POSTGRES_URL) ? prismaAdapter(prisma, {
-        provider: "postgresql",
-    }) : undefined,
-    secret: process.env.BETTER_AUTH_SECRET || "SOVEREIGN_OVAL_2027_FALLBACK_SECRET_FOR_BUILD",
-    user: {
-        additionalFields: {
-            clerk_id: { type: "string", required: false },
-            school_site: { type: "string", required: false },
-            position: { type: "string", required: false },
-            district: { type: "string", required: false },
-            lastUplinkAt: { type: "date", required: false },
-        }
+  database: prismaAdapter(prisma, {
+    provider: 'postgresql',
+  }),
+  emailAndPassword: {
+    enabled: true,
+  },
+  socialProviders: {
+    google: {
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     },
-    emailAndPassword: {
-        enabled: true,
-        autoSignIn: true,
-        requireEmailVerification: false,
-    },
-    session: {
-        expiresIn: 60 * 60 * 24 * 7, // 7 days
-        updateAge: 60 * 60 * 24, // 1 day (refreshes session automatically)
-        cookieCache: {
-            enabled: true,
-            maxAge: 60 * 5, // 5 minutes
-        },
-    },
-    advanced: {
-        useSecureCookies: process.env.NODE_ENV === "production",
-        defaultCookieAttributes: {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "lax",
-            path: "/",
-        },
-    },
-    socialProviders: {
-        google: {
-            clientId: process.env.GOOGLE_CLIENT_ID as string,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-        },
-        facebook: {
-            clientId: process.env.FACEBOOK_CLIENT_ID as string,
-            clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
-        },
-    },
-    onError: (error: any, request: any) => {
-        console.error("Auth Error:", error);
-    },
-    plugins: [
-        nextCookies()
-    ],
-    databaseHooks: {
-        user: {
-            create: {
-                after: async (user) => {
-                    // Institutional Uplink Sentinel: Runs after user creation
-                    try {
-                        const { uplinkUserProfile } = await import("./uplink");
-                        await uplinkUserProfile(user.id, {
-                            email: user.email,
-                            name: user.name,
-                            image: user.image || undefined,
-                            schoolSite: (user as any).school_site || undefined,
-                            position: (user as any).position || undefined,
-                        });
-                    } catch (error) {
-                        console.error("[AUTH_DB_HOOK] Uplink Handshake Failed:", error);
-                    }
-                }
-            }
-        }
-    },
-    hooks: {
-        after: async (ctx) => {
-            // Refresh Uplink on Sign-In
-            if ((ctx as any).path?.includes("sign-in")) {
-                const session = (ctx as any).context?.newSession;
-                if (session) {
-                    const { user } = session;
-                    try {
-                        const { uplinkUserProfile } = await import("./uplink");
-                        await uplinkUserProfile(user.id, {
-                            email: user.email,
-                            name: user.name,
-                            image: user.image || undefined,
-                            schoolSite: (user as any).school_site || undefined,
-                            position: (user as any).position || undefined,
-                            district: (user as any).district || undefined,
-                        });
-                    } catch (error) {
-                        console.error("[AUTH_SIGNIN_HOOK] Uplink Handshake Failed:", error);
-                    }
-                }
-            }
-            // Social Login Audit Hook
-            if ((ctx as any).path?.includes("callback/google") || (ctx as any).path?.includes("callback/facebook")) {
-                const session = (ctx as any).context?.newSession;
-                if (session) {
-                    const { user } = session;
-                    const provider = (ctx as any).path?.includes("google") ? "google" : "facebook";
-                    const request = (ctx as any).context?.request;
-                    const ip = request?.headers?.get('x-forwarded-for') || request?.headers?.get('x-real-ip') || 'unknown';
-                    const userAgent = request?.headers?.get('user-agent') || 'unknown';
-                    
-                    try {
-                        const { logSocialLoginSuccess } = await import("./actions/handshakes");
-                        await logSocialLoginSuccess({
-                            userId: user.id,
-                            email: user.email,
-                            provider: provider as 'google' | 'facebook',
-                            ip,
-                            userAgent
-                        });
-                    } catch (auditErr) {
-                        console.error("[AUTH_SIGNIN_HOOK] Social Audit Logging Failed:", auditErr);
-                    }
-                }
-            }
-            return ctx;
-        }
-    }
+    // facebook: {
+    //   clientId: process.env.FACEBOOK_CLIENT_ID as string,
+    //   clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
+    // },
+  },
+  baseURL: process.env.BETTER_AUTH_URL,
+  trustedOrigins: [
+    'https://edintelai.vercel.app',
+    'http://localhost:3000',
+  ],
 });
 
 export const { handlers, api } = auth as any;
