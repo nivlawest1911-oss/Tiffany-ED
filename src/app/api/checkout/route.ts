@@ -1,9 +1,13 @@
-﻿import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 
 const PRICE_IDS = {
     pro_monthly: process.env.STRIPE_PRO_PRICE_ID || 'price_pro_tier_19',
     pro_annual: process.env.STRIPE_PRO_ANNUAL_ID || 'price_pro_tier_annual_190',
+    teacher_monthly: process.env.NEXT_PUBLIC_STRIPE_PRICE_TEACHER_MONTH || 'price_teacher_month_placeholder',
+    teacher_annual: process.env.NEXT_PUBLIC_STRIPE_PRICE_TEACHER_YEAR || 'price_teacher_year_placeholder',
+    pro_teacher_monthly: process.env.NEXT_PUBLIC_STRIPE_PRICE_PRO_MONTH || 'price_pro_month_placeholder',
+    pro_teacher_annual: process.env.NEXT_PUBLIC_STRIPE_PRICE_PRO_YEAR || 'price_pro_year_placeholder',
     credits: process.env.STRIPE_CREDITS_PRICE_ID || 'price_credit_pack_5'
 };
 
@@ -17,6 +21,12 @@ export async function POST(req: Request) {
 
         if (plan === 'pro' || plan === 'master_teacher') {
             priceId = isAnnual ? PRICE_IDS.pro_annual : PRICE_IDS.pro_monthly;
+            mode = 'subscription';
+        } else if (plan === 'teacher') {
+            priceId = isAnnual ? PRICE_IDS.teacher_annual : PRICE_IDS.teacher_monthly;
+            mode = 'subscription';
+        } else if (plan === 'pro_teacher') {
+            priceId = isAnnual ? PRICE_IDS.pro_teacher_annual : PRICE_IDS.pro_teacher_monthly;
             mode = 'subscription';
         } else if (plan === 'credits' || plan === 'tokens') {
             priceId = PRICE_IDS.credits;

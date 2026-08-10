@@ -1,4 +1,4 @@
-﻿"use client"
+"use client"
 
 import React from "react"
 import { Sidebar } from "@/components/layout/Sidebar"
@@ -27,8 +27,9 @@ import GlassPanel from "@/components/ui/GlassPanel";
 import SovereignButton from "@/components/ui/SovereignButton";
 import { useAuth } from '@/context/AuthContext';
 import { useIntelligence } from '@/context/IntelligenceContext';
-
 import { AideProvider } from '@/context/AideMessagingContext';
+
+
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
     const router = useRouter()
@@ -70,7 +71,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
 
     return (
-        <AideProvider>
             <div className={`flex h-screen text-slate-200 overflow-hidden font-sans relative ${isRescueOneActive ? 'rescue-one-overdrive' : ''}`}>
                 {/* GenerativeBackground is already in root layout */}
 
@@ -217,7 +217,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-electric-cyan"></div>
                                         </div>
                                     }>
-                                        {children}
+                                        <AideProvider>
+                                            {children}
+                                        </AideProvider>
                                     </React.Suspense>
                                 </div>
                             </motion.div>
@@ -231,6 +233,5 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 </div>
                 {isRescueOneActive && <div className="animate-tactical-scan" />}
             </div>
-        </AideProvider>
     );
 }

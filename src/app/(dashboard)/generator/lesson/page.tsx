@@ -1,4 +1,5 @@
 "use client";
+import GlassPanel from '@/components/ui/GlassPanel';
 
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
@@ -168,7 +169,7 @@ export default function LessonGeneratorPage() {
                         animate={{ opacity: 1, x: 0 }}
                         className="lg:col-span-4 space-y-6"
                     >
-                        <Card className="bg-zinc-900/40 backdrop-blur-xl border-white/5 overflow-hidden">
+                        <GlassPanel className="border-white/5 overflow-hidden">
                             <CardHeader className="border-b border-white/5 bg-white/[0.02] flex flex-row items-center justify-between">
                                 <CardTitle className="text-white text-lg flex items-center gap-2">
                                     <Target className="w-4 h-4 text-purple-400" />
@@ -319,7 +320,7 @@ export default function LessonGeneratorPage() {
                                     {isGenerating ? 'Architecting...' : 'Build Protocol'}
                                 </Button>
                             </CardContent>
-                        </Card>
+                        </GlassPanel>
 
                         {generatedPlan && !lessonImage && (
                             <motion.div
@@ -360,7 +361,7 @@ export default function LessonGeneratorPage() {
                             }}
                         />
 
-                        <Card className="bg-zinc-900/40 backdrop-blur-xl border-white/5 min-h-[500px] flex flex-col">
+                        <GlassPanel className="border-white/5 min-h-[500px] flex flex-col">
                             <CardHeader className="border-b border-white/5 bg-white/[0.02] flex flex-row items-center justify-between py-4">
                                 <div className="flex items-center gap-3">
                                     <div className="w-2 h-2 rounded-full bg-purple-500 animate-pulse" />
@@ -527,7 +528,7 @@ export default function LessonGeneratorPage() {
                                     )}
                                 </AnimatePresence>
                             </CardContent>
-                        </Card>
+                        </GlassPanel>
 
                         {/* Analysis Metrics */}
                         <div className="grid grid-cols-3 gap-4">
@@ -536,11 +537,11 @@ export default function LessonGeneratorPage() {
                                 { label: "ALCOS", val: "100%", sub: "Alignment" },
                                 { label: "SOR", val: "Active", sub: "Protocols" }
                             ].map((stat, i) => (
-                                <Card key={i} className="bg-zinc-900/40 border-white/5 p-4 text-center">
+                                <GlassPanel key={i} className="bg-zinc-900/40 border-white/5 p-4 text-center">
                                     <div className="text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-1">{stat.label}</div>
                                     <div className="text-white font-black text-xl">{stat.val}</div>
                                     <div className="text-[8px] text-zinc-500 uppercase tracking-tighter">{stat.sub}</div>
-                                </Card>
+                                </GlassPanel>
                             ))}
                         </div>
                     </motion.div>
@@ -549,3 +550,5 @@ export default function LessonGeneratorPage() {
         </div>
     );
 }
+
+

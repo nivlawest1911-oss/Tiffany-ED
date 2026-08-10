@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import { 
-  Users, TrendingUp, ShieldCheck, BarChart3, CreditCard, Target,
-  School, UserCheck, Users2, Award, Play, CheckCircle, Zap 
+  Users, BarChart3, Target,
+  School, Users2, Award, Play, CheckCircle 
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';

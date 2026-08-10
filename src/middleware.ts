@@ -4,10 +4,6 @@ import type { NextRequest } from 'next/server';
 export async function middleware(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
 
-  // 🔥 NUCLEAR: Allow demo mode to completely bypass everything
-  if (search.includes('demo=true')) {
-    return NextResponse.next();
-  }
 
   // Allow Better Auth routes
   if (pathname.startsWith('/api/auth')) {

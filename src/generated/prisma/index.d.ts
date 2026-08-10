@@ -250,6 +250,21 @@ export type LtiPlatform = $Result.DefaultSelection<Prisma.$LtiPlatformPayload>
  * Tracks LTI Advantage line items created for AGS grade passback
  */
 export type LtiLineItem = $Result.DefaultSelection<Prisma.$LtiLineItemPayload>
+/**
+ * Model StateReport
+ * 
+ */
+export type StateReport = $Result.DefaultSelection<Prisma.$StateReportPayload>
+/**
+ * Model SkillNode
+ * 
+ */
+export type SkillNode = $Result.DefaultSelection<Prisma.$SkillNodePayload>
+/**
+ * Model MasteryScore
+ * 
+ */
+export type MasteryScore = $Result.DefaultSelection<Prisma.$MasteryScorePayload>
 
 /**
  * Enums
@@ -891,6 +906,36 @@ export class PrismaClient<
     * ```
     */
   get ltiLineItem(): Prisma.LtiLineItemDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.stateReport`: Exposes CRUD operations for the **StateReport** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more StateReports
+    * const stateReports = await prisma.stateReport.findMany()
+    * ```
+    */
+  get stateReport(): Prisma.StateReportDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.skillNode`: Exposes CRUD operations for the **SkillNode** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SkillNodes
+    * const skillNodes = await prisma.skillNode.findMany()
+    * ```
+    */
+  get skillNode(): Prisma.SkillNodeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.masteryScore`: Exposes CRUD operations for the **MasteryScore** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MasteryScores
+    * const masteryScores = await prisma.masteryScore.findMany()
+    * ```
+    */
+  get masteryScore(): Prisma.MasteryScoreDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1371,7 +1416,10 @@ export namespace Prisma {
     AuditLog: 'AuditLog',
     EducatorAIInteraction: 'EducatorAIInteraction',
     LtiPlatform: 'LtiPlatform',
-    LtiLineItem: 'LtiLineItem'
+    LtiLineItem: 'LtiLineItem',
+    StateReport: 'StateReport',
+    SkillNode: 'SkillNode',
+    MasteryScore: 'MasteryScore'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1387,7 +1435,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "analytics_events" | "analytics_insights" | "avatar_sessions" | "avatars" | "companion_certificates" | "conversation_messages" | "district_nodes" | "districts" | "documents" | "evidence_folders" | "generated_content_hub" | "generations" | "graph_edges" | "graph_nodes" | "knowledge_documents" | "legacy_ledger" | "observations" | "organizations" | "saved_items" | "schools" | "semantic_caches" | "strategic_vault" | "subscriptions" | "system_feedback" | "tiers" | "token_ledger" | "token_wallets" | "usage_tracking" | "user" | "session" | "account" | "verification" | "vault_audits" | "vault_documents" | "vault_ocr" | "usageMetric" | "student_profiles" | "screener_results" | "differentiated_materials" | "reading_improvement_plans" | "district_listening" | "infra_monitors" | "infra_alerts" | "auditLog" | "educatorAIInteraction" | "ltiPlatform" | "ltiLineItem"
+      modelProps: "analytics_events" | "analytics_insights" | "avatar_sessions" | "avatars" | "companion_certificates" | "conversation_messages" | "district_nodes" | "districts" | "documents" | "evidence_folders" | "generated_content_hub" | "generations" | "graph_edges" | "graph_nodes" | "knowledge_documents" | "legacy_ledger" | "observations" | "organizations" | "saved_items" | "schools" | "semantic_caches" | "strategic_vault" | "subscriptions" | "system_feedback" | "tiers" | "token_ledger" | "token_wallets" | "usage_tracking" | "user" | "session" | "account" | "verification" | "vault_audits" | "vault_documents" | "vault_ocr" | "usageMetric" | "student_profiles" | "screener_results" | "differentiated_materials" | "reading_improvement_plans" | "district_listening" | "infra_monitors" | "infra_alerts" | "auditLog" | "educatorAIInteraction" | "ltiPlatform" | "ltiLineItem" | "stateReport" | "skillNode" | "masteryScore"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -4869,6 +4917,228 @@ export namespace Prisma {
           }
         }
       }
+      StateReport: {
+        payload: Prisma.$StateReportPayload<ExtArgs>
+        fields: Prisma.StateReportFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StateReportFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StateReportPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StateReportFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StateReportPayload>
+          }
+          findFirst: {
+            args: Prisma.StateReportFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StateReportPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StateReportFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StateReportPayload>
+          }
+          findMany: {
+            args: Prisma.StateReportFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StateReportPayload>[]
+          }
+          create: {
+            args: Prisma.StateReportCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StateReportPayload>
+          }
+          createMany: {
+            args: Prisma.StateReportCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.StateReportCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StateReportPayload>[]
+          }
+          delete: {
+            args: Prisma.StateReportDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StateReportPayload>
+          }
+          update: {
+            args: Prisma.StateReportUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StateReportPayload>
+          }
+          deleteMany: {
+            args: Prisma.StateReportDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StateReportUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.StateReportUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StateReportPayload>[]
+          }
+          upsert: {
+            args: Prisma.StateReportUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StateReportPayload>
+          }
+          aggregate: {
+            args: Prisma.StateReportAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStateReport>
+          }
+          groupBy: {
+            args: Prisma.StateReportGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StateReportGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.StateReportCountArgs<ExtArgs>
+            result: $Utils.Optional<StateReportCountAggregateOutputType> | number
+          }
+        }
+      }
+      SkillNode: {
+        payload: Prisma.$SkillNodePayload<ExtArgs>
+        fields: Prisma.SkillNodeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SkillNodeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillNodePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SkillNodeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillNodePayload>
+          }
+          findFirst: {
+            args: Prisma.SkillNodeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillNodePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SkillNodeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillNodePayload>
+          }
+          findMany: {
+            args: Prisma.SkillNodeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillNodePayload>[]
+          }
+          create: {
+            args: Prisma.SkillNodeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillNodePayload>
+          }
+          createMany: {
+            args: Prisma.SkillNodeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SkillNodeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillNodePayload>[]
+          }
+          delete: {
+            args: Prisma.SkillNodeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillNodePayload>
+          }
+          update: {
+            args: Prisma.SkillNodeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillNodePayload>
+          }
+          deleteMany: {
+            args: Prisma.SkillNodeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SkillNodeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SkillNodeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillNodePayload>[]
+          }
+          upsert: {
+            args: Prisma.SkillNodeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillNodePayload>
+          }
+          aggregate: {
+            args: Prisma.SkillNodeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSkillNode>
+          }
+          groupBy: {
+            args: Prisma.SkillNodeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SkillNodeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SkillNodeCountArgs<ExtArgs>
+            result: $Utils.Optional<SkillNodeCountAggregateOutputType> | number
+          }
+        }
+      }
+      MasteryScore: {
+        payload: Prisma.$MasteryScorePayload<ExtArgs>
+        fields: Prisma.MasteryScoreFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MasteryScoreFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasteryScorePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MasteryScoreFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasteryScorePayload>
+          }
+          findFirst: {
+            args: Prisma.MasteryScoreFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasteryScorePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MasteryScoreFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasteryScorePayload>
+          }
+          findMany: {
+            args: Prisma.MasteryScoreFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasteryScorePayload>[]
+          }
+          create: {
+            args: Prisma.MasteryScoreCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasteryScorePayload>
+          }
+          createMany: {
+            args: Prisma.MasteryScoreCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MasteryScoreCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasteryScorePayload>[]
+          }
+          delete: {
+            args: Prisma.MasteryScoreDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasteryScorePayload>
+          }
+          update: {
+            args: Prisma.MasteryScoreUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasteryScorePayload>
+          }
+          deleteMany: {
+            args: Prisma.MasteryScoreDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MasteryScoreUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MasteryScoreUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasteryScorePayload>[]
+          }
+          upsert: {
+            args: Prisma.MasteryScoreUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasteryScorePayload>
+          }
+          aggregate: {
+            args: Prisma.MasteryScoreAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMasteryScore>
+          }
+          groupBy: {
+            args: Prisma.MasteryScoreGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MasteryScoreGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MasteryScoreCountArgs<ExtArgs>
+            result: $Utils.Optional<MasteryScoreCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -5024,6 +5294,9 @@ export namespace Prisma {
     educatorAIInteraction?: EducatorAIInteractionOmit
     ltiPlatform?: LtiPlatformOmit
     ltiLineItem?: LtiLineItemOmit
+    stateReport?: StateReportOmit
+    skillNode?: SkillNodeOmit
+    masteryScore?: MasteryScoreOmit
   }
 
   /* Types for Logging */
@@ -5880,6 +6153,46 @@ export namespace Prisma {
    */
   export type LtiPlatformCountOutputTypeCountLineItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LtiLineItemWhereInput
+  }
+
+
+  /**
+   * Count Type SkillNodeCountOutputType
+   */
+
+  export type SkillNodeCountOutputType = {
+    children: number
+    masteryScores: number
+  }
+
+  export type SkillNodeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    children?: boolean | SkillNodeCountOutputTypeCountChildrenArgs
+    masteryScores?: boolean | SkillNodeCountOutputTypeCountMasteryScoresArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SkillNodeCountOutputType without action
+   */
+  export type SkillNodeCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillNodeCountOutputType
+     */
+    select?: SkillNodeCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SkillNodeCountOutputType without action
+   */
+  export type SkillNodeCountOutputTypeCountChildrenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SkillNodeWhereInput
+  }
+
+  /**
+   * SkillNodeCountOutputType without action
+   */
+  export type SkillNodeCountOutputTypeCountMasteryScoresArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MasteryScoreWhereInput
   }
 
 
@@ -38659,6 +38972,8 @@ export namespace Prisma {
     avatar_url: string | null
     created_at: Date | null
     updated_at: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
     last_login: Date | null
     password: string | null
     emailVerified: boolean | null
@@ -38693,6 +39008,8 @@ export namespace Prisma {
     avatar_url: string | null
     created_at: Date | null
     updated_at: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
     last_login: Date | null
     password: string | null
     emailVerified: boolean | null
@@ -38727,6 +39044,8 @@ export namespace Prisma {
     avatar_url: number
     created_at: number
     updated_at: number
+    createdAt: number
+    updatedAt: number
     last_login: number
     password: number
     emailVerified: number
@@ -38773,6 +39092,8 @@ export namespace Prisma {
     avatar_url?: true
     created_at?: true
     updated_at?: true
+    createdAt?: true
+    updatedAt?: true
     last_login?: true
     password?: true
     emailVerified?: true
@@ -38807,6 +39128,8 @@ export namespace Prisma {
     avatar_url?: true
     created_at?: true
     updated_at?: true
+    createdAt?: true
+    updatedAt?: true
     last_login?: true
     password?: true
     emailVerified?: true
@@ -38841,6 +39164,8 @@ export namespace Prisma {
     avatar_url?: true
     created_at?: true
     updated_at?: true
+    createdAt?: true
+    updatedAt?: true
     last_login?: true
     password?: true
     emailVerified?: true
@@ -38962,6 +39287,8 @@ export namespace Prisma {
     avatar_url: string | null
     created_at: Date
     updated_at: Date
+    createdAt: Date | null
+    updatedAt: Date | null
     last_login: Date | null
     password: string | null
     emailVerified: boolean
@@ -39015,6 +39342,8 @@ export namespace Prisma {
     avatar_url?: boolean
     created_at?: boolean
     updated_at?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     last_login?: boolean
     password?: boolean
     emailVerified?: boolean
@@ -39076,6 +39405,8 @@ export namespace Prisma {
     avatar_url?: boolean
     created_at?: boolean
     updated_at?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     last_login?: boolean
     password?: boolean
     emailVerified?: boolean
@@ -39113,6 +39444,8 @@ export namespace Prisma {
     avatar_url?: boolean
     created_at?: boolean
     updated_at?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     last_login?: boolean
     password?: boolean
     emailVerified?: boolean
@@ -39150,6 +39483,8 @@ export namespace Prisma {
     avatar_url?: boolean
     created_at?: boolean
     updated_at?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     last_login?: boolean
     password?: boolean
     emailVerified?: boolean
@@ -39157,7 +39492,7 @@ export namespace Prisma {
     lastUplinkAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clerk_id" | "email" | "name" | "role" | "district" | "school" | "school_site" | "position" | "bio" | "organization_id" | "school_id" | "stripe_customer_id" | "stripe_subscription_id" | "subscription_tier" | "subscription_status" | "usage_tokens" | "xp_points" | "trial_started_at" | "trial_ends_at" | "is_trial_converted" | "is_active" | "tier_id" | "avatar_url" | "created_at" | "updated_at" | "last_login" | "password" | "emailVerified" | "image" | "lastUplinkAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clerk_id" | "email" | "name" | "role" | "district" | "school" | "school_site" | "position" | "bio" | "organization_id" | "school_id" | "stripe_customer_id" | "stripe_subscription_id" | "subscription_tier" | "subscription_status" | "usage_tokens" | "xp_points" | "trial_started_at" | "trial_ends_at" | "is_trial_converted" | "is_active" | "tier_id" | "avatar_url" | "created_at" | "updated_at" | "createdAt" | "updatedAt" | "last_login" | "password" | "emailVerified" | "image" | "lastUplinkAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
@@ -39255,6 +39590,8 @@ export namespace Prisma {
       avatar_url: string | null
       created_at: Date
       updated_at: Date
+      createdAt: Date | null
+      updatedAt: Date | null
       last_login: Date | null
       password: string | null
       emailVerified: boolean
@@ -39735,6 +40072,8 @@ export namespace Prisma {
     readonly avatar_url: FieldRef<"User", 'String'>
     readonly created_at: FieldRef<"User", 'DateTime'>
     readonly updated_at: FieldRef<"User", 'DateTime'>
+    readonly createdAt: FieldRef<"User", 'DateTime'>
+    readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly last_login: FieldRef<"User", 'DateTime'>
     readonly password: FieldRef<"User", 'String'>
     readonly emailVerified: FieldRef<"User", 'Boolean'>
@@ -61671,6 +62010,3407 @@ export namespace Prisma {
 
 
   /**
+   * Model StateReport
+   */
+
+  export type AggregateStateReport = {
+    _count: StateReportCountAggregateOutputType | null
+    _min: StateReportMinAggregateOutputType | null
+    _max: StateReportMaxAggregateOutputType | null
+  }
+
+  export type StateReportMinAggregateOutputType = {
+    id: string | null
+    districtId: string | null
+    reportType: string | null
+    period: string | null
+    status: string | null
+    generatedBy: string | null
+    fileUrl: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type StateReportMaxAggregateOutputType = {
+    id: string | null
+    districtId: string | null
+    reportType: string | null
+    period: string | null
+    status: string | null
+    generatedBy: string | null
+    fileUrl: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type StateReportCountAggregateOutputType = {
+    id: number
+    districtId: number
+    reportType: number
+    period: number
+    status: number
+    generatedBy: number
+    fileUrl: number
+    dataSnapshot: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type StateReportMinAggregateInputType = {
+    id?: true
+    districtId?: true
+    reportType?: true
+    period?: true
+    status?: true
+    generatedBy?: true
+    fileUrl?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type StateReportMaxAggregateInputType = {
+    id?: true
+    districtId?: true
+    reportType?: true
+    period?: true
+    status?: true
+    generatedBy?: true
+    fileUrl?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type StateReportCountAggregateInputType = {
+    id?: true
+    districtId?: true
+    reportType?: true
+    period?: true
+    status?: true
+    generatedBy?: true
+    fileUrl?: true
+    dataSnapshot?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type StateReportAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StateReport to aggregate.
+     */
+    where?: StateReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StateReports to fetch.
+     */
+    orderBy?: StateReportOrderByWithRelationInput | StateReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StateReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StateReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StateReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned StateReports
+    **/
+    _count?: true | StateReportCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StateReportMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StateReportMaxAggregateInputType
+  }
+
+  export type GetStateReportAggregateType<T extends StateReportAggregateArgs> = {
+        [P in keyof T & keyof AggregateStateReport]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStateReport[P]>
+      : GetScalarType<T[P], AggregateStateReport[P]>
+  }
+
+
+
+
+  export type StateReportGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StateReportWhereInput
+    orderBy?: StateReportOrderByWithAggregationInput | StateReportOrderByWithAggregationInput[]
+    by: StateReportScalarFieldEnum[] | StateReportScalarFieldEnum
+    having?: StateReportScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StateReportCountAggregateInputType | true
+    _min?: StateReportMinAggregateInputType
+    _max?: StateReportMaxAggregateInputType
+  }
+
+  export type StateReportGroupByOutputType = {
+    id: string
+    districtId: string
+    reportType: string
+    period: string
+    status: string
+    generatedBy: string | null
+    fileUrl: string | null
+    dataSnapshot: JsonValue | null
+    createdAt: Date
+    updatedAt: Date
+    _count: StateReportCountAggregateOutputType | null
+    _min: StateReportMinAggregateOutputType | null
+    _max: StateReportMaxAggregateOutputType | null
+  }
+
+  type GetStateReportGroupByPayload<T extends StateReportGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StateReportGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StateReportGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StateReportGroupByOutputType[P]>
+            : GetScalarType<T[P], StateReportGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StateReportSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    districtId?: boolean
+    reportType?: boolean
+    period?: boolean
+    status?: boolean
+    generatedBy?: boolean
+    fileUrl?: boolean
+    dataSnapshot?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["stateReport"]>
+
+  export type StateReportSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    districtId?: boolean
+    reportType?: boolean
+    period?: boolean
+    status?: boolean
+    generatedBy?: boolean
+    fileUrl?: boolean
+    dataSnapshot?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["stateReport"]>
+
+  export type StateReportSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    districtId?: boolean
+    reportType?: boolean
+    period?: boolean
+    status?: boolean
+    generatedBy?: boolean
+    fileUrl?: boolean
+    dataSnapshot?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["stateReport"]>
+
+  export type StateReportSelectScalar = {
+    id?: boolean
+    districtId?: boolean
+    reportType?: boolean
+    period?: boolean
+    status?: boolean
+    generatedBy?: boolean
+    fileUrl?: boolean
+    dataSnapshot?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type StateReportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "districtId" | "reportType" | "period" | "status" | "generatedBy" | "fileUrl" | "dataSnapshot" | "createdAt" | "updatedAt", ExtArgs["result"]["stateReport"]>
+
+  export type $StateReportPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "StateReport"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      districtId: string
+      reportType: string
+      period: string
+      status: string
+      generatedBy: string | null
+      fileUrl: string | null
+      dataSnapshot: Prisma.JsonValue | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["stateReport"]>
+    composites: {}
+  }
+
+  type StateReportGetPayload<S extends boolean | null | undefined | StateReportDefaultArgs> = $Result.GetResult<Prisma.$StateReportPayload, S>
+
+  type StateReportCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<StateReportFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: StateReportCountAggregateInputType | true
+    }
+
+  export interface StateReportDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['StateReport'], meta: { name: 'StateReport' } }
+    /**
+     * Find zero or one StateReport that matches the filter.
+     * @param {StateReportFindUniqueArgs} args - Arguments to find a StateReport
+     * @example
+     * // Get one StateReport
+     * const stateReport = await prisma.stateReport.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StateReportFindUniqueArgs>(args: SelectSubset<T, StateReportFindUniqueArgs<ExtArgs>>): Prisma__StateReportClient<$Result.GetResult<Prisma.$StateReportPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one StateReport that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {StateReportFindUniqueOrThrowArgs} args - Arguments to find a StateReport
+     * @example
+     * // Get one StateReport
+     * const stateReport = await prisma.stateReport.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StateReportFindUniqueOrThrowArgs>(args: SelectSubset<T, StateReportFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StateReportClient<$Result.GetResult<Prisma.$StateReportPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first StateReport that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StateReportFindFirstArgs} args - Arguments to find a StateReport
+     * @example
+     * // Get one StateReport
+     * const stateReport = await prisma.stateReport.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StateReportFindFirstArgs>(args?: SelectSubset<T, StateReportFindFirstArgs<ExtArgs>>): Prisma__StateReportClient<$Result.GetResult<Prisma.$StateReportPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first StateReport that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StateReportFindFirstOrThrowArgs} args - Arguments to find a StateReport
+     * @example
+     * // Get one StateReport
+     * const stateReport = await prisma.stateReport.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StateReportFindFirstOrThrowArgs>(args?: SelectSubset<T, StateReportFindFirstOrThrowArgs<ExtArgs>>): Prisma__StateReportClient<$Result.GetResult<Prisma.$StateReportPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more StateReports that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StateReportFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all StateReports
+     * const stateReports = await prisma.stateReport.findMany()
+     * 
+     * // Get first 10 StateReports
+     * const stateReports = await prisma.stateReport.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const stateReportWithIdOnly = await prisma.stateReport.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends StateReportFindManyArgs>(args?: SelectSubset<T, StateReportFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StateReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a StateReport.
+     * @param {StateReportCreateArgs} args - Arguments to create a StateReport.
+     * @example
+     * // Create one StateReport
+     * const StateReport = await prisma.stateReport.create({
+     *   data: {
+     *     // ... data to create a StateReport
+     *   }
+     * })
+     * 
+     */
+    create<T extends StateReportCreateArgs>(args: SelectSubset<T, StateReportCreateArgs<ExtArgs>>): Prisma__StateReportClient<$Result.GetResult<Prisma.$StateReportPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many StateReports.
+     * @param {StateReportCreateManyArgs} args - Arguments to create many StateReports.
+     * @example
+     * // Create many StateReports
+     * const stateReport = await prisma.stateReport.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StateReportCreateManyArgs>(args?: SelectSubset<T, StateReportCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many StateReports and returns the data saved in the database.
+     * @param {StateReportCreateManyAndReturnArgs} args - Arguments to create many StateReports.
+     * @example
+     * // Create many StateReports
+     * const stateReport = await prisma.stateReport.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many StateReports and only return the `id`
+     * const stateReportWithIdOnly = await prisma.stateReport.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends StateReportCreateManyAndReturnArgs>(args?: SelectSubset<T, StateReportCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StateReportPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a StateReport.
+     * @param {StateReportDeleteArgs} args - Arguments to delete one StateReport.
+     * @example
+     * // Delete one StateReport
+     * const StateReport = await prisma.stateReport.delete({
+     *   where: {
+     *     // ... filter to delete one StateReport
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StateReportDeleteArgs>(args: SelectSubset<T, StateReportDeleteArgs<ExtArgs>>): Prisma__StateReportClient<$Result.GetResult<Prisma.$StateReportPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one StateReport.
+     * @param {StateReportUpdateArgs} args - Arguments to update one StateReport.
+     * @example
+     * // Update one StateReport
+     * const stateReport = await prisma.stateReport.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StateReportUpdateArgs>(args: SelectSubset<T, StateReportUpdateArgs<ExtArgs>>): Prisma__StateReportClient<$Result.GetResult<Prisma.$StateReportPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more StateReports.
+     * @param {StateReportDeleteManyArgs} args - Arguments to filter StateReports to delete.
+     * @example
+     * // Delete a few StateReports
+     * const { count } = await prisma.stateReport.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StateReportDeleteManyArgs>(args?: SelectSubset<T, StateReportDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StateReports.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StateReportUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many StateReports
+     * const stateReport = await prisma.stateReport.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StateReportUpdateManyArgs>(args: SelectSubset<T, StateReportUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StateReports and returns the data updated in the database.
+     * @param {StateReportUpdateManyAndReturnArgs} args - Arguments to update many StateReports.
+     * @example
+     * // Update many StateReports
+     * const stateReport = await prisma.stateReport.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more StateReports and only return the `id`
+     * const stateReportWithIdOnly = await prisma.stateReport.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends StateReportUpdateManyAndReturnArgs>(args: SelectSubset<T, StateReportUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StateReportPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one StateReport.
+     * @param {StateReportUpsertArgs} args - Arguments to update or create a StateReport.
+     * @example
+     * // Update or create a StateReport
+     * const stateReport = await prisma.stateReport.upsert({
+     *   create: {
+     *     // ... data to create a StateReport
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the StateReport we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StateReportUpsertArgs>(args: SelectSubset<T, StateReportUpsertArgs<ExtArgs>>): Prisma__StateReportClient<$Result.GetResult<Prisma.$StateReportPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of StateReports.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StateReportCountArgs} args - Arguments to filter StateReports to count.
+     * @example
+     * // Count the number of StateReports
+     * const count = await prisma.stateReport.count({
+     *   where: {
+     *     // ... the filter for the StateReports we want to count
+     *   }
+     * })
+    **/
+    count<T extends StateReportCountArgs>(
+      args?: Subset<T, StateReportCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StateReportCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a StateReport.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StateReportAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StateReportAggregateArgs>(args: Subset<T, StateReportAggregateArgs>): Prisma.PrismaPromise<GetStateReportAggregateType<T>>
+
+    /**
+     * Group by StateReport.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StateReportGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StateReportGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StateReportGroupByArgs['orderBy'] }
+        : { orderBy?: StateReportGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StateReportGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStateReportGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the StateReport model
+   */
+  readonly fields: StateReportFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for StateReport.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StateReportClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the StateReport model
+   */
+  interface StateReportFieldRefs {
+    readonly id: FieldRef<"StateReport", 'String'>
+    readonly districtId: FieldRef<"StateReport", 'String'>
+    readonly reportType: FieldRef<"StateReport", 'String'>
+    readonly period: FieldRef<"StateReport", 'String'>
+    readonly status: FieldRef<"StateReport", 'String'>
+    readonly generatedBy: FieldRef<"StateReport", 'String'>
+    readonly fileUrl: FieldRef<"StateReport", 'String'>
+    readonly dataSnapshot: FieldRef<"StateReport", 'Json'>
+    readonly createdAt: FieldRef<"StateReport", 'DateTime'>
+    readonly updatedAt: FieldRef<"StateReport", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * StateReport findUnique
+   */
+  export type StateReportFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StateReport
+     */
+    select?: StateReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StateReport
+     */
+    omit?: StateReportOmit<ExtArgs> | null
+    /**
+     * Filter, which StateReport to fetch.
+     */
+    where: StateReportWhereUniqueInput
+  }
+
+  /**
+   * StateReport findUniqueOrThrow
+   */
+  export type StateReportFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StateReport
+     */
+    select?: StateReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StateReport
+     */
+    omit?: StateReportOmit<ExtArgs> | null
+    /**
+     * Filter, which StateReport to fetch.
+     */
+    where: StateReportWhereUniqueInput
+  }
+
+  /**
+   * StateReport findFirst
+   */
+  export type StateReportFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StateReport
+     */
+    select?: StateReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StateReport
+     */
+    omit?: StateReportOmit<ExtArgs> | null
+    /**
+     * Filter, which StateReport to fetch.
+     */
+    where?: StateReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StateReports to fetch.
+     */
+    orderBy?: StateReportOrderByWithRelationInput | StateReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StateReports.
+     */
+    cursor?: StateReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StateReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StateReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StateReports.
+     */
+    distinct?: StateReportScalarFieldEnum | StateReportScalarFieldEnum[]
+  }
+
+  /**
+   * StateReport findFirstOrThrow
+   */
+  export type StateReportFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StateReport
+     */
+    select?: StateReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StateReport
+     */
+    omit?: StateReportOmit<ExtArgs> | null
+    /**
+     * Filter, which StateReport to fetch.
+     */
+    where?: StateReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StateReports to fetch.
+     */
+    orderBy?: StateReportOrderByWithRelationInput | StateReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StateReports.
+     */
+    cursor?: StateReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StateReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StateReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StateReports.
+     */
+    distinct?: StateReportScalarFieldEnum | StateReportScalarFieldEnum[]
+  }
+
+  /**
+   * StateReport findMany
+   */
+  export type StateReportFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StateReport
+     */
+    select?: StateReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StateReport
+     */
+    omit?: StateReportOmit<ExtArgs> | null
+    /**
+     * Filter, which StateReports to fetch.
+     */
+    where?: StateReportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StateReports to fetch.
+     */
+    orderBy?: StateReportOrderByWithRelationInput | StateReportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing StateReports.
+     */
+    cursor?: StateReportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StateReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StateReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StateReports.
+     */
+    distinct?: StateReportScalarFieldEnum | StateReportScalarFieldEnum[]
+  }
+
+  /**
+   * StateReport create
+   */
+  export type StateReportCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StateReport
+     */
+    select?: StateReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StateReport
+     */
+    omit?: StateReportOmit<ExtArgs> | null
+    /**
+     * The data needed to create a StateReport.
+     */
+    data: XOR<StateReportCreateInput, StateReportUncheckedCreateInput>
+  }
+
+  /**
+   * StateReport createMany
+   */
+  export type StateReportCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many StateReports.
+     */
+    data: StateReportCreateManyInput | StateReportCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * StateReport createManyAndReturn
+   */
+  export type StateReportCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StateReport
+     */
+    select?: StateReportSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the StateReport
+     */
+    omit?: StateReportOmit<ExtArgs> | null
+    /**
+     * The data used to create many StateReports.
+     */
+    data: StateReportCreateManyInput | StateReportCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * StateReport update
+   */
+  export type StateReportUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StateReport
+     */
+    select?: StateReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StateReport
+     */
+    omit?: StateReportOmit<ExtArgs> | null
+    /**
+     * The data needed to update a StateReport.
+     */
+    data: XOR<StateReportUpdateInput, StateReportUncheckedUpdateInput>
+    /**
+     * Choose, which StateReport to update.
+     */
+    where: StateReportWhereUniqueInput
+  }
+
+  /**
+   * StateReport updateMany
+   */
+  export type StateReportUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update StateReports.
+     */
+    data: XOR<StateReportUpdateManyMutationInput, StateReportUncheckedUpdateManyInput>
+    /**
+     * Filter which StateReports to update
+     */
+    where?: StateReportWhereInput
+    /**
+     * Limit how many StateReports to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * StateReport updateManyAndReturn
+   */
+  export type StateReportUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StateReport
+     */
+    select?: StateReportSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the StateReport
+     */
+    omit?: StateReportOmit<ExtArgs> | null
+    /**
+     * The data used to update StateReports.
+     */
+    data: XOR<StateReportUpdateManyMutationInput, StateReportUncheckedUpdateManyInput>
+    /**
+     * Filter which StateReports to update
+     */
+    where?: StateReportWhereInput
+    /**
+     * Limit how many StateReports to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * StateReport upsert
+   */
+  export type StateReportUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StateReport
+     */
+    select?: StateReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StateReport
+     */
+    omit?: StateReportOmit<ExtArgs> | null
+    /**
+     * The filter to search for the StateReport to update in case it exists.
+     */
+    where: StateReportWhereUniqueInput
+    /**
+     * In case the StateReport found by the `where` argument doesn't exist, create a new StateReport with this data.
+     */
+    create: XOR<StateReportCreateInput, StateReportUncheckedCreateInput>
+    /**
+     * In case the StateReport was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StateReportUpdateInput, StateReportUncheckedUpdateInput>
+  }
+
+  /**
+   * StateReport delete
+   */
+  export type StateReportDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StateReport
+     */
+    select?: StateReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StateReport
+     */
+    omit?: StateReportOmit<ExtArgs> | null
+    /**
+     * Filter which StateReport to delete.
+     */
+    where: StateReportWhereUniqueInput
+  }
+
+  /**
+   * StateReport deleteMany
+   */
+  export type StateReportDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StateReports to delete
+     */
+    where?: StateReportWhereInput
+    /**
+     * Limit how many StateReports to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * StateReport without action
+   */
+  export type StateReportDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StateReport
+     */
+    select?: StateReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StateReport
+     */
+    omit?: StateReportOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SkillNode
+   */
+
+  export type AggregateSkillNode = {
+    _count: SkillNodeCountAggregateOutputType | null
+    _avg: SkillNodeAvgAggregateOutputType | null
+    _sum: SkillNodeSumAggregateOutputType | null
+    _min: SkillNodeMinAggregateOutputType | null
+    _max: SkillNodeMaxAggregateOutputType | null
+  }
+
+  export type SkillNodeAvgAggregateOutputType = {
+    gradeLevel: number | null
+  }
+
+  export type SkillNodeSumAggregateOutputType = {
+    gradeLevel: number | null
+  }
+
+  export type SkillNodeMinAggregateOutputType = {
+    id: string | null
+    code: string | null
+    name: string | null
+    description: string | null
+    parentId: string | null
+    gradeLevel: number | null
+    subject: string | null
+    createdAt: Date | null
+  }
+
+  export type SkillNodeMaxAggregateOutputType = {
+    id: string | null
+    code: string | null
+    name: string | null
+    description: string | null
+    parentId: string | null
+    gradeLevel: number | null
+    subject: string | null
+    createdAt: Date | null
+  }
+
+  export type SkillNodeCountAggregateOutputType = {
+    id: number
+    code: number
+    name: number
+    description: number
+    parentId: number
+    gradeLevel: number
+    subject: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type SkillNodeAvgAggregateInputType = {
+    gradeLevel?: true
+  }
+
+  export type SkillNodeSumAggregateInputType = {
+    gradeLevel?: true
+  }
+
+  export type SkillNodeMinAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    description?: true
+    parentId?: true
+    gradeLevel?: true
+    subject?: true
+    createdAt?: true
+  }
+
+  export type SkillNodeMaxAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    description?: true
+    parentId?: true
+    gradeLevel?: true
+    subject?: true
+    createdAt?: true
+  }
+
+  export type SkillNodeCountAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    description?: true
+    parentId?: true
+    gradeLevel?: true
+    subject?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type SkillNodeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SkillNode to aggregate.
+     */
+    where?: SkillNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SkillNodes to fetch.
+     */
+    orderBy?: SkillNodeOrderByWithRelationInput | SkillNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SkillNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SkillNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SkillNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SkillNodes
+    **/
+    _count?: true | SkillNodeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SkillNodeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SkillNodeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SkillNodeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SkillNodeMaxAggregateInputType
+  }
+
+  export type GetSkillNodeAggregateType<T extends SkillNodeAggregateArgs> = {
+        [P in keyof T & keyof AggregateSkillNode]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSkillNode[P]>
+      : GetScalarType<T[P], AggregateSkillNode[P]>
+  }
+
+
+
+
+  export type SkillNodeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SkillNodeWhereInput
+    orderBy?: SkillNodeOrderByWithAggregationInput | SkillNodeOrderByWithAggregationInput[]
+    by: SkillNodeScalarFieldEnum[] | SkillNodeScalarFieldEnum
+    having?: SkillNodeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SkillNodeCountAggregateInputType | true
+    _avg?: SkillNodeAvgAggregateInputType
+    _sum?: SkillNodeSumAggregateInputType
+    _min?: SkillNodeMinAggregateInputType
+    _max?: SkillNodeMaxAggregateInputType
+  }
+
+  export type SkillNodeGroupByOutputType = {
+    id: string
+    code: string
+    name: string
+    description: string | null
+    parentId: string | null
+    gradeLevel: number | null
+    subject: string
+    createdAt: Date
+    _count: SkillNodeCountAggregateOutputType | null
+    _avg: SkillNodeAvgAggregateOutputType | null
+    _sum: SkillNodeSumAggregateOutputType | null
+    _min: SkillNodeMinAggregateOutputType | null
+    _max: SkillNodeMaxAggregateOutputType | null
+  }
+
+  type GetSkillNodeGroupByPayload<T extends SkillNodeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SkillNodeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SkillNodeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SkillNodeGroupByOutputType[P]>
+            : GetScalarType<T[P], SkillNodeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SkillNodeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    description?: boolean
+    parentId?: boolean
+    gradeLevel?: boolean
+    subject?: boolean
+    createdAt?: boolean
+    parent?: boolean | SkillNode$parentArgs<ExtArgs>
+    children?: boolean | SkillNode$childrenArgs<ExtArgs>
+    masteryScores?: boolean | SkillNode$masteryScoresArgs<ExtArgs>
+    _count?: boolean | SkillNodeCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["skillNode"]>
+
+  export type SkillNodeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    description?: boolean
+    parentId?: boolean
+    gradeLevel?: boolean
+    subject?: boolean
+    createdAt?: boolean
+    parent?: boolean | SkillNode$parentArgs<ExtArgs>
+  }, ExtArgs["result"]["skillNode"]>
+
+  export type SkillNodeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    description?: boolean
+    parentId?: boolean
+    gradeLevel?: boolean
+    subject?: boolean
+    createdAt?: boolean
+    parent?: boolean | SkillNode$parentArgs<ExtArgs>
+  }, ExtArgs["result"]["skillNode"]>
+
+  export type SkillNodeSelectScalar = {
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    description?: boolean
+    parentId?: boolean
+    gradeLevel?: boolean
+    subject?: boolean
+    createdAt?: boolean
+  }
+
+  export type SkillNodeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "description" | "parentId" | "gradeLevel" | "subject" | "createdAt", ExtArgs["result"]["skillNode"]>
+  export type SkillNodeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    parent?: boolean | SkillNode$parentArgs<ExtArgs>
+    children?: boolean | SkillNode$childrenArgs<ExtArgs>
+    masteryScores?: boolean | SkillNode$masteryScoresArgs<ExtArgs>
+    _count?: boolean | SkillNodeCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SkillNodeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    parent?: boolean | SkillNode$parentArgs<ExtArgs>
+  }
+  export type SkillNodeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    parent?: boolean | SkillNode$parentArgs<ExtArgs>
+  }
+
+  export type $SkillNodePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SkillNode"
+    objects: {
+      parent: Prisma.$SkillNodePayload<ExtArgs> | null
+      children: Prisma.$SkillNodePayload<ExtArgs>[]
+      masteryScores: Prisma.$MasteryScorePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      code: string
+      name: string
+      description: string | null
+      parentId: string | null
+      gradeLevel: number | null
+      subject: string
+      createdAt: Date
+    }, ExtArgs["result"]["skillNode"]>
+    composites: {}
+  }
+
+  type SkillNodeGetPayload<S extends boolean | null | undefined | SkillNodeDefaultArgs> = $Result.GetResult<Prisma.$SkillNodePayload, S>
+
+  type SkillNodeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SkillNodeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SkillNodeCountAggregateInputType | true
+    }
+
+  export interface SkillNodeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SkillNode'], meta: { name: 'SkillNode' } }
+    /**
+     * Find zero or one SkillNode that matches the filter.
+     * @param {SkillNodeFindUniqueArgs} args - Arguments to find a SkillNode
+     * @example
+     * // Get one SkillNode
+     * const skillNode = await prisma.skillNode.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SkillNodeFindUniqueArgs>(args: SelectSubset<T, SkillNodeFindUniqueArgs<ExtArgs>>): Prisma__SkillNodeClient<$Result.GetResult<Prisma.$SkillNodePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SkillNode that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SkillNodeFindUniqueOrThrowArgs} args - Arguments to find a SkillNode
+     * @example
+     * // Get one SkillNode
+     * const skillNode = await prisma.skillNode.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SkillNodeFindUniqueOrThrowArgs>(args: SelectSubset<T, SkillNodeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SkillNodeClient<$Result.GetResult<Prisma.$SkillNodePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SkillNode that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillNodeFindFirstArgs} args - Arguments to find a SkillNode
+     * @example
+     * // Get one SkillNode
+     * const skillNode = await prisma.skillNode.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SkillNodeFindFirstArgs>(args?: SelectSubset<T, SkillNodeFindFirstArgs<ExtArgs>>): Prisma__SkillNodeClient<$Result.GetResult<Prisma.$SkillNodePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SkillNode that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillNodeFindFirstOrThrowArgs} args - Arguments to find a SkillNode
+     * @example
+     * // Get one SkillNode
+     * const skillNode = await prisma.skillNode.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SkillNodeFindFirstOrThrowArgs>(args?: SelectSubset<T, SkillNodeFindFirstOrThrowArgs<ExtArgs>>): Prisma__SkillNodeClient<$Result.GetResult<Prisma.$SkillNodePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SkillNodes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillNodeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SkillNodes
+     * const skillNodes = await prisma.skillNode.findMany()
+     * 
+     * // Get first 10 SkillNodes
+     * const skillNodes = await prisma.skillNode.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const skillNodeWithIdOnly = await prisma.skillNode.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SkillNodeFindManyArgs>(args?: SelectSubset<T, SkillNodeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillNodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SkillNode.
+     * @param {SkillNodeCreateArgs} args - Arguments to create a SkillNode.
+     * @example
+     * // Create one SkillNode
+     * const SkillNode = await prisma.skillNode.create({
+     *   data: {
+     *     // ... data to create a SkillNode
+     *   }
+     * })
+     * 
+     */
+    create<T extends SkillNodeCreateArgs>(args: SelectSubset<T, SkillNodeCreateArgs<ExtArgs>>): Prisma__SkillNodeClient<$Result.GetResult<Prisma.$SkillNodePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SkillNodes.
+     * @param {SkillNodeCreateManyArgs} args - Arguments to create many SkillNodes.
+     * @example
+     * // Create many SkillNodes
+     * const skillNode = await prisma.skillNode.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SkillNodeCreateManyArgs>(args?: SelectSubset<T, SkillNodeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SkillNodes and returns the data saved in the database.
+     * @param {SkillNodeCreateManyAndReturnArgs} args - Arguments to create many SkillNodes.
+     * @example
+     * // Create many SkillNodes
+     * const skillNode = await prisma.skillNode.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SkillNodes and only return the `id`
+     * const skillNodeWithIdOnly = await prisma.skillNode.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SkillNodeCreateManyAndReturnArgs>(args?: SelectSubset<T, SkillNodeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillNodePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SkillNode.
+     * @param {SkillNodeDeleteArgs} args - Arguments to delete one SkillNode.
+     * @example
+     * // Delete one SkillNode
+     * const SkillNode = await prisma.skillNode.delete({
+     *   where: {
+     *     // ... filter to delete one SkillNode
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SkillNodeDeleteArgs>(args: SelectSubset<T, SkillNodeDeleteArgs<ExtArgs>>): Prisma__SkillNodeClient<$Result.GetResult<Prisma.$SkillNodePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SkillNode.
+     * @param {SkillNodeUpdateArgs} args - Arguments to update one SkillNode.
+     * @example
+     * // Update one SkillNode
+     * const skillNode = await prisma.skillNode.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SkillNodeUpdateArgs>(args: SelectSubset<T, SkillNodeUpdateArgs<ExtArgs>>): Prisma__SkillNodeClient<$Result.GetResult<Prisma.$SkillNodePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SkillNodes.
+     * @param {SkillNodeDeleteManyArgs} args - Arguments to filter SkillNodes to delete.
+     * @example
+     * // Delete a few SkillNodes
+     * const { count } = await prisma.skillNode.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SkillNodeDeleteManyArgs>(args?: SelectSubset<T, SkillNodeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SkillNodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillNodeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SkillNodes
+     * const skillNode = await prisma.skillNode.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SkillNodeUpdateManyArgs>(args: SelectSubset<T, SkillNodeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SkillNodes and returns the data updated in the database.
+     * @param {SkillNodeUpdateManyAndReturnArgs} args - Arguments to update many SkillNodes.
+     * @example
+     * // Update many SkillNodes
+     * const skillNode = await prisma.skillNode.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SkillNodes and only return the `id`
+     * const skillNodeWithIdOnly = await prisma.skillNode.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SkillNodeUpdateManyAndReturnArgs>(args: SelectSubset<T, SkillNodeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillNodePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SkillNode.
+     * @param {SkillNodeUpsertArgs} args - Arguments to update or create a SkillNode.
+     * @example
+     * // Update or create a SkillNode
+     * const skillNode = await prisma.skillNode.upsert({
+     *   create: {
+     *     // ... data to create a SkillNode
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SkillNode we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SkillNodeUpsertArgs>(args: SelectSubset<T, SkillNodeUpsertArgs<ExtArgs>>): Prisma__SkillNodeClient<$Result.GetResult<Prisma.$SkillNodePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SkillNodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillNodeCountArgs} args - Arguments to filter SkillNodes to count.
+     * @example
+     * // Count the number of SkillNodes
+     * const count = await prisma.skillNode.count({
+     *   where: {
+     *     // ... the filter for the SkillNodes we want to count
+     *   }
+     * })
+    **/
+    count<T extends SkillNodeCountArgs>(
+      args?: Subset<T, SkillNodeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SkillNodeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SkillNode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillNodeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SkillNodeAggregateArgs>(args: Subset<T, SkillNodeAggregateArgs>): Prisma.PrismaPromise<GetSkillNodeAggregateType<T>>
+
+    /**
+     * Group by SkillNode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillNodeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SkillNodeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SkillNodeGroupByArgs['orderBy'] }
+        : { orderBy?: SkillNodeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SkillNodeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSkillNodeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SkillNode model
+   */
+  readonly fields: SkillNodeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SkillNode.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SkillNodeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    parent<T extends SkillNode$parentArgs<ExtArgs> = {}>(args?: Subset<T, SkillNode$parentArgs<ExtArgs>>): Prisma__SkillNodeClient<$Result.GetResult<Prisma.$SkillNodePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    children<T extends SkillNode$childrenArgs<ExtArgs> = {}>(args?: Subset<T, SkillNode$childrenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillNodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    masteryScores<T extends SkillNode$masteryScoresArgs<ExtArgs> = {}>(args?: Subset<T, SkillNode$masteryScoresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasteryScorePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SkillNode model
+   */
+  interface SkillNodeFieldRefs {
+    readonly id: FieldRef<"SkillNode", 'String'>
+    readonly code: FieldRef<"SkillNode", 'String'>
+    readonly name: FieldRef<"SkillNode", 'String'>
+    readonly description: FieldRef<"SkillNode", 'String'>
+    readonly parentId: FieldRef<"SkillNode", 'String'>
+    readonly gradeLevel: FieldRef<"SkillNode", 'Int'>
+    readonly subject: FieldRef<"SkillNode", 'String'>
+    readonly createdAt: FieldRef<"SkillNode", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SkillNode findUnique
+   */
+  export type SkillNodeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillNode
+     */
+    select?: SkillNodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillNode
+     */
+    omit?: SkillNodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillNodeInclude<ExtArgs> | null
+    /**
+     * Filter, which SkillNode to fetch.
+     */
+    where: SkillNodeWhereUniqueInput
+  }
+
+  /**
+   * SkillNode findUniqueOrThrow
+   */
+  export type SkillNodeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillNode
+     */
+    select?: SkillNodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillNode
+     */
+    omit?: SkillNodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillNodeInclude<ExtArgs> | null
+    /**
+     * Filter, which SkillNode to fetch.
+     */
+    where: SkillNodeWhereUniqueInput
+  }
+
+  /**
+   * SkillNode findFirst
+   */
+  export type SkillNodeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillNode
+     */
+    select?: SkillNodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillNode
+     */
+    omit?: SkillNodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillNodeInclude<ExtArgs> | null
+    /**
+     * Filter, which SkillNode to fetch.
+     */
+    where?: SkillNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SkillNodes to fetch.
+     */
+    orderBy?: SkillNodeOrderByWithRelationInput | SkillNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SkillNodes.
+     */
+    cursor?: SkillNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SkillNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SkillNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SkillNodes.
+     */
+    distinct?: SkillNodeScalarFieldEnum | SkillNodeScalarFieldEnum[]
+  }
+
+  /**
+   * SkillNode findFirstOrThrow
+   */
+  export type SkillNodeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillNode
+     */
+    select?: SkillNodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillNode
+     */
+    omit?: SkillNodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillNodeInclude<ExtArgs> | null
+    /**
+     * Filter, which SkillNode to fetch.
+     */
+    where?: SkillNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SkillNodes to fetch.
+     */
+    orderBy?: SkillNodeOrderByWithRelationInput | SkillNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SkillNodes.
+     */
+    cursor?: SkillNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SkillNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SkillNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SkillNodes.
+     */
+    distinct?: SkillNodeScalarFieldEnum | SkillNodeScalarFieldEnum[]
+  }
+
+  /**
+   * SkillNode findMany
+   */
+  export type SkillNodeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillNode
+     */
+    select?: SkillNodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillNode
+     */
+    omit?: SkillNodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillNodeInclude<ExtArgs> | null
+    /**
+     * Filter, which SkillNodes to fetch.
+     */
+    where?: SkillNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SkillNodes to fetch.
+     */
+    orderBy?: SkillNodeOrderByWithRelationInput | SkillNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SkillNodes.
+     */
+    cursor?: SkillNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SkillNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SkillNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SkillNodes.
+     */
+    distinct?: SkillNodeScalarFieldEnum | SkillNodeScalarFieldEnum[]
+  }
+
+  /**
+   * SkillNode create
+   */
+  export type SkillNodeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillNode
+     */
+    select?: SkillNodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillNode
+     */
+    omit?: SkillNodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillNodeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SkillNode.
+     */
+    data: XOR<SkillNodeCreateInput, SkillNodeUncheckedCreateInput>
+  }
+
+  /**
+   * SkillNode createMany
+   */
+  export type SkillNodeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SkillNodes.
+     */
+    data: SkillNodeCreateManyInput | SkillNodeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SkillNode createManyAndReturn
+   */
+  export type SkillNodeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillNode
+     */
+    select?: SkillNodeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillNode
+     */
+    omit?: SkillNodeOmit<ExtArgs> | null
+    /**
+     * The data used to create many SkillNodes.
+     */
+    data: SkillNodeCreateManyInput | SkillNodeCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillNodeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SkillNode update
+   */
+  export type SkillNodeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillNode
+     */
+    select?: SkillNodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillNode
+     */
+    omit?: SkillNodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillNodeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SkillNode.
+     */
+    data: XOR<SkillNodeUpdateInput, SkillNodeUncheckedUpdateInput>
+    /**
+     * Choose, which SkillNode to update.
+     */
+    where: SkillNodeWhereUniqueInput
+  }
+
+  /**
+   * SkillNode updateMany
+   */
+  export type SkillNodeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SkillNodes.
+     */
+    data: XOR<SkillNodeUpdateManyMutationInput, SkillNodeUncheckedUpdateManyInput>
+    /**
+     * Filter which SkillNodes to update
+     */
+    where?: SkillNodeWhereInput
+    /**
+     * Limit how many SkillNodes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SkillNode updateManyAndReturn
+   */
+  export type SkillNodeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillNode
+     */
+    select?: SkillNodeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillNode
+     */
+    omit?: SkillNodeOmit<ExtArgs> | null
+    /**
+     * The data used to update SkillNodes.
+     */
+    data: XOR<SkillNodeUpdateManyMutationInput, SkillNodeUncheckedUpdateManyInput>
+    /**
+     * Filter which SkillNodes to update
+     */
+    where?: SkillNodeWhereInput
+    /**
+     * Limit how many SkillNodes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillNodeIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SkillNode upsert
+   */
+  export type SkillNodeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillNode
+     */
+    select?: SkillNodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillNode
+     */
+    omit?: SkillNodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillNodeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SkillNode to update in case it exists.
+     */
+    where: SkillNodeWhereUniqueInput
+    /**
+     * In case the SkillNode found by the `where` argument doesn't exist, create a new SkillNode with this data.
+     */
+    create: XOR<SkillNodeCreateInput, SkillNodeUncheckedCreateInput>
+    /**
+     * In case the SkillNode was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SkillNodeUpdateInput, SkillNodeUncheckedUpdateInput>
+  }
+
+  /**
+   * SkillNode delete
+   */
+  export type SkillNodeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillNode
+     */
+    select?: SkillNodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillNode
+     */
+    omit?: SkillNodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillNodeInclude<ExtArgs> | null
+    /**
+     * Filter which SkillNode to delete.
+     */
+    where: SkillNodeWhereUniqueInput
+  }
+
+  /**
+   * SkillNode deleteMany
+   */
+  export type SkillNodeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SkillNodes to delete
+     */
+    where?: SkillNodeWhereInput
+    /**
+     * Limit how many SkillNodes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SkillNode.parent
+   */
+  export type SkillNode$parentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillNode
+     */
+    select?: SkillNodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillNode
+     */
+    omit?: SkillNodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillNodeInclude<ExtArgs> | null
+    where?: SkillNodeWhereInput
+  }
+
+  /**
+   * SkillNode.children
+   */
+  export type SkillNode$childrenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillNode
+     */
+    select?: SkillNodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillNode
+     */
+    omit?: SkillNodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillNodeInclude<ExtArgs> | null
+    where?: SkillNodeWhereInput
+    orderBy?: SkillNodeOrderByWithRelationInput | SkillNodeOrderByWithRelationInput[]
+    cursor?: SkillNodeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SkillNodeScalarFieldEnum | SkillNodeScalarFieldEnum[]
+  }
+
+  /**
+   * SkillNode.masteryScores
+   */
+  export type SkillNode$masteryScoresArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasteryScore
+     */
+    select?: MasteryScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasteryScore
+     */
+    omit?: MasteryScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MasteryScoreInclude<ExtArgs> | null
+    where?: MasteryScoreWhereInput
+    orderBy?: MasteryScoreOrderByWithRelationInput | MasteryScoreOrderByWithRelationInput[]
+    cursor?: MasteryScoreWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MasteryScoreScalarFieldEnum | MasteryScoreScalarFieldEnum[]
+  }
+
+  /**
+   * SkillNode without action
+   */
+  export type SkillNodeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillNode
+     */
+    select?: SkillNodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillNode
+     */
+    omit?: SkillNodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillNodeInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MasteryScore
+   */
+
+  export type AggregateMasteryScore = {
+    _count: MasteryScoreCountAggregateOutputType | null
+    _avg: MasteryScoreAvgAggregateOutputType | null
+    _sum: MasteryScoreSumAggregateOutputType | null
+    _min: MasteryScoreMinAggregateOutputType | null
+    _max: MasteryScoreMaxAggregateOutputType | null
+  }
+
+  export type MasteryScoreAvgAggregateOutputType = {
+    score: number | null
+    confidence: number | null
+  }
+
+  export type MasteryScoreSumAggregateOutputType = {
+    score: number | null
+    confidence: number | null
+  }
+
+  export type MasteryScoreMinAggregateOutputType = {
+    id: string | null
+    studentId: string | null
+    skillNodeId: string | null
+    score: number | null
+    confidence: number | null
+    source: string | null
+    recordedAt: Date | null
+  }
+
+  export type MasteryScoreMaxAggregateOutputType = {
+    id: string | null
+    studentId: string | null
+    skillNodeId: string | null
+    score: number | null
+    confidence: number | null
+    source: string | null
+    recordedAt: Date | null
+  }
+
+  export type MasteryScoreCountAggregateOutputType = {
+    id: number
+    studentId: number
+    skillNodeId: number
+    score: number
+    confidence: number
+    source: number
+    recordedAt: number
+    _all: number
+  }
+
+
+  export type MasteryScoreAvgAggregateInputType = {
+    score?: true
+    confidence?: true
+  }
+
+  export type MasteryScoreSumAggregateInputType = {
+    score?: true
+    confidence?: true
+  }
+
+  export type MasteryScoreMinAggregateInputType = {
+    id?: true
+    studentId?: true
+    skillNodeId?: true
+    score?: true
+    confidence?: true
+    source?: true
+    recordedAt?: true
+  }
+
+  export type MasteryScoreMaxAggregateInputType = {
+    id?: true
+    studentId?: true
+    skillNodeId?: true
+    score?: true
+    confidence?: true
+    source?: true
+    recordedAt?: true
+  }
+
+  export type MasteryScoreCountAggregateInputType = {
+    id?: true
+    studentId?: true
+    skillNodeId?: true
+    score?: true
+    confidence?: true
+    source?: true
+    recordedAt?: true
+    _all?: true
+  }
+
+  export type MasteryScoreAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MasteryScore to aggregate.
+     */
+    where?: MasteryScoreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MasteryScores to fetch.
+     */
+    orderBy?: MasteryScoreOrderByWithRelationInput | MasteryScoreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MasteryScoreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MasteryScores from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MasteryScores.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MasteryScores
+    **/
+    _count?: true | MasteryScoreCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MasteryScoreAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MasteryScoreSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MasteryScoreMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MasteryScoreMaxAggregateInputType
+  }
+
+  export type GetMasteryScoreAggregateType<T extends MasteryScoreAggregateArgs> = {
+        [P in keyof T & keyof AggregateMasteryScore]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMasteryScore[P]>
+      : GetScalarType<T[P], AggregateMasteryScore[P]>
+  }
+
+
+
+
+  export type MasteryScoreGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MasteryScoreWhereInput
+    orderBy?: MasteryScoreOrderByWithAggregationInput | MasteryScoreOrderByWithAggregationInput[]
+    by: MasteryScoreScalarFieldEnum[] | MasteryScoreScalarFieldEnum
+    having?: MasteryScoreScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MasteryScoreCountAggregateInputType | true
+    _avg?: MasteryScoreAvgAggregateInputType
+    _sum?: MasteryScoreSumAggregateInputType
+    _min?: MasteryScoreMinAggregateInputType
+    _max?: MasteryScoreMaxAggregateInputType
+  }
+
+  export type MasteryScoreGroupByOutputType = {
+    id: string
+    studentId: string
+    skillNodeId: string
+    score: number
+    confidence: number | null
+    source: string | null
+    recordedAt: Date
+    _count: MasteryScoreCountAggregateOutputType | null
+    _avg: MasteryScoreAvgAggregateOutputType | null
+    _sum: MasteryScoreSumAggregateOutputType | null
+    _min: MasteryScoreMinAggregateOutputType | null
+    _max: MasteryScoreMaxAggregateOutputType | null
+  }
+
+  type GetMasteryScoreGroupByPayload<T extends MasteryScoreGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MasteryScoreGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MasteryScoreGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MasteryScoreGroupByOutputType[P]>
+            : GetScalarType<T[P], MasteryScoreGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MasteryScoreSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    studentId?: boolean
+    skillNodeId?: boolean
+    score?: boolean
+    confidence?: boolean
+    source?: boolean
+    recordedAt?: boolean
+    skillNode?: boolean | SkillNodeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["masteryScore"]>
+
+  export type MasteryScoreSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    studentId?: boolean
+    skillNodeId?: boolean
+    score?: boolean
+    confidence?: boolean
+    source?: boolean
+    recordedAt?: boolean
+    skillNode?: boolean | SkillNodeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["masteryScore"]>
+
+  export type MasteryScoreSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    studentId?: boolean
+    skillNodeId?: boolean
+    score?: boolean
+    confidence?: boolean
+    source?: boolean
+    recordedAt?: boolean
+    skillNode?: boolean | SkillNodeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["masteryScore"]>
+
+  export type MasteryScoreSelectScalar = {
+    id?: boolean
+    studentId?: boolean
+    skillNodeId?: boolean
+    score?: boolean
+    confidence?: boolean
+    source?: boolean
+    recordedAt?: boolean
+  }
+
+  export type MasteryScoreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "studentId" | "skillNodeId" | "score" | "confidence" | "source" | "recordedAt", ExtArgs["result"]["masteryScore"]>
+  export type MasteryScoreInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    skillNode?: boolean | SkillNodeDefaultArgs<ExtArgs>
+  }
+  export type MasteryScoreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    skillNode?: boolean | SkillNodeDefaultArgs<ExtArgs>
+  }
+  export type MasteryScoreIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    skillNode?: boolean | SkillNodeDefaultArgs<ExtArgs>
+  }
+
+  export type $MasteryScorePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MasteryScore"
+    objects: {
+      skillNode: Prisma.$SkillNodePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      studentId: string
+      skillNodeId: string
+      score: number
+      confidence: number | null
+      source: string | null
+      recordedAt: Date
+    }, ExtArgs["result"]["masteryScore"]>
+    composites: {}
+  }
+
+  type MasteryScoreGetPayload<S extends boolean | null | undefined | MasteryScoreDefaultArgs> = $Result.GetResult<Prisma.$MasteryScorePayload, S>
+
+  type MasteryScoreCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MasteryScoreFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MasteryScoreCountAggregateInputType | true
+    }
+
+  export interface MasteryScoreDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MasteryScore'], meta: { name: 'MasteryScore' } }
+    /**
+     * Find zero or one MasteryScore that matches the filter.
+     * @param {MasteryScoreFindUniqueArgs} args - Arguments to find a MasteryScore
+     * @example
+     * // Get one MasteryScore
+     * const masteryScore = await prisma.masteryScore.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MasteryScoreFindUniqueArgs>(args: SelectSubset<T, MasteryScoreFindUniqueArgs<ExtArgs>>): Prisma__MasteryScoreClient<$Result.GetResult<Prisma.$MasteryScorePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MasteryScore that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MasteryScoreFindUniqueOrThrowArgs} args - Arguments to find a MasteryScore
+     * @example
+     * // Get one MasteryScore
+     * const masteryScore = await prisma.masteryScore.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MasteryScoreFindUniqueOrThrowArgs>(args: SelectSubset<T, MasteryScoreFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MasteryScoreClient<$Result.GetResult<Prisma.$MasteryScorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MasteryScore that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasteryScoreFindFirstArgs} args - Arguments to find a MasteryScore
+     * @example
+     * // Get one MasteryScore
+     * const masteryScore = await prisma.masteryScore.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MasteryScoreFindFirstArgs>(args?: SelectSubset<T, MasteryScoreFindFirstArgs<ExtArgs>>): Prisma__MasteryScoreClient<$Result.GetResult<Prisma.$MasteryScorePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MasteryScore that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasteryScoreFindFirstOrThrowArgs} args - Arguments to find a MasteryScore
+     * @example
+     * // Get one MasteryScore
+     * const masteryScore = await prisma.masteryScore.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MasteryScoreFindFirstOrThrowArgs>(args?: SelectSubset<T, MasteryScoreFindFirstOrThrowArgs<ExtArgs>>): Prisma__MasteryScoreClient<$Result.GetResult<Prisma.$MasteryScorePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MasteryScores that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasteryScoreFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MasteryScores
+     * const masteryScores = await prisma.masteryScore.findMany()
+     * 
+     * // Get first 10 MasteryScores
+     * const masteryScores = await prisma.masteryScore.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const masteryScoreWithIdOnly = await prisma.masteryScore.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MasteryScoreFindManyArgs>(args?: SelectSubset<T, MasteryScoreFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasteryScorePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MasteryScore.
+     * @param {MasteryScoreCreateArgs} args - Arguments to create a MasteryScore.
+     * @example
+     * // Create one MasteryScore
+     * const MasteryScore = await prisma.masteryScore.create({
+     *   data: {
+     *     // ... data to create a MasteryScore
+     *   }
+     * })
+     * 
+     */
+    create<T extends MasteryScoreCreateArgs>(args: SelectSubset<T, MasteryScoreCreateArgs<ExtArgs>>): Prisma__MasteryScoreClient<$Result.GetResult<Prisma.$MasteryScorePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MasteryScores.
+     * @param {MasteryScoreCreateManyArgs} args - Arguments to create many MasteryScores.
+     * @example
+     * // Create many MasteryScores
+     * const masteryScore = await prisma.masteryScore.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MasteryScoreCreateManyArgs>(args?: SelectSubset<T, MasteryScoreCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MasteryScores and returns the data saved in the database.
+     * @param {MasteryScoreCreateManyAndReturnArgs} args - Arguments to create many MasteryScores.
+     * @example
+     * // Create many MasteryScores
+     * const masteryScore = await prisma.masteryScore.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MasteryScores and only return the `id`
+     * const masteryScoreWithIdOnly = await prisma.masteryScore.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MasteryScoreCreateManyAndReturnArgs>(args?: SelectSubset<T, MasteryScoreCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasteryScorePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MasteryScore.
+     * @param {MasteryScoreDeleteArgs} args - Arguments to delete one MasteryScore.
+     * @example
+     * // Delete one MasteryScore
+     * const MasteryScore = await prisma.masteryScore.delete({
+     *   where: {
+     *     // ... filter to delete one MasteryScore
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MasteryScoreDeleteArgs>(args: SelectSubset<T, MasteryScoreDeleteArgs<ExtArgs>>): Prisma__MasteryScoreClient<$Result.GetResult<Prisma.$MasteryScorePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MasteryScore.
+     * @param {MasteryScoreUpdateArgs} args - Arguments to update one MasteryScore.
+     * @example
+     * // Update one MasteryScore
+     * const masteryScore = await prisma.masteryScore.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MasteryScoreUpdateArgs>(args: SelectSubset<T, MasteryScoreUpdateArgs<ExtArgs>>): Prisma__MasteryScoreClient<$Result.GetResult<Prisma.$MasteryScorePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MasteryScores.
+     * @param {MasteryScoreDeleteManyArgs} args - Arguments to filter MasteryScores to delete.
+     * @example
+     * // Delete a few MasteryScores
+     * const { count } = await prisma.masteryScore.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MasteryScoreDeleteManyArgs>(args?: SelectSubset<T, MasteryScoreDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MasteryScores.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasteryScoreUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MasteryScores
+     * const masteryScore = await prisma.masteryScore.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MasteryScoreUpdateManyArgs>(args: SelectSubset<T, MasteryScoreUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MasteryScores and returns the data updated in the database.
+     * @param {MasteryScoreUpdateManyAndReturnArgs} args - Arguments to update many MasteryScores.
+     * @example
+     * // Update many MasteryScores
+     * const masteryScore = await prisma.masteryScore.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MasteryScores and only return the `id`
+     * const masteryScoreWithIdOnly = await prisma.masteryScore.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MasteryScoreUpdateManyAndReturnArgs>(args: SelectSubset<T, MasteryScoreUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasteryScorePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MasteryScore.
+     * @param {MasteryScoreUpsertArgs} args - Arguments to update or create a MasteryScore.
+     * @example
+     * // Update or create a MasteryScore
+     * const masteryScore = await prisma.masteryScore.upsert({
+     *   create: {
+     *     // ... data to create a MasteryScore
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MasteryScore we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MasteryScoreUpsertArgs>(args: SelectSubset<T, MasteryScoreUpsertArgs<ExtArgs>>): Prisma__MasteryScoreClient<$Result.GetResult<Prisma.$MasteryScorePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MasteryScores.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasteryScoreCountArgs} args - Arguments to filter MasteryScores to count.
+     * @example
+     * // Count the number of MasteryScores
+     * const count = await prisma.masteryScore.count({
+     *   where: {
+     *     // ... the filter for the MasteryScores we want to count
+     *   }
+     * })
+    **/
+    count<T extends MasteryScoreCountArgs>(
+      args?: Subset<T, MasteryScoreCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MasteryScoreCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MasteryScore.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasteryScoreAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MasteryScoreAggregateArgs>(args: Subset<T, MasteryScoreAggregateArgs>): Prisma.PrismaPromise<GetMasteryScoreAggregateType<T>>
+
+    /**
+     * Group by MasteryScore.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasteryScoreGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MasteryScoreGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MasteryScoreGroupByArgs['orderBy'] }
+        : { orderBy?: MasteryScoreGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MasteryScoreGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMasteryScoreGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MasteryScore model
+   */
+  readonly fields: MasteryScoreFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MasteryScore.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MasteryScoreClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    skillNode<T extends SkillNodeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SkillNodeDefaultArgs<ExtArgs>>): Prisma__SkillNodeClient<$Result.GetResult<Prisma.$SkillNodePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MasteryScore model
+   */
+  interface MasteryScoreFieldRefs {
+    readonly id: FieldRef<"MasteryScore", 'String'>
+    readonly studentId: FieldRef<"MasteryScore", 'String'>
+    readonly skillNodeId: FieldRef<"MasteryScore", 'String'>
+    readonly score: FieldRef<"MasteryScore", 'Float'>
+    readonly confidence: FieldRef<"MasteryScore", 'Float'>
+    readonly source: FieldRef<"MasteryScore", 'String'>
+    readonly recordedAt: FieldRef<"MasteryScore", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MasteryScore findUnique
+   */
+  export type MasteryScoreFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasteryScore
+     */
+    select?: MasteryScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasteryScore
+     */
+    omit?: MasteryScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MasteryScoreInclude<ExtArgs> | null
+    /**
+     * Filter, which MasteryScore to fetch.
+     */
+    where: MasteryScoreWhereUniqueInput
+  }
+
+  /**
+   * MasteryScore findUniqueOrThrow
+   */
+  export type MasteryScoreFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasteryScore
+     */
+    select?: MasteryScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasteryScore
+     */
+    omit?: MasteryScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MasteryScoreInclude<ExtArgs> | null
+    /**
+     * Filter, which MasteryScore to fetch.
+     */
+    where: MasteryScoreWhereUniqueInput
+  }
+
+  /**
+   * MasteryScore findFirst
+   */
+  export type MasteryScoreFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasteryScore
+     */
+    select?: MasteryScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasteryScore
+     */
+    omit?: MasteryScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MasteryScoreInclude<ExtArgs> | null
+    /**
+     * Filter, which MasteryScore to fetch.
+     */
+    where?: MasteryScoreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MasteryScores to fetch.
+     */
+    orderBy?: MasteryScoreOrderByWithRelationInput | MasteryScoreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MasteryScores.
+     */
+    cursor?: MasteryScoreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MasteryScores from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MasteryScores.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MasteryScores.
+     */
+    distinct?: MasteryScoreScalarFieldEnum | MasteryScoreScalarFieldEnum[]
+  }
+
+  /**
+   * MasteryScore findFirstOrThrow
+   */
+  export type MasteryScoreFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasteryScore
+     */
+    select?: MasteryScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasteryScore
+     */
+    omit?: MasteryScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MasteryScoreInclude<ExtArgs> | null
+    /**
+     * Filter, which MasteryScore to fetch.
+     */
+    where?: MasteryScoreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MasteryScores to fetch.
+     */
+    orderBy?: MasteryScoreOrderByWithRelationInput | MasteryScoreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MasteryScores.
+     */
+    cursor?: MasteryScoreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MasteryScores from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MasteryScores.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MasteryScores.
+     */
+    distinct?: MasteryScoreScalarFieldEnum | MasteryScoreScalarFieldEnum[]
+  }
+
+  /**
+   * MasteryScore findMany
+   */
+  export type MasteryScoreFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasteryScore
+     */
+    select?: MasteryScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasteryScore
+     */
+    omit?: MasteryScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MasteryScoreInclude<ExtArgs> | null
+    /**
+     * Filter, which MasteryScores to fetch.
+     */
+    where?: MasteryScoreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MasteryScores to fetch.
+     */
+    orderBy?: MasteryScoreOrderByWithRelationInput | MasteryScoreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MasteryScores.
+     */
+    cursor?: MasteryScoreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MasteryScores from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MasteryScores.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MasteryScores.
+     */
+    distinct?: MasteryScoreScalarFieldEnum | MasteryScoreScalarFieldEnum[]
+  }
+
+  /**
+   * MasteryScore create
+   */
+  export type MasteryScoreCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasteryScore
+     */
+    select?: MasteryScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasteryScore
+     */
+    omit?: MasteryScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MasteryScoreInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MasteryScore.
+     */
+    data: XOR<MasteryScoreCreateInput, MasteryScoreUncheckedCreateInput>
+  }
+
+  /**
+   * MasteryScore createMany
+   */
+  export type MasteryScoreCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MasteryScores.
+     */
+    data: MasteryScoreCreateManyInput | MasteryScoreCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MasteryScore createManyAndReturn
+   */
+  export type MasteryScoreCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasteryScore
+     */
+    select?: MasteryScoreSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasteryScore
+     */
+    omit?: MasteryScoreOmit<ExtArgs> | null
+    /**
+     * The data used to create many MasteryScores.
+     */
+    data: MasteryScoreCreateManyInput | MasteryScoreCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MasteryScoreIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MasteryScore update
+   */
+  export type MasteryScoreUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasteryScore
+     */
+    select?: MasteryScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasteryScore
+     */
+    omit?: MasteryScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MasteryScoreInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MasteryScore.
+     */
+    data: XOR<MasteryScoreUpdateInput, MasteryScoreUncheckedUpdateInput>
+    /**
+     * Choose, which MasteryScore to update.
+     */
+    where: MasteryScoreWhereUniqueInput
+  }
+
+  /**
+   * MasteryScore updateMany
+   */
+  export type MasteryScoreUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MasteryScores.
+     */
+    data: XOR<MasteryScoreUpdateManyMutationInput, MasteryScoreUncheckedUpdateManyInput>
+    /**
+     * Filter which MasteryScores to update
+     */
+    where?: MasteryScoreWhereInput
+    /**
+     * Limit how many MasteryScores to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MasteryScore updateManyAndReturn
+   */
+  export type MasteryScoreUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasteryScore
+     */
+    select?: MasteryScoreSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasteryScore
+     */
+    omit?: MasteryScoreOmit<ExtArgs> | null
+    /**
+     * The data used to update MasteryScores.
+     */
+    data: XOR<MasteryScoreUpdateManyMutationInput, MasteryScoreUncheckedUpdateManyInput>
+    /**
+     * Filter which MasteryScores to update
+     */
+    where?: MasteryScoreWhereInput
+    /**
+     * Limit how many MasteryScores to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MasteryScoreIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MasteryScore upsert
+   */
+  export type MasteryScoreUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasteryScore
+     */
+    select?: MasteryScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasteryScore
+     */
+    omit?: MasteryScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MasteryScoreInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MasteryScore to update in case it exists.
+     */
+    where: MasteryScoreWhereUniqueInput
+    /**
+     * In case the MasteryScore found by the `where` argument doesn't exist, create a new MasteryScore with this data.
+     */
+    create: XOR<MasteryScoreCreateInput, MasteryScoreUncheckedCreateInput>
+    /**
+     * In case the MasteryScore was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MasteryScoreUpdateInput, MasteryScoreUncheckedUpdateInput>
+  }
+
+  /**
+   * MasteryScore delete
+   */
+  export type MasteryScoreDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasteryScore
+     */
+    select?: MasteryScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasteryScore
+     */
+    omit?: MasteryScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MasteryScoreInclude<ExtArgs> | null
+    /**
+     * Filter which MasteryScore to delete.
+     */
+    where: MasteryScoreWhereUniqueInput
+  }
+
+  /**
+   * MasteryScore deleteMany
+   */
+  export type MasteryScoreDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MasteryScores to delete
+     */
+    where?: MasteryScoreWhereInput
+    /**
+     * Limit how many MasteryScores to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MasteryScore without action
+   */
+  export type MasteryScoreDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasteryScore
+     */
+    select?: MasteryScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasteryScore
+     */
+    omit?: MasteryScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MasteryScoreInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -62153,6 +65893,8 @@ export namespace Prisma {
     avatar_url: 'avatar_url',
     created_at: 'created_at',
     updated_at: 'updated_at',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
     last_login: 'last_login',
     password: 'password',
     emailVerified: 'emailVerified',
@@ -62465,6 +66207,49 @@ export namespace Prisma {
   };
 
   export type LtiLineItemScalarFieldEnum = (typeof LtiLineItemScalarFieldEnum)[keyof typeof LtiLineItemScalarFieldEnum]
+
+
+  export const StateReportScalarFieldEnum: {
+    id: 'id',
+    districtId: 'districtId',
+    reportType: 'reportType',
+    period: 'period',
+    status: 'status',
+    generatedBy: 'generatedBy',
+    fileUrl: 'fileUrl',
+    dataSnapshot: 'dataSnapshot',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type StateReportScalarFieldEnum = (typeof StateReportScalarFieldEnum)[keyof typeof StateReportScalarFieldEnum]
+
+
+  export const SkillNodeScalarFieldEnum: {
+    id: 'id',
+    code: 'code',
+    name: 'name',
+    description: 'description',
+    parentId: 'parentId',
+    gradeLevel: 'gradeLevel',
+    subject: 'subject',
+    createdAt: 'createdAt'
+  };
+
+  export type SkillNodeScalarFieldEnum = (typeof SkillNodeScalarFieldEnum)[keyof typeof SkillNodeScalarFieldEnum]
+
+
+  export const MasteryScoreScalarFieldEnum: {
+    id: 'id',
+    studentId: 'studentId',
+    skillNodeId: 'skillNodeId',
+    score: 'score',
+    confidence: 'confidence',
+    source: 'source',
+    recordedAt: 'recordedAt'
+  };
+
+  export type MasteryScoreScalarFieldEnum = (typeof MasteryScoreScalarFieldEnum)[keyof typeof MasteryScoreScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -64967,6 +68752,8 @@ export namespace Prisma {
     avatar_url?: StringNullableFilter<"User"> | string | null
     created_at?: DateTimeFilter<"User"> | Date | string
     updated_at?: DateTimeFilter<"User"> | Date | string
+    createdAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    updatedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     last_login?: DateTimeNullableFilter<"User"> | Date | string | null
     password?: StringNullableFilter<"User"> | string | null
     emailVerified?: BoolFilter<"User"> | boolean
@@ -65027,6 +68814,8 @@ export namespace Prisma {
     avatar_url?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    createdAt?: SortOrderInput | SortOrder
+    updatedAt?: SortOrderInput | SortOrder
     last_login?: SortOrderInput | SortOrder
     password?: SortOrderInput | SortOrder
     emailVerified?: SortOrder
@@ -65090,6 +68879,8 @@ export namespace Prisma {
     avatar_url?: StringNullableFilter<"User"> | string | null
     created_at?: DateTimeFilter<"User"> | Date | string
     updated_at?: DateTimeFilter<"User"> | Date | string
+    createdAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    updatedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     last_login?: DateTimeNullableFilter<"User"> | Date | string | null
     password?: StringNullableFilter<"User"> | string | null
     emailVerified?: BoolFilter<"User"> | boolean
@@ -65150,6 +68941,8 @@ export namespace Prisma {
     avatar_url?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    createdAt?: SortOrderInput | SortOrder
+    updatedAt?: SortOrderInput | SortOrder
     last_login?: SortOrderInput | SortOrder
     password?: SortOrderInput | SortOrder
     emailVerified?: SortOrder
@@ -65192,6 +68985,8 @@ export namespace Prisma {
     avatar_url?: StringNullableWithAggregatesFilter<"User"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    createdAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    updatedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     last_login?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     password?: StringNullableWithAggregatesFilter<"User"> | string | null
     emailVerified?: BoolWithAggregatesFilter<"User"> | boolean
@@ -66760,6 +70555,228 @@ export namespace Prisma {
     tag?: StringNullableWithAggregatesFilter<"LtiLineItem"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"LtiLineItem"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"LtiLineItem"> | Date | string
+  }
+
+  export type StateReportWhereInput = {
+    AND?: StateReportWhereInput | StateReportWhereInput[]
+    OR?: StateReportWhereInput[]
+    NOT?: StateReportWhereInput | StateReportWhereInput[]
+    id?: StringFilter<"StateReport"> | string
+    districtId?: StringFilter<"StateReport"> | string
+    reportType?: StringFilter<"StateReport"> | string
+    period?: StringFilter<"StateReport"> | string
+    status?: StringFilter<"StateReport"> | string
+    generatedBy?: StringNullableFilter<"StateReport"> | string | null
+    fileUrl?: StringNullableFilter<"StateReport"> | string | null
+    dataSnapshot?: JsonNullableFilter<"StateReport">
+    createdAt?: DateTimeFilter<"StateReport"> | Date | string
+    updatedAt?: DateTimeFilter<"StateReport"> | Date | string
+  }
+
+  export type StateReportOrderByWithRelationInput = {
+    id?: SortOrder
+    districtId?: SortOrder
+    reportType?: SortOrder
+    period?: SortOrder
+    status?: SortOrder
+    generatedBy?: SortOrderInput | SortOrder
+    fileUrl?: SortOrderInput | SortOrder
+    dataSnapshot?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type StateReportWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: StateReportWhereInput | StateReportWhereInput[]
+    OR?: StateReportWhereInput[]
+    NOT?: StateReportWhereInput | StateReportWhereInput[]
+    districtId?: StringFilter<"StateReport"> | string
+    reportType?: StringFilter<"StateReport"> | string
+    period?: StringFilter<"StateReport"> | string
+    status?: StringFilter<"StateReport"> | string
+    generatedBy?: StringNullableFilter<"StateReport"> | string | null
+    fileUrl?: StringNullableFilter<"StateReport"> | string | null
+    dataSnapshot?: JsonNullableFilter<"StateReport">
+    createdAt?: DateTimeFilter<"StateReport"> | Date | string
+    updatedAt?: DateTimeFilter<"StateReport"> | Date | string
+  }, "id">
+
+  export type StateReportOrderByWithAggregationInput = {
+    id?: SortOrder
+    districtId?: SortOrder
+    reportType?: SortOrder
+    period?: SortOrder
+    status?: SortOrder
+    generatedBy?: SortOrderInput | SortOrder
+    fileUrl?: SortOrderInput | SortOrder
+    dataSnapshot?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: StateReportCountOrderByAggregateInput
+    _max?: StateReportMaxOrderByAggregateInput
+    _min?: StateReportMinOrderByAggregateInput
+  }
+
+  export type StateReportScalarWhereWithAggregatesInput = {
+    AND?: StateReportScalarWhereWithAggregatesInput | StateReportScalarWhereWithAggregatesInput[]
+    OR?: StateReportScalarWhereWithAggregatesInput[]
+    NOT?: StateReportScalarWhereWithAggregatesInput | StateReportScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"StateReport"> | string
+    districtId?: StringWithAggregatesFilter<"StateReport"> | string
+    reportType?: StringWithAggregatesFilter<"StateReport"> | string
+    period?: StringWithAggregatesFilter<"StateReport"> | string
+    status?: StringWithAggregatesFilter<"StateReport"> | string
+    generatedBy?: StringNullableWithAggregatesFilter<"StateReport"> | string | null
+    fileUrl?: StringNullableWithAggregatesFilter<"StateReport"> | string | null
+    dataSnapshot?: JsonNullableWithAggregatesFilter<"StateReport">
+    createdAt?: DateTimeWithAggregatesFilter<"StateReport"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"StateReport"> | Date | string
+  }
+
+  export type SkillNodeWhereInput = {
+    AND?: SkillNodeWhereInput | SkillNodeWhereInput[]
+    OR?: SkillNodeWhereInput[]
+    NOT?: SkillNodeWhereInput | SkillNodeWhereInput[]
+    id?: StringFilter<"SkillNode"> | string
+    code?: StringFilter<"SkillNode"> | string
+    name?: StringFilter<"SkillNode"> | string
+    description?: StringNullableFilter<"SkillNode"> | string | null
+    parentId?: StringNullableFilter<"SkillNode"> | string | null
+    gradeLevel?: IntNullableFilter<"SkillNode"> | number | null
+    subject?: StringFilter<"SkillNode"> | string
+    createdAt?: DateTimeFilter<"SkillNode"> | Date | string
+    parent?: XOR<SkillNodeNullableScalarRelationFilter, SkillNodeWhereInput> | null
+    children?: SkillNodeListRelationFilter
+    masteryScores?: MasteryScoreListRelationFilter
+  }
+
+  export type SkillNodeOrderByWithRelationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    parentId?: SortOrderInput | SortOrder
+    gradeLevel?: SortOrderInput | SortOrder
+    subject?: SortOrder
+    createdAt?: SortOrder
+    parent?: SkillNodeOrderByWithRelationInput
+    children?: SkillNodeOrderByRelationAggregateInput
+    masteryScores?: MasteryScoreOrderByRelationAggregateInput
+  }
+
+  export type SkillNodeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SkillNodeWhereInput | SkillNodeWhereInput[]
+    OR?: SkillNodeWhereInput[]
+    NOT?: SkillNodeWhereInput | SkillNodeWhereInput[]
+    code?: StringFilter<"SkillNode"> | string
+    name?: StringFilter<"SkillNode"> | string
+    description?: StringNullableFilter<"SkillNode"> | string | null
+    parentId?: StringNullableFilter<"SkillNode"> | string | null
+    gradeLevel?: IntNullableFilter<"SkillNode"> | number | null
+    subject?: StringFilter<"SkillNode"> | string
+    createdAt?: DateTimeFilter<"SkillNode"> | Date | string
+    parent?: XOR<SkillNodeNullableScalarRelationFilter, SkillNodeWhereInput> | null
+    children?: SkillNodeListRelationFilter
+    masteryScores?: MasteryScoreListRelationFilter
+  }, "id">
+
+  export type SkillNodeOrderByWithAggregationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    parentId?: SortOrderInput | SortOrder
+    gradeLevel?: SortOrderInput | SortOrder
+    subject?: SortOrder
+    createdAt?: SortOrder
+    _count?: SkillNodeCountOrderByAggregateInput
+    _avg?: SkillNodeAvgOrderByAggregateInput
+    _max?: SkillNodeMaxOrderByAggregateInput
+    _min?: SkillNodeMinOrderByAggregateInput
+    _sum?: SkillNodeSumOrderByAggregateInput
+  }
+
+  export type SkillNodeScalarWhereWithAggregatesInput = {
+    AND?: SkillNodeScalarWhereWithAggregatesInput | SkillNodeScalarWhereWithAggregatesInput[]
+    OR?: SkillNodeScalarWhereWithAggregatesInput[]
+    NOT?: SkillNodeScalarWhereWithAggregatesInput | SkillNodeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SkillNode"> | string
+    code?: StringWithAggregatesFilter<"SkillNode"> | string
+    name?: StringWithAggregatesFilter<"SkillNode"> | string
+    description?: StringNullableWithAggregatesFilter<"SkillNode"> | string | null
+    parentId?: StringNullableWithAggregatesFilter<"SkillNode"> | string | null
+    gradeLevel?: IntNullableWithAggregatesFilter<"SkillNode"> | number | null
+    subject?: StringWithAggregatesFilter<"SkillNode"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"SkillNode"> | Date | string
+  }
+
+  export type MasteryScoreWhereInput = {
+    AND?: MasteryScoreWhereInput | MasteryScoreWhereInput[]
+    OR?: MasteryScoreWhereInput[]
+    NOT?: MasteryScoreWhereInput | MasteryScoreWhereInput[]
+    id?: StringFilter<"MasteryScore"> | string
+    studentId?: StringFilter<"MasteryScore"> | string
+    skillNodeId?: StringFilter<"MasteryScore"> | string
+    score?: FloatFilter<"MasteryScore"> | number
+    confidence?: FloatNullableFilter<"MasteryScore"> | number | null
+    source?: StringNullableFilter<"MasteryScore"> | string | null
+    recordedAt?: DateTimeFilter<"MasteryScore"> | Date | string
+    skillNode?: XOR<SkillNodeScalarRelationFilter, SkillNodeWhereInput>
+  }
+
+  export type MasteryScoreOrderByWithRelationInput = {
+    id?: SortOrder
+    studentId?: SortOrder
+    skillNodeId?: SortOrder
+    score?: SortOrder
+    confidence?: SortOrderInput | SortOrder
+    source?: SortOrderInput | SortOrder
+    recordedAt?: SortOrder
+    skillNode?: SkillNodeOrderByWithRelationInput
+  }
+
+  export type MasteryScoreWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MasteryScoreWhereInput | MasteryScoreWhereInput[]
+    OR?: MasteryScoreWhereInput[]
+    NOT?: MasteryScoreWhereInput | MasteryScoreWhereInput[]
+    studentId?: StringFilter<"MasteryScore"> | string
+    skillNodeId?: StringFilter<"MasteryScore"> | string
+    score?: FloatFilter<"MasteryScore"> | number
+    confidence?: FloatNullableFilter<"MasteryScore"> | number | null
+    source?: StringNullableFilter<"MasteryScore"> | string | null
+    recordedAt?: DateTimeFilter<"MasteryScore"> | Date | string
+    skillNode?: XOR<SkillNodeScalarRelationFilter, SkillNodeWhereInput>
+  }, "id">
+
+  export type MasteryScoreOrderByWithAggregationInput = {
+    id?: SortOrder
+    studentId?: SortOrder
+    skillNodeId?: SortOrder
+    score?: SortOrder
+    confidence?: SortOrderInput | SortOrder
+    source?: SortOrderInput | SortOrder
+    recordedAt?: SortOrder
+    _count?: MasteryScoreCountOrderByAggregateInput
+    _avg?: MasteryScoreAvgOrderByAggregateInput
+    _max?: MasteryScoreMaxOrderByAggregateInput
+    _min?: MasteryScoreMinOrderByAggregateInput
+    _sum?: MasteryScoreSumOrderByAggregateInput
+  }
+
+  export type MasteryScoreScalarWhereWithAggregatesInput = {
+    AND?: MasteryScoreScalarWhereWithAggregatesInput | MasteryScoreScalarWhereWithAggregatesInput[]
+    OR?: MasteryScoreScalarWhereWithAggregatesInput[]
+    NOT?: MasteryScoreScalarWhereWithAggregatesInput | MasteryScoreScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MasteryScore"> | string
+    studentId?: StringWithAggregatesFilter<"MasteryScore"> | string
+    skillNodeId?: StringWithAggregatesFilter<"MasteryScore"> | string
+    score?: FloatWithAggregatesFilter<"MasteryScore"> | number
+    confidence?: FloatNullableWithAggregatesFilter<"MasteryScore"> | number | null
+    source?: StringNullableWithAggregatesFilter<"MasteryScore"> | string | null
+    recordedAt?: DateTimeWithAggregatesFilter<"MasteryScore"> | Date | string
   }
 
   export type analytics_eventsCreateInput = {
@@ -69339,6 +73356,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -69399,6 +73418,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -69453,6 +73474,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -69513,6 +73536,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -69570,6 +73595,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -69601,6 +73628,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -69635,6 +73664,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -71404,6 +75435,250 @@ export namespace Prisma {
     tag?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StateReportCreateInput = {
+    id?: string
+    districtId: string
+    reportType: string
+    period: string
+    status?: string
+    generatedBy?: string | null
+    fileUrl?: string | null
+    dataSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StateReportUncheckedCreateInput = {
+    id?: string
+    districtId: string
+    reportType: string
+    period: string
+    status?: string
+    generatedBy?: string | null
+    fileUrl?: string | null
+    dataSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StateReportUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    districtId?: StringFieldUpdateOperationsInput | string
+    reportType?: StringFieldUpdateOperationsInput | string
+    period?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    generatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    dataSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StateReportUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    districtId?: StringFieldUpdateOperationsInput | string
+    reportType?: StringFieldUpdateOperationsInput | string
+    period?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    generatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    dataSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StateReportCreateManyInput = {
+    id?: string
+    districtId: string
+    reportType: string
+    period: string
+    status?: string
+    generatedBy?: string | null
+    fileUrl?: string | null
+    dataSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StateReportUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    districtId?: StringFieldUpdateOperationsInput | string
+    reportType?: StringFieldUpdateOperationsInput | string
+    period?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    generatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    dataSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StateReportUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    districtId?: StringFieldUpdateOperationsInput | string
+    reportType?: StringFieldUpdateOperationsInput | string
+    period?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    generatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    dataSnapshot?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SkillNodeCreateInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    gradeLevel?: number | null
+    subject: string
+    createdAt?: Date | string
+    parent?: SkillNodeCreateNestedOneWithoutChildrenInput
+    children?: SkillNodeCreateNestedManyWithoutParentInput
+    masteryScores?: MasteryScoreCreateNestedManyWithoutSkillNodeInput
+  }
+
+  export type SkillNodeUncheckedCreateInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    parentId?: string | null
+    gradeLevel?: number | null
+    subject: string
+    createdAt?: Date | string
+    children?: SkillNodeUncheckedCreateNestedManyWithoutParentInput
+    masteryScores?: MasteryScoreUncheckedCreateNestedManyWithoutSkillNodeInput
+  }
+
+  export type SkillNodeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    gradeLevel?: NullableIntFieldUpdateOperationsInput | number | null
+    subject?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    parent?: SkillNodeUpdateOneWithoutChildrenNestedInput
+    children?: SkillNodeUpdateManyWithoutParentNestedInput
+    masteryScores?: MasteryScoreUpdateManyWithoutSkillNodeNestedInput
+  }
+
+  export type SkillNodeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    gradeLevel?: NullableIntFieldUpdateOperationsInput | number | null
+    subject?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    children?: SkillNodeUncheckedUpdateManyWithoutParentNestedInput
+    masteryScores?: MasteryScoreUncheckedUpdateManyWithoutSkillNodeNestedInput
+  }
+
+  export type SkillNodeCreateManyInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    parentId?: string | null
+    gradeLevel?: number | null
+    subject: string
+    createdAt?: Date | string
+  }
+
+  export type SkillNodeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    gradeLevel?: NullableIntFieldUpdateOperationsInput | number | null
+    subject?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SkillNodeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    gradeLevel?: NullableIntFieldUpdateOperationsInput | number | null
+    subject?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MasteryScoreCreateInput = {
+    id?: string
+    studentId: string
+    score: number
+    confidence?: number | null
+    source?: string | null
+    recordedAt?: Date | string
+    skillNode: SkillNodeCreateNestedOneWithoutMasteryScoresInput
+  }
+
+  export type MasteryScoreUncheckedCreateInput = {
+    id?: string
+    studentId: string
+    skillNodeId: string
+    score: number
+    confidence?: number | null
+    source?: string | null
+    recordedAt?: Date | string
+  }
+
+  export type MasteryScoreUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    skillNode?: SkillNodeUpdateOneRequiredWithoutMasteryScoresNestedInput
+  }
+
+  export type MasteryScoreUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    skillNodeId?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MasteryScoreCreateManyInput = {
+    id?: string
+    studentId: string
+    skillNodeId: string
+    score: number
+    confidence?: number | null
+    source?: string | null
+    recordedAt?: Date | string
+  }
+
+  export type MasteryScoreUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MasteryScoreUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    skillNodeId?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -73469,6 +77744,8 @@ export namespace Prisma {
     avatar_url?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     last_login?: SortOrder
     password?: SortOrder
     emailVerified?: SortOrder
@@ -73508,6 +77785,8 @@ export namespace Prisma {
     avatar_url?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     last_login?: SortOrder
     password?: SortOrder
     emailVerified?: SortOrder
@@ -73542,6 +77821,8 @@ export namespace Prisma {
     avatar_url?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     last_login?: SortOrder
     password?: SortOrder
     emailVerified?: SortOrder
@@ -74454,6 +78735,154 @@ export namespace Prisma {
 
   export type LtiLineItemSumOrderByAggregateInput = {
     scoreMaximum?: SortOrder
+  }
+
+  export type StateReportCountOrderByAggregateInput = {
+    id?: SortOrder
+    districtId?: SortOrder
+    reportType?: SortOrder
+    period?: SortOrder
+    status?: SortOrder
+    generatedBy?: SortOrder
+    fileUrl?: SortOrder
+    dataSnapshot?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type StateReportMaxOrderByAggregateInput = {
+    id?: SortOrder
+    districtId?: SortOrder
+    reportType?: SortOrder
+    period?: SortOrder
+    status?: SortOrder
+    generatedBy?: SortOrder
+    fileUrl?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type StateReportMinOrderByAggregateInput = {
+    id?: SortOrder
+    districtId?: SortOrder
+    reportType?: SortOrder
+    period?: SortOrder
+    status?: SortOrder
+    generatedBy?: SortOrder
+    fileUrl?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SkillNodeNullableScalarRelationFilter = {
+    is?: SkillNodeWhereInput | null
+    isNot?: SkillNodeWhereInput | null
+  }
+
+  export type SkillNodeListRelationFilter = {
+    every?: SkillNodeWhereInput
+    some?: SkillNodeWhereInput
+    none?: SkillNodeWhereInput
+  }
+
+  export type MasteryScoreListRelationFilter = {
+    every?: MasteryScoreWhereInput
+    some?: MasteryScoreWhereInput
+    none?: MasteryScoreWhereInput
+  }
+
+  export type SkillNodeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MasteryScoreOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SkillNodeCountOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    parentId?: SortOrder
+    gradeLevel?: SortOrder
+    subject?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SkillNodeAvgOrderByAggregateInput = {
+    gradeLevel?: SortOrder
+  }
+
+  export type SkillNodeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    parentId?: SortOrder
+    gradeLevel?: SortOrder
+    subject?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SkillNodeMinOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    parentId?: SortOrder
+    gradeLevel?: SortOrder
+    subject?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SkillNodeSumOrderByAggregateInput = {
+    gradeLevel?: SortOrder
+  }
+
+  export type SkillNodeScalarRelationFilter = {
+    is?: SkillNodeWhereInput
+    isNot?: SkillNodeWhereInput
+  }
+
+  export type MasteryScoreCountOrderByAggregateInput = {
+    id?: SortOrder
+    studentId?: SortOrder
+    skillNodeId?: SortOrder
+    score?: SortOrder
+    confidence?: SortOrder
+    source?: SortOrder
+    recordedAt?: SortOrder
+  }
+
+  export type MasteryScoreAvgOrderByAggregateInput = {
+    score?: SortOrder
+    confidence?: SortOrder
+  }
+
+  export type MasteryScoreMaxOrderByAggregateInput = {
+    id?: SortOrder
+    studentId?: SortOrder
+    skillNodeId?: SortOrder
+    score?: SortOrder
+    confidence?: SortOrder
+    source?: SortOrder
+    recordedAt?: SortOrder
+  }
+
+  export type MasteryScoreMinOrderByAggregateInput = {
+    id?: SortOrder
+    studentId?: SortOrder
+    skillNodeId?: SortOrder
+    score?: SortOrder
+    confidence?: SortOrder
+    source?: SortOrder
+    recordedAt?: SortOrder
+  }
+
+  export type MasteryScoreSumOrderByAggregateInput = {
+    score?: SortOrder
+    confidence?: SortOrder
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -77388,6 +81817,120 @@ export namespace Prisma {
     update?: XOR<XOR<LtiPlatformUpdateToOneWithWhereWithoutLineItemsInput, LtiPlatformUpdateWithoutLineItemsInput>, LtiPlatformUncheckedUpdateWithoutLineItemsInput>
   }
 
+  export type SkillNodeCreateNestedOneWithoutChildrenInput = {
+    create?: XOR<SkillNodeCreateWithoutChildrenInput, SkillNodeUncheckedCreateWithoutChildrenInput>
+    connectOrCreate?: SkillNodeCreateOrConnectWithoutChildrenInput
+    connect?: SkillNodeWhereUniqueInput
+  }
+
+  export type SkillNodeCreateNestedManyWithoutParentInput = {
+    create?: XOR<SkillNodeCreateWithoutParentInput, SkillNodeUncheckedCreateWithoutParentInput> | SkillNodeCreateWithoutParentInput[] | SkillNodeUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: SkillNodeCreateOrConnectWithoutParentInput | SkillNodeCreateOrConnectWithoutParentInput[]
+    createMany?: SkillNodeCreateManyParentInputEnvelope
+    connect?: SkillNodeWhereUniqueInput | SkillNodeWhereUniqueInput[]
+  }
+
+  export type MasteryScoreCreateNestedManyWithoutSkillNodeInput = {
+    create?: XOR<MasteryScoreCreateWithoutSkillNodeInput, MasteryScoreUncheckedCreateWithoutSkillNodeInput> | MasteryScoreCreateWithoutSkillNodeInput[] | MasteryScoreUncheckedCreateWithoutSkillNodeInput[]
+    connectOrCreate?: MasteryScoreCreateOrConnectWithoutSkillNodeInput | MasteryScoreCreateOrConnectWithoutSkillNodeInput[]
+    createMany?: MasteryScoreCreateManySkillNodeInputEnvelope
+    connect?: MasteryScoreWhereUniqueInput | MasteryScoreWhereUniqueInput[]
+  }
+
+  export type SkillNodeUncheckedCreateNestedManyWithoutParentInput = {
+    create?: XOR<SkillNodeCreateWithoutParentInput, SkillNodeUncheckedCreateWithoutParentInput> | SkillNodeCreateWithoutParentInput[] | SkillNodeUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: SkillNodeCreateOrConnectWithoutParentInput | SkillNodeCreateOrConnectWithoutParentInput[]
+    createMany?: SkillNodeCreateManyParentInputEnvelope
+    connect?: SkillNodeWhereUniqueInput | SkillNodeWhereUniqueInput[]
+  }
+
+  export type MasteryScoreUncheckedCreateNestedManyWithoutSkillNodeInput = {
+    create?: XOR<MasteryScoreCreateWithoutSkillNodeInput, MasteryScoreUncheckedCreateWithoutSkillNodeInput> | MasteryScoreCreateWithoutSkillNodeInput[] | MasteryScoreUncheckedCreateWithoutSkillNodeInput[]
+    connectOrCreate?: MasteryScoreCreateOrConnectWithoutSkillNodeInput | MasteryScoreCreateOrConnectWithoutSkillNodeInput[]
+    createMany?: MasteryScoreCreateManySkillNodeInputEnvelope
+    connect?: MasteryScoreWhereUniqueInput | MasteryScoreWhereUniqueInput[]
+  }
+
+  export type SkillNodeUpdateOneWithoutChildrenNestedInput = {
+    create?: XOR<SkillNodeCreateWithoutChildrenInput, SkillNodeUncheckedCreateWithoutChildrenInput>
+    connectOrCreate?: SkillNodeCreateOrConnectWithoutChildrenInput
+    upsert?: SkillNodeUpsertWithoutChildrenInput
+    disconnect?: SkillNodeWhereInput | boolean
+    delete?: SkillNodeWhereInput | boolean
+    connect?: SkillNodeWhereUniqueInput
+    update?: XOR<XOR<SkillNodeUpdateToOneWithWhereWithoutChildrenInput, SkillNodeUpdateWithoutChildrenInput>, SkillNodeUncheckedUpdateWithoutChildrenInput>
+  }
+
+  export type SkillNodeUpdateManyWithoutParentNestedInput = {
+    create?: XOR<SkillNodeCreateWithoutParentInput, SkillNodeUncheckedCreateWithoutParentInput> | SkillNodeCreateWithoutParentInput[] | SkillNodeUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: SkillNodeCreateOrConnectWithoutParentInput | SkillNodeCreateOrConnectWithoutParentInput[]
+    upsert?: SkillNodeUpsertWithWhereUniqueWithoutParentInput | SkillNodeUpsertWithWhereUniqueWithoutParentInput[]
+    createMany?: SkillNodeCreateManyParentInputEnvelope
+    set?: SkillNodeWhereUniqueInput | SkillNodeWhereUniqueInput[]
+    disconnect?: SkillNodeWhereUniqueInput | SkillNodeWhereUniqueInput[]
+    delete?: SkillNodeWhereUniqueInput | SkillNodeWhereUniqueInput[]
+    connect?: SkillNodeWhereUniqueInput | SkillNodeWhereUniqueInput[]
+    update?: SkillNodeUpdateWithWhereUniqueWithoutParentInput | SkillNodeUpdateWithWhereUniqueWithoutParentInput[]
+    updateMany?: SkillNodeUpdateManyWithWhereWithoutParentInput | SkillNodeUpdateManyWithWhereWithoutParentInput[]
+    deleteMany?: SkillNodeScalarWhereInput | SkillNodeScalarWhereInput[]
+  }
+
+  export type MasteryScoreUpdateManyWithoutSkillNodeNestedInput = {
+    create?: XOR<MasteryScoreCreateWithoutSkillNodeInput, MasteryScoreUncheckedCreateWithoutSkillNodeInput> | MasteryScoreCreateWithoutSkillNodeInput[] | MasteryScoreUncheckedCreateWithoutSkillNodeInput[]
+    connectOrCreate?: MasteryScoreCreateOrConnectWithoutSkillNodeInput | MasteryScoreCreateOrConnectWithoutSkillNodeInput[]
+    upsert?: MasteryScoreUpsertWithWhereUniqueWithoutSkillNodeInput | MasteryScoreUpsertWithWhereUniqueWithoutSkillNodeInput[]
+    createMany?: MasteryScoreCreateManySkillNodeInputEnvelope
+    set?: MasteryScoreWhereUniqueInput | MasteryScoreWhereUniqueInput[]
+    disconnect?: MasteryScoreWhereUniqueInput | MasteryScoreWhereUniqueInput[]
+    delete?: MasteryScoreWhereUniqueInput | MasteryScoreWhereUniqueInput[]
+    connect?: MasteryScoreWhereUniqueInput | MasteryScoreWhereUniqueInput[]
+    update?: MasteryScoreUpdateWithWhereUniqueWithoutSkillNodeInput | MasteryScoreUpdateWithWhereUniqueWithoutSkillNodeInput[]
+    updateMany?: MasteryScoreUpdateManyWithWhereWithoutSkillNodeInput | MasteryScoreUpdateManyWithWhereWithoutSkillNodeInput[]
+    deleteMany?: MasteryScoreScalarWhereInput | MasteryScoreScalarWhereInput[]
+  }
+
+  export type SkillNodeUncheckedUpdateManyWithoutParentNestedInput = {
+    create?: XOR<SkillNodeCreateWithoutParentInput, SkillNodeUncheckedCreateWithoutParentInput> | SkillNodeCreateWithoutParentInput[] | SkillNodeUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: SkillNodeCreateOrConnectWithoutParentInput | SkillNodeCreateOrConnectWithoutParentInput[]
+    upsert?: SkillNodeUpsertWithWhereUniqueWithoutParentInput | SkillNodeUpsertWithWhereUniqueWithoutParentInput[]
+    createMany?: SkillNodeCreateManyParentInputEnvelope
+    set?: SkillNodeWhereUniqueInput | SkillNodeWhereUniqueInput[]
+    disconnect?: SkillNodeWhereUniqueInput | SkillNodeWhereUniqueInput[]
+    delete?: SkillNodeWhereUniqueInput | SkillNodeWhereUniqueInput[]
+    connect?: SkillNodeWhereUniqueInput | SkillNodeWhereUniqueInput[]
+    update?: SkillNodeUpdateWithWhereUniqueWithoutParentInput | SkillNodeUpdateWithWhereUniqueWithoutParentInput[]
+    updateMany?: SkillNodeUpdateManyWithWhereWithoutParentInput | SkillNodeUpdateManyWithWhereWithoutParentInput[]
+    deleteMany?: SkillNodeScalarWhereInput | SkillNodeScalarWhereInput[]
+  }
+
+  export type MasteryScoreUncheckedUpdateManyWithoutSkillNodeNestedInput = {
+    create?: XOR<MasteryScoreCreateWithoutSkillNodeInput, MasteryScoreUncheckedCreateWithoutSkillNodeInput> | MasteryScoreCreateWithoutSkillNodeInput[] | MasteryScoreUncheckedCreateWithoutSkillNodeInput[]
+    connectOrCreate?: MasteryScoreCreateOrConnectWithoutSkillNodeInput | MasteryScoreCreateOrConnectWithoutSkillNodeInput[]
+    upsert?: MasteryScoreUpsertWithWhereUniqueWithoutSkillNodeInput | MasteryScoreUpsertWithWhereUniqueWithoutSkillNodeInput[]
+    createMany?: MasteryScoreCreateManySkillNodeInputEnvelope
+    set?: MasteryScoreWhereUniqueInput | MasteryScoreWhereUniqueInput[]
+    disconnect?: MasteryScoreWhereUniqueInput | MasteryScoreWhereUniqueInput[]
+    delete?: MasteryScoreWhereUniqueInput | MasteryScoreWhereUniqueInput[]
+    connect?: MasteryScoreWhereUniqueInput | MasteryScoreWhereUniqueInput[]
+    update?: MasteryScoreUpdateWithWhereUniqueWithoutSkillNodeInput | MasteryScoreUpdateWithWhereUniqueWithoutSkillNodeInput[]
+    updateMany?: MasteryScoreUpdateManyWithWhereWithoutSkillNodeInput | MasteryScoreUpdateManyWithWhereWithoutSkillNodeInput[]
+    deleteMany?: MasteryScoreScalarWhereInput | MasteryScoreScalarWhereInput[]
+  }
+
+  export type SkillNodeCreateNestedOneWithoutMasteryScoresInput = {
+    create?: XOR<SkillNodeCreateWithoutMasteryScoresInput, SkillNodeUncheckedCreateWithoutMasteryScoresInput>
+    connectOrCreate?: SkillNodeCreateOrConnectWithoutMasteryScoresInput
+    connect?: SkillNodeWhereUniqueInput
+  }
+
+  export type SkillNodeUpdateOneRequiredWithoutMasteryScoresNestedInput = {
+    create?: XOR<SkillNodeCreateWithoutMasteryScoresInput, SkillNodeUncheckedCreateWithoutMasteryScoresInput>
+    connectOrCreate?: SkillNodeCreateOrConnectWithoutMasteryScoresInput
+    upsert?: SkillNodeUpsertWithoutMasteryScoresInput
+    connect?: SkillNodeWhereUniqueInput
+    update?: XOR<XOR<SkillNodeUpdateToOneWithWhereWithoutMasteryScoresInput, SkillNodeUpdateWithoutMasteryScoresInput>, SkillNodeUncheckedUpdateWithoutMasteryScoresInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -77826,6 +82369,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -77885,6 +82430,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -78001,6 +82548,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -78060,6 +82609,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -78142,6 +82693,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -78201,6 +82754,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -78385,6 +82940,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -78444,6 +83001,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -78757,6 +83316,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -78816,6 +83377,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -78936,6 +83499,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -78995,6 +83560,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -79370,6 +83937,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -79429,6 +83998,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -79581,6 +84152,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -79640,6 +84213,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -79709,6 +84284,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -79768,6 +84345,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -79861,6 +84440,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -79920,6 +84501,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -80000,6 +84583,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -80059,6 +84644,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -80128,6 +84715,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -80187,6 +84776,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -80480,6 +85071,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -80539,6 +85132,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -80649,6 +85244,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -80708,6 +85305,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -80761,6 +85360,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -80820,6 +85421,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -80889,6 +85492,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -80948,6 +85553,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -81083,6 +85690,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -81142,6 +85751,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -81305,6 +85916,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -81364,6 +85977,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -81417,6 +86032,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -81475,6 +86092,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -81561,6 +86180,8 @@ export namespace Prisma {
     avatar_url?: StringNullableFilter<"User"> | string | null
     created_at?: DateTimeFilter<"User"> | Date | string
     updated_at?: DateTimeFilter<"User"> | Date | string
+    createdAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    updatedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     last_login?: DateTimeNullableFilter<"User"> | Date | string | null
     password?: StringNullableFilter<"User"> | string | null
     emailVerified?: BoolFilter<"User"> | boolean
@@ -81637,6 +86258,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -81696,6 +86319,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -81816,6 +86441,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -81875,6 +86502,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -81960,6 +86589,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -82019,6 +86650,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -82119,6 +86752,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -82177,6 +86812,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -82375,6 +87012,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -82434,6 +87073,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -82610,6 +87251,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -82669,6 +87312,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -82738,6 +87383,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -82797,6 +87444,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -82891,6 +87540,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -82950,6 +87601,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -83066,6 +87719,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -83125,6 +87780,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -83178,6 +87835,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -83237,6 +87896,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -83306,6 +87967,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -83365,6 +88028,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -83418,6 +88083,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -83476,6 +88143,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -83650,6 +88319,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -83709,6 +88380,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -83808,6 +88481,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -83867,6 +88542,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -83920,6 +88597,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -83979,6 +88658,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -84048,6 +88729,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -84107,6 +88790,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -85875,6 +90560,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -85934,6 +90621,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -86003,6 +90692,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -86062,6 +90753,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -86115,6 +90808,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -86174,6 +90869,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -86243,6 +90940,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -86302,6 +91001,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -86467,6 +91168,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -86526,6 +91229,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -86643,6 +91348,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -86702,6 +91409,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -86864,6 +91573,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -86923,6 +91634,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -87193,6 +91906,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -87252,6 +91967,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -87540,6 +92257,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -87599,6 +92318,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -87719,6 +92440,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -87778,6 +92501,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -87939,6 +92664,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -87998,6 +92725,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -88124,6 +92853,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -88183,6 +92914,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -88511,6 +93244,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -88570,6 +93305,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -88690,6 +93427,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -88749,6 +93488,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -88967,6 +93708,255 @@ export namespace Prisma {
     authLoginUrl?: StringFieldUpdateOperationsInput | string
     registeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type SkillNodeCreateWithoutChildrenInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    gradeLevel?: number | null
+    subject: string
+    createdAt?: Date | string
+    parent?: SkillNodeCreateNestedOneWithoutChildrenInput
+    masteryScores?: MasteryScoreCreateNestedManyWithoutSkillNodeInput
+  }
+
+  export type SkillNodeUncheckedCreateWithoutChildrenInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    parentId?: string | null
+    gradeLevel?: number | null
+    subject: string
+    createdAt?: Date | string
+    masteryScores?: MasteryScoreUncheckedCreateNestedManyWithoutSkillNodeInput
+  }
+
+  export type SkillNodeCreateOrConnectWithoutChildrenInput = {
+    where: SkillNodeWhereUniqueInput
+    create: XOR<SkillNodeCreateWithoutChildrenInput, SkillNodeUncheckedCreateWithoutChildrenInput>
+  }
+
+  export type SkillNodeCreateWithoutParentInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    gradeLevel?: number | null
+    subject: string
+    createdAt?: Date | string
+    children?: SkillNodeCreateNestedManyWithoutParentInput
+    masteryScores?: MasteryScoreCreateNestedManyWithoutSkillNodeInput
+  }
+
+  export type SkillNodeUncheckedCreateWithoutParentInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    gradeLevel?: number | null
+    subject: string
+    createdAt?: Date | string
+    children?: SkillNodeUncheckedCreateNestedManyWithoutParentInput
+    masteryScores?: MasteryScoreUncheckedCreateNestedManyWithoutSkillNodeInput
+  }
+
+  export type SkillNodeCreateOrConnectWithoutParentInput = {
+    where: SkillNodeWhereUniqueInput
+    create: XOR<SkillNodeCreateWithoutParentInput, SkillNodeUncheckedCreateWithoutParentInput>
+  }
+
+  export type SkillNodeCreateManyParentInputEnvelope = {
+    data: SkillNodeCreateManyParentInput | SkillNodeCreateManyParentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MasteryScoreCreateWithoutSkillNodeInput = {
+    id?: string
+    studentId: string
+    score: number
+    confidence?: number | null
+    source?: string | null
+    recordedAt?: Date | string
+  }
+
+  export type MasteryScoreUncheckedCreateWithoutSkillNodeInput = {
+    id?: string
+    studentId: string
+    score: number
+    confidence?: number | null
+    source?: string | null
+    recordedAt?: Date | string
+  }
+
+  export type MasteryScoreCreateOrConnectWithoutSkillNodeInput = {
+    where: MasteryScoreWhereUniqueInput
+    create: XOR<MasteryScoreCreateWithoutSkillNodeInput, MasteryScoreUncheckedCreateWithoutSkillNodeInput>
+  }
+
+  export type MasteryScoreCreateManySkillNodeInputEnvelope = {
+    data: MasteryScoreCreateManySkillNodeInput | MasteryScoreCreateManySkillNodeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SkillNodeUpsertWithoutChildrenInput = {
+    update: XOR<SkillNodeUpdateWithoutChildrenInput, SkillNodeUncheckedUpdateWithoutChildrenInput>
+    create: XOR<SkillNodeCreateWithoutChildrenInput, SkillNodeUncheckedCreateWithoutChildrenInput>
+    where?: SkillNodeWhereInput
+  }
+
+  export type SkillNodeUpdateToOneWithWhereWithoutChildrenInput = {
+    where?: SkillNodeWhereInput
+    data: XOR<SkillNodeUpdateWithoutChildrenInput, SkillNodeUncheckedUpdateWithoutChildrenInput>
+  }
+
+  export type SkillNodeUpdateWithoutChildrenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    gradeLevel?: NullableIntFieldUpdateOperationsInput | number | null
+    subject?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    parent?: SkillNodeUpdateOneWithoutChildrenNestedInput
+    masteryScores?: MasteryScoreUpdateManyWithoutSkillNodeNestedInput
+  }
+
+  export type SkillNodeUncheckedUpdateWithoutChildrenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    gradeLevel?: NullableIntFieldUpdateOperationsInput | number | null
+    subject?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    masteryScores?: MasteryScoreUncheckedUpdateManyWithoutSkillNodeNestedInput
+  }
+
+  export type SkillNodeUpsertWithWhereUniqueWithoutParentInput = {
+    where: SkillNodeWhereUniqueInput
+    update: XOR<SkillNodeUpdateWithoutParentInput, SkillNodeUncheckedUpdateWithoutParentInput>
+    create: XOR<SkillNodeCreateWithoutParentInput, SkillNodeUncheckedCreateWithoutParentInput>
+  }
+
+  export type SkillNodeUpdateWithWhereUniqueWithoutParentInput = {
+    where: SkillNodeWhereUniqueInput
+    data: XOR<SkillNodeUpdateWithoutParentInput, SkillNodeUncheckedUpdateWithoutParentInput>
+  }
+
+  export type SkillNodeUpdateManyWithWhereWithoutParentInput = {
+    where: SkillNodeScalarWhereInput
+    data: XOR<SkillNodeUpdateManyMutationInput, SkillNodeUncheckedUpdateManyWithoutParentInput>
+  }
+
+  export type SkillNodeScalarWhereInput = {
+    AND?: SkillNodeScalarWhereInput | SkillNodeScalarWhereInput[]
+    OR?: SkillNodeScalarWhereInput[]
+    NOT?: SkillNodeScalarWhereInput | SkillNodeScalarWhereInput[]
+    id?: StringFilter<"SkillNode"> | string
+    code?: StringFilter<"SkillNode"> | string
+    name?: StringFilter<"SkillNode"> | string
+    description?: StringNullableFilter<"SkillNode"> | string | null
+    parentId?: StringNullableFilter<"SkillNode"> | string | null
+    gradeLevel?: IntNullableFilter<"SkillNode"> | number | null
+    subject?: StringFilter<"SkillNode"> | string
+    createdAt?: DateTimeFilter<"SkillNode"> | Date | string
+  }
+
+  export type MasteryScoreUpsertWithWhereUniqueWithoutSkillNodeInput = {
+    where: MasteryScoreWhereUniqueInput
+    update: XOR<MasteryScoreUpdateWithoutSkillNodeInput, MasteryScoreUncheckedUpdateWithoutSkillNodeInput>
+    create: XOR<MasteryScoreCreateWithoutSkillNodeInput, MasteryScoreUncheckedCreateWithoutSkillNodeInput>
+  }
+
+  export type MasteryScoreUpdateWithWhereUniqueWithoutSkillNodeInput = {
+    where: MasteryScoreWhereUniqueInput
+    data: XOR<MasteryScoreUpdateWithoutSkillNodeInput, MasteryScoreUncheckedUpdateWithoutSkillNodeInput>
+  }
+
+  export type MasteryScoreUpdateManyWithWhereWithoutSkillNodeInput = {
+    where: MasteryScoreScalarWhereInput
+    data: XOR<MasteryScoreUpdateManyMutationInput, MasteryScoreUncheckedUpdateManyWithoutSkillNodeInput>
+  }
+
+  export type MasteryScoreScalarWhereInput = {
+    AND?: MasteryScoreScalarWhereInput | MasteryScoreScalarWhereInput[]
+    OR?: MasteryScoreScalarWhereInput[]
+    NOT?: MasteryScoreScalarWhereInput | MasteryScoreScalarWhereInput[]
+    id?: StringFilter<"MasteryScore"> | string
+    studentId?: StringFilter<"MasteryScore"> | string
+    skillNodeId?: StringFilter<"MasteryScore"> | string
+    score?: FloatFilter<"MasteryScore"> | number
+    confidence?: FloatNullableFilter<"MasteryScore"> | number | null
+    source?: StringNullableFilter<"MasteryScore"> | string | null
+    recordedAt?: DateTimeFilter<"MasteryScore"> | Date | string
+  }
+
+  export type SkillNodeCreateWithoutMasteryScoresInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    gradeLevel?: number | null
+    subject: string
+    createdAt?: Date | string
+    parent?: SkillNodeCreateNestedOneWithoutChildrenInput
+    children?: SkillNodeCreateNestedManyWithoutParentInput
+  }
+
+  export type SkillNodeUncheckedCreateWithoutMasteryScoresInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    parentId?: string | null
+    gradeLevel?: number | null
+    subject: string
+    createdAt?: Date | string
+    children?: SkillNodeUncheckedCreateNestedManyWithoutParentInput
+  }
+
+  export type SkillNodeCreateOrConnectWithoutMasteryScoresInput = {
+    where: SkillNodeWhereUniqueInput
+    create: XOR<SkillNodeCreateWithoutMasteryScoresInput, SkillNodeUncheckedCreateWithoutMasteryScoresInput>
+  }
+
+  export type SkillNodeUpsertWithoutMasteryScoresInput = {
+    update: XOR<SkillNodeUpdateWithoutMasteryScoresInput, SkillNodeUncheckedUpdateWithoutMasteryScoresInput>
+    create: XOR<SkillNodeCreateWithoutMasteryScoresInput, SkillNodeUncheckedCreateWithoutMasteryScoresInput>
+    where?: SkillNodeWhereInput
+  }
+
+  export type SkillNodeUpdateToOneWithWhereWithoutMasteryScoresInput = {
+    where?: SkillNodeWhereInput
+    data: XOR<SkillNodeUpdateWithoutMasteryScoresInput, SkillNodeUncheckedUpdateWithoutMasteryScoresInput>
+  }
+
+  export type SkillNodeUpdateWithoutMasteryScoresInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    gradeLevel?: NullableIntFieldUpdateOperationsInput | number | null
+    subject?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    parent?: SkillNodeUpdateOneWithoutChildrenNestedInput
+    children?: SkillNodeUpdateManyWithoutParentNestedInput
+  }
+
+  export type SkillNodeUncheckedUpdateWithoutMasteryScoresInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    gradeLevel?: NullableIntFieldUpdateOperationsInput | number | null
+    subject?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    children?: SkillNodeUncheckedUpdateManyWithoutParentNestedInput
   }
 
   export type conversation_messagesCreateManyAvatar_sessionsInput = {
@@ -89579,6 +94569,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -89610,6 +94602,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -89668,6 +94662,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -89724,6 +94720,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -89784,6 +94782,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -89927,6 +94927,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -89985,6 +94987,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -90041,6 +95045,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -90177,6 +95183,8 @@ export namespace Prisma {
     avatar_url?: string | null
     created_at?: Date | string
     updated_at: Date | string
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     last_login?: Date | string | null
     password?: string | null
     emailVerified?: boolean
@@ -90208,6 +95216,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -90266,6 +95276,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -90322,6 +95334,8 @@ export namespace Prisma {
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -91963,6 +96977,86 @@ export namespace Prisma {
     tag?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SkillNodeCreateManyParentInput = {
+    id?: string
+    code: string
+    name: string
+    description?: string | null
+    gradeLevel?: number | null
+    subject: string
+    createdAt?: Date | string
+  }
+
+  export type MasteryScoreCreateManySkillNodeInput = {
+    id?: string
+    studentId: string
+    score: number
+    confidence?: number | null
+    source?: string | null
+    recordedAt?: Date | string
+  }
+
+  export type SkillNodeUpdateWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    gradeLevel?: NullableIntFieldUpdateOperationsInput | number | null
+    subject?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    children?: SkillNodeUpdateManyWithoutParentNestedInput
+    masteryScores?: MasteryScoreUpdateManyWithoutSkillNodeNestedInput
+  }
+
+  export type SkillNodeUncheckedUpdateWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    gradeLevel?: NullableIntFieldUpdateOperationsInput | number | null
+    subject?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    children?: SkillNodeUncheckedUpdateManyWithoutParentNestedInput
+    masteryScores?: MasteryScoreUncheckedUpdateManyWithoutSkillNodeNestedInput
+  }
+
+  export type SkillNodeUncheckedUpdateManyWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    gradeLevel?: NullableIntFieldUpdateOperationsInput | number | null
+    subject?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MasteryScoreUpdateWithoutSkillNodeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MasteryScoreUncheckedUpdateWithoutSkillNodeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MasteryScoreUncheckedUpdateManyWithoutSkillNodeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

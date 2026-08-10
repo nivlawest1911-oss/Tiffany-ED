@@ -2,8 +2,7 @@
 
 import React, { useState } from 'react';
 import { 
-  DollarSign, Zap, Shield, TrendingUp, Play, CheckCircle, 
-  ArrowRight, Database 
+  DollarSign, Zap, Play, CheckCircle 
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';

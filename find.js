@@ -1,0 +1,1 @@
+const fs = require('fs'); const p = require('path'); function walk(d) { fs.readdirSync(d).forEach(f => { let cur = p.join(d, f); if (fs.statSync(cur).isDirectory()) { if (!cur.includes('node_modules') && !cur.includes('.next')) walk(cur); } else if (cur.endsWith('.tsx') || cur.endsWith('.ts')) { let c = fs.readFileSync(cur, 'utf8'); if (c.includes('alert(') || c.includes('href=\

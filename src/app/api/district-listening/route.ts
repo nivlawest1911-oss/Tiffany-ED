@@ -48,7 +48,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const session = await getSession();
-    let user: any = session?.user;
+    const user: any = session?.user;
 
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized administrative operation' }, { status: 401 });

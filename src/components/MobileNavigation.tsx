@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
@@ -41,7 +41,7 @@ export default function MobileNavigation() {
     const menuItems = [
         { label: 'Sovereign Room', icon: GraduationCap, link: '/the-room' },
         { label: 'Enterprise & Pricing', icon: CreditCard, link: '/pricing' },
-        { label: 'Sovereign Protocol', icon: Shield, link: '/generators' },
+        { label: 'Sovereign Protocol', icon: Shield, link: '/generator/lesson' },
         { label: 'Settings', icon: Settings, link: '/settings' },
     ];
 

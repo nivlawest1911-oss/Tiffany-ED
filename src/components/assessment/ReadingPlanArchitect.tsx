@@ -2,12 +2,9 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  FileText, Sparkles, Brain, CheckCircle2, X, AlertTriangle, 
-  Calendar, Check, UserCheck, Plus, BookOpen, AlertCircle, Save
+import { X, AlertTriangle, Check, Plus, BookOpen, Save
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';

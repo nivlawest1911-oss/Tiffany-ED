@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { motion } from 'framer-motion';
 import { Shield, Activity, Cpu, Users, Globe } from 'lucide-react';
@@ -16,6 +16,7 @@ import { GlobalDirectiveBroadcast } from '@/components/admin/GlobalDirectiveBroa
 import { RedlineMonitor } from '@/components/admin/RedlineMonitor';
 import { EthicalTuningConsole } from '@/components/admin/EthicalTuningConsole';
 import { SafetyOverrideLog } from '@/components/admin/SafetyOverrideLog';
+import EwsNeedsAttention from '@/components/command/EwsNeedsAttention';
 
 export default function CommandPage() {
     return (
@@ -79,6 +80,11 @@ export default function CommandPage() {
                         </div>
                     </GlassCard>
                 ))}
+            </div>
+
+            {/* EWS Needs Attention */}
+            <div className="relative z-10 mb-10 max-w-5xl">
+                <EwsNeedsAttention />
             </div>
 
             {/* Main Operational Grid */}

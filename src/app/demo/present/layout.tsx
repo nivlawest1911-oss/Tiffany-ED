@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { 
-  LayoutDashboard, Users, TrendingUp, BookOpen, ShieldCheck, LogOut, Target, Layers, Award, Scale, Microscope, AppWindow, Globe, DollarSign, Zap, Briefcase, CreditCard, Database, Rocket, Brain
+  LayoutDashboard, Users, TrendingUp, BookOpen, ShieldCheck, LogOut, Target, Layers, Award, Scale, Microscope, Globe, DollarSign, Zap, Rocket, Brain
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useExitDemo } from '@/hooks/useExitDemo';

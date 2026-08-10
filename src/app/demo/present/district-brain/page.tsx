@@ -2,8 +2,7 @@
 
 import React, { useState } from 'react';
 import { 
-  Brain, Shield, Database, TrendingUp, Award, Globe, Zap, 
-  Play, CheckCircle, AlertTriangle, Calendar, FileText, BarChart3, DollarSign 
+  Brain, Shield, Globe, CheckCircle, FileText, BarChart3, DollarSign 
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';

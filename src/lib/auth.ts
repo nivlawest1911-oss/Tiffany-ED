@@ -6,11 +6,24 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./prisma";
 import { nextCookies } from "better-auth/next-js";
 
+const productionBaseURL = "https://edintelai.vercel.app";
+const baseURL =
+    process.env.BETTER_AUTH_URL ||
+    process.env.NEXT_PUBLIC_BETTER_AUTH_URL ||
+    (process.env.NODE_ENV === "production" ? productionBaseURL : "http://localhost:3000");
+
 export const auth = betterAuth({
     database: (process.env.DATABASE_URL || process.env.POSTGRES_PRISMA_URL || process.env.POSTGRES_URL) ? prismaAdapter(prisma, {
         provider: "postgresql",
     }) : undefined,
     secret: process.env.BETTER_AUTH_SECRET || "SOVEREIGN_OVAL_2027_FALLBACK_SECRET_FOR_BUILD",
+    baseURL,
+    trustedOrigins: [
+        baseURL,
+        productionBaseURL,
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ].filter((origin, index, list) => Boolean(origin) && list.indexOf(origin) === index),
     user: {
         additionalFields: {
             clerk_id: { type: "string", required: false },
@@ -44,13 +57,9 @@ export const auth = betterAuth({
     },
     socialProviders: {
         google: {
-            clientId: process.env.GOOGLE_CLIENT_ID as string,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+            clientId: (process.env.GOOGLE_CLIENT_ID || "").trim(),
+            clientSecret: (process.env.GOOGLE_CLIENT_SECRET || "").trim(),
         },
-        // facebook: {
-        //     clientId: process.env.FACEBOOK_CLIENT_ID as string,
-        //     clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
-        // },
     },
     onError: (error: any, request: any) => {
         console.error("Auth Error:", error);
@@ -101,12 +110,11 @@ export const auth = betterAuth({
                     }
                 }
             }
-            // Social Login Audit Hook
-            if ((ctx as any).path?.includes("callback/google") || (ctx as any).path?.includes("callback/facebook")) {
+            // Social Login Audit Hook (Google only)
+            if ((ctx as any).path?.includes("callback/google")) {
                 const session = (ctx as any).context?.newSession;
                 if (session) {
                     const { user } = session;
-                    const provider = (ctx as any).path?.includes("google") ? "google" : "facebook";
                     const request = (ctx as any).context?.request;
                     const ip = request?.headers?.get('x-forwarded-for') || request?.headers?.get('x-real-ip') || 'unknown';
                     const userAgent = request?.headers?.get('user-agent') || 'unknown';
@@ -116,7 +124,7 @@ export const auth = betterAuth({
                         await logSocialLoginSuccess({
                             userId: user.id,
                             email: user.email,
-                            provider: provider as 'google' | 'facebook',
+                            provider: "google",
                             ip,
                             userAgent
                         });
@@ -158,7 +166,7 @@ export async function logout() {
     });
 }
 
-export async function loginWithSocial(provider: 'google' | 'facebook', callbackUrl?: string) {
+export async function loginWithSocial(provider: 'google' = 'google', callbackUrl?: string) {
     return await auth.api.signInSocial({
         body: {
             provider,

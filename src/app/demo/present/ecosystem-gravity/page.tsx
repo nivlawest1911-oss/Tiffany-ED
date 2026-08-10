@@ -2,12 +2,10 @@
 
 import React, { useState } from 'react';
 import { 
-  Globe, Database, Award, TrendingUp, Users, Shield, 
-  Play, CheckCircle, ArrowRight, Zap 
+  Globe, Database, Award, TrendingUp, Users, Shield, CheckCircle, Zap 
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 
 export default function EcosystemGravity() {
   const [showToast, setShowToast] = useState(false);

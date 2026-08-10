@@ -58,3 +58,7 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# local ops scratch (secrets, one-off scripts)
+scratch/
+

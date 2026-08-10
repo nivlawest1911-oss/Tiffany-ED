@@ -505,6 +505,8 @@ exports.Prisma.UserScalarFieldEnum = {
   avatar_url: 'avatar_url',
   created_at: 'created_at',
   updated_at: 'updated_at',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
   last_login: 'last_login',
   password: 'password',
   emailVerified: 'emailVerified',
@@ -762,6 +764,40 @@ exports.Prisma.LtiLineItemScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.StateReportScalarFieldEnum = {
+  id: 'id',
+  districtId: 'districtId',
+  reportType: 'reportType',
+  period: 'period',
+  status: 'status',
+  generatedBy: 'generatedBy',
+  fileUrl: 'fileUrl',
+  dataSnapshot: 'dataSnapshot',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SkillNodeScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name',
+  description: 'description',
+  parentId: 'parentId',
+  gradeLevel: 'gradeLevel',
+  subject: 'subject',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.MasteryScoreScalarFieldEnum = {
+  id: 'id',
+  studentId: 'studentId',
+  skillNodeId: 'skillNodeId',
+  score: 'score',
+  confidence: 'confidence',
+  source: 'source',
+  recordedAt: 'recordedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -848,7 +884,10 @@ exports.Prisma.ModelName = {
   AuditLog: 'AuditLog',
   EducatorAIInteraction: 'EducatorAIInteraction',
   LtiPlatform: 'LtiPlatform',
-  LtiLineItem: 'LtiLineItem'
+  LtiLineItem: 'LtiLineItem',
+  StateReport: 'StateReport',
+  SkillNode: 'SkillNode',
+  MasteryScore: 'MasteryScore'
 };
 
 /**

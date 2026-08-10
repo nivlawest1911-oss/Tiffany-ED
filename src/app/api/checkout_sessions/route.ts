@@ -1,4 +1,4 @@
-﻿import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
 // Lazy initialization to avoid build-time crashes when STRIPE_SECRET_KEY is absent
@@ -13,6 +13,12 @@ function getStripe() {
 
 export async function POST(req: Request) {
     try {
+        const { checkBotId } = require('botid/server');
+        const verification = await checkBotId();
+        if (verification.isBot) {
+            return NextResponse.json({ error: 'Access denied' }, { status: 403 });
+        }
+        
         const { orgId, tokenAmount, priceInCents, tierName } = await req.json();
 
         if (!priceInCents || priceInCents < 50) {

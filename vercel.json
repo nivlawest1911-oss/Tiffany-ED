@@ -1,17 +1,8 @@
 {
-    "installCommand": "npm install",
-    "buildCommand": "npm run build",
-    "build": {
-        "env": {
-            "NEXT_PRIVATE_SKIP_TURBOPACK": "1",
-            "TZ": "America/Chicago",
-            "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_test_c2VjdXJlLW1lZXJrYXQtOTAuY2xlcmsuYWNjb3VudHMuZGV2JA"
-        }
-    },
-    "crons": [
-        {
-            "path": "/api/cron/expire-trials",
-            "schedule": "0 6 * * *"
-        }
-    ]
+  "crons": [
+    {
+      "path": "/api/cron/resilience-monitor",
+      "schedule": "0 6 * * *"
+    }
+  ]
 }

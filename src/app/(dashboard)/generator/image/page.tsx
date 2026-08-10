@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -14,7 +14,8 @@ import {
 import Image from 'next/image';
 import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import GlassPanel from '@/components/ui/GlassPanel';
 import { toast } from 'sonner';
 import { HolographicBackground } from '@/components/holographic/HolographicBackground';
 import { generateImageFromPrompt } from '@/lib/gemini-service';
@@ -104,7 +105,7 @@ export default function ImageGeneratorPage() {
                         animate={{ opacity: 1, x: 0 }}
                         className="lg:col-span-5 space-y-6"
                     >
-                        <Card className="bg-zinc-900/40 backdrop-blur-xl border-white/5 overflow-hidden">
+                        <GlassPanel className="border-white/5 overflow-hidden">
                             <CardHeader className="border-b border-white/5 bg-white/[0.02]">
                                 <CardTitle className="text-white text-lg flex items-center gap-2">
                                     <Sparkles className="w-4 h-4 text-cyan-400" />
@@ -167,7 +168,7 @@ export default function ImageGeneratorPage() {
                                     {isGenerating ? 'Synthesizing...' : 'Initialize Generation'}
                                 </Button>
                             </CardContent>
-                        </Card>
+                        </GlassPanel>
                     </motion.div>
 
                     {/* Preview Area */}

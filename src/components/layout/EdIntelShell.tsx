@@ -21,6 +21,7 @@ import { useIntelligence } from '@/context/IntelligenceContext';
 import { usePathname } from 'next/navigation';
 import { EdIntelCommandCenter } from './EdIntelCommandCenter';
 import NeuralBackground from '../ui/NeuralBackground';
+import { useAuth } from '@/context/AuthContext';
 
 interface CoreTool {
     id: string;
@@ -35,6 +36,7 @@ import { initiateBioAuth } from '@/app/auth/actions';
 export default function EdIntelShell({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const { isHudExpanded, setIsHudExpanded } = useIntelligence();
+    const { user } = useAuth();
 
     const isMarketingRoute = ['/', '/signup', '/login', '/about', '/pricing', '/contact', '/whats-edintel', '/enterprise'].includes(pathname);
 
@@ -140,8 +142,8 @@ export default function EdIntelShell({ children }: { children: React.ReactNode }
 
                             <div className="w-10 h-10 rounded-full bg-zinc-900 border border-white/10 overflow-hidden group-hover:border-intel-gold/40 transition-colors relative">
                                 <Image
-                                    src="/images/keisha_reynolds_avatar_1768666809673.png"
-                                    alt="District Administrator Avatar"
+                                    src={user?.avatar_url || "/images/keisha_reynolds_avatar_1768666809673.png"}
+                                    alt={user?.name || "District Administrator Avatar"}
                                     fill
                                     className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
                                 />

@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Shield, Activity, Wifi, Zap, Lock, Command, Video, Network, Terminal } from 'lucide-react';
 import useProfessionalSounds from '@/hooks/useProfessionalSounds';
 import { useHumanBehavior } from '@/hooks/useHumanBehavior';
-import AbilityAnimation from '@/components/shared/AbilityAnimation';
 import AIAgentAvatar from '@/components/shared/AIAgentAvatar';
 
 interface Agent {

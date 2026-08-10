@@ -2,8 +2,9 @@
 
 import { useEffect } from 'react'
 import Link from 'next/link'
+import * as Sentry from '@sentry/nextjs'
 
-// Minimal error page with NO external dependencies to prevent cascade failures
+// Keep this page dependency-light; Sentry is already loaded via instrumentation-client.
 export default function GlobalError({
     error,
     reset,
@@ -12,8 +13,8 @@ export default function GlobalError({
     reset: () => void
 }) {
     useEffect(() => {
-        // Log error to console for debugging
         console.error('[GlobalError] Critical error occurred:', error)
+        Sentry.captureException(error)
     }, [error])
 
     return (

@@ -2,20 +2,16 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  BarChart3, Globe, ShieldAlert, Sparkles, TrendingUp, Cpu, 
-  HelpCircle, Info, RefreshCw, FileText, ArrowRight, Download,
-  CheckCircle2, AlertTriangle, Play, BookOpen, Settings, School, Zap,
+import { TrendingUp, Cpu, RefreshCw, FileText, School, Zap,
   X, Loader2
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
 import { 
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, 
-  Legend, ResponsiveContainer, PieChart, Pie, Cell, BarChart, Bar 
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell 
 } from 'recharts';
 
 // Preloaded mock district snapshots

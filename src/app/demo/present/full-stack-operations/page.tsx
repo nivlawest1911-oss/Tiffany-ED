@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { 
-  Zap, DollarSign, Shield, TrendingUp, Play, CheckCircle, 
+  Zap, Play, CheckCircle, 
   AlertTriangle, Database, Rocket 
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';

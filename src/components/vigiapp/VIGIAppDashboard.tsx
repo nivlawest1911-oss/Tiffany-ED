@@ -4,13 +4,12 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Server, Thermometer, Battery, Wifi, AlertTriangle, Shield, 
-  Activity, Zap, Radio, CheckCircle2, RefreshCw, X, Play, Clock,
-  Cpu, Power, HelpCircle, AlertCircle, ShieldCheck
+  Activity, Zap, RefreshCw, X, ShieldCheck
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
 
 interface Device {
@@ -55,7 +54,7 @@ export function VIGIAppDashboard() {
       setDevices(prev => prev.map(device => {
         if (device.status !== "normal") return device;
         
-        let update: any = { ...device };
+        const update: any = { ...device };
         if (device.temp !== undefined) update.temp = Math.max(15, Math.min(45, device.temp + (Math.random() > 0.5 ? 1 : -1)));
         if (device.load !== undefined) update.load = Math.max(10, Math.min(95, device.load + (Math.random() > 0.5 ? 2 : -2)));
         if (device.battery !== undefined) update.battery = Math.max(0, Math.min(100, device.battery - (Math.random() > 0.8 ? 1 : 0)));

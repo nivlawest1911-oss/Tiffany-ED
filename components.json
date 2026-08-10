@@ -9,8 +9,12 @@
     "baseColor": "gray",
     "cssVariables": true
   },
+  "iconLibrary": "lucide",
   "aliases": {
-    "utils": "@/lib/utils",
-    "components": "@/components"
+    "components": "@/components",
+    "utils": "@/lib/utils"
+  },
+  "registries": {
+    "@supabase": "https://supabase.com/ui/r/{name}.json"
   }
 }

@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import { motion } from 'framer-motion';
@@ -24,8 +24,8 @@ export default function LiquidDock() {
 
     const navItems = [
         { name: 'Sovereign Room', href: '/the-room', icon: LayoutDashboard },
-        { name: 'Protocol Registry', href: '/generators', icon: Bot },
-        { name: 'Visual Lab', href: '/video-studio', icon: Palette },
+        { name: 'Protocol Registry', href: '/generator/lesson', icon: Bot },
+        { name: 'Visual Lab', href: '/tiffany-ed', icon: Palette },
         { name: 'Admin Shield', href: '/admin', icon: Shield },
         { name: 'Settings', href: '/settings', icon: Settings },
     ];

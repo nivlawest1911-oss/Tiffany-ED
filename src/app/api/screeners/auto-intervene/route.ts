@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
-import { screenerService } from '@/lib/screener-service';
 import { prisma } from '@/lib/prisma';
 import { differentiationEngine } from '@/lib/differentiation-engine';
 

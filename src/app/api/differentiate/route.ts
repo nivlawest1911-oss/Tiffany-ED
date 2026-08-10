@@ -117,6 +117,28 @@ export async function POST(request: NextRequest) {
       } catch (importErr) {
         console.error("[AuditLog] Failed to import interaction logger for differentiation:", importErr);
       }
+
+      // Time reclamation — never block the response
+      try {
+        const { prisma } = await import('@/lib/prisma');
+        const { minutesForAction } = await import('@/lib/analytics/time-saved');
+        prisma.time_saved_events
+          .create({
+            data: {
+              userId: user.id,
+              actionType: 'differentiate',
+              minutesSaved: minutesForAction('differentiate'),
+              metadata: {
+                contentType,
+                gradeLevel,
+                targetLexile: Number(targetLexile),
+              },
+            },
+          })
+          .catch(() => undefined);
+      } catch {
+        // ignore
+      }
     }
 
     return NextResponse.json(result);

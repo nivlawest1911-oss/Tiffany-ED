@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React from 'react';
 import { motion } from 'framer-motion';
@@ -17,7 +17,7 @@ const GlassPanel: React.FC<GlassPanelProps> = ({
     children,
     className,
     hoverIntensity = 'medium',
-    opacity = 0.05,
+    opacity = 0.03,
     blur = 12,
 }) => {
     const hoverVariants = {
@@ -32,7 +32,7 @@ const GlassPanel: React.FC<GlassPanelProps> = ({
             whileHover={hoverIntensity !== 'none' ? hoverVariants[hoverIntensity] : {}}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             className={cn(
-                "relative overflow-hidden rounded-2xl border border-white/10",
+                "relative overflow-hidden rounded-2xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.35)]",
                 className
             )}
             style={{

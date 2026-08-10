@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://plugin.powerschool.pearson.com/"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://plugin.powerschool.pearson.com/ plugin.xsd"
+        name="EdIntel Sovereign"
+        version="1.0.0"
+        description="Connects PowerSchool Professional Learning completions to EdIntel.">
+  <oauth></oauth>
+  <access_request>
+    <field table="users" field="email_addr" access="ViewOnly"/>
+    <field table="users" field="first_name" access="ViewOnly"/>
+    <field table="users" field="last_name" access="ViewOnly"/>
+    <field table="schools" field="name" access="ViewOnly"/>
+    <field table="schools" field="school_number" access="ViewOnly"/>
+  </access_request>
+</plugin>

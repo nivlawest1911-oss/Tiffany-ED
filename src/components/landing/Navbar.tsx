@@ -1,13 +1,15 @@
-﻿'use client';
+'use client';
 
 import { motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import Link from 'next/link';
 import EdIntelLogo from '../EdIntelLogo';
+import { useAuth } from '@/context/AuthContext';
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
+    const { user, isLoading } = useAuth();
 
     return (
         <motion.nav
@@ -18,12 +20,10 @@ export default function Navbar() {
         >
             <div className="max-w-7xl mx-auto px-6 py-4">
                 <div className="flex items-center justify-between">
-                    {/* Logo */}
                     <Link href="/" className="flex items-center gap-2">
                         <EdIntelLogo variant="sovereign-fidelity" className="transform scale-90 origin-left" />
                     </Link>
 
-                    {/* Desktop Nav */}
                     <div className="hidden md:flex items-center gap-8">
                         <a href="#features" className="text-sm font-bold text-zinc-400 hover:text-[#FFB300] transition-colors tracking-wide uppercase">
                             Features
@@ -34,18 +34,32 @@ export default function Navbar() {
                         <a href="#about" className="text-sm font-bold text-zinc-400 hover:text-[#FFB300] transition-colors tracking-wide uppercase">
                             About
                         </a>
-                        <Link href="/login">
-                            <motion.button
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                className="px-6 py-2 bg-gradient-to-r from-[#FFB300] to-amber-500 text-black rounded-xl font-black text-sm hover:shadow-[0_0_30px_rgba(255,179,0,0.4)] transition-all uppercase tracking-widest"
-                            >
-                                Sign In
-                            </motion.button>
-                        </Link>
+
+                        {isLoading ? (
+                            <div className="w-24 h-9 rounded-xl bg-white/10 animate-pulse" />
+                        ) : user ? (
+                            <Link href="/dashboard">
+                                <motion.button
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="px-6 py-2 bg-gradient-to-r from-[#FFB300] to-amber-500 text-black rounded-xl font-black text-sm hover:shadow-[0_0_30px_rgba(255,179,0,0.4)] transition-all uppercase tracking-widest"
+                                >
+                                    Dashboard
+                                </motion.button>
+                            </Link>
+                        ) : (
+                            <Link href="/login">
+                                <motion.button
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="px-6 py-2 bg-gradient-to-r from-[#FFB300] to-amber-500 text-black rounded-xl font-black text-sm hover:shadow-[0_0_30px_rgba(255,179,0,0.4)] transition-all uppercase tracking-widest"
+                                >
+                                    Sign In
+                                </motion.button>
+                            </Link>
+                        )}
                     </div>
 
-                    {/* Mobile Menu Button */}
                     <button
                         onClick={() => setIsOpen(!isOpen)}
                         className="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors"
@@ -54,7 +68,6 @@ export default function Navbar() {
                     </button>
                 </div>
 
-                {/* Mobile Nav */}
                 {isOpen && (
                     <motion.div
                         initial={{ opacity: 0, height: 0 }}
@@ -72,14 +85,26 @@ export default function Navbar() {
                             <a href="#about" className="text-sm font-bold text-zinc-400 hover:text-[#FFB300] transition-colors uppercase tracking-wide">
                                 About
                             </a>
-                            <Link href="/login">
-                                <motion.button
-                                    whileHover={{ scale: 1.02 }}
-                                    className="w-full px-6 py-2 bg-gradient-to-r from-[#FFB300] to-amber-500 text-black rounded-xl font-black text-sm uppercase tracking-widest"
-                                >
-                                    Sign In
-                                </motion.button>
-                            </Link>
+
+                            {user ? (
+                                <Link href="/dashboard">
+                                    <motion.button
+                                        whileHover={{ scale: 1.02 }}
+                                        className="w-full px-6 py-2 bg-gradient-to-r from-[#FFB300] to-amber-500 text-black rounded-xl font-black text-sm uppercase tracking-widest"
+                                    >
+                                        Dashboard
+                                    </motion.button>
+                                </Link>
+                            ) : (
+                                <Link href="/login">
+                                    <motion.button
+                                        whileHover={{ scale: 1.02 }}
+                                        className="w-full px-6 py-2 bg-gradient-to-r from-[#FFB300] to-amber-500 text-black rounded-xl font-black text-sm uppercase tracking-widest"
+                                    >
+                                        Sign In
+                                    </motion.button>
+                                </Link>
+                            )}
                         </div>
                     </motion.div>
                 )}

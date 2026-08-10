@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Layers, Upload, FileSpreadsheet, Sparkles, Brain, CheckCircle2, 
-  Search, ShieldAlert, GraduationCap, ArrowUpRight, TrendingUp, 
+import { Upload, Brain, CheckCircle2, 
+  Search, TrendingUp, 
   TrendingDown, RefreshCw, AlertCircle, ChevronRight, Zap, Target,
-  FileCheck, Calendar, BookOpen, Users, BarChart3, AlertTriangle, ShieldCheck
+  FileCheck, BookOpen, Users, AlertTriangle, ShieldCheck
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -21,7 +20,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
 import { 
   Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, 
-  ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend 
+  ResponsiveContainer, Tooltip, Legend 
 } from 'recharts';
 import { StudentIntelligenceCard } from './StudentIntelligenceCard';
 import { ReadingPlanArchitect } from './ReadingPlanArchitect';

@@ -1,10 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Globe, Award, ArrowRight, Play, CheckCircle } from 'lucide-react';
+import { Globe, Award, Play, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 
 const bestPractices = [
   {

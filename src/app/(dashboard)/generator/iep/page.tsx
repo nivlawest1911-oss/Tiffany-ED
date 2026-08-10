@@ -1,4 +1,5 @@
-﻿"use client";
+"use client";
+import GlassPanel from '@/components/ui/GlassPanel';
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -97,7 +98,7 @@ export default function IEPGeneratorPage() {
                         animate={{ opacity: 1, x: 0 }}
                         className="lg:col-span-4 space-y-6"
                     >
-                        <Card className="bg-zinc-900/40 backdrop-blur-xl border-white/5 overflow-hidden">
+                        <GlassPanel className="border-white/5 overflow-hidden">
                             <CardHeader className="border-b border-white/5 bg-white/[0.02] flex flex-row items-center justify-between">
                                 <CardTitle className="text-white text-lg flex items-center gap-2">
                                     <Target className="w-4 h-4 text-cyan-400" />
@@ -182,7 +183,7 @@ export default function IEPGeneratorPage() {
                                     {isGenerating ? 'Drafting Protocol...' : 'Generate IEP Draft'}
                                 </Button>
                             </CardContent>
-                        </Card>
+                        </GlassPanel>
                     </motion.div>
 
                     {/* Preview / Output Panel */}
@@ -191,7 +192,7 @@ export default function IEPGeneratorPage() {
                         animate={{ opacity: 1, x: 0 }}
                         className="lg:col-span-8 space-y-6"
                     >
-                        <Card className="bg-zinc-900/40 backdrop-blur-xl border-white/5 min-h-[500px] flex flex-col">
+                        <GlassPanel className="border-white/5 min-h-[500px] flex flex-col">
                             <CardHeader className="border-b border-white/5 bg-white/[0.02] flex flex-row items-center justify-between py-4">
                                 <div className="flex items-center gap-3">
                                     <div className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse" />
@@ -232,7 +233,7 @@ export default function IEPGeneratorPage() {
                                                     if (line.startsWith('# ')) return <h1 key={i} className="text-2xl font-black text-white uppercase tracking-tight mb-4">{line.replace('# ', '')}</h1>;
                                                     if (line.startsWith('## ')) return <h2 key={i} className="text-lg font-bold text-cyan-400 uppercase tracking-wide mt-6 mb-2">{line.replace('## ', '')}</h2>;
                                                     if (line.startsWith('### ')) return <h3 key={i} className="text-md font-semibold text-blue-400 uppercase tracking-wider mt-4 mb-2">{line.replace('### ', '')}</h3>;
-                                                    if (line.startsWith('* ') || line.startsWith('- ')) return <div key={i} className="text-zinc-400 ml-4 mb-1 flex gap-2"><span>â€¢</span><span>{line.substring(2)}</span></div>;
+                                                    if (line.startsWith('* ') || line.startsWith('- ')) return <div key={i} className="text-zinc-400 ml-4 mb-1 flex gap-2"><span>•</span><span>{line.substring(2)}</span></div>;
                                                     if (line.trim() === '') return <br key={i} />;
                                                     return <p key={i} className="text-zinc-400 leading-relaxed mb-3">{line}</p>;
                                                 })}
@@ -319,10 +320,12 @@ export default function IEPGeneratorPage() {
                                     )}
                                 </AnimatePresence>
                             </CardContent>
-                        </Card>
+                        </GlassPanel>
                     </motion.div>
                 </div>
             </div>
         </div>
     );
 }
+
+

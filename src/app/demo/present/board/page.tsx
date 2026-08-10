@@ -1,6 +1,6 @@
 'use client';
 
-import { Award, ShieldCheck, TrendingUp, Users } from 'lucide-react';
+import { ShieldCheck, TrendingUp, Users } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function BoardView() {

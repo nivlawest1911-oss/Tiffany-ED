@@ -1,16 +1,14 @@
 "use client";
 
-import { motion } from 'framer-motion';
 import { 
-  Target, TrendingUp, TrendingDown, Calendar, 
-  BookOpen, FileText, Settings, HeartPulse, GraduationCap, AlertCircle
+  Target, TrendingUp, TrendingDown, Calendar, FileText, HeartPulse, GraduationCap, AlertCircle
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { 
-  Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, 
+  Radar, RadarChart, PolarGrid, PolarAngleAxis, 
   ResponsiveContainer 
 } from 'recharts';
 

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Lock, Mail, ArrowRight, ShieldCheck as LucideShield, Loader2, Zap as Facebook } from 'lucide-react';
+import { Lock, Mail, ArrowRight, ShieldCheck as LucideShield, Loader2 } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import Turnstile from 'react-turnstile';
 import { authClient, signIn } from '@/lib/auth-client';

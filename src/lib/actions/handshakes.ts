@@ -68,16 +68,14 @@ export async function executeSocialUplink(provider: 'google' | 'facebook', turns
     const facebookSecret = (process.env.FACEBOOK_CLIENT_SECRET || '').trim();
 
     const isGoogleConfigured = googleId !== '' && 
-                               !googleId.includes('placeholder') && 
-                               !googleId.startsWith('523925578373');
-                               
-    const isFacebookConfigured = facebookId !== '' && 
+                               !googleId.includes('placeholder');
+
+ const isFacebookConfigured = facebookId !== '' && 
                                  !facebookId.includes('placeholder') && 
                                  !facebookId.startsWith('your-') && 
-                                 !facebookId.startsWith('mock-') &&
-                                 !facebookId.startsWith('523925578373');
+                                 !facebookId.startsWith('mock-');
 
-    const isConfigured = provider === 'google' 
+ const isConfigured = provider === 'google' 
         ? (isGoogleConfigured && googleSecret !== '')
         : (isFacebookConfigured && facebookSecret !== '');
 

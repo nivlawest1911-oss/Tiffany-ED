@@ -22,7 +22,7 @@ export default function LoginPage() {
       if (error) {
         setErrorMsg(error.message || 'Invalid email or password.');
       } else {
-        window.location.replace('/');
+        window.location.replace('/dashboard');
       }
     } catch (error: any) {
       setErrorMsg(error.message || 'An unexpected error occurred.');
@@ -32,21 +32,14 @@ export default function LoginPage() {
     }
   };
 
-  const handleGoogleLogin = async () => {
+  const handleGoogleLogin = () => {
     setIsLoading(true);
     setErrorMsg('');
-    try {
-      const { data, error } = await signIn.social({ provider: 'google' });
-      if (error) {
-        setErrorMsg(error.message || 'Failed to sign in with Google.');
-        setIsLoading(false);
-      }
-      // If successful, better-auth handles the OAuth redirect, so we don't manually redirect.
-    } catch (error: any) {
-      setErrorMsg(error.message || 'An unexpected error occurred.');
-      console.error(error);
-      setIsLoading(false);
-    }
+    // Hard navigation â€” does not depend on client auth SDK or unbroken hydration
+    window.location.assign(
+      "/api/auth/sign-in/social?provider=google&callbackURL=" +
+        encodeURIComponent("/dashboard")
+    );
   };
 
   return (
@@ -111,12 +104,14 @@ export default function LoginPage() {
               <p className="text-center text-xs text-white/40 mb-3">Or continue with</p>
               <div className="grid grid-cols-2 gap-3">
                 <Button 
-                  onClick={handleGoogleLogin} 
+                  asChild
                   disabled={isLoading} 
                   variant="outline" 
                   className="h-11 rounded-2xl border-white/10 bg-white/5 hover:bg-white/10 text-white"
                 >
-                  Google
+                  <a href="/api/auth/google?callbackURL=%2Fdashboard">
+                    Google
+                  </a>
                 </Button>
                 <Button 
                   disabled 

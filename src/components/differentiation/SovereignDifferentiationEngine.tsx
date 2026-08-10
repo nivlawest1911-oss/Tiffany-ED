@@ -3,10 +3,10 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  Layers, BookOpen, Brain, Sparkles, Download, FileText, 
-  GraduationCap, Languages, Target, Zap, BarChart3, Globe, 
-  Copy, Printer, ArrowRight, ChevronDown, Loader2, CheckCircle2, 
-  Link, FileCheck, Share2, HelpCircle, FileDown, BookOpenCheck
+  Layers, BookOpen, Brain, Sparkles, Download, 
+  GraduationCap, Target, Zap, 
+  Copy, Printer, Loader2, CheckCircle2, 
+  Link, BookOpenCheck
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';

@@ -1,4 +1,4 @@
-﻿import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { getMetaAIClient } from '@/lib/meta-ai/client';
 import { ALABAMA_STRATEGIC_DIRECTIVE, EdIntel_PERSONA } from '@/lib/ai-resilience';
 import { getSession } from '@/lib/auth'; // Custom auth helper
@@ -48,6 +48,12 @@ function auditLogResponse(response: Response, user: any, prompt: string, generat
 
 export async function POST(request: NextRequest) {
     try {
+        const { checkBotId } = require('botid/server');
+        const verification = await checkBotId();
+        if (verification.isBot) {
+            return NextResponse.json({ error: 'Access denied' }, { status: 403 });
+        }
+
         const { prompt, generatorId, delegate } = await request.json();
 
         if (!prompt) {

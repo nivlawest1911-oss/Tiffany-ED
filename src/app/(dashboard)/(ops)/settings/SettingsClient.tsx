@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -72,7 +72,7 @@ export default function SettingsClient() {
                             <Target size={18} className="group-hover:rotate-45 transition-transform" />
                             <div className="text-left">
                                 <div className="text-[10px] font-black uppercase tracking-widest leading-none mb-1">Founder Hub</div>
-                                <div className="text-xs font-medium opacity-60">Dr. West Analysis</div>
+                                <div className="text-xs font-medium opacity-60">{user?.name || 'Executive'} Analysis</div>
                             </div>
                         </motion.button>
                     </div>

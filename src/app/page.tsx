@@ -2,8 +2,11 @@
 
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/context/AuthContext';
 
 export default function LandingPage() {
+  const { user, isLoading } = useAuth();
+
   return (
     <div className="min-h-screen bg-[#0A0F1C] text-white">
       {/* Hero Section */}
@@ -12,27 +15,34 @@ export default function LandingPage() {
           <div className="w-2 h-2 rounded-full bg-[#C5A46E]" />
           <span className="text-sm tracking-[3px] text-white/60">NOW USED IN 87+ SCHOOLS</span>
         </div>
-
         <h1 className="text-6xl md:text-7xl font-semibold tracking-[-3.5px] max-w-5xl leading-none mb-6">
           Institutional-grade AI<br />for K-12 education.
         </h1>
-        
         <p className="max-w-2xl text-xl text-white/70 mb-10">
-          EdIntel Sovereign helps districts reduce teacher workload, improve literacy outcomes, 
+          EdIntel Sovereign helps districts reduce teacher workload, improve literacy outcomes,
           and maintain full compliance — all inside the tools you already use.
         </p>
-
         <div className="flex flex-col sm:flex-row gap-4">
-          <Link href="/register">
-            <Button className="bg-[#C5A46E] hover:bg-[#A67C52] text-[#0A0F1C] font-semibold px-10 py-6 text-lg">
-              Request a Demo
-            </Button>
-          </Link>
-          <Link href="/login">
-            <Button variant="outline" className="border-white/30 px-10 py-6 text-lg">
-              Sign In
-            </Button>
-          </Link>
+          {!isLoading && user ? (
+            <Link href="/dashboard">
+              <Button className="bg-[#C5A46E] hover:bg-[#A67C52] text-[#0A0F1C] font-semibold px-10 py-6 text-lg">
+                Go to Dashboard
+              </Button>
+            </Link>
+          ) : (
+            <>
+              <Link href="/register">
+                <Button className="bg-[#C5A46E] hover:bg-[#A67C52] text-[#0A0F1C] font-semibold px-10 py-6 text-lg">
+                  Request a Demo
+                </Button>
+              </Link>
+              <Link href="/login">
+                <Button variant="outline" className="border-white/30 px-10 py-6 text-lg">
+                  Sign In
+                </Button>
+              </Link>
+            </>
+          )}
         </div>
       </section>
 
@@ -80,11 +90,19 @@ export default function LandingPage() {
           <p className="text-white/70 mb-8 text-lg">
             Join forward-thinking districts using EdIntel Sovereign.
           </p>
-          <Link href="/register">
-            <Button className="bg-[#C5A46E] hover:bg-[#A67C52] text-[#0A0F1C] font-semibold px-12 py-6 text-lg">
-              Request a Demo
-            </Button>
-          </Link>
+          {!isLoading && user ? (
+            <Link href="/dashboard">
+              <Button className="bg-[#C5A46E] hover:bg-[#A67C52] text-[#0A0F1C] font-semibold px-12 py-6 text-lg">
+                Go to Dashboard
+              </Button>
+            </Link>
+          ) : (
+            <Link href="/register">
+              <Button className="bg-[#C5A46E] hover:bg-[#A67C52] text-[#0A0F1C] font-semibold px-12 py-6 text-lg">
+                Request a Demo
+              </Button>
+            </Link>
+          )}
         </div>
       </section>
     </div>
