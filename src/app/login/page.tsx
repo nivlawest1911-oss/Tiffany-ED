@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -52,6 +52,8 @@ export default function LoginPage() {
             <div className="text-center">
               <h1 className="text-2xl font-semibold tracking-tight text-white">Welcome back</h1>
               <p className="text-white/60 text-sm mt-1">Sign in to continue to EdIntel Sovereign</p>
+              {/* Build marker so we know the new deploy is live */}
+              <p className="text-[10px] text-white/20 mt-1">build: 2026-08-13-v3</p>
             </div>
 
             {errorMsg && (
@@ -92,8 +94,9 @@ export default function LoginPage() {
             <div className="pt-4 border-t border-white/10">
               <p className="text-center text-xs text-white/40 mb-3">Or continue with</p>
               <div className="grid grid-cols-2 gap-3">
+                {/* Standard Better Auth social path – handled by /api/auth/[...all] */}
                 <a
-                  href="/api/auth/google?callbackURL=%2Fdashboard"
+                  href="/api/auth/sign-in/social?provider=google&callbackURL=%2Fdashboard"
                   className="inline-flex h-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-4 text-sm font-medium text-white hover:bg-white/10"
                 >
                   Google
