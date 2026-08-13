@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 import GlassPanel from '@/components/ui/GlassPanel';
 import TimeReclamationCard from '@/components/dashboard/TimeReclamationCard';
 import NeedsAttentionCard from '@/components/dashboard/NeedsAttentionCard';
@@ -14,14 +13,29 @@ export default function DashboardPage() {
   const router = useRouter();
   const { user, isLoading } = useAuth();
 
-  useEffect(() => {
-    if (!isLoading && !user) {
-      router.replace('/login');
-    }
-  }, [user, isLoading, router]);
+  // Show loading while session is resolving
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[#0A0F1C] text-white flex items-center justify-center">
+        Loading...
+      </div>
+    );
+  }
 
-  if (isLoading || !user) {
-    return <div className="min-h-screen bg-[#0A0F1C] text-white flex items-center justify-center">Loading...</div>;
+  // Graceful fallback if session is missing (should be rare thanks to middleware)
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-[#0A0F1C] text-white flex flex-col items-center justify-center space-y-4">
+        <h2 className="text-xl font-semibold">Session expired</h2>
+        <p className="text-white/60">Please sign in again to continue.</p>
+        <Button
+          onClick={() => router.push('/login')}
+          className="bg-[#C5A46E] text-[#0A0F1C] hover:bg-[#A67C52]"
+        >
+          Sign In
+        </Button>
+      </div>
+    );
   }
 
   return (
@@ -29,8 +43,10 @@ export default function DashboardPage() {
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-4xl font-semibold tracking-[-2px]">Good morning, {user?.name || 'Executive'}</h1>
-            <p className="text-white/70 mt-1">{user?.email || 'District Admin'}</p>
+            <h1 className="text-4xl font-semibold tracking-[-2px]">
+              Good morning, {user.name || 'Executive'}
+            </h1>
+            <p className="text-white/70 mt-1">{user.email || 'District Admin'}</p>
           </div>
           <Badge className="bg-[#C5A46E]/10 text-[#C5A46E] border-[#C5A46E]/30 px-4 py-1">
             District Admin
