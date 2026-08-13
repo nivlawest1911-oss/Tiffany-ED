@@ -308,15 +308,13 @@ export default function LoginClient() {
                         )}
 
                         <div className="space-y-3 mb-8">
-                            {/* Google Login */}
-                            <Button 
-                                type="button"
-                                variant="outline" 
-                                className="w-full border-white/20 hover:bg-white/5 py-6"
-                                onClick={() => signIn.social({ provider: "google" })}
+                            {/* Google Login — hard nav to Better Auth start route */}
+                            <a
+                                href="/api/auth/google?callbackURL=%2Fdashboard"
+                                className="flex w-full items-center justify-center rounded-md border border-white/20 bg-transparent py-6 text-sm font-medium hover:bg-white/5"
                             >
                                 Continue with Google
-                            </Button>
+                            </a>
 
                             {/* Facebook Login */}
                             <Button 

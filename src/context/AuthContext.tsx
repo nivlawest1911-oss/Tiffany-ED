@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { ROUTES } from '@/lib/routes';
@@ -30,33 +30,32 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-    const [user, setUser] = useState<User | null>(null);
+    const [localOverrides, setLocalOverrides] = useState<Partial<User>>({});
     const router = useRouter();
     const { data: session, isPending, error: _error } = authClient.useSession();
 
-    useEffect(() => {
-        if (session?.user) {
-            // Bridge Better Auth User to Legacy Institutional User Type
-            setUser({
-                id: session.user.id,
-                email: session.user.email,
-                name: session.user.name || 'Executive',
-                tier: (session.user as any).tier || 'free',
-                usageTokens: (session.user as any).usageTokens || 0,
-                avatar_url: session.user.image || undefined,
-                lastUplinkAt: (session.user as any).lastUplinkAt,
-                trialEndsAt: (session.user as any).trialEndsAt,
-                created_at: session.user.createdAt ? new Date(session.user.createdAt).toISOString() : undefined,
-            });
-        } else {
-            setUser(null);
-        }
-    }, [session]);
+    const user = useMemo(() => {
+        if (!session?.user) return null;
+        
+        // Bridge Better Auth User to Legacy Institutional User Type
+        return {
+            id: session.user.id,
+            email: session.user.email,
+            name: session.user.name || 'Executive',
+            tier: (session.user as any).tier || 'free',
+            usageTokens: (session.user as any).usageTokens || 0,
+            avatar_url: session.user.image || undefined,
+            lastUplinkAt: (session.user as any).lastUplinkAt,
+            trialEndsAt: (session.user as any).trialEndsAt,
+            created_at: session.user.createdAt ? new Date(session.user.createdAt).toISOString() : undefined,
+            ...localOverrides
+        } as User;
+    }, [session, localOverrides]);
 
     const logout = async () => {
         try {
             await authClient.signOut();
-            setUser(null);
+            setLocalOverrides({});
             router.push(ROUTES.LOGIN);
             toast.success('Session Terminated', { description: 'Secure channel closed.' });
         } catch (error: any) {
@@ -65,7 +64,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     const updateUser = async (data: Partial<User>) => {
-        setUser(prev => prev ? { ...prev, ...data } : null);
+        setLocalOverrides(prev => ({ ...prev, ...data }));
     };
 
     const fetchUser = async () => {

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -32,20 +32,9 @@ export default function LoginPage() {
     }
   };
 
-  const handleGoogleLogin = () => {
-    setIsLoading(true);
-    setErrorMsg('');
-    // Hard navigation â€” does not depend on client auth SDK or unbroken hydration
-    window.location.assign(
-      "/api/auth/sign-in/social?provider=google&callbackURL=" +
-        encodeURIComponent("/dashboard")
-    );
-  };
-
   return (
     <div className="min-h-screen bg-[#0A0F1C] flex items-center justify-center p-6">
       <div className="w-full max-w-md">
-        {/* Logo */}
         <div className="flex justify-center mb-8">
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 rounded-2xl bg-[#C5A46E] flex items-center justify-center">
@@ -73,17 +62,17 @@ export default function LoginPage() {
 
             <form onSubmit={handleEmailLogin} className="space-y-4">
               <div className="space-y-2">
-                <Input 
-                  type="email" 
-                  placeholder="Email" 
+                <Input
+                  type="email"
+                  placeholder="Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   className="h-11 bg-white/5 border-white/10 text-white placeholder:text-white/40"
                 />
-                <Input 
-                  type="password" 
-                  placeholder="Password" 
+                <Input
+                  type="password"
+                  placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
@@ -103,23 +92,19 @@ export default function LoginPage() {
             <div className="pt-4 border-t border-white/10">
               <p className="text-center text-xs text-white/40 mb-3">Or continue with</p>
               <div className="grid grid-cols-2 gap-3">
-                <Button 
-                  asChild
-                  disabled={isLoading} 
-                  variant="outline" 
-                  className="h-11 rounded-2xl border-white/10 bg-white/5 hover:bg-white/10 text-white"
+                <a
+                  href="/api/auth/google?callbackURL=%2Fdashboard"
+                  className="inline-flex h-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-4 text-sm font-medium text-white hover:bg-white/10"
                 >
-                  <a href="/api/auth/google?callbackURL=%2Fdashboard">
-                    Google
-                  </a>
-                </Button>
-                <Button 
-                  disabled 
-                  variant="outline" 
-                  className="h-11 rounded-2xl border-white/10 bg-white/5 opacity-50 text-white"
+                  Google
+                </a>
+                <button
+                  type="button"
+                  disabled
+                  className="h-11 rounded-2xl border border-white/10 bg-white/5 opacity-50 text-white text-sm"
                 >
                   Facebook
-                </Button>
+                </button>
               </div>
             </div>
           </CardContent>
