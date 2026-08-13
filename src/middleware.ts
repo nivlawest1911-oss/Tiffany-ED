@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { getSessionCookie } from 'better-auth/cookies';
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -23,35 +22,12 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Optimistic cookie-only check for authenticated routes
-  // (recommended by Better Auth – no DB call in middleware)
-  const sessionCookie = getSessionCookie(request);
-
-  if (!sessionCookie && pathname.startsWith('/dashboard')) {
-    return NextResponse.redirect(new URL('/login', request.url));
-  }
-
-  // Protect the rest of the (dashboard) group as well
-  const isProtected =
-    pathname.startsWith('/tiffany-ed') ||
-    pathname.startsWith('/grouping') ||
-    pathname.startsWith('/progress') ||
-    pathname.startsWith('/admin') ||
-    pathname.startsWith('/settings') ||
-    pathname.startsWith('/roster') ||
-    pathname.startsWith('/generator') ||
-    pathname.startsWith('/ai-hub') ||
-    pathname.startsWith('/briefings') ||
-    pathname.startsWith('/ops') ||
-    pathname.startsWith('/oracle') ||
-    pathname.startsWith('/podcast') ||
-    pathname.startsWith('/conversation') ||
-    pathname.startsWith('/gemini-workspace');
-
-  if (!sessionCookie && isProtected) {
-    return NextResponse.redirect(new URL('/login', request.url));
-  }
-
+  // TEMPORARY: pass everything through.
+  // The previous getSessionCookie check was still redirecting after a
+  // successful Google OAuth (cookie not always visible on the first
+  // post-callback request / RSC prefetch on Vercel). Client-side page
+  // is now passive (no auto-redirect), so the session can settle.
+  // Re-enable a robust guard later once the bounce is confirmed gone.
   return NextResponse.next();
 }
 
