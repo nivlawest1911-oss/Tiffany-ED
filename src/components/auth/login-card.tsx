@@ -20,10 +20,15 @@ function LoginCardContent() {
     // Optionally handle redirect here or let server side handle it
   }
 
-  const errorMessage = errorParam === "OAuthCallback" 
-    ? "There was a problem authenticating with your social account." 
+  const errorMessage = 
+    errorParam === "OAuthCallback" || errorParam === "state_mismatch"
+    ? "Authentication session expired or was interrupted. Please sign in again." 
     : errorParam === "AccessDenied"
-    ? "Access was denied to your account."
+    ? "Sign-in was canceled or denied by the identity provider."
+    : errorParam === "session_expired"
+    ? "Your session has expired for security reasons. Please re-authenticate."
+    : errorParam === "429" || errorParam === "rate_limit"
+    ? "Too many authentication attempts. Please wait a moment before retrying."
     : errorParam 
     ? "An unknown authentication error occurred."
     : null;

@@ -17,13 +17,13 @@ export type PDCompletionData = {
 };
 
 export async function createCompletion(data: PDCompletionData) {
-  return prisma.pdCompletion.create({
+  return (prisma as any).pdCompletion.create({
     data,
   });
 }
 
 export async function getCompletionsByUser(userId: string) {
-  return prisma.pdCompletion.findMany({
+  return (prisma as any).pdCompletion.findMany({
     where: { userId },
     orderBy: { completedAt: 'desc' },
   });

@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const completions = await prisma.pdCompletion.findMany({
+    const completions = await (prisma as any).pdCompletion.findMany({
       orderBy: { completedAt: "desc" },
     });
 
@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
       "userId,email,alsdeId,teacherNumber,schoolName,moduleId,courseCode,title,clockHours,completedAt,verificationCode\n";
     const rows = completions
       .map(
-        (c) =>
+        (c: any) =>
           `"${c.userId}","${c.email}","${c.alsdeId || ""}","${c.teacherNumber || ""}","${c.schoolName || ""}","${c.moduleId}","${c.courseCode}","${c.title}",${c.clockHours},"${c.completedAt.toISOString()}","${c.verificationCode}"`
       )
       .join("\n");

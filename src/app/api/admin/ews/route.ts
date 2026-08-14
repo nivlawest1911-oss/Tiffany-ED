@@ -21,11 +21,12 @@ export async function GET(req: NextRequest) {
   if (!isAuthorized) {
     try {
       const session = await auth.api.getSession({ headers: req.headers });
+      const user = session?.user as any;
       if (
-        session?.user?.role === "ADMIN" ||
-        session?.user?.role === "SUPERINTENDENT" ||
-        session?.user?.role === "PRINCIPAL" ||
-        session?.user?.role === "EXECUTIVE"
+        user?.role === "ADMIN" ||
+        user?.role === "SUPERINTENDENT" ||
+        user?.role === "PRINCIPAL" ||
+        user?.role === "EXECUTIVE"
       ) {
         isAuthorized = true;
       }

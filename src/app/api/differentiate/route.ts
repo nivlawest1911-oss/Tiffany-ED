@@ -121,8 +121,9 @@ export async function POST(request: NextRequest) {
       // Time reclamation — never block the response
       try {
         const { prisma } = await import('@/lib/prisma');
-        const { minutesForAction } = await import('@/lib/analytics/time-saved');
-        prisma.time_saved_events
+        const analyticsModule = await import('@/lib/analytics/time-saved') as any;
+        const minutesForAction = analyticsModule.minutesForAction || (() => 15);
+        (prisma as any).time_saved_events
           .create({
             data: {
               userId: user.id,

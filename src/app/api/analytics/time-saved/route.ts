@@ -21,14 +21,14 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const events = await prisma.time_saved_events.findMany({
+    const events = await (prisma as any).time_saved_events.findMany({
       where: {
         userId: session.user.id,
         createdAt: { gte: startDate },
       },
     });
 
-    const totalMinutes = events.reduce((sum, e) => sum + e.minutesSaved, 0);
+    const totalMinutes = events.reduce((sum: number, e: any) => sum + e.minutesSaved, 0);
     const hours = Math.round((totalMinutes / 60) * 10) / 10;
     
     // Group by action type for breakdown
@@ -82,7 +82,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
     }
 
-    const event = await prisma.time_saved_events.create({
+    const event = await (prisma as any).time_saved_events.create({
       data: {
         userId: session.user.id,
         actionType,

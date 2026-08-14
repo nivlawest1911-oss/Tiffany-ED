@@ -15,7 +15,7 @@ export function SocialAuthButtons({ isLoading, setIsLoading }: SocialAuthButtons
       setIsLoading(provider);
       await authClient.signIn.social({
         provider,
-        callbackURL: "/dashboard"
+        callbackURL: `${window.location.origin}/dashboard`
       });
     } catch (error) {
       console.error(`Error signing in with ${provider}`, error);
