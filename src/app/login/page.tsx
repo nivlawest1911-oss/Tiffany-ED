@@ -94,13 +94,18 @@ export default function LoginPage() {
             <div className="pt-4 border-t border-white/10">
               <p className="text-center text-xs text-white/40 mb-3">Or continue with</p>
               <div className="grid grid-cols-2 gap-3">
-                {/* Standard Better Auth social path – handled by /api/auth/[...all] */}
-                <a
-                  href="/api/auth/sign-in/social?provider=google&callbackURL=%2Fdashboard"
+                <button
+                  type="button"
+                  onClick={() => {
+                    signIn.social({
+                      provider: "google",
+                      callbackURL: "/dashboard",
+                    });
+                  }}
                   className="inline-flex h-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-4 text-sm font-medium text-white hover:bg-white/10"
                 >
                   Google
-                </a>
+                </button>
                 <button
                   type="button"
                   disabled
