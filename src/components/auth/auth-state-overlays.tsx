@@ -1,14 +1,15 @@
 "use client";
 
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, CheckCircle2 } from "lucide-react";
 
 interface AuthStateOverlaysProps {
   isLoading: boolean;
   error: string | null;
+  invite?: string | null;
 }
 
-export function AuthStateOverlays({ isLoading, error }: AuthStateOverlaysProps) {
-  if (!isLoading && !error) return null;
+export function AuthStateOverlays({ isLoading, error, invite }: AuthStateOverlaysProps) {
+  if (!isLoading && !error && !invite) return null;
 
   return (
     <>
@@ -21,9 +22,16 @@ export function AuthStateOverlays({ isLoading, error }: AuthStateOverlaysProps) 
       )}
       
       {error && (
-        <div className="absolute top-0 left-0 right-0 z-40 bg-red-500/10 border-b border-red-500/20 p-3 flex items-center gap-3 text-red-400 animate-in slide-in-from-top-2 duration-300">
+        <div className="absolute top-0 left-0 right-0 z-40 bg-red-500/10 border-b border-red-500/20 p-3 flex items-center gap-3 text-red-400 animate-in slide-in-from-top-2 duration-300" aria-live="assertive">
           <AlertCircle className="h-5 w-5 shrink-0" />
           <p className="text-sm font-medium">{error}</p>
+        </div>
+      )}
+      
+      {invite && !error && (
+        <div className="absolute top-0 left-0 right-0 z-40 bg-amber-500/10 border-b border-amber-500/20 p-3 flex items-center gap-3 text-amber-400 animate-in slide-in-from-top-2 duration-300" aria-live="polite">
+          <CheckCircle2 className="h-5 w-5 shrink-0 text-amber-500" />
+          <p className="text-sm font-medium">You have been invited to join the <span className="font-bold">{invite}</span> workspace. Sign in to accept.</p>
         </div>
       )}
     </>

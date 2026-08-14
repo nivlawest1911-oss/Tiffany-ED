@@ -12,6 +12,7 @@ function LoginCardContent() {
   const [isLoading, setIsLoading] = useState<string | null>(null);
   const searchParams = useSearchParams();
   const errorParam = searchParams.get("error");
+  const inviteParam = searchParams.get("invite");
   
   // Use session to proactively redirect if logged in client-side as well
   const { data: session } = authClient.useSession();
@@ -35,7 +36,7 @@ function LoginCardContent() {
 
   return (
     <Card className="w-full max-w-md bg-slate-900/80 backdrop-blur-md border border-slate-800 shadow-xl relative overflow-hidden">
-      <AuthStateOverlays isLoading={!!isLoading} error={errorMessage} />
+      <AuthStateOverlays isLoading={!!isLoading} error={errorMessage} invite={inviteParam} />
       <CardHeader className="text-center space-y-2 mt-4">
         <CardTitle className="text-2xl font-bold tracking-tight text-slate-100">
           Sign In to EdIntel Sovereign
