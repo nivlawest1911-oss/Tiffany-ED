@@ -4,15 +4,26 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { SocialAuthButtons } from "@/components/auth/social-auth-buttons";
 import { CredentialsForm } from "@/components/auth/credentials-form";
 import { AuthStateOverlays } from "@/components/auth/auth-state-overlays";
-import { useState, Suspense } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 
 function LoginCardContent() {
   const [isLoading, setIsLoading] = useState<string | null>(null);
+  const [detectedCurrency, setDetectedCurrency] = useState<string | null>(null);
   const searchParams = useSearchParams();
   const errorParam = searchParams.get("error");
   const inviteParam = searchParams.get("invite");
+  
+  useEffect(() => {
+    try {
+      const currency = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD' })
+        .resolvedOptions().currency || "USD";
+      setDetectedCurrency(currency);
+    } catch {
+      setDetectedCurrency("USD");
+    }
+  }, []);
   
   // Use session to proactively redirect if logged in client-side as well
   const { data: session } = authClient.useSession();
@@ -36,7 +47,7 @@ function LoginCardContent() {
 
   return (
     <Card className="w-full max-w-md bg-slate-900/80 backdrop-blur-md border border-slate-800 shadow-xl relative overflow-hidden">
-      <AuthStateOverlays isLoading={!!isLoading} error={errorMessage} invite={inviteParam} />
+      <AuthStateOverlays isLoading={!!isLoading} error={errorMessage} invite={inviteParam} currency={detectedCurrency} />
       <CardHeader className="text-center space-y-2 mt-4">
         <CardTitle className="text-2xl font-bold tracking-tight text-slate-100">
           Sign In to EdIntel Sovereign
