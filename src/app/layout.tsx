@@ -1,11 +1,6 @@
 import type { Metadata } from 'next';
 import '../style.css';
-import { AuthProvider } from '@/context/AuthContext';
-import { IntelligenceProvider } from '@/context/IntelligenceContext';
-import { EdIntelVibeProvider } from "@/context/EdIntelVibeContext";
-import { CelebrationProvider } from '@/context/CelebrationContext';
-import { SovereignProvider } from '@/context/SovereignState';
-import { GlobalSynapseProvider } from '@/context/GlobalSynapseContext';
+import { Providers } from '@/components/providers';
 import { Toaster } from '@/components/ui/toaster';
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -118,21 +113,16 @@ export default function RootLayout({
         <link rel="preload" href="/images/edintel-logo.png" as="image" />
       </head>
       <body className="bg-[#050505] text-gray-100 antialiased overflow-x-hidden selection:bg-[#D4AF37]/30 font-sans min-h-screen">
-        <CelebrationProvider>
-          <AuthProvider>
-            <IntelligenceProvider>
-              <SovereignProvider>
-                <EdIntelVibeProvider>
-                  <GlobalSynapseProvider>
-                    <ClientShell />
-                    <AccessibleLayout>
-                      {children}
-                    </AccessibleLayout>
-                    <Toaster />
-                    <Analytics />
-                    <SpeedInsights />
-                    <WebVitalsReporter />
-                  </GlobalSynapseProvider>
+        <Providers>
+          <ClientShell />
+          <AccessibleLayout>
+            {children}
+          </AccessibleLayout>
+          <Toaster />
+          <Analytics />
+          <SpeedInsights />
+          <WebVitalsReporter />
+        </Providers>
                   <script
                     dangerouslySetInnerHTML={{
                       __html: `
@@ -151,11 +141,7 @@ export default function RootLayout({
                         `,
                     }}
                   />
-                </EdIntelVibeProvider>
-              </SovereignProvider>
-            </IntelligenceProvider>
-          </AuthProvider>
-        </CelebrationProvider>
+
       </body>
     </html>
   );
