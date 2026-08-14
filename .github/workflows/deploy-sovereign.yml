@@ -43,7 +43,7 @@ jobs:
       # 3. Build & Push Optimized Container
       # We use a multi-stage build to package the A2F sidecars
       - name: Build & Push
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v7
         with:
           context: ./cloud/avatar-engine
           push: true
