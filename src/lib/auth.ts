@@ -3,8 +3,10 @@
  */
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
+import { customSession } from "better-auth/plugins";
 import { prisma } from "./prisma";
 import { nextCookies } from "better-auth/next-js";
+import { loadEnrichedUserFields } from "./session-enrichment";
 
 /**
  * Fully env-driven baseURL.
@@ -17,9 +19,9 @@ const baseURL =
     (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null) ||
     (process.env.NODE_ENV === "production" ? "https://edintelai.vercel.app" : "http://localhost:3000");
 
-export const auth = betterAuth({
+const authOptions = {
     database: (process.env.DATABASE_URL || process.env.POSTGRES_PRISMA_URL || process.env.POSTGRES_URL) ? prismaAdapter(prisma, {
-        provider: "postgresql",
+        provider: "postgresql" as const,
     }) : undefined,
     secret: process.env.BETTER_AUTH_SECRET || "SOVEREIGN_OVAL_2027_FALLBACK_SECRET_FOR_BUILD",
     baseURL,
@@ -32,11 +34,11 @@ export const auth = betterAuth({
     ].filter((origin, index, list) => Boolean(origin) && list.indexOf(origin) === index),
     user: {
         additionalFields: {
-            clerk_id: { type: "string", required: false },
-            school_site: { type: "string", required: false },
-            position: { type: "string", required: false },
-            district: { type: "string", required: false },
-            lastUplinkAt: { type: "date", required: false },
+            clerk_id: { type: "string" as const, required: false },
+            school_site: { type: "string" as const, required: false },
+            position: { type: "string" as const, required: false },
+            district: { type: "string" as const, required: false },
+            lastUplinkAt: { type: "date" as const, required: false },
         }
     },
     emailAndPassword: {
@@ -46,10 +48,10 @@ export const auth = betterAuth({
     },
     session: {
         expiresIn: 60 * 60 * 24 * 7, // 7 days
-        updateAge: 60 * 60 * 24, // 1 day (refreshes session automatically)
+        updateAge: 60 * 60 * 24, // 1 day
         cookieCache: {
             enabled: true,
-            maxAge: 60 * 5, // 5 minutes
+            maxAge: 60 * 5, // 5 minutes — enrichment re-runs after cache expires
         },
     },
     advanced: {
@@ -57,7 +59,7 @@ export const auth = betterAuth({
         defaultCookieAttributes: {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "lax",
+            sameSite: "lax" as const,
             path: "/",
         },
     },
@@ -66,27 +68,41 @@ export const auth = betterAuth({
             clientId: (process.env.GOOGLE_CLIENT_ID || "").trim(),
             clientSecret: (process.env.GOOGLE_CLIENT_SECRET || "").trim(),
         },
-        // Facebook intentionally omitted — provider never configured
     },
     onError: (error: any, request: any) => {
         console.error("Auth Error:", error);
     },
     plugins: [
-        nextCookies()
+        nextCookies(),
+        customSession(async ({ user, session }) => {
+            const extra = await loadEnrichedUserFields(user.id);
+            return {
+                user: {
+                    ...user,
+                    ...extra,
+                    // Aliases consumed by rbac-stripe / blob routes
+                    tier: extra.tier,
+                    plan: extra.plan,
+                    subscriptionTier: extra.subscriptionTier,
+                    stripeCustomerId: extra.stripeCustomerId,
+                    stripe_customer_id: extra.stripeCustomerId,
+                },
+                session,
+            };
+        }),
     ],
     databaseHooks: {
         user: {
             create: {
-                after: async (user) => {
-                    // Institutional Uplink Sentinel: Runs after user creation
+                after: async (user: any) => {
                     try {
                         const { uplinkUserProfile } = await import("./uplink");
                         await uplinkUserProfile(user.id, {
                             email: user.email,
                             name: user.name,
                             image: user.image || undefined,
-                            schoolSite: (user as any).school_site || undefined,
-                            position: (user as any).position || undefined,
+                            schoolSite: user.school_site || undefined,
+                            position: user.position || undefined,
                         });
                     } catch (error) {
                         console.error("[AUTH_DB_HOOK] Uplink Handshake Failed:", error);
@@ -96,10 +112,9 @@ export const auth = betterAuth({
         }
     },
     hooks: {
-        after: async (ctx) => {
-            // Refresh Uplink on Sign-In
-            if ((ctx as any).path?.includes("sign-in")) {
-                const session = (ctx as any).context?.newSession;
+        after: async (ctx: any) => {
+            if (ctx?.path?.includes("sign-in")) {
+                const session = ctx?.context?.newSession;
                 if (session) {
                     const { user } = session;
                     try {
@@ -108,24 +123,22 @@ export const auth = betterAuth({
                             email: user.email,
                             name: user.name,
                             image: user.image || undefined,
-                            schoolSite: (user as any).school_site || undefined,
-                            position: (user as any).position || undefined,
-                            district: (user as any).district || undefined,
+                            schoolSite: user.school_site || undefined,
+                            position: user.position || undefined,
+                            district: user.district || undefined,
                         });
                     } catch (error) {
                         console.error("[AUTH_SIGNIN_HOOK] Uplink Handshake Failed:", error);
                     }
                 }
             }
-            // Social Login Audit Hook (Google only)
-            if ((ctx as any).path?.includes("callback/google")) {
-                const session = (ctx as any).context?.newSession;
+            if (ctx?.path?.includes("callback/google")) {
+                const session = ctx?.context?.newSession;
                 if (session) {
                     const { user } = session;
-                    const request = (ctx as any).context?.request;
+                    const request = ctx?.context?.request;
                     const ip = request?.headers?.get('x-forwarded-for') || request?.headers?.get('x-real-ip') || 'unknown';
                     const userAgent = request?.headers?.get('user-agent') || 'unknown';
-                    
                     try {
                         const { logSocialLoginSuccess } = await import("./actions/handshakes");
                         await logSocialLoginSuccess({
@@ -143,15 +156,13 @@ export const auth = betterAuth({
             return ctx;
         }
     }
-});
+};
+
+export const auth = betterAuth(authOptions);
 
 export const { handlers, api } = auth as any;
-// Export getSession helper for server actions and legacy routes
 export const getSession = auth.api.getSession;
 
-/**
- * Institutional Security: Neural Handshake Helpers
- */
 export async function encrypt(data: any) {
     const payload = typeof data === 'string' ? data : JSON.stringify(data);
     if (typeof window === 'undefined') {
