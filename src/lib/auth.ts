@@ -6,13 +6,8 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { customSession } from "better-auth/plugins";
 import { prisma } from "./prisma";
 import { nextCookies } from "better-auth/next-js";
-import { loadEnrichedUserFields } from "./session-enrichment";
+import { getEnrichedUserCached } from "./request-cache";
 
-/**
- * Fully env-driven baseURL.
- * Priority: BETTER_AUTH_URL → NEXT_PUBLIC_BETTER_AUTH_URL → VERCEL_URL → canonical production
- * Canonical production domain: https://edintelai.vercel.app
- */
 const baseURL =
     process.env.BETTER_AUTH_URL ||
     process.env.NEXT_PUBLIC_BETTER_AUTH_URL ||
@@ -47,11 +42,11 @@ const authOptions = {
         requireEmailVerification: false,
     },
     session: {
-        expiresIn: 60 * 60 * 24 * 7, // 7 days
-        updateAge: 60 * 60 * 24, // 1 day
+        expiresIn: 60 * 60 * 24 * 7,
+        updateAge: 60 * 60 * 24,
         cookieCache: {
             enabled: true,
-            maxAge: 60 * 5, // 5 minutes — enrichment re-runs after cache expires
+            maxAge: 60 * 5,
         },
     },
     advanced: {
@@ -69,18 +64,18 @@ const authOptions = {
             clientSecret: (process.env.GOOGLE_CLIENT_SECRET || "").trim(),
         },
     },
-    onError: (error: any, request: any) => {
+    onError: (error: any) => {
         console.error("Auth Error:", error);
     },
     plugins: [
         nextCookies(),
         customSession(async ({ user, session }) => {
-            const extra = await loadEnrichedUserFields(user.id);
+            // React.cache collapses duplicate enrichment in the same request graph
+            const extra = await getEnrichedUserCached(user.id);
             return {
                 user: {
                     ...user,
                     ...extra,
-                    // Aliases consumed by rbac-stripe / blob routes
                     tier: extra.tier,
                     plan: extra.plan,
                     subscriptionTier: extra.subscriptionTier,
