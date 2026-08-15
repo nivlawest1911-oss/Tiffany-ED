@@ -6,11 +6,16 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./prisma";
 import { nextCookies } from "better-auth/next-js";
 
-const productionBaseURL = "https://edintelai.vercel.app";
+/**
+ * Fully env-driven baseURL.
+ * Priority: BETTER_AUTH_URL → NEXT_PUBLIC_BETTER_AUTH_URL → VERCEL_URL → localhost
+ * No hardcoded production domain fallbacks.
+ */
 const baseURL =
     process.env.BETTER_AUTH_URL ||
     process.env.NEXT_PUBLIC_BETTER_AUTH_URL ||
-    (process.env.NODE_ENV === "production" ? productionBaseURL : "http://localhost:3000");
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null) ||
+    (process.env.NODE_ENV === "production" ? "https://tiffany-ed.vercel.app" : "http://localhost:3000");
 
 export const auth = betterAuth({
     database: (process.env.DATABASE_URL || process.env.POSTGRES_PRISMA_URL || process.env.POSTGRES_URL) ? prismaAdapter(prisma, {
@@ -20,7 +25,8 @@ export const auth = betterAuth({
     baseURL,
     trustedOrigins: [
         baseURL,
-        productionBaseURL,
+        "https://tiffany-ed.vercel.app",
+        "https://edintelai.vercel.app",
         "http://localhost:3000",
         "http://127.0.0.1:3000",
     ].filter((origin, index, list) => Boolean(origin) && list.indexOf(origin) === index),
@@ -60,6 +66,7 @@ export const auth = betterAuth({
             clientId: (process.env.GOOGLE_CLIENT_ID || "").trim(),
             clientSecret: (process.env.GOOGLE_CLIENT_SECRET || "").trim(),
         },
+        // Facebook intentionally omitted — provider never configured
     },
     onError: (error: any, request: any) => {
         console.error("Auth Error:", error);
