@@ -8,14 +8,14 @@ import { nextCookies } from "better-auth/next-js";
 
 /**
  * Fully env-driven baseURL.
- * Priority: BETTER_AUTH_URL → NEXT_PUBLIC_BETTER_AUTH_URL → VERCEL_URL → localhost
- * No hardcoded production domain fallbacks.
+ * Priority: BETTER_AUTH_URL → NEXT_PUBLIC_BETTER_AUTH_URL → VERCEL_URL → canonical production
+ * Canonical production domain: https://edintelai.vercel.app
  */
 const baseURL =
     process.env.BETTER_AUTH_URL ||
     process.env.NEXT_PUBLIC_BETTER_AUTH_URL ||
     (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null) ||
-    (process.env.NODE_ENV === "production" ? "https://tiffany-ed.vercel.app" : "http://localhost:3000");
+    (process.env.NODE_ENV === "production" ? "https://edintelai.vercel.app" : "http://localhost:3000");
 
 export const auth = betterAuth({
     database: (process.env.DATABASE_URL || process.env.POSTGRES_PRISMA_URL || process.env.POSTGRES_URL) ? prismaAdapter(prisma, {
@@ -25,8 +25,8 @@ export const auth = betterAuth({
     baseURL,
     trustedOrigins: [
         baseURL,
-        "https://tiffany-ed.vercel.app",
         "https://edintelai.vercel.app",
+        "https://tiffany-ed.vercel.app",
         "http://localhost:3000",
         "http://127.0.0.1:3000",
     ].filter((origin, index, list) => Boolean(origin) && list.indexOf(origin) === index),
