@@ -1,94 +1,103 @@
 import { NextResponse } from 'next/server';
-import Stripe from 'stripe';
-import { prisma } from '@/lib/prisma';
-import crypto from 'crypto';
+import type Stripe from 'stripe';
+import { stripe } from '@/lib/stripe';
+import {
+  syncCheckoutSession,
+  syncSubscriptionToUser,
+} from '@/lib/stripe-webhook-sync';
 
-// Lazily initialize the Stripe client to avoid build-time crashes
-// when STRIPE_SECRET_KEY is not available during static page collection.
-function getStripe() {
-    if (!process.env.STRIPE_SECRET_KEY) {
-        throw new Error('STRIPE_SECRET_KEY is not configured');
-    }
-    return new Stripe(process.env.STRIPE_SECRET_KEY, {
-        apiVersion: '2025-12-15.clover' as any,
-        typescript: true,
-    });
-}
+export const runtime = 'nodejs';
 
 export async function POST(req: Request) {
-    const body = await req.text();
-    const signature = req.headers.get('stripe-signature') as string;
+  const body = await req.text();
+  const signature = req.headers.get('stripe-signature');
 
-    let event: Stripe.Event;
+  if (!signature || !process.env.STRIPE_WEBHOOK_SECRET) {
+    return new NextResponse('Webhook misconfigured', { status: 400 });
+  }
 
-    try {
-        // 1. Verify the message is actually from Stripe and not a malicious bot
-        const stripe = getStripe();
-        event = stripe.webhooks.constructEvent(
-            body,
-            signature,
-            process.env.STRIPE_WEBHOOK_SECRET!
-        );
-    } catch (error: any) {
-        return new NextResponse(`Webhook Error: ${error.message}`, { status: 400 });
-    }
+  let event: Stripe.Event;
+  try {
+    event = stripe.webhooks.constructEvent(
+      body,
+      signature,
+      process.env.STRIPE_WEBHOOK_SECRET
+    );
+  } catch (error: any) {
+    console.error('[stripe webhook] signature', error?.message);
+    return new NextResponse(`Webhook Error: ${error.message}`, { status: 400 });
+  }
 
-    // 2. Handle the specific event when a user completes the checkout
-    if (event.type === 'checkout.session.completed') {
+  try {
+    switch (event.type) {
+      case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session;
+        const result = await syncCheckoutSession(session);
+        console.log('[stripe webhook] checkout.session.completed', result);
 
-        // Retrieve the customer email and the specific tier they chose
-        const customerEmail = session.customer_details?.email;
-
-        // In Stripe, you can pass "metadata" in your payment links to identify the tier
-        const tierName = session.metadata?.tierName || 'Standard Pack';
-
-        if (customerEmail) {
-            // 3. Look up the Tier ID in your database
-            const tier = await prisma.tiers.findUnique({
-                where: { name: tierName }
-            });
-
-            if (tier) {
-                // Determine initial tokens based on the 6 tiers
-                let initialTokens = 50; // default for Standard Pack or Initiate
-                if (tier.name === 'Site Command') initialTokens = 10000;
-                else if (tier.name === 'Director Pack') initialTokens = 5000;
-                else if (tier.name === 'Practitioner') initialTokens = 3000;
-                else if (tier.name === 'Sovereign Pack') initialTokens = 1500;
-
-                // Create a fallback clerkId in case user doesn't exist yet via standard auth
-                const fallbackClerkId = `stripe_pending_${crypto.randomUUID()}`;
-
-                // 4. Safely create or update the user in Prisma
-                await prisma.user.upsert({
-                    where: { email: customerEmail },
-                    update: {
-                        tier_id: tier.id,
-                        subscription_tier: tier.name, // Sync the tier name for useAccess
-                        is_active: true, // Reactivate if they were inactive
-                        usage_tokens: {
-                            increment: initialTokens // Grant tokens upon subscription/upgrade
-                        }
-                    },
-                    create: {
-                        id: fallbackClerkId,
-                        email: customerEmail,
-                        clerk_id: fallbackClerkId,
-                        name: session.customer_details?.name || 'Authorized Personnel',
-                        tier_id: tier.id,
-                        subscription_tier: tier.name, // Sync the tier name
-                        usage_tokens: initialTokens,  // Initialize mapped tokens
-                        is_active: true,
-                        updated_at: new Date()
-                    }
-                });
-            } else {
-                console.error(`Webhook Warning: Tier '${tierName}' not found for user ${customerEmail}`);
-            }
+        // If subscription id present, pull full sub and sync (price → tier)
+        if (session.subscription) {
+          const subId =
+            typeof session.subscription === 'string'
+              ? session.subscription
+              : session.subscription.id;
+          const sub = await stripe.subscriptions.retrieve(subId, {
+            expand: ['items.data.price'],
+          });
+          const subResult = await syncSubscriptionToUser(sub, {
+            email: session.customer_details?.email,
+            grantTokens: false, // already granted on checkout stamp
+          });
+          console.log('[stripe webhook] post-checkout sub sync', subResult);
         }
-    }
+        break;
+      }
 
-    // 5. Tell Stripe the message was received successfully
-    return new NextResponse('Webhook processed', { status: 200 });
+      case 'customer.subscription.created':
+      case 'customer.subscription.updated': {
+        const sub = event.data.object as Stripe.Subscription;
+        const result = await syncSubscriptionToUser(sub, {
+          grantTokens: event.type === 'customer.subscription.created',
+        });
+        console.log(`[stripe webhook] ${event.type}`, result);
+        break;
+      }
+
+      case 'customer.subscription.deleted': {
+        const sub = event.data.object as Stripe.Subscription;
+        // Force status canceled for downgrade path
+        const canceled = {
+          ...sub,
+          status: 'canceled' as const,
+        };
+        const result = await syncSubscriptionToUser(canceled);
+        console.log('[stripe webhook] subscription.deleted', result);
+        break;
+      }
+
+      case 'invoice.payment_failed': {
+        const invoice = event.data.object as Stripe.Invoice;
+        const subRef = (invoice as any).subscription;
+        if (subRef) {
+          const subId = typeof subRef === 'string' ? subRef : subRef.id;
+          const sub = await stripe.subscriptions.retrieve(subId);
+          await syncSubscriptionToUser(sub);
+          console.log('[stripe webhook] payment_failed synced', subId);
+        }
+        break;
+      }
+
+      default:
+        // Acknowledge other events without error
+        break;
+    }
+  } catch (err: any) {
+    console.error('[stripe webhook] handler error', event.type, err);
+    // Return 500 so Stripe retries
+    return new NextResponse(`Handler error: ${err?.message || 'unknown'}`, {
+      status: 500,
+    });
+  }
+
+  return NextResponse.json({ received: true });
 }
