@@ -1,8 +1,8 @@
 import Stripe from 'stripe';
 import { priceIdToTier, checkoutTierMetadata, normalizeTierId } from '@/lib/rbac-stripe';
+import { verifyStripeWebhook } from '@/lib/stripe-webhook-verify';
 
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_dummy_key_for_build', {
-  // Keep flexible for Stripe SDK version drift during build
   apiVersion: (process.env.STRIPE_API_VERSION as any) || '2024-11-20.acacia',
   typescript: true,
 });
@@ -101,7 +101,6 @@ function resolveCheckoutTierId(priceId: string, explicit?: string) {
   return priceIdToTier(priceId) || normalizeTierId('director-pack');
 }
 
-/** Subscription checkout with RBAC tier metadata for webhooks */
 export async function createCheckoutSession(
   priceId: string,
   userId: string,
@@ -187,18 +186,12 @@ export async function createCustomerPortalSession(
   return session;
 }
 
+/** @deprecated Prefer verifyStripeWebhook from stripe-webhook-verify */
 export function verifyWebhookSignature(
   payload: string | Buffer,
   signature: string
 ): Stripe.Event {
-  if (!process.env.STRIPE_WEBHOOK_SECRET) {
-    throw new Error('STRIPE_WEBHOOK_SECRET is not configured');
-  }
-  return stripe.webhooks.constructEvent(
-    payload,
-    signature,
-    process.env.STRIPE_WEBHOOK_SECRET
-  );
+  return verifyStripeWebhook(payload, signature);
 }
 
 export async function getSubscriptionStatus(customerId: string) {
