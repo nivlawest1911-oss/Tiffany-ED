@@ -1,31 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { streamPrivateBlob } from '@/lib/blob';
-import { assertBlobAccess, type BlobPrincipal } from '@/lib/blob-acl';
+import { assertBlobAccess } from '@/lib/blob-acl';
+import { buildBlobPrincipal } from '@/lib/rbac-stripe';
 import { auth } from '@/lib/auth';
 
 export const runtime = 'nodejs';
 
-function principalFromSession(session: any): BlobPrincipal {
-  const u = session.user;
-  return {
-    userId: u.id,
-    email: u.email,
-    tier: (u as any).tier || (u as any).plan || null,
-    district: (u as any).district || null,
-    schoolSite: (u as any).school_site || null,
-    position: (u as any).position || null,
-    isAdmin: (u as any).role === 'admin' || (u as any).isAdmin === true,
-  };
-}
-
-/**
- * GET /api/blob/stream?pathname=exports/{userId}/report.pdf
- */
 export async function GET(request: NextRequest) {
   try {
     const session = await auth.api.getSession({ headers: request.headers });
     if (!session?.user) {
-      return NextResponse.json({ error: 'Unauthorized', code: 'UNAUTHENTICATED' }, { status: 401 });
+      return NextResponse.json(
+        { error: 'Unauthorized', code: 'UNAUTHENTICATED' },
+        { status: 401 }
+      );
     }
 
     const pathname = request.nextUrl.searchParams.get('pathname');
@@ -33,7 +21,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'pathname required' }, { status: 400 });
     }
 
-    const principal = principalFromSession(session);
+    const principal = await buildBlobPrincipal(session.user as any);
     const decision = assertBlobAccess(principal, pathname, 'get');
     if (!decision.allowed) {
       const status =
@@ -60,6 +48,7 @@ export async function GET(request: NextRequest) {
         'X-Content-Type-Options': 'nosniff',
         'Cache-Control': 'private, no-store',
         'X-Blob-Policy': decision.policy,
+        'X-EdIntel-Tier': principal?.tier || 'sovereign-initiate',
       },
     });
   } catch (err: any) {
