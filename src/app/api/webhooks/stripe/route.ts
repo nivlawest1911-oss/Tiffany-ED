@@ -4,6 +4,8 @@ import { stripe } from '@/lib/stripe';
 import {
   verifyStripeWebhook,
   StripeWebhookVerifyError,
+  measureClockSkew,
+  getWebhookToleranceSeconds,
 } from '@/lib/stripe-webhook-verify';
 import {
   syncCheckoutSession,
@@ -11,12 +13,9 @@ import {
 } from '@/lib/stripe-webhook-sync';
 
 export const runtime = 'nodejs';
-
-// Prevent Next from parsing body — signature requires raw bytes/text
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: Request) {
-  // 1) Raw body first (never req.json() before verify)
   let rawBody: string;
   try {
     rawBody = await req.text();
@@ -29,14 +28,23 @@ export async function POST(req: Request) {
 
   const signature = req.headers.get('stripe-signature');
 
-  // 2) Verify HMAC signature — reject everything else
   let event: Stripe.Event;
   try {
     event = verifyStripeWebhook(rawBody, signature);
   } catch (err) {
     if (err instanceof StripeWebhookVerifyError) {
+      const skew =
+        signature != null
+          ? measureClockSkew(signature, getWebhookToleranceSeconds())
+          : undefined;
+
       return NextResponse.json(
-        { error: err.message, code: err.code },
+        {
+          error: err.message,
+          code: err.code,
+          toleranceSec: getWebhookToleranceSeconds(),
+          skew: err.details?.skew ?? skew,
+        },
         { status: err.status }
       );
     }
@@ -47,7 +55,6 @@ export async function POST(req: Request) {
     );
   }
 
-  // 3) Process only after successful verification
   try {
     console.log('[stripe webhook] verified', event.id, event.type);
 
@@ -109,7 +116,6 @@ export async function POST(req: Request) {
     }
   } catch (err: any) {
     console.error('[stripe webhook] handler error', event.type, event.id, err);
-    // 500 → Stripe retries
     return NextResponse.json(
       {
         error: err?.message || 'Handler error',
@@ -127,10 +133,14 @@ export async function POST(req: Request) {
   });
 }
 
-/** Reject non-POST explicitly */
 export async function GET() {
   return NextResponse.json(
-    { error: 'Method not allowed', code: 'METHOD_NOT_ALLOWED' },
+    {
+      error: 'Method not allowed',
+      code: 'METHOD_NOT_ALLOWED',
+      toleranceSec: getWebhookToleranceSeconds(),
+      hint: 'POST Stripe events to this endpoint. Timestamp tolerance is applied on verify.',
+    },
     { status: 405 }
   );
 }
