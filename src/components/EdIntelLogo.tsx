@@ -1,10 +1,14 @@
-﻿'use client';
+'use client';
 
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useState, MouseEvent, useEffect, memo } from 'react';
 
 const SPRING_CONFIG = { damping: 25, stiffness: 200 };
+
+/** Local high-fidelity shield logo — Intelligence in Education */
+const LOGO_HF = '/images/edintel_logo_high_fidelity_1774298407403.png';
+const LOGO_STANDARD = '/images/edintel-logo.png';
 
 interface LogoProps {
     className?: string;
@@ -28,7 +32,6 @@ export const EdIntelLogo = memo(({
         setIsMounted(true);
     }, []);
 
-    // Mouse Parallax for High-Fidelity variants
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
     const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [15, -15]), SPRING_CONFIG);
@@ -50,8 +53,6 @@ export const EdIntelLogo = memo(({
 
     const isFidelity = variant === "fidelity" || variant === "sovereign-fidelity";
     const isSovereign = variant === "sovereign-fidelity";
-
-    // --- Render Logic ---
 
     if (!isMounted) return <div className={`logo-placeholder ${className}`} style={{ width: size, height: size }} />;
 
@@ -112,7 +113,6 @@ export const EdIntelLogo = memo(({
                     className="logo-sizer relative" 
                     initial={{"--logo-size": `${size}px`} as any}
                 >
-                    {/* Atmospheric Glow */}
                     <AnimatePresence>
                         {isHovered && (
                             <motion.div
@@ -124,7 +124,6 @@ export const EdIntelLogo = memo(({
                         )}
                     </AnimatePresence>
 
-                    {/* Ring 1: Noble Gold Orbit */}
                     <motion.div
                         animate={animated ? { rotate: 360 } : {}}
                         transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
@@ -133,17 +132,15 @@ export const EdIntelLogo = memo(({
                         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-noble-gold rounded-full shadow-[0_0_8px_#D4AF37]" />
                     </motion.div>
 
-                    {/* Ring 2: Inner Technical Dash */}
                     <motion.div
                         animate={animated ? { rotate: -360 } : {}}
                         transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
                         className="absolute inset-[4px] border border-white/10 rounded-full border-dashed"
                     />
 
-                    {/* Core: Sovereign Fidelity Logo */}
                     <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-noble-gold/10 to-transparent rounded-full backdrop-blur-sm p-1">
                         <Image
-                            src="/images/edintel-logo.png"
+                            src={LOGO_STANDARD}
                             alt="EdIntel"
                             width={size * 0.8}
                             height={size * 0.8}
@@ -185,13 +182,12 @@ export const EdIntelLogo = memo(({
                     />
                     <div className="relative z-10 rounded-3xl overflow-hidden shadow-[0_0_30px_rgba(212,175,55,0.5)] ring-1 ring-noble-gold/30">
                         <Image
-                            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/edintel_logo_high_fidelity_1774298407403.png-40aMNM0IwgAivJXguDqZ1AimCtnxVu.jpeg"
+                            src={LOGO_HF}
                             alt="EdIntel - Intelligence in Education"
                             width={size || 120}
                             height={size || 120}
                             className="object-contain"
                             priority
-                            loading="eager"
                         />
                         <motion.div
                             className="absolute inset-0 z-20 overflow-hidden rounded-3xl pointer-events-none"
@@ -219,20 +215,16 @@ export const EdIntelLogo = memo(({
         );
     }
 
-    // Classic/Default fallback
     return (
         <div className={`flex items-center gap-3 group ${className}`}>
             <div className="relative w-10 h-10 flex items-center justify-center">
-                <svg viewBox="0 0 100 100" className="w-full h-full text-[#D4AF37] overflow-visible">
-                    <defs>
-                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="#D4AF37" /><stop offset="100%" stopColor="#8A6B0E" />
-                        </linearGradient>
-                    </defs>
-                    <motion.circle cx="50" cy="50" r="45" stroke="url(#logoGradient)" strokeWidth="1" fill="none" strokeDasharray="10 5" opacity="0.3" animate={{ rotate: 360 }} transition={{ duration: 30, repeat: Infinity, ease: "linear" }} />
-                    <motion.path d="M50 10 L85 27 L85 73 L50 90 L15 73 L15 27 Z" fill="none" stroke="url(#logoGradient)" strokeWidth="2.5" strokeLinejoin="round" />
-                    <motion.path d="M50 25 V75 M30 45 L50 65 L70 45" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <Image
+                    src={LOGO_STANDARD}
+                    alt="EdIntel"
+                    width={40}
+                    height={40}
+                    className="object-contain"
+                />
             </div>
             {showText && (
                 <div className="flex flex-col leading-none pointer-events-none">
