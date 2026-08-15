@@ -1,43 +1,61 @@
-﻿export const SOCIAL_HUB_BANNER = "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e";
-export const SOCIAL_HUB_TIKTOK = "https://images.unsplash.com/photo-1611162617474-5b21e879e113";
-export const SOCIAL_HUB_FACEBOOK = "https://images.unsplash.com/photo-1544367563-12123d896889";
-export const BUSINESS_SOLUTIONS_BG = "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40";
-export const NOISE_PATTERN = "https://grainy-gradients.vercel.app/noise.svg";
-export const SOCIAL_HUB_AVATAR = "https://images.unsplash.com/photo-1560250097-0b93528c311a";
-export const PRINCIPAL_ACADEMY_HERO = "https://images.unsplash.com/photo-1507679799987-c73779587ccf";
+/**
+ * EdIntel media registry — brand-only, no personal photos.
+ * All paths resolve under /public for production on edintelai.vercel.app.
+ */
 
-export const BROADCAST_THUMB_1 = "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c";
-export const BROADCAST_THUMB_2 = "https://images.unsplash.com/photo-1516321318423-f06f85e504b3";
-export const BROADCAST_THUMB_3 = "https://images.unsplash.com/photo-1550751827-4bd374c3f58b";
+/** Canonical high-fidelity shield logo (gold E on black leather) */
+export const EDINTEL_LOGO_HF =
+  "/images/edintel_logo_high_fidelity_1774298407403.png";
 
-export const THE_ROOM_HERO = "https://images.unsplash.com/photo-1633356122544-f134324a6cee";
-export const EDUCATOR_HUB_HERO = "https://images.unsplash.com/photo-1557804506-669a67965ba0";
+export const EDINTEL_LOGO = "/images/edintel-logo.png";
+export const EDINTEL_LOGO_SOVEREIGN = "/images/branding/edintel_logo_sovereign.png";
+export const EDINTEL_SEAL = "/images/sovereign_seal.png";
+export const EDINTEL_LOGO_JPG = "/images/edintel-logo.jpg";
 
-// Leadership Training Center
-export const TRAINING_HUB_HERO = "https://images.unsplash.com/photo-1558346490-a72e53ae2d4f";
-export const ASSESSMENT_LITERACY = "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8";
-export const ASSESSMENT_SPED = "https://images.unsplash.com/photo-1589829545856-d10d557cf95f";
-export const ASSESSMENT_POLICY = "https://images.unsplash.com/photo-1450101499163-c8848c66ca85";
+/** Social / community hub — brand media only */
+export const SOCIAL_HUB_BANNER = "/images/professional_hero_bg.png";
+export const SOCIAL_HUB_TIKTOK = "/images/community_connection.png";
+export const SOCIAL_HUB_FACEBOOK = "/images/global_educational_uplink.png";
+export const SOCIAL_HUB_AVATAR = EDINTEL_LOGO_HF;
 
-export const SIM_IEP = "https://images.unsplash.com/photo-1543269865-cbf427effbad";
-export const SIM_OBSERVATION = "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4";
-export const SIM_KEYNOTE = "https://images.unsplash.com/photo-1475721027187-4024733923f6";
-export const SIM_CONFLICT = "https://images.unsplash.com/photo-1552664730-d307ca884978";
-export const SIM_COACHING = "https://images.unsplash.com/photo-1460925895917-afdab827c52f";
-export const SIM_EMERGENCY = "https://images.unsplash.com/photo-1557426272-fc759fbb7a8d";
+export const BUSINESS_SOLUTIONS_BG = "/assets/images/business-bg.jpg";
+export const NOISE_PATTERN = "/noise.png";
 
-export const ECONOMIC_ORACLE_IMAGE = "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e";
-export const IDENTITY_RESTORATION_IMAGE = "https://images.unsplash.com/photo-1523810192022-5a0fb9aa77d4";
-export const WELLNESS_FORGE_IMAGE = "https://images.unsplash.com/photo-1506126613408-eca07ce68773";
-export const GLOBAL_LEARNING_IMAGE = "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4";
-export const FAITH_ORACLE_IMAGE = "https://images.unsplash.com/photo-1544427928-c49cd0491f97";
-export const AI_PHILOSOPHER_IMAGE = "https://images.unsplash.com/photo-1507842217343-583bb7270b66";
-export const AI_HISTORIAN_IMAGE = "https://images.unsplash.com/photo-1461360228754-6e81c478585b";
-export const AI_FUTURIST_IMAGE = "https://images.unsplash.com/photo-1451187580459-43490279c0fa";
-export const AI_STORYTELLER_IMAGE = "https://images.unsplash.com/photo-1474932430478-3a7fb9065ba0";
+export const PRINCIPAL_ACADEMY_HERO = "/images/strategic_leadership_node.png";
 
-export const FEATURE_SYNC_ENGINE = "https://images.unsplash.com/photo-1504384308090-9c4e60b7d2c0";
-export const FEATURE_TOKEN_ECONOMY = "https://images.unsplash.com/photo-1521737604893-d14cc237f11d";
-export const FEATURE_AVATAR_LAB = "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4";
+export const BROADCAST_THUMB_1 = "/images/features/strategic_educator_planner.png";
+export const BROADCAST_THUMB_2 = "/images/features/iep_interface.png";
+export const BROADCAST_THUMB_3 = "/images/features/collaborative_intelligence_team.png";
 
+export const THE_ROOM_HERO = "/images/neural_lattice.png";
+export const EDUCATOR_HUB_HERO = "/images/hero_educator_team.png";
 
+/** Leadership Training Center */
+export const TRAINING_HUB_HERO = "/images/strategic_vision_classroom.png";
+export const ASSESSMENT_LITERACY = "/images/features/strategic_educator_planner.png";
+export const ASSESSMENT_SPED = "/images/features/strategic_iep_architect.png";
+export const ASSESSMENT_POLICY = "/images/protocol_interface.png";
+
+export const SIM_IEP = "/images/iep_architect_mockup.png";
+export const SIM_OBSERVATION = "/images/features/collaborative_intelligence_team.png";
+export const SIM_KEYNOTE = "/images/strategic_leadership_node.png";
+export const SIM_CONFLICT = "/images/contact_command.png";
+export const SIM_COACHING = "/images/features/behavior_intervention_specialist.png";
+export const SIM_EMERGENCY = "/images/features/field_trip_logistics_commander.png";
+
+export const ECONOMIC_ORACLE_IMAGE = "/images/grant_writer_mockup.png";
+export const IDENTITY_RESTORATION_IMAGE = EDINTEL_SEAL;
+export const WELLNESS_FORGE_IMAGE = "/images/student_success.png";
+export const GLOBAL_LEARNING_IMAGE = "/images/global_educational_uplink.png";
+export const FAITH_ORACLE_IMAGE = "/images/sovereign_seal.png";
+export const AI_PHILOSOPHER_IMAGE = "/images/neural_lattice.png";
+export const AI_HISTORIAN_IMAGE = "/images/protocol_interface.png";
+export const AI_FUTURIST_IMAGE = "/images/features/feature_suite_master.png";
+export const AI_STORYTELLER_IMAGE = "/images/features/strategic_communications_director.png";
+
+export const FEATURE_SYNC_ENGINE = "/images/features/collaborative_intelligence_team.png";
+export const FEATURE_TOKEN_ECONOMY = "/images/features/executive_grant_writer.png";
+export const FEATURE_AVATAR_LAB = "/images/features/strategic_iep_architect.png";
+
+/** Default fallback when a component needs a safe EdIntel still */
+export const EDINTEL_FALLBACK = EDINTEL_LOGO_HF;
