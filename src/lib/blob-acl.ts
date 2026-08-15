@@ -41,7 +41,6 @@ function normalizeTier(tier?: string | null): string {
 export function tierRank(tier?: string | null): number {
   const id = normalizeTier(tier);
   if (TIER_RANK[id] !== undefined) return TIER_RANK[id];
-  // Friendly names from Antigravity bridge
   if (/site.?command/i.test(tier || '')) return 5;
   if (/director/i.test(tier || '')) return 4;
   if (/practitioner/i.test(tier || '')) return 3;
@@ -61,27 +60,14 @@ export function sanitizeAclPath(pathname: string): string {
 
 type PathPolicy = {
   id: string;
-  /** pathname starts with this prefix (after sanitize) */
   prefix: string;
   minTier: number;
-  /** If true, second segment must equal userId (users/{userId}/...) */
   requireOwner?: boolean;
-  /** If true, path must include district slug matching principal.district */
   requireDistrict?: boolean;
   ops: BlobOperation[];
-  /** Admin / ALLOW_ADMIN_BLOB only */
   adminOnly?: boolean;
 };
 
-/**
- * Ordered policies — first match wins.
- * Layout:
- *   public-media/...          marketing / brand (authenticated read; high tier write)
- *   users/{userId}/...        personal vault
- *   district/{districtId}/... shared district assets
- *   exports/{userId}/...      generated reports
- *   admin/...                 platform ops only
- */
 const POLICIES: PathPolicy[] = [
   {
     id: 'admin',
@@ -94,13 +80,13 @@ const POLICIES: PathPolicy[] = [
     id: 'exports',
     prefix: 'exports/',
     minTier: 2,
-    requireOwner: true, // exports/{userId}/...
+    requireOwner: true,
     ops: ['get', 'head', 'put'],
   },
   {
     id: 'district',
     prefix: 'district/',
-    minTier: 4, // director-pack+
+    minTier: 4,
     requireDistrict: true,
     ops: ['get', 'head', 'put'],
   },
@@ -115,7 +101,7 @@ const POLICIES: PathPolicy[] = [
     id: 'public-media',
     prefix: 'public-media/',
     minTier: 0,
-    ops: ['get', 'head'], // writes: site-command only via separate check below
+    ops: ['get', 'head'],
   },
 ];
 
@@ -127,22 +113,17 @@ function matchPolicy(path: string): PathPolicy | null {
 }
 
 function ownerFromPath(path: string, prefix: string): string | null {
-  // users/{userId}/... or exports/{userId}/...
   const rest = path.slice(prefix.length);
   const owner = rest.split('/')[0];
   return owner || null;
 }
 
 function districtFromPath(path: string): string | null {
-  // district/{districtId}/...
   const rest = path.slice('district/'.length);
   const d = rest.split('/')[0];
   return d || null;
 }
 
-/**
- * Core ACL check for a principal + pathname + operation.
- */
 export function assertBlobAccess(
   principal: BlobPrincipal | null | undefined,
   pathname: string,
@@ -176,7 +157,6 @@ export function assertBlobAccess(
     }
   }
 
-  // public-media writes require site-command
   if (policy.id === 'public-media' && (operation === 'put' || operation === 'delete')) {
     if (tierRank(principal.tier) < 5 && !principal.isAdmin) {
       return {
@@ -204,7 +184,6 @@ export function assertBlobAccess(
   if (policy.requireOwner) {
     const owner = ownerFromPath(path, policy.prefix);
     if (!owner || owner !== principal.userId) {
-      // Directors+ may read district-scoped exports of others only under district/ policy — not here
       if (!(principal.isAdmin || process.env.ALLOW_ADMIN_BLOB === '1')) {
         return {
           allowed: false,
@@ -238,7 +217,6 @@ export function assertBlobAccess(
   return { allowed: true, policy: policy.id };
 }
 
-/** Build a safe user vault key */
 export function userVaultPath(userId: string, ...parts: string[]): string {
   return sanitizeAclPath(['users', userId, ...parts].join('/'));
 }
@@ -248,7 +226,6 @@ export function exportPath(userId: string, ...parts: string[]): string {
 }
 
 export function districtPath(districtId: string, ...parts: string[]): string {
-  return sanitizeAclPath(
-    ['district', districtId.toLowerCase().replace(/\s+/g, '-'), ...parts].join('/'
-  ));
+  const slug = districtId.toLowerCase().replace(/\s+/g, '-');
+  return sanitizeAclPath(['district', slug, ...parts].join('/'));
 }
