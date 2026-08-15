@@ -1,10 +1,13 @@
 /** @type {import('next').NextConfig} */
+const path = require('path');
+
+const emptyStub = path.join(__dirname, 'src/lib/mocks/empty.ts');
+
 const nextConfig = {
   compress: true,
   poweredByHeader: false,
   generateEtags: true,
-  // Stable build ids → CDN long-cache actually works across deploys of unchanged assets
-  // (Date.now() forced full cache bust every build and hurt TTFB/LCP)
+  // Stable build ids → CDN long-cache works across deploys of unchanged assets
   generateBuildId: async () =>
     process.env.VERCEL_GIT_COMMIT_SHA ||
     process.env.GITHUB_SHA ||
@@ -17,8 +20,23 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
 
-  // Skip browser source maps in prod — faster builds, less RAM (OOM on Hobby)
   productionBrowserSourceMaps: false,
+
+  /**
+   * Turbopack config (used by `next dev --turbopack` / experimental `next build --turbopack`).
+   * Custom webpack() is IGNORED under Turbopack — mirror critical client stubs here.
+   * Production on Next 15.5 stays on webpack until these aliases are validated in CI.
+   */
+  turbopack: {
+    resolveAlias: {
+      '@/lib/prisma': emptyStub,
+      '@/lib/auth': emptyStub,
+      '@prisma/client': emptyStub,
+      '@generated/prisma/client': emptyStub,
+      pg: emptyStub,
+      '@prisma/adapter-pg': emptyStub,
+    },
+  },
 
   webpack: (config, { dev, isServer, webpack }) => {
     if (!isServer) {
@@ -116,9 +134,7 @@ const nextConfig = {
   ],
 
   experimental: {
-    // Lower peak webpack RAM on Vercel Hobby (slightly slower compile, fewer OOMs)
     webpackMemoryOptimizations: true,
-    // Keep concurrent workers modest on constrained build machines
     cpus: process.env.VERCEL ? 1 : undefined,
     optimizePackageImports: [
       'lucide-react',
@@ -195,7 +211,6 @@ const nextConfig = {
           },
         ],
       },
-      // Sensitive APIs must never be CDN-cached
       {
         source: '/api/auth/:path*',
         headers: [
@@ -232,7 +247,6 @@ const nextConfig = {
           },
         ],
       },
-      // Safe short CDN cache only for explicitly public read APIs
       {
         source: '/api/public/:path*',
         headers: [
@@ -269,7 +283,6 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   typescript: {
-    // Bypass tsc during Vercel build to prevent OOM on Hobby
     ignoreBuildErrors: true,
   },
 };
