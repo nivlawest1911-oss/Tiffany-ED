@@ -2,28 +2,33 @@ import type { Metadata } from 'next';
 import '../style.css';
 import { Providers } from '@/components/providers';
 import { Toaster } from '@/components/ui/toaster';
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import WebVitalsReporter from '@/components/analytics/WebVitalsReporter';
 import ClientShell from '@/components/layout/ClientShell';
+import AccessibleLayout from '@/components/layout/AccessibleLayout';
 import { Orbitron, Outfit, Playfair_Display } from 'next/font/google';
 
 const orbitron = Orbitron({
   subsets: ['latin'],
   variable: '--font-orbitron',
   display: 'swap',
+  preload: true,
 });
 
 const outfit = Outfit({
   subsets: ['latin'],
   variable: '--font-outfit',
   display: 'swap',
+  preload: true,
 });
 
+// Secondary display font — still self-hosted via next/font, but not critical path
 const playfair = Playfair_Display({
   subsets: ['latin'],
   variable: '--font-playfair',
   display: 'swap',
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -32,7 +37,8 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   title: 'EdIntel Professional | AI Operating System for Education',
-  description: 'The definitive AI operating layer for autonomous professionals and institutional intelligence. Sovereign analytics, neural delegation, and strategic insight — all in one platform.',
+  description:
+    'The definitive AI operating layer for autonomous professionals and institutional intelligence. Sovereign analytics, neural delegation, and strategic insight — all in one platform.',
   manifest: '/manifest.json',
   icons: {
     icon: '/images/edintel-logo.png',
@@ -44,14 +50,20 @@ export const metadata: Metadata = {
     statusBarStyle: 'black-translucent',
     title: 'EdIntel',
   },
-  authors: [{ name: 'Dr. Alvin West II', url: 'https://www.linkedin.com/in/alvin-west-ii-dba-11a75323/' }],
+  authors: [
+    {
+      name: 'Dr. Alvin West II',
+      url: 'https://www.linkedin.com/in/alvin-west-ii-dba-11a75323/',
+    },
+  ],
   creator: 'Dr. Alvin West II',
   publisher: 'EdIntel',
   openGraph: {
     type: 'website',
     siteName: 'EdIntel',
     title: 'EdIntel — AI Operating System for Education Leaders',
-    description: 'The definitive AI operating layer for autonomous professionals and institutional intelligence. Sovereign analytics, neural delegation, and strategic insight.',
+    description:
+      'The definitive AI operating layer for autonomous professionals and institutional intelligence. Sovereign analytics, neural delegation, and strategic insight.',
     url: 'https://edintelai.vercel.app',
     locale: 'en_US',
     images: [
@@ -66,7 +78,8 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'EdIntel — AI Operating System for Education Leaders',
-    description: 'The definitive AI operating layer for autonomous professionals and institutional intelligence.',
+    description:
+      'The definitive AI operating layer for autonomous professionals and institutional intelligence.',
     creator: '@AlvinWe53959439',
     site: '@AlvinWe53959439',
     images: [
@@ -76,11 +89,6 @@ export const metadata: Metadata = {
         height: 630,
       },
     ],
-  },
-  other: {
-    'linkedin:profile': 'https://www.linkedin.com/in/alvin-west-ii-dba-11a75323/',
-    'facebook:profile': 'https://www.facebook.com/alvin.west.18',
-    'tiktok:creator': '@alvinwestii',
   },
 };
 
@@ -93,55 +101,44 @@ export const viewport = {
   viewportFit: 'cover',
 };
 
-import AccessibleLayout from '@/components/layout/AccessibleLayout';
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`dark ${orbitron.variable} ${outfit.variable} ${playfair.variable}`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`dark ${orbitron.variable} ${outfit.variable} ${playfair.variable}`}
+      suppressHydrationWarning
+    >
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* next/font self-hosts — skip fonts.googleapis preconnect (saves connection slots) */}
         <link rel="preconnect" href="https://nivlawest1911-oss.supabase.co" />
         <link rel="dns-prefetch" href="https://vitals.vercel-insights.com" />
-        
-        {/* CRITICAL ASSET PRELOADS (Phase 15) */}
         <link rel="preload" href="/images/professional_hero_bg.png" as="image" />
         <link rel="preload" href="/images/edintel-logo.png" as="image" />
       </head>
       <body className="bg-[#050505] text-gray-100 antialiased overflow-x-hidden selection:bg-[#D4AF37]/30 font-sans min-h-screen">
         <Providers>
           <ClientShell />
-          <AccessibleLayout>
-            {children}
-          </AccessibleLayout>
+          <AccessibleLayout>{children}</AccessibleLayout>
           <Toaster />
           <Analytics />
           <SpeedInsights />
           <WebVitalsReporter />
         </Providers>
-                  <script
-                    dangerouslySetInnerHTML={{
-                      __html: `
-                          if ('serviceWorker' in navigator) {
-                            window.addEventListener('load', function() {
-                              navigator.serviceWorker.register('/sw.js').then(
-                                function(registration) {
-                                  console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                                },
-                                function(err) {
-                                  console.log('ServiceWorker registration failed: ', err);
-                                }
-                                );
-                            });
-                          }
-                        `,
-                    }}
-                  />
-
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                  navigator.serviceWorker.register('/sw.js').catch(function() {});
+                });
+              }
+            `,
+          }}
+        />
       </body>
     </html>
   );
