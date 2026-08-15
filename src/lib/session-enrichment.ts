@@ -1,9 +1,13 @@
 /**
  * Load RBAC / profile fields from Prisma User for better-auth session responses.
- * Keeps Stripe lookups off the hot path — webhook already wrote subscription_tier.
+ * Missing or unknown tier data never throws — falls back to sovereign-initiate.
  */
 import { prisma } from '@/lib/prisma';
-import { normalizeTierId, type EdIntelTierId } from '@/lib/rbac-stripe';
+import {
+  normalizeTierId,
+  isKnownTierLabel,
+  type EdIntelTierId,
+} from '@/lib/rbac-stripe';
 import { tierRank } from '@/lib/blob-acl';
 
 export type EnrichedUserFields = {
@@ -21,6 +25,12 @@ export type EnrichedUserFields = {
   isAdmin: boolean;
   isTrialConverted: boolean;
   trialEndsAt: string | null;
+  /** True when DB had no usable tier label */
+  tierMissing: boolean;
+  /** True when raw label could not be mapped to a known id */
+  tierUnknown: boolean;
+  /** Human-readable note for UI / logs */
+  tierWarning: string | null;
 };
 
 const DEFAULTS: EnrichedUserFields = {
@@ -38,11 +48,33 @@ const DEFAULTS: EnrichedUserFields = {
   isAdmin: false,
   isTrialConverted: false,
   trialEndsAt: null,
+  tierMissing: true,
+  tierUnknown: false,
+  tierWarning: 'No subscription tier on profile — using Sovereign Initiate',
 };
+
+function safeIso(d: Date | string | null | undefined): string | null {
+  if (!d) return null;
+  try {
+    const t = new Date(d);
+    if (Number.isNaN(t.getTime())) return null;
+    return t.toISOString();
+  } catch {
+    return null;
+  }
+}
 
 export async function loadEnrichedUserFields(
   userId: string
 ): Promise<EnrichedUserFields> {
+  if (!userId || typeof userId !== 'string') {
+    console.warn('[session-enrichment] missing userId');
+    return {
+      ...DEFAULTS,
+      tierWarning: 'Missing user id — using Sovereign Initiate',
+    };
+  }
+
   try {
     const row = await prisma.user.findUnique({
       where: { id: userId },
@@ -60,34 +92,69 @@ export async function loadEnrichedUserFields(
       },
     });
 
-    if (!row) return { ...DEFAULTS };
+    if (!row) {
+      console.warn('[session-enrichment] user not found', userId);
+      return {
+        ...DEFAULTS,
+        tierWarning: 'User profile not found — using Sovereign Initiate',
+      };
+    }
 
-    const tier = normalizeTierId(row.subscription_tier);
+    const raw = (row.subscription_tier || '').trim();
+    const tierMissing =
+      !raw ||
+      raw.toLowerCase() === 'free' ||
+      raw.toLowerCase() === 'none' ||
+      raw.toLowerCase() === 'null';
+
+    const tierUnknown = !tierMissing && !isKnownTierLabel(raw);
+    if (tierUnknown) {
+      console.warn(
+        '[session-enrichment] unknown subscription_tier label',
+        { userId, raw }
+      );
+    }
+
+    const tier = normalizeTierId(tierMissing ? null : raw);
     const isAdmin =
       row.role === 'ADMIN' ||
       row.role === 'SUPERINTENDENT' ||
       row.role === 'EXECUTIVE';
 
+    let tierWarning: string | null = null;
+    if (tierMissing) {
+      tierWarning =
+        'No subscription tier on profile — using Sovereign Initiate';
+    } else if (tierUnknown) {
+      tierWarning = `Unrecognized tier "${raw}" — using Sovereign Initiate`;
+    }
+
     return {
       tier,
       tierRank: tierRank(tier),
-      plan: row.subscription_tier || DEFAULTS.plan,
-      subscriptionTier: row.subscription_tier || DEFAULTS.subscriptionTier,
-      subscriptionStatus: row.subscription_status || DEFAULTS.subscriptionStatus,
-      stripeCustomerId: row.stripe_customer_id,
-      stripeSubscriptionId: row.stripe_subscription_id,
-      district: row.district,
-      school_site: row.school_site,
-      position: row.position,
-      role: row.role,
+      plan: tierMissing || tierUnknown ? DEFAULTS.plan : raw,
+      subscriptionTier: tierMissing || tierUnknown ? DEFAULTS.subscriptionTier : raw,
+      subscriptionStatus:
+        row.subscription_status?.trim() || DEFAULTS.subscriptionStatus,
+      stripeCustomerId: row.stripe_customer_id ?? null,
+      stripeSubscriptionId: row.stripe_subscription_id ?? null,
+      district: row.district ?? null,
+      school_site: row.school_site ?? null,
+      position: row.position ?? null,
+      role: row.role ?? null,
       isAdmin,
-      isTrialConverted: row.is_trial_converted,
-      trialEndsAt: row.trial_ends_at
-        ? new Date(row.trial_ends_at).toISOString()
-        : null,
+      isTrialConverted: Boolean(row.is_trial_converted),
+      trialEndsAt: safeIso(row.trial_ends_at),
+      tierMissing,
+      tierUnknown,
+      tierWarning,
     };
   } catch (err) {
-    console.error('[session-enrichment]', err);
-    return { ...DEFAULTS };
+    console.error('[session-enrichment] failed to load tier', userId, err);
+    return {
+      ...DEFAULTS,
+      tierWarning:
+        'Tier lookup failed — using Sovereign Initiate (safe default)',
+    };
   }
 }
