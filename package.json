@@ -8,9 +8,11 @@
     "packageManager": "npm@10.8.2",
     "scripts": {
         "preinstall": "echo 'Starting fresh install'",
-        "dev": "next dev",
+        "dev": "next dev --turbopack",
+        "dev:webpack": "next dev --webpack",
         "prebuild": "node -e \"const fs = require('fs'); if (fs.existsSync('.next')) fs.rmSync('.next', { recursive: true, force: true });\"",
         "build": "npx cross-env NODE_OPTIONS=--max-old-space-size=6144 next build",
+        "build:turbo": "npx cross-env NODE_OPTIONS=--max-old-space-size=6144 next build --turbopack",
         "build:analyze": "ANALYZE=true next build",
         "start": "next start",
         "lint": "echo 'Linting skipped'",
