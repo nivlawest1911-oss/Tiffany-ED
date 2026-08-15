@@ -1,9 +1,13 @@
 import { createAuthClient } from "better-auth/react";
+import {
+  customSessionClient,
+  inferAdditionalFields,
+} from "better-auth/client/plugins";
+import type { auth } from "@/lib/auth";
 
 /**
  * Client-side baseURL is fully env-driven.
- * Priority: NEXT_PUBLIC_BETTER_AUTH_URL → window.location.origin (runtime) → empty (lets better-auth use relative)
- * Never hardcode a production domain here.
+ * Priority: NEXT_PUBLIC_BETTER_AUTH_URL → window.location.origin
  */
 const clientBaseURL =
   process.env.NEXT_PUBLIC_BETTER_AUTH_URL ||
@@ -11,11 +15,15 @@ const clientBaseURL =
 
 export const authClient = createAuthClient({
   baseURL: clientBaseURL,
+  plugins: [
+    customSessionClient<typeof auth>(),
+    inferAdditionalFields<typeof auth>(),
+  ],
 });
 
-export const { 
-  signIn, 
-  signUp, 
-  signOut, 
-  useSession 
+export const {
+  signIn,
+  signUp,
+  signOut,
+  useSession,
 } = authClient;
