@@ -1,8 +1,17 @@
-﻿export const FOUNDER_BIO = {
-    name: "Dr. Alvin West",
-    role: "EdIntel Delegate & Chief Architect of EdIntel. Pioneer in educational AI, dedicated to transforming district intelligence through EdIntel neural protocols.",
-    image: "/images/avatars/dr_alvin_west_official.png",
-    credentials: ["PhD Education", "AI Governance", "Systemic Reform Architect"]
+export const BRAND_CONFIG = {
+    name: "EdIntel",
+    tagline: "Intelligence in Education",
+    logo: "/images/edintel-logo.png",
+    shieldIcon: "/images/edintel-logo.png",
+    primaryColor: "#D4AF37", // Gold Shield Accent
+    context: "Alabama K-12 / Mobile County Public Schools sovereign AI orchestration",
+};
+
+export const FOUNDER_BIO = {
+    name: "EdIntel Founders Foundry",
+    role: "Institutional AI Orchestrator & Autonomous Pedagogical Engine for Mobile County and Alabama K-12.",
+    image: "/images/edintel-logo.png",
+    credentials: ["ALCOS Pedagogy", "FERPA Shield", "Alabama Admin Code Part 2 Compliant"]
 };
 
 import { EdIntel_TIERS } from './pricing-config';
@@ -21,6 +30,6 @@ export const PRICING_TIERS = EdIntel_TIERS.map(tier => ({
 }));
 
 export const LEGAL_POLICIES = {
-    ferpa: "EdIntel protocols are engineered for strict FERPA compliance. No student-identifiable data is processed on-device or at rest without district-sanctioned anonymization layers.",
-    privacy: "Our privacy first initiative ensures that district datasets remain EdIntel. EdIntel agents do not train on private data, maintaining absolute data integrity and confidentiality."
+    ferpa: "EdIntel protocols are engineered for strict FERPA compliance. No student-identifiable data is processed without district-sanctioned anonymization layers.",
+    privacy: "Our privacy-first initiative ensures that district datasets remain sovereign. EdIntel agents do not train on private student data, maintaining absolute data integrity and confidentiality."
 };

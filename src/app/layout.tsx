@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import '../style.css';
-import { Providers } from '@/components/providers';
+import { AuthProvider } from '@/context/AuthContext';
 import { Toaster } from '@/components/ui/toaster';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
@@ -23,7 +23,6 @@ const outfit = Outfit({
   preload: true,
 });
 
-// Secondary display font — still self-hosted via next/font, but not critical path
 const playfair = Playfair_Display({
   subsets: ['latin'],
   variable: '--font-playfair',
@@ -36,9 +35,8 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
   },
-  title: 'EdIntel Professional | AI Operating System for Education',
-  description:
-    'The definitive AI operating layer for autonomous professionals and institutional intelligence. Sovereign analytics, neural delegation, and strategic insight — all in one platform.',
+  title: 'EdIntel | Intelligence in Education',
+  description: 'The definitive sovereign AI orchestrator for educators, site leaders, and district administrators. ALCOS pedagogy, FERPA compliance, and administrative load reduction.',
   manifest: '/manifest.json',
   icons: {
     icon: '/images/edintel-logo.png',
@@ -50,20 +48,14 @@ export const metadata: Metadata = {
     statusBarStyle: 'black-translucent',
     title: 'EdIntel',
   },
-  authors: [
-    {
-      name: 'Dr. Alvin West II',
-      url: 'https://www.linkedin.com/in/alvin-west-ii-dba-11a75323/',
-    },
-  ],
-  creator: 'Dr. Alvin West II',
-  publisher: 'EdIntel',
+  authors: [{ name: 'EdIntel Founders Foundry', url: 'https://edintelai.vercel.app' }],
+  creator: 'EdIntel',
+  publisher: 'EdIntel Sovereign Platform',
   openGraph: {
     type: 'website',
     siteName: 'EdIntel',
-    title: 'EdIntel — AI Operating System for Education Leaders',
-    description:
-      'The definitive AI operating layer for autonomous professionals and institutional intelligence. Sovereign analytics, neural delegation, and strategic insight.',
+    title: 'EdIntel — Intelligence in Education',
+    description: 'Sovereign AI orchestrator for educators and district leaders in Alabama K-12.',
     url: 'https://edintelai.vercel.app',
     locale: 'en_US',
     images: [
@@ -77,11 +69,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'EdIntel — AI Operating System for Education Leaders',
-    description:
-      'The definitive AI operating layer for autonomous professionals and institutional intelligence.',
-    creator: '@AlvinWe53959439',
-    site: '@AlvinWe53959439',
+    title: 'EdIntel — Intelligence in Education',
+    description: 'Sovereign AI orchestrator for educators and district leaders in Alabama K-12.',
+    site: '@EdIntelAI',
     images: [
       {
         url: '/twitter-image.jpg',
@@ -113,32 +103,20 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        {/* next/font self-hosts — skip fonts.googleapis preconnect (saves connection slots) */}
-        <link rel="preconnect" href="https://nivlawest1911-oss.supabase.co" />
         <link rel="dns-prefetch" href="https://vitals.vercel-insights.com" />
-        <link rel="preload" href="/images/professional_hero_bg.png" as="image" />
         <link rel="preload" href="/images/edintel-logo.png" as="image" />
       </head>
       <body className="bg-[#050505] text-gray-100 antialiased overflow-x-hidden selection:bg-[#D4AF37]/30 font-sans min-h-screen">
-        <Providers>
+        <AuthProvider>
           <ClientShell />
-          <AccessibleLayout>{children}</AccessibleLayout>
+          <AccessibleLayout>
+            {children}
+          </AccessibleLayout>
           <Toaster />
           <Analytics />
           <SpeedInsights />
           <WebVitalsReporter />
-        </Providers>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              if ('serviceWorker' in navigator) {
-                window.addEventListener('load', function() {
-                  navigator.serviceWorker.register('/sw.js').catch(function() {});
-                });
-              }
-            `,
-          }}
-        />
+        </AuthProvider>
       </body>
     </html>
   );

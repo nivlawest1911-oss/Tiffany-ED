@@ -15,6 +15,123 @@ export type EdIntelTierId =
   | 'director-pack'
   | 'site-command';
 
+export type TierRank = 'initiate' | 'sovereign-pack' | 'practitioner' | 'director-pack' | 'site-command' | 'sovereign-district';
+
+export interface TierEntitlement {
+    rank: number;
+    name: string;
+    maxTokens: number;
+    canAccessBlobVault: boolean;
+    canExportDistrict: boolean;
+    canAccessMediaSynthesis: boolean;
+    canAccessDirectorPack: boolean;
+}
+
+export const TIER_RANKS: Record<string, { rank: number; entitlement: TierEntitlement }> = {
+    'Initiate': {
+        rank: 1,
+        entitlement: {
+            rank: 1,
+            name: 'Initiate',
+            maxTokens: 50,
+            canAccessBlobVault: false,
+            canExportDistrict: false,
+            canAccessMediaSynthesis: false,
+            canAccessDirectorPack: false,
+        }
+    },
+    'Standard Pack': {
+        rank: 1,
+        entitlement: {
+            rank: 1,
+            name: 'Standard Pack',
+            maxTokens: 50,
+            canAccessBlobVault: false,
+            canExportDistrict: false,
+            canAccessMediaSynthesis: false,
+            canAccessDirectorPack: false,
+        }
+    },
+    'Sovereign Pack': {
+        rank: 2,
+        entitlement: {
+            rank: 2,
+            name: 'Sovereign Pack',
+            maxTokens: 1500,
+            canAccessBlobVault: true,
+            canExportDistrict: false,
+            canAccessMediaSynthesis: true,
+            canAccessDirectorPack: false,
+        }
+    },
+    'Practitioner': {
+        rank: 3,
+        entitlement: {
+            rank: 3,
+            name: 'Practitioner',
+            maxTokens: 3000,
+            canAccessBlobVault: true,
+            canExportDistrict: false,
+            canAccessMediaSynthesis: true,
+            canAccessDirectorPack: false,
+        }
+    },
+    'Director Pack': {
+        rank: 4,
+        entitlement: {
+            rank: 4,
+            name: 'Director Pack',
+            maxTokens: 5000,
+            canAccessBlobVault: true,
+            canExportDistrict: true,
+            canAccessMediaSynthesis: true,
+            canAccessDirectorPack: true,
+        }
+    },
+    'Site Command': {
+        rank: 5,
+        entitlement: {
+            rank: 5,
+            name: 'Site Command',
+            maxTokens: 10000,
+            canAccessBlobVault: true,
+            canExportDistrict: true,
+            canAccessMediaSynthesis: true,
+            canAccessDirectorPack: true,
+        }
+    }
+};
+
+export const DEFAULT_INITIATE_TIER: TierEntitlement = TIER_RANKS['Initiate'].entitlement;
+
+export function resolveUserEntitlement(tierName?: string | null): {
+    entitlement: TierEntitlement;
+    tierMissing: boolean;
+    tierWarning?: string;
+} {
+    if (!tierName) {
+        return {
+            entitlement: DEFAULT_INITIATE_TIER,
+            tierMissing: true,
+            tierWarning: 'Missing subscription tier record; downgraded to Initiate safety default.'
+        };
+    }
+
+    const found = TIER_RANKS[tierName] || TIER_RANKS[tierName.trim()];
+    if (!found) {
+        return {
+            entitlement: DEFAULT_INITIATE_TIER,
+            tierMissing: true,
+            tierWarning: `Unrecognized tier '${tierName}'; downgraded to Initiate safety default.`
+        };
+    }
+
+    return {
+        entitlement: found.entitlement,
+        tierMissing: false
+    };
+}
+
 const KNOWN_IDS = new Set<string>([
   'sovereign-initiate',
   'standard-pack',
@@ -64,7 +181,6 @@ export function priceIdToTier(
   return map[priceId] || null;
 }
 
-/** True if raw label maps to a known paid/free tier (not silent unknown). */
 export function isKnownTierLabel(raw?: string | null): boolean {
   if (!raw || typeof raw !== 'string') return false;
   const t = raw.toLowerCase().trim().replace(/\s+/g, '-');
@@ -159,7 +275,6 @@ export async function resolveUserTier(
       };
     }
 
-    // Propagate enrichment warnings
     const enrichmentWarning =
       user.tierWarning ||
       (user.tierMissing
@@ -168,7 +283,6 @@ export async function resolveUserTier(
           ? 'Session tier label unknown — evaluating fallbacks'
           : null);
 
-    // 1) Explicit session / DB tier (paid ranks only short-circuit)
     const sessionTier = normalizeTierId(
       user.tier || user.plan || user.subscriptionTier || null
     );
@@ -182,7 +296,6 @@ export async function resolveUserTier(
       };
     }
 
-    // 2) Active trial
     const trialEnd = safeTrialEnd(user);
     const converted =
       user.is_trial_converted === true || user.isTrialConverted === true;
@@ -196,7 +309,6 @@ export async function resolveUserTier(
       };
     }
 
-    // 3) Stripe live lookup
     const customerId = user.stripeCustomerId || user.stripe_customer_id;
     if (customerId && process.env.STRIPE_SECRET_KEY) {
       try {

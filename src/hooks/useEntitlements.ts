@@ -3,15 +3,19 @@
 import useSWR from 'swr';
 
 export type EntitlementsPayload = {
-  tierId: string;
+  userId?: string;
+  email?: string;
+  tier?: string;
+  tierId?: string;
   rank: number;
-  source: string;
+  source?: string;
   warning?: string | null;
   tierMissing?: boolean;
-  tierUnknown?: boolean;
+  tierWarning?: string | null;
+  entitlement?: any;
   subscriptionStatus?: string | null;
   stripeCustomerId?: string | null;
-  features: Record<string, boolean>;
+  features?: Record<string, boolean>;
   isAdmin?: boolean;
   code?: string;
 };
@@ -22,7 +26,7 @@ const fetcher = async (url: string): Promise<EntitlementsPayload> => {
     cache: 'no-store',
   });
   if (res.status === 401) {
-    throw new Error('UNAUTHENTICATED');
+    return res.json();
   }
   if (!res.ok) {
     throw new Error(`Entitlements ${res.status}`);
@@ -30,31 +34,34 @@ const fetcher = async (url: string): Promise<EntitlementsPayload> => {
   return res.json();
 };
 
-/**
- * Single source for paywalls / feature gates on the client.
- * Dedupes concurrent callers; revalidates every 60s in the background.
- */
 export function useEntitlements(enabled = true) {
-  const { data, error, isLoading, isValidating, mutate } = useSWR<
-    EntitlementsPayload
-  >(enabled ? '/api/entitlements' : null, fetcher, {
-    revalidateOnFocus: false,
-    revalidateOnReconnect: true,
-    dedupingInterval: 60_000,
-    errorRetryCount: 2,
-    keepPreviousData: true,
-  });
+  const { data, error, isLoading, isValidating, mutate } = useSWR<EntitlementsPayload>(
+    enabled ? '/api/entitlements' : null,
+    fetcher,
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: true,
+      dedupingInterval: 60_000,
+      errorRetryCount: 2,
+      keepPreviousData: true,
+    }
+  );
 
   return {
-    entitlements: data,
-    tierId: data?.tierId ?? 'sovereign-initiate',
-    rank: data?.rank ?? 0,
+    entitlements: data?.entitlement || data,
+    tier: data?.tier || 'Initiate',
+    tierId: data?.tierId || 'sovereign-initiate',
+    rank: data?.rank ?? 1,
+    tierMissing: Boolean(data?.tierMissing),
+    tierWarning: data?.tierWarning || data?.warning || null,
     features: data?.features ?? {},
     warning: data?.warning ?? null,
     isAdmin: Boolean(data?.isAdmin),
     isLoading,
     isValidating,
+    isError: Boolean(error),
     error,
+    mutate,
     refresh: mutate,
     can: (feature: string) => Boolean(data?.features?.[feature]),
   };

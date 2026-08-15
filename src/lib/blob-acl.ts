@@ -2,6 +2,7 @@
  * Fine-grained access control for Vercel Blob pathnames.
  * Combines path prefix policies, subscription tier, and ownership.
  */
+import { resolveUserEntitlement } from './rbac-stripe';
 
 export type BlobOperation = 'get' | 'head' | 'put' | 'delete';
 
@@ -25,6 +26,7 @@ export type AclDecision =
 const TIER_RANK: Record<string, number> = {
   'sovereign-initiate': 0,
   'edintel-initiate': 0,
+  'initiate': 0,
   'standard-pack': 1,
   'sovereign-pack': 2,
   'edintel-pack': 2,
@@ -215,6 +217,45 @@ export function assertBlobAccess(
   }
 
   return { allowed: true, policy: policy.id };
+}
+
+export type BlobAccessPath = 'userVault' | 'export' | 'district';
+
+export interface BlobAccessOptions {
+    userId: string;
+    userTier?: string | null;
+    pathname: string;
+    accessPath: BlobAccessPath;
+}
+
+export function verifyBlobAccess({
+    userId,
+    userTier,
+    pathname,
+    accessPath
+}: BlobAccessOptions): { allowed: boolean; reason?: string } {
+    if (!userId) {
+        return { allowed: false, reason: 'Authentication required for blob access.' };
+    }
+
+    const { entitlement } = resolveUserEntitlement(userTier);
+
+    if (accessPath === 'userVault') {
+        if (!pathname.includes(`/users/${userId}/`) && !pathname.includes(`vault/${userId}/`)) {
+            return { allowed: false, reason: 'Access denied: user can only access their own vault files.' };
+        }
+        if (!entitlement.canAccessBlobVault) {
+            return { allowed: false, reason: 'Subscription tier Initiate cannot access private blob storage.' };
+        }
+    }
+
+    if (accessPath === 'district' || accessPath === 'export') {
+        if (!entitlement.canExportDistrict) {
+            return { allowed: false, reason: 'Access denied: District exports require Director Pack or Site Command tier.' };
+        }
+    }
+
+    return { allowed: true };
 }
 
 export function userVaultPath(userId: string, ...parts: string[]): string {

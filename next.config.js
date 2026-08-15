@@ -7,14 +7,16 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   generateEtags: true,
+  transpilePackages: [],
+
   // Stable build ids → CDN long-cache works across deploys of unchanged assets
   generateBuildId: async () =>
     process.env.VERCEL_GIT_COMMIT_SHA ||
     process.env.GITHUB_SHA ||
     process.env.BUILD_ID ||
-    'local-dev',
+    'build-sovereign-v2',
 
-  transpilePackages: [],
+  output: 'standalone',
 
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
@@ -22,11 +24,6 @@ const nextConfig = {
 
   productionBrowserSourceMaps: false,
 
-  /**
-   * Turbopack config (used by `next dev --turbopack` / experimental `next build --turbopack`).
-   * Custom webpack() is IGNORED under Turbopack — mirror critical client stubs here.
-   * Production on Next 15.5 stays on webpack until these aliases are validated in CI.
-   */
   turbopack: {
     resolveAlias: {
       '@/lib/prisma': emptyStub,
@@ -256,11 +253,21 @@ const nextConfig = {
           },
         ],
       },
+      {
+        source: '/api/((?!public).*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'private, no-store, no-cache, must-revalidate',
+          },
+        ],
+      },
     ];
   },
 
   async redirects() {
     return [
+      { source: '/dashboard', destination: '/the-room', permanent: true },
       { source: '/all-tools', destination: '/admin/tools', permanent: true },
       { source: '/activity', destination: '/ledger', permanent: true },
     ];
@@ -283,9 +290,29 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
 };
 
-const { withBotId } = require('botid/next/config');
-module.exports = withBotId(nextConfig);
+const { withSentryConfig } = require('@sentry/nextjs');
+
+const finalConfig = process.env.SENTRY_AUTH_TOKEN
+  ? withSentryConfig(
+      nextConfig,
+      {
+        silent: true,
+        org: 'edintel',
+        project: 'sovereign',
+      },
+      {
+        widenClientFileUpload: true,
+        transpileClientSDK: false,
+        tunnelRoute: '/monitoring',
+        hideSourceMaps: true,
+        disableLogger: true,
+        automaticVercelMonitors: true,
+      }
+    )
+  : nextConfig;
+
+module.exports = finalConfig;

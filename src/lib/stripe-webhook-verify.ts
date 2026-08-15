@@ -32,17 +32,18 @@ export class StripeWebhookVerifyError extends Error {
   }
 }
 
-/** Stripe default is 300 seconds (5 minutes). */
 export const STRIPE_DEFAULT_TOLERANCE_SEC = 300;
 
-/** Clamp env override to a safe range (1 min – 15 min). */
 export function getWebhookToleranceSeconds(): number {
   const raw = process.env.STRIPE_WEBHOOK_TOLERANCE_SECONDS;
   if (!raw) return STRIPE_DEFAULT_TOLERANCE_SEC;
   const n = Number.parseInt(raw, 10);
   if (!Number.isFinite(n) || n <= 0) return STRIPE_DEFAULT_TOLERANCE_SEC;
-  // Never allow unbounded tolerance (replay risk)
   return Math.min(Math.max(n, 60), 900);
+}
+
+export function getStripeWebhookToleranceSeconds(): number {
+  return getWebhookToleranceSeconds();
 }
 
 export function getWebhookSecrets(): string[] {
@@ -55,10 +56,6 @@ export function getWebhookSecrets(): string[] {
   return [...new Set(secrets.map((s) => s.trim()))];
 }
 
-/**
- * Parse `t=` from Stripe-Signature header (unix seconds).
- * Header form: t=1492774577,v1=...,v0=...
- */
 export function parseSignatureTimestamp(
   signatureHeader: string
 ): number | null {
@@ -106,9 +103,6 @@ export function measureClockSkew(
   };
 }
 
-/**
- * Verify Stripe-Signature against raw body with explicit timestamp tolerance.
- */
 export function verifyStripeWebhook(
   rawBody: string | Buffer,
   signatureHeader: string | null,
@@ -157,7 +151,6 @@ export function verifyStripeWebhook(
 
   for (const secret of secrets) {
     try {
-      // 4th arg = tolerance in seconds (stripe-node)
       const event = stripe.webhooks.constructEvent(
         body,
         signatureHeader,
@@ -199,4 +192,11 @@ export function verifyStripeWebhook(
     400,
     { skew, toleranceSec }
   );
+}
+
+export async function verifyStripeWebhookSignature(
+  rawBody: string,
+  signature: string | null
+): Promise<Stripe.Event> {
+  return verifyStripeWebhook(rawBody, signature);
 }

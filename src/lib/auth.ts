@@ -7,6 +7,7 @@ import { customSession } from "better-auth/plugins";
 import { prisma } from "./prisma";
 import { nextCookies } from "better-auth/next-js";
 import { getEnrichedUserCached } from "./request-cache";
+import { resolveUserEntitlement } from "./rbac-stripe";
 
 const baseURL =
     process.env.BETTER_AUTH_URL ||
@@ -26,7 +27,9 @@ const authOptions = {
         "https://tiffany-ed.vercel.app",
         "http://localhost:3000",
         "http://127.0.0.1:3000",
-    ].filter((origin, index, list) => Boolean(origin) && list.indexOf(origin) === index),
+        process.env.BETTER_AUTH_URL,
+        process.env.NEXT_PUBLIC_APP_URL,
+    ].filter((origin, index, list) => Boolean(origin) && list.indexOf(origin) === index) as string[],
     user: {
         additionalFields: {
             clerk_id: { type: "string" as const, required: false },
@@ -42,8 +45,8 @@ const authOptions = {
         requireEmailVerification: false,
     },
     session: {
-        expiresIn: 60 * 60 * 24 * 7,
-        updateAge: 60 * 60 * 24,
+        expiresIn: 60 * 60 * 24 * 7, // 7 days
+        updateAge: 60 * 60 * 24, // 1 day
         cookieCache: {
             enabled: true,
             maxAge: 60 * 5,
@@ -62,6 +65,7 @@ const authOptions = {
         google: {
             clientId: (process.env.GOOGLE_CLIENT_ID || "").trim(),
             clientSecret: (process.env.GOOGLE_CLIENT_SECRET || "").trim(),
+            redirectURI: `${baseURL}/api/auth/callback/google`,
         },
     },
     onError: (error: any) => {
@@ -70,17 +74,16 @@ const authOptions = {
     plugins: [
         nextCookies(),
         customSession(async ({ user, session }) => {
-            // React.cache collapses duplicate enrichment in the same request graph
             const extra = await getEnrichedUserCached(user.id);
+            const entitlementInfo = resolveUserEntitlement((user as any).subscription_tier || extra?.subscriptionTier);
             return {
                 user: {
                     ...user,
                     ...extra,
-                    tier: extra.tier,
-                    plan: extra.plan,
-                    subscriptionTier: extra.subscriptionTier,
-                    stripeCustomerId: extra.stripeCustomerId,
-                    stripe_customer_id: extra.stripeCustomerId,
+                    subscription_tier: (user as any).subscription_tier || extra?.subscriptionTier || entitlementInfo.entitlement.name,
+                    tierMissing: entitlementInfo.tierMissing,
+                    tierWarning: entitlementInfo.tierWarning,
+                    entitlement: entitlementInfo.entitlement,
                 },
                 session,
             };
@@ -168,15 +171,11 @@ export async function encrypt(data: any) {
 }
 
 export async function login(credentials: any) {
-    return await auth.api.signInEmail({
-        body: credentials
-    });
+    return await auth.api.signInEmail({ body: credentials });
 }
 
 export async function logout() {
-    return await auth.api.signOut({
-        headers: new Headers()
-    });
+    return await auth.api.signOut({ headers: new Headers() });
 }
 
 export async function loginWithSocial(provider: 'google' = 'google', callbackUrl?: string) {
