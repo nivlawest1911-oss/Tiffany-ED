@@ -4,33 +4,20 @@ import {
   issueHeadSignedUrl,
   issuePutSignedUrl,
 } from '@/lib/blob';
-import { assertBlobAccess, type BlobOperation, type BlobPrincipal } from '@/lib/blob-acl';
+import { assertBlobAccess, type BlobOperation } from '@/lib/blob-acl';
+import { buildBlobPrincipal } from '@/lib/rbac-stripe';
 import { auth } from '@/lib/auth';
 
 export const runtime = 'nodejs';
 
-function principalFromSession(session: any): BlobPrincipal {
-  const u = session.user;
-  return {
-    userId: u.id,
-    email: u.email,
-    tier: (u as any).tier || (u as any).plan || null,
-    district: (u as any).district || null,
-    schoolSite: (u as any).school_site || null,
-    position: (u as any).position || null,
-    isAdmin: (u as any).role === 'admin' || (u as any).isAdmin === true,
-  };
-}
-
-/**
- * POST /api/blob/sign
- * Body: { pathname, operation?: 'get'|'head'|'put', ttlMs?: number }
- */
 export async function POST(request: NextRequest) {
   try {
     const session = await auth.api.getSession({ headers: request.headers });
     if (!session?.user) {
-      return NextResponse.json({ error: 'Unauthorized', code: 'UNAUTHENTICATED' }, { status: 401 });
+      return NextResponse.json(
+        { error: 'Unauthorized', code: 'UNAUTHENTICATED' },
+        { status: 401 }
+      );
     }
 
     const body = await request.json().catch(() => ({}));
@@ -42,12 +29,11 @@ export async function POST(request: NextRequest) {
     if (!pathname) {
       return NextResponse.json({ error: 'pathname required' }, { status: 400 });
     }
-
     if (!['get', 'head', 'put'].includes(operation)) {
       return NextResponse.json({ error: 'Invalid operation' }, { status: 400 });
     }
 
-    const principal = principalFromSession(session);
+    const principal = await buildBlobPrincipal(session.user as any);
     const decision = assertBlobAccess(principal, pathname, operation);
     if (!decision.allowed) {
       const status =
@@ -80,6 +66,7 @@ export async function POST(request: NextRequest) {
       pathname: result.pathname,
       operation,
       policy: decision.policy,
+      tier: principal?.tier,
     });
   } catch (err: any) {
     console.error('[blob/sign]', err);
