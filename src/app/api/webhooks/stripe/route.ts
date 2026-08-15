@@ -2,40 +2,61 @@ import { NextResponse } from 'next/server';
 import type Stripe from 'stripe';
 import { stripe } from '@/lib/stripe';
 import {
+  verifyStripeWebhook,
+  StripeWebhookVerifyError,
+} from '@/lib/stripe-webhook-verify';
+import {
   syncCheckoutSession,
   syncSubscriptionToUser,
 } from '@/lib/stripe-webhook-sync';
 
 export const runtime = 'nodejs';
 
+// Prevent Next from parsing body — signature requires raw bytes/text
+export const dynamic = 'force-dynamic';
+
 export async function POST(req: Request) {
-  const body = await req.text();
+  // 1) Raw body first (never req.json() before verify)
+  let rawBody: string;
+  try {
+    rawBody = await req.text();
+  } catch {
+    return NextResponse.json(
+      { error: 'Unable to read body', code: 'EMPTY_BODY' },
+      { status: 400 }
+    );
+  }
+
   const signature = req.headers.get('stripe-signature');
 
-  if (!signature || !process.env.STRIPE_WEBHOOK_SECRET) {
-    return new NextResponse('Webhook misconfigured', { status: 400 });
-  }
-
+  // 2) Verify HMAC signature — reject everything else
   let event: Stripe.Event;
   try {
-    event = stripe.webhooks.constructEvent(
-      body,
-      signature,
-      process.env.STRIPE_WEBHOOK_SECRET
+    event = verifyStripeWebhook(rawBody, signature);
+  } catch (err) {
+    if (err instanceof StripeWebhookVerifyError) {
+      return NextResponse.json(
+        { error: err.message, code: err.code },
+        { status: err.status }
+      );
+    }
+    console.error('[stripe webhook] unexpected verify error', err);
+    return NextResponse.json(
+      { error: 'Signature verification failed', code: 'INVALID_SIGNATURE' },
+      { status: 400 }
     );
-  } catch (error: any) {
-    console.error('[stripe webhook] signature', error?.message);
-    return new NextResponse(`Webhook Error: ${error.message}`, { status: 400 });
   }
 
+  // 3) Process only after successful verification
   try {
+    console.log('[stripe webhook] verified', event.id, event.type);
+
     switch (event.type) {
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session;
         const result = await syncCheckoutSession(session);
         console.log('[stripe webhook] checkout.session.completed', result);
 
-        // If subscription id present, pull full sub and sync (price → tier)
         if (session.subscription) {
           const subId =
             typeof session.subscription === 'string'
@@ -46,7 +67,7 @@ export async function POST(req: Request) {
           });
           const subResult = await syncSubscriptionToUser(sub, {
             email: session.customer_details?.email,
-            grantTokens: false, // already granted on checkout stamp
+            grantTokens: false,
           });
           console.log('[stripe webhook] post-checkout sub sync', subResult);
         }
@@ -65,11 +86,7 @@ export async function POST(req: Request) {
 
       case 'customer.subscription.deleted': {
         const sub = event.data.object as Stripe.Subscription;
-        // Force status canceled for downgrade path
-        const canceled = {
-          ...sub,
-          status: 'canceled' as const,
-        };
+        const canceled = { ...sub, status: 'canceled' as const };
         const result = await syncSubscriptionToUser(canceled);
         console.log('[stripe webhook] subscription.deleted', result);
         break;
@@ -88,16 +105,32 @@ export async function POST(req: Request) {
       }
 
       default:
-        // Acknowledge other events without error
         break;
     }
   } catch (err: any) {
-    console.error('[stripe webhook] handler error', event.type, err);
-    // Return 500 so Stripe retries
-    return new NextResponse(`Handler error: ${err?.message || 'unknown'}`, {
-      status: 500,
-    });
+    console.error('[stripe webhook] handler error', event.type, event.id, err);
+    // 500 → Stripe retries
+    return NextResponse.json(
+      {
+        error: err?.message || 'Handler error',
+        code: 'HANDLER_ERROR',
+        eventId: event.id,
+      },
+      { status: 500 }
+    );
   }
 
-  return NextResponse.json({ received: true });
+  return NextResponse.json({
+    received: true,
+    eventId: event.id,
+    type: event.type,
+  });
+}
+
+/** Reject non-POST explicitly */
+export async function GET() {
+  return NextResponse.json(
+    { error: 'Method not allowed', code: 'METHOD_NOT_ALLOWED' },
+    { status: 405 }
+  );
 }
