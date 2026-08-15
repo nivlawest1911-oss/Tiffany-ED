@@ -5,7 +5,7 @@ import {
   issuePutSignedUrl,
 } from '@/lib/blob';
 import { assertBlobAccess, type BlobOperation } from '@/lib/blob-acl';
-import { buildBlobPrincipal } from '@/lib/rbac-stripe';
+import { buildBlobPrincipal, resolveUserTier } from '@/lib/rbac-stripe';
 import { auth } from '@/lib/auth';
 
 export const runtime = 'nodejs';
@@ -34,6 +34,15 @@ export async function POST(request: NextRequest) {
     }
 
     const principal = await buildBlobPrincipal(session.user as any);
+    if (!principal) {
+      return NextResponse.json(
+        { error: 'Unable to resolve access principal', code: 'TIER_MISSING' },
+        { status: 403 }
+      );
+    }
+
+    const entitlement = await resolveUserTier(session.user as any);
+
     const decision = assertBlobAccess(principal, pathname, operation);
     if (!decision.allowed) {
       const status =
@@ -43,21 +52,37 @@ export async function POST(request: NextRequest) {
             ? 402
             : 403;
       return NextResponse.json(
-        { error: decision.reason, code: decision.code },
+        {
+          error: decision.reason,
+          code: decision.code,
+          tier: principal.tier,
+          tierWarning: entitlement.warning || null,
+        },
         { status }
       );
     }
 
     let result: { presignedUrl: string; expiresAt: number; pathname: string };
-    switch (operation) {
-      case 'head':
-        result = await issueHeadSignedUrl(pathname, { urlTtlMs: ttlMs });
-        break;
-      case 'put':
-        result = await issuePutSignedUrl(pathname, { urlTtlMs: ttlMs });
-        break;
-      default:
-        result = await issueGetSignedUrl(pathname, { urlTtlMs: ttlMs });
+    try {
+      switch (operation) {
+        case 'head':
+          result = await issueHeadSignedUrl(pathname, { urlTtlMs: ttlMs });
+          break;
+        case 'put':
+          result = await issuePutSignedUrl(pathname, { urlTtlMs: ttlMs });
+          break;
+        default:
+          result = await issueGetSignedUrl(pathname, { urlTtlMs: ttlMs });
+      }
+    } catch (signErr: any) {
+      console.error('[blob/sign] presign failed', signErr);
+      return NextResponse.json(
+        {
+          error: signErr?.message || 'Failed to mint signed URL',
+          code: 'SIGN_FAILED',
+        },
+        { status: 502 }
+      );
     }
 
     return NextResponse.json({
@@ -66,12 +91,14 @@ export async function POST(request: NextRequest) {
       pathname: result.pathname,
       operation,
       policy: decision.policy,
-      tier: principal?.tier,
+      tier: principal.tier,
+      tierSource: entitlement.source,
+      tierWarning: entitlement.warning || null,
     });
   } catch (err: any) {
     console.error('[blob/sign]', err);
     return NextResponse.json(
-      { error: err?.message || 'Failed to sign URL' },
+      { error: err?.message || 'Failed to sign URL', code: 'INTERNAL' },
       { status: 500 }
     );
   }
