@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useMemo, useState } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { ROUTES } from '@/lib/routes';
@@ -31,8 +31,15 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [localOverrides, setLocalOverrides] = useState<Partial<User>>({});
+    const [isInitialLoading, setIsInitialLoading] = useState(true);
     const router = useRouter();
     const { data: session, isPending, error: _error } = authClient.useSession();
+
+    useEffect(() => {
+        if (!isPending) {
+            setIsInitialLoading(false);
+        }
+    }, [isPending]);
 
     const user = useMemo(() => {
         if (!session?.user) return null;
@@ -71,8 +78,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         // Handled reactively by useSession()
     };
 
+    const isLoading = isPending || isInitialLoading;
+
     return (
-        <AuthContext.Provider value={{ user, isLoading: isPending, logout, updateUser, fetchUser }}>
+        <AuthContext.Provider value={{ user, isLoading, logout, updateUser, fetchUser }}>
             {children}
         </AuthContext.Provider>
     );
