@@ -1,8 +1,14 @@
-﻿"use client";
+"use client";
 
-import React from 'react';
-import { OracleInterface } from '@/components/oracle/OracleInterface';
-import { ParticleBackground } from '@/components/ui/Cinematic';
+import dynamic from 'next/dynamic';
+const OracleInterface = dynamic(() => import('@/components/oracle/OracleInterface').then(mod => mod.OracleInterface), {
+    ssr: false,
+    loading: () => <div className="min-h-[500px] w-full bg-slate-900/60 rounded-3xl border border-slate-800 animate-pulse" />
+});
+const ParticleBackground = dynamic(() => import('@/components/ui/Cinematic').then(mod => mod.ParticleBackground), {
+    ssr: false,
+    loading: () => <div className="absolute inset-0 pointer-events-none" />
+});
 
 export default function OraclePage() {
     return (

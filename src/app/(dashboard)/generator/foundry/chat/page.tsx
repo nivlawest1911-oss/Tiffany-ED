@@ -4,7 +4,11 @@ import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Loader2, AlertCircle } from 'lucide-react';
-import LiveAvatarChat from '@/components/LiveAvatarChat';
+import dynamic from 'next/dynamic';
+const LiveAvatarChat = dynamic(() => import('@/components/LiveAvatarChat'), {
+    ssr: false,
+    loading: () => <div className="min-h-[500px] w-full flex items-center justify-center bg-slate-950/80 rounded-3xl border border-slate-800 animate-pulse" />
+});
 import { getBirthCertificate } from '@/lib/supabase';
 import { CompanionCertificate } from '@/types/companion-certificate';
 import { useUserSession } from '@/hooks/useUserSession';

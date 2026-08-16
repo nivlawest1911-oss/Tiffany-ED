@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { motion } from 'framer-motion';
 import { Shield, MapPin, Scale, Award, Info } from 'lucide-react';
@@ -23,6 +23,7 @@ export const EdIntelIdentity = () => {
                             alt="Dr. Alvin West"
                             width={192}
                             height={192}
+                            priority
                             className="object-cover rounded-full"
                         />
                     </div>

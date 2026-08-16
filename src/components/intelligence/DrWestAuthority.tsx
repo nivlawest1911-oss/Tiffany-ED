@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { Mail, Calendar, MessageSquare, ShieldCheck, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
@@ -20,6 +20,7 @@ export default function DrWestAuthority() {
                             alt="Dr. Alvin West"
                             width={800}
                             height={800}
+                            priority
                             className="w-full h-full object-cover grayscale brightness-90 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-1000"
                         />
                         

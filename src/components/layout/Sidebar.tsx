@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
@@ -88,7 +88,7 @@ export function Sidebar() {
                         <div className="flex items-center gap-4">
                             <div className="h-10 w-10 rounded-xl border border-electric-cyan/30 flex items-center justify-center bg-zinc-900 overflow-hidden shrink-0">
                                 {user.avatar_url ? (
-                                    <Image src={user.avatar_url} alt={user.name} width={40} height={40} className="object-cover" />
+                                    <Image src={user.avatar_url} alt={user.name} width={40} height={40} className="object-cover" priority />
                                 ) : (
                                     <UserIcon className="text-electric-cyan" size={20} />
                                 )}
@@ -126,7 +126,7 @@ export function Sidebar() {
                                 className="h-10 w-10 rounded-xl border border-white/10 flex items-center justify-center bg-zinc-900 cursor-pointer hover:border-red-500/50 transition-colors"
                             >
                                 {user?.avatar_url ? (
-                                    <Image src={user.avatar_url} alt="User" width={40} height={40} className="rounded-xl" />
+                                    <Image src={user.avatar_url} alt="User" width={40} height={40} className="rounded-xl" priority />
                                 ) : (
                                     <UserIcon className="text-zinc-500" size={20} />
                                 )}
