@@ -111,7 +111,7 @@ export function SovereignMasterShell() {
       </div>
 
       {/* Dynamic Engine Content Surface */}
-      <div className="transition-all duration-200">
+      <div className="transition-all duration-200 min-h-[400px]">
         {activeTab === "sbir" && <SbirSection />}
         {activeTab === "analytics" && <AnalyticsSection />}
         {activeTab === "fintech" && <FintechSection />}

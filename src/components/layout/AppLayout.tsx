@@ -2,7 +2,6 @@
 
 import React from "react"
 import { Sidebar } from "@/components/layout/Sidebar"
-import MobileNavigation from "@/components/MobileNavigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { Search, Bell, Grid, User, Settings as SettingsIcon, LogOut, ChevronDown } from "lucide-react"
 import {
@@ -21,6 +20,7 @@ import { useRouter } from "next/navigation"
 import dynamic from 'next/dynamic';
 import { useEdIntelVibe } from '@/context/EdIntelVibeContext';
 const EdIntelCommandDeck = dynamic(() => import('@/components/dashboard/EdIntelCommandDeck'), { ssr: false });
+const MobileNavigation = dynamic(() => import('@/components/MobileNavigation'), { ssr: false });
 import { TacticalHeaderBar } from '@/components/layout/TacticalHeaderBar';
 import useProfessionalSounds from "@/hooks/useProfessionalSounds";
 import { TrialBanner } from '@/components/layout/TrialBanner';
