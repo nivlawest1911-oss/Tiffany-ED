@@ -18,8 +18,9 @@ import Image from "next/image"
 
 import { useRouter } from "next/navigation"
 
+import dynamic from 'next/dynamic';
 import { useEdIntelVibe } from '@/context/EdIntelVibeContext';
-import EdIntelCommandDeck from '@/components/dashboard/EdIntelCommandDeck';
+const EdIntelCommandDeck = dynamic(() => import('@/components/dashboard/EdIntelCommandDeck'), { ssr: false });
 import { TacticalHeaderBar } from '@/components/layout/TacticalHeaderBar';
 import useProfessionalSounds from "@/hooks/useProfessionalSounds";
 import { TrialBanner } from '@/components/layout/TrialBanner';

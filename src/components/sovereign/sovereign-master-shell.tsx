@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
   FileCheck2,
   Zap,
@@ -13,29 +13,24 @@ import {
   Sparkles,
   Copy,
   Check,
-  Clock,
   ExternalLink,
   TrendingDown,
   DollarSign,
   Activity,
   BatteryCharging,
   Truck,
-  Sliders,
   Globe2,
-  Receipt,
-  Download,
-  CheckCircle2,
-  HardDrive,
-  Scissors,
-  Trash2,
   Layers,
-  User,
 } from "lucide-react";
 
 type ActiveTab = "sbir" | "analytics" | "fintech" | "media" | "agents";
 
 export function SovereignMasterShell() {
   const [activeTab, setActiveTab] = useState<ActiveTab>("sbir");
+
+  const handleSelectTab = useCallback((tab: ActiveTab) => {
+    setActiveTab(tab);
+  }, []);
 
   return (
     <div className="w-full max-w-7xl mx-auto space-y-6 text-slate-100 font-sans selection:bg-amber-500/30">
@@ -79,35 +74,35 @@ export function SovereignMasterShell() {
         <div className="mt-6 flex flex-wrap gap-2 pt-1">
           <TabButton
             active={activeTab === "sbir"}
-            onClick={() => setActiveTab("sbir")}
+            onClick={() => handleSelectTab("sbir")}
             icon={<FileCheck2 className="w-4 h-4" />}
             label="DOE SBIR Pitch Portal"
             badge="Portal Ready"
           />
           <TabButton
             active={activeTab === "analytics"}
-            onClick={() => setActiveTab("analytics")}
+            onClick={() => handleSelectTab("analytics")}
             icon={<Zap className="w-4 h-4" />}
             label="Clean Energy & Fleet Load"
             badge=">20% Energy Cut"
           />
           <TabButton
             active={activeTab === "fintech"}
-            onClick={() => setActiveTab("fintech")}
+            onClick={() => handleSelectTab("fintech")}
             icon={<CreditCard className="w-4 h-4" />}
             label="B2G Fintech & PO Engine"
             badge="150+ Currencies"
           />
           <TabButton
             active={activeTab === "media"}
-            onClick={() => setActiveTab("media")}
+            onClick={() => handleSelectTab("media")}
             icon={<Video className="w-4 h-4" />}
             label="Video Pruning & Media"
             badge="WebCodecs"
           />
           <TabButton
             active={activeTab === "agents"}
-            onClick={() => setActiveTab("agents")}
+            onClick={() => handleSelectTab("agents")}
             icon={<Bot className="w-4 h-4" />}
             label="Multi-Agent Swarm"
             badge="Autonomous"
@@ -127,7 +122,7 @@ export function SovereignMasterShell() {
   );
 }
 
-function TabButton({
+const TabButton = React.memo(function TabButton({
   active,
   onClick,
   icon,
@@ -162,7 +157,7 @@ function TabButton({
       )}
     </button>
   );
-}
+});
 
 /* ============================================================================
    ENGINE 1: DOE SBIR/STTR PHASE I PITCH PORTAL
