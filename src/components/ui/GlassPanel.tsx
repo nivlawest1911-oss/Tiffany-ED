@@ -32,7 +32,7 @@ const GlassPanel: React.FC<GlassPanelProps> = ({
             whileHover={hoverIntensity !== 'none' ? hoverVariants[hoverIntensity] : {}}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             className={cn(
-                "relative overflow-hidden rounded-2xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.35)] transform-gpu will-change-transform",
+                "relative overflow-hidden rounded-2xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.35)] transform-gpu",
                 className
             )}
             style={{
@@ -52,7 +52,7 @@ const GlassPanel: React.FC<GlassPanelProps> = ({
             {/* Animated Shine Effect on Hover */}
             {hoverIntensity !== 'none' && (
                 <motion.div
-                    className="absolute inset-0 z-0 pointer-events-none bg-gradient-to-tr from-transparent via-white/5 to-transparent transform-gpu will-change-transform"
+                    className="absolute inset-0 z-0 pointer-events-none bg-gradient-to-tr from-transparent via-white/5 to-transparent transform-gpu"
                     initial={{ x: '-100%', y: '-100%' }}
                     whileHover={{ x: '100%', y: '100%' }}
                     transition={{ duration: 0.8, ease: "easeInOut" }}
