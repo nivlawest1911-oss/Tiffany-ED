@@ -148,19 +148,18 @@ export const fetchUserDashboardData = cache(async (userId: string, email: string
  * Fetch initial page data with timeout protection
  */
 export async function fetchWithTimeout<T>(
-  fetchFn: () => Promise<T>,
+  fetchFn: (signal?: AbortSignal) => Promise<T>,
   timeoutMs: number = 5000,
   fallback: T
 ): Promise<T> {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
   try {
-    const result = await Promise.race([
-      fetchFn(),
-      new Promise<T>((_, reject) =>
-        setTimeout(() => reject(new Error('Fetch timeout')), timeoutMs)
-      ),
-    ]);
+    const result = await fetchFn(controller.signal);
+    clearTimeout(timeoutId);
     return result;
   } catch (error) {
+    clearTimeout(timeoutId);
     console.error('[DATA_FETCH] Fetch timeout or error:', error);
     return fallback;
   }

@@ -47,9 +47,10 @@ export function reportWebVitals(metric: Metric) {
       timestamp: Date.now(),
     });
 
-    // Use sendBeacon for reliability during page unload
+    // Use sendBeacon for reliability during page unload with explicit Blob payload
     if (navigator.sendBeacon) {
-      navigator.sendBeacon('/api/analytics/vitals', body);
+      const blob = new Blob([body], { type: 'application/json' });
+      navigator.sendBeacon('/api/analytics/vitals', blob);
     } else {
       fetch('/api/analytics/vitals', {
         body,
@@ -61,15 +62,14 @@ export function reportWebVitals(metric: Metric) {
   }
 }
 
-// Initialize web-vitals tracking
+// Initialize web-vitals tracking (relying on onINP for interaction responsiveness)
 export async function initWebVitals() {
   if (typeof window === 'undefined') return;
   
   try {
-    const { onCLS, onFID, onLCP, onTTFB, onINP, onFCP } = await import('web-vitals');
+    const { onCLS, onLCP, onTTFB, onINP, onFCP } = await import('web-vitals');
     
     onCLS(reportWebVitals);
-    onFID(reportWebVitals);
     onLCP(reportWebVitals);
     onTTFB(reportWebVitals);
     onINP(reportWebVitals);

@@ -1,0 +1,9 @@
+declare module 'better-auth';
+declare module 'better-auth/next-js';
+declare module 'better-auth/react';
+declare module 'better-auth/adapters/prisma';
+declare module 'better-auth/plugins';
+declare module 'better-auth/client/plugins';
+declare module 'lenis';
+declare module 'lottie-react';
+declare module 'cmdk';

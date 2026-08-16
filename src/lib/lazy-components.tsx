@@ -14,7 +14,7 @@ export function ChartSkeleton({ height = 256 }: { height?: number }) {
             className="bg-zinc-800 rounded-t"
             style={{
               width: '10%',
-              height: `${Math.random() * 60 + 20}%`,
+              height: `${((i * 7) % 60) + 20}%`,
             }}
           />
         ))}
