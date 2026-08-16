@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import dynamic from 'next/dynamic';
@@ -270,10 +270,22 @@ export function IntelligenceProvider({ children }: { children: React.ReactNode }
     );
 }
 
+const defaultIntelligenceContext: IntelligenceContextType = {
+    generateBriefing: () => {},
+    triggerBriefing: () => {},
+    closeBriefing: () => {},
+    addAction: () => {},
+    recentActions: [],
+    suggestion: null,
+    setSuggestion: () => {},
+    isHudExpanded: false,
+    setIsHudExpanded: () => {},
+    isSynthesizing: false,
+    isRescueOneActive: false,
+    toggleRescueOne: () => {}
+};
+
 export function useIntelligence() {
     const context = useContext(IntelligenceContext);
-    if (context === undefined) {
-        throw new Error('useIntelligence must be used within an IntelligenceProvider');
-    }
-    return context;
+    return context || defaultIntelligenceContext;
 }

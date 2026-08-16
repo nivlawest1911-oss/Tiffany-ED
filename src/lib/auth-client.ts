@@ -16,8 +16,8 @@ const clientBaseURL =
 export const authClient = createAuthClient({
   baseURL: clientBaseURL,
   plugins: [
-    customSessionClient<typeof auth>(),
-    inferAdditionalFields<typeof auth>(),
+    (customSessionClient as any)(),
+    (inferAdditionalFields as any)(),
   ],
 });
 

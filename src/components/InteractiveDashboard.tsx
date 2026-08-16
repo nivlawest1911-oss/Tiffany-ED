@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -16,8 +16,12 @@ import {
     X
 } from 'lucide-react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import BurnoutHeatmap from '@/components/dashboard/BurnoutHeatmap';
+const BurnoutHeatmap = dynamic(() => import('@/components/dashboard/BurnoutHeatmap'), {
+    ssr: false,
+    loading: () => <div className="min-h-[400px] w-full flex items-center justify-center bg-slate-950/80 rounded-2xl" />
+});
 
 
 export default function InteractiveDashboard() {

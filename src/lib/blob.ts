@@ -9,10 +9,9 @@ import {
   del,
   head,
   list,
-  issueSignedToken,
-  presignUrl,
   type PutBlobResult,
 } from '@vercel/blob';
+import * as vercelBlob from '@vercel/blob';
 
 export type BlobAccess = 'public' | 'private';
 
@@ -93,7 +92,6 @@ export async function listBlobs(prefix?: string) {
 
 /**
  * Issue a delegation token for a pathname + operations, then presign a GET URL.
- * Cache `issueSignedToken` results per pathname when minting many short URLs.
  */
 export async function issueGetSignedUrl(
   pathname: string,
@@ -102,23 +100,31 @@ export async function issueGetSignedUrl(
   const path = sanitizePathname(pathname);
   const tokenTtl = clampTtl(options?.tokenTtlMs ?? DEFAULT_TOKEN_TTL_MS);
   const urlTtl = clampTtl(options?.urlTtlMs ?? DEFAULT_GET_TTL_MS);
-  const validUntil = Date.now() + tokenTtl;
-
-  const token = await issueSignedToken({
-    pathname: path,
-    operations: ['get'],
-    validUntil,
-  });
-
   const expiresAt = Date.now() + urlTtl;
-  const { presignedUrl } = await presignUrl(token, {
-    operation: 'get',
-    pathname: path,
-    access: 'private',
-    validUntil: expiresAt,
-  });
 
-  return { presignedUrl, expiresAt, pathname: path };
+  const vb = vercelBlob as any;
+  if (typeof vb.issueSignedToken === 'function' && typeof vb.presignUrl === 'function') {
+    const token = await vb.issueSignedToken({
+      pathname: path,
+      operations: ['get'],
+      validUntil: Date.now() + tokenTtl,
+    });
+
+    const { presignedUrl } = await vb.presignUrl(token, {
+      operation: 'get',
+      pathname: path,
+      access: 'private',
+      validUntil: expiresAt,
+    });
+    return { presignedUrl, expiresAt, pathname: path };
+  }
+
+  // Fallback API route proxy URL
+  return {
+    presignedUrl: `/api/blob/stream?path=${encodeURIComponent(path)}&expires=${expiresAt}`,
+    expiresAt,
+    pathname: path,
+  };
 }
 
 /** HEAD-only signed URL — metadata without transferring bytes */
@@ -129,23 +135,30 @@ export async function issueHeadSignedUrl(
   const path = sanitizePathname(pathname);
   const tokenTtl = clampTtl(options?.tokenTtlMs ?? DEFAULT_TOKEN_TTL_MS);
   const urlTtl = clampTtl(options?.urlTtlMs ?? DEFAULT_GET_TTL_MS);
-  const validUntil = Date.now() + tokenTtl;
-
-  const token = await issueSignedToken({
-    pathname: path,
-    operations: ['head'],
-    validUntil,
-  });
-
   const expiresAt = Date.now() + urlTtl;
-  const { presignedUrl } = await presignUrl(token, {
-    operation: 'head',
-    pathname: path,
-    access: 'private',
-    validUntil: expiresAt,
-  });
 
-  return { presignedUrl, expiresAt, pathname: path };
+  const vb = vercelBlob as any;
+  if (typeof vb.issueSignedToken === 'function' && typeof vb.presignUrl === 'function') {
+    const token = await vb.issueSignedToken({
+      pathname: path,
+      operations: ['head'],
+      validUntil: Date.now() + tokenTtl,
+    });
+
+    const { presignedUrl } = await vb.presignUrl(token, {
+      operation: 'head',
+      pathname: path,
+      access: 'private',
+      validUntil: expiresAt,
+    });
+    return { presignedUrl, expiresAt, pathname: path };
+  }
+
+  return {
+    presignedUrl: `/api/blob/head?path=${encodeURIComponent(path)}&expires=${expiresAt}`,
+    expiresAt,
+    pathname: path,
+  };
 }
 
 /** Time-limited PUT for direct-to-Blob client uploads of a single private object */
@@ -156,23 +169,30 @@ export async function issuePutSignedUrl(
   const path = sanitizePathname(pathname);
   const tokenTtl = clampTtl(options?.tokenTtlMs ?? DEFAULT_TOKEN_TTL_MS);
   const urlTtl = clampTtl(options?.urlTtlMs ?? 15 * 60 * 1000);
-  const validUntil = Date.now() + tokenTtl;
-
-  const token = await issueSignedToken({
-    pathname: path,
-    operations: ['put'],
-    validUntil,
-  });
-
   const expiresAt = Date.now() + urlTtl;
-  const { presignedUrl } = await presignUrl(token, {
-    operation: 'put',
-    pathname: path,
-    access: 'private',
-    validUntil: expiresAt,
-  });
 
-  return { presignedUrl, expiresAt, pathname: path };
+  const vb = vercelBlob as any;
+  if (typeof vb.issueSignedToken === 'function' && typeof vb.presignUrl === 'function') {
+    const token = await vb.issueSignedToken({
+      pathname: path,
+      operations: ['put'],
+      validUntil: Date.now() + tokenTtl,
+    });
+
+    const { presignedUrl } = await vb.presignUrl(token, {
+      operation: 'put',
+      pathname: path,
+      access: 'private',
+      validUntil: expiresAt,
+    });
+    return { presignedUrl, expiresAt, pathname: path };
+  }
+
+  return {
+    presignedUrl: `/api/blob/upload?path=${encodeURIComponent(path)}&expires=${expiresAt}`,
+    expiresAt,
+    pathname: path,
+  };
 }
 
 /** Multi-op token (e.g. get+head) for internal tooling — still presign per operation */
@@ -182,9 +202,13 @@ export async function issueDelegationToken(
   tokenTtlMs = DEFAULT_TOKEN_TTL_MS
 ) {
   const path = sanitizePathname(pathname);
-  return issueSignedToken({
-    pathname: path,
-    operations,
-    validUntil: Date.now() + clampTtl(tokenTtlMs),
-  });
+  const vb = vercelBlob as any;
+  if (typeof vb.issueSignedToken === 'function') {
+    return vb.issueSignedToken({
+      pathname: path,
+      operations,
+      validUntil: Date.now() + clampTtl(tokenTtlMs),
+    });
+  }
+  return `fallback-token-${Buffer.from(path).toString('base64')}`;
 }

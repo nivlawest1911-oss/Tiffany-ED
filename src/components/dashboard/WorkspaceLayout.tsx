@@ -1,15 +1,25 @@
-﻿"use client"
+"use client"
 
 import React from "react"
 
-import { AuroraBackground } from "@/components/dashboard/aurora-background"
-import { Sidebar } from "@/components/layout/Sidebar"
-import { TacticalHeader } from "@/components/dashboard/TacticalHeader"
-import { EdIntelVibeProvider } from "@/context/EdIntelVibeContext"
-
+import dynamic from 'next/dynamic';
+import { Sidebar } from "@/components/layout/Sidebar";
+import { EdIntelVibeProvider } from "@/context/EdIntelVibeContext";
 import { useEdIntelVibe } from '@/context/EdIntelVibeContext';
-import EdIntelCommandDeck from './EdIntelCommandDeck';
 import { AnimatePresence, motion } from 'framer-motion';
+
+const AuroraBackground = dynamic(() => import('@/components/dashboard/aurora-background').then(mod => mod.AuroraBackground), {
+    ssr: false,
+    loading: () => <div className="absolute inset-0 pointer-events-none" />
+});
+const TacticalHeader = dynamic(() => import('@/components/dashboard/TacticalHeader').then(mod => mod.TacticalHeader), {
+    ssr: false,
+    loading: () => <div className="h-16 w-full bg-slate-950/80 border-b border-slate-800" />
+});
+const EdIntelCommandDeck = dynamic(() => import('./EdIntelCommandDeck'), {
+    ssr: false,
+    loading: () => <div className="fixed inset-0 z-[100] bg-black/95 min-h-screen" />
+});
 
 export default function WorkspaceLayout({ children }: { children: React.ReactNode }) {
     return (

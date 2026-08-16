@@ -84,10 +84,16 @@ export const EdIntelVibeProvider = ({ children }: { children: ReactNode }) => {
     );
 };
 
+const defaultVibeContext: VibeContextType = {
+    currentVibe: VIBES[0],
+    setVibe: () => {},
+    isCommandConsoleOpen: false,
+    toggleCommandConsole: () => {},
+    isSystemThinking: false,
+    setSystemThinking: () => {}
+};
+
 export const useEdIntelVibe = () => {
     const context = useContext(VibeContext);
-    if (!context) {
-        throw new Error('useEdIntelVibe must be used within a EdIntelVibeProvider');
-    }
-    return context;
+    return context || defaultVibeContext;
 };

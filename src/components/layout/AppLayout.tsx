@@ -19,11 +19,23 @@ import { useRouter } from "next/navigation"
 
 import dynamic from 'next/dynamic';
 import { useEdIntelVibe } from '@/context/EdIntelVibeContext';
-const EdIntelCommandDeck = dynamic(() => import('@/components/dashboard/EdIntelCommandDeck'), { ssr: false });
-const MobileNavigation = dynamic(() => import('@/components/MobileNavigation'), { ssr: false });
-import { TacticalHeaderBar } from '@/components/layout/TacticalHeaderBar';
+const EdIntelCommandDeck = dynamic(() => import('@/components/dashboard/EdIntelCommandDeck'), {
+    ssr: false,
+    loading: () => <div className="fixed inset-0 z-[100] bg-black/95 min-h-screen" />
+});
+const MobileNavigation = dynamic(() => import('@/components/MobileNavigation'), {
+    ssr: false,
+    loading: () => <div className="h-16 w-full md:hidden" />
+});
+const TacticalHeaderBar = dynamic(() => import('@/components/layout/TacticalHeaderBar').then(mod => mod.TacticalHeaderBar), {
+    ssr: false,
+    loading: () => <div className="h-9 w-full bg-white/[0.02] border-b border-white/5" />
+});
+const TrialBanner = dynamic(() => import('@/components/layout/TrialBanner').then(mod => mod.TrialBanner), {
+    ssr: false,
+    loading: () => <div className="min-h-[40px] w-full" />
+});
 import useProfessionalSounds from "@/hooks/useProfessionalSounds";
-import { TrialBanner } from '@/components/layout/TrialBanner';
 import GlassPanel from "@/components/ui/GlassPanel";
 import SovereignButton from "@/components/ui/SovereignButton";
 import { useAuth } from '@/context/AuthContext';
@@ -170,6 +182,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                                     width={32}
                                                     height={32}
                                                     className="object-cover"
+                                                    priority
                                                 />
                                             </div>
                                             <div className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-emerald-500 border-2 border-[#020617]" />
