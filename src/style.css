@@ -710,4 +710,24 @@
         align-items: center;
         gap: 16px;
     }
+
+    /* ==========================================================================
+       MOBILE PERFORMANCE & CORE WEB VITALS OPTIMIZATIONS
+       ========================================================================== */
+    .contain-content {
+        contain: content;
+    }
+
+    .gpu-accelerated {
+        transform: translateZ(0);
+        will-change: transform, opacity;
+    }
+
+    @container (max-width: 480px) {
+        .admin-card {
+            padding: 1rem;
+            min-height: 120px;
+        }
+    }
 }
+
