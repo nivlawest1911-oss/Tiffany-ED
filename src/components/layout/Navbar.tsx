@@ -33,6 +33,7 @@ export default function Navbar() {
                 width={28} 
                 height={28} 
                 className="object-contain"
+                priority
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
                 }}
