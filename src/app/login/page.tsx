@@ -4,9 +4,14 @@ import { auth } from "@/lib/auth"; // Better Auth server instance
 import { headers } from "next/headers";
 
 export default async function LoginPage() {
-  const session = await auth.api.getSession({
-    headers: await headers()
-  });
+  let session = null;
+  try {
+    session = await auth.api.getSession({
+      headers: await headers()
+    });
+  } catch (error) {
+    console.error("[LOGIN_PAGE] Failed to retrieve auth session:", error);
+  }
 
   if (session) {
     redirect("/dashboard");

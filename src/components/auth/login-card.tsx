@@ -46,7 +46,7 @@ function LoginCardContent() {
     : null;
 
   return (
-    <Card className="w-full max-w-md bg-slate-900/80 backdrop-blur-md border border-slate-800 shadow-xl relative overflow-hidden">
+    <Card className="w-full max-w-md bg-slate-900/80 backdrop-blur-md border border-slate-800 shadow-xl relative overflow-hidden min-h-[440px]">
       <AuthStateOverlays isLoading={!!isLoading} error={errorMessage} invite={inviteParam} currency={detectedCurrency} />
       <CardHeader className="text-center space-y-2 mt-4">
         <CardTitle className="text-2xl font-bold tracking-tight text-slate-100">
