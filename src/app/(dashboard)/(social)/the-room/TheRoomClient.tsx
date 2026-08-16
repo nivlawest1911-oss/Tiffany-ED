@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -21,7 +21,10 @@ import { useSovereignState } from '@/context/SovereignState';
 
 const NexusPalette = dynamic(() => import('@/components/intelligence/NexusPalette'), { ssr: false });
 
-import { ExecutiveBrief } from '@/components/dashboard/zone1-executive-brief';
+const ExecutiveBrief = dynamic(() => import('@/components/dashboard/zone1-executive-brief').then(mod => mod.ExecutiveBrief), {
+    ssr: false,
+    loading: () => <div className="mb-12 min-h-[420px] w-full bg-slate-900/60 border border-slate-800 rounded-3xl animate-pulse" />
+});
 
 // AI Core Integrations
 const AI_INTEGRATIONS = [
