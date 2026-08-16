@@ -73,8 +73,8 @@ const authOptions = {
     },
     plugins: [
         nextCookies(),
-        customSession(async ({ user, session }) => {
-            const extra = await getEnrichedUserCached(user.id);
+        customSession(async ({ user, session }: { user: any; session: any }) => {
+            const extra = await getEnrichedUserCached(user);
             const entitlementInfo = resolveUserEntitlement((user as any).subscription_tier || extra?.subscriptionTier);
             return {
                 user: {

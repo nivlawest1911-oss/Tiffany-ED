@@ -5,13 +5,13 @@
  */
 import { cache } from 'react';
 import { loadEnrichedUserFields } from '@/lib/session-enrichment';
-import { resolveUserTier, resolveUserEntitlement, type ResolvedEntitlement } from '@/lib/rbac-stripe';
-import { getSession } from './auth';
-import { prisma } from './prisma';
+import { resolveUserTier, type ResolvedEntitlement } from '@/lib/rbac-stripe';
+import { auth } from './auth';
+import { headers } from 'next/headers';
 
-/** One Prisma hit per userId per request for session enrichment */
-export const getEnrichedUserCached = cache(async (userId: string) => {
-  return loadEnrichedUserFields(userId);
+/** Cache enriched user calculations per request without extra DB queries if user object is passed */
+export const getEnrichedUserCached = cache(async (userOrId: string | Record<string, any>) => {
+  return loadEnrichedUserFields(userOrId);
 });
 
 /**
@@ -33,39 +33,16 @@ export async function resolveSessionTierOnce(user: {
 }
 
 /**
- * Deduplicated server-side request context helper for Next.js App Router
+ * Deduplicated server-side request context helper for Next.js App Router.
+ * Uses React.cache to collapse duplicate session lookups within a single request.
  */
 export const getCachedSession = cache(async () => {
     try {
-        const session = await getSession();
-        if (!session?.user) return null;
-
-        const user = await prisma.user.findUnique({
-            where: { id: session.user.id },
-            select: {
-                id: true,
-                email: true,
-                name: true,
-                subscription_tier: true,
-                tier_id: true,
-                usage_tokens: true,
-                is_active: true,
-            }
+        const session = await auth.api.getSession({
+            headers: await headers(),
         });
-
-        const entitlementInfo = resolveUserEntitlement(user?.subscription_tier);
-
-        return {
-            ...session,
-            user: {
-                ...session.user,
-                subscription_tier: user?.subscription_tier || entitlementInfo.entitlement.name,
-                tier_id: user?.tier_id,
-                tierMissing: entitlementInfo.tierMissing,
-                tierWarning: entitlementInfo.tierWarning,
-                entitlement: entitlementInfo.entitlement,
-            }
-        };
+        if (!session?.user) return null;
+        return session;
     } catch (err) {
         console.error('[REQUEST_CACHE] Session dedupe retrieval error:', err);
         return null;

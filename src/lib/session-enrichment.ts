@@ -65,40 +65,57 @@ function safeIso(d: Date | string | null | undefined): string | null {
 }
 
 export async function loadEnrichedUserFields(
-  userId: string
+  userOrId: string | Record<string, any>
 ): Promise<EnrichedUserFields> {
-  if (!userId || typeof userId !== 'string') {
-    console.warn('[session-enrichment] missing userId');
+  if (!userOrId) {
+    console.warn('[session-enrichment] missing userOrId');
     return {
       ...DEFAULTS,
       tierWarning: 'Missing user id — using Sovereign Initiate',
     };
   }
 
-  try {
-    const row = await prisma.user.findUnique({
-      where: { id: userId },
-      select: {
-        subscription_tier: true,
-        subscription_status: true,
-        stripe_customer_id: true,
-        stripe_subscription_id: true,
-        district: true,
-        school_site: true,
-        position: true,
-        role: true,
-        is_trial_converted: true,
-        trial_ends_at: true,
-      },
-    });
+  let row: Record<string, any> | null = null;
+  let userId: string = '';
 
-    if (!row) {
-      console.warn('[session-enrichment] user not found', userId);
+  if (typeof userOrId === 'object' && userOrId !== null) {
+    userId = userOrId.id || '';
+    row = userOrId;
+  } else {
+    userId = userOrId;
+    try {
+      row = await prisma.user.findUnique({
+        where: { id: userId },
+        select: {
+          subscription_tier: true,
+          subscription_status: true,
+          stripe_customer_id: true,
+          stripe_subscription_id: true,
+          district: true,
+          school_site: true,
+          position: true,
+          role: true,
+          is_trial_converted: true,
+          trial_ends_at: true,
+        },
+      });
+    } catch (err) {
+      console.error('[session-enrichment] failed to load tier', userId, err);
       return {
         ...DEFAULTS,
-        tierWarning: 'User profile not found — using Sovereign Initiate',
+        tierWarning:
+          'Tier lookup failed — using Sovereign Initiate (safe default)',
       };
     }
+  }
+
+  if (!row) {
+    console.warn('[session-enrichment] user not found', userId);
+    return {
+      ...DEFAULTS,
+      tierWarning: 'User profile not found — using Sovereign Initiate',
+    };
+  }
 
     const raw = (row.subscription_tier || '').trim();
     const tierMissing =
@@ -149,12 +166,4 @@ export async function loadEnrichedUserFields(
       tierUnknown,
       tierWarning,
     };
-  } catch (err) {
-    console.error('[session-enrichment] failed to load tier', userId, err);
-    return {
-      ...DEFAULTS,
-      tierWarning:
-        'Tier lookup failed — using Sovereign Initiate (safe default)',
-    };
-  }
 }

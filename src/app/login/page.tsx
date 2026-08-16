@@ -1,14 +1,11 @@
 import { redirect } from "next/navigation";
 import { LoginCard } from "@/components/auth/login-card";
-import { auth } from "@/lib/auth"; // Better Auth server instance
-import { headers } from "next/headers";
+import { getCachedSession } from "@/lib/request-cache";
 
 export default async function LoginPage() {
   let session = null;
   try {
-    session = await auth.api.getSession({
-      headers: await headers()
-    });
+    session = await getCachedSession();
   } catch (error) {
     console.error("[LOGIN_PAGE] Failed to retrieve auth session:", error);
   }
