@@ -300,6 +300,8 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
                                     src="/images/edintel-logo.jpg"
                                     alt="EdIntel"
                                     fill
+                                    priority
+                                    sizes="56px"
                                     className="object-contain"
                                 />
                             </div>
@@ -370,6 +372,8 @@ export default function ActivationIntro({ onCompleteAction }: { onCompleteAction
                                     src="/images/edintel-logo.jpg"
                                     alt="EdIntel"
                                     fill
+                                    priority
+                                    sizes="48px"
                                     className="object-contain rounded-lg"
                                 />
                             </div>

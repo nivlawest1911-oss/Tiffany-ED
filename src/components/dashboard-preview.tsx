@@ -1,4 +1,4 @@
-﻿import Image from "next/image" // Import the Image component
+import Image from "next/image" // Import the Image component
 
 export function DashboardPreview() {
   return (
@@ -9,6 +9,8 @@ export function DashboardPreview() {
           alt="Dashboard preview"
           width={1160}
           height={700}
+          priority
+          sizes="(max-width: 768px) 100vw, 1160px"
           className="w-full h-full object-cover rounded-xl shadow-lg"
         />
       </div>
