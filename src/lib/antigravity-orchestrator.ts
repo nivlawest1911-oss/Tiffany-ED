@@ -31,12 +31,12 @@ export async function handleAntigravityOrchestration(
     tools: {
       dispatchSubtask: tool({
         description: 'Dispatch a tactical task to a specialized lower-tier agent.',
-        parameters: z.object({
+        inputSchema: z.object({
           targetAgentId: z.string(),
           taskPayload: z.record(z.any()),
           requiresHumanApproval: z.boolean(),
         }),
-        execute: async ({ targetAgentId, taskPayload, requiresHumanApproval }) => {
+        execute: async ({ targetAgentId, taskPayload, requiresHumanApproval }: { targetAgentId: string; taskPayload: Record<string, any>; requiresHumanApproval: boolean }) => {
           // Insert sub-task into Supabase Execution Queue
           const { data: task, error } = await supabase
             .from('agent_execution_queue')
