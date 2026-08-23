@@ -229,4 +229,23 @@ export const GymScenarioSchema = z.object({
     explanation: z.string().describe('Rationale and cognitive principle.'),
 });
 
+/**
+ * Ambient Meeting Scribe & Transcript Intelligence Schema
+ */
+export const AmbientMeetingSummarySchema = z.object({
+    title: z.string().describe('Short descriptive title of the meeting or classroom session.'),
+    summary: z.string().describe('Comprehensive executive summary of the discussion.'),
+    actionItems: z.array(z.object({
+        task: z.string().describe('Actionable task description.'),
+        assignee: z.string().optional().default('Unassigned').describe('Person or role responsible.'),
+        deadline: z.string().optional().describe('Target completion date if mentioned.'),
+        priority: z.enum(['low', 'medium', 'high']).default('medium').describe('Task priority.'),
+    })).default([]),
+    participantTags: z.array(z.string()).default([]).describe('Names or roles of active participants.'),
+    complianceNotes: z.string().optional().describe('Special Education, FERPA, or Alabama Literacy Act observations.'),
+    keyDecisions: z.array(z.string()).default([]).describe('Key decisions or policy consensus reached.'),
+    sentiment: z.enum(['positive', 'constructive', 'neutral', 'tense']).default('neutral').describe('Overall meeting climate.'),
+});
+
+
 
