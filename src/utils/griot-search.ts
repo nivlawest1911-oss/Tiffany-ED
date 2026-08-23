@@ -1,13 +1,9 @@
-import { generateText } from 'ai';
+﻿import { generateObject } from 'ai';
 import { googleProvider, AI_MODELS } from '@/lib/ai-config';
+import { GriotResourceArraySchema, GriotResourceSchema } from '@/lib/ai/signatures';
+import { z } from 'zod';
 
-export interface GriotResource {
-    title: string;
-    type: 'video' | 'article' | 'music' | 'biography';
-    url: string;
-    relevance: string;
-    culturalContext: string;
-}
+export type GriotResource = z.infer<typeof GriotResourceSchema>;
 
 export async function searchGriotMedia(topic: string, gradeLevel: string): Promise<GriotResource[]> {
     // In a real implementation, this would use a Search API (e.g., YouTube, Google Custom Search) 
@@ -17,7 +13,7 @@ export async function searchGriotMedia(topic: string, gradeLevel: string): Promi
     const systemPrompt = `You are The Griot, an AI curator of African American and Diasporic history, culture, and excellence.
    Your goal is to suggest multimedia resources that connect a standard academic topic to Black history/culture.
    
-   Return a JSON array of 3 specific resources (videos, songs, articles) that are:
+   Return 3 specific resources (videos, songs, articles) that are:
    1. Highly engaging for ${gradeLevel} students.
    2. Directly relevant to: "${topic}".
    3. Culturally affirming (sovereign focus).
@@ -32,15 +28,14 @@ export async function searchGriotMedia(topic: string, gradeLevel: string): Promi
    }`;
 
     try {
-        const { text } = await generateText({
+        const { object } = await generateObject({
             model: googleProvider(AI_MODELS.GOOGLE.PRO),
+            schema: GriotResourceArraySchema,
             system: systemPrompt,
             prompt: `Suggest 3 Griot resources for the topic: ${topic}`,
         });
 
-        // Clean and parse JSON
-        const jsonStr = text.replace(/```json/g, '').replace(/```/g, '').trim();
-        return JSON.parse(jsonStr);
+        return object;
 
     } catch (error) {
         console.error("Griot search failed", error);

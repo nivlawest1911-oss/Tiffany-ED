@@ -1,5 +1,7 @@
-import { generateText } from 'ai';
+import { generateObject } from 'ai';
 import { googleProvider, AI_MODELS } from '@/lib/ai-config';
+import { RestorativeScriptSchema } from '@/lib/ai/signatures';
+import { z } from 'zod';
 
 export interface RestorativeContext {
     studentName: string;
@@ -8,7 +10,9 @@ export interface RestorativeContext {
     relationshipHistory: 'positive' | 'neutral' | 'strained';
 }
 
-export async function generateRestorativeScript(context: RestorativeContext) {
+export type RestorativeScript = z.infer<typeof RestorativeScriptSchema>;
+
+export async function generateRestorativeScript(context: RestorativeContext): Promise<RestorativeScript> {
     try {
         const prompt = `
       Act as a master Restorative Justice facilitator and veteran educator (Tiffany).
@@ -21,34 +25,15 @@ export async function generateRestorativeScript(context: RestorativeContext) {
       - Relationship History: ${context.relationshipHistory}
       
       Goal: De-escalate, reconnect, and problem-solve. Avoid shaming. Use "I" statements and open-ended questions.
-      
-      Output Format (JSON):
-      {
-        "opener": "A gentle opening line to start the conversation.",
-        "questions": ["Question 1", "Question 2", "Question 3"],
-        "closing": "A hopeful closing statement to seal the agreement."
-      }
     `;
 
-        const { text } = await generateText({
+        const { object } = await generateObject({
             model: googleProvider(AI_MODELS.GOOGLE.PRO),
+            schema: RestorativeScriptSchema,
             prompt: prompt,
         });
 
-        try {
-            // Attempt to extract JSON if the model returns markdown code blocks
-            const jsonMatch = text.match(/```json\n([\s\S]*?)\n```/) || text.match(/{[\s\S]*}/);
-            const jsonString = jsonMatch ? jsonMatch[0].replace(/```json|```/g, '') : text;
-            return JSON.parse(jsonString);
-        } catch (e) {
-            console.error("Failed to parse AI response as JSON", e);
-            return {
-                opener: `Hey ${context.studentName}, can we take a minute to reset?`,
-                questions: ["What happened just now?", "What were you thinking at the time?", "What do you think needs to happen to make things right?"],
-                closing: "Thanks for talking with me. Let's get back on track."
-            };
-        }
-
+        return object;
     } catch (error) {
         console.error('Error generating restorative script:', error);
         // Fallback script

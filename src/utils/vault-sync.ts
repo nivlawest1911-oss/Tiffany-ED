@@ -1,6 +1,10 @@
 import { createBrowserClient } from '@supabase/ssr';
-import { generateText } from 'ai';
+import { generateObject } from 'ai';
 import { googleProvider, AI_MODELS } from '@/lib/ai-config';
+import { PortfolioComplianceSchema } from '@/lib/ai/signatures';
+import { z } from 'zod';
+
+export type PortfolioCompliance = z.infer<typeof PortfolioComplianceSchema>;
 
 export async function uploadPortfolioToVault(
     file: File | Blob,
@@ -29,10 +33,11 @@ export async function uploadPortfolioToVault(
     return { path: data.path, error: null };
 }
 
-export async function validateCompliance(portfolioText: string): Promise<{ compliant: boolean; issues: string[] }> {
+export async function validateCompliance(portfolioText: string): Promise<PortfolioCompliance> {
     try {
-        const { text } = await generateText({
+        const { object } = await generateObject({
             model: googleProvider(AI_MODELS.GOOGLE.PRO),
+            schema: PortfolioComplianceSchema,
             system: `You are the Sentinel Auditor for EdIntel. 
       Your job is to verify that the Student Portfolio narrative complies with Alabama State Code for Special Education.
       
@@ -42,12 +47,11 @@ export async function validateCompliance(portfolioText: string): Promise<{ compl
       3. **Non-Pathologizing**: Avoid labeling language (e.g., "bad", "lazy"). Use "emerging", "developing", "barrier to learning".
       4. **privacy**: Ensure no other student names are mentioned.
       
-      Return a JSON object: { "compliant": boolean, "issues": string[] }`,
+      Return structured evaluation: { compliant: boolean, issues: string[] }`,
             prompt: `Review this text: "${portfolioText}"`,
         });
 
-        const cleaned = text.replace(/```json/g, '').replace(/```/g, '').trim();
-        return JSON.parse(cleaned);
+        return object;
     } catch (error) {
         console.error("Compliance check failed:", error);
         // Fail safe: assume non-compliant if check fails to force manual review

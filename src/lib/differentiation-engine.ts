@@ -16,6 +16,12 @@ import {
   GraphicOrganizer,
   lexileToGrade
 } from '@/types/differentiation';
+import { 
+  DifferentiationBundleSchema, 
+  VocabularyTermArraySchema, 
+  AssessmentQuestionArraySchema, 
+  GraphicOrganizerSchema 
+} from './ai/signatures';
 import { prisma } from './prisma';
 
 export class SovereignDifferentiationEngine {
@@ -108,16 +114,14 @@ You are to generate a comprehensive, highly structured instructional bundle in J
     const userPrompt = `Differentiate the topic or text: "${request.sourceInput.substring(0, 1000)}" to target Lexile ${request.targetLexile}L. Follow all guidelines and return strictly raw JSON.`;
 
     try {
-      const failoverResult = await aiResilience.generateWithFailover(systemPrompt, userPrompt, 'premium');
-      const responseText = failoverResult?.content || '';
-      
-      // Clean potential JSON markdown wrapper
-      let cleanedJson = responseText.trim();
-      if (cleanedJson.startsWith('```')) {
-        cleanedJson = cleanedJson.replace(/^```json\s*/, '').replace(/```$/, '').trim();
-      }
-
-      const parsed: any = JSON.parse(cleanedJson);
+      const failoverResult = await aiResilience.generateObjectWithFailover({
+        schema: DifferentiationBundleSchema,
+        systemPrompt,
+        userPrompt,
+        modelTier: 'premium',
+        temperature: 0.4,
+      });
+      const parsed = failoverResult.object;
 
       const response: DifferentiationResponse = {
         passage: parsed.passage || "Failed to generate differentiated reading passage.",
@@ -125,11 +129,11 @@ You are to generate a comprehensive, highly structured instructional bundle in J
         wordCount: parsed.wordCount || (parsed.passage ? parsed.passage.split(/\s+/).length : 0),
         fleschKincaid: parsed.fleschKincaid || 4.5,
         citations: parsed.citations || [],
-        vocabulary: parsed.vocabulary || [],
-        questions: parsed.questions || [],
-        graphicOrganizer: parsed.graphicOrganizer || undefined,
-        modelUsed: failoverResult?.model || 'Gemini-2.0-Flash / GPT-4o Failover Shield',
-        tokensUsed: responseText.length / 4,
+        vocabulary: (parsed.vocabulary as any) || [],
+        questions: (parsed.questions as any) || [],
+        graphicOrganizer: (parsed.graphicOrganizer as any) || undefined,
+        modelUsed: failoverResult?.model || 'Gemini-1.5-Pro / GPT-4o Failover Shield',
+        tokensUsed: Math.round((parsed.passage?.length || 0) / 4),
         generationTimeMs: Date.now() - startTime
       };
 
@@ -190,13 +194,13 @@ Return ONLY a valid JSON array matching the structure:
 Do not output markdown codeblocks. Return raw JSON.
 `;
     try {
-      const failoverResult = await aiResilience.generateWithFailover(systemPrompt, text, 'standard');
-      const responseText = failoverResult?.content || '';
-      let cleaned = responseText.trim();
-      if (cleaned.startsWith('```')) {
-        cleaned = cleaned.replace(/^```json\s*/, '').replace(/```$/, '').trim();
-      }
-      return JSON.parse(cleaned);
+      const failoverResult = await aiResilience.generateObjectWithFailover({
+        schema: VocabularyTermArraySchema,
+        systemPrompt,
+        userPrompt: text,
+        modelTier: 'standard',
+      });
+      return failoverResult.object as VocabularyTerm[];
     } catch (error) {
       console.error('[DifferentiationEngine] extractVocabulary failed, utilizing hardcoded fallback:', error);
       return [
@@ -229,13 +233,13 @@ Return ONLY a valid JSON array matching this format:
 Do not output markdown codeblocks. Return raw JSON.
 `;
     try {
-      const failoverResult = await aiResilience.generateWithFailover(systemPrompt, text, 'standard');
-      const responseText = failoverResult?.content || '';
-      let cleaned = responseText.trim();
-      if (cleaned.startsWith('```')) {
-        cleaned = cleaned.replace(/^```json\s*/, '').replace(/```$/, '').trim();
-      }
-      return JSON.parse(cleaned);
+      const failoverResult = await aiResilience.generateObjectWithFailover({
+        schema: AssessmentQuestionArraySchema,
+        systemPrompt,
+        userPrompt: text,
+        modelTier: 'standard',
+      });
+      return failoverResult.object as AssessmentQuestion[];
     } catch (error) {
       console.error('[DifferentiationEngine] generateQuestions failed, returning empty list:', error);
       return [];
@@ -263,13 +267,13 @@ Return ONLY a valid JSON object matching the format:
 Do not output markdown codeblocks. Return raw JSON.
 `;
     try {
-      const failoverResult = await aiResilience.generateWithFailover(systemPrompt, text, 'standard');
-      const responseText = failoverResult?.content || '';
-      let cleaned = responseText.trim();
-      if (cleaned.startsWith('```')) {
-        cleaned = cleaned.replace(/^```json\s*/, '').replace(/```$/, '').trim();
-      }
-      return JSON.parse(cleaned);
+      const failoverResult = await aiResilience.generateObjectWithFailover({
+        schema: GraphicOrganizerSchema,
+        systemPrompt,
+        userPrompt: text,
+        modelTier: 'standard',
+      });
+      return failoverResult.object as GraphicOrganizer;
     } catch (error) {
       console.error('[DifferentiationEngine] generateGraphicOrganizer failed:', error);
       return {

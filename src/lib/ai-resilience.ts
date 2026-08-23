@@ -1,6 +1,7 @@
 import OpenAI from 'openai';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { streamText } from 'ai';
+import { streamText, generateObject } from 'ai';
+import { z } from 'zod';
 import { 
     getGoogleAIKey, 
     getOpenAIKey, 
@@ -418,6 +419,65 @@ export class IntelligenceEngine {
                 temperature: 0.7,
             });
         }
+    }
+
+    /**
+     * Executes a typed structured object generation with automatic failover.
+     * Tries Primary (Google Pro/Flash) -> Secondary (OpenAI) -> Throws on complete exhaustion.
+     */
+    async generateObjectWithFailover<T>(options: {
+        schema: z.ZodType<T>;
+        systemPrompt: string;
+        userPrompt: string;
+        modelTier?: 'standard' | 'premium';
+        temperature?: number;
+    }): Promise<{ object: T; provider: string; model: string }> {
+        const { schema, systemPrompt, userPrompt, modelTier = 'standard', temperature = 0.3 } = options;
+        const googleModel = modelTier === 'premium' ? AI_MODELS.GOOGLE.PRO : AI_MODELS.GOOGLE.FLASH;
+        const openaiModel = modelTier === 'premium' ? AI_MODELS.OPENAI.PRIMARY : AI_MODELS.OPENAI.ROUTINE;
+        const errors: any[] = [];
+
+        // 1. Primary Vector: Google Gemini
+        try {
+            const result = await generateObject({
+                model: googleProvider(googleModel),
+                schema,
+                system: systemPrompt,
+                prompt: userPrompt,
+                temperature,
+            });
+
+            return {
+                object: result.object,
+                provider: 'google',
+                model: googleModel
+            };
+        } catch (err: any) {
+            console.warn(`[Structured Failover] Primary (Google: ${googleModel}) failed. Switching to Secondary (OpenAI: ${openaiModel}). Reason:`, err.message);
+            errors.push({ provider: 'google', error: err.message });
+        }
+
+        // 2. Secondary Vector: OpenAI
+        try {
+            const result = await generateObject({
+                model: openaiProvider(openaiModel),
+                schema,
+                system: systemPrompt,
+                prompt: userPrompt,
+                temperature,
+            });
+
+            return {
+                object: result.object,
+                provider: 'openai',
+                model: openaiModel
+            };
+        } catch (err: any) {
+            console.warn(`[Structured Failover] Secondary (OpenAI: ${openaiModel}) failed. Reason:`, err.message);
+            errors.push({ provider: 'openai', error: err.message });
+        }
+
+        throw new Error(`[Structured Generation Failed] All vectors exhausted: ${JSON.stringify(errors)}`);
     }
 
     /**

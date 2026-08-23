@@ -1,16 +1,9 @@
-import { generateText } from 'ai';
+import { generateObject } from 'ai';
 import { googleProvider, AI_MODELS } from '@/lib/ai-config';
+import { FrictionAnalysisSchema } from '@/lib/ai/signatures';
+import { z } from 'zod';
 
-export type FrictionAnalysis = {
-    frictionScore: number; // 0-100
-    bottlenecks: string[];
-    gymBreaks: GymBreakSuggestion[];
-    scaffolding: {
-        tier1: string;
-        tier2: string;
-        tier3: string;
-    };
-};
+export type FrictionAnalysis = z.infer<typeof FrictionAnalysisSchema>;
 
 export type GymBreakSuggestion = {
     timing: string; // e.g., "After 20 mins of direct instruction"
@@ -28,7 +21,7 @@ export async function analyzeLessonFriction(lessonPlan: string): Promise<Frictio
   3. Detect abstract concepts that lack concrete bridging.
   
   OUTPUT:
-  Return a JSON object with:
+  Return structured analysis with:
   - frictionScore: 0-100 (High score = High risk of behavior issues)
   - bottlenecks: Array of specific strings from the text identified as risks.
   - gymBreaks: Array of { timing, activity, duration } for "Cognitive Gym" resets.
@@ -39,14 +32,14 @@ export async function analyzeLessonFriction(lessonPlan: string): Promise<Frictio
   `;
 
     try {
-        const { text } = await generateText({
+        const { object } = await generateObject({
             model: googleProvider(AI_MODELS.GOOGLE.PRO),
+            schema: FrictionAnalysisSchema,
             system: systemPrompt,
             prompt: `Analyze this lesson plan:\n"${lessonPlan}"`,
         });
 
-        const cleaned = text.replace(/```json/g, '').replace(/```/g, '').trim();
-        return JSON.parse(cleaned) as FrictionAnalysis;
+        return object;
 
     } catch (error) {
         console.error("Friction analysis failed:", error);
