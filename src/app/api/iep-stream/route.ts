@@ -1,29 +1,28 @@
-﻿import { streamText } from 'ai';
-import { createGoogleGenerativeAI } from '@ai-sdk/google';
-import { createAnthropic } from '@ai-sdk/anthropic';
-import { createOpenAI } from '@ai-sdk/openai';
-import { createXai } from '@ai-sdk/xai';
+import { streamText } from 'ai';
 import { NextRequest } from 'next/server';
+import { 
+    googleProvider, 
+    anthropicProvider, 
+    openaiProvider, 
+    xaiProvider, 
+    AI_MODELS 
+} from '@/lib/ai-config';
 
-// Lazy initials for AI providers
+// Resolve model using canonical providers
 function getModel(provider: string = 'google') {
     switch (provider) {
         case 'anthropic': {
-            const anthropic = createAnthropic({ apiKey: process.env.ANTHROPIC_API_KEY || '' });
-            return anthropic('claude-sonnet-4-20250514');
+            return anthropicProvider(AI_MODELS.ANTHROPIC.SONNET);
         }
         case 'openai': {
-            const openai = createOpenAI({ apiKey: process.env.OPENAI_API_KEY || '' });
-            return openai('gpt-4o');
+            return openaiProvider(AI_MODELS.OPENAI.PRIMARY);
         }
         case 'xai': {
-            const xai = createXai({ apiKey: process.env.XAI_API_KEY || '' });
-            return xai('grok-2-1212');
+            return xaiProvider(AI_MODELS.XAI.GROK);
         }
         case 'google':
         default: {
-            const google = createGoogleGenerativeAI({ apiKey: process.env.GOOGLE_GENAI_API_KEY || '' });
-            return google('gemini-2.0-flash');
+            return googleProvider(AI_MODELS.GOOGLE.FLASH_2);
         }
     }
 }

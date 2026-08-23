@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { streamText } from 'ai';
-import { google as aiGoogle } from '@ai-sdk/google';
-import { openai as aiOpenAI } from '@ai-sdk/openai';
+import { 
+  getGoogleAIKey, 
+  getOpenAIKey, 
+  googleProvider, 
+  openaiProvider, 
+  AI_MODELS 
+} from '@/lib/ai-config';
 import { getSession } from '@/lib/auth';
 import { TokenService } from '@/lib/services/token-service';
 import { ALABAMA_STRATEGIC_DIRECTIVE } from '@/lib/ai-resilience';
@@ -88,8 +93,8 @@ Language: ${language || 'en'}
 `;
 
     // Initialize provider models with resilience
-    const googleApiKey = (process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GOOGLE_API_KEY || '').trim();
-    const openaiApiKey = (process.env.OPENAI_API_KEY || '').trim();
+    const googleApiKey = getGoogleAIKey();
+    const openaiApiKey = getOpenAIKey();
 
     if (!googleApiKey && !openaiApiKey) {
       // Offline simulation fallback for presentation safety
@@ -119,7 +124,7 @@ The water cycle is the continuous movement of water on, above, and below the sur
     // Use Gemini as primary and OpenAI as fallback
     try {
       const result = await streamText({
-        model: googleApiKey ? aiGoogle('gemini-1.5-flash') : aiOpenAI('gpt-4o'),
+        model: googleApiKey ? googleProvider(AI_MODELS.GOOGLE.FLASH) : openaiProvider(AI_MODELS.OPENAI.PRIMARY),
         system: systemPrompt,
         prompt: `Differentiate this content to target Lexile ${targetLexile}L:\n\n${sourceInput}`,
         temperature: 0.5,
@@ -130,7 +135,7 @@ The water cycle is the continuous movement of water on, above, and below the sur
       console.warn('[Stream Failover] Primary stream failed, pivoting. Error:', streamError.message);
       // Failover to secondary
       const result = await streamText({
-        model: googleApiKey && openaiApiKey ? aiOpenAI('gpt-4o') : aiGoogle('gemini-1.5-flash'),
+        model: googleApiKey && openaiApiKey ? openaiProvider(AI_MODELS.OPENAI.PRIMARY) : googleProvider(AI_MODELS.GOOGLE.FLASH),
         system: systemPrompt,
         prompt: `Differentiate this content to target Lexile ${targetLexile}L:\n\n${sourceInput}`,
         temperature: 0.5,

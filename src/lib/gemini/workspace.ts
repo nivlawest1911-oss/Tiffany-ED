@@ -1,13 +1,14 @@
-﻿/**
+/**
  * EdIntel Professional - Gemini Workspace Integration
  * Sync and manage content from Google Gemini workspace
  */
 
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { withResilience } from '../ai-resilience';
+import { getGoogleAIKey } from '@/lib/ai-config';
 
 const getGenAI = () => {
-    const apiKey = process.env.GOOGLE_GENAI_API_KEY;
+    const apiKey = getGoogleAIKey();
     if (!apiKey) {
         return {
             getGenerativeModel: () => ({

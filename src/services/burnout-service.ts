@@ -1,14 +1,10 @@
-﻿import { generateText } from 'ai';
-import { createGoogleGenerativeAI } from '@ai-sdk/google';
-
-const google = createGoogleGenerativeAI({
-    apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY || '',
-});
+import { generateText } from 'ai';
+import { googleProvider, AI_MODELS } from '@/lib/ai-config';
 
 export async function generateBurnoutResponse(message: string): Promise<string> {
     try {
         const { text } = await generateText({
-            model: google('gemini-1.5-pro'),
+            model: googleProvider(AI_MODELS.GOOGLE.PRO),
             system: `You are Tiffany, a veteran Special Education Director and Sovereign Educator. 
             You serve as a "Burnout Shield" for teachers.
             

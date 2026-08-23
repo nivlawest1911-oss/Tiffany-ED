@@ -1,15 +1,11 @@
-﻿import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { streamText } from 'ai';
 import { INTELLIGENCE_MAP } from '@/lib/intelligence-engine';
 import { queryEdIntelVault } from '@/lib/rag/rag-core';
 import { getBirthCertificate } from '@/lib/supabase';
+import { googleProvider, AI_MODELS } from '@/lib/ai-config';
 
 // BigQuery logic moved to proxy API to prevent SDK leakage
 export const runtime = 'nodejs';
-
-const google = createGoogleGenerativeAI({
-    apiKey: process.env.GOOGLE_GENAI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY || ''
-});
 
 export async function POST(req: Request) {
     const start = Date.now();
@@ -64,7 +60,7 @@ export async function POST(req: Request) {
 
         // 5. Execute Stream with AI SDK (Gemini)
         const result = await streamText({
-            model: google('gemini-1.5-pro'),
+            model: googleProvider(AI_MODELS.GOOGLE.PRO),
             system: `You are ${avatarName}, an elite EdIntel Companion serving in the role of ${avatarRole}. 
             
             ${customSystemPrompt ? `CORE IDENTITY PROTOCOL:\n${customSystemPrompt}` : `Context: ${protocolContext || 'General Executive Assistance'}`}

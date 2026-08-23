@@ -1,10 +1,6 @@
-﻿import { createBrowserClient } from '@supabase/ssr';
+import { createBrowserClient } from '@supabase/ssr';
 import { generateText } from 'ai';
-import { createGoogleGenerativeAI } from '@ai-sdk/google';
-
-const google = createGoogleGenerativeAI({
-    apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY || '',
-});
+import { googleProvider, AI_MODELS } from '@/lib/ai-config';
 
 export async function uploadPortfolioToVault(
     file: File | Blob,
@@ -36,7 +32,7 @@ export async function uploadPortfolioToVault(
 export async function validateCompliance(portfolioText: string): Promise<{ compliant: boolean; issues: string[] }> {
     try {
         const { text } = await generateText({
-            model: google('gemini-1.5-pro'),
+            model: googleProvider(AI_MODELS.GOOGLE.PRO),
             system: `You are the Sentinel Auditor for EdIntel. 
       Your job is to verify that the Student Portfolio narrative complies with Alabama State Code for Special Education.
       

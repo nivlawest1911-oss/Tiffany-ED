@@ -1,9 +1,5 @@
-﻿import { generateText } from 'ai';
-import { createGoogleGenerativeAI } from '@ai-sdk/google';
-
-const google = createGoogleGenerativeAI({
-    apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY || '',
-});
+import { generateText } from 'ai';
+import { googleProvider, AI_MODELS } from '@/lib/ai-config';
 
 export interface RestorativeContext {
     studentName: string;
@@ -35,7 +31,7 @@ export async function generateRestorativeScript(context: RestorativeContext) {
     `;
 
         const { text } = await generateText({
-            model: google('gemini-1.5-pro'),
+            model: googleProvider(AI_MODELS.GOOGLE.PRO),
             prompt: prompt,
         });
 

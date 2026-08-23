@@ -1,4 +1,5 @@
-﻿import { generateProfessionalResponse } from '@/lib/leadership-ai';
+import { generateProfessionalResponse } from '@/lib/leadership-ai';
+import { getGoogleAIKey } from '@/lib/ai-config';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
@@ -18,8 +19,8 @@ export async function POST(req: Request) {
 
 export async function GET() {
   try {
-    // Check if the API Key exists
-    const hasKey = !!process.env.GOOGLE_GENAI_API_KEY;
+    // Check if the Google AI API Key exists via canonical resolver
+    const hasKey = !!getGoogleAIKey();
 
     // Optional: Perform a 'ping' to OpenAI or your DB here
 

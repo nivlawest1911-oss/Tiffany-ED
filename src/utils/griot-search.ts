@@ -1,9 +1,5 @@
-﻿import { generateText } from 'ai';
-import { createGoogleGenerativeAI } from '@ai-sdk/google';
-
-const google = createGoogleGenerativeAI({
-    apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY || '',
-});
+import { generateText } from 'ai';
+import { googleProvider, AI_MODELS } from '@/lib/ai-config';
 
 export interface GriotResource {
     title: string;
@@ -37,7 +33,7 @@ export async function searchGriotMedia(topic: string, gradeLevel: string): Promi
 
     try {
         const { text } = await generateText({
-            model: google('gemini-1.5-pro'),
+            model: googleProvider(AI_MODELS.GOOGLE.PRO),
             system: systemPrompt,
             prompt: `Suggest 3 Griot resources for the topic: ${topic}`,
         });

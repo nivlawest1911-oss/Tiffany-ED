@@ -1,8 +1,13 @@
-﻿import OpenAI from 'openai';
+import OpenAI from 'openai';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { openai as aiOpenAI } from '@ai-sdk/openai';
-import { google as aiGoogle } from '@ai-sdk/google';
 import { streamText } from 'ai';
+import { 
+    getGoogleAIKey, 
+    getOpenAIKey, 
+    googleProvider, 
+    openaiProvider, 
+    AI_MODELS 
+} from '@/lib/ai-config';
 
 /**
  * EdIntel Professional Shield: AI Resilience Utility
@@ -286,9 +291,16 @@ TOKEN EFFICIENCY & OUTPUT CONTROL:
 - STRUCTURED DATA: When providing lists or data, use compact markdown tables or bullet points to save tokens.
 `;
 
-// Initialize clients for Failover Engine
-const openai = process.env.OPENAI_API_KEY ? new OpenAI({ apiKey: process.env.OPENAI_API_KEY }) : null;
-const genAI = process.env.GOOGLE_GENERATIVE_AI_API_KEY ? new GoogleGenerativeAI(process.env.GOOGLE_GENERATIVE_AI_API_KEY) : null;
+// Helper to get or create clients dynamically using canonical keys
+function getOpenAIClient() {
+    const key = getOpenAIKey();
+    return key ? new OpenAI({ apiKey: key }) : null;
+}
+
+function getGoogleGenAIClient() {
+    const key = getGoogleAIKey();
+    return key ? new GoogleGenerativeAI(key) : null;
+}
 
 export class IntelligenceEngine {
 
@@ -307,11 +319,12 @@ export class IntelligenceEngine {
             ]);
         };
 
-        // 1. Primary Vector: OpenAI (GPT-4o / GPT-3.5)
+        // 1. Primary Vector: OpenAI (GPT-4o / GPT-4o-mini)
         try {
+            const openai = getOpenAIClient();
             if (!openai) throw new Error("OpenAI Key Missing");
 
-            const model = modelTier === 'premium' ? 'gpt-4o' : 'gpt-4o-mini'; // Upgraded from 3.5
+            const model = modelTier === 'premium' ? AI_MODELS.OPENAI.PRIMARY : AI_MODELS.OPENAI.ROUTINE;
 
             const completion = await withTimeout(
                 openai.chat.completions.create({
@@ -339,9 +352,10 @@ export class IntelligenceEngine {
 
         // 2. Secondary Vector: Google Gemini (Flash / Pro)
         try {
+            const genAI = getGoogleGenAIClient();
             if (!genAI) throw new Error("Google AI Key Missing");
 
-            const modelName = 'gemini-1.5-flash'; // Updated to 1.5 flash for stability
+            const modelName = modelTier === 'premium' ? AI_MODELS.GOOGLE.PRO : AI_MODELS.GOOGLE.FLASH;
             const model = genAI.getGenerativeModel({
                 model: modelName,
                 systemInstruction: systemPrompt
@@ -385,13 +399,13 @@ export class IntelligenceEngine {
             { role: 'user', content: userPrompt }
         ];
 
-        const model = modelTier === 'premium' ? 'gpt-4o' : 'gpt-4o-mini';
-        const fallbackModel = 'gemini-1.5-flash'; // Updated from 2.5 to 1.5 for stability
+        const model = modelTier === 'premium' ? AI_MODELS.OPENAI.PRIMARY : AI_MODELS.OPENAI.ROUTINE;
+        const fallbackModel = modelTier === 'premium' ? AI_MODELS.GOOGLE.PRO : AI_MODELS.GOOGLE.FLASH;
 
         try {
             // Attempt Primary (OpenAI)
             return await streamText({
-                model: aiOpenAI(model),
+                model: openaiProvider(model),
                 messages,
                 temperature: 0.7,
             });
@@ -399,7 +413,7 @@ export class IntelligenceEngine {
             console.warn(`[Shield] Primary stream failed, pivoting to Google. Reason: ${err.message}`);
             // Attempt Secondary (Google)
             return await streamText({
-                model: aiGoogle(fallbackModel),
+                model: googleProvider(fallbackModel),
                 messages,
                 temperature: 0.7,
             });

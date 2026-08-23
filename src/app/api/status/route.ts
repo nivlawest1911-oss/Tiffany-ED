@@ -1,4 +1,5 @@
-import { NextResponse } from "next/server"
+import { NextResponse } from "next/server";
+import { getGoogleAIKey } from '@/lib/ai-config';
 
 export async function GET() {
     const isOk = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
@@ -7,7 +8,7 @@ export async function GET() {
         environment: process.env.NODE_ENV || "unknown",
         timestamp: new Date().toISOString(),
         supabase: isOk ? "CONFIGURED" : "NOT CONFIGURED - Add env vars",
-        gemini: process.env.GOOGLE_GENERATIVE_AI_API_KEY ? "CONFIGURED" : "NOT CONFIGURED - Add GOOGLE_GENERATIVE_AI_API_KEY",
+        gemini: getGoogleAIKey() ? "CONFIGURED" : "NOT CONFIGURED - Add GOOGLE_GENERATIVE_AI_API_KEY",
         stripe: process.env.STRIPE_SECRET_KEY ? "CONFIGURED" : "NOT CONFIGURED - Add STRIPE_SECRET_KEY",
         heygen: process.env.HEYGEN_API_KEY ? "CONFIGURED" : "NOT CONFIGURED - Add HEYGEN_API_KEY",
     };

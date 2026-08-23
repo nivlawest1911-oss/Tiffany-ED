@@ -1,5 +1,5 @@
-﻿import { embed } from 'ai';
-import { google } from '@ai-sdk/google';
+import { embed } from 'ai';
+import { googleProvider, AI_MODELS } from '@/lib/ai-config';
 
 /**
  * Generates a vector embedding for the given text.
@@ -9,7 +9,7 @@ import { google } from '@ai-sdk/google';
 export async function generateEmbedding(text: string): Promise<number[]> {
     try {
         const { embedding } = await embed({
-            model: google.textEmbeddingModel('text-embedding-004'),
+            model: googleProvider.textEmbeddingModel(AI_MODELS.GOOGLE.EMBEDDING),
             value: text,
         });
         return embedding;

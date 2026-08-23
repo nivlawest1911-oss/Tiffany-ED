@@ -1,11 +1,10 @@
-﻿import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { rateLimit } from '@/lib/EdIntel-connections';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { getGoogleAIKey, AI_MODELS } from '@/lib/ai-config';
 
 // Use edge runtime for faster responses
 export const runtime = 'edge';
-
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 
 export async function POST(req: Request) {
     try {
@@ -61,8 +60,14 @@ RULES:
 DOCUMENT CONTEXT:
 ${documentContext}`;
 
+        const apiKey = getGoogleAIKey();
+        if (!apiKey) {
+            return NextResponse.json({ error: 'Missing Neural Key (GOOGLE_GENERATIVE_AI_API_KEY)' }, { status: 500 });
+        }
+
+        const genAI = new GoogleGenerativeAI(apiKey);
         const model = genAI.getGenerativeModel({
-            model: isLogicEngineEnabled ? 'gemini-1.5-pro' : 'gemini-1.5-flash',
+            model: isLogicEngineEnabled ? AI_MODELS.GOOGLE.PRO : AI_MODELS.GOOGLE.FLASH,
             systemInstruction: systemInstructions
         });
 

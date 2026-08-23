@@ -1,6 +1,7 @@
-﻿import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { getGoogleAIKey, AI_MODELS } from '@/lib/ai-config';
 
 export const dynamic = 'force-dynamic';
 
@@ -17,11 +18,11 @@ export async function GET() {
             if (!dbError) status.database.online = true;
         }
 
-        // ðŸ§  Check AI Core Connectivity
-        const apiKey = process.env.GOOGLE_GENAI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GEMINI_API_KEY;
+        // Check AI Core Connectivity using canonical resolver
+        const apiKey = getGoogleAIKey();
         if (apiKey) {
             const genAI = new GoogleGenerativeAI(apiKey);
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+            const model = genAI.getGenerativeModel({ model: AI_MODELS.GOOGLE.FLASH });
             // Minimal connectivity handshake
             await model.generateContent({ contents: [{ role: 'user', parts: [{ text: 'pulse' }] }] });
             status.ai_core.online = true;

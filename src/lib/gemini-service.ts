@@ -2,11 +2,12 @@ import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/ge
 import Replicate from "replicate";
 import { put } from "@vercel/blob";
 import { UserContext, protocolRouter } from "./protocol-router";
+import { getGoogleAIKey, AI_MODELS } from "@/lib/ai-config";
 
-const getApiKey = () => (process.env.GOOGLE_GEMINI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GOOGLE_GENAI_API_KEY || '').trim();
+const getApiKey = () => getGoogleAIKey();
 
 export const GEMINI_CONFIG = {
-    model: "gemini-1.5-flash",
+    model: AI_MODELS.GOOGLE.FLASH,
     safetySettings: [
         {
             category: HarmCategory.HARM_CATEGORY_HARASSMENT,

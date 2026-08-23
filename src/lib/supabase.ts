@@ -2,6 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 import { unstable_cache } from 'next/cache';
 import { CompanionCertificate } from '@/types/companion-certificate';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { getGoogleAIKey, AI_MODELS } from '@/lib/ai-config';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -206,15 +207,15 @@ export async function getBirthCertificate(companionId: string): Promise<Companio
  * ðŸ§  Neural Vectorization: Generates embeddings using Gemini text-embedding-004.
  */
 export async function generateEmbedding(text: string): Promise<number[] | null> {
-    const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GOOGLE_GENAI_API_KEY;
+    const apiKey = getGoogleAIKey();
     if (!apiKey) {
-        console.warn('[EDINTEL_AI] Missing GEMINI_API_KEY. Vectorization unavailable.');
+        console.warn('[EDINTEL_AI] Missing Google AI API Key. Vectorization unavailable.');
         return null;
     }
 
     try {
         const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({ model: "text-embedding-004" });
+        const model = genAI.getGenerativeModel({ model: AI_MODELS.GOOGLE.EMBEDDING });
         const result = await model.embedContent(text);
         return result.embedding.values;
     } catch (error) {

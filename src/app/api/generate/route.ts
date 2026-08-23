@@ -5,6 +5,7 @@ import { getSession } from '@/lib/auth'; // Custom auth helper
 import { TokenService } from '@/lib/services/token-service';
 import { streamProfessionalResponse } from '@/lib/leadership-ai';
 import { createFiscalStrategistAgent } from '@/lib/agents/fiscal-strategist-agent';
+import { getGoogleAIKey } from '@/lib/ai-config';
 
 export const runtime = 'nodejs';
 
@@ -265,11 +266,11 @@ export async function POST(request: NextRequest) {
             }
         }
 
-        // Check for Google API Key (support standard Vercel AI SDK env var or generic one)
-        const googleApiKey = (process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GOOGLE_API_KEY || '').trim();
+        // Check for Google API Key using canonical resolver
+        const googleApiKey = getGoogleAIKey();
 
         if (!googleApiKey) {
-            console.warn("[Configuration] GOOGLE_API_KEY missing. Activation Simulation Mode.");
+            console.warn("[Configuration] Google AI Key missing. Activation Simulation Mode.");
 
             // SIMULATION MODE FOR USER DEMO/AUDIT
             const encoder = new TextEncoder();

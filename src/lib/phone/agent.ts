@@ -1,4 +1,4 @@
-﻿/**
+/**
  * EdIntel Professional - AI Phone Agent System
  * Surpasses traditional phone AI with multi-modal intelligence
  */
@@ -6,6 +6,7 @@
 import twilio from 'twilio';
 import speech from '@google-cloud/speech';
 import textToSpeech from '@google-cloud/text-to-speech';
+import { getGoogleAIKey, AI_MODELS } from '@/lib/ai-config';
 
 // Initialize clients
 const twilioClient = twilio(
@@ -216,10 +217,10 @@ export class AIPhoneAgentService {
     ): Promise<string> {
         // Use Google Gemini for intelligent response
         const { GoogleGenerativeAI } = await import('@google/generative-ai');
-        const apiKey = process.env.GOOGLE_GENAI_API_KEY;
-        if (!apiKey) throw new Error("GOOGLE_GENAI_API_KEY is missing");
+        const apiKey = getGoogleAIKey();
+        if (!apiKey) throw new Error("Google AI Key is missing");
         const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
+        const model = genAI.getGenerativeModel({ model: AI_MODELS.GOOGLE.FLASH_2 });
 
         const prompt = `You are ${context.agent || 'Dr. Alvin West'}, an AI assistant for EdIntel Professional, an educational technology platform for Alabama schools.
 
@@ -428,10 +429,10 @@ export class AdvancedPhoneFeatures {
     }> {
         // Use AI to determine best routing
         const { GoogleGenerativeAI } = await import('@google/generative-ai');
-        const apiKey = process.env.GOOGLE_GENAI_API_KEY;
-        if (!apiKey) throw new Error("GOOGLE_GENAI_API_KEY is missing");
+        const apiKey = getGoogleAIKey();
+        if (!apiKey) throw new Error("Google AI Key is missing");
         const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
+        const model = genAI.getGenerativeModel({ model: AI_MODELS.GOOGLE.FLASH_2 });
 
         const prompt = `Analyze this caller request and determine routing:
 

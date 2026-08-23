@@ -1,21 +1,17 @@
-﻿import { streamText } from 'ai';
-import { createGoogleGenerativeAI } from '@ai-sdk/google';
+import { streamText } from 'ai';
 import { NextRequest } from 'next/server';
 import { ANTIGRAVITY_PROMPT } from '@/lib/google-antigravity';
+import { googleProvider, AI_MODELS } from '@/lib/ai-config';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'edge';
-
-const google = createGoogleGenerativeAI({
-    apiKey: process.env.GOOGLE_GEMINI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GOOGLE_GENAI_API_KEY || '',
-});
 
 export async function POST(req: NextRequest) {
     try {
         const { messages } = await req.json();
 
         const result = streamText({
-            model: google('gemini-2.0-flash-exp'),
+            model: googleProvider(AI_MODELS.GOOGLE.FLASH_2),
             system: ANTIGRAVITY_PROMPT,
             messages,
             temperature: 0.7,

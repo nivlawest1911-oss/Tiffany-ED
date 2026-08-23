@@ -1,13 +1,16 @@
-﻿/**
+/**
  * EdIntel Sovereign Dispatcher
  * Central orchestration layer for all AI tool calls
  */
 
 import { streamText, generateText } from 'ai';
-import { google } from '@ai-sdk/google';
-import { xai } from '@ai-sdk/xai';
-import { anthropic } from '@ai-sdk/anthropic';
-import { openai } from '@ai-sdk/openai';
+import { 
+    googleProvider, 
+    xaiProvider, 
+    anthropicProvider, 
+    openaiProvider,
+    AI_MODELS 
+} from '@/lib/ai-config';
 
 export type AIProvider = 'google' | 'xai' | 'anthropic' | 'openai';
 
@@ -35,23 +38,23 @@ export class AIDispatcher {
         // If an explicit model name is provided, use it
         if (modelName) {
             switch (provider) {
-                case 'google': return google(modelName);
-                case 'xai': return xai(modelName);
-                case 'anthropic': return anthropic(modelName);
-                case 'openai': return openai(modelName);
-                default: return google(modelName);
+                case 'google': return googleProvider(modelName);
+                case 'xai': return xaiProvider(modelName);
+                case 'anthropic': return anthropicProvider(modelName);
+                case 'openai': return openaiProvider(modelName);
+                default: return googleProvider(modelName);
             }
         }
 
         // Otherwise, resolve via complexity tiers
         switch (complexity) {
             case TaskComplexity.ROUTINE:
-                return google('gemini-1.5-flash');
+                return googleProvider(AI_MODELS.GOOGLE.FLASH);
             case TaskComplexity.EXECUTIVE:
-                return anthropic('claude-3-5-sonnet-20240620'); // Premium reasoning
+                return anthropicProvider(AI_MODELS.ANTHROPIC.SONNET); // Premium reasoning
             case TaskComplexity.ANALYSIS:
             default:
-                return google('gemini-1.5-pro'); // Standard high-quality
+                return googleProvider(AI_MODELS.GOOGLE.PRO); // Standard high-quality
         }
     }
 

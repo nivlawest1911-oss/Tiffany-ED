@@ -1,14 +1,11 @@
-﻿import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
 import { getSession } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { mockPodcasts } from '@/lib/data/podcasts';
-
-// Initialize Gemini
-const apiKey = process.env.GEMINI_API_KEY!;
-const genAI = new GoogleGenerativeAI(apiKey);
+import { getGoogleAIKey, AI_MODELS } from '@/lib/ai-config';
 
 // Lazy-loaded Upstash Redis Rate Limiter to prevent build-time crashes
 let ratelimitInstance: Ratelimit | null = null;
@@ -53,12 +50,14 @@ Example Answer: "Caller, I'm Verse. That is a core building culture failure. Chr
 
 export async function POST(req: Request) {
     try {
+        const apiKey = getGoogleAIKey();
         if (!apiKey) {
             return NextResponse.json(
                 { response: "System Notice: Uplink keys missing. Fallback routing engaged." },
                 { status: 500 }
             );
         }
+        const genAI = new GoogleGenerativeAI(apiKey);
 
         const session = await getSession();
         if (!session || !session.user) {
@@ -118,7 +117,7 @@ ${episode.transcript ? "Transcript Excerpts:\n" + episode.transcript.map(t => `[
         }
 
         const model = genAI.getGenerativeModel({
-            model: 'gemini-1.5-pro',
+            model: AI_MODELS.GOOGLE.PRO,
             systemInstruction: SYSTEM_PROMPT + episodeContext + groundingContext
         });
 

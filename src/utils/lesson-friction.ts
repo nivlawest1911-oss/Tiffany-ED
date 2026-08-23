@@ -1,9 +1,5 @@
-﻿import { generateText } from 'ai';
-import { createGoogleGenerativeAI } from '@ai-sdk/google';
-
-const google = createGoogleGenerativeAI({
-    apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY || '',
-});
+import { generateText } from 'ai';
+import { googleProvider, AI_MODELS } from '@/lib/ai-config';
 
 export type FrictionAnalysis = {
     frictionScore: number; // 0-100
@@ -44,7 +40,7 @@ export async function analyzeLessonFriction(lessonPlan: string): Promise<Frictio
 
     try {
         const { text } = await generateText({
-            model: google('gemini-1.5-pro'),
+            model: googleProvider(AI_MODELS.GOOGLE.PRO),
             system: systemPrompt,
             prompt: `Analyze this lesson plan:\n"${lessonPlan}"`,
         });
