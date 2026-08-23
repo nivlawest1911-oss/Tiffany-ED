@@ -16,7 +16,7 @@ const nextConfig = {
     process.env.BUILD_ID ||
     'build-sovereign-v2',
 
-  output: 'standalone',
+  output: process.env.DOCKER_BUILD ? 'standalone' : undefined,
 
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
