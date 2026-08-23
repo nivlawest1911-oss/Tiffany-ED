@@ -577,7 +577,7 @@ export default function HolographicBriefing({
                         className="relative w-full max-w-7xl aspect-video bg-zinc-950 border border-noble-gold/20 rounded-[3rem] overflow-hidden shadow-[0_0_100px_rgba(212,175,55,0.15)] flex flex-col md:flex-row"
                     >
                         {/* Interactive UI Layers */}
-                        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-5 pointer-events-none" />
+                        <div className="absolute inset-0 bg-pattern-carbon opacity-5 pointer-events-none" />
 
                         {/* LEFT: Neural Context Stream */}
                         <div className="md:w-[65%] h-64 md:h-full relative overflow-hidden border-r border-white/5 bg-black">
@@ -752,7 +752,7 @@ export default function HolographicBriefing({
 
                             {/* Visual Synthesis Overlay */}
                             <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.03] z-20">
-                                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] scale-150" />
+                                <div className="absolute inset-0 bg-pattern-carbon scale-150" />
                                 <motion.div
                                     animate={{ y: ['0%', '100%'] }}
                                     transition={{ duration: 10, repeat: Infinity, ease: "linear" }}

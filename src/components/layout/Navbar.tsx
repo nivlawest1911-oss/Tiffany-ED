@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { 
@@ -15,6 +14,7 @@ import {
   LayoutDashboard,
   LogOut
 } from 'lucide-react';
+import { EdIntelVectorEmblem } from '@/components/EdIntelLogo';
 
 export default function Navbar() {
   const { user, isLoading, logout } = useAuth();
@@ -27,18 +27,7 @@ export default function Navbar() {
         <Link href="/" className="flex items-center gap-3 group">
           <div className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-[#D4AF37] via-[#C5A46E] to-[#8C6D3B] p-[1px] shadow-[0_0_20px_rgba(212,175,55,0.25)] transition-transform duration-300 group-hover:scale-105">
             <div className="w-full h-full bg-[#0A0F1C] rounded-[11px] flex items-center justify-center overflow-hidden">
-              <Image 
-                src="/images/edintel-logo.png" 
-                alt="EdIntel" 
-                width={28} 
-                height={28} 
-                className="object-contain"
-                priority
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                }}
-              />
-              <Sparkles className="w-5 h-5 text-[#D4AF37] hidden group-hover:block transition-all" />
+              <EdIntelVectorEmblem size={24} />
             </div>
           </div>
           <div className="flex flex-col">

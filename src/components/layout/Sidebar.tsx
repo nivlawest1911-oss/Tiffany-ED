@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ChevronLeft, ChevronRight, User as UserIcon } from 'lucide-react';
@@ -29,6 +28,12 @@ export function Sidebar() {
     }, []);
 
     const pathname = usePathname();
+
+    const userInitials = user?.name
+        ? user.name.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2)
+        : user?.email
+            ? user.email.slice(0, 2).toUpperCase()
+            : null;
 
     return (
         <motion.aside
@@ -86,12 +91,8 @@ export function Sidebar() {
                         className="mb-6 p-4 rounded-2xl bg-white/5 border border-white/5 flex flex-col gap-4"
                     >
                         <div className="flex items-center gap-4">
-                            <div className="h-10 w-10 rounded-xl border border-electric-cyan/30 flex items-center justify-center bg-zinc-900 overflow-hidden shrink-0">
-                                {user.avatar_url ? (
-                                    <Image src={user.avatar_url} alt={user.name} width={40} height={40} className="object-cover" priority />
-                                ) : (
-                                    <UserIcon className="text-electric-cyan" size={20} />
-                                )}
+                            <div className="h-10 w-10 rounded-xl border border-electric-cyan/30 flex items-center justify-center bg-gradient-to-br from-cyan-950 via-zinc-900 to-indigo-950 text-electric-cyan font-black text-xs tracking-wider shrink-0 shadow-inner">
+                                {userInitials ? userInitials : <UserIcon className="text-electric-cyan" size={20} />}
                             </div>
                             <div className="min-w-0 flex-1">
                                 <p className="text-sm font-black text-white truncate leading-tight">
@@ -123,13 +124,10 @@ export function Sidebar() {
                         <div className="p-1">
                             <div
                                 onClick={() => logout()}
-                                className="h-10 w-10 rounded-xl border border-white/10 flex items-center justify-center bg-zinc-900 cursor-pointer hover:border-red-500/50 transition-colors"
+                                className="h-10 w-10 rounded-xl border border-white/10 flex items-center justify-center bg-gradient-to-br from-zinc-900 to-black text-noble-gold font-black text-xs cursor-pointer hover:border-red-500/50 transition-colors shadow-md"
+                                title={user?.name || "Sign Out"}
                             >
-                                {user?.avatar_url ? (
-                                    <Image src={user.avatar_url} alt="User" width={40} height={40} className="rounded-xl" priority />
-                                ) : (
-                                    <UserIcon className="text-zinc-500" size={20} />
-                                )}
+                                {userInitials ? userInitials : <UserIcon className="text-zinc-500" size={20} />}
                             </div>
                         </div>
                     )}

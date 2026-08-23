@@ -5,7 +5,7 @@ const config = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    // Do not add node_modules here unless absolutely necessary
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   prefix: "",
   theme: {
@@ -127,17 +127,27 @@ const config = {
         soft: '0 4px 12px rgba(0, 0, 0, 0.08)',
         medium: '0 8px 24px rgba(0, 0, 0, 0.12)',
         hard: '0 12px 36px rgba(0, 0, 0, 0.16)',
+        glass: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+        'glass-sm': '0 4px 16px 0 rgba(0, 0, 0, 0.25)',
       },
       backgroundImage: {
         'grid': "radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.05) 1px, transparent 0)",
+        'pattern-carbon': "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6' viewBox='0 0 6 6'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Cpath d='M0 0h3v3H0zM3 3h3v3H3z'/%3E%3C/g%3E%3C/svg%3E\")",
+        'pattern-cubes': "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpolygon points='8,0 16,4 8,8 0,4'/%3E%3Cpolygon points='0,4 8,8 8,16 0,12' fill-opacity='0.03'/%3E%3Cpolygon points='8,8 16,4 16,12 8,16' fill-opacity='0.08'/%3E%3C/g%3E%3C/svg%3E\")",
+        'pattern-noise': "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E\")",
       },
       backgroundSize: {
         'grid': "40px 40px",
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        xs: "var(--radius-xs, 0.25rem)",
+        sm: "var(--radius-sm, 0.375rem)",
+        md: "var(--radius-md, 0.5rem)",
+        DEFAULT: "var(--radius, 0.75rem)",
+        lg: "var(--radius-lg, 0.75rem)",
+        xl: "var(--radius-xl, 1rem)",
+        '2xl': "var(--radius-2xl, 1.5rem)",
+        full: "9999px",
       },
       keyframes: {
         "accordion-down": {

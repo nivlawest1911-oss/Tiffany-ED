@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
@@ -89,7 +89,7 @@ export default function FeatureShowcaseGrid() {
         <div className="min-h-screen bg-black relative overflow-hidden p-6">
             {/* Background Texture */}
             <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] scale-150" />
+                <div className="absolute inset-0 bg-pattern-carbon scale-150" />
             </div>
             <div className="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-noble-gold/5 to-transparent pointer-events-none" />
 

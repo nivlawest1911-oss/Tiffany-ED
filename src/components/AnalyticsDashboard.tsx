@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { motion } from 'framer-motion';
 import {
@@ -106,7 +106,7 @@ export default function AnalyticsDashboard() {
         <div className="min-h-screen bg-black p-6 relative overflow-hidden">
             {/* EdIntel Background elements */}
             <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] scale-150" />
+                <div className="absolute inset-0 bg-pattern-carbon scale-150" />
             </div>
             <div className="max-w-7xl mx-auto space-y-6">
                 {/* Header */}

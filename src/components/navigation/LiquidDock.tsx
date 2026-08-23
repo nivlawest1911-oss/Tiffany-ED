@@ -19,8 +19,14 @@ import EdIntelLogo from '@/components/EdIntelLogo';
 
 export default function LiquidDock() {
     const pathname = usePathname();
-    const { logout } = useAuth();
+    const { user, logout } = useAuth();
     const [isOpen, setIsOpen] = React.useState(false);
+
+    const userInitials = user?.name
+        ? user.name.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2)
+        : user?.email
+            ? user.email.slice(0, 2).toUpperCase()
+            : 'OP';
 
     const navItems = [
         { name: 'Sovereign Room', href: '/the-room', icon: LayoutDashboard },
@@ -53,7 +59,7 @@ export default function LiquidDock() {
             >
                 {/* Logo / Brand */}
                 <div className="mb-12 scale-100">
-                    <EdIntelLogo variant="fidelity" />
+                    <EdIntelLogo variant="fidelity" size={44} showText={false} />
                 </div>
 
                 {/* Navigation Items */}
@@ -97,23 +103,23 @@ export default function LiquidDock() {
                     >
                         <LogOut size={24} />
                         <div className="absolute left-full top-1/2 -translate-y-1/2 ml-4 px-3 py-1.5 
-                            bg-slate-900/90 border border-noble-red/20 rounded-lg text-xs font-medium text-noble-red
+                            bg-slate-900/90 border border-rose-500/20 rounded-lg text-xs font-medium text-rose-400
                             opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 
                             transition-all duration-300 pointer-events-none whitespace-nowrap">
                             Disconnect
                         </div>
                     </button>
 
-                    {/* User Avatar Mini */}
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-cyan-500 p-[1px] shadow-lg shadow-indigo-500/20">
-                        <div className="w-full h-full rounded-full bg-black flex items-center justify-center text-xs font-black text-white">
-                            AW
+                    {/* User Avatar Initials Badge */}
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-cyan-500 p-[1px] shadow-lg shadow-indigo-500/20" title={user?.name || 'Operator'}>
+                        <div className="w-full h-full rounded-full bg-black flex items-center justify-center text-xs font-black text-white uppercase">
+                            {userInitials}
                         </div>
                     </div>
                 </div>
             </motion.aside>
 
-            {/* Mobile Drawer (Simplistic for now) */}
+            {/* Mobile Drawer */}
             {isOpen && (
                 <div className="lg:hidden fixed inset-0 z-30 bg-black/80 backdrop-blur-md" onClick={() => setIsOpen(false)} />
             )}

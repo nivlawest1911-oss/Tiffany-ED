@@ -1,8 +1,8 @@
-﻿'use client';
+'use client';
 
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import Image from 'next/image';
 import { useState, MouseEvent } from 'react';
+import { EdIntelVectorEmblem } from '@/components/EdIntelLogo';
 
 interface EdIntelSovereignLogoProps {
     className?: string;
@@ -10,8 +10,7 @@ interface EdIntelSovereignLogoProps {
 }
 
 /**
- * High-Fidelity EdIntel Logo with 3D Parallax and Holographic effects.
- * Formerly known as SovereignLogo, now unified under the EdIntel brand.
+ * High-Fidelity EdIntel Sovereign Logo with 3D Parallax and Holographic Vector effects.
  */
 export default function EdIntelSovereignLogo({
     className = "",
@@ -68,18 +67,9 @@ export default function EdIntelSovereignLogo({
                     className="absolute inset-0 bg-noble-gold/20 blur-2xl rounded-full"
                 />
 
-                {/* Primary Logo Image */}
-                <div className="relative z-10 rounded-[40px] overflow-hidden shadow-[0_0_30px_rgba(212,175,55,0.5)] ring-1 ring-noble-gold/30">
-                    <Image
-                        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/edintel_logo_high_fidelity_1774298407403.png-40aMNM0IwgAivJXguDqZ1AimCtnxVu.jpeg"
-                        alt="EdIntel - Intelligence in Education"
-                        width={size}
-                        height={size}
-                        className="object-contain"
-                        priority
-                        quality={100}
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
+                {/* Primary SVG Vector Emblem Container */}
+                <div className="relative z-10 rounded-[40px] overflow-hidden shadow-[0_0_30px_rgba(212,175,55,0.5)] ring-1 ring-noble-gold/30 p-4 bg-[#05070f] flex items-center justify-center">
+                    <EdIntelVectorEmblem size={size} />
 
                     {/* Holographic Shimmer Effect */}
                     <motion.div
@@ -115,8 +105,6 @@ export default function EdIntelSovereignLogo({
                     />
                 </div>
             </motion.div>
-
-            {/* Text disabled - Logo image now contains full branding */}
         </div>
     );
 }

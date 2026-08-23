@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 /**
  * EdIntel EdIntel - Payment Page
@@ -76,7 +76,7 @@ export default function PaymentClient() {
         <div className="min-h-screen bg-black py-12 relative overflow-hidden">
             {/* EdIntel Background elements */}
             <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] scale-150" />
+                <div className="absolute inset-0 bg-pattern-carbon scale-150" />
             </div>
 
             <Suspense fallback={

@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
@@ -14,7 +14,6 @@ import {
     Lock,
     Brain
 } from 'lucide-react';
-import Image from 'next/image';
 import { toast } from 'sonner';
 
 export default function AccountClient() {
@@ -24,13 +23,15 @@ export default function AccountClient() {
     const handleLogout = async () => {
         setIsLoading(true);
         await logout();
-        // Redirect handled by AuthContext or useAuth hook usually, 
-        // but safe to assume router.push('/') happens there or we let it propagate.
     };
 
     if (!user) {
-        return null; // or loading state, though page.tsx protects this
+        return null;
     }
+
+    const userInitials = user.name
+        ? user.name.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2)
+        : user.email?.[0]?.toUpperCase() || 'OP';
 
     return (
         <div className="min-h-screen bg-[#0a0a0c] text-white p-4 md:p-8 lg:p-12 font-sans selection:bg-indigo-500/30">
@@ -38,7 +39,6 @@ export default function AccountClient() {
             <div className="fixed inset-0 pointer-events-none z-0">
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-500/5 blur-[120px] rounded-full" />
                 <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-500/5 blur-[120px] rounded-full" />
-                <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20256%20256%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cfilter%20id%3D%22n%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.8%22%20numOctaves%3D%224%22%20stitchTiles%3D%22stitch%22%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%22256%22%20height%3D%22256%22%20filter%3D%22url(%23n)%22%20opacity%3D%220.15%22%2F%3E%3C%2Fsvg%3E')] opacity-[0.02]" />
             </div>
 
             <div className="max-w-6xl mx-auto relative z-10">
@@ -97,20 +97,10 @@ export default function AccountClient() {
 
                             <div className="relative z-10 flex flex-col items-center text-center">
                                 <div className="w-32 h-32 rounded-full p-1 bg-gradient-to-br from-indigo-500 to-purple-500 mb-6 relative">
-                                    <div className="w-full h-full rounded-full bg-black overflow-hidden relative">
-                                        {user.avatar_url ? (
-                                            <Image
-                                                src={user.avatar_url}
-                                                alt={user.name || 'User'}
-                                                width={128}
-                                                height={128}
-                                                className="w-full h-full object-cover"
-                                            />
-                                        ) : (
-                                            <div className="w-full h-full flex items-center justify-center bg-zinc-800 text-white font-black text-4xl">
-                                                {user.email?.[0]?.toUpperCase()}
-                                            </div>
-                                        )}
+                                    <div className="w-full h-full rounded-full overflow-hidden relative">
+                                        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-indigo-950 via-zinc-900 to-purple-950 text-indigo-300 font-black text-4xl border border-indigo-500/30 shadow-inner uppercase">
+                                            {userInitials}
+                                        </div>
                                     </div>
                                     <div className="absolute bottom-1 right-1 w-6 h-6 rounded-full bg-emerald-500 border-4 border-black z-20" title="Online" />
                                 </div>
@@ -125,7 +115,7 @@ export default function AccountClient() {
                                     </div>
                                     <div className="p-3 rounded-2xl bg-black/40 border border-white/5 flex flex-col items-center gap-1">
                                         <span className="text-[10px] uppercase font-bold text-zinc-600 tracking-wider">Joined</span>
-                                        <span className="text-xs font-medium text-zinc-300">{new Date(user.id ? Date.now() : Date.now()).toLocaleDateString()}</span>
+                                        <span className="text-xs font-medium text-zinc-300">{new Date().toLocaleDateString()}</span>
                                     </div>
                                 </div>
                             </div>

@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import { motion } from 'framer-motion';
@@ -8,7 +8,7 @@ export function EdIntelBrief() {
     return (
         <div className="h-full flex flex-col gap-6 relative overflow-hidden p-1">
             {/* Background Texture - Refined geometric overlay */}
-            <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-repeat mix-blend-overlay" />
+            <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-pattern-cubes mix-blend-overlay" />
 
             <motion.div
                 initial={{ opacity: 0, y: 20 }}

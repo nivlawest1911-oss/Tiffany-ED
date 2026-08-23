@@ -1,4 +1,4 @@
-﻿import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Activity, Shield, Brain, Zap, Clock, Info } from 'lucide-react';
 import { CognitiveBattery } from './CognitiveBattery';
 import { DueProcessShield } from './EdIntelRegulatory';
@@ -27,7 +27,7 @@ export function EdIntelSidebar({
         >
             {/* Neural Stream Telemetry Overlay */}
             <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] scale-150" />
+                <div className="absolute inset-0 bg-pattern-carbon scale-150" />
                 <motion.div
                     animate={{ y: [-1000, 0] }}
                     transition={{ duration: 20, repeat: Infinity, ease: "linear" }}

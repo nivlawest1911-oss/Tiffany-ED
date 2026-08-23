@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import { BLOG_POSTS } from './posts';
@@ -12,7 +12,7 @@ export default function BlogClient() {
             {/* EdIntel Background elements */}
             <ParticleBackground count={30} />
             <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] scale-150" />
+                <div className="absolute inset-0 bg-pattern-carbon scale-150" />
             </div>
             {/* Header / Hero */}
             <section className="relative pt-24 pb-12 px-6 border-b border-zinc-800 bg-zinc-900/50">

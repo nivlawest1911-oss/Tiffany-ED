@@ -1,8 +1,4 @@
-import dynamic from 'next/dynamic';
-const PodcastHub = dynamic(() => import('@/components/podcast/PodcastHub'), {
-    ssr: false,
-    loading: () => <div className="min-h-screen w-full bg-slate-950 p-6 flex items-center justify-center" />
-});
+import PodcastClient from './PodcastClient';
 
 export const metadata = {
     title: 'Podcast Hub | EdIntel Sovereign',
@@ -10,5 +6,5 @@ export const metadata = {
 };
 
 export default function PodcastPage() {
-    return <PodcastHub />;
+    return <PodcastClient />;
 }

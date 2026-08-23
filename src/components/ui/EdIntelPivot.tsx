@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
@@ -86,7 +86,7 @@ export function EdIntelPivotDashboard() {
 
     return (
         <div className="grid grid-cols-1 lg:grid-cols-12 h-full min-h-[600px] bg-zinc-950 border border-zinc-800 rounded-3xl overflow-hidden shadow-2xl relative">
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 pointer-events-none" />
+            <div className="absolute inset-0 bg-pattern-noise opacity-10 pointer-events-none" />
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-noble-gold/5 rounded-full blur-[100px] pointer-events-none" />
 
             {/* Left Sidebar: System Status */}

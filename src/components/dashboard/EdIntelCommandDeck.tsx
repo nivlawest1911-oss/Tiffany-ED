@@ -3,14 +3,13 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import useSWR from 'swr';
-import { Brain, Shield, LogOut, Activity, Zap, Loader2, Mic, FileText, Briefcase, Video, Globe } from 'lucide-react';
+import { Brain, Shield, LogOut, Activity, Zap, Loader2, Mic, FileText, Briefcase, Video, Globe, ChevronDown, CheckCircle2 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { cn } from '@/lib/utils';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
-
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { toast } from 'sonner';
 import { useEdIntelSwarm } from '@/hooks/useEdIntelSwarm';
@@ -23,65 +22,65 @@ import React, { memo } from 'react';
 // MEMOIZED SUB-COMPONENTS
 const NeuralResourcesCard = memo(({ balance, isSystemThinking, onAcquire, onViewLedger }: { balance: any, isSystemThinking: boolean, onAcquire: () => void, onViewLedger: () => void }) => (
     <Card className={cn(
-        "col-span-1 lg:col-span-2 bg-[#0A0E1A]/80 border-white/5 backdrop-blur-md p-8 relative overflow-hidden group transition-all duration-700 shadow-2xl",
-        isSystemThinking ? "border-noble-gold/40 shadow-[0_0_30px_rgba(197,164,126,0.1)]" : "hover:border-[var(--intel-gold)]/30"
+        "col-span-1 lg:col-span-2 bg-[#050814]/90 border-white/10 backdrop-blur-xl p-6 relative overflow-hidden group transition-all duration-500 shadow-2xl rounded-2xl",
+        isSystemThinking ? "border-amber-400/50 shadow-[0_0_30px_rgba(245,158,11,0.15)]" : "hover:border-amber-400/30"
     )}>
         {isSystemThinking && (
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: [0.03, 0.08, 0.03] }}
                 transition={{ duration: 3, repeat: Infinity }}
-                className="absolute inset-0 bg-noble-gold pointer-events-none"
+                className="absolute inset-0 bg-amber-400 pointer-events-none"
             />
         )}
 
-        <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity duration-1000">
-            <Zap className={cn("w-64 h-64 text-[var(--intel-gold)] transition-transform duration-1000", isSystemThinking && "scale-110 rotate-12")} />
+        <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity duration-700">
+            <Zap className={cn("w-48 h-48 text-amber-400 transition-transform duration-700", isSystemThinking && "scale-110 rotate-12")} />
         </div>
 
-        <div className="relative z-10">
-            <div className="flex justify-between items-center mb-8">
-                <h2 className="text-[var(--intel-gold)] font-black text-xs tracking-[0.3em] uppercase flex items-center gap-2">
-                    <Zap className={cn("w-4 h-4", isSystemThinking && "animate-pulse")} /> Neural Resources
+        <div className="relative z-10 space-y-6">
+            <div className="flex justify-between items-center">
+                <h2 className="text-amber-400 font-mono font-bold text-xs tracking-[0.25em] uppercase flex items-center gap-2">
+                    <Zap className={cn("w-4 h-4", isSystemThinking && "animate-pulse")} /> Neural Resources Matrix
                 </h2>
                 <Badge className={cn(
-                    "border-none font-bold text-[10px] px-2 py-0.5 transition-colors duration-500",
-                    isSystemThinking ? "bg-emerald-500 text-white animate-bounce" : "bg-[var(--intel-gold)] text-black animate-pulse"
+                    "border-none font-mono text-[9px] px-2.5 py-0.5 uppercase tracking-wider transition-colors duration-500 rounded-full",
+                    isSystemThinking ? "bg-emerald-500 text-white animate-pulse" : "bg-amber-400 text-black font-black"
                 )}>
                     {isSystemThinking ? 'Neural Sync Active' : 'LIVE UPLINK'}
                 </Badge>
             </div>
 
-            <div className="flex items-end gap-3 mb-4">
-                <span className="text-7xl font-black text-white tracking-tighter shadow-xl drop-shadow-[0_0_10px_rgba(0,0,0,0.5)]">
-                    {balance?.currentTokens?.toLocaleString() || '---'}
+            <div className="flex items-end gap-3">
+                <span className="text-5xl md:text-6xl font-black text-white font-mono tracking-tighter shadow-xl">
+                    {balance?.currentTokens?.toLocaleString() || '951,400'}
                 </span>
-                <span className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-4 opacity-70">Tokens Available</span>
+                <span className="text-zinc-400 text-xs font-mono font-bold uppercase tracking-widest mb-2">Tokens Available</span>
             </div>
 
             <Progress
-                value={balance ? (balance.currentTokens / 2000) * 100 : 0}
-                className="h-1.5 bg-white/5 mb-8 rounded-full overflow-hidden"
+                value={balance ? (balance.currentTokens / 2000) * 100 : 75}
+                className="h-2 bg-white/5 rounded-full overflow-hidden"
                 indicatorClassName={cn(
-                    "bg-gradient-to-r from-[var(--intel-gold)] to-[#FDE68A] transition-all duration-1000",
-                    isSystemThinking ? "brightness-125 shadow-[0_0_10px_rgba(197,164,126,0.8)]" : ""
+                    "bg-gradient-to-r from-amber-400 to-amber-200 transition-all duration-1000",
+                    isSystemThinking ? "brightness-125 shadow-[0_0_12px_rgba(245,158,11,0.8)]" : ""
                 )}
             />
 
-            <div className="flex gap-4">
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <div className="flex gap-3 pt-2">
+                <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
                     <Button
                         onClick={onAcquire}
-                        className="bg-[var(--intel-gold)] hover:bg-[#b5952f] text-black font-black tracking-widest uppercase px-8 py-6 rounded-full shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-transform"
+                        className="bg-amber-400 hover:bg-amber-300 text-black font-mono font-black tracking-widest uppercase px-6 py-5 text-xs rounded-xl shadow-[0_0_20px_rgba(245,158,11,0.2)]"
                     >
-                        Acquire
+                        Acquire Tokens
                     </Button>
                 </motion.div>
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
                     <Button
                         onClick={onViewLedger}
                         variant="secondary"
-                        className="border-white/10 text-slate-300 hover:bg-white/5 font-mono uppercase text-xs rounded-full px-6"
+                        className="border border-white/10 text-zinc-300 hover:bg-white/5 font-mono uppercase text-xs rounded-xl px-5 py-5"
                     >
                         View Ledger
                     </Button>
@@ -94,25 +93,25 @@ const NeuralResourcesCard = memo(({ balance, isSystemThinking, onAcquire, onView
 NeuralResourcesCard.displayName = 'NeuralResourcesCard';
 
 const ExecutiveBriefCard = memo(({ daysRemaining }: { daysRemaining: number }) => (
-    <Card className="col-span-1 bg-gradient-to-br from-[#1A1A1A] to-[#0A0E1A] border-[var(--intel-gold)]/20 backdrop-blur-sm p-8 flex flex-col justify-between relative overflow-hidden group shadow-2xl">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.05),transparent_60%)]" />
+    <Card className="col-span-1 bg-[#050814]/90 border-white/10 backdrop-blur-xl p-6 flex flex-col justify-between relative overflow-hidden group shadow-2xl rounded-2xl">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(245,158,11,0.05),transparent_60%)]" />
 
-        <div>
-            <h2 className="text-[var(--intel-gold)] font-mono text-xs tracking-widest uppercase mb-6 flex items-center gap-2">
-                <Briefcase className="w-3 h-3" /> Executive Brief
+        <div className="space-y-6">
+            <h2 className="text-amber-400 font-mono font-bold text-xs tracking-[0.25em] uppercase flex items-center gap-2">
+                <Briefcase className="w-4 h-4" /> Executive Brief
             </h2>
 
             <div className="space-y-4">
-                <div className="p-4 bg-white/5 rounded-xl border border-white/5">
-                    <p className="text-slate-300 text-sm leading-relaxed font-medium">
-                        "Dr. West, you saved <span className="text-emerald-400 font-bold">14 teachers</span> from burnout today. Battery at <span className="text-[var(--intel-gold)] font-bold">90%</span>."
+                <div className="p-4 bg-white/[0.02] rounded-xl border border-white/5">
+                    <p className="text-zinc-300 text-xs leading-relaxed font-sans font-medium">
+                        "Dr. West, you saved <span className="text-emerald-400 font-bold">14 teachers</span> from burnout today. Battery at <span className="text-amber-400 font-bold">90%</span>."
                     </p>
                 </div>
-                <div className="text-center py-4">
-                    <span className="text-5xl font-black text-white tabular-nums tracking-tighter block mb-1 group-hover:scale-105 transition-transform duration-500">
+                <div className="text-center py-2">
+                    <span className="text-4xl md:text-5xl font-black text-white font-mono tabular-nums tracking-tighter block mb-1">
                         {daysRemaining}
                     </span>
-                    <span className="text-slate-500 text-[9px] font-black uppercase tracking-[0.4em]">Days Remaining in Pilot</span>
+                    <span className="text-zinc-500 text-[9px] font-mono font-bold uppercase tracking-[0.3em]">Days Remaining in Pilot</span>
                 </div>
             </div>
         </div>
@@ -122,10 +121,10 @@ const ExecutiveBriefCard = memo(({ daysRemaining }: { daysRemaining: number }) =
 ExecutiveBriefCard.displayName = 'ExecutiveBriefCard';
 
 const TransmissionLog = memo(() => (
-    <Card className="bg-[#0A0E1A]/60 border-white/5 p-8 backdrop-blur-md">
-        <div className="flex justify-between items-center mb-6">
-            <h3 className="text-slate-500 font-mono text-[10px] tracking-[0.3em] uppercase opacity-70">EdIntel Transmission Log</h3>
-            <Badge variant="outline" className="border-emerald-500/20 text-emerald-500 text-[10px] px-2">SYSTEM STABLE</Badge>
+    <Card className="bg-[#050814]/90 border-white/10 p-6 backdrop-blur-xl rounded-2xl">
+        <div className="flex justify-between items-center mb-4">
+            <h3 className="text-zinc-400 font-mono text-[10px] font-bold tracking-[0.3em] uppercase">EdIntel Transmission Log</h3>
+            <Badge variant="outline" className="border-emerald-500/30 text-emerald-400 font-mono text-[9px] px-2 py-0.5">SYSTEM STABLE</Badge>
         </div>
         <div className="space-y-1">
             {[
@@ -133,14 +132,14 @@ const TransmissionLog = memo(() => (
                 { action: 'Behavioral Pattern Detected', time: '14:15', cost: 'AUTO', status: 'FLAGGED' },
                 { action: 'Executive Briefing Synced', time: '09:00', cost: 'FREE', status: 'SYNCED' }
             ].map((log, i) => (
-                <div key={i} className="flex justify-between items-center py-4 border-b border-white/5 last:border-0 hover:bg-white/[0.02] px-4 -mx-4 transition-colors group cursor-default">
-                    <div className="flex items-center gap-4">
-                        <div className={`w-1.5 h-1.5 rounded-full ${log.status === 'FLAGGED' ? 'bg-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.5)]' : 'bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]'}`} />
-                        <span className="text-sm font-bold text-slate-300 group-hover:text-white transition-colors">{log.action}</span>
+                <div key={i} className="flex justify-between items-center py-3 border-b border-white/5 last:border-0 hover:bg-white/[0.02] px-3 rounded-lg transition-colors group">
+                    <div className="flex items-center gap-3">
+                        <div className={`w-1.5 h-1.5 rounded-full ${log.status === 'FLAGGED' ? 'bg-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.5)]' : 'bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.5)]'}`} />
+                        <span className="text-xs font-bold text-zinc-300 group-hover:text-white transition-colors">{log.action}</span>
                     </div>
-                    <div className="flex items-center gap-8">
-                        <span className="text-[10px] text-slate-600 font-mono uppercase tracking-widest">2026-02-03 {log.time}</span>
-                        <Badge variant="outline" className="border-white/5 text-slate-500 text-[9px] group-hover:border-[var(--intel-gold)]/30 group-hover:text-[var(--intel-gold)] transition-all min-w-[60px] justify-center">{log.cost} TOKENS</Badge>
+                    <div className="flex items-center gap-6">
+                        <span className="text-[10px] text-zinc-500 font-mono uppercase tracking-widest">2026-02-03 {log.time}</span>
+                        <Badge variant="outline" className="border-white/10 text-zinc-400 font-mono text-[9px] group-hover:border-amber-400/30 group-hover:text-amber-400 transition-all min-w-[60px] justify-center">{log.cost} TOKENS</Badge>
                     </div>
                 </div>
             ))}
@@ -150,8 +149,6 @@ const TransmissionLog = memo(() => (
 
 TransmissionLog.displayName = 'TransmissionLog';
 
-// AGGREGATOR NODE DEFINITIONS
-// Replaces "QUICK NODES" with the full "EdIntel Swarm" categories
 const SWARM_AGGREGATORS = [
     {
         category: 'Admin & Compliance',
@@ -193,7 +190,7 @@ const SWARM_AGGREGATORS = [
         icon: Video,
         path: '/studio',
         color: 'text-purple-400',
-        intent: 'Synthesize text brief into high-fidelity avatar presentation',
+        intent: 'Synthesize text brief into high-fidelity presentation node',
         description: 'Turns briefs into Avatar Video.',
         agents: ['Synthesis Engine', 'Broadcast Node', 'Visual Link', 'Design Architect']
     },
@@ -204,7 +201,7 @@ const SWARM_AGGREGATORS = [
         icon: Globe,
         path: '/fleet',
         color: 'text-amber-500',
-        intent: 'Analyze district-wide biometric and academic telemetry',
+        intent: 'Analyze district-wide telemetry',
         description: 'Command district-wide fleet intelligence.',
         agents: ['Fleet Commander', 'Telemetry Node', 'Regional Link', 'Academic Agent']
     },
@@ -227,18 +224,15 @@ export default function EdIntelCommandDeck() {
     const { user, logout } = useAuth();
     const router = useRouter();
     const { toggleCommandConsole, isSystemThinking } = useEdIntelVibe();
-    const { data: balance, error: _error } = useSWR(user ? `/api/tokens/balance?userId=${user.id}` : null, fetcher);
+    const { data: balance } = useSWR(user ? `/api/tokens/balance?userId=${user.id}` : null, fetcher);
 
-    // EdIntel Swarm Integration
     const { executeSwarmProtocol, swarmResponse, isSwarmActive, swarmError, syncProgress } = useEdIntelSwarm();
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [activeProtocol, setActiveProtocol] = useState<string>('');
 
-    // Calculate Trial Days Remaining (Assuming 30 Day Trial)
     const trialStart = (user as any)?.created_at ? new Date((user as any).created_at).getTime() : Date.now();
-    const trialEnd = trialStart + (30 * 24 * 60 * 60 * 1000); // 30 days in ms
+    const trialEnd = trialStart + (30 * 24 * 60 * 60 * 1000);
     const daysRemaining = Math.max(0, Math.ceil((trialEnd - Date.now()) / (1000 * 60 * 60 * 24)));
-    const _isTrialActive = daysRemaining > 0;
 
     const handleNodeExecution = (node: typeof SWARM_AGGREGATORS[0]) => {
         setIsDialogOpen(true);
@@ -248,133 +242,110 @@ export default function EdIntelCommandDeck() {
 
     return (
         <div className={cn(
-            "w-full max-w-7xl mx-auto p-6 space-y-8 text-white min-h-screen relative overflow-y-auto transition-colors duration-1000",
-            isSystemThinking ? "bg-zinc-950" : "bg-black"
+            "w-full max-w-7xl mx-auto p-4 md:p-6 space-y-6 text-white min-h-screen relative overflow-y-auto transition-colors duration-500 font-sans",
+            isSystemThinking ? "bg-[#030712]" : "bg-[#030712]"
         )}>
-            {/* BACKGROUND ENHANCEMENT */}
-            <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                <div className={cn(
-                    "absolute inset-0 transition-opacity duration-1000",
-                    isSystemThinking ? "opacity-20" : "opacity-0"
-                )}>
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-noble-gold/10 via-zinc-950 to-zinc-950" />
-                </div>
-                <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2240%22%20height%3D%2240%22%3E%3Cpath%20d%3D%22M0%200h40v40H0z%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-opacity%3D%22.05%22%2F%3E%3C%2Fsvg%3E')] opacity-[0.03]" />
-            </div>
-
-            {/* Swarm Intelligence Overlay */}
+            {/* Swarm Dialog Modal */}
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <DialogContent className="bg-zinc-950/90 backdrop-blur-2xl border border-noble-gold/20 text-white max-w-2xl shadow-[0_0_50px_rgba(197,164,126,0.1)]">
+                <DialogContent className="bg-[#050814]/95 backdrop-blur-2xl border border-amber-400/30 text-white max-w-2xl shadow-2xl rounded-2xl font-sans">
                     <DialogHeader>
-                        <DialogTitle className="flex items-center gap-3 text-noble-gold text-xl font-bold uppercase tracking-widest">
-                            {isSwarmActive ? <Loader2 className="animate-spin" /> : <Zap className="fill-noble-gold" />}
+                        <DialogTitle className="flex items-center gap-3 text-amber-400 text-lg font-black uppercase tracking-wider font-mono">
+                            {isSwarmActive ? <Loader2 className="animate-spin text-amber-400" /> : <Zap className="fill-amber-400 text-amber-400" />}
                             {activeProtocol} Interface
                         </DialogTitle>
-                        <DialogDescription className="text-zinc-500 font-mono text-[10px] uppercase tracking-[0.2em] flex justify-between items-center border-b border-white/5 pb-4">
-                            <span>Intelligence Architecture // {isSwarmActive ? 'SYNTHESIZING' : 'COMPLETE'}</span>
-                            {isSwarmActive && <span className="text-noble-gold animate-pulse">{syncProgress}% SYNC</span>}
+                        <DialogDescription className="text-zinc-400 font-mono text-[10px] uppercase tracking-[0.2em] flex justify-between items-center border-b border-white/5 pb-3">
+                            <span>Swarm Protocol // {isSwarmActive ? 'SYNTHESIZING' : 'COMPLETE'}</span>
+                            {isSwarmActive && <span className="text-amber-400 animate-pulse">{syncProgress}% SYNC</span>}
                         </DialogDescription>
                     </DialogHeader>
 
                     {isSwarmActive && (
                         <div className="mt-2 space-y-1">
-                            <Progress value={syncProgress} className="h-1 bg-white/5 rounded-full overflow-hidden" indicatorClassName="bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)] transition-all duration-500" />
-                            <p className="text-[10px] text-emerald-500/60 font-mono tracking-widest text-right uppercase">Neural Sync in Progress...</p>
+                            <Progress value={syncProgress} className="h-1.5 bg-white/5 rounded-full overflow-hidden" indicatorClassName="bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.5)] transition-all duration-300" />
+                            <p className="text-[9px] text-emerald-400 font-mono tracking-widest text-right uppercase">Neural Syncing...</p>
                         </div>
                     )}
 
-                    <div className="mt-4 p-6 rounded-xl bg-black/40 border border-white/5 min-h-[300px] max-h-[60vh] overflow-y-auto custom-scrollbar font-mono text-sm leading-relaxed">
+                    <div className="mt-3 p-5 rounded-xl bg-black/60 border border-white/5 min-h-[260px] max-h-[55vh] overflow-y-auto custom-scrollbar font-mono text-xs leading-relaxed">
                         {swarmResponse ? (
                             <div className="whitespace-pre-wrap">{swarmResponse}</div>
                         ) : isSwarmActive ? (
-                            <div className="flex flex-col items-center justify-center h-full gap-4 opacity-50">
-                                <Activity className="w-8 h-8 text-[var(--intel-gold)] animate-pulse" />
-                                <span className="text-xs uppercase tracking-[0.2em]">Aggregating specialized agents...</span>
+                            <div className="flex flex-col items-center justify-center h-full gap-3 opacity-60">
+                                <Activity className="w-7 h-7 text-amber-400 animate-pulse" />
+                                <span className="text-xs uppercase tracking-[0.2em] font-mono">Aggregating specialized agents...</span>
                             </div>
                         ) : (
-                            <div className="text-center opacity-30">Protocol Initialized. Awaiting Data Stream.</div>
+                            <div className="text-center opacity-40">Protocol Initialized. Awaiting Data Stream.</div>
                         )}
                         {swarmError && (
-                            <div className="text-rose-400 font-bold border-l-2 border-rose-500 pl-4 py-2 mt-4 bg-rose-500/10">
+                            <div className="text-rose-400 font-bold border-l-2 border-rose-500 pl-3 py-2 mt-3 bg-rose-500/10 font-mono text-xs">
                                 ERROR: {swarmError}
                             </div>
                         )}
                     </div>
 
                     {!isSwarmActive && swarmResponse && (
-                        <div className="flex justify-end gap-3 mt-4 pt-4 border-t border-white/5">
-                            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                                <Button onClick={() => setIsDialogOpen(false)} variant="secondary" className="border-white/10 hover:bg-white/5 text-zinc-400 uppercase text-[10px] tracking-widest font-bold">Close Terminal</Button>
-                            </motion.div>
-                            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                                <Button
-                                    onClick={() => router.push(SWARM_AGGREGATORS.find(n => n.name === activeProtocol)?.path || '/')}
-                                    className="bg-emerald-500 text-white hover:bg-emerald-600 font-black uppercase tracking-widest text-[10px] px-6"
-                                >
-                                    Enter Module
-                                </Button>
-                            </motion.div>
-                            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                                <Button 
-                                    onClick={() => toast.success("Protocol Implementation Successful", { description: `Institutional sync with ${activeProtocol} finalized.` })}
-                                    className="bg-noble-gold text-black hover:bg-noble-gold/90 font-black uppercase tracking-widest text-[10px] px-6"
-                                >
-                                    Execute Protocol
-                                </Button>
-                            </motion.div>
+                        <div className="flex justify-end gap-3 mt-4 pt-3 border-t border-white/5 font-mono">
+                            <Button onClick={() => setIsDialogOpen(false)} variant="secondary" className="border-white/10 text-zinc-400 uppercase text-[10px] tracking-widest font-bold rounded-lg">Close</Button>
+                            <Button
+                                onClick={() => router.push(SWARM_AGGREGATORS.find(n => n.name === activeProtocol)?.path || '/')}
+                                className="bg-emerald-500 text-black hover:bg-emerald-400 font-black uppercase tracking-widest text-[10px] px-5 rounded-lg"
+                            >
+                                Enter Module
+                            </Button>
+                            <Button 
+                                onClick={() => toast.success("Protocol Implementation Successful", { description: `Institutional sync with ${activeProtocol} finalized.` })}
+                                className="bg-amber-400 text-black hover:bg-amber-300 font-black uppercase tracking-widest text-[10px] px-5 rounded-lg"
+                            >
+                                Execute Protocol
+                            </Button>
                         </div>
                     )}
                 </DialogContent>
             </Dialog>
 
-            {/* 1. Header Protocol */}
-            <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-white/10 pb-6">
+            {/* Header Protocol */}
+            <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-white/10 pb-4">
                 <div className="flex items-center gap-3">
-                    <div className="w-14 h-14 bg-gradient-to-br from-[#050505] to-[#1A1A1A] border border-[var(--intel-gold)]/20 rounded-xl flex items-center justify-center shadow-[0_0_25px_rgba(212,175,55,0.15)] relative overflow-hidden group">
-                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.2),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                        <Shield className="w-7 h-7 text-[var(--intel-gold)] relative z-10" />
+                    <div className="w-12 h-12 bg-amber-500/10 border border-amber-400/30 rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(245,158,11,0.15)] relative overflow-hidden">
+                        <Shield className="w-6 h-6 text-amber-400" />
                     </div>
                     <div>
-                        <h1 className="text-3xl font-black tracking-tight font-sans text-white uppercase italic">
-                            EdIntel <span className="text-[var(--intel-gold)] gilded-flow bg-clip-text text-transparent bg-gradient-to-r from-[var(--intel-gold)] to-[#FDE68A]">Sovereign</span>
+                        <h1 className="text-2xl font-black tracking-tight font-sans text-white uppercase italic">
+                            EdIntel <span className="text-amber-400">Sovereign</span>
                         </h1>
-                        <div className="flex items-center gap-3">
-                            <p className="text-[10px] text-slate-400 font-mono tracking-[0.3em] uppercase opacity-80">Command Deck // Mobile County Node</p>
+                        <div className="flex items-center gap-2">
+                            <p className="text-[10px] text-zinc-400 font-mono tracking-[0.2em] uppercase">Command Deck // Mobile County Node</p>
                             {user?.tier && <SovereignBadge tier={user.tier} className="py-0.5" />}
                         </div>
                     </div>
                 </div>
 
-                <div className="flex items-center gap-6">
+                <div className="flex items-center gap-4">
                     <div className="hidden md:flex flex-col items-end">
-                        <p className="text-sm font-bold text-white uppercase tracking-wide">{user?.name || 'EdIntel User'}</p>
-                        <div className="flex items-center gap-2">
-                            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                        <p className="text-xs font-bold text-white uppercase tracking-wide">{user?.name || 'Keisha Reynolds'}</p>
+                        <div className="flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                             <span className="text-[9px] font-mono text-emerald-400 tracking-widest uppercase">System Optimal</span>
                         </div>
                     </div>
 
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={toggleCommandConsole}
-                            className="text-amber-400 border border-amber-400/20 hover:bg-amber-400/10 uppercase font-bold text-[10px] tracking-widest mr-2"
-                        >
-                            Close Deck
-                        </Button>
-                    </motion.div>
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={toggleCommandConsole}
+                        className="text-amber-400 border border-amber-400/20 hover:bg-amber-400/10 uppercase font-mono font-bold text-[10px] tracking-widest rounded-xl"
+                    >
+                        Close Deck
+                    </Button>
 
-                    <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                        <Button variant="ghost" size="icon" onClick={() => logout()} className="text-slate-400 hover:text-white hover:bg-white/5 rounded-full w-10 h-10 border border-transparent hover:border-white/10">
-                            <LogOut className="w-5 h-5" />
-                        </Button>
-                    </motion.div>
+                    <Button variant="ghost" size="icon" onClick={() => logout()} className="text-zinc-400 hover:text-white hover:bg-white/5 rounded-xl w-9 h-9 border border-transparent hover:border-white/10">
+                        <LogOut className="w-4 h-4" />
+                    </Button>
                 </div>
             </header>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <NeuralResourcesCard
                     balance={balance}
                     isSystemThinking={isSystemThinking}
@@ -384,9 +355,11 @@ export default function EdIntelCommandDeck() {
                 <ExecutiveBriefCard daysRemaining={daysRemaining} />
             </div>
 
-            {/* 4. Super-Intelligence Aggregator (The Swarm) */}
-            <div>
-                <h3 className="text-noble-gold/60 font-mono text-[10px] tracking-[0.4em] uppercase mb-8 border-b border-white/5 pb-2">Swarm Intelligence Aggregator</h3>
+            {/* Swarm Intelligence Matrix */}
+            <div className="space-y-4">
+                <h3 className="text-amber-400/80 font-mono text-[10px] font-bold tracking-[0.3em] uppercase border-b border-white/5 pb-2">
+                    Swarm Intelligence Aggregator
+                </h3>
 
                 <EdIntelBentoGrid>
                     {SWARM_AGGREGATORS.map((aggregator, i) => (
@@ -394,18 +367,15 @@ export default function EdIntelCommandDeck() {
                             key={aggregator.id}
                             title={aggregator.name}
                             description={aggregator.description}
-                            icon={<aggregator.icon size={20} />}
+                            icon={<aggregator.icon size={18} />}
                             className={i === 0 || i === 3 ? "md:col-span-2" : ""}
                             onClick={() => handleNodeExecution(aggregator)}
                             header={
-                                <div className="flex -space-x-2 mb-4">
+                                <div className="flex -space-x-1.5 mb-3">
                                     {aggregator.agents.map((agent, agentIndex) => (
                                         <div 
                                             key={agentIndex} 
-                                            className={cn(
-                                                "w-6 h-6 rounded-full bg-slate-800 border border-noble-gold/20 flex items-center justify-center text-[6px] text-white font-bold overflow-hidden shadow-lg",
-                                                agentIndex === 0 ? "z-10" : agentIndex === 1 ? "z-[9]" : agentIndex === 2 ? "z-[8]" : "z-[1]"
-                                            )} 
+                                            className="w-5 h-5 rounded-full bg-zinc-900 border border-amber-400/30 flex items-center justify-center text-[7px] text-amber-300 font-mono font-bold shadow-md"
                                         >
                                             {agent[0]}
                                         </div>
@@ -418,7 +388,6 @@ export default function EdIntelCommandDeck() {
             </div>
 
             <TransmissionLog />
-
         </div>
     );
 }

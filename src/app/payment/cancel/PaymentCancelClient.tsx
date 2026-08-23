@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 /**
  * EdIntel EdIntel - Payment Cancelled Page Client
@@ -15,7 +15,7 @@ export default function PaymentCancelClient() {
         <div className="min-h-screen bg-black flex items-center justify-center p-6 relative overflow-hidden">
             {/* EdIntel Background elements */}
             <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] scale-150" />
+                <div className="absolute inset-0 bg-pattern-carbon scale-150" />
             </div>
 
             <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.02]">

@@ -39,9 +39,9 @@ export const metadata: Metadata = {
   description: 'The definitive sovereign AI orchestrator for educators, site leaders, and district administrators. ALCOS pedagogy, FERPA compliance, and administrative load reduction.',
   manifest: '/manifest.json',
   icons: {
-    icon: '/images/edintel-logo.png',
-    apple: '/apple-touch-icon.png',
-    shortcut: '/images/edintel-logo.png',
+    icon: '/file.svg',
+    apple: '/file.svg',
+    shortcut: '/file.svg',
   },
   appleWebApp: {
     capable: true,
@@ -60,10 +60,10 @@ export const metadata: Metadata = {
     locale: 'en_US',
     images: [
       {
-        url: '/opengraph-image.jpg',
+        url: '/file.svg',
         width: 1200,
         height: 630,
-        type: 'image/jpeg',
+        type: 'image/svg+xml',
       },
     ],
   },
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     site: '@EdIntelAI',
     images: [
       {
-        url: '/twitter-image.jpg',
+        url: '/file.svg',
         width: 1200,
         height: 630,
       },
@@ -104,7 +104,6 @@ export default function RootLayout({
     >
       <head>
         <link rel="dns-prefetch" href="https://vitals.vercel-insights.com" />
-        <link rel="preload" href="/images/edintel-logo.png" as="image" />
       </head>
       <body className="bg-[#050505] text-gray-100 antialiased overflow-x-hidden selection:bg-[#D4AF37]/30 font-sans min-h-screen">
         <AuthProvider>

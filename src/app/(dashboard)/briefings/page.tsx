@@ -1,4 +1,4 @@
-﻿import { Metadata } from 'next';
+import { Metadata } from 'next';
 import { EPISODES } from '@/lib/briefing-data';
 import BriefingCard from '@/components/intelligence/BriefingCard';
 import DrWestAuthority from '@/components/intelligence/DrWestAuthority';
@@ -17,7 +17,7 @@ export default function BriefingsPage() {
             {/* HERO SECTION */}
             <section className="relative py-32 px-4 overflow-hidden">
                 {/* Background Grid */}
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 pointer-events-none" />
+                <div className="absolute inset-0 bg-pattern-carbon opacity-10 pointer-events-none" />
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[800px] bg-noble-gold/5 blur-[120px] rounded-full opacity-30 pointer-events-none" />
                 
                 <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center">

@@ -1,14 +1,72 @@
 'use client';
 
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
 import { useState, MouseEvent, useEffect, memo } from 'react';
+import { Shield, Sparkles } from 'lucide-react';
 
 const SPRING_CONFIG = { damping: 25, stiffness: 200 };
 
-/** Local high-fidelity shield logo — Intelligence in Education */
-const LOGO_HF = '/images/edintel_logo_high_fidelity_1774298407403.png';
-const LOGO_STANDARD = '/images/edintel-logo.png';
+/** Vector High-Fidelity SVG Emblem for EdIntel */
+export const EdIntelVectorEmblem = memo(({ size = 40, className = "" }: { size?: number; className?: string }) => (
+    <svg
+        width={size}
+        height={size}
+        viewBox="0 0 100 100"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className={`drop-shadow-[0_0_15px_rgba(212,175,55,0.4)] ${className}`}
+    >
+        <defs>
+            <linearGradient id="goldLinearGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#FFF3C4" />
+                <stop offset="30%" stopColor="#D4AF37" />
+                <stop offset="70%" stopColor="#AA7C11" />
+                <stop offset="100%" stopColor="#5B4308" />
+            </linearGradient>
+            <linearGradient id="cyanAccentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#38BDF8" />
+                <stop offset="100%" stopColor="#0284C7" />
+            </linearGradient>
+            <radialGradient id="goldGlowRad" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor="#D4AF37" stopOpacity="0.5" />
+                <stop offset="100%" stopColor="#D4AF37" stopOpacity="0" />
+            </radialGradient>
+        </defs>
+
+        {/* Ambient Glow */}
+        <circle cx="50" cy="50" r="45" fill="url(#goldGlowRad)" />
+
+        {/* Primary Vector Shield Hex Frame */}
+        <path
+            d="M50 8 L85 25 V55 L50 92 L15 55 V25 Z"
+            stroke="url(#goldLinearGrad)"
+            strokeWidth="3"
+            fill="#050508"
+            strokeLinejoin="round"
+        />
+
+        {/* Inner Facet Lattice */}
+        <path
+            d="M50 16 L77 30 V52 L50 84 L23 52 V30 Z"
+            fill="url(#goldLinearGrad)"
+            fillOpacity="0.15"
+            stroke="url(#goldLinearGrad)"
+            strokeWidth="1.5"
+        />
+
+        {/* Chevron Nodes */}
+        <path d="M50 24 L68 35 V46 L50 38 L32 46 V35 Z" fill="url(#goldLinearGrad)" />
+        <path d="M50 44 L68 55 L50 76 L32 55 Z" fill="url(#goldLinearGrad)" fillOpacity="0.85" />
+        
+        {/* Core Intelligence Node */}
+        <circle cx="50" cy="50" r="4.5" fill="#FFFFFF" className="animate-pulse" />
+        
+        {/* Cyber Orbit Grid lines */}
+        <path d="M50 20 V80 M20 50 H80" stroke="url(#cyanAccentGrad)" strokeWidth="0.75" strokeDasharray="3 3" opacity="0.5" />
+    </svg>
+));
+
+EdIntelVectorEmblem.displayName = 'EdIntelVectorEmblem';
 
 interface LogoProps {
     className?: string;
@@ -58,9 +116,9 @@ export const EdIntelLogo = memo(({
 
     if (variant === "orbital") {
         return (
-            <motion.div 
+            <motion.div
                 className={`logo-sizer relative flex items-center justify-center ${className}`}
-                initial={{"--logo-size": `${size}px`} as any}
+                style={{ width: size, height: size }}
             >
                 <motion.div
                     animate={{ rotate: 360 }}
@@ -81,7 +139,7 @@ export const EdIntelLogo = memo(({
         return (
             <motion.div
                 className={`logo-geo-sizer relative flex items-center justify-center p-2 rounded-xl bg-gradient-to-br from-[#0c0c0c] to-black border border-white/5 shadow-2xl ${className}`}
-                initial={{"--logo-geo-size": `${size * 1.5}px`} as any}
+                style={{ width: size * 1.5, height: size * 1.5 }}
             >
                 <svg viewBox="0 0 100 100" className="w-full h-full text-noble-gold">
                     <motion.rect
@@ -109,9 +167,9 @@ export const EdIntelLogo = memo(({
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
-                <motion.div 
-                    className="logo-sizer relative" 
-                    initial={{"--logo-size": `${size}px`} as any}
+                <motion.div
+                    className="logo-sizer relative"
+                    style={{ width: size, height: size }}
                 >
                     <AnimatePresence>
                         {isHovered && (
@@ -139,13 +197,7 @@ export const EdIntelLogo = memo(({
                     />
 
                     <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-noble-gold/10 to-transparent rounded-full backdrop-blur-sm p-1">
-                        <Image
-                            src={LOGO_STANDARD}
-                            alt="EdIntel"
-                            width={size * 0.8}
-                            height={size * 0.8}
-                            className="object-contain"
-                        />
+                        <EdIntelVectorEmblem size={size * 0.8} />
                     </div>
                 </motion.div>
 
@@ -180,15 +232,8 @@ export const EdIntelLogo = memo(({
                         animate={{ opacity: isHovered ? 0.6 : 0.3, scale: isHovered ? 1.2 : 1 }}
                         className="absolute inset-0 bg-noble-gold/20 blur-2xl rounded-full"
                     />
-                    <div className="relative z-10 rounded-3xl overflow-hidden shadow-[0_0_30px_rgba(212,175,55,0.5)] ring-1 ring-noble-gold/30">
-                        <Image
-                            src={LOGO_HF}
-                            alt="EdIntel - Intelligence in Education"
-                            width={size || 120}
-                            height={size || 120}
-                            className="object-contain"
-                            priority
-                        />
+                    <div className="relative z-10 rounded-3xl overflow-hidden shadow-[0_0_30px_rgba(212,175,55,0.5)] ring-1 ring-noble-gold/30 p-2 bg-[#060810]">
+                        <EdIntelVectorEmblem size={size || 120} />
                         <motion.div
                             className="absolute inset-0 z-20 overflow-hidden rounded-3xl pointer-events-none"
                             initial={{ opacity: 0 }}
@@ -217,14 +262,8 @@ export const EdIntelLogo = memo(({
 
     return (
         <div className={`flex items-center gap-3 group ${className}`}>
-            <div className="relative w-10 h-10 flex items-center justify-center">
-                <Image
-                    src={LOGO_STANDARD}
-                    alt="EdIntel"
-                    width={40}
-                    height={40}
-                    className="object-contain"
-                />
+            <div className="relative flex items-center justify-center">
+                <EdIntelVectorEmblem size={size || 40} />
             </div>
             {showText && (
                 <div className="flex flex-col leading-none pointer-events-none">
@@ -235,5 +274,7 @@ export const EdIntelLogo = memo(({
         </div>
     );
 });
+
+EdIntelLogo.displayName = 'EdIntelLogo';
 
 export default EdIntelLogo;

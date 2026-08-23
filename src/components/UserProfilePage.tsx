@@ -1,10 +1,10 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     Mail, Calendar, Edit, Save, Upload, CreditCard, Clock, FileText, Award, TrendingUp,
-    Sparkles, Shield, Zap, Target, BookOpen
+    Sparkles, Shield, Zap, Target, BookOpen, MapPin
 } from "lucide-react";
 import { supabase } from '@/lib/supabase';
 
@@ -59,8 +59,6 @@ export default function UserProfilePage() {
 
     const handlePortalRedirect = async () => {
         try {
-            // Check if user has a customer ID in their profile/metadata
-            // For now, redirect to a generic portal route if it exists, or show a message
             const res = await fetch('/api/stripe/portal', { method: 'POST' });
             const data = await res.json();
             if (data.url) window.location.href = data.url;
@@ -120,14 +118,14 @@ export default function UserProfilePage() {
                     <div className="absolute inset-0 bg-gradient-to-r from-noble-gold/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
 
                     <div className="relative p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12">
-                        {/* Avatar */}
+                        {/* Vector Initials Avatar */}
                         <div className="relative shrink-0">
                             <motion.div
                                 whileHover={{ scale: 1.05 }}
-                                className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-zinc-800 to-black border-2 border-noble-gold/30 flex items-center justify-center shadow-2xl shadow-noble-gold/20 relative"
+                                className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-zinc-800 via-zinc-900 to-black border-2 border-noble-gold/30 flex items-center justify-center shadow-2xl shadow-noble-gold/20 relative"
                             >
-                                <span className="text-noble-gold text-4xl md:text-5xl font-black tracking-tighter italic">
-                                    {profileData.name.split(' ').map(n => n[0]).join('')}
+                                <span className="text-noble-gold text-4xl md:text-5xl font-black tracking-tighter italic uppercase">
+                                    {profileData.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
                                 </span>
                                 <div className="absolute inset-0 rounded-full bg-noble-gold/5 animate-pulse" />
                             </motion.div>
@@ -135,6 +133,7 @@ export default function UserProfilePage() {
                                 whileHover={{ scale: 1.1, rotate: 90 }}
                                 whileTap={{ scale: 0.9 }}
                                 className="absolute bottom-2 right-2 p-3 rounded-full bg-noble-gold text-black shadow-xl hover:shadow-noble-gold/40 transition-all border border-white/20"
+                                title="Update Initials Badge"
                             >
                                 <Upload className="w-4 h-4" />
                             </motion.button>
@@ -294,7 +293,7 @@ export default function UserProfilePage() {
                                             { label: 'Display Identity', value: profileData.name, icon: Mail },
                                             { label: 'Neural Link Address', value: profileData.email, icon: Mail },
                                             { label: 'Institutional Node', value: profileData.school, icon: Calendar },
-                                            { label: 'Regional Sector', value: profileData.district, icon: Map }
+                                            { label: 'Regional Sector', value: profileData.district, icon: MapPin }
                                         ].map((field, i) => (
                                             <div key={i} className="space-y-3">
                                                 <label className="text-noble-gold text-[10px] font-black uppercase tracking-[0.4em] ml-1">{field.label}</label>
@@ -352,7 +351,7 @@ export default function UserProfilePage() {
                                         {[
                                             'Biometric-Verified Access',
                                             'Unlimited EdIntel Agents',
-                                            'District Compliance Gaurantee',
+                                            'District Compliance Guarantee',
                                             'Next-Gen Media Synthesis'
                                         ].map((feature, i) => (
                                             <div key={i} className="flex items-center gap-3 text-zinc-400 text-sm">
@@ -378,7 +377,7 @@ export default function UserProfilePage() {
                                                 VISA
                                             </div>
                                             <div>
-                                                <div className="text-white font-bold tracking-[0.2em]">â€¢â€¢â€¢â€¢ â€¢â€¢â€¢â€¢ 4242</div>
+                                                <div className="text-white font-bold tracking-[0.2em]">•••• •••• 4242</div>
                                                 <div className="text-zinc-500 text-[10px] font-black uppercase tracking-widest">Global Master Vault</div>
                                             </div>
                                         </div>

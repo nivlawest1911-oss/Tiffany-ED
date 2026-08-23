@@ -1,54 +1,37 @@
-﻿'use client';
+'use client';
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-    Video, Play, Shield, Zap, Lock, Eye, Star
+    Video, Play, Shield, Zap, Lock, Eye, Star, Bot, Cpu, Sparkles
 } from 'lucide-react';
 import LiveAvatarChat from './LiveAvatarChat';
 import { CORE_AVATARS } from '@/data/avatars';
-import HumanAvatar from './ui/HumanAvatar';
 import { useUserSession } from '@/hooks/useUserSession';
-import { useHumanBehavior } from '@/hooks/useHumanBehavior';
-import { useEffect } from 'react';
 
 // Comprehensive AI Avatar Team
 const AI_AVATARS = CORE_AVATARS;
 
-function AvatarCardImage({ src, alt, isActive }: { src: string; alt: string; isActive: boolean }) {
-    const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-
-    useEffect(() => {
-        const handleMouseMove = (e: MouseEvent) => {
-            setMousePos({ x: e.clientX, y: e.clientY });
-        };
-        window.addEventListener('mousemove', handleMouseMove);
-        return () => window.removeEventListener('mousemove', handleMouseMove);
-    }, []);
-
-    const behavior = useHumanBehavior(isActive, {
-        state: 'idle',
-        mousePos,
-        subtle: true
-    });
+function AIAvatarVectorBadge({ name, role, icon: Icon }: { name: string; role?: string; icon?: any }) {
+    const initials = name
+        ? name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
+        : 'AI';
 
     return (
-        <div
-            className="w-full h-full relative dynamic-behavior"
-            style={{
-                '--behavior-transform': behavior.style.transform,
-                '--behavior-transition': behavior.style.transition,
-                '--behavior-origin': behavior.style.transformOrigin,
-            } as React.CSSProperties}
-        >
-            <HumanAvatar
-                src={src}
-                alt={alt}
-                className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000"
-            />
-            {behavior.isBlinking && (
-                <div className="absolute inset-0 bg-black/40 animate-pulse pointer-events-none" />
-            )}
+        <div className="w-full h-full relative flex flex-col items-center justify-center bg-gradient-to-br from-zinc-950 via-zinc-900 to-black rounded-full border border-noble-gold/30 shadow-[0_0_30px_rgba(212,175,55,0.2)] group-hover:border-noble-gold transition-all duration-700">
+            <div className="absolute inset-0 rounded-full bg-noble-gold/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+            <div className="relative z-10 flex flex-col items-center justify-center text-center p-3">
+                {Icon ? (
+                    <Icon className="w-12 h-12 text-noble-gold group-hover:scale-110 transition-transform duration-500" />
+                ) : (
+                    <span className="text-3xl font-black tracking-tighter text-noble-gold italic uppercase">
+                        {initials}
+                    </span>
+                )}
+                <span className="text-[10px] font-black text-noble-gold/70 uppercase tracking-widest mt-1">
+                    {initials}
+                </span>
+            </div>
         </div>
     );
 }
@@ -87,14 +70,14 @@ export default function AIAvatarGallery() {
                         Strategic <span className="gold-gradient-text not-italic font-black">Delegates.</span>
                     </h2>
                     <p className="text-lg text-zinc-500 max-w-2xl mx-auto font-medium leading-relaxed italic">
-                        The Professional AI Team. Six specialized nodes of high-fidelity synthetic intelligence, architected for strategic leadership throughput.
+                        The Professional AI Team. Specialized nodes of high-fidelity synthetic intelligence, architected for strategic leadership throughput.
                     </p>
                 </motion.div>
 
                 {/* Avatar Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32">
                     {AI_AVATARS.map((avatar, index) => {
-                        const IconComponent = avatar.icon;
+                        const IconComponent = avatar.icon || Bot;
                         return (
                             <motion.div
                                 key={avatar.id}
@@ -111,7 +94,7 @@ export default function AIAvatarGallery() {
                                     {/* Header with Icon */}
                                     <div className="flex items-center justify-between mb-10">
                                         <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 text-white/40 group-hover:text-noble-gold group-hover:border-noble-gold/30 transition-all">
-                                            {IconComponent ? <IconComponent size={22} /> : <div className="w-[22px] h-[22px] bg-noble-gold/20 rounded-full" />}
+                                            <IconComponent size={22} />
                                         </div>
                                         <div className="flex items-center gap-2 px-3 py-1 bg-emerald-950/20 rounded-full border border-emerald-500/30">
                                             <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
@@ -119,7 +102,7 @@ export default function AIAvatarGallery() {
                                         </div>
                                     </div>
 
-                                    {/* Main Avatar UI */}
+                                    {/* Main Avatar UI - Clean SVG Vector Badge */}
                                     <div className="flex flex-col items-center text-center">
                                         <div className="relative w-32 h-32 mb-8 group-hover:scale-110 transition-transform duration-700 ease-out">
                                             <div className="absolute inset-0 rounded-full border border-white/10 group-hover:border-noble-gold/50 transition-all duration-700" />
@@ -128,15 +111,12 @@ export default function AIAvatarGallery() {
                                             <div className="absolute -inset-2 rounded-full border border-dashed border-white/5 group-hover:border-noble-gold/30 group-hover:rotate-180 transition-all duration-[6000ms]" />
                                             <div className="absolute -inset-4 rounded-full border border-dotted border-white/5 group-hover:border-noble-gold/10 group-hover:-rotate-180 transition-all duration-[8000ms]" />
 
-                                            <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-transparent group-hover:border-noble-gold/20">
-                                                <AvatarCardImage
-                                                    src={avatar.avatar || '/images/placeholders/avatar.png'}
-                                                    alt={avatar.name || 'AI Delegate'}
-                                                    isActive={true}
+                                            <div className="relative w-full h-full rounded-full overflow-hidden">
+                                                <AIAvatarVectorBadge
+                                                    name={avatar.name || 'AI Delegate'}
+                                                    role={avatar.role}
+                                                    icon={IconComponent}
                                                 />
-                                                {/* Scanning Line Overlay */}
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                                                <div className="absolute bottom-2 left-0 right-0 h-[10%] bg-noble-gold/20 blur-md opacity-0 group-hover:opacity-100 animate-scanline" />
                                             </div>
                                         </div>
 
@@ -185,7 +165,7 @@ export default function AIAvatarGallery() {
                     })}
                 </div>
 
-                {/* Secure Video Archives Section - Refined for EdIntel OS */}
+                {/* Secure Video Archives Section */}
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -269,23 +249,15 @@ export default function AIAvatarGallery() {
                             className="relative max-w-6xl w-full liquid-glass border-noble-gold/20 flex flex-col lg:flex-row overflow-hidden shadow-[0_0_150px_rgba(212,175,55,0.1)]"
                             onClick={(e) => e.stopPropagation()}
                         >
-                            <div className="lg:w-1/2 relative bg-black border-r border-white/5">
-                                {selectedAvatar.video ? (
-                                    <video
-                                        src={selectedAvatar.video}
-                                        autoPlay
-                                        loop
-                                        muted
-                                        className="w-full h-full object-cover opacity-80"
+                            <div className="lg:w-1/2 relative bg-black border-r border-white/5 flex items-center justify-center p-12">
+                                <div className="w-64 h-64 relative">
+                                    <AIAvatarVectorBadge
+                                        name={selectedAvatar.name || 'AI Delegate'}
+                                        role={selectedAvatar.role}
+                                        icon={selectedAvatar.icon || Bot}
                                     />
-                                ) : (
-                                    <HumanAvatar
-                                        src={selectedAvatar.avatar || ''}
-                                        alt={selectedAvatar.name || ''}
-                                        className="w-full h-full object-cover opacity-80"
-                                    />
-                                )}
-                                <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-transparent" />
+                                </div>
+                                <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-transparent pointer-events-none" />
                                 <div className="absolute top-10 left-10 p-6 liquid-glass border-noble-gold/30 bg-black/40">
                                     <div className="flex items-center gap-3 mb-2">
                                         <Zap size={16} className="text-noble-gold" />
@@ -361,7 +333,7 @@ export default function AIAvatarGallery() {
                     avatarRole={activeAvatar.role}
                     avatarVideo={activeAvatar.video}
                     avatarVoice={activeAvatar.voiceId || ''}
-                    avatarImage={activeAvatar.avatar}
+                    avatarImage=""
                     heygenId={activeAvatar.heygenId}
                     usageTokens={user?.usageTokens}
                     onRecharge={() => { }}
@@ -375,13 +347,6 @@ export default function AIAvatarGallery() {
                     background: linear-gradient(135deg, #FFF 0%, #D4AF37 50%, #8A6D3B 100%);
                     -webkit-background-clip: text;
                     -webkit-text-fill-color: transparent;
-                }
-                @keyframes scanline {
-                    0% { transform: translateY(-100%); }
-                    100% { transform: translateY(1000%); }
-                }
-                .animate-scanline {
-                    animation: scanline 8s linear infinite;
                 }
             `}</style>
         </div>

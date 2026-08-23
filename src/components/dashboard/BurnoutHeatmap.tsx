@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import NextImage from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Flame, Activity, Clock, Info } from 'lucide-react';
@@ -100,7 +100,7 @@ export default function BurnoutHeatmap() {
 
     return (
         <Card className="w-full h-full bg-zinc-950 border-white/10 overflow-hidden flex flex-col relative group">
-            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-[0.02] pointer-events-none" />
+            <div className="absolute inset-0 bg-pattern-carbon opacity-[0.02] pointer-events-none" />
 
             {/* Header */}
             <div className="p-6 border-b border-white/10 flex items-center justify-between relative z-10">

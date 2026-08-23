@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
@@ -56,7 +56,7 @@ export default function FeatureVideos() {
             {/* Ambient Background Glow */}
             <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-noble-gold/5 rounded-full blur-[128px] pointer-events-none" />
             <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-noble-gold/10 rounded-full blur-[128px] pointer-events-none" />
-            <div className="absolute inset-0 pointer-events-none opacity-[0.02] bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
+            <div className="absolute inset-0 pointer-events-none opacity-[0.02] bg-pattern-carbon" />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 {/* Header */}
