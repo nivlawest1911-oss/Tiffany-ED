@@ -132,7 +132,6 @@ const nextConfig = {
 
   experimental: {
     webpackMemoryOptimizations: true,
-    cpus: process.env.VERCEL ? 1 : undefined,
     optimizePackageImports: [
       'lucide-react',
       'framer-motion',
