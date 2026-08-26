@@ -4,13 +4,18 @@ import BriefingCard from '@/components/intelligence/BriefingCard';
 import DrWestAuthority from '@/components/intelligence/DrWestAuthority';
 import { Shield, Activity, Wifi, Lock } from 'lucide-react';
 
+import { cookies } from 'next/headers';
+
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
     title: 'Intelligence Briefings | EdIntel Podcast for Mobile County Schools',
     description: 'Expert educational intelligence and strategic data for Alabama educators. Hosted by Dr. Alvin West. Real-time insights for Mobile County Public Schools.',
     keywords: ['Mobile County Schools', 'Alabama Education Data', 'EdIntel', 'Dr. Alvin West', 'Educational Podcast', 'Strategy Intelligence'],
 };
 
-export default function BriefingsPage() {
+export default async function BriefingsPage() {
+    await cookies();
     return (
         <div className="min-h-screen bg-black text-white selection:bg-noble-gold selection:text-black">
             

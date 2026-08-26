@@ -1,5 +1,9 @@
-﻿import { Metadata } from 'next';
+import React from 'react';
+import { cookies } from 'next/headers';
+import { Metadata } from 'next';
 import { ClientAIGeneratorsHub } from './ClientAIGeneratorsHub';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
     title: 'Legal Defense Sentinel | EdIntel Sovereign',
@@ -7,11 +11,12 @@ export const metadata: Metadata = {
 };
 
 /**
- * ðŸ‘¨â€âš–ï¸ Legal Defense Protocol Page
+ * 👨‍⚖️ Legal Defense Protocol Page
  * A dedicated entry point for the Compliance Sentinel (Policy Advisor).
  * This fulfills the /ai-hub/legal-defense route requirement.
  */
-export default function LegalDefensePage() {
+export default async function LegalDefensePage() {
+    await cookies();
     return (
         <main className="min-h-screen bg-black pt-20">
             <ClientAIGeneratorsHub initialGeneratorId="policy-advisor" />

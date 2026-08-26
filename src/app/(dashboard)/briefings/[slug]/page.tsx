@@ -9,6 +9,10 @@ interface PageProps {
     params: Promise<{ slug: string }>;
 }
 
+import { cookies } from 'next/headers';
+
+export const dynamic = 'force-dynamic';
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { slug } = await params;
     const episode = EPISODES.find(e => e.slug === slug);
@@ -27,6 +31,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function BriefingDetailPage({ params }: PageProps) {
+    await cookies();
     const { slug } = await params;
     const episode = EPISODES.find(e => e.slug === slug);
 
