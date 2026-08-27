@@ -1,6 +1,9 @@
+import { cookies } from 'next/headers';
 import { Metadata } from 'next';
 import PricingClient from '../PricingClient';
 import { EdIntel_TIERS } from '@/lib/pricing-config';
+
+export const dynamic = 'force-dynamic';
 
 type Props = {
     params: Promise<{ tier: string }>;
@@ -50,6 +53,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
 }
 
-export default function TierPricingPage() {
+export default async function TierPricingPage() {
+    await cookies();
     return <PricingClient />;
 }
