@@ -1,20 +1,10 @@
-﻿import { createClient } from '@/lib/supabase/server';
-import { redirect } from 'next/navigation';
+import React from 'react';
+import { cookies } from 'next/headers';
 import AccountClient from './AccountClient';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AccountPage() {
-    const supabase = await createClient();
-
-    // Protected Route Check
-    if (!supabase) {
-        redirect('/login');
-    }
-
-    const { data: { user } } = await supabase.auth.getUser();
-
-    if (!user) {
-        redirect('/login');
-    }
-
+    await cookies();
     return <AccountClient />;
 }
